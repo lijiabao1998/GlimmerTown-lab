@@ -209,6 +209,19 @@ async function pageWsUrl(devPort) {
     if (!(b2 > a)) fails.push('主迴圈沒有在跑（requestAnimationFrame 未遞增）');
     else log('   主迴圈 OK（' + (b2 - a) + ' frames/1.2s）');
 
+    /* 階段 4b：功能自我測試（純函式斷言，不依賴城市狀態） */
+    log('④b 功能自我測試 …');
+    const selftests = [
+      ['life533', `(window.GV && window.GV.life533Selftest) ? window.GV.life533Selftest() : {ok:false,checks:['API 不存在 ✗']}`],
+    ];
+    for (const [name, expr] of selftests) {
+      try {
+        const r = await cdp.evalJs(expr);
+        if (r && r.ok) log('   ' + name + ' ✓（' + r.checks.length + ' 項）');
+        else { fails.push('自我測試 ' + name + ' 未通過'); (r?.checks || []).forEach(c => log('     ' + c)); }
+      } catch (e) { fails.push('自我測試 ' + name + ' 執行失敗: ' + e.message); }
+    }
+
     /* 階段 5：console 乾淨 */
     log('⑤ 錯誤檢查 …');
     if (cdp.errors.length) {
