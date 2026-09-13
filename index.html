@@ -12656,7 +12656,7 @@ function drawLogo(){
   g.clearRect(0,0,c.width,c.height);
   const sx=(x,y)=>112+(x-y)*32-32, sy=(x,y)=>18+(x+y)*16;
   for(let y=0;y<3;y++)for(let x=0;x<3;x++){
-    if(x===2||y===2)g.drawImage(SPR.cliff,sx(x,y),sy(x,y));
+    if(SPR.cliff&&(x===2||y===2))g.drawImage(SPR.cliff,sx(x,y),sy(x,y));
     g.drawImage(SPR.grass[(x*2+y)%4],sx(x,y),sy(x,y));
   }
   g.drawImage(SPR.roadClass[1][1|4],sx(1,1),sy(1,1));
@@ -22723,7 +22723,7 @@ function draw(dt){
       if(!vis(sx,sy))continue;
       const t=T(idx(x,y));
       const rm=rotMask(t.mask),rwm=rotMask(t.wm),rem=rotMask(t.em||0),rrm=rotMask(t.railMask||0),rtm=rotMask(t.tramMask||0); // T367
-      const vp388=w2v(x,y);if(vp388[0]===N-1||vp388[1]===N-1)gc.drawImage(SPR.cliff,sx,sy,64*z,56*z); // T388：外緣懸崖改 view 空間判邊（rot=2 崖畫遠端近端裸空的病灶）；r=0 時 w2v=identity 布林逐位恆等
+      const vp388=w2v(x,y);if(SPR.cliff&&(vp388[0]===N-1||vp388[1]===N-1))gc.drawImage(SPR.cliff,sx,sy,64*z,56*z); // T388：外緣懸崖改 view 空間判邊（rot=2 崖畫遠端近端裸空的病灶）；r=0 時 w2v=identity 布林逐位恆等
       if(lodFar){ // T107：z<1 地面退化為實色菱形（略去 speck 細沙紋理），沿用同一菱形頂點密拼、不留縫
         gc.fillStyle= t.t===0?'#3671b6' : t.t===1?(win?'#e4e2d8':'#d9c689') : (win?'#e8eef2':sea===1?'#8fce5e':sea===2?'#b8935a':(t.el?'#8aba58':'#74b258')); // T136：LOD 遠景實色地面依季，春季（sea===0）與改動前同一分支表達式
         gc.beginPath();gc.moveTo(sx+32*z,sy);gc.lineTo(sx+64*z,sy+16*z);gc.lineTo(sx+32*z,sy+32*z);gc.lineTo(sx,sy+16*z);gc.closePath();gc.fill();
