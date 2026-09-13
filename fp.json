@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-09-13T14:21:49.767Z",
+ "generatedAt": "2026-09-13T14:30:37.777Z",
  "version": "12.89",
  "anchor": "T534",
  "stats": {
   "families": 149,
   "leaves": 2555,
   "dayNonEmpty": 2546,
-  "nightNonEmpty": 580,
+  "nightNonEmpty": 586,
   "nightEmptyCanvas": 27
  },
  "families": {
@@ -677,10 +677,10 @@
   },
   "ped": {
    "leaves": 6,
-   "crc": "1e677a81",
+   "crc": "ca2ed4cb",
    "px": 94,
-   "op": 50,
-   "night": 0
+   "op": 54,
+   "night": 6
   },
   "plaza": {
    "leaves": 10,
@@ -11744,52 +11744,52 @@
    "nop": 0
   },
   "ped.adult#0": {
-   "d": "f5e2f4f7",
+   "d": "fb17e1a1",
    "op": 9,
    "w": 0,
    "h": 0,
-   "n": null,
-   "nop": 0
+   "n": "432c98c0",
+   "nop": 4
   },
   "ped.adult#1": {
-   "d": "defbe6cc",
+   "d": "d00ef39a",
    "op": 9,
    "w": 0,
    "h": 0,
-   "n": null,
-   "nop": 0
+   "n": "ba91cea8",
+   "nop": 5
   },
   "ped.child#0": {
-   "d": "91be0337",
-   "op": 6,
+   "d": "fd2a2e22",
+   "op": 7,
    "w": 0,
    "h": 0,
-   "n": null,
-   "nop": 0
+   "n": "b5b6a25d",
+   "nop": 4
   },
   "ped.child#1": {
-   "d": "baa7110c",
-   "op": 6,
+   "d": "d6333c19",
+   "op": 7,
    "w": 0,
    "h": 0,
-   "n": null,
-   "nop": 0
+   "n": "4c0bf435",
+   "nop": 5
   },
   "ped.stroller#0": {
-   "d": "3065b015",
-   "op": 10,
+   "d": "15275d44",
+   "op": 11,
    "w": 0,
    "h": 0,
-   "n": null,
-   "nop": 0
+   "n": "a94ff127",
+   "nop": 5
   },
   "ped.stroller#1": {
-   "d": "61ba1a2e",
-   "op": 10,
+   "d": "44f8f77f",
+   "op": 11,
    "w": 0,
    "h": 0,
-   "n": null,
-   "nop": 0
+   "n": "a94ff127",
+   "nop": 5
   },
   "plaza.pub#0": {
    "d": "c825e776",
