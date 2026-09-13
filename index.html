@@ -19764,6 +19764,56 @@ function testInjectResident534(x,y){
   lifeLog(c,'job','成年，開始工作：店員');
   return {i:i,c:c,restore:function(){const k2=citizens.indexOf(c);if(k2>=0)citizens.splice(k2,1);t.bld=prevBld;}};
 }
+/* ===== T536 指紋台（唯讀）=====
+   為什麼：這條線 crc32 命中 0 ⇒ 沒有機制能證明「我只改了卡面宣告的那一族」。
+   美術要能無限迭代而不靜默誤傷，必須先有指紋差。
+   只讀不改：不寫任何像素、不消耗 R()、不進存檔；逃生閥 window.__noFp536。
+   回傳：families[頂層鍵] 與 subs[葉子路徑] 兩級 digest，外加夜圖覆蓋統計。 */
+function fpSpr536(){
+  if(window.__noFp536)return {ok:false,skipped:true};
+  const TB=(function(){const t=new Int32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c;}return t;})();
+  const crc=function(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=TB[(c^u8[i])&0xFF]^(c>>>8);return ((c^0xFFFFFFFF)>>>0).toString(16).padStart(8,'0');};
+  const cache=new Map();
+  const sig=function(cv2){
+    if(!cv2||typeof cv2.getContext!=='function')return null;
+    let d=cache.get(cv2);
+    if(!d){try{const im=cv2.getContext('2d').getImageData(0,0,cv2.width,cv2.height);d={a:im.data,w:cv2.width,h:cv2.height};cache.set(cv2,d);}catch(e){return {crc:'err',op:0,px:0};}}
+    let op=0;const a=d.a;
+    for(let i=3;i<a.length;i+=4)if(a[i]>40)op++;
+    return {crc:crc(a),op:op,px:d.w*d.h};
+  };
+  const leaves=[];
+  const walk=function(v,path,depth){
+    if(v==null)return;
+    if(v.getContext){leaves.push({p:path,d:v,n:null});return;}
+    if(Array.isArray(v)){
+      if(depth>3)return;
+      for(let i=0;i<v.length;i++)walk(v[i],path+'#'+i,depth+1);
+      return;
+    }
+    if(typeof v==='object'){
+      if(v.img&&v.img.getContext){leaves.push({p:path,d:v.img,n:(v.night&&v.night.getContext)?v.night:null});return;}
+      if(depth>3)return;
+      const ks=Object.keys(v);
+      if(ks.length>1200)return;
+      for(let i=0;i<ks.length;i++)walk(v[ks[i]],path+'.'+ks[i],depth+1);
+    }
+  };
+  for(const k of Object.keys(SPR))walk(SPR[k],k,0);
+  const families={},subs={};
+  let nDay=0,nNight=0,nNightEmpty=0;
+  for(const lf of leaves){
+    const sd=sig(lf.d);if(!sd)continue;
+    const sn=lf.n?sig(lf.n):null;
+    if(sd.op>0){nDay++;if(sn){if(sn.op>0)nNight++;else nNightEmpty++;}}
+    subs[lf.p]={d:sd.crc,op:sd.op,w:sd.w||0,h:sd.h||0,n:sn?sn.crc:null,nop:sn?sn.op:0};
+    const top=lf.p.split(/[.#]/)[0];   // 頂層鍵＝Object.keys(SPR) 的那一層（# 是陣列索引，不算家族）
+    const f=families[top]||(families[top]={leaves:0,crc:'',px:0,op:0,night:0});
+    f.leaves++;f.px+=sd.px;f.op+=sd.op;if(sn&&sn.op>0)f.night++;
+    f.crc=crc(new TextEncoder().encode(f.crc+lf.p+':'+sd.crc+(sn?':'+sn.crc:'')));
+  }
+  return {ok:true,families:families,subs:subs,stats:{families:Object.keys(families).length,leaves:leaves.length,dayNonEmpty:nDay,nightNonEmpty:nNight,nightEmptyCanvas:nNightEmpty}};
+}
 function testUiRoundtrip534(){
   if(window.__noTestHook534)return {ok:false,skipped:true,checks:['逃生閥開啟，跳過']};
   const checks=[];
@@ -32644,7 +32694,7 @@ Object.assign(window.GV,{build528:()=>({...BUILD_META528})}); // T528：QA 讀�
 Object.assign(window.GV,{build529:()=>({...BUILD_META529})}); // T529：QA 讀數
 Object.assign(window.GV,{build530:()=>({...BUILD_META530}),fc530:()=>({facade:window.__t530facade|0})}); // T530：QA 讀數
 Object.assign(window.GV,{testInjectResident534:testInjectResident534,testUiRoundtrip534:testUiRoundtrip534});
-Object.assign(window.GV,{build534:()=>({...BUILD_META534})});
+Object.assign(window.GV,{build534:()=>({...BUILD_META534}),fp536:fpSpr536});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
    給煙霧測試當斷言用（§3.4 守衛要是事實）。返回 {ok,checks}。 */
