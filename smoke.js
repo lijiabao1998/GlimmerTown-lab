@@ -222,6 +222,15 @@ async function pageWsUrl(devPort) {
       } catch (e) { fails.push('自我測試 ' + name + ' 執行失敗: ' + e.message); }
     }
 
+    /* 階段 4c：UI 點擊往返（真 DOM 事件，不是直接呼叫函式）
+       注入一棟測試住宅＋一位測試市民 → inspect → 點名字 → 開履歷 → 按返回 → 回住宅。 */
+    log('④c UI 點擊往返 …');
+    try {
+      const r = await cdp.evalJs(`(window.GV && window.GV.testUiRoundtrip534) ? window.GV.testUiRoundtrip534() : {ok:false,checks:['API 不存在 ✗']}`);
+      if (r && r.ok) log('   點擊往返 ✓（' + r.checks.length + ' 步）');
+      else { fails.push('UI 點擊往返未通過'); (r?.checks || []).forEach(c => log('     ' + c)); }
+    } catch (e) { fails.push('UI 點擊往返執行失敗: ' + e.message); }
+
     /* 階段 5：console 乾淨 */
     log('⑤ 錯誤檢查 …');
     if (cdp.errors.length) {
