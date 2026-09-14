@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-14T13:17:40.789Z",
+ "generatedAt": "2026-09-14T14:19:48.273Z",
  "version": "12.89",
  "anchor": "T534",
  "version_fp": "12.89",
  "averages": {
-  "palette": 0.5303699313856417,
+  "palette": 0.5311564246742323,
   "hardEdge": 0.8692268891889535,
-  "lightDir": 0.6629502927151601,
+  "lightDir": 0.6629782569209768,
   "shade": 0.5908842645013977,
-  "density": 0.7029852602712947,
-  "nightRule": 0.5790673953530125,
+  "density": 0.7032009303952498,
+  "nightRule": 0.582213368507375,
   "variants": 0.5444630872483222
  },
- "grand": 0.64,
+ "grand": 0.6406,
  "families": {
   "grass": {
    "leaves": 4,
@@ -3812,29 +3812,29 @@
   },
   "bridgeMaster480A": {
    "leaves": 240,
-   "op": 333600,
+   "op": 336480,
    "raw": {
     "leaves": 240,
     "px": 737280,
-    "op": 333600,
+    "op": 336480,
     "semi": 0,
-    "colors": 2026,
-    "buckets": 1606,
-    "leftLit": 121,
-    "nightLeaves": 0,
-    "nightOp": 0,
+    "colors": 2476,
+    "buckets": 1786,
+    "leftLit": 122,
+    "nightLeaves": 225,
+    "nightOp": 5040,
     "nightViol": 0
    },
    "axes": {
-    "palette": 0.5276041666666667,
+    "palette": 0.6447916666666667,
     "hardEdge": 1,
-    "lightDir": 0.5041666666666667,
+    "lightDir": 0.5083333333333333,
     "shade": 1,
-    "density": 0.1518285371702638,
-    "nightRule": 0.5,
+    "density": 0.18396338563956252,
+    "nightRule": 0.96875,
     "variants": 1
    },
-   "total": 0.6691
+   "total": 0.758
   },
   "bridgePier480A": {
    "leaves": 3,
