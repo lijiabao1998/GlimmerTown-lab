@@ -1,15 +1,15 @@
 {
- "generatedAt": "2026-09-14T10:51:01.468Z",
+ "generatedAt": "2026-09-14T10:58:04.883Z",
  "version": "12.89",
  "anchor": "T534",
  "version_fp": "12.89",
  "averages": {
   "palette": 0.5303699313856417,
-  "hardEdge": 0.8692457223779123,
-  "lightDir": 0.662914782612536,
+  "hardEdge": 0.8692303370016851,
+  "lightDir": 0.6629029459116613,
   "shade": 0.5908842645013977,
   "density": 0.7029852602712947,
-  "nightRule": 0.5791550668607778,
+  "nightRule": 0.5790854850523215,
   "variants": 0.5444630872483222
  },
  "grand": 0.64,
@@ -354,29 +354,29 @@
   },
   "bld": {
    "leaves": 567,
-   "op": 5078726,
+   "op": 4863053,
    "raw": {
     "leaves": 567,
-    "px": 19136344,
-    "op": 5078726,
+    "px": 19808280,
+    "op": 4863053,
     "semi": 13126,
-    "colors": 518650,
-    "buckets": 7596,
-    "leftLit": 532,
+    "colors": 517865,
+    "buckets": 7582,
+    "leftLit": 531,
     "nightLeaves": 511,
-    "nightOp": 477469,
-    "nightViol": 45474
+    "nightOp": 392136,
+    "nightViol": 45478
    },
    "axes": {
     "palette": 1,
-    "hardEdge": 0.9483098714126338,
-    "lightDir": 0.9382716049382716,
+    "hardEdge": 0.9460174503547463,
+    "lightDir": 0.9365079365079365,
     "shade": 1,
     "density": 1,
-    "nightRule": 0.9029974384737381,
+    "nightRule": 0.8926297490137587,
     "variants": 1
    },
-   "total": 0.9699
+   "total": 0.9679
   },
   "park": {
    "leaves": 9,
