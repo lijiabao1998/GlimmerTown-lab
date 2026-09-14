@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-14T14:19:48.273Z",
+ "generatedAt": "2026-09-14T14:24:55.577Z",
  "version": "12.89",
  "anchor": "T534",
  "version_fp": "12.89",
  "averages": {
-  "palette": 0.5311564246742323,
+  "palette": 0.5328342770232255,
   "hardEdge": 0.8692268891889535,
-  "lightDir": 0.6629782569209768,
-  "shade": 0.5908842645013977,
+  "lightDir": 0.6589917317661982,
+  "shade": 0.5922857264440646,
   "density": 0.7032009303952498,
-  "nightRule": 0.582213368507375,
+  "nightRule": 0.5889247779033482,
   "variants": 0.5444630872483222
  },
- "grand": 0.6406,
+ "grand": 0.6414,
  "families": {
   "grass": {
    "leaves": 4,
@@ -458,29 +458,29 @@
   },
   "car": {
    "leaves": 24,
-   "op": 992,
+   "op": 1004,
    "raw": {
     "leaves": 24,
     "px": 2304,
-    "op": 992,
+    "op": 1004,
     "semi": 0,
-    "colors": 134,
-    "buckets": 134,
-    "leftLit": 12,
-    "nightLeaves": 0,
-    "nightOp": 0,
+    "colors": 182,
+    "buckets": 170,
+    "leftLit": 5,
+    "nightLeaves": 24,
+    "nightOp": 181,
     "nightViol": 0
    },
    "axes": {
-    "palette": 0.3489583333333333,
+    "palette": 0.4739583333333333,
     "hardEdge": 1,
-    "lightDir": 0.5,
-    "shade": 0.8958333333333333,
+    "lightDir": 0.20833333333333334,
+    "shade": 1,
     "density": 1,
-    "nightRule": 0.5,
+    "nightRule": 1,
     "variants": 1
    },
-   "total": 0.7493
+   "total": 0.8118
   },
   "fire": {
    "leaves": 2,
@@ -2434,29 +2434,29 @@
   },
   "vehTypes": {
    "leaves": 86,
-   "op": 3758,
+   "op": 3781,
    "raw": {
     "leaves": 86,
     "px": 8506,
-    "op": 3758,
+    "op": 3781,
     "semi": 0,
-    "colors": 556,
-    "buckets": 480,
-    "leftLit": 37,
-    "nightLeaves": 0,
-    "nightOp": 0,
+    "colors": 728,
+    "buckets": 620,
+    "leftLit": 11,
+    "nightLeaves": 86,
+    "nightOp": 597,
     "nightViol": 0
    },
    "axes": {
-    "palette": 0.40406976744186046,
+    "palette": 0.5290697674418605,
     "hardEdge": 1,
-    "lightDir": 0.43023255813953487,
-    "shade": 0.8953488372093024,
+    "lightDir": 0.12790697674418605,
+    "shade": 1,
     "density": 1,
-    "nightRule": 0.5,
+    "nightRule": 1,
     "variants": 1
    },
-   "total": 0.7471
+   "total": 0.8081
   },
   "ambulance": {
    "leaves": 2,
