@@ -3,8 +3,9 @@
  *
  * 斷言四層，全部在無頭 Chrome 內執行：
  *   4  主迴圈真的在跑（rAF 遞增）
- *   4b 功能自我測試（純函式斷言；目前：T533 市民履歷 10 項）
+ *   4b 功能自我測試（純函式斷言：T533 市民履歷、T540 事件流）
  *   4c UI 點擊往返（T534：住宅 → 點名字 → 履歷 → 返回，6 步真 DOM 事件）
+ *   4d 事件流往返（T540：指揮中心 → 人生分頁 → 篩選 → 點名字接履歷）
  *   5  console 乾淨
  * 外加進城後確認素材烘焙完成（__t519Roof > 0）。
  *
@@ -43,6 +44,7 @@ const KEEP = process.argv.includes('--keep');
     log('4b 功能自我測試 …');
     const selftests = [
       ['life533', `(window.GV && window.GV.life533Selftest) ? window.GV.life533Selftest() : {ok:false,checks:['API 不存在']}`],
+      ['life535', `(window.GV && window.GV.life535Selftest) ? window.GV.life535Selftest() : {ok:false,checks:['API 不存在']}`],
     ];
     for (const [name, expr] of selftests) {
       try {
@@ -58,6 +60,13 @@ const KEEP = process.argv.includes('--keep');
       if (r && r.ok) log('   點擊往返 OK（' + r.checks.length + ' 步）');
       else { fails.push('UI 點擊往返未通過'); (r && r.checks || []).forEach(c => log('     ' + c)); }
     } catch (e) { fails.push('UI 點擊往返執行失敗: ' + e.message); }
+
+    log('4d 事件流往返 …');
+    try {
+      const r = await cdp.evalJs(`(window.GV && window.GV.testUiFeed535) ? window.GV.testUiFeed535() : {ok:false,checks:['API 不存在']}`);
+      if (r && r.ok) log('   事件流往返 OK（' + r.checks.length + ' 步）');
+      else { fails.push('事件流往返未通過'); (r && r.checks || []).forEach(c => log('     ' + c)); }
+    } catch (e) { fails.push('事件流往返執行失敗: ' + e.message); }
 
     log('5 錯誤檢查 …');
     if (cdp.errors.length) {
