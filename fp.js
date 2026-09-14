@@ -26,6 +26,43 @@ const CHECK = process.argv.includes('--check');
 const INVENTORY = process.argv.includes('--inventory');
 const EXPECT = arg('expect', '').split(',').map(s => s.trim()).filter(Boolean);
 
+const STYLE_PATH = path.join(ROOT, 'style.json');
+
+/* ===== 七軸計分（定義集中在此，業主可改規則而不必動遊戲檔） =====
+   注意：①④⑤ 的滿分門檻是「業界慣例值」，不是 TheoTown 實測值
+   （TheoTown 未公開調色上限與道具密度 ⇒ 見 docs/STYLE-THEOTOWN.md §6/§7）。
+   因此這三軸只做**自我棘輪**，不做與 TheoTown 的絕對比對。 */
+function scoreFamily(f) {
+  const L = Math.max(1, f.leaves), op = Math.max(1, f.op);
+  const meanColors = f.colors / L;
+  const meanBuckets = f.buckets / L;
+  const richPer100 = (f.colors / op) * 100;
+  const semiRatio = f.semi / op;
+  const nightLeafFrac = f.nightLeaves / L;
+  const compliance = f.nightOp > 0 ? 1 - (f.nightViol / f.nightOp) : 1;
+  const axes = {
+    palette:   Math.min(1, meanColors / 16),                     // ① 調色深度
+    hardEdge:  Math.max(0, 1 - Math.min(1, semiRatio * 20)),     // ② 日層硬邊（夜層另計）
+    lightDir:  f.leftLit / L,                                    // ③ 受光方向一致
+    shade:     Math.max(0, Math.min(1, (meanBuckets - 2) / 4)),  // ④ 陰影階數
+    density:   Math.min(1, richPer100 / 4),                      // ⑤ 細節密度
+    nightRule: 0.5 * nightLeafFrac + 0.5 * compliance,           // ⑥ 夜圖規約
+    variants:  Math.min(1, f.leaves / 8),                        // ⑦ 變體數
+  };
+  const total = Object.values(axes).reduce((a, b) => a + b, 0) / 7;
+  return { axes: axes, total: total };
+}
+function buildStyle(raw) {
+  const out = {};
+  for (const k of Object.keys(raw.families)) {
+    const f = raw.families[k];
+    const sc = scoreFamily(f);
+    out[k] = { leaves: f.leaves, op: f.op, raw: f, axes: sc.axes, total: +sc.total.toFixed(4) };
+  }
+  return out;
+}
+function loadJson(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return null; } }
+
 function loadBaseline() {
   try { return JSON.parse(fs.readFileSync(FP_PATH, 'utf8')); } catch { return null; }
 }
@@ -57,8 +94,9 @@ function diffFp(base, cur) {
   const session = await withGame({ port: PORT, timeout: 300, log, fresh: true }, async ({ cdp }) => {   // fresh：乾淨新城市，季節固定 ⇒ 指紋可重現
     const meta = await cdp.evalJs(`(window.GV && window.GV.build534) ? window.GV.build534() : {}`);
     const fp = await cdp.evalJs(`(window.GV && window.GV.fp536) ? window.GV.fp536() : {ok:false,err:'fp536 不存在'}`);
+    const style = await cdp.evalJs(`(window.GV && window.GV.style536) ? window.GV.style536() : {ok:false,err:'style536 不存在'}`);
     if (!fp || !fp.ok) throw new Error('指紋失敗: ' + JSON.stringify(fp && (fp.err || fp.skipped || fp)));
-    return { meta, fp };
+    return { meta, fp, style };
   });
 
   if (!session.result) {
@@ -66,7 +104,7 @@ function diffFp(base, cur) {
     process.exit(1);
   }
 
-  const { meta, fp } = session.result;
+  const { meta, fp, style } = session.result;
   const cur = {
     generatedAt: new Date().toISOString(),
     version: meta.version || '?',
@@ -124,6 +162,63 @@ function diffFp(base, cur) {
     fs.writeFileSync(FP_PATH, JSON.stringify(cur, null, 1));
     log('');
     log('已寫入 fp.json');
+  }
+
+  /* ===== 七軸記分卡 + 棘輪 ===== */
+  if (style && style.ok) {
+    const curStyle = buildStyle(style);
+    const prevStyle = loadJson(STYLE_PATH);
+    const famNames = Object.keys(curStyle);
+
+    // 全域平均（各軸）
+    const axNames = ['palette','hardEdge','lightDir','shade','density','nightRule','variants'];
+    const avg = {};
+    for (const a of axNames) avg[a] = famNames.reduce((s2, k) => s2 + curStyle[k].axes[a], 0) / Math.max(1, famNames.length);
+    let grand = famNames.reduce((s2, k) => s2 + curStyle[k].total, 0) / Math.max(1, famNames.length);
+
+    log('');
+    log('--- 七軸記分卡（全 149 家族平均）---');
+    const AX_LABEL = { palette:'(1) 調色深度', hardEdge:'(2) 硬邊', lightDir:'(3) 受光方向',
+      shade:'(4) 陰影階數', density:'(5) 細節密度', nightRule:'(6) 夜圖規約', variants:'(7) 變體數' };
+    for (const a of axNames) log('  ' + AX_LABEL[a].padEnd(16) + (avg[a] * 100).toFixed(1) + '%');
+    log('  總分（七軸平均）  ' + (grand * 100).toFixed(1) + '%');
+
+    // 最低分 × 葉子數最大 ⇒ 下一個該做的家族
+    const queue = famNames
+      .map(k => ({ k: k, total: curStyle[k].total, leaves: curStyle[k].leaves, gravity: (1 - curStyle[k].total) * curStyle[k].leaves }))
+      .sort((a, b) => b.gravity - a.gravity);
+    log('');
+    log('--- 選題佇列（重力＝(1-總分)×葉子數，前 8）---');
+    for (const q of queue.slice(0, 8))
+      log('  ' + q.k.padEnd(22) + ' 總分 ' + (q.total * 100).toFixed(1) + '%  葉子 ' + String(q.leaves).padStart(4) + '  重力 ' + q.gravity.toFixed(1));
+
+    if (prevStyle && prevStyle.families) {
+      const expSet = new Set(EXPECT);
+      const drops = [];
+      for (const k of famNames) {
+        const pv = prevStyle.families[k];
+        if (!pv) continue;                       // 新家族不算退步
+        if (expSet.has(k)) continue;             // 本輪宣告的家族允許變動
+        const d = curStyle[k].total - pv.total;
+        if (d < -1e-6) drops.push(k + ' ' + (pv.total * 100).toFixed(1) + '% → ' + (curStyle[k].total * 100).toFixed(1) + '%');
+      }
+      log('');
+      if (drops.length) {
+        log('X 棘輪破裂（非本輪宣告家族分數下降）：');
+        drops.slice(0, 12).forEach(d => log('   - ' + d));
+        console.log('X 棘輪下降 ⇒ 請 git checkout -- index.html 退回上一個綠點');
+        process.exit(1);
+      }
+      log('棘輪 OK（非宣告家族分數無一下降，共比對 ' + famNames.length + ' 族）');
+    } else {
+      log('');
+      log('（尚未有 style.json，這是記分卡基線）');
+    }
+
+    if (!CHECK) {
+      fs.writeFileSync(STYLE_PATH, JSON.stringify({ generatedAt: new Date().toISOString(), version: cur.version, anchor: cur.anchor, version_fp: cur.version, averages: avg, grand: +grand.toFixed(4), families: curStyle }, null, 1));
+      log('已寫入 style.json');
+    }
   }
 
   if (INVENTORY) {
