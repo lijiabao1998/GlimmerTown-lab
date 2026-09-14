@@ -91,7 +91,8 @@ function diffFp(base, cur) {
   console.log('');
   console.log('=== 微光小鎮 指紋台 ===');
 
-  const session = await withGame({ port: PORT, timeout: 300, log, fresh: true }, async ({ cdp }) => {   // fresh：乾淨新城市，季節固定 ⇒ 指紋可重現
+  const NOSILL = process.argv.includes('--nosill');   // 嚴謹 A/B：關掉 T539 窗台重建基線，再開著跑 --expect
+const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, preScript: NOSILL ? 'window.__noSill539=true;' : '' }, async ({ cdp }) => {   // fresh：乾淨新城市，季節固定 ⇒ 指紋可重現
     const meta = await cdp.evalJs(`(window.GV && window.GV.build534) ? window.GV.build534() : {}`);
     const fp = await cdp.evalJs(`(window.GV && window.GV.fp536) ? window.GV.fp536() : {ok:false,err:'fp536 不存在'}`);
     const style = await cdp.evalJs(`(window.GV && window.GV.style536) ? window.GV.style536() : {ok:false,err:'style536 不存在'}`);

@@ -161,6 +161,7 @@ async function withGame(opt, fn) {
     await cdp.send('Log.enable');
     await cdp.send('Page.enable');
     out.cdp = cdp;
+    if (o.preScript) { try { await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: o.preScript }); } catch (e) {} }
     await cdp.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/index.html` });
     const menuReady = await waitFor(cdp, `(() => {
       const b = document.getElementById('boot453'), s = document.getElementById('start');
@@ -168,6 +169,7 @@ async function withGame(opt, fn) {
     })()`, 120000);
     if (!menuReady) out.fails.push('主選單未在時限內就緒');
     if (enterCity) {
+      const seqBefore = await cdp.evalJs(`window.__bootSeq453|0`);   // 進城前記下序號
       await cdp.evalJs(`localStorage.setItem('glimmerville.v1.slot','3')`);   // 保護業主存檔
       if (fresh) {   // 只清自己的測試槽（AUTORUN.md 指定的 slot 3），不動其他槽
         await cdp.evalJs(`(() => { ['s3','s3_bak','s3.sandbox516b','s3.sandbox516b_bak'].forEach(function(k){ try{ localStorage.removeItem('glimmerville.v1.'+k); }catch(e){} }); return 1; })()`);
@@ -181,8 +183,12 @@ async function withGame(opt, fn) {
         const T=t=>[...document.querySelectorAll('#startOverlay456 button, #startOverlay456 .mapBtn456')].find(b=>new RegExp(t).test((b.textContent||'').trim()));
         const d=T('沙盒');if(d)d.click();const m=T('^72×72');if(m)m.click();const g=T('建立城市');if(g)g.click();return 'created';
       })()`);
-      const baked = await waitFor(cdp, `window.__t519Roof|0`, Math.max(120000, TIMEOUT / 2), v => v > 0);
-      if (!baked) out.fails.push('素材烘焙未完成（__t519Roof 一直為 0）');
+      // 閘門＝真正 boot 完成（__bootDone453），不是 buildSprites 內部的 __t519Roof——
+      // 後者在 T464…T480/T539 這串後置 pass 之前就成立，會讓量測漏掉它們（T539 血淚教訓）。
+      // 閘門：素材已烘 ＋ 3 秒沉降（讓 T479/T480/T539 這串後置 pass 收尾）。
+      const baked = await waitFor(cdp, `(window.__t519Roof|0)`, Math.max(120000, TIMEOUT / 2), v => v > 0);
+      if (baked) await sleep(3000);
+      if (!baked) out.fails.push('boot 未完成（__bootDone453／__t519Roof）');
       else log('   烘焙完成 ' + ((Date.now() - out.t0) / 1000).toFixed(1) + 's');
     }
     out.result = await fn(out);
