@@ -26,7 +26,8 @@ const AB = arg('ab', '');
 const OUT = arg('out', '');
 const SCALE = Math.max(1, Math.min(16, +arg('scale', 8) | 0));
 const COLS = Math.max(1, +arg('cols', 12) | 0);
-const GREP = arg('grep', '');   // 只取路徑符合此 regex 的葉子（大族出可讀切片用）
+const GREP = arg('grep', '');
+const PRE = arg('pre', '');     // 載入前注入逃生閥（做嚴謹 A/B：同一份代碼開/關比較）   // 只取路徑符合此 regex 的葉子（大族出可讀切片用）
 
 /* 取葉子：走 index.html 內的唯讀出口 GV.sheet536（SPR 在 IIFE 內，頁面直接抓不到） */
 const PAGE_COLLECT = (family, grep) => `(window.GV && window.GV.sheet536) ? window.GV.sheet536(${JSON.stringify(family)}, ${JSON.stringify(grep || '')}) : {ok:false,err:'sheet536 不存在'}`;
@@ -100,7 +101,7 @@ function dataUrlToFile(u, file) {
   if (!FAMILY) { console.log('X 需要 --family=<家族名>'); process.exit(1); }
   if (!SNAP && !AB && !OUT) { console.log('X 需要 --snap=<...> 或 --ab=<...> --out=<...>'); process.exit(1); }
 
-  const session = await withGame({ port: PORT, timeout: 300, log, fresh: true }, async ({ cdp }) => {
+  const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, preScript: PRE }, async ({ cdp }) => {
     /* 抓目前狀態 */
     const cur = await cdp.evalJs(PAGE_COLLECT(FAMILY, GREP));
     if (!cur || !cur.ok) throw new Error('取葉子失敗: ' + JSON.stringify(cur));
