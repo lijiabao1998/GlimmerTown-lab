@@ -24385,6 +24385,8 @@ function draw(dt){
     }
     else if(bd.k===9){bx=sxOf(o.x+1,o.y+1)+(32-s.ax)*z;by=syOf(o.x+1,o.y+1)+(32-s.ay)*z;}
     else{bx=o.sx+(32-s.ax)*z;by=o.sy+(32-s.ay)*z;}
+    if(!lodFar&&!(o.block547&&(o.block547.w>1||o.block547.h>1))&&bd.k!==4&&bd.age>=4)
+      groundShade572(ctx,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf,s.h);
     if(!window.__noMetropolitanArt516)drawBlockStitch516(ctx,o,bd,s,bx,by,z,lodFar); // T516：相鄰同類建築的裙樓／鋪面縫合；不改 tile、save 或模擬
     if(bd.age<4&&bd.k!==4&&!window.__noConstr2&&!lodFar&&!o.block547){ // T220/T258/T259 分階段施工（Opus 親手，玩家「更細更緩慢」）——工期 5→9 天：age0 圍籬+開挖坑+挖掘機、age1 地基鋼筋+水泥攪拌車、age2 鋼骨半高、age3 鋼骨全高+焊接火花；age4-8 交下方樓體逐層升起+鷹架。純 age/visT 決定性不消耗 R()、__noConstr2=true 退回舊淡入、遠景不繪
       const sz2=bd.sz||1;
@@ -33629,6 +33631,24 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   }
   outlineSprite(c,22,26,34);
   return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],__t547:{k,lv,bw,bh,v,pitch:!!ridge,sty:sty565}};
+}
+function groundShade572(ctx,x,y,w,h,z,sxF,syF,spriteH){
+  if(window.__noGroundShade572)return;
+  const x2=x+w-1,y2=y+h-1;
+  const N=[sxF(x,y)+32*z,        syF(x,y)];
+  const E=[sxF(x2,y)+64*z,       syF(x2,y)+16*z];
+  const S=[sxF(x2,y2)+32*z,      syF(x2,y2)+32*z];
+  const W=[sxF(x,y2),            syF(x,y2)+16*z];
+  const off=Math.max(2,Math.min(13,Math.round((spriteH||40)*.10)))*z,ov=off*.45;
+  const tri=(a,al)=>{
+    ctx.fillStyle=al;ctx.beginPath();
+    ctx.moveTo(N[0]+a,N[1]+a*.45);ctx.lineTo(E[0]+a,E[1]+a*.45);
+    ctx.lineTo(S[0]+a,S[1]+a*.45);ctx.lineTo(W[0]+a,W[1]+a*.45);
+    ctx.closePath();ctx.fill();
+  };
+  tri(off,'rgba(20,28,22,.26)');
+  tri(off*.5,'rgba(16,24,18,.22)');
+  void ov;
 }
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noLotFill570?'_nolot':'');
