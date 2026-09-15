@@ -7,9 +7,10 @@ const { withGame, sleep, ROOT } = require('./harness.js');
 const arg = (n, d) => { const h = process.argv.find(a => a.startsWith('--' + n + '=')); return h ? h.split('=').slice(1).join('=') : d; };
 const OUT = arg('out', 'shots/city.png');
 const SEED = +arg('seed', 5162026);
+const PORT = +arg('port', 8199);
 (async () => {
   const log = (...a) => console.log('  ' + a.join(' '));
-  const session = await withGame({ port: 8199, timeout: 300, log }, async ({ cdp }) => {
+  const session = await withGame({ port: PORT, timeout: 300, log }, async ({ cdp }) => {
     const r = await cdp.evalJs(`window.GV.metroArtSeedWorld516(${SEED})`);
     await cdp.evalJs(`(() => { const st=document.getElementById('start'); if(st) st.style.display='none'; const ov=document.getElementById('startOverlay456'); if(ov){ ov.classList.remove('show'); ov.style.display='none'; } if (typeof draw==='function') draw(); return 1; })()`);
     await sleep(900);
@@ -19,7 +20,7 @@ const SEED = +arg('seed', 5162026);
     fs.writeFileSync(dest, Buffer.from(shot.data, 'base64'));
     const audit = await cdp.evalJs(`window.GV.t516 ? window.GV.t516() : null`);
     const b543 = await cdp.evalJs(`window.GV.build543 ? window.GV.build543() : null`);
-    const ver = await cdp.evalJs(`(window.GV && (window.GV.build555||window.GV.build554||window.GV.build553)) ? (window.GV.build555||window.GV.build554||window.GV.build553)() : {ver:'?',anchor:'?'}`);
+    const ver = await cdp.evalJs(`(window.GV && (window.GV.build556||window.GV.build555||window.GV.build554)) ? (window.GV.build556||window.GV.build555||window.GV.build554)() : {ver:'?',anchor:'?'}`);
     return { r, audit, b543, ver, bytes: fs.statSync(dest).size };
   });
   if (!session.result) { console.log('X', session.fails.join(' / ')); process.exit(1); }
