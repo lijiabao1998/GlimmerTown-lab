@@ -4194,6 +4194,7 @@ async function bootstrap453(){
     applyT551VehicleLamps();  // T551：車輛燈具（也要在後置重建之後）
     applyT539WindowSills();   // T539：必須跑在【整串的最後】——T485/T516 也會重建 RCI 資產，早一步就會被覆蓋（實測 CRC 不變即為被蓋）
     applyT541NightHalo();     // T541：夜窗相鄰暖暈，必須在 T516/T539 之後才看得到最終夜圖
+    applyT573Silhouette();    // T573：剪影光影後製，必須在所有重建 RCI／特殊資產的 pass 之後
     applyT555SpecialArt();    // T555：農場／太陽能／數據中心剪影，必須最後才不會被 T516 蓋掉
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
@@ -14026,6 +14027,51 @@ function applyT551VehicleLamps(){
   }
   window.__t551veh=n;window.__t551px=px;
   return {ok:true,canvases:n,lamps:px};
+}
+function silhouetteOne573(c){
+  if(!c||!c.getContext)return 0;
+  const w=c.width|0,h=c.height|0;
+  if(w<4||h<4||w*h>62000)return 0;
+  const g=c.getContext('2d');let D;
+  try{D=g.getImageData(0,0,w,h);}catch(_e){return 0;}
+  const d=D.data,out=new Uint8ClampedArray(d);
+  const A=(x,y)=>(x<0||y<0||x>=w||y>=h)?0:d[(((y*w+x)<<2))+3];
+  let n=0;
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const i=(y*w+x)<<2;
+    if(d[i+3]<40)continue;
+    const up=A(x,y-1)>=40,dn=A(x,y+1)>=40,lf=A(x-1,y)>=40,rt=A(x+1,y)>=40;
+    if(up&&dn&&lf&&rt)continue;                       // 內部像素不動
+    let m=1;
+    if(!up)m=1.20;                                     // 頂緣受光
+    else if(!lf)m=1.10;                                // 左緣（光從左）
+    if(!dn)m=Math.min(m,0.70);                         // 底緣 AO
+    else if(!rt)m=Math.min(m,0.86);                    // 右緣壓暗
+    if(m===1)continue;
+    out[i]=Math.max(0,Math.min(255,d[i]*m+(m>1?10:0)));
+    out[i+1]=Math.max(0,Math.min(255,d[i+1]*m+(m>1?10:0)));
+    out[i+2]=Math.max(0,Math.min(255,d[i+2]*m+(m>1?8:0)));
+    n++;
+  }
+  D.data.set(out);g.putImageData(D,0,0);return n;
+}
+function applyT573Silhouette(){
+  if(window.__noSilhouette573)return;
+  const t0=(typeof performance!=='undefined'&&performance.now)?performance.now():0;
+  let sprites=0,px=0;
+  const seen=new Set();
+  const walk=(o,depth)=>{
+    if(!o||depth>3)return;
+    if(o.img&&o.img.getContext){
+      if(!seen.has(o.img)){seen.add(o.img);const n=silhouetteOne573(o.img);if(n){sprites++;px+=n;}}
+      return;
+    }
+    if(Array.isArray(o)){for(const q of o)walk(q,depth+1);return;}
+    if(typeof o==='object'&&!o.getContext){for(const k in o)walk(o[k],depth+1);}
+  };
+  walk(SPR.bld,0);
+  const t1=(typeof performance!=='undefined'&&performance.now)?performance.now():0;
+  window.__t573={sprites,px,ms:Math.round(t1-t0)};
 }
 function applyT539WindowSills(){
   /* T539 窗台（對標 TheoTown 官方美術指南：「加窗台能為建築創造深度」）。
