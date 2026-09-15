@@ -19,7 +19,7 @@ const SEED = +arg('seed', 5162026);
     fs.writeFileSync(dest, Buffer.from(shot.data, 'base64'));
     const audit = await cdp.evalJs(`window.GV.t516 ? window.GV.t516() : null`);
     const b543 = await cdp.evalJs(`window.GV.build543 ? window.GV.build543() : null`);
-    const ver = await cdp.evalJs(`(window.GV && (window.GV.build553||window.GV.build552||window.GV.build548)) ? (window.GV.build553||window.GV.build552||window.GV.build548)() : {ver:'?',anchor:'?'}`);
+    const ver = await cdp.evalJs(`(window.GV && (window.GV.build554||window.GV.build553||window.GV.build552)) ? (window.GV.build554||window.GV.build553||window.GV.build552)() : {ver:'?',anchor:'?'}`);
     return { r, audit, b543, ver, bytes: fs.statSync(dest).size };
   });
   if (!session.result) { console.log('X', session.fails.join(' / ')); process.exit(1); }
