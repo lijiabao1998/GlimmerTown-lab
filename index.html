@@ -33258,28 +33258,51 @@ function modernTrim565(g,ng,C,wallH,pal){
   if(ng){wallBand565(ng,C.W,C.S,wallH,1,3,'rgba(255,238,190,.42)');}
 }
 const ARCHE568={
-  '1_1':[ {n:'villa',    box:[.06,.66,.06,.66],hm:1.00},
-          {n:'bungalow', box:[.06,.80,.18,.86],hm:0.62},
-          {n:'cottage',  box:[.04,.96,.10,.72],hm:0.85} ],
-  '1_2':[ {n:'walkup',   box:[0,1,0,1],        hm:1.00},
-          {n:'courtyard',box:[0,1,0,.52],      hm:1.10,ex:{box:[0,.46,.52,1],hm:0.95}},
-          {n:'terrace',  box:[.08,.92,0,1],    hm:1.38,flat:1} ],
-  '1_3':[ {n:'slab',     box:[0,1,.16,.84],    hm:1.15,flat:1},
-          {n:'point',    box:[.26,.74,.26,.74],hm:2.05,ex:{box:[0,1,0,1],hm:0.26},flat:1},
-          {n:'twin',     box:[0,.44,0,1],      hm:1.85,ex:{box:[.56,1,0,1],hm:1.45},flat:1} ],
-  '2_1':[ {n:'shophouse',box:[0,1,.24,1],      hm:0.72},
-          {n:'market',   box:[.03,.97,.03,.97],hm:0.58},
-          {n:'cornerLot',box:[0,.72,.20,1],    hm:0.80} ],
-  '2_2':[ {n:'office',   box:[0,1,0,1],        hm:1.00},
-          {n:'hotel',    box:[.16,.84,0,1],    hm:1.55},
-          {n:'dept',     box:[0,1,.06,1],      hm:0.88,ex:{box:[0,1,0,.30],hm:0.55}} ],
-  '2_3':[ {n:'podTower', box:[.26,.74,.26,.74],hm:2.35,ex:{box:[0,1,0,1],hm:0.42}},
-          {n:'setback',  box:[.10,.90,.10,.90],hm:1.75},
-          {n:'slabC',    box:[0,1,.20,.80],    hm:1.45,ex:{box:[0,1,0,.22],hm:0.50}} ],
-  '3_1':[ {n:'shed',     box:[0,1,0,1],        hm:0.62} ],
-  '3_2':[ {n:'factory',  box:[0,1,0,.82],      hm:0.95,ex:{box:[0,.52,.82,1],hm:0.55}} ],
-  '3_3':[ {n:'heavy',    box:[.04,.96,0,.86],  hm:1.25,ex:{box:[.58,1,.86,1],hm:0.70}} ]
+  '1_1':[ {n:'villa',    box:[.06,.66,.06,.66],hm:1.00,wd:[6,7],win:'arch'},
+          {n:'bungalow', box:[.06,.80,.18,.86],hm:0.62,wd:[6,7],win:'punch'},
+          {n:'cottage',  box:[.04,.96,.10,.72],hm:0.85,wd:[5,6],win:'arch'} ],
+  '1_2':[ {n:'walkup',   box:[0,1,0,1],        hm:1.00,wd:[5,6],win:'arch'},
+          {n:'courtyard',box:[0,1,0,.52],      hm:1.10,ex:{box:[0,.46,.52,1],hm:0.95},wd:[5,6],win:'arch'},
+          {n:'terrace',  box:[.08,.92,0,1],    hm:1.38,flat:1,wd:[4,5],win:'grid'} ],
+  '1_3':[ {n:'slab',     box:[0,1,.16,.84],    hm:1.15,flat:1,wd:[4,5],win:'grid'},
+          {n:'point',    box:[.26,.74,.26,.74],hm:2.05,ex:{box:[0,1,0,1],hm:0.26},flat:1,wd:[3,4],win:'grid'},
+          {n:'twin',     box:[0,.44,0,1],      hm:1.85,ex:{box:[.56,1,0,1],hm:1.45},flat:1,wd:[3,4],win:'grid'} ],
+  '2_1':[ {n:'shophouse',box:[0,1,.24,1],      hm:0.72,wd:[5,6],win:'shop'},
+          {n:'market',   box:[.03,.97,.03,.97],hm:0.58,wd:[7,8],win:'punch'},
+          {n:'cornerLot',box:[0,.72,.20,1],    hm:0.80,wd:[5,6],win:'shop'} ],
+  '2_2':[ {n:'office',   box:[0,1,0,1],        hm:1.00,wd:[4,5],win:'grid'},
+          {n:'hotel',    box:[.16,.84,0,1],    hm:1.55,wd:[4,6],win:'arch'},
+          {n:'dept',     box:[0,1,.06,1],      hm:0.88,ex:{box:[0,1,0,.30],hm:0.55},wd:[6,6],win:'shop'} ],
+  '2_3':[ {n:'podTower', box:[.26,.74,.26,.74],hm:2.35,ex:{box:[0,1,0,1],hm:0.42},wd:[3,4],win:'ribbon'},
+          {n:'setback',  box:[.10,.90,.10,.90],hm:1.75,wd:[4,5],win:'grid'},
+          {n:'slabC',    box:[0,1,.20,.80],    hm:1.45,ex:{box:[0,1,0,.22],hm:0.50},wd:[4,5],win:'ribbon'} ],
+  '3_1':[ {n:'shed',     box:[0,1,0,1],        hm:0.62,wd:[7,8],win:'punch'} ],
+  '3_2':[ {n:'factory',  box:[0,1,0,.82],      hm:0.95,ex:{box:[0,.52,.82,1],hm:0.55},wd:[7,8],win:'punch'} ],
+  '3_3':[ {n:'heavy',    box:[.04,.96,0,.86],  hm:1.25,ex:{box:[.58,1,.86,1],hm:0.70},wd:[8,9],win:'punch'} ]
 };
+function winShape570(g,ng,rx,ry,w,h,kind,glass,lit,trim,on){
+  if(kind==='arch'){
+    g.fillStyle=trim;g.fillRect(rx-1,ry-2,w+2,1);          // 窗楣
+    g.fillStyle=glass;
+    g.fillRect(rx+1,ry-1,Math.max(1,w-2),1);               // 拱頂
+    g.fillRect(rx,ry,w,h);
+    g.fillStyle=trim;g.fillRect(rx-1,ry+h,w+2,1);          // 窗台
+    if(on&&ng){ng.fillStyle=lit;ng.fillRect(rx+1,ry-1,Math.max(1,w-2),1);ng.fillRect(rx,ry,w,h);}
+  }else if(kind==='punch'){
+    g.fillStyle=trim;g.fillRect(rx-1,ry-1,w+2,h+2);        // 厚框
+    g.fillStyle=glass;g.fillRect(rx,ry,w,h);
+    if(on&&ng){ng.fillStyle=lit;ng.fillRect(rx,ry,w,h);}
+  }else if(kind==='shop'){
+    g.fillStyle=trim;g.fillRect(rx-1,ry-1,w+3,1);
+    g.fillStyle=glass;g.fillRect(rx,ry,w+1,h);
+    g.fillStyle=trim;g.fillRect(rx+((w+1)>>1),ry,1,h);     // 中挺
+    if(on&&ng){ng.fillStyle=lit;ng.fillRect(rx,ry,w+1,h);}
+  }else{
+    g.fillStyle=trim;g.fillRect(rx,ry-1,w,1);
+    g.fillStyle=glass;g.fillRect(rx,ry,w,h);
+    if(on&&ng){ng.fillStyle=lit;ng.fillRect(rx,ry,w,h);}
+  }
+}
 function arche568(k,lv,v){
   if(window.__noArche568)return null;
   const L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
@@ -33463,7 +33486,10 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   const win=(a,b,h,face)=>{
     const dx=b[0]-a[0],dy=b[1]-a[1],n=Math.max(1,Math.hypot(dx,dy)|0);
     const isC=typ&&k===2,skipI=typ&&k===3;
-    const ww=isC?3:2,wh=2,stepX=isC?4:3,stepY=isC?5:4;
+    const wdA=ar568&&ar568.wd?ar568.wd:null;
+    const stepX=wdA?wdA[0]:(isC?4:3),stepY=wdA?wdA[1]:(isC?5:4);
+    const wkind=ar568&&ar568.win?ar568.win:'grid';
+    const ww=wkind==='punch'?3:(wkind==='arch'?3:(isC?3:2)),wh=wkind==='arch'?3:2;
     const shopH=isC?Math.min(11,Math.round(h*.36)):0;
     const band=face==='L'?'rgba(252,246,230,.34)':'rgba(252,246,230,.17)';
     const rail=face==='L'?'rgba(248,242,226,.55)':'rgba(248,242,226,.30)';
@@ -33472,13 +33498,21 @@ function makeBlockSprite547(k,lv,bw,bh,v){
       if(grain&&k===1&&row>h-11)continue;
       wallBand565(g,a,b,h,row+wh,1,band);
       if(k===1&&lv>=2)wallBand565(g,a,b,h,row-1,1,rail);
+      if(wkind==='ribbon'){
+        const gl=pal.glass||'#4a6578';
+        wallBand565(g,a,b,h,row,2,face==='L'?gl:shade(gl,-20));
+        wallBand565(g,a,b,h,row+2,1,face==='L'?'rgba(18,26,32,.42)':'rgba(18,26,32,.52)');
+        if(ng)wallBand565(ng,a,b,h,row,2,face==='L'?'rgba(255,251,229,.50)':'rgba(255,251,229,.30)');
+        continue;
+      }
       for(let i2=gx;i2<n-gx;i2+=stepX){
         const x=a[0]+dx*i2/n,y=a[1]+dy*i2/n;
         const rx=Math.round(x)-1,ry=Math.round(y-row),isShop=grain&&k===2&&row>=h-shopH-1;
         const w2=isShop?6:ww,h2=isShop?5:wh;
-        g.fillStyle=isShop?'#8ec4e0':(pal.glass||'#4a6578');g.fillRect(rx,ry,w2,h2);
-        g.fillStyle=face==='L'?shade(cL,24):shade(cR,14);g.fillRect(rx,ry-1,w2,1);
-        if(rand()<(face==='L'?.48:.62)){ng.fillStyle=pal.lit||'#fffbe5';ng.fillRect(rx,ry,w2,h2);}
+        const trimC=face==='L'?shade(cL,24):shade(cR,14);
+        winShape570(g,ng,rx,ry,w2,h2,isShop?'shop':wkind,
+                    isShop?'#8ec4e0':(pal.glass||'#4a6578'),pal.lit||'#fffbe5',trimC,
+                    rand()<(face==='L'?.48:.62));
       }
     }
   };

@@ -17,7 +17,7 @@ const SCALE = +arg('scale', 4);
     log('存在性 roofKit559|getBlockSprite547|paraPt559 =', has);
 
     const expr = `(()=>{
-      const B=GV.block559,getBlockSprite547=B.get; const combos=[[1,3,4,4,0],[1,3,4,4,1],[1,3,4,4,2],[2,3,4,4,0],[2,3,4,4,1],[2,3,4,4,2]];
+      const B=GV.block559,getBlockSprite547=B.get; const combos=[[1,1,3,3,2],[1,2,3,3,0],[1,3,4,4,1],[2,1,3,3,0],[2,2,3,3,1],[2,3,4,4,0]];
       let hits=-1;
       B.cache().clear();
       const sps=combos.map(c=>getBlockSprite547.apply(null,c));
