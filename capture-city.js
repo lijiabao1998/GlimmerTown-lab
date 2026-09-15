@@ -20,7 +20,7 @@ const PORT = +arg('port', 8199);
     fs.writeFileSync(dest, Buffer.from(shot.data, 'base64'));
     const audit = await cdp.evalJs(`window.GV.t516 ? window.GV.t516() : null`);
     const b543 = await cdp.evalJs(`window.GV.build543 ? window.GV.build543() : null`);
-    const ver = await cdp.evalJs(`(window.GV && (window.GV.build557||window.GV.build556||window.GV.build555)) ? (window.GV.build557||window.GV.build556||window.GV.build555)() : {ver:'?',anchor:'?'}`);
+    const ver = await cdp.evalJs(`(window.GV && (window.GV.build558||window.GV.build557||window.GV.build556)) ? (window.GV.build558||window.GV.build557||window.GV.build556)() : {ver:'?',anchor:'?'}`);
     return { r, audit, b543, ver, bytes: fs.statSync(dest).size };
   });
   if (!session.result) { console.log('X', session.fails.join(' / ')); process.exit(1); }
