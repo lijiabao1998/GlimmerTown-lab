@@ -4194,8 +4194,9 @@ async function bootstrap453(){
     applyT551VehicleLamps();  // T551：車輛燈具（也要在後置重建之後）
     applyT539WindowSills();   // T539：必須跑在【整串的最後】——T485/T516 也會重建 RCI 資產，早一步就會被覆蓋（實測 CRC 不變即為被蓋）
     applyT541NightHalo();     // T541：夜窗相鄰暖暈，必須在 T516/T539 之後才看得到最終夜圖
-    applyT573Silhouette();    // T573：剪影光影後製，必須在所有重建 RCI／特殊資產的 pass 之後
     applyT555SpecialArt();    // T555：農場／太陽能／數據中心剪影，必須最後才不會被 T516 蓋掉
+    runVariants574();         // T574：117 個單一樣式分類的變體，必須在所有重建資產的 pass 之後
+    applyT573Silhouette();    // T573：剪影光影後製，移到變體之後，新變體才吃得到（不可跑兩次）
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
     bootSet453(100,'微光小鎮準備完成','night');bootState453.ready=true;window.__bootDone453=true;await bootPaint453();   // T539：boot 完成旗標——量測工具必須等到這裡，否則會漏掉 T464…T480/T539 這串後置 pass
@@ -14027,6 +14028,22 @@ function applyT551VehicleLamps(){
   }
   window.__t551veh=n;window.__t551px=px;
   return {ok:true,canvases:n,lamps:px};
+}
+const VARK574=new Set([19,25,31,32,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,53,54,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,135,136,137,138,175,176,177,178,179,180,181,182,183,184,185,186]);
+function vdraw574(o,bd){
+  if(!bd)return 0;
+  if(window.__noVariants574||bd.v!==0||!VARK574.has(bd.k))return bd.v;
+  const lv=bd.lv||1,b=SPR.bld;
+  const n=b[bd.k+'_'+lv+'_2']?3:(b[bd.k+'_'+lv+'_1']?2:1);
+  if(n===1)return 0;
+  return Math.min(n-1,Math.floor(hashLocal479(o.x|0,o.y|0,bd.k*131)*n));
+}
+function runVariants574(){
+  if(window.__noVariants574)return;
+  const L=window.__variants574||[],A=window.GV&&window.GV.art574;if(!A)return;
+  const rep={batches:0,ok:0,err:[]};
+  for(const f of L){rep.batches++;try{f(A);rep.ok++;}catch(e){rep.err.push(String(e&&e.message||e));console.error('variants574',e);}}
+  window.__t574=rep;
 }
 function silhouetteOne573(c){
   if(!c||!c.getContext)return 0;
@@ -24410,7 +24427,7 @@ function draw(dt){
     } // T229：農牧四季作物相（夏茂/秋收金/冬雪蓋田）
     else if(bd.k===1&&bd.lv===3&&bd.den>=4&&!metroRciVisible516A())s=wealthSpr('1_3_4',bd.we); // 高密度 Lv3 住宅（T30）；T125：財富色變，缺鍵回退中產
     else if(bd.k===1)s=wealthSpr(bd.k+'_'+bd.lv+'_'+bd.v,bd.we)||SPR.bld[bd.k+'_'+bd.lv+'_0']; // T125：住宅財富色變；變體鍵兜底同 FIX-D
-    else s=SPR.bld[bd.k+'_'+bd.lv+'_'+bd.v]||SPR.bld[bd.k+'_'+bd.lv+'_0']||SPR.bld[bd.k+'_1_'+bd.v]||SPR.bld[bd.k+'_1_0']; // 變體鍵兜底：舊檔 v 無對應 sprite 時退回 _0（FIX-D）；T239：服務升級 lv>1 無對應圖時退回 lv1（升級不改外觀、僅疊等級星）
+    else s=SPR.bld[bd.k+'_'+bd.lv+'_'+vdraw574(o,bd)]||SPR.bld[bd.k+'_'+bd.lv+'_'+bd.v]||SPR.bld[bd.k+'_'+bd.lv+'_0']||SPR.bld[bd.k+'_1_'+bd.v]||SPR.bld[bd.k+'_1_0']; // 變體鍵兜底：舊檔 v 無對應 sprite 時退回 _0（FIX-D）；T239：服務升級 lv>1 無對應圖時退回 lv1（升級不改外觀、僅疊等級星）
     s=metroIndustrySprite516A(bd,s); // T516A canonical industrial art for real placed assets
     if(o.block547&&(o.block547.w>1||o.block547.h>1))s=getBlockSprite547(bd.k,bd.lv||1,o.block547.w,o.block547.h,bd.v||0);
     /* T364a sc sprite view：新波素材以 2× 畫布保存細節，僅在世界繪製時縮放。
@@ -34128,7 +34145,7 @@ Object.assign(window.GV,{build528:()=>({...BUILD_META528})}); // T528：QA 讀�
 Object.assign(window.GV,{build529:()=>({...BUILD_META529})}); // T529：QA 讀數
 Object.assign(window.GV,{build530:()=>({...BUILD_META530}),fc530:()=>({facade:window.__t530facade|0})}); // T530：QA 讀數
 Object.assign(window.GV,{testInjectResident534:testInjectResident534,testUiRoundtrip534:testUiRoundtrip534});
-Object.assign(window.GV,{block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
+Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574]},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
    給煙霧測試當斷言用（§3.4 守衛要是事實）。返回 {ok,checks}。 */

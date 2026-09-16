@@ -117,10 +117,15 @@ function launchChrome(devPort, profile) {
 }
 
 function cleanProfiles() {
+  // T574：平行代理人同時跑時，只清「擁有者行程已不在」的 profile，不刪別人正在用的
   let n = 0;
+  const alive = pid => { try { process.kill(pid, 0); return true; } catch (e) { return e.code === 'EPERM'; } };
   try {
     for (const d of fs.readdirSync(ROOT)) {
-      if (d.startsWith('.smoke-profile')) { try { fs.rmSync(path.join(ROOT, d), { recursive: true, force: true }); n++; } catch {} }
+      if (!d.startsWith('.smoke-profile')) continue;
+      const m = /-(\d+)$/.exec(d);
+      if (m && +m[1] !== process.pid && alive(+m[1])) continue;
+      try { fs.rmSync(path.join(ROOT, d), { recursive: true, force: true }); n++; } catch {}
     }
   } catch {}
   return n;
