@@ -170,7 +170,8 @@ async function withGame(opt, fn) {
     await cdp.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/index.html` });
     const menuReady = await waitFor(cdp, `(() => {
       const b = document.getElementById('boot453'), s = document.getElementById('start');
-      return (b && getComputedStyle(b).visibility === 'hidden') || (s && getComputedStyle(s).display !== 'none');
+      // T575：主選單會在後製鏈跑完前先出現；此時點「開拓新城市」會被忽略 ⇒ 城市沒建立、tiles 為 null（T558 同症）。必須等 __bootDone453。
+      return !!window.__bootDone453 && ((b && getComputedStyle(b).visibility === 'hidden') || (s && getComputedStyle(s).display !== 'none'));
     })()`, 120000);
     if (!menuReady) out.fails.push('主選單未在時限內就緒');
     if (enterCity) {

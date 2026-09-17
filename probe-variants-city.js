@@ -9,6 +9,8 @@ const KS = arg('ks', '67,84,31').split(',').map(Number).filter(Boolean);
 const OUT = arg('out', 'shots574/city_a');
 const ZOOM = +arg('zoom', 1.5);
 const SEED = +arg('seed', 5162026);
+const EXPLICIT = arg('explicit', '') === '1';
+const VN = +arg('vn', 3);
 const SZ = JSON.parse(fs.readFileSync(path.join(ROOT, 'scout574/sz.json'), 'utf8'));
 
 (async () => {
@@ -24,7 +26,7 @@ const SZ = JSON.parse(fs.readFileSync(path.join(ROOT, 'scout574/sz.json'), 'utf8
     const plan = await ev(`(()=>{
       const A=GV.art574,SPR=A.SPR(),KS=${JSON.stringify(KS)},SZ=${JSON.stringify(SZ)};
       const szOf=k=>{if(SZ[k])return SZ[k];const b=SPR.bld[k+'_1_0']||{w:72};const w=b.w*(b.sc??1);return Math.max(1,Math.round((w-8)/64));};
-      const rows=KS.map(k=>({k,sz:szOf(k),has:[0,1,2].map(v=>!!SPR.bld[k+'_1_'+v])}));
+      const rows=KS.map(k=>({k,sz:szOf(k),has:Array.from({length:${VN}},(_,v)=>!!SPR.bld[k+'_1_'+v])}));
       // 等距地圖裡畫面水平方向是 (x+1,y-1)、垂直向下是 (x+1,y+1)：同類三版本沿水平排、各類沿垂直疊
       const step=r=>r.sz+1;
       const need=rows.reduce((a,r)=>a+3*step(r)+6,0);
@@ -38,11 +40,11 @@ const SZ = JSON.parse(fs.readFileSync(path.join(ROOT, 'scout574/sz.json'), 'utf8
       const list=[];let bx=x0+2,by=y0+Math.floor(H/2);
       for(const r of rows){
         let t=0;
-        for(const want of [0,1,2]){
+        for(let want=0;want<r.has.length;want++){
           if(!r.has[want])continue;
           const landOK=(x,y,sz)=>{for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!A.land574(x+dx,y+dy))return false;return true;};
-          let tries=0;while(tries<90&&(A.vdraw({x:bx+t,y:by-t},{k:r.k,lv:1,v:0})!==want||!landOK(bx+t,by-t,r.sz))){t++;tries++;}
-          list.push({k:r.k,x:bx+t,y:by-t,sz:r.sz,want});t+=r.sz+2;
+          let tries=0;while(tries<90&&((!${EXPLICIT}&&A.vdraw({x:bx+t,y:by-t},{k:r.k,lv:1,v:0})!==want)||!landOK(bx+t,by-t,r.sz))){t++;tries++;}
+          list.push({k:r.k,x:bx+t,y:by-t,sz:r.sz,want,v:${EXPLICIT}?want:0});t+=r.sz+(${EXPLICIT}?1:2);
         }
         bx+=r.sz+3;by+=r.sz+3;
       }

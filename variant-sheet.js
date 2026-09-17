@@ -13,6 +13,7 @@ const KS = arg('ks', '').split(',').map(x => +x).filter(Boolean);
 const PORT = +arg('port', 8211);
 const OUT = arg('out', 'shots574/sheet.png');
 const SCALE = +arg('scale', 3);
+const VN = Math.max(1, Math.min(8, +arg('vn', 3)));
 if (!KS.length) { console.error('需要 --ks=31,32'); process.exit(2); }
 if ([8123, 8199].includes(PORT)) { console.error('埠 8123（玩家）與 8199（整合用）禁止使用'); process.exit(2); }
 const preScript = SNIP ? fs.readFileSync(SNIP, 'utf8') : '';
@@ -27,7 +28,7 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
     };
     for (let i = 0; i < 120; i++) { if (await ev('!!window.__bootDone453')) break; await new Promise(r => setTimeout(r, 1000)); }
     const expr = `(()=>{
-      const A=GV.art574,SPR=A.SPR(),KS=${JSON.stringify(KS)},S=${SCALE};
+      const A=GV.art574,SPR=A.SPR(),KS=${JSON.stringify(KS)},S=${SCALE},VN=${VN};
       const rep={t574:window.__t574||null,cats:[]};
       const keysOf=k=>Object.keys(SPR.bld).filter(x=>x.startsWith(k+'_'));
       const px=c=>{try{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]>40)n++;return n;}catch(e){return -1;}};
@@ -37,7 +38,7 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
       const rows=[];
       for(const k of KS){
         const ks=keysOf(k);const lv=ks.length?ks[0].split('_')[1]:'1';
-        const sp=[0,1,2].map(v=>SPR.bld[k+'_'+lv+'_'+v]||null);
+        const sp=Array.from({length:VN},(_,v)=>SPR.bld[k+'_'+lv+'_'+v]||null);
         const cat={k,lv:+lv,keys:ks,v:[]};
         sp.forEach((s,v)=>{cat.v.push(s?{v,w:s.w,h:s.h,ax:s.ax,ay:s.ay,px:px(s.img),hasNight:!!s.night,
           diffVsV0:(v&&sp[0])?diff(sp[0].img,s.img):0}:{v,missing:true});});
@@ -45,15 +46,15 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
       }
       const cellW=Math.max(64,...rows.flatMap(r=>r.sp.filter(Boolean).map(s=>s.w)))*S+8;
       const rowH=rows.map(r=>Math.max(40,...r.sp.filter(Boolean).map(s=>s.h))*S+26);
-      const W=40+cellW*6+12,H=rowH.reduce((a,b)=>a+b,0)+8;
+      const W=40+cellW*VN*2+12,H=rowH.reduce((a,b)=>a+b,0)+8;
       const cc=document.createElement('canvas');cc.width=W;cc.height=H;
       const g=cc.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#202428';g.fillRect(0,0,W,H);
       g.font='bold 14px sans-serif';
       let y=4;
       rows.forEach((r,ri)=>{
         g.fillStyle='#e8e8e8';g.fillText('k'+r.k,4,y+18);
-        for(let c=0;c<6;c++){
-          const v=c%3,night=c>=3,x=40+c*cellW+(night?12:0),s=r.sp[v];
+        for(let c=0;c<VN*2;c++){
+          const v=c%VN,night=c>=VN,x=40+c*cellW+(night?12:0),s=r.sp[v];
           g.fillStyle=night?'#141a2c':'#5f8f4a';g.fillRect(x,y,cellW-4,rowH[ri]-4);
           g.fillStyle=night?'#8aa0c8':'#1f2d18';g.fillText((night?'夜 v':'日 v')+v,x+4,y+16);
           if(!s){g.fillStyle='#e05050';g.fillText('缺',x+cellW/2-8,y+rowH[ri]/2);continue;}
