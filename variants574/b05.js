@@ -463,18 +463,27 @@
     const k=185;if(!B[k+'_1_0'])return;
     const OL185=[28,22,16],WD='#8a6844',WDL='#a07c50',WDD='#6a4e30',TL='#5a6a54',TD='#485744',TLL='#71826a',LAMP='#ffd97a';
     const bez=(p0,c,p1,n)=>{const r=[];for(let i=0;i<=n;i++){const t=i/n,u=1-t;r.push([u*u*p0[0]+2*u*t*c[0]+t*t*p1[0],u*u*p0[1]+2*u*t*c[1]+t*t*p1[1]]);}return r;};
-    function tail(g,x,yb,hs,s,cL,cR){ // 鯨尾：柱 hs 高、兩片尾鰭（s 倍）
-      rect(g,x-2,yb-hs,2,hs,cL);rect(g,x,yb-hs,2,hs,cR);
-      const y0=yb-hs;
-      poly(g,[...bez([x-1,y0+2],[x-8*s,y0-1*s],[x-7*s,y0-10*s],8),...bez([x-5*s,y0-9*s],[x-5*s,y0-3*s],[x,y0-1],8)],cL);
-      poly(g,[...bez([x+1,y0+2],[x+8*s,y0-1*s],[x+7*s,y0-10*s],8),...bez([x+5*s,y0-9*s],[x+5*s,y0-3*s],[x,y0-1],8)],cR);
-      return[[x-7*s,y0-10*s],[x+6*s,y0-10*s]];
+    /* v574 第三輪（退件修）：鯨尾改用 v0 同形同色（#5a6a54／#485744／#71826a）的 Y 形尾鰭，
+       放大到塔高約 1/3，立在石座上並投影；cx＝柱中欄、yb＝石座南角 y */
+    function tail0(tg,cx,yb,hs){
+      box(tg,cx,yb,4,4,3,'#b8b2a2','#8e897c','#cfc9b8',{noAO:true});
+      const y1=yb-5,yt=y1-hs;
+      rect(tg,cx-1,yt,2,hs+1,TL);rect(tg,cx+1,yt,1,hs+1,TD);
+      const X=x=>2*cx+1-x;
+      poly(tg,[...bez([cx-1,yt+1],[cx-8,yt-3],[cx-7,yt-11],8),...bez([cx-4,yt-10],[cx-5,yt-4],[cx+1,yt-1],8)],TL);
+      poly(tg,[...bez([X(cx-1),yt+1],[X(cx-8),yt-3],[X(cx-7),yt-11],8),...bez([X(cx-4),yt-10],[X(cx-5),yt-4],[X(cx+1),yt-1],8)],TD);
+      rect(tg,cx-1,yt,2,2,TLL);
+      return yt;
     }
+    // 夜光只留在白天實體像素上（先有燈具才有光）
+    const clipN=L=>{L.ng.save();L.ng.globalCompositeOperation='destination-in';L.ng.drawImage(L.c,0,0);L.ng.restore();};
     const sandRipple=(o,Q)=>{for(const[p,q]of[[6,4],[26,6],[4,20],[22,26],[14,30]]){const u=Q(p,q),v=Q(p+4,q);ln(o.g,u[0],u[1],v[0],v[1],'#b89e76');}};
-    // v1：高腳瞭望塔——四柱斜撐木構、塔台欄杆、鏽紅四角攢尖頂、台上望遠鏡；木棧道引入、前右小鯨尾雕塑
+    // v1：高腳瞭望塔——四柱斜撐木構、塔台欄杆、鏽紅四角攢尖頂、台上望遠鏡；木棧道引到梯腳、2px 階梯帶、前右石座鯨尾雕塑
     try{const o=fresh1(k),rk=R(k,1),L=layer(o.W,o.H),g=L.g,ng=L.ng,Q=Qf(o.ax,o.ay);
       plate1(o,'#c8b088','#a8906a','#dcc49a');sandRipple(o,Q);
-      poly(o.g,[Q(14,0),Q(20,0),Q(20,12),Q(14,12)],WDL);for(let q=2;q<12;q+=3){const u=Q(14,q),v=Q(20,q);ln(o.g,u[0],u[1],v[0],v[1],WD);}
+      poly(o.g,[Q(27,0),Q(32,0),Q(32,8),Q(27,8)],WDL);for(let q=2;q<8;q+=3){const u=Q(27,q),v=Q(32,q);ln(o.g,u[0],u[1],v[0],v[1],WD);}
+      // 鯨尾雕塑的接地影（光從左 ⇒ 影往右後）
+      {const c=Q(2,26,0),x=Math.round(c[0]),y=Math.round(c[1]);shadowPoly(o,[[x-2,y],[x+5,y+1],[x+15,y-5],[x+8,y-8]],.24);}
       const P=(p,q,z0,z1)=>post(g,Q,p,q,z0,z1,WDL,WDD);
       P(26,26,0,22);P(12,26,0,22);P(26,12,0,22);
       {let u=Q(26,26,2),v=Q(12,26,20);ln(g,u[0],u[1],v[0],v[1],WDD);u=Q(26,26,2);v=Q(26,12,20);ln(g,u[0],u[1],v[0],v[1],WDD);}
@@ -497,47 +506,63 @@
         post(tg,Q,11,11,22,34,WDL,WDD);
         {const r1=Q(27,11,26),r0=Q(11,11,26),r3=Q(11,27,26);ln(tg,r1[0],r1[1],r0[0],r0[1],WDL);ln(tg,r0[0],r0[1],r3[0],r3[1],WDL);
           for(let p=15;p<27;p+=4){const a1=Q(p,11,22);rect(tg,a1[0],a1[1]-4,1,4,WD);}for(let q=15;q<27;q+=4){const a1=Q(11,q,22);rect(tg,a1[0],a1[1]-4,1,4,WDD);}}
-        {let u=Q(30,8,0),v=Q(14,8,21);ln(tg,u[0],u[1],v[0],v[1],WDD);u=Q(30,10,0);v=Q(14,10,21);ln(tg,u[0],u[1],v[0],v[1],WD);
-          for(let i=1;i<8;i++){const t=i/8,p=30-16*t,z=21*t,a1=Q(p,8,z),a2=Q(p,10,z);ln(tg,a1[0],a1[1],a2[0],a2[1],WDL);}}
-        {const c=Q(3,24,0);const tips=tail(tg,Math.round(c[0]),Math.round(c[1]),9,.8,TL,TD);
-          rect(tg,Math.round(c[0])-3,Math.round(c[1])-1,6,2,'#9a9a94');}});
-      {const c=Q(3,24,0),x=Math.round(c[0]),yb=Math.round(c[1]);ng.fillStyle='rgba(140,255,200,.8)';ng.fillRect(Math.round(x-5.6),yb-9-8,2,2);ng.fillRect(Math.round(x+4.8)-1,yb-9-8,2,2);}
-      stamp(o,L,OL185);polish1(o);
+        // 階梯：下緣 2px 斜樑＋逐階 2px 厚踏板（階梯帶，1× 下可讀）
+        {const n=6,run=17/n;
+          const u=Q(31,8,-2),v=Q(14,8,18);ln(tg,u[0],u[1],v[0],v[1],WDD);
+          for(let i=0;i<n;i++){const S=Q(31-(i+1)*run,8,Math.round((i+1)*21/n)-2);box(tg,Math.round(S[0]),Math.round(S[1]),3,3,2,WD,WDD,'#d8b27a',{noAO:true});}
+          // 扶手：斜欄杆＋上下兩柱
+          const h0=Q(30,8,6),h1=Q(15,8,27);ln(tg,h0[0],h0[1],h1[0],h1[1],WDL);
+          for(const[p,z]of[[30,0],[22,10]]){const b0=Q(p,8,z+1);rect(tg,Math.round(b0[0]),Math.round(b0[1])-5,1,5,WDD);}}
+        {const c=Q(2,26,0);tail0(tg,Math.round(c[0]),Math.round(c[1]),4);}});
+      {const c=Q(2,26,0),cx=Math.round(c[0]),yt=Math.round(c[1])-5-4;ng.fillStyle='rgba(140,255,200,.8)';ng.fillRect(cx-7,yt-11,2,3);ng.fillRect(cx+6,yt-11,2,3);}
+      clipN(L);stamp(o,L,OL185);polish1(o);
       B[k+'_1_1']=fin(o);}catch(e){console.error('v574 k185 v1',e);}
     // v2：鯨骨拱門棧道——長木棧道縱貫全格、棧道入口一對象牙色鯨顎骨尖拱（頂懸燈）、左側藍綠小售票亭（鯨形招牌）、棧道盡頭雙投幣望遠鏡
-    try{const o=fresh1(k),rk=R(k,2),L=layer(o.W,o.H),g=L.g,ng=L.ng,Q=Qf(o.ax,o.ay);
+    /* v574 第三輪（退件修）：顎骨拱 31→50（1.6×）、加粗 4/3/2px 象牙色並各自描深色外框（與棧道分離）；
+       亭頂鯨形招牌 10×5→20×10；亭左面加售票窗（夜亮）、拱頂懸燈加大；棧道緣梁與遠側兩盞矮柱燈作夜光來源 */
+    try{const o=fresh1(k),rk=R(k,2),Q=Qf(o.ax,o.ay);
       plate1(o,'#c8b088','#a8906a','#dcc49a');sandRipple(o,Q);
       poly(o.g,[Q(0,12),Q(32,12),Q(32,20),Q(0,20)],WD);
       for(let p=2;p<32;p+=3){const u=Q(p,12),v=Q(p,20);ln(o.g,u[0],u[1],v[0],v[1],WDD);}
-      {const u=Q(0,12),v=Q(32,12);ln(o.g,u[0],u[1],v[0],v[1],WDL);}
-      const bone=(tg,qa,dir)=>{const pts=[];for(let i=0;i<=24;i++){const t=i/24;pts.push(Q(6,qa+dir*7*t*t,31*t));}
-        const cols=dir>0?['#f4ecd8','#e0d6bc','#bfb294']:['#e6dcc4','#c8bc9e','#a89c80'];
-        for(let i=0;i<pts.length-1;i++){const w=i<10?3:i<19?2:1;for(let j=0;j<w;j++)ln(tg,pts[i][0]+j,pts[i][1],pts[i+1][0]+j,pts[i+1][1],cols[j]);}
-        const b0=Q(6,qa,0);rect(tg,Math.round(b0[0])-2,Math.round(b0[1])-2,6,3,'#8a8a84');rect(tg,Math.round(b0[0])-2,Math.round(b0[1])-2,6,1,'#a4a49c');};
-      // 後段：盡頭望遠鏡、後顎骨
-      for(const[pp,q]of[[22,26],[27,24]]){const c=Q(pp,q,0);rect(g,c[0],c[1]-6,1,6,'#6a6e76');rect(g,c[0]-1,c[1]-9,4,3,'#3a4a5a');rect(g,c[0]+3,c[1]-8,1,1,'#5a7086');rect(g,c[0]-1,c[1]-1,3,1,'#6a6e76');}
-      bone(g,23,-1);
-      // 售票亭（左側）
-      {const p1=18,q1=2,a1=10,b1=8,h1=10,S1=Q(p1,q1,0);
+      {const u=Q(0,12),v=Q(32,12);ln(o.g,u[0],u[1],v[0],v[1],WDL);ln(o.ng,u[0],u[1],v[0],v[1],'rgba(255,210,120,.55)');}
+      const bone=(tg,qa,dir)=>{const H=50,N=30,pts=[];for(let i=0;i<=N;i++){const t=i/N;pts.push(Q(6,qa+dir*8*Math.pow(t,2.2),H*t));}
+        const cols=dir>0?['#fbf5e6','#ece3cb','#d6c9ac','#b7a988']:['#f1e8d2','#dfd4ba','#c6b898','#a99b7c'];
+        {const b0=Q(6,qa,0),bx=Math.round(b0[0])+(dir>0?-1:2),byy=Math.round(b0[1])+1;box(tg,bx,byy,3,3,3,'#a4a49c','#7c7c76','#bdbdb4',{noAO:true});}
+        for(let i=0;i<N;i++){const t=i/N,w=t<.45?4:t<.8?3:2;
+          for(let j=0;j<w;j++){const off=dir>0?-j:j,ci=dir>0?(w-1-j):j;ln(tg,pts[i][0]+off,pts[i][1],pts[i+1][0]+off,pts[i+1][1],cols[ci]);}}};
+      // 圖層 1：盡頭望遠鏡、遠側矮柱燈、售票亭
+      {const L=layer(o.W,o.H),g=L.g,ng=L.ng;
+        for(const[pp,q]of[[22,26],[27,24]]){const c=Q(pp,q,0);rect(g,c[0],c[1]-6,1,6,'#6a6e76');rect(g,c[0]-1,c[1]-9,4,3,'#3a4a5a');rect(g,c[0]+3,c[1]-8,1,1,'#5a7086');rect(g,c[0]-1,c[1]-1,3,1,'#6a6e76');
+          ng.fillStyle='rgba(160,220,255,.55)';ng.fillRect(Math.round(c[0])-1,Math.round(c[1])-9,4,3);}
+        for(const pp of[14,30]){const c=Q(pp,21,0),x=Math.round(c[0]),y=Math.round(c[1]);rect(g,x,y-6,1,6,'#50565c');rect(g,x-1,y-8,3,2,'#e8d8a0');rect(g,x-1,y-9,3,1,'#50565c');
+          ng.fillStyle=LAMP;ng.fillRect(x-1,y-8,3,2);}
+        const p1=18,q1=2,a1=10,b1=8,h1=12,S1=Q(p1,q1,0);
         box(g,S1[0],S1[1],a1,b1,h1,'#d2b27e','#a8845a',null);
         for(let z=2;z<h1;z+=3){fr(g,S1,'L',1,a1,z,1,'rgba(90,60,30,.16)');fr(g,S1,'R',0,b1,z,1,'rgba(60,40,20,.2)');}
-        fr(g,S1,'R',2,5,4,4,'#3a4a5a');fr(g,S1,'R',1,7,8,1,'#4a7a8a');fr(g,S1,'R',1,7,3,1,'#6a4e30');fr(ng,S1,'R',2,5,4,4,'rgba(255,217,122,.9)');
-        fr(g,S1,'L',3,3,0,7,'#5a4030');
+        fr(g,S1,'R',2,5,5,4,'#3a4a5a');fr(g,S1,'R',1,7,9,1,'#4a7a8a');fr(g,S1,'R',1,7,4,1,'#6a4e30');fr(ng,S1,'R',2,5,5,4,'rgba(255,217,122,.9)');
+        fr(g,S1,'L',2,3,0,8,'#5a4030');
+        // 左面售票窗：櫃台檯面＋藍綠遮簷
+        fr(g,S1,'L',6,4,4,4,'#3a4a5a');fr(g,S1,'L',5,6,3,1,'#f0e2c8');fr(g,S1,'L',5,6,8,2,'#4a8a98');fr(g,S1,'L',5,6,8,1,'#6fb0bc');
+        fr(ng,S1,'L',6,4,4,4,'rgba(255,222,140,.95)');
         roofGQ(g,Q,p1,q1,a1,b1,h1,5,1,'#5f98a6','#36606c','#d2b27e','#24424a');
         const c=Q(p1+a1/2,q1+b1/2,h1+5),x=Math.round(c[0]),y=Math.round(c[1]);
-        rect(g,x-1,y-1,1,2,'#50565c');rect(g,x+3,y-1,1,2,'#50565c');
-        const WH=['.......x..','.xxxxx.x.x','xxxxxxx...','xxxxxxxxxx','.xxxxxxx..'];
-        for(let r=0;r<WH.length;r++)for(let i=0;i<WH[r].length;i++)if(WH[r][i]==='x')rect(g,x-5+i,y-6+r,1,1,r===0||i===7?'#8fc8e8':'#3a6a9a');
-        rect(g,x-3,y-4,1,1,'#f0f4f8');}
-      // 前景：前顎骨、懸燈、前繩欄
-      occ(L,tg=>{bone(tg,9,1);
-        {const t=Q(6,16,30);rect(tg,t[0],t[1],1,2,'#50565c');rect(tg,t[0]-1,t[1]+2,3,2,'#e8b44a');}
-        for(let p=2;p<32;p+=8){const a1=Q(p,11,0);if(p>14&&p<30)continue;rect(tg,a1[0],a1[1]-5,1,5,'#9a9a94');}
-        {const u=Q(2,11,4),m=Q(6,11,3),v=Q(10,11,4);ln(tg,u[0],u[1],m[0],m[1],'#b8a888');ln(tg,m[0],m[1],v[0],v[1],'#b8a888');}});
-      {const t=Q(6,16,30);ng.fillStyle=LAMP;ng.fillRect(Math.round(t[0])-1,Math.round(t[1])+2,3,2);
-        for(const p of[2,10]){const a1=Q(p,11,0);ng.fillRect(Math.round(a1[0]),Math.round(a1[1])-5,1,1);}}
-      for(const[pp,q]of[[22,26],[27,24]]){const c=Q(pp,q,0);ng.fillStyle='rgba(160,220,255,.55)';ng.fillRect(Math.round(c[0])-1,Math.round(c[1])-9,4,3);}
-      stamp(o,L,OL185);polish1(o);
+        rect(g,x-4,y-3,1,4,'#50565c');rect(g,x+4,y-3,1,4,'#50565c');
+        const WH=['...............ll.ll','................lxl.','.....lllll.......x..','...lxxxxxxxl.....x..','.lxxxxxxxxxxxl..xx..',
+                  'lxexxxxxxxxxxxxxx...','xxxxxxxxxxxxxxxx....','xbbbbbbbbxxxxxx.....','.bbbbbbbbbxxx.......','...bbbbbb...........'];
+        const WC={x:'#3a6a9a',l:'#8fc8e8',b:'#c8dcea',e:'#f0f4f8'};
+        for(let r=0;r<WH.length;r++)for(let i=0;i<WH[r].length;i++){const ch=WH[r][i];if(ch!=='.')rect(g,x-10+i,y-13+r,1,1,WC[ch]);}
+        clipN(L);stamp(o,L,OL185);}
+      // 圖層 2：後顎骨（自帶外框）
+      {const L=layer(o.W,o.H);bone(L.g,24,-1);stamp(o,L,OL185);}
+      // 圖層 3：前顎骨、拱頂懸燈、前繩欄
+      {const L=layer(o.W,o.H),g=L.g,ng=L.ng;
+        bone(g,9,1);
+        {const t=Q(6,16,49),x=Math.round(t[0]),y=Math.round(t[1]);rect(g,x,y,1,5,'#50565c');rect(g,x-1,y+5,3,1,'#3a3e44');rect(g,x-1,y+6,3,3,'#e8b44a');rect(g,x,y+9,1,1,'#3a3e44');
+          ng.fillStyle=LAMP;ng.fillRect(x-1,y+6,3,3);}
+        for(const p of[2,10]){const a1=Q(p,11,0),x=Math.round(a1[0]),y=Math.round(a1[1]);rect(g,x,y-5,1,5,'#9a9a94');rect(g,x,y-6,1,1,'#e8d8a0');ng.fillStyle=LAMP;ng.fillRect(x,y-6,1,1);}
+        {const u=Q(2,11,4),m=Q(6,11,3),v=Q(10,11,4);ln(g,u[0],u[1],m[0],m[1],'#b8a888');ln(g,m[0],m[1],v[0],v[1],'#b8a888');}
+        clipN(L);stamp(o,L,OL185);}
+      polish1(o);
       B[k+'_1_2']=fin(o);}catch(e){console.error('v574 k185 v2',e);}
   })();
 
@@ -766,36 +791,52 @@
   (function(){
     const k=105;if(!B[k+'_1_0'])return;
     const pal={light:'#fdeddb',mid:'#d49780',dark:'#8a5148',accent:'#9ed09c',roof:'#b8884a',glass:'#27364c',lit:'#fffbe5'};
-    // v1：三塔高低錯落＋兩道空中連廊＋樓頂花園
-    {const rk=R(k,1),o=metroBase(pal,rk,false);
-      const T=(u1,v1,a,h)=>{const S=MP(u1,v1,22);mbox(o,S[0],S[1],a,a,h,pal,rk,{balcony:true});return S;};
-      const s1=T(46,46,32,300);
-      const s2=T(48,86,28,220),s3=T(86,48,28,160);
-      // 空中連廊：前兩塔內角同深度 ⇒ 螢幕水平，跨在主塔前方（v574 修：舊連廊整段被前塔遮死）
-      {const y0=272;rect(o.g,142,y0,20,1,shade(pal.light,12));rect(o.g,142,y0+1,20,7,pal.mid);rect(o.g,142,y0+2,20,3,pal.glass);
-        rect(o.g,142,y0+6,20,2,shade(pal.dark,-10));
-        o.g.fillStyle=pal.light;for(let x=145;x<160;x+=5)o.g.fillRect(x,y0+2,1,3);
-        o.ng.fillStyle=pal.lit;for(let x=146;x<160;x+=5)o.ng.fillRect(x,y0+2,3,3);
-        ln(o.g,144,y0+8,142,y0+12,pal.dark);ln(o.g,159,y0+8,161,y0+12,pal.dark);}
-      // 樓頂花園
-      for(const[cx,cy]of[[152,78],[114,181],[190,241]]){
+    /* v574 第三輪（退件修）：專用立面 fac105——
+       窗改 v0 節奏（3×5 窗、隔欄隔列：gx7/gy11，樓層之間留素牆帶），
+       拿掉 mbox 的平面 1px 橫線／陽台橫條／直向亮線（沿斜牆畫成「橫虛線＋點陣」噪點牆的來源）；
+       夜窗點亮率 ~0.5（與 v0 metroFacade516 的 .54 同級）。只在本分類內使用，不動共用 mbox。 */
+    function fac105(o,cx,by,a,b,h,rk,litP){
+      const T=layer(o.W,o.H),g=T.g,ng=T.ng;
+      box(g,cx,by,a,b,h,pal.light,pal.dark,pal.roof);
+      if(h>=16)wins(g,ng,cx,by,a,b,h,rk,{w:3,ht:5,gx:7,gy:11,glass:pal.glass,lit:pal.lit,p:litP||.5,top:6,bot:5,mL:4,mR:3,metro:true});
+      const x0=Math.max(0,cx-a-1),x1=Math.min(o.W-1,cx+b+1),y0=Math.max(0,by-h-((a+b)>>1)-1),y1=Math.min(o.H-1,by+1),w=x1-x0+1,hh=y1-y0+1;
+      const td=g.getImageData(x0,y0,w,hh).data,tn=ng.getImageData(x0,y0,w,hh).data;
+      const D=o.g.getImageData(x0,y0,w,hh),dd=D.data,N=o.ng.getImageData(x0,y0,w,hh),nd=N.data;
+      for(let y=0;y<hh;y++)for(let x=0;x<w;x++){
+        if(!inBox(x+x0,y+y0,cx,by,a,b,h,0))continue;const i=(y*w+x)*4;if(td[i+3]<200)continue;
+        for(let q=0;q<4;q++){dd[i+q]=td[i+q];nd[i+q]=tn[i+q];}}
+      o.g.putImageData(D,x0,y0);o.ng.putImageData(N,x0,y0);
+      return by-h;
+    }
+    // v1：三塔高低錯落＋空中連廊＋樓頂花園（第三輪：最高後塔 300→255、後塔 32→24 收窄、前塔同步收瘦壓低，總像素壓到 ≤1.25×v0）
+    try{const rk=R(k,1),o=metroBase(pal,rk,false);
+      const T=(u1,v1,a,h)=>{const S=MP(u1,v1,22);fac105(o,S[0],S[1],a,a,h,rk,.54);return S;};
+      T(46,46,24,255);
+      T(48,86,26,196);T(86,48,24,136);
+      // 空中連廊：前兩塔內角同深度 ⇒ 螢幕水平（x 140..165）
+      {const y0=300,xa=140,wb=26;rect(o.g,xa,y0,wb,1,shade(pal.light,12));rect(o.g,xa,y0+1,wb,7,pal.mid);rect(o.g,xa,y0+2,wb,3,pal.glass);
+        rect(o.g,xa,y0+6,wb,2,shade(pal.dark,-10));
+        o.g.fillStyle=pal.light;for(let x=xa+4;x<xa+wb-2;x+=5)o.g.fillRect(x,y0+2,1,3);
+        o.ng.fillStyle=pal.lit;for(let x=xa+5;x<xa+wb-2;x+=10)o.ng.fillRect(x,y0+2,4,3);
+        ln(o.g,xa+2,y0+8,xa,y0+12,pal.dark);ln(o.g,xa+wb-3,y0+8,xa+wb-1,y0+12,pal.dark);}
+      // 樓頂花園（塔頂菱形中心＝(S.x, S.y-h-a/2)）
+      for(const[cx,cy]of[[152,127],[114,206],[190,267]]){
         rect(o.g,cx-7,cy-1,15,1,shade(pal.roof,-18));
         tree(o.g,cx-6,cy+3);tree(o.g,cx+5,cy+1);tree(o.g,cx,cy+8);}
       A.outlineSprite(o.c,20,24,35);halo541(o);
-      B[k+'_1_1']=fin(o);}
-    // v2：瀑布式退台板樓（向左前方逐階降低，每階頂為綠化平台）
-    {const rk=R(k,2),o=metroBase(pal,rk,false);
-      const steps=[[8,30,260],[30,48,200],[48,64,140],[64,78,90],[78,90,45]];
+      B[k+'_1_1']=fin(o);}catch(e){console.error('v574 k105 v1',e);}
+    // v2：瀑布式退台板樓（第三輪：5 階→4 階、最高階 260→208、板寬 76→70；每階頂綠化平台）
+    try{const rk=R(k,2),o=metroBase(pal,rk,false);
+      const U0=16,steps=[[10,32,208],[32,52,150],[52,72,96],[72,90,44]];
       for(let i=0;i<steps.length;i++){const[v0,v1,h]=steps[i],S=MP(86,v1,22),b=v1-v0;
-        mbox(o,S[0],S[1],76,b,h,pal,rk,{balcony:true,litP:.5});
-        // 階頂綠化：沿前緣一排灌木＋欄杆
+        fac105(o,S[0],S[1],86-U0,b,h,rk,.54);
         const top=22+h,Q=(u,v)=>MP(u,v,top);
-        const r0=Q(84,v1-1),r1=Q(12,v1-1);ln(o.g,r0[0],r0[1],r1[0],r1[1],'#e8dccb');
-        for(let u=78;u>=16;u-=12){const p=Q(u,v1-4);rect(o.g,p[0]-2,p[1]-3,5,3,'#4f8a50');rect(o.g,p[0]-1,p[1]-4,3,1,'#6aaa62');}
+        const r0=Q(84,v1-1),r1=Q(U0+2,v1-1);ln(o.g,r0[0],r0[1],r1[0],r1[1],'#e8dccb');
+        for(let u=78;u>=U0+6;u-=12){const p=Q(u,v1-4);rect(o.g,p[0]-2,p[1]-3,5,3,'#4f8a50');rect(o.g,p[0]-1,p[1]-4,3,1,'#6aaa62');}
         if(i===0){for(const u of[70,50,30]){const p=Q(u,v0+10);tree(o.g,p[0],p[1]);}}
       }
       A.outlineSprite(o.c,20,24,35);halo541(o);
-      B[k+'_1_2']=fin(o);}
+      B[k+'_1_2']=fin(o);}catch(e){console.error('v574 k105 v2',e);}
   })();
 
   /* ================= k106 商業綜合體 (3×3 巨構) ================= */

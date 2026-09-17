@@ -69,6 +69,28 @@
       if(r>=0&&r<(hw>>1)&&x>=ax-half&&x<ax+half){d[q]=smp[0];d[q+1]=smp[1];d[q+2]=smp[2];d[q+3]=smp[3];}else d[q+3]=0;}
     /* v0 的 AO 橫條（baseY+28）在 2×2 時伸出佔地菱形外＝浮空橫線：cut 以下到菱形最寬列，菱形外一律清掉 */
     for(let y=cut;y<top+(hw>>1);y++)for(let x=0;x<W;x++){const r=y-top,half=2*(r+1);if(x<ax-half||x>=ax+half)d[(y*W+x)*4+3]=0;}
+    /* b10 覆核：cut 以下保留的 v0 地坪含 v0 自己的前緣牌／管線／短柱，被變體蓋掉一半就成了殘渣雜點。
+       逐列清：菱形內「任一色版偏離該列各色版中位數 >30」者（地坪本身可以是藍/綠，不能用絕對彩度）、菱形外「不透明（非陰影）」者，
+       以同列左右乾淨像素內插補回；邊線帶則與左右鏡射位置比對，偏離中位較遠的一側用鏡射補。 */
+    {const mdc=(q,c)=>Math.max(Math.abs(d[q]-c[0]),Math.abs(d[q+1]-c[1]),Math.abs(d[q+2]-c[2]));
+      for(let y=cut;y<Math.min(H,ay+10);y++){const r=y-top,half=r<(hw>>1)?2*(r+1):2*(hw-r),x0=ax-half+3,x1=ax+half-3,bad=new Uint8Array(W);
+        let med=null;
+        if(x1-x0>4){const ch=[[],[],[]];for(let x=x0;x<x1;x++){const q=(y*W+x)*4;if(d[q+3]>200)for(let c=0;c<3;c++)ch[c].push(d[q+c]);}
+          if(ch[0].length>4){med=ch.map(a=>{a.sort((u,v)=>u-v);return a[a.length>>1];});
+            for(let x=x0;x<x1;x++){const q=(y*W+x)*4;if(d[q+3]>0&&mdc(q,med)>30)bad[x]=1;}
+            for(let pass=0;pass<2;pass++){const m=bad.slice();for(let x=Math.max(x0,1);x<Math.min(x1,W-1);x++)if(!m[x]&&(m[x-1]===1||m[x+1]===1))bad[x]=1;}}}
+        if(r>=(hw>>1))for(let x=0;x<W;x++){if(x>=ax-half-1&&x<ax+half+1)continue;if(d[(y*W+x)*4+3]>150)bad[x]=2;}
+        if(med)for(let x=Math.max(0,ax-half-1);x<Math.min(W,ax+half+1);x++){if(x>=x0&&x<x1)continue;const mx=2*ax-1-x;if(mx<0||mx>=W)continue;
+          const q=(y*W+x)*4,qm=(y*W+mx)*4;if(!d[q+3]||!d[qm+3])continue;
+          if(mdc(q,[d[qm],d[qm+1],d[qm+2]])>30&&mdc(q,med)>mdc(qm,med)+8)for(let c=0;c<4;c++)d[q+c]=d[qm+c];}
+        for(let x=0;x<W;x++){if(!bad[x])continue;const q=(y*W+x)*4;
+          if(bad[x]===1){let L=x-1;while(L>=x0&&bad[L])L--;let Rr=x+1;while(Rr<x1&&bad[Rr])Rr++;
+            const qL=L>=x0?(y*W+L)*4:-1,qR=Rr<x1?(y*W+Rr)*4:-1;
+            if(qL<0&&qR<0){for(let c=0;c<4;c++)d[q+c]=smp[c];}
+            else if(qL<0||qR<0){const s=qL<0?qR:qL;for(let c=0;c<4;c++)d[q+c]=d[s+c];}
+            else{const t=(x-L)/(Rr-L);for(let c=0;c<4;c++)d[q+c]=R(d[qL+c]*(1-t)+d[qR+c]*t);}}
+          else{const dir=x<ax?-1:1;let s=x+dir;while(s>=0&&s<W&&bad[s])s+=dir;
+            if(s<0||s>=W)d[q+3]=0;else{const qs=(y*W+s)*4;for(let c=0;c<4;c++)d[q+c]=d[qs+c];}}}}}
     o.g.putImageData(id,0,0);
     o.g.drawImage(L.c,0,0,W,H);o.g.drawImage(T.c,0,0,W,H);
     const n=mk(W,H);n.g.drawImage(NL.c,0,0,W,H);n.g.save();n.g.globalCompositeOperation='destination-in';n.g.drawImage(o.c,0,0);n.g.restore();
@@ -94,9 +116,10 @@
       const ln='#eef2dc';
       const L4=(a,b)=>{const p=G(a[0],a[1]),q=G(b[0],b[1]);seg(g,p[0],p[1],q[0],q[1],ln);};
       L4([2,5],[14,5]);L4([14,5],[14,13]);L4([14,13],[2,13]);L4([2,13],[2,5]);L4([8,5],[8,13]);
-      poly(g,[G(2,7),G(5,7),G(5,11),G(2,11)],'#a85042');poly(g,[G(11,7),G(14,7),G(14,11),G(11,11)],'#a85042');
+      /* 覆核：禁區原本塗成和外圍同色的磚紅，把深藍球場切成碎塊；改淺一階藍，球場保持一整塊 */
+      poly(g,[G(2,7),G(5,7),G(5,11),G(2,11)],'#3a5f86');poly(g,[G(11,7),G(14,7),G(14,11),G(11,11)],'#3a5f86');
       L4([5,7],[5,11]);L4([11,7],[11,11]);
-      {const c=G(8,9);P(g,c[0]-2,c[1]-1,5,1,ln);P(g,c[0]-2,c[1]+1,5,1,ln);P(g,c[0]-3,c[1],1,1,ln);P(g,c[0]+3,c[1],1,1,ln);}
+      {const c=G(8,9);ellipse(g,c[0],c[1],5,2.5,'#3a5f86');L4([8,7],[8,11]);} // 中圈：與禁區同色的實心橢圓，白線環在這尺度只會讀成字形
       // 看台（背側 j∈[1,4]，面向球場）
       box(g,G,3,1,10,1,7,'#9aa3a6','#6f787c','#b04a3e');
       box(g,G,3,2,10,1,5,'#a9b1b3','#7a8387','#3f6f9c');
@@ -112,7 +135,7 @@
       poly(g,[G(3,6),G(7,6),G(7,11),G(3,11)],'#a85042');
       L4([3,4],[11,4]);L4([11,4],[11,13]);L4([11,13],[3,13]);L4([3,13],[3,4]);L4([7,6],[7,11]);
       {const c=G(11,8.5);P(g,c[0]-2,c[1]-1,4,1,ln);}
-      {const b=G(2,8.5);P(g,b[0],b[1]-10,1,10,'#53616a');P(g,b[0]-2,b[1]-13,5,4,'#e8ecea');P(g,b[0]-1,b[1]-12,3,2,'#c94f3c');P(g,b[0]+1,b[1]-9,2,1,'#e08a3a');}
+      {const b=G(2,8.5);P(g,b[0],b[1]-10,1,10,'#9aa6ab');P(g,b[0]+1,b[1]-10,1,10,'#3a444a');P(g,b[0]-1,b[1]-1,4,1,'#2b3338');P(g,b[0]-2,b[1]-13,5,4,'#e8ecea');P(g,b[0]-1,b[1]-12,3,2,'#c94f3c');P(g,b[0]+1,b[1]-9,2,1,'#e08a3a');}
       // 鐵網籠（後兩側高網）：柱與上欄先畫（在器材室之後方），網面半透明放 tg
       const H=12;
       for(let t=0;t<=14;t+=3.5){const a=G(1+t,1),b=G(1,1+t);P(g,a[0],a[1]-H,1,H,'#56626a');P(g,b[0],b[1]-H,1,H,'#56626a');}
@@ -137,19 +160,20 @@
       box(g,G,1,1,14,14,1,'#20493f','#193a33','#285d55');
       poly(g,[G(3,6),G(15,6),G(15,14),G(3,14)],'#234b61');
       const ln='#eff3de';const L4=(a,b)=>{const p=G(a[0],a[1]),q=G(b[0],b[1]);seg(g,p[0],p[1],q[0],q[1],ln);};
+      /* 覆核：原本雙打＋單打邊線＋發球線擠在 11×7 格裡成了格子布；只留外框、發球線與中線，讓網成為視覺中心 */
       L4([3.5,6.5],[14.5,6.5]);L4([14.5,6.5],[14.5,13.5]);L4([14.5,13.5],[3.5,13.5]);L4([3.5,13.5],[3.5,6.5]);
-      L4([3.5,7.5],[14.5,7.5]);L4([3.5,12.5],[14.5,12.5]);L4([6,10],[12,10]);L4([6,7.5],[6,12.5]);L4([12,7.5],[12,12.5]);
+      L4([6,6.5],[6,13.5]);L4([12,6.5],[12,13.5]);L4([6,10],[12,10]);
       // 俱樂部小屋（背角，縮小讓球場成為主角）
       const bx=box(g,G,1.5,1,5,3,7,'#e3dccb','#b3ab99',null);
       fr(g,bx.S,-1,1,2,0,5,'#6b4a36');fr(g,bx.S,-1,4,2,2,3,'#5f8190');
       fr(g,bx.S,1,3,2,2,3,'#4f6f7c');
       gable(g,G,1.5,1,5,3,7,3,'i','#4f7a66','#355646','#e3dccb','#c7bfad');
-      // 長椅與花台
+      // 長椅＋兩叢矮灌木（取代原本糊成一團的花台）
       {const b=G(9.5,3.5);P(g,b[0]-3,b[1]-3,7,1,'#8a6a42');P(g,b[0]-3,b[1]-2,1,2,'#6d523e');P(g,b[0]+3,b[1]-2,1,2,'#6d523e');}
-      box(g,G,12,1.5,2,2,2,'#8a7a62','#6d604d','#5f8f4e');
-      // 網（跨短邊）
-      {const a=G(9,6),b=G(9,14);P(g,a[0],a[1]-4,1,4,'#b8c4c8');P(g,b[0],b[1]-4,1,4,'#b8c4c8');
-        seg(g,a[0],a[1]-2,b[0],b[1]-2,'#3b4a50');seg(g,a[0],a[1]-3,b[0],b[1]-3,'#f2f4ea');}
+      for(const p of[[12.5,2.5],[14,4]]){const b=G(p[0],p[1]);P(g,b[0]-2,b[1],5,1,'#1f3a31');sphere(g,b[0],b[1]-2,3,['#8fbf6a','#6a9e50','#4f7f3f','#3d6532']);}
+      // 網（跨短邊）：兩列深網＋白帶，柱落地
+      {const a=G(9,6),b=G(9,14);P(g,a[0],a[1]-5,1,5,'#d7dfe0');P(g,b[0],b[1]-5,1,5,'#d7dfe0');P(g,b[0]+1,b[1]-5,1,5,'#7d8a90');
+        seg(g,a[0],a[1]-1,b[0],b[1]-1,'#2c393e');seg(g,a[0],a[1]-2,b[0],b[1]-2,'#3b4a50');seg(g,a[0],a[1]-3,b[0],b[1]-3,'#f2f4ea');}
       courtMasts(tg,ng);
       {const s=bx.S;P(ng,fx(s,-1,4),fyb(s,4)-4,2,3,winWarm);}
     });
@@ -310,11 +334,12 @@
       // 遮蔭樹（右後）
       tree(g,G(13,3)[0],G(13,3)[1]-1,6,6);
       // 繩網金字塔
-      {const top=up(G(6,6),24),cs=[up(G(2,6),1),up(G(6,2),1),up(G(10,6),1),up(G(6,10),1)];
+      /* 覆核：原 24 高 × 8 格底＝細長像天線；壓成 17 高、底放寬到 9 格，三道橫環，讀成攀爬繩網 */
+      {const HT=17,top=up(G(6,6),HT),cs=[up(G(1.5,6),1),up(G(6,1.5),1),up(G(10.5,6),1),up(G(6,10.5),1)];
         const lerp=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
         for(const c of[cs[0],cs[1]])seg(g,top[0],top[1],c[0],c[1],'#b83c32');
         for(const t of[.4,.7]){const r=cs.map(c=>lerp(top,c,t));seg(g,r[0][0],r[0][1],r[1][0],r[1][1],'#e2b04a');seg(g,r[1][0],r[1][1],r[2][0],r[2][1],'#e2b04a');}
-        P(g,top[0],top[1],1,23,'#8d9aa0');P(g,top[0]+1,top[1]+1,1,22,'#5e6b72');P(g,top[0]-1,top[1]-2,3,2,'#d94c3f');
+        P(g,top[0],top[1],1,HT-1,'#8d9aa0');P(g,top[0]+1,top[1]+1,1,HT-2,'#5e6b72');P(g,top[0]-1,top[1]-2,3,2,'#d94c3f');
         for(const t of[.4,.7]){const r=cs.map(c=>lerp(top,c,t));seg(g,r[2][0],r[2][1],r[3][0],r[3][1],'#f2c65a');seg(g,r[3][0],r[3][1],r[0][0],r[0][1],'#f2c65a');}
         for(const c of[cs[2],cs[3]])seg(g,top[0],top[1],c[0],c[1],'#d94c3f');
         for(const c of cs)P(g,c[0]-1,c[1]-1,2,2,'#4a5860');}
@@ -483,7 +508,38 @@
 
   /* ---- k121 煉油廠：保留 v0 地坪下緣（含 AO 與工業色 V 線），上半地坪依原參數重鋪，量體半解析重畫 ----
      T364b 煉油 FX 綁死 sprite 座標：排氣口 raw (274,72)、夜間暖帶 raw (224..328,268..278)，兩變體都在該處立煙囪／火炬。 */
-  function ind121(draw){
+  /* r5 覆核：上半地坪不再是平色重鋪——從 v0 自己的下緣地坪取材質（同欄、整 8 列位移，保住後製鏈的 8 列橫紋與斜紋），
+     與保留的 v0 下緣無縫；鋪面分區改成全解析 i/j 區域取樣（邊界＝1px 的 2:1 等距斜線），色階＝地坪材質＋固定偏移。 */
+  function texFloor121(o,v0,cut,pc,zones){
+    const W=v0.w,H=v0.h,ax=v0.ax,top=v0.ay-192,cy=top+96;
+    const S=v0.img.getContext('2d').getImageData(0,0,W,H).data,od=o.g.getImageData(0,0,W,H),D=od.data;
+    const inDia=(x,y,m)=>Math.abs(x+.5-ax)+2*Math.abs(y+.5-cy)<=192-m;
+    let n=0,sr=0,sg=0,sb=0;
+    for(let y=326;y<372;y++)for(let x=150;x<270;x++){const p=(y*W+x)*4;if(S[p+3]<255)continue;sr+=S[p];sg+=S[p+1];sb+=S[p+2];n++;}
+    const fr=n?[sr/n,sg/n,sb/n]:[123,117,106];
+    const band=(x,y)=>{for(let r=0;r<7;r++){const y0=322+r*13;if(y>=y0-1&&y<y0+4&&x>=87+r*5&&x<329-r*5)return true;}return false;};
+    const pure=(x,y)=>{if(y<cut+1||y>380||!inDia(x,y,22)||band(x,y))return -1;const p=(y*W+x)*4;
+      return (S[p+3]===255&&Math.abs(S[p]-fr[0])+Math.abs(S[p+1]-fr[1])+Math.abs(S[p+2]-fr[2])<=60)?p:-1;};
+    const P0=[parseInt(pc.slice(1,3),16),parseInt(pc.slice(3,5),16),parseInt(pc.slice(5,7),16)];
+    const cl=v=>v<0?0:v>255?255:v;
+    for(let y=0;y<cut;y++)for(let x=0;x<W;x++){if(!inDia(x,y,0))continue;const q=(y*W+x)*4;if(D[q+3]===0)continue;
+      const m0=Math.floor((cut-y)/8)+1+(((x>>3)*5+(y>>3)*3)&3);let src=-1;
+      for(let m=m0;m<m0+12&&src<0;m++)src=pure(x,y+8*m);
+      for(let m=Math.floor((cut-y)/8)+1;m<m0&&src<0;m++)src=pure(x,y+8*m);
+      const t=src<0?fr:[S[src],S[src+1],S[src+2]];
+      for(let c=0;c<3;c++)D[q+c]=cl(Math.round(t[c]+D[q+c]-P0[c]));D[q+3]=255;}
+    /* 全解析 i/j（每格 16 單位；G(i,j)=[ax+4(i-j), top+2(i+j)]） */
+    const IJ=(x,y)=>{const u=(x+.5-ax)/4,v=(y+.5-top)/2;return[(u+v)/2,(v-u)/2];};
+    for(const z of zones){const inZ=(x,y)=>{const t=IJ(x,y);return t[0]>=z.i0&&t[0]<z.i1&&t[1]>=z.j0&&t[1]<z.j1;};
+      const xs=[z.i0-z.j0,z.i1-z.j0,z.i0-z.j1,z.i1-z.j1].map(d=>ax+4*d),ys=[z.i0+z.j0,z.i1+z.j1].map(s=>top+2*s);
+      const x0=Math.max(1,Math.floor(Math.min(...xs))-1),x1=Math.min(W-2,Math.ceil(Math.max(...xs))+1),y0=Math.max(1,Math.floor(ys[0])-1),y1=Math.min(H-2,Math.ceil(ys[1])+1);
+      const hit=[];
+      for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){if(!inZ(x,y))continue;
+        const edge=!inZ(x-1,y)||!inZ(x+1,y)||!inZ(x,y-1)||!inZ(x,y+1);hit.push([(y*W+x)*4,edge]);}
+      for(const [q,edge] of hit){const off=edge&&z.line!=null?z.line:z.off;for(let c=0;c<3;c++)D[q+c]=cl(D[q+c]+off[c]);}}
+    o.g.putImageData(od,0,0);
+  }
+  function ind121(draw,zones){
     const v0=B['121_1_0'];if(!v0||!v0.img)throw new Error('no v0 121');
     const W=v0.w,H=v0.h,ax=v0.ax,ay=v0.ay,hw=192,top=ay-hw,cut=322,lw=W>>1,lh=H>>1;
     const GB=mk(lw,lh),L=mk(lw,lh),TF=mk(lw,lh),L2=mk(lw,lh),NL=mk(lw,lh);
@@ -493,6 +549,7 @@
     const o=mk(W,H),pc='#817b70';
     A.dia(o.g,ax,top,hw,pc);A.diaEdge(o.g,6,'#46433f',ax,top,hw);A.diaEdge(o.g,9,shade(pc,22),ax,top,hw);
     o.g.clearRect(0,cut,W,H-cut);o.g.drawImage(v0.img,0,cut,W,H-cut,0,cut,W,H-cut);
+    if(zones)texFloor121(o,v0,cut,pc,zones);
     o.g.drawImage(GB.c,0,0,W,H);o.g.drawImage(L.c,0,0,W,H);o.g.drawImage(TF.c,0,0,W,H);o.g.drawImage(L2.c,0,0,W,H);
     const n=mk(W,H);n.g.drawImage(NL.c,0,0,W,H);n.g.save();n.g.globalCompositeOperation='destination-in';n.g.drawImage(o.c,0,0);n.g.restore();
     const sp={img:o.c,night:n.c,ax,ay,w:W,h:H,smoke:[]};if(v0.sc!==undefined)sp.sc=v0.sc;return sp;
@@ -501,11 +558,7 @@
   try{
     const K=121;
     B[K+'_1_1']=ind121(({bg,g,tg,g2,ng,G})=>{ // v1：催化裂解（FCC）擴建：鋼構反應器架＋雙塔＋高火炬＋球形槽
-      // 地面：混凝土墊、廠內道路
-      poly(bg,[G(16,14),G(33,14),G(33,28),G(16,28)],'#8f8a80');
-      poly(bg,[G(0,34),G(48,34),G(48,37),G(0,37)],'#5f5c57');
-      poly(bg,[G(33,26),G(47,26),G(47,44),G(33,44)],'#8c877d');
-      {const a=G(33,44),b=G(47,44),c=G(47,26);seg(bg,a[0],a[1],b[0],b[1],'#a9a397');seg(bg,b[0],b[1],c[0],c[1],'#5e5a53');}
+      // 地面（r5）：混凝土墊／廠內道路／LPG 槽區鋪面改走 texFloor121 全解析分區（見 ind121 第二參數）
       // 後排：蒸餾塔 ×2（高低）
       column(g,84,140,5,72,STEEL,{step:12,ladder:'#3b464d',top:'#c9d4d8'});
       P(g,83,66,2,3,'#6c7d86');P(g,84,64,1,2,'#e05a4a');
@@ -537,7 +590,13 @@
       for(let d=2;d<20;d+=5){fr(g2,cb.S,-1,d,3,4,3,'#3c4d58');fr(ng,cb.S,-1,d,3,4,3,'rgba(255,212,138,.9)');}
       fr(g2,cb.S,1,5,3,0,6,'#4a3a30');
       {const p=up(G(12.5,42),11);P(g2,p[0]-1,p[1]-4,3,4,'#6d777c');P(g2,p[0]-2,p[1]-5,5,1,'#8f999e');}
-    });
+      /* 覆核：繪製端 T364b 夜間暖帶寫死 raw (224..328,268..278)＝半解析 (112..164,134..139)；帶內補實體平台燈，讓光有燈具可落 */
+      for(const p of[[129,136],[145,136],[123,138],[112,133]]){P(tg,p[0],p[1],1,1,'#e8d9a0');P(ng,p[0],p[1],1,1,'rgba(255,214,140,.95)');}
+    },[ // 全解析地坪分區：色階＝地坪材質＋off；邊界 1px 2:1 斜線＝line
+      {i0:16,i1:33,j0:14,j1:28,off:[0,0,0],line:[-22,-22,-20]},      // FCC 鋼構基礎墊：同色，只留接縫
+      {i0:0,i1:33,j0:34,j1:37,off:[-30,-28,-23],line:null},           // 廠內道路（止於槽區鋪面）
+      {i0:33,i1:46,j0:26,j1:43,off:[0,0,0],line:[-22,-22,-20]}        // LPG 槽區鋪面：同色，只留接縫
+    ]);
     B[K+'_1_2']=ind121(({bg,g,tg,g2,ng,G})=>{ // v2：儲槽區型老廠：2×2 浮頂槽＋防液堤、加熱爐房＋紅白高煙囪、短塔
       // 防液堤（低矮圍堤，含內場）
       poly(bg,[G(1,15),G(33,15),G(33,47),G(1,47)],'#736e66');
@@ -549,6 +608,7 @@
       topEdge(g,hb,'#c2ccd0','#7d888e');
       for(let d=2;d<22;d+=4)fr(g,hb.S,-1,d,2,4,12,'#7f8b91');
       fr(g,hb.S,1,4,10,13,2,'#3e4a50');fr(ng,hb.S,1,5,8,13,2,'rgba(255,168,84,.85)');
+      fr(g,hb.S,-1,4,8,17,2,'#3e4a50');fr(ng,hb.S,-1,5,6,17,2,'rgba(255,168,84,.85)'); // 覆核：左面高側窗落在 T364b 夜間暖帶內
       fr(g,hb.S,-1,9,4,0,7,'#4a555b');
       {const x=137,yb=130,hh=94;cyl(g,x,yb,4,hh,['#e9ecea','#d1d6d5','#a9b0b1','#8c9496'],'#5a5f61','#c8cdcc');
         for(const t of[6,18,30])for(let xx=x-4;xx<x+4;xx++){const u=(xx+.5-x)/4,c=u<-.45?'#e0705e':u<.1?'#c94f3c':u<.62?'#a63e30':'#8a3327';P(g,xx,yb-hh+t,1,6,c);}
@@ -572,7 +632,7 @@
       for(let d=2;d<16;d+=5){fr(g2,cb.S,-1,d,3,5,3,'#3c4d58');fr(ng,cb.S,-1,d,3,5,3,'rgba(255,212,138,.9)');}
       for(let d=3;d<20;d+=6)fr(g2,cb.S,1,d,3,5,3,'#33434d');
       fr(g2,cb.S,-1,12,3,0,6,'#4a3a30');
-    });
+    },[]); // r5：v2 設計不動，只把上半地坪換成 v0 材質（消除 y=322 平色／材質接縫）
   }catch(e){console.error('v574 k121',e);}
 
   /* ---- k122/k123（T516 industrial-kit v0：244×280、1×、無 sc）：同參數重鋪地坪（metroPlate516），量體 1× 重畫 ----

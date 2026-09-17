@@ -1,0 +1,18 @@
+判定總數 117：pass 101／fix 16
+各批 pass/fix：b01 8/2  b02 11/1  b03 7/3  b04 10/1  b05 8/2  b06 9/1  b07 10/0  b08 9/3  b09 10/1  b10 9/1  b11 10/1
+
+【總監】32 類中 26 類通過、6 類退件：k79、k181、k50、k31、k95、k115。整體水準良好，大多數變體走的是結構差異（量體、高低胖瘦、年代語彙、附屬設施），不是刷色。夜圖大致守住了「先有燈具才有光」，沒看到憑空的大片光暈。最常見的退件原因是身分被新造型蓋過：鐘亭丟了碼頭線索、海豚劇場像帳篷或溫室、放射式監獄像城堡、石砌瞭望塔像燈塔、筒拱市民中心像機庫。其次是小變體太小太平，讀不出來（k50 露天礦坑）。另外兩個跨類提醒要交給整合者：k42 v1 畫布高度是 111，以及 k19、k62、k42 的變體依賴寫死的疊畫掛點。
+
+【總監】The three batches are generally good: 27 of 31 categories pass. Most variants change the structure itself (setbacks, wings, domes or towers, a new layout), not just colour. Line quality and lighting from the left match v0. The most common problem is that identity cues shrink too much in small redraws (k84 v1 and k185 read as an ordinary house or a generic lookout tower). Next most common is megastructures whose mass and night brightness are well above v0 (k105), plus a single large blank mass that looks unfinished (k35 v2 central pavilion). One more item for the integrator: in the redrawn categories, a flat v0 now sits alongside isometric variants, and the k76/k80 night-animation overlays do not line up with the variants.
+
+【總監】Overall these three batches are good. 29 of the 33 types pass. Most variants are full redraws with clear structural differences (tall/thin vs short/wide, different layouts, different eras), and night light mostly follows the rule that light needs a fixture. Four types need fixes: k78 (the banyan's aerial roots read as pavilion columns and the pine's props read as fence posts), k93 v2 (reads as a carousel), k96 v1 (diving tower unreadable) and k120 v2 (the hatchery has lost its pond identity). The shared problem is small parts that do not read at 1x. The most common integration issues are not art: v0's ay does not match its plate (k71/72/75/74/77/78), so variants sit at different heights from v0; overlays are pinned to v0 positions (the k71 birds, the k180 v2 balloon glow); k53 takes a custom draw path and needs variants wired in by hand; and k47's v0 is far below its variants, so upgrading it separately is recommended.
+
+【總監】b10 和 b11 共 21 類，整體水準高：幾乎每類的 v1、v2 都是結構層級的不同（量體、佈局、年代），身分清楚，夜光多半只落在白天畫出的燈具上。這一輪退 2 件。121 的 v1 地坪有接縫，前緣一塊偏亮的鋪面楔形帶著粗鋸齒邊界；131 的 v2 機庫門前車輛和貨櫃疊成一團。最常見的系統性問題不在變體本身：124–133 的 v0 是正立面圖，和等距變體混用時風格落差明顯，建議另開卡重畫 v0。122、123 要整合端放行 metroIndustrySprite516A，121 的 T364b 暖帶要改成依各變體座標，否則實機看不到變體或會漏光。
+
+unreviewable：[]
+
+b07 k184 設計名稱=節慶市集
+b07 k180 設計名稱=熱氣球基地
+b07 k186 設計名稱=夜光花園
+b08 k183 設計名稱=水舞光泉
+b08 k179 設計名稱=天燈廣場

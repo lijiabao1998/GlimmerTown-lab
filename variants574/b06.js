@@ -134,7 +134,13 @@
      winRow(sg,ng,nwS,1,5,33,8,16,3,7,'arch','#2a3a4c','#d8ccaa',LIT,353,.5);
      winRow(sg,ng,nwS,-1,6,17,8,16,3,7,'arch','#33465a','#f6eed8',LIT,354,.5);
      rbox(sg,pvS,9,9,28,'#f2e8cc','#cdbf9b','#b2a688');
-     band(sg,pvS,-1,0,18,28,3,'#faf4e2');band(sg,pvS,1,0,18,28,3,'#dccfae');band(sg,pvS,-1,0,18,25,1,'#c89e48');band(sg,pvS,1,0,18,25,1,'#a8843c');
+     // 中央館：簷口（受光頂緣 1px＋深色簷帶 2px）＋勒腳帶＋左右各三扇高窄拱窗（與兩翼同語彙、放大一號）
+     band(sg,pvS,-1,0,18,28,1,'#fbf6e6');band(sg,pvS,1,0,18,28,1,'#e4d8b8');
+     band(sg,pvS,-1,0,18,27,2,'#857858');band(sg,pvS,1,0,18,27,2,'#685e48');
+     band(sg,pvS,-1,0,18,4,1,'#b8ac88');band(sg,pvS,1,0,18,4,1,'#9c9070');
+     for(const side of [-1,1])for(const d of [3,8,13]){const w=3,h=10,yOff=19,x=side<0?pvS[0]-d-w:pvS[0]+d,y=faceY(pvS,d+(w>>1),side)-yOff;
+       A.winShape570(sg,null,x,y,w,h,'arch',side<0?'#33465a':'#2a3a4c',LIT,side<0?'#f6eed8':'#d8ccaa',false);
+       if((side<0&&d===8)||(side>0&&d===13)){P(ng,x+1,y-1,w-2,1,LIT);P(ng,x,y,w,h,LIT);}}
      P(sg,pvS[0],pvS[1]-28-18-8,1,9,'#6a6a72');P(sg,pvS[0]+1,pvS[1]-28-18-8,5,3,'#c84a48');
      // 玻璃金字塔
      const pS=G2(N,27,27),pW=G2(N,17,27),pE=G2(N,27,17),pc=G2(N,22,22),ap=[pc[0],pc[1]-21];

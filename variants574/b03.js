@@ -261,57 +261,69 @@
   /* ================= k31 監獄 ================= */
   try{
     const K=31,pc=v0col(K,2,'#7a7a6a');
-    const wL='#9a9a92',wR='#74746c',wT='#86867e';
-    // 角樓：方柱身＋外挑崗亭（深色觀察窗）＋四坡頂＋探照燈
-    const tower=(Y,I,u,v,h)=>{box(Y.l,I,u-2.5,u+2.5,v-2.5,v+2.5,0,h,wL,wR,wT,false);
-      box(Y.l,I,u-4,u+4,v-4,v+4,h,h+6,'#a4a49c','#7c7c74','#8a8a82',false);
-      paraL(Y.l,I,v+4,u-3,u+3,h+2,h+4,'#2e3440');paraR(Y.l,I,u+4,v-3,v+3,h+2,h+4,'#262c36');
-      hip(Y.l,I,u-5,u+5,v-5,v+5,h+6,5,['#6a6e76','#4e525a','#5a5e66','#5a5e66']);
-      const p=px(I(u,v,h+11));Y.l.fillStyle='#d8d8cc';Y.l.fillRect(p[0]-1,p[1]-1,3,2);Y.n.fillStyle='#fff6c8';Y.n.fillRect(p[0]-1,p[1]-1,3,2);
-      Y.n.fillStyle='#e8d890';const q=px(I(u-2,v+4,h+4));Y.n.fillRect(q[0],q[1],3,1);};
-    // 牆頂刺網：牆頂上方一條細線＋每 6 單位一根短柱
-    const wire=(Y,I,a,b,z)=>{line(Y.l,I(a[0],a[1],z+2),I(b[0],b[1],z+2),'#50545a');
-      const n=Math.round(Math.hypot(b[0]-a[0],b[1]-a[1])/6);for(let i=0;i<=n;i++){const t=i/n,p=px(I(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,z));Y.l.fillStyle='#5a5e64';Y.l.fillRect(p[0],p[1]-2,1,2);}};
-    {// v1：放射式監獄——十字翼舍＋中央圓廳＋四角樓高牆
+    {// v1：放射式老監獄（r3 重做）——方形混凝土崗樓×4（外挑崗亭＋平緩四坡頂＋朝內探照燈）、
+     //     牆頂刺網、後方兩條石砌牢房翼（縫窗列）＋中央圓廳（深石板頂）、砂石放風院、前牆降低＋門樓
       const S=scene(2,K,1),I=S.I;
+      const wL='#aeaca4',wR='#807e78',wT='#9c9a92';           // 圍牆混凝土
+      const cL='#c2b9a4',cR='#91897a',cE='#b6ad98';           // 牢房翼石砌
+      const rfL='#6c7482',rfD='#4c525e';                      // 深石板屋頂
+      const SLIT='#262a32',LIT='#ecd690';
+      // 崗樓：方柱身＋托板＋外挑崗亭（兩面觀察窗）＋簷板＋平緩四坡頂＋朝院內的探照燈頭（亮黃 2x2）
+      const tower=(Y,u,v,h)=>{
+        box(Y.l,I,u-2.5,u+2.5,v-2.5,v+2.5,0,h,'#b4b2aa','#83817b','#9e9c94',false);
+        box(Y.l,I,u-4.5,u+4.5,v-4.5,v+4.5,h,h+1.5,'#9c9a92','#6e6c66','#a8a69e',false);
+        box(Y.l,I,u-4,u+4,v-4,v+4,h+1.5,h+7,'#cac8be','#94928a','#a8a69e',false);
+        for(const [a,b] of [[-3.2,-.6],[.6,3.2]]){paraL(Y.l,I,v+4,u+a,u+b,h+3.5,h+5.8,'#2c323c');paraR(Y.l,I,u+4,v+a,v+b,h+3.5,h+5.8,'#242830');}
+        box(Y.l,I,u-5.5,u+5.5,v-5.5,v+5.5,h+7,h+8,'#8a8e96','#5c6068','#7a7e86',false);
+        hip(Y.l,I,u-5.5,u+5.5,v-5.5,v+5.5,h+8,2.5,['#747a84','#50555e','#646a72','#646a72']);
+        const du=u<32?1:-1,dv=v<32?1:-1,p=px(I(u+du*3,v+dv*3,h+9.6));
+        Y.l.fillStyle='#3a3e46';Y.l.fillRect(p[0],p[1]-2,1,2);
+        const hx=p[0]+(du-dv>0?0:(du-dv<0?-1:0)),hy=p[1]-4;
+        Y.l.fillStyle='#ffe23c';Y.l.fillRect(hx,hy,2,2);Y.n.fillStyle='#fff3a8';Y.n.fillRect(hx,hy,2,2);};
+      // 刺網：牆頂上方 3px 的 1px 深色線＋每 4 單位一根小樁（樁頂一點淺色）；不描邊
+      const wire=(Y,a,b,z)=>{line(Y.l,I(a[0],a[1],z+4),I(b[0],b[1],z+4),'#2a2e36');
+        const n=Math.max(1,Math.round(Math.hypot(b[0]-a[0],b[1]-a[1])/4));
+        for(let i=0;i<=n;i++){const t=i/n,p=px(I(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,z+4));
+          Y.l.fillStyle='#3a3e46';Y.l.fillRect(p[0],p[1],1,3);Y.l.fillStyle='#c8ccd0';Y.l.fillRect(p[0],p[1]-1,1,1);}};
       plateOn(S.g,S.ax,S.ay,2,pc,S.rk,26);
-      paraT(S.g,I,6,58,6,58,0,sh(pc,-18));
-      paraT(S.g,I,42,56,40,56,0,'#6c7658');paraT(S.g,I,43,55,47.5,48.5,0,'#8a9476');
-      let Y=lay(S);tower(Y,I,5,5,24);com(S,Y);/*後角樓*/
-      Y=lay(S);box(Y.l,I,5,59,4,6,0,14,wL,wR,wT);box(Y.l,I,4,6,5,59,0,14,wL,wR,wT);
-      wire(Y,I,[6,5],[59,5],14);wire(Y,I,[5,6],[5,59],14);com(S,Y);
-      Y=lay(S);tower(Y,I,59,5,24);com(S,Y);
-      // 後兩翼
-      Y=lay(S);const cL='#aeaca2',cR='#807e76',cT='#a4a298';
-      box(Y.l,I,27,37,9,24,0,19,cL,cR,cT);box(Y.l,I,9,24,25,35,0,19,cL,cR,cT);
-      for(let v=11;v<23;v+=3)for(const z of [7,14])paraR(Y.l,I,37,v,v+1,z-4,z,'#3a3e46');
-      for(let u=10;u<23;u+=3)for(const z of [7,14]){paraL(Y.l,I,35,u,u+1,z-4,z,'#3a3e46');if(S.rk()<.22){const p=px(I(u,35,z));Y.n.fillStyle='#e0cc88';Y.n.fillRect(p[0],p[1],1,3);}}
+      paraT(S.g,I,6,58,6,58,0,'#aca283');                      // 砂石放風院（淺）
+      paraT(S.g,I,28,34,40,58,0,'#c4bba0');                    // 門樓→圓廳步道
+      paraT(S.g,I,42,54,41,53,0,'#9c9274');line(S.g,I(42,47,0),I(54,47,0),'#c4bba0'); // 運動場
+      castShadow(S,25,37,6.5,24,8,.16);castShadow(S,6.5,24,25,37,8,.16);
+      let Y=lay(S);box(Y.l,I,7.5,56.5,4,6,0,14,wL,wR,wT);box(Y.l,I,4,6,7.5,56.5,0,14,wL,wR,wT);com(S,Y);
+      Y=lay(S);wire(Y,[7.5,5],[56.5,5],14);wire(Y,[5,7.5],[5,56.5],14);com(S,Y,0);
+      Y=lay(S);tower(Y,5,5,22);com(S,Y);/*後角樓：柱身角突出於兩牆內角，須畫在牆後面的圖層之上*/
+      Y=lay(S);tower(Y,59,5,22);tower(Y,5,59,22);com(S,Y);
+      // 後右牢房翼（脊沿 v；右面縫窗兩列）＋後左牢房翼（脊沿 u）同一圖層、在圓廳下交會（避免兩屋頂間露出 1px 縫）
+      Y=lay(S);box(Y.l,I,25,37,6.5,31,0,16,cL,cR,null);
+      gableV(Y.l,I,25,37,6.5,31,16,5,rfD,rfL,cE);
+      for(let v=8,i=0;v<23;v+=4,i++)for(const [z,r] of [[7,0],[13,1]]){const p=px(I(37,v,z));Y.l.fillStyle=SLIT;Y.l.fillRect(p[0],p[1],1,4);
+        if((i+r)%2===0){Y.n.fillStyle=LIT;Y.n.fillRect(p[0],p[1],1,4);}}
+      box(Y.l,I,6.5,31,25,37,0,16,cL,cR,null);
+      gableU(Y.l,I,6.5,31,25,37,16,5,rfL,rfD,cE);
+      for(let u=9,i=0;u<23;u+=4,i++)for(const [z,r] of [[7,1],[13,0]]){const p=px(I(u,37,z));Y.l.fillStyle=SLIT;Y.l.fillRect(p[0],p[1],1,4);
+        if((i+r)%2===0){Y.n.fillStyle=LIT;Y.n.fillRect(p[0],p[1],1,4);}}
       com(S,Y);
-      // 中央圓廳
-      Y=lay(S);cyl(Y.l,I,32,30,9,0,25,'#b4b2a8','#86847c','#9a988e');
-      for(let a=0;a<5;a++){const t=-.8+a*.4,p=I(32,30,0);const x=Math.round(p[0]+t*9*Math.SQRT2);Y.l.fillStyle=t<.3?'#4a4e56':'#32363e';Y.l.fillRect(x,Math.round(p[1]+Math.sqrt(1-t*t)*6.3)-20,1,5);Y.l.fillRect(x,Math.round(p[1]+Math.sqrt(1-t*t)*6.3)-12,1,5);
-        if(a===1||a===3){Y.n.fillStyle='#e0cc88';Y.n.fillRect(x,Math.round(p[1]+Math.sqrt(1-t*t)*6.3)-20,1,4);}}
-      cone(Y.l,I,32,30,25,10,9,'#6e727a','#5a5e66','#464a52');
-      {const p=px(I(32,30,34));Y.l.fillStyle='#3e4248';Y.l.fillRect(p[0],p[1]-3,1,3);Y.l.fillStyle='#d8d8cc';Y.l.fillRect(p[0]-1,p[1]-5,3,2);Y.n.fillStyle='#fff6c8';Y.n.fillRect(p[0]-1,p[1]-5,3,2);}
+      // 中央圓廳：石砌圓柱＋縫窗＋簷口＋深石板低錐頂＋通風燈亭
+      Y=lay(S);cyl(Y.l,I,31,31,8.5,0,22,'#ccc3ae','#948c7c','#b0a894');
+      for(let a=0;a<5;a++){const t=-.76+a*.38;for(const z of [8,15]){const p=cylPt(I,31,31,8.5,t,z);Y.l.fillStyle=SLIT;Y.l.fillRect(p[0],p[1],1,4);
+        if((a===1&&z===15)||(a===3&&z===8)){Y.n.fillStyle=LIT;Y.n.fillRect(p[0],p[1],1,4);}}}
+      cyl(Y.l,I,31,31,9.3,22,23.5,'#a8a08c','#787062','#8e8674');
+      cone(Y.l,I,31,31,23.5,9.8,6,'#5e6672','#4c525e','#3a3f48');
+      cyl(Y.l,I,31,31,2.2,27.5,30.5,'#bcb4a0','#857d6e','#9c9482');
+      cone(Y.l,I,31,31,30.5,3,2,'#5e6672','#4c525e','#3a3f48');
       com(S,Y);
-      // 前兩翼
-      Y=lay(S);
-      box(Y.l,I,40,55,25,35,0,19,cL,cR,cT);box(Y.l,I,27,37,38,53,0,19,cL,cR,cT);
-      for(let u=42;u<54;u+=3)for(const z of [7,14]){paraL(Y.l,I,35,u,u+1,z-4,z,'#3a3e46');if(S.rk()<.22){const p=px(I(u,35,z));Y.n.fillStyle='#e0cc88';Y.n.fillRect(p[0],p[1],1,3);}}
-      for(let v=27;v<34;v+=3)for(const z of [7,14])paraR(Y.l,I,55,v,v+1,z-4,z,'#34383f');
-      for(let v=40;v<52;v+=3)for(const z of [7,14]){paraR(Y.l,I,37,v,v+1,z-4,z,'#34383f');if(S.rk()<.2){const p=px(I(37,v+1,z));Y.n.fillStyle='#d8c480';Y.n.fillRect(p[0],p[1],1,3);}}
+      // 前兩道牆（降到 10）
+      Y=lay(S);box(Y.l,I,57,59,7.5,56.5,0,10,wL,wR,wT);box(Y.l,I,7.5,56.5,57,59,0,10,wL,wR,wT);com(S,Y);
+      Y=lay(S);wire(Y,[58,7.5],[58,56.5],10);wire(Y,[7.5,58],[23,58],10);wire(Y,[39,58],[56.5,58],10);com(S,Y,0);
+      // 門樓（前左牆正中，對圓廳步道）
+      Y=lay(S);box(Y.l,I,24,38,55,61,0,15,'#b8b6ae','#8a8882','#a09e96');
+      box(Y.l,I,23.5,38.5,54.5,61.5,15,16.5,'#c8c6be','#96948c','#aeaca4',false);
+      paraL(Y.l,I,61,28,34,0,9,'#2a2e36');
+      for(const u of [29,31,33]){const a=px(I(u,61,9)),b=px(I(u,61,0));Y.l.fillStyle='#646a72';Y.l.fillRect(a[0],a[1],1,b[1]-a[1]);}
+      paraL(Y.l,I,61,26,36,11,13,'#d6d4ca');
       com(S,Y);
-      Y=lay(S);
-      box(Y.l,I,57,59,6,57,0,14,wL,wR,wT);box(Y.l,I,6,57,57,59,0,14,wL,wR,wT);
-      wire(Y,I,[58,6],[58,57],14);wire(Y,I,[6,58],[57,58],14);
-      // 門樓
-      box(Y.l,I,25,39,55,61,0,20,'#aeaca2','#84827a','#96948c');
-      paraL(Y.l,I,61,29,35,0,11,'#2a2e36');for(let u=30;u<35;u+=1.5)paraL(Y.l,I,61,u,u+.5,0,11,'#5a5e66');
-      paraL(Y.l,I,61,25,39,17,18,'#c8c6bc');
-      {const p=px(I(32,61,15));Y.l.fillStyle='#d8d8cc';Y.l.fillRect(p[0]-3,p[1],2,2);Y.l.fillRect(p[0]+2,p[1],2,2);Y.n.fillStyle='#fff0b0';Y.n.fillRect(p[0]-3,p[1],2,2);Y.n.fillRect(p[0]+2,p[1],2,2);}
-      tower(Y,I,5,59,24);
-      com(S,Y);
-      Y=lay(S);tower(Y,I,59,59,24);com(S,Y);
+      Y=lay(S);tower(Y,59,59,22);com(S,Y);
       fin(S);
     }
     {// v2：現代高度戒備監獄——高板牢房樓＋行政樓＋雙層鐵網＋鋼構崗哨＋運動場
@@ -490,32 +502,56 @@
   /* ================= k95 消防瞭望塔 ================= */
   try{
     const K=95,pc=v0col(K,1,'#9aa07e');
-    {// v1：石砌圓塔——收分塔身＋挑出迴廊＋木造瞭望亭＋紅色圓錐頂；塔腳木工具棚
-      const S=scene(1,K,1),I=S.I;
+    {// v1：石砌圓塔（r3 重做塔頂）——收分石塔身＋木托架＋八角迴廊平台（淺木欄杆）＋外挑八角玻璃瞭望亭＋平緩八角頂；
+     //     塔腳單坡頂工具棚（門＋小窗）
+      const S=scene(1,K,1),I=S.I,cu=16,cv=16;
+      // 八角形：頂點在 22.5°+45°k；可見立面 i=0(+u 暗)、1(正面 中)、2(+v 亮)
+      const DEG=Math.PI/180,ov=(R,a)=>[cu+Math.cos(a*DEG)*R,cv+Math.sin(a*DEG)*R];
+      const FA=[[-22.5,22.5],[22.5,67.5],[67.5,112.5]];
+      const face=(g,R,i,z0,z1,col)=>{const a=ov(R,FA[i][0]),b=ov(R,FA[i][1]);Q(g,I,[[a[0],a[1],z0],[b[0],b[1],z0],[b[0],b[1],z1],[a[0],a[1],z1]],col);};
+      const octTop=(g,R,z,col)=>{const P=[];for(let k=0;k<8;k++){const q=ov(R,22.5+45*k);P.push([q[0],q[1],z]);}Q(g,I,P,col);};
+      const octRoof=(g,R,z,H,cols)=>{// cols 依受光：0 最亮(135°)…4 最暗(315°)
+        const lvl={135:0,90:1,180:1,45:2,225:2,0:3,270:3,315:4},ord=[315,270,0,225,180,45,135,90];
+        for(const n of ord){const a=ov(R,n-22.5),b=ov(R,n+22.5);Q(g,I,[[a[0],a[1],z],[b[0],b[1],z],[cu,cv,z+H]],cols[lvl[n]]);}};
       plateOn(S.g,S.ax,S.ay,1,pc,S.rk,10);
       paraT(S.g,I,13,17,22,32,0,sh(pc,14));
-      castShadow(S,10,22,10,22,16,.18);
+      castShadow(S,10,22,10,22,16,.18);castShadow(S,3,12,22,29,6,.16);
       let Y=lay(S);
-      cyl(Y.l,I,16,16,6.5,0,8,'#bab09c','#8a8070');
-      cyl(Y.l,I,16,16,5.5,8,46,'#c8bfaa','#928a78');
-      for(const z of [8,16,24,32,40])ring(Y.l,I,16,16,z===8?6.5:5.5,z,'#a49a86',2);
-      {const p=cylPt(I,16,16,6.5,-.25,0);Y.l.fillStyle='#5a3e28';Y.l.fillRect(p[0]-1,p[1]-7,3,6);Y.l.fillRect(p[0],p[1]-8,1,1);Y.l.fillStyle='#e0d6c0';Y.l.fillRect(p[0]-2,p[1]-9,5,1);}
-      for(const [t,z] of [[-.35,22],[.2,34]]){const p=cylPt(I,16,16,5.5,t,z);Y.l.fillStyle='#343844';Y.l.fillRect(p[0],p[1]-3,1,3);}
-      // 迴廊托座＋平台
-      cyl(Y.l,I,16,16,7.8,44,47,'#b4aa94','#80786a','#a0967e');
-      for(let i=0;i<6;i++){const t=-.85+i*.34,p=cylPt(I,16,16,7.8,t,47);Y.l.fillStyle=t<.3?'#6a5238':'#4e3c2a';Y.l.fillRect(p[0],p[1]-4,1,4);}
-      ring(Y.l,I,16,16,7.8,51,'#6a5238');
-      // 瞭望亭
-      cyl(Y.l,I,16,16,5,47,56,'#d0b890','#9c8460');
-      for(let i=0;i<4;i++){const t=-.72+i*.48,p=cylPt(I,16,16,5,t,54);Y.l.fillStyle=t<.3?'#3c4c5c':'#30404e';Y.l.fillRect(p[0],p[1]-1,t<0?2:2,4);
-        Y.n.fillStyle='#ffd98a';Y.n.fillRect(p[0],p[1]-1,2,4);}
-      cone(Y.l,I,16,16,56,7.5,13,'#e06a48','#c65434','#943a26');
-      {const p=px(I(16,16,69));Y.l.fillStyle='#4a3a2a';Y.l.fillRect(p[0],p[1]-5,1,5);Y.l.fillStyle='#e04a3a';Y.l.fillRect(p[0]+1,p[1]-5,3,2);}
+      cyl(Y.l,I,cu,cv,6.5,0,8,'#a2957c','#74695a');
+      cyl(Y.l,I,cu,cv,5.5,8,44,'#b2a58c','#817560');
+      for(const z of [8,14,20,26,32,38])ring(Y.l,I,cu,cv,z===8?6.5:5.5,z,'#8e8270',2);
+      {const p=cylPt(I,cu,cv,6.5,-.25,0);Y.l.fillStyle='#5a3e28';Y.l.fillRect(p[0]-1,p[1]-7,3,6);Y.l.fillRect(p[0],p[1]-8,1,1);Y.l.fillStyle='#e0d6c0';Y.l.fillRect(p[0]-2,p[1]-9,5,1);}
+      for(const [t,z] of [[-.35,22],[.2,32]]){const p=cylPt(I,cu,cv,5.5,t,z);Y.l.fillStyle='#343844';Y.l.fillRect(p[0],p[1]-3,1,3);}
+      // 迴廊平台（八角，R10.5）
+      octTop(Y.l,10.5,46.5,'#b89468');
+      face(Y.l,10.5,0,44,46.5,'#5e4630');face(Y.l,10.5,1,44,46.5,'#80623f');face(Y.l,10.5,2,44,46.5,'#9a7a56');
+      // 瞭望亭（八角，R8.8）：下段木牆＋6px 淺藍玻璃帶＋上檻
+      const WD=['#4e3a2a','#654a34','#7c5c40'],GL=['#6a9cbc','#8cc0dc','#aad8ee'];
+      for(let i=0;i<3;i++){face(Y.l,8.8,i,46.5,49,WD[i]);face(Y.l,8.8,i,49,55,GL[i]);face(Y.l,8.8,i,55,56.5,WD[i]);}
+      // 窗框豎條：四個角柱＋每面中梃（1px 深色）
+      const FR='#3a2e24',mull=[-22.5,0,22.5,45,67.5,90,112.5].map(a=>{const R=(a%45===0)?8.8*Math.cos(22.5*DEG):8.8;return px(I(...ov(R,a),55));});
+      for(const p of mull){Y.l.fillStyle=FR;Y.l.fillRect(p[0],p[1],1,6);}
+      octRoof(Y.l,10.2,56.5,4.5,['#c8664a','#b0553c','#944630','#763624','#5e2c1e']);
+      {const p=px(I(cu,cv,61));Y.l.fillStyle='#4a3a2a';Y.l.fillRect(p[0],p[1]-4,1,4);Y.l.fillStyle='#e04a3a';Y.l.fillRect(p[0]+1,p[1]-4,3,2);}
       com(S,Y);
-      // 塔腳工具棚
-      Y=lay(S);box(Y.l,I,21,29,17,26,0,7,'#b8946a','#8a6a48','#9a7a54',false);
-      gableU(Y.l,I,20.5,29.5,16.5,26.5,7,4,'#7a5a3e','#96724e','#8a6a48');
-      {const p=px(I(23,26,6));Y.l.fillStyle='#4a3424';Y.l.fillRect(p[0],p[1],3,5);}
+      // 夜：整圈玻璃分格亮（alpha .6），窗框豎條留暗
+      for(let i=0;i<3;i++)face(S.ng,8.8,i,49,55,'rgba(255,222,150,.6)');
+      for(const p of mull)S.ng.clearRect(p[0],p[1],1,6);
+      // 托架（深木斜撐）＋欄杆（淺木色 1px 水平扶手＋立柱），不描邊
+      Y=lay(S);
+      for(const a of [-30,15,45,75,120]){const b0=ov(5.5,a),b1=ov(10.2,a);line(Y.l,I(b0[0],b0[1],35),I(b1[0],b1[1],44),'#3e2e20');}
+      {const RR=10.5,pts=[-22.5,22.5,67.5,112.5].map(a=>ov(RR,a));
+        for(let i=0;i<3;i++)line(Y.l,I(pts[i][0],pts[i][1],50),I(pts[i+1][0],pts[i+1][1],50),'#f2dcae');
+        for(const a of [-22.5,22.5,45,67.5,112.5]){const R=(a===45)?RR*Math.cos(22.5*DEG):RR,q=px(I(...ov(R,a),50));Y.l.fillStyle='#d8b684';Y.l.fillRect(q[0],q[1]+1,1,3);}}
+      com(S,Y,0);
+      // 塔腳工具棚（單坡頂：後高前低）
+      Y=lay(S);{const u0=3,u1=12,v0=22,v1=29;
+        Q(Y.l,I,[[u1,v0,0],[u1,v1,0],[u1,v1,6],[u1,v0,11]],'#8a6a48');
+        paraL(Y.l,I,v1,u0,u1,0,6,'#c49a68');
+        Q(Y.l,I,[[u0-.5,v0-.5,11.3],[u1+.8,v0-.5,11.3],[u1+.8,v1+.8,5.3],[u0-.5,v1+.8,5.3]],'#6e787c');
+        for(const u of [5.5,9]){line(Y.l,I(u,v0,11),I(u,v1+.5,5.6),'#58626a');}
+        const e0=I(u0-.5,v1+.8,5.3),e1=I(u1+.8,v1+.8,5.3);line(Y.l,e0,e1,'#a4aeb2');
+        paraL(Y.l,I,v1,6,8.5,0,5.5,'#4a3424');paraL(Y.l,I,v1,10,11.2,3,5,'#34404c');}
       {const p=px(I(28,28,0));Y.l.fillStyle='#c83a30';Y.l.fillRect(p[0],p[1]-4,2,4);Y.l.fillStyle='#e8e0d0';Y.l.fillRect(p[0],p[1]-3,2,1);}
       com(S,Y);
       fin(S);
@@ -854,43 +890,67 @@
       com(S,Y);
       fin(S);
     }
-    {// v2：現代市民會館——筒拱大屋頂＋全玻璃前廳＋雨遮＋前方下沉式階梯劇場＋時鐘標誌柱
+    {// v2（r3 重做）：現代市民會館——筒拱大廳縮短約 34%（屋頂只留 2 條肋線、側面改成規律窗帶）＋
+     //     拱端方形玻璃門廳＋挑高平板雨遮與名稱橫牌（淺牌面＋深字帶）＋入口廣場軸線上的時鐘標誌柱＋左前階梯劇場
       const S=scene(3,K,2),I=S.I;
       plateOn(S.g,S.ax,S.ay,3,pc,S.rk,40);
-      paraT(S.g,I,24,74,52,92,0,'#cfc8b6');
-      let Y=lay(S);
-      // 標誌柱（在後左）
-      {const p0=[4,48];box(Y.l,I,p0[0],p0[0]+5,p0[1],p0[1]+5,0,40,'#f2f0ea','#c4c2ba','#dcdad2',false);
-        paraL(Y.l,I,p0[1]+5,p0[0],p0[0]+5,8,30,'#d04a3e');paraR(Y.l,I,p0[0]+5,p0[1],p0[1]+5,8,30,'#3a6ab0');
-        const c=px(I(p0[0]+2.5,p0[1]+5,37));Y.l.fillStyle='#fbfaf6';Y.l.fillRect(c[0]-2,c[1]-2,4,4);Y.l.fillStyle='#2a2e34';Y.l.fillRect(c[0]-1,c[1]-1,1,2);Y.l.fillRect(c[0]-1,c[1],2,1);
-        Y.n.fillStyle='#fff0c0';Y.n.fillRect(c[0]-2,c[1]-2,4,4);}
-      com(S,Y);
-      // 會館本體＋筒拱屋頂
-      Y=lay(S);{const u0=14,u1=84,v0=10,v1=46,h=22,rise=16;
+      paraT(S.g,I,10,86,44,56,0,'#d0c9b7');                   // 建築前緣鋪面
+      paraT(S.g,I,60,76,56,94,0,'#dcd5c3');                   // 入口廣場軸線步道
+      line(S.g,I(68,57,0),I(68,93,0),'#c4bca8');
+      castShadow(S,12,78,12,44,12,.15);
+      const GLA='#5a7a96',GLR='#44607a',MUL='#eef0ee',NGT='rgba(255,236,190,.55)';
+      // 筒拱大廳（u 12..58）
+      let Y=lay(S);{const u0=12,u1=58,v0=12,v1=44,h=20,rise=13;
         box(Y.l,I,u0,u1,v0,v1,0,h,'#eeebe3','#c4c0b6',null);
-        paraL(Y.l,I,v1,u0+3,u1-3,2,h-2,'#3e566c');
-        for(let u=u0+3;u<=u1-3;u+=5)paraL(Y.l,I,v1,u,u+.6,2,h-2,'#b8c8d4');
-        paraL(Y.l,I,v1,u0+3,u1-3,11,12,'#d8dee2');
-        for(let u=u0+3.6;u<u1-4;u+=5){if(S.rk()<.5)paraL(Y.n,I,v1,u,u+4.4,2.5,10.8,'rgba(255,236,190,.5)');if(S.rk()<.3)paraL(Y.n,I,v1,u,u+4.4,12.2,h-2.5,'rgba(255,236,190,.4)');}
-        for(let v=14;v<44;v+=6)paraR(Y.l,I,u1,v,v+3,6,17,'#3a4c5e');
+        paraL(Y.l,I,v1,u0+3,u1-3,4,15,'#3e566c');
+        paraL(Y.l,I,v1,u0+3,u1-3,10,11,'#d8dee2');
+        for(let i=0,u=u0+3;u<=u1-3+.01;u+=5,i++){const a=px(I(u,v1,15)),b=px(I(u,v1,4));Y.l.fillStyle='#c8d4dc';Y.l.fillRect(a[0],a[1],1,b[1]-a[1]);
+          if(u<u1-4&&i%3===1)paraL(Y.n,I,v1,u+.8,u+4.6,4.6,9.6,'rgba(255,236,190,.5)');}
+        paraL(Y.l,I,v1,u0,u1,17,18,'#d6d2c8');
         const N=18,zs=[];for(let i=0;i<=N;i++){const v=v0+(v1-v0)*i/N;zs.push([v,h+rise*Math.sin(Math.PI*i/N)]);}
         Q(Y.l,I,[[u1,v0,h]].concat(zs.map(q=>[u1,q[0],q[1]])).concat([[u1,v1,h]]),'#d2cec4');
         for(let i=0;i<N;i++){const a=zs[i],b=zs[i+1];const slope=(b[1]-a[1]);
           const col=slope>3?'#9aa8b2':slope>0?'#b6c2ca':slope>-3?'#cdd6dc':'#bcc8d0';
           Q(Y.l,I,[[u0,a[0],a[1]],[u1,a[0],a[1]],[u1,b[0],b[1]],[u0,b[0],b[1]]],col);}
         for(let i=0;i<N;i++){const a=zs[i],b=zs[i+1];line(Y.l,I(u1,a[0],a[1]),I(u1,b[0],b[1]),'#f6f4ee');}
-        for(let u=u0+12;u<u1-4;u+=23){for(let i=0;i<N;i++){const a=zs[i],b=zs[i+1];line(Y.l,I(u,a[0],a[1]),I(u,b[0],b[1]),'#98a4ac');}}
+        for(const u of [27,43]){for(let i=0;i<N;i++){const a=zs[i],b=zs[i+1];line(Y.l,I(u,a[0],a[1]),I(u,b[0],b[1]),'#98a4ac');}}
       }
-      // 雨遮
-      box(Y.l,I,36,62,46,55,12,13.5,'#f6f4ee','#c8c6be','#e8e6de',false);
-      for(const u of [37,61]){const a=px(I(u,54.5,0)),b=px(I(u,54.5,12));Y.l.fillStyle='#8a9098';Y.l.fillRect(a[0],b[1],1,a[1]-b[1]);}
       com(S,Y);
-      // 階梯劇場（往前遞降）＋舞台
-      Y=lay(S);{for(let i=0;i<5;i++){const va=58+i*4,hh=(5-i)*1.6;box(Y.l,I,30,68,va,va+4,0,hh,'#d8d2c4','#aca698','#e6e0d2',false);paraL(Y.l,I,va+4,30,68,hh-.6,hh,'#f2eee4');}
-        box(Y.l,I,38,60,78,88,0,2.4,'#b89a70','#8e7454','#c8aa80',false);
-        for(const u of [39,59]){const p=px(I(u,87,2.4));Y.l.fillStyle='#50565e';Y.l.fillRect(p[0],p[1]-14,1,14);Y.l.fillStyle='#e8ecf0';Y.l.fillRect(p[0]-1,p[1]-15,3,2);Y.n.fillStyle='#fff4d0';Y.n.fillRect(p[0]-1,p[1]-15,3,2);}}
-      {let p=px(I(90,60,0));roundTree(Y.l,p[0],p[1],6);p=px(I(88,82,0));roundTree(Y.l,p[0],p[1],6);p=px(I(10,72,0));roundTree(Y.l,p[0],p[1],6);}
-      for(let i=0;i<3;i++){const p=px(I(20,56+i*8,0));Y.l.fillStyle='#8a8a92';Y.l.fillRect(p[0],p[1]-16,1,16);Y.l.fillStyle=flags[i+1];Y.l.fillRect(p[0]+1,p[1]-16,2,8);}
+      // 方形玻璃門廳（u 58..78, v 18..38, 高 28）：白色豎梃＋橫檔，夜間整排分格亮
+      Y=lay(S);{const u0=58,u1=78,v0=18,v1=38,h=28,US=[59,63.5,68,72.5,77],ZS=[1,9.5,18.5,27];
+        box(Y.l,I,u0,u1,v0,v1,0,h,'#e6e4dc','#b8b6ae','#d4d2ca');
+        paraL(Y.l,I,v1,US[0],US[4],ZS[0],ZS[3],GLA);paraR(Y.l,I,u1,v0+1,v1-1,ZS[0],ZS[3],GLR);
+        for(const z of ZS.slice(1,3)){paraL(Y.l,I,v1,US[0],US[4],z-.9,z,MUL);paraR(Y.l,I,u1,v0+1,v1-1,z-.9,z,'#c8ccd0');}
+        for(const u of US){const a=px(I(u,v1,ZS[3])),b=px(I(u,v1,ZS[0]));Y.l.fillStyle=MUL;Y.l.fillRect(a[0],a[1],1,b[1]-a[1]);}
+        for(const v of [19,23.5,28,32.5,37]){const a=px(I(u1,v,ZS[3])),b=px(I(u1,v,ZS[0]));Y.l.fillStyle='#c8ccd0';Y.l.fillRect(a[0],a[1],1,b[1]-a[1]);}
+        paraL(Y.l,I,v1,65,71,ZS[0],7.5,'#2c3c4c');{const a=px(I(68,v1,7.5)),b=px(I(68,v1,1));Y.l.fillStyle=MUL;Y.l.fillRect(a[0],a[1],1,b[1]-a[1]);}
+        box(Y.l,I,u0-.5,u1+.5,v0-.5,v1+.5,h,h+1.5,'#f6f4ee','#c8c6be','#e8e6de',false);
+        for(let i=0;i<4;i++)for(let j=0;j<3;j++){if(j===0&&i>=1&&i<=2)continue;
+          paraL(Y.n,I,v1,US[i]+.7,US[i+1]-.3,ZS[j]+.3,ZS[j+1]-1,NGT);}
+        paraL(Y.n,I,v1,65.3,70.7,1.3,7.2,NGT);
+        const VS=[19,23.5,28,32.5,37];for(let i=0;i<4;i++)for(let j=0;j<3;j++)paraR(Y.n,I,u1,VS[i]+.3,VS[i+1]-.7,ZS[j]+.3,ZS[j+1]-1,'rgba(255,236,190,.45)');
+      }
+      com(S,Y);
+      // 挑高平板雨遮＋名稱橫牌（v 38..45，z 16）
+      Y=lay(S);{
+        for(const u of [59.5,76.5]){const a=px(I(u,44.3,0)),b=px(I(u,44.3,16));Y.l.fillStyle='#8a9098';Y.l.fillRect(a[0],b[1],1,a[1]-b[1]);}
+        box(Y.l,I,57,79,38,45,16,17.3,'#f6f4ee','#c8c6be','#e8e6de',false);
+        box(Y.l,I,60,76,44.2,45,17.3,22.5,'#f6f4ec','#c8c6be','#e2e0d8',false);
+        paraL(Y.l,I,45,62,74,18.8,20.6,'#2e3a4a');}
+      com(S,Y);
+      // 階梯劇場（左前，往前遞降）＋舞台＋舞台燈
+      Y=lay(S);{for(let i=0;i<4;i++){const va=50+i*4,hh=(4-i)*1.6;box(Y.l,I,16,48,va,va+4,0,hh,'#d8d2c4','#aca698','#e6e0d2',false);paraL(Y.l,I,va+4,16,48,hh-.6,hh,'#f2eee4');}
+        box(Y.l,I,22,42,66,74,0,2.4,'#b89a70','#8e7454','#c8aa80',false);
+        for(const u of [23,41]){const p=px(I(u,73,2.4));Y.l.fillStyle='#50565e';Y.l.fillRect(p[0],p[1]-13,1,13);Y.l.fillStyle='#e8ecf0';Y.l.fillRect(p[0]-1,p[1]-14,3,2);Y.n.fillStyle='#fff4d0';Y.n.fillRect(p[0]-1,p[1]-14,3,2);}}
+      com(S,Y);
+      // 旗列（軸線步道右側）＋時鐘標誌柱（入口廣場軸線 u=68 上，靠近入口）＋樹
+      Y=lay(S);
+      for(let i=0;i<3;i++){const p=px(I(81,56+i*8,0));Y.l.fillStyle='#8a8a92';Y.l.fillRect(p[0],p[1]-17,1,17);Y.l.fillStyle=flags[i+1];Y.l.fillRect(p[0]+1,p[1]-17,2,8);}
+      {const u=68,v=68;box(Y.l,I,u-2,u+2,v-2,v+2,0,30,'#f2f0ea','#c4c2ba','#dcdad2',false);
+        paraL(Y.l,I,v+2,u-2,u+2,5,22,'#d04a3e');paraR(Y.l,I,u+2,v-2,v+2,5,22,'#3a6ab0');
+        const c=px(I(u,v+2,27));Y.l.fillStyle='#fbfaf6';Y.l.fillRect(c[0]-2,c[1]-2,4,4);Y.l.fillStyle='#2a2e34';Y.l.fillRect(c[0]-1,c[1]-1,1,2);Y.l.fillRect(c[0]-1,c[1],2,1);
+        Y.n.fillStyle='#fff0c0';Y.n.fillRect(c[0]-2,c[1]-2,4,4);}
+      {let p=px(I(92,50,0));roundTree(Y.l,p[0],p[1],6);p=px(I(86,90,0));roundTree(Y.l,p[0],p[1],6);p=px(I(8,78,0));roundTree(Y.l,p[0],p[1],6);}
       com(S,Y);
       fin(S);
     }

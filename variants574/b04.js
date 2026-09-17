@@ -531,24 +531,44 @@
   /* =================== k84 幼兒園（1×1；v0 平面立面圖 → iso redraw） =================== */
   safe(84,()=>{
     const OL=[64,54,40],GLS='#7fb0d8',LIT='#ffe9b0',RB=['#e05252','#ffb35a','#7be08a','#5ec8ff'];
-    // v1：單層長屋——紅山牆屋頂、牆腳彩虹帶、東角溜滑梯
-    {const o=fresh(84),rk=RK(84,1);
+    // v1：單層長屋——紅山牆屋頂、牆腳高彩度彩虹帶（3px 繞兩面牆）、前院淺沙坑（深框）、東側大型溜滑梯
+    {const o=fresh(84);
       plateFresh(o,1,'#9fae74','#8c9a62','#b2c186',null);
       const L=layer(o),g=L.g,ng=L.ng;
-      // 前院沙坑（與屋身留出間距）
-      gq(g,o,1,4,1,5,'#e2cf9a');{const [x,y]=gp(o,2.5,3);put(g,x,y-1,1,1,'#ff6a4a');}
-      const S=[30,101],P=prism(g,S[0],S[1],9,8,13,'#f6e6b4','#dcc890',null);
-      for(let dx=2;dx<=17;dx++){const x=S[0]-dx,y=yL(S[1],dx)-4;put(g,x,y,1,2,RB[((dx-2)/4|0)%4]);}
-      wins(g,ng,'L',S[0],S[1],[3,11],6,4,4,'punch',GLS,LIT,'#fff8e0',()=>true);
-      door(g,null,'R',S[0],S[1],5,3,7,'#c85a48','#fff8e0');
-      gable(g,P,9,8,7,'a','#dc644e','#a84838','#dcc890');
-      put(g,37,82,2,2,'#fff8e0');put(g,37,82,1,1,'#7fb0d8');
-      // 溜滑梯（前院右側）
-      put(g,48,86,1,10,'#8a6a42');put(g,51,86,1,9,'#6a5032');for(let y=88;y<95;y+=3)put(g,48,y,4,1,'#8a6a42');
-      put(g,47,84,6,2,'#e05252');
-      for(let i=0;i<9;i++)put(g,52+i,86+i,2,1,i<8?'#ffb35a':'#d8962a');
-      put(g,60,95,3,1,'#d8962a');
-      finishFresh(o,L,OL);save(o,1);}
+      const RB6=['#ff3434','#ff9014','#ffd400','#2fcf3f','#1f8fff','#9a4cff'];
+      // 屋身（S 在 i=7,j=1；左牆 16px、右牆 14px）
+      const S=gp(o,7,1),P=prism(g,S[0],S[1],8,7,13,'#f6e6b4','#dcc890',null);
+      for(let dx=1;dx<=16;dx++){const x=S[0]-dx,y=yL(S[1],dx)-4;put(g,x,y,1,3,RB6[((dx-1)/3|0)%6]);}
+      for(let dx=0;dx<14;dx++){const x=S[0]+dx,y=yR(S[1],dx)-4;put(g,x,y,1,3,shade(RB6[((dx+16)/3|0)%6],-18));}
+      wins(g,ng,'L',S[0],S[1],[2,10],7,4,4,'punch',GLS,LIT,'#fff8e0',()=>true);
+      wins(g,ng,'R',S[0],S[1],[2],7,3,4,'punch','#6a98c0',LIT,'#e8d8a8',()=>true);
+      door(g,null,'R',S[0],S[1],8,3,8,'#2f8fe8','#fff8e0');
+      gable(g,P,8,7,7,'a','#dc644e','#a84838','#dcc890');
+      put(g,30,82,2,2,'#fff8e0');put(g,30,82,1,1,'#7fb0d8');
+      // 溜滑梯（東側，塔腳 i=6,j=10）：紅色梯塔（可見梯級）＋亮黃滑道（上陡下緩）＋中段支腳
+      {const [bx,by]=gp(o,6,10),H=18;
+        put(o.g,bx-1,by,21,2,'rgba(20,26,22,.22)'); // 接地陰影畫在地塊上
+        put(g,bx,by-H,1,H,'#d8342a');put(g,bx+3,by-H,1,H,'#b82a22');
+        for(let y=by-H+2;y<by;y+=2)put(g,bx+1,y,2,1,'#ff7a5a');
+        put(g,bx-1,by-H-1,6,2,'#ffd400');put(g,bx-1,by-H+1,6,1,'#d89a00');
+        put(g,bx-1,by-H-5,1,4,'#d8342a');put(g,bx+4,by-H-5,1,4,'#b82a22');put(g,bx-1,by-H-5,6,1,'#ff5a3a');
+        const x0=bx+5,x1=bx+16,y0=by-H-1,y1=by-3;let py=y0;
+        const cy=x=>Math.round(y0+(y1-y0)*Math.sin((x-x0)/(x1-x0)*Math.PI/2));
+        for(let x=x0;x<=x1;x++){const yy=cy(x);
+          put(g,x,Math.min(py,yy),1,yy-Math.min(py,yy)+2,'#ffd400');put(g,x,yy,1,1,'#fff080');put(g,x,yy+2,1,1,'#d88a00');py=yy;}
+        put(g,x1+1,y1+1,3,1,'#ffd400');put(g,x1+1,y1+2,3,1,'#d88a00');
+        {const xl=x0+5,yy=cy(xl);put(g,xl,yy+3,1,by-yy-3,'#b82a22');}
+      }
+      finishFresh(o,L,OL);
+      // 前院沙坑（獨立一層、在地塊陰影之後疊上才讀得出淺沙色）：深色 1px 木框（outline）＋遠側 1px 內陰影
+      {const L2=layer(o),g2=L2.g;
+        const Q=[gp(o,1,1),gp(o,4,1),gp(o,4,8.5),gp(o,1,8.5)];
+        poly(g2,Q,'#e0c47e');poly(g2,Q.map(p=>[p[0],p[1]+1]),'#fbe9ae');
+        {const [x,y]=gp(o,1.5,5.5);put(g2,x,y-2,2,2,'#e8302a');put(g2,x,y-3,2,1,'#ff8a70');} // 小紅桶（落在沙面內）
+        {const [x,y]=gp(o,2.5,3);put(g2,x-1,y-1,3,1,'#fff6cc');put(g2,x-2,y,5,1,'#e8cf8e');} // 沙堆
+        A.outlineSprite(L2.c,58,42,26);grainBands(L2.c,0,0,o.h0);
+        o.g.drawImage(L2.c,0,0);}
+      save(o,1);}
     // v2：兩層園舍＋蠟筆塔——平屋頂彩色女兒牆、東側黃色蠟筆圓塔（紅錐頂）
     {const o=fresh(84),rk=RK(84,2);
       plateFresh(o,1,'#9fae74','#8c9a62','#b2c186',null);

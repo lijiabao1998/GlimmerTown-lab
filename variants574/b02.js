@@ -211,45 +211,65 @@
     });
     save('50_1_1',M,ax,ay,{mat:'I',k:50,seed:1});
   });
-  safe('50_2',()=>{ // v2：露天礦坑（階梯開挖）＋輸送帶＋礦倉
-    const M=mk(72,112),ax=36,ay=110,rk=RND(50,2),C=TC(ax,ay,1),g=M.g,ng=M.ng;
+  safe('50_2',()=>{ // v2（r2 重畫）：露天礦坑置中（三層階梯：亮緣＋暗壁）＋坑底運礦車＋左後礦石錐/堆料輸送帶＋右後加高木礦倉
+    const M=mk(72,112),ax=36,ay=110,rk=RND(50,2),g=M.g,ng=M.ng;
     plate(g,ax,ay,1,'#7a6a52',rk,{specks:['#6a5a42','#8a7a5e']});
-    shadow(g,50,102,18,5);
-    const cx=31,cy=93;
-    const hwAt=(ccy,hw,y)=>{const d=Math.abs(y+.5-ccy);return hw-2*d;};
-    const levels=[[22,0,'#8a745a'],[15,6,'#76604a'],[8,12,'#5a4c40']];
-    const walls=[['#4e3e2c','#a88c66'],['#463828','#9a8060'],['#3e3224','#8a7254']];
-    for(let i=0;i<levels.length;i++){const hw=levels[i][0],d0=levels[i][1],oc=cy+d0;
-      for(let y=Math.floor(oc-hw/2)-1;y<=Math.ceil(oc+hw/2+7);y++){
-        const wO=hwAt(oc,hw,y);if(wO<=0)continue;
-        let lim=wO;if(i>0){const prev=levels[i-1];lim=Math.min(wO,hwAt(cy+prev[1]+6,prev[0],y),hwAt(cy,levels[0][0],y));if(lim<=0)continue;}
-        const wF=Math.min(lim,hwAt(oc+6,hw,y));
-        P(g,cx-lim,y,lim,1,walls[i][0]);P(g,cx,y,lim,1,walls[i][1]);
-        if(wF>0){P(g,cx-wF,y,2*wF,1,levels[i][2]);}
-      }
-    }
-    for(let i=0;i<levels.length;i++){const hw=levels[i][0],oc=cy+levels[i][1];for(let x=-hw+1;x<hw;x+=1){const yy=rd(oc-hw/2+Math.abs(x)/2);if(i===0||hwAt(cy,levels[0][0],yy)>Math.abs(x))P(g,cx+x,yy,1,1,x<0?'#6a5842':'#c0a47c');}}
-    P(g,cx-2,cy+9,5,1,'#4a5a5e');P(g,cx-1,cy+10,3,1,'#5a6a6e');
-    const hp=tp(C,.9,.25);
-    layer(M,sg=>{ // 礦石錐堆（後）
-      const b=tp(C,.25,.08);for(let r=0;r<7;r++){P(sg,b[0]-r-1,b[1]-6+r,r+1,1,'#b09c7c');P(sg,b[0],b[1]-6+r,r+1,1,'#86725a');}
-      P(sg,b[0]-1,b[1]-7,2,1,'#c8b490');
+    // ---- 礦坑：每層開口菱形 r（半寬）位於深度 z；每層下挖 DZ 像素 ----
+    const cx=36,cy=96,DZ=3;
+    const LV=[
+      {r:22,z:0,wd:'#3e3024',wl:'#7a5e40',lip:'#d0b68c',fl:'#b09470'},
+      {r:16,z:3,wd:'#382a20',wl:'#6a5038',lip:'#c0a67e',fl:'#9c8260'},
+      {r:10,z:6,wd:'#30241c',wl:'#5a4430',lip:'#ac9270',fl:'#806a50'}];
+    const inD=(x,y,r,yc)=>Math.abs(x+.5-cx)/2+Math.abs(y+.5-yc)<=r/2;
+    const inOpen=(x,y,k)=>{for(let j=0;j<=k;j++)if(!inD(x,y,LV[j].r,cy+LV[j].z))return false;return true;};
+    // 代碼：-1 地面；2k＝第 k 層牆；2k+1＝第 k 層牆下的台階面（最後一層為坑底）
+    const code=(x,y)=>{let c=-1;for(let k=0;k<LV.length;k++){if(!inOpen(x,y,k))break;c=inD(x,y,LV[k].r,cy+LV[k].z+DZ)?2*k+1:2*k;}return c;};
+    const X0=cx-24,X1=cx+24,Y0=cy-13,Y1=cy+14;
+    for(let y=Y0;y<=Y1;y++)for(let x=X0;x<X1;x++){const c=code(x,y);if(c<0)continue;const L=LV[c>>1];
+      P(g,x,y,1,1,(c&1)?L.fl:(x<cx?L.wd:L.wl));}
+    for(let y=Y0;y<=Y1;y++)for(let x=X0;x<X1;x++){const c=code(x,y),cb=code(x,y+1);
+      if((c<0||(c&1))&&cb>c&&!(cb&1))P(g,x,y,1,1,LV[cb>>1].lip); // 亮緣：面的邊緣下方緊接更深的牆
+      else if(c<0&&code(x,y-1)>=0)P(g,x,y,1,1,'#968264');       // 前緣：坑口近側地面收邊
+      else if(c>=0&&cb<0)P(g,x,y,1,1,'#54442f');}                  // 前緣內側：近側坑壁頂的暗線（讓坑口閉合）
+    // ---- 投影 ----
+    const shIn=(x,y,rx,ry,a)=>{g.save();g.globalCompositeOperation='source-atop';shadow(g,x,y,rx,ry,a);g.restore();}; // 只落在地基板上
+    shIn(58,90,7,3);shIn(26,89,5,2,.12);
+    const cn=[21,88],cH=11,cR=5;
+    const GAL=()=>layer(M,sg=>{ // ---- 後方：封閉式輸送廊道（自礦石錐爬升到礦倉頂部）＋兩支腳 ----
+      const a=[26,84],b=[46,69];
+      P(sg,36,79,1,3,'#4a4a52');P(sg,35,81,3,1,'#5a5a62');
+      P(sg,42,75,1,10,'#4a4a52');P(sg,41,84,3,1,'#5a5a62');
+      for(let x=a[0];x<=b[0];x++){const y=rd(a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]));P(sg,x,y-1,1,1,'#c4c8cc');P(sg,x,y,1,1,'#8a9098');P(sg,x,y+1,1,1,'#50565e');}
+      for(let x=a[0]+3;x<b[0]-1;x+=4){const y=rd(a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]));P(sg,x,y,1,1,'#646a72');}
     });
-    layer(M,sg=>{ // 礦倉（木構）
-      const pr=prism(sg,hp[0],hp[1],3,3,16,'#a08050','#7a5e3e','#5a4a3a');
-      for(let i=0;i<3;i++){fw(sg,pr,-1,1,3+i*4,5,1,'#7a5a34');fw(sg,pr,1,0,3+i*4,5,1,'#5e4630');}
-      P(sg,pr.sx-3,pr.sy-2,6,2,'#3a2e24');
-      P(sg,pr.sx,pr.sy-26,1,5,'#5a5a62');P(sg,pr.sx-2,pr.sy-28,5,2,'#d8d0b0');
+    // ---- 右後：加高木礦倉（棧架腳＋倉體＋雙坡頂＋照明燈） ----
+    layer(M,sg=>{
+      const S0=[52,92],LEG=7;
+      P(sg,S0[0],S0[1]-LEG,1,LEG,'#5a4430');P(sg,S0[0]-6,S0[1]-3-LEG,1,LEG,'#6e5438');P(sg,S0[0]+5,S0[1]-3-LEG,1,LEG,'#4a3828');
+      ln(sg,S0[0]-5,S0[1]-3-LEG+1,S0[0]-1,S0[1]-2,'#6e5438');ln(sg,S0[0]+1,S0[1]-LEG+1,S0[0]+4,S0[1]-4,'#4a3828');
+      P(sg,S0[0]-2,S0[1]-LEG,4,3,'#3a2e24');
+      const pr=prism(sg,S0[0],S0[1]-LEG,3,3,17,'#a08050','#7a5e3e',null);
+      for(let i=0;i<4;i++){fw(sg,pr,-1,1,3+i*4,5,1,'#7a5a34');fw(sg,pr,1,0,3+i*4,5,1,'#5e4630');}
+      gableL(sg,pr,5,'#7a6454','#4a3c34','#6a5038');
+      P(sg,pr.sx,pr.S[1]-11,1,6,'#5a5a62');P(sg,pr.sx-2,pr.S[1]-13,5,2,'#d8d0b0');
     });
-    P(ng,hp[0]-2,hp[1]-28,5,2,'#fff0c0');
-    layer(M,sg=>{ // 輸送帶（桁架）
-      const a=[cx+3,cy+8],b=[hp[0]-2,hp[1]-19];
-      ln(sg,a[0],a[1]-2,b[0],b[1]-2,'#b4b4bc');ln(sg,a[0],a[1]-1,b[0],b[1]-1,'#6a6a72');ln(sg,a[0],a[1],b[0],b[1],'#4a4a52');
-      for(const t of[.45,.78]){const x=rd(a[0]+(b[0]-a[0])*t),y=rd(a[1]+(b[1]-a[1])*t);P(sg,x,y+1,1,Math.max(1,rd(cy+4-y)),'#4a4a52');}
+    P(ng,50,54,5,2,'#fff0c0');
+    GAL();
+    layer(M,sg=>{ // ---- 左後：礦石錐（堆料，廊道尾部埋入錐側） ----
+      for(let y=0;y<=cH;y++){const hw=Math.max(0,rd(cR*y/cH));for(let dx=-hw;dx<=hw;dx++){P(sg,cn[0]+dx,cn[1]-cH+y,1,1,dx<0?(dx===-hw?'#bcaa8a':'#a8977c'):dx===0?'#948468':'#76675a');}}
+      for(let dy=1;dy<=2;dy++){const hw=rd(cR*Math.sqrt(1-(dy/2.6)*(dy/2.6)));for(let dx=-hw;dx<=hw;dx++)P(sg,cn[0]+dx,cn[1]+dy,1,1,dx<0?'#948468':'#665848');}
+      P(sg,cn[0],cn[1]-cH,1,1,'#c8b898');
     });
-    layer(M,sg=>{ // 礦車（坑內台階）
-      P(sg,15,91,7,3,'#d8a830');P(sg,15,91,7,1,'#f0c850');P(sg,20,89,3,2,'#8a9aa8');P(sg,16,94,2,1,'#2a2622');P(sg,20,94,2,1,'#2a2622');
+    // ---- 坑底中央：運礦車 ----
+    layer(M,sg=>{ // 緊湊礦卡：駕駛室（左前）＋翻斗（載礦）
+      prism(sg,35,103,1,2,4,'#e8b838','#b0822a','#f0d060',{ao:false});
+      P(sg,33,99,1,1,'#4a5a68');
+      prism(sg,39,105,2,2,3,'#e0a830','#a0741e','#c89828',{ao:false});
+      P(sg,37,99,4,2,'#8a7c6c');P(sg,38,98,2,1,'#a89a88');P(sg,40,100,2,1,'#665a50');
+      P(sg,36,103,2,1,'#2a2622');P(sg,33,102,1,1,'#2a2622');P(sg,41,103,1,1,'#2a2622');
+      P(sg,33,101,1,1,'#fff0b0');
     });
+    P(ng,33,101,1,1,'#ffe8a0');
     save('50_1_2',M,ax,ay,{mat:'I',k:50,seed:2});
   });
 

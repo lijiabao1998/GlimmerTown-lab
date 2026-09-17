@@ -781,24 +781,46 @@
       R(sg,r[0][0],r[0][1]-14,1,14,'#5c4033');R(sg,r[0][0]+1,r[0][1]-14,5,2,'#e63946');R(sg,r[0][0]+1,r[0][1]-12,5,1,'#5ec8ff');}
      {const B=prism(sg,F(9,15.5),8,2,3,'#a67c52','#8c6239','#b89060',true);}
      finish(K,k,1,OL,1);}
-    // v2：雙重簷霧鐘亭——石台座＋四柱＋銅鐘＋上下兩層紅瓦（高、層疊輪廓）
-    {const K=kit(72,112,36,110),F=ISO(36,78),g=K.g,sg=K.sg,ng=K.ng;
+    // v2：碼頭霧鐘亭——臨水石砌墩台（前緣 L 形水域）＋木棧橋伸到格緣＋繫纜樁與纜繩（繫一艘小划艇）＋救生圈；
+    //     上部四柱銅鐘、雙重簷（高、層疊輪廓）。亭身整體（G＝F 往北退一格）讓出前緣水域。
+    {const K=kit(72,112,36,110),F=ISO(36,78),G=ISO(36,76),g=K.g,sg=K.sg,ng=K.ng;
      ground(g,36,110,32,'#8f9aa0','#7b848a','#a4adb3');
-     ripples(g,F,4,13,16,2,15,791,'#5a9ec8');
-     prism(sg,F(13,13),20,20,4,'#b8b4a8','#8a867a','#c8c4b8');
-     {const p=F(13,9);prism(sg,[p[0]-3,p[1]+2],4,6,2,'#b8b4a8','#8a867a','#c8c4b8',true);}
+     // 前緣 L 形水域（a>12 或 b>12）＋岸線石緣＋少量波光
+     {const S=F(16,16);para(g,S[0],S[1],8,32,'#4a8fb4');para(g,S[0],S[1],32,8,'#4a8fb4');
+      A.diaEdge(g,6,'#2f6f94',36,78,32);
+      isoLine(g,F,12,0,12,12,'#c8c4b8');isoLine(g,F,0,12,12,12,'#c8c4b8');
+      for(const [a,b,w] of [[14.4,1.4,3],[14.4,11.2,3],[11.2,14.6,3]]){const p=F(a,b);R(g,p[0],p[1],w,1,'#8ac4e0');}}
+     // 石砌墩台（腳下一道濕痕）
+     {const P0=prism(sg,G(13,13),20,20,4,'#b8b4a8','#8a867a','#c8c4b8');band(sg,P0,'L',0,1,'#6e7470');band(sg,P0,'R',0,1,'#5c625e');}
+     // 木棧橋：自墩台東緣伸出，跨水接到格緣（橋面比台面低一階）
+     {prism(sg,F(16,8.5),8,8,3,'#8a6040','#6a4630','#b88a58',true);
+      for(const a of [13.4,14.8]){const p=F(a,4.6),q=F(a,8.4);line(sg,p[0],p[1]-3,q[0],q[1]-3,'#94693f');}
+      // 橋頭樁＋救生圈（紅白）
+      const p=F(15.5,5);R(sg,p[0],p[1]-10,1,8,'#5a3a24');
+      const rx=p[0]-2,ry=p[1]-11,ring=[".RWR.","W...W","R...R","W...W",".RWR."];
+      ring.forEach((row,j)=>{for(let i=0;i<5;i++){const ch=row[i];if(ch!=='.')R(sg,rx+i,ry+j,1,1,ch==='R'?'#e04a3a':'#f4f0e8');}});}
+     // 繫泊小划艇（沿墩台南緣，船身沿 a）
+     {const bc=14.5,hw=1.2,a0=1.6,a1=9,hull=[F(a0,bc),F(a0+.8,bc+hw),F(a1-1.8,bc+hw),F(a1,bc),F(a1-1.8,bc-hw),F(a0+.8,bc-hw)];
+      poly(sg,hull.map(p=>[p[0],p[1]+1]),'#5a3a26');poly(sg,hull.map(p=>[p[0],p[1]-1]),'#e8e0cc');
+      poly(sg,[F(a0+1.2,bc),F(a0+1.4,bc+hw-.6),F(a1-2.2,bc+hw-.6),F(a1-1,bc),F(a1-2.2,bc-hw+.6),F(a0+1.4,bc-hw+.6)].map(p=>[p[0],p[1]-1]),'#a67c52');
+      {const p=F(4.9,bc-hw+.5),q=F(4.9,bc+hw-.5);line(sg,p[0],p[1]-1,q[0],q[1]-1,'#7a5236');}}
+     // 繫纜樁（墩台南緣兩根、東緣一根）＋纜繩從樁頭越過台緣接到船
+     const bollard=p=>{const x=Math.round(p[0]),y=Math.round(p[1])-4;R(sg,x-1,y-3,3,3,'#34383e');R(sg,x-1,y-3,1,3,'#50565e');R(sg,x-2,y-4,5,1,'#5a6068');R(sg,x-1,y-4,2,1,'#7a8088');return [x,y];};
+     {const b1=bollard(F(3.2,11.3)),b2=bollard(F(9.4,11.3));bollard(F(11.3,10.2));
+      const s1=F(3,13.4),s2=F(7.6,13.4);
+      line(sg,b1[0],b1[1]-2,s1[0],s1[1]-1,'#e0d0a0');line(sg,b2[0],b2[1]-2,s2[0],s2[1]-1,'#e0d0a0');}
      // 柱立於四邊中點（不在對角線上），讓正中低垂的銅鐘從簷下露出來
-     const PH=21,post=(a,b)=>{const p=F(a,b);R(sg,p[0],p[1]-4-PH,2,PH,'#7a4a2b');R(sg,p[0],p[1]-4-PH,1,PH,'#9b6636');};
+     const PH=21,post=(a,b)=>{const p=G(a,b);R(sg,p[0],p[1]-4-PH,2,PH,'#7a4a2b');R(sg,p[0],p[1]-4-PH,1,PH,'#9b6636');};
      post(8,4.2);post(4.2,8);
-     {const c=F(8,8);R(sg,c[0],c[1]-16,1,5,'#5a4a36');poly(sg,[[c[0]-2,c[1]-12],[c[0]+3,c[1]-12],[c[0]+4,c[1]-6],[c[0]-3,c[1]-6]],'#c8a040');
+     {const c=G(8,8);R(sg,c[0],c[1]-16,1,5,'#5a4a36');poly(sg,[[c[0]-2,c[1]-12],[c[0]+3,c[1]-12],[c[0]+4,c[1]-6],[c[0]-3,c[1]-6]],'#c8a040');
       R(sg,c[0]-3,c[1]-7,8,1,'#a07c28');R(sg,c[0]-1,c[1]-12,2,5,'#e0c060');R(sg,c[0],c[1]-5,1,1,'#6a5020');}
      post(11.8,8);post(8,11.8);
-     {const S=F(14,14),Q=prism(sg,[S[0],S[1]-4-PH],24,24,2,'#7a4a2b','#5a3420',null);
+     {const S=G(14,14),Q=prism(sg,[S[0],S[1]-4-PH],24,24,2,'#7a4a2b','#5a3420',null);
       hip(sg,Q,6,'#df5e48','#aa3828','#9e3324','#c94a36');
       for(const q of [Q.W,Q.S]){R(sg,q[0]+(q===Q.W?2:-1),q[1]+2,2,3,'#e05050');R(sg,q[0]+(q===Q.W?2:-1),q[1]+1,2,1,'#5a3420');R(ng,q[0]+(q===Q.W?2:-1),q[1]+2,2,3,'#ffb060');}}
-     {const D=prism(sg,[F(10,10)[0],F(10,10)[1]-9-PH],8,8,7,'#9e3324','#7a2418',null);
+     {const D=prism(sg,[G(10,10)[0],G(10,10)[1]-9-PH],8,8,7,'#9e3324','#7a2418',null);
       win(sg,D,'L',D.sx-6,4,2,3,'#e8c870');win(sg,D,'R',D.sx+2,4,2,3,'#c8a850');win(ng,D,'L',D.sx-6,4,2,3,'#ffd98a');
-      const S=F(11.5,11.5),Q=prism(sg,[S[0],S[1]-16-PH],14,14,2,'#7a4a2b','#5a3420',null);
+      const S=G(11.5,11.5),Q=prism(sg,[S[0],S[1]-16-PH],14,14,2,'#7a4a2b','#5a3420',null);
       const r=hip(sg,Q,10,'#df5e48','#aa3828','#9e3324','#c94a36');
       R(sg,r[0][0],r[0][1]-4,1,4,'#ffd700');R(sg,r[0][0]-1,r[0][1]-2,3,1,'#e0b020');}
      finish(K,k,2,OL,1);}
@@ -864,7 +886,9 @@
   try{
     const k=181,OL=[28,22,16];
     const plaza=(g,F)=>{ground(g,36,110,32,'#d8d4c8','#b0aa9a','#ece8dc');};
-    // v1：露天海灣劇場——階梯看台＋表演池＋躍身海豚雕塑＋張拉帆篷（低、開放）
+    // 像素圖小工具：map 為字串陣列，pal 字元→顏色（'.' 或未定義＝透明）
+    const pmap=(g,map,pal,x0,y0)=>map.forEach((row,j)=>{for(let i=0;i<row.length;i++){const c=pal[row[i]];if(c)R(g,x0+i,y0+j,1,1,c);}});
+    // v1：露天海灣劇場——三階看台＋雙峰波浪張拉膜（壓低，不再是單一尖頂）＋前方大表演池＋弧形躍出的大海豚與白色水花（低、開放）
     {const K=kit(72,112,36,110),F=ISO(36,78),g=K.g,sg=K.sg,ng=K.ng;
      plaza(g,F);
      // 表演池（前右大半格；後兩緣見池壁，四緣白石壓頂）
@@ -872,61 +896,112 @@
       for(let i=1;i<=2;i++){const p=F(8.5,2),q=F(8.5,14.5),r=F(15,2);line(g,p[0],p[1]+i,q[0],q[1]+i,'#86a8b8');line(g,p[0],p[1]+i,r[0],r[1]+i,'#9ab8c4');}
       {const p=F(8.5,2),q=F(8.5,14.5),r=F(15,2);line(g,p[0],p[1]+3,q[0],q[1]+3,'#3a88b0');line(g,p[0],p[1]+3,r[0],r[1]+3,'#3a88b0');}
       for(const e of [[8.5,2,15,2],[8.5,2,8.5,14.5],[8.5,14.5,15,14.5],[15,2,15,14.5]])isoLine(g,F,e[0],e[1],e[2],e[3],'#f4f1e8');
-      for(const [a,b,w] of [[10.5,4.5,3],[13.4,6,2],[12.6,12.2,3]]){const p=F(a,b);R(g,p[0],p[1],w,1,'#9ad8f0');}
-      for(const [a,b] of [[9.3,6],[9.3,11]]){const p=F(a,b);R(g,p[0],p[1],1,1,'#e8f0f4');R(ng,p[0]-1,p[1]-1,3,2,'#8ae8ff');}}
+      for(const [a,b,w] of [[14.2,4.4,3],[10.4,11.6,2]]){const p=F(a,b);R(g,p[0],p[1],w,1,'#9ad8f0');}
+      // 池壁水下燈（東北池壁上，避開海豚的投影範圍）
+      for(const [a,b] of [[10.6,2.5],[13.6,2.5]]){const p=F(a,b);R(g,p[0],p[1],1,1,'#e8f0f4');R(ng,p[0]-1,p[1]-1,3,2,'#8ae8ff');}}
      const mast=(a,b,hgt)=>{const p=F(a,b);R(sg,p[0],p[1]-hgt,1,hgt,'#9aa8b0');R(sg,p[0],p[1]-2,1,2,'#6a7880');return [p[0],p[1]-hgt];};
-     // 後桅（先畫）
-     const cN=mast(.6,1.2,24),cW=mast(.6,14.4,17);
-     // 看台（後→前，三階）
+     const top=(a,b,h)=>{const p=F(a,b);return [p[0],p[1]-h];};
+     // 雙峰波浪膜：後緣 a=.6、前緣 a=6.6；沿 b 為平滑的「谷-峰-谷-峰-谷」（sin²），兩個低峰、沒有尖頂
+     const A0=.6,A1=4.2,bump=b=>{const s=Math.sin(Math.PI*(b-1.2)/6.6);return s*s;},hB=b=>15+5*bump(b),hF=b=>13+3*bump(b);
+     // 後排桅桿：五根，頂端就是膜面的谷／峰點（不高出膜面，免得讀成帳篷尖）
+     const peaks=[1.2,4.5,7.8,11.1,14.4].map(b=>mast(A0,b,hB(b)));
+     // 看台（後→前，三階；踏面藍色座椅、端面與踢面為混凝土灰，階梯剖面才讀得出是開放看台）
      for(const [a0,a1,h] of [[1,3.5,10],[3.5,5.5,7],[5.5,7.5,4]]){
-       const P=prism(sg,F(a1,14),2*(a1-a0),26,h,'#e8e4da','#c8c2b4','#f4f1e8',true);
-       win(sg,P,'R',P.sx+1,24,h-2,1,'#4a90b8');isoLine(sg,F,a1-.6,1.6,a1-.6,13.4,'#4a90b8');}
-     // 前桅＋雙曲張拉膜（N/S 高、W/E 低，沿 N–S 脊分兩面：左亮右暗）
-     const cS=mast(7.8,14.4,22),cE=mast(7.8,1.2,13);
-     {const mid=(p,q,c,t)=>[Math.round((p[0]+q[0])/2+(c[0]-(p[0]+q[0])/2)*t),Math.round((p[1]+q[1])/2+(c[1]-(p[1]+q[1])/2)*t)];
-      const C=[(cN[0]+cS[0]+cW[0]+cE[0])/4,(cN[1]+cS[1]+cW[1]+cE[1])/4];
-      poly(sg,[cN,mid(cN,cW,C,.14),cW,mid(cW,cS,C,.14),cS],'#f4f1e8');
-      poly(sg,[cN,cS,mid(cS,cE,C,.14),cE,mid(cE,cN,C,.14)],'#d4cebe');
-      line(sg,cN[0],cN[1],cS[0],cS[1],'#fbfaf4');
-      for(const c of [cN,cW,cS,cE]){R(sg,c[0]-1,c[1]-1,3,1,'#b8c0c8');R(ng,c[0],c[1]-1,1,1,'#fff6d0');}}
-     // 躍身海豚（斜向躍出：尾鰭點水、吻部朝右上；深背淺腹＋背鰭胸鰭）
-     {const map=[".............MS",
-                 "...........DMML",
-                 "......F...DMMLL",
-                 "......FFDDMMLL.",
-                 ".......DMMMLL..",
-                 ".....DDMMLLP...",
-                 "...DDMMMLL.P...",
-                 "..DMMMLL.......",
-                 ".DMMLL.........",
-                 "TDML...........",
-                 "TT.L...........",
-                 ".T............."];
-      const pal={D:'#4d6578',M:'#7d95a8',L:'#dce8ee',T:'#5d7588',S:'#4d6578',F:'#4d6578',P:'#5d7588'},o=F(12.4,10.2),x0=o[0]-8,y0=o[1]-11;
-      map.forEach((row,j)=>{for(let i=0;i<row.length;i++){const c=pal[row[i]];if(c)R(sg,x0+i,y0+j,1,1,c);}});
-      R(g,x0-2,y0+11,2,1,'#e8f6fc');R(g,x0+2,y0+11,2,1,'#e8f6fc');R(g,x0-4,y0+12,9,1,'#9ad8f0');R(g,x0-2,y0+10,1,1,'#e8f6fc');}
-     // 浮球
-     {const p=F(13.8,4.6);R(sg,p[0],p[1]-2,3,2,'#e05252');R(sg,p[0]+1,p[1]-2,1,2,'#f4f1e8');}
-     finish(K,k,1,OL,1);}
-    // v2：筒拱水族廳——白拱頂長廳＋浪紋腰帶＋山牆大拱窗（內有海豚剪影）＋海豚雕像座
+       const P=prism(sg,F(a1,14),2*(a1-a0),26,h,'#b8b2a4','#9c9588','#5b95c8',true);
+       win(sg,P,'R',P.sx+1,24,h-1,1,'#c8c2b4');isoLine(sg,F,a1-.7,1.6,a1-.7,13.4,'#8cc0ea');}
+     // 前緣吊桿：自中階踏面立起（三根，承住前緣三個谷點）
+     const fr=[1.2,7.8,14.4].map(b=>{const p=F(A1,b);R(sg,p[0],p[1]-hF(b),1,hF(b)-7,'#9aa8b0');return [p[0],p[1]-hF(b)];});
+     // 膜面：沿 b 切 44 條細帶，依坡向分三階明暗（朝西南迎光亮、朝東北暗）
+     {const N=44;for(let i=0;i<N;i++){const b0=1.2+13.2*i/N,b1=1.2+13.2*(i+1)/N,bm=(b0+b1)/2,d=Math.sin(2*Math.PI*(bm-1.2)/6.6);
+        const col=d>.45?'#cfc8b8':d>-.3?'#e9e5da':'#f8f6ef';
+        const p0=top(A0,b0,hB(b0)),p1=top(A0,b1,hB(b1)),q1=top(A1,b1,hF(b1)),q0=top(A1,b0,hF(b0));
+        poly(sg,[[p0[0]+.6,p0[1]],[p1[0]-.4,p1[1]],[q1[0]-.4,q1[1]],[q0[0]+.6,q0[1]]],col);}
+      // 前緣受光細線＋峰線
+      for(let i=0;i<N;i++){const b0=1.2+13.2*i/N,b1=1.2+13.2*(i+1)/N,p=top(A1,b0,hF(b0)),q=top(A1,b1,hF(b1));line(sg,p[0],p[1],q[0],q[1],'#fbfaf4');}
+      for(const b of [4.5,11.1]){const p=top(A0,b,hB(b)),q=top(A1,b,hF(b));line(sg,p[0],p[1],q[0],q[1],'#fdfcf8');}}
+     for(const c of peaks.filter((c,i)=>i%2)){R(sg,c[0],c[1]-1,1,1,'#dfe6ea');R(ng,c[0],c[1]-1,1,1,'#fff6d0');}
+     for(const c of fr)R(ng,c[0],c[1],1,1,'#fff6d0');
+     // 弧形躍出的大海豚（25×17：深藍灰背、白腹、背鰭胸鰭、尾鰭在水花裡；吻部朝右上）
+     {const map=["..........D...DDDDDDD....",
+                 ".........DD.DDDDDDDDDDD..",
+                 "..........DDDDDMMMMMMMDD.",
+                 ".........DDDMMMMMMMMMEMDD",
+                 "........DDDMMMMMLLLLLLMMD",
+                 ".......DDDMMMMLLLLL...LLL",
+                 "......DDMMMMLLLL.D.......",
+                 "......DMMMMLL...DD.......",
+                 ".....DDMMLLL.............",
+                 "....DDMMLL...............",
+                 "....DMMLL................",
+                 "...DMMLL.................",
+                 "...DML...................",
+                 "..DML....................",
+                 "..DML....................",
+                 ".DDL.....................",
+                 "DD.DD...................."];
+      const x0=37,y0=87,tx=x0+1,ty=y0+16;
+      pmap(sg,map,{D:'#2c4a66',M:'#557896',L:'#f4f8fa',E:'#0e1620'},x0,y0);
+      K.splash=[tx,ty];}
+     finish(K,k,1,OL,1);
+     // 白色水花（描邊與材質之後才畫：不被外框吃掉、不被貼地影壓灰；蓋在尾鰭前＝尾鰭從水花裡躍出）
+     {const [tx,ty]=K.splash,W='#eef8fc',W2='#cfeaf6',g2=K.g;
+      R(g2,tx-4,ty+1,10,1,W);R(g2,tx-6,ty,2,1,W);R(g2,tx+6,ty,2,1,W);R(g2,tx-7,ty-1,1,1,W2);R(g2,tx+8,ty-1,1,1,W2);
+      R(g2,tx-1,ty,1,1,W);R(g2,tx+2,ty,2,1,W);
+      for(const [dx,dy] of [[-3,-1],[-4,-2],[-5,-3],[-5,-4],[-6,-6],[5,-1],[6,-2],[7,-3],[7,-4],[8,-6]])R(g2,tx+dx,ty+dy,1,1,W);}}
+    // v2：筒拱水族廳——白拱頂長廳＋山牆頂藍色躍身海豚標誌＋2px 飽和藍浪紋腰帶與舷窗＋山牆大拱窗（六格窗櫺）＋前右海豚噴泉圓池
     {const K=kit(72,112,36,110),F=ISO(36,78),g=K.g,sg=K.sg,ng=K.ng;
      plaza(g,F);
-     for(let i=0;i<3;i++){const p=F(13+i*.9,3+i*2.5);R(g,p[0],p[1],6-i,1,'#5a9ac0');}
      const P=prism(sg,F(11,14),18,22,12,'#e8e4da','#c8c2b4',null);
-     band(sg,P,'L',5,3,'#4a90b8');band(sg,P,'R',5,3,'#3a7898');band(sg,P,'R',6,1,'#2e6484');
+     // 浪紋腰帶：2px 飽和藍，週期 6px、振幅 1px（左面受光較亮）
+     const wave=(face,x0,n,c0,c1)=>{for(let i=0;i<n;i++){const o=[0,0,1,1,1,0][i%6];win(sg,P,face,x0+i,1,5+o,1,c0);win(sg,P,face,x0+i,1,6+o,1,c1);}};
+     wave('L',P.sx-P.la,P.la,'#1a6cc0','#2f8ee6');wave('R',P.sx,P.rb,'#145aa2','#2378cc');
      for(let i=0;i<3;i++){const x=P.sx+4+i*6;win(sg,P,'R',x,3,1,3,'#26314e');win(ng,P,'R',x,3,1,3,'#96ebff');}
-     vault(sg,P,9,'#f4f1e8','#cfc8b8','#e8e4da');
-     band(ng,P,'L',6,1,'#78dcff');band(ng,P,'R',6,1,'#78dcff');
-     {const x=P.sx-12;archWin(sg,ng,P,'L',x,7,1,15,'#b8e0f0','#7a8288','#96ebff');
-      win(sg,P,'L',x,7,1,2,'#4a90b8');win(sg,P,'L',x+3,1,3,11,'#7a8288');win(sg,P,'L',x,7,9,1,'#7a8288');}
-     // 海豚噴泉（圓池＋小海豚噴水柱；取代原雕像座＋長椅）
-     {const c=F(13.6,8.2),cx=c[0],cy=c[1];
-      ellF(sg,cx+.5,cy+1,6.5,3.2,'#b0aa9a');ellF(sg,cx+.5,cy,6.5,3.2,'#ece8dc');ellF(sg,cx+.5,cy,4.8,2.2,'#4fa8d0');R(sg,cx-3,cy,2,1,'#9ad8f0');
-      const map=["..S.",".MD.","LMD.","LM..","TT.."],pal={D:'#4d6578',M:'#7d95a8',L:'#dce8ee',T:'#5d7588',S:'#5d7588'};
-      map.forEach((row,j)=>{for(let i=0;i<row.length;i++){const q=pal[row[i]];if(q)R(sg,cx-1+i,cy-5+j,1,1,q);}});
-      R(sg,cx+1,cy-9,1,3,'#b8e8f8');R(sg,cx+2,cy-8,1,1,'#e8f6fc');R(sg,cx+3,cy-7,1,2,'#b8e8f8');
-      R(sg,cx-4,cy+1,1,1,'#e8f0f4');R(sg,cx+4,cy+1,1,1,'#e8f0f4'); // 池緣水下燈座（夜光只落在這兩顆燈上）
-      R(ng,cx-5,cy,3,2,'#78dcff');R(ng,cx+3,cy,3,2,'#78dcff');}
+     const pts=vault(sg,P,9,'#f4f1e8','#cfc8b8','#e8e4da');
+     // 山牆大拱窗：一道直櫺、兩道橫櫺分成六格（底兩格見水槽藍）；夜間只亮其中四格（約 66%）
+     {const x=P.sx-12,FR='#7a8288';archWin(sg,null,P,'L',x,7,1,15,'#b8e0f0',FR,null);
+      win(sg,P,'L',x,7,1,2,'#4a90b8');win(sg,P,'L',x+3,1,1,15,FR);win(sg,P,'L',x,7,5,1,FR);win(sg,P,'L',x,7,10,1,FR);
+      const LIT='#96ebff';win(ng,P,'L',x,3,1,4,LIT);win(ng,P,'L',x,3,6,4,LIT);win(ng,P,'L',x+4,3,6,4,LIT);win(ng,P,'L',x+4,3,11,4,LIT);win(ng,P,'L',x+4,2,15,1,LIT);}
+     // 山牆頂海豚標誌（藍色，18×16；尾鰭立在山牆頂點，身體向右上躍出屋脊線）
+     {const apex=pts[Math.round(pts.length/2)-1]||pts[pts.length>>1],ax0=Math.round(apex[0])-1,ay0=Math.round(apex[1]);
+      const em=["...........DDD....",
+                ".........DDDDDD...",
+                "......D.DDDMMMMD..",
+                "......DDDMMMMMEMDD",
+                ".....DDDMMMMLLLLLL",
+                ".....DDMMMLLL.D...",
+                "....DDMMMLL..D....",
+                "....DMMLLL........",
+                "...DDMML..........",
+                "...DMML...........",
+                "..DMML............",
+                "..DML.............",
+                ".DML..............",
+                ".DML..............",
+                "DDL...............",
+                "D.D..............."];
+      R(sg,ax0-1,ay0-2,4,2,'#8a9aa8');R(sg,ax0-1,ay0-2,4,1,'#b8c4cc');
+      pmap(sg,em,{D:'#1f6fc0',M:'#3d92e0',L:'#cfeeff',E:'#0e2440'},ax0-1,ay0-2-16);}
+     // 海豚噴泉（圓池＋直立躍身海豚雕像 13px 高，吻部噴水）
+     {const c=F(13.4,6.6),cx=c[0],cy=c[1];
+      ellF(sg,cx+.5,cy+1,7.5,3.6,'#b0aa9a');ellF(sg,cx+.5,cy,7.5,3.6,'#ece8dc');ellF(sg,cx+.5,cy,5.8,2.6,'#4fa8d0');R(sg,cx-4,cy+1,2,1,'#9ad8f0');R(sg,cx+3,cy-1,2,1,'#9ad8f0');
+      R(sg,cx-1,cy-1,4,2,'#9a9488');R(sg,cx-1,cy-1,4,1,'#c8c2b4');
+      const st=["...DDD..",
+                "..DDMEDL",
+                "..DMMLLL",
+                "D.DMML..",
+                ".DDML...",
+                ".DDML...",
+                ".DMML...",
+                ".DML....",
+                ".DML....",
+                ".DML....",
+                "..DL....",
+                ".DDD....",
+                "D...D..."];
+      pmap(sg,st,{D:'#23609e',M:'#3f86c8',L:'#e4f2fa',E:'#0e1a2a'},cx-2,cy-14);
+      R(sg,cx+6,cy-14,1,1,'#b8e8f8');R(sg,cx+7,cy-13,1,2,'#b8e8f8');R(sg,cx+8,cy-11,1,3,'#b8e8f8');R(sg,cx+8,cy-8,1,1,'#e8f6fc');
+      R(sg,cx-5,cy+1,1,1,'#e8f0f4');R(sg,cx+5,cy+1,1,1,'#e8f0f4'); // 池緣水下燈座（夜光只落在這兩顆燈上）
+      R(ng,cx-6,cy,3,2,'#78dcff');R(ng,cx+4,cy,3,2,'#78dcff');}
      finish(K,k,2,OL,1);}
   }catch(e){console.error('v574 k181',e);}
 });
