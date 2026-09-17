@@ -24740,9 +24740,10 @@ function applyT573Silhouette(){
    主升壓變壓器（散熱片／套管／儲油櫃）、開關場門型架、控制室、碎石地＋混凝土基座、鐵網圍籬＋大門、照明桿。
    五型：v0 Megapack 並排／v1 40 呎貨櫃式／v2 光儲共站／v3 變電所併設／v4 防火牆分區。
    先有燈具才有光：夜圖只亮狀態燈、控制室窗、照明桿燈頭、變壓器警示燈。零亂數（決定性雜湊）。 ===== */
-function applyT575Bess(){
-  if(window.__noBess575||!SPR||!SPR.bld)return;
-  const W=136,H=150,AX=68,AY=148,TOPY=AY-64;
+/* ===== T575 等距設施工具：依佔地大小綁定投影；P(u,v,h) 中 u,v∈[0,SZ] 為格座標、h 為像素高。
+   光從左（+v 面亮、+u 面暗）；結構層畫完 hard() 二值化再 outlineSprite；圍籬不進外框層。 ===== */
+function makeIso575(W,H,AX,AY,SZ){
+  const TOPY=AY-32*SZ;
   const P=(u,v,h=0)=>[AX+(u-v)*32,TOPY+(u+v)*16-h];
   const hsh=(a,b,c)=>hashLocal479(a|0,b|0,c|0);
   const poly=(g,pts,col)=>{g.fillStyle=col;g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fill();};
@@ -24806,9 +24807,9 @@ function applyT575Bess(){
   const hydrant=(g,u,v)=>{const p=P(u,v,0);px(g,[p[0]-1,p[1]-5],'#c0392b',3,5);px(g,[p[0]-2,p[1]-3],'#e0584a',5,1);};
   // ---- 地面與圍籬 ----
   const ground=(g,seed)=>{
-    dia(g,AX,TOPY,64,'#aaa69b');
-    for(let i=0;i<150;i++){const u=hsh(seed,i,1)*2,v=hsh(seed,i,2)*2,p=P(u,v,0);px(g,p,hsh(seed,i,3)<.5?'#9c988d':'#bbb7ad');}
-    diaEdge(g,6,'#8b877e',AX,TOPY,64);diaEdge(g,9,'#c2beb4',AX,TOPY,64);
+    dia(g,AX,TOPY,32*SZ,'#aaa69b');
+    for(let i=0;i<Math.round(38*SZ*SZ);i++){const u=hsh(seed,i,1)*SZ,v=hsh(seed,i,2)*SZ,p=P(u,v,0);px(g,p,hsh(seed,i,3)<.5?'#9c988d':'#bbb7ad');}
+    diaEdge(g,6,'#8b877e',AX,TOPY,32*SZ);diaEdge(g,9,'#c2beb4',AX,TOPY,32*SZ);
   };
   const pad=(g,u0,v0,du,dv)=>poly(g,[P(u0,v0),P(u0+du,v0),P(u0+du,v0+dv),P(u0,v0+dv)],'#cbc8c0');
   const road=(g,u0,v0,du,dv)=>poly(g,[P(u0,v0),P(u0+du,v0),P(u0+du,v0+dv),P(u0,v0+dv)],'#86837d');
@@ -24821,12 +24822,20 @@ function applyT575Bess(){
     if(gap){seg(0,gap[0]);seg(gap[1],1);}else seg(0,1);
   };
   const E=.05;
-  const backFence=g=>{fence(g,[E,E],[2-E,E]);fence(g,[E,E],[E,2-E]);};
-  const frontFence=g=>{fence(g,[2-E,E],[2-E,2-E]);fence(g,[E,2-E],[2-E,2-E],[.08,.26]);
-    const s=P(1.6,2-E,0);px(g,[s[0]-2,s[1]-6],'#f2f2f2',5,4);px(g,[s[0]-1,s[1]-5],'#c0392b',3,2);};
+  const backFence=g=>{fence(g,[E,E],[SZ-E,E]);fence(g,[E,E],[E,SZ-E]);};
+  const frontFence=(g,gate=[.08,.26])=>{fence(g,[SZ-E,E],[SZ-E,SZ-E]);fence(g,[E,SZ-E],[SZ-E,SZ-E],gate);
+    const s=P(SZ*.8,SZ-E,0);px(g,[s[0]-2,s[1]-6],'#f2f2f2',5,4);px(g,[s[0]-1,s[1]-5],'#c0392b',3,2);};
   // ---- 硬邊化（本作像素鐵律）：多邊形抗鋸齒半透明邊 → 二值化 ----
   const hard=c=>{const x=c.getContext('2d'),d=x.getImageData(0,0,W,H);for(let i=3;i<d.data.length;i+=4)d.data[i]=d.data[i]>=110?255:0;x.putImageData(d,0,0);};
-  const finish=(c,g,sc,nc)=>{hard(sc);outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);frontFence(g);return{img:c,night:nc,ax:AX,ay:AY,w:W,h:H,smoke:[],__t575:1};};
+  const finish=(c,g,sc,nc,opt={})=>{hard(sc);outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);if(opt.fence!==false)frontFence(g,opt.gate);return{img:c,night:nc,ax:AX,ay:AY,w:W,h:H,smoke:opt.smoke||[],__t575:1};};
+  const canvases=()=>{const[c,g]=cv(W,H),[nc,ng]=cv(W,H),[sc,sg]=cv(W,H);return{c,g,nc,ng,sc,sg};};
+  return {W,H,AX,AY,SZ,TOPY,P,hsh,poly,line,px,box,cabinet,container,pcs,transformer,gantry,building,pole,firewall,panelRow,hydrant,ground,pad,road,fence,E,backFence,frontFence,hard,finish,canvases};
+}
+function applyT575Bess(){
+  if(window.__noBess575||!SPR||!SPR.bld)return;
+  const W=136,H=150,AX=68,AY=148;
+  const K=makeIso575(W,H,AX,AY,2);
+  const {P,hsh,poly,line,px,box,cabinet,container,pcs,transformer,gantry,building,pole,firewall,panelRow,hydrant,ground,pad,road,fence,E,backFence,frontFence,hard,finish,canvases}=K;
   const layouts=[
     (g,sg,ng)=>{ // v0 Megapack 並排
       pad(g,.18,.3,1.4,1.3);road(g,.08,1.55,1.84,.14);
@@ -44938,7 +44947,7 @@ Object.assign(window.GV,{build528:()=>({...BUILD_META528})}); // T528：QA 讀�
 Object.assign(window.GV,{build529:()=>({...BUILD_META529})}); // T529：QA 讀數
 Object.assign(window.GV,{build530:()=>({...BUILD_META530}),fc530:()=>({facade:window.__t530facade|0})}); // T530：QA 讀數
 Object.assign(window.GV,{testInjectResident534:testInjectResident534,testUiRoundtrip534:testUiRoundtrip534});
-Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:1,v:0,age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
+Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:1,v:0,age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
    給煙霧測試當斷言用（§3.4 守衛要是事實）。返回 {ok,checks}。 */
