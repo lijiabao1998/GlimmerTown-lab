@@ -41,9 +41,10 @@ fs.mkdirSync(path.dirname(path.join(ROOT, OUT)), { recursive: true });
     await ev(`window.GV.metroArtSeedWorld516(5162026)`);
     await ev(`(()=>{const st=document.getElementById('start');if(st)st.style.display='none';const ov=document.getElementById('startOverlay456');if(ov){ov.classList.remove('show');ov.style.display='none';}document.querySelectorAll('.toast,#toast,#toasts,.hint,#hint,.coach,#coach456').forEach(e=>e.style.display='none');return 1;})()`);
     const placed = await ev(`(()=>{const A=GV.art574,G=${JSON.stringify(grids)},K=${K},LV=${LV},V=${V1};const CX=36,CY=36;A.clear574(CX-14,CY-14,28,28);
-      const road=[];for(let i=-13;i<=13;i++)road.push([CX+i,CY-i]);A.road577(road);
-      const list=[];let off=0;for(const [gw,gh] of G){list.push({k:K,lv:LV,v:V,grid:[gw,gh],x:CX+off+1,y:CY-off-gh});off+=gw+1;}
-      const out=A.plant574(list);GV.block559.cache().clear();GV.lookAt(CX+4,CY-4);A.zoom574(${ZOOM});return out;})()`);
+      // 路沿格 x 軸（畫面上是左上→右下的斜線），街屋列平行於路、亮面（+y 面）朝路
+      const road=[];for(let i=-13;i<=13;i++)road.push([CX+i,CY+1]);A.road577(road);
+      const list=[];let off=-12;for(const [gw,gh] of G){list.push({k:K,lv:LV,v:V,grid:[gw,gh],x:CX+off,y:CY-gh+1});off+=gw+1;}
+      const out=A.plant574(list);GV.block559.cache().clear();GV.lookAt(CX,CY-1);A.zoom574(${ZOOM});return out;})()`);
     const CY = await ev('GV.art574.cycle574()'); const shots = {};
     for (const [tag, vt] of [['day', CY * 0.5], ['night', 0]]) {
       await ev(`GV.setVisT(${vt});(typeof GV.forceDraw==='function')&&GV.forceDraw();1`); await sleep(1300);
