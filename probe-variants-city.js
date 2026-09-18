@@ -11,6 +11,7 @@ const ZOOM = +arg('zoom', 1.5);
 const SEED = +arg('seed', 5162026);
 const EXPLICIT = arg('explicit', '') === '1';
 const VN = +arg('vn', 3);
+const ORIGIN = arg('origin', '');
 const SZ = JSON.parse(fs.readFileSync(path.join(ROOT, 'scout574/sz.json'), 'utf8'));
 
 (async () => {
@@ -29,12 +30,13 @@ const SZ = JSON.parse(fs.readFileSync(path.join(ROOT, 'scout574/sz.json'), 'utf8
       const rows=KS.map(k=>({k,sz:szOf(k),has:Array.from({length:${VN}},(_,v)=>!!SPR.bld[k+'_1_'+v])}));
       // 等距地圖裡畫面水平方向是 (x+1,y-1)、垂直向下是 (x+1,y+1)：同類三版本沿水平排、各類沿垂直疊
       const step=r=>r.sz+1;
-      const need=rows.reduce((a,r)=>a+3*step(r)+6,0);
+      const need=rows.reduce((a,r)=>a+r.has.length*step(r)+6,0);
       const W=Math.min(66,need+rows.reduce((a,r)=>a+r.sz+3,0)),H=W;
       let best=null;
       for(let y0=2;y0<=70-H&&!best;y0+=2)for(let x0=2;x0<=70-W&&!best;x0+=2){
         let ok=true;for(let y=y0;y<y0+H&&ok;y+=2)for(let x=x0;x<x0+W&&ok;x+=2)if(!A.land574(x,y))ok=false;
         if(ok)best=[x0,y0];}
+      if(${JSON.stringify(ORIGIN)})best=${JSON.stringify(ORIGIN)}.split(',').map(Number);
       if(!best){best=[3,3];}
       const [x0,y0]=best;A.clear574(x0,y0,W,H);
       const list=[];let bx=x0+2,by=y0+Math.floor(H/2);
