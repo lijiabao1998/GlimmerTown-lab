@@ -4,3 +4,17 @@ shots/
 node_modules/
 
 .smoke-profile*/
+
+# T577 迭代產物不進版本庫（定稿接觸表與實景圖仍手動收入）
+shots574/*_iter*
+shots574/*.json
+shots574/*_before*
+shots574/*_v0_*
+shots575/*_iter*
+shots575/*.json
+shots575/*_before*
+shots575/tmp*
+shots575/look_*
+shots575/fix_*
+scout574/*.txt
+.smoke-profile-*
