@@ -41548,7 +41548,8 @@ function draw(dt){
     if(!lodFar&&!(o.block547&&(o.block547.w>1||o.block547.h>1))&&bd.k!==4&&bd.age>=4)
       groundShade572(ctx,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf,s.h);
     const once575=window.__noOnce575||o.blockDiag555==null||o.blockDiag555===o.blockD0575; // T575：超街區切條時地面效果只在第一條畫
-    if(!window.__noMetropolitanArt516&&once575)drawBlockStitch516(ctx,o,bd,s,bx,by,z,lodFar); // T516：相鄰同類建築的裙樓／鋪面縫合；不改 tile、save 或模擬
+    const isBlock577=!!(o.block547&&(o.block547.w>1||o.block547.h>1)); // T577：超街區的縫合板會把自己的格子當鄰居 ⇒ 屋頂左端浮一塊灰板，跳過
+    if(!window.__noMetropolitanArt516&&once575&&!isBlock577)drawBlockStitch516(ctx,o,bd,s,bx,by,z,lodFar); // T516：相鄰同類建築的裙樓／鋪面縫合；不改 tile、save 或模擬
     if(bd.age<4&&bd.k!==4&&!window.__noConstr2&&!lodFar&&!o.block547){ // T220/T258/T259 分階段施工（Opus 親手，玩家「更細更緩慢」）——工期 5→9 天：age0 圍籬+開挖坑+挖掘機、age1 地基鋼筋+水泥攪拌車、age2 鋼骨半高、age3 鋼骨全高+焊接火花；age4-8 交下方樓體逐層升起+鷹架。純 age/visT 決定性不消耗 R()、__noConstr2=true 退回舊淡入、遠景不繪
       const sz2=bd.sz||1;
       const cx1=sxOf(o.x,o.y)+32*z, cy1=syOf(o.x,o.y)+16*z;
