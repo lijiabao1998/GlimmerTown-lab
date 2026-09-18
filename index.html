@@ -39954,7 +39954,7 @@ function draw(dt){
     else if(bd.k===9)s=SPR.bld['9_1_'+bd.v];
     else if(bd.k===10)s=(bd.v&&SPR.waterTowerVar&&SPR.waterTowerVar[bd.v])||SPR.waterTower; // 水塔（T31）；T218：依 bd.v 選變體（v0 圓柱／v1 鋼銀高腳／v2 球形）
     else if(bd.k===11)s=(bd.v&&SPR.policeVar&&SPR.policeVar[bd.v])||SPR.police; // 警察局（T32）；T216：依 bd.v 選變體（v0 hero／v1 現代寬樓／v2 高塔式，缺鍵回退 hero）
-    else if(bd.k===52)s=SPR.policeBox; // 派出所（T222）
+    else if(bd.k===52)s=(SPR.policeBoxVar576&&SPR.policeBoxVar576.length?SPR.policeBoxVar576[Math.min(SPR.policeBoxVar576.length-1,Math.floor(hashLocal479(o.x|0,o.y|0,52*131)*SPR.policeBoxVar576.length))]:null)||SPR.policeBox; // 派出所（T222）；T576：依格座標挑變體，不動存檔
     else if(bd.k===12)s=(bd.v&&SPR.hospitalVar&&SPR.hospitalVar[bd.v])||SPR.hospital; // 醫院（T33）；T217：依 bd.v 選變體（v0 hero／v1 現代高塔／v2 庭院雙翼）
     else if(bd.k===13)s=(bd.v&&SPR.clinicVar&&SPR.clinicVar[bd.v])||SPR.clinic; // 診所（T34）；T217：依 bd.v 選變體（v0 hero／v1 綠十字藥局風／v2 兩層家庭診所）
     else if(bd.k===22||bd.k===53){ // T281：作物生長輪作（星露谷對標）——(day+格雜湊)%12 → 小苗/成長/成熟三段；冬季休耕雪田
