@@ -50701,7 +50701,14 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   else{const _a=arche568(k,lv,v);
     if(_a&&!lotFull570(_a.box)&&!(_a.ex&&lotFull570(_a.ex.box)))
       lotFill570(g,ng,G0559,_a.box,k,rk559,pal);}
-  const ar568=arche568(k,lv,v);
+  let ar568=arche568(k,lv,v);
+  /* T582 量體分割：大街廓（>=6 格）且原型無第二量體時，沿進深 v 切成前後兩棟、中間 0.08 巷道，
+     整街廓從「單一巨量體」讀成兩棟建築，lotFill 地坪自巷道露出。villa 與既有 ex 原型不動。__noParcel582 關閉。 */
+  if(ar568&&!ar568.ex&&!window.__noParcel582&&!villa559&&bw*bh>=6&&(ar568.box[3]-ar568.box[2])>=.5){
+    const vm582=(ar568.box[2]+ar568.box[3])*.5;
+    ar568=Object.assign({},ar568,{box:[ar568.box[0],ar568.box[1],ar568.box[2],Math.max(ar568.box[2]+.12,vm582-.04)],
+      ex:{box:[ar568.box[0],ar568.box[1],Math.min(ar568.box[3]-.06,vm582+.04),ar568.box[3]],hm:ar568.hm*.85}});
+  }
   if(ar568)wallH=Math.max(8,Math.round(wallH*ar568.hm));
   const G=ar568?subPara568(G0559,ar568.box):G0559;
   const cLp=window.__noLeftLight541?pal.mid:pal.light,cRp=window.__noLeftLight541?pal.light:pal.dark;
@@ -50894,7 +50901,7 @@ function groundShade572(ctx,x,y,w,h,z,sxF,syF,spriteH){
   void ov;
 }
 function getBlockSprite547(k,lv,bw,bh,v){
-  const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
+  const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
   const sp=makeBlockSprite547(k,lv,bw,bh,v);BLOCK_SPR547.set(key,sp);return sp;
 }
