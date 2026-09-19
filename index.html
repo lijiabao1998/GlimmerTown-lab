@@ -38959,6 +38959,7 @@ function v2w(vx,vy){
   return [N-1-vy,vx];
 }
 function viewDep(x,y){const p=w2v(x,y);return p[0]+p[1];}
+function viewTie585(x,y){return w2v(x,y)[1]*.001;} // T585：深度 tie-break 改視圖 y（r=0 時 w2v 恆等＝舊世界 y，逐位不變；r≠0 時與 viewDep 同一座標系，修旋轉視角切條錯序）
 function isoW2V(wx,wy,off){ // T367：世界等距座標→view 等距（實體 wx/wy 用）
   off=off===undefined?16:off;
   const fx=(wx/32+(wy-off)/16)/2, fy=((wy-off)/16-wx/32)/2;
@@ -40922,10 +40923,10 @@ function draw(dt){
         if(!window.__noOverlap555){
           let minD=1e9,maxD=-1e9;
           for(let dy=0;dy<blk.h;dy++)for(let dx=0;dx<blk.w;dx++){const d=viewDep(x+dx,y+dy);if(d<minD)minD=d;if(d>maxD)maxD=d;}
-          for(let d=minD;d<=maxD;d++)objs.push({dep:d+y*.001,x,y,sx,sy,t,block547:blk,blockDiag555:d,blockD0575:minD});
+          for(let d=minD;d<=maxD;d++)objs.push({dep:d+(window.__noTie585?y*.001:viewTie585(x,y)),x,y,sx,sy,t,block547:blk,blockDiag555:d,blockD0575:minD});
         }else{
           let md=-1;for(let dy=0;dy<blk.h;dy++)for(let dx=0;dx<blk.w;dx++){const d=viewDep(x+dx,y+dy);if(d>=md)md=d;}
-          objs.push({dep:md+y*.001,x,y,sx,sy,t,block547:blk});
+          objs.push({dep:md+(window.__noTie585?y*.001:viewTie585(x,y)),x,y,sx,sy,t,block547:blk});
         }
         continue;
       }
@@ -40942,8 +40943,8 @@ function draw(dt){
       const sz=t.bld.sz||2; // k9 無 sz 時與舊 (x+1)+(y+1) 對齊
       let md=-1;
       for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const d=viewDep(x+dx,y+dy);if(d>=md)md=d;}
-      dep=md+y*.001;
-    }else dep=viewDep(x,y)+y*.001;
+      dep=md+(window.__noTie585?y*.001:viewTie585(x,y));
+    }else dep=viewDep(x,y)+(window.__noTie585?y*.001:viewTie585(x,y));
     objs.push({dep,x,y,sx,sy,t});
     /* ===== T368a 公園有人：遊樂場孩童／公園晨跑者／遛狗公園狗與主人（draw-time 決定性，零亂數消耗） ===== */
     if(animOn&&!window.__noParkLife){
@@ -41120,10 +41121,10 @@ function draw(dt){
   // T126：前方建築遮擋游標/選中物半透明——僅工具啟用＋有效 hover，或已選中建築時才有目標（空陣列時下方迴圈零額外開銷、渲染與改動前逐像素一致）
   const occTargets=[];
   if(!['pan','busrt','railrt','tramrt','metrort'].includes(tool)&&hover.x>=0){
-    occTargets.push({ax:sxOf(hover.x,hover.y)+32*z,ay:syOf(hover.x,hover.y)+32*z,dep:viewDep(hover.x,hover.y)+hover.y*.001});
+    occTargets.push({ax:sxOf(hover.x,hover.y)+32*z,ay:syOf(hover.x,hover.y)+32*z,dep:viewDep(hover.x,hover.y)+(window.__noTie585?hover.y*.001:viewTie585(hover.x,hover.y))});
   }
   if(selTile&&inMap(selTile.x,selTile.y)&&T(idx(selTile.x,selTile.y)).bld&&!T(idx(selTile.x,selTile.y)).bld.ref){
-    occTargets.push({ax:sxOf(selTile.x,selTile.y)+32*z,ay:syOf(selTile.x,selTile.y)+32*z,dep:viewDep(selTile.x,selTile.y)+selTile.y*.001});
+    occTargets.push({ax:sxOf(selTile.x,selTile.y)+32*z,ay:syOf(selTile.x,selTile.y)+32*z,dep:viewDep(selTile.x,selTile.y)+(window.__noTie585?selTile.y*.001:viewTie585(selTile.x,selTile.y))});
   }
   for(const o of objs){
     if(o.sta){ // T318：地鐵站體（小/中/大三級，燈箱柱染該線顏色）
