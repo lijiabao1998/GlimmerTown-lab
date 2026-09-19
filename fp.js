@@ -145,10 +145,12 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       const unexpected = famTouched.filter(f => !expectSet.has(f));
       const missing = EXPECT.filter(f => !famTouched.includes(f));
       // 超街區快取偽家族：--expect 可含 'block559'（宣告「本輪改了超街區繪製」）
+      const bFam = (blocks && blocks.ok) ? blocks.fam : null;
+      const bPrev = (base && base.blocks) ? base.blocks.fam : null;
       if (expectSet.has('block559')) {
-        if (blockPrevFam && blockPrevFam !== blockFam) log('  OK block559：超街區快取已變動（如宣告）');
-        else if (blockPrevFam) { log('  X block559：宣告了但快取 CRC 與基線相同'); process.exit(1); }
-      } else if (blockPrevFam && blockPrevFam !== blockFam) {
+        if (bPrev && bFam && bPrev !== bFam) log('  OK block559：超街區快取已變動（如宣告）');
+        else if (bPrev) { log('  X block559：宣告了但快取 CRC 與基線相同'); process.exit(1); }
+      } else if (bPrev && bFam && bPrev !== bFam) {
         log('  X 多改了：block559（超街區快取變動未宣告）');
         process.exit(1);
       }
