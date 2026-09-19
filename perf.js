@@ -96,7 +96,8 @@ const SCENES = [
      的比值（實測兩輪夜/日比值 1.016/1.000 一致，絕對值卻差 25%）。day_noon 缺席時退回絕對比。 */
   const refFps = (results.find(r => r.id === 'day_noon') || {}).fps || 0;
   const cur = { generatedAt: new Date().toISOString(), version: meta.version || '?', anchor: meta.anchor || '?', sampleS: SAMPLE_S, rounds: ROUNDS, scenes: {} };
-  for (const r of results) { r.ratio = refFps ? +(r.fps / refFps).toFixed(3) : null; cur.scenes[r.id] = r; }
+  const capF = f => Math.min(f, 60); // T593b：無頭 rAF 無 vsync 時快場景可破百，場景跨帽會讓比值假摔 ⇒ 比值統一以 60fps 封頂計
+  for (const r of results) { r.ratio = refFps ? +(capF(r.fps) / capF(refFps)).toFixed(3) : null; cur.scenes[r.id] = r; }
 
   const base = (() => { try { return JSON.parse(fs.readFileSync(PERF_PATH, 'utf8')); } catch { return null; } })();
   if (base && base.scenes) {

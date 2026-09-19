@@ -38956,6 +38956,40 @@ function drawAgeWeathering591(g,o,bd,s,bx,by,z,drawA){
   if(drew)window.__t591WxCount=(window.__t591WxCount||0)+1;
   return drew;
 }
+/* ===== T593 Sign Age／招牌新舊差異（draw-side） =====
+   T577 招牌烘在共享 sprite 快取裡無法隨 age 變化；本層在店面上方帶疊一塊
+   「隨建築年齡褪色的招牌板」：新屋色彩飽和、老屋褪色＋剝落缺角＋下方垂漬，
+   工業屋則為漆掉重漆的舊牆廣告。streetHash 決定性、不消耗 R()、不入 save；
+   掛 detailPermit432；__noSign593 逃生閥；__t593SignCount 計數。 */
+function drawSignAge593(g,o,bd,s,bx,by,z,drawA){
+  if(window.__noSign593||z<.9||!bd||bd.ref||bd.k===4)return 0;
+  const age=bd.age|0;
+  if(age<12||cat2k593(bd.k)!==2)return 0;
+  const t=Math.min(1,age/300);
+  if(!detailPermit432(o.x,o.y,593,z,.30+t*.30))return 0;
+  const h=streetHash(o.x,o.y,59301),foot=by+s.h*z,spw=s.w*z;
+  const R=(x,y,w,hh,c,al)=>{g.save();g.globalAlpha=drawA*detailAlpha432(z)*al;g.fillStyle=c;g.fillRect(Math.round(bx+x),Math.round(foot+y),Math.max(1,Math.round(w)),Math.max(1,Math.round(hh)));g.restore();};
+  const HUE=[['#8a5a3c','#a5694a'],['#4a6a5c','#5d8072'],['#5a5a7a','#6d6d90'],['#7a4a4a','#8f5d5d'],['#6a5f3c','#7d724a']];
+  const hue=HUE[(streetHash(o.x,o.y,59302)*HUE.length)|0]||HUE[0];
+  const ux=.16+streetHash(o.x,o.y,59303)*.52, bw2=(10+streetHash(o.x,o.y,59304)*7)*z;
+  const sy0=-(20+streetHash(o.x,o.y,59305)*8)*z;
+  const bx0=spw*ux; // T593 修正：R() 內部再加 bx，此處必須給相對座標（原寫法座標翻倍畫出畫布外）
+  // 板身：新屋飽和 hue[1]、老屋褪向 hue[0]（t 越大越灰）
+  const fade=t>.45;
+  R(bx0,sy0,bw2,3.4*z,fade?hue[0]:hue[1],.88-t*.16);
+  // 板緣高光（新屋才明顯）
+  if(t<.5)R(bx0,sy0,bw2,1*z,'rgba(240,236,220,.35)',1-t);
+  // 剝落缺角（老屋）：右端或左端一小塊底色
+  if(t>.55){const chip=streetHash(o.x,o.y,59306)<.5?1:-1;
+    R(chip>0?bx0+bw2-3*z:bx0,sy0,3*z,2.2*z,'rgba(70,66,60,.55)',t);}
+  // 下方垂漬 1~2 條（老屋）
+  if(t>.35){const nD=1+((streetHash(o.x,o.y,59307)*3)|0)%2;
+    for(let i=0;i<nD;i++){const hh=streetHash(o.x,o.y,59308+i);
+      R(bx0+hh*bw2,sy0+3.4*z,1*z,(3+t*6)*z,'rgba(70,66,60,.22)',t);}}
+  window.__t593SignCount=(window.__t593SignCount||0)+1;
+  return 1;
+}
+function cat2k593(k){return k===1?1:k===2?2:3;}
 function drawRooftop425(g,o,bd,s,bx,by,z,drawA){
   if(window.__noRooftop425||z<.9||!bd||bd.ref||(bd.age|0)<18)return 0;
   const cat=kcatOf(bd.k),special=bd.k===57||bd.k===64||bd.k===100||bd.k===116||bd.k===118||bd.k===119||bd.k===121||bd.k===122||bd.k===123;
@@ -39198,7 +39232,7 @@ function detailAlpha432(z){return z<.75?0:z<1?.58:z<1.3?.78:1;}
 function detailPermit432(x,y,layer,z,base){
   if(z<.72){window.__t432Suppressed=(window.__t432Suppressed||0)+1;return false;}
   if(window.__noDetailBudget432)return streetHash(x,y,43280+layer)<base;
-  const li=({425:0,426:1,429:2,430:3,431:4})[layer];
+  const li=({425:0,426:1,429:2,430:3,431:4,591:1,593:1})[layer]; // T591/T593 掛入槽位節奏（與 426 同槽＝牆面敘事族）
   const slot1=Math.floor(streetHash(x,y,43201)*5)%5;
   const slot2=(slot1+1+Math.floor(streetHash(x,y,43202)*4))%5;
   const slotMul=layer===431?(li===slot1?1:li===slot2?.85:.55):(li===slot1?1:li===slot2?.58:.16); // 夜間微光只在夜裡存在，放寬槽位避免整個可視街區恰好零命中
@@ -42197,6 +42231,7 @@ function draw(dt){
     if(!constrRise&&(bd.age|0)>=9){
       drawDistrictTexture424(ctx,o,bd,s,bx,by,z,drawA);
       drawAgeWeathering591(ctx,o,bd,s,bx,by,z,drawA); // T591 連續老化梯度（大面低透明先畫）
+      drawSignAge593(ctx,o,bd,s,bx,by,z,drawA); // T593 招牌新舊差異
       drawFacadeMemory426(ctx,o,bd,s,bx,by,z,drawA);
       drawLivedIn421(ctx,o,bd,s,bx,by,z,drawA);
       drawRooftop425(ctx,o,bd,s,bx,by,z,drawA);
@@ -51036,7 +51071,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   let ridge=null;
   const nBay=Math.max(2,Math.min(8,long));
   const flat568=!!(ar568&&ar568.flat);
-  if(window.__noPitch553||flat568){fillPara547(g,roof,flat568?shade(pal.dark,6):pal.roof);if(flat568)roofKit559(g,ng,roof,rk559,k,pal,Math.max(2,bw*bh*.8));}
+  if(window.__noPitch553||flat568){fillPara547(g,roof,flat568?shade(pal.dark,6):pal.roof);if(flat568)roofKit559(g,ng,roof,rk559,k,pal,Math.max(2,bw*bh*.8)*(1+(lv-1)*.35));} // T593：屋頂設備密度隨 lv 提升
   else if(!typ){
     if(k===3&&bw*bh>=4)ridge=sawtoothPara547(g,roof,Math.max(3,Math.min(7,Math.max(bw,bh))),Math.max(10,pitchH-4),roofL,roofR,ridgeCol,axis);
     else{
@@ -51064,7 +51099,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     }
   }else if(k===2){
     fillPara547(g,roof,shade(pal.dark,26)); // T587：k=2 legacy 平頂自暗藏青提亮（業主「全城同一暗灰」）
-    if(!(bw*bh>=4&&!window.__noMassing552))roofKit559(g,ng,roof,rk559,k,pal,bw*bh);
+    if(!(bw*bh>=4&&!window.__noMassing552))roofKit559(g,ng,roof,rk559,k,pal,bw*bh*(1+(lv-1)*.35)); // T593 同上
     const innerP=shrinkPara547(roof,.07),para=4;
     edgeWall547(g,innerP.W,innerP.S,para,shade(cL,-10));edgeWall547(g,innerP.E,innerP.S,para,shade(cR,-10));
     const deck={N:[innerP.N[0],innerP.N[1]-para],E:[innerP.E[0],innerP.E[1]-para],S:[innerP.S[0],innerP.S[1]-para],W:[innerP.W[0],innerP.W[1]-para]};
