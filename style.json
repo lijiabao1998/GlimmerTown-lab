@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-19T06:57:02.013Z",
+ "generatedAt": "2026-09-19T07:35:07.039Z",
  "version": "12.89",
  "anchor": "T534",
  "version_fp": "12.89",
@@ -9,10 +9,10 @@
   "lightDir": 0.6625202642801367,
   "shade": 0.6104135645044082,
   "density": 0.7593296810489452,
-  "nightRule": 0.5951935701578317,
+  "nightRule": 0.598373168067065,
   "variants": 0.5463576158940397
  },
- "grand": 0.6537,
+ "grand": 0.6541,
  "families": {
   "grass": {
    "leaves": 4,
@@ -3743,9 +3743,9 @@
     "colors": 2661,
     "buckets": 109,
     "leftLit": 4,
-    "nightLeaves": 0,
-    "nightOp": 0,
-    "nightViol": 0
+    "nightLeaves": 15,
+    "nightOp": 1006,
+    "nightViol": 40
    },
    "axes": {
     "palette": 1,
@@ -3753,10 +3753,10 @@
     "lightDir": 0.26666666666666666,
     "shade": 1,
     "density": 1,
-    "nightRule": 0.5,
+    "nightRule": 0.9801192842942346,
     "variants": 1
    },
-   "total": 0.681
+   "total": 0.7495
   },
   "bridge476": {
    "leaves": 64,
