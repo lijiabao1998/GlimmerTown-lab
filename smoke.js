@@ -68,6 +68,15 @@ const KEEP = process.argv.includes('--keep');
       else { fails.push('事件流往返未通過'); (r && r.checks || []).forEach(c => log('     ' + c)); }
     } catch (e) { fails.push('事件流往返執行失敗: ' + e.message); }
 
+    log('4e 幀率快採（T584，只記不判）…');
+    try {
+      await cdp.evalJs(`(()=>{GV.setVisT(55);GV.setRot(0);GV.setZoom(1);GV.forceDraw();GV.forceDraw();GV.forceDraw();return 1})()`);
+      await cdp.evalJs(`(()=>{window.__perfStop584=false;window.__perfN584=0;window.__perfT584=performance.now();const step=()=>{if(window.__perfStop584)return;window.__perfN584++;requestAnimationFrame(step);};requestAnimationFrame(step);return 1;})()`);
+      await sleep(1200);
+      const pr = JSON.parse(await cdp.evalJs(`(()=>{window.__perfStop584=true;const n=window.__perfN584|0;const dt=(performance.now()-window.__perfT584)/1000;return JSON.stringify({n,dt});})()`));
+      log('   正午快採 ' + (pr.n / Math.max(.001, pr.dt)).toFixed(1) + ' fps（' + pr.n + ' 幀/' + pr.dt.toFixed(1) + 's；對照基線見 perf.json day_noon）');
+    } catch (e) { log('   幀率快採失敗（不影響判定）: ' + e.message); }
+
     log('5 錯誤檢查 …');
     if (cdp.errors.length) {
       fails.push('console 有 ' + cdp.errors.length + ' 筆錯誤');

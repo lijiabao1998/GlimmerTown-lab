@@ -1,0 +1,50 @@
+{
+ "generatedAt": "2026-09-19T17:23:02.041Z",
+ "version": "13.16",
+ "anchor": "T583",
+ "sampleS": 2.4,
+ "scenes": {
+  "day_noon": {
+   "id": "day_noon",
+   "desc": "正午預設視角",
+   "frames": 98,
+   "seconds": 2.42,
+   "fps": 40.4
+  },
+  "night": {
+   "id": "night",
+   "desc": "深夜（夜圖全合成）",
+   "frames": 69,
+   "seconds": 2.43,
+   "fps": 28.4
+  },
+  "rot1_day": {
+   "id": "rot1_day",
+   "desc": "正午旋轉90度",
+   "frames": 82,
+   "seconds": 2.42,
+   "fps": 33.9
+  },
+  "rot3_day": {
+   "id": "rot3_day",
+   "desc": "正午旋轉270度",
+   "frames": 97,
+   "seconds": 2.42,
+   "fps": 40.1
+  },
+  "zoom_far_day": {
+   "id": "zoom_far_day",
+   "desc": "正午拉遠 z=.68",
+   "frames": 114,
+   "seconds": 2.43,
+   "fps": 46.9
+  },
+  "zoom_near_day": {
+   "id": "zoom_near_day",
+   "desc": "正午拉近 z=2",
+   "frames": 109,
+   "seconds": 2.43,
+   "fps": 44.9
+  }
+ }
+}
