@@ -98,8 +98,9 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     const meta = await cdp.evalJs(`(window.GV && window.GV.build534) ? window.GV.build534() : {}`);
     const fp = await cdp.evalJs(`(window.GV && window.GV.fp536) ? window.GV.fp536() : {ok:false,err:'fp536 不存在'}`);
     const style = await cdp.evalJs(`(window.GV && window.GV.style536) ? window.GV.style536() : {ok:false,err:'style536 不存在'}`);
+    const blocks = await cdp.evalJs(`(window.GV && window.GV.blockFp536) ? window.GV.blockFp536() : {ok:false,err:'blockFp536 不存在'}`);
     if (!fp || !fp.ok) throw new Error('指紋失敗: ' + JSON.stringify(fp && (fp.err || fp.skipped || fp)));
-    return { meta, fp, style };
+    return { meta, fp, style, blocks };
   });
 
   if (!session.result) {
@@ -107,7 +108,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     process.exit(1);
   }
 
-  const { meta, fp, style } = session.result;
+  const { meta, fp, style, blocks } = session.result;
   const cur = {
     generatedAt: new Date().toISOString(),
     version: meta.version || '?',
@@ -115,6 +116,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     stats: fp.stats,
     families: fp.families,
     subs: fp.subs,
+    blocks: blocks && blocks.ok ? { fam: blocks.fam, count: blocks.count } : null,
   };
 
   log('版本 ' + cur.version + ' / ' + cur.anchor);
@@ -142,6 +144,14 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       const expectSet = new Set(EXPECT);
       const unexpected = famTouched.filter(f => !expectSet.has(f));
       const missing = EXPECT.filter(f => !famTouched.includes(f));
+      // 超街區快取偽家族：--expect 可含 'block559'（宣告「本輪改了超街區繪製」）
+      if (expectSet.has('block559')) {
+        if (blockPrevFam && blockPrevFam !== blockFam) log('  OK block559：超街區快取已變動（如宣告）');
+        else if (blockPrevFam) { log('  X block559：宣告了但快取 CRC 與基線相同'); process.exit(1); }
+      } else if (blockPrevFam && blockPrevFam !== blockFam) {
+        log('  X 多改了：block559（超街區快取變動未宣告）');
+        process.exit(1);
+      }
       log('');
       log('宣稱變動家族：' + EXPECT.join(', '));
       if (unexpected.length) log('  X 多改了：' + unexpected.join(', '));
@@ -165,6 +175,18 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     fs.writeFileSync(FP_PATH, JSON.stringify(cur, null, 1));
     log('');
     log('已寫入 fp.json');
+  }
+
+  /* ===== 超街區快取指紋（T579）===== */
+  let blockFam = null, blockPrevFam = null, blockCount = 0;
+  if (blocks && blocks.ok) {
+    blockFam = blocks.fam; blockCount = blocks.count;
+    log('');
+    log('超街區快取：' + blockCount + ' 個決定性枚舉條目，家族 CRC ' + blockFam);
+    if (base && base.blocks && base.blocks.fam) {
+      blockPrevFam = base.blocks.fam;
+      log('  ' + (blockPrevFam === blockFam ? '與基線一致' : '與基線不同（' + blockPrevFam + ' → ' + blockFam + '）'));
+    }
   }
 
   /* ===== 七軸記分卡 + 棘輪 ===== */

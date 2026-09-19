@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-19T05:29:53.110Z",
+ "generatedAt": "2026-09-14T14:24:55.577Z",
  "version": "12.89",
  "anchor": "T534",
  "version_fp": "12.89",
  "averages": {
-  "palette": 0.5576218611023881,
-  "hardEdge": 0.844188964452835,
-  "lightDir": 0.6625202642801367,
-  "shade": 0.6104135645044082,
-  "density": 0.7593296810489452,
-  "nightRule": 0.5920166309985525,
-  "variants": 0.5463576158940397
+  "palette": 0.5328342770232255,
+  "hardEdge": 0.8692268891889535,
+  "lightDir": 0.6589917317661982,
+  "shade": 0.5922857264440646,
+  "density": 0.7032009303952498,
+  "nightRule": 0.5889247779033482,
+  "variants": 0.5444630872483222
  },
- "grand": 0.6532,
+ "grand": 0.6414,
  "families": {
   "grass": {
    "leaves": 4,
@@ -353,30 +353,30 @@
    "total": 0.3854
   },
   "bld": {
-   "leaves": 801,
-   "op": 6970198,
+   "leaves": 567,
+   "op": 4831523,
    "raw": {
-    "leaves": 801,
-    "px": 27960912,
-    "op": 6970198,
-    "semi": 33725,
-    "colors": 854094,
-    "buckets": 11797,
-    "leftLit": 733,
-    "nightLeaves": 758,
-    "nightOp": 430706,
-    "nightViol": 19916
+    "leaves": 567,
+    "px": 20013560,
+    "op": 4831523,
+    "semi": 13165,
+    "colors": 519087,
+    "buckets": 7582,
+    "leftLit": 535,
+    "nightLeaves": 511,
+    "nightOp": 376424,
+    "nightViol": 45685
    },
    "axes": {
     "palette": 1,
-    "hardEdge": 0.9032308694817565,
-    "lightDir": 0.9151061173533084,
+    "hardEdge": 0.9455037262577453,
+    "lightDir": 0.9435626102292769,
     "shade": 1,
     "density": 1,
-    "nightRule": 0.9500383723839,
+    "nightRule": 0.8899343838167257,
     "variants": 1
    },
-   "total": 0.9669
+   "total": 0.9684
   },
   "park": {
    "leaves": 9,
@@ -406,43 +406,43 @@
   },
   "plant": {
    "leaves": 1,
-   "op": 2951,
+   "op": 3229,
    "raw": {
     "leaves": 1,
     "px": 10560,
-    "op": 2951,
+    "op": 3229,
     "semi": 0,
-    "colors": 91,
-    "buckets": 13,
-    "leftLit": 1,
+    "colors": 37,
+    "buckets": 10,
+    "leftLit": 0,
     "nightLeaves": 1,
-    "nightOp": 96,
+    "nightOp": 132,
     "nightViol": 0
    },
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 1,
+    "lightDir": 0,
     "shade": 1,
-    "density": 0.7709251101321586,
+    "density": 0.28646639826571696,
     "nightRule": 1,
     "variants": 0.125
    },
-   "total": 0.8423
+   "total": 0.6302
   },
   "plantVar": {
    "leaves": 2,
-   "op": 4819,
+   "op": 5710,
    "raw": {
     "leaves": 2,
     "px": 21120,
-    "op": 4819,
+    "op": 5710,
     "semi": 0,
-    "colors": 156,
-    "buckets": 27,
+    "colors": 58,
+    "buckets": 22,
     "leftLit": 2,
     "nightLeaves": 2,
-    "nightOp": 88,
+    "nightOp": 100,
     "nightViol": 0
    },
    "axes": {
@@ -450,11 +450,11 @@
     "hardEdge": 1,
     "lightDir": 1,
     "shade": 1,
-    "density": 0.8092965345507366,
+    "density": 0.25394045534150617,
     "nightRule": 1,
     "variants": 0.25
    },
-   "total": 0.8656
+   "total": 0.7863
   },
   "car": {
    "leaves": 24,
@@ -874,17 +874,17 @@
   },
   "waterTower": {
    "leaves": 1,
-   "op": 2396,
+   "op": 2006,
    "raw": {
     "leaves": 1,
     "px": 8064,
-    "op": 2396,
+    "op": 2006,
     "semi": 0,
-    "colors": 83,
-    "buckets": 14,
+    "colors": 24,
+    "buckets": 12,
     "leftLit": 1,
     "nightLeaves": 1,
-    "nightOp": 11,
+    "nightOp": 8,
     "nightViol": 0
    },
    "axes": {
@@ -892,103 +892,181 @@
     "hardEdge": 1,
     "lightDir": 1,
     "shade": 1,
-    "density": 0.8660267111853088,
+    "density": 0.29910269192422734,
     "nightRule": 1,
     "variants": 0.125
    },
-   "total": 0.8559
+   "total": 0.7749
   },
   "waterTowerVar": {
    "leaves": 4,
-   "op": 8686,
+   "op": 7325,
    "raw": {
     "leaves": 4,
     "px": 32256,
-    "op": 8686,
+    "op": 7325,
     "semi": 0,
-    "colors": 288,
-    "buckets": 54,
+    "colors": 77,
+    "buckets": 35,
     "leftLit": 4,
     "nightLeaves": 4,
-    "nightOp": 199,
-    "nightViol": 0
+    "nightOp": 65,
+    "nightViol": 11
    },
    "axes": {
     "palette": 1,
     "hardEdge": 1,
     "lightDir": 1,
     "shade": 1,
-    "density": 0.8289201013124569,
-    "nightRule": 1,
+    "density": 0.2627986348122867,
+    "nightRule": 0.9153846153846154,
     "variants": 0.5
    },
-   "total": 0.9041
+   "total": 0.8112
   },
   "police": {
    "leaves": 1,
-   "op": 2612,
+   "op": 2436,
    "raw": {
     "leaves": 1,
     "px": 8064,
-    "op": 2612,
+    "op": 2436,
     "semi": 0,
-    "colors": 84,
-    "buckets": 14,
-    "leftLit": 1,
+    "colors": 38,
+    "buckets": 12,
+    "leftLit": 0,
     "nightLeaves": 1,
-    "nightOp": 204,
+    "nightOp": 110,
     "nightViol": 0
    },
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 1,
+    "lightDir": 0,
     "shade": 1,
-    "density": 0.8039816232771823,
+    "density": 0.3899835796387521,
     "nightRule": 1,
     "variants": 0.125
    },
-   "total": 0.847
+   "total": 0.645
   },
   "policeVar": {
    "leaves": 4,
-   "op": 11114,
+   "op": 6763,
    "raw": {
     "leaves": 4,
     "px": 32256,
-    "op": 11114,
+    "op": 6763,
     "semi": 0,
-    "colors": 275,
-    "buckets": 56,
-    "leftLit": 4,
+    "colors": 89,
+    "buckets": 46,
+    "leftLit": 2,
     "nightLeaves": 4,
-    "nightOp": 1187,
+    "nightOp": 278,
     "nightViol": 0
    },
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 1,
+    "lightDir": 0.5,
     "shade": 1,
-    "density": 0.6185891668166277,
+    "density": 0.3289960076888955,
     "nightRule": 1,
     "variants": 0.5
    },
-   "total": 0.8741
+   "total": 0.7613
   },
   "policeBox": {
    "leaves": 1,
-   "op": 2287,
+   "op": 1382,
    "raw": {
     "leaves": 1,
     "px": 8064,
-    "op": 2287,
+    "op": 1382,
     "semi": 0,
-    "colors": 83,
-    "buckets": 14,
-    "leftLit": 1,
+    "colors": 21,
+    "buckets": 13,
+    "leftLit": 0,
     "nightLeaves": 1,
-    "nightOp": 93,
+    "nightOp": 32,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0,
+    "shade": 1,
+    "density": 0.3798842257597685,
+    "nightRule": 1,
+    "variants": 0.125
+   },
+   "total": 0.6436
+  },
+  "hospital": {
+   "leaves": 1,
+   "op": 2412,
+   "raw": {
+    "leaves": 1,
+    "px": 8064,
+    "op": 2412,
+    "semi": 0,
+    "colors": 33,
+    "buckets": 14,
+    "leftLit": 0,
+    "nightLeaves": 1,
+    "nightOp": 321,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0,
+    "shade": 1,
+    "density": 0.3420398009950249,
+    "nightRule": 1,
+    "variants": 0.125
+   },
+   "total": 0.6381
+  },
+  "clinic": {
+   "leaves": 1,
+   "op": 1394,
+   "raw": {
+    "leaves": 1,
+    "px": 8064,
+    "op": 1394,
+    "semi": 0,
+    "colors": 30,
+    "buckets": 11,
+    "leftLit": 0,
+    "nightLeaves": 1,
+    "nightOp": 58,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0,
+    "shade": 1,
+    "density": 0.5380200860832138,
+    "nightRule": 1,
+    "variants": 0.125
+   },
+   "total": 0.6661
+  },
+  "hospitalVar": {
+   "leaves": 4,
+   "op": 7240,
+   "raw": {
+    "leaves": 4,
+    "px": 32256,
+    "op": 7240,
+    "semi": 0,
+    "colors": 88,
+    "buckets": 40,
+    "leftLit": 4,
+    "nightLeaves": 4,
+    "nightOp": 658,
     "nightViol": 0
    },
    "axes": {
@@ -996,115 +1074,37 @@
     "hardEdge": 1,
     "lightDir": 1,
     "shade": 1,
-    "density": 0.9073021425448186,
-    "nightRule": 1,
-    "variants": 0.125
-   },
-   "total": 0.8618
-  },
-  "hospital": {
-   "leaves": 1,
-   "op": 2252,
-   "raw": {
-    "leaves": 1,
-    "px": 8064,
-    "op": 2252,
-    "semi": 0,
-    "colors": 355,
-    "buckets": 14,
-    "leftLit": 0,
-    "nightLeaves": 1,
-    "nightOp": 190,
-    "nightViol": 0
-   },
-   "axes": {
-    "palette": 1,
-    "hardEdge": 1,
-    "lightDir": 0,
-    "shade": 1,
-    "density": 1,
-    "nightRule": 1,
-    "variants": 0.125
-   },
-   "total": 0.7321
-  },
-  "clinic": {
-   "leaves": 1,
-   "op": 1934,
-   "raw": {
-    "leaves": 1,
-    "px": 8064,
-    "op": 1934,
-    "semi": 0,
-    "colors": 277,
-    "buckets": 14,
-    "leftLit": 0,
-    "nightLeaves": 1,
-    "nightOp": 164,
-    "nightViol": 0
-   },
-   "axes": {
-    "palette": 1,
-    "hardEdge": 1,
-    "lightDir": 0,
-    "shade": 1,
-    "density": 1,
-    "nightRule": 1,
-    "variants": 0.125
-   },
-   "total": 0.7321
-  },
-  "hospitalVar": {
-   "leaves": 4,
-   "op": 10451,
-   "raw": {
-    "leaves": 4,
-    "px": 32256,
-    "op": 10451,
-    "semi": 0,
-    "colors": 1205,
-    "buckets": 56,
-    "leftLit": 3,
-    "nightLeaves": 4,
-    "nightOp": 958,
-    "nightViol": 0
-   },
-   "axes": {
-    "palette": 1,
-    "hardEdge": 1,
-    "lightDir": 0.75,
-    "shade": 1,
-    "density": 1,
+    "density": 0.30386740331491713,
     "nightRule": 1,
     "variants": 0.5
    },
-   "total": 0.8929
+   "total": 0.8291
   },
   "clinicVar": {
    "leaves": 4,
-   "op": 6963,
+   "op": 5788,
    "raw": {
     "leaves": 4,
     "px": 32256,
-    "op": 6963,
+    "op": 5788,
     "semi": 0,
-    "colors": 949,
-    "buckets": 56,
-    "leftLit": 1,
+    "colors": 72,
+    "buckets": 41,
+    "leftLit": 4,
     "nightLeaves": 4,
-    "nightOp": 445,
+    "nightOp": 318,
     "nightViol": 0
    },
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0.25,
+    "lightDir": 1,
     "shade": 1,
-    "density": 1,
+    "density": 0.31098825155494125,
     "nightRule": 1,
     "variants": 0.5
    },
-   "total": 0.8214
+   "total": 0.8301
   },
   "trainLoco": {
    "leaves": 4,
@@ -1368,15 +1368,15 @@
   },
   "farmSea": {
    "leaves": 51,
-   "op": 388102,
+   "op": 332744,
    "raw": {
     "leaves": 51,
     "px": 1219296,
-    "op": 388102,
+    "op": 332744,
     "semi": 0,
-    "colors": 4452,
+    "colors": 3712,
     "buckets": 752,
-    "leftLit": 0,
+    "leftLit": 49,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -1384,13 +1384,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0,
+    "lightDir": 0.9607843137254902,
     "shade": 1,
-    "density": 0.28678027941108264,
+    "density": 0.2788930829706922,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.6838
+   "total": 0.82
   },
   "oneway": {
    "leaves": 4,
@@ -2746,15 +2746,15 @@
   },
   "farmGrow": {
    "leaves": 153,
-   "op": 1121000,
+   "op": 953177,
    "raw": {
     "leaves": 153,
     "px": 3657888,
-    "op": 1121000,
+    "op": 953177,
     "semi": 0,
-    "colors": 11148,
-    "buckets": 2172,
-    "leftLit": 8,
+    "colors": 8892,
+    "buckets": 2069,
+    "leftLit": 123,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -2762,13 +2762,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0.05228758169934641,
+    "lightDir": 0.803921568627451,
     "shade": 1,
-    "density": 0.24861730597680642,
+    "density": 0.2332200630103328,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.6858
+   "total": 0.791
   },
   "metroStation": {
    "leaves": 3,
@@ -3266,15 +3266,15 @@
   },
   "hvLine471": {
    "leaves": 16,
-   "op": 2128,
+   "op": 2668,
    "raw": {
     "leaves": 16,
-    "px": 81920,
-    "op": 2128,
-    "semi": 468,
-    "colors": 855,
-    "buckets": 150,
-    "leftLit": 7,
+    "px": 53248,
+    "op": 2668,
+    "semi": 388,
+    "colors": 292,
+    "buckets": 54,
+    "leftLit": 6,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -3282,65 +3282,39 @@
    "axes": {
     "palette": 1,
     "hardEdge": 0,
-    "lightDir": 0.4375,
-    "shade": 1,
+    "lightDir": 0.375,
+    "shade": 0.34375,
     "density": 1,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.7054
+   "total": 0.6027
   },
   "ugCable471": {
    "leaves": 16,
-   "op": 1536,
+   "op": 1440,
    "raw": {
     "leaves": 16,
     "px": 32768,
-    "op": 1536,
-    "semi": 288,
-    "colors": 292,
-    "buckets": 59,
-    "leftLit": 11,
+    "op": 1440,
+    "semi": 0,
+    "colors": 47,
+    "buckets": 47,
+    "leftLit": 10,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
    },
    "axes": {
-    "palette": 1,
-    "hardEdge": 0,
-    "lightDir": 0.6875,
-    "shade": 0.421875,
-    "density": 1,
+    "palette": 0.18359375,
+    "hardEdge": 1,
+    "lightDir": 0.625,
+    "shade": 0.234375,
+    "density": 0.8159722222222223,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.6585
-  },
-  "hvLineFlat576": {
-   "leaves": 16,
-   "op": 2016,
-   "raw": {
-    "leaves": 16,
-    "px": 81920,
-    "op": 2016,
-    "semi": 440,
-    "colors": 716,
-    "buckets": 165,
-    "leftLit": 9,
-    "nightLeaves": 0,
-    "nightOp": 0,
-    "nightViol": 0
-   },
-   "axes": {
-    "palette": 1,
-    "hardEdge": 0,
-    "lightDir": 0.5625,
-    "shade": 1,
-    "density": 1,
-    "nightRule": 0.5,
-    "variants": 1
-   },
-   "total": 0.7232
+   "total": 0.6227
   },
   "hvTower471": {
    "leaves": 4,
@@ -3578,41 +3552,41 @@
   },
   "localWater475": {
    "leaves": 16,
-   "op": 3524,
+   "op": 4320,
    "raw": {
     "leaves": 16,
     "px": 32768,
-    "op": 3524,
-    "semi": 486,
-    "colors": 372,
-    "buckets": 121,
+    "op": 4320,
+    "semi": 0,
+    "colors": 79,
+    "buckets": 73,
     "leftLit": 10,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
    },
    "axes": {
-    "palette": 1,
-    "hardEdge": 0,
+    "palette": 0.30859375,
+    "hardEdge": 1,
     "lightDir": 0.625,
-    "shade": 1,
-    "density": 1,
+    "shade": 0.640625,
+    "density": 0.4571759259259259,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.7321
+   "total": 0.6473
   },
   "lvLine475": {
    "leaves": 16,
-   "op": 4608,
+   "op": 4856,
    "raw": {
     "leaves": 16,
     "px": 55296,
-    "op": 4608,
-    "semi": 312,
-    "colors": 323,
-    "buckets": 79,
-    "leftLit": 7,
+    "op": 4856,
+    "semi": 320,
+    "colors": 262,
+    "buckets": 78,
+    "leftLit": 4,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -3620,65 +3594,65 @@
    "axes": {
     "palette": 1,
     "hardEdge": 0,
-    "lightDir": 0.4375,
-    "shade": 0.734375,
+    "lightDir": 0.25,
+    "shade": 0.71875,
     "density": 1,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.6674
+   "total": 0.6384
   },
   "udLine475": {
    "leaves": 16,
-   "op": 2576,
+   "op": 3184,
    "raw": {
     "leaves": 16,
     "px": 32768,
-    "op": 2576,
-    "semi": 528,
-    "colors": 734,
-    "buckets": 159,
-    "leftLit": 6,
+    "op": 3184,
+    "semi": 0,
+    "colors": 62,
+    "buckets": 62,
+    "leftLit": 8,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
    },
    "axes": {
-    "palette": 1,
-    "hardEdge": 0,
-    "lightDir": 0.375,
-    "shade": 1,
-    "density": 1,
+    "palette": 0.2421875,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 0.46875,
+    "density": 0.48680904522613067,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.6964
+   "total": 0.5997
   },
   "flyover475": {
    "leaves": 16,
-   "op": 8796,
+   "op": 10071,
    "raw": {
     "leaves": 16,
     "px": 53248,
-    "op": 8796,
-    "semi": 601,
-    "colors": 517,
-    "buckets": 172,
-    "leftLit": 9,
+    "op": 10071,
+    "semi": 830,
+    "colors": 117,
+    "buckets": 85,
+    "leftLit": 12,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
    },
    "axes": {
-    "palette": 1,
+    "palette": 0.45703125,
     "hardEdge": 0,
-    "lightDir": 0.5625,
-    "shade": 1,
-    "density": 1,
+    "lightDir": 0.75,
+    "shade": 0.828125,
+    "density": 0.290437890974084,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.7232
+   "total": 0.5465
   },
   "interchange475": {
    "leaves": 3,
@@ -3708,15 +3682,15 @@
   },
   "flyover476": {
    "leaves": 80,
-   "op": 54285,
+   "op": 56251,
    "raw": {
     "leaves": 80,
     "px": 296960,
-    "op": 54285,
-    "semi": 2735,
-    "colors": 12518,
-    "buckets": 1000,
-    "leftLit": 49,
+    "op": 56251,
+    "semi": 3866,
+    "colors": 10225,
+    "buckets": 640,
+    "leftLit": 60,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -3724,13 +3698,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 0,
-    "lightDir": 0.6125,
+    "lightDir": 0.75,
     "shade": 1,
     "density": 1,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.7304
+   "total": 0.75
   },
   "interchange476": {
    "leaves": 15,
@@ -3913,32 +3887,6 @@
     "variants": 1
    },
    "total": 0.5132
-  },
-  "policeBoxVar576": {
-   "leaves": 3,
-   "op": 5764,
-   "raw": {
-    "leaves": 3,
-    "px": 24192,
-    "op": 5764,
-    "semi": 0,
-    "colors": 237,
-    "buckets": 43,
-    "leftLit": 2,
-    "nightLeaves": 3,
-    "nightOp": 351,
-    "nightViol": 0
-   },
-   "axes": {
-    "palette": 1,
-    "hardEdge": 1,
-    "lightDir": 0.6666666666666666,
-    "shade": 1,
-    "density": 1,
-    "nightRule": 1,
-    "variants": 0.375
-   },
-   "total": 0.8631
   }
  }
 }
