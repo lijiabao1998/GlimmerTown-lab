@@ -12,7 +12,9 @@
  * 用法：
  *   node perf.js              量測並更新 perf.json（印出與舊版的差異）
  *   node perf.js --check      只比對：任一場景 fps 比基線低超過 25% 就 exit 1
- *   node perf.js --sample=3   每場景採樣秒數（預設 2.4）
+ *   node perf.js --sample=1.6 --rounds=5  每場景採樣秒數與輪數（中位數取決全部輪）
+ * T586 改版：單次取樣實測背靠背搖擺±50%，改輪替式多次取樣取中位數；
+ * T584 的「夜慢30%/rot1慢16%」經複測判為量測雜訊（r34 卡面）。
  *
  * 退出碼 0 = 完成／基線無顯著劣化；1 = 失敗或劣化超標。
  * 邊界：自用埠 8199；進城前一律設 slot=3，不碰業主存檔（AUTORUN.md）。
@@ -26,7 +28,8 @@ const { withGame, sleep, ROOT } = require('./harness.js');
 
 const arg = (n, d) => { const h = process.argv.find(a => a.startsWith('--' + n + '=')); return h ? h.split('=').slice(1).join('=') : d; };
 const PORT = +arg('port', 8199);
-const SAMPLE_S = +arg('sample', 2.4);
+const SAMPLE_S = +arg('sample', 1.6); // T586：1.6s×5輪中位數，取代 2.4s 單次
+const ROUNDS = +arg('rounds', 5); // T586：輪替式取樣輪數
 const CHECK = process.argv.includes('--check');
 const PERF_PATH = path.join(ROOT, 'perf.json');
 const REGRESS = 0.25; // --check 的劣化門檻：任一場景 fps 低於基線 75% 即紅
@@ -51,21 +54,32 @@ const SCENES = [
     // 相機對準城中（24,22 是 72×72 沙盒市中心一帶，既有 boot 預設同款）
     await cdp.evalJs(`GV.lookAt(24,22)`);
 
+    /* T586 取樣法重寫：輪替式 R 輪 × 每場景 SAMPLE_S 秒，場景取中位數。
+       動機：r34 實測單次取樣背靠背兩輪搖擺 ±50%（day_noon 52.6→31.1 fps），
+       熱節流／背景負載漂移遠大於場景間差異 ⇒ 輪替把漂移均勻攤到各場景，
+       中位數抗單輪突刺。--rounds 控制輪數（預設 5）。 */
+    const samples = new Map(); // id -> [fps,...]
+    for (let rd = 0; rd < ROUNDS; rd++) {
+      for (const sc of SCENES) {
+        await cdp.evalJs(`(()=>{${sc.set}return 1})()`);
+        if (rd === 0) { await sleep(300); await cdp.evalJs(`GV.forceDraw();GV.forceDraw();GV.forceDraw();`); } // 首輪暖機：快取重建
+        await cdp.evalJs(`(()=>{window.__perfStop584=false;window.__perfN584=0;window.__perfT584=performance.now();const step=()=>{if(window.__perfStop584)return;window.__perfN584++;requestAnimationFrame(step);};requestAnimationFrame(step);return 1;})()`);
+        await sleep(SAMPLE_S * 1000);
+        const r = await cdp.evalJs(`(()=>{window.__perfStop584=true;const n=window.__perfN584|0;const dt=(performance.now()-window.__perfT584)/1000;return JSON.stringify({n,dt});})()`);
+        const { n, dt } = JSON.parse(r);
+        const fps = n / Math.max(.001, dt);
+        if (!samples.has(sc.id)) samples.set(sc.id, []);
+        samples.get(sc.id).push(fps);
+        // 還原（rot 會寫 localStorage 偏好）
+        await cdp.evalJs(`(()=>{GV.setRot(0);GV.setZoom(1);GV.setVisT(55);return 1})()`);
+      }
+    }
     const results = [];
     for (const sc of SCENES) {
-      await cdp.evalJs(`(()=>{${sc.set}return 1})()`);
-      await sleep(300); // 讓 groundDirty/快取失效先重建完
-      // 暖機 3 幀丟棄（第一幀含快取重建，不代表穩態）
-      await cdp.evalJs(`GV.forceDraw();GV.forceDraw();GV.forceDraw();`);
-      await cdp.evalJs(`(()=>{window.__perfStop584=false;window.__perfN584=0;window.__perfT584=performance.now();const step=()=>{if(window.__perfStop584)return;window.__perfN584++;requestAnimationFrame(step);};requestAnimationFrame(step);return 1;})()`);
-      await sleep(SAMPLE_S * 1000);
-      const r = await cdp.evalJs(`(()=>{window.__perfStop584=true;const n=window.__perfN584|0;const dt=(performance.now()-window.__perfT584)/1000;return JSON.stringify({n,dt});})()`);
-      const { n, dt } = JSON.parse(r);
-      const fps = n / Math.max(.001, dt);
-      results.push({ id: sc.id, desc: sc.desc, frames: n, seconds: +dt.toFixed(2), fps: +fps.toFixed(1) });
-      log(sc.id.padEnd(14) + ' ' + String(n).padStart(4) + ' 幀 / ' + dt.toFixed(1) + 's = ' + fps.toFixed(1) + ' fps');
-      // 還原（rot 會寫 localStorage 偏好）
-      await cdp.evalJs(`(()=>{GV.setRot(0);GV.setZoom(1);GV.setVisT(55);return 1})()`);
+      const arr = (samples.get(sc.id) || []).slice().sort((a, b) => a - b);
+      const med = arr.length % 2 ? arr[(arr.length - 1) >> 1] : (arr[arr.length / 2 - 1] + arr[arr.length / 2]) / 2;
+      results.push({ id: sc.id, desc: sc.desc, fps: +med.toFixed(1), samples: arr.map(x => +x.toFixed(1)) });
+      log(sc.id.padEnd(14) + ' 中位 ' + med.toFixed(1) + ' fps（' + ROUNDS + ' 輪 ' + arr[0].toFixed(1) + '–' + arr[arr.length - 1].toFixed(1) + '）');
     }
     // 總還原（保險）：回到正午預設
     await cdp.evalJs(`(()=>{GV.setRot(0);GV.setZoom(1);GV.setVisT(55);GV.forceDraw();return 1})()`);
@@ -78,20 +92,30 @@ const SCENES = [
     process.exit(1);
   }
   const { results, meta } = session.result;
-  const cur = { generatedAt: new Date().toISOString(), version: meta.version || '?', anchor: meta.anchor || '?', sampleS: SAMPLE_S, scenes: {} };
-  for (const r of results) cur.scenes[r.id] = r;
+  /* T586 比值制：絕對 fps 跨 run 搖擺 ±40%（機器負載 regime），棘輪改比「場景÷同 run day_noon」
+     的比值（實測兩輪夜/日比值 1.016/1.000 一致，絕對值卻差 25%）。day_noon 缺席時退回絕對比。 */
+  const refFps = (results.find(r => r.id === 'day_noon') || {}).fps || 0;
+  const cur = { generatedAt: new Date().toISOString(), version: meta.version || '?', anchor: meta.anchor || '?', sampleS: SAMPLE_S, rounds: ROUNDS, scenes: {} };
+  for (const r of results) { r.ratio = refFps ? +(r.fps / refFps).toFixed(3) : null; cur.scenes[r.id] = r; }
 
   const base = (() => { try { return JSON.parse(fs.readFileSync(PERF_PATH, 'utf8')); } catch { return null; } })();
   if (base && base.scenes) {
+    const baseRef = (base.scenes.day_noon || {}).fps || 0;
     log('');
     log('與 perf.json（' + (base.anchor || '?') + ' ' + (base.version || '?') + '）相比：');
     const drops = [];
     for (const r of results) {
       const b = base.scenes[r.id];
       if (!b) { log('  ' + r.id.padEnd(14) + ' 新增場景（基線無）'); continue; }
-      const d = (r.fps - b.fps) / Math.max(.001, b.fps);
-      log('  ' + r.id.padEnd(14) + ' ' + b.fps.toFixed(1) + ' -> ' + r.fps.toFixed(1) + ' fps（' + (d * 100).toFixed(1) + '%）');
-      if (d < -REGRESS) drops.push(r.id + ' ' + b.fps + '->' + r.fps);
+      if (r.ratio != null && b.ratio != null && baseRef) {
+        const d = (r.ratio - b.ratio) / Math.max(.001, b.ratio);
+        log('  ' + r.id.padEnd(14) + ' 比值 ' + b.ratio.toFixed(2) + ' -> ' + r.ratio.toFixed(2) + '（fps ' + b.fps.toFixed(1) + '->' + r.fps.toFixed(1) + '，比值差 ' + (d * 100).toFixed(1) + '%）');
+        if (d < -REGRESS) drops.push(r.id + ' 比值 ' + b.ratio + '->' + r.ratio);
+      } else {
+        const d = (r.fps - b.fps) / Math.max(.001, b.fps);
+        log('  ' + r.id.padEnd(14) + ' ' + b.fps.toFixed(1) + ' -> ' + r.fps.toFixed(1) + ' fps（' + (d * 100).toFixed(1) + '%）');
+        if (d < -REGRESS) drops.push(r.id + ' ' + b.fps + '->' + r.fps);
+      }
     }
     if (drops.length) {
       console.log('');
