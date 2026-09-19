@@ -50780,7 +50780,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
       for(let i=0;i<nBay;i++){const p=lerp2_547(roof.W,roof.S,(i+.62)/nBay);metroChimney516(g,ng,Math.round(p[0]),Math.round(p[1]-pitchH+2));}
     }
   }else if(k===2){
-    fillPara547(g,roof,shade(pal.dark,8));
+    fillPara547(g,roof,shade(pal.dark,26)); // T587：k=2 legacy 平頂自暗藏青提亮（業主「全城同一暗灰」）
     if(!(bw*bh>=4&&!window.__noMassing552))roofKit559(g,ng,roof,rk559,k,pal,bw*bh);
     const innerP=shrinkPara547(roof,.07),para=4;
     edgeWall547(g,innerP.W,innerP.S,para,shade(cL,-10));edgeWall547(g,innerP.E,innerP.S,para,shade(cR,-10));
@@ -52865,7 +52865,7 @@ function mainStreet(ctx,T,C,vFront){
     const tall=rand()<.25&&(gf+nF*fh+1+cr+4+3<=yN-2);
     stores.push({brick,stone,nF,pp:tall?4:2,awn:rand()<.72?AWN[(rand()*AWN.length)|0]:null,sign:SIGN[(rand()*SIGN.length)|0],door:DOOR[(rand()*DOOR.length)|0],
       doorSide:rand()<.5?0:1,belt:rand()<.45,name:rand()<.55,ghost:rand()<.65,barber:rand()<.12,blade:rand()<.4,sky:rand()<.5,chim:rand()<.7,vent:rand()<.4,
-      bulk:rand()<.5?'#3a3a3e':'#5a3a28',signLit:rand()<.5,roof:sh('#4c4845',R((rand()-.5)*8)),decor:rand()<.4,rear:DXall>=30&&rand()<.55});
+      bulk:rand()<.5?'#3a3a3e':'#5a3a28',signLit:rand()<.5,roof:sh('#655a4c',R((rand()-.5)*28)),decor:rand()<.4,rear:DXall>=30&&rand()<.55});
   }
   for(let i=0;i<nH;i++){
     const S=stores[i],u0=i===0?0:(bx[i]-C.W[0])/LX,u1=i===nH-1?1:(bx[i+1]-C.W[0])/LX;
@@ -52953,7 +52953,7 @@ function chicago(ctx,T,C){
     const tall=rand()<.3&&(gf+nF*fh+1+cr+4+3<=yN-2);
     const r=rand(),wt=r<.42?'chicago':r<.75?'paired':'arch';
     secs.push({brick,stone,nF,pp:tall?4:2,wt,belt:wt==='chicago'||rand()<.5,name:rand()<.6,ghost:rand()<.7,esc:rand()<.55,tank:rand()<.4,board:rand()<.35,bulk:rand()<.5,
-      sky:rand()<.6,chim:rand()<.6,roof:sh('#4a4643',R((rand()-.5)*8)),bulkC:rand()<.5?'#3a3a3e':'#2c3a3a',entrance:rand()<.5?0:1,quoin:rand()<.6,piers:rand()<.75,rear:DXall>=36&&rand()<.5});
+      sky:rand()<.6,chim:rand()<.6,roof:sh('#61594e',R((rand()-.5)*28)),bulkC:rand()<.5?'#3a3a3e':'#2c3a3a',entrance:rand()<.5?0:1,quoin:rand()<.6,piers:rand()<.75,rear:DXall>=36&&rand()<.5});
   }
   for(let s=0;s<nS;s++){
     const S=secs[s],u0=s===0?0:(bx[s]-C.W[0])/LX,u1=s===nS-1?1:(bx[s+1]-C.W[0])/LX;

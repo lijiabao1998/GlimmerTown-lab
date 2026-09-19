@@ -143,7 +143,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     if (EXPECT.length) {
       const expectSet = new Set(EXPECT);
       const unexpected = famTouched.filter(f => !expectSet.has(f));
-      const missing = EXPECT.filter(f => !famTouched.includes(f));
+      const missing = EXPECT.filter(f => f !== 'block559' && !famTouched.includes(f)); // block559 為偽家族，由上方專責分支對帳
       // 超街區快取偽家族：--expect 可含 'block559'（宣告「本輪改了超街區繪製」）
       const bFam = (blocks && blocks.ok) ? blocks.fam : null;
       const bPrev = (base && base.blocks) ? base.blocks.fam : null;
