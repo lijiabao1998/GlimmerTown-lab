@@ -50899,6 +50899,10 @@ function rciBlockOrigin547(x,y){
   let bw=s,bh=s;
   while(bw<MAXW){let ok=true;for(let dy=0;dy<bh;dy++)if(!rciSame547(x+bw,y+dy,k,lv)){ok=false;break;}if(!ok)break;bw++;}
   while(bh<MAXH){let ok=true;for(let dx=0;dx<bw;dx++)if(!rciSame547(x+dx,y+bh,k,lv)){ok=false;break;}if(!ok)break;bh++;}
+  if(!window.__noTerraceRow603){
+    if(k===1){const deep=lv>=2?2:1;if(bw>=bh)bh=Math.min(bh,deep);else bw=Math.min(bw,deep);}
+    else if(k===2&&lv===1){if(bw>=bh)bh=Math.min(bh,2);else bw=Math.min(bw,2);}
+  }
   let maxLv=1,v=b.v||0;
   for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const q=tiles[idx(x+dx,y+dy)]?.bld;if(q&&(q.lv||1)>maxLv){maxLv=q.lv||1;v=q.v||v;}}
   return {w:bw,h:bh,k,lv:maxLv,v,origin:true};
@@ -51701,6 +51705,33 @@ function moreBldSelftest602(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
+function terraceRowSelftest603(){
+  const checks=[];
+  checks.push(['origin 含聯排進深限制',(''+rciBlockOrigin547).indexOf('__noTerraceRow603')>=0]);
+  const flag=window.__noTerraceRow603;
+  if(typeof tiles!=='undefined'&&tiles){
+    let planted=null,prev=[];
+    for(let y=8;y<22&&!planted;y++)for(let x=8;x<22&&!planted;x++){
+      if(!inMap(x,y)||!inMap(x+1,y)||!inMap(x,y+1)||!inMap(x+1,y+1))continue;
+      const cells=[[x,y],[x+1,y],[x,y+1],[x+1,y+1]];
+      if(cells.some(p=>{const t=tiles[idx(p[0],p[1])];return !t||t.t===0;}))continue;
+      planted={x,y};prev=cells.map(p=>tiles[idx(p[0],p[1])].bld);
+      cells.forEach(p=>{tiles[idx(p[0],p[1])].bld={k:1,lv:1,v:2,age:30,pw:true,h:1};});
+    }
+    if(planted){
+      window.__noTerraceRow603=false;
+      const o=rciBlockOrigin547(planted.x,planted.y);
+      checks.push(['聯排 2×2 收成一列',!!(o&&Math.min(o.w,o.h)===1&&Math.max(o.w,o.h)>=2)]);
+      window.__noTerraceRow603=true;
+      const o2=rciBlockOrigin547(planted.x,planted.y);
+      checks.push(['閥門可成方塊',!!(o2&&o2.w>=2&&o2.h>=2)]);
+      window.__noTerraceRow603=flag;
+      [[planted.x,planted.y],[planted.x+1,planted.y],[planted.x,planted.y+1],[planted.x+1,planted.y+1]].forEach((p,i)=>{tiles[idx(p[0],p[1])].bld=prev[i];});
+    }else checks.push(['找不到 2×2 陸地',false]);
+  }
+  window.__noTerraceRow603=flag;
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 function ukStyleSelftest596(){
   const checks=[],R=window.__facade577||{};
   checks.push(['ukTerrace 已登記',!!(R.ukTerrace&&typeof R.ukTerrace.draw==='function')]);
@@ -52299,7 +52330,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602});
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
