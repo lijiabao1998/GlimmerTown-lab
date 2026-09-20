@@ -31851,6 +31851,9 @@ function drawWaterMainLayer472(gc,t,x,y,sx,sy,z,mode=1){
 /* =====================================================================
    3. 世界生成
 ===================================================================== */
+function treeVariantSpan597(){const n=(SPR.tree&&SPR.tree.length)|0;return {n,min:1,max:n,canPickOak:n>=11,canPickBirch:n>=12,canPickCypress:n>=13};}
+function treeVariantRoll597(){const s=treeVariantSpan597();return s.n>0?1+ri(s.n):1;}
+function plantTreeAt597(t){t.tree=treeVariantRoll597();}
 function genWorld(sd){
   seed=sd;R=mulberry32(sd);
   const noi=makeNoise(mulberry32(sd^0x9e37),64);
@@ -31865,7 +31868,7 @@ function genWorld(sd){
     if(t===0)water++;
     const el=(t===2&&noi3(x*.06,y*.06)>.62)?1:0;                           // 高地：僅草地（T24）
     const tile={t,tree:0,gv:ri(4),road:0,bridge:0,hw:0,rc:0,mask:0,zone:0,bld:null,rp:false,wp:0,wpMask475:0,wr:0,wm:0,deco:0,el,em:0,hv471:0,ug471:0,hvMask471:0,wm472:0,sm472:0,wmMask472:0,smMask472:0,lv475:0,ud475:0,lvMask475:0,udMask475:0,fly475:0,ix475:0};
-    if(t===2&&noi2(x*.13,y*.13)>.62&&R()<.8)tile.tree=1+ri(10); // T104：樹種 4→7；T150：樹種 7→10
+    if(t===2&&noi2(x*.13,y*.13)>.62&&R()<.8)tile.tree=treeVariantRoll597(); // T104/T150/T597：一種 RNG，上界跟 SPR.tree.length
     else if(t===2&&R()<.015)tile.deco=1;
     tiles[idx(x,y)]=tile;
   }
@@ -32599,7 +32602,7 @@ function doPlace(toolId,x,y,silent){
       stampCov('bus',x,y,COVR.bus,1);
       break;
     case 'tree':
-      t.tree=1+ri(10); // T104：種樹工具同步樹種 4→7；T150：樹種 7→10
+      plantTreeAt597(t);
       break;
     case 'fill':
       t.t=2;t.gv=ri(4);computeFoam();
@@ -51448,7 +51451,13 @@ function treeSelftest596(){
   let distinct=0;for(let i=0;i<crcs.length;i++)for(let j=i+1;j<crcs.length;j++)if(crcs[i]!==crcs[j])distinct++;
   checks.push(['成對 CRC 有差異',distinct>=t.length]);
   checks.push(['新增種樹冠幾何不同',t.length>=13&&crcs[10]!==crcs[0]&&crcs[11]!==crcs[10]&&crcs[12]!==crcs[11]]);
-  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗')),n:t.length};
+  const span=typeof treeVariantSpan597==='function'?treeVariantSpan597():{n:0,max:0};
+  checks.push(['treeVariantSpan597.n===SPR.tree.length',span.n===t.length]);
+  checks.push(['roll 上界可出 11–13（index 10–12）',span.max>=13&&span.canPickOak&&span.canPickBirch&&span.canPickCypress]);
+  checks.push(['roll 讀 span.n',(''+treeVariantRoll597).indexOf('treeVariantSpan597')>=0]);
+  checks.push(['genWorld 呼叫 roll',(''+genWorld).indexOf('treeVariantRoll597')>=0]);
+  checks.push(['plantTreeAt597 呼叫 roll',(''+plantTreeAt597).indexOf('treeVariantRoll597')>=0]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗')),n:t.length,span};
 }
 function applyRoadPixelSnap596(){
   if(window.__noRoadSnap596||!SPR.roadClass)return;
