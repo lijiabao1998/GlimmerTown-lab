@@ -20684,7 +20684,7 @@ function setInfoState435(st){
 }
 function showInfoPanel(){
   syncHudH();const info=$('#info');if(!info)return;info.style.display='block';
-  if(mobileUi435())setInfoState435(infoAutoState435());
+  if(mobileUi435()&&!window.__panelSilent599)setInfoState435(infoAutoState435());
   wakeUi440();
 }
 function stepInfoState435(dir){
@@ -39065,6 +39065,58 @@ function drawSignAge593(g,o,bd,s,bx,by,z,drawA){
   return 1;
 }
 function cat2k593(k){return k===1?1:k===2?2:3;}
+/* ===== T599 近距第二層（戰役軸三）：只在 z>=1.22 加密。遠距剪影不動。
+   住＝窗下花箱／陽臺欄杆／百葉；商＝雨棚＋玻璃高光；工＝牆腳安全條＋落水管。
+   streetHash 決定性、不消耗 R()、不入 save；detailPermit432 layer 599；__noNearZoom599。 */
+function drawNearZoom599(g,o,bd,s,bx,by,z,drawA){
+  if(window.__noNearZoom599||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k===4)return 0;
+  if(!detailPermit432(o.x,o.y,599,z,.62))return 0;
+  const cat=kcatOf(bd.k),h=streetHash(o.x,o.y,59901);
+  const foot=by+s.h*z,spw=s.w*z,sph=s.h*z;
+  const a=drawA*detailAlpha432(z);
+  const R=(x,y,w,hh,c,al)=>{g.save();g.globalAlpha=a*(al==null?1:al);g.fillStyle=c;g.fillRect(Math.round(bx+x),Math.round(foot+y),Math.max(1,Math.round(w)),Math.max(1,Math.round(hh)));g.restore();};
+  let drew=0;
+  if(cat==='R'||bd.k===1||bd.k===33||bd.k===105||bd.k===127){
+    const nBox=2+(h>.55?1:0);
+    for(let i=0;i<nBox;i++){
+      const hh=streetHash(o.x,o.y,59910+i);
+      const ux=spw*(.16+hh*.58),uy=-(sph*(.26+streetHash(o.x,o.y,59920+i)*.30));
+      R(ux-4.2*z,uy,8.4*z,2.1*z,'#6a4a32');
+      R(ux-3.4*z,uy-2.4*z,2.2*z,2.4*z,hh>.5?'#4a8a48':'#3a7a40');
+      R(ux+.2*z,uy-2.2*z,2.2*z,2.2*z,hh>.35?'#62a85c':'#4b8a4f');
+      if(hh>.58)R(ux-1.2*z,uy-3.2*z,1.5*z,1.5*z,'#c45a6a');
+      drew=1;
+    }
+    if((bd.lv||1)>=2&&streetHash(o.x,o.y,59930)>.38){
+      const ux=spw*.44,uy=-sph*.50;
+      R(ux-7.5*z,uy,15*z,1.3*z,'#c8c2b4');
+      for(let i=0;i<6;i++)R(ux-7*z+i*2.3*z,uy-3.4*z,1.1*z,3.4*z,'#d8d2c4');
+      drew=1;
+    }
+    if(streetHash(o.x,o.y,59931)>.42){
+      const ux=spw*(.26+h*.32),uy=-sph*(.36+h*.18);
+      R(ux,uy,5.2*z,6.4*z,'rgba(70,90,110,.30)');
+      for(let i=0;i<3;i++)R(ux,uy+i*2.1*z,5.2*z,.85*z,'rgba(50,60,72,.38)');
+      drew=1;
+    }
+  }else if(cat==='C'||bd.k===2||bd.k===34||bd.k===106){
+    const ux=spw*.18,uy=-sph*.34;
+    const ac=['#b84c46','#3f76a7','#b68a38'][(h*3)|0];
+    R(ux,uy,spw*.58,2.3*z,ac);
+    R(ux+z,uy+2.3*z,spw*.54,1.1*z,'rgba(245,238,220,.55)');
+    R(ux+spw*.10,uy+6*z,spw*.20,11*z,'rgba(180,220,235,.22)');
+    R(ux+spw*.13,uy+7*z,2.2*z,8.5*z,'rgba(255,255,255,.20)');
+    drew=1;
+  }else if(cat==='I'||cat==='E'||bd.k===3){
+    R(spw*.12,-3.2*z,spw*.30,2.1*z,'#d7a93e');
+    R(spw*.12,-3.2*z,spw*.09,2.1*z,'#24282b');
+    R(spw*.78,-sph*.55,1.5*z,sph*.48,'#5e6b6a');
+    R(spw*.76,-sph*.12,3.2*z,1.4*z,'#7a8786');
+    drew=1;
+  }
+  if(drew)window.__t599Near=(window.__t599Near||0)+1;
+  return drew;
+}
 function drawRooftop425(g,o,bd,s,bx,by,z,drawA){
   if(window.__noRooftop425||z<.9||!bd||bd.ref||(bd.age|0)<18)return 0;
   const cat=kcatOf(bd.k),special=bd.k===57||bd.k===64||bd.k===100||bd.k===116||bd.k===118||bd.k===119||bd.k===121||bd.k===122||bd.k===123;
@@ -39307,7 +39359,7 @@ function detailAlpha432(z){return z<.75?0:z<1?.58:z<1.3?.78:1;}
 function detailPermit432(x,y,layer,z,base){
   if(z<.72){window.__t432Suppressed=(window.__t432Suppressed||0)+1;return false;}
   if(window.__noDetailBudget432)return streetHash(x,y,43280+layer)<base;
-  const li=({425:0,426:1,429:2,430:3,431:4,591:1,593:1})[layer]; // T591/T593 掛入槽位節奏（與 426 同槽＝牆面敘事族）
+  const li=({425:0,426:1,429:2,430:3,431:4,591:1,593:1,599:2})[layer]; // T591/T593 牆面敘事；T599 近距層掛微生活槽
   const slot1=Math.floor(streetHash(x,y,43201)*5)%5;
   const slot2=(slot1+1+Math.floor(streetHash(x,y,43202)*4))%5;
   const slotMul=layer===431?(li===slot1?1:li===slot2?.85:.55):(li===slot1?1:li===slot2?.58:.16); // 夜間微光只在夜裡存在，放寬槽位避免整個可視街區恰好零命中
@@ -42040,6 +42092,19 @@ function draw(dt){
       ctx.fillStyle='#6a7078';ctx.fillRect(ccx+hw2*.28,ccy+hh2*.22+2*z,9*z,2*z);
       ctx.fillStyle='#b06030';ctx.fillRect(ccx-hw2*.3,ccy+hh2*.4,5*z,2*z);ctx.fillStyle='#d07840';ctx.fillRect(ccx-hw2*.3,ccy+hh2*.4,5*z,1*z); // T259：磚料棧板
       ctx.fillStyle='#3a6aa0';ctx.fillRect(ccx+hw2*.5,ccy-hh2*.3,4*z,5*z);ctx.fillStyle='#5a8ac0';ctx.fillRect(ccx+hw2*.5,ccy-hh2*.3,4*z,1.4*z); // T259：工地小屋（藍）
+      if(!window.__noConstrDetail599){ // T599：場上雜項——流動廁所、發電機、交通錐
+        ctx.fillStyle='#d8d0c0';ctx.fillRect(ccx-hw2*.72,ccy+hh2*.05,3.2*z,5.5*z);
+        ctx.fillStyle='#3a6aa0';ctx.fillRect(ccx-hw2*.72,ccy+hh2*.05,3.2*z,1.2*z);
+        ctx.fillStyle='#3a8a48';ctx.fillRect(ccx+hw2*.62,ccy+hh2*.12,5*z,3.2*z);
+        ctx.fillStyle='#2a6a38';ctx.fillRect(ccx+hw2*.62,ccy+hh2*.12,5*z,1*z);
+        if(animOn&&(Math.floor(visT*8)%2)){ctx.fillStyle='#c9a030';ctx.fillRect(ccx+hw2*.66,ccy+hh2*.14,1.2*z,1.2*z);}
+        for(let ci=0;ci<4;ci++){
+          const cxn=ccx-hw2*.8+ci*hw2*.18,cyn=ccy+hh2*.85;
+          ctx.fillStyle='#e07030';ctx.beginPath();ctx.moveTo(cxn,cyn-4*z);ctx.lineTo(cxn+1.6*z,cyn);ctx.lineTo(cxn-1.6*z,cyn);ctx.closePath();ctx.fill();
+          ctx.fillStyle='#f0ece4';ctx.fillRect(cxn-z,cyn-2.2*z,2*z,.8*z);
+        }
+        window.__t599Constr=(window.__t599Constr||0)+1;
+      }
       if(bd.age<1){ // age0 挖掘機（visT 擺臂）＋揚塵
         const ex2=ccx-hw2*.18,ey2=ccy+hh2*.3,dig=Math.sin(visT*1.8)*.25;
         ctx.fillStyle='#3a3f45';ctx.fillRect(ex2-5*z,ey2-2*z,10*z,3*z);
@@ -42048,6 +42113,13 @@ function draw(dt){
         ctx.beginPath();ctx.moveTo(ex2+3*z,ey2-5*z);ctx.lineTo(ex2+9*z,ey2-9*z-dig*6*z);ctx.lineTo(ex2+13*z,ey2-5*z-dig*10*z);ctx.stroke();
         ctx.fillStyle='#6a7078';ctx.fillRect(ex2+12*z,ey2-5*z-dig*10*z,3*z,2.4*z);
         for(let d3=0;d3<3;d3++){const dph=(visT*.5+d3*.33)%1;ctx.fillStyle='rgba(160,150,132,'+(0.3*(1-dph)).toFixed(2)+')';const dr=(2+dph*4)*z;ctx.beginPath();ctx.arc(ex2+11*z+d3*2*z,ey2-4*z-dph*8*z,dr,0,6.283);ctx.fill();} // T259：揚塵（循環上升淡出）
+        if(!window.__noConstrDetail599){ // T599：age0 傾卸車把土運走
+          const dx=ccx+hw2*.08,dy=ccy+hh2*.58;
+          ctx.fillStyle='#2a2f35';ctx.fillRect(dx-8*z,dy-2*z,16*z,3*z);
+          ctx.fillStyle='#c45a2a';ctx.fillRect(dx-2*z,dy-7*z,10*z,5.5*z);
+          ctx.fillStyle='#3a78b0';ctx.fillRect(dx-8*z,dy-6*z,5*z,4*z);
+          ctx.fillStyle='#2a2a2a';ctx.fillRect(dx-6*z,dy+.6*z,2.4*z,1.8*z);ctx.fillRect(dx+4*z,dy+.6*z,2.4*z,1.8*z);
+        }
       }
       if(bd.age===1){ // T259：age1 地基期——鋼筋叢＋水泥攪拌車（旋轉滾筒）
         ctx.strokeStyle='#8a5a3a';ctx.lineWidth=Math.max(1,z*.7); // 鋼筋叢（豎筋束）
@@ -42060,6 +42132,12 @@ function draw(dt){
         ctx.fillStyle='#dcd6c8';ctx.fillRect(mx2-2*z,my3-6*z,8*z,4.6*z);
         ctx.fillStyle='#c05a3a';for(let st2=0;st2<3;st2++)ctx.fillRect(mx2-1*z+(st2*2.6+drum*1.3)*z,my3-6*z,1.1*z,4.6*z); // 紅斜紋隨幀位移＝旋轉
         ctx.fillStyle='#2a2a2a';ctx.fillRect(mx2-5*z,my3+.6*z,2*z,1.6*z);ctx.fillRect(mx2+2*z,my3+.6*z,2*z,1.6*z); // 輪
+        if(!window.__noConstrDetail599&&animOn){ // T599：攪拌車出料
+          const pour=(visT*1.4)%1;
+          ctx.strokeStyle='rgba(196,188,172,.75)';ctx.lineWidth=Math.max(1,z*.8);
+          ctx.beginPath();ctx.moveTo(mx2+6*z,my3-4*z);ctx.lineTo(mx2+10*z,my3+2*z+pour*2*z);ctx.stroke();
+          ctx.fillStyle='rgba(176,170,158,.5)';ctx.beginPath();ctx.arc(mx2+10*z,my3+3*z,(1.6+pour)*z,0,6.283);ctx.fill();
+        }
       }
       if(bd.age>=2){ // age2-3 鋼骨框架（半高→全高）＋塔式吊車
         const fhFull=(26+16*(sz2-1))*z, fh=bd.age===2?fhFull*.55:fhFull; // T259：age2 半高、age3 全高＝逐步升起
@@ -42081,6 +42159,7 @@ function draw(dt){
         ctx.strokeStyle='#a87a2e';ctx.lineWidth=Math.max(1,z*.5);
         ctx.beginPath();ctx.moveTo(my2,mt2-6*z);ctx.lineTo(my2-hw2*.62,mt2);ctx.moveTo(my2,mt2-6*z);ctx.lineTo(my2+hw2*.2,mt2);ctx.stroke();
         ctx.fillStyle='#c9973a';ctx.fillRect(my2-z,mt2-7*z,2*z,7*z);
+        if(!window.__noConstrDetail599){ctx.fillStyle='#c9973a';ctx.fillRect(my2-3*z,mt2+8*z,6*z,5*z);ctx.fillStyle='#7ec8e8';ctx.fillRect(my2-2*z,mt2+9*z,4*z,2.4*z);}
         const trol=.16+((Math.sin(visT*.9)+1)/2)*.38;
         const tx2=my2-hw2*trol, hookT=.55+Math.sin(visT*1.3)*.22;
         ctx.fillStyle='#555a62';ctx.fillRect(tx2-z,mt2,2*z,2*z);
@@ -42093,6 +42172,15 @@ function draw(dt){
         const gph=streetHash(o.x,o.y,1980), gfr=SPR.ped.adult[Math.floor(visT*2.2+gph*5)%2];
         const gt2=(visT*.12+gph)%1, gtt=gt2<.5?gt2*2:2-gt2*2;
         ctx.drawImage(gfr.img,ccx-hw2*.4+gtt*hw2*.6-gfr.ax*z*.9,ccy+hh2*.15-gfr.ay*z*.9,gfr.w*z*.9,gfr.h*z*.9);
+        if(!window.__noConstrDetail599){ // T599：第二名工人＋手推車
+          const gfr2=SPR.ped.adult[Math.floor(visT*1.7+gph*9)%2];
+          const gt3=(visT*.09+gph*.37)%1,gtt3=gt3<.5?gt3*2:2-gt3*2;
+          ctx.drawImage(gfr2.img,ccx+hw2*.22-gtt3*hw2*.5-gfr2.ax*z*.85,ccy-hh2*.08-gfr2.ay*z*.85,gfr2.w*z*.85,gfr2.h*z*.85);
+          const bxw=ccx-hw2*.1+Math.sin(visT*.7+gph)*hw2*.12,byw=ccy+hh2*.28;
+          ctx.fillStyle='#6a5040';ctx.fillRect(bxw-3*z,byw-2*z,6*z,3*z);
+          ctx.fillStyle='#3a3a3a';ctx.beginPath();ctx.arc(bxw-2*z,byw+1.4*z,1.2*z,0,6.283);ctx.arc(bxw+2.2*z,byw+1.4*z,1.2*z,0,6.283);ctx.fill();
+          window.__t599Constr=(window.__t599Constr||0)+1;
+        }
       }
       if(!window.__noWinLit)nightSprites.push({rect:[ccx-4*z,ccy-10*z,8*z,4*z],col:'#ffd9a0'}); // T259：夜間趕工燈（screen 疊加＝夜裡工地暖光）
       continue;
@@ -42182,6 +42270,21 @@ function draw(dt){
         ctx.fillStyle='#8a8f96';ctx.fillRect(tx2-2.4*z,by+s.h*z*hookT+2*z,4.8*z,1.6*z);
       }
       if(!window.__noWinLit)nightSprites.push({rect:[bx+s.w*z*.42,slabY-4*z,s.w*z*.16,3*z],col:'#ffd9a0'}); // 夜間趕工燈（樓板處）
+      if(!window.__noConstrDetail599&&animOn){ // T599：升起期鷹架＋樓板工人
+        const sz2=bd.sz||1;
+        const cx1=sxOf(o.x,o.y)+32*z,cy1=syOf(o.x,o.y)+16*z;
+        const cx2=sxOf(o.x+sz2-1,o.y+sz2-1)+32*z,cy2=syOf(o.x+sz2-1,o.y+sz2-1)+16*z;
+        const ccx=(cx1+cx2)/2,ccy=(cy1+cy2)/2,hw2=32*z*sz2,hh2=16*z*sz2;
+        ctx.strokeStyle='rgba(196,168,96,.5)';ctx.lineWidth=Math.max(1,z*.55);
+        const scafH=Math.max(8*z,(1-riseF)*s.h*z*.55);
+        for(const ox2 of[-hw2*.62,hw2*.62]){ctx.beginPath();ctx.moveTo(ccx+ox2,ccy);ctx.lineTo(ccx+ox2,slabY-scafH);ctx.stroke();}
+        ctx.beginPath();ctx.moveTo(ccx-hw2*.62,slabY-2*z);ctx.lineTo(ccx+hw2*.62,slabY-2*z);ctx.stroke();
+        if(SPR.ped&&SPR.ped.adult){const gph=streetHash(o.x,o.y,1981),gfr=SPR.ped.adult[Math.floor(visT*2+gph*4)%2];
+          const wt=(visT*.11+gph)%1,wx=bx+s.w*z*(.22+wt*.5);
+          ctx.drawImage(gfr.img,wx-gfr.ax*z*.8,slabY-gfr.ay*z*.8,gfr.w*z*.8,gfr.h*z*.8);}
+        ctx.fillStyle='#b06030';ctx.fillRect(ccx-3*z,slabY-6*z,6*z,2.2*z);
+        window.__t599Constr=(window.__t599Constr||0)+1;
+      }
     }else if(o.blockDiag555!=null&&!window.__noOverlap555){
       ctx.save();clipBlockDiag555(ctx,o.x,o.y,o.block547.w,o.block547.h,o.blockDiag555,z,sxOf,syOf);
       ctx.drawImage(s.img,bx,by,s.w*z,s.h*z);
@@ -42330,6 +42433,7 @@ function draw(dt){
       drawNightMicro431(ctx,o,bd,s,bx,by,z,drawA,nightDepth);
       drawActivityPocket422(ctx,o,bd,s,bx,by,z,drawA,nightDepth);
       drawMicroLife429(ctx,o,bd,s,bx,by,z,drawA,nightDepth);
+      drawNearZoom599(ctx,o,bd,s,bx,by,z,drawA); // T599 近距第二層
     }
     /* ===== T403b/c 農事與牧場動態（T368a 純視覺路線：零狀態、零陣列，一切由 visT+streetHash
        導出＝同 visT 重繪恆等；draw 端禁 Math.random。bx/by 是建築畫布螢幕座標，offset 以
@@ -43775,9 +43879,9 @@ function inspect(x,y){
   });
   if(inspectB461)bindInspector461(x,y);
   showInfoPanel();
-  if(inspectB461&&mobileUi435())setInfoState435('half');
+  if(inspectB461&&mobileUi435()&&!window.__panelSilent599)setInfoState435('half');
 }
-function hideInfo(){const i=$('#info');if(i){i.style.display='none';i.style.transform='';setInfoState435('peek');}mayorOfficeOpen470=false;mayorStopOfficeWatch470A1();selTile=null;traceOverlay=null;wakeUi440();} // T470A1/T435/T143：關閉面板時同步停止 Mayor Office watcher，避免背景刷新與殘留 open 狀態
+function hideInfo(){const i=$('#info');if(i){i.style.display='none';i.style.transform='';setInfoState435('peek');}mayorOfficeOpen470=false;mayorStopOfficeWatch470A1();selTile=null;traceOverlay=null;panelSig599='';wakeUi440();} // T470A1/T435/T143：關閉面板時同步停止 Mayor Office watcher，避免背景刷新與殘留 open 狀態
 $('#infoX').onclick=hideInfo;
 
 /* =====================================================================
@@ -45138,6 +45242,42 @@ function hudLoopTick598(dt){
   if(window.__noHudRealtime598){hudT+=(dt||0);if(hudT>.25){hudT=0;updHud();}return 'gated';}
   hudT=0;updHud();return 'live';
 }
+let panelSig599='';
+function panelSigNow599(){
+  const body=$('#infoBody');if(!body)return '';
+  const ins=body.querySelector('.ins461');
+  let extra='';
+  if(ins){
+    const x=+ins.dataset.x461,y=+ins.dataset.y461;extra='|i'+x+','+y;
+    if(typeof inMap==='function'&&inMap(x,y)){
+      const t=T(idx(x,y));const b=t&&t.bld?(t.bld.ref?((T(idx(t.bld.ref[0],t.bld.ref[1]))||{}).bld):t.bld):null;
+      extra+=b&&!b.ref?('|a'+(b.age|0)+'|l'+(b.lv||1)+'|p'+(b.pw?1:0)+'|f'+(b.fire?1:0)+'|c'+(b.crime?1:0)+'|s'+(b.sick?1:0)):'|gone';
+    }
+  }else extra+='|c'+commandTab457+'|n'+(typeof LIFE_FEED535!=='undefined'?LIFE_FEED535.length:0);
+  return [Math.floor(money),pop,jobs,Math.round((cityHappy||0)*100),cityStar,day,weather,Math.floor(garbage||0),extra].join('|');
+}
+function panelLiveTick599(){
+  if(window.__noPanelLive599)return 'off';
+  const info=$('#info'),body=$('#infoBody');
+  if(!info||!body||info.style.display==='none'){panelSig599='';return 'closed';}
+  if(mayorOfficeOpen470||body.querySelector('.mayorRoot470'))return 'mayor';
+  const ae=document.activeElement;
+  if(ae&&(ae.tagName==='INPUT'||ae.tagName==='TEXTAREA'||ae.tagName==='SELECT'||ae.isContentEditable))return 'focus';
+  const h3=(body.querySelector('.cmdHead457 h3')||{}).textContent||'';
+  const isCmd=!!body.querySelector('.cmdRoot457')&&h3.indexOf('市政指揮中心')>=0;
+  const ins=body.querySelector('.ins461');
+  if(!isCmd&&!ins)return 'other';
+  const sig=panelSigNow599();
+  if(sig===panelSig599)return 'same';
+  const sc=body.scrollTop;
+  window.__panelSilent599=true;
+  try{
+    if(isCmd)showCommand457(commandTab457);
+    else inspect(+ins.dataset.x461,+ins.dataset.y461);
+    panelSig599=panelSigNow599();
+  }finally{window.__panelSilent599=false;body.scrollTop=sc;}
+  return 'live';
+}
 function updHud(){
   const m0=Math.floor(money),p0=pop,h0=cityHappy,s0=cityStar,j0=jobs,d0=day,w0=weather,r0=dem[1],c0=dem[2],i0=dem[3];
   if(hudSnap598&&hudSnap598.m===m0&&hudSnap598.p===p0&&hudSnap598.j===j0&&hudSnap598.h===h0&&hudSnap598.s===s0&&hudSnap598.d===d0&&hudSnap598.w===w0&&hudSnap598.r===r0&&hudSnap598.c===c0&&hudSnap598.i===i0)return;
@@ -46277,7 +46417,7 @@ function commandRouteAudit485A(){
 }
 function showCommand457(tab='overview'){
   if(!CMD_TABS457.some(x=>x[0]===tab))tab='overview';commandTab457=tab;const health=commandHealth457();let inner='';if(tab==='overview')inner=cmdOverview457(health);else if(tab==='finance')inner=cmdFinance457();else if(tab==='infra')inner=cmdInfra457(health);else if(tab==='citizens')inner=cmdCitizens457();else if(tab==='transport')inner=cmdTransport457();else inner=cmdDevelopment457();
-  $('#infoBody').innerHTML=`<div class="cmdRoot457"><div class="cmdHead457"><h3>🏛️ 市政指揮中心</h3><span class="cmdVer457">v${GAME_VER}</span></div>${cmdTabsHtml457(tab)}${inner}</div>`;showInfoPanel();if(mobileUi435())setInfoState435('half');cmdBindCommon457();if(tab==='transport'){const b468=$('#cmdBus468'),r463=$('#cmdRail463'),t463=$('#cmdTram463'),m467=$('#cmdMetroPlan467B');if(b468)b468.onclick=()=>activateTool434('busrt',false);if(r463)r463.onclick=()=>activateTool434('railrt',false);if(t463)t463.onclick=()=>activateTool434('tramrt',false);if(m467)m467.onclick=()=>activateTool434('metrort',false);}
+  $('#infoBody').innerHTML=`<div class="cmdRoot457"><div class="cmdHead457"><h3>🏛️ 市政指揮中心</h3><span class="cmdVer457">v${GAME_VER}</span></div>${cmdTabsHtml457(tab)}${inner}</div>`;showInfoPanel();if(mobileUi435()&&!window.__panelSilent599)setInfoState435('half');cmdBindCommon457();if(tab==='transport'){const b468=$('#cmdBus468'),r463=$('#cmdRail463'),t463=$('#cmdTram463'),m467=$('#cmdMetroPlan467B');if(b468)b468.onclick=()=>activateTool434('busrt',false);if(r463)r463.onclick=()=>activateTool434('railrt',false);if(t463)t463.onclick=()=>activateTool434('tramrt',false);if(m467)m467.onclick=()=>activateTool434('metrort',false);}
   if(tab==='overview'){const adv=cityAdvisor();document.querySelectorAll('[data-adv457]').forEach(el=>{const a=adv[+el.dataset.adv457];if(!a)return;el.onclick=()=>{if(a.x!==undefined){camLookWorld(a.x,a.y);clampCam();drawMini();hideInfo();}else{miniView=5;const mt=$('#miniToggle');if(mt){mt.textContent=MINI_VIEW_ICON[5];mt.title='小地圖視圖：'+MINI_VIEW_NAME[5];}drawMini();hideInfo();}};});}
   if(tab==='development'){const hc488=$('#housingCostLayer488'),ha488=$('#housingAffordLayer488');if(hc488)hc488.onclick=()=>cmdSetLayer457(16,-1);if(ha488)ha488.onclick=()=>cmdSetLayer457(17,-1);}
   wakeUi440();
@@ -46340,7 +46480,7 @@ if(!window.__noLifeFeed535){
       LIFE_FEED_UNREAD535=0;
       const inner=lifeFeedHtml535(LIFE_FEED_FILTER535);
       $('#infoBody').innerHTML=`<div class="cmdRoot457"><div class="cmdHead457"><h3>🏛️ 市政指揮中心</h3><span class="cmdVer457">v${GAME_VER}</span></div>${cmdTabsHtml457('lifefeed')}${inner}</div>`;
-      showInfoPanel();if(mobileUi435())setInfoState435('half');
+      showInfoPanel();if(mobileUi435()&&!window.__panelSilent599)setInfoState435('half');
       cmdBindCommon457();bindLifeFeed535();updateLifeFeedBadge535();wakeUi440();
       return;
     }
@@ -47371,6 +47511,7 @@ function frame(ts){
   draw(Math.min(.05,dt));
   lastDraw=performance.now();
   hudLoopTick598(dt);
+  panelLiveTick599();
 }
 requestAnimationFrame(frame);
 // rAF 被瀏覽器暫停（分頁隱藏／省電）時，用計時器低頻接手，遊戲不會凍結
@@ -47385,6 +47526,7 @@ setInterval(()=>{
   draw(.05);
   lastDraw=now;
   updHud();
+  panelLiveTick599();
 },250);
 
 /* =====================================================================
@@ -51923,7 +52065,72 @@ function hudRealtimeSelftest598(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598});
+function panelLiveSelftest599(){
+  const checks=[];
+  checks.push(['frame 走 panelLiveTick599',(''+frame).indexOf('panelLiveTick599')>=0]);
+  checks.push(['hideInfo 清 panelSig599',(''+hideInfo).indexOf('panelSig599')>=0]);
+  checks.push(['近距層函式存在',typeof drawNearZoom599==='function']);
+  const drawBody=typeof __draw_501==='function'?__draw_501:draw;
+  checks.push(['draw 含施工細節',(''+drawBody).indexOf('__noConstrDetail599')>=0]);
+  checks.push(['draw 含近距層',(''+drawBody).indexOf('drawNearZoom599')>=0]);
+  const info=$('#info'),body=$('#infoBody');
+  checks.push(['#info/#infoBody 存在',!!(info&&body)]);
+  if(!(info&&body))return {ok:false,checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+  const saved={money,pop,jobs,cityHappy,day,flag:window.__noPanelLive599,html:body.innerHTML,disp:info.style.display,sig:panelSig599,sel:selTile,tab:commandTab457,insTab:inspectorTab461,insKey:inspectorKey461,budget:window.__noDetailBudget432,near:window.__noNearZoom599};
+  try{
+    window.__noPanelLive599=false;
+    money=Math.floor(money)+424242;
+    showCommand457('overview');
+    const htmlCmd=body.innerHTML||'';
+    checks.push(['指揮中心已開',htmlCmd.indexOf('市政指揮中心')>=0]);
+    const moneyTxt=Math.floor(money).toLocaleString();
+    checks.push(['指揮中心含資金',htmlCmd.indexOf(moneyTxt)>=0||htmlCmd.indexOf(''+Math.floor(money))>=0]);
+    money=Math.floor(money)+111;
+    panelSig599='force';
+    const mode=panelLiveTick599();
+    checks.push(['tick 回 live',mode==='live']);
+    const html2=body.innerHTML||'';
+    const moneyTxt2=Math.floor(money).toLocaleString();
+    checks.push(['指揮中心資金已刷新',html2.indexOf(moneyTxt2)>=0||html2.indexOf(''+Math.floor(money))>=0]);
+    checks.push(['同值再 tick 跳過',panelLiveTick599()==='same']);
+    window.__noPanelLive599=true;
+    checks.push(['逃生閥回 off',panelLiveTick599()==='off']);
+    window.__noPanelLive599=false;
+    if(typeof tiles!=='undefined'&&tiles){
+      let planted=null,prevB=null;
+      for(let y=4;y<(typeof N==='number'?N:32)-4&&!planted;y++)for(let x=4;x<(typeof N==='number'?N:32)-4&&!planted;x++){
+        if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(!t||t.t===0)continue;
+        planted={x,y};prevB=t.bld;t.bld={k:1,lv:1,age:20,pw:true,h:1};
+      }
+      if(planted){
+        inspect(planted.x,planted.y);
+        checks.push(['inspect 掛 .ins461',!!body.querySelector('.ins461')]);
+        tiles[idx(planted.x,planted.y)].bld.fire=1;panelSig599='force';
+        const m2=panelLiveTick599();
+        checks.push(['inspect tick live',m2==='live']);
+        checks.push(['inspect 出現滅火',!!body.querySelector('#insFire461')]);
+        tiles[idx(planted.x,planted.y)].bld=prevB;
+      }else checks.push(['找不到可種測試格',false]);
+    }
+    hideInfo();
+    checks.push(['關閉後面板 closed',panelLiveTick599()==='closed']);
+    window.__noDetailBudget432=true;window.__noNearZoom599=false;
+    const pair=cv(80,120),g=pair[1],s={w:72,h:112,img:pair[0]},bd={k:1,lv:2,age:30,pw:true,h:1};
+    let near=0;for(let x=0;x<24&&!near;x++)for(let y=0;y<24&&!near;y++)near=drawNearZoom599(g,{x,y},bd,s,0,0,1.5,1);
+    checks.push(['近距 z=1.5 有畫',near>0]);
+    checks.push(['近距 z=0.8 不畫',drawNearZoom599(g,{x:3,y:5},bd,s,0,0,.8,1)===0]);
+    window.__noNearZoom599=true;
+    checks.push(['近距逃生閥有效',drawNearZoom599(g,{x:3,y:5},bd,s,0,0,1.5,1)===0]);
+  }finally{
+    money=saved.money;pop=saved.pop;jobs=saved.jobs;cityHappy=saved.cityHappy;day=saved.day;
+    window.__noPanelLive599=saved.flag;panelSig599=saved.sig;selTile=saved.sel;commandTab457=saved.tab;
+    inspectorTab461=saved.insTab;inspectorKey461=saved.insKey;
+    window.__noDetailBudget432=saved.budget;window.__noNearZoom599=saved.near;
+    if(body)body.innerHTML=saved.html;if(info)info.style.display=saved.disp;
+  }
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
