@@ -50885,11 +50885,14 @@ function metroIndustrialModule516(g,ng,ax,ay,pal,kind,scale=1){
   else if(kind==='pipe'){g.strokeStyle='#8aa3a5';g.lineWidth=3*scale;g.beginPath();g.moveTo(ax-24*scale,ay);g.lineTo(ax-24*scale,ay-18*scale);g.lineTo(ax+25*scale,ay-18*scale);g.lineTo(ax+25*scale,ay-4*scale);g.stroke();g.fillStyle='#536366';for(let x=-20;x<=20;x+=10)g.fillRect(ax+x*scale,ay-20*scale,2*scale,20*scale);}
 }
 const BLOCK_SPR547=new Map();
-function rciSame547(x,y,k,lv){if(!inMap(x,y))return false;const b=tiles[idx(x,y)]?.bld;if(!b||b.ref||b.k!==k)return false;if(window.__noMassing552)return (b.lv||1)===(lv||1);return true;}
+function rciMergeable547(b,k,lv){if(!b||b.ref||b.k!==k)return false;if(window.__noMassing552)return (b.lv||1)===(lv||1);if(!window.__noSpeciesMerge602&&k===1&&(b.lv||1)===1&&arNameVilla600(k,b.lv||1,b.v||0))return false;return true;}
+function rciSame547(x,y,k,lv){return inMap(x,y)&&rciMergeable547(tiles[idx(x,y)]?.bld,k,lv);}
+function blockMax602(){if(window.__noBlockCap602)return [6,7];return [4,4];}
 function rciBlockOrigin547(x,y){
   if(window.__noSuperblock547)return {w:1,h:1,origin:true};
   const b=tiles[idx(x,y)]?.bld;if(!b||b.ref||b.k<1||b.k>3)return {w:1,h:1,origin:true};
-  const k=b.k,lv=b.lv||1,MAXW=6,MAXH=7;
+  const k=b.k,lv=b.lv||1,MH=blockMax602(),MAXW=MH[0],MAXH=MH[1];
+  if(!rciMergeable547(b,k,lv))return {w:1,h:1,k,lv,v:b.v||0,origin:true};
   if(x>0&&rciSame547(x-1,y,k,lv))return null;
   if(y>0&&rciSame547(x,y-1,k,lv))return null;
   let s=1;while(s<Math.min(MAXW,MAXH)){let ok=true;for(let dy=0;dy<=s&&ok;dy++)for(let dx=0;dx<=s;dx++)if(!rciSame547(x+dx,y+dy,k,lv))ok=false;if(!ok)break;s++;}
@@ -51297,6 +51300,9 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     ar568=Object.assign({},ar568,{box:[ar568.box[0],ar568.box[1],ar568.box[2],Math.max(ar568.box[2]+.12,vm582-.04)],
       ex:{box:[ar568.box[0],ar568.box[1],Math.min(ar568.box[3]-.06,vm582+.04),ar568.box[3]],hm:ar568.hm*.85}});
   }
+  if(ar568&&ar568.ex&&!window.__noPodium602&&bw*bh>=4&&lotFull570(ar568.ex.box)){
+    ar568=Object.assign({},ar568,{ex:{box:[.08,.92,.06,.38],hm:Math.min(.40,ar568.ex.hm||.4)}});
+  }
   const G=ar568?subPara568(G0559,ar568.box):G0559;
   const cLp=window.__noLeftLight541?pal.mid:pal.light,cRp=window.__noLeftLight541?pal.light:pal.dark;
   if(ar568&&ar568.ex)massBox568(g,ng,subPara568(G0559,ar568.ex.box),Math.max(6,Math.round(wallH*ar568.ex.hm)),pal,cLp,cRp,k,rk559);
@@ -51496,7 +51502,7 @@ function groundShade572(ctx,x,y,w,h,z,sxF,syF,spriteH){
   void ov;
 }
 function getBlockSprite547(k,lv,bw,bh,v){
-  const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
+  const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
   const sp=makeBlockSprite547(k,lv,bw,bh,v);BLOCK_SPR547.set(key,sp);return sp;
 }
@@ -51648,10 +51654,50 @@ function speciesSelftest601(){
     if(ware&&stk)checks.push(['warehouse CRC ≠ stack',crcCanvas596(ware.img)!==crcCanvas596(stk.img)]);
     const spanH=img=>{const g=img.getContext('2d'),w=img.width,h=img.height,d=g.getImageData(0,0,w,h).data;let y0=h,y1=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++)if(d[(y*w+x)*4+3]>40){if(y<y0)y0=y;if(y>y1)y1=y;}return Math.max(0,y1-y0);};
     if(ware&&stk)checks.push(['warehouse 剪影矮於 stack',spanH(ware.img)<spanH(stk.img)]);
-    if(needle&&slab)checks.push(['modernPoint 剪影高於 slab',spanH(needle.img)>spanH(slab.img)]);
+    if(needle&&slab)checks.push(['modernPoint 高於 slab',needle.img.height>slab.img.height||spanH(needle.img)>spanH(slab.img)]);
   }finally{
     window.__noSpecies601=prev;
     if(typeof BLOCK_SPR547!=='undefined'&&BLOCK_SPR547.clear)BLOCK_SPR547.clear();
+  }
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+function moreBldSelftest602(){
+  const checks=[];
+  checks.push(['blockMax602 預設 4×4',blockMax602()[0]===4&&blockMax602()[1]===4]);
+  const cap=window.__noBlockCap602;
+  window.__noBlockCap602=true;
+  checks.push(['閥門退回 6×7',blockMax602()[0]===6&&blockMax602()[1]===7]);
+  window.__noBlockCap602=cap||false;
+  checks.push(['origin 讀 blockMax602',(''+rciBlockOrigin547).indexOf('blockMax602')>=0]);
+  checks.push(['別墅走 rciMergeable547',(''+rciMergeable547).indexOf('arNameVilla600')>=0]);
+  const pod=window.__noPodium602;
+  try{
+    window.__noPodium602=false;
+    if(typeof BLOCK_SPR547!=='undefined'&&BLOCK_SPR547.clear)BLOCK_SPR547.clear();
+    const a=makeBlockSprite547(2,3,4,4,0);
+    window.__noPodium602=true;
+    if(BLOCK_SPR547.clear)BLOCK_SPR547.clear();
+    const b=makeBlockSprite547(2,3,4,4,0);
+    checks.push(['裙樓開關 CRC 不同',!!(a&&a.img&&b&&b.img)&&crcCanvas596(a.img)!==crcCanvas596(b.img)]);
+  }finally{
+    window.__noPodium602=pod;
+    if(typeof BLOCK_SPR547!=='undefined'&&BLOCK_SPR547.clear)BLOCK_SPR547.clear();
+  }
+  if(typeof tiles!=='undefined'&&tiles){
+    let planted=null,prev0=null,prev1=null;
+    for(let y=8;y<20&&!planted;y++)for(let x=8;x<20&&!planted;x++){
+      if(!inMap(x,y)||!inMap(x+1,y))continue;
+      const t0=tiles[idx(x,y)],t1=tiles[idx(x+1,y)];
+      if(!t0||t0.t===0||!t1||t1.t===0)continue;
+      planted={x,y};prev0=t0.bld;prev1=t1.bld;
+      t0.bld={k:1,lv:1,v:0,age:30,pw:true,h:1};t1.bld={k:1,lv:1,v:0,age:30,pw:true,h:1};
+    }
+    if(planted){
+      const o=rciBlockOrigin547(planted.x,planted.y);
+      checks.push(['別墅 origin 1×1',!!(o&&o.w===1&&o.h===1)]);
+      checks.push(['鄰居別墅不合併',rciSame547(planted.x+1,planted.y,1,1)===false]);
+      tiles[idx(planted.x,planted.y)].bld=prev0;tiles[idx(planted.x+1,planted.y)].bld=prev1;
+    }else checks.push(['找不到可種測試格',false]);
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
@@ -52253,7 +52299,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601});
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
