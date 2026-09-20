@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-19T20:06:03.966Z",
+ "generatedAt": "2026-09-20T06:32:29.132Z",
  "version": "12.89",
  "anchor": "T534",
  "version_fp": "12.89",
  "averages": {
   "palette": 0.5576218611023881,
   "hardEdge": 0.844188964452835,
-  "lightDir": 0.6625202642801367,
+  "lightDir": 0.6597566371787611,
   "shade": 0.6104135645044082,
-  "density": 0.7593296810489452,
+  "density": 0.7586774371887431,
   "nightRule": 0.598373168067065,
   "variants": 0.5463576158940397
  },
- "grand": 0.6541,
+ "grand": 0.6536,
  "families": {
   "grass": {
    "leaves": 4,
@@ -119,16 +119,16 @@
    "total": 0.5075
   },
   "tree": {
-   "leaves": 10,
-   "op": 6190,
+   "leaves": 13,
+   "op": 7892,
    "raw": {
-    "leaves": 10,
-    "px": 19200,
-    "op": 6190,
+    "leaves": 13,
+    "px": 24960,
+    "op": 7892,
     "semi": 0,
-    "colors": 228,
-    "buckets": 88,
-    "leftLit": 9,
+    "colors": 286,
+    "buckets": 114,
+    "leftLit": 11,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -136,13 +136,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0.9,
+    "lightDir": 0.8461538461538461,
     "shade": 1,
-    "density": 0.9208400646203554,
+    "density": 0.9059807399898632,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.903
+   "total": 0.8932
   },
   "deco": {
    "leaves": 9,
@@ -198,15 +198,15 @@
   },
   "roadClass": {
    "leaves": 64,
-   "op": 70256,
+   "op": 69736,
    "raw": {
     "leaves": 64,
     "px": 131072,
-    "op": 70256,
+    "op": 69736,
     "semi": 0,
-    "colors": 8498,
-    "buckets": 487,
-    "leftLit": 49,
+    "colors": 8271,
+    "buckets": 482,
+    "leftLit": 41,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -214,13 +214,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0.765625,
+    "lightDir": 0.640625,
     "shade": 1,
     "density": 1,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.8951
+   "total": 0.8772
   },
   "bridgeClass": {
    "leaves": 64,
@@ -587,16 +587,16 @@
    "total": 0.3289
   },
   "treeW": {
-   "leaves": 10,
-   "op": 6190,
+   "leaves": 13,
+   "op": 7762,
    "raw": {
-    "leaves": 10,
-    "px": 19200,
-    "op": 6190,
+    "leaves": 13,
+    "px": 24960,
+    "op": 7762,
     "semi": 0,
-    "colors": 221,
-    "buckets": 92,
-    "leftLit": 8,
+    "colors": 265,
+    "buckets": 119,
+    "leftLit": 10,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -604,13 +604,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0.8,
+    "lightDir": 0.7692307692307693,
     "shade": 1,
-    "density": 0.8925686591276252,
+    "density": 0.8535171347590828,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.8847
+   "total": 0.8747
   },
   "parkW": {
    "leaves": 9,
@@ -1653,16 +1653,16 @@
    "total": 0.5592
   },
   "treeS": {
-   "leaves": 10,
-   "op": 6190,
+   "leaves": 13,
+   "op": 7892,
    "raw": {
-    "leaves": 10,
-    "px": 19200,
-    "op": 6190,
+    "leaves": 13,
+    "px": 24960,
+    "op": 7892,
     "semi": 0,
-    "colors": 228,
-    "buckets": 82,
-    "leftLit": 10,
+    "colors": 286,
+    "buckets": 107,
+    "leftLit": 12,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -1670,25 +1670,25 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 1,
+    "lightDir": 0.9230769230769231,
     "shade": 1,
-    "density": 0.9208400646203554,
+    "density": 0.9059807399898632,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.9173
+   "total": 0.9042
   },
   "treeA": {
-   "leaves": 10,
-   "op": 6190,
+   "leaves": 13,
+   "op": 7892,
    "raw": {
-    "leaves": 10,
-    "px": 19200,
-    "op": 6190,
+    "leaves": 13,
+    "px": 24960,
+    "op": 7892,
     "semi": 0,
-    "colors": 228,
-    "buckets": 65,
-    "leftLit": 10,
+    "colors": 286,
+    "buckets": 85,
+    "leftLit": 12,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -1696,13 +1696,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 1,
+    "lightDir": 0.9230769230769231,
     "shade": 1,
-    "density": 0.9208400646203554,
+    "density": 0.9059807399898632,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.9173
+   "total": 0.9042
   },
   "roadDeco": {
    "leaves": 46,
@@ -3057,16 +3057,16 @@
    "total": 0.5
   },
   "treeSakura": {
-   "leaves": 10,
-   "op": 6190,
+   "leaves": 13,
+   "op": 7892,
    "raw": {
-    "leaves": 10,
-    "px": 19200,
-    "op": 6190,
+    "leaves": 13,
+    "px": 24960,
+    "op": 7892,
     "semi": 0,
-    "colors": 228,
-    "buckets": 65,
-    "leftLit": 9,
+    "colors": 286,
+    "buckets": 85,
+    "leftLit": 11,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -3074,13 +3074,13 @@
    "axes": {
     "palette": 1,
     "hardEdge": 1,
-    "lightDir": 0.9,
+    "lightDir": 0.8461538461538461,
     "shade": 1,
-    "density": 0.9208400646203554,
+    "density": 0.9059807399898632,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.903
+   "total": 0.8932
   },
   "railStock469": {
    "leaves": 132,

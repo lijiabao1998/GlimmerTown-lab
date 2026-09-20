@@ -45,10 +45,20 @@ const KEEP = process.argv.includes('--keep');
     const selftests = [
       ['life533', `(window.GV && window.GV.life533Selftest) ? window.GV.life533Selftest() : {ok:false,checks:['API 不存在']}`],
       ['life535', `(window.GV && window.GV.life535Selftest) ? window.GV.life535Selftest() : {ok:false,checks:['API 不存在']}`],
+      ['overlay596', `(window.GV && window.GV.overlaySelftest596) ? window.GV.overlaySelftest596() : {ok:false,checks:['API 不存在']}`],
+      ['ukStyle596', `(window.GV && window.GV.ukStyleSelftest596) ? window.GV.ukStyleSelftest596() : {ok:false,checks:['API 不存在']}`],
+      ['roadPixel596', `(window.GV && window.GV.roadPixelSelftest596) ? window.GV.roadPixelSelftest596() : {ok:false,checks:['API 不存在']}`],
+      ['tree596', `(window.GV && window.GV.treeSelftest596) ? window.GV.treeSelftest596() : {ok:false,checks:['API 不存在']}`],
     ];
+    const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA || '', 'Temp', 'grok-goal-f8a4940b1743', 'implementer');
+    const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json' };
+    try { fs.mkdirSync(scratch, { recursive: true }); } catch (e) {}
     for (const [name, expr] of selftests) {
       try {
         const r = await cdp.evalJs(expr);
+        if (scratchMap[name]) {
+          try { fs.writeFileSync(path.join(scratch, scratchMap[name]), JSON.stringify(r, null, 2)); } catch (e2) {}
+        }
         if (r && r.ok) log('   ' + name + ' OK（' + r.checks.length + ' 項）');
         else { fails.push('自我測試 ' + name + ' 未通過'); (r && r.checks || []).forEach(c => log('     ' + c)); }
       } catch (e) { fails.push('自我測試 ' + name + ' 執行失敗: ' + e.message); }
