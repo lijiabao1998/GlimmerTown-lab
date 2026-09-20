@@ -40737,7 +40737,8 @@ function draw(dt){
   const fxOn=!window.__noLight&&quality!==0&&!lodMini;
   const nightDepth=fxOn&&b<.72?clamp((.72-b)/.38,0,1):0;
   window.__nd550=nightDepth;   // T550：曝露給地面層的橋面繪製（護欄燈夜間合成用；純讀值）
-  const shadowA=nightDepth>0?.30*(.3+.7*(1-nightDepth)):(fxOn&&quality===2&&!window.__noDayShadow?.17:0); // T255：高畫質(quality===2)日間柔和陰影＝複用 T149 陰影渲染把建築「落地」更立體；中/低畫質日間仍恆 0＝保「日間逐像素一致」不變量，__noDayShadow 開關供 A/B
+  const shadowA=nightDepth>0?.30*(.3+.7*(1-nightDepth)):(fxOn&&quality===2&&!window.__noDayShadow?.17:0); // T255：高畫質日間柔和陰影
+  const dayLotShade596=fxOn&&quality>=1&&!window.__noShadow596&&nightDepth===0; // T596：中畫質也給佔地接觸斑；預設 quality=1 以前整天沒腳影
   const animOn=!window.__noAnim&&quality!==0&&!lodMini&&!!SPR.flag; // T152：動畫細節層總開關（z<0.5／低效能檔 quality===0／__noAnim=true 時全跳過，沿用 T149 fxOn 同款節流慣例）；末項 !!SPR.flag 防禦性檢查（沿用 T146 SPR.roadDeco 同款慣例）：若啟動時以 __noAnim=true 跳過了 buildSprites 尾端生成，之後即使動態改回 false，本幀動畫 SPR 鍵仍不存在，此檢查避免讀取 undefined 陣列拋錯
   /* ===== T154 天氣視覺升級總開關：z<0.5（lodMini）或效能檔=低（quality===0）時整段關閉，退回既有簡單天氣
      渲染——本卡新增的四類（地面水花／濕地反光／積雪漸進疊加／霧／暴風雪橫向線條）皆受其節流；本開關關閉時，
@@ -41954,9 +41955,12 @@ function draw(dt){
     }
     else if(bd.k===9){bx=sxOf(o.x+1,o.y+1)+(32-s.ax)*z;by=syOf(o.x+1,o.y+1)+(32-s.ay)*z;}
     else{bx=o.sx+(32-s.ax)*z;by=o.sy+(32-s.ay)*z;}
-    if(!lodFar&&!(o.block547&&(o.block547.w>1||o.block547.h>1))&&bd.k!==4&&bd.age>=4)
-      groundShade572(ctx,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf,s.h);
     const once575=window.__noOnce575||o.blockDiag555==null||o.blockDiag555===o.blockD0575; // T575：超街區切條時地面效果只在第一條畫
+    if(!lodFar&&bd.k!==4&&bd.age>=4&&once575){
+      const lotW=o.block547?o.block547.w:(bd.sz||1),lotH=o.block547?o.block547.h:(bd.sz||1);
+      if(!window.__noShadow596)groundShade572(ctx,o.x,o.y,lotW,lotH,z,sxOf,syOf,s.h);
+      else if(!(o.block547&&(o.block547.w>1||o.block547.h>1)))groundShade572(ctx,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf,s.h);
+    }
     const isBlock577=!!(o.block547&&(o.block547.w>1||o.block547.h>1)); // T577：超街區的縫合板會把自己的格子當鄰居 ⇒ 屋頂左端浮一塊灰板，跳過
     if(!window.__noMetropolitanArt516&&once575&&!isBlock577)drawBlockStitch516(ctx,o,bd,s,bx,by,z,lodFar); // T516：相鄰同類建築的裙樓／鋪面縫合；不改 tile、save 或模擬
     if(bd.age<4&&bd.k!==4&&!window.__noConstr2&&!lodFar&&!o.block547){ // T220/T258/T259 分階段施工（Opus 親手，玩家「更細更緩慢」）——工期 5→9 天：age0 圍籬+開挖坑+挖掘機、age1 地基鋼筋+水泥攪拌車、age2 鋼骨半高、age3 鋼骨全高+焊接火花；age4-8 交下方樓體逐層升起+鷹架。純 age/visT 決定性不消耗 R()、__noConstr2=true 退回舊淡入、遠景不繪
@@ -42045,7 +42049,7 @@ function draw(dt){
     /* ===== T149 建築方向性陰影＋窗燈地面光暈：畫在該建築自己的 drawImage 之前（地面之上、建築之前），
        陰影/光暈皆為動態層、每幀畫、不烘進 groundCache；shadowA/nightDepth 已在 draw() 起手依 fxOn／b<.72
        算好且日間（含正午）恆為 0，此處零額外判斷即可保證硬性不變量 ===== */
-    if(shadowA>0&&once575){ // 陰影：取既有 sprite 本體 alpha 剪影，垂直壓扁＋固定偏移模擬躺地投影，不新增 sprite、不消耗 R()；T575：超街區只畫一次
+    if(shadowA>0&&once575&&(window.__noShadow596||!dayLotShade596)){ // T596：新路徑用佔地斑，關掉才走舊扁幽靈；T575：超街區只畫一次
       const shH=Math.max(2,s.h*z*.32);
       ctx.save();
       ctx.filter='brightness(0)';
