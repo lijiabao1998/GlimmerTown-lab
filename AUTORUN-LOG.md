@@ -292,7 +292,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r50 | [T602](docs/T602-more-buildings.md) | 超街區視覺上限 4×4；鋪滿裙樓改前庭低板；別墅 1×1 不合併 | ✅ 綠 13.4s；moreBld602 7 項；fp expect=block559 | `pending` | `shots/T602_city_after.png` | ① 4×4 聯排仍一塊 ② 72px 圖集未對齊 ③ 6×7 只在閥門 |
+| r50 | [T602](docs/T602-more-buildings.md) | 超街區視覺上限 4×4；鋪滿裙樓改前庭低板；別墅 1×1 不合併 | ✅ 綠 13.4s；moreBld602 7 項；fp expect=block559 | `6cb00a3` | `shots/T602_city_after.png` | ① 4×4 聯排仍一塊 ② 72px 圖集未對齊 ③ 6×7 只在閥門 |
 
 ## r49 — T601 高層物種（針塔／石材／矮倉）
 
