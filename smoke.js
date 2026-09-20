@@ -51,9 +51,10 @@ const KEEP = process.argv.includes('--keep');
       ['tree596', `(window.GV && window.GV.treeSelftest596) ? window.GV.treeSelftest596() : {ok:false,checks:['API 不存在']}`],
       ['hud598', `(window.GV && window.GV.hudRealtimeSelftest598) ? window.GV.hudRealtimeSelftest598() : {ok:false,checks:['API 不存在']}`],
       ['panel599', `(window.GV && window.GV.panelLiveSelftest599) ? window.GV.panelLiveSelftest599() : {ok:false,checks:['API 不存在']}`],
+      ['workshop600', `(window.GV && window.GV.workshopSelftest600) ? window.GV.workshopSelftest600() : {ok:false,checks:['API 不存在']}`],
     ];
     const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA || '', 'Temp', 'grok-goal-c80f16d61c81', 'implementer');
-    const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json', hud598: 'hud-realtime-selftest.json', panel599: 'panel-live-selftest.json' };
+    const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json', hud598: 'hud-realtime-selftest.json', panel599: 'panel-live-selftest.json', workshop600: 'workshop-selftest.json' };
     try { fs.mkdirSync(scratch, { recursive: true }); } catch (e) {}
     for (const [name, expr] of selftests) {
       try {

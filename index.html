@@ -30682,9 +30682,9 @@ function applyT478BridgeRoadRefinement(){
 }
 function roadTier478(t){if(!t||!t.road)return 0;return t.hw?5:Math.max(1,Math.min(4,t.rc||2));}
 function roadPt478(bit){return bit===1?[32,2]:bit===2?[62,16]:bit===4?[32,30]:[2,16];}
-function drawRoadLine478(gc,z,pts,opt={}){if(!pts||pts.length<2)return;gc.save();gc.strokeStyle=opt.col||'#f3f0c8';gc.lineWidth=(opt.w||1.2)*z;gc.lineCap=opt.cap||'round';gc.lineJoin='round';if(opt.dash)gc.setLineDash(opt.dash.map(v=>v*z));gc.beginPath();gc.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)gc.lineTo(pts[i][0],pts[i][1]);gc.stroke();gc.restore();}
+function drawRoadLine478(gc,z,pts,opt={}){if(!pts||pts.length<2)return;if(window.__noRoadStripes600)return;if(opt.dash&&z<.92)return;gc.save();gc.strokeStyle=opt.col||'#f3f0c8';gc.lineWidth=Math.max(1,Math.round((opt.w||1.2)*z));gc.lineCap=opt.cap||'round';gc.lineJoin='round';if(opt.dash)gc.setLineDash(opt.dash.map(v=>Math.max(1,v*z)));gc.beginPath();gc.moveTo(Math.round(pts[0][0])+.5,Math.round(pts[0][1])+.5);for(let i=1;i<pts.length;i++)gc.lineTo(Math.round(pts[i][0])+.5,Math.round(pts[i][1])+.5);gc.stroke();gc.restore();}
 function drawRoadHierarchy478(gc,t,x,y,sx,sy,z,rm){
-  if(!t.road||window.__noRoadHierarchy478)return;
+  if(!t.road||window.__noRoadHierarchy478||window.__noRoadStripes600)return;
   const tier=roadTier478(t), c=[Math.round(sx+32*z),Math.round(sy+16*z)], bits=[1,2,4,8].filter(b=>rm&b), n=bits.length;
   const lane=tier===5?'#eaf2f8':tier>=3?'#f1e8aa':'#d9d3a0', edge=tier===5?'#dfe6ec':'#cfd6dc', median=tier>=4?'#d7b14d':'#e7de8e';
   const pathOf=(b)=>{const p=roadPt478(b);return [c,[Math.round(sx+p[0]*z),Math.round(sy+p[1]*z)]];};
@@ -40592,7 +40592,7 @@ function weatherSurfaceState499(x,y,t){
   if(t&&t.wp&&typeof drainPipeOutlet454==='function')drainOutfall=!!drainPipeOutlet454(idx(x,y));
   return{...L,profile,waterfront,terrain,drainOutfall};
 }
-function weatherDiamond499(g,sx,sy,z,col,a){if(a<=.001)return;g.save();g.globalAlpha=clamp(a,0,.42);g.fillStyle=col;g.beginPath();g.moveTo(sx+32*z,sy+1*z);g.lineTo(sx+63*z,sy+16*z);g.lineTo(sx+32*z,sy+31*z);g.lineTo(sx+1*z,sy+16*z);g.closePath();g.fill();g.restore();}
+function weatherDiamond499(g,sx,sy,z,col,a){if(a<=.001)return;g.save();g.globalAlpha=clamp(a,0,.42);g.fillStyle=col;g.beginPath();g.moveTo(sx+32*z,sy);g.lineTo(sx+64*z,sy+16*z);g.lineTo(sx+32*z,sy+32*z);g.lineTo(sx,sy+16*z);g.closePath();g.fill();g.restore();}
 function drawWeatheredGround499(g,t,x,y,sx,sy,z){
   if(window.__noWeathered499||z<.48||!t||t.t!==2||t.road)return 0;const S=weatherSurfaceState499(x,y,t),h=streetHash(x,y,49901),nearI=S.profile==='industrialGround',nearF=S.profile==='fieldGround',nearW=S.profile==='waterGround';let drew=0;
   if(!window.__noDry499&&S.dry>.05){const a=S.dry*(nearF?.13:nearI?.10:.075);weatherDiamond499(g,sx,sy,z,nearI?'#a18f68':'#b6a45b',a);weatheredDrawStats499.dryPatches++;drew=1;
@@ -40703,7 +40703,7 @@ function fabricContext500(x,y,t){
   return{profile,districtProfile:cell.profile,style:cell.style,confidence:cell.confidence,cell,street,waterfront,transitionMask,root,landmark,material:FABRIC_META500[profile]||FABRIC_META500.rural};
 }
 function fabricAt500(x,y){return inMap(x,y)?fabricContext500(x,y,tiles[idx(x,y)]):null;}
-function fabricDiamond500(g,sx,sy,z,col,a){if(a<=.001)return;g.save();g.globalAlpha=clamp(a,0,.22);g.fillStyle=col;g.beginPath();g.moveTo(sx+32*z,sy+1*z);g.lineTo(sx+63*z,sy+16*z);g.lineTo(sx+32*z,sy+31*z);g.lineTo(sx+1*z,sy+16*z);g.closePath();g.fill();g.restore();}
+function fabricDiamond500(g,sx,sy,z,col,a){if(a<=.001)return;g.save();g.globalAlpha=clamp(a,0,.22);g.fillStyle=col;g.beginPath();g.moveTo(sx+32*z,sy);g.lineTo(sx+64*z,sy+16*z);g.lineTo(sx+32*z,sy+32*z);g.lineTo(sx,sy+16*z);g.closePath();g.fill();g.restore();}
 function fabricRootSame500(x,y,root){return inMap(x,y)&&fabricRootIndex500(x,y)===root;}
 function fabricOuterMask500(x,y,root){let m=0;if(!fabricRootSame500(x,y-1,root))m|=1;if(!fabricRootSame500(x+1,y,root))m|=2;if(!fabricRootSame500(x,y+1,root))m|=4;if(!fabricRootSame500(x-1,y,root))m|=8;return m;}
 function fabricEdgeStroke500(g,bit,sx,sy,z,col,w,a,off=0){const f=typeof waterfrontFrame498==='function'?waterfrontFrame498(bit,sx,sy,z):null;if(!f)return;g.save();g.globalAlpha=a;g.strokeStyle=col;g.lineWidth=Math.max(1,w*z);g.beginPath();g.moveTo(f.p[0][0]+f.nx*off*z,f.p[0][1]+f.ny*off*z);g.lineTo(f.p[1][0]+f.nx*off*z,f.p[1][1]+f.ny*off*z);g.stroke();g.restore();}
@@ -40913,11 +40913,11 @@ function draw(dt){
       const vp388=w2v(x,y);if(SPR.cliff&&(vp388[0]===N-1||vp388[1]===N-1))gc.drawImage(SPR.cliff,sx,sy,64*z,56*z); // T388：外緣懸崖改 view 空間判邊（rot=2 崖畫遠端近端裸空的病灶）；r=0 時 w2v=identity 布林逐位恆等
       if(lodFar){ // T107：z<1 地面退化為實色菱形（略去 speck 細沙紋理），沿用同一菱形頂點密拼、不留縫
         gc.fillStyle= t.t===0?'#3671b6' : t.t===1?(win?'#e4e2d8':'#d9c689') : (win?'#e8eef2':sea===1?'#8fce5e':sea===2?'#b8935a':(t.el?'#8aba58':'#74b258')); // T136：LOD 遠景實色地面依季，春季（sea===0）與改動前同一分支表達式
-        gc.beginPath();gc.moveTo(sx+32*z,sy);gc.lineTo(sx+64*z,sy+16*z);gc.lineTo(sx+32*z,sy+32*z);gc.lineTo(sx,sy+16*z);gc.closePath();gc.fill();
+        gc.beginPath();gc.moveTo(sx+32*z,sy-.5);gc.lineTo(sx+64*z+.5,sy+16*z);gc.lineTo(sx+32*z,sy+32*z+.5);gc.lineTo(sx-.5,sy+16*z);gc.closePath();gc.fill();
       }else{
         const terrainSet506=win?SPR.grassW:sea===1?SPR.grassS:sea===2?SPR.grassA:(t.el?SPR.grassH:SPR.grass); // T506 QA hardening：季節 sprite 尚未完成時保留安全回退
         const base=t.t===0?(SPR.water?.[waterF]||SPR.water?.[0]):t.t===1?(win?SPR.sandW:SPR.sand):(terrainSet506?.[t.gv&3]||SPR.grass?.[t.gv&3]||SPR.grass?.[0]||SPR.sand||SPR.water?.[0]); // T136 正常路徑不變
-        if(base)gc.drawImage(base,sx,sy,64*z,32*z);
+        if(base)isoBlit600(gc,base,sx,sy,z,64,32);
         if(t.t===2)drawLivingTerrain494(gc,t,x,y,sx,sy,z,sea,win); // T494：活地表烘焙層
         if(t.t===2&&!window.__noFabric500)drawFabricGround500(gc,t,x,y,sx,sy,z); // T500：區域材料家族／園區 apron／街廓基底
         if(t.t===2)drawWeatheredGround499(gc,t,x,y,sx,sy,z); // T499：乾旱／濕地／泥濘／殘雪地表回應（weather authority）
@@ -41031,10 +41031,10 @@ function draw(dt){
           drawBridgeMaster480A(gc,t,x,y,sx,sy,z,rm,'bridge');
         }else if(t.hw){ // 快速路（rc=5，T29；原高速路 T21）
           const rs506=t.bridge?SPR.hwyBridge?.[rm]:SPR.hwy?.[rm];
-          if(rs506)gc.drawImage(rs506,Math.round(sx),Math.round(sy-(t.bridge?4*z:0)),Math.round(64*z),Math.round(t.bridge?44*z:32*z));
+          if(rs506)isoBlit600(gc,rs506,sx,sy-(t.bridge?4*z:0),z,64,t.bridge?44:32);
         }else{
           const rcIdx=(t.rc||2)-1,rs506=t.bridge?SPR.bridgeClass?.[rcIdx]?.[rm]:SPR.roadClass?.[rcIdx]?.[rm];
-          if(rs506)gc.drawImage(rs506,Math.round(sx),Math.round(sy-(t.bridge?4*z:0)),Math.round(64*z),Math.round(t.bridge?44*z:32*z)); // T506 QA hardening：路網先於 sprite 表完成時跳過該幀；T597 整數像素對齊
+          if(rs506)isoBlit600(gc,rs506,sx,sy-(t.bridge?4*z:0),z,64,t.bridge?44:32); // T600：相鄰格 dest 對齊＋1px 重疊，去掉分數縮放髮絲縫
         }
         if(!lodFar){ // T129：過載道路疊暖色（黃→紅），比照 rdec/bus 既有 LOD 慣例只在 z≥1 繪製；load≤cap 不畫任何額外像素（零改動）；不改道路 sprite 本體
           const jamCap=roadCap475(t), jamLd=roadLoad[idx(x,y)];
@@ -42040,6 +42040,7 @@ function draw(dt){
     if(!(VARK574.has(bd.k)&&vdraw574(o,bd)!==0))s=metroIndustrySprite516A(bd,s); // T516A canonical industrial art for real placed assets；T574：選到變體時放行
     if(o.block547&&(o.block547.w>1||o.block547.h>1))s=getBlockSprite547(bd.k,bd.lv||1,o.block547.w,o.block547.h,bd.v||0);
     else if(!window.__noUkCottage596&&bd.k===1&&!(bd.sz>=2))s=getBlockSprite547(1,bd.lv||1,1,1,bd.v||0);
+    else if(!window.__noMass1x1600&&(bd.k===2||bd.k===3)&&!(bd.sz>=2))s=getBlockSprite547(bd.k,bd.lv||1,1,1,bd.v||0);
     /* T364a sc sprite view：新波素材以 2× 畫布保存細節，僅在世界繪製時縮放。
        無 sc 的既有素材直接保留原物件／原 w,h,ax,ay，下面所有舊算式逐位元不變；
        有 sc 才建立一次快取檢視，將邏輯尺寸與錨點同步縮放，並保留原圖尺寸給施工裁切與遮罩快取。 */
@@ -42290,7 +42291,7 @@ function draw(dt){
       ctx.drawImage(s.img,bx,by,s.w*z,s.h*z);
       if(nightDepth>0.25&&s.night&&(bd.pw||(typeof isPowerSource450==='function'&&isPowerSource450(bd.k))))ctx.drawImage(s.night,bx,by,s.w*z,s.h*z);
       ctx.restore();
-    }else if(!window.__noLotClip596&&bd&&!bd.ref){
+    }else if(!window.__noLotClip596&&bd&&!bd.ref&&!s.__t547){
       const lotW=o.block547?o.block547.w:(bd.sz||1),lotH=o.block547?o.block547.h:(bd.sz||1);
       drawBldClipped596(ctx,s,o.x,o.y,lotW,lotH,bx,by,z,sxOf,syOf);
     }else ctx.drawImage(s.img,bx,by,s.w*z,s.h*z);
@@ -51044,7 +51045,9 @@ function modernTrim565(g,ng,C,wallH,pal){
 const ARCHE568={
   '1_1':[ {n:'villa',    box:[.06,.66,.06,.66],hm:1.00,wd:[6,7],win:'arch'},
           {n:'bungalow',fs:'ukSemi', box:[.06,.80,.18,.86],hm:0.62,wd:[6,7],win:'punch'},
-          {n:'cottage',fs:'ukTerrace',  box:[.04,.96,.10,.72],hm:0.85,wd:[5,6],win:'arch'} ],
+          {n:'cottage',fs:'ukTerrace',  box:[.04,.96,.10,.72],hm:0.85,wd:[5,6],win:'arch'},
+          {n:'modern',   box:[.14,.86,.10,.82],hm:0.90,flat:1,wd:[4,4],win:'ribbon'},
+          {n:'town',     box:[.08,.92,.06,.88],hm:1.12,wd:[5,6],win:'arch'} ],
   '1_2':[ {n:'walkup',fs:'usBrownstone',   box:[.04,.96,0,.82],        hm:1.00,wd:[5,6],win:'arch'},
           {n:'courtyard',fs:'ukMansion',box:[0,1,0,.52],      hm:1.10,ex:{box:[0,.46,.52,1],hm:0.95},wd:[5,6],win:'arch'},
           {n:'terrace',fs:'ukVictorian',  box:[.08,.92,0,1],    hm:1.38,flat:1,wd:[4,5],win:'grid'} ],
@@ -51060,7 +51063,10 @@ const ARCHE568={
   '2_3':[ {n:'podTower', box:[.26,.74,.26,.74],hm:2.35,ex:{box:[0,1,0,1],hm:0.42},wd:[3,4],win:'ribbon'},
           {n:'setback',  box:[.10,.90,.06,.76],hm:1.75,wd:[4,5],win:'grid'},
           {n:'slabC',    box:[0,1,.20,.80],    hm:1.45,ex:{box:[0,1,0,.22],hm:0.50},wd:[4,5],win:'ribbon'} ],
-  '3_1':[ {n:'shed',     box:[0,1,0,.74],        hm:0.62,wd:[7,8],win:'punch'} ],
+  '3_1':[ {n:'shed',     box:[.06,.94,.04,.78],  hm:0.70,wd:[7,8],win:'punch'},
+          {n:'workshop', box:[.08,.88,.06,.90],  hm:0.95,wd:[6,7],win:'punch'},
+          {n:'sawShed',  box:[.04,.96,.02,.82],  hm:0.80,wd:[7,8],win:'punch'},
+          {n:'yard',     box:[.12,.72,.08,.86],  hm:0.55,wd:[8,9],win:'punch'} ],
   '3_2':[ {n:'factory',  box:[0,1,0,.82],      hm:0.95,ex:{box:[0,.52,.82,1],hm:0.55},wd:[7,8],win:'punch'} ],
   '3_3':[ {n:'heavy',    box:[.04,.96,0,.86],  hm:1.25,ex:{box:[.58,1,.86,1],hm:0.70},wd:[8,9],win:'punch'} ]
 };
@@ -51098,6 +51104,7 @@ function arche568(k,lv,v){
   const L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
   return L[Math.abs(v)%L.length];
 }
+function arNameVilla600(k,lv,v){const a=arche568(k,lv,v);return !!(a&&a.n==='villa');}
 function subPara568(C,b){
   return {N:paraPt559(C,b[0],b[2]),E:paraPt559(C,b[1],b[2]),
           S:paraPt559(C,b[1],b[3]),W:paraPt559(C,b[0],b[3])};
@@ -51247,7 +51254,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   const rk559=metroRand516('roof559:'+k+':'+lv+':'+bw+'x'+bh+':'+v);
   const[c,g]=cv(W,H),[nc,ng]=cv(W,H);
   const G0559=blockCorners547(ax,ay,bw,bh);
-  const villa559=!window.__noVilla559&&typ&&k===1&&lv===1&&bw*bh<=4&&((Math.abs(v)%3)===0);
+  const villa559=!window.__noVilla559&&typ&&k===1&&lv===1&&bw*bh<=4&&arNameVilla600(k,lv,v);
   if(villa559)villaYard559(g,ng,G0559,rk559,pal);
   else{const _a=arche568(k,lv,v);
     if(_a&&!lotFull570(_a.box)&&!(_a.ex&&lotFull570(_a.ex.box)))
@@ -51341,7 +51348,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     for(let i=0;i<nHvac;i++){const p=lerp2_547(deck.W,deck.E,(i+1)/(nHvac+1));g.fillStyle='#9aa3aa';g.fillRect(Math.round(p[0])-5,Math.round(p[1])-8,10,8);g.fillStyle='#c5ced4';g.fillRect(Math.round(p[0])-4,Math.round(p[1])-10,8,3);if(grain){g.fillStyle='#7a848c';for(let f=0;f<4;f++)g.fillRect(Math.round(p[0])-4+f*2,Math.round(p[1])-7,1,6);}}
     ridge={f:lerp2_547(deck.W,deck.S,.5),b:lerp2_547(deck.N,deck.E,.5),rise:para,axis:0};
   }else{
-    ridge=sawtoothPara547(g,roof,Math.max(3,Math.min(7,Math.max(bw,bh))),Math.max(10,pitchH),roofL,roofR,ridgeCol,axis);
+    ridge=sawtoothPara547(g,roof,Math.max(2,Math.min(7,bw*bh>=4?Math.max(bw,bh):2)),Math.max(10,pitchH),roofL,roofR,ridgeCol,axis);
     const dock=lerp2_547(G.W,G.S,.45);g.fillStyle='#2a2620';g.fillRect(Math.round(dock[0])-8,Math.round(dock[1]-10),16,8);
     if(grain){
       g.fillStyle='#3a3630';for(let s=0;s<5;s++)g.fillRect(Math.round(dock[0])-7,Math.round(dock[1]-9)+s*2,14,1);
@@ -51426,7 +51433,9 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   }
   const sty565=window.__noStyle565?0:((v+k+bw)%3);
   if(!villa559&&k!==3){
-    if(sty565===1)classicTrim565(g,G,wallH,cL,cR,'stone');
+    if(ar568&&ar568.n==='modern')modernTrim565(g,ng,G,wallH,pal);
+    else if(ar568&&ar568.n==='town')classicTrim565(g,G,wallH,cL,cR,'stone');
+    else if(sty565===1)classicTrim565(g,G,wallH,cL,cR,'stone');
     else if(sty565===2){if(k===2)modernTrim565(g,ng,G,wallH,pal);
                         else classicTrim565(g,G,wallH,cL,cR,'brick');}
   }
@@ -51481,6 +51490,12 @@ function clipBlockDiag555(ctx,x,y,bw,bh,d,z,sxOf,syOf){
   }
   ctx.clip();
 }
+function isoBlit600(g,img,sx,sy,z,sw,sh){
+  if(!img||window.__noIsoBlit600){if(img)g.drawImage(img,sx,sy,(sw||64)*z,(sh||32)*z);return;}
+  sw=sw||64;sh=sh||32;
+  const x0=Math.round(sx),y0=Math.round(sy),x1=Math.round(sx+sw*z),y1=Math.round(sy+sh*z);
+  g.drawImage(img,x0,y0,Math.max(1,x1-x0+1),Math.max(1,y1-y0+1));
+}
 function clipLotFootprint596(ctx,x,y,bw,bh,z,sxOf,syOf){
   if(window.__noLotClip596)return false;
   const up=520*z;
@@ -51531,6 +51546,47 @@ function overlaySelftest596(){
   checks.push(['工坊不佔東鄰格鑽石內部',leak===0]);
   checks.push(['clipLotFootprint596 存在',typeof clipLotFootprint596==='function']);
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗')),leak,own};
+}
+function workshopSelftest600(){
+  const checks=[];
+  checks.push(['draw 1x1 工商走 getBlockSprite547',(''+__draw_501).indexOf('__noMass1x1600')>=0||(''+draw).indexOf('__noMass1x1600')>=0]);
+  checks.push(['__t547 不走垂直裁',(''+__draw_501).indexOf('!s.__t547')>=0||(''+draw).indexOf('!s.__t547')>=0]);
+  checks.push(['isoBlit600 存在',typeof isoBlit600==='function']);
+  checks.push(['1_1 原型 ≥5',(ARCHE568['1_1']||[]).length>=5]);
+  checks.push(['3_1 原型 ≥4',(ARCHE568['3_1']||[]).length>=4]);
+  const names=(ARCHE568['1_1']||[]).map(a=>a.n);
+  checks.push(['前三原型仍是 villa/bungalow/cottage',names[0]==='villa'&&names[1]==='bungalow'&&names[2]==='cottage']);
+  checks.push(['modern/town 已加',names.indexOf('modern')>=0&&names.indexOf('town')>=0]);
+  const prev=window.__noMass1x1600;
+  try{
+    window.__noMass1x1600=false;
+    if(typeof BLOCK_SPR547!=='undefined'&&BLOCK_SPR547.clear)BLOCK_SPR547.clear();
+    const shed=getBlockSprite547(3,1,1,1,0),shop=getBlockSprite547(3,1,1,1,1),mod=getBlockSprite547(1,1,1,1,3),cot=getBlockSprite547(1,1,1,1,2);
+    checks.push(['工坊 3D 精靈產出',!!(shed&&shed.img&&shop&&shop.img)]);
+    checks.push(['工坊帶 __t547',!!(shed&&shed.__t547)]);
+    if(shed&&shed.img&&shop&&shop.img){
+      const c0=crcCanvas596(shed.img),c1=crcCanvas596(shop.img);
+      checks.push(['shed 與 workshop 剪影不同',c0!==c1]);
+      const g=shed.img.getContext('2d'),w=shed.img.width,h=shed.img.height,d=g.getImageData(0,0,w,h).data;
+      let left=0,right=0,mid=0;
+      for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+        if(d[(y*w+x)*4+3]<40)continue;
+        if(x<w*.38)left++;else if(x>w*.62)right++;else mid++;
+      }
+      checks.push(['工坊左臉有像素',left>80]);
+      checks.push(['工坊右臉有像素',right>80]);
+      checks.push(['工坊不是單側貼紙',left>80&&right>80&&Math.min(left,right)/Math.max(left,right)>.18]);
+    }
+    checks.push(['modern 精靈產出',!!(mod&&mod.img)]);
+    if(mod&&mod.img&&cot&&cot.img)checks.push(['modern CRC ≠ cottage',crcCanvas596(mod.img)!==crcCanvas596(cot.img)]);
+  }finally{
+    window.__noMass1x1600=prev;
+    if(typeof BLOCK_SPR547!=='undefined'&&BLOCK_SPR547.clear)BLOCK_SPR547.clear();
+  }
+  const blit=(''+isoBlit600);
+  checks.push(['isoBlit 有 1px 重疊',blit.indexOf('x1-x0+1')>=0||blit.indexOf('+1')>=0]);
+  checks.push(['標線有 z<0.92 短路',(''+drawRoadLine478).indexOf('0.92')>=0||(''+drawRoadLine478).indexOf('.92')>=0]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 function ukStyleSelftest596(){
   const checks=[],R=window.__facade577||{};
@@ -52130,7 +52186,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599});
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
