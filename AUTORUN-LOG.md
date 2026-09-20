@@ -292,7 +292,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r49 | [T601](docs/T601-highrise-species.md) | lv2/lv3 追加 modern／town／stone／needle；工業 mill／warehouse／stack；畫布高度跟 hm 走（針塔不再被裁頂）；工業 4 格起切量體 | ✅ 綠 13.8s；species601 15 項；fp expect=block559 | `pending` | `shots/T601_city_after.png` | ① 72px 1×1 圖集仍兩套語言 ② 舊 podTower v=0 仍是玻璃 ③ 有 ex 的大廠不切 |
+| r49 | [T601](docs/T601-highrise-species.md) | lv2/lv3 追加 modern／town／stone／needle；工業 mill／warehouse／stack；畫布高度跟 hm 走（針塔不再被裁頂）；工業 4 格起切量體 | ✅ 綠 13.8s；species601 15 項；fp expect=block559 | `1f49abe` | `shots/T601_city_after.png` | ① 72px 1×1 圖集仍兩套語言 ② 舊 podTower v=0 仍是玻璃 ③ 有 ex 的大廠不切 |
 
 ## r48 — T600 工坊立體＋縮放細線＋道路斜紋＋更多房型
 
