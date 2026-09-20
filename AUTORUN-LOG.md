@@ -292,7 +292,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r48 | [T600](docs/T600-workshop-3d-seams.md) | 1×1 工商改走雙牆街區精靈（不再垂直裁掉一側）；`1_1` 加 modern/town、`3_1` 加工坊三種；地面/道路 `isoBlit600` 1px 重疊；菱形材質不再內縮 1z；標線 z<0.92 不畫虛線 | ✅ 綠 17.7s；workshop600 17 項；fp expect=block559 | `pending` | `shots/T600_city_after.png` | ① 72px 舊圖集沒重畫 ② 大街區工業仍是合併鋸齒廠 ③ 極端非整數 z 仍可能 1px 縫 ④ modern/town 只在 1×1 |
+| r48 | [T600](docs/T600-workshop-3d-seams.md) | 1×1 工商改走雙牆街區精靈（不再垂直裁掉一側）；`1_1` 加 modern/town、`3_1` 加工坊三種；地面/道路 `isoBlit600` 1px 重疊；菱形材質不再內縮 1z；標線 z<0.92 不畫虛線 | ✅ 綠 17.7s；workshop600 17 項；fp expect=block559 | `709ed61` | `shots/T600_city_after.png` | ① 72px 舊圖集沒重畫 ② 大街區工業仍是合併鋸齒廠 ③ 極端非整數 z 仍可能 1px 縫 ④ modern/town 只在 1×1 |
 
 ## r47 — T599 二級菜單即時刷新＋施工場加密＋近距立面
 
