@@ -45133,8 +45133,15 @@ function toast(msg,cls,x,y){
 }
 const hudPrev437={money:null,pop:null,happy:null,star:null};
 function pulseHud437(id,kind){const el=$('#'+id);if(!el)return;el.classList.remove('hudGood437','hudWarn437');void el.offsetWidth;el.classList.add(kind==='good'?'hudGood437':'hudWarn437');setTimeout(()=>el.classList.remove('hudGood437','hudWarn437'),1350);}
+let hudSnap598=null;
+function hudLoopTick598(dt){
+  if(window.__noHudRealtime598){hudT+=(dt||0);if(hudT>.25){hudT=0;updHud();}return 'gated';}
+  hudT=0;updHud();return 'live';
+}
 function updHud(){
-  const m0=Math.floor(money),p0=pop,h0=cityHappy,s0=cityStar;
+  const m0=Math.floor(money),p0=pop,h0=cityHappy,s0=cityStar,j0=jobs,d0=day,w0=weather,r0=dem[1],c0=dem[2],i0=dem[3];
+  if(hudSnap598&&hudSnap598.m===m0&&hudSnap598.p===p0&&hudSnap598.j===j0&&hudSnap598.h===h0&&hudSnap598.s===s0&&hudSnap598.d===d0&&hudSnap598.w===w0&&hudSnap598.r===r0&&hudSnap598.c===c0&&hudSnap598.i===i0)return;
+  hudSnap598={m:m0,p:p0,j:j0,h:h0,s:s0,d:d0,w:w0,r:r0,c:c0,i:i0};
   $('#money b').textContent=m0.toLocaleString();$('#pop b').textContent=p0.toLocaleString();$('#jobs b').textContent=jobs.toLocaleString();
   const hEmoji=h0>.7?'😊':h0>.45?'😐':'☹️';$('#happy').innerHTML=hEmoji+' <b>'+Math.round(h0*100)+'%</b>';$('#star').innerHTML=s0<0?'⭐ <b>–</b>':'⭐ <b>'+s0+'</b>';
   const yr=Math.floor((day-1)/360)+1,dd=((day-1)%360)+1;$('#date').textContent=SEASON_ICON[season()]+' '+['☀️','🌧️','⛈️'][weather]+' 第'+yr+'年 第'+dd+'天';
@@ -47363,8 +47370,7 @@ function frame(ts){
   follow588Tick(); // T588：advance 後、draw 前對準被跟蹤市民（純渲染層）
   draw(Math.min(.05,dt));
   lastDraw=performance.now();
-  hudT+=dt;
-  if(hudT>.25){hudT=0;updHud();}
+  hudLoopTick598(dt);
 }
 requestAnimationFrame(frame);
 // rAF 被瀏覽器暫停（分頁隱藏／省電）時，用計時器低頻接手，遊戲不會凍結
@@ -51890,7 +51896,34 @@ Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,d
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
    給煙霧測試當斷言用（§3.4 守衛要是事實）。返回 {ok,checks}。 */
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596});
+function hudRealtimeSelftest598(){
+  const checks=[];
+  checks.push(['frame 走 hudLoopTick598',(''+frame).indexOf('hudLoopTick598')>=0]);
+  const mb=$('#money b'),pb=$('#pop b'),jb=$('#jobs b'),dateEl=$('#date'),happyEl=$('#happy'),rBar=$('#rci .r i');
+  checks.push(['HUD 節點存在',!!(mb&&pb&&jb&&dateEl&&happyEl)]);
+  if(!(mb&&pb&&jb&&dateEl))return {ok:false,checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+  const saved={money,pop,jobs,cityHappy,day,hudT,flag:window.__noHudRealtime598,dem1:dem[1]};
+  try{
+    window.__noHudRealtime598=false;
+    money=Math.floor(money)+4242;pop=pop+11;jobs=jobs+7;cityHappy=0.12;
+    const prevDate=dateEl.textContent;
+    hudT=0;
+    const mode=hudLoopTick598(0.016);
+    checks.push(['16ms 路徑是 live 不是 gated',mode==='live']);
+    checks.push(['#money b 即時',mb.textContent===Math.floor(money).toLocaleString()]);
+    checks.push(['#pop b 即時',pb.textContent===pop.toLocaleString()]);
+    checks.push(['#jobs b 即時',jb.textContent===jobs.toLocaleString()]);
+    checks.push(['#happy 即時含 12',(happyEl.textContent||'').indexOf('12')>=0]);
+    day=day+1;hudLoopTick598(0.016);
+    checks.push(['#date 隨 day 即時變',dateEl.textContent!==prevDate]);
+    if(rBar){dem[1]=0.42;hudLoopTick598(0.016);checks.push(['RCI 住宅條即時',rBar.style.height==='42%']);}
+  }finally{
+    money=saved.money;pop=saved.pop;jobs=saved.jobs;cityHappy=saved.cityHappy;day=saved.day;hudT=saved.hudT;dem[1]=saved.dem1;
+    window.__noHudRealtime598=saved.flag;hudSnap598=null;updHud();
+  }
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
