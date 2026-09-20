@@ -288,6 +288,12 @@
 |---|---|---|---|---|---|---|
 | r42 | T593 | ①roofKit559 area×(1+(lv-1)*.35)：屋頂設備隨 lv 提升（sprite 鍵含 lv，fp --expect=block559 宣告，棘輪 OK）②drawSignAge593 招牌新舊：商業店面隨 age 褪色/剝落/垂漬（draw-side，五 hue 決定性）。**附帶三修**：detailPermit432 槽位表補 591/593（原落 .16 乘層幾乎全抑制）；招牌座標翻倍畫出畫布外（計數 21 卻零差異的怪象）；perf 台帽正規化 min(fps,60)（無頭跨 vsync 帽讓比值假摔）＋重錄基線 | 綠（17.5s） | （見 log） | T593_sign_day_0.png | 夜間樣張未補拍（招牌層日間為主，夜圖結構未動）；工業區「漆掉重漆」舊牆廣告變體未做（卡面宣告縮限） |
 
+## r49 — T601 高層物種（針塔／石材／矮倉）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r49 | [T601](docs/T601-highrise-species.md) | lv2/lv3 追加 modern／town／stone／needle；工業 mill／warehouse／stack；畫布高度跟 hm 走（針塔不再被裁頂）；工業 4 格起切量體 | ✅ 綠 13.8s；species601 15 項；fp expect=block559 | `pending` | `shots/T601_city_after.png` | ① 72px 1×1 圖集仍兩套語言 ② 舊 podTower v=0 仍是玻璃 ③ 有 ex 的大廠不切 |
+
 ## r48 — T600 工坊立體＋縮放細線＋道路斜紋＋更多房型
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
