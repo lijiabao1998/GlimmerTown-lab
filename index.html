@@ -21109,6 +21109,7 @@ async function bootstrap453(){
     bootSet453(2,reason||'準備啟動城市系統…','core');await bootPaint453();
     bootSet453(5,'初始化像素素材引擎…','core');await bootPaint453();
     await buildSprites();
+    stampAtlas604();
     applyT464Architecture464();
     applyT464R1Civic464();
     applyT464R2ReadableCivic464();
@@ -50903,6 +50904,7 @@ function rciBlockOrigin547(x,y){
     if(k===1){const deep=lv>=2?2:1;if(bw>=bh)bh=Math.min(bh,deep);else bw=Math.min(bw,deep);}
     else if(k===2&&lv===1){if(bw>=bh)bh=Math.min(bh,2);else bw=Math.min(bw,2);}
   }
+  if(!window.__noIndSplit604&&k===3){bw=Math.min(bw,2);bh=Math.min(bh,2);}
   let maxLv=1,v=b.v||0;
   for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const q=tiles[idx(x+dx,y+dy)]?.bld;if(q&&(q.lv||1)>maxLv){maxLv=q.lv||1;v=q.v||v;}}
   return {w:bw,h:bh,k,lv:maxLv,v,origin:true};
@@ -51326,7 +51328,8 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   }
   const cL=window.__noLeftLight541?pal.mid:pal.light,cR=window.__noLeftLight541?pal.light:pal.dark;
   const fr577=facadeFor577(k,lv,bw,bh,v,ar568);
-  if(fr577){ // T577：英美街景風格繪製器接手牆／窗／屋頂；地坪、陰影、前庭、裙樓已由核心畫好
+  const bayRow604=k===1&&Math.min(bw,bh)>=2&&!window.__noBay604&&!window.__facadeForce577; // T604：進深≥2 的住宅不用整棟立面，改一戶一尖；強制風格時仍交立面
+  if(fr577&&!bayRow604){ // T577：英美街景風格繪製器接手牆／窗／屋頂；地坪、陰影、前庭、裙樓已由核心畫好
     let res577=null;try{res577=fr577.draw({A:window.GV.art574,g,ng,G,G0:G0559,wallH,pitchH,stepH,towH,k,lv,bw,bh,v,pal,rand:rk559,rand2:rand,cL,cR,long,span,axis,W,H,ax,ay,typ,grain,ar:ar568});}
     catch(e){console.error('facade577 '+fr577.name,e);res577=null;}
     if(res577!==false){outlineSprite(c,22,26,34);return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name}};}
@@ -51349,7 +51352,14 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   let ridge=null;
   const nBay=Math.max(2,Math.min(8,long));
   const flat568=!!(ar568&&ar568.flat);
-  if(window.__noPitch553||flat568){fillPara547(g,roof,flat568?shade(pal.dark,6):pal.roof);if(flat568)roofKit559(g,ng,roof,rk559,k,pal,Math.max(2,bw*bh*.8)*(1+(lv-1)*.35));} // T593：屋頂設備密度隨 lv 提升
+  if(window.__noPitch553||flat568){
+    fillPara547(g,roof,flat568?shade(pal.dark,6):pal.roof);
+    if(flat568&&k===1&&nBay>=2&&!window.__noBay604){
+      for(let i=1;i<nBay;i++){const p=lerp2_547(G.W,G.S,i/nBay);g.fillStyle='rgba(48,24,18,.55)';g.fillRect(Math.round(p[0])-1,Math.round(p[1]-wallH),2,wallH);}
+      for(let i=0;i<nBay;i++){const p=lerp2_547(G.W,G.S,(i+.5)/nBay);bayDoor557(g,p);}
+    }
+    if(flat568)roofKit559(g,ng,roof,rk559,k,pal,Math.max(2,bw*bh*.8)*(1+(lv-1)*.35));
+  } // T593：屋頂設備密度隨 lv 提升
   else if(!typ){
     if(k===3&&bw*bh>=4)ridge=sawtoothPara547(g,roof,Math.max(3,Math.min(7,Math.max(bw,bh))),Math.max(10,pitchH-4),roofL,roofR,ridgeCol,axis);
     else{
@@ -51504,6 +51514,30 @@ function groundShade572(ctx,x,y,w,h,z,sxF,syF,spriteH){
   tri(off,'rgba(20,28,22,.26)');
   tri(off*.5,'rgba(16,24,18,.22)');
   void ov;
+}
+function stampAtlas604(){
+  if(window.__noAtlas604||!SPR||!SPR.bld)return 0;
+  let n=0;
+  const fit=src=>{
+    const[c,g]=cv(72,112);
+    g.imageSmoothingEnabled=false;
+    const sc=Math.min(60/Math.max(1,src.w),96/Math.max(1,src.h));
+    g.drawImage(src.img,36-src.ax*sc,110-src.ay*sc,src.w*sc,src.h*sc);
+    let night=null;
+    if(src.night){const[nc,ng]=cv(72,112);ng.imageSmoothingEnabled=false;ng.drawImage(src.night,36-src.ax*sc,110-src.ay*sc,src.w*sc,src.h*sc);night=nc;}
+    return {img:c,night,ax:36,ay:110,w:72,h:112,smoke:[],__t604:1};
+  };
+  for(let k=1;k<=3;k++)for(let lv=1;lv<=3;lv++)for(let v=0;v<12;v++){
+    const key=k+'_'+lv+'_'+v;
+    if(!SPR.bld[key])continue;
+    const src=getBlockSprite547(k,lv,1,1,v);
+    if(!src||!src.img)continue;
+    const rec=fit(src);
+    SPR.bld[key]=rec;n++;
+    if(k===1){if(SPR.bld[key+'_w0'])SPR.bld[key+'_w0']=Object.assign({},rec);if(SPR.bld[key+'_w2'])SPR.bld[key+'_w2']=Object.assign({},rec);}
+  }
+  window.__t604Atlas=n;
+  return n;
 }
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
@@ -51730,6 +51764,46 @@ function terraceRowSelftest603(){
     }else checks.push(['找不到 2×2 陸地',false]);
   }
   window.__noTerraceRow603=flag;
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+function finishArtSelftest604(){
+  const checks=[];
+  checks.push(['stampAtlas604 存在',typeof stampAtlas604==='function']);
+  checks.push(['圖集已蓋物種', (window.__t604Atlas|0)>=90 || !!(SPR.bld['1_1_0']&&SPR.bld['1_1_0'].__t604)]);
+  const a=SPR.bld['1_1_3'],b=SPR.bld['1_1_2'],c3=SPR.bld['3_1_0'],c4=SPR.bld['3_1_1'];
+  checks.push(['1_1 modern 鍵存在',!!(a&&a.img)]);
+  if(a&&b&&a.img&&b.img)checks.push(['圖集 modern ≠ cottage',crcCanvas596(a.img)!==crcCanvas596(b.img)]);
+  if(c3&&c4&&c3.img&&c4.img)checks.push(['圖集 shed ≠ workshop',crcCanvas596(c3.img)!==crcCanvas596(c4.img)]);
+  if(a&&a.img){
+    const g=a.img.getContext('2d'),w=a.img.width,h=a.img.height,d=g.getImageData(0,0,w,h).data;
+    let left=0,right=0;
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]<40)continue;if(x<w*.4)left++;else if(x>w*.6)right++;}
+    checks.push(['72px 左右牆都在',left>40&&right>40]);
+  }
+  const row=makeBlockSprite547(1,2,4,2,0);
+  checks.push(['4×2 樓房不走整棟立面',!!(row&&row.__t547&&String(row.__t547.sty).indexOf('f577')<0)]);
+  const flat=makeBlockSprite547(1,2,4,2,2);
+  checks.push(['平頂聯排有分戶',!!(flat&&flat.img)]);
+  if(typeof tiles!=='undefined'&&tiles){
+    let planted=null,prev=[];
+    const cells=[];
+    for(let y=10;y<18&&!planted;y++)for(let x=10;x<18&&!planted;x++){
+      let ok=true;const tmp=[];
+      for(let dy=0;dy<4&&ok;dy++)for(let dx=0;dx<4&&ok;dx++){if(!inMap(x+dx,y+dy))ok=false;else{const t=tiles[idx(x+dx,y+dy)];if(!t||t.t===0)ok=false;else tmp.push([x+dx,y+dy,t.bld]);}}
+      if(!ok)continue;
+      planted={x,y};prev=tmp;
+    }
+    if(planted){
+      for(const p of prev)tiles[idx(p[0],p[1])].bld={k:3,lv:2,v:0,age:30,pw:true,h:1};
+      const o=rciBlockOrigin547(planted.x,planted.y);
+      checks.push(['工業 4×4 收到 2×2',!!(o&&o.w<=2&&o.h<=2&&o.w>=1)]);
+      window.__noIndSplit604=true;
+      const o2=rciBlockOrigin547(planted.x,planted.y);
+      checks.push(['工業閥門可大於 2',!!(o2&&(o2.w>2||o2.h>2))]);
+      window.__noIndSplit604=false;
+      for(const p of prev)tiles[idx(p[0],p[1])].bld=p[2];
+    }else checks.push(['找不到 4×4 陸地',false]);
+  }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 function ukStyleSelftest596(){
@@ -52330,7 +52404,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603});
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
