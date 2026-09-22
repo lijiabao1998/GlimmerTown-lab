@@ -292,7 +292,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r53 | [T605](docs/T605-bay-farm-pump.md) | 農場改磚牆石板頂農莊＋排水溝；抽水站改磚泵房、涵管、磚調壓塔。夜光只落在窗和塔燈 | ✅ 綠 17.6s；bay605 5 項；fp expect bld,farmSea,farmGrow（217 葉） | `pending` | `shots/T605_city_after.png` | ① 舊作物像素仍在底下 ② v574 抽水變體沒接到放置 ③ 牧場 23 沒動 |
+| r53 | [T605](docs/T605-bay-farm-pump.md) | 農場改磚牆石板頂農莊＋排水溝；抽水站改磚泵房、涵管、磚調壓塔。夜光只落在窗和塔燈 | ✅ 綠 17.6s；bay605 5 項；fp expect bld,farmSea,farmGrow（217 葉） | `1f87772` | `shots/T605_city_after.png` | ① 舊作物像素仍在底下 ② v574 抽水變體沒接到放置 ③ 牧場 23 沒動 |
 
 ## r52 — T604 收完三件
 
