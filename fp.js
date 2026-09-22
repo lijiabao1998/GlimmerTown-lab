@@ -95,7 +95,7 @@ function diffFp(base, cur) {
   const NOLEFT = process.argv.includes('--noleft');   // T541：關掉左受光＋夜暈，對同一份代碼做開/關比較
   const pre = [NOSILL ? 'window.__noSill539=true;' : '', NOLEFT ? 'window.__noLeftLight541=true;' : ''].join('');
 const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, preScript: pre || '' }, async ({ cdp }) => {   // fresh：乾淨新城市，季節固定 ⇒ 指紋可重現
-    const meta = await cdp.evalJs(`(window.GV && window.GV.build534) ? window.GV.build534() : {}`);
+    const meta = await cdp.evalJs(`(()=>{const el=document.getElementById('startVersion456');const m=/v([0-9.]+) . (T[0-9]+)/.exec(el?el.textContent:'');if(m)return {version:m[1],anchor:m[2]};return (window.GV&&window.GV.build534)?window.GV.build534():{};})()`); // T606：讀目前版本字串（build534 是 T534 當年凍結的建置紀錄）
     const fp = await cdp.evalJs(`(window.GV && window.GV.fp536) ? window.GV.fp536() : {ok:false,err:'fp536 不存在'}`);
     const style = await cdp.evalJs(`(window.GV && window.GV.style536) ? window.GV.style536() : {ok:false,err:'style536 不存在'}`);
     const blocks = await cdp.evalJs(`(window.GV && window.GV.blockFp536) ? window.GV.blockFp536() : {ok:false,err:'blockFp536 不存在'}`);
