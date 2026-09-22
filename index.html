@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.19 · T608</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.20 · T609</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -18413,8 +18413,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.19'; // T608 工業鋸齒屋頂、煙羽與倒影對齊街區精靈。前：T607
-const GAME_ANCHOR='T608'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.20'; // T609 灣城農莊。前：T608 工業鋸齒屋頂
+const GAME_ANCHOR='T609'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -25236,6 +25236,7 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
    for(let ia=0,a=P374[3][0]+1;a<=P374[3][1]-1;a+=3,ia++)for(let b=P374[3][2]+1+(ia&1);b<=P374[3][3]-1;b+=3){
      const[x,y]=xy374(a,b);if(!in374(x,y))continue;bft((x|0)-2,(y|0)-4);
    }
+   if(window.__noFarm609){ // T609：大農場的北美紅穀倉、雙筒倉、舊農舍、舊拖拉機改由灣城農莊套件（1.55×）取代
    // T377：大紅穀倉 isoBox 立體化（建築層新色自由；錨點字面保留給 T374 切段）
    sg.fillStyle='#a83a2c';
    isoBox(sg,ax-81,ay-70,14,16,'#8a2820','#c44a36','#b83e2e'); // hw 偶、h≥3；底頂點貼原倉位
@@ -25247,6 +25248,7 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
    sg.fillStyle='#5a3d28';sg.fillRect(ax+42,ay-84,6,8);sg.fillStyle='#2a3550';sg.fillRect(ax+37,ay-89,4,4);sg.fillRect(ax+50,ay-89,4,4);
    sg.fillStyle='#c9973a';sg.fillRect(ax+70,ay-78,12,6);sg.fillStyle='#8a6a20';sg.fillRect(ax+79,ay-84,4,6); // 拖拉機
    sg.fillStyle='#1a1a1a';sg.fillRect(ax+70,ay-73,4,4);sg.fillRect(ax+79,ay-73,4,4);
+   }
    for(const hx of[-10,4,18]){sg.fillStyle='#c9974e';sg.fillRect(ax+hx,ay-64,8,5);sg.fillStyle='#a8763a';sg.fillRect(ax+hx,ay-60,8,1);} // 乾草捆
    outlineSprite(sc,26,30,44);g.drawImage(sc,0,0);
    SPR.bld['53_1_0']={img:c,ax,ay,w:328,h:244,smoke:[]};}
@@ -28567,7 +28569,77 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
      置於 T274 之後、T261 遮罩之前＝不動任何既有生成行（T273/T274 快照回退、亂數行紀律零影響）；
      純 fillRect 決定性零亂數（不消耗 R()/ri()/rand()/spriteTexRand）。冬季版屋頂/筒倉頂/乾草加積雪。 ===== */
   {
+    /* ===== T609 灣城農莊（取代 T276 的北美白農舍／紅穀倉／筒倉）=====
+       嵐坡灣是英國鄉間風味的濕地灣城：磚農舍＋乾砌石穀倉，全部石板瓦頂；後緣乾砌石牆取代木柵；
+       英國老式灰色小拖拉機、方捆乾草。坐在地塊後半，前半留給作物。座標同 T276：相對錨點、sc 倍率（大農場 1.55）。
+       硬邊掃描線填色（像素中心取樣，無抗鋸齒混色）；冬季屋頂積雪。__noFarm609 退回 T276。 ===== */
+    const farmstead610=(g,ax,ay,sc,winter)=>{
+      const S=v=>v*sc;
+      // 虛擬 2×2 地塊的等距座標：u 往東（右下）、v 往西（左下），N=(0,0)；h 為像素高
+      const P=(u,v,h=0)=>[ax+S((u-v)*32),ay+S(-64+(u+v)*16-h)];
+      const hp=(pts,c)=>{let y0=1e9,y1=-1e9;for(const p of pts){if(p[1]<y0)y0=p[1];if(p[1]>y1)y1=p[1];}
+        y0=Math.max(0,Math.floor(y0));y1=Math.min(g.canvas.height-1,Math.ceil(y1));g.fillStyle=c;const n=pts.length;
+        for(let y=y0;y<=y1;y++){const yc=y+.5,xs=[];for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%n];if((a[1]<=yc&&b[1]>yc)||(b[1]<=yc&&a[1]>yc))xs.push(a[0]+(yc-a[1])*(b[0]-a[0])/(b[1]-a[1]));}
+          xs.sort((p,q)=>p-q);for(let i=0;i+1<xs.length;i+=2){const xa=Math.ceil(xs[i]-.5),xb=Math.ceil(xs[i+1]-.5);if(xb>xa)g.fillRect(xa,y,xb-xa,1);}}};
+      const px=(p,c,w=1,h=1)=>{g.fillStyle=c;g.fillRect(Math.round(p[0]),Math.round(p[1]),Math.max(1,Math.round(w)),Math.max(1,Math.round(h)));};
+      const seg=(a,b,c)=>{const n=Math.max(1,Math.round(Math.max(Math.abs(b[0]-a[0]),Math.abs(b[1]-a[1]))));for(let i=0;i<=n;i++)px([a[0]+(b[0]-a[0])*i/n,a[1]+(b[1]-a[1])*i/n],c);};
+      // 帶雙坡頂的等距量體：footprint [u0,u1]×[v0,v1]、牆高 h、屋脊沿 u（ridgeU=true）或沿 v
+      const house=(u0,u1,v0,v1,h,rise,wl,wd,rf,rb,ridgeU,trim)=>{
+        hp([P(u0,v1,0),P(u1,v1,0),P(u1,v1,h),P(u0,v1,h)],wl);        // 受光面（v=v1，朝左前）
+        hp([P(u1,v0,0),P(u1,v1,0),P(u1,v1,h),P(u1,v0,h)],wd);        // 背光面（u=u1，朝右前）
+        const um=(u0+u1)/2,vm=(v0+v1)/2;
+        if(ridgeU){ // 屋脊沿 u：前坡朝 +v（受光），山牆在 u=u1（背光面上方）
+          hp([P(u0,v0,h),P(u1,v0,h),P(u1,vm,h+rise),P(u0,vm,h+rise)],rb);
+          hp([P(u0,vm,h+rise),P(u1,vm,h+rise),P(u1,v1+.04,h-1),P(u0-.03,v1+.04,h-1)],rf);
+          hp([P(u1,v0,h),P(u1,v1,h),P(u1,vm,h+rise)],wd);
+          seg(P(u0,vm,h+rise),P(u1,vm,h+rise),trim);
+          return {ridgeA:P(u0,vm,h+rise),ridgeB:P(u1,vm,h+rise)};
+        }else{ // 屋脊沿 v：前坡朝 +u（背光），山牆在 v=v1（受光面上方）
+          hp([P(u0,v0,h),P(um,v0,h+rise),P(um,v1,h+rise),P(u0,v1,h)],rf);
+          hp([P(um,v0,h+rise),P(u1+.04,v0-.03,h-1),P(u1+.04,v1,h-1),P(um,v1,h+rise)],rb);
+          hp([P(u0,v1,h),P(u1,v1,h),P(um,v1,h+rise)],wl);
+          seg(P(um,v0,h+rise),P(um,v1,h+rise),trim);
+          return {ridgeA:P(um,v0,h+rise),ridgeB:P(um,v1,h+rise)};
+        }
+      };
+      const courses=(u0,u1,v,h,c,step)=>{for(let e=step;e<h;e+=step)seg(P(u0,v,e),P(u1,v,e),c);};      // 受光面橫縫
+      const coursesR=(v0,v1,u,h,c,step)=>{for(let e=step;e<h;e+=step)seg(P(u,v0,e),P(u,v1,e),c);};    // 背光面橫縫
+      // ── 後緣乾砌石牆（W→N→E 兩道，2 格高、頂石亮）
+      for(const [a,b] of [[[0,2],[0,0]],[[0,0],[2,0]]]){
+        const n=Math.round(S(40));for(let i=0;i<=n;i++){const t=i/n,u=a[0]+(b[0]-a[0])*t,v=a[1]+(b[1]-a[1])*t;const p=P(u,v,0);
+          px([p[0],p[1]-S(3)],(i%3)?'#9e9584':'#b8af9c',1,S(1));px([p[0],p[1]-S(2)],(i%4)?'#857d6d':'#948b7a',1,S(2));}
+      }
+      // ── 院子（碎石）：地塊後半、兩棟之間
+      hp([P(.2,.08),P(1.96,.08),P(1.96,.84),P(.2,.84)],'#8f8a78');
+      for(let i=0;i<Math.round(S(22));i++){const u=.25+((i*37)%97)/97*1.65,v=.12+((i*53)%89)/89*.66;px(P(u,v),(i%3)?'#a39d89':'#7a7565');}
+      for(const [ua,ub] of [[.2,.9],[1.14,1.96]]){const n=Math.round(S((ub-ua)*20));for(let i=0;i<=n;i++){const q=P(ua+(ub-ua)*i/n,.86,0);px([q[0],q[1]-S(2)],(i%3)?'#9e9584':'#b8af9c',1,S(1));px([q[0],q[1]-S(1)],'#857d6d',1,S(1));}} // 院子前緣矮石牆，留門口
+      // ── 磚農舍（中後）：長面朝左前受光、屋脊沿 u、白框窗、綠門、山牆磚煙囪
+      {const u0=.34,u1=1.06,v0=.28,v1=.62,h=13;
+        const r=house(u0,u1,v0,v1,h,7,'#b5654a','#84452f','#6b7784','#4f5a66',true,'#8d99a5');
+        courses(u0,u1,v1,h,'#9f5540',3);coursesR(v0,v1,u1,h,'#6f3a28',3);
+        for(const t of [.12,.36,.64,.88]){const u=u0+(u1-u0)*t;
+          if(t===.36){px(P(u,v1,7),'#3f5a46',S(3),S(7));px(P(u,v1,8),'#e9e4d8',S(3),S(1));continue;}   // 門＋門楣
+          px(P(u,v1,9),'#e9e4d8',S(3),S(4));px(P(u+.012,v1,8),'#3c4a5a',S(2),S(2));px(P(u,v1,4),'#e9e4d8',S(3),S(1));} // 窗（上下兩列）
+        for(const t of [.3,.7]){const v=v0+(v1-v0)*t;px(P(u1,v,9),'#d9d3c6',S(2),S(3));px(P(u1,v,8),'#34404e',S(1),S(2));}
+        const ch=P(u1-.04,(v0+v1)/2,h+7);px([ch[0]-S(1),ch[1]-S(6)],'#8f4a34',S(3),S(7));px([ch[0]-S(1),ch[1]-S(8)],'#c07a52',S(1),S(2));px([ch[0]+S(1),ch[1]-S(8)],'#c07a52',S(1),S(2));
+        if(winter){seg(r.ridgeA,r.ridgeB,'#f2f6fa');const a=P(u0,(v0+v1)/2+.06,h+5),b=P(u1,(v0+v1)/2+.06,h+5);seg(a,b,'#f2f6fa');}}
+      // ── 乾砌石穀倉（右後）：較高、屋脊沿 v、受光山牆上有大木門與通風口、風向雞
+      {const u0=1.22,u1=1.86,v0=.12,v1=.7,h=15;
+        const r=house(u0,u1,v0,v1,h,9,'#b9b09c','#8c8472','#5f6b78','#48525d',false,'#7c8894');
+        for(let e=3;e<h;e+=3){seg(P(u0,v1,e),P(u1,v1,e),'#a39a86');seg(P(u1,v0,e),P(u1,v1,e),'#7a7262');}
+        for(let i=0;i<Math.round(S(14));i++){const t=((i*29)%83)/83,e=1+((i*17)%13);px(P(u0+(u1-u0)*t,v1,e),(i%2)?'#c8bfab':'#a8a08c');}
+        const dm=(u0+u1)/2;px(P(dm-.1,v1,10),'#5a3e2a',S(7),S(10));px(P(dm-.1,v1,10),'#6e4e36',S(7),S(1));seg(P(dm,v1,10),P(dm,v1,1),'#3f2c1e'); // 大木門
+        px(P(dm-.02,v1,h+5),'#3f2c1e',S(2),S(2));                                        // 山牆通風口
+        const vn=r.ridgeA;seg([vn[0],vn[1]],[vn[0],vn[1]-S(5)],'#3a3e44');px([vn[0]-S(2),vn[1]-S(5)],'#3a3e44',S(5),S(1));px([vn[0]+S(1),vn[1]-S(6)],'#c23c28',S(2),S(1)); // 風向雞
+        if(winter){seg(r.ridgeA,r.ridgeB,'#f2f6fa');const a=P(u0+.12,v0,h+4),b=P(u0+.12,v1,h+4);seg(a,b,'#f2f6fa');}}
+      // ── 方捆乾草（穀倉旁疊兩層）
+      for(const [u,v,e] of [[1.9,.8,0],[1.96,.9,0],[1.93,.85,3]]){const p=P(u,v,e);px([p[0],p[1]-S(3)],'#d8b454',S(5),S(3));px([p[0]+S(5),p[1]-S(3)],'#b8943a',S(2),S(3));px([p[0]+S(1),p[1]-S(2)],'#9a7a2e',S(3),S(1));if(winter)px([p[0],p[1]-S(4)],'#f2f6fa',S(6),S(1));}
+      // ── 英國老式灰色小拖拉機（院子裡）
+      {const p=P(1.1,.74,0);px([p[0],p[1]-S(5)],'#8a9096',S(8),S(3));px([p[0],p[1]-S(5)],'#a8aeb4',S(8),S(1));px([p[0]+S(5),p[1]-S(8)],'#6c7278',S(1),S(3));
+        px([p[0]-S(1),p[1]-S(4)],'#26282c',S(4),S(4));px([p[0]+S(6),p[1]-S(3)],'#26282c',S(3),S(3));px([p[0],p[1]-S(3)],'#8a2a1e',S(1),S(1));}
+    };
     const farmstead=(g,ax,ay,sc,winter)=>{
+      if(!window.__noFarm609){farmstead610(g,ax,ay,sc,winter);return;} // T609：灣城農莊取代北美白農舍／紅穀倉／筒倉
       const S=v=>Math.round(v*sc);
       const R2=(x,y,w,h,c)=>{g.fillStyle=c;g.fillRect(ax+S(x),ay+S(y),Math.max(1,S(w)),Math.max(1,S(h)));};
       // 木圍籬：沿上緣兩側田界（左頂點→頂點→右頂點），柱+橫欄
@@ -28630,11 +28702,12 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
     const extras=(g,ax,ay,sc,key)=>{
       const h=kh282(key),S=v=>Math.round(v*sc);
       const picks=[h%6,(h>>>3)%6,(h>>>6)%6].filter((v,i,a)=>a.indexOf(v)===i).slice(0,3); // >>> 無號位移（血淚：h>2^31 時 >> 轉負→EXK[-1] undefined 全套件崩）
-      picks.forEach((pi,i)=>{const[sx2,sy2]=SLOT[(pi+i)%6];EX[EXK[pi]](g,ax+S(sx2),ay+S(sy2));});
-      g.fillStyle='#4a4e56';g.fillRect(ax+S(26),ay+S(-70),1,4);g.fillRect(ax+S(24),ay+S(-70),5,1); // 穀倉風向雞桿
-      g.fillStyle='#c23c28';g.fillRect(ax+S(28),ay+S(-71),2,1);
+      const SL=window.__noFarm609?SLOT:[[-42,-34],[-32,-22],[-10,-15],[13,-14],[29,-18],[-32,-42]]; // T609：小件移到前半田裡，不壓新農莊
+      picks.forEach((pi,i)=>{const[sx2,sy2]=SL[(pi+i)%6];EX[EXK[pi]](g,ax+S(sx2),ay+S(sy2));});
+      if(window.__noFarm609){g.fillStyle='#4a4e56';g.fillRect(ax+S(26),ay+S(-70),1,4);g.fillRect(ax+S(24),ay+S(-70),5,1); // 穀倉風向雞桿（舊紅穀倉；T609 的石穀倉自帶風向雞）
+      g.fillStyle='#c23c28';g.fillRect(ax+S(28),ay+S(-71),2,1);}
     };
-    const stampKit=(spr,sc,winter,key)=>{if(!spr||!spr.img)return;const g=spr.img.getContext('2d');farmstead(g,spr.ax,spr.ay,sc,winter);extras(g,spr.ax,spr.ay,sc,key);};
+    const stampKit=(spr,sc,winter,key)=>{if(!spr||!spr.img)return;const g=spr.img.getContext('2d');farmstead(g,spr.ax,spr.ay,sc,winter);extras(g,spr.ax,spr.ay,sc,key);if(!window.__noFarm609)spr.__t609='farm';};
     for(let v=0;v<16;v++){
       const key='22_1_'+v;
       stampKit(SPR.bld[key],1,false,key);
@@ -29660,8 +29733,9 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
         const g=bd.img.getContext('2d'),w=bd.w,h=bd.h;
         const sc=Math.max(.6,Math.min(3,w/72)); // 投影隨畫布尺寸縮放（英雄建築 400px 同步放大）
         // ① 落地投影：東南向半透明橢圓
+        if(window.__noFarm609||!/^(22|23|53)_/.test(key)){ // T609：農場、牧場是整塊平地，接地橢圓會變成田地右下角超出地塊的暗斑
         g.fillStyle='rgba(10,14,24,.16)';
-        g.beginPath();g.ellipse(bd.ax+8*sc,bd.ay-6*sc,30*sc,12*sc,0,0,6.283);g.fill();
+        g.beginPath();g.ellipse(bd.ax+8*sc,bd.ay-6*sc,30*sc,12*sc,0,0,6.283);g.fill();}
         // ②③④ 逐像素：左緣受光／右緣收暗／棋式顆粒
         const im=g.getImageData(0,0,w,h),d=im.data;
         for(let y=0;y<h;y++){
@@ -42796,8 +42870,9 @@ function draw(dt){
     if(bd.k===23&&animOn&&!lodFar&&!window.__noFarmLife403){ // T403c 牧場動態
       if(bd.v===4){ // 雞群 3 隻慢速游走（家禽場）
         for(let h3=0;h3<3;h3++){
-          const hx=bx+(62+Math.sin(visT*.55+h3*2.1+streetHash(o.x,o.y,4037)*6)*12+h3*7)*z;
-          const hy=by+(114+Math.cos(visT*.42+h3*1.7)*5)*z;
+          const HEN610=(s&&s.hen403)||[62,114]; // T609：精靈自帶雞場中心優先
+          const hx=bx+(HEN610[0]+Math.sin(visT*.55+h3*2.1+streetHash(o.x,o.y,4037)*6)*12+h3*7)*z;
+          const hy=by+(HEN610[1]+Math.cos(visT*.42+h3*1.7)*5)*z;
           ctx.fillStyle=h3===1?'#b77442':'#f1eee2';ctx.fillRect(hx,hy,Math.max(1,2*z),Math.max(1,1.6*z));
           ctx.fillStyle='#d94b3f';ctx.fillRect(hx+Math.max(1,1.6*z),hy-Math.max(1,.8*z),Math.max(1,.8*z),Math.max(1,.8*z));
         }
@@ -42805,7 +42880,7 @@ function draw(dt){
       { /* T403c-v2 穀倉門晝開夜閉（業主原文足額實現）：門位取自各變體烘焙碼的畜舍座標
            （v2/v3/v4 本就有門矩形，v0/v1 補在畜舍正面）。晝＝深色門洞（門開）；
            夜＝門板色（門閉）＋門縫暖光線；nightDepth 平滑過渡。 */
-        const DOOR403=[[52,130,4,6],[49,129,4,6],[46,131,4,6],[45,128,5,8],[45,129,6,8]][bd.v]||[52,130,4,6];
+        const DOOR403=(s&&s.door403)||[[52,130,4,6],[49,129,4,6],[46,131,4,6],[45,128,5,8],[45,129,6,8]][bd.v]||[52,130,4,6]; // T609：精靈自帶門座標優先（給 T611 重畫後的牧場）
         const dx4=bx+DOOR403[0]*z, dy4=by+DOOR403[1]*z, dw4=Math.max(1,DOOR403[2]*z), dh4=Math.max(1,DOOR403[3]*z);
         if(nightDepth<.5){ // 晝：門開＝深色門洞
           ctx.save();ctx.globalAlpha=1-nightDepth*2;
@@ -51645,6 +51720,29 @@ function smokeSrc608(x,y,b){ // 純函式：這格此刻的工業／民居冒煙
   if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
   return sp.smoke608.map(p=>({wx:(ax-ay)*32+32+(p[0]-sp.ax),wy:(ax+ay)*16+32+(p[1]-sp.ay),ax,ay}));
 }
+function bayFarmSelftest609(){
+  const checks=[],add=(n,ok,d)=>checks.push((ok?'OK ':'NG ')+n+(d!=null?'：'+d:''));
+  const S=window.GV.art574.SPR(),B=S.bld;
+  const px=(spr,x,y)=>{const c=document.createElement('canvas');c.width=1;c.height=1;const g=c.getContext('2d');g.drawImage(spr.img,Math.round(x),Math.round(y),1,1,0,0,1,1);return g.getImageData(0,0,1,1).data;};
+  // 舊紅穀倉（前牆 R2(16,-59,17,13,'#b5442e')）與舊白筒倉（R2(44,-80,4,26,'#c6ccd4')）的取樣點，不該再是那兩個顏色
+  const isCol=(d,hex)=>{const v=parseInt(hex.slice(1),16);return Math.abs(d[0]-(v>>16))<6&&Math.abs(d[1]-((v>>8)&255))<6&&Math.abs(d[2]-(v&255))<6&&d[3]>200;};
+  let oldBarn=0,oldSilo=0,n=0,house=0;
+  const all=[];for(let v=0;v<16;v++){all.push(B['22_1_'+v]);for(const si of[1,2,3])if(S.farmSea&&S.farmSea[si])all.push(S.farmSea[si]['22_1_'+v]);}
+  for(const sp of all){if(!sp||!sp.img)continue;n++;
+    if(isCol(px(sp,sp.ax+22,sp.ay-54),'#b5442e'))oldBarn++;
+    if(isCol(px(sp,sp.ax+45,sp.ay-70),'#c6ccd4'))oldSilo++;
+    // 新磚農舍受光面取樣：P(.7,.62,6)
+    const hx=sp.ax+(.7-.62)*32,hy=sp.ay-64+(1.32)*16-6;const d=px(sp,hx,hy);if(d[3]>200&&d[0]>d[2]+30)house++;}
+  add('農場畫布數',n>=60,n);
+  add('舊紅穀倉已拆',oldBarn===0,oldBarn);
+  add('舊白筒倉已拆',oldSilo===0,oldSilo);
+  add('新磚農舍在每一張上',house===n,house+'／'+n);
+  // T526 接地橢圓：田地右下角地塊外那一帶不再有半透明暗斑
+  let blob=0;for(let v=0;v<16;v++){const sp=B['22_1_'+v];if(!sp)continue;for(const [dx,dy] of [[40,-8],[50,-6],[30,-4]]){const d=px(sp,sp.ax+dx,sp.ay+dy);if(d[3]>0&&d[3]<120)blob++;}}
+  add('農場右下角沒有地塊外暗斑',blob===0,blob);
+  add('版本錨 ≥T609',+GAME_ANCHOR.slice(1)>=609,GAME_VER+'/'+GAME_ANCHOR);
+  return {ok:checks.every(c=>c.startsWith('OK')),checks};
+}
 function industrialRoofSelftest608(){
   const checks=[],add=(n,ok,d)=>checks.push((ok?'OK ':'NG ')+n+(d!=null?'：'+d:''));
   const B=window.GV.block559,keepSaw=window.__noSaw608;
@@ -52219,8 +52317,8 @@ function finishArtSelftest604(){
 function bayFlavorSelftest605(){
   const checks=[];
   const farm=SPR.bld['22_1_0'], big=SPR.bld['53_1_0'], pump=SPR.bld['130_1_0'];
-  checks.push(['小農場是灣城農莊',!!(farm&&farm.__t605==='farm')]);
-  checks.push(['大農場是灣城農莊',!!(big&&big.__t605==='farm')]);
+  checks.push(['小農場是灣城農莊',!!(farm&&(farm.__t605==='farm'||farm.__t609==='farm'))]); // T609 起由灣城農莊套件蓋
+  checks.push(['大農場是灣城農莊',!!(big&&(big.__t605==='farm'||big.__t609==='farm'))]);
   checks.push(['抽水站是磚泵房',!!(pump&&pump.__t605==='pump')]);
   const nightOnDay=spr=>{
     if(!spr||!spr.img||!spr.night)return false;
@@ -52337,6 +52435,7 @@ function applyRoadPixelSnap596(){
 function applyT555SpecialArt(){
   if(window.__noSpecial555||!SPR||!SPR.bld)return;
   const stampBarn=(spr,sc)=>{
+    if(!window.__noFarm609)return; // T609：農莊改由 T276 位置的灣城農莊畫，不再在田中央加蓋第二棟
     if(!spr||!spr.img)return;
     const g=spr.img.getContext('2d'),ax=spr.ax,ay=spr.ay,S=v=>Math.round(v*sc);
     if(window.__noFarm605){
@@ -52876,7 +52975,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
+Object.assign(window.GV,{bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);

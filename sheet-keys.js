@@ -3,7 +3,8 @@
 const fs=require('fs'),path=require('path');const {withGame,ROOT}=require('./harness.js');
 const arg=(n,d)=>{const h=process.argv.find(a=>a.startsWith('--'+n+'='));return h?h.split('=').slice(1).join('='):d;};
 const KEYS=arg('keys','').split(',').filter(Boolean),S=+arg('scale',4),OUT=arg('out','shots575/keys.png'),COLS=+arg('cols',99);
-(async()=>{const r=await withGame({port:8199,timeout:300,enterCity:false,log:()=>{}},async({cdp})=>{
+const PORT=(()=>{const h=process.argv.find(a=>a.startsWith('--port='));return h?+h.split('=')[1]:8199;})(); // T609
+(async()=>{const r=await withGame({port:PORT,timeout:300,enterCity:false,log:()=>{}},async({cdp})=>{
   const ev=async e=>{const q=await cdp.send('Runtime.evaluate',{expression:e,returnByValue:true,awaitPromise:true});if(q.exceptionDetails)throw new Error(q.exceptionDetails.text);return q.result.value;};
   for(let i=0;i<120;i++){if(await ev('!!window.__bootDone453'))break;await new Promise(x=>setTimeout(x,1000));}
   const out=await ev(`(()=>{const SPR=GV.art574.SPR(),K=${JSON.stringify(KEYS)},S=${S};const sp=K.map(k=>SPR.bld[k]).filter(Boolean);
