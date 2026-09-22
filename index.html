@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.17 · T606</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.18 · T607</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -18413,8 +18413,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.17'; // T606 疊畫落位。前：T580 Bridge476 Night Layer
-const GAME_ANCHOR='T606'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.18'; // T607 街頭敘事泡泡重做。前：T606 疊畫落位
+const GAME_ANCHOR='T607'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -39221,7 +39221,7 @@ function inPoly606(px,py,P){let c=false;for(let i=0,j=P.length-1;i<P.length;j=i+
 function wallPolys606(s){const w=s&&s.__t547&&s.__t547.wall;if(!w)return null;const up=p=>[p[0],p[1]-w.h];return [[w.W,w.S,up(w.S),up(w.W)],[w.S,w.E,up(w.E),up(w.S)]];}
 function wallDetailSelftest606(){
   const checks=[],add=(n,ok,d)=>checks.push((ok?'OK ':'NG ')+n+(d!=null?'：'+d:''));
-  add('版本錨 T606',GAME_ANCHOR==='T606'&&GAME_VER==='13.17',GAME_VER+'/'+GAME_ANCHOR);
+  add('版本錨 ≥T606',/^T6\d\d$/.test(GAME_ANCHOR)&&+GAME_ANCHOR.slice(1)>=606,GAME_VER+'/'+GAME_ANCHOR);
   const B=window.GV.block559;const keep=window.__facadeForce577;window.__facadeForce577=undefined;
   const mk=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;return [c,g];};
   const sp=[];
@@ -40335,8 +40335,101 @@ function drawLandmarkLife520(nd){
 /* ---- T521 Street Stories／街頭敘事：市民情緒泡泡（日/夜共用；決定性） ----
    k1 夜間供電＝Zzz 入睡、日間＝愛心/微笑；k2 日間＝音符；k3 日間＝齒輪。
    泡泡懸浮屋頂上方，2.5s/11s 佔空比由鍵雜湊錯開；純 visT/streetHash、零 R()。 */
+/* ===== T607 街頭敘事泡泡重做 =====
+   病根（probe607b/c 量的）：T521 泡泡每格各自冒（4×4 超街區同時三四個）、23% 建築同時掛著、任何縮放都畫、
+   高度寫死 58+lv×8 不看建築多高（矮房浮在草地上空、高樓陷進牆裡）、工業齒輪畫成看不懂的深色方塊。
+   新規則：一棟一個（超街區只由原點格冒）、約一半建築會說故事且只在 11 秒週期的前 9% 出現、z<1 不畫、
+   泡泡尾巴停在那棟精靈最頂列像素上方、5×5 整數像素圖示、圓角、淡入淡出。__noBubbleFix607 退回舊畫法。 ===== */
+const BUB607={icons:null,top:new WeakMap()};
+function bubbleIcons607(){
+  if(BUB607.icons)return BUB607.icons;
+  const B={heart:[' X X ','XXXXX','XXXXX',' XXX ','  X  '],smile:[' X X ',' X X ','     ','X   X',' XXX '],
+    note:['  XX ','  X X','  X  ','XXX  ','XX   '],gear:[' X X ','XXXXX','XX XX','XXXXX',' X X '],zzz:['XXXX ','  X  ',' X   ','XXXX ','     ']};
+  const C={heart:['#e0526a','#c23a54'],smile:['#3f6a32','#3f6a32'],note:['#7a4ae0','#5a34b0'],gear:['#6a7280','#4a525e'],zzz:['#4a5a8a','#4a5a8a']};
+  const out={};
+  for(const k of Object.keys(B)){for(const night of [0,1]){
+    const [c,g]=cv(11,11);const D='#2c3342',F=night?'#e6eaf2':'#fbf8f0';
+    g.fillStyle=D;g.fillRect(1,0,9,1);g.fillRect(1,8,9,1);g.fillRect(0,1,1,7);g.fillRect(10,1,1,7); // 圓角外框
+    g.fillStyle=F;g.fillRect(1,1,9,7);
+    g.fillStyle=D;g.fillRect(4,9,2,1);g.fillRect(4,10,1,1);g.fillStyle=F;g.fillRect(4,8,2,1); // 尾巴
+    B[k].forEach((row,y)=>{for(let x=0;x<5;x++)if(row[x]==='X'){g.fillStyle=y>=3?C[k][1]:C[k][0];g.fillRect(3+x,2+y,1,1);}});
+    out[k+night]=c;}}
+  return BUB607.icons=out;
+}
+function spriteTop607(s){ // 精靈屋頂量體最頂列與該列中點（精靈像素）；每張精靈算一次
+  let r=BUB607.top.get(s);if(r)return r;
+  const w=Math.max(1,s.img.width|0),h=Math.max(1,s.img.height|0),[c,g]=cv(w,h);g.drawImage(s.img,0,0);const d=g.getImageData(0,0,w,h).data;
+  let ty=h-1,xs=0,xn=0;
+  const need=Math.max(5,Math.round(w*.10)); // 略過煙囪、天線、旗桿這類細件：找第一列有量體寬度的像素
+  for(let y=0;y<h;y++){let c=0;for(let x=0;x<w;x++)if(d[(y*w+x)*4+3]>40)c++;if(c>=need){ty=y;break;}}
+  for(let y=ty;y<Math.min(h,ty+3);y++)for(let x=0;x<w;x++)if(d[(y*w+x)*4+3]>40){xs+=x;xn++;}
+  const k=(s.w||w)/w;r={y:ty*k,x:(xn?xs/xn:w/2)*k};BUB607.top.set(s,r);return r;
+}
+function bubbleFor607(x,y,b,nd,z2){ // 純函式：這格此刻要不要冒泡、冒在哪（螢幕座標）；給繪製與自檢共用
+  if(!b||b.ref)return null;const k=b.k|0;if(k!==1&&k!==2&&k!==3)return null;
+  if(z2<1)return null;
+  const hh=streetHash(x,y,52101);
+  if(streetHash(x,y,60701)>.52)return null; // 約一半建築會說故事
+  const prog=(visT/11+hh)%1;if(prog>.09)return null;
+  let icon=null;
+  if(k===1)icon=nd>0?'zzz':(hh>.5?'heart':'smile');else if(k===2)icon=nd>0?'zzz':'note';else icon=nd>0?null:'gear';
+  if(!icon)return null;
+  const blk=rciBlockOrigin547(x,y);if(!blk)return null; // 超街區非原點格：不冒
+  const bw=blk.w||1,bh=blk.h||1;
+  let s=null;try{s=getBlockSprite547(k,b.lv||1,bw,bh,b.v||0);}catch(e){s=null;}
+  if(!s||!s.img)return null;
+  let ax=x+bw-1,ay=y+bh-1,bd0=-1;
+  if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
+  const sx0=_sx413(ax,ay)+(32-s.ax)*z2,sy0=_sy413(ax,ay)+(32-s.ay)*z2;
+  const top=spriteTop607(s);
+  const tipX=sx0+(top.x+(hh-.5)*6)*z2,tipY=sy0+top.y*z2-3*z2;
+  const fade=prog<.015?prog/.015:prog>.075?(.09-prog)/.015:1;
+  return {icon,tipX,tipY,topY:sy0+top.y*z2,alpha:Math.max(0,Math.min(1,fade)),rise:(1-fade)*2};
+}
+function drawStoryBubbles607(nd){
+  const z2=_z413(),[fx0,fx1,fy0,fy1]=_viewRange413();if(z2<1){window.__t521bb=0;return;}
+  const I=bubbleIcons607(),p=Math.max(1,Math.round(z2));let n=0;
+  ctx.save();ctx.imageSmoothingEnabled=false;
+  for(let vy=fy0;vy<=fy1;vy++)for(let vx=fx0;vx<=fx1;vx++){
+    const q=v2w(vx,vy),x=q[0],y=q[1];if(!inMap(x,y))continue;
+    const r=bubbleFor607(x,y,tiles[idx(x,y)].bld,nd,z2);if(!r||r.alpha<=0)continue;
+    ctx.globalAlpha=r.alpha;ctx.drawImage(I[r.icon+(nd>0?1:0)],Math.round(r.tipX-4.5*p),Math.round(r.tipY-11*p-r.rise*p),11*p,11*p);n++;
+  }
+  ctx.restore();window.__t521bb=n;
+}
+function storyBubbleSelftest607(){
+  const checks=[],add=(n,ok,d)=>checks.push((ok?'OK ':'NG ')+n+(d!=null?'：'+d:''));
+  const I=bubbleIcons607();
+  add('五種圖示×日夜 11×11',['heart','smile','note','gear','zzz'].every(k=>I[k+'0']&&I[k+'0'].width===11&&I[k+'1']&&I[k+'1'].height===11));
+  {const g=I.gear0.getContext('2d').getImageData(0,0,11,11).data,at=(x,y)=>g[(y*11+x)*4]+','+g[(y*11+x)*4+1];
+   add('齒輪中心是鏤空（看得出是齒輪）',at(5,4)===at(2,4),at(5,4));}
+  const keepT=visT,keepNoFix=window.__noBubbleFix607;window.__noBubbleFix607=false;
+  let orig=0,bldN=0,nonOrigin=0,maxFrac=0,sumFrac=0,anyHit=0,below=0,oldSum=0;
+  // 自備測試建築（照 T603 做法）：10×10 工商交錯（不會合併）＋一塊 4×4 住宅超街區；量完逐格還原
+  const findLand=(w,h,x0,y0)=>{for(let y=y0;y<N-h;y++)for(let x=x0;x<N-w;x++){let ok=true;for(let dy=0;dy<h&&ok;dy++)for(let dx=0;dx<w;dx++){const t=tiles[idx(x+dx,y+dy)];if(!t||t.t===0){ok=false;break;}}if(ok)return [x,y];}return null;};
+  const prev=new Map(),put=(x,y,b)=>{const i=idx(x,y);if(!prev.has(i))prev.set(i,tiles[i].bld);tiles[i].bld=b;};
+  const A=findLand(14,12,6,6);const rci=[],blkCells=[];
+  if(A){for(let dy=0;dy<10;dy++)for(let dx=0;dx<10;dx++){const k=((dx+dy)&1)?2:3;put(A[0]+dx,A[1]+dy,{k,lv:1,v:(dx*3+dy)%3,age:40,pw:true,h:1});}
+    for(let dy=0;dy<4;dy++)for(let dx=0;dx<4;dx++){put(A[0]+10+dx,A[1]+dy,{k:1,lv:2,v:0,age:40,pw:true,h:1});blkCells.push([A[0]+10+dx,A[1]+dy]);}
+    for(let dy=0;dy<10;dy++)for(let dx=0;dx<14;dx++){const x=A[0]+dx,y=A[1]+dy,b=tiles[idx(x,y)].bld;if(b&&!b.ref&&b.k>=1&&b.k<=3){rci.push([x,y,b]);if(rciBlockOrigin547(x,y))orig++;}}}
+  bldN=rci.length;
+  try{for(let st=0;st<44;st++){visT=st*.25+0.01;let hit=0,oldHit=0;
+    for(const [x,y,b] of rci){const r=bubbleFor607(x,y,b,0,1.5);if(r){hit++;if(!rciBlockOrigin547(x,y))nonOrigin++;if(!(r.tipY<r.topY))below++;}
+      const hh=streetHash(x,y,52101);if((visT/11+hh)%1<=.23)oldHit++;}
+    anyHit+=hit;const f=orig?hit/orig:0;sumFrac+=f;maxFrac=Math.max(maxFrac,f);oldSum+=bldN?oldHit/bldN:0;}}
+  finally{visT=keepT;window.__noBubbleFix607=keepNoFix;for(const [i,b] of prev)tiles[i].bld=b;}
+  add('自備測試建築',bldN>=100,bldN+' 格／'+orig+' 棟');
+  add('超街區非原點格從不冒泡',nonOrigin===0,nonOrigin);
+  add('冒泡比例：平均 ≤8%、最大 ≤15%（舊規則逐格平均約 23%）',sumFrac/44<=.08&&maxFrac<=.15,'平均 '+Math.round(sumFrac/44*1000)/10+'%／最大 '+Math.round(maxFrac*1000)/10+'%（舊平均 '+Math.round(oldSum/44*1000)/10+'%）');
+  add('11 秒內確實有人冒泡',anyHit>0,anyHit);
+  add('泡泡尾巴都在屋頂之上',below===0,below);
+  add('縮放 <1 不畫',rci.every(([x,y,b])=>bubbleFor607(x,y,b,0,.95)===null));
+  const src=''+drawStreetStories521;add('逃生閥 __noBubbleFix607 保留舊畫法',src.indexOf('__noBubbleFix607')>=0&&src.indexOf('drawStoryBubbles607')>=0);
+  return {ok:checks.every(c=>c.startsWith('OK')),checks};
+}
 function drawStreetStories521(nd){
   if(_lodMini413())return;
+  if(!window.__noBubbleFix607){drawStoryBubbles607(nd);return;} // T607：一棟一個、貼真屋頂、少而清楚
   const z2=_z413(),[fx0,fx1,fy0,fy1]=_viewRange413();
   ctx.save();
   let strokes=0;
@@ -52691,7 +52784,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
+Object.assign(window.GV,{storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
