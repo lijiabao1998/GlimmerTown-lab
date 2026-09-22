@@ -51806,6 +51806,24 @@ function finishArtSelftest604(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
+function bayFlavorSelftest605(){
+  const checks=[];
+  const farm=SPR.bld['22_1_0'], big=SPR.bld['53_1_0'], pump=SPR.bld['130_1_0'];
+  checks.push(['小農場是灣城農莊',!!(farm&&farm.__t605==='farm')]);
+  checks.push(['大農場是灣城農莊',!!(big&&big.__t605==='farm')]);
+  checks.push(['抽水站是磚泵房',!!(pump&&pump.__t605==='pump')]);
+  const nightOnDay=spr=>{
+    if(!spr||!spr.img||!spr.night)return false;
+    const d=spr.img.getContext('2d').getImageData(0,0,spr.w,spr.h).data;
+    const n=spr.night.getContext('2d').getImageData(0,0,spr.w,spr.h).data;
+    let bad=0,lit=0;
+    for(let i=3;i<n.length;i+=4){if(n[i]>40){lit++;if(d[i]<40)bad++;}}
+    return lit>0&&bad===0;
+  };
+  checks.push(['抽水站夜光只在白天像素上',nightOnDay(pump)]);
+  checks.push(['農場函式含石板頂',(''+applyT555SpecialArt).indexOf('#5c6772')>=0]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 function ukStyleSelftest596(){
   const checks=[],R=window.__facade577||{};
   checks.push(['ukTerrace 已登記',!!(R.ukTerrace&&typeof R.ukTerrace.draw==='function')]);
@@ -51911,17 +51929,35 @@ function applyT555SpecialArt(){
   const stampBarn=(spr,sc)=>{
     if(!spr||!spr.img)return;
     const g=spr.img.getContext('2d'),ax=spr.ax,ay=spr.ay,S=v=>Math.round(v*sc);
-    const pal={light:'#d45a44',mid:'#b04432',dark:'#7a2e22',roof:'#8a3428'};
-    const bx=ax-S(10),by=ay-S(52),hw=S(16),h=S(20);
+    if(window.__noFarm605){
+      const pal={light:'#d45a44',mid:'#b04432',dark:'#7a2e22',roof:'#8a3428'};
+      const bx=ax-S(10),by=ay-S(52),hw=S(16),h=S(20);
+      const rty=isoBox(g,bx,by,hw,h,pal.light,pal.dark,pal.roof);
+      metroGable516(g,bx,rty,hw,pal);
+      g.fillStyle='#eee8da';g.fillRect(bx-S(5),by-S(12),S(10),S(10));
+      g.fillStyle='#6a3a24';g.fillRect(bx-S(3),by-S(8),S(6),S(8));
+      g.fillStyle='#c8ced6';g.fillRect(ax+S(18),by-S(34),S(8),S(34));
+      g.fillStyle='#e8eef4';g.fillRect(ax+S(17),by-S(38),S(10),S(5));
+      g.fillStyle='#aeb4bc';for(let i=0;i<5;i++)g.fillRect(ax+S(18),by-S(28)+i*S(6),S(8),1);
+      g.fillStyle='#7a5c38';
+      for(let i=0;i<7;i++){g.fillRect(ax-S(40)+i*S(6),ay-S(8),1,S(5));g.fillRect(ax+S(10)+i*S(6),ay-S(8),1,S(5));}
+      return;
+    }
+    const pal={light:'#e4d2c0',mid:'#c4a090',dark:'#8a5644',roof:'#5c6772'};
+    const bx=ax-S(4),by=ay-S(26),hw=S(11),h=S(13);
     const rty=isoBox(g,bx,by,hw,h,pal.light,pal.dark,pal.roof);
     metroGable516(g,bx,rty,hw,pal);
-    g.fillStyle='#eee8da';g.fillRect(bx-S(5),by-S(12),S(10),S(10));
-    g.fillStyle='#6a3a24';g.fillRect(bx-S(3),by-S(8),S(6),S(8));
-    g.fillStyle='#c8ced6';g.fillRect(ax+S(18),by-S(34),S(8),S(34));
-    g.fillStyle='#e8eef4';g.fillRect(ax+S(17),by-S(38),S(10),S(5));
-    g.fillStyle='#aeb4bc';for(let i=0;i<5;i++)g.fillRect(ax+S(18),by-S(28)+i*S(6),S(8),1);
-    g.fillStyle='#7a5c38';
-    for(let i=0;i<7;i++){g.fillRect(ax-S(40)+i*S(6),ay-S(8),1,S(5));g.fillRect(ax+S(10)+i*S(6),ay-S(8),1,S(5));}
+    g.fillStyle='#efe6d4';g.fillRect(bx-S(3),by-S(9),S(6),S(2));
+    g.fillStyle='#3a2c24';g.fillRect(bx-S(2),by-S(7),S(4),S(7));
+    g.fillStyle='#6a8aa0';g.fillRect(bx-hw+S(3),by-h+S(4),S(3),S(4));
+    g.fillStyle='#a07060';g.fillRect(bx+S(3),rty-S(7),S(3),S(7));
+    g.fillStyle='#5c6772';g.fillRect(bx+S(2),rty-S(9),S(5),S(2));
+    g.fillStyle='#b7aa96';for(let i=0;i<6;i++)g.fillRect(ax-S(20)+i*S(4),ay-S(7),S(2),S(3));
+    g.fillStyle='#2f5e70';g.fillRect(ax-S(26),ay-S(5),S(34),S(2));
+    g.fillStyle='#8ec0cc';g.fillRect(ax-S(26),ay-S(5),S(34),1);
+    if(sc>1.4){const r2=isoBox(g,ax+S(20),ay-S(14),S(8),S(9),pal.light,pal.dark,pal.roof);metroGable516(g,ax+S(20),r2,S(8),pal);}
+    if(spr.night&&spr.night.getContext){const ng=spr.night.getContext('2d');ng.fillStyle='#fffbe5';ng.fillRect(bx-hw+S(3),by-h+S(4),S(3),S(4));ng.save();ng.globalCompositeOperation='destination-in';ng.drawImage(spr.img,0,0);ng.restore();}
+    spr.__t605='farm';
   };
   for(let v=0;v<16;v++){
     const key='22_1_'+v;
@@ -51981,6 +52017,32 @@ function applyT555SpecialArt(){
     ng.fillStyle='#ff6d5f';ng.fillRect(ax-28,ay-28,4,4);
     outlineSprite(c,28,32,44);
     SPR.bld['116_1_0']={img:c,night:nc,ax,ay,w:136,h:150,smoke:[],__t555:'datacenter'};
+  }
+  if(!window.__noPump605&&SPR.bld['130_1_0']){
+    const old=SPR.bld['130_1_0'],W=old.w,H=old.h,ax=old.ax,ay=old.ay;
+    const[c,g]=cv(W,H),[nc,ng]=cv(W,H);
+    const baseY=ay-64;
+    dia(g,ax,baseY,64,'#6a8a58');diaEdge(g,9,'#8fba72',ax,baseY,64);
+    const cx=ax-10,by=ay-18,hw=36,hh=56;
+    const rty=isoBox(g,cx,by,hw,hh,'#e4d2c0','#8a5644','#5c6772');
+    metroGable516(g,cx,rty,hw,{roof:'#5c6772',light:'#8aa0ac'});
+    g.fillStyle='#efe6d4';g.fillRect(cx-8,by-22,12,3);
+    g.fillStyle='#3a2c24';g.fillRect(cx-6,by-20,8,16);
+    g.fillStyle='#6a8aa0';g.fillRect(cx-hw+10,by-hh+18,7,9);
+    ng.fillStyle='#fffbe5';ng.fillRect(cx-hw+10,by-hh+18,7,9);
+    g.fillStyle='#3d6e80';g.fillRect(cx+hw-2,by-12,30,8);
+    g.fillStyle='#2a4e5c';g.fillRect(cx+hw-2,by-6,30,4);
+    g.fillStyle='#d7e4ea';g.fillRect(cx+hw+2,by-12,18,2);
+    g.fillStyle='#c4a090';g.fillRect(cx+12,by-hh-40,8,44);
+    g.fillStyle='#7a5044';g.fillRect(cx+18,by-hh-40,3,44);
+    g.fillStyle='#4a5560';g.fillRect(cx+10,by-hh-46,14,6);
+    g.fillStyle='#e05a4a';g.fillRect(cx+14,by-hh-50,3,4);
+    ng.fillStyle='#ff6d5f';ng.fillRect(cx+14,by-hh-50,3,4);
+    g.fillStyle='#2f5e70';g.fillRect(ax-46,ay-12,78,4);
+    g.fillStyle='#8ec0cc';g.fillRect(ax-46,ay-12,78,1);
+    outlineSprite(c,26,30,44);
+    ng.save();ng.globalCompositeOperation='destination-in';ng.drawImage(c,0,0);ng.restore();
+    SPR.bld['130_1_0']={img:c,night:nc,ax,ay,w:W,h:H,sc:old.sc,smoke:[],__t605:'pump'};
   }
 }
 function makeIndustrialAsset516(k,v,sz){
@@ -52404,7 +52466,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604});
+Object.assign(window.GV,{overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);

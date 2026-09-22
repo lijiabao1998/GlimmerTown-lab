@@ -56,6 +56,7 @@ const KEEP = process.argv.includes('--keep');
       ['moreBld602', `(window.GV && window.GV.moreBldSelftest602) ? window.GV.moreBldSelftest602() : {ok:false,checks:['API 不存在']}`],
       ['terrace603', `(window.GV && window.GV.terraceRowSelftest603) ? window.GV.terraceRowSelftest603() : {ok:false,checks:['API 不存在']}`],
       ['finish604', `(window.GV && window.GV.finishArtSelftest604) ? window.GV.finishArtSelftest604() : {ok:false,checks:['API 不存在']}`],
+      ['bay605', `(window.GV && window.GV.bayFlavorSelftest605) ? window.GV.bayFlavorSelftest605() : {ok:false,checks:['API 不存在']}`],
     ];
     const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA || '', 'Temp', 'grok-goal-c80f16d61c81', 'implementer');
     const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json', hud598: 'hud-realtime-selftest.json', panel599: 'panel-live-selftest.json', workshop600: 'workshop-selftest.json' };
