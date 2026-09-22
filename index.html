@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.18 · T607</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.19 · T608</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -18413,8 +18413,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.18'; // T607 街頭敘事泡泡重做。前：T606 疊畫落位
-const GAME_ANCHOR='T607'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.19'; // T608 工業鋸齒屋頂、煙羽與倒影對齊街區精靈。前：T607
+const GAME_ANCHOR='T608'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -29701,6 +29701,7 @@ function wealthSpr(baseKey,we){
 // 低成本簡化設計已於卡面驗收確認，不影響其餘既有渲染路徑，不消耗 R()/ri()）
 function reflectSprite(bd){
   if(!bd||bd.ref||(bd.sz&&bd.sz>=2))return null;
+  if(!window.__noReflect608&&bd.k>=1&&bd.k<=3){try{return getBlockSprite547(bd.k,bd.lv||1,1,1,bd.v||0);}catch(e){}} // T608：倒影用城裡真的畫出來的那張街區精靈，不用 72px 舊圖集
   if(bd.k===4){const sea2=season();return(inWinter()?SPR.parkW:sea2===1?(SPR.parkS||SPR.park):sea2===2?(SPR.parkA||SPR.park):SPR.park)[bd.v];} // T204：倒影用公園也套季節色
   if(bd.k===5)return SPR.plant;
   if(bd.k===10)return SPR.waterTower;
@@ -37936,11 +37937,13 @@ function updSmoke(dt){
       if(b.k===5){const ps=(b.v&&SPR.plantVar&&SPR.plantVar[b.v])||SPR.plant;offs=ps.smoke;col='#e7edf2';big=true;} // T159：電廠蒸汽改為偏白且膨脹較大；T225：變體各自 smoke 掛點（冷卻塔頂/細囪頂）
       if(b.k===1&&b.riot){offs=[{dx:0,dy:-42}];col='#3a3530';} // T118：暴亂住宅複用既有煙粒繪製火把/騷亂煙霧（不新建 sprite，屋頂上方固定一點冒煙）
       if(sea===3&&b.k===1&&b.pw&&!b.riot&&!window.__noChimney){const sm=SPR.bld[b.k+'_'+b.lv+'_'+b.v];if(sm&&sm.smoke.length){offs=sm.smoke;col='#d8d2c6';}} // T185：冬季民居炊煙（Opus 親手）——入冬(sea===3)供電住宅(k=1,pw)非暴亂時自煙囪點冒暖灰輕煙（沿用既有 smoke 管線/上限，煙點含 chimneySmall(T185補)/chimneyBrick(lv2-3)）；非冬/未供電/暴亂/__noChimney 不繪＝該狀態零改動；讀既有 sea/建築態，spawn 用 Math.random 與模擬 R() 獨立（同 T159 粒子慣例）
+      let base608=0; // T608：工業與冬季民居改由街區原點格、從街區精靈記下的煙囪頂冒（原本逐格讀 72px 舊圖集的偏移，對不上新煙囪）
+      if(!window.__noSmoke608&&((b.k===3&&b.pw&&b.lv>=1)||(sea===3&&b.k===1&&b.pw&&!b.riot&&!window.__noChimney))){const src=smokeSrc608(x,y,b);if(src){offs=src.length?src:null;base608=src.length?1:0;if(b.k===1)col='#d8d2c6';}}
       if(!offs||!offs.length)continue;
       if(Math.random()<.5)continue;
       const o=offs[vri(offs.length)];
-      const wx=(x-y)*32+o.dx, wy=(x+y)*16+32+o.dy;
-      smokes.push({wx,wy,age:0,life:(2.2+Math.random())*(weather?.6:1),col,big,dep:viewDep(x,y),sx443:x,sy443:y});
+      const wx=base608?o.wx:(x-y)*32+o.dx, wy=base608?o.wy:(x+y)*16+32+o.dy;
+      smokes.push({wx,wy,age:0,life:(2.2+Math.random())*(weather?.6:1),col,big,dep:base608?viewDep(o.ax,o.ay):viewDep(x,y),sx443:base608?o.ax:x,sy443:base608?o.ay:y});
     }
   }
   for(let i=smokes.length-1;i>=0;i--){
@@ -42731,7 +42734,7 @@ function draw(dt){
     /* ===== T421-T431 GPT 特化美術波：T424 後進入微雕期。
        建築本體與通用雨雪皮膚先畫，再疊「街區語彙→時間痕跡→屋頂用途→材質反應→夜間微光→人物動詞」。
        T432 detail budget 在各新層內做 LOD/slot/spatial 節奏控制，避免每棟全套。全部只讀、可逐層 kill-switch AB。 ===== */
-    if(window.__ovCap606&&window.__ovCap606.length<(window.__ovCapMax606||260)&&!constrRise&&(bd.age|0)>=9)window.__ovCap606.push({o,bd,s}); // T606 量測：抓實際畫到的建築（預設關）
+    if(window.__ovCap606&&window.__ovCap606.length<(window.__ovCapMax606||260)&&(window.__ovCapAll608||(!constrRise&&(bd.age|0)>=9)))window.__ovCap606.push({o,bd,s,bx,by,z}); // T606 量測：抓實際畫到的建築（預設關）
     if(!constrRise&&(bd.age|0)>=9&&legacyOverlay606(s)){ // T606：外框比例疊畫只給舊圖建築；新等距街區精靈的細節改由貼牆層（drawWallDetail606）在精靈內畫
       const cl606=window.__noOvFix606?null:ovClipBegin606(s,z); // T606：本體層畫進離屏、剪進剪影再貼回（量測：舊層 37～100% 像素浮在建築外）
       const G6=cl606?cl606.g:ctx,X6=cl606?cl606.x:bx,Y6=cl606?cl606.y:by;
@@ -51595,6 +51598,93 @@ function villaYard559(g,ng,C,rk,pal){
   if(ng){const p=P(.68,.70);ng.fillStyle='rgba(255,226,150,.65)';ng.fillRect(Math.round(p[0])-1,Math.round(p[1])-4,2,2);
     ng.fillStyle='rgba(255,226,150,.30)';ng.fillRect(Math.round(p[0])-3,Math.round(p[1])-6,6,6);}
 }
+/* ===== T608 工業鋸齒屋頂 =====
+   原本工業也借用 sawtoothPara547：那支其實是「一排平行雙坡屋頂」（住宅 M 形連棟屋頂用它是對的），
+   每齒前端三角填屋頂色、前後坡固定順序畫，齒高＝整個 pitchH ⇒ 牆面上出現深色大三角、齒間露出淺色後坡、右端破洞，像教堂。
+   真正的北光鋸齒：每齒一片斜屋面（朝左受光）＋一片直立採光玻璃（朝右前）＋齒端牆色三角；由後往前畫，前齒遮住後齒玻璃下半。
+   齒高跟齒寬走（約齒寬一半，6～14px）。__noSaw608 退回舊畫法。 ===== */
+function sawtoothRoof608(g,C,n,rise,roofL,roofR,wallL,wallR,axis){
+  n=Math.max(1,Math.min(8,n|0));
+  // 參數化 P(a,b,h)：a 由後往前、b=0 是看得見的那面立面。axis=0：O=W、a 沿 W→S（+x）、b 沿 W→N，b=0＝前左牆；axis=1：O=E、a 沿 E→S（+y）、b 沿 E→N，b=0＝前右牆
+  const O=axis?C.E:C.W,A=axis?[C.S[0]-C.E[0],C.S[1]-C.E[1]]:[C.S[0]-C.W[0],C.S[1]-C.W[1]],B=axis?[C.N[0]-C.E[0],C.N[1]-C.E[1]]:[C.N[0]-C.W[0],C.N[1]-C.W[1]];
+  const P=(a,b,h)=>[O[0]+A[0]*a+B[0]*b,O[1]+A[1]*a+B[1]*b-h];
+  const poly=(pts,col)=>{g.fillStyle=col;g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();g.fill();};
+  const line=(p,q,col)=>{g.strokeStyle=col;g.lineWidth=1;g.beginPath();g.moveTo(Math.round(p[0])+.5,Math.round(p[1])+.5);g.lineTo(Math.round(q[0])+.5,Math.round(q[1])+.5);g.stroke();};
+  // 屋頂底板先鋪滿，保證齒間與兩端不留洞
+  poly([P(0,0,0),P(1,0,0),P(1,1,0),P(0,1,0)],shade(roofR,-10));
+  const glass=axis?['#6f8ea6','#9cb8cc']:['#45596b','#6f8aa0']; // 玻璃在齒的高端 a1、朝 +a：axis=0 朝前右（背光，較暗）；axis=1 朝前左（受光，較亮）
+  let top=null;
+  for(let i=0;i<n;i++){
+    const a0=i/n,a1=(i+1)/n;
+    // 斜屋面：a0 處貼底板、a1 處升到 rise
+    const rc=axis?roofR:roofL; // axis=0 屋面朝後左受光；axis=1 屋面朝後右背光
+    poly([P(a0,0,0),P(a1,0,rise),P(a1,1,rise),P(a0,1,0)],rc);
+    for(let s=1;s<4;s++){const bb=s/4;line(P(a0+(a1-a0)*.08,bb,rise*.08),P(a1-(a1-a0)*.04,bb,rise*.96),shade(rc,-14));} // 屋面浪板縫
+    // 直立採光玻璃：a1 處從 0 到 rise
+    poly([P(a1,0,0),P(a1,1,0),P(a1,1,rise),P(a1,0,rise)],glass[0]);
+    const nm=Math.max(2,Math.round(Math.hypot(B[0],B[1])/7));
+    for(let s=1;s<nm;s++){const bb=s/nm;line(P(a1,bb,1),P(a1,bb,rise-1),glass[1]);} // 窗框
+    line(P(a1,0,rise),P(a1,1,rise),shade(rc,24)); // 齒脊受光線
+    // 齒端三角（b=0 那一側是看得見的立面）：牆色
+    poly([P(a0,0,0),P(a1,0,0),P(a1,0,rise)],axis?wallR:wallL);
+    top={f:P(a1,0,rise),b:P(a1,1,rise)};
+  }
+  return {f:top.f,b:top.b,rise,axis:axis|0};
+}
+function sawRise608(C,n,axis,cap){ // 齒高跟齒寬走：約齒寬（螢幕 x 投影）一半
+  const A=axis?[C.S[0]-C.E[0],C.S[1]-C.E[1]]:[C.S[0]-C.W[0],C.S[1]-C.W[1]];
+  const w=Math.abs(A[0])/Math.max(1,n);return Math.max(6,Math.min(cap||14,Math.round(w*.5)));
+}
+function smokeSrc608(x,y,b){ // 純函式：這格此刻的工業／民居冒煙點（世界座標），用繪製時同一張街區精靈與同一個錨格
+  if(window.__noSmoke608||!b||b.ref||(b.sz&&b.sz>=2))return null;
+  if(!(b.k===1||b.k===3))return null;
+  const blk=rciBlockOrigin547(x,y);if(!blk)return [];
+  const bw=blk.w||1,bh=blk.h||1;let sp=null;try{sp=getBlockSprite547(b.k,b.lv||1,bw,bh,b.v||0);}catch(e){sp=null;}
+  if(!sp||!sp.smoke608)return [];
+  let ax=x+bw-1,ay=y+bh-1,bd0=-1;
+  if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
+  return sp.smoke608.map(p=>({wx:(ax-ay)*32+32+(p[0]-sp.ax),wy:(ax+ay)*16+32+(p[1]-sp.ay),ax,ay}));
+}
+function industrialRoofSelftest608(){
+  const checks=[],add=(n,ok,d)=>checks.push((ok?'OK ':'NG ')+n+(d!=null?'：'+d:''));
+  const B=window.GV.block559,keepSaw=window.__noSaw608;
+  const alphaAt=(s,x,y)=>{const c=document.createElement('canvas');c.width=1;c.height=1;const g=c.getContext('2d');g.drawImage(s.img,Math.round(x),Math.round(y),1,1,0,0,1,1);return g.getImageData(0,0,1,1).data[3];};
+  // 屋頂洞：在屋簷高度的屋頂平行四邊形內取 5×5 個點，任何一點透明就是洞（原病：右端露出底下的草地）
+  const holesOf=()=>{let n=0,h=0;for(const lv of[1,2])for(const[bw,bh] of [[1,1],[1,2],[2,1],[2,2]])for(let v=0;v<6;v++){
+      B.cache().clear();let sp=null;try{sp=B.make(3,lv,bw,bh,v);}catch(e){}if(!sp||!sp.__t547||!sp.__t547.wall)continue;n++;const w=sp.__t547.wall;
+      const R={N:[w.N[0],w.N[1]-w.h],E:[w.E[0],w.E[1]-w.h],S:[w.S[0],w.S[1]-w.h],W:[w.W[0],w.W[1]-w.h]};
+      for(const a of[.15,.32,.5,.68,.85])for(const b of[.15,.32,.5,.68,.85]){const x=R.W[0]+(R.S[0]-R.W[0])*a+(R.N[0]-R.W[0])*b,y=R.W[1]+(R.S[1]-R.W[1])*a+(R.N[1]-R.W[1])*b;if(alphaAt(sp,x,y)<200)h++;}}
+    return {n,h};};
+  window.__noSaw608=true;const oldH=holesOf();window.__noSaw608=false;const newH=holesOf();window.__noSaw608=keepSaw;
+  add('紅線演練：舊鋸齒會被量到屋頂洞（守衛抓得到原病）',oldH.h>0,oldH.h+' 點／'+oldH.n+' 張');
+  add('新鋸齒屋頂零洞',newH.n>=24&&newH.h===0,newH.h+' 點／'+newH.n+' 張');
+  // 煙囪頂記錄：每張工業精靈至少一個，且記錄點正下方兩格是不透明的煙囪帽
+  let nS=0,nPts=0,bad=0;
+  for(const lv of[1,2,3])for(const[bw,bh] of [[1,1],[2,1],[2,2]])for(let v=0;v<6;v++){B.cache().clear();let sp=null;try{sp=B.make(3,lv,bw,bh,v);}catch(e){}if(!sp)continue;nS++;
+    const pts=sp.smoke608||[];nPts+=pts.length;if(!pts.length)bad++;for(const p of pts)if(alphaAt(sp,p[0],p[1]+2)<200)bad++;}
+  add('工業精靈都記下煙囪頂、且落在煙囪帽上',nS>0&&bad===0,nPts+' 點／'+nS+' 張，錯 '+bad);
+  // 煙羽來源：自備測試建築（2×2 工業街區＋1×1），量完還原
+  const findLand=(w,h)=>{for(let y=6;y<N-h;y++)for(let x=6;x<N-w;x++){let ok=true;for(let dy=0;dy<h&&ok;dy++)for(let dx=0;dx<w;dx++){const t=tiles[idx(x+dx,y+dy)];if(!t||t.t===0){ok=false;break;}}if(ok)return [x,y];}return null;};
+  const prev=new Map(),put=(x,y,b)=>{const i=idx(x,y);if(!prev.has(i))prev.set(i,tiles[i].bld);tiles[i].bld=b;};
+  const A=findLand(5,2);let nonOrigin=0,originPts=0,onChim=0,offChim=0;
+  if(A){try{
+    for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)put(A[0]+dx,A[1]+dy,{k:3,lv:1,v:1,age:40,pw:true,h:1});
+    put(A[0]+3,A[1],{k:3,lv:2,v:2,age:40,pw:true,h:1});
+    for(const [x,y] of [[A[0],A[1]],[A[0]+1,A[1]],[A[0],A[1]+1],[A[0]+1,A[1]+1],[A[0]+3,A[1]]]){
+      const b=tiles[idx(x,y)].bld,src=smokeSrc608(x,y,b);const blk=rciBlockOrigin547(x,y);
+      if(!blk){if(src&&src.length)nonOrigin++;continue;}
+      originPts+=src?src.length:0;
+      const sp=getBlockSprite547(3,b.lv,blk.w||1,blk.h||1,b.v);
+      for(const q of src||[]){const px=q.wx-((q.ax-q.ay)*32+32)+sp.ax,py=q.wy-((q.ax+q.ay)*16+32)+sp.ay;if(alphaAt(sp,px,py+2)>=200)onChim++;else offChim++;}}
+  }finally{for(const [i,b] of prev)tiles[i].bld=b;}}
+  add('超街區非原點格不冒煙',!!A&&nonOrigin===0,nonOrigin);
+  add('原點格從街區精靈的煙囪頂冒',originPts>0&&offChim===0,'煙囪上 '+onChim+'／偏離 '+offChim);
+  const rs=reflectSprite({k:3,lv:1,v:0,age:40});
+  add('倒影用街區精靈',!!(rs&&rs.__t547));
+  add('版本錨 ≥T608',+GAME_ANCHOR.slice(1)>=608,GAME_VER+'/'+GAME_ANCHOR);
+  B.cache().clear();
+  return {ok:checks.every(c=>c.startsWith('OK')),checks};
+}
 function makeBlockSprite547(k,lv,bw,bh,v){
   const span=Math.min(bw,bh),long=Math.max(bw,bh),axis=ridgeAxis554(bw,bh,v),pitchSpan=axis?long:span;
   let wallH=lv===1?14+span*3:lv===2?20+span*4:26+span*5;const stepH=lv===1?10:lv===2?16:22,towH=window.__noOverlap555?(lv>=3?48+span*6:lv===2?28+span*4:0):0;
@@ -51628,6 +51718,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     ar568=Object.assign({},ar568,{ex:{box:[.08,.92,.06,.38],hm:Math.min(.40,ar568.ex.hm||.4)}});
   }
   const G=ar568?subPara568(G0559,ar568.box):G0559;
+  const smk608=[],chim608=(x,y)=>{metroChimney516(g,ng,x,y);smk608.push([x+2,y-15]);}; // T608：記下煙囪頂，煙羽從真的煙囪冒
   const cLp=window.__noLeftLight541?pal.mid:pal.light,cRp=window.__noLeftLight541?pal.light:pal.dark;
   if(ar568&&ar568.ex)massBox568(g,ng,subPara568(G0559,ar568.ex.box),Math.max(6,Math.round(wallH*ar568.ex.hm)),pal,cLp,cRp,k,rk559);
   const plate=k===3?'#6a6862':k===2?'#7a828c':'#8a7a68';
@@ -51650,7 +51741,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   if(fr577&&!bayRow604){ // T577：英美街景風格繪製器接手牆／窗／屋頂；地坪、陰影、前庭、裙樓已由核心畫好
     let res577=null;try{res577=fr577.draw({A:window.GV.art574,g,ng,G,G0:G0559,wallH,pitchH,stepH,towH,k,lv,bw,bh,v,pal,rand:rk559,rand2:rand,cL,cR,long,span,axis,W,H,ax,ay,typ,grain,ar:ar568});}
     catch(e){console.error('facade577 '+fr577.name,e);res577=null;}
-    if(res577!==false){outlineSprite(c,22,26,34);return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH}}};}
+    if(res577!==false){outlineSprite(c,22,26,34);return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH}}};}
   }
   edgeWall547(g,G.W,G.S,wallH,cL);edgeWall547(g,G.E,G.S,wallH,cR);
   if(typ&&k===1){wallCourse556(g,G.W,G.S,wallH,'rgba(80,40,28,.22)',4);wallCourse556(g,G.E,G.S,wallH,'rgba(40,20,16,.28)',4);}
@@ -51679,7 +51770,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     if(flat568)roofKit559(g,ng,roof,rk559,k,pal,Math.max(2,bw*bh*.8)*(1+(lv-1)*.35));
   } // T593：屋頂設備密度隨 lv 提升
   else if(!typ){
-    if(k===3&&bw*bh>=4)ridge=sawtoothPara547(g,roof,Math.max(3,Math.min(7,Math.max(bw,bh))),Math.max(10,pitchH-4),roofL,roofR,ridgeCol,axis);
+    if(k===3&&bw*bh>=4){const n608=Math.max(3,Math.min(7,Math.max(bw,bh)));ridge=window.__noSaw608?sawtoothPara547(g,roof,n608,Math.max(10,pitchH-4),roofL,roofR,ridgeCol,axis):sawtoothRoof608(g,roof,n608,sawRise608(roof,n608,axis),roofL,roofR,cL,cR,axis);} // T608
     else{
       if(axis){gableEnd547(g,roof.W,roof.N,pitchH,cL);gableEnd547(g,roof.S,roof.E,Math.max(6,pitchH-4),cR);}
       else{gableEnd547(g,roof.W,roof.S,pitchH,cL);gableEnd547(g,roof.N,roof.E,Math.max(6,pitchH-4),cR);}
@@ -51695,13 +51786,13 @@ function makeBlockSprite547(k,lv,bw,bh,v){
         gableEnd547(g,sl.W,sl.S,pitchH,cL);
         ridge=pitchPara547(g,sl,pitchH,shade(col,18),shade(col,-22),shade(col,30),0);
         tileLines557(g,sl,pitchH,shade(col,-32));
-        metroChimney516(g,ng,Math.round(lerp2_547(sl.W,sl.S,.62)[0]),Math.round(lerp2_547(sl.W,sl.S,.62)[1]-pitchH+2));
+        chim608(Math.round(lerp2_547(sl.W,sl.S,.62)[0]),Math.round(lerp2_547(sl.W,sl.S,.62)[1]-pitchH+2));
         bayDoor557(g,lerp2_547(G.W,G.S,(i+.48)/nBay));
       }
       g.strokeStyle='rgba(40,20,16,.55)';g.lineWidth=1;g.beginPath();g.moveTo(roof.W[0],roof.W[1]);g.lineTo(roof.S[0],roof.S[1]);g.stroke();
     }else{
       ridge=sawtoothPara547(g,roof,nBay,pitchH,roofL,roofR,ridgeCol,0);
-      for(let i=0;i<nBay;i++){const p=lerp2_547(roof.W,roof.S,(i+.62)/nBay);metroChimney516(g,ng,Math.round(p[0]),Math.round(p[1]-pitchH+2));}
+      for(let i=0;i<nBay;i++){const p=lerp2_547(roof.W,roof.S,(i+.62)/nBay);chim608(Math.round(p[0]),Math.round(p[1]-pitchH+2));}
     }
   }else if(k===2){
     fillPara547(g,roof,shade(pal.dark,26)); // T587：k=2 legacy 平頂自暗藏青提亮（業主「全城同一暗灰」）
@@ -51715,11 +51806,12 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     for(let i=0;i<nHvac;i++){const p=lerp2_547(deck.W,deck.E,(i+1)/(nHvac+1));g.fillStyle='#9aa3aa';g.fillRect(Math.round(p[0])-5,Math.round(p[1])-8,10,8);g.fillStyle='#c5ced4';g.fillRect(Math.round(p[0])-4,Math.round(p[1])-10,8,3);if(grain){g.fillStyle='#7a848c';for(let f=0;f<4;f++)g.fillRect(Math.round(p[0])-4+f*2,Math.round(p[1])-7,1,6);}}
     ridge={f:lerp2_547(deck.W,deck.S,.5),b:lerp2_547(deck.N,deck.E,.5),rise:para,axis:0};
   }else{
-    ridge=sawtoothPara547(g,roof,Math.max(2,Math.min(7,bw*bh>=4?Math.max(bw,bh):2)),Math.max(8,ar568&&ar568.n==='warehouse'?8:pitchH),roofL,roofR,ridgeCol,axis);
+    {const n608=Math.max(2,Math.min(7,bw*bh>=4?Math.max(bw,bh):2));if(!window.__noSaw608&&bw*bh>=4&&!window.__noMassing552){fillPara547(g,roof,shade(pal.roof,-6));roofKit559(g,ng,roof,rk559,k,pal,Math.max(2,bw*bh*.6));const c608=lerp2_547(lerp2_547(roof.S,roof.E,.5),lerp2_547(roof.N,roof.S,.5),.28);ridge={f:c608,b:c608,rise:0,axis:0};} // T608：有上層量體時下層是平頂裙樓，鋸齒不插進量體
+    else ridge=window.__noSaw608?sawtoothPara547(g,roof,n608,Math.max(8,ar568&&ar568.n==='warehouse'?8:pitchH),roofL,roofR,ridgeCol,axis):sawtoothRoof608(g,roof,n608,sawRise608(roof,n608,axis,ar568&&ar568.n==='warehouse'?8:14),roofL,roofR,cL,cR,axis);} // T608 真鋸齒
     const dock=lerp2_547(G.W,G.S,.45);g.fillStyle='#2a2620';g.fillRect(Math.round(dock[0])-8,Math.round(dock[1]-10),16,8);
     if(ar568&&(ar568.n==='stack'||ar568.n==='chimneyHall')){
       const st=lerp2_547(roof.W,roof.E,.62);const sx2=Math.round(st[0]),sy2=Math.round(st[1]);
-      g.fillStyle='#4b5158';g.fillRect(sx2-3,sy2-48,7,50);g.fillStyle=pal.accent;g.fillRect(sx2-4,sy2-52,9,5);
+      g.fillStyle='#4b5158';g.fillRect(sx2-3,sy2-48,7,50);g.fillStyle=pal.accent;g.fillRect(sx2-4,sy2-52,9,5);smk608.push([sx2,sy2-53]);
       if(ng){ng.fillStyle='#ff7465';ng.fillRect(sx2-1,sy2-56,4,5);}
     }
     if(grain){
@@ -51785,9 +51877,9 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     else{fillPara547(g,roof2,shade(pal.roof,lv===1?8:-6));roofKit559(g,ng,roof2,rk559,k,pal,Math.max(1,bw*bh*.5));}
     if(!(typ&&k===3)) {win(inner.W,inner.S,stepH,'L');win(inner.E,inner.S,stepH,'R');}
     const mid=placeOn(ridge2||ridge),midx=Math.round(mid[0]),midy=Math.round(mid[1]);
-    if(k===1)metroChimney516(g,ng,midx+6,midy);
+    if(k===1)chim608(midx+6,midy);
     else if(k===2){g.fillStyle=shade(pal.accent,-8);g.fillRect(midx-1,midy-14,3,14);ng.fillStyle='#ff6d5f';ng.fillRect(midx-1,midy-16,3,3);}
-    else{g.fillStyle='#4b5158';g.fillRect(midx+6,midy-28,5,30);g.fillStyle=pal.accent;g.fillRect(midx+5,midy-32,7,4);}
+    else{g.fillStyle='#4b5158';g.fillRect(midx+6,midy-28,5,30);g.fillStyle=pal.accent;g.fillRect(midx+5,midy-32,7,4);smk608.push([midx+8,midy-33]);}
     if(towH>0){
       const nTow=span>=5?2:1,rk=ridge2||ridge;
       for(let i=0;i<nTow;i++){
@@ -51799,9 +51891,9 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     }
   }else if(!(typ&&k===1)){
     const mid=placeOn(ridge),midx=Math.round(mid[0]),midy=Math.round(mid[1]);
-    if(k===1)metroChimney516(g,ng,midx+6,midy);
+    if(k===1)chim608(midx+6,midy);
     else if(k===2){g.fillStyle=pal.accent;g.fillRect(midx-10,midy+2,20,3);}
-    else{g.fillStyle='#4b5158';g.fillRect(midx+4,midy-22,4,24);g.fillStyle=pal.accent;g.fillRect(midx+3,midy-25,6,3);}
+    else{g.fillStyle='#4b5158';g.fillRect(midx+4,midy-22,4,24);g.fillStyle=pal.accent;g.fillRect(midx+3,midy-25,6,3);smk608.push([midx+6,midy-26]);}
   }
   const sty565=window.__noStyle565?0:((v+k+bw)%3);
   if(!villa559&&k!==3){
@@ -51813,7 +51905,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
                         else classicTrim565(g,G,wallH,cL,cR,'brick');}
   }
   outlineSprite(c,22,26,34);
-  return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],__t547:{k,lv,bw,bh,v,pitch:!!ridge,sty:sty565,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH}}};
+  return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!ridge,sty:sty565,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH}}};
 }
 function groundShade572(ctx,x,y,w,h,z,sxF,syF,spriteH){
   if(window.__noGroundShade572)return;
@@ -51858,7 +51950,7 @@ function stampAtlas604(){
   return n;
 }
 function getBlockSprite547(k,lv,bw,bh,v){
-  const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
+  const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
   const sp=makeBlockSprite547(k,lv,bw,bh,v);BLOCK_SPR547.set(key,sp);return sp;
 }
@@ -52784,7 +52876,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
+Object.assign(window.GV,{industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
