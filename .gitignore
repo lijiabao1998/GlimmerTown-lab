@@ -22,3 +22,7 @@ shots575/fix_*
 
 scout574/*.txt
 .smoke-profile-*
+
+# T609 起：設計師工作流的圖檔目錄整個不進版本庫（定稿圖看 docs 卡面指的路徑）
+shots6*/
+scratchpad/

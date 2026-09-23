@@ -11,7 +11,9 @@ const AT = arg('at', '46,30').split(',').map(Number), Z = +arg('zoom', 1.5), OUT
     await ev(`(()=>{const st=document.getElementById('start');if(st)st.style.display='none';const ov=document.getElementById('startOverlay456');if(ov){ov.classList.remove('show');ov.style.display='none';}${VAL ? VAL.split(',').map(v => `window.${v}=true;`).join('') : ''}return 1;})()`);
     const CY = await ev('GV.art574.cycle574()');
     await ev(`GV.setVisT(${CY * 0.5});GV.lookAt(${AT[0]},${AT[1]});GV.art574.zoom574(${Z});(typeof GV.forceDraw==='function')&&GV.forceDraw();1`);
-    for (let t = 0; t < WAIT; t += 300) { await sleep(300); await ev(`(typeof GV.forceDraw==='function')&&GV.forceDraw();1`); }
+    const RAW = process.argv.includes('--raw');
+    const WX = arg('weather', ''); if (WX !== '') await ev(`GV.weather(${+WX});1`);
+    for (let t = 0; t < WAIT; t += 300) { await sleep(300); if (!RAW) await ev(`(typeof GV.forceDraw==='function')&&GV.forceDraw();1`); }
     const shot = await cdp.send('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(path.join(ROOT, OUT + '.png'), Buffer.from(shot.data, 'base64'));
     return { ok: 1 };
   });
