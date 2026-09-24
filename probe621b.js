@@ -60,7 +60,7 @@ const MEASURE = rot => `(() => {
     const extraOld = q.old - q.no555, extraNew = q.new - q.no555;
     if (q.rot === 0) checks.push([`rot 0：灰板 ${q.old}→${q.new}（不分條參考 ${q.no555}），新版多出量 ≤ 舊版的 10%`, extraOld > 500 && extraNew <= extraOld * 0.1]);
     else if (q.rot === 2) checks.push([`rot 2：舊版本來就沒灰板（多出 ${extraOld}），新版不增加（多出 ${extraNew}）`, extraNew <= Math.max(extraOld, 0) + 200]);
-    else checks.push([`rot ${q.rot}：灰板 ${q.old}→${q.new}，不比舊版糟（不分條參考 ${q.no555}；殘留 ${extraNew} 屬 T622 旋轉舊病）`, q.new <= q.old]);
+    else checks.push([`rot ${q.rot}：灰板 ${q.old}→${q.new}，不比舊版糟（不分條參考 ${q.no555}；多出 ${extraNew}。T622 之前這裡的殘留來自旋轉舊病，T622 之後應為 0）`, q.new <= q.old]);
   }
   const r0 = rows.find(q => q.rot === 0);
   checks.push(['rot 0：探針 7 點舊版全是鋪面灰（守衛有效對照）', r0.oldPts.every(isGrey)]);
