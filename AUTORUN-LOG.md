@@ -29,7 +29,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r67 | [T620](docs/T620-pages-gallery.md) | `gallery.js` 開一次遊戲拍 8 個鏡頭（日／黃昏／夜 × 中景／近景／住宅／遠景），直接取遊戲畫布，寫手機友善樣張頁；`pages.yml` 在 main 的 smoke 成功後自動部署：`/` 遊戲、`/shots/` 樣張。index.html 未動 | ✅ 綠 34.7s（index.html 未動）；GitHub 上 smoke 綠→pages 觸發、樣張 8 張，停在「Pages 沒開」 | `737afb2` | `shots620/樣張頁_手機.png` | ① Pages 要業主在 Settings 開（Claude 不改倉庫設定）② 雲端連不到 github.io，網站能不能玩要業主手機確認 ③ 同帳號所有 Pages 共用網域，主線將來上 Pages 會跟實驗線互相覆蓋存檔 |
+| r67 | [T620](docs/T620-pages-gallery.md) | `gallery.js` 開一次遊戲拍 8 個鏡頭（日／黃昏／夜 × 中景／近景／住宅／遠景），直接取遊戲畫布，寫手機友善樣張頁；`pages.yml` 在 main 的 smoke 成功後自動部署：`/` 遊戲、`/shots/` 樣張。index.html 未動 | ✅ 綠 34.7s（index.html 未動）；GitHub 上 smoke 綠→pages 觸發、樣張 8 張，停在「Pages 沒開」 | `737afb2` | `shots620/樣張頁_手機.png` | ~~① Pages 要業主在 Settings 開~~ 業主已開，`3433049` 部署成功，網址 https://lijiabao1998.github.io/GlimmerTown-lab/ ② 雲端連不到 github.io，網站能不能玩要業主手機確認 ③ 同帳號所有 Pages 共用網域，主線將來上 Pages 會跟實驗線互相覆蓋存檔 |
 
 ## r66 — T619 夜色加深（業主看三檔對照圖選 B）
 
