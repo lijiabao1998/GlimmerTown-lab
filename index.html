@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.40 · T635</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.41 · T636</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.40'; // T635 超街區升起期：切片照分段裁切；T259 吊車、T599 鷹架、T168 鷹架網每塊只畫一次，T168 剪進建築剪影（原本每條分段各畫一次、鷹架網照整張精靈外框畫＝整片金色格線）。前：T634 種子城地形改完重算崖沿（樣張城裡河面、草地上的棕色折線是隨機地形留下的幽靈崖沿）。前：T633 超街區切分不重疊：依掃描序認領，後到的街區不准伸進已被認領的格子（兩個街區不再疊在同一塊地上）。前：T632 粒子（T159 塵土／碎屑／火花／落葉／蒸汽／尾氣與 T608 以外的煙）換成 view 座標，旋轉後方向照樣對。前：T630 T446D 合成窗格不再疊在自帶夜窗的新精靈上（屋頂、遮陽棚上的錯位亮點）。前：T629 夜光遮擋：夜光先畫進光層、依深度用建築輪廓擦掉被擋住的燈（原本一次疊上，後面建築的燈穿過前面的樓）。前：T628 街區精靈快取鍵改用完整 v（原本 v%6，v 與 v+6 共用一張圖、畫誰看誰先被畫到）。前：T626 煙囪冒煙點對齊真的煙囪（smokeViewSrc626，view 座標），四個旋轉煙都往上飄。前：T625 商業霓虹招牌釘回正面牆
-const GAME_ANCHOR='T635'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.41'; // T636 掛點動畫錨點：摩天樓警示燈改用精靈最高點、新圖沒帶 flagAt 不掛舊座標旗、雷達預設點浮空改用最高點（原本 37 個掛點 15 個浮在天上）。前：T635 超街區升起期：切片照分段裁切；T259 吊車、T599 鷹架、T168 鷹架網每塊只畫一次，T168 剪進建築剪影（原本每條分段各畫一次、鷹架網照整張精靈外框畫＝整片金色格線）。前：T634 種子城地形改完重算崖沿（樣張城裡河面、草地上的棕色折線是隨機地形留下的幽靈崖沿）。前：T633 超街區切分不重疊：依掃描序認領，後到的街區不准伸進已被認領的格子（兩個街區不再疊在同一塊地上）。前：T632 粒子（T159 塵土／碎屑／火花／落葉／蒸汽／尾氣與 T608 以外的煙）換成 view 座標，旋轉後方向照樣對。前：T630 T446D 合成窗格不再疊在自帶夜窗的新精靈上（屋頂、遮陽棚上的錯位亮點）。前：T629 夜光遮擋：夜光先畫進光層、依深度用建築輪廓擦掉被擋住的燈（原本一次疊上，後面建築的燈穿過前面的樓）。前：T628 街區精靈快取鍵改用完整 v（原本 v%6，v 與 v+6 共用一張圖、畫誰看誰先被畫到）。前：T626 煙囪冒煙點對齊真的煙囪（smokeViewSrc626，view 座標），四個旋轉煙都往上飄。前：T625 商業霓虹招牌釘回正面牆
+const GAME_ANCHOR='T636'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -58235,6 +58235,41 @@ function floodMask610(s){ // T610：地標泛光遮罩＝底部往上的冷白�
 }
 function apronFree611(k){const c=kcatOf(k);return c==='I'||c==='E'||c==='F'||c==='W'||k===166||k===173||k===174||k===19||k===114;} // T612：機場也不外擴石板前庭
 function flatLot610(bd){return !window.__noFlatShade610&&!!bd&&(bd.k===22||bd.k===23||bd.k===53);}
+/* ===== T636 掛點動畫錨點：T152 的旗子、雷達、摩天樓警示燈用精靈畫布座標（邏輯尺寸）。
+   換圖後沒帶錨點的沿用舊圖寫死座標，在新圖上浮空（37 個掛點 15 個）。警示燈改用精靈最高點；
+   旗子只有自帶 flagAt 或舊圖才掛；雷達預設點浮空才改用最高點。逃生閥 window.__noAnchor636。 ===== */
+function topPt636(s){ // 精靈最高點：最上面一列不透明像素的中點（邏輯座標），按圖快取
+  if(!s||!s.img)return null;const img=s.img;
+  if(img.__top636===undefined){let r=null;try{const g=img.getContext&&img.getContext('2d');if(g){const W=img.width,H=img.height,d=g.getImageData(0,0,W,H).data;
+    for(let y=0;y<H&&!r;y++){let x0=-1,x1=-1;for(let x=0;x<W;x++)if(d[(y*W+x)*4+3]>60){if(x0<0)x0=x;x1=x;}if(x0>=0)r=[(x0+x1)/2,y];}}}catch(e){r=null;}img.__top636=r;}
+  const r=img.__top636;if(!r)return null;const k=s.w/img.width;return [r[0]*k,r[1]*k];
+}
+function opaqueNear636(s,lx,ly,rad){ // 邏輯座標 (lx,ly) 半徑 rad 內有沒有不透明像素（按圖快取）
+  if(!s||!s.img)return false;const img=s.img,key=lx+','+ly+','+rad;img.__near636=img.__near636||new Map();
+  if(img.__near636.has(key))return img.__near636.get(key);
+  let hit=false;try{const g=img.getContext&&img.getContext('2d');if(g){const k=img.width/s.w,R=Math.ceil(rad*k),cx=Math.round(lx*k),cy=Math.round(ly*k);
+    const x0=Math.max(0,cx-R),y0=Math.max(0,cy-R),x1=Math.min(img.width,cx+R+1),y1=Math.min(img.height,cy+R+1);
+    if(x1>x0&&y1>y0){const d=g.getImageData(x0,y0,x1-x0,y1-y0).data;for(let i=3;i<d.length;i+=4)if(d[i]>60){hit=true;break;}}}}catch(e){hit=false;}
+  img.__near636.set(key,hit);return hit;
+}
+function flagPt636(bd,s){ // 旗子掛點；null＝不掛
+  if(s&&s.flagAt)return s.flagAt;
+  if(!(bd.k===7||bd.k===9||bd.k===42))return null;
+  if(!window.__noAnchor636&&s&&(s.__t479||s.__t516))return null; // 新圖沒帶 flagAt：不套舊圖座標
+  return [bd.k===7?36:68,16];
+}
+function radarPt636(bd,s){
+  if(s&&s.radarAt)return s.radarAt;
+  const d=[bd.k===46?36:136,bd.k===46?34:70];
+  if(window.__noAnchor636||opaqueNear636(s,d[0],d[1],3))return d;
+  return topPt636(s)||d;
+}
+function warnPt636(bd,s){
+  if(s&&s.warnAt)return s.warnAt;
+  const d=[58,198-(bd.v===1?168:150)-14];
+  if(window.__noAnchor636||!(s&&s.__t516))return d;
+  return topPt636(s)||d;
+}
 function legacyOverlay606(s){return !!window.__noOvFix606||!(s&&s.__t547);}
 const OVC606={c:null,g:null};
 function ovClipBegin606(s,z){
@@ -62054,10 +62089,11 @@ function draw(dt){
           ctx.drawImage(fr.img,px-fr.ax*z,py-fr.ay*z,fr.w*z,fr.h*z);
         }
       }
-      if((s&&s.flagAt)||bd.k===7||bd.k===9||bd.k===42){ // 旗幟：學校/體育場/市政廳掛點，畫布座標系與 s.ax/s.ay 同一參照；T614 起任何新圖帶 flagAt 都掛旗
+      const fp636=flagPt636(bd,s); // T636：自帶 flagAt 才掛；沒帶的只有舊圖退回舊預設（體育場 T479 新圖自帶靜態旗，舊預設點浮在記分板上方）
+      if(fp636){ // 旗幟：學校/體育場/市政廳掛點，畫布座標系與 s.ax/s.ay 同一參照；T614 起任何新圖帶 flagAt 都掛旗
         const ffr=lodFar?0:Math.floor(visT*3)%3;
         const fs=SPR.flag[ffr];
-        const fmx=(s&&s.flagAt)?s.flagAt[0]:(bd.k===7?36:68), fmy=(s&&s.flagAt)?s.flagAt[1]:16; // T614：新圖自帶旗桿頂座標 flagAt
+        const fmx=fp636[0], fmy=fp636[1]; // T614：新圖自帶旗桿頂座標 flagAt
         ctx.drawImage(fs.img,bx+(fmx-fs.ax)*z,by+(fmy-fs.ay)*z,fs.w*z,fs.h*z);
       }else if(bd.k===4&&bd.v===3&&!win){ // 噴泉水花：公園 v3「噴泉廣場」既有水柱疊加動態飛沫；冬季結冰版（SPR.parkW[3]）不套用
         const pfr=lodFar?0:Math.floor(visT*4)%3;
@@ -62065,7 +62101,7 @@ function draw(dt){
       }else if(bd.k===19||bd.k===46){ // 雷達天線：機場/氣象站掛點（近似塔頂位置）
         const rfr=lodFar?0:Math.floor(visT*5)%4;
         const rs=SPR.radar[rfr];
-        const rmx=(s&&s.radarAt)?s.radarAt[0]:(bd.k===46?36:136), rmy=(s&&s.radarAt)?s.radarAt[1]:(bd.k===46?34:70); // T612：精靈自帶雷達座標優先（重畫後的機場／氣象站）
+        const rp636=radarPt636(bd,s),rmx=rp636[0],rmy=rp636[1]; // T612：精靈自帶雷達座標優先（重畫後的機場／氣象站）；T636：沒帶且預設點浮空時改用精靈最高點
         ctx.drawImage(rs.img,bx+(rmx-rs.ax)*z,by+(rmy-rs.ay)*z,rs.w*z,rs.h*z);
       }else if(bd.k===26){ // 風車葉片：既有風力發電，疊在原塔柱頂端既有靜態葉片位置（視覺上取代為旋轉葉片）
         const wfr=lodFar?0:Math.floor(visT*6)%4;
@@ -62075,8 +62111,8 @@ function draw(dt){
       }else if(bd.k===33||bd.k===34){ // 屋頂警示燈：摩天樓掛點，2 幀閃爍（既有天線警示燈之外的獨立補充光點，位置錯開不重疊）
         const lfr=lodFar?0:Math.floor(visT*3)%2;
         const wb=SPR.warnBlink[lfr];
-        const wby=198-(bd.v===1?168:150)-14; // 198=tby(226)-thw(28)+... 同 T127 rty=tby-h-thw=226-h-28=198-h 公式，再取略高於屋頂平台之高度
-        ctx.drawImage(wb.img,bx+(58-wb.ax)*z,by+(wby-wb.ay)*z,wb.w*z,wb.h*z);
+        const wp636=warnPt636(bd,s); // T636：T516 新圖改用精靈最高點（天線尖）；舊式 (58, 198-h-14) 是 T127 舊圖的屋頂高度，在新圖上浮空
+        ctx.drawImage(wb.img,bx+(wp636[0]-wb.ax)*z,by+(wp636[1]-wb.ay)*z,wb.w*z,wb.h*z);
       }
     }
     if(bd.k<=3&&bd.fire){                                // 火焰疊加在建築之後，並發光
@@ -71571,6 +71607,28 @@ function neonAnchorSelftest625(){ // T625：商業招牌都釘在正面牆上；
   checks.push(['超街區只在第一條發招牌（其餘分段不再重複疊亮）',once]);
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
+function anchorSelftest636(){ // T636：T152 掛點都貼在建築上；警示燈在精靈最高點；沒動到的逐值相同；守衛：關閉閥門時警示燈、旗子、雷達各有浮空
+  const checks=[],sv=window.__noAnchor636;
+  const view=s=>{if(!s||s.sc===undefined)return s;const q=s.sc;return s._scView||(s._scView={...s,w:s.w*q,h:s.h*q,ax:s.ax*q,ay:s.ay*q,_scSrcW:s.w,_scSrcH:s.h});};
+  const scan=()=>{const L=[];
+    for(const k of [33,34])for(let lv=1;lv<=3;lv++)for(let v=0;v<6;v++){const s=view(SPR.bld[k+'_'+lv+'_'+v]);if(s)L.push({tag:'k'+k+'_'+lv+'_'+v,kind:'warn',s,pt:warnPt636({k,lv,v},s)});}
+    for(const k of [7,9,42])for(let lv=1;lv<=3;lv++)for(let v=0;v<6;v++){const s=view(SPR.bld[k+'_'+lv+'_'+v]);if(s)L.push({tag:'k'+k+'_'+lv+'_'+v,kind:'flag',s,pt:flagPt636({k,lv,v},s)});}
+    for(const k of [19,46])for(let lv=1;lv<=3;lv++)for(let v=0;v<6;v++){const s=view(SPR.bld[k+'_'+lv+'_'+v]);if(s)L.push({tag:'k'+k+'_'+lv+'_'+v,kind:'radar',s,pt:radarPt636({k,lv,v},s)});}
+    for(let lv=1;lv<=3;lv++)for(let v=0;v<6;v++){const s=view(SPR.bld['26_'+lv+'_'+v]);if(s)L.push({tag:'k26_'+lv+'_'+v,kind:'rotor',s,pt:s.rotorAt||[32,34]});}
+    return L;};
+  const float=q=>!!q.pt&&!opaqueNear636(q.s,q.pt[0],q.pt[1],3);
+  let N1,O1;try{window.__noAnchor636=false;N1=scan();window.__noAnchor636=true;O1=scan();}finally{window.__noAnchor636=sv;}
+  const fN=N1.filter(float),fO=O1.filter(float),by=(L,kd)=>L.filter(q=>q.kind===kd).length;
+  checks.push(['掛點 '+N1.length+' 個（不掛的 '+N1.filter(q=>!q.pt).length+'）浮空 '+fN.length+(fN.length?'：'+fN.map(q=>q.tag).join('、'):''),fN.length===0]);
+  let top=0,topN=0;for(const q of N1){if(q.kind!=='warn'||!q.pt)continue;topN++;const img=q.s.img,k=img.width/q.s.w,y=Math.floor(q.pt[1]*k);let clear=true;
+    if(y>0){const d=img.getContext('2d').getImageData(0,0,img.width,y).data;for(let i=3;i<d.length;i+=4)if(d[i]>60){clear=false;break;}}if(clear)top++;}
+  checks.push(['警示燈在精靈最高點（上方全透明）'+top+'/'+topN,topN>0&&top===topN]);
+  const keep=N1.filter((q,i)=>{const o=O1[i];return !(q.kind==='warn')&&!(q.kind==='flag'&&/^k9_/.test(q.tag))&&!(q.tag==='k46_1_0');});
+  let same=0;for(const q of keep){const o=O1[N1.indexOf(q)];if(JSON.stringify(o.pt)===JSON.stringify(q.pt))same++;}
+  checks.push(['其餘掛點逐值不變 '+same+'/'+keep.length,same===keep.length]);
+  checks.push(['守衛有效：關閉閥門時浮空 '+fO.length+'（警示燈 '+by(fO,'warn')+'、旗 '+by(fO,'flag')+'、雷達 '+by(fO,'radar')+'）',by(fO,'warn')>=1&&by(fO,'flag')>=1&&by(fO,'radar')>=1]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 function blockConstrSelftest635(){ // T635：超街區升起期——施工疊層每塊一次、切片照分段裁切；單棟施工逐像素不變；守衛：關閉閥門時每條各畫一次、切片無裁切
   const checks=[],sv=window.__noBlockConstr635,c0={x:cam.x,y:cam.y,z:cam.z},r0=viewRot,shk=shakeT,saved=[];
   let area=null;
@@ -72011,10 +72069,10 @@ function moreBldSelftest602(){
   }
   if(typeof tiles!=='undefined'&&tiles){
     let planted=null,prev0=null,prev1=null;
-    for(let y=8;y<20&&!planted;y++)for(let x=8;x<20&&!planted;x++){
-      if(!inMap(x,y)||!inMap(x+1,y))continue;
+    const free636=(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0&&!tiles[idx(x,y)].bld; // T636 施工中追加：全圖找「連外圈一格都是沒建築的陸地」（原本只在 8..19 小窗找陸地：隨機城那一區是湖就紅，鄰格有同類建築也會干擾）
+    for(let y=2;y<N-3&&!planted;y++)for(let x=2;x<N-4&&!planted;x++){
+      let ok=true;for(let dy=-1;dy<=1&&ok;dy++)for(let dx=-1;dx<=2;dx++)if(!free636(x+dx,y+dy)){ok=false;break;}if(!ok)continue;
       const t0=tiles[idx(x,y)],t1=tiles[idx(x+1,y)];
-      if(!t0||t0.t===0||!t1||t1.t===0)continue;
       planted={x,y};prev0=t0.bld;prev1=t1.bld;
       t0.bld={k:1,lv:1,v:0,age:30,pw:true,h:1};t1.bld={k:1,lv:1,v:0,age:30,pw:true,h:1};
     }
@@ -72033,10 +72091,10 @@ function terraceRowSelftest603(){
   const flag=window.__noTerraceRow603;
   if(typeof tiles!=='undefined'&&tiles){
     let planted=null,prev=[];
-    for(let y=8;y<22&&!planted;y++)for(let x=8;x<22&&!planted;x++){
-      if(!inMap(x,y)||!inMap(x+1,y)||!inMap(x,y+1)||!inMap(x+1,y+1))continue;
+    const free636=(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0&&!tiles[idx(x,y)].bld; // T636 施工中追加：全圖找「連外圈一格都是沒建築的陸地」（原本只在 8..21 小窗找：隨機城那一區是湖就紅；種子城左邊有同類鄰居時種下去那格不是起點也紅）
+    for(let y=2;y<N-4&&!planted;y++)for(let x=2;x<N-4&&!planted;x++){
+      let ok=true;for(let dy=-1;dy<=2&&ok;dy++)for(let dx=-1;dx<=2;dx++)if(!free636(x+dx,y+dy)){ok=false;break;}if(!ok)continue;
       const cells=[[x,y],[x+1,y],[x,y+1],[x+1,y+1]];
-      if(cells.some(p=>{const t=tiles[idx(p[0],p[1])];return !t||t.t===0;}))continue;
       planted={x,y};prev=cells.map(p=>tiles[idx(p[0],p[1])].bld);
       cells.forEach(p=>{tiles[idx(p[0],p[1])].bld={k:1,lv:1,v:2,age:30,pw:true,h:1};});
     }
@@ -72798,7 +72856,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
+Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
 partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
