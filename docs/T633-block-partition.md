@@ -69,6 +69,7 @@
 | 修前修後差異像素 | 住宅近景 rot 0：111,509；rot 3：86,788（修正後連拍兩次的雜訊 0） |
 | 煙霧（雲端容器） | 最終版 **綠 3／紅 0**，28.3–28.5s，0 console error（第一次 3 連跑紅一次，見 §6） |
 | `fp.js --check` | **全綠**：葉子零變動（已登記環境差 4 葉）、超街區「與基線一致」、棘輪 OK（151 族） |
+| GitHub Actions（`ce3781d`） | 煙霧 `main` [run 36035389092](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36035389092) 綠、分支 run 36035393712 綠；Pages [run 36035525199](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36035525199) 部署成功 |
 | 樣張 | `shots633/T633_{r0,r3}_cmp.png`（左修正前、右修正後；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）
