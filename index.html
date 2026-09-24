@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.27 · T619</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.28 · T621</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.27'; // T619 夜色加深（業主選 B 檔，nightTint619）。前：T617 煙霧測試去隨機（finish604 全圖找地＋mapScan617 守衛）
-const GAME_ANCHOR='T619'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.28'; // T621 超街區灰板（T160 地坪只在第一條鋪）。前：T619 夜色加深（業主選 B 檔，nightTint619）
+const GAME_ANCHOR='T621'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -61376,7 +61376,7 @@ function draw(dt){
        實際 tile.road 鄰接判定（同樣不消耗 R()/ri()，且比雜湊更決定性——直接反映地圖真實道路連接）。
        window.__noPlaza=true 或 SPR.plaza 缺失（未生成）時本段整段跳過＝與改動前逐像素一致（供除錯/回歸
        比對）。不改任何存檔欄位、不新增 groundCache 鍵成分（本段為物件層動態繪製，每幀重算）===== */
-    if(!window.__noPlaza&&SPR.plaza){
+    if(!window.__noPlaza&&SPR.plaza&&stripPaveOnce621(o)){ // T621：超街區切條時只在第一條鋪（每條都帶同一個起點座標，後面的條重鋪地磚會蓋掉前面畫好的建築＝灰板）
       const pSz=bd.sz>=2?bd.sz:1;
       const pRci=bd.k===1||bd.k===2||bd.k===3||bd.k===33||bd.k===34; // RCI（含摩天樓）：水泥邊／圍欄；其餘皆視為公共：石板／綠籬
       const AGRI404=bd.k===22||bd.k===23||bd.k===53||bd.k===63; /* T404：農牧家族（農場/牧場/大農場/溫室）。業主回報「農場覆蓋鄰地塊」，真兇=本分支把 k22 當大型公共建築給了外擴石板前庭環——舊版田小有院勉強讀作場院，T396-A 田鋪滿後石板環圍農田＝顯著越界。footprint 內鋪磚/底座陰影/入口通道不動（藏在地墊下零視覺差），只砍越界外擴環 */
@@ -71368,6 +71368,22 @@ function rciAbsorbed555(x,y){
   }
   return false;
 }
+/* T621：T160 建築地坪（鋪磚／底座陰影／入口踏步／圍欄）對超街區只處理起點格，而 T555 每一條分段都帶同一個起點座標。
+   rot 0 起點格屬於最先畫的一條 ⇒ 後面每一條重鋪一次地磚，把前面畫好的建築蓋成灰板。比照 T575 once575：只在第一條鋪。
+   逃生閥 __noStripPave621＝每條都鋪（舊行為）。 */
+function stripPaveOnce621(o){return !!window.__noStripPave621||o.blockDiag555==null||o.blockDiag555===o.blockD0575;}
+function stripPaveSelftest621(){
+  const saved=window.__noStripPave621,checks=[];
+  try{
+    window.__noStripPave621=false;
+    checks.push(['非分段物件照鋪',stripPaveOnce621({x:3,y:3})===true]);
+    checks.push(['第一條鋪',stripPaveOnce621({blockDiag555:7,blockD0575:7})===true]);
+    checks.push(['後面的條不鋪',stripPaveOnce621({blockDiag555:9,blockD0575:7})===false]);
+    window.__noStripPave621=true;
+    checks.push(['閥門還原：後面的條也鋪',stripPaveOnce621({blockDiag555:9,blockD0575:7})===true]);
+  }finally{window.__noStripPave621=saved;}
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 function clipBlockDiag555(ctx,x,y,bw,bh,d,z,sxOf,syOf){
   const up=520*z;
   ctx.beginPath();
@@ -72319,7 +72335,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619});
+Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
