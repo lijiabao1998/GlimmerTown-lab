@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.29 · T622</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.30 · T623</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.29'; // T622 奇數旋轉時超街區建築圖長寬對調（blockDims622）。前：T621 超街區灰板（T160 地坪只在第一條鋪）
-const GAME_ANCHOR='T622'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.30'; // T623 路面標線：路口／橋面短線不再射出路格（spokeEnd623）、直路車道線順著道路方向（roadEdgePt623）。前：T622 奇數旋轉時超街區建築圖長寬對調（blockDims622）
+const GAME_ANCHOR='T623'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -49787,26 +49787,36 @@ function applyT478BridgeRoadRefinement(){
 }
 function roadTier478(t){if(!t||!t.road)return 0;return t.hw?5:Math.max(1,Math.min(4,t.rc||2));}
 function roadPt478(bit){return bit===1?[32,2]:bit===2?[62,16]:bit===4?[32,30]:[2,16];}
+function roadEdgePt623(bit){ // T623：路網遮罩的四個位元是四個相鄰格（1 右上、2 右下、4 左下、8 左上），在等距菱形上對應四條「邊」的中點；T478 誤用四個頂點，直路車道線因此橫跨斜向路面（業主截圖「街道上的斜線」）。只給路面標線用，橋與鐵路仍用 roadPt478；閥 __noRoadAxis623 退回頂點
+  if(window.__noRoadAxis623)return roadPt478(bit);
+  return bit===1?[48,8]:bit===2?[48,24]:bit===4?[16,24]:[16,8];
+}
+function spokeEnd623(c,p,k){ // T623：從路口中心 c 往邊點 p 走 k 的位置。T478 原式 (c+p)*k 把兩個螢幕絕對座標相加再乘，線長隨路口在畫面上的位置變長、射出畫面（業主截圖「街道上的斜線」）；閥 __noSpokeFix623 退回原式
+  if(window.__noSpokeFix623)return [(c[0]+p[0])*k,(c[1]+p[1])*k];
+  return [c[0]+(p[0]-c[0])*k,c[1]+(p[1]-c[1])*k];
+}
 function drawRoadLine478(gc,z,pts,opt={}){if(!pts||pts.length<2)return;if(window.__noRoadStripes600)return;if(opt.dash&&z<.92)return;gc.save();gc.strokeStyle=opt.col||'#f3f0c8';gc.lineWidth=Math.max(1,Math.round((opt.w||1.2)*z));gc.lineCap=opt.cap||'round';gc.lineJoin='round';if(opt.dash)gc.setLineDash(opt.dash.map(v=>Math.max(1,v*z)));gc.beginPath();gc.moveTo(Math.round(pts[0][0])+.5,Math.round(pts[0][1])+.5);for(let i=1;i<pts.length;i++)gc.lineTo(Math.round(pts[i][0])+.5,Math.round(pts[i][1])+.5);gc.stroke();gc.restore();}
 function drawRoadHierarchy478(gc,t,x,y,sx,sy,z,rm){
   if(!t.road||window.__noRoadHierarchy478||window.__noRoadStripes600)return;
   const tier=roadTier478(t), c=[Math.round(sx+32*z),Math.round(sy+16*z)], bits=[1,2,4,8].filter(b=>rm&b), n=bits.length;
   const lane=tier===5?'#eaf2f8':tier>=3?'#f1e8aa':'#d9d3a0', edge=tier===5?'#dfe6ec':'#cfd6dc', median=tier>=4?'#d7b14d':'#e7de8e';
-  const pathOf=(b)=>{const p=roadPt478(b);return [c,[Math.round(sx+p[0]*z),Math.round(sy+p[1]*z)]];};
+  const pathOf=(b)=>{const p=roadEdgePt623(b);return [c,[Math.round(sx+p[0]*z),Math.round(sy+p[1]*z)]];};
   if(tier>=3){for(const b of bits){drawRoadLine478(gc,z,pathOf(b),{col:edge,w:tier===5?1.5:.9});}}
   if((rm===5||rm===10)&&n===2){
-    const vertical=rm===5;
-    const p0=vertical?[sx+32*z,sy+2*z]:[sx+2*z,sy+16*z], p1=vertical?[sx+32*z,sy+30*z]:[sx+62*z,sy+16*z];
+    const vertical=rm===5, ax=!window.__noRoadAxis623;
+    const e0=roadEdgePt623(bits[0]),e1=roadEdgePt623(bits[1]);
+    const p0=ax?[sx+e0[0]*z,sy+e0[1]*z]:(vertical?[sx+32*z,sy+2*z]:[sx+2*z,sy+16*z]), p1=ax?[sx+e1[0]*z,sy+e1[1]*z]:(vertical?[sx+32*z,sy+30*z]:[sx+62*z,sy+16*z]);
+    const V=(d,dh,dv)=>ax?[[0,-d*z],[0,d*z]]:(vertical?[[-dh*z,0],[dh*z,0]]:[[0,-dv*z],[0,dv*z]]); // T623：等距斜路上下平移就是平行線；閥門開時沿用 T478 原本的左右／上下偏移
     if(tier===2){drawRoadLine478(gc,z,[p0,p1],{col:lane,w:.9,dash:[4,4]});}
     else if(tier===3){
-      const off=vertical?[[-1.4*z,0],[1.4*z,0]]:[[0,-1.1*z],[0,1.1*z]];
+      const off=V(1.2,1.4,1.1);
       for(const o of off)drawRoadLine478(gc,z,[[p0[0]+o[0],p0[1]+o[1]],[p1[0]+o[0],p1[1]+o[1]]],{col:lane,w:.9});
     }else if(tier===4){
-      const off=vertical?[[-2.1*z,0],[2.1*z,0]]:[[0,-1.8*z],[0,1.8*z]];
+      const off=V(2,2.1,1.8);
       drawRoadLine478(gc,z,[p0,p1],{col:median,w:1.35});
       for(const o of off)drawRoadLine478(gc,z,[[p0[0]+o[0],p0[1]+o[1]],[p1[0]+o[0],p1[1]+o[1]]],{col:'#eef3f6',w:.9});
     }else if(tier===5){
-      const edgeOff=vertical?[[-5.2*z,0],[5.2*z,0]]:[[0,-3.9*z],[0,3.9*z]], midOff=vertical?[[-1.5*z,0],[1.5*z,0]]:[[0,-1.2*z],[0,1.2*z]];
+      const edgeOff=V(4.4,5.2,3.9), midOff=V(1.3,1.5,1.2);
       for(const o of edgeOff)drawRoadLine478(gc,z,[[p0[0]+o[0],p0[1]+o[1]],[p1[0]+o[0],p1[1]+o[1]]],{col:'#f4f7fa',w:1.1});
       for(const o of midOff)drawRoadLine478(gc,z,[[p0[0]+o[0],p0[1]+o[1]],[p1[0]+o[0],p1[1]+o[1]]],{col:'#e6edf2',w:.8,dash:[5,4]});
       if(t.fly475||t.ix475){gc.save();gc.fillStyle='rgba(231,189,82,.85)';gc.beginPath();gc.moveTo(c[0],c[1]-3*z);gc.lineTo(c[0]+5*z,c[1]);gc.lineTo(c[0],c[1]+3*z);gc.lineTo(c[0]-5*z,c[1]);gc.closePath();gc.fill();gc.restore();}
@@ -49816,10 +49826,10 @@ function drawRoadHierarchy478(gc,t,x,y,sx,sy,z,rm){
     if(tier>=2)drawRoadLine478(gc,z,pts,{col:tier>=4?median:lane,w:tier>=4?1.1:.85,dash:tier===2?[4,4]:null});
   }else if(n>=3){
     gc.save();gc.fillStyle=tier>=4?'rgba(222,188,92,.78)':'rgba(232,228,185,.70)';gc.beginPath();gc.ellipse(c[0],c[1],(tier===5?5.5:4.2)*z,(tier===5?2.8:2.2)*z,0,0,Math.PI*2);gc.fill();
-    gc.strokeStyle='rgba(244,247,250,.75)';gc.lineWidth=.8*z;for(const b of bits){const p=pathOf(b)[1];gc.beginPath();gc.moveTo(c[0],c[1]);gc.lineTo((c[0]+p[0])*.62,(c[1]+p[1])*.62);gc.stroke();}
+    gc.strokeStyle='rgba(244,247,250,.75)';gc.lineWidth=.8*z;for(const b of bits){const p=pathOf(b)[1],e=spokeEnd623(c,p,.62);gc.beginPath();gc.moveTo(c[0],c[1]);gc.lineTo(e[0],e[1]);gc.stroke();}
     gc.restore();
   }
-  if((t.bridge||t.fly475||t.ix475) && tier>=3){gc.save();gc.strokeStyle='rgba(246,248,250,.65)';gc.lineWidth=.9*z;for(const b of bits){const p=pathOf(b)[1];gc.beginPath();gc.moveTo(c[0],c[1]-1.2*z);gc.lineTo((c[0]+p[0])*.92,(c[1]+p[1])*.92-1.2*z);gc.stroke();}gc.restore();}
+  if((t.bridge||t.fly475||t.ix475) && tier>=3){gc.save();gc.strokeStyle='rgba(246,248,250,.65)';gc.lineWidth=.9*z;for(const b of bits){const p=pathOf(b)[1],e=spokeEnd623(c,p,.92);gc.beginPath();gc.moveTo(c[0],c[1]-1.2*z);gc.lineTo(e[0],e[1]-1.2*z);gc.stroke();}gc.restore();}
 }
 function drawBridgeRefinement478(gc,t,x,y,sx,sy,z,rm){
   if(!(t.bridge||t.fly475||t.ix475) || window.__noBridgeRefine478)return;
@@ -71365,6 +71375,41 @@ function rotSwapSelftest622(){
   }finally{window.__noRotSwap622=saved;}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
+function roadMarkSelftest623(){ // T623：路面標線（T478）不得射出路格，直路標線要順著道路方向；守衛：兩個修正閥各自關閉時都必須被抓到
+  const saved={fix:window.__noSpokeFix623,ax:window.__noRoadAxis623,hier:window.__noRoadHierarchy478,str:window.__noRoadStripes600},checks=[];
+  const eq=(a,b)=>Math.abs(a[0]-b[0])<1e-9&&Math.abs(a[1]-b[1])<1e-9;
+  const probe=(t,rm,sx,sy,z)=>{const segs=[];let pts=[]; // 假 context：只記每一段線的端點
+    const g={save(){},restore(){},setLineDash(){},beginPath(){pts=[];},closePath(){},moveTo(x,y){pts.push([x,y]);},lineTo(x,y){pts.push([x,y]);},
+      stroke(){for(let i=1;i<pts.length;i++)segs.push([pts[i-1],pts[i]]);},fill(){},ellipse(){},fillRect(){},arc(){}};
+    drawRoadHierarchy478(g,t,5,5,sx,sy,z,rm);return segs;};
+  const out=(segs,sx,sy,z)=>segs.filter(s=>s.some(p=>p[0]<sx-2*z||p[0]>sx+66*z||p[1]<sy-2*z||p[1]>sy+34*z)).length;
+  const offAxis=(segs,slope)=>segs.filter(s=>{const dx=s[1][0]-s[0][0],dy=s[1][1]-s[0][1];if(Math.hypot(dx,dy)<4)return false;return Math.abs(dx)<1e-9||Math.abs(dy/dx-slope)>.08;}).length;
+  const sx=900,sy=500,z=2,TIERS=[{road:1,rc:2},{road:1,rc:3},{road:1,rc:4},{road:1,hw:1}];
+  const straight=()=>{let segs=0,bad=0;for(const t of TIERS)for(const [rm,sl] of [[10,.5],[5,-.5]]){const s=probe(t,rm,sx,sy,z);segs+=s.length;bad+=offAxis(s,sl);}return {segs,bad};};
+  try{
+    window.__noRoadHierarchy478=false;window.__noRoadStripes600=false;window.__noSpokeFix623=false;window.__noRoadAxis623=false;
+    const c=[900,500],p=[962,516];
+    checks.push(['純函式：c+(p−c)×k',eq(spokeEnd623(c,p,.5),[931,508])]);
+    checks.push(['純函式：與畫面位置無關（平移不變）',eq(spokeEnd623([c[0]+300,c[1]+200],[p[0]+300,p[1]+200],.62).map((v,i)=>v-[300,200][i]),spokeEnd623(c,p,.62))]);
+    checks.push(['路網位元對到菱形四條邊的中點',eq(roadEdgePt623(1),[48,8])&&eq(roadEdgePt623(2),[48,24])&&eq(roadEdgePt623(4),[16,24])&&eq(roadEdgePt623(8),[16,8])]);
+    const T3={road:1,rc:2},X4={road:1,rc:3},BR={road:1,rc:3,bridge:1};
+    const s3=probe(T3,7,sx,sy,z),s4=probe(X4,15,sx,sy,z),sb=probe(BR,5,sx,sy,z);
+    checks.push(['三向路口：線段都在路格內（'+s3.length+' 段）',s3.length>0&&out(s3,sx,sy,z)===0]);
+    checks.push(['十字路口：線段都在路格內（'+s4.length+' 段）',s4.length>0&&out(s4,sx,sy,z)===0]);
+    checks.push(['橋面直路：線段都在路格內（'+sb.length+' 段）',sb.length>0&&out(sb,sx,sy,z)===0]);
+    const st=straight();
+    checks.push(['直路四個等級、兩個方向：標線都順著道路（'+st.segs+' 段，偏離 '+st.bad+'）',st.segs>0&&st.bad===0]);
+    window.__noSpokeFix623=true;
+    checks.push(['閥門還原：純函式等於原式 (c+p)×k',eq(spokeEnd623(c,p,.62),[(c[0]+p[0])*.62,(c[1]+p[1])*.62])]);
+    const bad=out(probe(T3,7,sx,sy,z),sx,sy,z)+out(probe(X4,15,sx,sy,z),sx,sy,z)+out(probe(BR,5,sx,sy,z),sx,sy,z);
+    checks.push(['守衛有效：關閉長度修正時抓到出界線段 ≥1（'+bad+'）',bad>=1]);
+    window.__noSpokeFix623=false;window.__noRoadAxis623=true;
+    checks.push(['閥門還原：位元退回頂點',eq(roadEdgePt623(1),roadPt478(1))&&eq(roadEdgePt623(8),roadPt478(8))]);
+    const st2=straight();
+    checks.push(['守衛有效：關閉方向修正時抓到橫跨路面的線 ≥1（'+st2.bad+'）',st2.bad>=1]);
+  }finally{window.__noSpokeFix623=saved.fix;window.__noRoadAxis623=saved.ax;window.__noRoadHierarchy478=saved.hier;window.__noRoadStripes600=saved.str;}
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
@@ -72352,7 +72397,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622});
+Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,roadMarkSelftest623,spokeEnd623,roadEdgePt623});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
