@@ -2,7 +2,7 @@
 
 **輪次**：r65（第一輪雲端施工）
 **基線**：`cae80f1`（index.html 同 T615 v13.25，7,823,875 bytes／74,092 行）
-**狀態**：🚧 施工中
+**狀態**：✅ 綠燈，已 commit（`ed4e6cb`）並推 `main`
 
 ---
 
@@ -69,11 +69,13 @@ Windows 本機無法在雲端實測：改動只在「Linux」或「沒有 `LOCAL
 | `fp.js --check` 修前 | 與 `fp.json`（本機 T615）差 4 葉：`bld.175_1_0`～`bld.178_1_0` |
 | `fp.js --check` 修後 | **同樣 4 葉**，其餘 150 族零變動 ⇒ 本輪零繪製變動 |
 | `git status` | 跑完乾淨（不再產生 `Temp/`） |
-| GitHub Actions | （推送後補） |
+| GitHub Actions（`ed4e6cb`，`main`） | **綠**，煙霧 37.1s、全部自檢 OK（含 `mapScan617`）、0 console error、56.1 fps；樣張＋紀錄附件 481 KB（[run 35983892286](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/35983892286)） |
 
 ## 6. 施工紀錄（如實，含失敗）
 
 - **r65-a 改道**：原訂獨立腳本 `probe617.js` 直接改 `tiles`，第一跑就紅「tiles is not defined」——主程式包在 IIFE 裡，外面拿不到地圖。改成遊戲內自檢 `mapScanSelftest617`（本線慣例：自檢自帶關閥門對照），順便變成煙霧測試的常駐項。`probe617.js` 已刪。
 - **r65-b 自己抓到**：`finish604` 的註解還寫著已刪的 `probe617.js`，改成 `mapScanSelftest617`（純註解；5 連跑的第 1 跑在這之前，第 2～5 跑在這之後）。
 - **發現，未解**：雲端容器重現不了本機指紋的 4 葉（`bld.175`～`178` 的 v1：公車車庫、輕軌車庫、鐵路車輛基地、地鐵機廠，皆為 `v574` 批次）。改動前就存在，推測是 Chrome 版本或平台造成的畫邊差異，**沒有查證**。`fp.json` 不改。之後在雲端做美術輪，指紋基線要用「同一容器、改動前」自己跑一份，不直接對本機 `fp.json`。
+- **自己踩到的坑**：`node fp.js --inventory` 不只印盤點，也會**寫回 `fp.json`、`style.json`**（跟不帶參數一樣）。美術探針跑它時把容器的 4 葉寫進了基線，發現後立刻 `git checkout -- fp.json style.json` 還原，沒有進 commit。雲端只准用 `--check`；要盤點就跑完立刻還原。
+- **小尾巴**：Actions 警告 `checkout／setup-node／upload-artifact@v4` 用的 Node 20 已淘汰（目前被強制跑在 Node 24，不影響結果）。沒有查證 v5 各版號，先不動。
 - **沒驗到的**：Windows 本機。改動只在 Linux 或沒有 `LOCALAPPDATA` 時生效，靠程式結構保證；下次本機自走時順便跑一次煙霧。
