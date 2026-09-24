@@ -1,0 +1,40 @@
+# T617：每次推送在 GitHub 的 Ubuntu 機器上跑開機煙霧測試，樣張上傳成本次執行的附件。
+# 只證明「跑得起來、自檢全過、console 乾淨」；幀率在沒有 GPU 的機器上只記不判，美術好壞仍要人看。
+name: smoke
+
+on:
+  push:
+    branches: [main, 'claude/**']
+    paths-ignore: ['**.md', 'docs/**']
+  pull_request:
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+
+concurrency:
+  group: smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22   # harness.js 用 Node 內建 WebSocket
+      - name: 中文字型（與雲端施工容器同一套，樣張 UI 字不變豆腐）
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: 煙霧測試
+        run: node smoke.js 2>&1 | tee smoke-run.txt; exit ${PIPESTATUS[0]}
+        shell: bash
+      - name: 上傳樣張與紀錄
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ github.sha }}
+          path: |
+            shots/smoke-*.png
+            smoke-run.txt
+          if-no-files-found: warn
+          retention-days: 14

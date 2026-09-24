@@ -24,9 +24,19 @@ const CHROME_CANDIDATES = [
   'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
 ];
 
+// T617：Linux（雲端容器、GitHub Actions）。Playwright 預裝的 Chromium 版本號會變，執行時才列目錄。
+function linuxCandidates() {
+  const out = [];
+  try {
+    for (const d of fs.readdirSync('/opt/pw-browsers')) if (/^chromium-\d+$/.test(d)) out.push(`/opt/pw-browsers/${d}/chrome-linux/chrome`);
+  } catch {}
+  return out.concat(['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser']);
+}
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 function findChrome() {
-  const p = process.env.CHROME_PATH || CHROME_CANDIDATES.find(x => fs.existsSync(x));
+  const list = process.platform === 'linux' ? linuxCandidates() : CHROME_CANDIDATES;
+  const p = process.env.CHROME_PATH || list.find(x => fs.existsSync(x));
   if (!p) throw new Error('找不到 Chrome/Edge，可設 CHROME_PATH 環境變數');
   return p;
 }
@@ -112,6 +122,8 @@ function launchChrome(devPort, profile) {
   return spawn(findChrome(), [
     '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
     '--hide-scrollbars', '--mute-audio', '--window-size=1280,800',
+    // T617：Linux 容器以 root 跑、Ubuntu 24.04 又限制非特權 namespace，Chrome 沙箱起不來；只載本機 index.html，關沙箱可接受。Windows 不加。
+    ...(process.platform === 'linux' ? ['--no-sandbox'] : []),
     `--user-data-dir=${profile}`, `--remote-debugging-port=${devPort}`, 'about:blank',
   ], { stdio: 'ignore' });
 }

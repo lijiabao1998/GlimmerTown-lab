@@ -13,6 +13,12 @@
 
 ---
 
+## r65 — T617 煙霧測試去隨機、跨平台，接上 GitHub Actions（第一輪雲端施工）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r65 | [T617](docs/T617-smoke-determinism-ci.md) | 業主改序「美術第一」，先修判紅綠的尺：`finish604` 只在固定小窗找 4×4 陸地，隨機新地圖約 1/3 亂紅 → 全圖掃描＋排除工業鄰格；新守衛 `mapScan617`（淹掉舊小窗：舊紅新綠、地圖還原）掛進煙霧；harness 在 Linux 自己找 Chromium、加 `--no-sandbox`；自檢 JSON 不再落進倉庫 `Temp/`；新增 `.github/workflows/smoke.yml`；v13.26／T617。同日另有文件 commit `cae80f1`（CLAUDE.md、自走令改序） | ✅ 綠 5/5（33.9–35.1s，雲端容器）；修前 3 跑紅 1 | pending | — | ① 雲端重現不了本機指紋 4 葉（`bld.175～178` v1），改動前就有，原因未查 ② Windows 本機沒實測 ③ Actions 結果待推送後補 |
+
 ## r64 — T616 日誌整理（最新在上、回填 pending、標出重號）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |

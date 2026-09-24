@@ -68,8 +68,10 @@ const KEEP = process.argv.includes('--keep');
       ['leash613', `(window.GV && window.GV.leashSelftest613) ? window.GV.leashSelftest613() : {ok:false,checks:['API 不存在']}`],
       ['civic614', `(window.GV && window.GV.civicSelftest614) ? window.GV.civicSelftest614() : {ok:false,checks:['API 不存在']}`],
       ['culture615', `(window.GV && window.GV.cultureSelftest615) ? window.GV.cultureSelftest615() : {ok:false,checks:['API 不存在']}`],
+      ['mapScan617', `(window.GV && window.GV.mapScanSelftest617) ? window.GV.mapScanSelftest617() : {ok:false,checks:['API 不存在']}`],
     ];
-    const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA || '', 'Temp', 'grok-goal-c80f16d61c81', 'implementer');
+    // T617：沒有 LOCALAPPDATA（Linux）時改寫系統暫存目錄；原本會落進倉庫裡的 Temp/。
+    const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Temp') : require('os').tmpdir(), 'grok-goal-c80f16d61c81', 'implementer');
     const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json', hud598: 'hud-realtime-selftest.json', panel599: 'panel-live-selftest.json', workshop600: 'workshop-selftest.json' };
     try { fs.mkdirSync(scratch, { recursive: true }); } catch (e) {}
     for (const [name, expr] of selftests) {
