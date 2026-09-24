@@ -74,6 +74,7 @@
 | 煙霧（雲端容器） | **綠 3／紅 0**，33.0–35.7s，0 console error |
 | `fp.js --check` | 葉子與 T623 相同：只有環境差 4 葉 |
 | `fp.js --expect=bld,block559`（在暫存複本跑） | block559 照宣告變動 `a617f03e → d6ca3b88`（864 個決定性條目）；指紋差＝宣告清單；**七軸棘輪 OK（151 族無一下降）** |
+| GitHub Actions（`f5e48cf`） | 煙霧綠：`main` [run 36014331432](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36014331432)、分支 run 36014335137；Pages 自動部署成功（[run 36014455751](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36014455751)） |
 | 樣張 | `shots624/T624_{home,mid}_{old,new}.png`（不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）

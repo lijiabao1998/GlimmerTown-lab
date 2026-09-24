@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.32 · T625</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.33 · T626</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.32'; // T625 商業霓虹招牌釘回正面牆（neonRects625）、超街區不再重複疊亮、T413 小招牌用最前面那一格定位。前：T624 街區精靈兩個量體前後顛倒
-const GAME_ANCHOR='T625'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.33'; // T626 煙囪冒煙點對齊真的煙囪（smokeViewSrc626，view 座標），四個旋轉煙都往上飄。前：T625 商業霓虹招牌釘回正面牆
+const GAME_ANCHOR='T626'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -57051,16 +57051,18 @@ function updSmoke(dt){
       if(b.k===1&&b.riot){offs=[{dx:0,dy:-42}];col='#3a3530';} // T118：暴亂住宅複用既有煙粒繪製火把/騷亂煙霧（不新建 sprite，屋頂上方固定一點冒煙）
       if(sea===3&&b.k===1&&b.pw&&!b.riot&&!window.__noChimney){const sm=SPR.bld[b.k+'_'+b.lv+'_'+b.v];if(sm&&sm.smoke.length){offs=sm.smoke;col='#d8d2c6';}} // T185：冬季民居炊煙（Opus 親手）——入冬(sea===3)供電住宅(k=1,pw)非暴亂時自煙囪點冒暖灰輕煙（沿用既有 smoke 管線/上限，煙點含 chimneySmall(T185補)/chimneyBrick(lv2-3)）；非冬/未供電/暴亂/__noChimney 不繪＝該狀態零改動；讀既有 sea/建築態，spawn 用 Math.random 與模擬 R() 獨立（同 T159 粒子慣例）
       let base608=0; // T608：工業與冬季民居改由街區原點格、從街區精靈記下的煙囪頂冒（原本逐格讀 72px 舊圖集的偏移，對不上新煙囪）
-      if(!window.__noSmoke608&&((b.k===3&&b.pw&&b.lv>=1)||(sea===3&&(b.k===1||(b.k===2&&!window.__noShopSmoke613))&&b.pw&&!b.riot&&!window.__noChimney))){const src=smokeSrc608(x,y,b);if(src){offs=src.length?src:null;base608=src.length?1:0;if(b.k===1||b.k===2)col='#d8d2c6';}} // T613：英式高街店屋（k2）冬季也從立面記下的煙囪冒炊煙
+      if(!window.__noSmoke608&&((b.k===3&&b.pw&&b.lv>=1)||(sea===3&&(b.k===1||(b.k===2&&!window.__noShopSmoke613))&&b.pw&&!b.riot&&!window.__noChimney))){const vw626=!window.__noSmokeView626,src=vw626?smokeViewSrc626(x,y,b):smokeSrc608(x,y,b);if(src){offs=src.length?src:null;base608=src.length?(vw626?2:1):0;if(b.k===1||b.k===2)col='#d8d2c6';}} // T613：英式高街店屋（k2）冬季也從立面記下的煙囪冒炊煙
       if(!offs||!offs.length)continue;
       if(Math.random()<.5)continue;
       const o=offs[vri(offs.length)];
+      if(base608===2){smokes.push({wx:o.vx,wy:o.vy,view626:viewRotEff()+1,age:0,life:(2.2+Math.random())*(weather?.6:1),col,big,dep:viewDep(o.ax,o.ay),sx443:o.ax,sy443:o.ay});continue;} // T626：view 座標煙粒，上升就是畫面往上、風就是畫面往右
       const wx=base608?o.wx:(x-y)*32+o.dx, wy=base608?o.wy:(x+y)*16+32+o.dy;
       smokes.push({wx,wy,age:0,life:(2.2+Math.random())*(weather?.6:1),col,big,dep:base608?viewDep(o.ax,o.ay):viewDep(x,y),sx443:base608?o.ax:x,sy443:base608?o.ay:y});
     }
   }
   for(let i=smokes.length-1;i>=0;i--){
     const s=smokes[i];
+    if(s.view626&&s.view626!==viewRotEff()+1){smokes.splice(i,1);continue;} // T626：換視角後舊角度的 view 座標煙粒作廢
     s.age+=dt;s.wy-=dt*14;{const lw443=(s.sx443!==undefined)?localWind443(s.sx443,s.sy443):windX441, rise443=clamp(s.age/Math.max(.01,s.life),0,.78);s.wx+=dt*(6+lerp(lw443,windX441,rise443)*16);} /* T443：煙在源頭先吃局部風影，升高後漸回全局風；T443 off 精確退回 T441 */
     if(s.age>s.life)smokes.splice(i,1);
   }
@@ -61251,7 +61253,8 @@ function draw(dt){
       const s=o.smoke;
       const k=s.age/s.life;
       const sz=Math.max(z,Math.round((2+k*(s.big?7:4.5))*z)); // T159：電廠蒸汽（big）膨脹較快較大，其餘沿用既有倍率
-      const _iso=isoW2V(s.wx,s.wy,32); // T367 退修 P1：煙的世界 iso 過 view
+      if(s.view626&&s.view626!==viewRotEff()+1)continue; // T626
+      const _iso=s.view626?[s.wx,s.wy]:isoW2V(s.wx,s.wy,32); // T367 退修 P1：煙的世界 iso 過 view；T626：view 座標煙粒直接畫
       ctx.globalAlpha=(1-k)*.5;
       ctx.fillStyle=s.col||'#d7dce2';
       ctx.fillRect(ox+_iso[0]*z,oy+_iso[1]*z,sz,sz);
@@ -70816,6 +70819,17 @@ function smokeSrc608(x,y,b){ // 純函式：這格此刻的工業／民居冒煙
   if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
   return sp.smoke608.map(p=>({wx:(ax-ay)*32+32+(p[0]-sp.ax),wy:(ax+ay)*16+32+(p[1]-sp.ay),ax,ay}));
 }
+function smokeViewSrc626(x,y,b){ // T626：同一張街區精靈、同一個錨格，煙囪在 view 等距座標（畫面座標扣掉 ox、oy、z）的位置，與畫精靈的 sxOf／syOf 同一條公式。smokeSrc608 的 wx 多加 32（z=2 時右偏 64px），又存世界座標經 isoW2V 旋轉，rot 1–3 煙往側面、往下飄
+  if(window.__noSmoke608||!b||b.ref||(b.sz&&b.sz>=2))return null;
+  if(!(b.k===1||b.k===2||b.k===3))return null; // T626：收 k2——T613 放寬了冬季店屋的觸發，但 smokeSrc608 開頭只收 k1／k3，店屋炊煙從來沒冒過
+  const blk=rciBlockOrigin547(x,y);if(!blk)return [];
+  const bw=blk.w||1,bh=blk.h||1;let sp=null;try{const d622=blockDims622(bw,bh,viewRotEff());sp=getBlockSprite547(b.k,b.lv||1,d622[0],d622[1],b.v||0);}catch(e){sp=null;}
+  if(!sp||!sp.smoke608)return [];
+  let ax=x+bw-1,ay=y+bh-1,bd0=-1;
+  if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
+  const v=w2v(ax,ay);
+  return sp.smoke608.map(p=>({vx:(v[0]-v[1])*32-sp.ax+p[0],vy:(v[0]+v[1])*16+32-sp.ay+p[1],ax,ay}));
+}
 /* ===== T612 起各波美術共用自檢：artWaveCheck612(list, opt) =====
    list：[{k, sz, n?}]（n＝要驗的變體數，預設 3）。每一類逐變體驗：鍵都在、沒有 T516 旗標、畫布與錨點沿用開機記錄、
    有夜圖且夜光都在白天像素 2px 內、三變體是結構差異（剪影差 ≥12% 或同位色差 ≥35%）、地塊菱形下緣外沒有像素。 ===== */
@@ -71477,6 +71491,53 @@ function neonAnchorSelftest625(){ // T625：商業招牌都釘在正面牆上；
   checks.push(['守衛有效：舊算法同一批招牌落在牆外 '+oldOut+'/'+oldN+'（須 ≥1）',oldOut>=1]);
   const sv=window.__noNeonAnchor625;let once=false;try{window.__noNeonAnchor625=false;once=neonOnce625({blockDiag555:3,blockD0575:3})&&!neonOnce625({blockDiag555:4,blockD0575:3})&&neonOnce625({});}finally{window.__noNeonAnchor625=sv;}
   checks.push(['超街區只在第一條發招牌（其餘分段不再重複疊亮）',once]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+function smokeViewSelftest626(){ // T626：煙源與「真的畫出來的煙囪像素」對齊（攔截 drawImage，不是反推同一條公式）；四個旋轉；守衛：關閉閥門時 rot 0 差 32·z
+  const checks=[],K=3,LV=2,V=3; // 工業 lv2 v3＝原型 stack，有煙囪
+  let x0=-1,y0=-1;
+  const free=(x,y)=>{if(!inMap(x,y))return false;const t=tiles[idx(x,y)];return t.t!==0&&!t.bld&&!t.road&&!t.rail&&!t.tram&&!t.zone;};
+  for(let y=4;y<N-6&&x0<0;y++)for(let x=4;x<N-6;x++){let ok=true;for(let dy=-1;dy<=2&&ok;dy++)for(let dx=-1;dx<=2;dx++)if(!free(x+dx,y+dy)){ok=false;break;}if(ok){x0=x;y0=y;break;}}
+  checks.push(['找到可暫時種 2×2 工業的空地',x0>=0,x0>=0?x0+','+y0:'無']);if(x0<0)return {ok:false,checks:checks.map(c=>c[0]+' ✗')};
+  const planted=[],c0={x:cam.x,y:cam.y,z:cam.z},r0=viewRot,sv=window.__noSmokeView626;
+  const measure=(rot)=>{
+    setViewRot(rot);GV.lookAt(x0+1,y0+1);cam.z=2;
+    const b=tiles[idx(x0,y0)].bld,blk=rciBlockOrigin547(x0,y0),d622=blockDims622(blk.w,blk.h,viewRotEff()),sp=getBlockSprite547(K,LV,d622[0],d622[1],V);
+    const hits=[],g=ctx,o=g.drawImage;
+    g.drawImage=function(img,...a){if(img===sp.img&&a.length===4)hits.push(a.slice());return o.call(this,img,...a);};
+    try{draw(.016);}finally{g.drawImage=o;}
+    if(!hits.length||!sp.smoke608||!sp.smoke608.length)return null;
+    const z=cam.z,ox=Math.round(W/2-cam.x*z),oy=Math.round(H/2-cam.y*z);
+    window.__noSmokeView626=false;const sN=smokeViewSrc626(x0,y0,b)[0],nw=[ox+sN.vx*z,oy+sN.vy*z];
+    // 地圖上可能還有別塊用同一張精靈：挑錨格位置最近的那一次繪製（只用來認是哪一塊，比對的是它實際畫出來的煙囪像素）
+    const va=w2v(sN.ax,sN.ay),ex=[ox+((va[0]-va[1])*32-32)*z+(32-sp.ax)*z,oy+((va[0]+va[1])*16)*z+(32-sp.ay)*z],dd=h=>Math.hypot(h[0]-ex[0],h[1]-ex[1]);
+    const hit=hits.reduce((a,h)=>dd(h)<dd(a)?h:a),[dx,dy,dw,dh]=hit,p=sp.smoke608[0],drawn=[dx+p[0]*dw/sp.w,dy+p[1]*dh/sp.h];
+    const sO=smokeSrc608(x0,y0,b)[0],io=isoW2V(sO.wx,sO.wy,32),ol=[ox+io[0]*z,oy+io[1]*z];
+    window.__noSmokeView626=sv;
+    // 一秒後的上升方向：view 座標直接減 14（畫面往上）；舊式在世界座標減 14 再轉回 view
+    const up=isoW2V(sO.wx,sO.wy-14,32)[1]-io[1];
+    return {nd:Math.hypot(nw[0]-drawn[0],nw[1]-drawn[1]),od:Math.hypot(ol[0]-drawn[0],ol[1]-drawn[1]),oldUp:up,z};
+  };
+  const res=[];let shop=null;
+  try{
+    for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const t=tiles[idx(x0+dx,y0+dy)];planted.push([t,t.bld]);t.bld={k:K,lv:LV,v:V,pw:true,age:400,h:1,sz:1};}
+    for(let r=0;r<4;r++)res.push(measure(r));
+    // 冬季店屋（T613 原意）：找一張有煙囪點的 2×2 商業精靈，種上去，新煙源要回傳煙囪點、舊煙源（smokeSrc608）是 null
+    setViewRot(0);
+    for(let lv=1;lv<=3&&!shop;lv++)for(let v=0;v<6;v++){const sp=getBlockSprite547(2,lv,2,2,v);if(sp&&sp.smoke608&&sp.smoke608.length){
+      for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)tiles[idx(x0+dx,y0+dy)].bld={k:2,lv,v,pw:true,age:400,h:1,sz:1};
+      const b=tiles[idx(x0,y0)].bld;window.__noSmokeView626=false;const nv=smokeViewSrc626(x0,y0,b);window.__noSmokeView626=sv;
+      shop={lv,v,pts:sp.smoke608.length,nv:nv?nv.length:-1,old:smokeSrc608(x0,y0,b)};break;}}
+  }finally{for(const [t,b] of planted)t.bld=b;setViewRot(r0);cam.x=c0.x;cam.y=c0.y;cam.z=c0.z;window.__noSmokeView626=sv;}
+  checks.push(['冬季店屋 k2：有煙囪點的精靈新煙源回傳全部煙囪點、舊煙源 null（'+(shop?'lv'+shop.lv+' v'+shop.v+' '+shop.nv+'/'+shop.pts+' 點':'找不到有煙囪的 k2 精靈')+'）',!!shop&&shop.nv===shop.pts&&shop.old===null]);
+  const ok=res.every(Boolean);
+  checks.push(['四個旋轉都攔到廠房精靈的繪製',ok]);
+  if(ok){
+    checks.push(['煙源＝畫出來的煙囪像素（四個旋轉，最大誤差 '+Math.max(...res.map(q=>q.nd)).toFixed(2)+'px，須 <0.5）',res.every(q=>q.nd<.5)]);
+    checks.push(['守衛有效：舊煙源 rot 0 差 '+res[0].od.toFixed(1)+'px（應為 32·z＝'+(32*res[0].z)+'）',Math.abs(res[0].od-32*res[0].z)<1]);
+    checks.push(['守衛有效：舊煙源 rot 1–3 也偏（'+res.slice(1).map(q=>q.od.toFixed(0)).join('／')+'px）',res.slice(1).every(q=>q.od>=8)]);
+    checks.push(['舊式上升在 rot 2 是往下（'+res[2].oldUp.toFixed(1)+'），新式一律畫面往上',res[2].oldUp>0]);
+  }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 function getBlockSprite547(k,lv,bw,bh,v){
@@ -72466,7 +72527,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625});
+Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
