@@ -11,6 +11,12 @@
  *   node fp.js --check         只比對、不寫檔；有差異就 exit 1（每輪驗收用）
  *   node fp.js --inventory     印盤點表（家族大小、夜圖覆蓋率、自基線以來未動的家族）
  *   node fp.js --expect=a,b,c  宣告本輪應該變動的家族；指紋差必須恰好等於這份清單，否則紅
+ *   node fp.js --record-env=a.b,c.d  T631：把列出的、目前確實與基線不同的葉子，登記成「本平台環境差」（只改 fp.json 的 envLeaves）
+ *   node fp.js --pre="<JS>"    T631：測試用，進城前先執行一段 JS（守衛測試故意改壞東西）
+ *
+ * T631：fp.json 的葉子是業主 Windows 本機烘的；雲端 Linux 有幾葉因字型繪製永遠不同。envLeaves 登記「這個平台上這幾葉的
+ * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
+ * --check 不再提早退出：葉子差、超街區指紋（block559）、七軸棘輪全部跑完、全部印出，最後才判定紅綠。
  *
  * 邊界：自用埠 8199；進城前一律設 slot=3，不碰業主存檔。
  */
@@ -25,6 +31,9 @@ const FP_PATH = path.join(ROOT, 'fp.json');
 const CHECK = process.argv.includes('--check');
 const INVENTORY = process.argv.includes('--inventory');
 const EXPECT = arg('expect', '').split(',').map(s => s.trim()).filter(Boolean);
+const RECORD_ENV = arg('record-env', '').split(',').map(s => s.trim()).filter(Boolean);   // T631
+const PRE = arg('pre', '');                                                                  // T631：測試用
+const PLATFORM = process.platform;
 
 const STYLE_PATH = path.join(ROOT, 'style.json');
 
@@ -67,8 +76,10 @@ function loadBaseline() {
   try { return JSON.parse(fs.readFileSync(FP_PATH, 'utf8')); } catch { return null; }
 }
 
+const sameLeaf = (a, b) => !!a && !!b && a.d === b.d && a.n === b.n && a.w === b.w && a.h === b.h;
 function diffFp(base, cur) {
-  const added = [], removed = [], changed = [];
+  const env = (base.envLeaves && base.envLeaves[PLATFORM]) || {};   // T631：本平台登記的環境差
+  const added = [], removed = [], changed = [], envMatched = [];
   const bk = Object.keys(base.subs || {}), ck = Object.keys(cur.subs || {});
   const bset = new Set(bk), cset = new Set(ck);
   for (const k of ck) if (!bset.has(k)) added.push(k);
@@ -76,14 +87,19 @@ function diffFp(base, cur) {
   for (const k of ck) {
     if (!bset.has(k)) continue;
     const a = base.subs[k], b = cur.subs[k];
-    if (a.d !== b.d || a.n !== b.n || a.w !== b.w || a.h !== b.h) changed.push(k);
+    if (a.d !== b.d || a.n !== b.n || a.w !== b.w || a.h !== b.h) {
+      if (sameLeaf(env[k], b)) envMatched.push(k);   // 與基線不同、但完全等於本平台登記值
+      else changed.push(k);
+    }
   }
+  const famOf = k => k.split('.')[0];
+  const explained = new Set(envMatched.map(famOf)), dirty = new Set([...added, ...removed, ...changed].map(famOf));
   const famChanged = [];
   for (const k of Object.keys(cur.families || {})) {
     const a = (base.families || {})[k], b = cur.families[k];
-    if (!a || a.crc !== b.crc) famChanged.push(k);
+    if (!a || a.crc !== b.crc) { if (explained.has(k) && !dirty.has(k)) continue; famChanged.push(k); }   // 只有已登記環境差的家族不算觸及
   }
-  return { added, removed, changed, famChanged };
+  return { added, removed, changed, famChanged, envMatched };
 }
 
 (async () => {
@@ -93,7 +109,7 @@ function diffFp(base, cur) {
 
   const NOSILL = process.argv.includes('--nosill');   // 嚴謹 A/B：關掉 T539 窗台重建基線，再開著跑 --expect
   const NOLEFT = process.argv.includes('--noleft');   // T541：關掉左受光＋夜暈，對同一份代碼做開/關比較
-  const pre = [NOSILL ? 'window.__noSill539=true;' : '', NOLEFT ? 'window.__noLeftLight541=true;' : ''].join('');
+  const pre = [NOSILL ? 'window.__noSill539=true;' : '', NOLEFT ? 'window.__noLeftLight541=true;' : '', PRE ? PRE + ';' : ''].join('');
 const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, preScript: pre || '' }, async ({ cdp }) => {   // fresh：乾淨新城市，季節固定 ⇒ 指紋可重現
     const meta = await cdp.evalJs(`(()=>{const el=document.getElementById('startVersion456');const m=/v([0-9.]+) . (T[0-9]+)/.exec(el?el.textContent:'');if(m)return {version:m[1],anchor:m[2]};return (window.GV&&window.GV.build534)?window.GV.build534():{};})()`); // T606：讀目前版本字串（build534 是 T534 當年凍結的建置紀錄）
     const fp = await cdp.evalJs(`(window.GV && window.GV.fp536) ? window.GV.fp536() : {ok:false,err:'fp536 不存在'}`);
@@ -109,6 +125,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
   }
 
   const { meta, fp, style, blocks } = session.result;
+  const checkFail = [];   // T631：--check 的所有失敗原因，全部檢查跑完才判定
   const cur = {
     generatedAt: new Date().toISOString(),
     version: meta.version || '?',
@@ -138,6 +155,19 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     if (d.added.length) log('  新增葉子：' + d.added.slice(0, 8).join(', ') + (d.added.length > 8 ? ' …' : ''));
     if (d.changed.length) log('  變更葉子：' + d.changed.slice(0, 8).join(', ') + (d.changed.length > 8 ? ' …' : ''));
     if (d.removed.length) log('  移除葉子：' + d.removed.slice(0, 8).join(', ') + (d.removed.length > 8 ? ' …' : ''));
+    if (d.envMatched.length) log('  已登記環境差（' + PLATFORM + '）：' + d.envMatched.length + ' 葉（' + d.envMatched.slice(0, 8).join(', ') + (d.envMatched.length > 8 ? ' …' : '') + '），不算變動');
+
+    /* T631：--record-env 只登記列出的、目前確實與基線不同的葉子；其餘內容照原本的基線寫回（不重錄） */
+    if (RECORD_ENV.length) {
+      const bad = RECORD_ENV.filter(k => !d.changed.includes(k));
+      if (bad.length) { console.log('X --record-env 拒絕：這些葉子目前與基線沒有差異（或不存在／已登記）：' + bad.join(', ')); process.exit(1); }
+      base.envLeaves = base.envLeaves || {};
+      base.envLeaves[PLATFORM] = Object.assign({}, base.envLeaves[PLATFORM] || {});
+      for (const k of RECORD_ENV) base.envLeaves[PLATFORM][k] = cur.subs[k];
+      fs.writeFileSync(FP_PATH, JSON.stringify(base, null, 1));
+      console.log('OK 已登記 ' + PLATFORM + ' 環境差 ' + RECORD_ENV.length + ' 葉：' + RECORD_ENV.join(', ') + '（fp.json 只改 envLeaves）');
+      process.exit(0);
+    }
 
     /* 每輪驗收：指紋差必須恰好等於卡面宣告的家族清單 */
     if (EXPECT.length) {
@@ -164,9 +194,8 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       }
       log('  OK 指紋差 == 宣告清單');
     } else if (CHECK) {
-      const any = famTouched.length > 0;
-      if (any) { console.log('X --check：指紋有變動（未宣告）'); process.exit(1); }
-      log('  OK --check：零變動');
+      if (famTouched.length) checkFail.push('指紋有變動（未宣告）：' + famTouched.slice(0, 12).join(', ') + (famTouched.length > 12 ? ' …' : ''));   // T631：不提早退出，block559 與棘輪照跑
+      else log('  OK 葉子零變動' + (d.envMatched.length ? '（已登記環境差 ' + d.envMatched.length + ' 葉）' : ''));
     }
   } else {
     log('');
@@ -188,6 +217,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     if (base && base.blocks && base.blocks.fam) {
       blockPrevFam = base.blocks.fam;
       log('  ' + (blockPrevFam === blockFam ? '與基線一致' : '與基線不同（' + blockPrevFam + ' → ' + blockFam + '）'));
+      if (CHECK && !EXPECT.length && blockPrevFam !== blockFam) checkFail.push('block559 與基線不同（' + blockPrevFam + ' → ' + blockFam + '）');   // T631
     }
   }
 
@@ -263,6 +293,12 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     log('  共 ' + noNight.length + ' 族完全無夜圖');
   }
 
+  if (checkFail.length) {   // T631
+    console.log('');
+    console.log('X --check：' + checkFail.join('；'));
+    process.exit(1);
+  }
+  if (CHECK) log('OK --check：葉子、超街區指紋、棘輪全部零變動');
   console.log('');
   console.log('OK 指紋台完成（' + session.seconds.toFixed(1) + 's）');
   process.exit(0);
