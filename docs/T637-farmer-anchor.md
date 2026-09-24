@@ -59,6 +59,7 @@ T636 之後把同一套「掛點落在不透明像素上嗎」的稽核延伸到
 | `probe637.js` 種子城 | 55 座農戶中 24 座有農夫：站在田外 **12 座 → 0 座** |
 | 煙霧（雲端容器） | **綠 3／紅 0**，28.7–28.8s，0 console error |
 | `fp.js --check` | **全綠**（精靈沒變） |
+| GitHub Actions（`99ffcc1`） | 煙霧 `main` [run 36044055387](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36044055387) 綠、分支 run 36044058339 綠；Pages [run 36044158380](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36044158380) 部署成功 |
 | 樣張 | `shots637/T637_cmp.png`（修正前農夫站在田外草地、修正後在作物田裡；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）

@@ -55,6 +55,7 @@ T630 卡面 §6 留下：「剩下 55 個方塊落在舊圖集建築上，那批
 | `probe638.js` 種子城 (24,16)、z=1.5 午夜 | T446D 方塊 **55 → 0**；修正前落在地標塔上的 55 個中 21 個不在塔自己的亮窗 2px 內 |
 | 煙霧（雲端容器） | 最終版 **綠 3／紅 0**，28.2–29.5s，0 console error（第一次 3 連跑全紅，見 §6） |
 | `fp.js --check` | **全綠**（精靈沒變） |
+| GitHub Actions（`094a4c3`） | 煙霧 `main` [run 36045524691](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36045524691) 綠、分支 run 36045528571 綠；Pages [run 36045692743](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36045692743) 部署成功 |
 | 樣張 | `shots638/T638_cmp.png`（修正前塔身上一顆顆夾在窗戶之間的暖色小方塊，修正後只剩塔自己的窗燈；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）
