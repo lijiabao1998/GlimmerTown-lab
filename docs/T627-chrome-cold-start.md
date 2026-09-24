@@ -65,6 +65,7 @@
 | 正常路徑煙霧（雲端容器，最終版） | — | **綠 3／紅 0**，28.4–29.3s，0 console error；冷啟動 0.3s |
 | `gallery.js` 本機實跑 | — | 8 張，30.5s，「Chrome 冷啟動 0.3s」；印完 1.6 秒行程結束（原本就有的 1.5 秒清 profile 計時器），stderr 管線沒有拖住 |
 | `fp.js --check` | — | 與 T626 相同：只有環境差 4 葉 |
+| **線上（`678ae82`）** | Pages run 8、9 與煙霧 run 19 紅在 10.1s | 煙霧 `main` [run 36021059865](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36021059865) 綠（**Chrome 冷啟動 0.9s**）、分支 run 36021080672 綠；**Pages [run 36021169513](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36021169513) 部署成功**，`gallery.js` 印「**Chrome 冷啟動 9.5s**」——Pages runner 的冷啟動一直貼著舊上限 10 秒，這就是它幾乎每次都失敗、煙霧卻很少失敗的原因。T625、T626 隨這次部署上線 |
 | T626 自檢在起點格有樹時 | 同一座城、同一個起點格 (4,4) 種一棵樹：「四個旋轉都攔到廠房精靈的繪製 ✗」（與煙霧紅燈逐字相同） | 起點格有樹（tree=10）照樣 7 項全過，驗完樹原樣還原 |
 
 ## 6. 施工紀錄（如實，含失敗）
@@ -77,7 +78,7 @@
 - 包裝腳本放在暫存目錄（`CHROME_PATH` 指過去），不進版本庫。
 - **第一版漏了兩個邊角，提交前自己逆讀 diff 補上**：① 找不到執行檔時 `spawn` 只發 `error` 事件、`exitCode` 一直是 null，第一版會白等 45 秒×2；② stderr 改成管線後，Chrome 子行程晚退可能拖住沒有 `process.exit` 的工具（`gallery.js` 成功路徑就沒有）。補上 `__spawnErr` 與 `unref()` 後，三種重現狀況與正常 3 連跑全部用最終版重跑。
 - **沒做成的：**
-  1. 線上冷啟動慢的根因（runner 為什麼偶爾超過 10 秒）沒查到；本卡只讓骨架等得夠久、失敗時留下證據（`gallery.js` 會印冷啟動時間，Chrome 的 stderr 會進錯誤訊息）。
+  1. 線上冷啟動慢的根因沒查到：同一個 commit，煙霧 runner 0.9s、Pages runner 9.5s，差在哪裡不知道。本卡只讓骨架等得夠久、失敗時留下證據（`gallery.js`、`smoke.js` 會印冷啟動時間，Chrome 的 stderr 會進錯誤訊息）。
   2. `fp.js` 與各探針沒有印冷啟動時間（`gallery.js`、`smoke.js` 有）。
   3. 其他自檢有沒有類似「暫種不清樹」的寫法，只查了 `planted.push`／`t.bld={k:` 兩種寫法（遊戲本體的放置都有清樹，自檢只有 T626 這一處），沒逐支讀。
 

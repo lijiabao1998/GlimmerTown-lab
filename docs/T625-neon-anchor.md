@@ -65,7 +65,7 @@ Pages 樣張「近景・夜晚」（種子城港區，z=1.5，午夜）裡有 12
 | `probe625.js`（近景夜晚） | 修正後招牌 77 次繪製、77 個位置、**重複 0 次**；修正前 209 次繪製只落在 65 個位置、重複 144 次（平均每面疊亮 3.2 倍） |
 | 煙霧（雲端容器） | **綠 3／紅 0**，29.9–30.6s，0 console error |
 | `fp.js --check` | 與 T624 相同：只有環境差 4 葉（招牌是夜光層，不動 SPR 與超街區快取） |
-| GitHub Actions（`dfec779`） | 煙霧綠：`main` [run 36015312462](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36015312462)、分支 run 36015316783；**Pages 部署失敗**（[run 36015471326](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36015471326)：`gallery.js`「等不到 Chrome 的 page target」，10 秒上限，runner 剛裝字型、Chrome 冷啟動太慢；與本卡程式無關，T627 修） |
+| GitHub Actions（`dfec779`） | 煙霧綠：`main` [run 36015312462](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36015312462)、分支 run 36015316783；**Pages 部署失敗**（[run 36015471326](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36015471326)：`gallery.js`「等不到 Chrome 的 page target」，10 秒上限，runner 剛裝字型、Chrome 冷啟動太慢；與本卡程式無關；T627（`678ae82`）修好後隨 Pages [run 36021169513](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36021169513) 上線） |
 | 樣張 | `shots625/T625_near_night_{old,new}.png`（不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）

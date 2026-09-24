@@ -62,7 +62,7 @@ T608／T613 讓工業廠房與冬季民居從街區精靈上真的煙囪冒煙�
 | 冬季店屋有煙囪的比例 | 商業 lv1–3 × 8 種尺寸 × 變體 0–5 共 144 種街區精靈，45 種有煙囪點（95 點），**T613 以來冬天一縷煙都沒冒過**；住宅 99/144（282 點）、工業 144/144（160 點） |
 | 煙霧（雲端容器） | **綠 3／紅 0**，29.2–30.7s，0 console error；`smokeView626 OK（7 項）` |
 | `fp.js --check` | 與 T625 相同：只有環境差 4 葉（煙是粒子，不在 SPR 與超街區快取） |
-| GitHub Actions（`bafe986`） | 煙霧：`main` [run 36018560157](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36018560157) 綠；分支 [run 36018525774](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36018525774) **紅在 Chrome 冷啟動**（「等不到 Chrome 的 page target」，10.1s，沒跑到自檢）；Pages [run 36018671305](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36018671305) **紅在同一句** ⇒ 本卡沒上線，T627 修 |
+| GitHub Actions（`bafe986`） | 煙霧：`main` [run 36018560157](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36018560157) 綠；分支 [run 36018525774](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36018525774) **紅在 Chrome 冷啟動**（「等不到 Chrome 的 page target」，10.1s，沒跑到自檢）；Pages [run 36018671305](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36018671305) **紅在同一句** ⇒ 當下沒上線；T627（`678ae82`）修好後隨 Pages [run 36021169513](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36021169513) 上線 |
 | 樣張 | `shots626/T626_rot{0,2}_cmp.png`（修前修後＋標註：青圈＝煙囪頂、方框＝煙粒、粗框＝剛冒出；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）
