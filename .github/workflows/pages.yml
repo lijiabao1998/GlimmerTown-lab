@@ -1,0 +1,58 @@
+# T620：main 上的煙霧測試跑綠之後，把遊戲與日夜樣張發到 GitHub Pages。
+#   /        ＝ 遊戲本身（index.html）
+#   /shots/  ＝ gallery.js 拍的日夜樣張頁
+# 前提：業主在 Settings → Pages → Build and deployment → Source 選「GitHub Actions」（倉庫設定不由 Claude 改，AUTORUN.md §1）。
+name: pages
+
+on:
+  workflow_run:
+    workflows: [smoke]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # 煙霧紅的版本不上線；手動觸發時跑當下的 main
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SHA }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 中文字型
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: 組網站（遊戲＋日夜樣張）
+        run: |
+          mkdir -p _site
+          cp index.html _site/index.html
+          node gallery.js --out=_site/shots --sha=$SHA
+      - uses: actions/configure-pages@v5   # Pages 沒開會在這一步紅，訊息會直接說 Pages 沒設定
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

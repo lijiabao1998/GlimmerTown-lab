@@ -26,3 +26,6 @@ scout574/*.txt
 # T609 起：設計師工作流的圖檔目錄整個不進版本庫（定稿圖看 docs 卡面指的路徑）
 shots6*/
 scratchpad/
+
+# T620：Pages 組站暫存（只在 CI 產生）
+_site/
