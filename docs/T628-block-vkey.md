@@ -66,6 +66,7 @@ T624 施工時發現、另開卡的問題：
 | 煙霧（雲端容器） | **綠 3／紅 0**，28.0–29.6s，0 console error |
 | `fp.js --check` | 葉子與 T626 相同：只有環境差 4 葉 |
 | `fp.js --expect=bld,block559`（暫存複本） | block559 `d6ca3b88 → ff961a2b`（864 → 1,728 條）；**只取 v 0–5 那 864 條重算＝`d6ca3b88`，與 T624 基線逐條相同**，變動全部來自新增的 v 6–11；七軸棘輪 OK（151 族無一下降） |
+| GitHub Actions（`736ef32`） | 煙霧 `main` [run 36022653970](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36022653970) 綠、分支 run 36022657575 綠；Pages [run 36022744591](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36022744591) 部署成功 |
 | 樣張 | `shots628/T628_{home_day,near_day}_cmp.png`（洋紅格＝會變的地方）、`T628_order_{old,new}.png`（同一鏡頭、兩種參觀順序）；不進版本庫，已傳業主 |
 
 ## 6. 施工紀錄（如實，含失敗）
