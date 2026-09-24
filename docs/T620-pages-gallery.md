@@ -2,7 +2,7 @@
 
 **輪次**：r67（業主點名的工具卡；CLAUDE.md 第 3 條「業主點名時做」）
 **基線**：`8322292`（v13.27／T619）
-**狀態**：🚧 施工中
+**狀態**：🟡 已 commit（`737afb2`）；流程接通，等業主開 Pages 後部署
 
 ---
 
@@ -56,7 +56,7 @@ GitHub Pages 免費提供固定 HTTPS 網址（預期 `https://lijiabao1998.gith
 | 樣張頁手機寬度（390px，Playwright 截圖） | 標題、版本、commit、開始玩按鈕、單欄大圖都正常 |
 | 兩個 workflow YAML | `yaml.safe_load` 解析通過 |
 | 煙霧（雲端，本輪 index.html 未動） | 綠 34.7s |
-| Pages build／deploy | （推送後補） |
+| `737afb2` 推 main 之後 | smoke 綠 → `pages` 自動觸發 ✓；GitHub 上 `gallery.js` 8 張 37.7s ✓；`configure-pages` 紅：「Get Pages site failed……verify that the repository has Pages enabled」＝**Pages 還沒開**，deploy 跳過（[run 35989646770](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/35989646770)）。等業主開好後重跑 |
 
 ## 6. 施工紀錄（如實，含失敗）
 
