@@ -551,8 +551,94 @@
       tree(S,SHD,T(2.5),T(46),.95,0);tree(S,SHD,T(61.5),T(47),.95,2);tree(S,SHD,T(61),T(10),1,0);
       return{};};
 
+    // v1 紅磚市場廳（T615 接手補畫；原稿 v1／v2 為 V0 佔位）：屋脊沿 v 的室內菜市場，山牆正面朝前廣場（大門＋綠底 MARKET 招牌＋山牆圓窗），
+    //   屋脊採光氣樓、+u 側拱窗列與卸貨月台；前廣場兩座條紋篷攤＋陽傘攤；西側一排停車格；東側卸貨區兩輛小貨車與菜箱堆
+    const V1=(K,L,g,ng,S,SHD)=>{const{P,RC,BL,flat,boxZ,fL,fR,lnL,lnR,grass,pave,tree,crowd,scatterIn,texture,R4,gableV,winL,winR,textL}=L;const M=MK(L,S,SHD);
+      grass(g,[[0,0],[2,0],[2,2],[0,2]],8711,40);
+      // 地坪：西側停車柏油、中央磚鋪、東側卸貨水泥
+      flat(g,T(2),T(2),T(13),T(60),'#6f6e6a');texture(g,R4(T(2),T(2),T(13),T(60)),null,['#666561','#7a7974'],260,8713);
+      for(let v=T(6);v<T(60);v+=T(8))BL(g,P(T(3),v),P(T(14),v),'#e8e6de');
+      pave(g,T(15),T(2),T(32),T(60),'#d8c8a8','#c4b28e',T(4),8712,['#cfbc98','#e2d4b6']);
+      flat(g,T(47),T(2),T(15),T(60),'#b9b3a6');texture(g,R4(T(47),T(2),T(15),T(60)),null,['#aea89a','#c4bfb2'],200,8714);
+      L.lotEdge(g,'#6b6860','#a9a497');
+      // 西側停車（車頭朝 +u）
+      const CC=['#c8463a','#e8e6de','#3f6f9e','#2a2d31','#d8b43a','#5f8f5a','#9aa0a6'];
+      [T(7),T(15),T(31),T(47)].forEach((v,k)=>M.carU(T(4),v+T(1.5),CC[(k*3+1)%CC.length]));
+      // 市場廳：紅磚牆＋石基＋灰浪板山牆頂（屋脊 ∥ v）
+      const u0=T(17),u1=T(47),v0=T(8),v1=T(40),h=15,r=10,um=(u0+u1)/2;
+      SHD.push(['b',u0,v0,u1-u0,v1-v0,h+r-3]);
+      S.o(1.9,(g2,n)=>{
+        boxZ(g2,u0,v0,u1-u0,v1-v0,0,h,null,'#b8603e','#8a4430');
+        for(let z=3;z<h;z+=3){lnL(g2,v1,u0,u1,z,'#a45538');lnR(g2,u1,v0,v1,z,'#7a3c2a');}
+        fL(g2,v1,u0,u1,0,2,'#9a948a');fR(g2,u1,v0,v1,0,2,'#76716a');
+        for(let v=v0+T(3);v<v1-T(3);v+=T(6))winR(g2,n,u1,v,T(3),5,11,{gl:'#4f6c82',fr:'#e8e2d4',arch:1,hi:'#7fa0b8'});
+        // 正面：大門（拉門豎條）、兩側小窗、綠底招牌
+        fL(g2,v1,um-T(5),um+T(5),0,9,'#e8e2d4');fL(g2,v1,um-T(4),um+T(4),0,8,'#3a2e28');
+        for(let u=um-T(4);u<um+T(4);u+=T(2))BL(g2,P(u,v1,0),P(u,v1,8),'#4e3f36');
+        if(n)fL(n,v1,um-T(4),um+T(4),0,8,'#ffe2a0');
+        for(const ua of[u0+T(2),u1-T(5)])winL(g2,n,v1,ua,T(3),3,7,{gl:'#4f6c82',fr:'#e8e2d4',hi:'#7fa0b8'});
+        fL(g2,v1,u0+T(1),u1-T(1),10,15,'#2f5e3a');lnL(g2,v1,u0+T(1),u1-T(1),15,'#e8e2d4');
+        textL(g2,v1,u0+T(2),14,'MARKET','#f4efe2',n,'#fff6d0');
+        const R=gableV(g2,u0,u1,v0,v1,h,r,{ov:T(1.5),ou:T(1.5),roof:'#5d6770',line:'#4c555d',rows:5,fas:'#3f464c',fasL:'#e8e2d4',fasD:'#343a40',gab:'#c06a48',ridge:'#8a949c'});
+        {const p=P(um,v1,h+4);RC(g2,p[0]-1,p[1]-1,3,3,'#e8e2d4');RC(g2,p[0],p[1],1,1,'#4f6c82');if(n)RC(n,p[0],p[1],1,1,'#ffe2a0');}
+        // 屋脊採光氣樓（小屋頂＋+u 側玻璃帶）
+        const a=v0+T(4),b=v1-T(4),w=T(3);
+        boxZ(g2,um-w,a,2*w,b-a,R.zr-2,4,null,'#e8e2d4','#b8b2a6');
+        for(let v=a+T(1);v<b-T(1);v+=T(2)){fR(g2,um+w,v,v+T(1),R.zr-1,R.zr+1,'#4f6c82');if(n)fR(n,um+w,v,v+T(1),R.zr-1,R.zr+1,'#f0cf88');}
+        gableV(g2,um-w,um+w,a,b,R.zr+2,3,{ov:T(1),ou:T(1),roof:'#6d7780',fas:'#3f464c',fasL:'#e8e2d4',gab:'#e8e2d4',ridge:'#98a2aa'});
+      });
+      // 東側卸貨月台、菜箱堆、兩輛小貨車
+      S.o(2.0,(g2)=>{boxZ(g2,u1,T(14),T(3),T(16),0,3,'#b8b2a6','#a8a294','#8a857c');});
+      M.stack(T(50.5),T(19),1,2,81,true);
+      M.keiV(T(52),T(5),'#e8ecef',83);M.keiV(T(55),T(24),'#6fa0c8',85);
+      M.stack(T(50),T(44),2,1,87,true);
+      // 前廣場：兩座條紋篷攤、陽傘攤、人潮、路燈
+      M.stallV(T(16),T(46),T(8),AW[0],5);M.stallV(T(38),T(46),T(8),AW[3],9);
+      M.umb(T(22),T(57),'#3f8f55',13);M.umb(T(42),T(58),'#d8453a',17);   // 陽傘避開大門正前方
+      crowd(S,scatterIn(8715,14,R4(T(16),T(41),T(30),T(4))));crowd(S,scatterIn(8716,12,R4(T(16),T(53),T(30),T(8))));
+      M.lampP(T(16),T(41),17);M.lampP(T(48),T(41),17);
+      tree(S,SHD,T(4),T(4),1,0);tree(S,SHD,T(60),T(50),.95,2);tree(S,SHD,T(3),T(58),.9,1);
+      return{};};
+
+    // v2 露天農夫市集（T615 接手補畫）：沒有大棚——磚鋪廣場上三排小攤（條紋篷攤、陽傘攤），產地直送小貨車開斗賣菜，
+    //   西角木造服務亭，燈串掛在兩根路燈之間，四周行道樹與矮灌木；剪影低而碎，與 v0 長棚、v1 市場廳明顯不同
+    const V2=(K,L,g,ng,S,SHD)=>{const{P,RC,BL,boxZ,lnL,lnR,grass,pave,tree,bush,bench,crowd,scatterIn,R4,gableU,winL}=L;const M=MK(L,S,SHD);
+      grass(g,[[0,0],[2,0],[2,2],[0,2]],8721,50);
+      pave(g,T(4),T(4),T(56),T(56),'#cdb48e','#b89e78',T(4),8722,['#c4aa84','#dcc6a2']);
+      L.lotEdge(g,'#6b6860','#a9a497');
+      // 三排之間留足前後距（排距不足時中排陽傘會壓在後排篷頂上＝疊在一起）；中排與後排錯位，不成一直列
+      // 後排：四座條紋篷攤
+      [[T(8),0],[T(19),1],[T(30),2],[T(41),3]].forEach(([u,i])=>M.stallV(u,T(6),T(9),AW[i],21+i*4));
+      // 中排：陽傘攤
+      [[T(14),'#d8453a'],[T(24),'#f2c230'],[T(34),'#3f8f55'],[T(44),'#2f6fb0']].forEach(([u,c],i)=>M.umb(u,T(27),c,41+i*3));
+      // 前排：三座條紋篷攤
+      [[T(16),4],[T(27),5],[T(38),1]].forEach(([u,i])=>M.stallV(u,T(42),T(8),AW[i],51+i*5));
+      // 東側：產地直送小貨車＋菜箱堆
+      M.keiV(T(52),T(18),'#e8ecef',61);M.keiV(T(52),T(36),'#d8453a',63);
+      M.stack(T(48),T(22),1,2,65,true);M.stack(T(48),T(40),1,2,67,false);
+      // 西角服務亭（木牆＋綠山牆頂，屋脊 ∥ u）
+      const ku0=T(4),ku1=T(12),kv0=T(46),kv1=T(54),kh=8;SHD.push(['b',ku0,kv0,ku1-ku0,kv1-kv0,kh+4]);
+      S.o(ku0+kv1,(g2,n)=>{boxZ(g2,ku0,kv0,ku1-ku0,kv1-kv0,0,kh,null,'#c8a070','#9a7650');
+        for(let z=2;z<kh;z+=2){lnL(g2,kv1,ku0,ku1,z,'#b48c5e');lnR(g2,ku1,kv0,kv1,z,'#88683f');}
+        winL(g2,n,kv1,ku0+T(2),T(4),3,6,{gl:'#4f6c82',fr:'#f4efe2',hi:'#7fa0b8'});
+        gableU(g2,ku0,ku1,kv0,kv1,kh,5,{ov:T(1),ou:T(1),roof:'#4f7f55',line:'#3f6a45',rows:3,fas:'#2f4a33',fasL:'#f4efe2',gab:'#c8a070',ridge:'#6f9f75'});});
+      // 燈串：兩根路燈之間下垂的電線，白天是燈泡、夜裡發光
+      const su0=T(6),su1=T(58),sv=T(35),sz=14;
+      M.lampP(su0,sv,17);M.lampP(su1,sv,17);
+      S.t(su0+sv+.9,(g2,n)=>{const a=P(su0,sv,sz),b=P(su1,sv,sz),N=Math.round(b[0]-a[0]);
+        for(let i=0;i<=N;i++){const t=i/N,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t+4*Math.sin(Math.PI*t);
+          RC(g2,x,y,1,1,'#3a3d40');if(i%3===1){RC(g2,x,y+1,1,1,'#f6d36a');if(n)RC(n,x,y+1,1,1,'#fff0b8');}}});
+      // 前廣場野餐長椅、人潮
+      bench(S,T(24),T(52),true);bench(S,T(34),T(55),true);
+      crowd(S,scatterIn(8723,12,R4(T(6),T(15),T(46),T(8))));crowd(S,scatterIn(8724,10,R4(T(6),T(31),T(40),T(8))));
+      crowd(S,scatterIn(8725,14,R4(T(14),T(51),T(34),T(9))));
+      // 行道樹與矮灌木
+      tree(S,SHD,T(3),T(20),.95,0);tree(S,SHD,T(3),T(36),.9,2);tree(S,SHD,T(24),T(3),.95,1);tree(S,SHD,T(46),T(3),.9,0);tree(S,SHD,T(60),T(58),.95,2);
+      for(const[u,v]of[[T(61),T(10)],[T(61),T(28)],[T(61),T(46)],[T(20),T(61)],[T(34),T(61)],[T(48),T(61)]])bush(S,u,v,2);
+      return{};};
+
     const out=[];
-    const VV=[V0,V0,V0];
+    const VV=[V0,V1,V2];
     for(let v=0;v<3;v++){try{out[v]=assemble(W,H,AX,AY,SZ,VV[v]);}catch(e){errs.push('k87v'+v+': '+(e&&e.stack||e));}}
     install(87,out);
   }catch(e){errs.push('k87: '+(e&&e.stack||e));}
