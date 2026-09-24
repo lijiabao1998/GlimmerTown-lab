@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.31 · T624</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.32 · T625</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.31'; // T624 街區精靈兩個量體不再前後顛倒（T582 切分對調、前方側翼後畫、平頂進深住宅用英美立面）。前：T623 路面標線長度與方向
-const GAME_ANCHOR='T624'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.32'; // T625 商業霓虹招牌釘回正面牆（neonRects625）、超街區不再重複疊亮、T413 小招牌用最前面那一格定位。前：T624 街區精靈兩個量體前後顛倒
+const GAME_ANCHOR='T625'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -58995,6 +58995,17 @@ function drawNightLandmarks413(nd){
   ctx.restore();
   window.__t413LandStrokes=strokes;
 }
+function neonOnce625(o){return !!window.__noNeonAnchor625||o.blockDiag555==null||!!window.__noOverlap555||o.blockDiag555===o.blockD0575;} // T625：超街區拆成 w+h−1 條分段畫，招牌只在第一條發，不再重複疊亮
+function neonRects625(s,lv,hs,bx,by,z){ // T625：招牌釘在精靈正面 W–S 牆上（精靈像素座標 → 畫面）。T244／T368b 用「畫布寬 16–36%、畫布底往上」定位，整塊街區精靈的畫布左下多是地面，招牌就掉到路面或飄在牆外。沒有牆面資訊回 null（走舊算法）
+  const w=s&&s.__t547&&s.__t547.wall;if(!w||!w.W||!w.S||!(w.h>8))return null;
+  const L=Math.hypot(w.S[0]-w.W[0],w.S[1]-w.W[1]),ts=L>=90?[.22+hs[0]*.2,.62+hs[1]*.14]:[.3+hs[0]*.4],out=[];
+  for(const t of ts){
+    const px=w.W[0]+(w.S[0]-w.W[0])*t,py=w.W[1]+(w.S[1]-w.W[1])*t; // 牆腳上的一點
+    if(lv>=2){const nh=Math.min(w.h*.4,10+hs[2]*8),bot=Math.max(5,w.h*.22);if(bot+nh>w.h-2)continue;out.push([px-1.25,py-bot-nh,2.5,nh]);}
+    else{const ww=Math.min(8,4+hs[2]*4),up=Math.max(5,w.h*.3);if(up+2>w.h-2)continue;out.push([px-ww/2,py-up-1.25,ww,2.5]);}
+  }
+  return out.map(r=>[bx+r[0]*z,by+r[1]*z,Math.max(1,r[2]*z),Math.max(1,r[3]*z)]);
+}
 function drawNightCommNeon413(nd){
   if(window.__noNightCity||!nd||_lodMini413())return;
   ensureNightTier413();
@@ -59009,7 +59020,10 @@ function drawNightCommNeon413(nd){
     if(!(k===2||k===34||k===65||k===86||k===87||k===81||k===82||k===83||k===106||k===98))continue;
     if(k===2&&(b.lv||1)<3)continue;
     if(streetHash(x,y,41370)>0.55)continue;
-    const sx=_sx413(x,y)+32*z2,sy=_sy413(x,y)+10*z2;
+    let fx=x,fy=y; // T625：多格建築與超街區改用畫面最前面那一格（viewDep 最大）的前頂點往上定位；原本用起點格（最後面）的後頂點上方，小招牌飄在屋頂上
+    if(!window.__noNeonAnchor625){let ww=b.sz||1,hh=b.sz||1;if(k>=1&&k<=3&&!window.__noSuperblock547){const blk=rciBlockOrigin547(x,y);if(!blk)continue;ww=blk.w;hh=blk.h;}
+      let md=-1;for(let dy=0;dy<hh;dy++)for(let dx=0;dx<ww;dx++){const d=viewDep(x+dx,y+dy);if(d>=md){md=d;fx=x+dx;fy=y+dy;}}}
+    const sx=_sx413(fx,fy)+32*z2,sy=window.__noNeonAnchor625?_sy413(x,y)+10*z2:_sy413(fx,fy)+36*z2;
     if(!_visNight413(sx,sy))continue;
     const tier=_tier413(i),blink=0.45+0.55*((Math.sin(visT*3.1+streetHash(x,y,41371)*9)*.5+.5));
     let c;
@@ -61844,10 +61858,12 @@ function draw(dt){
       if(nightDepth>0&&!window.__noNightCity&&s.nightCity)nightSprites.push({img:s.nightCity,x:bx,y:by,w:s.w*z,h:s.h*z,a:winA413});
       pushWindowLife446D(nightSprites,o,bd,s,bx,by,z,nightDepth,drawA); // T446D：per-building 決定性夜窗，修復 Grok build-time 死線
     }
-    if(bd.k===2&&bd.pw&&!lodFar&&!window.__noNeon&&!constrRise){ // T259：施工期無霓虹 // T244 商業霓虹招牌（Opus 親手，夜景多樣化）——供電商業建築夜間亮彩色霓虹招牌：6 色由座標雜湊挑、位置/尺寸隨等級，push 進 nightSprites（暗halo+亮招牌雙 rect，夜燈層 'screen' 疊加＝夜間發光、日間閘不繪）；__noNeon 開關、streetHash 決定性不消耗 R()
+    if(bd.k===2&&bd.pw&&!lodFar&&!window.__noNeon&&!constrRise&&neonOnce625(o)){ // T625：超街區只在第一條發 // T259：施工期無霓虹 // T244 商業霓虹招牌（Opus 親手，夜景多樣化）——供電商業建築夜間亮彩色霓虹招牌：6 色由座標雜湊挑、位置/尺寸隨等級，push 進 nightSprites（暗halo+亮招牌雙 rect，夜燈層 'screen' 疊加＝夜間發光、日間閘不繪）；__noNeon 開關、streetHash 決定性不消耗 R()
       const NEON=['#ff4a8a','#4affd0','#ffd23a','#8a5aff','#ff6a3a','#3affff'];
       const nCol=NEON[Math.floor(streetHash(o.x,o.y,1900)*NEON.length)%NEON.length];
-      if((bd.lv||1)>=2){ // T368b 合流升級：lv≥2 改直式招牌（每建築仍恰一面；底錨定＝沿用 T261 不飄空教訓，與 lv1 同一守衛組 bd.pw/!constrRise/__noNeon）
+      const R625=window.__noNeonAnchor625?null:neonRects625(s,bd.lv||1,[streetHash(o.x,o.y,1901),streetHash(o.x,o.y,1902),streetHash(o.x,o.y,1903)],bx,by,z);
+      if(R625){R625.forEach((r,i)=>{const col=i?NEON[(NEON.indexOf(nCol)+2)%NEON.length]:nCol;nightSprites.push({rect:[r[0]-2*z,r[1]-2*z,r[2]+4*z,r[3]+4*z],col:shade(col,-96)});nightSprites.push({rect:r,col});});} // T625：釘在正面牆
+      else if((bd.lv||1)>=2){ // T368b 合流升級：lv≥2 改直式招牌（每建築仍恰一面；底錨定＝沿用 T261 不飄空教訓，與 lv1 同一守衛組 bd.pw/!constrRise/__noNeon）
         const nw2=Math.max(1,2.5*z), nh2=(10+streetHash(o.x,o.y,1901)*8)*z;
         const nx2=bx+s.w*z*(.16+streetHash(o.x,o.y,1902)*.2), ny2=by+s.h*z-(16*z+nh2+streetHash(o.x,o.y,1903)*8*z);
         nightSprites.push({rect:[nx2-2*z,ny2-2*z,nw2+4*z,nh2+4*z],col:shade(nCol,-96)});
@@ -71445,6 +71461,24 @@ function massOrderSelftest624(){ // T624：街區精靈的兩個量體前後不�
   }finally{window.__noMassOrder624=saved;window.__noParcel582=sp;}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
+function neonAnchorSelftest625(){ // T625：商業招牌都釘在正面牆上；守衛：舊算法同一批招牌必須抓到落在牆外
+  const checks=[];let n=0,bad=0,clear=0,oldN=0,oldOut=0;
+  for(const lv of [1,2,3])for(const [bw,bh] of [[1,1],[2,1],[4,1],[2,2],[3,2]])for(let v=0;v<6;v++){
+    const s=getBlockSprite547(2,lv,bw,bh,v),w=s.__t547&&s.__t547.wall;if(!w)continue;
+    const face=[w.W,w.S,[w.S[0],w.S[1]-w.h],[w.W[0],w.W[1]-w.h]],g=s.img.getContext('2d',{willReadFrequently:true});
+    for(const hs of [[.1,.5,.9],[.9,.2,.4],[.5,.8,.1]]){
+      for(const r of (neonRects625(s,lv,hs,0,0,1)||[])){n++;const c=[r[0]+r[2]/2,r[1]+r[3]/2];if(!inPoly606(c[0],c[1],face))bad++;else if(g.getImageData(Math.round(c[0]),Math.round(c[1]),1,1).data[3]<=8)clear++;}
+      const nh=10+hs[0]*8,OLD=lv>=2?[[s.w*(.16+hs[1]*.2),s.h-(16+nh+hs[2]*8),2.5,nh]]:[[s.w*(.30+hs[0]*.28),s.h-(14+hs[1]*14),5+lv*1.5,2.5]]; // T244／T368b 原式（z=1、bx=by=0）
+      for(const r of OLD){oldN++;if(!inPoly606(r[0]+r[2]/2,r[1]+r[3]/2,face))oldOut++;}
+    }
+  }
+  checks.push(['招牌中心都在正面牆的多邊形內（'+n+' 面，牆外 '+bad+'）',n>0&&bad===0]);
+  checks.push(['招牌中心的精靈像素不透明（透明 '+clear+'）',clear===0]);
+  checks.push(['守衛有效：舊算法同一批招牌落在牆外 '+oldOut+'/'+oldN+'（須 ≥1）',oldOut>=1]);
+  const sv=window.__noNeonAnchor625;let once=false;try{window.__noNeonAnchor625=false;once=neonOnce625({blockDiag555:3,blockD0575:3})&&!neonOnce625({blockDiag555:4,blockD0575:3})&&neonOnce625({});}finally{window.__noNeonAnchor625=sv;}
+  checks.push(['超街區只在第一條發招牌（其餘分段不再重複疊亮）',once]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(v%6)+(window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
@@ -72432,7 +72466,7 @@ function panelLiveSelftest599(){
   }
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
-Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568});
+Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
