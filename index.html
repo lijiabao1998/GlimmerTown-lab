@@ -71520,7 +71520,7 @@ function smokeViewSelftest626(){ // T626：煙源與「真的畫出來的煙囪�
   };
   const res=[];let shop=null;
   try{
-    for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const t=tiles[idx(x0+dx,y0+dy)];planted.push([t,t.bld]);t.bld={k:K,lv:LV,v:V,pw:true,age:400,h:1,sz:1};}
+    for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){const t=tiles[idx(x0+dx,y0+dy)];planted.push([t,t.bld,t.tree,t.deco,t.ruin]);t.bld={k:K,lv:LV,v:V,pw:true,age:400,h:1,sz:1};t.tree=0;t.deco=0;t.ruin=0;} // T627：比照遊戲蓋建築先清樹／裝飾／廢墟——繪製迴圈先畫樹就 continue，起點格有樹時整塊不畫（煙霧隨機新城偶發紅）
     for(let r=0;r<4;r++)res.push(measure(r));
     // 冬季店屋（T613 原意）：找一張有煙囪點的 2×2 商業精靈，種上去，新煙源要回傳煙囪點、舊煙源（smokeSrc608）是 null
     setViewRot(0);
@@ -71528,7 +71528,7 @@ function smokeViewSelftest626(){ // T626：煙源與「真的畫出來的煙囪�
       for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)tiles[idx(x0+dx,y0+dy)].bld={k:2,lv,v,pw:true,age:400,h:1,sz:1};
       const b=tiles[idx(x0,y0)].bld;window.__noSmokeView626=false;const nv=smokeViewSrc626(x0,y0,b);window.__noSmokeView626=sv;
       shop={lv,v,pts:sp.smoke608.length,nv:nv?nv.length:-1,old:smokeSrc608(x0,y0,b)};break;}}
-  }finally{for(const [t,b] of planted)t.bld=b;setViewRot(r0);cam.x=c0.x;cam.y=c0.y;cam.z=c0.z;window.__noSmokeView626=sv;}
+  }finally{for(const [t,b,tr,de,ru] of planted){t.bld=b;t.tree=tr;t.deco=de;t.ruin=ru;}setViewRot(r0);cam.x=c0.x;cam.y=c0.y;cam.z=c0.z;window.__noSmokeView626=sv;}
   checks.push(['冬季店屋 k2：有煙囪點的精靈新煙源回傳全部煙囪點、舊煙源 null（'+(shop?'lv'+shop.lv+' v'+shop.v+' '+shop.nv+'/'+shop.pts+' 點':'找不到有煙囪的 k2 精靈')+'）',!!shop&&shop.nv===shop.pts&&shop.old===null]);
   const ok=res.every(Boolean);
   checks.push(['四個旋轉都攔到廠房精靈的繪製',ok]);

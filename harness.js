@@ -106,8 +106,20 @@ async function cdpConnect(wsUrl, onEvent) {
   return { send, evalJs, errors, benign, close: () => ws.close() };
 }
 
-async function pageWsUrl(devPort) {
-  for (let i = 0; i < 40; i++) {
+// T627：Chrome stderr 的最後一段，附在啟動失敗的訊息裡（分得出是慢、當掉，還是除錯埠被占）
+const chromeTail = proc => {
+  const t = proc && proc.__tail ? proc.__tail.trim().split('\n').slice(-6).join(' ⏎ ') : '';
+  return t ? `；stderr：${t.slice(-600)}` : '';
+};
+
+// T627：上限從 10 秒拉到 45 秒（GitHub runner 的 Chrome 冷啟動偶爾超過 10 秒，pages run 36015471326）；
+// Chrome 行程已經結束就立刻報錯，不空等。
+async function pageWsUrl(devPort, proc, limitMs) {
+  const t0 = Date.now(), end = t0 + (limitMs || 45000);
+  while (Date.now() < end) {
+    if (proc && (proc.exitCode !== null || proc.signalCode !== null || proc.__spawnErr)) {
+      throw new Error(`Chrome 已結束（結束碼 ${proc.exitCode}${proc.signalCode ? '，訊號 ' + proc.signalCode : ''}，啟動後 ${Date.now() - t0}ms）${chromeTail(proc)}`);
+    }
     try {
       const list = await fetch(`http://127.0.0.1:${devPort}/json/list`).then(r => r.json());
       const page = (list || []).find(t => t.type === 'page' && t.webSocketDebuggerUrl);
@@ -115,17 +127,23 @@ async function pageWsUrl(devPort) {
     } catch { /* 還沒起來 */ }
     await sleep(250);
   }
-  throw new Error('等不到 Chrome 的 page target');
+  throw new Error(`等不到 Chrome 的 page target（${((Date.now() - t0) / 1000).toFixed(1)}s）${chromeTail(proc)}`);
 }
 
 function launchChrome(devPort, profile) {
-  return spawn(findChrome(), [
+  const proc = spawn(findChrome(), [
     '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
     '--hide-scrollbars', '--mute-audio', '--window-size=1280,800',
     // T617：Linux 容器以 root 跑、Ubuntu 24.04 又限制非特權 namespace，Chrome 沙箱起不來；只載本機 index.html，關沙箱可接受。Windows 不加。
     ...(process.platform === 'linux' ? ['--no-sandbox'] : []),
     `--user-data-dir=${profile}`, `--remote-debugging-port=${devPort}`, 'about:blank',
-  ], { stdio: 'ignore' });
+  ], { stdio: ['ignore', 'ignore', 'pipe'] });
+  // T627：stderr 持續讀掉（不讀會塞住管線），只留最後 2KB
+  proc.__tail = '';
+  proc.stderr.on('data', d => { proc.__tail = (proc.__tail + d.toString()).slice(-2048); });
+  proc.stderr.unref();   // 管線不拖住工具結束（Chrome 子行程晚退時）
+  proc.on('error', e => { proc.__spawnErr = e.message; proc.__tail += '\n啟動失敗：' + e.message; });   // 找不到執行檔等：不會有結束碼，另外記
+  return proc;
 }
 
 function cleanProfiles() {
@@ -166,14 +184,28 @@ async function withGame(opt, fn) {
   const enterCity = o.enterCity !== false;
   const fresh = o.fresh === true;   // 清掉自己的測試槽並開新城市：固定 day=1 ⇒ 季節固定 ⇒ 烘焙指紋可重現
   cleanProfiles();
-  const profile = path.join(ROOT, '.smoke-profile-' + process.pid);
+  let profile = path.join(ROOT, '.smoke-profile-' + process.pid);
   const srv = await startServer(PORT);
   const devPort = PORT + 1000 + (process.pid % 400);
-  const chrome = launchChrome(devPort, profile);
+  let chrome = launchChrome(devPort, profile);
   let cdp = null;
   const out = { ok: false, fails: [], port: PORT, t0: Date.now() };
   try {
-    cdp = await cdpConnect(await pageWsUrl(devPort));
+    // T627：第一次開不起來（逾時或 Chrome 結束）就關掉、換新 profile 與下一個除錯埠重開一次；兩次都失敗才報錯
+    let ws = null;
+    try { ws = await pageWsUrl(devPort, chrome); out.chromeMs = { ms: Date.now() - out.t0, attempt: 1 }; }
+    catch (e1) {
+      try { chrome.kill(); } catch {}
+      const old = profile; setTimeout(() => { try { fs.rmSync(old, { recursive: true, force: true }); } catch {} }, 1500);
+      profile = path.join(ROOT, '.smoke-profile-b-' + process.pid);   // 結尾保持 -<pid>，cleanProfiles 才認得出擁有者
+      const t1 = Date.now();
+      chrome = launchChrome(devPort + 1, profile);
+      try { ws = await pageWsUrl(devPort + 1, chrome); }
+      catch (e2) { throw new Error(`Chrome 兩次都開不起來｜第 1 次：${e1.message}｜第 2 次：${e2.message}`); }
+      out.chromeMs = { ms: Date.now() - t1, attempt: 2, first: e1.message };
+      log('   Chrome 第 1 次開不起來，第 2 次成功：' + e1.message);
+    }
+    cdp = await cdpConnect(ws);
     await cdp.send('Runtime.enable');
     await cdp.send('Log.enable');
     await cdp.send('Page.enable');

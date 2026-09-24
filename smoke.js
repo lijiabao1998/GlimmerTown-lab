@@ -30,8 +30,9 @@ const KEEP = process.argv.includes('--keep');
   console.log('=== 微光小鎮 煙霧測試 ===');
   const fails = [];
 
-  const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp }) => {
-    log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙');
+  const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
+    log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙' +
+      (chromeMs ? `（Chrome 冷啟動 ${(chromeMs.ms / 1000).toFixed(1)}s${chromeMs.attempt > 1 ? '，第 2 次才成功' : ''}）` : ''));   // T627：runner 上的冷啟動時間留在紀錄裡
 
     log('4 確認主迴圈 …');
     const a = await cdp.evalJs(`(window.__smokeFrames|0)`);

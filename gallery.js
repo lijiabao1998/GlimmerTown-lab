@@ -79,5 +79,6 @@ function page(meta, shots) {
   if (!r.ok || !r.result) { console.error('X 樣張失敗：', r.fails.join(' / ')); process.exit(1); }
   const meta = { ver, anchor, sha: SHA, seed: SEED, time: new Date().toISOString().slice(0, 16).replace('T', ' ') };
   fs.writeFileSync(path.join(OUT, 'index.html'), page(meta, r.result));
-  console.log(`OK 樣張 ${r.result.length} 張 → ${path.relative(ROOT, OUT)}（${r.seconds.toFixed(1)}s，v${ver}/${anchor}）`);
+  const cm = r.chromeMs ? `，Chrome 冷啟動 ${(r.chromeMs.ms / 1000).toFixed(1)}s${r.chromeMs.attempt > 1 ? '（第 2 次才成功）' : ''}` : '';   // T627：Actions 紀錄裡看得到 runner 上的冷啟動時間
+  console.log(`OK 樣張 ${r.result.length} 張 → ${path.relative(ROOT, OUT)}（${r.seconds.toFixed(1)}s，v${ver}/${anchor}${cm}）`);
 })().catch(e => { console.error('FAIL', e.message); process.exit(1); });
