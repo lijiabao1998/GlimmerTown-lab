@@ -79,6 +79,7 @@ const KEEP = process.argv.includes('--keep');
       ['smokeView626', `(window.GV && window.GV.smokeViewSelftest626) ? window.GV.smokeViewSelftest626() : {ok:false,checks:['API 不存在']}`],
       ['vkey628', `(window.GV && window.GV.vkeySelftest628) ? window.GV.vkeySelftest628() : {ok:false,checks:['API 不存在']}`],
       ['nightOcc629', `(window.GV && window.GV.nightOccSelftest629) ? window.GV.nightOccSelftest629() : {ok:false,checks:['API 不存在']}`],
+      ['ownNight630', `(window.GV && window.GV.ownNightSelftest630) ? window.GV.ownNightSelftest630() : {ok:false,checks:['API 不存在']}`],
     ];
     // T617：沒有 LOCALAPPDATA（Linux）時改寫系統暫存目錄；原本會落進倉庫裡的 Temp/。
     const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Temp') : require('os').tmpdir(), 'grok-goal-c80f16d61c81', 'implementer');
