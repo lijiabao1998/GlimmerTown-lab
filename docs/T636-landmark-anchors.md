@@ -66,6 +66,7 @@
 | `probe636.js` 種子城摩天樓（(16,4)、z=1，日／夜） | 攔截警示燈實際繪製位置、依每棟預期燈位配對（0 盞配不到）：修正前 **6/6 浮空** → 修正後 **6/6 在塔上** |
 | 煙霧（雲端容器） | 最終版 **綠 3／紅 0**，28.4–29.0s，0 console error（第一次 3 連跑紅一次，見 §6） |
 | `fp.js --check` | **全綠**（精靈沒變） |
+| GitHub Actions（`7be9356`） | 煙霧 `main` [run 36042675174](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36042675174) 綠、分支 run 36042677389 綠；Pages [run 36042818756](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36042818756) 部署成功 |
 | 樣張 | `shots636/T636_day_zoom.png`（塔頂放大：修正前紅燈浮在塔左側、修正後在天線尖；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）

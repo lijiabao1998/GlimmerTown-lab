@@ -60,6 +60,7 @@
 | Pages 8 個鏡頭修前修後差異像素 | 中景白天 3,378／夜 3,350；近景白天 6,234／夜 6,230；住宅近景白天、黃昏、夜各 192；遠景 2,116。港區近景洋紅差異圖：差異全部落在棕色折線上（人眼確認） |
 | 煙霧（雲端容器） | **綠 3／紅 0**，27.8–28.1s，0 console error |
 | `fp.js --check` | **全綠**（精靈沒變） |
+| GitHub Actions（`687f96d`） | 煙霧 `main` [run 36037081166](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36037081166) 綠、分支 run 36037084896 綠；Pages [run 36037215901](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36037215901) 部署成功 |
 | 樣張 | `shots634/T634_near_{cmp,diff}.png`（不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）

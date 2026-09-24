@@ -61,6 +61,7 @@
 | `probe635.js` 種子城住宅近景 | 15 塊超街區（52 條分段）設成 age 5：施工疊層 **52 → 15 次**；T168 鷹架網 **52 → 15 次**（15 張全剪進剪影）；切片在裁切裡畫 0 → 52 次；施工中修前修後差 259,310 像素；**完工狀態修前修後 0 像素** |
 | 煙霧（雲端容器） | **綠 3／紅 0**，28.9–29.2s，0 console error |
 | `fp.js --check` | **全綠**（精靈沒變） |
+| GitHub Actions（`e482c43`） | 煙霧 `main` [run 36040855852](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36040855852) 綠、分支 run 36040859522 綠；Pages [run 36041053286](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36041053286) 部署成功 |
 | 樣張 | `shots635/T635_options2.png`（修正前／A／B／C 四格；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）
