@@ -58,6 +58,7 @@ T629 修完穿牆的燈以後，住宅近景夜晚仍看得到錯位的亮點：
 | 近景夜晚 | 715 → 55；差異 1,555 像素 |
 | 煙霧（雲端容器） | **綠 3／紅 0**，27.8–28.6s，0 console error |
 | `fp.js --check` | 與 T629 相同：只有環境差 4 葉 |
+| GitHub Actions（`e833824`） | 煙霧 `main` [run 36027854247](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36027854247) 綠、分支 run 36027857624 綠；Pages [run 36027977167](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36027977167) 部署成功 |
 | 樣張 | `shots630/T630_crop.png`（修正前屋頂、遮陽棚上的暖色小點；修正後只剩對齊窗戶的窗燈；不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）

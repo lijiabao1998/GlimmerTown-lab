@@ -58,6 +58,7 @@
 | `--record-env=bld.1_1_0`（沒有差異的葉子） | **拒絕**，`fp.json` 的 md5 不變 |
 | `fp.json` 變動 | 只有新增的 `envLeaves` 一段（+32 行，0 行刪除） |
 | 煙霧（雲端容器） | **綠 3／紅 0**，28.3–29.0s（本輪只動 `fp.js`／`fp.json`） |
+| GitHub Actions（`e5f0566`） | 煙霧 `main` [run 36028839594](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36028839594) 綠、分支 run 36028842889 綠；Pages [run 36028995043](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36028995043) 部署成功 |
 
 ## 6. 施工紀錄（如實，含失敗）
 

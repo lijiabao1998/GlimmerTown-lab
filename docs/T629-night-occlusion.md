@@ -77,6 +77,7 @@ Pages「住宅近景・夜晚」（種子城 (12,12)，z=2，午夜）裡：
 | 三個問題位置 | 空橋下方的淡色方塊、空橋白塊、旅館屋頂的亮方塊、橫跨旅館的橫線**全部消失**；空橋恢復成有窗燈的橋；旅館自己的青色招牌保留 |
 | 煙霧（雲端容器） | **綠 3／紅 0**，29.4–29.8s，0 console error |
 | `fp.js --check` | 與 T628 相同：只有環境差 4 葉（夜光是執行期疊加，不在 SPR） |
+| GitHub Actions（`65ef49c`） | 煙霧 `main` [run 36026091013](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36026091013) 綠、分支 run 36026093995 綠；Pages [run 36026200578](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36026200578) 部署成功 |
 | 樣張 | `shots629/T629_home_night_{cmp,crop}.png`、`T629_{lamps,center}_crop.png`（不進版本庫，已傳業主） |
 
 ## 6. 施工紀錄（如實，含失敗）
