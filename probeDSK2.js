@@ -128,21 +128,22 @@ const OUT = arg('out', 'shotsDSK2');
       if(!spot) return { err: '找不到預算放行的空地', shots };
       const vp = JSON.parse(await ev("JSON.stringify({w:innerWidth,h:innerHeight})"));
       const clip = { x: Math.round(vp.w/2-150), y: Math.round(vp.h/2-260), width: 300, height: 420, scale: 2 };
-      await ev("GV.art574.plant574([{k:188,lv:1,v:0,x:"+spot[0]+",y:"+spot[1]+"}]);1");
+      const KV = +(arg('v', '0'));
+      await ev("GV.art574.plant574([{k:188,lv:1,v:"+KV+",x:"+spot[0]+",y:"+spot[1]+"}]);1");
       const CY3 = await ev("GV.art574.cycle574()");
       await ev("GV.setVisT("+CY3*0.5+");GV.lookAt("+spot[0]+","+spot[1]+");GV.art574.zoom574(2.4);window.__noNearKeep188=false;GV.forceDraw();1");
-      await shot("keep_near");
-      await shot("keep_near_zoom", clip);
+      await shot("keep_near_v"+KV);
+      await shot("keep_near_zoom_v"+KV, clip);
       await ev("window.__noNearKeep188=true;GV.forceDraw();1");
-      await shot("keepzoom_off_zoom", clip);
+      await shot("keepzoom_off_zoom_v"+KV, clip);
       await ev("window.__noNearKeep188=false;GV.forceDraw();1");
-      await shot("keepzoom_on_zoom", clip);
+      await shot("keepzoom_on_zoom_v"+KV, clip);
       await ev("GV.setVisT("+CY3*0.86+");window.__noNearKeep188=true;GV.forceDraw();1");
-      await shot("keep_near_night_off", clip);
+      await shot("keep_near_night_off_v"+KV, clip);
       await ev("window.__noNearKeep188=false;GV.forceDraw();1");
-      await shot("keep_near_night_on", clip);
+      await shot("keep_near_night_on_v"+KV, clip);
       const diff = await ev("(function(){var cvs=document.getElementById(String.fromCharCode(103,97,109,101));var g=cvs.getContext(String.fromCharCode(50,100),{willReadFrequently:true});var W=280,H=420,X=Math.round(cvs.width/2-W/2),Y=Math.round(cvs.height/2-H/2+40);var grab=function(){return g.getImageData(X,Y,W,H).data.slice();};var run=function(zz){GV.art574.zoom574(zz);window.__noNearKeep188=true;GV.forceDraw();var a=grab();window.__noNearKeep188=false;GV.forceDraw();var b=grab();var n=0;for(var i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2])n++;return n;};var near=run(2.4);var far=run(0.6);GV.art574.zoom574(2.4);GV.forceDraw();return {near:near,far:far};})()");
-      return { spot, diff, shots };
+      return { spot, v:KV, diff, shots };
     }
     if (MODE === 'ascii') {
       const out = await ev(`(()=>{
