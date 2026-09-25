@@ -70817,8 +70817,7 @@ const ARCHE568={
           {n:'bungalow',fs:'ukSemi', box:[.06,.80,.18,.86],hm:0.62,wd:[6,7],win:'punch'},
           {n:'cottage',fs:'ukTerrace',  box:[.04,.96,.10,.72],hm:0.85,wd:[5,6],win:'arch'},
           {n:'modern',   box:[.14,.86,.10,.82],hm:0.90,flat:1,wd:[4,4],win:'ribbon'},
-          {n:'town',     box:[.08,.92,.06,.88],hm:1.12,wd:[5,6],win:'arch'},
-          {n:'mews',fs:'ukMews', box:[.12,.88,.28,.86],hm:0.58,wd:[8,9],win:'punch'} ],
+          {n:'town',     box:[.08,.92,.06,.88],hm:1.12,wd:[5,6],win:'arch'} ],
   '1_2':[ {n:'walkup',fs:'usBrownstone',   box:[.04,.96,0,.82],        hm:1.00,wd:[5,6],win:'arch'},
           {n:'courtyard',fs:'ukMansion',box:[0,1,0,.52],      hm:1.10,ex:{box:[0,.46,.52,1],hm:0.95},wd:[5,6],win:'arch'},
           {n:'terrace',fs:'ukVictorian',  box:[.08,.92,0,1],    hm:1.38,flat:1,wd:[4,5],win:'grid'},
@@ -70900,11 +70899,13 @@ function facadeFor577(k,lv,bw,bh,v,ar){
 }
 function arche568(k,lv,v){
   if(window.__noArche568)return null;
-  let L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
-  if(window.__noUkMewsGROK2)L=L.filter(a=>a.fs!=='ukMews');
-  if(!L.length)return null;
-  return L[Math.abs(v)%L.length];
+  const L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
+  const vv=Math.abs(v|0);
+  if(!window.__noUkMewsGROK2&&k===1&&(lv|0)===1&&vv===5)
+    return {n:'mews',fs:'ukMews',box:[.12,.88,.28,.86],hm:0.58,wd:[8,9],win:'punch'};
+  return L[vv%L.length];
 }
+window.mewsArcheNameGROK2=v=>{const a=arche568(1,1,v);return a?(a.fs||a.n):'';};
 function arNameVilla600(k,lv,v){const a=arche568(k,lv,v);return !!(a&&a.n==='villa');}
 function speciesPal601(pal,ar,k){
   if(window.__noSpecies601||!ar||!pal)return pal;
@@ -75222,33 +75223,44 @@ function tools(ctx){
   const foot=(a,b,x)=>R(fy(a,b,x));
   const cols=(a,b,fn)=>{const x0=R(Math.min(a[0],b[0])),x1=R(Math.max(a[0],b[0]));for(let x=x0;x<=x1;x++)fn(x,foot(a,b,x));};
   const wall=(cx,a,b,h,c)=>{cx.fillStyle=c;cols(a,b,(x,y)=>cx.fillRect(x,y-h,1,h));};
-  return {sh,rc,foot,cols,wall};
+  const poly=(cx,pts,c)=>{let y0=1e9,y1=-1e9;for(const p of pts){if(p[1]<y0)y0=p[1];if(p[1]>y1)y1=p[1];}
+    y0=Math.max(0,Math.floor(y0));y1=Math.min(cx.canvas.height-1,Math.ceil(y1));cx.fillStyle=c;const n=pts.length;
+    for(let y=y0;y<=y1;y++){const yc=y+.5,xs=[];
+      for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%n];if((a[1]<=yc&&b[1]>yc)||(b[1]<=yc&&a[1]>yc))xs.push(a[0]+(yc-a[1])*(b[0]-a[0])/(b[1]-a[1]));}
+      xs.sort((p,q)=>p-q);
+      for(let i=0;i+1<xs.length;i+=2){const xa=Math.ceil(xs[i]-.5),xb=Math.ceil(xs[i+1]-.5);if(xb>xa)cx.fillRect(xa,y,xb-xa,1);}}};
+  return {sh,rc,foot,cols,wall,poly};
 }
 REG.ukMews={name:'ukMews',draw(ctx){
-  const {g,ng,G}=ctx,T=tools(ctx),{sh,rc,foot,cols,wall}=T;
-  const stock='#c4a36a',dark='#8a6238',slate='#5c6772';
-  const wallH=12;
+  const {g,ng,G}=ctx,T=tools(ctx),{sh,rc,foot,cols,wall,poly}=T;
+  const stock='#c4a36a',dark='#8a6238',slate='#5c6772',ring='#efe6d2';
+  const wallH=Math.max(12,ctx.wallH|0);
+  const up=(p,h)=>[p[0],p[1]-h];
+  const roof={N:up(G.N,wallH),E:up(G.E,wallH),S:up(G.S,wallH),W:up(G.W,wallH)};
+  poly(g,[roof.N,roof.E,roof.S,roof.W],slate);
+  poly(g,[roof.N,roof.E,up(G.S,wallH-1),up(G.W,wallH-1)],'#4a5560');
   wall(g,G.S,G.E,wallH,sh(dark,-18));
-  cols(G.S,G.E,(x,y)=>{rc(g,x,y-3,1,3,sh(dark,-36));rc(g,x,y-wallH,1,2,slate);});
+  cols(G.S,G.E,(x,y)=>{rc(g,x,y-3,1,3,sh(dark,-36));rc(g,x,y-wallH,1,2,'#3e4650');});
   const x0=R(Math.min(G.W[0],G.S[0])),x1=R(Math.max(G.W[0],G.S[0]));
   const mid=R((x0+x1)/2);
   for(let x=x0;x<=x1;x++){
-    const y=foot(G.W,G.S,x);
-    const inArch=x>mid-5&&x<mid+5&& (y-(y-8))>0;
-    const archTop=y-8, archMouth=y-3;
-    const dx=x-mid, underArch=Math.abs(dx)<=4 && y>archTop && y<=y;
-    const inMouth=Math.abs(dx)<=3 && y>archTop+2;
+    const y=foot(G.W,G.S,x),dx=x-mid,adx=Math.abs(dx);
     rc(g,x,y-wallH,1,wallH,stock);
     rc(g,x,y-wallH,1,2,'#4a5560');
     rc(g,x,y-1,1,1,sh(stock,-28));
-    if(inMouth)rc(g,x,archMouth-4,1,6,'#241c16');
-    if(Math.abs(dx)===4)rc(g,x,archMouth-5,1,7,sh(stock,-20));
-    if(Math.abs(dx)<=4 && y===archTop+1)rc(g,x,archTop,1,1,'#efe6d2');
+    if(adx<=5){
+      const rise=Math.round(Math.sqrt(Math.max(0,25-adx*adx)));
+      const lip=y-3-rise;
+      rc(g,x,lip,1,1,ring);
+      rc(g,x,lip-1,1,1,sh(stock,-8));
+      if(adx<=4)rc(g,x,lip+1,1,Math.max(1,(y-2)-(lip+1)),'#241c16');
+      if(adx===5)rc(g,x,lip+1,1,Math.max(1,(y-2)-(lip+1)),sh(stock,-22));
+    }
   }
   const sx=x0+2, sy=foot(G.W,G.S,sx);
-  rc(g,sx,sy-wallH+2,3,4,'#dfe7ee');
-  rc(g,sx,sy-wallH+4,3,1,'#efe6d2');
-  if(ng){ng.fillStyle='#fff2c4';ng.fillRect(sx,sy-wallH+2,3,3);}
+  rc(g,sx,sy-wallH+3,3,4,'#dfe7ee');
+  rc(g,sx,sy-wallH+5,3,1,'#c5d0da');
+  if(ng){ng.fillStyle='#fff2c4';ng.fillRect(sx,sy-wallH+3,3,3);}
   const lx=mid-6, ly=foot(G.W,G.S,lx);
   rc(g,lx,ly-6,1,5,'#2c3036');
   rc(g,lx,ly-7,2,1,'#efe6c0');
@@ -75262,7 +75274,7 @@ REG.ukMews={name:'ukMews',draw(ctx){
   const rx=R(G.S[0])-3, ry=foot(G.S,G.E,rx);
   rc(g,rx,ry-wallH+3,2,3,'#c5d0da');
   if(ng){ng.fillStyle='#fff2c4';ng.fillRect(rx,ry-wallH+3,2,2);}
-  return {pitch:false};
+  return {pitch:true};
 }};
 window.__ukMewsGROK2=1;
 window.GV=window.GV||{};
@@ -75293,6 +75305,20 @@ window.GV.ukMewsSelftestGROK2=function(){
     const back=B.make(1,1,1,1,5);
     checks.push(['逃生閥不再是馬廄',!(back&&back.__t547&&String(back.__t547.sty).indexOf('ukMews')>=0)]);
     checks.push(['逃生閥畫面不同',!!(back&&back.img)&&mask(back).m!==mm.m]);
+    window.__noUkMewsGROK2=false;B.cache().clear();
+    const oldN=['villa','ukSemi','ukTerrace','modern','town'];
+    let mapOk=true;const got=[];
+    for(let v=0;v<12;v++){const name=window.mewsArcheNameGROK2(v),want=v===5?'ukMews':oldN[v%5];got.push(v+'='+name);if(name!==want)mapOk=false;}
+    checks.push(['v=0..11 只有 v=5 是馬廄（'+got.join(' ')+'）',mapOk]);
+    const px=(s,hex)=>{const w=s.img.width,h=s.img.height,d=s.img.getContext('2d').getImageData(0,0,w,h).data,n=parseInt(hex.slice(1),16),rr=n>>16,gg=(n>>8)&255,bb=n&255;let c=0;for(let i=0;i<d.length;i+=4)if(d[i+3]>200&&d[i]===rr&&d[i+1]===gg&&d[i+2]===bb)c++;return c;};
+    const ring=px(mews,'#efe6d2');
+    checks.push(['拱圈有石（'+ring+'）',ring>=8]);
+    const wl=mews.__t547.wall,pts=[wl.N,wl.E,wl.S,wl.W].map(p=>[p[0],p[1]-wl.h]);
+    const qx=Math.round(pts.reduce((a,p)=>a+p[0],0)/4),qy=Math.round(pts.reduce((a,p)=>a+p[1],0)/4);
+    const rd=mews.img.getContext('2d').getImageData(0,0,mews.img.width,mews.img.height).data;
+    let slate=0,hole=0,seen=0;
+    for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const x=qx+dx,y=qy+dy;if(x<0||y<0||x>=mews.img.width||y>=mews.img.height)continue;const i=(y*mews.img.width+x)*4;seen++;if(rd[i+3]<200){hole++;continue;}const r=rd[i],gch=rd[i+1],b=rd[i+2];if(b+6>=r&&b+6>=gch&&r<150&&gch<160)slate++;}
+    checks.push(['屋頂中心是石板（'+slate+'/'+seen+'，洞 '+hole+'）',slate>=15&&hole===0]);
   }finally{window.__facadeForce577=prevF;window.__noUkMewsGROK2=prevK;B.cache().clear();}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 };
