@@ -12,7 +12,7 @@ const OUT = arg('out', 'shots575/look');
 const EVAL = arg('eval', '');
 
 (async () => {
-  const session = await withGame({ port: 8199, timeout: 300, log: () => {} }, async ({ cdp }) => {
+  const session = await withGame({ port: 8198, timeout: 300, log: () => {} }, async ({ cdp }) => {
     const ev = async e => {
       const r = await cdp.send('Runtime.evaluate', { expression: e, returnByValue: true, awaitPromise: true });
       if (r.exceptionDetails) throw new Error((r.exceptionDetails.exception && r.exceptionDetails.exception.description) || r.exceptionDetails.text);

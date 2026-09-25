@@ -9,10 +9,10 @@
  *   5  console 乾淨
  * 外加進城後確認素材烘焙完成（__t519Roof > 0）。
  *
- * 用法：node smoke.js [--port=8199] [--timeout=300] [--keep]
+ * 用法：node smoke.js [--port=8198] [--timeout=300] [--keep]
  * 退出碼 0 = 綠燈；1 = 紅燈（錯誤清單會印出來）
  *
- * 邊界：自用埠 8199；進城前一律設 slot=3，不碰業主存檔（AUTORUN.md）。
+ * 邊界：自用埠 8198；進城前一律設 slot=3，不碰業主存檔（AUTORUN.md）。
  */
 'use strict';
 const fs = require('fs');
@@ -20,7 +20,7 @@ const path = require('path');
 const { withGame, sleep, ROOT } = require('./harness.js');
 
 const arg = (n, d) => { const h = process.argv.find(a => a.startsWith('--' + n + '=')); return h ? h.split('=').slice(1).join('=') : d; };
-const PORT = +arg('port', 8199);
+const PORT = +arg('port', 8198);
 const TIMEOUT = +arg('timeout', 300);
 const KEEP = process.argv.includes('--keep');
 

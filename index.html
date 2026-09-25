@@ -50674,6 +50674,88 @@ function drawWaterfrontEdge498(g,f,profile,info,x,y,z,signature){
 }
 function drawWaterfrontTransition498(g,f,profile,others,z){if(!others.length)return;waterfrontDrawStats498.transitions++;const hard=profile==='industrial'||profile==='port'||others.some(q=>q==='industrial'||q==='port');if(hard){waterfrontDot498(g,f,0,6*z,2*z,8*z,'#596166');waterfrontDot498(g,f,-4*z,6*z,8*z,Math.max(1,z),'#d0a53f');}else if(profile==='natural'||profile==='ecological'||others.some(q=>q==='natural'||q==='ecological')){for(const a of[-4,0,4])waterfrontDot498(g,f,a*z,3*z,2*z,2*z,a?'#71805a':'#91846a');}else waterfrontDot498(g,f,0,4*z,10*z,1.2*z,'#6c7070');}
 function drawStormOutfall498(g,f,z){waterfrontDot498(g,f,0,1*z,7*z,3.5*z,'#3d474c');waterfrontDot498(g,f,0,-1.1*z,3*z,1.2*z,'#72aebd');waterfrontDrawStats498.outfalls++;}
+
+/* ===== GLM-001 Bay Bank Grammar／灣城自然岸線語彙 =====
+   碼頭有 T498 完整語彙，自然岸線只有裸崖邊。本層在「陸地鄰水格」沿朝水邊緣、
+   於陸地菱形內側畫灣城岸壁：都市岸＝石砌護岸（方塊接縫＋壓頂＋內影）＋潮痕藻帶＋
+   岸壁繫船環／排水涵管口＋瀝痕／石階下水（hash 決定性取捨）；野岸＝土岸唇＋
+   木樁＋草簾。全部圖元內縮菱形內、垂直小件只允許出現在下緣邊（SE/SW）——
+   零越格＝水面格零污染。查證：EPA Ireland（岸壁繫船環＋石階）、Glasgow 規劃
+   （岸壁排水收集管）、Thames quay 影像。streetHash 決定性、零 R()、不入 save；
+   __noBayBankGLM1 逃生閥；__tGLM1BankCount 計數（烘焙清零區）。 */
+function drawBayBankGLM1(gc,x,y,sx,sy,z){
+  if(window.__noBayBankGLM1)return;
+  const wm=waterNeighborMask479(x,y);
+  if(!wm)return;
+  const vm=rotMask(wm);
+  const W=[sx,sy+16*z],N=[sx+32*z,sy],E=[sx+64*z,sy+16*z],S=[sx+32*z,sy+32*z],C=[sx+32*z,sy+16*z];
+  const EDGE={1:[N,E],2:[E,S],4:[S,W],8:[W,N]};
+  // 都市判定：2 格內有建築
+  let urban=false;
+  for(let dy=-3;dy<=3&&!urban;dy++)for(let dx=-3;dx<=3;dx++){if(inMap(x+dx,y+dy)&&T(idx(x+dx,y+dy)).bld){urban=true;break;}}
+  if(!urban){const tt=T(idx(x,y));urban=hasRoadNear(x,y,2,false)||tt.rail||tt.road;} // 基礎設施岸（鐵路/道路沿水）＝石砌駁坎
+  const R=(pts,c,al)=>{gc.save();gc.globalAlpha=al;gc.fillStyle=c;gc.beginPath();
+    gc.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)gc.lineTo(pts[i][0],pts[i][1]);
+    gc.closePath();gc.fill();gc.restore();};
+  const inset=(P,f)=>[P[0]+(C[0]-P[0])*f,P[1]+(C[1]-P[1])*f];
+  const lerp=(A,B,u)=>[A[0]+(B[0]-A[0])*u,A[1]+(B[1]-A[1])*u];
+  let drew=0;
+  for(const bit of [1,2,4,8]){
+    if(!(vm&bit))continue;
+    const [A,B]=EDGE[bit];
+    const hE=streetHash(x,y,59410+bit);
+    if(urban){
+      if(hE>.22)continue; // 都市岸 78% 鋪護岸
+      // 護岸帶：edge→inset .42
+      const A1=inset(A,.42),B1=inset(B,.42);
+      R([A,B,B1,A1],'#8d8578',.92);
+      R([A,[ (A[0]+B[0])/2,(A[1]+B[1])/2 ],inset([(A[0]+B[0])/2,(A[1]+B[1])/2],.14),inset(A,.14)],'rgba(70,80,66,.30)',1); // 外緣潮痕半段
+      R([inset(A,.16),inset(B,.16),B1,A1],'#6f695d',.55); // 內側面影
+      // 潮痕藻帶：最外 1.5px
+      R([A,B,inset(B,.10),inset(A,.10)],'rgba(74,92,64,.42)',1);
+      // 方塊接縫 tick
+      for(let u=.14;u<.9;u+=.17){const P0=lerp(A,B,u),P1=inset(P0,.42);
+        gc.save();gc.globalAlpha=.30;gc.strokeStyle='#5a544a';gc.lineWidth=1;
+        gc.beginPath();gc.moveTo(P0[0],P0[1]);gc.lineTo(P1[0],P1[1]);gc.stroke();gc.restore();}
+      // 壓頂亮線（edge 內縮 .03）
+      R([inset(A,.03),inset(B,.03),inset(B,.09),inset(A,.09)],'rgba(214,206,186,.5)',1);
+      // 岸壁繫船環（bit 2/4 才畫直立面細節；環本身平面可任意邊）
+      if(hE<.2){const P0=lerp(A,B,.3+hE),P2=inset(P0,.15);
+        gc.save();gc.globalAlpha=.85;gc.fillStyle='#3c3830';
+        gc.beginPath();gc.arc(P2[0],P2[1],1.6*z,0,6.283);gc.fill();
+        gc.fillStyle='#8d8578';gc.beginPath();gc.arc(P2[0],P2[1],.7*z,0,6.283);gc.fill();gc.restore();}
+      // 排水涵管口＋瀝痕（下緣邊限定：管口向下向內瀝，避免越格）
+      if(bit===2||bit===4){const hh=streetHash(x,y,59420+bit);
+        if(hh<.35){const P0=lerp(A,B,.2+hh*.6),P1=inset(P0,.12);
+          R([P1[0]-1.4*z,P1[1]-.7*z,2.8*z,1.4*z],'#565a5e',1);
+          R([P1[0]-.5*z,P1[1]+.7*z,1*z,(3+hh*4)*z],'rgba(52,56,58,.55)',1);}}
+      // 石階下水（三級踏步，下緣邊限定）
+      if(bit===2||bit===4){const hh=streetHash(x,y,59430+bit);
+        if(hh<.14){const u0=.15+hh;
+          for(let st=0;st<3;st++){const uu=u0+st*.06;
+            const P0=lerp(A,B,uu),P2=inset(P0,.10),P3=inset(P0,.30);
+            R([P2[0],P2[1],P3[0],P3[1]].length?[[P2[0]-2*z,P2[1]],[P2[0]+2*z,P2[1]],[P3[0]+2.6*z,P3[1]],[P3[0]-2.6*z,P3[1]]]:[],'#b0a894',.95);}}}
+      drew=1;
+    }else{
+      if(hE>.30)continue; // 野岸 30% 有特徵
+      const A1=inset(A,.20),B1=inset(B,.20);
+      R([A,B,B1,A1],'#6e6152',.5); // 土岸唇
+      if(hE<.07&&(bit===2||bit===4)){ // 木樁（下緣邊）
+        const P0=lerp(A,B,.3+hE*4);
+        gc.save();gc.globalAlpha=.9;gc.fillStyle='#4c3a26';
+        gc.fillRect(Math.round(P0[0]-.8*z),Math.round(P0[1]-4*z),Math.max(1,Math.round(1.6*z)),Math.round(4*z));
+        gc.fillStyle='#6a5438';gc.fillRect(Math.round(P0[0]-.8*z),Math.round(P0[1]-4*z),Math.max(1,Math.round(1.6*z)),Math.round(1.2*z));
+        gc.restore();}
+      if(hE>.12){ // 草簾垂緣
+        for(let u=.15;u<.85;u+=.2){const hh=streetHash(x,y,59440+bit+((u*10)|0));
+          if(hh<.4){const P0=lerp(A,B,u);
+            gc.save();gc.globalAlpha=.6;gc.fillStyle='#557a3e';
+            gc.fillRect(Math.round(P0[0]),Math.round(P0[1]),Math.max(1,Math.round(1.2*z)),Math.max(1,Math.round(2.2*z)));gc.restore();}}}
+      drew=1;
+    }
+  }
+  if(drew)window.__tGLM1BankCount=(window.__tGLM1BankCount||0)+1;
+}
 function drawWaterfront498(g,t,x,y,sx,sy,z,glow){
   if(window.__noWaterfront498||window.__legacyWaterfront498||z<.72||!t||t.t===0)return 0;const wm=waterNeighborMask479(x,y);if(!wm)return 0;const info=waterfrontComponentInfo498(x,y);if(!info)return 0;const sm=rotMask(wm),bits=[1,2,4,8].filter(b=>sm&b),primary=bits[0],trans=waterfrontTransitions498(x,y,info.profile);g.save();g.lineCap='square';g.lineJoin='miter';
   for(const bit of bits){const f=waterfrontFrame498(bit,sx,sy,z),signature=bit===primary;drawWaterfrontEdge498(g,f,info.profile,info,x,y,z,signature);if(signature&&trans.length)drawWaterfrontTransition498(g,f,info.profile,trans,z);}
@@ -60546,7 +60628,7 @@ function draw(dt){
     if(!groundCache||groundCache.width!==W||groundCache.height!==H){const gp=cv(W,H);groundCache=gp[0];groundCacheCtx=gp[1];}
     else groundCacheCtx.clearRect(0,0,W,H);
     const gc=groundCacheCtx;
-    window.__t420StoryCount=0; window.__t427EdgeCount=0; window.__t428GroundCount=0; window.__t447AlleyCount=0;window.__t447TransitCount=0;window.__t447CurbCount=0; // T447-R12：ground-bake counters 只在重烘前清零，保留 last-bake 結果；window.__t592LotCount=0;// T592
+    window.__t420StoryCount=0; window.__t427EdgeCount=0; window.__t428GroundCount=0; window.__t447AlleyCount=0;window.__t447TransitCount=0;window.__t447CurbCount=0; // T447-R12：ground-bake counters 只在重烘前清零，保留 last-bake 結果；window.__t592LotCount=0;window.__tGLM1BankCount=0;// T592/GLM-001
     signalList.length=0; // T289：快取重烘時重新收集號誌位置（tile 座標，live 層動畫繪）
     if(typeof resetBridgeVisualCache480A==='function')resetBridgeVisualCache480A(); // T480A：每次 ground bake 重新派生橋梁 component style / span
     if(typeof resetWaterfrontDrawStats498==='function')resetWaterfrontDrawStats498(); // T498：draw counters 只代表本次 ground bake
@@ -60812,6 +60894,7 @@ function draw(dt){
         if(!lodFar)drawEmptyLot592(gc,x,y,sx,sy,z,t.zone); // T592 空置地過渡地貌
       }
       if(!lodFar&&!t.road&&!t.water&&!t.bld&&!t.ruin)drawGroundMemory428(gc,x,y,sx,sy,z); // T428：建築鄰地的踩踏/配送/工業使用痕跡
+      if(!lodFar&&t.t!==0)drawBayBankGLM1(gc,x,y,sx,sy,z); // GLM-001 灣城自然岸線語彙
       if(!lodFar)drawAlleyLife447(gc,x,y,sx,sy,z); // T447-R02 巷弄後門生活
       if(!lodFar)drawTransitWait447(gc,x,y,sx,sy,z); // T447-R07
       if(!lodFar)drawCurbPark447(gc,x,y,sx,sy,z); // T447-R10
