@@ -8204,6 +8204,44 @@ table.dtab tr:hover td{background:#1b2334}
       lamp(g,ng,20,127,7,'#8a8274',GD,'rgba(255,214,120,.55)');
       lamp(g,ng,29,132,7,'#8a8274',GD,'rgba(255,214,120,.55)');
       finish(K,0,base,st,nt,ax,ay,OL);}
+    /* v1：主樓與三座角塔同 v0，**東北角塔改圓柱＋鉛圓頂**（真實白塔東北角塔是圓頂收頭）；放哪裡由 doPlace 依座標雜湊選。 */
+    {const W=72,H=136,ax=36,ay=134,G=GP(ax,ay);const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g;
+      plate(base.g,ax,ay,'#a8a294','#948c7c','#b8b2a4');
+      for(let t=0;t<7;t++){const p=G(10+t*.55,16+t*.2,0);P(base.g,p[0]-2,p[1],4,1,'#bdb6a6');}
+      const SB=G(12,12),LU=(!window.__noKeepNight188),hK=34;
+      box(g,SB,6,6,4,WHX,WHX,WHL);
+      const S1=[SB[0],SB[1]-4];
+      box(g,S1,5.4,5.4,hK,WH,WHD,WHL);
+      band(g,S1,1,0,11,10,1,WHX);band(g,S1,-1,0,11,10,1,WHX);
+      band(g,S1,1,0,11,22,1,WHX);band(g,S1,-1,0,11,22,1,WHX);
+      for(let d=2;d<10;d+=3){P(g,fx(S1,1,d),fy(S1,d)-26,1,5,GL);P(g,fx(S1,1,d)-1,fy(S1,d)-24,3,1,GL);
+        P(g,fx(S1,1,d),fy(S1,d)-15,1,4,GL);
+        P(g,fx(S1,-1,d),fy(S1,d)-26,1,5,GL);P(g,fx(S1,-1,d)-1,fy(S1,d)-24,3,1,GL);
+        P(g,fx(S1,-1,d),fy(S1,d)-15,1,4,GL);
+        if(LU){P(ng,fx(S1,1,d),fy(S1,d)-26,1,5,LIT);P(ng,fx(S1,-1,d),fy(S1,d)-26,1,5,LIT);}}
+      faceRect(g,S1,1,4,3,4,9,DOOR);P(g,fx(S1,1,4),fy(S1,4)-13,3,1,WHL);
+      if(LU)P(ng,fx(S1,1,4),fy(S1,4)-12,3,7,'rgba(255,227,166,.55)');
+      {const T0=[S1[0],S1[1]-hK];
+       for(let d=0;d<11;d+=2){P(g,fx(S1,1,d),fy(S1,d)-hK-3,1,3,WHL);P(g,fx(S1,-1,d),fy(S1,d)-hK-3,1,3,WH);}
+       topFace(g,[T0[0],T0[1]],5.4,5.4,LEAD,'#7d8994',LEADL);}
+      for(const[ti,tj]of[[15,15],[9,15],[15,9]]){                                  // 三座方塔（東北角 9,9 改圓塔）
+        const TS=G(ti,tj),isBack=(ti+tj)>24;
+        box(g,TS,1.2,1.2,hK+7,isBack?WHD:WH,WHX,WHL);
+        for(let d=0;d<3;d+=1){P(g,fx(TS,-1,d),fy(TS,d)-(hK+7)-2,1,2,WHL);P(g,fx(TS,1,d),fy(TS,d)-(hK+7)-2,1,2,WH);}
+        if(LU&&(ti+tj)<24)P(ng,fx(TS,1,1),fy(TS,1)-(hK+10),1,4,'rgba(255,214,120,.5)');}
+      {const TR=G(9,9),rx=TR[0],ry=TR[1];                                          // 東北角圓塔＋鉛圓頂
+       cyl(g,rx,ry,4,2,hK+9,[WHL,WH,WHX,WHD],WHL);
+       ell(g,rx,ry-(hK+9),4.4,2.2,WHL);
+       for(const dx of [-3,-1,1,3])P(g,rx+dx,ry-(hK+7),1,3,GL);
+       if(LU)for(const dx of [-3,-1,1,3])P(ng,rx+dx,ry-(hK+7),1,3,LIT);
+       dome(g,rx,ry-(hK+11),3.6,1.8,6,[LEADL,LEAD,'#7e8a95','#69758a']);
+       P(g,rx,ry-(hK+19),1,4,'#a9a394');}
+      {const TF=G(15,15),ty=TF[1]-(hK+7)-2;
+       P(g,TF[0],ty-14,1,14,WHX);P(g,TF[0]+1,ty-13,5,3,FLAG);P(g,TF[0]+1,ty-13,5,1,'#e07a5f');
+       if(LU)disc(ng,TF[0]+1,ty-4,2,'rgba(255,214,120,.45)');}
+      lamp(g,ng,20,127,7,'#8a8274',GD,'rgba(255,214,120,.55)');
+      lamp(g,ng,29,132,7,'#8a8274',GD,'rgba(255,214,120,.55)');
+      finish(K,1,base,st,nt,ax,ay,OL);}
   })();}catch(e){console.error('v574 k188',e);}
 
   /* @@NEXT@@ */
@@ -52303,7 +52341,7 @@ function doPlace(toolId,x,y,silent){
     case 'whaleWatch':{t.tree=0;t.zone=0;t.deco=0;t.bld={k:185,lv:1,v:0,age:0,pw:true,h:1};break;} // T518：賞鯨台
     case 'glowGarden':{t.tree=0;t.zone=0;t.deco=0;t.bld={k:186,lv:1,v:0,age:0,pw:true,h:1};break;} // T518：夜光花園
     case 'cathedral':{t.tree=0;t.zone=0;t.deco=0;{const h187=streetHash(x,y,1871);t.bld={k:187,lv:1,v:h187<.42?0:(h187<.74?1:2),age:0,pw:true,h:1};}break;}
-    case 'keep':{t.tree=0;t.zone=0;t.deco=0;t.bld={k:188,lv:1,v:0,age:0,pw:true,h:1};break;} // DSK-003：白塔（1×1，只佔自己那格） // DSK-002：聖保羅座堂（1×1，只佔自己那格）
+    case 'keep':{t.tree=0;t.zone=0;t.deco=0;{const h188=streetHash(x,y,1881);t.bld={k:188,lv:1,v:h188<.55?0:1,age:0,pw:true,h:1};}break;} // DSK-003：v 依座標雜湊選（v0 方塔／v1 東北圓塔） // DSK-003：白塔（1×1，只佔自己那格） // DSK-002：聖保羅座堂（1×1，只佔自己那格）
     // ═══ T330 新民生/旅宿群 k81-90 ═══
     case 'guesthouse':{t.tree=0;t.zone=0;t.deco=0;t.bld={k:81,lv:1,v:0,age:0,pw:true,h:1};break;}
     case 'kindergarten':{t.tree=0;t.zone=0;t.deco=0;t.bld={k:84,lv:1,v:0,age:0,pw:true,h:1};stampCov('kindergarten',x,y,COVR.kindergarten,1);break;}
@@ -72702,6 +72740,21 @@ function keepSelftestDSK3(){
   checks.push(['孤立 1px 碎點 '+iso+' ≤ 不透明像素 1%',iso<=op*.01]);
   checks.push(['硬像素不越界（x∈[2,69]、y≤134）違規 '+hardOut+' 個',hardOut===0]);
   checks.push(['硬像素外框 x['+minx+','+maxx+'] y['+miny+','+maxy+'] 不貼邊',minx>=2&&maxx<=69&&miny>=1&&maxy<=134]);
+  {const kv=[0,1].map(v=>SPR.bld['188_1_'+v]);
+   checks.push(['兩個變體都存在、同幾何、都有夜圖（v0 方角塔／v1 東北圓塔）',kv.every(x=>!!(x&&x.w===72&&x.h===136&&x.ax===36&&x.ay===134&&x.img&&x.night))]);
+   const ksig=x=>{if(!x||!x.img)return null;const d=x.img.getContext('2d').getImageData(0,0,72,136).data;let h=5171;for(let i=0;i<d.length;i+=37)h=(h*33+d[i]+d[i+3])>>>0;return h;};
+   const ksg=kv.map(ksig);
+   checks.push(['兩變體簽章不同（'+ksg.join(' / ')+'）',!!(ksg[0]&&ksg[1]&&ksg[0]!==ksg[1])]);
+   let vBad='';for(let v=0;v<2;v++){const x=SPR.bld['188_1_'+v];if(!x||!x.img){vBad+=' 缺v'+v;continue;}
+     const d2=x.img.getContext('2d').getImageData(0,0,72,136).data;
+     const onk=(px,py)=>px>=0&&px<72&&py>=0&&py<136&&d2[(py*72+px)*4+3]>40;
+     let ho=0,is3=0,o3=0;
+     for(let y=0;y<136;y++)for(let px=0;px<72;px++){if(!onk(px,y))continue;if(d2[(y*72+px)*4+3]<=200)continue;o3++;
+       if(px<2||px>69||y>134)ho++;let nn=0;if(onk(px-1,y))nn++;if(onk(px+1,y))nn++;if(onk(px,y-1))nn++;if(onk(px,y+1))nn++;if(nn<=1)is3++;}
+     if(ho||is3>o3*.01)vBad+=' v'+v+'(越界'+ho+'／碎點'+is3+'／'+o3+')';}
+   checks.push(['v0／v1 都過同一組邊界與碎點檢查'+(vBad?'：'+vBad:''),vBad==='']);
+   {const vs2=new Set();for(let k3=0;k3<60;k3++){const hh188=streetHash(3+k3*2,5+k3,1881);vs2.add(hh188<.55?0:1);}
+    checks.push(['放置變體選擇器：60 個座標抽到 {0,1} 兩種（'+[...vs2].sort().join(',')+'）',vs2.size===2]);}}
   checks.push(['KNAME[188]／COST.keep／TOOLS(keep,culture,17)／LMCFG309[188] 註冊齊',KNAME[188]==='白塔'&&COST.keep===4800&&!!TOOLS.find(t=>t.id==='keep'&&t.cat==='culture'&&t.unlockRank===17)&&!!(LMCFG309[188]&&LMCFG309[188].t>0)]);
   let placed=false,neighOk=true,found=false;
   try{const svM=money;let x0=0,y0=0;
