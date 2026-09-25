@@ -2,7 +2,7 @@
 
 **分支**：`gpt/visual-place-identity`  
 **基線**：`3f0bbad`（main，v13.60 / T655）  
-**狀態**：卡面（動手前）  
+**狀態**：🟢 GPT-001 施工完成；CI smoke 綠  
 **性質**：英倫街景新增美術；不改模擬、不改存檔、不改版本號。
 
 ---
@@ -88,5 +88,8 @@ Historic England 的列級建築個案亦常見：紅磚上層、sash windows、
 
 ## 7. 施工紀錄
 
-尚未施工。  
-**沒做成的事**：目前尚無；施工後如實補。
+已施工：townShop 接入 ukCornerShopGPT001；新增 facade 原始碼、逃生閥快取隔離、smoke 自檢與 probeGPT001.js。  
+**煙霧測試**：GitHub Actions 綠 — https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/36184420125  
+**像素守衛**：未跑，待合併者跑（依 AGENTS.md §5）。  
+**樣張**：本次 GPT 無本機瀏覽器；待合併者執行 probeGPT001.js 產生。  
+**沒做成的事**：GPT 端無法本機跑像素 probe / fp.js；未把這兩項寫成通過。
