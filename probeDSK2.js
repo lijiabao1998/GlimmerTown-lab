@@ -145,6 +145,25 @@ const OUT = arg('out', 'shotsDSK2');
       const diff = await ev("(function(){var cvs=document.getElementById(String.fromCharCode(103,97,109,101));var g=cvs.getContext(String.fromCharCode(50,100),{willReadFrequently:true});var W=280,H=420,X=Math.round(cvs.width/2-W/2),Y=Math.round(cvs.height/2-H/2+40);var grab=function(){return g.getImageData(X,Y,W,H).data.slice();};var run=function(zz){GV.art574.zoom574(zz);window.__noNearKeep188=true;GV.forceDraw();var a=grab();window.__noNearKeep188=false;GV.forceDraw();var b=grab();var n=0;for(var i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2])n++;return n;};var near=run(2.4);var far=run(0.6);GV.art574.zoom574(2.4);GV.forceDraw();return {near:near,far:far};})()");
       return { spot, v:KV, diff, shots };
     }
+    if (MODE === 'battzoom') {
+      const spot = await ev("(function(){var N=GV.N();for(var y=8;y<N-8;y++)for(var x=8;x<N-8;x++){if(GV.art574.tileAt613(x,y,1,1).trim()!==String.fromCharCode(46))continue;if(!(GV.detailPermit432&&GV.detailPermit432(x,y,599,2.4,.62)))continue;var ok=true;for(var dy=-2;dy<=2&&ok;dy++)for(var dx=-2;dx<=2;dx++){var c=GV.art574.tileAt613(x+dx,y+dy,1,1).trim();if(c.indexOf(String.fromCharCode(66))>=0||c.indexOf(String.fromCharCode(114))>=0)ok=false;}if(ok)return [x,y];}return null;})()");
+      if(!spot) return { err: 'no spot', shots };
+      await ev("GV.art574.plant574([{k:189,lv:1,v:0,x:"+spot[0]+",y:"+spot[1]+"}]);1");
+      const CY4 = await ev("GV.art574.cycle574()");
+      const vp = JSON.parse(await ev("JSON.stringify({w:innerWidth,h:innerHeight})"));
+      const clip = { x: Math.round(vp.w/2-150), y: Math.round(vp.h/2-230), width: 300, height: 380, scale: 2 };
+      await ev("GV.setVisT("+CY4*0.5+");GV.lookAt("+spot[0]+","+spot[1]+");GV.art574.zoom574(2.4);window.__noNearBattersea189=false;GV.forceDraw();1");
+      await shot("batt_near");
+      await shot("batt_near_zoom", clip);
+      await ev("window.__noNearBattersea189=true;GV.forceDraw();1");
+      await shot("battzoom_off_zoom", clip);
+      await ev("window.__noNearBattersea189=false;GV.forceDraw();1");
+      await shot("battzoom_on_zoom", clip);
+      await ev("GV.setVisT("+CY4*0.86+");window.__noNearBattersea189=false;GV.forceDraw();1");
+      await shot("batt_night_on", clip);
+      const diff = await ev("(function(){var cvs=document.getElementById(String.fromCharCode(103,97,109,101));var g=cvs.getContext(String.fromCharCode(50,100),{willReadFrequently:true});var W=280,H=380,X=Math.round(cvs.width/2-W/2),Y=Math.round(cvs.height/2-H/2+40);var grab=function(){return g.getImageData(X,Y,W,H).data.slice();};GV.setVisT("+(CY4*0.5)+");var run=function(zz){GV.art574.zoom574(zz);window.__noNearBattersea189=true;GV.forceDraw();var a=grab();window.__noNearBattersea189=false;GV.forceDraw();var b=grab();var n=0;for(var i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2])n++;return n;};var near=run(2.4);var far=run(0.6);GV.art574.zoom574(2.4);GV.forceDraw();return {near:near,far:far};})()");
+      return { spot, diff, shots };
+    }
     if (MODE === 'ascii') {
       const out = await ev(`(()=>{
         const S=GV.art574.SPR(),sp=S.bld&&S.bld['187_1_0'];
