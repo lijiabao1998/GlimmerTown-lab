@@ -72609,6 +72609,17 @@ function cathedralSelftestDSK2(){
   catch(e){checks.push(['放置測試擲錯：'+e.message,false]);}
   checks.push(['真的放得下去（doPlace("cathedral")）：'+(found?'就地':'找不到空地')+'、canPlace 前置檢查「'+(why||'通過')+'」 → t.bld.k=187',placed]);
   checks.push(['只佔自己那一格：八鄰的 bld 與放置前逐一同值（不非法交疊）',neighOk]);
+  {let drewOk=false,errTxt='';
+   try{const spX=SPR.bld&&SPR.bld['187_1_0'];
+     const c3=document.createElement('canvas');c3.width=1254;c3.height=700;
+     const g3=c3.getContext('2d',{willReadFrequently:true});
+     const list=[{x:60,y:60}],fake={x:60,y:60};
+     const bdX={k:187,lv:1,v:0,age:30,pw:true,h:1};
+     let errN=0;const svErr=console.error;console.error=()=>{errN++;};
+     try{drawNearZoomCathedralDSK1(g3,fake,bdX,spX,20,20,2.4,1,0);drawNearZoomCathedralDSK1(g3,fake,bdX,spX,20,20,2.4,1,1);}finally{console.error=svErr;}
+     drewOk=(errN===0);
+   }catch(e){errTxt=e.message;}
+   checks.push(['放置後真的畫得出來：近距層對 k187 呼叫（日＋夜、z=2.4）不會擲錯也不用 console.error 兜'+(errTxt?'（擲錯：'+errTxt+'）':''),drewOk]);}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 /* T652 野外的樹一片一片成林（業主 2026-09-25 決策單第三批選 C）：原本每棵樹從 13 種平均隨機，一片樹林五顏六色。
