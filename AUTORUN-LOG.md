@@ -17,7 +17,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r88 | [T641](docs/T641-night-zzz.md) | T607 的夜間 zzz 從沒出現：泡泡在 `drawFestivalDay517` 裡、入夜整段 return，夜深度又寫死 0。入夜時在 return 之前呼叫 `drawStreetStories521(nd)`；閥 `__noZzz641`；自檢 `zzz641`；像素守衛 `probe641.js`；v13.46／T641 | ✅ 綠 3/3（28.5–28.8s）；午夜同時 2～10 個 zzz，關閥門 0 | pending | `shots641/T641_night.png` | ① 守衛第一版計數沒歸零、量錯，已改 ② 泡泡在夜色之前畫，會被壓暗一些（業主選檔時看過） |
+| r88 | [T641](docs/T641-night-zzz.md) | T607 的夜間 zzz 從沒出現：泡泡在 `drawFestivalDay517` 裡、入夜整段 return，夜深度又寫死 0。入夜時在 return 之前呼叫 `drawStreetStories521(nd)`；閥 `__noZzz641`；自檢 `zzz641`；像素守衛 `probe641.js`；v13.46／T641 | ✅ 綠 3/3（28.5–28.8s）；午夜同時 2～10 個 zzz，關閥門 0；GitHub Actions 綠 | `2b41408` | `shots641/T641_night.png` | ① 守衛第一版計數沒歸零、量錯，已改 ② 泡泡在夜色之前畫，會被壓暗一些（業主選檔時看過） |
 
 ## r87 — T640 日落後暖光淡出（業主決策單選 B）
 
