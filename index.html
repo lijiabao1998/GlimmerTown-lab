@@ -70817,7 +70817,8 @@ const ARCHE568={
           {n:'bungalow',fs:'ukSemi', box:[.06,.80,.18,.86],hm:0.62,wd:[6,7],win:'punch'},
           {n:'cottage',fs:'ukTerrace',  box:[.04,.96,.10,.72],hm:0.85,wd:[5,6],win:'arch'},
           {n:'modern',   box:[.14,.86,.10,.82],hm:0.90,flat:1,wd:[4,4],win:'ribbon'},
-          {n:'town',     box:[.08,.92,.06,.88],hm:1.12,wd:[5,6],win:'arch'} ],
+          {n:'town',     box:[.08,.92,.06,.88],hm:1.12,wd:[5,6],win:'arch'},
+          {n:'mews',fs:'ukMews', box:[.12,.88,.28,.86],hm:0.58,wd:[8,9],win:'punch'} ],
   '1_2':[ {n:'walkup',fs:'usBrownstone',   box:[.04,.96,0,.82],        hm:1.00,wd:[5,6],win:'arch'},
           {n:'courtyard',fs:'ukMansion',box:[0,1,0,.52],      hm:1.10,ex:{box:[0,.46,.52,1],hm:0.95},wd:[5,6],win:'arch'},
           {n:'terrace',fs:'ukVictorian',  box:[.08,.92,0,1],    hm:1.38,flat:1,wd:[4,5],win:'grid'},
@@ -70899,7 +70900,9 @@ function facadeFor577(k,lv,bw,bh,v,ar){
 }
 function arche568(k,lv,v){
   if(window.__noArche568)return null;
-  const L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
+  let L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
+  if(window.__noUkMewsGROK2)L=L.filter(a=>a.fs!=='ukMews');
+  if(!L.length)return null;
   return L[Math.abs(v)%L.length];
 }
 function arNameVilla600(k,lv,v){const a=arche568(k,lv,v);return !!(a&&a.n==='villa');}
@@ -72070,7 +72073,7 @@ function smokeViewSelftest626(){ // T626：煙源與「真的畫出來的煙囪�
 }
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(window.__noVkey628?(v%6)+'_v6':(v|0))+ // T628：原本 v%6，但住商工 v 是 0–11、makeBlockSprite547 用原始 v 挑原型 ⇒ v 與 v+6 共用一張圖，畫誰看誰先被畫到；閥門另帶 _v6 尾碼，兩種鍵不互相污染
-    (window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'')+(window.__noMassWin645?'_mw1':'')+(window.__noDock650?'_dk0':'')+(window.__noOccWin653?'_ow0':'');
+    (window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'')+(window.__noMassWin645?'_mw1':'')+(window.__noDock650?'_dk0':'')+(window.__noOccWin653?'_ow0':'')+(window.__noUkMewsGROK2?'_nomews':'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
   const sp=makeBlockSprite547(k,lv,bw,bh,v);BLOCK_SPR547.set(key,sp);return sp;
 }
@@ -75205,5 +75208,95 @@ window.GV.blockFp536=function(){
 })();
 </script>
 
+<script>
+/* GROK-002 倫敦馬廄街屋（Historic England HEAG277：兩層、地面馬車拱門、樓上住屋、磚、石板、戶界煙囪）。
+   不是連棟山牆、不是半獨立凸窗、不是白灰泥維多利亞、不是公寓大樓、不是店面。逃生閥 __noUkMewsGROK2。 */
+(function(){
+'use strict';
+const REG=window.__facade577=window.__facade577||{};
+const R=Math.round;
+function tools(ctx){
+  const A=ctx.A,sh=A.shade;
+  const rc=(cx,x,y,w,h,c)=>{cx.fillStyle=c;cx.fillRect(R(x),R(y),w,h);};
+  const fy=(a,b,x)=>a[1]+(x-a[0])*((b[1]-a[1])/(b[0]-a[0]||1));
+  const foot=(a,b,x)=>R(fy(a,b,x));
+  const cols=(a,b,fn)=>{const x0=R(Math.min(a[0],b[0])),x1=R(Math.max(a[0],b[0]));for(let x=x0;x<=x1;x++)fn(x,foot(a,b,x));};
+  const wall=(cx,a,b,h,c)=>{cx.fillStyle=c;cols(a,b,(x,y)=>cx.fillRect(x,y-h,1,h));};
+  return {sh,rc,foot,cols,wall};
+}
+REG.ukMews={name:'ukMews',draw(ctx){
+  const {g,ng,G}=ctx,T=tools(ctx),{sh,rc,foot,cols,wall}=T;
+  const stock='#c4a36a',dark='#8a6238',slate='#5c6772';
+  const wallH=12;
+  wall(g,G.S,G.E,wallH,sh(dark,-18));
+  cols(G.S,G.E,(x,y)=>{rc(g,x,y-3,1,3,sh(dark,-36));rc(g,x,y-wallH,1,2,slate);});
+  const x0=R(Math.min(G.W[0],G.S[0])),x1=R(Math.max(G.W[0],G.S[0]));
+  const mid=R((x0+x1)/2);
+  for(let x=x0;x<=x1;x++){
+    const y=foot(G.W,G.S,x);
+    const inArch=x>mid-5&&x<mid+5&& (y-(y-8))>0;
+    const archTop=y-8, archMouth=y-3;
+    const dx=x-mid, underArch=Math.abs(dx)<=4 && y>archTop && y<=y;
+    const inMouth=Math.abs(dx)<=3 && y>archTop+2;
+    rc(g,x,y-wallH,1,wallH,stock);
+    rc(g,x,y-wallH,1,2,'#4a5560');
+    rc(g,x,y-1,1,1,sh(stock,-28));
+    if(inMouth)rc(g,x,archMouth-4,1,6,'#241c16');
+    if(Math.abs(dx)===4)rc(g,x,archMouth-5,1,7,sh(stock,-20));
+    if(Math.abs(dx)<=4 && y===archTop+1)rc(g,x,archTop,1,1,'#efe6d2');
+  }
+  const sx=x0+2, sy=foot(G.W,G.S,sx);
+  rc(g,sx,sy-wallH+2,3,4,'#dfe7ee');
+  rc(g,sx,sy-wallH+4,3,1,'#efe6d2');
+  if(ng){ng.fillStyle='#fff2c4';ng.fillRect(sx,sy-wallH+2,3,3);}
+  const lx=mid-6, ly=foot(G.W,G.S,lx);
+  rc(g,lx,ly-6,1,5,'#2c3036');
+  rc(g,lx,ly-7,2,1,'#efe6c0');
+  if(ng){ng.fillStyle='#fff2c4';ng.fillRect(lx,ly-7,2,1);}
+  const cx=R(G.E[0])-2, cy=foot(G.S,G.E,cx);
+  rc(g,cx,cy-wallH-7,3,8,sh(stock,-8));
+  rc(g,cx+2,cy-wallH-7,1,8,sh(dark,-30));
+  rc(g,cx-1,cy-wallH-8,5,1,'#4a423b');
+  rc(g,cx,cy-wallH-10,1,2,'#a35a37');
+  if(ctx.chim)ctx.chim(cx,cy-wallH-11,'#6b3f2a');
+  const rx=R(G.S[0])-3, ry=foot(G.S,G.E,rx);
+  rc(g,rx,ry-wallH+3,2,3,'#c5d0da');
+  if(ng){ng.fillStyle='#fff2c4';ng.fillRect(rx,ry-wallH+3,2,2);}
+  return {pitch:false};
+}};
+window.__ukMewsGROK2=1;
+window.GV=window.GV||{};
+window.GV.ukMewsSelftestGROK2=function(){
+  const checks=[];
+  const B=window.GV.block559,R=window.__facade577||{};
+  checks.push(['ukMews 已登記',typeof (R.ukMews&&R.ukMews.draw)==='function']);
+  const names=['ukTerrace','ukSemi','ukVictorian','ukMansion','ukHighStreet'];
+  checks.push(['五種舊英式仍在',names.every(n=>R[n]&&typeof R[n].draw==='function')]);
+  if(!B||!B.make){checks.push(['block559.make',false]);return {ok:false,checks:checks.map(c=>c[0]+' ✗')};}
+  const mask=s=>{const w=s.img.width,h=s.img.height,d=s.img.getContext('2d').getImageData(0,0,w,h).data;let m='',left=0,right=0,out=0;const ax=s.ax,ay=s.ay;
+    const nbr=(x,y,cx,cy)=>Math.abs(x-cx)/32+Math.abs(y-cy)/16<=.82;
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const a=d[(y*w+x)*4+3],on=a>40;m+=on?'1':'0';if(!on)continue;if(x<ax)left++;else right++;
+      if(nbr(x,y,ax+32,ay)||nbr(x,y,ax-32,ay)||nbr(x,y,ax,ay+16))out++;}
+    return {m,left,right,out};};
+  const nightOk=s=>{if(!s.night)return false;const d=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data,n=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let bad=0,lit=0;for(let i=3;i<n.length;i+=4)if(n[i]>40){lit++;if(d[i]<40)bad++;}return lit>0&&bad===0;};
+  const prevF=window.__facadeForce577,prevK=window.__noUkMewsGROK2;
+  try{
+    window.__noUkMewsGROK2=false;window.__facadeForce577=undefined;B.cache().clear();
+    const mews=B.make(1,1,1,1,5);
+    checks.push(['v=5 走 ukMews',!!(mews&&mews.__t547&&String(mews.__t547.sty).indexOf('ukMews')>=0)]);
+    const mm=mews&&mews.img?mask(mews):{m:'',left:0,right:0,out:999};
+    checks.push(['左右臉都有像素',mm.left>40&&mm.right>40]);
+    checks.push(['不畫進鄰格內部（'+mm.out+'）',mm.out===0]);
+    checks.push(['夜光只在白天像素',!!mews&&nightOk(mews)]);
+    for(const nm of names){window.__facadeForce577=nm;B.cache().clear();const o=B.make(1,1,1,1,2);checks.push([nm+' 剪影不同',!!(o&&o.img)&&mask(o).m!==mm.m]);}
+    window.__facadeForce577=undefined;window.__noUkMewsGROK2=true;B.cache().clear();
+    const back=B.make(1,1,1,1,5);
+    checks.push(['逃生閥不再是馬廄',!(back&&back.__t547&&String(back.__t547.sty).indexOf('ukMews')>=0)]);
+    checks.push(['逃生閥畫面不同',!!(back&&back.img)&&mask(back).m!==mm.m]);
+  }finally{window.__facadeForce577=prevF;window.__noUkMewsGROK2=prevK;B.cache().clear();}
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+};
+})();
+</script>
 </body>
 </html>
