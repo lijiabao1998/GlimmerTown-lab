@@ -8195,10 +8195,10 @@ table.dtab tr:hover td{background:#1b2334}
        topFace(g,[T0[0],T0[1]],5.4,5.4,LEAD,'#7d8994',LEADL);}
       for(const[ti,tj]of[[9,9],[15,15],[9,15],[15,9]]){
         const TS=G(ti,tj),isBack=(ti+tj)>24;
-        box(g,TS,1.2,1.2,hK+16,isBack?WHD:WH,WHX,WHL);
-        for(let d=0;d<3;d+=1){P(g,fx(TS,-1,d),fy(TS,d)-(hK+16)-2,1,2,WHL);P(g,fx(TS,1,d),fy(TS,d)-(hK+16)-2,1,2,WH);}
+        box(g,TS,1.2,1.2,hK+7,isBack?WHD:WH,WHX,WHL);
+        for(let d=0;d<3;d+=1){P(g,fx(TS,-1,d),fy(TS,d)-(hK+7)-2,1,2,WHL);P(g,fx(TS,1,d),fy(TS,d)-(hK+7)-2,1,2,WH);}
         if(LU&&(ti+tj)<28)P(ng,fx(TS,1,1),fy(TS,1)-(hK+10),1,4,'rgba(255,214,120,.5)');}
-      {const TF=G(15,15),ty=TF[1]-(hK+16)-2;
+      {const TF=G(15,15),ty=TF[1]-(hK+7)-2;
        P(g,TF[0],ty-14,1,14,WHX);P(g,TF[0]+1,ty-13,5,3,FLAG);P(g,TF[0]+1,ty-13,5,1,'#e07a5f');
        if(LU)disc(ng,TF[0]+1,ty-4,2,'rgba(255,214,120,.45)');}
       lamp(g,ng,20,127,7,'#8a8274',GD,'rgba(255,214,120,.55)');
