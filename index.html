@@ -8257,24 +8257,24 @@ table.dtab tr:hover td{background:#1b2334}
       const SB=G(12,12),LU=(!window.__noBatterseaNight189),hB=44;
       box(g,SB,6,6,4,'#8a8074','#7c7268','#a09a8e');                                  // 台基
       const S1=[SB[0],SB[1]-4];
-      box(g,S1,5.4,5.4,hB,BR,BRD,'#a86a50');                                          // 磚造主量體
-      for(let d=0;d<11;d+=3){P(g,fx(S1,1,d),fy(S1,d)-hB,1,hB,BRD);P(g,fx(S1,-1,d),fy(S1,d)-hB,1,hB,BRX);}  // 壁柱
+      box(g,S1,6.6,6.6,hB,BR,BRD,'#a86a50');                                          // 磚造主量體
+      for(let d=0;d<13;d+=3){P(g,fx(S1,1,d),fy(S1,d)-hB,1,hB,BRD);P(g,fx(S1,-1,d),fy(S1,d)-hB,1,hB,BRX);}  // 壁柱
       for(let d=1;d<10;d+=3){                                                          // 高窗（兩層）
         P(g,fx(S1,1,d),fy(S1,d)-38,2,12,GL);P(g,fx(S1,1,d),fy(S1,d)-22,2,12,GL);
         P(g,fx(S1,-1,d),fy(S1,-1,d)-38,2,12,GL);P(g,fx(S1,-1,d),fy(S1,d)-22,2,12,GL);
         if(LU){P(ng,fx(S1,1,d),fy(S1,d)-38,2,12,LIT);P(ng,fx(S1,1,d),fy(S1,d)-22,2,12,LIT);
                P(ng,fx(S1,-1,d),fy(S1,d)-38,2,12,LIT);P(ng,fx(S1,-1,d),fy(S1,d)-22,2,12,LIT);}}
-      band(g,S1,1,0,11,20,2,'#b8836a');band(g,S1,-1,0,11,20,2,'#a06a52');             // 腰線
-      band(g,S1,1,0,11,hB,2,WH);band(g,S1,-1,0,11,hB,2,WHL);                          // 簷口（白石）
-      {const S2=[S1[0],S1[1]-hB];box(g,S2,3.4,3.4,7,BR,BRD,LEAD);                     // Art Deco 退台
-       band(g,S2,1,0,7,7,1,WH);band(g,S2,-1,0,7,7,1,WHL);}
+      band(g,S1,1,0,13,20,2,'#b8836a');band(g,S1,-1,0,13,20,2,'#a06a52');             // 腰線
+      band(g,S1,1,0,13,hB,2,WH);band(g,S1,-1,0,13,hB,2,WHL);                          // 簷口（白石）
+      {const S2=[S1[0],S1[1]-hB];box(g,S2,4.2,4.2,7,BR,BRD,LEAD);                     // Art Deco 退台
+       band(g,S2,1,0,8,7,1,WH);band(g,S2,-1,0,8,7,1,WHL);}
       for(const[ti,tj]of[[9,9],[15,15],[9,15],[15,9]]){                               // 四角白煙囪
-        const TC=G(ti,tj),cx=TC[0],cy=TC[1],top=cy-(hB+30);
-        for(let dx=-4;dx<=4;dx++){const u=dx/4.6,e=R(2*Math.sqrt(Math.max(0,1-u*u)));
-          P(g,cx+dx,top+e,1,hB+30-e,(u<-.4)?WHL:(u<.35?WH:WHL));}
-        ell(g,cx,top-1,4.4,2.2,WHL);ell(g,cx,top-4,4.4,2.2,WH);
-        for(const yy of [top+12,top+26])for(let dx=-4;dx<=4;dx++){const u=dx/4.6,e=R(2*Math.sqrt(Math.max(0,1-u*u)));P(g,cx+dx,yy+e,1,2,'#d8d2c6');}
-        P(g,cx-3,top-6,7,2,'#8a8274');P(g,cx-1,top-8,3,2,RED);                        // 煙囪頂航空障礙燈
+        const TC=G(ti,tj),cx=TC[0],cy=TC[1],top=cy-(hB+14);
+        for(let dx=-2;dx<=2;dx++){const u=dx/2.6,e=R(1.4*Math.sqrt(Math.max(0,1-u*u)));
+          P(g,cx+dx,top+e,1,hB+14-e,(u<-.4)?WHL:(u<.35?WH:WHL));}
+        ell(g,cx,top-1,2.8,1.5,WHL);ell(g,cx,top-3,2.8,1.5,WH);
+        for(const yy of [top+9,top+20])for(let dx=-2;dx<=2;dx++){const u=dx/2.6,e=R(1.4*Math.sqrt(Math.max(0,1-u*u)));P(g,cx+dx,yy+e,1,2,'#d8d2c6');}
+        P(g,cx-2,top-5,5,2,'#8a8274');P(g,cx-1,top-7,3,2,RED);                        // 煙囪頂航空障礙燈
         if(LU){disc(ng,cx,top-8,2,'rgba(255,90,70,.75)');}}
       lamp(g,ng,20,127,7,'#8a8274',GD,'rgba(255,214,120,.55)');
       lamp(g,ng,29,132,7,'#8a8274',GD,'rgba(255,214,120,.55)');
@@ -58845,8 +58845,8 @@ function drawNearZoomBatterseaDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
   for(let k=0;k<12;k++){R(24,96-k*3,24,.6,'#7c4433',.4);drew++;}                       // 磚縫橫紋
   for(let d=0;d<11;d+=3){R(26+d,92,1,20,'#633324',.5);R(48-d,92,1,20,'#5c2f22',.45);drew++;}   // 壁柱
   for(let d=1;d<10;d+=3){R(27+d,96,2,8,night?'#ffe3a6':'#c9bda8',.55);R(27+d,82,2,8,night?'#ffe3a6':'#c9bda8',.55);drew++;}  // 高窗
-  for(const cx of [30,42]){R(cx-3,58,7,1.4,'#d8d2c6',.6);R(cx-3,70,7,1.4,'#d8d2c6',.6);drew++;}   // 煙囪環箍
-  if(night){R(29,52,3,2,'rgba(255,90,70,.8)',.8);R(41,52,3,2,'rgba(255,90,70,.8)',.8);}            // 夜：煙囪障礙燈
+  for(const cx of [30,42]){R(cx-3,74,7,1.4,'#d8d2c6',.6);R(cx-3,85,7,1.4,'#d8d2c6',.6);drew++;}   // 煙囪環箍
+  if(night){R(29,68,3,2,'rgba(255,90,70,.8)',.8);R(41,68,3,2,'rgba(255,90,70,.8)',.8);}            // 夜：煙囪障礙燈
   return drew;
 }
 function drawNearZoomKeepDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
