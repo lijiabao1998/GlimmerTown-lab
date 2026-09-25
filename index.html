@@ -58705,7 +58705,32 @@ function overlayLayers606(){
     ['422',(g,o,bd,s,x,y,z,a,n)=>drawActivityPocket422(g,o,bd,s,x,y,z,a,n)],
     ['429',(g,o,bd,s,x,y,z,a,n)=>drawMicroLife429(g,o,bd,s,x,y,z,a,n)],
     ['599',(g,o,bd,s,x,y,z,a,n)=>drawNearZoom599(g,o,bd,s,x,y,z,a)],
+    ['187',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomCathedralDSK1(g,o,bd,s,x,y,z,a)], // DSK-002：座堂近距細節層
   ];
+}
+/* DSK-002 近距細節層（照 T596 軸三）：只在 z≥1.22 疊加，不動 SPR 精靈 ⇒ 遠距剪影與指紋完全不變。
+   三種立面各有各的近距料：v0 鼓座柱頭＋欄杆加密、v1 彩繪玻璃＋小石像鬼、v2 磚牆砌紋＋琉璃窗。
+   座標用精靈內既有的常數（東南面窗腳 WX＝fx/fy 的結果，見 k187 精靈段），逃生閥 __noNearCath187。 */
+function drawNearZoomCathedralDSK1(g,o,bd,s,bx,by,z,drawA){
+  if(window.__noNearCath187||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k!==187)return 0;
+  if(!detailPermit432(o.x,o.y,599,z,.62))return 0;   // 掛 T599 近距層的預算槽（detailPermit432 只認已註冊的 layer）
+  const v=bd.v|0,a=drawA*detailAlpha432(z),foot=by+s.h*z;
+  const R=(lx,ly,w,hh,c,al)=>{g.save();g.globalAlpha=a*(al==null?1:al);g.fillStyle=c;
+    g.fillRect(Math.round(bx+lx*z),Math.round(foot-(136-ly)*z),Math.max(1,Math.round(w*z)),Math.max(1,Math.round(hh*z)));g.restore();};
+  const WX=[[39,130],[43,128],[47,126],[51,124],[55,122],[59,120],[63,119]];   // 東南面南側廊窗腳（fx(SB,1,d)/fy(SB,d)）
+  let drew=0;
+  if(v===0){
+    for(const x of [38,41,44,47,50,53]){R(x,80,2,2,'#f3ede1',.85);R(x,82,2,1,'#bcb29c',.7);}      // 鼓座柱頭
+    for(let x=36;x<=56;x++)R(x,73,1,2,(x&1)?'#d6cdb9':'#f3ede1',.45);                             // 欄杆加密
+    drew+=12;
+  }else if(v===1){
+    for(const [x,y] of WX){R(x,y-22,2,6,(x&2)?'#7fb8d8':'#d8a24a',.8);R(x+1,y-20,1,2,'#f0e2b0',.9);drew++;}  // 彩繪玻璃
+    for(const [x,y] of [[42,112],[52,107],[62,102]]){R(x-1,y,3,2,'#4a4640',.85);R(x,y-3,1,3,'#4a4640',.8);drew++;}   // 小石像鬼
+  }else{
+    for(let k=0;k<11;k++){R(30,102-k*2.4,10,.6,'#8f5340',.45);drew++;}                            // 磚牆砌紋
+    for(const [x,y] of WX){R(x+1,y-19,1,4,'#bfe6f0',.75);R(x,y-10,2,3,'#e8d48a',.7);drew++;}       // 琉璃窗
+  }
+  return drew;
 }
 function inPoly606(px,py,P){let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if(((a[1]>py)!==(b[1]>py))&&(px<(b[0]-a[0])*(py-a[1])/(b[1]-a[1])+a[0]))c=!c;}return c;}
 function wallPolys606(s){const w=s&&s.__t547&&s.__t547.wall;if(!w)return null;const up=p=>[p[0],p[1]-w.h];return [[w.W,w.S,up(w.S),up(w.W)],[w.S,w.E,up(w.E),up(w.S)]];}
@@ -72523,6 +72548,24 @@ function cathedralSelftestDSK2(){
    checks.push(['v0／v1／v2 都過同一組邊界與碎點檢查'+(vBad?'：'+vBad:''),vBad==='']);}
   {const vs=new Set();for(let k2=0;k2<60;k2++){const h187=streetHash(3+k2*2,5+k2,1871);vs.add(h187<.42?0:(h187<.74?1:2));}
    checks.push(['放置變體選擇器：60 個座標抽到變體 {'+[...vs].sort().join(',')+'}（需含 0、1、2 全部）',vs.size===3]);}
+  {const src=''+drawNearZoomCathedralDSK1;
+   checks.push(['近距細節層：函式存在、有 z≥1.22 閘門、只給 k187（'+src.length+' 字元）',typeof drawNearZoomCathedralDSK1==='function'&&src.indexOf('z<1.22')>=0&&src.indexOf('bd.k!==187')>=0&&src.indexOf('__noNearCath187')>=0]);
+   let inReg=false;try{inReg=overlayLayers606().some(l=>l&&l[0]==='187');}catch(e){}
+   checks.push(['近距層掛進疊畫註冊表（overlayLayers606 含 187 條）且不動 SPR（fp 只看精靈）',inReg]);
+   {const rep=[];let z2ok=false,z06clean=true;
+    const svBudget=window.__noDetailBudget432;window.__noDetailBudget432=true;   // 測試用：暫時關掉細節預算，讓呼叫決定性
+    try{const c2=document.createElement('canvas');c2.width=200;c2.height=320;
+      for(const vv2 of [0,1,2]){const g2=c2.getContext('2d',{willReadFrequently:true});
+        const s2=SPR.bld['187_1_'+vv2]||SPR.bld['187_1_0'];
+        const run=(zz)=>{g2.clearRect(0,0,200,320);let n=0,px=0;
+          for(let tx=60;tx<68;tx++){const r=drawNearZoomCathedralDSK1(g2,{x:tx,y:60},{k:187,v:vv2,age:30},s2,20,20,zz,1);n+=r;}
+          {const d2=g2.getImageData(0,0,200,320).data;for(let i=3;i<d2.length;i+=4)if(d2[i]>8)px++;}
+          return [n,px];};
+        const A=run(2),B=run(.6);
+        rep.push('v'+vv2+'(z2 '+A[0]+'筆/'+A[1]+'px、z0.6 '+B[0]+'筆/'+B[1]+'px)');
+        if(A[1]>0)z2ok=true;if(B[1]>0)z06clean=false;}
+    }catch(e){rep.push('擲錯 '+e.message);}finally{window.__noDetailBudget432=svBudget;}
+    checks.push(['近距層只在 z≥1.22 動手：'+rep.join('｜')+'（z0.6 必須 0px）',z2ok&&z06clean]);}}
   let op=0,lit=0,iso=0,hardOut=0,minx=99,maxx=-1,miny=999,maxy=-1;
   if(sp&&sp.img){const d=sp.img.getContext('2d').getImageData(0,0,sp.w,sp.h).data;
     const on=(x,y)=>x>=0&&x<sp.w&&y>=0&&y<sp.h&&d[(y*sp.w+x)*4+3]>40;
