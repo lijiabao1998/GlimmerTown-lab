@@ -64,6 +64,24 @@ const OUT = arg('out', 'shotsDSK2');
       return { info, shots };
     }
 
+    if (MODE === 'variants') {
+      const expr = "(()=>{const S=GV.art574.SPR(),SC=2,pad=6;" +
+        "const L=['187_1_0','187_1_1','187_1_2'].map(k=>S.bld[k]).filter(Boolean);" +
+        "if(L.length<3)return {err:'變體不足 '+L.length};" +
+        "const W=72*SC+pad*2,H=136*SC+pad*2;" +
+        "const c=document.createElement('canvas');c.width=W*3;c.height=H*2;" +
+        "c.style.cssText='position:fixed;left:0;top:0;z-index:99999;background:#20242c;image-rendering:pixelated';" +
+        "const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20242c';g.fillRect(0,0,c.width,c.height);g.font='13px monospace';" +
+        "L.forEach((sp,i)=>{g.drawImage(sp.img,i*W+pad,pad,72*SC,136*SC);" +
+        "g.fillStyle='#ffd27a';g.fillText(['v0 巴洛克圓頂','v1 哥德尖塔','v2 洋蔥頂'][i],i*W+pad+4,pad+14);" +
+        "if(sp.night){g.drawImage(sp.night,i*W+pad,H+pad,72*SC,136*SC);g.fillStyle='#9fb0c8';g.fillText('night',i*W+pad+4,H+pad+14);}});" +
+        "document.body.appendChild(c);const r=c.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};})()";
+      const info = await ev(expr);
+      if (info.err) return { err: info.err, shots };
+      await shot('variants', { x: 0, y: 0, width: Math.min(info.w, 1240), height: info.h, scale: 1 });
+      return { info, shots };
+    }
+
     if (MODE === 'ascii') {
       const out = await ev(`(()=>{
         const S=GV.art574.SPR(),sp=S.bld&&S.bld['187_1_0'];
