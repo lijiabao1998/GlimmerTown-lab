@@ -16,4 +16,4 @@
 - 推送：綠燈 commit 後推 `origin main`（只准快進，禁 `--force`），session 另有指定分支就一併推。
 - **2026-09-25 起多寫入者**：遠端 `origin/main` 是唯一真相源，雲端、本地誰寫都可以。開工前 fetch、先推卡面佔號、推送前再 fetch；遠端前進了就把自己沒推的 commit rebase 上去、重跑煙霧再推。細則見 `AUTORUN.md` 第 2 節「遠端」開頭的框。
 - 業主的決定記在 `docs/DECISIONS.md`，開工前讀一次。
-- **寫入者分工（2026-09-25）**：`main` 只給 Claude、Codex 推；Grok（`grok/*`）、GLM（`glm/*`）、Kimi（`kimi/*`，業主之後可能升 main）走分支開 PR；GPT（ChatGPT 聊天版）不寫倉庫，只讀、審、出草稿——業主轉來的 GPT 草稿或補丁當別人的草稿處理，重新探查、寫卡、跑守衛與煙霧才進倉庫，卡上註明來源。規則寫在根目錄 `AGENTS.md`（給不讀本檔的工具看，內容一致）。Claude 是 `main` 寫入者之一，看到分支的 PR 要照 `AGENTS.md` 第 3 節合併：本地 squash、重跑煙霧 3 連綠與 `fp.js --check`、配 T 號、寫日誌、推 main、在 PR 留言後關閉；要業主看圖的先放上決策單。
+- **寫入者分工（2026-09-25）**：`main` 只給 Claude、Codex 推；Grok（`grok/*`）、GLM（`glm/*`）、Kimi（`kimi/*`，業主之後可能升 main）走分支開 PR；GPT（ChatGPT，能寫倉庫但不能在本機跑遊戲）走 `gpt/*` 分支開 PR，煙霧靠 CI——合併 GPT 的 PR 時，要把它卡上標「未跑」的像素守衛與 `fp.js --check` 在本機跑過、補上真實數字。規則寫在根目錄 `AGENTS.md`（給不讀本檔的工具看，內容一致）。Claude 是 `main` 寫入者之一，看到分支的 PR 要照 `AGENTS.md` 第 3 節合併：本地 squash、重跑煙霧 3 連綠與 `fp.js --check`、配 T 號、寫日誌、推 main、在 PR 留言後關閉；要業主看圖的先放上決策單。
