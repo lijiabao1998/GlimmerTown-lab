@@ -18,7 +18,7 @@
  * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
  * --check 不再提早退出：葉子差、超街區指紋（block559）、七軸棘輪全部跑完、全部印出，最後才判定紅綠。
  *
- * 邊界：自用埠 8199；進城前一律設 slot=3，不碰業主存檔。
+ * 邊界：自用埠 8198；進城前一律設 slot=3，不碰業主存檔。
  */
 'use strict';
 const fs = require('fs');
@@ -26,7 +26,7 @@ const path = require('path');
 const { withGame, ROOT } = require('./harness.js');
 
 const arg = (n, d) => { const h = process.argv.find(a => a.startsWith('--' + n + '=')); return h ? h.split('=').slice(1).join('=') : d; };
-const PORT = +arg('port', 8199);
+const PORT = +arg('port', 8198);
 const FP_PATH = path.join(ROOT, 'fp.json');
 const CHECK = process.argv.includes('--check');
 const INVENTORY = process.argv.includes('--inventory');

@@ -58547,6 +58547,51 @@ function paintNear606(g,w,s,cat,hb,lv){ // T599 的原意（花台、垃圾桶�
   }
   return n;
 }
+/* ===== GLM-002 Ghost Ads／工業牆面歲月（貼牆層） =====
+   查證（Wikipedia/Ghost sign）：手繪牆廣告 1880s–1950s，數十年褪入磚面、
+   多代疊壓、剝落、字跡殘影。工業牆（cat I）age≥40：上一代更淡框＋本代板身
+   ＋字跡殘影三行＋剝落露磚＋垂漬；另加磚牆修補塊。經 wallCache606 畫在
+   t5.wall 記錄的牆面內（零浮空、零越格）；streetHash 決定性、零 R()；
+   __noGhostGLM2 逃生閥；__tGLM2GhostCount 計數。 */
+function paintGhost606(g,w,s,tt){
+  const t=s.__t547,seed=(t.v|0)*131+(t.bw|0)*17+(t.bh|0)*7+11;let n=0;
+  const faces=[[w.W,w.S,1],[w.S,w.E,.85]];
+  for(const [A,B,am] of faces){
+    const F=faceKit606(g,A,B);if(F.len<26||w.h<18)continue;
+    const gh=streetHash(seed,7,59450);if(gh>.8)continue;
+    const u0=.10+gh*.30,u1=Math.min(.94,u0+.34+gh*.14);
+    const yTop=Math.round(w.h*.30),yBot=Math.round(w.h*.74);
+    // 上一代廣告框（更淡、外擴少許＝疊壓）
+    F.band(Math.max(0,u0-.05),Math.min(1,u1+.05),yTop-2,yBot+2,'rgba(196,182,158,'+(alphaG2(.30*am*tt)+')'));
+    // 本代板身
+    F.band(u0,u1,yTop,yBot,'rgba(226,216,192,'+alphaG2(.62*am*(0.55+tt*.45))+')');
+    // 字跡殘影三行（長短不一＝排版殘留）
+    const INK=['rgba(122,58,44,','rgba(52,66,92,','rgba(120,96,48,'];
+    for(let r2=0;r2<3;r2++){const hh=streetHash(seed,20+r2,59451);
+      const lu0=u0+.08+hh*.10,lu1=u1-.08-hh*.22;
+      F.band(lu0,lu1,yTop+2+r2*Math.max(2,Math.round((yBot-yTop)/4)),yTop+3+r2*Math.max(2,Math.round((yBot-yTop)/4)),INK[(seed+r2)%3]+alphaG2((.34-t*.12)*am)+')');}
+    // 板框殘線
+    F.band(u0,u1,yTop,yTop+1,'rgba(90,60,44,'+alphaG2(.26*am)+')');
+    // 剝落露磚 1~2 塊
+    const nP=1+((streetHash(seed,30,59452)*2)|0);
+    for(let i=0;i<nP;i++){const hh=streetHash(seed,40+i,59453);
+      F.band(u0+hh*(u1-u0-.12),u0+hh*(u1-u0-.12)+.10,yTop+2+hh*(yBot-yTop-4),yTop+4+hh*(yBot-yTop-4),'rgba(138,90,64,.75)');}
+    // 垂漬（板底向下）
+    for(let i=0;i<2;i++){const hh=streetHash(seed,50+i,59454);
+      const xx=F.xAt(u0+hh*(u1-u0)),yy=F.row(xx);
+      g.fillStyle='rgba(66,60,52,'+(.18*am).toFixed(3)+')';
+      g.fillRect(Math.round(xx),Math.round(yy-yBot),1,Math.round(3+tt*5));}
+    // 磚牆修補塊（獨立於廣告）
+    const nB=1+((streetHash(seed,60,59455)*2)|0);
+    for(let i=0;i<nB;i++){const hh=streetHash(seed,70+i,59456);
+      const u2=.15+hh*.7,y2=Math.round(w.h*(.15+hh*.25));
+      F.band(u2,Math.min(1,u2+.12),y2,y2+3,'rgba(158,106,74,.8)');
+      F.band(u2,Math.min(1,u2+.12),y2+1,y2+2,'rgba(96,64,44,.7)');}
+    n++;
+  }
+  return n;
+}
+function alphaG2(v){return Math.max(.04,Math.min(.92,v)).toFixed(3);}
 function drawWallDetail606(ctx,o,bd,s,bx,by,z){
   const t5=s&&s.__t547;if(window.__noWallDetail606||!t5||!t5.wall||!bd||bd.ref||bd.k===4)return 0;
   if(String(t5.sty||'').indexOf('f577:')===0)return 0; // 英美立面在精靈內自帶門窗花台，不再疊
@@ -58556,7 +58601,10 @@ function drawWallDetail606(ctx,o,bd,s,bx,by,z){
     const ab=age<120?1:age<240?2:3,mood=districtMood424(o.x,o.y);
     put(wallCache606(s,'w'+ab+mood+cat,(g,w,sp)=>paintWeather606(g,w,sp,cat,mood,[0,.3,.6,.95][ab])));
   }
-  if(z>=1.22&&age>=9&&!window.__noNearZoom599&&streetHash(o.x,o.y,60630)<.72){
+  if(cat==='I'&&age>=40&&z>=.9&&!window.__noGhostGLM2&&streetHash(o.x,o.y,59400)<.5){ // GLM-002 舊牆廣告＋磚修補
+    const ge2=wallCache606(s,'g'+((age/60)|0)+'I'+((s.__t547.v|0)%6),(g,w,sp)=>paintGhost606(g,w,sp,Math.min(1,age/360)));if(ge2){put(ge2);window.__tGLM2GhostCount=(window.__tGLM2GhostCount||0)+1;}
+  }
+    if(z>=1.22&&age>=9&&!window.__noNearZoom599&&streetHash(o.x,o.y,60630)<.72){
     const hb=Math.floor(streetHash(o.x,o.y,60631)*3);
     put(wallCache606(s,'n'+hb+cat+(bd.lv||1),(g,w,sp)=>paintNear606(g,w,sp,cat,hb,bd.lv||1)));
   }
