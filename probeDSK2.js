@@ -82,6 +82,46 @@ const OUT = arg('out', 'shotsDSK2');
       return { info, shots };
     }
 
+    if (MODE === 'nearzoom') {
+      // 同一座城、同一台相機、同一個 visT：只切 __noNearCath187，拍近距層關／開兩張（v1、v2 各一組）。
+      // 地點要先找到「detailPermit432 預算放行」的格子，否則那格本來就不長細節、對照圖會看不出差別。
+      const spot = await ev(`(()=>{const N=GV.N();for(let y=8;y<N-8;y++)for(let x=8;x<N-8;x++){
+        if(GV.art574.tileAt613(x,y,1,1).trim()!=='.')continue;
+        if(!(GV.detailPermit432&&GV.detailPermit432(x,y,599,2.4,.62)))continue;let ok=true;
+        for(let dy=-2;dy<=2&&ok;dy++)for(let dx=-2;dx<=2;dx++){const c=GV.art574.tileAt613(x+dx,y+dy,1,1).trim();if(c.indexOf('B')>=0||c.indexOf('r')>=0)ok=false;}
+        if(ok)return [x,y];}return null;})()`);
+      if (!spot) return { err: '找不到預算放行的空地', shots };
+      const out = {};
+      for (const v of [1, 2]) {
+        await ev(`GV.art574.plant574([{k:187,lv:1,v:${v},x:${spot[0]},y:${spot[1]}}]);1`);
+        await ev(`GV.setVisT(${await ev('GV.art574.cycle574()')} * 0.5);GV.lookAt(${spot[0]},${spot[1]});GV.art574.zoom574(2.4);window.__noNearCath187=false;GV.forceDraw();1`);
+        await shot(`nearzoom_v${v}_on`);
+        await ev(`window.__noNearCath187=true;GV.forceDraw();1`);
+        await shot(`nearzoom_v${v}_off`);
+        const vp = JSON.parse(await ev('JSON.stringify({w:innerWidth,h:innerHeight})'));
+        const clip = { x: Math.round(vp.w / 2 - 150), y: Math.round(vp.h / 2 - 260), width: 300, height: 420, scale: 2 };
+        await ev(`window.__noNearCath187=false;GV.forceDraw();1`);
+        await shot(`nearzoom_v${v}_on_zoom`, clip);
+        await ev(`window.__noNearCath187=true;GV.forceDraw();1`);
+        await shot(`nearzoom_v${v}_off_zoom`, clip);
+        await ev(`window.__noNearCath187=false;GV.forceDraw();1`);
+        out['v' + v] = true;
+      }
+      // 同一 run 內量差異像素：近距（2.4）應該有差、遠距（0.6）應該零差
+      const diff = await ev(`(()=>{
+        const cvs=[...document.querySelectorAll('canvas')].sort((a,b)=>b.width*b.height-a.width*a.height)[0];
+        const g=cvs.getContext('2d',{willReadFrequently:true});
+        const W=280,H=420,X=Math.round(cvs.width/2-W/2),Y=Math.round(cvs.height/2-H/2+40);
+        const grab=()=>g.getImageData(X,Y,W,H).data.slice();
+        const run=(zz)=>{GV.art574.zoom574(zz);window.__noNearCath187=true;GV.forceDraw();const a=grab();
+          window.__noNearCath187=false;GV.forceDraw();const b=grab();let n=0;
+          for(let i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2])n++;
+          return n;};
+        const near=run(2.4),far=run(0.6);GV.art574.zoom574(2.4);GV.forceDraw();
+        return {near,far,box:[W,H]};})()`);
+      return { spot, diff, out, shots };
+    }
+
     if (MODE === 'ascii') {
       const out = await ev(`(()=>{
         const S=GV.art574.SPR(),sp=S.bld&&S.bld['187_1_0'];
