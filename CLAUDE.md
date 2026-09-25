@@ -13,5 +13,6 @@
 ## 雲端 session 對照（`AUTORUN.md` 寫的是業主 Windows 本機）
 
 - `AUTORUN.md` 第 1 節的 `新的迭代\` ＝ 本倉庫根目錄；Windows 路徑在雲端不存在，邊界等價於「只寫本倉庫」。
-- 推送：綠燈 commit 後推 `origin main`（只准快進，禁 `--force`），session 另有指定分支就一併推。`main` 已前進就先 `git pull --ff-only`；分岔就停手寫日誌。
-- 雲端和業主本機不能同時施工（單寫者）。開工 `git fetch` 發現 `main` 有新提交，就是有人在寫。
+- 推送：綠燈 commit 後推 `origin main`（只准快進，禁 `--force`），session 另有指定分支就一併推。
+- **2026-09-25 起多寫入者**：遠端 `origin/main` 是唯一真相源，雲端、本地誰寫都可以。開工前 fetch、先推卡面佔號、推送前再 fetch；遠端前進了就把自己沒推的 commit rebase 上去、重跑煙霧再推。細則見 `AUTORUN.md` 第 2 節「遠端」開頭的框。
+- 業主的決定記在 `docs/DECISIONS.md`，開工前讀一次。
