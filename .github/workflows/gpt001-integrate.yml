@@ -1,0 +1,69 @@
+name: gpt001-integrate
+
+on:
+  push:
+    branches: ['gpt/visual-place-identity']
+    paths:
+      - 'variants574/facade_gpt001.js'
+      - 'probeGPT001.js'
+      - 'tools/gpt001-integrate.js'
+      - '.github/workflows/gpt001-integrate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gpt001-integrate
+  cancel-in-progress: true
+
+jobs:
+  integrate-test-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gpt/visual-place-identity
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 中文字型
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: 把 GPT-001 小型 source 安全嵌回單檔遊戲
+        run: node tools/gpt001-integrate.js
+      - name: 靜態檢查
+        run: |
+          node --check variants574/facade_gpt001.js
+          node --check probeGPT001.js
+          node --check smoke.js
+          grep -q "fs:'ukCornerShopGPT001'" index.html
+          grep -q "REG.ukCornerShopGPT001" index.html
+          grep -q "_gptcs0" index.html
+      - name: 煙霧測試（CI）
+        run: node smoke.js 2>&1 | tee gpt001-smoke.txt; exit ${PIPESTATUS[0]}
+        shell: bash
+      - name: 煙霧綠後更新 GPT 卡
+        run: node tools/gpt001-integrate.js --mark-green
+      - name: 提交到 GPT 自己的 branch
+        run: |
+          if git diff --quiet; then
+            echo "No integration diff; branch already integrated."
+            exit 0
+          fi
+          git config user.name "GPT branch worker"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html smoke.js docs/branch/GPT-001-victorian-corner-shop.md
+          git commit -m "GPT-001: integrate Victorian corner shop after green CI"
+          git push origin HEAD:gpt/visual-place-identity
+      - name: 上傳 smoke 紀錄
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gpt001-smoke-${{ github.sha }}
+          path: |
+            gpt001-smoke.txt
+            shots/smoke-*.png
+          if-no-files-found: warn
+          retention-days: 14
