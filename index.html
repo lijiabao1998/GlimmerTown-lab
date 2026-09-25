@@ -72668,6 +72668,20 @@ function cathedralSelftestDSK2(){
   catch(e){checks.push(['放置測試擲錯：'+e.message,false]);}
   checks.push(['真的放得下去（doPlace("cathedral")）：'+(found?'就地':'找不到空地')+'、canPlace 前置檢查「'+(why||'通過')+'」 → t.bld.k=187',placed]);
   checks.push(['只佔自己那一格：八鄰的 bld 與放置前逐一同值（不非法交疊）',neighOk]);
+  {let drewOk=false,errTxt='';
+   try{const c0=Math.floor(N/2);let sp2=null;
+     for(let r=0;r<14&&!sp2;r++)for(let dy=-r;dy<=r&&!sp2;dy++)for(let dx=-r;dx<=r;dx++){const x=c0+dx,y=c0+dy;if(!inMap(x,y))continue;const t=tiles[idx(x,y)];
+       if(!t.bld&&!t.road&&!t.tree&&!t.zone&&t.t===2){sp2=[x,y];break;}}
+     if(sp2){const svM=money,svB=tiles[idx(sp2[0],sp2[1])].bld;
+       money=Math.max(money,5200+1000);
+       const ok=doPlace('cathedral',sp2[0],sp2[1],true);
+       let errN=0;const svErr=console.error;console.error=()=>{errN++;};
+       let threw='';try{draw(.016);}catch(e){threw=e.message;}finally{console.error=svErr;}
+       drewOk=!!(ok&&errN===0&&!threw);
+       if(threw)errTxt=threw;else if(errN)errTxt='console.error '+errN+' 筆';
+       tiles[idx(sp2[0],sp2[1])].bld=svB;money=svM;}
+   }catch(e){errTxt=e.message;}
+   checks.push(['放置後真的畫得出來（DSK-003 教訓）：在鏡頭附近放一座 k187、真的 draw(.016) 一次，不擲錯也不用 console.error 兜'+(errTxt?'（'+errTxt+'）':''),drewOk]);}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 /* DSK-003 白塔自檢：幾何／邊界／碎點／註冊／真實放置不非法交疊／近距層 z 閘門（日＋夜）。 */
@@ -72703,6 +72717,20 @@ function keepSelftestDSK3(){
   catch(e){checks.push(['放置測試擲錯：'+e.message,false]);}
   checks.push(['真的放得下去（doPlace("keep")）：'+(found?'就地':'找不到空地')+' → t.bld.k=188',placed]);
   checks.push(['只佔自己那一格：八鄰 bld 與放置前逐一同值',neighOk]);
+  {let drewOk=false,errTxt='';
+   try{const c0=Math.floor(N/2);let sp2=null;
+     for(let r=0;r<14&&!sp2;r++)for(let dy=-r;dy<=r&&!sp2;dy++)for(let dx=-r;dx<=r;dx++){const x=c0+dx,y=c0+dy;if(!inMap(x,y))continue;const t=tiles[idx(x,y)];
+       if(!t.bld&&!t.road&&!t.tree&&!t.zone&&t.t===2){sp2=[x,y];break;}}
+     if(sp2){const svM=money,svB=tiles[idx(sp2[0],sp2[1])].bld;
+       money=Math.max(money,4800+1000);
+       const ok=doPlace('keep',sp2[0],sp2[1],true);
+       let errN=0;const svErr=console.error;console.error=()=>{errN++;};
+       let threw='';try{draw(.016);}catch(e){threw=e.message;}finally{console.error=svErr;}
+       drewOk=!!(ok&&errN===0&&!threw);
+       if(threw)errTxt=threw;else if(errN)errTxt='console.error '+errN+' 筆';
+       tiles[idx(sp2[0],sp2[1])].bld=svB;money=svM;}
+   }catch(e){errTxt=e.message;}
+   checks.push(['放置後真的畫得出來（DSK-003 教訓）：在鏡頭附近放一座 k188、真的 draw(.016) 一次，不擲錯也不用 console.error 兜'+(errTxt?'（'+errTxt+'）':''),drewOk]);}
   {const src=''+drawNearZoomKeepDSK1;
    checks.push(['近距層：函式存在、z≥1.22 閘門、只給 k188、逃生閥齊',typeof drawNearZoomKeepDSK1==='function'&&src.indexOf('z<1.22')>=0&&src.indexOf('bd.k!==188')>=0&&src.indexOf('__noNearKeep188')>=0]);
    try{const c2=document.createElement('canvas');c2.width=200;c2.height=320;const g2=c2.getContext('2d',{willReadFrequently:true});
