@@ -7,6 +7,7 @@
 
 | 日期 | 題目 | 決定 | 出處 |
 |---|---|---|---|
+| 2026-09-25 | 分支一定要合嗎 | **不一定。只有業主點頭才合**（指名那個 PR 或那條分支）；沒點頭的分支留著、可以一直不合；沒有定時合併排程。`main` 寫入者開工時把開著的 PR 列給業主。規則見 `AGENTS.md` 第 3 節 | 對話 |
 | 2026-09-25 | GPT 能寫倉庫（更正） | 業主：「GPT 是可以寫 repo 的」。**GPT 走 `gpt/*` 分支、開 PR**（`GPT-001` 起），跟 Grok、GLM、Kimi 一樣；它不能在本機跑遊戲，煙霧交給 CI、像素守衛由合併者跑（`AGENTS.md` 第 5 節）。`main` 仍只給 Claude、Codex；業主要讓 GPT 直接寫 main 再改 | 對話 |
 | 2026-09-25 | Kimi、GPT（ChatGPT 聊天版）怎麼加入 | 業主要求「也給 Kimi 和 GPT 寫一下」。Claude 擬：**Kimi 先走 `kimi/*` 分支**（業主說過以後可能升 main，明說前照分支）；~~**GPT 聊天版不寫倉庫**，只讀、審、出草稿，草稿由寫入者驗證後才進倉庫。~~（同日業主更正：GPT 可以寫倉庫，見上一列）規則見 `AGENTS.md` 第 4、5 節，開場白見 `docs/AGENT-PROMPTS.md`。業主可改 | 對話 |
 | 2026-09-25 | Grok、GLM 怎麼加入 | **走分支、開 PR**：`main` 只給 Claude、Codex；Grok `grok/*`、GLM `glm/*`，Kimi 之後另定（先照分支走）。原話：「Grok、GLM 確定走 branch」。規則見 `AGENTS.md` | 對話 |

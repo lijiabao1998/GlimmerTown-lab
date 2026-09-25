@@ -3,6 +3,7 @@
 > **English summary.** This is the *lab line* repo (`lijiabao1998/GlimmerTown-lab`). Only **Claude** and **Codex** push to `main`.
 > **Grok**, **GLM** and **Kimi** work on `grok/<topic>`, `glm/<topic>`, `kimi/<topic>` branches: push only your own branch, open a PR to `main`, never push to `main` and never merge your own PR.
 > **GPT (ChatGPT)** can write the repo but cannot run the game's local tests: it works on `gpt/<topic>` branches like the others; CI runs the smoke test on every push, and the merging writer runs the pixel guards.
+> **Nothing is merged into `main` unless the owner explicitly approves that PR.** A branch may also stay unmerged forever.
 > Before starting, read `AUTORUN.md` (workflow and boundaries) and `docs/DECISIONS.md` (owner decisions). Do not decide global look changes yourself — make 2–3 comparison images for the owner.
 
 業主 2026-09-25 定的：「Grok、GLM 確定走 branch」，並要求 Kimi、GPT（ChatGPT）也寫一份；同日更正「GPT 是可以寫 repo 的」，GPT 也走分支。這份檔給 Codex、Grok、GLM、Kimi、GPT 等不讀 `CLAUDE.md` 的工具看；Claude 讀 `CLAUDE.md`，兩份內容一致。各家的開場白（貼給它的第一句話）在 `docs/AGENT-PROMPTS.md`。
@@ -35,16 +36,22 @@
    日誌寫在自己的卡裡，欄位照 `AUTORUN-LOG.md`：做了什麼／煙霧測試／樣張／沒做成的事。**「沒做成的事」不准空著，也不准美化。**
 6. **推送**：只推自己的分支，`git push -u origin grok/<主題>`。自己的分支可以重寫；**不准推 `main`、不准碰別人的分支、不准對 `main` 用 `--force`**。
 7. **開 PR 到 `main`**：標題寫 `[GROK-001] 標題`（GLM、Kimi、GPT 換成自己的號），內文貼卡上的驗收結果和樣張。CI（煙霧測試）會對分支和 PR 自動跑。**不要自己合併。**
+   開了 PR 不等於會合：**只有業主點頭才合**（見第 3 節）。業主沒點頭，分支就留著；想以後被合的，就常把分支同步到最新 `main`（rebase 後重跑煙霧再推），放太久會跟 `main` 差太多、合不動。
 8. **全局觀感不要自己決定**：色調、光影、密度、配色、樹種這類改了會影響整張畫面的，做兩三檔對照圖放在卡裡，由業主選（`main` 寫入者會放上決策單）。`docs/DECISIONS.md` 已決定的不重問；待決的不替業主選。
 
-## 3. 合併（`main` 寫入者做）
+## 3. 合併：只有業主點頭才合（業主 2026-09-25 定）
 
-1. **看 PR**：驗收條件是不是動手前寫的、守衛是不是可斷言的事實、CI 綠不綠、樣張對不對。
+分支不一定要合。**任何分支的 PR，業主明說「合」（指名那一個 PR 或那一條分支）之前，誰都不准合進 `main`**；業主沒點頭的分支就留著，也可以一直不合。所以沒有定時合併的排程。
+
+`main` 寫入者（Claude、Codex）要做的：
+
+0. **開工時列給業主看**：同步完遠端後，看有沒有開著的分支 PR；有的話列給業主——每個 PR 一行：分支、卡號、做了什麼、CI 綠不綠、樣張連結、有沒有要業主選的美術。列完就去做自己的事，**不要自己決定合不合**。
+1. **業主點頭後才動手**。先看 PR：驗收條件是不是動手前寫的、守衛是不是可斷言的事實、CI 綠不綠、樣張對不對。有問題就在 PR 留言、回報業主，不合。
 2. **在最新的 `main` 上合**：本地 `git merge --squash origin/<分支>`（不動遠端分支的歷史），重跑煙霧 3 連綠、`fp.js --check`。
 3. **配 T 號**：卡檔搬成 `docs/T6xx-標題.md`，內文保留原號（「原 GROK-001」）；改版本號、寫 `AUTORUN-LOG.md`，需要時更新 `fp.json` 和 `docs/DECISIONS.md`。
 4. **推 `main`**，在 PR 留言寫合併的 commit 和 T 號，然後關 PR。
-5. **要業主看圖的先別合**：先放上決策單，業主選了再照選的合。
-6. 合不動（衝突解不開、守衛不成立、驗收是事後補的）：在 PR 留言寫清楚原因，不合。
+5. **要業主看圖的**：業主點頭合之前，先把對照圖放上決策單，照業主選的那一檔合。
+6. 業主點頭了但合不動（衝突解不開、守衛不成立、驗收是事後補的）：在 PR 留言寫清楚原因、回報業主，不合。
 
 ## 4. 慢的寫入者（Kimi）要多注意的
 
