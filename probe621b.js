@@ -63,7 +63,9 @@ const MEASURE = rot => `(() => {
     else checks.push([`rot ${q.rot}：灰板 ${q.old}→${q.new}，不比舊版糟（不分條參考 ${q.no555}；多出 ${extraNew}。T622 之前這裡的殘留來自旋轉舊病，T622 之後應為 0）`, q.new <= q.old]);
   }
   const r0 = rows.find(q => q.rot === 0);
-  checks.push(['rot 0：探針 7 點舊版全是鋪面灰（守衛有效對照）', r0.oldPts.every(isGrey)]);
+  // 守衛有效對照改用面積：原本的「探針 7 點舊版全是鋪面灰」是按 T621 當時的城市佈局寫死的螢幕座標，
+  // T624／T633 之後街區變了、那 7 點已經不全落在灰板上（T639 施工時發現，T639 之前的版本上就是紅的）。
+  checks.push([`rot 0：舊版（每條都鋪）仍有灰板 ${r0.old} 像素（守衛有效對照，> 500）`, r0.old - r0.no555 > 500]);
   checks.push(['rot 0：探針 7 點新版都不是鋪面灰', r0.newPts.every(s => !isGrey(s))]);
   const r2 = rows.find(q => q.rot === 2);
   checks.push([`rot 2：新舊像素差 ${r2.newVsOld}（應接近 0，門檻 500）`, r2.newVsOld <= 500]);
