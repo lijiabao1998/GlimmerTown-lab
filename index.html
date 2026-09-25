@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.57 · T652</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.58 · T653</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.57'; // T652 野外的樹一片一片成林（業主決策單第三批選 C）。前：T651 草地格線淡一點（業主決策單第三批選 B）
-const GAME_ANCHOR='T652'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.58'; // T653 被蓋住的窗不再亮燈（業主決策單第三批備註）。前：T652 野外的樹一片一片成林（業主決策單第三批選 C）
+const GAME_ANCHOR='T653'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -71439,7 +71439,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   const rand=metroRand516('block557:'+k+':'+lv+':'+bw+'x'+bh+':'+v);
   let pal=speciesPal601(metroPalette516(k,v,1,lv),ar568,k);
   const rk559=metroRand516('roof559:'+k+':'+lv+':'+bw+'x'+bh+':'+v);
-  const[c,g]=cv(W,H),[nc,ng]=cv(W,H);
+  const[c,g0]=cv(W,H),[nc,ng0]=cv(W,H),occ653=occWin653On()?occWrap653(g0,ng0):null,g=occ653?occ653.g:g0,ng=occ653?occ653.ng:ng0; // T653：g 上不透明的塗畫同步擦掉 ng 同一塊（被蓋住的窗不亮燈）
   const G0559=blockCorners547(ax,ay,bw,bh);
   const villa559=!window.__noVilla559&&typ&&k===1&&lv===1&&bw*bh<=4&&arNameVilla600(k,lv,v);
   if(villa559)villaYard559(g,ng,G0559,rk559,pal);
@@ -71485,7 +71485,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
     const top613=[],n613=smk608.length;let res577=null;try{res577=fr577.draw({A:window.GV.art574,g,ng,G,G0:G0559,wallH,pitchH,stepH,towH,k,lv,bw,bh,v,pal,rand:rk559,rand2:rand,cL,cR,long,span,axis,W,H,ax,ay,typ,grain,ar:ar568,
       chim:window.__noFacadeSmoke613?null:(x,y,top)=>{smk608.push([Math.round(x),Math.round(y)]);top613.push(top||null);}});}
     catch(e){console.error('facade577 '+fr577.name,e);res577=null;}
-    if(res577!==false){exLateDraw624();chimVisible613(g,smk608,top613);outlineSprite(c,22,26,34);return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH},occ:occ624}};}
+    if(res577!==false){exLateDraw624();chimVisible613(g,smk608,top613);if(occ653)occ653.flush();outlineSprite(c,22,26,34);return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH},occ:occ624}};}
     smk608.length=n613;
   }
   edgeWall547(g,G.W,G.S,wallH,cL);edgeWall547(g,G.E,G.S,wallH,cR);
@@ -71652,6 +71652,7 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   }
   exLateDraw624();
   outlineSprite(c,22,26,34);
+  if(occ653)occ653.flush(); // T653：畫完把最後累積的遮蓋擦掉
   return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!ridge,sty:sty565,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH},occ:occ624}};
 }
 function groundShade572(ctx,x,y,w,h,z,sxF,syF,spriteH){
@@ -72046,7 +72047,7 @@ function smokeViewSelftest626(){ // T626：煙源與「真的畫出來的煙囪�
 }
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(window.__noVkey628?(v%6)+'_v6':(v|0))+ // T628：原本 v%6，但住商工 v 是 0–11、makeBlockSprite547 用原始 v 挑原型 ⇒ v 與 v+6 共用一張圖，畫誰看誰先被畫到；閥門另帶 _v6 尾碼，兩種鍵不互相污染
-    (window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'')+(window.__noMassWin645?'_mw1':'')+(window.__noDock650?'_dk0':'');
+    (window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'')+(window.__noMassWin645?'_mw1':'')+(window.__noDock650?'_dk0':'')+(window.__noOccWin653?'_ow0':'');
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
   const sp=makeBlockSprite547(k,lv,bw,bh,v);BLOCK_SPR547.set(key,sp);return sp;
 }
@@ -72150,6 +72151,89 @@ function warmWinSelftest649(){
   checks.push(['同一張圖第二次取到快取',w===w2]);
   checks.push(['關閥門回原圖',off===src]);
   checks.push(['發光層兩條路徑都染色',String(nightCompose629).indexOf('winImg649')>=0&&drawPath649]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+/* T653 被蓋住的窗不再亮燈（業主 2026-09-25 決策單第三批備註）：街區精靈的白天圖 g 與夜圖 ng 分開畫，窗先畫（g 玻璃、ng 燈），
+   之後前面的量體、屋頂、前院只畫在 g 上把窗蓋掉，ng 上的燈卻還在，夜裡燈亮在紅瓦屋頂、前棟牆上。
+   畫街區精靈時把 g 包一層：每次不透明（有效不透明度 ≥ 0.85、source-over）的 fillRect／fill／stroke／drawImage 畫完，
+   ng 同一塊用 destination-out 擦掉（路徑、裁切、線寬照 g 同步）。半透明疊色、漸層、圖樣不擦。ng 還沒畫過東西時不擦（省時間）。
+   逃生閥 __noOccWin653（精靈快取鍵帶閥門）。 */
+function occWin653On(){return !window.__noOccWin653;}
+// 包裝類別（第一次用到時照 CanvasRenderingContext2D 的原型產生一次）：方法與屬性直接轉給真的畫布，只有要記號碼的幾個另外處理。
+// 號碼用「到目前畫了幾盞燈」（E）：g 的不透明塗畫在 M 記 E，第 e 盞燈在 LT 記 e；最後 M ≥ LT 的燈像素＝畫燈之後被蓋住 → 擦掉。
+// 這樣 M 的顏色只在畫新燈之後才換一次；填色的透明度在設定時就算好、跟著 save／restore 進出堆疊（不必每筆去讀 fillStyle）。
+let OCC653=null;const ALPHA653=new Map();
+function alpha653(v){if(typeof v!=='string')return 0;let a=ALPHA653.get(v);if(a!==undefined)return a;
+  const s=v.trim().toLowerCase();if(s==='transparent')a=0;else if(s[0]==='#')a=s.length===9?parseInt(s.slice(7,9),16)/255:s.length===5?parseInt(s[4]+s[4],16)/255:1;
+  else{const m=s.match(/^(?:rgba?|hsla?)\(([^)]*)\)/);if(m){const p=m[1].split(/[,\s\/]+/).filter(Boolean);a=p.length>=4?(p[3].endsWith('%')?parseFloat(p[3])/100:+p[3]):1;}else a=1;}
+  if(ALPHA653.size<4096)ALPHA653.set(v,a);return a;}
+function occClasses653(){
+  if(OCC653)return OCC653;
+  const P=CanvasRenderingContext2D.prototype,GEO=new Set(['lineWidth','lineCap','lineJoin','miterLimit','lineDashOffset','font','textAlign','textBaseline','direction']);
+  class G{constructor(t,st){this.t=t;this.st=st;}}class N{constructor(t,st){this.t=t;this.st=st;}}
+  for(const k of Object.getOwnPropertyNames(P)){if(k==='constructor')continue;const d=Object.getOwnPropertyDescriptor(P,k);
+    if(typeof d.value==='function'){G.prototype[k]=function(...a){return this.t[k](...a);};N.prototype[k]=function(...a){return this.t[k](...a);};}
+    else if(d.get){Object.defineProperty(G.prototype,k,{configurable:true,get(){return this.t[k];},set(v){this.t[k]=v;if(GEO.has(k))this.st.M[k]=v;}});Object.defineProperty(N.prototype,k,{configurable:true,get(){return this.t[k];},set(v){this.t[k]=v;}});}}
+  Object.defineProperty(G.prototype,'fillStyle',{get(){return this.t.fillStyle;},set(v){this.t.fillStyle=v;this.st.k.fa=alpha653(v);}});
+  Object.defineProperty(G.prototype,'strokeStyle',{get(){return this.t.strokeStyle;},set(v){this.t.strokeStyle=v;this.st.k.sa=alpha653(v);}});
+  Object.defineProperty(G.prototype,'globalAlpha',{get(){return this.t.globalAlpha;},set(v){this.t.globalAlpha=v;this.st.k.ga=this.t.globalAlpha;}});
+  Object.defineProperty(G.prototype,'globalCompositeOperation',{get(){return this.t.globalCompositeOperation;},set(v){this.t.globalCompositeOperation=v;this.st.k.so=this.t.globalCompositeOperation==='source-over';}});
+  for(const k of ['translate','rotate','scale','setTransform','resetTransform','transform','clip','setLineDash','beginPath','closePath','moveTo','lineTo','quadraticCurveTo','bezierCurveTo','rect','roundRect','arc','arcTo','ellipse'])
+    G.prototype[k]=function(...a){this.st.M[k](...a);return this.t[k](...a);};
+  G.prototype.save=function(){const st=this.st;st.ks.push(Object.assign({},st.k));st.M.save();return this.t.save();};
+  G.prototype.restore=function(){const st=this.st;if(st.ks.length)st.k=st.ks.pop();st.M.restore();st.mE=-1;return this.t.restore();};
+  const pen=st=>{if(st.mE!==st.E){st.M.fillStyle=st.M.strokeStyle=col653(st.E);st.mE=st.E;}};
+  G.prototype.fillRect=function(x,y,w,h){const st=this.st,k=st.k;this.t.fillRect(x,y,w,h);if(st.E&&k.so&&k.ga*k.fa>=.85){pen(st);st.M.fillRect(x,y,w,h);}};
+  G.prototype.fill=function(...a){const st=this.st,k=st.k;this.t.fill(...a);if(st.E&&k.so&&k.ga*k.fa>=.85){pen(st);st.M.fill(...a);}};
+  G.prototype.stroke=function(...a){const st=this.st,k=st.k;this.t.stroke(...a);if(st.E&&k.so&&k.ga*k.sa>=.85){pen(st);st.M.stroke(...a);}};
+  G.prototype.drawImage=function(...a){const t=this.t,st=this.st,k=st.k;t.drawImage(...a);if(st.E&&k.so&&k.ga>=.85){const W=st.W,H=st.H;
+    if(!st.S){const c=document.createElement('canvas');c.width=W;c.height=H;st.S=c.getContext('2d');}const S=st.S;
+    S.setTransform(1,0,0,1,0,0);S.globalCompositeOperation='source-over';S.clearRect(0,0,W,H);S.setTransform(t.getTransform());S.drawImage(...a);
+    S.setTransform(1,0,0,1,0,0);S.globalCompositeOperation='source-in';S.fillStyle=col653(st.E);S.fillRect(0,0,W,H);
+    st.M.save();st.M.setTransform(1,0,0,1,0,0);st.M.drawImage(S.canvas,0,0);st.M.restore();}};
+  const lt=(st,b)=>{st.E++;st.LT.fillStyle=col653(st.E);const x=Math.max(0,Math.floor(b[0])),y=Math.max(0,Math.floor(b[1])),x2=Math.min(st.W,Math.ceil(b[2])),y2=Math.min(st.H,Math.ceil(b[3]));if(x2>x&&y2>y){st.LT.fillRect(x,y,x2-x,y2-y);st.lb=uni653(st.lb,[x,y,x2,y2]);}};
+  N.prototype.fillRect=function(x,y,w,h){lt(this.st,tb653(this.t.getTransform(),x,y,w,h));return this.t.fillRect(x,y,w,h);};
+  N.prototype.strokeRect=function(x,y,w,h){lt(this.st,tb653(this.t.getTransform(),x-2,y-2,w+4,h+4));return this.t.strokeRect(x,y,w,h);};
+  N.prototype.drawImage=function(...a){const im=a[0],r=a.length>=9?[a[5],a[6],a[7],a[8]]:a.length>=5?[a[1],a[2],a[3],a[4]]:[a[1],a[2],im.width,im.height];lt(this.st,tb653(this.t.getTransform(),...r));return this.t.drawImage(...a);};
+  for(const k of ['fill','stroke'])N.prototype[k]=function(...a){const st=this.st,lw=k==='stroke'?this.t.lineWidth:0,b=!(a[0] instanceof Path2D)&&st.npb?[st.npb[0]-lw,st.npb[1]-lw,st.npb[2]+lw,st.npb[3]+lw]:[0,0,st.W,st.H];lt(st,b);return this.t[k](...a);};
+  for(const k of ['fillText','strokeText','putImageData'])N.prototype[k]=function(...a){lt(this.st,[0,0,this.st.W,this.st.H]);return this.t[k](...a);};
+  N.prototype.beginPath=function(){this.st.npb=null;return this.t.beginPath();};
+  for(const k of ['moveTo','lineTo','quadraticCurveTo','bezierCurveTo','rect','roundRect','arc','arcTo','ellipse'])N.prototype[k]=function(...a){const st=this.st,m=this.t.getTransform();for(const q of pathPts653(k,a))st.npb=uni653(st.npb,ptb653(m,q[0],q[1],q[2]));return this.t[k](...a);};
+  OCC653={G,N};return OCC653;
+}
+function col653(n){return '#'+(n&0xffffff).toString(16).padStart(6,'0');}
+function tb653(m,x,y,w,h){const xs=[m.a*x+m.c*y+m.e,m.a*(x+w)+m.c*y+m.e,m.a*x+m.c*(y+h)+m.e,m.a*(x+w)+m.c*(y+h)+m.e],ys=[m.b*x+m.d*y+m.f,m.b*(x+w)+m.d*y+m.f,m.b*x+m.d*(y+h)+m.f,m.b*(x+w)+m.d*(y+h)+m.f];return [Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)];}
+function uni653(a,b){return a?[Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.max(a[2],b[2]),Math.max(a[3],b[3])]:b;}
+function ptb653(m,x,y,r){const X=m.a*x+m.c*y+m.e,Y=m.b*x+m.d*y+m.f,R=r*Math.max(Math.abs(m.a)+Math.abs(m.c),Math.abs(m.b)+Math.abs(m.d));return [X-R,Y-R,X+R,Y+R];}
+function pathPts653(p,a){return p==='moveTo'||p==='lineTo'?[[a[0],a[1],0]]:p==='quadraticCurveTo'?[[a[0],a[1],0],[a[2],a[3],0]]:p==='bezierCurveTo'?[[a[0],a[1],0],[a[2],a[3],0],[a[4],a[5],0]]:
+  (p==='rect'||p==='roundRect')?[[a[0],a[1],0],[a[0]+a[2],a[1]+a[3],0],[a[0]+a[2],a[1],0],[a[0],a[1]+a[3],0]]:p==='arcTo'?[[a[0],a[1],0],[a[2],a[3],0]]:[[a[0],a[1],p==='ellipse'?Math.max(a[2],a[3]):a[2]]];}
+function occWrap653(g,ng){
+  // 精靈畫完時（flush）只讀有燈的範圍，逐像素比 M 與 LT：M ≥ LT（燈畫完之後被不透明塗畫蓋住）→ 擦掉那個燈像素。
+  // 前幾版（每筆當場擦、畫燈前先擦、Proxy、每筆換 M 的顏色）建城多 0.8 秒。斜邊反鋸齒的像素（M 不是完全不透明）不擦。
+  const W=ng.canvas.width,H=ng.canvas.height,mk=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;return c.getContext('2d',{willReadFrequently:true});};
+  const st={M:mk(),LT:mk(),E:0,mE:-1,npb:null,S:null,W,H,lb:null,k:{fa:1,sa:1,ga:1,so:true},ks:[]},C=occClasses653();
+  const flush=()=>{if(!st.E||!st.lb)return 0;const [x,y,x2,y2]=st.lb,w=x2-x,h=y2-y;
+    const Nd=ng.getImageData(x,y,w,h),n=Nd.data,m=st.M.getImageData(x,y,w,h).data,l=st.LT.getImageData(x,y,w,h).data;let k=0;
+    for(let i=0;i<n.length;i+=4){if(!n[i+3]||m[i+3]!==255||!l[i+3])continue;const tm=(m[i]<<16)|(m[i+1]<<8)|m[i+2],tl=(l[i]<<16)|(l[i+1]<<8)|l[i+2];if(tm>=tl){n[i]=n[i+1]=n[i+2]=n[i+3]=0;k++;}}
+    if(k){ng.save();ng.setTransform(1,0,0,1,0,0);ng.putImageData(Nd,x,y);ng.restore();}
+    window.__t653Erased=(window.__t653Erased||0)+k;return k;};
+  return {g:new C.G(g,st),ng:new C.N(ng,st),flush};
+}
+function occWinSelftest653(){
+  const checks=[],sv=window.__noOccWin653,mk=()=>{const a=document.createElement('canvas'),b=document.createElement('canvas');a.width=b.width=32;a.height=b.height=16;return [a.getContext('2d'),b.getContext('2d')];};
+  const lit=(c,x,y)=>c.getImageData(x,y,1,1).data[3];
+  const run=off=>{window.__noOccWin653=off;const [g0,n0]=mk(),w=occWin653On()?occWrap653(g0,n0):{g:g0,ng:n0},g=w.g,ng=w.ng;
+    g.fillStyle='#4a6578';g.fillRect(2,2,4,4);g.fillRect(20,2,4,4);g.fillRect(12,2,4,4);ng.fillStyle='#fffbe5';ng.fillRect(2,2,4,4);ng.fillRect(20,2,4,4);ng.fillRect(12,2,4,4);
+    g.fillStyle='#b0522e';g.beginPath();g.moveTo(0,0);g.lineTo(8,0);g.lineTo(8,8);g.lineTo(0,8);g.closePath();g.fill();
+    g.fillStyle='rgba(0,0,0,.3)';g.fillRect(18,0,8,8);
+    g.save();g.beginPath();g.rect(0,0,14,16);g.clip();g.fillStyle='#777';g.fillRect(10,0,6,8);g.restore();
+    if(w.flush)w.flush();return {covered:lit(n0,4,4),translucent:lit(n0,22,4),clipIn:lit(n0,12,4),clipOut:lit(n0,15,4)};};
+  let a,b;try{a=run(false);b=run(true);}finally{window.__noOccWin653=sv;}
+  checks.push(['被不透明屋頂蓋住的燈擦掉（α '+a.covered+'）',a.covered===0]);
+  checks.push(['半透明（α .3）疊色不擦（α '+a.translucent+'）',a.translucent===255]);
+  checks.push(['裁切內擦掉、裁切外保留（'+a.clipIn+'／'+a.clipOut+'）',a.clipIn===0&&a.clipOut===255]);
+  checks.push(['關閥門時燈都在（'+b.covered+'）',b.covered===255&&b.clipIn===255]);
+  checks.push(['精靈快取鍵帶閥門',String(getBlockSprite547).indexOf('__noOccWin653')>=0]);
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 /* T652 野外的樹一片一片成林（業主 2026-09-25 決策單第三批選 C）：原本每棵樹從 13 種平均隨機，一片樹林五顏六色。
@@ -73223,7 +73307,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveTree652,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveTree652,occWinSelftest653,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
