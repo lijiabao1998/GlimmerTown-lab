@@ -58281,6 +58281,7 @@ function drawEmptyLot592(gc,x,y,sx,sy,z,zn){
    不消耗 R()、不入 save；掛 detailPermit432 預算；__noAgeW591 逃生閥；
    __t591WxCount 為本幀命中數。 */
 function drawAgeWeathering591(g,o,bd,s,bx,by,z,drawA){
+  if(!window.__forceLegacy591)return 0; // GLM-003：T606 量測本舊疊畫版 100% 浮空（foot 錨點對現行 sprite 不成立），退役；牆系 paintWeather606 已同義取代，__forceLegacy591 可復原舊行為
   if(window.__noAgeW591||z<.9||!bd||bd.ref||bd.k===4)return 0;
   const age=bd.age|0;
   if(age<14)return 0;
@@ -58355,6 +58356,7 @@ function drawPlazaWear594(g,tx,ty,px,py,z){
    工業屋則為漆掉重漆的舊牆廣告。streetHash 決定性、不消耗 R()、不入 save；
    掛 detailPermit432；__noSign593 逃生閥；__t593SignCount 計數。 */
 function drawSignAge593(g,o,bd,s,bx,by,z,drawA){
+  if(!window.__forceLegacy593)return 0; // GLM-003：T606 量測 37.5% 浮空；招牌由 f577 精靈自帶＋T625＋wall 系接手，__forceLegacy593 可復原
   if(window.__noSign593||z<.9||!bd||bd.ref||bd.k===4)return 0;
   const age=bd.age|0;
   if(age<12||cat2k593(bd.k)!==2)return 0;
