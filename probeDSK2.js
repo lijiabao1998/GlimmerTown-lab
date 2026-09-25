@@ -109,7 +109,7 @@ const OUT = arg('out', 'shotsDSK2');
       }
       // 同一 run 內量差異像素：近距（2.4）應該有差、遠距（0.6）應該零差
       const diff = await ev(`(()=>{
-        const cvs=[...document.querySelectorAll('canvas')].sort((a,b)=>b.width*b.height-a.width*a.height)[0];
+        const cvs=document.getElementById('game');
         const g=cvs.getContext('2d',{willReadFrequently:true});
         const W=280,H=420,X=Math.round(cvs.width/2-W/2),Y=Math.round(cvs.height/2-H/2+40);
         const grab=()=>g.getImageData(X,Y,W,H).data.slice();
@@ -117,8 +117,9 @@ const OUT = arg('out', 'shotsDSK2');
           window.__noNearCath187=false;GV.forceDraw();const b=grab();let n=0;
           for(let i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2])n++;
           return n;};
-        const near=run(2.4),far=run(0.6);GV.art574.zoom574(2.4);GV.forceDraw();
-        return {near,far,box:[W,H]};})()`);
+        const near=run(2.4),far=run(0.6);
+        const CY2=GV.art574.cycle574();GV.setVisT(CY2*0.86);const night=run(2.4);GV.setVisT(CY2*0.5);GV.art574.zoom574(2.4);GV.forceDraw();
+        return {near,far,night,box:[W,H],cvs:cvs.width+"x"+cvs.height};})()`);
       return { spot, diff, out, shots };
     }
 

@@ -58711,24 +58711,27 @@ function overlayLayers606(){
 /* DSK-002 近距細節層（照 T596 軸三）：只在 z≥1.22 疊加，不動 SPR 精靈 ⇒ 遠距剪影與指紋完全不變。
    三種立面各有各的近距料：v0 鼓座柱頭＋欄杆加密、v1 彩繪玻璃＋小石像鬼、v2 磚牆砌紋＋琉璃窗。
    座標用精靈內既有的常數（東南面窗腳 WX＝fx/fy 的結果，見 k187 精靈段），逃生閥 __noNearCath187。 */
-function drawNearZoomCathedralDSK1(g,o,bd,s,bx,by,z,drawA){
+function drawNearZoomCathedralDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
   if(window.__noNearCath187||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k!==187)return 0;
   if(!detailPermit432(o.x,o.y,599,z,.62))return 0;   // 掛 T599 近距層的預算槽（detailPermit432 只認已註冊的 layer）
-  const v=bd.v|0,a=drawA*detailAlpha432(z),foot=by+s.h*z;
+  const v=bd.v|0,night=(nightDepth|0)>0,a=drawA*detailAlpha432(z),foot=by+s.h*z;
   const R=(lx,ly,w,hh,c,al)=>{g.save();g.globalAlpha=a*(al==null?1:al);g.fillStyle=c;
     g.fillRect(Math.round(bx+lx*z),Math.round(foot-(136-ly)*z),Math.max(1,Math.round(w*z)),Math.max(1,Math.round(hh*z)));g.restore();};
   const WX=[[39,130],[43,128],[47,126],[51,124],[55,122],[59,120],[63,119]];   // 東南面南側廊窗腳（fx(SB,1,d)/fy(SB,d)）
   let drew=0;
   if(v===0){
-    for(const x of [38,41,44,47,50,53]){R(x,80,2,2,'#f3ede1',.85);R(x,82,2,1,'#bcb29c',.7);}      // 鼓座柱頭
-    for(let x=36;x<=56;x++)R(x,73,1,2,(x&1)?'#d6cdb9':'#f3ede1',.45);                             // 欄杆加密
+    for(const x of [38,41,44,47,50,53]){R(x,80,2,2,night?'#ffe3a6':'#f3ede1',.85);R(x,82,2,1,'#bcb29c',.7);}   // 鼓座柱頭
+    for(let x=36;x<=56;x++)R(x,73,1,2,night?'#d8b46a':((x&1)?'#d6cdb9':'#f3ede1'),.45);                        // 欄杆加密
+    if(night){for(const x of [40,46,52])R(x-1,76,3,2,'rgba(255,214,120,.55)',.6);}                             // 夜：鼓座燈列
     drew+=12;
   }else if(v===1){
-    for(const [x,y] of WX){R(x,y-22,2,6,(x&2)?'#7fb8d8':'#d8a24a',.8);R(x+1,y-20,1,2,'#f0e2b0',.9);drew++;}  // 彩繪玻璃
+    for(const [x,y] of WX){R(x,y-22,2,6,night?((x&2)?'#8fd0f0':'#ffd98a'):((x&2)?'#7fb8d8':'#d8a24a'),.8);R(x+1,y-20,1,2,night?'#fff0c0':'#f0e2b0',.9);drew++;}   // 彩繪玻璃
     for(const [x,y] of [[42,112],[52,107],[62,102]]){R(x-1,y,3,2,'#4a4640',.85);R(x,y-3,1,3,'#4a4640',.8);drew++;}   // 小石像鬼
+    if(night){for(const [x,y] of WX)R(x-1,y-21,4,4,'rgba(255,214,120,.28)',.5);}                              // 夜：玻璃外暈
   }else{
-    for(let k=0;k<11;k++){R(30,102-k*2.4,10,.6,'#8f5340',.45);drew++;}                            // 磚牆砌紋
-    for(const [x,y] of WX){R(x+1,y-19,1,4,'#bfe6f0',.75);R(x,y-10,2,3,'#e8d48a',.7);drew++;}       // 琉璃窗
+    for(let k=0;k<11;k++){R(30,102-k*2.4,10,.6,'#8f5340',.45);drew++;}                                        // 磚牆砌紋
+    for(const [x,y] of WX){R(x+1,y-19,1,4,night?'#bfe6f0':'#bfe6f0',.75);R(x,y-10,2,3,night?'#ffe1a0':'#e8d48a',.7);drew++;}   // 琉璃窗
+    if(night){for(const [x,y] of WX)R(x-1,y-19,4,3,'rgba(255,196,110,.30)',.5);}                              // 夜：琉璃窗暖光
   }
   return drew;
 }
@@ -62331,6 +62334,7 @@ function draw(dt){
       drawNightIdentity423(G6,o,bd,s,X6,Y6,z,drawA,nightDepth);
       drawNightMicro431(G6,o,bd,s,X6,Y6,z,drawA,nightDepth);
       drawNearZoom599(G6,o,bd,s,X6,Y6,z,drawA); // T599 近距第二層
+      drawNearZoomCathedralDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-002 座堂近距細節層（日／夜）
       if(cl606)ovClipEnd606(ctx,cl606,s,bx,by,z);
       drawIndustrialShift447(ctx,o,bd,s,bx,by,z,drawA, !!nightDepth); // T447-R01
       drawCommService447(ctx,o,bd,s,bx,by,z,drawA); // T447-R03
@@ -72552,7 +72556,8 @@ function cathedralSelftestDSK2(){
    checks.push(['近距細節層：函式存在、有 z≥1.22 閘門、只給 k187（'+src.length+' 字元）',typeof drawNearZoomCathedralDSK1==='function'&&src.indexOf('z<1.22')>=0&&src.indexOf('bd.k!==187')>=0&&src.indexOf('__noNearCath187')>=0]);
    let inReg=false;try{inReg=overlayLayers606().some(l=>l&&l[0]==='187');}catch(e){}
    checks.push(['近距層掛進疊畫註冊表（overlayLayers606 含 187 條）且不動 SPR（fp 只看精靈）',inReg]);
-   {const rep=[];let z2ok=false,z06clean=true;
+   checks.push(['draw 內真的有呼叫近距層（nightDepth 也傳進去）',String(draw).indexOf('drawNearZoomCathedralDSK1')>=0||(typeof __draw_501==='function'&&String(__draw_501).indexOf('drawNearZoomCathedralDSK1')>=0)]);
+   {const rep=[];let z2ok=false,z06clean=true,znok=false;
     const svBudget=window.__noDetailBudget432;window.__noDetailBudget432=true;   // 測試用：暫時關掉細節預算，讓呼叫決定性
     try{const c2=document.createElement('canvas');c2.width=200;c2.height=320;
       for(const vv2 of [0,1,2]){const g2=c2.getContext('2d',{willReadFrequently:true});
@@ -72561,11 +72566,15 @@ function cathedralSelftestDSK2(){
           for(let tx=60;tx<68;tx++){const r=drawNearZoomCathedralDSK1(g2,{x:tx,y:60},{k:187,v:vv2,age:30},s2,20,20,zz,1);n+=r;}
           {const d2=g2.getImageData(0,0,200,320).data;for(let i=3;i<d2.length;i+=4)if(d2[i]>8)px++;}
           return [n,px];};
+        const runN=(zz)=>{g2.clearRect(0,0,200,320);let n=0;for(let tx=60;tx<68;tx++)n+=drawNearZoomCathedralDSK1(g2,{x:tx,y:60},{k:187,v:vv2,age:30},s2,20,20,zz,1,1);
+          const d3=g2.getImageData(0,0,200,320).data;let px=0;for(let i=3;i<d3.length;i+=4)if(d3[i]>8)px++;return [n,px];};
+        const N2=runN(2),N06=runN(.6);
         const A=run(2),B=run(.6);
-        rep.push('v'+vv2+'(z2 '+A[0]+'筆/'+A[1]+'px、z0.6 '+B[0]+'筆/'+B[1]+'px)');
+        rep.push('v'+vv2+'(z2 '+A[0]+'筆/'+A[1]+'px、z0.6 '+B[0]+'筆/'+B[1]+'px、夜z2 '+N2[0]+'筆/'+N2[1]+'px、夜z0.6 '+N06[1]+'px)');
+        if(N2[1]>0)znok=true;if(N06[1]>0)z06clean=false;
         if(A[1]>0)z2ok=true;if(B[1]>0)z06clean=false;}
     }catch(e){rep.push('擲錯 '+e.message);}finally{window.__noDetailBudget432=svBudget;}
-    checks.push(['近距層只在 z≥1.22 動手：'+rep.join('｜')+'（z0.6 必須 0px）',z2ok&&z06clean]);}}
+    checks.push(['近距層只在 z≥1.22 動手（含夜間）：'+rep.join('｜')+'（z0.6 日夜都必須 0px）',z2ok&&z06clean&&znok]);}}
   let op=0,lit=0,iso=0,hardOut=0,minx=99,maxx=-1,miny=999,maxy=-1;
   if(sp&&sp.img){const d=sp.img.getContext('2d').getImageData(0,0,sp.w,sp.h).data;
     const on=(x,y)=>x>=0&&x<sp.w&&y>=0&&y<sp.h&&d[(y*sp.w+x)*4+3]>40;
