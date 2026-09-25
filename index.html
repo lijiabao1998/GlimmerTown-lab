@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.47 · T642</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.48 · T643</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37441,8 +37441,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.47'; // T642 日出前晨光淡入（業主決策單第二批選 B）。前：T641 夜裡冒 zzz 泡泡（業主決策單選 B）
-const GAME_ANCHOR='T642'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.48'; // T643 超街區窗燈進發光層（業主決策單第二批選 B）。前：T642 日出前晨光淡入（業主決策單第二批選 B）
+const GAME_ANCHOR='T643'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -61912,7 +61912,7 @@ function draw(dt){
       ctx.save();clipBlockDiag555(ctx,o.x,o.y,o.block547.w,o.block547.h,o.blockDiag555,z,sxOf,syOf);
       ctx.drawImage(s.img,bx,by,s.w*z,s.h*z);{const q=o;occ629Push(s.img,bx,by,s.w*z,s.h*z,g=>clipBlockDiag555(g,q.x,q.y,q.block547.w,q.block547.h,q.blockDiag555,z,sxOf,syOf));} // T629：超街區每一條照同一個裁切記遮擋
       if(!constrRise)drawWallDetail606(ctx,o,bd,s,bx,by,z); // T606 貼牆層（剪裁內）
-      if(nightDepth>0.25&&s.night&&(bd.pw||(typeof isPowerSource450==='function'&&isPowerSource450(bd.k))))ctx.drawImage(s.night,bx,by,s.w*z,s.h*z);
+      if(!sbNightOn643()&&nightDepth>0.25&&s.night&&(bd.pw||(typeof isPowerSource450==='function'&&isPowerSource450(bd.k))))ctx.drawImage(s.night,bx,by,s.w*z,s.h*z); // T643：開著時窗燈改走下面的發光層（帶本條裁切），這裡不再畫一張被夜色壓暗的
       ctx.restore();
     }else if(!window.__noLotClip596&&bd&&!bd.ref&&!s.__t547){
       const lotW=o.block547?o.block547.w:(bd.sz||1),lotH=o.block547?o.block547.h:(bd.sz||1);
@@ -61996,7 +61996,9 @@ function draw(dt){
       }
       ctx.restore();ctx.globalAlpha=1;
     }
-    if(s.night&&!lodFar&&(bd.pw||isPowerSource450(bd.k))&&!window.__noWinLit&&!constrRise&&!(o.blockDiag555!=null&&!window.__noOverlap555)){ // T259/T212 窗燈；T555 分條改在 clip 內疊夜圖
+    const strip643=o.blockDiag555!=null&&!window.__noOverlap555;
+    if(s.night&&!lodFar&&(bd.pw||isPowerSource450(bd.k))&&!window.__noWinLit&&!constrRise&&(!strip643||sbNightOn643())){ // T259/T212 窗燈；T555 分條改在 clip 內疊夜圖；T643 分條也進發光層（每條帶自己的裁切）
+      const n0643=nightSprites.length;
       let winA413=1;
       if(nightDepth>0&&!window.__noNightCity&&nightTier413){
         const tr=_tier413(idx(o.x,o.y));winA413=tr<=0?0.4:tr===1?0.62:tr===2?0.85:1;
@@ -62009,6 +62011,9 @@ function draw(dt){
       nightSprites.push({img:s.night,x:bx,y:by,w:s.w*z,h:s.h*z,a:winA413});
       if(nightDepth>0&&!window.__noNightCity&&s.nightCity)nightSprites.push({img:s.nightCity,x:bx,y:by,w:s.w*z,h:s.h*z,a:winA413});
       pushWindowLife446D(nightSprites,o,bd,s,bx,by,z,nightDepth,drawA); // T446D：per-building 決定性夜窗，修復 Grok build-time 死線
+      if(strip643){const q=o,cl=g=>clipBlockDiag555(g,q.x,q.y,q.block547.w,q.block547.h,q.blockDiag555,z,sxOf,syOf);
+        for(let i=n0643;i<nightSprites.length;i++){nightSprites[i].clip643=cl;nightSprites[i].dep629=o.dep;} // T643：深度記本條自己的（不是整塊最前面那一條），畫在本條之後的建築照 T629 擦掉它
+        window.__t643Push=(window.__t643Push||0)+nightSprites.length-n0643;}
     }
     if(bd.k===2&&bd.pw&&!lodFar&&!window.__noNeon&&!constrRise&&neonOnce625(o)){ // T625：超街區只在第一條發 // T259：施工期無霓虹 // T244 商業霓虹招牌（Opus 親手，夜景多樣化）——供電商業建築夜間亮彩色霓虹招牌：6 色由座標雜湊挑、位置/尺寸隨等級，push 進 nightSprites（暗halo+亮招牌雙 rect，夜燈層 'screen' 疊加＝夜間發光、日間閘不繪）；__noNeon 開關、streetHash 決定性不消耗 R()
       const NEON=['#ff4a8a','#4affd0','#ffd23a','#8a5aff','#ff6a3a','#3affff'];
@@ -62439,7 +62444,8 @@ function draw(dt){
     if(occOn629&&occ629.length){window.__t629=nightCompose629(ctx,nightSprites,occ629,a,W,H);} // T629：光層依深度擦掉被擋住的燈，再用 screen 疊上
     else for(const nsp of nightSprites){
       const svc487=nsp.grid487?nightLightServiceAt487(nsp.gx,nsp.gy):1,aa=(nsp.a!=null?nsp.a:1)*svc487;if(aa<=.03)continue;
-      if(nsp.img){if(aa!==1)ctx.globalAlpha=a*aa;ctx.drawImage(nsp.img,nsp.x,nsp.y,nsp.w,nsp.h);if(aa!==1)ctx.globalAlpha=a;}
+      if(nsp.clip643){ctx.save();nsp.clip643(ctx);if(nsp.img){ctx.globalAlpha=a*aa;ctx.drawImage(nsp.img,nsp.x,nsp.y,nsp.w,nsp.h);}else if(nsp.rect){ctx.globalAlpha=a*aa;ctx.fillStyle=nsp.col||'#ffe9a0';ctx.fillRect(...nsp.rect);}ctx.restore();ctx.globalAlpha=a;} // T643：關遮擋時也照裁切
+      else if(nsp.img){if(aa!==1)ctx.globalAlpha=a*aa;ctx.drawImage(nsp.img,nsp.x,nsp.y,nsp.w,nsp.h);if(aa!==1)ctx.globalAlpha=a;}
       else if(nsp.rect){if(aa!==1)ctx.globalAlpha=a*aa;ctx.fillStyle=nsp.col||'#ffe9a0';ctx.fillRect(...nsp.rect);if(aa!==1)ctx.globalAlpha=a;} // T487：公共照明斷電時，舊路燈/候車亭/路飾夜光也同步熄滅
     }
     ctx.globalCompositeOperation='source-over';
@@ -67443,6 +67449,7 @@ bindActiveButton502();
 const __inspect_501=inspect;inspect=function(x,y){const r=__inspect_501(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,q=AM_BY_CODE502[t?.am502|0];if(q&&$('#infoBody')){$('#infoBody').insertAdjacentHTML('beforeend',`<div class="opsBlock457a"><div class="opsHeader457a">T502 主動運輸設施</div><div class="row">${q.ic} ${q.nm}</div>${t.amx502?.station?`<div class="row">連接車站：${escHtml(t.amx502.station)}</div>`:''}${Array.isArray(t.amx502?.stations)?`<div class="row">轉乘：${t.amx502.stations.map(escHtml).join(' ↔ ')}</div>`:''}</div>`);}return r;};
 
 function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
+const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)); // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
 
 for(const [nm,ic]of[['步行網絡','🚶'],['自行車網絡','🚲'],['車站入口覆蓋','🚪'],['自行車停車壓力','🅿️'],['站外轉乘連結','🔁']])if(!MINI_VIEW_NAME.includes(nm)){MINI_VIEW_NAME.push(nm);MINI_VIEW_ICON.push(ic);}buildMiniLayers439();
@@ -72025,9 +72032,11 @@ function nightCompose629(ctx,lights,occs,a,W,H){
   const noErase=!!window.__nightOccNoErase629; // 測試鉤子：走同一條光層管線但不擦（驗管線等價）
   const lit=n=>{const svc=n.grid487?nightLightServiceAt487(n.gx,n.gy):1,aa=(n.a!=null?n.a:1)*svc;if(aa<=.03)return;
     g.globalCompositeOperation='screen';g.globalAlpha=a*aa;let x,y,w,h;
+    if(n.clip643){g.save();n.clip643(g);} // T643：超街區分條的窗燈只亮在自己那一條
     if(n.img){x=n.x;y=n.y;w=n.w;h=n.h;g.drawImage(n.img,x,y,w,h);}
     else if(n.rect){x=n.rect[0];y=n.rect[1];w=n.rect[2];h=n.rect[3];g.fillStyle=n.col||'#ffe9a0';g.fillRect(x,y,w,h);}
-    else return;
+    if(n.clip643)g.restore();
+    if(!n.img&&!n.rect)return;
     drawn++;if(x<x0)x0=x;if(y<y0)y0=y;if(x+w>x1)x1=x+w;if(y+h>y1)y1=y+h;};
   for(const oc of occs){
     while(li<ls.length&&ls[li][0]<oc.dep){lit(ls[li][2]);li++;}
@@ -72055,6 +72064,26 @@ function nightOccSelftest629(){ // T629：合成兩塊「建築」驗光層遮�
   checks.push(['前面建築自己的燈不被自己擦掉（'+r1.own+'）',r1.own>600]);
   checks.push(['天空（物件層之後）的燈不被擋（'+r1.sky+'）',r1.sky>600]);
   checks.push(['守衛有效：不給遮擋時被蓋住的一半也亮（'+r0.covered+'）',r0.covered>300]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+/* T643 超街區窗燈進發光層（業主 2026-09-25 決策單第二批選 B）：T555 切條後，超街區的夜窗改在每一條的裁切裡直接畫在樓身上，跟樓身一起被夜色壓暗。
+   改成每一條照一般建築推進發光層，每筆帶本條裁切（clip643）、深度記本條自己的，畫在本條之後的建築照 T629 擦掉它。只是讓原本的窗燈亮，不新增燈。逃生閥 __noSbNight643＝舊式。 */
+function sbNightOn643(){return !window.__noSbNight643;}
+function sbNightSelftest643(){
+  const checks=[],mk=(w,h,col)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const q=c.getContext('2d');q.fillStyle=col;q.fillRect(0,0,w,h);return c;};
+  const lightImg=mk(64,64,'#ffd060'),front=mk(64,64,'#404040');
+  const leftHalf=g=>{g.beginPath();g.rect(0,0,32,64);g.clip();};
+  const run=(occs)=>{const T=mk(64,64,'#000000'),tg=T.getContext('2d',{willReadFrequently:true});
+    nightCompose629(tg,[{img:lightImg,x:0,y:0,w:64,h:64,dep629:1,clip643:leftHalf},{rect:[40,8,8,8],col:'#ffffff',dep629:1,clip643:leftHalf}],occs,1,64,64);
+    const px=(x,y)=>{const d=tg.getImageData(x,y,1,1).data;return d[0]+d[1]+d[2];};return {inside:px(16,32),outside:px(48,32),rectOut:px(44,12)};};
+  const sv=window.__nightOccNoErase629;window.__nightOccNoErase629=false;
+  let r0,r1;try{r0=run([]);r1=run([{dep:2,img:front,x:0,y:0,w:64,h:64,alpha:1}]);}finally{window.__nightOccNoErase629=sv;NL629=null;}
+  checks.push(['帶裁切的燈在裁切內亮（'+r0.inside+'，燈色 #ffd060＝559）',r0.inside>500]);
+  checks.push(['裁切外是 0（圖 '+r0.outside+'、方塊 '+r0.rectOut+'）',r0.outside===0&&r0.rectOut===0]);
+  checks.push(['畫在它之後的建築照樣擦掉它（'+r1.inside+'）',r1.inside===0]);
+  checks.push(['分條夜窗走發光層的路徑存在',drawPath643&&String(nightCompose629).indexOf('clip643')>=0]);
+  const sv2=window.__noSbNight643;window.__noSbNight643=true;const off=!sbNightOn643();window.__noSbNight643=sv2;
+  checks.push(['閥門可關',off]);
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 function clipBlockDiag555(ctx,x,y,bw,bh,d,z,sxOf,syOf){
@@ -73009,7 +73038,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);

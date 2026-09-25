@@ -2,6 +2,7 @@
 //   新版 < 關閥門（__noDawnFade642）的三分之一，且關閥門時差 > 8（對照有效：舊式在日出那一刻跳亮）。
 //   （第一版用 .245→.255，太陽剛升起時日光本身 b 也在快速變亮（d^0.7），新版剩 4.9、舊版 14.1，比值 0.345 分不乾淨；縮窄到 ±0.001 只剩晨昏跳變）；
 //   ph .20（淡入還沒開始）新舊逐像素相同。另存日出前後四格。
+// 量測時關掉紅綠燈（__noSignal）：相位跟著 draw() 次數走，新舊兩版畫的次數不同，逐像素比對會被一盞燈誤紅（T643 施工時發現，這支當時湊巧沒撞到）。
 // 用法：node probe642.js [--shots=shots642/T642]   退出碼 0＝守衛成立
 'use strict';
 const fs = require('fs');
@@ -17,7 +18,7 @@ const SHOTS = arg('shots', '');
     await ev(`window.GV.metroArtSeedWorld516(5162026)`);
     await ev(`(()=>{const st=document.getElementById('start');if(st)st.style.display='none';const ov=document.getElementById('startOverlay456');if(ov){ov.classList.remove('show');ov.style.display='none';}GV.setSpeed(0);GV.setRot(0);return 1;})()`);
     await sleep(800);
-    const out = await ev(`(()=>{const sv=window.__noDawnFade642,out={lum:{},shots:{}};
+    const out = await ev(`(()=>{const sv=window.__noDawnFade642,sg=window.__noSignal,out={lum:{},shots:{}};window.__noSignal=true;
       const cv=document.getElementById('game'),g=cv.getContext('2d',{willReadFrequently:true});
       const grab=()=>g.getImageData(0,0,cv.width,cv.height).data;
       const lum=d=>{let s=0;for(let i=0;i<d.length;i+=4)s+=.299*d[i]+.587*d[i+1]+.114*d[i+2];return s/(d.length/4);};
@@ -25,7 +26,7 @@ const SHOTS = arg('shots', '');
         for(const [tag,off] of [['new',false],['old',true]]){window.__noDawnFade642=off;
           for(const ph of [.2,.249,.251]){GV.setVisT(C*ph);GV.forceDraw();const d=grab();out.lum[tag+ph]=+lum(d).toFixed(2);if(ph===.2)out['px20'+tag]=d;}}
         const a=out.px20new,b=out.px20old;let diff=0;for(let i=0;i<a.length;i++)if(a[i]!==b[i])diff++;out.diff20=diff;delete out.px20new;delete out.px20old;
-      }finally{window.__noDawnFade642=sv;}
+      }finally{window.__noDawnFade642=sv;window.__noSignal=sg;}
       return out;})()`);
     if (SHOTS) for (const ph of [.215, .23, .245, .255]) out.shots[ph] = await ev(`(()=>{const sv=window.__noDawnFade642;try{window.__noDawnFade642=false;GV.setVisT(GV.art574.cycle574()*${ph});GV.forceDraw();return document.getElementById('game').toDataURL('image/png');}finally{window.__noDawnFade642=sv;}})()`);
     return out;
