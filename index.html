@@ -59319,6 +59319,7 @@ function overlayLayers606(){
     ['429',(g,o,bd,s,x,y,z,a,n)=>drawMicroLife429(g,o,bd,s,x,y,z,a,n)],
     ['599',(g,o,bd,s,x,y,z,a,n)=>drawNearZoom599(g,o,bd,s,x,y,z,a)],
     ['187',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomCathedralDSK1(g,o,bd,s,x,y,z,a)], // DSK-002：座堂近距細節層
+    ['194',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomGeorgeInnDSK8(g,o,bd,s,x,y,z,a)], // DSK-008：有廊客棧近距細節層
   ];
 }
 /* DSK-002 近距細節層（照 T596 軸三）：只在 z≥1.22 疊加，不動 SPR 精靈 ⇒ 遠距剪影與指紋完全不變。
@@ -59354,6 +59355,81 @@ function drawNearZoomKeepDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
   if(night){for(const x of [32,40,48])R(x-1,78,3,2,'rgba(255,214,120,.5)',.55);}
   return drew;
 }
+/* DSK-008 有廊客棧近距細節層：外廊挑懸牛腿與走道板接縫、白欄杆加密、木多立克柱柱頭柱礎、格窗鉛條與石窗台、
+   石灰洗磚砌紋與層帶陰影、匣式簷口齒飾、瓦壟與屋脊瓦、煙囪砌紋與封頂、
+   車門拱拱石與門釘、酒桶桶箍、長凳板縫、掛招鐵架卷飾；夜間另有窗光暈、吊燈光暈、門洞燈池與庭院燈池。
+   只在 z≥1.22（遠距剪影與指紋完全不變）。座標用 R2＝精靈座標直算（樣板 R 以底部往上量、對 184 高精靈畫不到上半）。
+   逃生閥 __noNearInn194。 */
+function drawNearZoomGeorgeInnDSK8(g,o,bd,s,bx,by,z,drawA,nightDepth){
+  if(window.__noNearInn194||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k!==194)return 0;
+  if(!detailPermit432(o.x,o.y,599,z,.62))return 0;
+  const night=(nightDepth|0)>0,a=drawA*detailAlpha432(z);
+  const NL=26,BRICK_D=26,WT=56;
+  const gyL=d=>158-((d+1)>>1),gxL=d=>95-d,edge=x=>Math.round(150+(x-4)/2)-5;
+  const R2=(lx,ly,w,hh,c,al)=>{g.save();g.globalAlpha=a*(al==null?1:al);g.fillStyle=c;
+    g.fillRect(Math.round(bx+lx*z),Math.round(by+ly*z),Math.max(1,Math.round(w*z)),Math.max(1,Math.round(hh*z)));g.restore();};
+  let drew=0;
+  for(const [b0,b1] of [[16,20],[32,36]]){                                             // ① 兩層外廊
+    for(let d=BRICK_D;d<2*NL;d++){const x=gxL(d),y=gyL(d);
+      if(d%3===0)R2(x-1,y-b1,2,1,'#2b1e12',.5);                                         // 挑懸牛腿
+      R2(x,y-b1+1,1,1,(d%4===0)?'#8a6a44':'#3d2c1a',.45);                               // 走道板接縫
+      R2(x,y-b1-3,1,2,'#f6f4ee',.5);                                                    // 欄杆柱加密
+      R2(x,y-b0,1,1,'#8a6a44',.4);drew++;}                                              // 走道面亮線
+  }
+  for(const d of [27,33,39,45]){const x=gxL(d),y=gyL(d);                                // ② 木多立克柱
+    R2(x,y-37,3,1,'#8a6a44',.85);R2(x-1,y-34,4,1,'#4a3722',.8);                         // 柱頭（頂板＋頸）
+    R2(x,y-17,3,1,'#4a3722',.8);                                                        // 柱礎
+    R2(x+1,y-33,1,16,'#3d2c1a',.40);drew++;}                                            // 凹槽陰影
+  for(let f=0;f<3;f++){const yb=[[6,15],[25,35],[44,53]][f];                            // ③ 格窗鉛條與窗台
+    for(const d of [3,14]){const x=gxL(d),y=gyL(d),h=yb[1]-yb[0];                       // 磚段：6-over-6
+      R2(x+1,y-yb[1]+1,1,h-1,'#dad7cd',.6);R2(x+3,y-yb[1]+1,1,h-1,'#dad7cd',.6);
+      R2(x,y-yb[1]+((h/2)|0),5,1,'#dad7cd',.6);R2(x-1,y-yb[0]+1,7,1,'#c6beaa',.7);
+      if(night)R2(x-1,y-yb[1]-1,7,h+2,'rgba(255,206,120,.16)',.5);drew++;}
+    for(const d of [28,36,44]){const x=gxL(d),y=gyL(d),h=yb[1]-yb[0];                   // 木構段：鉛條
+      R2(x+1,y-yb[1]+2,1,h-3,'#dad7cd',.55);R2(x+3,y-yb[1]+1,1,h-2,'#dad7cd',.45);
+      if(night)R2(x-1,y-yb[1]-1,7,h+2,'rgba(255,206,120,.14)',.5);drew++;}}
+  for(let d=0;d<BRICK_D;d++){const x=gxL(d),y=gyL(d);                                    // ④ 磚砌紋與層帶
+    for(let yy=y-WT+4;yy<y-6;yy+=3)R2(x,yy,1,1,'#b9b09c',.35);
+    R2(x,y-14,1,1,'#8f8776',.4);R2(x,y-17,1,1,'#efe9dc',.35);                            // 層帶陰影／高光
+    R2(x,y-WT+3,1,1,'#8f8776',.45);                                                      // 匣式簷口陰影
+    if(d%2===0)R2(x,y-WT+1,1,2,'#c6beaa',.5);drew++;}                                    // 齒飾
+  {const eL=[gxL(2*NL-1),gyL(2*NL-1)-WT],eR=[gxL(0),gyL(0)-WT],off=[16,-8];              // ⑤ 瓦壟＋屋脊瓦
+   const cL=[eL[0]+off[0],eL[1]+off[1]],cR=[eR[0]+off[0],eR[1]+off[1]];
+   const rL=[cL[0]+10,cL[1]-5],rR=[cR[0]-10,cR[1]+5];
+   for(let k=0;k<=6;k++){const t=k/7;
+     for(let i=0;i<=9;i++){const u=i/9;
+       R2(Math.round(eL[0]+(eR[0]-eL[0])*u+(rL[0]-eL[0])*t),Math.round(eL[1]+(eR[1]-eL[1])*u+(rL[1]-eL[1])*t),1,1,'#5d3a2c',.26);}
+     drew++;}
+   for(let i=0;i<=10;i++){const u=i/10;                                                  // 屋脊瓦（脊上小凸）
+     R2(Math.round(rL[0]+(rR[0]-rL[0])*u),Math.round(rL[1]+(rR[1]-rL[1])*u)-1,1,1,'#9e6c56',.7);drew++;}
+   for(const [px,py] of [[eL[0]+26,eL[1]+13],[eR[0]-14,eR[1]-7]]){                       // 煙囪砌紋＋封頂
+     for(let yy=py-19;yy<py-1;yy+=3)R2(px-2,yy,4,1,'#63472f',.35);
+     R2(px-4,py-24,8,1,'#b8b0a0',.7);R2(px-3,py-28,2,1,'#b8b0a0',.6);R2(px+1,py-28,2,1,'#b8b0a0',.6);drew++;}}
+  {const ax0=gxL(3),ay0=gyL(3);                                                          // ⑥ 車門拱
+   R2(ax0-3,ay0-18,3,2,'#c6beaa',.8);R2(ax0+6,ay0-18,3,2,'#c6beaa',.8);                  // 拱石
+   R2(ax0+1,ay0-19,3,2,'#d6cdb9',.85);                                                   // 拱心石
+   for(let yy=ay0-13;yy<ay0-1;yy+=3)R2(ax0+1,yy,5,1,'#2b1e12',.35);                      // 門釘
+   if(night)R2(ax0-1,ay0-15,7,15,'rgba(255,214,140,.18)',.5);
+   drew++;}
+  {for(const bx2 of [46,56]){const by2=edge(46)-8;                                       // ⑦ 酒桶桶箍／長凳
+     R2(bx2-4,by2-6,9,1,'#c6beaa',.6);R2(bx2-4,by2-2,9,1,'#c6beaa',.6);
+     R2(bx2-4,by2-8,9,1,'#efe9dc',.5);drew++;}
+   const sx=20,sy=edge(20)-7;R2(sx+1,sy-4,8,1,'#3d2c1a',.4);R2(sx+1,sy-2,8,1,'#3d2c1a',.3);drew++;}
+  {const bx3=gxL(44),by3=gyL(44);                                                        // ⑧ 掛招鐵架卷飾
+   R2(bx3-7,by3-46,1,2,'#2b1e12',.6);R2(bx3-8,by3-41,1,1,'#c8a24a',.7);
+   R2(bx3-8,by3-33,7,1,'#c8a24a',.7);R2(bx3-1,by3-40,1,8,'#2b1e12',.5);drew++;}
+  if(night){                                                                             // ⑨ 夜：吊燈、燈池
+    for(const x of [65,57,49])R2(x-1,54,4,2,'rgba(255,236,180,.45)',.6);
+    R2(64,52,4,4,'rgba(255,214,150,.30)',.5);drew++;
+    {const lx=57,ly=edge(57)-6;
+     g.save();g.globalAlpha=a*.55;g.fillStyle='rgba(255,214,150,.30)';
+     g.beginPath();g.ellipse(Math.round(bx+lx*z),Math.round(by+(ly-1)*z),9*z,4*z,0,0,6.283);g.fill();g.restore();}
+    {const ax0=gxL(3),ay0=gyL(3);
+     g.save();g.globalAlpha=a*.5;g.fillStyle='rgba(255,206,120,.26)';
+     g.beginPath();g.ellipse(Math.round(bx+(ax0+3)*z),Math.round(by+(ay0+2)*z),10*z,4*z,0,0,6.283);g.fill();g.restore();drew++;}}
+  return drew;
+}
+
 function drawNearZoomCathedralDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
   if(window.__noNearCath187||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k!==187)return 0;
   if(!detailPermit432(o.x,o.y,599,z,.62))return 0;   // 掛 T599 近距層的預算槽（detailPermit432 只認已註冊的 layer）
@@ -63058,6 +63134,7 @@ function draw(dt){
       drawNightMicro431(G6,o,bd,s,X6,Y6,z,drawA,nightDepth);
       drawNearZoom599(G6,o,bd,s,X6,Y6,z,drawA); // T599 近距第二層
       drawNearZoomCathedralDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-002 座堂近距細節層（日／夜）
+      drawNearZoomGeorgeInnDSK8(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-008 有廊客棧近距細節層（日／夜）
       drawNearZoomKeepDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-003 白塔近距細節層
       drawNearZoomBatterseaDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-004 巴特西近距細節層
       if(cl606)ovClipEnd606(ctx,cl606,s,bx,by,z);
@@ -73578,6 +73655,31 @@ function georgeInnSelftestDSK6(){
   return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
 
+/* DSK-008 自檢：有廊客棧近距細節層——三道閘門、draw 內有呼叫、near>0／far=0（z=1.22 門檻）、日夜不同、只給 k194、逃生閥。 */
+function georgeInnNearSelftestDSK8(){
+  const checks=[],fn=drawNearZoomGeorgeInnDSK8,src=''+fn;
+  checks.push(['函式存在、三道閘門齊（z<1.22／bd.k!==194／__noNearInn194）',
+    typeof fn==='function'&&src.indexOf('z<1.22')>=0&&src.indexOf('bd.k!==194')>=0&&src.indexOf('__noNearInn194')>=0]);
+  checks.push(['用 T599 預算槽閘門＋精靈座標 R2',src.indexOf('detailPermit432')>=0&&src.indexOf('R2=')>=0]);
+  {const drawSrc=''+(typeof __draw_501==='function'?__draw_501:draw);
+   checks.push(['draw 內真的有呼叫近距層（nightDepth 也傳進去）',drawSrc.indexOf('drawNearZoomGeorgeInnDSK8')>=0]);}
+  const mkC=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;return [c,g];};
+  const s={w:136,h:184,img:null},bd={k:194,lv:1,v:0,age:30,sz:2};
+  const run=(zz,nd,bb)=>{const [c,g]=mkC(420,420);let n=0;try{for(let tx=60;tx<68;tx++)n+=fn(g,{x:tx,y:60},bb||bd,s,20,20,zz,1,nd||0);}catch(e){n=-1;}
+    const d=g.getImageData(0,0,420,420).data;let px=0;for(let i=3;i<d.length;i+=4)if(d[i]>8)px++;
+    return {n,px};};
+  const a1=run(1.3,0),a2=run(1.0,0),a3=run(1.2,0),a4=run(1.3,1);
+  checks.push(['近距 z=1.3 有像素（n='+a1.n+'／'+a1.px+'px）、z=1.0 與 z=1.2 必須為 0（'+a2.px+'／'+a3.px+'）',
+    a1.px>0&&a1.n>0&&a2.px===0&&a3.px===0]);
+  checks.push(['夜層與日層畫得不同（夜 '+a4.px+'px／日 '+a1.px+'px）',a4.px>0&&a4.px!==a1.px]);
+  {const k193=run(1.3,0,{k:193,lv:1,v:0,age:30}),young=run(1.3,0,{k:194,lv:1,v:0,age:4}),refT=run(1.3,0,{k:194,lv:1,v:0,age:30,ref:[1,2]});
+   checks.push(['只給 k194 且 age≥9 且非 ref 格（193→'+k193.px+'／age4→'+young.px+'／ref→'+refT.px+'）',
+     k193.px===0&&young.px===0&&refT.px===0]);}
+  {const sv=window.__noNearInn194;let off=1;try{window.__noNearInn194=true;off=run(1.3,0).px;}finally{window.__noNearInn194=sv;}
+   checks.push(['逃生閥 __noNearInn194 關得掉（'+off+'px）',off===0]);}
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
+
 function ukLandmarkSelftest677(){
   const checks=[],s0=SPR.bld&&SPR.bld['190_1_0'],s1=SPR.bld&&SPR.bld['191_1_0'];
   const lit=s=>{if(!s||!s.night)return 0;const d=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]>40)n++;return n;};
@@ -74943,7 +75045,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,georgeInnSelftestDSK6,keepPolishSelftest679,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,georgeInnNearSelftestDSK8,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,georgeInnSelftestDSK6,keepPolishSelftest679,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
