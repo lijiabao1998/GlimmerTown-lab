@@ -50,7 +50,7 @@
 > 3. **推送前再 `git fetch` 一次**。遠端前進了：把**自己還沒推的** commit rebase 到最新的 `origin/main` 上，重跑煙霧，綠了才推。已經推上去的歷史（不管誰的）一律不改。
 > 4. **永遠不准 `--force`**。rebase 解不開（別人改了同一段程式）就停手、寫日誌、告訴業主。
 > 業主的決定記在 `docs/DECISIONS.md`，開工前讀一次，避免重問、避免照舊規則做。
-> **寫入者分工（2026-09-25 業主定）**：`main` 只給 Claude、Codex 推；Grok 走 `grok/<主題>`、GLM 走 `glm/<主題>`、Kimi 走 `kimi/<主題>`、GPT 走 `gpt/<主題>` 分支，只推自己的分支、開 PR 到 `main`；**只有業主點頭才合**（分支可以一直不合），由 `main` 寫入者合併；卡號用 `GROK-001`／`GLM-001`／`KIMI-001`／`GPT-001`，不佔 T 號。GPT 不能在本機跑遊戲，煙霧交給 CI，像素守衛由合併者跑。細則見根目錄 `AGENTS.md`，各家開場白見 `docs/AGENT-PROMPTS.md`。
+> **寫入者分工（2026-09-25 業主定）**：`main` 只給 Claude、Codex 推；Grok 走 `grok/<主題>`、GLM 走 `glm/<主題>`、Kimi 走 `kimi/<主題>`、DeepSeek 走 `dsk/<主題>`（2026-09-26 加入）、GPT 走 `gpt/<主題>` 分支，只推自己的分支、開 PR 到 `main`；**只有業主點頭才合**（分支可以一直不合），由 `main` 寫入者合併；卡號用 `GROK-001`／`GLM-001`／`KIMI-001`／`DSK-001`／`GPT-001`，不佔 T 號；推分支一律寫明 `git push origin <分支>:<分支>`。GPT 不能在本機跑遊戲，煙霧交給 CI，像素守衛由合併者跑。細則見根目錄 `AGENTS.md`，各家開場白見 `docs/AGENT-PROMPTS.md`。
 > 下面「分岔就停手」那一條由第 3 條取代；「一個資料夾同一時間只准一個寫入者」仍然有效（那是同一個本機資料夾的事）。
 
 這個目錄現在有遠端：`origin` ＝ `lijiabao1998/GlimmerTown-lab`（**公開**倉庫）。本地 `master` 對應遠端 `main`，`push.default=upstream` 已經設好，直接打 `git push` 就會推到 `main`。
