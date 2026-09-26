@@ -13,11 +13,17 @@
 
 ---
 
+## r104 — T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001，PR #6）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r104 | [T657](docs/T657-victorian-corner-shop.md) | 業主「合一下 PR」。`gpt/visual-place-identity` 本地 squash：商業 lv1 `townShop` 改畫維多利亞街角店屋（紅磚、木店面、店招、壁柱、內縮店門、樓上側門、拉窗、煙囪），原型表條目數不變；閥 `__noGPTCornerShop001`（快取鍵帶閥）；自檢 `gptCornerShop001`（7 項）；GPT 標「未跑」的 `probeGPT001.js` 與 `fp.js` 在本機補跑；`fp.json` block559 e5cd087f→635794cb；v13.62／T657 | ✅ 綠 3/3（37.5–38.5s）；浮空夜光 0；**`fp.js --check` 全綠** | pending | `shots657/GPT001_{old,new}_{day,night}.png` | ① GPT 分支的整合工作流（帶寫入權）與嵌入工具沒帶進 main ② 新店屋比舊 townShop 陽春：2×2 一層半高、屋頂大片空白 ③ 沒拍城裡實景，只看了精靈 |
+
 ## r103 — T656 倫敦馬廄街屋（合併 Grok 分支 GROK-002，PR #2）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r103 | [T656](docs/T656-london-mews.md) | 業主「合一下 PR」。`grok/london-mews` 本地 squash：住宅 1×1 `v=5` 改畫倫敦馬廄（黃磚、半圓拱門、石板頂、戶界煙囪），`ARCHE568` 條目數不變；閥 `__noUkMewsGROK2`（快取鍵帶閥）；自檢 `ukMewsGROK2`（16 項）；探針 `probeGROK2.js`（合併時埠 8293→8199、樣張改存 `shots656/`）；`fp.json` block559 e17e662e→e5cd087f；v13.61／T656 | ✅ 綠 3/3（36.2–54.2s，機器比昨天慢）；**`fp.js --check` 全綠** | pending | `shots656/mews-{sprite,city}.png` | ① 分支 commit 進去的 2 張 PNG 沒帶進 main ② 卡面和程式同一個 commit，看不出驗收是動手前寫的 ③ 馬廄比鄰居陽春、看起來一層半不是兩層 ④ 近景樣張的馬廄是探針種在地圖角落的，不是城裡自然長的 |
+| r103 | [T656](docs/T656-london-mews.md) | 業主「合一下 PR」。`grok/london-mews` 本地 squash：住宅 1×1 `v=5` 改畫倫敦馬廄（黃磚、半圓拱門、石板頂、戶界煙囪），`ARCHE568` 條目數不變；閥 `__noUkMewsGROK2`（快取鍵帶閥）；自檢 `ukMewsGROK2`（16 項）；探針 `probeGROK2.js`（合併時埠 8293→8199、樣張改存 `shots656/`）；`fp.json` block559 e17e662e→e5cd087f；v13.61／T656 | ✅ 綠 3/3（36.2–54.2s，機器比昨天慢）；**`fp.js --check` 全綠** | `0845f17` | `shots656/mews-{sprite,city}.png` | ① 分支 commit 進去的 2 張 PNG 沒帶進 main ② 卡面和程式同一個 commit，看不出驗收是動手前寫的 ③ 馬廄比鄰居陽春、看起來一層半不是兩層 ④ 近景樣張的馬廄是探針種在地圖角落的，不是城裡自然長的 |
 
 ## r102 — T655 樹照地形長（業主決策單第四批選 B）
 
