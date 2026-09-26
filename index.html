@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.65 · T660</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.68 · T663</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37756,8 +37756,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.65'; // T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
-const GAME_ANCHOR='T660'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.68'; // T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
+const GAME_ANCHOR='T663'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -50995,6 +50995,89 @@ function drawWaterfrontEdge498(g,f,profile,info,x,y,z,signature){
 }
 function drawWaterfrontTransition498(g,f,profile,others,z){if(!others.length)return;waterfrontDrawStats498.transitions++;const hard=profile==='industrial'||profile==='port'||others.some(q=>q==='industrial'||q==='port');if(hard){waterfrontDot498(g,f,0,6*z,2*z,8*z,'#596166');waterfrontDot498(g,f,-4*z,6*z,8*z,Math.max(1,z),'#d0a53f');}else if(profile==='natural'||profile==='ecological'||others.some(q=>q==='natural'||q==='ecological')){for(const a of[-4,0,4])waterfrontDot498(g,f,a*z,3*z,2*z,2*z,a?'#71805a':'#91846a');}else waterfrontDot498(g,f,0,4*z,10*z,1.2*z,'#6c7070');}
 function drawStormOutfall498(g,f,z){waterfrontDot498(g,f,0,1*z,7*z,3.5*z,'#3d474c');waterfrontDot498(g,f,0,-1.1*z,3*z,1.2*z,'#72aebd');waterfrontDrawStats498.outfalls++;}
+
+/* ===== GLM-001 Bay Bank Grammar／灣城自然岸線語彙 =====
+   碼頭有 T498 完整語彙，自然岸線只有裸崖邊。本層在「陸地鄰水格」沿朝水邊緣、
+   於陸地菱形內側畫灣城岸壁：都市岸＝石砌護岸（方塊接縫＋壓頂＋內影）＋潮痕藻帶＋
+   岸壁繫船環／排水涵管口＋瀝痕／石階下水（hash 決定性取捨）；野岸＝土岸唇＋
+   木樁＋草簾。全部圖元內縮菱形內、垂直小件只允許出現在下緣邊（SE/SW）——
+   零越格＝水面格零污染。查證：EPA Ireland（岸壁繫船環＋石階）、Glasgow 規劃
+   （岸壁排水收集管）、Thames quay 影像。streetHash 決定性、零 R()、不入 save；
+   __noBayBankGLM1 逃生閥；__tGLM1BankCount 計數（烘焙清零區）。 */
+function drawBayBankGLM1(gc,x,y,sx,sy,z){
+  if(window.__noBayBankGLM1)return;
+  const wm=waterNeighborMask479(x,y);
+  if(!wm)return;
+  const vm=rotMask(wm);
+  const W=[sx,sy+16*z],N=[sx+32*z,sy],E=[sx+64*z,sy+16*z],S=[sx+32*z,sy+32*z],C=[sx+32*z,sy+16*z];
+  const EDGE={1:[N,E],2:[E,S],4:[S,W],8:[W,N]};
+  // 都市判定：2 格內有建築
+  let urban=false;
+  for(let dy=-3;dy<=3&&!urban;dy++)for(let dx=-3;dx<=3;dx++){if(inMap(x+dx,y+dy)&&T(idx(x+dx,y+dy)).bld){urban=true;break;}}
+  if(!urban){const tt=T(idx(x,y));urban=hasRoadNear(x,y,2,false)||tt.rail||tt.road;} // 基礎設施岸（鐵路/道路沿水）＝石砌駁坎
+  const R=(pts,c,al)=>{gc.save();gc.globalAlpha=al;gc.fillStyle=c;gc.beginPath();
+    gc.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)gc.lineTo(pts[i][0],pts[i][1]);
+    gc.closePath();gc.fill();gc.restore();};
+  const inset=(P,f)=>[P[0]+(C[0]-P[0])*f,P[1]+(C[1]-P[1])*f];
+  const lerp=(A,B,u)=>[A[0]+(B[0]-A[0])*u,A[1]+(B[1]-A[1])*u];
+  let drew=0;
+  for(const bit of [1,2,4,8]){
+    if(!(vm&bit))continue;
+    const [A,B]=EDGE[bit];
+    const hE=streetHash(x,y,59410+bit);
+    if(urban){
+      if(hE>.22)continue; // 都市岸 78% 鋪護岸
+      // 護岸帶：edge→inset .42
+      const A1=inset(A,.42),B1=inset(B,.42);
+      R([A,B,B1,A1],'#8d8578',.92);
+      R([A,[ (A[0]+B[0])/2,(A[1]+B[1])/2 ],inset([(A[0]+B[0])/2,(A[1]+B[1])/2],.14),inset(A,.14)],'rgba(70,80,66,.30)',1); // 外緣潮痕半段
+      R([inset(A,.16),inset(B,.16),B1,A1],'#6f695d',.55); // 內側面影
+      // 潮痕藻帶：最外 1.5px
+      R([A,B,inset(B,.10),inset(A,.10)],'rgba(74,92,64,.42)',1);
+      // 方塊接縫 tick
+      for(let u=.14;u<.9;u+=.17){const P0=lerp(A,B,u),P1=inset(P0,.42);
+        gc.save();gc.globalAlpha=.30;gc.strokeStyle='#5a544a';gc.lineWidth=1;
+        gc.beginPath();gc.moveTo(P0[0],P0[1]);gc.lineTo(P1[0],P1[1]);gc.stroke();gc.restore();}
+      // 壓頂亮線（edge 內縮 .03）
+      R([inset(A,.03),inset(B,.03),inset(B,.09),inset(A,.09)],'rgba(214,206,186,.5)',1);
+      // 岸壁繫船環（bit 2/4 才畫直立面細節；環本身平面可任意邊）
+      if(hE<.2){const P0=lerp(A,B,.3+hE),P2=inset(P0,.15);
+        gc.save();gc.globalAlpha=.85;gc.fillStyle='#3c3830';
+        gc.beginPath();gc.arc(P2[0],P2[1],1.6*z,0,6.283);gc.fill();
+        gc.fillStyle='#8d8578';gc.beginPath();gc.arc(P2[0],P2[1],.7*z,0,6.283);gc.fill();gc.restore();}
+      // 排水涵管口＋瀝痕（下緣邊限定：管口向下向內瀝，避免越格）
+      if(bit===2||bit===4){const hh=streetHash(x,y,59420+bit);
+        if(hh<.35){const P0=lerp(A,B,.2+hh*.6),P1=inset(P0,.12);
+          const RX=(x0,y0,w0,h0)=>[[x0,y0],[x0+w0,y0],[x0+w0,y0+h0],[x0,y0+h0]]; // T661 合併修正：原本把 [x,y,w,h] 當成點列傳給 R()，moveTo 拿到 undefined，管口與瀝痕一直沒畫出來
+          R(RX(P1[0]-1.4*z,P1[1]-.7*z,2.8*z,1.4*z),'#565a5e',1);
+          R(RX(P1[0]-.5*z,P1[1]+.7*z,1*z,(3+hh*4)*z),'rgba(52,56,58,.55)',1);}}
+      // 石階下水（三級踏步，下緣邊限定）
+      if(bit===2||bit===4){const hh=streetHash(x,y,59430+bit);
+        if(hh<.14){const u0=.15+hh;
+          for(let st=0;st<3;st++){const uu=u0+st*.06;
+            const P0=lerp(A,B,uu),P2=inset(P0,.10),P3=inset(P0,.30);
+            R([P2[0],P2[1],P3[0],P3[1]].length?[[P2[0]-2*z,P2[1]],[P2[0]+2*z,P2[1]],[P3[0]+2.6*z,P3[1]],[P3[0]-2.6*z,P3[1]]]:[],'#b0a894',.95);}}}
+      drew=1;
+    }else{
+      if(hE>.30)continue; // 野岸 30% 有特徵
+      const A1=inset(A,.20),B1=inset(B,.20);
+      R([A,B,B1,A1],'#6e6152',.5); // 土岸唇
+      if(hE<.07&&(bit===2||bit===4)){ // 木樁（下緣邊）
+        const P0=lerp(A,B,.3+hE*4);
+        gc.save();gc.globalAlpha=.9;gc.fillStyle='#4c3a26';
+        gc.fillRect(Math.round(P0[0]-.8*z),Math.round(P0[1]-4*z),Math.max(1,Math.round(1.6*z)),Math.round(4*z));
+        gc.fillStyle='#6a5438';gc.fillRect(Math.round(P0[0]-.8*z),Math.round(P0[1]-4*z),Math.max(1,Math.round(1.6*z)),Math.round(1.2*z));
+        gc.restore();}
+      if(hE>.12){ // 草簾垂緣
+        for(let u=.15;u<.85;u+=.2){const hh=streetHash(x,y,59440+bit+((u*10)|0));
+          if(hh<.4){const P0=lerp(A,B,u);
+            gc.save();gc.globalAlpha=.6;gc.fillStyle='#557a3e';
+            gc.fillRect(Math.round(P0[0]),Math.round(P0[1]),Math.max(1,Math.round(1.2*z)),Math.max(1,Math.round(2.2*z)));gc.restore();}}}
+      drew=1;
+    }
+  }
+  if(drew)window.__tGLM1BankCount=(window.__tGLM1BankCount||0)+1;
+}
 function drawWaterfront498(g,t,x,y,sx,sy,z,glow){
   if(window.__noWaterfront498||window.__legacyWaterfront498||z<.72||!t||t.t===0)return 0;const wm=waterNeighborMask479(x,y);if(!wm)return 0;const info=waterfrontComponentInfo498(x,y);if(!info)return 0;const sm=rotMask(wm),bits=[1,2,4,8].filter(b=>sm&b),primary=bits[0],trans=waterfrontTransitions498(x,y,info.profile);g.save();g.lineCap='square';g.lineJoin='miter';
   for(const bit of bits){const f=waterfrontFrame498(bit,sx,sy,z),signature=bit===primary;drawWaterfrontEdge498(g,f,info.profile,info,x,y,z,signature);if(signature&&trans.length)drawWaterfrontTransition498(g,f,info.profile,trans,z);}
@@ -58523,6 +58606,7 @@ function drawEmptyLot592(gc,x,y,sx,sy,z,zn){
    不消耗 R()、不入 save；掛 detailPermit432 預算；__noAgeW591 逃生閥；
    __t591WxCount 為本幀命中數。 */
 function drawAgeWeathering591(g,o,bd,s,bx,by,z,drawA){
+  if(!window.__forceLegacy591)return 0; // GLM-003：T606 量測本舊疊畫版 100% 浮空（foot 錨點對現行 sprite 不成立），退役；牆系 paintWeather606 已同義取代，__forceLegacy591 可復原舊行為
   if(window.__noAgeW591||z<.9||!bd||bd.ref||bd.k===4)return 0;
   const age=bd.age|0;
   if(age<14)return 0;
@@ -58597,6 +58681,7 @@ function drawPlazaWear594(g,tx,ty,px,py,z){
    工業屋則為漆掉重漆的舊牆廣告。streetHash 決定性、不消耗 R()、不入 save；
    掛 detailPermit432；__noSign593 逃生閥；__t593SignCount 計數。 */
 function drawSignAge593(g,o,bd,s,bx,by,z,drawA){
+  if(!window.__forceLegacy593)return 0; // GLM-003：T606 量測 37.5% 浮空；招牌由 f577 精靈自帶＋T625＋wall 系接手，__forceLegacy593 可復原
   if(window.__noSign593||z<.9||!bd||bd.ref||bd.k===4)return 0;
   const age=bd.age|0;
   if(age<12||cat2k593(bd.k)!==2)return 0;
@@ -58789,6 +58874,51 @@ function paintNear606(g,w,s,cat,hb,lv){ // T599 的原意（花台、垃圾桶�
   }
   return n;
 }
+/* ===== GLM-002 Ghost Ads／工業牆面歲月（貼牆層） =====
+   查證（Wikipedia/Ghost sign）：手繪牆廣告 1880s–1950s，數十年褪入磚面、
+   多代疊壓、剝落、字跡殘影。工業牆（cat I）age≥40：上一代更淡框＋本代板身
+   ＋字跡殘影三行＋剝落露磚＋垂漬；另加磚牆修補塊。經 wallCache606 畫在
+   t5.wall 記錄的牆面內（零浮空、零越格）；streetHash 決定性、零 R()；
+   __noGhostGLM2 逃生閥；__tGLM2GhostCount 計數。 */
+function paintGhost606(g,w,s,tt){
+  const t=s.__t547,seed=(t.v|0)*131+(t.bw|0)*17+(t.bh|0)*7+11;let n=0;
+  const faces=[[w.W,w.S,1],[w.S,w.E,.85]];
+  for(const [A,B,am] of faces){
+    const F=faceKit606(g,A,B);if(F.len<26||w.h<18)continue;
+    const gh=streetHash(seed,7,59450);if(gh>.8)continue;
+    const u0=.10+gh*.30,u1=Math.min(.94,u0+.34+gh*.14);
+    const yTop=Math.round(w.h*.30),yBot=Math.round(w.h*.74);
+    // 上一代廣告框（更淡、外擴少許＝疊壓）
+    F.band(Math.max(0,u0-.05),Math.min(1,u1+.05),yTop-2,yBot+2,'rgba(196,182,158,'+(alphaG2(.30*am*tt)+')'));
+    // 本代板身
+    F.band(u0,u1,yTop,yBot,'rgba(226,216,192,'+alphaG2(.62*am*(0.55+tt*.45))+')');
+    // 字跡殘影三行（長短不一＝排版殘留）
+    const INK=['rgba(122,58,44,','rgba(52,66,92,','rgba(120,96,48,'];
+    for(let r2=0;r2<3;r2++){const hh=streetHash(seed,20+r2,59451);
+      const lu0=u0+.08+hh*.10,lu1=u1-.08-hh*.22;
+      F.band(lu0,lu1,yTop+2+r2*Math.max(2,Math.round((yBot-yTop)/4)),yTop+3+r2*Math.max(2,Math.round((yBot-yTop)/4)),INK[(seed+r2)%3]+alphaG2((.34-tt*.12)*am)+')');} // T662 合併修正：原寫 t*.12（t 是精靈物件 → NaN → 顏色字串無效、沿用上一筆底色，字跡殘影畫不出來），照卡意改成年歲 tt
+    // 板框殘線
+    F.band(u0,u1,yTop,yTop+1,'rgba(90,60,44,'+alphaG2(.26*am)+')');
+    // 剝落露磚 1~2 塊
+    const nP=1+((streetHash(seed,30,59452)*2)|0);
+    for(let i=0;i<nP;i++){const hh=streetHash(seed,40+i,59453);
+      F.band(u0+hh*(u1-u0-.12),u0+hh*(u1-u0-.12)+.10,yTop+2+hh*(yBot-yTop-4),yTop+4+hh*(yBot-yTop-4),'rgba(138,90,64,.75)');}
+    // 垂漬（板底向下）
+    for(let i=0;i<2;i++){const hh=streetHash(seed,50+i,59454);
+      const xx=F.xAt(u0+hh*(u1-u0)),yy=F.row(xx);
+      g.fillStyle='rgba(66,60,52,'+(.18*am).toFixed(3)+')';
+      g.fillRect(Math.round(xx),Math.round(yy-yBot),1,Math.round(3+tt*5));}
+    // 磚牆修補塊（獨立於廣告）
+    const nB=1+((streetHash(seed,60,59455)*2)|0);
+    for(let i=0;i<nB;i++){const hh=streetHash(seed,70+i,59456);
+      const u2=.15+hh*.7,y2=Math.round(w.h*(.15+hh*.25));
+      F.band(u2,Math.min(1,u2+.12),y2,y2+3,'rgba(158,106,74,.8)');
+      F.band(u2,Math.min(1,u2+.12),y2+1,y2+2,'rgba(96,64,44,.7)');}
+    n++;
+  }
+  return n;
+}
+function alphaG2(v){return Math.max(.04,Math.min(.92,v)).toFixed(3);}
 function drawWallDetail606(ctx,o,bd,s,bx,by,z){
   const t5=s&&s.__t547;if(window.__noWallDetail606||!t5||!t5.wall||!bd||bd.ref||bd.k===4)return 0;
   if(String(t5.sty||'').indexOf('f577:')===0)return 0; // 英美立面在精靈內自帶門窗花台，不再疊
@@ -58798,7 +58928,10 @@ function drawWallDetail606(ctx,o,bd,s,bx,by,z){
     const ab=age<120?1:age<240?2:3,mood=districtMood424(o.x,o.y);
     put(wallCache606(s,'w'+ab+mood+cat,(g,w,sp)=>paintWeather606(g,w,sp,cat,mood,[0,.3,.6,.95][ab])));
   }
-  if(z>=1.22&&age>=9&&!window.__noNearZoom599&&streetHash(o.x,o.y,60630)<.72){
+  if(cat==='I'&&age>=40&&z>=.9&&!window.__noGhostGLM2&&streetHash(o.x,o.y,59400)<.5){ // GLM-002 舊牆廣告＋磚修補
+    const ge2=wallCache606(s,'g'+((age/60)|0)+'I'+((s.__t547.v|0)%6),(g,w,sp)=>paintGhost606(g,w,sp,Math.min(1,age/360)));if(ge2){put(ge2);window.__tGLM2GhostCount=(window.__tGLM2GhostCount||0)+1;}
+  }
+    if(z>=1.22&&age>=9&&!window.__noNearZoom599&&streetHash(o.x,o.y,60630)<.72){
     const hb=Math.floor(streetHash(o.x,o.y,60631)*3);
     put(wallCache606(s,'n'+hb+cat+(bd.lv||1),(g,w,sp)=>paintNear606(g,w,sp,cat,hb,bd.lv||1)));
   }
@@ -60919,7 +61052,7 @@ function draw(dt){
   const sea=season();                                // T136：本幀四季索引（0春1夏2秋3冬；一次計算，draw 內零新配置），春季 sea===0 時下方各選鍵分支與改動前完全相同分支
   let rdecGlow=[];                                   // 路飾夜燈暫存，併入 nightSprites（T20）；T96 快取命中時改自快取複製
   // ---- 地面層 ----（T96：離屏快取；相機/水面幀/季節/日期/畫布尺寸皆未變時直接重貼快取畫布，省去整張地圖逐格重繪）
-  const gKey=ox+'_'+oy+'_'+z+'_'+waterF+'_'+(win?1:0)+'_'+day+'_'+W+'_'+H+'_r'+viewRotEff()+'_wx499_'+weatherSignature499()+(window.__noCliff646?'_c0':'')+(window.__noLod648?'_l1':'')+(window.__noGrassGrid651?'_g0':''); // T648 省略門檻切換要重烘；T651 格線閥門切換要重烘 // T499：材質回應需隨既有天氣狀態重烘；純 presentation key；T646 崖沿閥門切換要重烘
+  const gKey=ox+'_'+oy+'_'+z+'_'+waterF+'_'+(win?1:0)+'_'+day+'_'+W+'_'+H+'_r'+viewRotEff()+'_wx499_'+weatherSignature499()+(window.__noCliff646?'_c0':'')+(window.__noLod648?'_l1':'')+(window.__noGrassGrid651?'_g0':'')+(window.__noBayBankGLM1?'_bb0':''); // T648 省略門檻切換要重烘；T651 格線閥門切換要重烘 // T499：材質回應需隨既有天氣狀態重烘；純 presentation key；T646 崖沿閥門切換要重烘
   if(zoomAnim&&groundCache&&groundCache.width===W&&groundCache.height===H){ // T108：縮放動畫中「快取縮放重貼」——沿用既有快取原圖按比例縮放貼回，允許暫時模糊；落檔（zoomAnim 清空）後才走下方正常路徑重建，恢復銳利
     const s=z/groundCacheZ,amx=zoomAnim.mx,amy=zoomAnim.my;
     ctx.drawImage(groundCache,0,0,W,H,amx-amx*s,amy-amy*s,W*s,H*s);
@@ -60928,7 +61061,7 @@ function draw(dt){
     if(!groundCache||groundCache.width!==W||groundCache.height!==H){const gp=cv(W,H);groundCache=gp[0];groundCacheCtx=gp[1];}
     else groundCacheCtx.clearRect(0,0,W,H);
     const gc=groundCacheCtx;
-    window.__t420StoryCount=0; window.__t427EdgeCount=0; window.__t428GroundCount=0; window.__t447AlleyCount=0;window.__t447TransitCount=0;window.__t447CurbCount=0; // T447-R12：ground-bake counters 只在重烘前清零，保留 last-bake 結果；window.__t592LotCount=0;// T592
+    window.__t420StoryCount=0; window.__t427EdgeCount=0; window.__t428GroundCount=0; window.__t447AlleyCount=0;window.__t447TransitCount=0;window.__t447CurbCount=0;window.__tGLM1BankCount=0; // T661 合併修正：GLM-001 的歸零原本接在註解裡、從來沒執行，搬到註解前 // T447-R12：ground-bake counters 只在重烘前清零，保留 last-bake 結果；window.__t592LotCount=0;// T592（這一條仍在註解裡，是 T592 原本的缺口，沒動）
     signalList.length=0; // T289：快取重烘時重新收集號誌位置（tile 座標，live 層動畫繪）
     if(typeof resetBridgeVisualCache480A==='function')resetBridgeVisualCache480A(); // T480A：每次 ground bake 重新派生橋梁 component style / span
     if(typeof resetWaterfrontDrawStats498==='function')resetWaterfrontDrawStats498(); // T498：draw counters 只代表本次 ground bake
@@ -61194,6 +61327,7 @@ function draw(dt){
         if(!lodFar)drawEmptyLot592(gc,x,y,sx,sy,z,t.zone); // T592 空置地過渡地貌
       }
       if(!lodFar&&!t.road&&!t.water&&!t.bld&&!t.ruin)drawGroundMemory428(gc,x,y,sx,sy,z); // T428：建築鄰地的踩踏/配送/工業使用痕跡
+      if(!lodFar&&t.t!==0)drawBayBankGLM1(gc,x,y,sx,sy,z); // GLM-001 灣城自然岸線語彙
       if(!lodFar)drawAlleyLife447(gc,x,y,sx,sy,z); // T447-R02 巷弄後門生活
       if(!lodFar)drawTransitWait447(gc,x,y,sx,sy,z); // T447-R07
       if(!lodFar)drawCurbPark447(gc,x,y,sx,sy,z); // T447-R10

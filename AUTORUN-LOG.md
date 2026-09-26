@@ -13,13 +13,21 @@
 
 ---
 
+## r108–r110 — T661–T663 岸線、舊牆廣告、退役浮空疊畫（合併 GLM 分支 GLM-001／002／003，PR #3）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r108 | [T661](docs/T661-bay-bank.md) | 業主「合一下 PR」。`glm/alleys-riverside` 只取 GLM-001～003。鄰水陸地格沿水邊畫石砌護岸、潮痕、繫船環、涵管、石階（都市岸）或土唇、木樁、草簾（野岸），畫在地面層；閥 `__noBayBankGLM1`（合併時補進地面快取鍵）；探針 `probeGLM1.js`。合併時修：涵管參數錯（原本沒畫出來）、計數歸零寫在註解裡 | ✅ 綠 3/3（37.4–39.7s）；**`fp.js --check` 全綠** | pending | `probeGLM1.js` 同鏡頭（雲端 scratchpad） | ① 效果淡而零散，像灰斑；註解寫 78%、實際 22% ② GLM 沒掛 smoke 自檢 ③ GLM 改的預設埠 8198 沒帶進來 |
+| r109 | [T662](docs/T662-ghost-signs.md) | 同一個合併：工業牆（age≥40）貼牆層加兩代褪色廣告、字跡殘影、剝落露磚、垂漬、磚修補；閥 `__noGhostGLM2`；探針 `probeGLM2.js`（31 棟）。合併時修：字跡殘影透明度 NaN（原本畫不出來） | 同上 | pending | 同上 | ① 很含蓄，(40,34) z=2 只改 54×42 px |
+| r110 | [T663](docs/T663-retire-floating-overlays.md) | 同一個合併：T591 風化、T593 招牌兩個舊疊畫層預設退役（GLM 稽核量到 100%／37.5% 浮空），`__forceLegacy591/593` 可復原；v13.68／T663 | 同上 | pending | — | ① 種子城 16 個鏡頭實測差異 0 px，退役不改畫面 ② 421–447 系列浮空層沒動（GLM 留給 main 決定） ③ GLM-004 繫岸小舟沒做完、不合 |
+
 ## r105–r107 — T658–T660 三座英式地標（合併 DeepSeek 分支 DSK-002／003／004，PR #5）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r105 | [T658](docs/T658-st-pauls-cathedral.md) | 業主「合一下 PR」。`dsk/uk-cathedral` 一次 squash（三張卡）。新地標 k187 聖保羅座堂（1×1，三種立面 v0 圓頂／v1 哥德尖塔／v2 洋蔥頂，座標雜湊選）、近距細節層（z≥1.22）、觀光累加納入 187；閥 `__noCathedral187`／`__noCathNight187`／`__noNearCath187`；自檢 `cathedralDSK2`（21 項）；探針 `probeDSK2.js`（樣張改存 `shots658/`）；CI 觸發加 `dsk/**` | ✅ 綠 3/3（37.7–39.0s）；越界 0；**`fp.js --check` 全綠** | pending | `shots658/{variants,place_zoom,place_near_night}.png` | ① DSK 在分支施工時誤推 `main` 又用 `--force-with-lease` 還原（違反禁強推；`main` 沒遺失） ② DeepSeek 不在 `AGENTS.md` 名冊 ③ k179–186 觀光累加缺口沒動 |
-| r106 | [T659](docs/T659-white-tower-keep.md) | 同一個 squash：新地標 k188 白塔式城堡主樓（1×1，v0 方角塔／v1 圓角塔）＋近距層；自檢 `keepDSK3`（17 項） | 同上 | pending | `shots658/keep_near_zoom_v0.png` | ① 完成度中等，比座堂陽春 |
-| r107 | [T660](docs/T660-battersea-power-station.md) | 同一個 squash：新地標 k189 巴特西式發電站（卡面寫 2×2，實際 1×1）＋近距層＋煙囪頂障礙燈；自檢 `batterseaDSK4`（13 項）；`fp.json` 只加 6 葉 `bld.187–189`，`bld` 家族 CRC 以 Windows 葉子重算；v13.65／T660 | 同上 | pending | `shots658/batt_near_zoom.png` | ① 1×1 版像窄磚塔，不像巴特西寬廠房；2×2 版沒做 ② 卡頭狀態沒更新 ③ 三張卡一次 squash，13.63／13.64 沒有單獨的版 |
+| r105 | [T658](docs/T658-st-pauls-cathedral.md) | 業主「合一下 PR」。`dsk/uk-cathedral` 一次 squash（三張卡）。新地標 k187 聖保羅座堂（1×1，三種立面 v0 圓頂／v1 哥德尖塔／v2 洋蔥頂，座標雜湊選）、近距細節層（z≥1.22）、觀光累加納入 187；閥 `__noCathedral187`／`__noCathNight187`／`__noNearCath187`；自檢 `cathedralDSK2`（21 項）；探針 `probeDSK2.js`（樣張改存 `shots658/`）；CI 觸發加 `dsk/**` | ✅ 綠 3/3（37.7–39.0s）；越界 0；**`fp.js --check` 全綠** | `2f6e5fc` | `shots658/{variants,place_zoom,place_near_night}.png` | ① DSK 在分支施工時誤推 `main` 又用 `--force-with-lease` 還原（違反禁強推；`main` 沒遺失） ② DeepSeek 不在 `AGENTS.md` 名冊 ③ k179–186 觀光累加缺口沒動 |
+| r106 | [T659](docs/T659-white-tower-keep.md) | 同一個 squash：新地標 k188 白塔式城堡主樓（1×1，v0 方角塔／v1 圓角塔）＋近距層；自檢 `keepDSK3`（17 項） | 同上 | `2f6e5fc` | `shots658/keep_near_zoom_v0.png` | ① 完成度中等，比座堂陽春 |
+| r107 | [T660](docs/T660-battersea-power-station.md) | 同一個 squash：新地標 k189 巴特西式發電站（卡面寫 2×2，實際 1×1）＋近距層＋煙囪頂障礙燈；自檢 `batterseaDSK4`（13 項）；`fp.json` 只加 6 葉 `bld.187–189`，`bld` 家族 CRC 以 Windows 葉子重算；v13.65／T660 | 同上 | `2f6e5fc` | `shots658/batt_near_zoom.png` | ① 1×1 版像窄磚塔，不像巴特西寬廠房；2×2 版沒做 ② 卡頭狀態沒更新 ③ 三張卡一次 squash，13.63／13.64 沒有單獨的版 |
 
 ## r104 — T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001，PR #6）
 
