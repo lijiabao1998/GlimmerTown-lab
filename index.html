@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.84 · T680</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.85 · T681</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37884,8 +37884,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.84'; // T680 街角店屋加高到三層＋孟莎屋頂老虎窗（業主決策單第十一批 11-4 選 C）。前：T679 白塔打磨：角塔鉛蔥頂、扁壁柱、圓頭窗（業主決策單第十一批 11-3 選 B）。更前：T678 巴特西發電站補成 2×2（業主決策單第十一批 11-2 選 B）。更前：T677 大笨鐘 1×1 與西敏宮 2×2 兩座新英式地標（業主決策單第十一批 11-1 選 D）。更前：T676 平地林的主樹種不再抽到觀賞樹（業主決策單第十批選 B）。更前：T675 水面紋路打散、再淡一半（業主決策單第九批選 C）。更前：T674 冬天落葉樹的禿枝：主幹往上、細枝多、加細枝霧（業主決策單第九批選 C）。更前：T673 分頁靜態標題拿掉寫死的舊版號。更前：T671 倫敦馬廄街屋的煙囪不冒煙（登記色對不上煙囪帽）。更前：T670 工業區屋頂和牆換顏色（業主決策單第七批選 C）。更前：T669 冬天橡樹、懸鈴木的禿枝補回樹幹。更前：T668 冬天禿枝用樹幹本身的顏色（業主決策單第六批選 B）。更前：T667 夜裡水面再暗一些（業主決策單第六批選 B）。更前：T666 水的深淺從岸邊一路慢慢變深（業主決策單第六批選 C）。更前：T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
-const GAME_ANCHOR='T680'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.85'; // T681 馬廄街屋改成兩層、一戶一開間（業主決策單第十一批 11-5 選 B）。前：T680 街角店屋加高到三層＋孟莎屋頂老虎窗（業主決策單第十一批 11-4 選 C）。更前：T679 白塔打磨：角塔鉛蔥頂、扁壁柱、圓頭窗（業主決策單第十一批 11-3 選 B）。更前：T678 巴特西發電站補成 2×2（業主決策單第十一批 11-2 選 B）。更前：T677 大笨鐘 1×1 與西敏宮 2×2 兩座新英式地標（業主決策單第十一批 11-1 選 D）。更前：T676 平地林的主樹種不再抽到觀賞樹（業主決策單第十批選 B）。更前：T675 水面紋路打散、再淡一半（業主決策單第九批選 C）。更前：T674 冬天落葉樹的禿枝：主幹往上、細枝多、加細枝霧（業主決策單第九批選 C）。更前：T673 分頁靜態標題拿掉寫死的舊版號。更前：T671 倫敦馬廄街屋的煙囪不冒煙（登記色對不上煙囪帽）。更前：T670 工業區屋頂和牆換顏色（業主決策單第七批選 C）。更前：T669 冬天橡樹、懸鈴木的禿枝補回樹幹。更前：T668 冬天禿枝用樹幹本身的顏色（業主決策單第六批選 B）。更前：T667 夜裡水面再暗一些（業主決策單第六批選 B）。更前：T666 水的深淺從岸邊一路慢慢變深（業主決策單第六批選 C）。更前：T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
+const GAME_ANCHOR='T681'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -71747,7 +71747,7 @@ function arche568(k,lv,v){
   const L=ARCHE568[k+'_'+lv];if(!L||!L.length)return null;
   const vv=Math.abs(v|0);
   if(!window.__noUkMewsGROK2&&k===1&&(lv|0)===1&&vv===5)
-    return {n:'mews',fs:'ukMews',box:[.12,.88,.28,.86],hm:0.58,wd:[8,9],win:'punch'};
+    return {n:'mews',fs:'ukMews',box:[.12,.88,.28,.86],hm:window.__noMewsBays681?0.58:1.35,wd:[8,9],win:'punch'}; // T681：馬廄兩層，高度係數 0.58→1.35；閥 __noMewsBays681
   {const r=L[vv%L.length];if(!window.__noShopTall680&&r&&r.fs==='ukCornerShopGPT001')return Object.assign({},r,{hm:1.9});return r;} // T680：維多利亞街角店屋高度係數 0.88→1.9（業主決策單第十一批 11-4 選 C）；閥 __noShopTall680
 }
 window.mewsArcheNameGROK2=v=>{const a=arche568(1,1,v);return a?(a.fs||a.n):'';};
@@ -72919,7 +72919,7 @@ function smokeViewSelftest626(){ // T626：煙源與「真的畫出來的煙囪�
 }
 function getBlockSprite547(k,lv,bw,bh,v){
   const key=k+'_'+lv+'_'+bw+'x'+bh+'_'+(window.__noVkey628?(v%6)+'_v6':(v|0))+ // T628：原本 v%6，但住商工 v 是 0–11、makeBlockSprite547 用原始 v 挑原型 ⇒ v 與 v+6 共用一張圖，畫誰看誰先被畫到；閥門另帶 _v6 尾碼，兩種鍵不互相污染
-    (window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'')+(window.__noMassWin645?'_mw1':'')+(window.__noDock650?'_dk0':'')+(window.__noOccWin653?'_ow0':'')+(window.__noUkMewsGROK2?'_nomews':'')+(window.__noIndVariety670?'_iv0':'')+(window.__noMewsSmoke671?'_ms0':'')+(window.__noGPTCornerShop001?'_gptcs0':'')+(window.__noShopTall680?'_st0':''); // T680
+    (window.__noPitch553?'_flat':'')+(window.__noMassing552?'_nomass':'')+(window.__noRidge554?'_noridge':'')+(window.__noOverlap555?'_tow':'')+(window.__noTypology556?'_oldtype':'')+(window.__noGrain557?'_nograin':'')+(window.__noSaw608?'_nosaw':'')+(window.__noGroundShadow559?'_noshadow':'')+(window.__noRoofKit559?'_nokit':'')+(window.__noVilla559?'_novilla':'')+(window.__noStyle565?'_nosty':'')+(window.__noArche568?'_noarch':'')+(window.__noParcel582?'_noparcel':'')+(window.__noLotFill570?'_nolot':'')+(window.__noFacade577?'_nofac':'')+(window.__noPodium602?'_nopod':'')+(window.__facadeForce577?'_f'+window.__facadeForce577:'')+(window.__noMassOrder624?'_mo0':'')+(window.__noMassWin645?'_mw1':'')+(window.__noDock650?'_dk0':'')+(window.__noOccWin653?'_ow0':'')+(window.__noUkMewsGROK2?'_nomews':'')+(window.__noIndVariety670?'_iv0':'')+(window.__noMewsSmoke671?'_ms0':'')+(window.__noGPTCornerShop001?'_gptcs0':'')+(window.__noShopTall680?'_st0':'')+(window.__noMewsBays681?'_mb0':''); // T680；T681
   if(BLOCK_SPR547.has(key))return BLOCK_SPR547.get(key);
   const sp=makeBlockSprite547(k,lv,bw,bh,v);BLOCK_SPR547.set(key,sp);return sp;
 }
@@ -76776,7 +76776,46 @@ function tools(ctx){
       for(let i=0;i+1<xs.length;i+=2){const xa=Math.ceil(xs[i]-.5),xb=Math.ceil(xs[i+1]-.5);if(xb>xa)cx.fillRect(xa,y,xb-xa,1);}}};
   return {sh,rc,foot,cols,wall,poly};
 }
+function mewsBays681(ctx){ // T681（業主決策單第十一批 11-5 選 B）：兩層、每戶一開間（油漆立面、一樓馬車拱門／車庫門／馬房門輪替、二樓兩扇窗與花台、戶界煙囪）；照決策單原型碼（docs/proto-b11/mewsB.js）
+  const {g,ng,G}=ctx,T=tools(ctx),{sh,rc,foot,cols,wall,poly}=T;
+  const slate='#5c6772',ring='#efe6d2',trim='#efe9dc',glass='#6a8494';
+  const wallH=Math.max(16,ctx.wallH|0),gF=Math.min(12,Math.round(wallH*.5)),v=Math.abs(ctx.v|0);
+  const up=(p,h)=>[p[0],p[1]-h];
+  const roof={N:up(G.N,wallH),E:up(G.E,wallH),S:up(G.S,wallH),W:up(G.W,wallH)};
+  poly(g,[roof.N,roof.E,roof.S,roof.W],slate);
+  poly(g,[roof.N,roof.E,up(G.S,wallH-1),up(G.W,wallH-1)],'#4a5560');
+  const PAINT=['#c4a36a','#e6ddca','#d8c49c','#b9c6c8','#d6b2a4','#c9ad7e'],DOOR=['#1f3c32','#5b2028','#243554','#2a2522','#6a4a1f'];
+  const side='#8f7550';
+  wall(g,G.S,G.E,wallH,side);
+  cols(G.S,G.E,(x,y)=>{rc(g,x,y-3,1,3,sh(side,-18));rc(g,x,y-wallH,1,2,'#3e4650');rc(g,x,y-gF-1,1,1,sh(side,14));});
+  {const sx=R((G.S[0]*.6+G.E[0]*.4)),sy=foot(G.S,G.E,sx);rc(g,sx,sy-gF-8,3,5,sh(glass,-28));rc(g,sx-1,sy-gF-3,5,1,sh(trim,-24));if(ng)rc(ng,sx,sy-gF-8,3,5,'#d9c78f');
+    const dx=R((G.S[0]*.3+G.E[0]*.7)),dy=foot(G.S,G.E,dx);rc(g,dx,dy-9,3,8,sh(DOOR[v%DOOR.length],-20));}
+  const x0=R(Math.min(G.W[0],G.S[0])),x1=R(Math.max(G.W[0],G.S[0])),fw=x1-x0;
+  const nb=Math.max(1,Math.round(fw/15)),bw=fw/nb,dp=[(G.E[0]-G.S[0])*.5,(G.E[1]-G.S[1])*.5],stacks=[];
+  for(let b=0;b<nb;b++){
+    const col=PAINT[(b*7+v*3)%PAINT.length],door=DOOR[(b*3+v)%DOOR.length],bx0=R(x0+b*bw),bx1=b===nb-1?x1:R(x0+(b+1)*bw)-1;
+    for(let x=bx0;x<=bx1;x++){const y=foot(G.W,G.S,x);rc(g,x,y-wallH,1,wallH,col);rc(g,x,y-wallH,1,2,'#4a5560');rc(g,x,y-1,1,1,sh(col,-28));rc(g,x,y-gF-1,1,1,sh(col,18));}
+    if(b>0){const y=foot(G.W,G.S,bx0);rc(g,bx0,y-wallH,1,wallH,sh(col,-26));stacks.push([bx0+dp[0],y+dp[1]]);}
+    const mid=R((bx0+bx1)/2),kind=(b+v)%3;
+    if(kind===0){for(let x=mid-5;x<=mid+5;x++){const y=foot(G.W,G.S,x),adx=Math.abs(x-mid),rise=Math.round(Math.sqrt(Math.max(0,25-adx*adx))),lip=y-3-rise;
+        rc(g,x,lip,1,1,ring);if(adx<=4)rc(g,x,lip+1,1,Math.max(1,(y-2)-(lip+1)),'#241c16');if(adx===5)rc(g,x,lip+1,1,Math.max(1,(y-2)-(lip+1)),sh(col,-22));}
+      const lx=mid-7,ly=foot(G.W,G.S,lx);rc(g,lx,ly-7,1,3,'#2c3036');rc(g,lx,ly-8,2,1,'#efe6c0');if(ng){ng.fillStyle='#fff2c4';ng.fillRect(lx,ly-8,2,1);}}
+    else if(kind===1){for(let x=mid-4;x<=mid+3;x++){const y=foot(G.W,G.S,x);rc(g,x,y-10,1,1,trim);rc(g,x,y-9,1,8,door);rc(g,x,y-7,1,1,sh(door,22));rc(g,x,y-4,1,1,sh(door,22));}}
+    else{for(let x=mid-5;x<=mid-2;x++){const y=foot(G.W,G.S,x);rc(g,x,y-10,1,1,trim);rc(g,x,y-9,1,8,door);}
+      const wx=mid+1,wy=foot(G.W,G.S,wx);rc(g,wx,wy-8,3,4,glass);rc(g,wx-1,wy-4,5,1,trim);if(ng)rc(ng,wx,wy-8,3,4,'#ffdca0');}
+    for(const [i,f] of [[0,.28],[1,.7]]){const wx=R(bx0+bw*f)-1,y=foot(G.W,G.S,wx),wy=y-gF-8;
+      rc(g,wx-1,wy-1,5,1,sh(col,-24));rc(g,wx,wy,3,5,glass);rc(g,wx,wy+2,3,1,trim);rc(g,wx-1,wy+5,5,1,trim);
+      if(ng&&((b*2+i+v)%3)!==0)rc(ng,wx,wy,3,5,'#ffdca0');
+      if(((b+i+v)%2)===0){rc(g,wx-1,wy+6,5,1,'#3f6b35');rc(g,wx,wy+6,1,1,'#d85a7a');rc(g,wx+2,wy+6,1,1,'#f0d060');}}
+  }
+  for(const [px,py] of stacks){const cx=R(px),cy=R(py)-wallH;rc(g,cx-1,cy-6,2,6,'#a0704f');rc(g,cx+1,cy-6,1,6,'#6e4a36');rc(g,cx-2,cy-7,5,1,'#4a423b');rc(g,cx-1,cy-9,1,2,'#a35a37');rc(g,cx+1,cy-9,1,2,'#b46a43');}
+  const cx=R(G.E[0])-2, cy=foot(G.S,G.E,cx);
+  rc(g,cx,cy-wallH-7,3,8,sh('#c4a36a',-8));rc(g,cx+2,cy-wallH-7,1,8,sh('#8a6238',-30));rc(g,cx-1,cy-wallH-8,5,1,'#4a423b');rc(g,cx,cy-wallH-10,1,2,'#a35a37');
+  if(ctx.chim)ctx.chim(cx,cy-wallH-11,window.__noMewsSmoke671?'#6b3f2a':'#a35a37'); // T671 冒煙點照留（閥門跟原繪製器同一套）
+  return {pitch:true};
+}
 REG.ukMews={name:'ukMews',draw(ctx){
+  if(!window.__noMewsBays681)return mewsBays681(ctx); // T681
   const {g,ng,G}=ctx,T=tools(ctx),{sh,rc,foot,cols,wall,poly}=T;
   const stock='#c4a36a',dark='#8a6238',slate='#5c6772',ring='#efe6d2';
   const wallH=Math.max(12,ctx.wallH|0);
@@ -76841,6 +76880,25 @@ window.GV.mewsSmokeSelftest671=function(){ // T671：馬廄精靈要有冒煙點
   }finally{window.__noMewsSmoke671=sv;window.__noUkMewsGROK2=sm;B.cache().clear();}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 };
+window.GV.mewsBaysSelftest681=function(){ // T681：馬廄高度係數 1.35（閥門 .58）；4×1 新版比閥門版高、顏色多、有戶界煙囪；冒煙點照留；快取鍵帶閥門
+  const checks=[],B=window.GV.block559,sv=window.__noMewsBays681;
+  if(!B||!B.make)return {ok:false,checks:['block559.make ✗']};
+  const st=s=>{const W=s.img.width,H=s.img.height,d=s.img.getContext('2d').getImageData(0,0,W,H).data;let top=1e9,pot=0;const cols=new Set();
+    for(let i=0;i<d.length;i+=4){if(d[i+3]<=200)continue;const p=i>>2;if(top===1e9)top=Math.floor(p/W);cols.add((d[i]>>4)+','+(d[i+1]>>4)+','+(d[i+2]>>4));if(d[i]===0xa3&&d[i+1]===0x5a&&d[i+2]===0x37)pot++;}
+    return {up:(s.ay|0)-top,cols:cols.size,pot,smk:(s.smoke608||[]).length};};
+  let a=null,b=null,ha=0,hb=0;
+  try{window.__noMewsBays681=false;ha=window.GV.arche568(1,1,5).hm;B.cache().clear();a=B.make(1,1,4,1,5);
+      window.__noMewsBays681=true;hb=window.GV.arche568(1,1,5).hm;B.cache().clear();b=B.make(1,1,4,1,5);}
+  finally{window.__noMewsBays681=sv;B.cache().clear();}
+  checks.push(['高度係數 新 '+ha+'／閥門 '+hb,ha===1.35&&hb===.58]);
+  const A1=a&&a.img?st(a):null,B1=b&&b.img?st(b):null;
+  checks.push(['4×1 最高點離地 新 '+(A1&&A1.up)+'／閥門 '+(B1&&B1.up)+' px（高 ≥8）',!!A1&&!!B1&&A1.up-B1.up>=8]);
+  checks.push(['顏色（4 位元量化）新 '+(A1&&A1.cols)+'／閥門 '+(B1&&B1.cols)+'（油漆色、門、花台，多 ≥20）',!!A1&&!!B1&&A1.cols-B1.cols>=20]);
+  checks.push(['戶界煙囪：煙囪管色像素 新 '+(A1&&A1.pot)+'／閥門 '+(B1&&B1.pot)+'（多 ≥6）',!!A1&&!!B1&&A1.pot-B1.pot>=6]);
+  checks.push(['冒煙點照留 1 個（新 '+(A1&&A1.smk)+'／閥門 '+(B1&&B1.smk)+'）',!!A1&&!!B1&&A1.smk===1&&B1.smk===1]);
+  checks.push(['街區精靈快取鍵帶閥門',String(B.get).indexOf("__noMewsBays681?'_mb0'")>=0]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+};
 window.GV.ukMewsSelftestGROK2=function(){
   const checks=[];
   const B=window.GV.block559,R=window.__facade577||{};
@@ -76861,7 +76919,8 @@ window.GV.ukMewsSelftestGROK2=function(){
     checks.push(['v=5 走 ukMews',!!(mews&&mews.__t547&&String(mews.__t547.sty).indexOf('ukMews')>=0)]);
     const mm=mews&&mews.img?mask(mews):{m:'',left:0,right:0,out:999};
     checks.push(['左右臉都有像素',mm.left>40&&mm.right>40]);
-    checks.push(['不畫進鄰格內部（'+mm.out+'）',mm.out===0]);
+    {const sv=window.__noGroundShadow559;window.__noGroundShadow559=true;B.cache().clear();const ns=B.make(1,1,1,1,5);window.__noGroundShadow559=sv;B.cache().clear(); // T681：馬廄加高到兩層後落地影變長、連影子的描邊落到前方鄰格；本條改量關掉落地影的建築本體
+     const mn=ns&&ns.img?mask(ns):{out:999};checks.push(['不畫進鄰格內部（建築本體 '+mn.out+'；含落地影 '+mm.out+'）',mn.out===0]);}
     checks.push(['夜光只在白天像素',!!mews&&nightOk(mews)]);
     for(const nm of names){window.__facadeForce577=nm;B.cache().clear();const o=B.make(1,1,1,1,2);checks.push([nm+' 剪影不同',!!(o&&o.img)&&mask(o).m!==mm.m]);}
     window.__facadeForce577=undefined;window.__noUkMewsGROK2=true;B.cache().clear();
