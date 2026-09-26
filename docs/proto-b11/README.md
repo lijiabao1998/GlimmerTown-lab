@@ -1,6 +1,6 @@
 # 第十一批決策單的原型碼（不是遊戲本體）
 
-決策單：https://claude.ai/artifact/XnLnfJqwcqE3FCu7biWeYA（`docs/DECISIONS.md` 待決 11-1～11-5）。
+決策單：https://claude.ai/artifact/XnLnfJqwcqE3FCu7biWeYA（業主 2026-09-26 選 1D、2B、3B、4C、5B → T677–T681 施工；`docs/DECISIONS.md`）。
 這些是拍對照圖用的**臨時實驗碼**，拍完已 `git checkout -- index.html` 還原；放在這裡是讓之後施工的人（不管哪個 session、哪個寫入者）能重現決策單上的圖，施工後要跟決策單的圖逐像素比對。
 
 | 檔 | 內容 | 怎麼開 |
