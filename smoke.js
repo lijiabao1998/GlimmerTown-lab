@@ -101,6 +101,7 @@ const KEEP = process.argv.includes('--keep');
       ['dock650', `(window.GV && window.GV.dockSelftest650) ? window.GV.dockSelftest650() : {ok:false,checks:['API 不存在']}`],
       ['grassGrid651', `(window.GV && window.GV.grassGridSelftest651) ? window.GV.grassGridSelftest651() : {ok:false,checks:['API 不存在']}`],
       ['grove652', `(window.GV && window.GV.groveSelftest652) ? window.GV.groveSelftest652() : {ok:false,checks:['API 不存在']}`],
+      ['groveMixGROK1', `(window.GV && window.GV.groveMixSelftestGROK1) ? window.GV.groveMixSelftestGROK1() : {ok:false,checks:['API 不存在']}`],
       ['occWin653', `(window.GV && window.GV.occWinSelftest653) ? window.GV.occWinSelftest653() : {ok:false,checks:['API 不存在']}`],
       ['tree654', `(window.GV && window.GV.treeSelftest654) ? window.GV.treeSelftest654() : {ok:false,checks:['API 不存在']}`],
       ['terrainTree655', `(window.GV && window.GV.terrainTreeSelftest655) ? window.GV.terrainTreeSelftest655() : {ok:false,checks:['API 不存在']}`],
