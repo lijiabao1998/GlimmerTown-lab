@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.70 · T665</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.71 · T666</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37756,8 +37756,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.70'; // T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
-const GAME_ANCHOR='T665'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.71'; // T666 水的深淺從岸邊一路慢慢變深（業主決策單第六批選 C）。前：T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
+const GAME_ANCHOR='T666'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -59538,6 +59538,41 @@ function waterDepthTierAt(x,y){
   }
   return 2;
 }
+/* T666 水的深淺從岸邊一路慢慢變深（業主 2026-09-26 決策單第六批選 C）：T163 原本整格疊兩階深色，河中間看得到一階一階的菱形台階。
+   改成每格水到最近陸地的距離 d（8 方向、最多 6），深色透明度 min(.36,.07d)，靠岸那一圈（t.wm）與陸地 0；
+   這張 N×N 透明度圖（地形變了才重算）在地面烘焙時用同一個等距變換雙線性放大成一層，每格非靠岸水格只把這層裁進自己的菱形貼上。
+   逃生閥 __noWaterGrad666＝回到 T163 兩階整格（地面快取鍵帶閥門）。 */
+const WG666={tex:null,dist:null,tiles:null,dirty:true,scr:null,builds:0};
+function waterGradAlpha666(d){return d<=0?0:Math.min(.36,.07*d);}
+function waterDist666(){
+  const dist=new Int16Array(N*N).fill(99),q=[];
+  for(let i=0;i<N*N;i++)if(tiles[i].t!==0){dist[i]=0;q.push(i);}
+  for(let h=0;h<q.length;h++){const i=q[h],x=i%N,y=(i/N)|0,d=dist[i];if(d>=6)continue;
+    for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=x+dx,yy=y+dy;if(!inMap(xx,yy))continue;const j=idx(xx,yy);if(dist[j]>d+1){dist[j]=d+1;q.push(j);}}}
+  return dist;
+}
+function waterGradTex666(){
+  if(WG666.tex&&!WG666.dirty&&WG666.tiles===tiles&&WG666.tex.width===N+2)return WG666.tex;
+  const M=N+2,dist=waterDist666(),c=(WG666.tex&&WG666.tex.width===M)?WG666.tex:document.createElement('canvas');c.width=M;c.height=M; // 四周各多一格、複製邊緣值：地圖外緣不會淡出成一條亮線
+  const g=c.getContext('2d'),im=g.createImageData(M,M),a=im.data;
+  for(let py=0;py<M;py++)for(let px=0;px<M;px++){const x=Math.min(N-1,Math.max(0,px-1)),y=Math.min(N-1,Math.max(0,py-1)),i=y*N+x,t=tiles[i],al=(t.t!==0||t.wm)?0:waterGradAlpha666(Math.min(dist[i],6)),o=(py*M+px)*4;a[o]=4;a[o+1]=14;a[o+2]=36;a[o+3]=Math.round(al*255);}
+  g.putImageData(im,0,0);WG666.tex=c;WG666.dist=dist;WG666.tiles=tiles;WG666.dirty=false;WG666.builds++;return c;
+}
+function waterGradSelftest666(){
+  const checks=[],near=(a,b)=>Math.abs(a-b)<1e-9;
+  checks.push(['透明度 d=1→.07、d=3→.21、d≥6→.36 封頂、d=0→0',near(waterGradAlpha666(1),.07)&&near(waterGradAlpha666(3),.21)&&near(waterGradAlpha666(6),.36)&&near(waterGradAlpha666(9),.36)&&waterGradAlpha666(0)===0]);
+  WG666.dirty=true;const tex=waterGradTex666(),M=N+2,dP=tex.getContext('2d').getImageData(0,0,M,M).data,dist=WG666.dist,d=new Uint8ClampedArray(N*N*4);for(let y=0;y<N;y++)for(let x=0;x<N;x++)for(let k=0;k<4;k++)d[(y*N+x)*4+k]=dP[((y+1)*M+x+1)*4+k];
+  let landOk=true,sample=0,distOk=true;
+  for(let i=0;i<N*N;i++){const t=tiles[i];if((t.t!==0||t.wm)&&d[i*4+3]!==0){landOk=false;break;}}
+  for(let i=0;i<N*N&&sample<200;i+=7){const t=tiles[i];if(t.t!==0)continue;sample++;const x=i%N,y=(i/N)|0;let r0=99;
+    for(let r=1;r<=6&&r0===99;r++)for(let dy=-r;dy<=r&&r0===99;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const xx=x+dx,yy=y+dy;if(inMap(xx,yy)&&tiles[idx(xx,yy)].t!==0){r0=r;break;}}
+    if(Math.min(r0,99)!==Math.min(dist[i],99)&&!(r0===99&&dist[i]>6))distOk=false;
+    if(!t.wm&&d[i*4+3]!==Math.round(waterGradAlpha666(Math.min(dist[i],6))*255))distOk=false;}
+  checks.push(['陸地與靠岸那一圈透明度 0',landOk]);
+  checks.push(['抽 '+sample+' 格水：距離與直接掃描一致、透明度照公式',distOk&&sample>=50]);
+  checks.push(['地面快取鍵帶閥門、畫地面時有呼叫',drawPath666]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 // T163：陸地格四鄰是否有水面（供燈塔沿岸點綴挑選；與既有 hasWaterNear〔T31 水管覆蓋判定，語意不同〕區隔
 // 命名避免混淆）
 function coastLandAt(x,y){
@@ -61107,7 +61142,7 @@ function draw(dt){
   const sea=season();                                // T136：本幀四季索引（0春1夏2秋3冬；一次計算，draw 內零新配置），春季 sea===0 時下方各選鍵分支與改動前完全相同分支
   let rdecGlow=[];                                   // 路飾夜燈暫存，併入 nightSprites（T20）；T96 快取命中時改自快取複製
   // ---- 地面層 ----（T96：離屏快取；相機/水面幀/季節/日期/畫布尺寸皆未變時直接重貼快取畫布，省去整張地圖逐格重繪）
-  const gKey=ox+'_'+oy+'_'+z+'_'+waterF+'_'+(win?1:0)+'_'+day+'_'+W+'_'+H+'_r'+viewRotEff()+'_wx499_'+weatherSignature499()+(window.__noCliff646?'_c0':'')+(window.__noLod648?'_l1':'')+(window.__noGrassGrid651?'_g0':'')+(window.__noBayBankGLM1?'_bb0':''); // T648 省略門檻切換要重烘；T651 格線閥門切換要重烘 // T499：材質回應需隨既有天氣狀態重烘；純 presentation key；T646 崖沿閥門切換要重烘
+  const gKey=ox+'_'+oy+'_'+z+'_'+waterF+'_'+(win?1:0)+'_'+day+'_'+W+'_'+H+'_r'+viewRotEff()+'_wx499_'+weatherSignature499()+(window.__noCliff646?'_c0':'')+(window.__noLod648?'_l1':'')+(window.__noGrassGrid651?'_g0':'')+(window.__noBayBankGLM1?'_bb0':'')+(window.__noWaterGrad666?'_wg0':''); // T648 省略門檻切換要重烘；T651 格線閥門切換要重烘 // T499：材質回應需隨既有天氣狀態重烘；純 presentation key；T646 崖沿閥門切換要重烘
   if(zoomAnim&&groundCache&&groundCache.width===W&&groundCache.height===H){ // T108：縮放動畫中「快取縮放重貼」——沿用既有快取原圖按比例縮放貼回，允許暫時模糊；落檔（zoomAnim 清空）後才走下方正常路徑重建，恢復銳利
     const s=z/groundCacheZ,amx=zoomAnim.mx,amy=zoomAnim.my;
     ctx.drawImage(groundCache,0,0,W,H,amx-amx*s,amy-amy*s,W*s,H*s);
@@ -61124,6 +61159,16 @@ function draw(dt){
     if(typeof resetFabricDrawStats500==='function')resetFabricDrawStats500(); // T500：本次 ground bake 的 fabric/frontage/transition counters
     if(groundDirty&&typeof resetWaterfrontCache498==='function')resetWaterfrontCache498(); // T498：建造／拆除／地形變更時重建岸線 component；相機與日夜重烘沿用身份
     if(groundDirty&&typeof resetFabricCache500==='function')resetFabricCache500(); // T500：拓撲變更才重建 4×4 urban fabric field；日夜／天氣重烘沿用身份
+    let wg666=null; // T666：水深漸層的畫面層（本次烘焙用）
+    if(!win&&!lodFar&&!window.__noOcean&&!window.__noWaterGrad666){
+      if(groundDirty)WG666.dirty=true;const tex=waterGradTex666();
+      const E=(x,y)=>[sxOf(x,y)+32*z,syOf(x,y)+16*z],O=E(0,0),X1=E(1,0),Y1=E(0,1),ex=[X1[0]-O[0],X1[1]-O[1]],ey=[Y1[0]-O[0],Y1[1]-O[1]];
+      let sc=WG666.scr;if(!sc||sc.width!==W||sc.height!==H){sc=document.createElement('canvas');sc.width=W;sc.height=H;WG666.scr=sc;}
+      const sg=sc.getContext('2d');sg.setTransform(1,0,0,1,0,0);sg.clearRect(0,0,W,H);sg.imageSmoothingEnabled=true;sg.imageSmoothingQuality='low';
+      sg.setTransform(ex[0],ex[1],ey[0],ey[1],O[0]-1.5*ex[0]-1.5*ey[0],O[1]-1.5*ex[1]-1.5*ey[1]);sg.drawImage(tex,0,0);sg.setTransform(1,0,0,1,0,0);
+      wg666=sc;window.__t666Tiles=0;
+    }
+    const wgPath666=wg666?new Path2D():null; // T666：非靠岸水格的菱形聯集，迴圈結束後一次裁切貼上
     for(let y=0;y<N;y++)for(let x=0;x<N;x++){
       const sx=sxOf(x,y),sy=syOf(x,y);
       if(!vis(sx,sy))continue;
@@ -61207,7 +61252,9 @@ function draw(dt){
            window.__noOcean=true 時整段跳過（供除錯/回歸比對） ===== */
         if(!window.__noOcean&&t.t===0&&!win){ // T186：冬季水面改由冰面表現，跳過 T163 深淺水色/礁石/浮標（冰封時不顯露水深與礁石）
           const dtier=waterDepthTierAt(x,y);
-          if(dtier){
+          if(dtier&&wg666){ // T666：記進聯集路徑（橋、碼頭格不記，免得壓暗橋面），迴圈結束後一次貼
+            if(!t.bridge&&!t.dock){wgPath666.moveTo(sx+32*z,sy);wgPath666.lineTo(sx+64*z,sy+16*z);wgPath666.lineTo(sx+32*z,sy+32*z);wgPath666.lineTo(sx,sy+16*z);wgPath666.closePath();window.__t666Tiles++;}
+          }else if(dtier){
             gc.fillStyle=dtier===1?'rgba(8,26,55,.14)':'rgba(4,14,36,.26)';
             gc.beginPath();gc.moveTo(sx+32*z,sy);gc.lineTo(sx+64*z,sy+16*z);gc.lineTo(sx+32*z,sy+32*z);gc.lineTo(sx,sy+16*z);gc.closePath();gc.fill();
           }
@@ -61424,6 +61471,7 @@ function draw(dt){
         gc.globalAlpha=1;
       }
     }
+    if(wg666&&window.__t666Tiles){gc.save();gc.clip(wgPath666);gc.drawImage(wg666,0,0);gc.restore();} // T666：水深漸層一次貼（礁石、淺灘也在水下，一起被壓深）
     groundCacheKey=gKey;groundCacheGlow=rdecGlow;groundDirty=false;groundCacheZ=z; // T108：記錄本次烘焙的 cam.z，供之後縮放動畫換算貼圖比例
   }else{
     rdecGlow=groundCacheGlow;
@@ -68074,7 +68122,7 @@ bindActiveButton502();
 const __inspect_501=inspect;inspect=function(x,y){const r=__inspect_501(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,q=AM_BY_CODE502[t?.am502|0];if(q&&$('#infoBody')){$('#infoBody').insertAdjacentHTML('beforeend',`<div class="opsBlock457a"><div class="opsHeader457a">T502 主動運輸設施</div><div class="row">${q.ic} ${q.nm}</div>${t.amx502?.station?`<div class="row">連接車站：${escHtml(t.amx502.station)}</div>`:''}${Array.isArray(t.amx502?.stations)?`<div class="row">轉乘：${t.amx502.stations.map(escHtml).join(' ↔ ')}</div>`:''}</div>`);}return r;};
 
 function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
-const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
+const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath666=String(draw).indexOf('gc.clip(wgPath666);gc.drawImage(wg666,0,0)')>=0&&String(draw).indexOf("__noWaterGrad666?'_wg0'")>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
 
 for(const [nm,ic]of[['步行網絡','🚶'],['自行車網絡','🚲'],['車站入口覆蓋','🚪'],['自行車停車壓力','🅿️'],['站外轉乘連結','🔁']])if(!MINI_VIEW_NAME.includes(nm)){MINI_VIEW_NAME.push(nm);MINI_VIEW_ICON.push(ic);}buildMiniLayers439();
@@ -74289,7 +74337,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
