@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-26T05:09:58.824Z",
- "version": "13.70",
- "anchor": "T665",
- "version_fp": "13.70",
+ "generatedAt": "2026-09-26T06:13:31.456Z",
+ "version": "13.73",
+ "anchor": "T668",
+ "version_fp": "13.73",
  "averages": {
-  "palette": 0.5550461102785258,
+  "palette": 0.5551718015806877,
   "hardEdge": 0.8463921929441063,
-  "lightDir": 0.6649582814229547,
-  "shade": 0.6111070020724753,
-  "density": 0.7529128639095081,
+  "lightDir": 0.6669693422575448,
+  "shade": 0.6116097672811228,
+  "density": 0.7530872488538095,
   "nightRule": 0.5971187904437002,
   "variants": 0.5522875816993464
  },
- "grand": 0.6543,
+ "grand": 0.6547,
  "families": {
   "grass": {
    "leaves": 4,
@@ -3064,23 +3064,23 @@
     "px": 24960,
     "op": 3748,
     "semi": 0,
-    "colors": 62,
-    "buckets": 48,
-    "leftLit": 10,
+    "colors": 64,
+    "buckets": 50,
+    "leftLit": 11,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
    },
    "axes": {
-    "palette": 0.2980769230769231,
+    "palette": 0.3076923076923077,
     "hardEdge": 1,
-    "lightDir": 0.7692307692307693,
-    "shade": 0.42307692307692313,
-    "density": 0.41355389541088583,
+    "lightDir": 0.8461538461538461,
+    "shade": 0.46153846153846156,
+    "density": 0.42689434364994666,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.6291
+   "total": 0.6489
   },
   "treeWBareSnow": {
    "leaves": 13,
@@ -3090,23 +3090,23 @@
     "px": 24960,
     "op": 3748,
     "semi": 0,
-    "colors": 88,
-    "buckets": 73,
-    "leftLit": 9,
+    "colors": 90,
+    "buckets": 75,
+    "leftLit": 12,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
    },
    "axes": {
-    "palette": 0.4230769230769231,
+    "palette": 0.4326923076923077,
     "hardEdge": 1,
-    "lightDir": 0.6923076923076923,
-    "shade": 0.9038461538461537,
-    "density": 0.5869797225186766,
+    "lightDir": 0.9230769230769231,
+    "shade": 0.9423076923076923,
+    "density": 0.6003201707577375,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.7295
+   "total": 0.7712
   },
   "treeSakura": {
    "leaves": 21,

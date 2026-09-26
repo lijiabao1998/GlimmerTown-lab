@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.72 · T667</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.73 · T668</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37756,8 +37756,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.72'; // T667 夜裡水面再暗一些（業主決策單第六批選 B）。前：T666 水的深淺從岸邊一路慢慢變深（業主決策單第六批選 C）。更前：T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
-const GAME_ANCHOR='T667'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.73'; // T668 冬天禿枝用樹幹本身的顏色（業主決策單第六批選 B）。前：T667 夜裡水面再暗一些（業主決策單第六批選 B）。更前：T666 水的深淺從岸邊一路慢慢變深（業主決策單第六批選 C）。更前：T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
+const GAME_ANCHOR='T668'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -48880,8 +48880,10 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
            let ySplit=47;while(ySplit>0&&rowW[ySplit]<=6)ySplit--;   // 樹幹頂（灌木則是叢體底）
            if(ySplit<=yMin)return null;
            // 樹幹色＝樹幹帶（split 以下，不含樹冠底那一列）最常見的身體顏色；暗階＝同色 ×0.7（右側受暗，對齊 T549 受光方向）
-           const tally={};for(let y=ySplit+1;y<48;y++)for(let x=0;x<40;x++)if(on(x,y)){const i=(y*40+x)*4,k=a[i]+','+a[i+1]+','+a[i+2];tally[k]=(tally[k]||0)+1;}
-           let trunk=null,bn=0;for(const k in tally)if(tally[k]>bn){bn=tally[k];trunk=k;}
+           const tally={},tallyMid={};for(let y=ySplit+1;y<48;y++)for(let x=0;x<40;x++)if(on(x,y)){const i=(y*40+x)*4,k=a[i]+','+a[i+1]+','+a[i+2],L=.3*a[i]+.59*a[i+1]+.11*a[i+2];tally[k]=(tally[k]||0)+1;if(L>=55&&L<=215)tallyMid[k]=(tallyMid[k]||0)+1;}
+           // T668（業主 2026-09-26 決策單第六批選 B）：枝用樹幹本身的顏色——只數亮度 55～215 的像素（排除描邊黑、高光白）；都沒有才退回原取法。逃生閥 __noBareTrunkColor668（建精靈時讀）
+           const TT=window.__noBareTrunkColor668?tally:tallyMid;   // T668：樹幹帶沒有亮度 55～215 的像素（橡樹、灌木）就用預設咖啡色，不再退回描邊色
+           let trunk=null,bn=0;for(const k in TT)if(TT[k]>bn){bn=TT[k];trunk=k;}
            const mc=trunk?trunk.split(',').map(Number):[107,74,47];
            const dk=mc.map(v=>Math.round(v*.7));
            for(let x=0;x<40;x++)for(let y=0;y<ySplit;y++)a[(y*40+x)*4+3]=0;       // 擦樹冠（落影留著）
@@ -48909,6 +48911,7 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
              }
            }
            g2.putImageData(im,0,0);
+           c2.__trunk668=mc.slice();c2.__src668=window.__noBareTrunkColor668?'old':(trunk?'mid':'default');   // T668：記下這張用的枝色，自檢比對
            return c2;};
          SPR.treeWBare=[];SPR.treeWBareSnow=[];
          for(let i=0;i<21;i++){
@@ -73203,6 +73206,21 @@ function batterseaSelftestDSK4(){
    checks.push(['draw 內有呼叫巴特西近距層',String(draw).indexOf('drawNearZoomBatterseaDSK1')>=0||(typeof __draw_501==='function'&&String(__draw_501).indexOf('drawNearZoomBatterseaDSK1')>=0)]);}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
+/* T668 自檢：13 種禿枝精靈的枝色＝該樹種白天圖樹幹帶亮度 55～215 最常見的色；枝色亮度都 ≥ 55（不再是描邊黑綠）。閥門建精靈時讀，這裡不切換。 */
+function bareColorSelftest668(){
+  const checks=[],L=(r,g,b)=>.3*r+.59*g+.11*b,BARE=dsk1BareListDSK1();let drawn=true,bright=true,noOutline=true,n=0;const bad=[],src={};
+  for(const v of BARE){const i=v-1,b=SPR.treeWBare&&SPR.treeWBare[i];if(!b||!b.img||!b.img.__trunk668){drawn=false;bad.push(v+' 缺');continue;}n++;
+    const mc=b.img.__trunk668;src[b.img.__src668]=(src[b.img.__src668]||0)+1;
+    const B=b.img.getContext('2d').getImageData(0,0,40,48).data,bc={};for(let y=0;y<34;y++)for(let x=0;x<40;x++){const j=(y*40+x)*4;if(B[j+3]<200)continue;const k=B[j]+','+B[j+1]+','+B[j+2];bc[k]=(bc[k]||0)+1;}
+    let got=null,gn=0;for(const k in bc)if(bc[k]>gn){gn=bc[k];got=k;}
+    if(got!==mc.join(',')){drawn=false;bad.push(v+':'+got+'≠'+mc.join(','));}
+    if(L(mc[0],mc[1],mc[2])<55){bright=false;bad.push(v+' 暗');}
+    if(mc.join(',')==='24,40,28')noOutline=false;}
+  checks.push(['13 種禿枝精靈都照記下的枝色畫（'+n+' 種；來源 '+JSON.stringify(src)+(bad.length?'；'+bad.slice(0,4).join('、'):'')+'）',drawn&&n===13]);
+  checks.push(['枝色亮度都 ≥ 55（不再是黑綠）',bright]);
+  checks.push(['沒有一種用到描邊色 (24,40,28)',noOutline]);
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
 /* DSK-001 冬季樹相自檢（分支卡 DSK-001）：純函式＋精靈像素計數，零渲染、零世界亂數。
    驗收條件寫在卡面第 3 節、動手之前；day 改回原值在 finally（不准把日曆留在冬天）。 */
 function treeSeasonSelftestDSK1(){
@@ -74362,7 +74380,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,bareColorSelftest668,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
