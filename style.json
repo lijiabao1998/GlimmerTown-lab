@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-09-26T06:55:27.849Z",
- "version": "13.75",
- "anchor": "T670",
- "version_fp": "13.75",
+ "generatedAt": "2026-09-26T11:19:41.756Z",
+ "version": "13.78",
+ "anchor": "T674",
+ "version_fp": "13.78",
  "averages": {
-  "palette": 0.5551718015806877,
+  "palette": 0.5568057885087924,
   "hardEdge": 0.8463894892974153,
-  "lightDir": 0.667471591795209,
-  "shade": 0.611358384676799,
-  "density": 0.7529263969077898,
+  "lightDir": 0.6639522353346761,
+  "shade": 0.6116097672811228,
+  "density": 0.7502415198242155,
   "nightRule": 0.5971202177925652,
   "variants": 0.5522875816993464
  },
- "grand": 0.6547,
+ "grand": 0.6541,
  "families": {
   "grass": {
    "leaves": 4,
@@ -3058,41 +3058,15 @@
   },
   "treeWBare": {
    "leaves": 13,
-   "op": 3840,
+   "op": 8702,
    "raw": {
     "leaves": 13,
     "px": 24960,
-    "op": 3840,
-    "semi": 0,
-    "colors": 64,
-    "buckets": 49,
-    "leftLit": 12,
-    "nightLeaves": 0,
-    "nightOp": 0,
-    "nightViol": 0
-   },
-   "axes": {
-    "palette": 0.3076923076923077,
-    "hardEdge": 1,
-    "lightDir": 0.9230769230769231,
-    "shade": 0.4423076923076923,
-    "density": 0.4166666666666667,
-    "nightRule": 0.5,
-    "variants": 1
-   },
-   "total": 0.6557
-  },
-  "treeWBareSnow": {
-   "leaves": 13,
-   "op": 3840,
-   "raw": {
-    "leaves": 13,
-    "px": 24960,
-    "op": 3840,
+    "op": 8702,
     "semi": 0,
     "colors": 90,
-    "buckets": 74,
-    "leftLit": 12,
+    "buckets": 50,
+    "leftLit": 11,
     "nightLeaves": 0,
     "nightOp": 0,
     "nightViol": 0
@@ -3100,13 +3074,39 @@
    "axes": {
     "palette": 0.4326923076923077,
     "hardEdge": 1,
-    "lightDir": 0.9230769230769231,
-    "shade": 0.9230769230769231,
-    "density": 0.5859375,
+    "lightDir": 0.8461538461538461,
+    "shade": 0.46153846153846156,
+    "density": 0.25856125028729027,
     "nightRule": 0.5,
     "variants": 1
    },
-   "total": 0.7664
+   "total": 0.6427
+  },
+  "treeWBareSnow": {
+   "leaves": 13,
+   "op": 8702,
+   "raw": {
+    "leaves": 13,
+    "px": 24960,
+    "op": 8702,
+    "semi": 0,
+    "colors": 116,
+    "buckets": 75,
+    "leftLit": 6,
+    "nightLeaves": 0,
+    "nightOp": 0,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 0.5576923076923077,
+    "hardEdge": 1,
+    "lightDir": 0.46153846153846156,
+    "shade": 0.9423076923076923,
+    "density": 0.3332567225925075,
+    "nightRule": 0.5,
+    "variants": 1
+   },
+   "total": 0.685
   },
   "treeSakura": {
    "leaves": 21,
