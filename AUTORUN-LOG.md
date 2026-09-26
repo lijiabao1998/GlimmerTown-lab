@@ -13,11 +13,19 @@
 
 ---
 
+## r105–r107 — T658–T660 三座英式地標（合併 DeepSeek 分支 DSK-002／003／004，PR #5）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r105 | [T658](docs/T658-st-pauls-cathedral.md) | 業主「合一下 PR」。`dsk/uk-cathedral` 一次 squash（三張卡）。新地標 k187 聖保羅座堂（1×1，三種立面 v0 圓頂／v1 哥德尖塔／v2 洋蔥頂，座標雜湊選）、近距細節層（z≥1.22）、觀光累加納入 187；閥 `__noCathedral187`／`__noCathNight187`／`__noNearCath187`；自檢 `cathedralDSK2`（21 項）；探針 `probeDSK2.js`（樣張改存 `shots658/`）；CI 觸發加 `dsk/**` | ✅ 綠 3/3（37.7–39.0s）；越界 0；**`fp.js --check` 全綠** | pending | `shots658/{variants,place_zoom,place_near_night}.png` | ① DSK 在分支施工時誤推 `main` 又用 `--force-with-lease` 還原（違反禁強推；`main` 沒遺失） ② DeepSeek 不在 `AGENTS.md` 名冊 ③ k179–186 觀光累加缺口沒動 |
+| r106 | [T659](docs/T659-white-tower-keep.md) | 同一個 squash：新地標 k188 白塔式城堡主樓（1×1，v0 方角塔／v1 圓角塔）＋近距層；自檢 `keepDSK3`（17 項） | 同上 | pending | `shots658/keep_near_zoom_v0.png` | ① 完成度中等，比座堂陽春 |
+| r107 | [T660](docs/T660-battersea-power-station.md) | 同一個 squash：新地標 k189 巴特西式發電站（卡面寫 2×2，實際 1×1）＋近距層＋煙囪頂障礙燈；自檢 `batterseaDSK4`（13 項）；`fp.json` 只加 6 葉 `bld.187–189`，`bld` 家族 CRC 以 Windows 葉子重算；v13.65／T660 | 同上 | pending | `shots658/batt_near_zoom.png` | ① 1×1 版像窄磚塔，不像巴特西寬廠房；2×2 版沒做 ② 卡頭狀態沒更新 ③ 三張卡一次 squash，13.63／13.64 沒有單獨的版 |
+
 ## r104 — T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001，PR #6）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r104 | [T657](docs/T657-victorian-corner-shop.md) | 業主「合一下 PR」。`gpt/visual-place-identity` 本地 squash：商業 lv1 `townShop` 改畫維多利亞街角店屋（紅磚、木店面、店招、壁柱、內縮店門、樓上側門、拉窗、煙囪），原型表條目數不變；閥 `__noGPTCornerShop001`（快取鍵帶閥）；自檢 `gptCornerShop001`（7 項）；GPT 標「未跑」的 `probeGPT001.js` 與 `fp.js` 在本機補跑；`fp.json` block559 e5cd087f→635794cb；v13.62／T657 | ✅ 綠 3/3（37.5–38.5s）；浮空夜光 0；**`fp.js --check` 全綠** | pending | `shots657/GPT001_{old,new}_{day,night}.png` | ① GPT 分支的整合工作流（帶寫入權）與嵌入工具沒帶進 main ② 新店屋比舊 townShop 陽春：2×2 一層半高、屋頂大片空白 ③ 沒拍城裡實景，只看了精靈 |
+| r104 | [T657](docs/T657-victorian-corner-shop.md) | 業主「合一下 PR」。`gpt/visual-place-identity` 本地 squash：商業 lv1 `townShop` 改畫維多利亞街角店屋（紅磚、木店面、店招、壁柱、內縮店門、樓上側門、拉窗、煙囪），原型表條目數不變；閥 `__noGPTCornerShop001`（快取鍵帶閥）；自檢 `gptCornerShop001`（7 項）；GPT 標「未跑」的 `probeGPT001.js` 與 `fp.js` 在本機補跑；`fp.json` block559 e5cd087f→635794cb；v13.62／T657 | ✅ 綠 3/3（37.5–38.5s）；浮空夜光 0；**`fp.js --check` 全綠** | `df33a70` | `shots657/GPT001_{old,new}_{day,night}.png` | ① GPT 分支的整合工作流（帶寫入權）與嵌入工具沒帶進 main ② 新店屋比舊 townShop 陽春：2×2 一層半高、屋頂大片空白 ③ 沒拍城裡實景，只看了精靈 |
 
 ## r103 — T656 倫敦馬廄街屋（合併 Grok 分支 GROK-002，PR #2）
 

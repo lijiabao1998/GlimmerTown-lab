@@ -106,6 +106,9 @@ const KEEP = process.argv.includes('--keep');
       ['terrainTree655', `(window.GV && window.GV.terrainTreeSelftest655) ? window.GV.terrainTreeSelftest655() : {ok:false,checks:['API 不存在']}`],
       ['ukMewsGROK2', `(window.GV && window.GV.ukMewsSelftestGROK2) ? window.GV.ukMewsSelftestGROK2() : {ok:false,checks:['API 不存在']}`],
       ['gptCornerShop001', `(window.GV && window.GV.gptCornerShopSelftest001) ? window.GV.gptCornerShopSelftest001() : {ok:false,checks:['API 不存在']}`],
+      ['cathedralDSK2', `(window.GV && window.GV.cathedralSelftestDSK2) ? window.GV.cathedralSelftestDSK2() : {ok:false,checks:['API 不存在']}`],
+      ['keepDSK3', `(window.GV && window.GV.keepSelftestDSK3) ? window.GV.keepSelftestDSK3() : {ok:false,checks:['API 不存在']}`],
+      ['batterseaDSK4', `(window.GV && window.GV.batterseaSelftestDSK4) ? window.GV.batterseaSelftestDSK4() : {ok:false,checks:['API 不存在']}`],
     ];
     // T617：沒有 LOCALAPPDATA（Linux）時改寫系統暫存目錄；原本會落進倉庫裡的 Temp/。
     const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Temp') : require('os').tmpdir(), 'grok-goal-c80f16d61c81', 'implementer');

@@ -4,7 +4,7 @@ name: smoke
 
 on:
   push:
-    branches: [main, 'claude/**', 'codex/**', 'grok/**', 'glm/**', 'kimi/**', 'gpt/**']   # 2026-09-25：分支寫入者一推就跑（規則見 AGENTS.md）
+    branches: [main, 'claude/**', 'codex/**', 'grok/**', 'glm/**', 'kimi/**', 'gpt/**', 'dsk/**']   # 2026-09-25：分支寫入者一推就跑（規則見 AGENTS.md）
     paths-ignore: ['**.md', 'docs/**']
   pull_request:
     paths-ignore: ['**.md', 'docs/**']
