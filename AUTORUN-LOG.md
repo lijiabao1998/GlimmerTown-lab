@@ -13,11 +13,17 @@
 
 ---
 
+## r112 — T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，PR #4，業主決策單第五批選丙）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r112 | [T665](docs/T665-winter-trees.md) | 業主選丙。`dsk/tree-season-climate` 本地 squash：冬天不耐寒 5 種退場（沙岸改柏、松）、13 種落葉樹換禿枝積雪精靈（新家族 `treeWBare`／`treeWBareSnow`）；閥 `__noTreeSeasonDSK1`、`__treeBareStyleDSK1`；自檢 `treeSeasonDSK1`（11 項）；合併時修：山毛櫸禿枝根部橫線、冬天整片林換樹種（改成只換不耐寒的）；`fp.json`／`style.json` 併入 2 族 26 葉；v13.70／T665 | ✅ 綠 3/3（29.2–30.1s）；**`fp.js --check` 全綠** | pending | `shots665/{flat,sand}_{before,after}.png` | ① 禿枝多半是深綠黑、比樹幹暗；灌木禿枝像咖啡色小 V ② 修了 DSK 的兩個錯（見卡），第二個是跟 T664 丙疊起來才明顯 |
+
 ## r111 — T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，PR #1，業主決策單第五批選丙）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r111 | [T664](docs/T664-flat-grove-mix.md) | 業主選丙。`grok/grove-mix` 本地 squash，預設改丙：成林區塊 5×5→10×10、主樹種七成五→九成（`groveMixGROK1`）；閥 `__noGroveMix664` 回到 5×5、七成五；自檢 `groveMixGROK1`（6 項）；舊自檢 `grove652`、`terrainTree655` 改讀目前檔位；探針 `probeGROK1.js` 埠 8294→8199；v13.69／T664 | ✅ 綠 3/3（29.9–40.4s）；區塊最多樹種佔比 0.911；地形對樹種 100%；**`fp.js --check` 全綠** | pending | `shots664/flat_{a,b,c}.png` | ① 平地清單本身沒改，樟、榕、鳳凰木仍可當主樹種 ② 改了兩個舊自檢的門檻來源 |
+| r111 | [T664](docs/T664-flat-grove-mix.md) | 業主選丙。`grok/grove-mix` 本地 squash，預設改丙：成林區塊 5×5→10×10、主樹種七成五→九成（`groveMixGROK1`）；閥 `__noGroveMix664` 回到 5×5、七成五；自檢 `groveMixGROK1`（6 項）；舊自檢 `grove652`、`terrainTree655` 改讀目前檔位；探針 `probeGROK1.js` 埠 8294→8199；v13.69／T664 | ✅ 綠 3/3（29.9–40.4s）；區塊最多樹種佔比 0.911；地形對樹種 100%；**`fp.js --check` 全綠** | `4e56b43` | `shots664/flat_{a,b,c}.png` | ① 平地清單本身沒改，樟、榕、鳳凰木仍可當主樹種 ② 改了兩個舊自檢的門檻來源 |
 
 ## r108–r110 — T661–T663 岸線、舊牆廣告、退役浮空疊畫（合併 GLM 分支 GLM-001／002／003，PR #3）
 

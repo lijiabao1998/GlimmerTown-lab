@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.69 · T664</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.70 · T665</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -37756,8 +37756,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.69'; // T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
-const GAME_ANCHOR='T664'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.70'; // T665 冬天的樹：亞熱帶退場、落葉樹禿枝積雪（合併 DeepSeek 分支 DSK-001，業主決策單第五批選丙）。前：T664 平地樹林一大片同一種（合併 Grok 分支 GROK-001，業主決策單第五批選丙）。更前：T661–T663 灣城岸線、工業舊牆廣告、退役浮空疊畫 591／593（合併 GLM 分支 GLM-001／002／003，一次合併，13.66／13.67 沒有單獨的版）。更前：T658–T660 三座英式地標：聖保羅座堂 k187、白塔 k188、巴特西發電站 k189（合併 DeepSeek 分支 DSK-002／003／004，一次 squash，13.63／13.64 沒有單獨的版）。前：T657 英國維多利亞街角店屋（合併 GPT 分支 GPT-001）
+const GAME_ANCHOR='T665'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -48862,6 +48862,61 @@ SPR.bld['77_1_0']={img:c,night:nc,ax,ay,w:72,h:112,smoke:[]};}
           mk(8,sg=>{R(sg,18,30,3,12,'#7a6a58');R(sg,16,26,3,6,'#7a6a58');R(sg,21,24,3,7,'#6a5a48');R(sg,8,12,24,12,'#7c8f6a');R(sg,6,16,10,6,'#7c8f6a');R(sg,24,15,10,6,'#7c8f6a');R(sg,11,10,16,8,'#94a882');R(sg,13,11,6,3,'#b4c4a0');R(sg,24,17,4,2,'#b4c4a0');SP(sg,[6,10,28,14],['#b4c4a0','#5e6e50'],50,138);sg.clearRect(16,18,2,2);sg.clearRect(22,13,2,2);sg.clearRect(10,20,2,2);})];
         const snow=src=>{const[c,g]=cv(40,48);g.drawImage(src,0,0);const im=g.getImageData(0,0,40,48),a=im.data;for(let x=0;x<40;x++){let y0=-1;for(let y=0;y<34;y++){if(a[(y*40+x)*4+3]>200){y0=y;break;}}if(y0<0)continue;for(let k=0;k<2;k++){const i=((y0+k)*40+x)*4;if(a[i+3]>200){a[i]=k?226:240;a[i+1]=k?234:246;a[i+2]=k?240:250;}}}g.putImageData(im,0,0);return c;};
         for(const t of NEW){SPR.tree.push(t);SPR.treeW.push({img:snow(t.img),ax:20,ay:45,w:40,h:48});SPR.treeS.push({img:tintCanvas(t.img,40,48,'#a8e070',.18),ax:20,ay:45,w:40,h:48});SPR.treeA.push({img:tintCanvas(t.img,40,48,'#c96a2c',.38),ax:20,ay:45,w:40,h:48});}
+        /* ===== DSK-001 冬季樹相：落葉樹冬天變禿（分支卡 DSK-001，合併進 main 時才配 T 號）=====
+           由該樹種的白天圖推導禿枝版：偵測樹幹頂（身體寬度由下往上第一次 >6px 的列＝樹冠底）、
+           擦掉樹冠、在舊樹冠剪影內畫枝枒（自己的 LCG，零世界亂數消耗、不動既有烘焙亂數順序）。
+           只建落葉且耐寒 13 種（dsk1BareListDSK1，函式宣告＝提升，與下面季節區同一份名單）；
+           常綠與亞熱帶該格放 null ⇒ 冬季仍用原本的 SPR.treeW（那個家族因此逐像素不變）。
+           兩個家族都建：treeWBare（枝上不積雪）／treeWBareSnow（枝上積雪）。 ===== */
+        {const LCG=seed=>{let t=seed>>>0;return()=>{t=(t*1664525+1013904223)>>>0;return t/4294967296;};};
+         const bareOf=(src,seed)=>{
+           const [c2,g2]=cv(40,48);g2.drawImage(src,0,0);
+           const im=g2.getImageData(0,0,40,48),a=im.data;
+           const on=(x,y)=>x>=0&&x<40&&y>=0&&y<48&&a[(y*40+x)*4+3]>120;   // body＝alpha>120（落影 alpha≈56 不算身體）
+           const yTop=new Array(40).fill(-1),rowW=new Array(48).fill(0);
+           let xMin=40,xMax=-1,yMin=48;
+           for(let y=0;y<48;y++){let n=0;for(let x=0;x<40;x++)if(on(x,y)){n++;if(yTop[x]<0)yTop[x]=y;if(y<yMin)yMin=y;if(x<xMin)xMin=x;if(x>xMax)xMax=x;}rowW[y]=n;}
+           if(xMax<0)return null;
+           let ySplit=47;while(ySplit>0&&rowW[ySplit]<=6)ySplit--;   // 樹幹頂（灌木則是叢體底）
+           if(ySplit<=yMin)return null;
+           // 樹幹色＝樹幹帶（split 以下，不含樹冠底那一列）最常見的身體顏色；暗階＝同色 ×0.7（右側受暗，對齊 T549 受光方向）
+           const tally={};for(let y=ySplit+1;y<48;y++)for(let x=0;x<40;x++)if(on(x,y)){const i=(y*40+x)*4,k=a[i]+','+a[i+1]+','+a[i+2];tally[k]=(tally[k]||0)+1;}
+           let trunk=null,bn=0;for(const k in tally)if(tally[k]>bn){bn=tally[k];trunk=k;}
+           const mc=trunk?trunk.split(',').map(Number):[107,74,47];
+           const dk=mc.map(v=>Math.round(v*.7));
+           for(let x=0;x<40;x++)for(let y=0;y<ySplit;y++)a[(y*40+x)*4+3]=0;       // 擦樹冠（落影留著）
+           {const tc=[];for(let x=0;x<40;x++)if(on(x,ySplit+1))tc.push(x);const t0=tc.length?Math.min(...tc):19,t1=tc.length?Math.max(...tc):21;
+            for(let x=0;x<40;x++)if(x<t0||x>t1)a[(ySplit*40+x)*4+3]=0;}   // T665 合併修正：樹冠底那一列（ySplit）原本留著，樹冠底很寬的樹種（17 山毛櫸，34px）冬天樹根處多一條橫線；這一列只留樹幹寬
+           const put=(x,y,c)=>{if(x<0||x>=40||y<0||y>=48)return;const i=(y*40+x)*4;a[i]=c[0];a[i+1]=c[1];a[i+2]=c[2];a[i+3]=255;};
+           const inside=(x,y)=>y>=0&&y<48&&x>=0&&x<40&&!(yTop[x]>=0&&y<yTop[x]+1);   // 夾在舊樹冠剪影內
+           const rr=LCG(seed),spanX=Math.max(6,xMax-20),crownH=Math.max(6,ySplit-yMin);
+           const n=5+Math.floor(rr()*3);                                            // 5–7 條主枝
+           for(let k=0;k<n;k++){
+             const dir=k%2?1:-1;
+             const tx=Math.max(xMin+1,Math.min(xMax-1,20+dir*spanX*(.3+rr()*.65)));
+             const ty=Math.max(yMin+1,ySplit-crownH*(.6+rr()*.45));
+             const steps=Math.max(Math.abs(tx-20),Math.abs(ty-ySplit))||1;
+             const fork1=Math.floor(steps*(.5+rr()*.15)),fork2=Math.floor(steps*(.78+rr()*.12));
+             for(let s=0;s<=steps;s++){
+               const px=Math.round(20+(tx-20)*s/steps),py=Math.round(ySplit+(ty-ySplit)*s/steps);
+               if(!inside(px,py))continue;
+               const t=s/steps;                                                     // 近樹幹粗、枝梢細（錐度）
+               if(t<.35){put(px-1,py,mc);put(px,py,mc);put(px+1,py,dk);}
+               else if(t<.7){put(px,py,mc);put(px+1,py,dk);}
+               else put(px,py,mc);
+               if(s===fork1||s===fork2){const dx=dir,fx=px+dx*(2+Math.round(rr()*2)),fy=py-1-Math.round(rr()*2);
+                 if(inside(fx,fy)){put(fx,fy,mc);put(Math.round((px+fx)/2),Math.round((py+fy)/2),mc);put(fx+dx,fy-1,dk);}}   // 岔枝
+             }
+           }
+           g2.putImageData(im,0,0);
+           return c2;};
+         SPR.treeWBare=[];SPR.treeWBareSnow=[];
+         for(let i=0;i<21;i++){
+           if(!dsk1IsBareDSK1(i+1)||!SPR.tree[i]){SPR.treeWBare.push(null);SPR.treeWBareSnow.push(null);continue;}
+           const b=bareOf(SPR.tree[i].img,900+i*77);
+           SPR.treeWBare.push(b?{img:b,ax:20,ay:45,w:40,h:48}:null);
+           SPR.treeWBareSnow.push(b?{img:snow(b),ax:20,ay:45,w:40,h:48}:null);
+         }}
       }
     }
     // T368d 櫻花樹：由 SPR.tree 十變體 source-atop 染粉（T204 parkS 同款 tint，零亂數）
@@ -62045,6 +62100,12 @@ function draw(dt){
       const tv652=terrainTree655(t.tree,o.x,o.y); // T652：畫的樹種看成林（存檔的 t.tree 不動）；T655：先看地形分類，再在那一類裡成林
       if(tv652>TREE_BASE654)window.__t654New=(window.__t654New||0)+1; // T654：守衛用，這一幀畫到新樹種的棵數
       let s=treeSet507.length?treeSet507[(tv652-1)%treeSet507.length]:null;
+      if(win){ // DSK-001 冬季樹相：兩個計數（守衛用，與閥門無關）＋落葉樹換禿枝版
+        if(DSK1_SUB.indexOf(tv652)>=0)window.__tSubDSK1=(window.__tSubDSK1||0)+1; // 冬季畫到亞熱帶種的棵數（開冬季清單時應為 0）
+        const bs=window.__treeBareStyleDSK1||'snow';
+        if(!window.__noTreeSeasonDSK1&&bs!=='off'){const bareSet=bs==='bare'?SPR.treeWBare:SPR.treeWBareSnow,bb=bareSet&&bareSet[(tv652-1)%bareSet.length];
+          if(bb&&bb.img){s=bb;window.__tBareDSK1=(window.__tBareDSK1||0)+1;}}
+      }
       if(sea===0&&!win&&SPR.treeSakura&&!window.__noSakura&&hasRoadNear(o.x,o.y,1)&&SPR.treeSakura.length)s=SPR.treeSakura[(tv652-1)%SPR.treeSakura.length]; // T368d 櫻花道；T507 依實際長度安全取樣
       if(!s||!s.img)continue;
       const lw443=localWind443(o.x,o.y); // T443：同一棵樹的樹冠／落葉／花瓣共用一次局部風讀值；螢火/蝴蝶仍保留 T441 主動飛行體語義
@@ -68013,7 +68074,7 @@ bindActiveButton502();
 const __inspect_501=inspect;inspect=function(x,y){const r=__inspect_501(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,q=AM_BY_CODE502[t?.am502|0];if(q&&$('#infoBody')){$('#infoBody').insertAdjacentHTML('beforeend',`<div class="opsBlock457a"><div class="opsHeader457a">T502 主動運輸設施</div><div class="row">${q.ic} ${q.nm}</div>${t.amx502?.station?`<div class="row">連接車站：${escHtml(t.amx502.station)}</div>`:''}${Array.isArray(t.amx502?.stations)?`<div class="row">轉乘：${t.amx502.stations.map(escHtml).join(' ↔ ')}</div>`:''}</div>`);}return r;};
 
 function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
-const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0; // T655：成林改經由地形分類呼叫 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
+const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
 
 for(const [nm,ic]of[['步行網絡','🚶'],['自行車網絡','🚲'],['車站入口覆蓋','🚪'],['自行車停車壓力','🅿️'],['站外轉乘連結','🔁']])if(!MINI_VIEW_NAME.includes(nm)){MINI_VIEW_NAME.push(nm);MINI_VIEW_ICON.push(ic);}buildMiniLayers439();
@@ -72793,9 +72854,28 @@ function terrainClass655(x,y){
   return inMap(x,y)&&tiles[idx(x,y)].el===1?3:0;
 }
 function terrainList655(c){const L=TERRAIN_SP655[c]||TERRAIN_SP655[0];return window.__noNewTrees654?L.filter(v=>v<=TREE_BASE654):L;}
+/* ===== DSK-001 冬季樹相（分支卡 DSK-001）：樹要看季節 =====
+   ① 亞熱帶／不耐寒 5 種（9 棕櫚、18 樟樹、19 榕樹、20 鳳凰木、21 橄欖）不進冬天：
+      冬季各類＝該類清單去掉這 5 種；沙岸清單〔棕櫚、橄欖〕兩種都不耐寒 ⇒ 退回耐寒替代清單〔松、柏〕（海岸松／柏木）。
+   ② 落葉且耐寒 13 種（dsk1BareListDSK1）冬天改畫禿枝版（SPR.treeWBare／treeWBareSnow，buildSprites 內建）；
+      常綠 3 種（松 3、柏 13、雲杉 14）維持原本的雪帽樹冠（SPR.treeW 逐像素不動）。
+   只改畫：t.tree、treeVariantSpan597 上界、T652 成林、T655 地形分類全部照舊。
+   逃生閥 __noTreeSeasonDSK1 關＝回到 T655 現行行為；__treeBareStyleDSK1＝'off'|'bare'|'snow'（預設 'snow'）。 */
+const DSK1_SUB=[9,18,19,20,21];
+const TERRAIN_SP_WINTER_DSK1=[[1,2,4,5,6,8,10,11,16,17],[7,15],[3,13],[3,12,13,14]];
+function dsk1BareListDSK1(){return [1,2,4,5,6,7,8,10,11,12,15,16,17];}
+function dsk1IsBareDSK1(v){return dsk1BareListDSK1().indexOf(v|0)>=0;}
+function terrainListWinterDSK1(c){const L=TERRAIN_SP_WINTER_DSK1[c]||TERRAIN_SP_WINTER_DSK1[0];return window.__noNewTrees654?L.filter(v=>v<=TREE_BASE654):L;}
+function terrainTreeOldDSK1(v,x,y){return window.__noTerrainTree655?groveTree652(v,x,y):groveTree652(v,x,y,terrainList655(terrainClass655(x,y)));}
 function terrainTree655(v,x,y){
-  if(window.__noTerrainTree655)return groveTree652(v,x,y);
-  return groveTree652(v,x,y,terrainList655(terrainClass655(x,y)));
+  const old=terrainTreeOldDSK1(v,x,y);
+  if(window.__noTreeSeasonDSK1||!inWinter())return old;   // DSK-001：非冬季零改動
+  // T665 合併修正：原本冬天整份清單換成較短的冬季清單再成林，清單長度一變、每片林的主樹種全部重洗（夏天的銀杏林冬天變灌木叢）。
+  // 改成：夏天那一棵照舊；只有不耐寒的 5 種才換，換成冬季清單裡的一種，整片林（成林區塊）換同一種。
+  if(DSK1_SUB.indexOf(old)<0)return old;
+  const W=terrainListWinterDSK1(terrainClass655(x,y));if(!W.length)return old;
+  const B=groveMixGROK1().block;
+  return W[Math.floor(streetHash(Math.floor(x/B),Math.floor(y/B),5986)*W.length)%W.length];
 }
 function terrainTreeSelftest655(){
   const checks=[],sv=window.__noTerrainTree655,sn=window.__noNewTrees654,sg=window.__noGrove652,saved=[];
@@ -73048,6 +73128,52 @@ function batterseaSelftestDSK4(){
      checks.push(['近距層只在 z≥1.22 動手：日 z2 '+A[0]+'筆/'+A[1]+'px、z0.6 '+B[0]+'筆/'+B[1]+'px、夜 z2 '+N2[1]+'px、夜 z0.6 '+N6[1]+'px',A[1]>0&&B[1]===0&&N2[1]>0&&N6[1]===0]);}
    catch(e){checks.push(['近距層呼叫擲錯：'+e.message,false]);}
    checks.push(['draw 內有呼叫巴特西近距層',String(draw).indexOf('drawNearZoomBatterseaDSK1')>=0||(typeof __draw_501==='function'&&String(__draw_501).indexOf('drawNearZoomBatterseaDSK1')>=0)]);}
+  return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
+}
+/* DSK-001 冬季樹相自檢（分支卡 DSK-001）：純函式＋精靈像素計數，零渲染、零世界亂數。
+   驗收條件寫在卡面第 3 節、動手之前；day 改回原值在 finally（不准把日曆留在冬天）。 */
+function treeSeasonSelftestDSK1(){
+  const checks=[],svDay=day,svS=window.__noTreeSeasonDSK1,svN=window.__noNewTrees654,svT=window.__noTerrainTree655;
+  const cnt=c=>{if(!c||!c.getContext)return -1;const d=c.getContext('2d').getImageData(0,0,40,48).data;let n=0;for(let k=3;k<d.length;k+=4)if(d[k]>40)n++;return n;};
+  try{
+    window.__noTreeSeasonDSK1=false;window.__noNewTrees654=false;window.__noTerrainTree655=false;
+    let listsOk=true;const shown=[];
+    for(let c=0;c<4;c++){const L=terrainListWinterDSK1(c);shown.push(L.join('/'));if(!L.length)listsOk=false;for(const v of L)if(DSK1_SUB.indexOf(v)>=0)listsOk=false;}
+    checks.push(['冬季四類清單不含亞熱帶、都不為空（'+shown.join('｜')+'）',listsOk]);
+    window.__noNewTrees654=true;let shortOk=true;
+    for(let c=0;c<4;c++){const L=terrainListWinterDSK1(c);if(!L.length||L.some(v=>v>TREE_BASE654))shortOk=false;}
+    window.__noNewTrees654=false;
+    checks.push(['T654 關閥門時冬季清單也去掉新樹種、不會空',shortOk]);
+    const XY=[];for(let k=0;k<400;k++)XY.push([3+((k*37)%236),5+((k*53)%232)]);
+    day=301;   // 冬（(day-1)%360>=300）
+    let inList=true,winterDiff=0,tot=0;
+    for(const [x,y] of XY){const L=terrainListWinterDSK1(terrainClass655(x,y));
+      for(let v=1;v<=13;v++){const r=terrainTree655(v,x,y);tot++;if(L.indexOf(r)<0)inList=false;if(r!==terrainTreeOldDSK1(v,x,y))winterDiff++;}}
+    checks.push(['冬季 400 座標 × 13 種（共 '+tot+' 筆）：畫出的樹種 100% 在該類冬季清單裡',inList]);
+    checks.push(['冬季真的有換清單：與 T655 不同的筆數 '+winterDiff+'（>0）',winterDiff>0]);
+    let keepOk=true;for(const [x,y] of XY)for(let v=1;v<=13;v++){const o=terrainTreeOldDSK1(v,x,y);if(DSK1_SUB.indexOf(o)<0&&terrainTree655(v,x,y)!==o)keepOk=false;}
+    checks.push(['T665：冬天只換不耐寒的 5 種，其他樹種冬夏同一種（400×13）',keepOk]);
+    window.__noTreeSeasonDSK1=true;let sameOff=true;
+    for(const [x,y] of XY)for(let v=1;v<=13;v++)if(terrainTree655(v,x,y)!==terrainTreeOldDSK1(v,x,y))sameOff=false;
+    window.__noTreeSeasonDSK1=false;
+    checks.push(['冬季＋關閥門：與 T655 逐一同值（400×13）',sameOff]);
+    day=svDay;let sameSpring=true;
+    for(const [x,y] of XY)for(let v=1;v<=13;v++)if(terrainTree655(v,x,y)!==terrainTreeOldDSK1(v,x,y))sameSpring=false;
+    checks.push(['非冬季（day '+svDay+'）：與 T655 逐一同值（400×13，春天這條路零改動）',sameSpring]);
+    const BARE=dsk1BareListDSK1();let have=true,thin=true,nullOk=true;const px=[];
+    for(let i=0;i<21;i++){
+      const b=SPR.treeWBare&&SPR.treeWBare[i],bsn=SPR.treeWBareSnow&&SPR.treeWBareSnow[i],t=SPR.tree[i];
+      if(BARE.indexOf(i+1)<0){if(b!==null||bsn!==null)nullOk=false;continue;}
+      const nb=cnt(b&&b.img),ns=cnt(bsn&&bsn.img),nt=cnt(t&&t.img);
+      if(!(nb>0&&ns>0))have=false;
+      if(!(nt>0&&nb<=nt*.65))thin=false;
+      if(i<3||i===6)px.push((i+1)+'號 '+nb+'/'+ns+'/'+nt);
+    }
+    checks.push(['13 種落葉樹都烘出禿枝版（兩家族都有不透明像素）',have]);
+    checks.push(['禿枝版不透明像素 ≤ 白天圖 65%（樹冠真的掉了；取樣 '+px.join('、')+'）',thin]);
+    checks.push(['其餘 8 種（常綠 3＋亞熱帶 5）在禿枝家族是 null（沒動它們）',nullOk]);
+    checks.push(['畫樹時有冬季分流（draw 內含 SPR.treeWBareSnow）',drawPathDSK1]);
+  }finally{day=svDay;window.__noTreeSeasonDSK1=svS;window.__noNewTrees654=svN;window.__noTerrainTree655=svT;}
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 /* T652 野外的樹一片一片成林（業主 2026-09-25 決策單第三批選 C）：原本每棵樹從 13 種平均隨機，一片樹林五顏六色。
@@ -74163,7 +74289,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);

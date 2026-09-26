@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-09-26T04:26:37.575Z",
- "version": "13.65",
- "anchor": "T660",
+ "generatedAt": "2026-09-26T05:09:58.824Z",
+ "version": "13.70",
+ "anchor": "T665",
  "stats": {
-  "families": 151,
-  "leaves": 2713,
-  "dayNonEmpty": 2703,
+  "families": 153,
+  "leaves": 2739,
+  "dayNonEmpty": 2729,
   "nightNonEmpty": 1418
  },
  "families": {
@@ -826,6 +826,20 @@
    "crc": "b37b603f",
    "px": 56,
    "op": 31,
+   "night": 0
+  },
+  "treeWBare": {
+   "leaves": 13,
+   "crc": "c724fd2f",
+   "px": 24960,
+   "op": 3748,
+   "night": 0
+  },
+  "treeWBareSnow": {
+   "leaves": 13,
+   "crc": "e3be173e",
+   "px": 24960,
+   "op": 3748,
    "night": 0
   },
   "treeSakura": {
@@ -14030,6 +14044,188 @@
    "op": 16,
    "w": 7,
    "h": 4,
+   "n": null
+  },
+  "treeWBare#0": {
+   "d": "f59f706d",
+   "op": 279,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#1": {
+   "d": "041e5da7",
+   "op": 288,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#3": {
+   "d": "ff24a9ea",
+   "op": 203,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#4": {
+   "d": "7e0c71d6",
+   "op": 291,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#5": {
+   "d": "7509d5c3",
+   "op": 309,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#6": {
+   "d": "65be380e",
+   "op": 309,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#7": {
+   "d": "4f74699f",
+   "op": 309,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#9": {
+   "d": "eef33450",
+   "op": 290,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#10": {
+   "d": "999da570",
+   "op": 331,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#11": {
+   "d": "18eba152",
+   "op": 299,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#14": {
+   "d": "40e6a523",
+   "op": 212,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#15": {
+   "d": "b4ff0eaf",
+   "op": 318,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBare#16": {
+   "d": "f5fcf078",
+   "op": 310,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#0": {
+   "d": "2ec8ed36",
+   "op": 279,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#1": {
+   "d": "f6b907ca",
+   "op": 288,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#3": {
+   "d": "9a5bd44e",
+   "op": 203,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#4": {
+   "d": "2a8afa93",
+   "op": 291,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#5": {
+   "d": "ccf88027",
+   "op": 309,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#6": {
+   "d": "5f333eee",
+   "op": 309,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#7": {
+   "d": "af4244b4",
+   "op": 309,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#9": {
+   "d": "ada2a1ea",
+   "op": 290,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#10": {
+   "d": "1f8339f9",
+   "op": 331,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#11": {
+   "d": "ca3da67d",
+   "op": 299,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#14": {
+   "d": "302bd071",
+   "op": 212,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#15": {
+   "d": "ba50907c",
+   "op": 318,
+   "w": 40,
+   "h": 48,
+   "n": null
+  },
+  "treeWBareSnow#16": {
+   "d": "327fbea1",
+   "op": 310,
+   "w": 40,
+   "h": 48,
    "n": null
   },
   "treeSakura#0": {
