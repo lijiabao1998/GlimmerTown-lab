@@ -117,6 +117,7 @@ const KEEP = process.argv.includes('--keep');
       ['indVariety670', `(window.GV && window.GV.indVarietySelftest670) ? window.GV.indVarietySelftest670() : {ok:false,checks:['API 不存在']}`],
       ['mewsSmoke671', `(window.GV && window.GV.mewsSmokeSelftest671) ? window.GV.mewsSmokeSelftest671() : {ok:false,checks:['API 不存在']}`],
       ['bareTwig674', `(window.GV && window.GV.bareTwigSelftest674) ? window.GV.bareTwigSelftest674() : {ok:false,checks:['API 不存在']}`],
+      ['waterVar675', `(window.GV && window.GV.waterVarSelftest675) ? window.GV.waterVarSelftest675() : {ok:false,checks:['API 不存在']}`],
       ['treeSeasonDSK1', `(window.GV && window.GV.treeSeasonSelftestDSK1) ? window.GV.treeSeasonSelftestDSK1() : {ok:false,checks:['API 不存在']}`],
     ];
     // T617：沒有 LOCALAPPDATA（Linux）時改寫系統暫存目錄；原本會落進倉庫裡的 Temp/。
