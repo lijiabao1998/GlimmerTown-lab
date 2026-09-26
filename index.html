@@ -8407,6 +8407,88 @@ table.dtab tr:hover td{background:#1b2334}
     finish(K,0,base,st,nt,ax,ay,OL);
   })();}catch(e){console.error('v574 k192',e);}
 
+  /* ======================== k193 皇家音樂廳（橢圓會堂＋玻璃鐵穹頂；DSK-005，分支卡 docs/branch/DSK-005-皇家音樂廳.md） ========================
+     取材倫敦 Royal Albert Hall（1871，Fowke／Scott）：橢圓平面 272×238 ft（比例 1.14）、Fareham 紅磚外牆＋奶油色赤陶橫帶、
+     兩層拱窗（11 樘拱廊）、赤陶馬賽克飾帶「The Triumph of Arts and Sciences」、鉛灰斜屋頂環＋玻璃鐵大穹頂（Ordish & Grover，藍本為倫敦車站單跨玻璃屋頂）、
+     頂端燈籠＋金球尖、嵌進南面的石門廊（成對立柱／山花／石階）。2×2、136×184、ax=68 ay=182。
+     逃生閥 __noAlbertHallDSK5（不烘精靈）／__noAlbertHallNightDSK5（不畫夜圖）。 */
+  if(!window.__noAlbertHallDSK5)try{(function(){const K=193,OL=[46,34,28];
+    const BR='#9d5b46',BRL='#b3755c',BRD='#7c4534',BRX='#5f3227',
+          TE='#e6d7b4',TEL='#f5ebd2',TED='#c6b28c',TEX='#a89572',
+          FR='#40382a',FR2='#5f4e36',
+          GL='#33445a',LIT='#ffe0a2',LIT2='#ffce74',
+          LEAD='#8b95a0',LEADL='#a8b1ba',LEADD='#69727d',
+          GSL='#bccbd4',GS='#94aab7',GSD='#69808f',GSS='#4b6072',
+          GD='#d8b24a',GDL='#f2d67e';
+    const W=136,H=184,ax=68,ay=182,LU=!window.__noAlbertHallNightDSK5;
+    const CX=ax,CY=ay-64,RX=56,RY=27,DH=40,DH0=CY-DH;
+    const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g;
+    const sc=r=>r/(RX+.5);
+    const colr=dx=>Math.round(RY*Math.sqrt(Math.max(0,1-sc(dx)*sc(dx))));      // 鼓身該欄的垂直半徑
+    const pcol=dx=>{const u=dx/64.5;return Math.round(32*Math.sqrt(Math.max(0,1-u*u)));}; // 廣場台基（dia R=64 → ry=32）
+    const wallTop=dx=>DH0+colr(dx),wallBot=dx=>CY+colr(dx);
+    // 台基：暖色鋪面＋赤陶緣石＋內圈鋪面（對比壓低，讀成鋪面變化不是階梯）
+    A.dia(base.g,CX,CY,64,'#a3977c');A.diaEdge(base.g,6,'#8b7f68',CX,CY,64);A.diaEdge(base.g,9,'#b9ab8e',CX,CY,64);
+    A.dia(base.g,CX,CY+1,50,'#aa9e85');A.diaEdge(base.g,8,'#998c72',CX,CY+1,50);
+    // 前庭入口鋪面（基地層）：門廊前階 → 台基前角的石板道＋兩側緣石
+    for(let t=0;t<30;t++){const x=Math.round(CX+24-t*0.85),y=146+t;   // 石道
+      P(base.g,x-3,y,7,1,'#b3a58a');P(base.g,x-2,y-1,5,1,'#aa9d83');}
+    for(let t=0;t<30;t+=2){const x=Math.round(CX+24-t*0.85),y=146+t; P(base.g,x-5,y,1,1,'#8d8068');P(base.g,x+5,y,1,1,'#8d8068');}
+    // 廣場前緣欄杆（只在鼓身外的兩肩，避免貼到鼓身）
+    for(let dx=-56;dx<=52;dx+=5)if(Math.abs(dx)>=40)P(g,CX+dx,CY+pcol(dx)-2,1,2,TED);
+    // ① 鼓身：紅磚橢圓柱面（左亮右暗）＋勒腳
+    for(let dx=-RX;dx<=RX;dx++){const u=sc(dx),t=wallTop(dx),b=wallBot(dx);P(g,CX+dx,t,1,b-t,u<-.66?BRL:u<-.12?BR:u<.52?BRD:BRX);}
+    for(let dx=-RX;dx<=RX;dx++){const u=sc(dx),b=wallBot(dx);P(g,CX+dx,b-3,1,3,u<-.3?BRD:BRX);}
+    // ② 奶油赤陶橫帶 2 道（勒腳帶 3–6、中帶 21–24）＋赤陶馬賽克飾帶（34–37）＋簷口（37–40）
+    for(const z of [[3,6],[21,24]])for(let dx=-RX;dx<=RX;dx++){const u=sc(dx),b=wallBot(dx),c=u<-.5?TEL:u<.38?TE:TED;P(g,CX+dx,b-z[1],1,z[1]-z[0],c);}
+    for(let dx=-RX;dx<=RX;dx++){const u=sc(dx),b=wallBot(dx);P(g,CX+dx,b-37,1,3,u<-.5?FR2:FR);}
+    for(let dx=-RX+4;dx<=RX-4;dx+=6){const b=wallBot(dx);P(g,CX+dx,b-36,1,1,(Math.abs(dx)%12<6)?GD:LIT2);}
+    for(let dx=-RX;dx<=RX;dx++){const u=sc(dx),t=wallTop(dx),c=u<-.5?TEL:u<.35?TE:TED;P(g,CX+dx,t,1,3,c);}
+    // ③ 兩層拱窗（11 樘拱廊：下層玻璃 13px＋拱、上層 8px＋拱；奶油窗套；夜間三分之二透暖光）
+    for(const dx of [-50,-40,-30,-20,-10,0,10,20,30,40,50]){
+      const x=CX+dx,b=wallBot(dx),lit=((dx*7+13)%5)<3;
+      P(g,x-3,b-21,7,15,TEL);P(g,x-2,b-20,4,13,GL);P(g,x-1,b-21,2,1,GL);
+      if(LU&&lit)P(ng,x-2,b-20,4,13,LIT);
+      P(g,x-2,b-33,5,10,TEL);P(g,x-1,b-32,3,8,GL);P(g,x,b-33,1,1,GL);
+      if(LU&&lit)P(ng,x-1,b-32,3,8,LIT);
+    }
+    // ④ 簷口頂面 → 鉛灰斜屋頂環（三階＋放射接縫）→ 欄杆立柱
+    ell(g,CX,DH0,RX,RY,TEL);
+    ell(g,CX-1,DH0-1,RX-4,RY-1,LEAD);ell(g,CX-1,DH0-3,RX-8,RY-4,LEADL);ell(g,CX-1,DH0-5,RX-14,RY-7,LEADD);
+    for(let dx=-48;dx<=48;dx+=6){const a=Math.sqrt(Math.max(0,1-Math.pow(dx/52.5,2))),c=Math.sqrt(Math.max(0,1-Math.pow(dx/42.5,2)));
+      const y0=Math.round(DH0-1+(RY-1)*a),y1=Math.round(DH0-5+(RY-7)*c);
+      for(let y=Math.max(y1,0);y<=y0;y++)P(g,CX+dx,y,1,1,LEADD);}
+    for(let dx=-50;dx<=50;dx+=4)P(g,CX+dx,wallTop(dx)-3,1,3,TED);
+    // ⑤ 玻璃鐵穹頂（外徑約 0.54 寬，照真實比例）：橢圓玻璃殼＋經向肋＋兩道水平環樑
+    const DY0=DH0-7,DRX=36,DRY=19,DHGT=30;
+    const dpal=[GSL,GS,GSD,GSS];
+    dome(g,CX,DY0,DRX,DRY,DHGT,dpal);
+    const sAt=dx=>Math.sqrt(Math.max(0,1-Math.pow(dx/(DRX+.5),2)));
+    for(let dx=-DRX+2;dx<=DRX-2;dx+=4){const s=sAt(dx);P(g,CX+dx,Math.round(DY0-DHGT*s)+1,1,Math.max(1,Math.round((DHGT+DRY)*s)-2),GSD);}
+    for(const f of [.34,.66])for(let dx=-DRX+1;dx<=DRX-1;dx++)P(g,CX+dx,Math.round(DY0-DHGT*f*sAt(dx)),1,1,GSS);
+    if(LU){ell(ng,CX,DY0,DRX+5,DRY+3,'rgba(255,196,116,.15)');
+      dome(ng,CX,DY0,DRX,DRY,DHGT,['rgba(255,224,158,.66)','rgba(252,200,124,.56)','rgba(232,166,90,.46)','rgba(196,126,64,.36)']);
+      for(let dx=-DRX+2;dx<=DRX-2;dx+=4){const s=sAt(dx);P(ng,CX+dx,Math.round(DY0-DHGT*s)+1,1,Math.max(1,Math.round((DHGT+DRY)*s)-2),'rgba(255,246,214,.30)');}
+      for(const f of [.34,.66])for(let dx=-DRX+1;dx<=DRX-1;dx++)P(ng,CX+dx,Math.round(DY0-DHGT*f*sAt(dx)),1,1,'rgba(190,140,84,.45)');}
+    // ⑥ 燈籠＋玻璃頂冠＋金球尖
+    cyl(g,CX,52,8,4,8,[TE,TEL,TED,TEX],TEL,TED);
+    dome(g,CX,44,7,3.5,7,dpal);
+    for(let dx=-5;dx<=5;dx+=3)P(g,CX+dx,Math.round(44-7*Math.sqrt(Math.max(0,1-Math.pow(dx/7.5,2))))+1,1,2,GSD);
+    disc(g,CX,36,2,GD);P(g,CX,32,1,4,GD);P(g,CX,31,1,1,GDL);
+    if(LU){for(let dx=-8;dx<=8;dx++)P(ng,CX+dx,49,1,4,'rgba(255,206,130,.55)');P(ng,CX-8,47,17,2,'rgba(255,232,176,.75)');disc(ng,CX,37,4,'rgba(255,220,150,.45)');}
+    // ⑦ 南面石門廊（嵌進鼓身牆面的門廊灣，足跡不出橢圓）：立柱×4＋山花＋拱門＋石階
+    {const PX=CX+24,PY=143;
+     for(let dx=-11;dx<=11;dx++){const u=sc(dx+24),c=u<.1?TEL:TED;P(g,PX+dx,PY-15,1,15,c);}       // 門廊主牆
+     for(const d of [-9,-5,5,9]){P(g,PX+d,PY-14,1,15,d<0?TEL:TED);}                                // 成對立柱
+     P(g,PX-8,PY-15,17,2,TEL);                                                                     // 簷樑
+     for(let k=0;k<8;k++)P(g,PX-8+k,PY-17-k,17-2*k,1,k<4?TED:TEL);                                 // 山花三角
+     P(g,PX-4,PY-12,9,12,'#3a2c22');P(g,PX-3,PY-13,7,2,'#3a2c22');                                 // 拱門
+     if(LU){P(ng,PX-3,PY-12,7,12,LIT);P(ng,PX-10,PY-11,1,2,GD);P(ng,PX+10,PY-11,1,2,GD);}
+     for(let dx=12;dx<=36;dx++){const y=CY+pcol(dx);P(g,CX+dx,y-2,1,2,'#b3a58a');P(g,CX+dx,y-4,1,1,'#9c8f74');} // 沿台基前緣的石階（不出橢圓）
+    }
+    finish(K,0,base,st,nt,ax,ay,OL);
+  })();}catch(e){console.error('v574 k193',e);}
+
   /* @@NEXT@@ */
 });
 </script>
@@ -37734,6 +37816,7 @@ Object.assign(KNAME,{188:'白塔'});
 Object.assign(KNAME,{189:'巴特西發電站'});
 Object.assign(KNAME,{190:'大笨鐘',191:'西敏宮'});
 Object.assign(KNAME,{192:'巴特西發電站'}); // T678：巴特西 2×2（工具改蓋這座；1×1 k189 留給舊存檔） // T677：英式地標（業主決策單第十一批 11-1 選 D） // DSK-004：英式地標（四煙囪） // DSK-003：倫敦塔式城堡主樓 // DSK-002：英格蘭地標（分支卡 DSK-002，合併時配 T 號）
+Object.assign(KNAME,{193:'皇家音樂廳'}); // DSK-005：橢圓會堂（取材倫敦皇家阿爾伯特音樂廳；分支卡 docs/branch/DSK-005-皇家音樂廳.md）
 Object.assign(KCB,{179:'A',180:'A',181:'A',182:'A',183:'A',184:'A',185:'A',186:'A'});
 const LOGISTICS_META485={
   165:{tool:'containerLogistics',size:4,jobs:36,upkeep:18,ic:'📦',effect:'一般商品倉容 +240；貨運與貿易能力大幅提升'},
@@ -37991,6 +38074,7 @@ Object.assign(COST,{cathedral:5200});
 Object.assign(COST,{keep:4800});
 Object.assign(COST,{battersea:8800});
 Object.assign(COST,{bigBen:3800,westminster:6800}); // T677：大笨鐘 1×1、西敏宮 2×2（低於白塔／高於聖保羅；對照白塔 4800、聖保羅 5200、巴特西 8800） // DSK-004：k189（1×1 地標；本輪以 1×1 落地） // DSK-003：k188 白塔（1×1 地標） // DSK-002：k187 聖保羅座堂（1×1 地標；高於海豚灣劇場，低於貨櫃碼頭）
+Object.assign(COST,{albertHall:6200}); // DSK-005：皇家音樂廳（介於聖保羅 5200 與西敏宮 6800 之間）
 const TOOLS=[
   {id:'pan',cat:'base',ic:'🖐',nm:'檢視',pr:''},
   {id:'alley',cat:'road',ic:'🚶',nm:'小巷',pr:'$'+ROAD_COST[0]},
@@ -38212,6 +38296,7 @@ const TOOLS=[
   {id:'battersea',cat:'culture',ic:'🏭',nm:'巴特西發電站',pr:'$'+COST.battersea,unlockRank:22},
   {id:'bigBen',cat:'culture',ic:'🕰️',nm:'大笨鐘',pr:'$'+COST.bigBen,unlockRank:17}, // T677：伊莉莎白塔 1×1
   {id:'westminster',cat:'culture',ic:'🏛️',nm:'西敏宮',pr:'$'+COST.westminster,unlockRank:17}, // T677：西敏宮 2×2（鐘塔＋宮殿長立面＋維多利亞塔） // DSK-004：四煙囪磚造發電站 // DSK-003：諾曼城堡主樓（四角塔＋城垛） // DSK-002：英格蘭座堂（西立面雙塔＋鼓座圓頂＋金球十字；取材倫敦聖保羅）
+  {id:'albertHall',cat:'culture',ic:'🎶',nm:'皇家音樂廳',pr:'$'+COST.albertHall,unlockRank:17}, // DSK-005：橢圓會堂＋玻璃鐵穹頂 2×2
 ]; // T138：k=35-41 文化娛樂建築（新增 culture 分類）；T139：k=42-48 民生科研建築（新增 civic 分類）；T140：k=49-51 資源供應鏈建築（新增 resource 分類）；T517：k=179-184 節慶之夜與灣岸生命；T518：k=185-186 灣岸巨獸與夜光花園
 const TOOL_CATS=[{id:'base',nm:'基本'},{id:'road',nm:'道路'},{id:'zone',nm:'分區'},{id:'svc',nm:'服務'},{id:'mega',nm:'大型'},{id:'culture',nm:'文化'},{id:'civic',nm:'民生'},{id:'resource',nm:'資源'},{id:'terra',nm:'地形'}]; // T138：新增「文化」分類；T139：新增「民生」分類；T140：新增「資源」分類
 let toolCat='base';
@@ -38581,6 +38666,7 @@ const FARM_SEASON_MULT=[1,1.15,1.4,0.4];
 const LMCFG309={70:{t:10,j:3,u:3},73:{t:14,j:4,u:5},78:{t:10,j:1,u:2},79:{t:12,j:2,u:3},80:{t:20,j:4,u:5},74:{t:9,j:2,u:3},69:{t:16,j:4,u:4},71:{t:8,j:2,u:3},72:{t:18,j:3,u:4},75:{t:17,j:3,u:4},76:{t:24,j:6,u:7},77:{t:11,j:3,u:4},179:{t:14,j:2,u:3},180:{t:22,j:3,u:5},181:{t:28,j:8,u:9},182:{t:8,j:1,u:1},183:{t:15,j:2,u:4},184:{t:10,j:5,u:3},185:{t:24,j:3,u:4},186:{t:12,j:1,u:2},188:{t:30,j:8,u:10},189:{t:38,j:14,u:14},187:{t:34,j:9,u:11}}; // T309：觀光地標配置；T517：＋節慶/灣岸六座（k179-184，t觀光/j就業/u維護）；T518：＋k185-186；DSK-002：＋k187 聖保羅座堂（觀光 34／就業 9／維護 11，座堂量級）
 Object.assign(LMCFG309,{190:{t:26,j:5,u:7},191:{t:42,j:16,u:14}});
 Object.assign(LMCFG309,{192:{t:38,j:14,u:14}}); // T678：巴特西 2×2 沿用 k189 的數字 // T677：大笨鐘、西敏宮（比照聖保羅 34/9/11、白塔 30/8/10 按價格估）
+Object.assign(LMCFG309,{193:{t:40,j:16,u:16}}); // DSK-005：皇家音樂廳（高觀光、就業中高、維護中高）
 /* T299 城市事件系統：每約 37 天 day 決定性觸發一個臨時活動（不消耗模擬 R() 流），持續數天，加成稅收/食物/幸福，toast 通知＋統計面板顯示。 */
 const CITY_EVENTS=[
   {id:'harvest',name:'🌾 豐收節',days:6,tax:1,food:1.5,happy:.04,desc:'農產大豐收，食物產量 +50%'},
@@ -52022,7 +52108,7 @@ function canPlace(toolId,x,y){
       if(t.bld)return '有建築擋住';
       return null;
     // airport 必須在 case 列表內（漏列會落到「無法建造」）；farm/ranch/solar/landmark/prison 為 2×2
-    case 'station':case 'grandStation':case 'hsrStation':case 'port':case 'tramStation':case 'farm':case 'bigFarm':case 'bigCemetery':case 'sportsComplex':case 'foodPlant':case 'ranch':case 'landmark':case 'clockTower':case 'windmill':case 'skytower':case 'ancienttree':case 'harborlm':case 'carousel':case 'pavilion':case 'lighthouse':case 'fountain':case 'monument':case 'archway':case 'ferriswheel':case 'watertowerlm':case 'solar':case 'sewage':case 'ambulance':case 'recycling':case 'fireStation2':case 'prison':case 'university':case 'airport':case 'skyLantern':case 'glampsite':case 'festivalMarket':case 'aquaShow':case 'balloonBase':case 'dolphinarium':case 'glowGarden':case 'whaleWatch':case 'cathedral':case 'keep':case 'battersea':case 'bigBen':case 'westminster': // T309；T517：節慶/灣岸六座（dolphinarium 另有臨水判定）；T518：＋whaleWatch（臨水）glowGarden；DSK-002：＋cathedral（聖保羅座堂）
+    case 'station':case 'grandStation':case 'hsrStation':case 'port':case 'tramStation':case 'farm':case 'bigFarm':case 'bigCemetery':case 'sportsComplex':case 'foodPlant':case 'ranch':case 'landmark':case 'clockTower':case 'windmill':case 'skytower':case 'ancienttree':case 'harborlm':case 'carousel':case 'pavilion':case 'lighthouse':case 'fountain':case 'monument':case 'archway':case 'ferriswheel':case 'watertowerlm':case 'solar':case 'sewage':case 'ambulance':case 'recycling':case 'fireStation2':case 'prison':case 'university':case 'airport':case 'skyLantern':case 'glampsite':case 'festivalMarket':case 'aquaShow':case 'balloonBase':case 'dolphinarium':case 'glowGarden':case 'whaleWatch':case 'cathedral':case 'keep':case 'battersea':case 'bigBen':case 'westminster':case 'albertHall': // T309；T517：節慶/灣岸六座（dolphinarium 另有臨水判定）；T518：＋whaleWatch（臨水）glowGarden；DSK-002：＋cathedral（聖保羅座堂）
     case 'museum':case 'theater':case 'aquarium':case 'zoo':case 'amuse':case 'cinema':case 'grandlib': // T138：k=35-41 文化娛樂建築
     case 'civichall':case 'court':case 'convention':case 'institute':case 'wstation':case 'botanical':case 'megahosp': // T139：k=42-48 民生科研建築
     case 'oilwell':case 'mine':case 'megaproject': // T140：k=49-51 資源供應鏈建築
@@ -52070,6 +52156,7 @@ if(toolId==='offshoreWind')return canPlaceWaterMulti471(x,y,4,'需 4×4 完整�
       if(toolId==='faithCenter')return canPlaceMulti(x,y,2,'需 2×2 陸地'); // T296
       if(toolId==='observatory')return canPlaceMulti(x,y,2,'需 2×2 陸地'); // T307
       if(toolId==='westminster')return canPlaceMulti(x,y,2,'需 2×2 陸地'); // T677：西敏宮 2×2
+      if(toolId==='albertHall')return canPlaceMulti(x,y,2,'需 2×2 陸地'); // DSK-005：皇家音樂廳 2×2
       if(toolId==='battersea'&&!window.__noBattersea2x678)return canPlaceMulti(x,y,2,'需 2×2 陸地'); // T678：巴特西改 2×2；閥門回 1×1
       if(toolId==='hotel'||toolId==='market'||toolId==='tradepost'||toolId==='brewery'||toolId==='waterpark'||toolId==='highschool'||toolId==='freight'||toolId==='upcycle'||toolId==='datacenter')return canPlaceMulti(x,y,2,'需 2×2 陸地'); // T330/T336/T340/T342
       if(toolId==='techpark'||toolId==='centralpark'||toolId==='civiccenter')return canPlaceMulti(x,y,3,'需 3×3 陸地'); // T342
@@ -52267,7 +52354,7 @@ function placeCost(toolId,x,y){
     case 'refinery':c=COST.refinery;break;case 'steelMill':c=COST.steelMill;break;case 'shipyard':c=COST.shipyard;break; // T364b
     case 'containerLogistics':c=COST.containerLogistics;break;case 'intermodalHub':c=COST.intermodalHub;break;case 'distributionCenter':c=COST.distributionCenter;break;case 'coldStorage':c=COST.coldStorage;break;case 'grainSilo':c=COST.grainSilo;break;case 'fuelDepot':c=COST.fuelDepot;break;case 'gasDepot':c=COST.gasDepot;break;case 'steelYard':c=COST.steelYard;break;case 'bulkTerminal':c=COST.bulkTerminal;break;case 'containerPort':c=COST.containerPort;break; // T485
     case 'skyLantern':c=COST.skyLantern;break;case 'balloonBase':c=COST.balloonBase;break;case 'dolphinarium':c=COST.dolphinarium;break;case 'glampsite':c=COST.glampsite;break;case 'aquaShow':c=COST.aquaShow;break;case 'festivalMarket':c=COST.festivalMarket;break; // T517：節慶之夜與灣岸生命
-    case 'whaleWatch':c=COST.whaleWatch;break;case 'glowGarden':c=COST.glowGarden;break;case 'cathedral':c=COST.cathedral;break;case 'keep':c=COST.keep;break;case 'battersea':c=COST.battersea;break;case 'bigBen':c=COST.bigBen;break;case 'westminster':c=COST.westminster;break; // T518：街道慶典與灣岸巨獸；DSK-002：聖保羅座堂
+    case 'whaleWatch':c=COST.whaleWatch;break;case 'glowGarden':c=COST.glowGarden;break;case 'cathedral':c=COST.cathedral;break;case 'keep':c=COST.keep;break;case 'battersea':c=COST.battersea;break;case 'bigBen':c=COST.bigBen;break;case 'westminster':c=COST.westminster;break;case 'albertHall':c=COST.albertHall;break; // T518：街道慶典與灣岸巨獸；DSK-002：聖保羅座堂
     case 'basketballCourt':c=COST.basketballCourt;break;case 'tennisCourt':c=COST.tennisCourt;break;case 'playground':c=COST.playground;break;
     case 'socialHousing':c=COST.socialHousing;break;case 'substation':c=COST.substation;break;case 'distSubstation':c=COST.distSubstation;break;case 'switchingStation':c=COST.switchingStation;break;case 'valveStation':c=COST.valveStation;break;case 'utilityPortal':c=COST.utilityPortal;break;case 'desalination':c=COST.desalination;break;case 'pumpStation':c=COST.pumpStation;break;
     case 'disasterCenter':c=COST.disasterCenter;break;case 'shelterPark':c=COST.shelterPark;break;case 'disasterRadar':c=COST.disasterRadar;break; // T364c/d
@@ -52696,6 +52783,14 @@ function doPlace(toolId,x,y,silent){
       }
       break;}
     case 'bigBen':{t.tree=0;t.zone=0;t.deco=0;t.bld={k:190,lv:1,v:0,age:0,pw:true,h:1};break;} // T677：大笨鐘 1×1
+    case 'albertHall':{ // DSK-005：皇家音樂廳 k193 2×2（照西敏宮模板：根格 sz2、其餘三格 ref）
+      for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
+        const sx=x+dx,sy=y+dy,j=idx(sx,sy),ct=T(j);
+        if(undoGroup&&!undoGroup.seen[j]){undoGroup.seen[j]=1;undoGroup.snaps.push({i:j,s:JSON.stringify(ct)});}
+        ct.tree=0;ct.zone=0;ct.deco=0;
+        ct.bld=(dx===0&&dy===0)?{k:193,lv:1,v:0,age:0,pw:true,h:1,sz:2}:{k:193,ref:[x,y]};
+      }
+      break;}
     case 'westminster':{ // T677：西敏宮 2×2（照天文台 k68：根格 sz2、其餘三格 ref）
       for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
         const sx=x+dx,sy=y+dy,j=idx(sx,sy),ct=T(j);
@@ -55798,7 +55893,7 @@ function tick(){
     if(b&&b.k===66)faN++;              // 信仰中心（T296）
     if(b&&b.k===67)ctN307++;           // 鐘樓（T307）
     if(b&&b.k===68)obN307++;           // 天文台（T307）
-    if(b&&!b.ref&&LMCFG309[b.k]&&((b.k>=69&&b.k<=80)||b.k===187||b.k===188||b.k===189||b.k===190||b.k===191||b.k===192)){const lc309=LMCFG309[b.k];tourLm309+=lc309.t;jobsLm309+=lc309.j;upLm309+=lc309.u;} // T309 地標累加；DSK-002：187 聖保羅座堂納入（k179-186 同缺口，改動會動到既有城市經濟，另留業主決定）
+    if(b&&!b.ref&&LMCFG309[b.k]&&((b.k>=69&&b.k<=80)||b.k===187||b.k===188||b.k===189||b.k===190||b.k===191||b.k===192||b.k===193)){const lc309=LMCFG309[b.k];tourLm309+=lc309.t;jobsLm309+=lc309.j;upLm309+=lc309.u;} // T309 地標累加；DSK-002：187 聖保羅座堂納入（k179-186 同缺口，改動會動到既有城市經濟，另留業主決定）
     if(b&&b.k===36)th++;               // 劇院（T138）
     if(b&&b.k===37)aq++;               // 水族館（T138）
     if(b&&b.k===38)zo++;               // 動物園（T138）
@@ -64844,7 +64939,7 @@ function toolSize458(id){
   if(['bigFarm','megaport','grandMedical','cultureComplex','hsrStation','containerPort'].includes(id))return 5;
   if(['airport','grandMall','unicampus','grandPark','solarFarm','offshoreWind','serviceReservoir','advancedSewage','detentionBasin','constructedWetland','containerLogistics','intermodalHub','bulkTerminal'].includes(id))return 4;
   if(['nuclear','fireHQ','techpark','centralpark','civiccenter','resort','bigCemetery','grandStation','sportsComplex','foodPlant','zoo','amuse','convention','botanical','megahosp','megaproject','university','refinery','steelMill','shipyard','ccgt','pumpedStorage','gridControl','waterTreatment','reclaimedWater','distributionCenter','fuelDepot','gasDepot'].includes(id))return 3;
-  if(['stad','parking','hydro','warehouse','faithCenter','observatory','westminster','hotel','market','tradepost','brewery','waterpark','highschool','freight','upcycle','datacenter','fertplant','kitchen','marina','wasteIncinerator','landmark','prison','farm','ranch','solar','greenhouse','museum','theater','aquarium','grandlib','civichall','court','institute','socialHousing','disasterCenter','shelterPark','disasterRadar','desalination','biomass','smr','bess','hvSubstation','microgrid','riverIntake','groundwater','utilityPortal','coldStorage','grainSilo','steelYard'].includes(id))return 2;
+  if(['stad','parking','hydro','warehouse','faithCenter','observatory','westminster','albertHall','hotel','market','tradepost','brewery','waterpark','highschool','freight','upcycle','datacenter','fertplant','kitchen','marina','wasteIncinerator','landmark','prison','farm','ranch','solar','greenhouse','museum','theater','aquarium','grandlib','civichall','court','institute','socialHousing','disasterCenter','shelterPark','disasterRadar','desalination','biomass','smr','bess','hvSubstation','microgrid','riverIntake','groundwater','utilityPortal','coldStorage','grainSilo','steelYard'].includes(id))return 2;
   return 1;
 }
 const CATALOG_SECTIONS458=[
@@ -64862,7 +64957,7 @@ const CATALOG_SECTIONS458=[
   ['terrain','⛰️ 地形',['tdig','tland','traise','levee']]
 ];
 function catalogSection458(t){for(const [id,nm,ids] of CATALOG_SECTIONS458)if(ids.includes(t.id))return{id,nm};return{id:t.cat,nm:toolCatName434(t.cat)};}
-function catalogKeywords458(t){const extra={station:'火車 鐵路 車站',grandStation:'火車 鐵路 中央車站',hsrStation:'高鐵 高速鐵路 HSR 新幹線 城際 5x5 車站',hospital:'醫療 醫院',clinic:'醫療 診所',megahosp:'醫療 綜合醫院',fire:'消防 緊急',fireStation2:'消防 緊急',fireHQ:'消防 緊急',police:'警察 治安',policeBox:'警察 治安',ambulance:'救護 醫療',water:'水 供水',wpipe:'水管 配水 手工管線',lvline:'電線桿 架空配電 低壓 中壓',udline:'地下配電 電纜',hvline:'高壓 輸電 電塔',ugcable:'地下高壓 電纜',flyover:'高架 立交橋 viaduct',interchange:'交流道 立交 ramp',distSubstation:'配電 變電站',switchingStation:'電纜 開關站 配電',valveStation:'配水 調壓 閥門',utilityPortal:'共同管道 管廊 入口',waterMain:'輸水 幹管 水務',sewerMain:'污水 截流 幹管',riverIntake:'河川 取水 原水',groundwater:'地下水 井場',waterTreatment:'淨水 水廠',serviceReservoir:'清水庫 儲水 水庫',boosterStation:'加壓 水壓',advancedSewage:'高級 污水 處理',sewerLift:'污水 提升站',reclaimedWater:'再生水 回收水',detentionBasin:'滯洪池 雨洪',constructedWetland:'人工濕地 雨洪',sewage:'污水 下水道',wasteIncinerator:'垃圾 清運 焚化',recycling:'垃圾 回收',upcycle:'垃圾 回收',centralpark:'公園 綠地',grandPark:'大型公園 都會公園 綠地 4x4',grandMedical:'醫療園區 大型醫院 5x5',cultureComplex:'文化藝術 園區 博物館 劇院 5x5',adminCampus:'行政園區 市政 政府 6x6',researchCampus:'科技研究 園區 實驗室 6x6',megaport:'機場 國際 航空',airport:'機場 航空',containerLogistics:'貨櫃 物流 倉儲 配送 商品',intermodalHub:'鐵公路 聯運 鐵路 貨運 轉運',distributionCenter:'配送 物流 倉庫 貨車',coldStorage:'冷鏈 冷藏 食物 倉儲',grainSilo:'糧食 筒倉 穀倉 農產',fuelDepot:'燃料 油槽 儲運',gasDepot:'天然氣 儲配 瓦斯',steelYard:'鋼材 堆場 重貨',bulkTerminal:'散裝 碼頭 港口 原料',containerPort:'貨櫃 碼頭 港口 貿易',skyLantern:'天燈 廣場 節慶 祈福 夜景',glampsite:'露營 帳篷 星空 營火 野餐',festivalMarket:'市集 夜市 攤位 燈籠 小吃',aquaShow:'水舞 噴泉 燈光秀 廣場 音樂',balloonBase:'熱氣球 飛行 觀光 空中 基地',dolphinarium:'海豚 劇場 水族 灣岸 表演 臨水',whaleWatch:'鯨魚 賞鯨 展望 灣岸 巨獸 臨水',glowGarden:'夜光 花園 螢光 夜間 發光 花海',cathedral:'座堂 大教堂 教堂 聖保羅 倫敦 英國 英格蘭 圓頂 雙塔 地標 觀光 哥德',keep:'城堡 主樓 倫敦塔 白塔 諾曼 城垛 箭窗 地標 觀光',battersea:'發電站 巴特西 倫敦 煙囪 磚造 工業 地標 觀光 火力',bigBen:'大笨鐘 伊莉莎白塔 鐘塔 鐘樓 西敏 國會 倫敦 英國 英格蘭 哥德 地標 觀光',westminster:'西敏宮 國會大廈 大笨鐘 伊莉莎白塔 維多利亞塔 西敏 倫敦 英國 英格蘭 哥德 2x2 地標 觀光'};const s=catalogSection458(t);return [t.nm,t.id,toolCatName434(t.cat),s.nm,extra[t.id]||''].join(' ').toLowerCase();}
+function catalogKeywords458(t){const extra={station:'火車 鐵路 車站',grandStation:'火車 鐵路 中央車站',hsrStation:'高鐵 高速鐵路 HSR 新幹線 城際 5x5 車站',hospital:'醫療 醫院',clinic:'醫療 診所',megahosp:'醫療 綜合醫院',fire:'消防 緊急',fireStation2:'消防 緊急',fireHQ:'消防 緊急',police:'警察 治安',policeBox:'警察 治安',ambulance:'救護 醫療',water:'水 供水',wpipe:'水管 配水 手工管線',lvline:'電線桿 架空配電 低壓 中壓',udline:'地下配電 電纜',hvline:'高壓 輸電 電塔',ugcable:'地下高壓 電纜',flyover:'高架 立交橋 viaduct',interchange:'交流道 立交 ramp',distSubstation:'配電 變電站',switchingStation:'電纜 開關站 配電',valveStation:'配水 調壓 閥門',utilityPortal:'共同管道 管廊 入口',waterMain:'輸水 幹管 水務',sewerMain:'污水 截流 幹管',riverIntake:'河川 取水 原水',groundwater:'地下水 井場',waterTreatment:'淨水 水廠',serviceReservoir:'清水庫 儲水 水庫',boosterStation:'加壓 水壓',advancedSewage:'高級 污水 處理',sewerLift:'污水 提升站',reclaimedWater:'再生水 回收水',detentionBasin:'滯洪池 雨洪',constructedWetland:'人工濕地 雨洪',sewage:'污水 下水道',wasteIncinerator:'垃圾 清運 焚化',recycling:'垃圾 回收',upcycle:'垃圾 回收',centralpark:'公園 綠地',grandPark:'大型公園 都會公園 綠地 4x4',grandMedical:'醫療園區 大型醫院 5x5',cultureComplex:'文化藝術 園區 博物館 劇院 5x5',adminCampus:'行政園區 市政 政府 6x6',researchCampus:'科技研究 園區 實驗室 6x6',megaport:'機場 國際 航空',airport:'機場 航空',containerLogistics:'貨櫃 物流 倉儲 配送 商品',intermodalHub:'鐵公路 聯運 鐵路 貨運 轉運',distributionCenter:'配送 物流 倉庫 貨車',coldStorage:'冷鏈 冷藏 食物 倉儲',grainSilo:'糧食 筒倉 穀倉 農產',fuelDepot:'燃料 油槽 儲運',gasDepot:'天然氣 儲配 瓦斯',steelYard:'鋼材 堆場 重貨',bulkTerminal:'散裝 碼頭 港口 原料',containerPort:'貨櫃 碼頭 港口 貿易',skyLantern:'天燈 廣場 節慶 祈福 夜景',glampsite:'露營 帳篷 星空 營火 野餐',festivalMarket:'市集 夜市 攤位 燈籠 小吃',aquaShow:'水舞 噴泉 燈光秀 廣場 音樂',balloonBase:'熱氣球 飛行 觀光 空中 基地',dolphinarium:'海豚 劇場 水族 灣岸 表演 臨水',whaleWatch:'鯨魚 賞鯨 展望 灣岸 巨獸 臨水',glowGarden:'夜光 花園 螢光 夜間 發光 花海',cathedral:'座堂 大教堂 教堂 聖保羅 倫敦 英國 英格蘭 圓頂 雙塔 地標 觀光 哥德',keep:'城堡 主樓 倫敦塔 白塔 諾曼 城垛 箭窗 地標 觀光',battersea:'發電站 巴特西 倫敦 煙囪 磚造 工業 地標 觀光 火力',bigBen:'大笨鐘 伊莉莎白塔 鐘塔 鐘樓 西敏 國會 倫敦 英國 英格蘭 哥德 地標 觀光',westminster:'西敏宮 國會大廈 大笨鐘 伊莉莎白塔 維多利亞塔 西敏 倫敦 英國 英格蘭 哥德 2x2 地標 觀光',albertHall:'音樂廳 會堂 皇家 阿爾伯特 倫敦 英國 英格蘭 橢圓 圓形 穹頂 玻璃 音樂 演奏 演唱會 地標 觀光 2x2'};const s=catalogSection458(t);return [t.nm,t.id,toolCatName434(t.cat),s.nm,extra[t.id]||''].join(' ').toLowerCase();}
 function catalogStatus458(t){if(!toolUnlocked458(t))return '🔒 城市 Lv.'+t.unlockRank+' 解鎖';const c=toolCost458(t);if(c>0&&money<c)return '資金不足 · 仍可先選擇';return t.id===tool?'目前施工工具':'可使用';}
 function catalogToolList458(){
   const q=catalogQuery458.trim().toLowerCase();let list;
@@ -67770,6 +67865,7 @@ Object.assign(MSZ,{151:2,152:2,153:3,154:4,156:4,158:3,159:4,160:4}); // T472：
 Object.assign(MSZ,{164:2});
 Object.assign(MSZ,{191:2}); // T677：西敏宮 2×2
 Object.assign(MSZ,{192:2}); // T678：巴特西 2×2 // T475：共同管道入口 2×2；k161–163 為 1×1
+Object.assign(MSZ,{193:2}); // DSK-005：皇家音樂廳 2×2
 Object.assign(MSZ,{165:4,166:4,167:3,168:2,169:2,170:3,171:3,172:2,173:4,174:5}); // T485：物流／倉儲／港區 root/ref footprint；讀檔重建必需
 /* T390：帶病 tre 救援——舊格式在 tree=10 時寫 "10" 兩字元 ⇒ tre 長度>N²、載入全段錯位（ARCH §9 實測
    seed1 67 格 v10→1365 格錯位）。以 ter 錨定 DP 重組：非草地格（ter[i]!=='2'）樹恆 0＝高密度校準錨；
@@ -73397,6 +73493,66 @@ function batterseaSelftestDSK4core(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 /* T677 自檢：大笨鐘 k190（1×1）、西敏宮 k191（2×2）——精靈、註冊、放置（1×1 只佔一格；2×2 根格 sz2＋三格 ref、外圈不動、被擋時 canPlace 擋下）、放完畫得出來。 */
+/* DSK-005 自檢：皇家音樂廳 k193 2×2——精靈（尺寸／錨點／夜圖／像素不出畫布）、註冊齊、觀光白名單、放置（根格 sz2＋三格 ref、外圈不動、被擋擋下）、放完畫得出來。 */
+function albertHallSelftestDSK5(){
+  const checks=[],sp=SPR.bld&&SPR.bld['193_1_0'];
+  const lit=s=>{if(!s||!s.night)return 0;const d=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]>40)n++;return n;};
+  checks.push(['SPR.bld[193_1_0] 136×184、錨點 (68,182)',!!(sp&&sp.img&&sp.w===136&&sp.h===184&&sp.ax===68&&sp.ay===182)]);
+  {const l=lit(sp);checks.push(['夜圖有亮像素（鼓身拱窗、穹頂透光、燈籠）'+l,l>80]);}
+  {let oob='',bb='（無精靈）';
+   if(sp&&sp.img){const d=sp.img.getContext('2d').getImageData(0,0,sp.w,sp.h).data;let x0=1e9,x1=-1,y0=1e9,y1=-1,edge=0;
+     for(let y=0;y<sp.h;y++)for(let x=0;x<sp.w;x++){if(d[(y*sp.w+x)*4+3]<=120)continue;   // 只算實心像素（柔影 alpha≈41 不算）
+       if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+       if(x<=1||y<=1||x>=sp.w-2||y>=sp.h-2)edge++;}
+     bb='x '+x0+'–'+x1+'｜y '+y0+'–'+y1+'｜貼邊 '+edge;
+     if(edge>0||!(x0>=2&&x1<=sp.w-3&&y0>=16&&y1<=sp.h-3))oob=bb;}
+   checks.push(['精靈實心像素不出畫布、不貼邊（'+bb+'）',!oob&&bb!=='（無精靈）']);}
+  checks.push(['註冊齊：KNAME[193]、COST.albertHall=6200、TOOLS(albertHall/culture/17)、LMCFG309[193] 三項 >0、MSZ[193]=2、toolSize458=2',
+    KNAME[193]==='皇家音樂廳'&&COST.albertHall===6200&&!!TOOLS.find(t=>t.id==='albertHall'&&t.cat==='culture'&&t.unlockRank===17)&&!!(LMCFG309[193]&&LMCFG309[193].t>0&&LMCFG309[193].j>0&&LMCFG309[193].u>0)&&MSZ[193]===2&&toolSize458('albertHall')===2]);
+  checks.push(['觀光地標累加（tick）含 193',typeof __tick_502==='function'&&String(__tick_502).indexOf('b.k===193')>=0]);
+  /* 美術自檢（不靠眼睛也能斷言的事實）：三層齊、穹頂玻璃、夜間穹頂透光、紅磚鼓身、搜尋關鍵字 */
+  {const px=(cv,fn)=>{if(!cv)return 0;const d=cv.getContext('2d').getImageData(0,0,cv.width,cv.height).data;let n=0,hits=[];
+     for(let y=0;y<cv.height;y++)for(let x=0;x<cv.width;x++){const i=(y*cv.width+x)*4;if(d[i+3]<=120)continue;if(fn(d[i],d[i+1],d[i+2],x,y))n++;}
+     return n;};
+   if(sp&&sp.img){
+     const solid=px(sp.img,()=>true);
+     checks.push(['地面層有鋪面台基（實心像素 '+solid+' >12000）',solid>12000]);
+     const brick=px(sp.img,(r,g2,b)=>r>b+35&&r>120);
+     checks.push(['紅磚鼓身真的在（紅磚像素 '+brick+' >1500）',brick>1500]);
+     const glass=px(sp.img,(r,g2,b)=>b>r+10&&b>90);
+     checks.push(['玻璃鐵穹頂真的在（藍灰玻璃像素 '+glass+' >300）',glass>300]);
+   } else checks.push(['地面層／紅磚／玻璃三項（無精靈）',false]);
+   if(sp&&sp.img&&sp.night){
+     const nd=sp.night.getContext('2d').getImageData(0,0,sp.w,sp.h).data,dw=sp.img.getContext('2d').getImageData(0,0,sp.w,sp.h).data;
+     let diff=0;for(let i=0;i<nd.length;i+=4){if(nd[i+3]>40&&(Math.abs(nd[i]-dw[i])>18||Math.abs(nd[i+1]-dw[i+1])>18||Math.abs(nd[i+2]-dw[i+2])>18))diff++;}
+     checks.push(['夜圖是疊層不是複製（與白天層差異像素 '+diff+' >200）',diff>200]);
+     let domeGlow=0;for(let y=46;y<=100;y++)for(let x=0;x<sp.w;x++){const i=(y*sp.w+x)*4;if(nd[i+3]>40)domeGlow++;}
+     checks.push(['夜間穹頂透暖光（穹頂帶 y46–100 亮像素 '+domeGlow+' >150）',domeGlow>150]);
+   } else checks.push(['夜圖疊層／穹頂透光（缺夜圖）',false]);}
+  {const kw=(typeof catalogKeywords458==='function')?catalogKeywords458({id:'albertHall',nm:'皇家音樂廳',cat:'culture'}):'';
+   checks.push(['建造目錄搜尋得到（關鍵字含「音樂廳」「倫敦」）',kw.indexOf('音樂廳')>=0&&kw.indexOf('倫敦')>=0]);}
+  const free=(x,y)=>{const t=tiles[idx(x,y)];return !t.bld&&!t.road&&!t.rail&&!t.tram&&!t.tree&&!t.zone&&t.t===2;};
+  const spot=n=>{const c0=Math.floor(N/2);for(let r=0;r<Math.floor(N/2)-5;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const x=c0+dx,y=c0+dy;if(x<2||y<2||x>N-n-2||y>N-n-2)continue;let ok=true;for(let yy=-1;yy<=n&&ok;yy++)for(let xx=-1;xx<=n;xx++)if(!free(x+xx,y+yy)){ok=false;break;}if(ok)return [x,y];}return null;};
+  let p1=false,refOk=false,n1=true,blocked=false,drew=false,err='',c=null;const svM=money;
+  try{
+    c=spot(2);
+    if(c){const sv2=[];for(let dy=-1;dy<=2;dy++)for(let dx=-1;dx<=2;dx++){const t=tiles[idx(c[0]+dx,c[1]+dy)];sv2.push([t,t.bld,dx,dy]);}
+      const ins=(dx,dy)=>dx>=0&&dx<2&&dy>=0&&dy<2;
+      {const t1=tiles[idx(c[0]+1,c[1]+1)],w1=t1.bld;t1.bld={k:4,lv:1,v:0,age:0,pw:true,h:1};blocked=!!canPlace('albertHall',c[0],c[1]);t1.bld=w1||null;}
+      money=Math.max(money,COST.albertHall+1000);const ok=doPlace('albertHall',c[0],c[1],true),b=tiles[idx(c[0],c[1])].bld;
+      p1=!!(ok&&b&&b.k===193&&b.sz===2&&!b.ref);
+      refOk=[[1,0],[0,1],[1,1]].every(([dx,dy])=>{const r=tiles[idx(c[0]+dx,c[1]+dy)].bld;return !!(r&&r.k===193&&r.ref&&r.ref[0]===c[0]&&r.ref[1]===c[1]);});
+      for(const [t,w,dx,dy] of sv2)if(!ins(dx,dy)&&(t.bld||null)!==(w||null))n1=false;
+      {let errN=0;const se=console.error;console.error=()=>{errN++;};try{draw(.016);}catch(e){err=e.message;}finally{console.error=se;}drew=!err&&errN===0;if(errN)err='console.error '+errN+' 筆';}
+      for(const [t,w,dx,dy] of sv2)if(ins(dx,dy))t.bld=w||null;}
+  }catch(e){err=err||e.message;}finally{money=svM;}
+  checks.push(['doPlace("albertHall") '+(c?'('+c+')':'找不到空地')+' → 根格 k193 sz2、三格 ref 指回根格',p1&&refOk]);
+  checks.push(['2×2 外圈（12 格）bld 放置前後逐一同值',n1]);
+  checks.push(['2×2 裡有一格被佔時 canPlace 擋下',blocked]);
+  checks.push(['放完真的 draw(.016) 一次，不擲錯也不用 console.error 兜'+(err?'（'+err+'）':''),drew]);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
+
 function ukLandmarkSelftest677(){
   const checks=[],s0=SPR.bld&&SPR.bld['190_1_0'],s1=SPR.bld&&SPR.bld['191_1_0'];
   const lit=s=>{if(!s||!s.night)return 0;const d=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]>40)n++;return n;};
@@ -74762,7 +74918,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,keepPolishSelftest679,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,albertHallSelftestDSK5,keepPolishSelftest679,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
