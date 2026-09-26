@@ -83,7 +83,8 @@ const KEY = arg('key', '193_1_0');
         const N=GV.N();let spot=null;
         for(let y=6;y<N-6&&!spot;y++)for(let x=6;x<N-6;x++){
           const row=GV.art574.tileAt613(x,y,2,2);if(!row)continue;
-          if(row.replace(/\\s/g,'')==='....'){let ok=true;
+          const tt=row.split(' ').join('').split(String.fromCharCode(10)).join('').split(String.fromCharCode(13)).join('');
+          if(tt.length>=4&&tt.split('.').join('')===''){let ok=true;
             for(let dy=-1;dy<=2&&ok;dy++)for(let dx=-1;dx<=2;dx++){const c=(GV.art574.tileAt613(x+dx,y+dy,1,1)||'').trim();if(c.indexOf('B')>=0||c.indexOf('r')>=0)ok=false;}
             if(ok){spot=[x,y];break;}}}
         if(!spot)return {err:'找不到 2×2 空地'};
@@ -104,6 +105,30 @@ const KEY = arg('key', '193_1_0');
       await ev(`GV.setVisT(${CY * 0.85});GV.lookAt(${x},${y});GV.art574.zoom574(2);GV.forceDraw();1`);
       await shot('place_near_night');
       await shot('place_night_zoom', { x: Math.round(V.w / 2 - 220), y: Math.round(V.h / 2 - 300), width: 440, height: 560, scale: 2 });
+      return { info, shots };
+    }
+
+    if (MODE === 'near') {
+      const info = await ev(`(()=>{
+        const N=GV.N();let spot=null;
+        for(let y=6;y<N-6&&!spot;y++)for(let x=6;x<N-6;x++){
+          const row=GV.art574.tileAt613(x,y,2,2);if(!row)continue;
+          const tt=row.split(' ').join('').split(String.fromCharCode(10)).join('').split(String.fromCharCode(13)).join('');
+          if(tt.length>=4&&tt.split('.').join('')===''){spot=[x,y];break;}}
+        if(!spot)return {err:'找不到 2×2 空地'};
+        const [x,y]=spot;const ok=GV.place('albertHall',x,y);
+        return {spot:[x,y],placed:ok};})()`);
+      if (info.err) return { err: info.err, shots };
+      const [x, y] = info.spot;
+      await ev(`GV.art574.plant574([{k:193,lv:1,v:0,x:${x},y:${y}}]);1`);
+      await ev(`GV.setVisT(${CY*0.5});GV.lookAt(${x},${y});GV.art574.zoom574(1.3);GV.forceDraw();1`);
+      await shot('near_day');
+      const vp = await ev('JSON.stringify({w:innerWidth,h:innerHeight})');
+      const V = JSON.parse(vp);
+      await shot('near_day_zoom', {x: Math.round(V.w/2-250), y: Math.round(V.h/2-350), width: 500, height: 640, scale: 2});
+      await ev(`GV.setVisT(${CY*0.85});GV.forceDraw();1`);
+      await shot('near_night');
+      await shot('near_night_zoom', {x: Math.round(V.w/2-250), y: Math.round(V.h/2-350), width: 500, height: 640, scale: 2});
       return { info, shots };
     }
 
