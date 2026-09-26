@@ -48,6 +48,13 @@
 
 ## 待決
 
+2026-09-26 第九批，2 題已放上決策單（https://claude.ai/artifact/GPtEQDvF7xxouzXG57xUTb）。業主：「肯定要對照圖的，這個是我們的傳統」。對照圖由雲端 session `claude/jolly-clarke-tf6oqm` 用臨時實驗碼拍（種子城 5162026、正午、同鏡頭），拍完還原，`index.html` 沒改。A 一律是現況。
+
+| 題號 | 題目 | 檔位 | 出處 |
+|---|---|---|---|
+| 9-1 | 冬天落葉樹禿枝像一截樹幹頂著細 V（樹幹頂一點散出 5～7 根枝） | A 現況／B 主幹往上延伸、8～10 根枝從不同高度長出、每根 3 岔加細梢／C 同 B 再加原樹冠範圍的半透明細枝霧 | T665、T669:55、`index.html` `bareOf` |
+| 9-2 | 水面每格同一張紋理，波光排成整齊橫列、看得出格子 | A 現況／B 同一張水面圖做上下、左右翻 4 種，依座標挑（顏色密度不變）／C 同 B 再把點點和波光往水色收一半 | T666:57、`index.html` `SPR.water` |
+
 2026-09-26 第八批，5 題已放上決策單（https://claude.ai/artifact/RphTtAqGEQ6ufdtU6f4Vy9）。前 4 題是合併分支 PR、做第五～七批的那個 Claude 在卡上寫了「出圖給業主」但沒出的，由雲端 session `claude/jolly-clarke-tf6oqm` 接手拍圖（臨時實驗碼，拍完還原，`index.html` 沒改）。A 一律是現況。
 
 | 題號 | 題目 | 檔位 | 出處 |
