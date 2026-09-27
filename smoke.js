@@ -121,6 +121,7 @@ const KEEP = process.argv.includes('--keep');
       ['ornDom676', `(window.GV && window.GV.ornDomSelftest676) ? window.GV.ornDomSelftest676() : {ok:false,checks:['API 不存在']}`],
       ['ukLandmark677', `(window.GV && window.GV.ukLandmarkSelftest677) ? window.GV.ukLandmarkSelftest677() : {ok:false,checks:['API 不存在']}`],
       ['battersea2x678', `(window.GV && window.GV.battersea2xSelftest678) ? window.GV.battersea2xSelftest678() : {ok:false,checks:['API 不存在']}`],
+      ['bookshopDSK15', `(window.GV && window.GV.bookshopSelftestDSK15) ? window.GV.bookshopSelftestDSK15() : {ok:false,checks:['API 不存在']}`],
       ['cornerPubDSK11', `(window.GV && window.GV.cornerPubSelftestDSK11) ? window.GV.cornerPubSelftestDSK11() : {ok:false,checks:['API 不存在']}`],
       ['cornerPubNearDSK12', `(window.GV && window.GV.cornerPubNearSelftestDSK12) ? window.GV.cornerPubNearSelftestDSK12() : {ok:false,checks:['API 不存在']}`],
       ['tearoomDSK10', `(window.GV && window.GV.tearoomSelftestDSK10) ? window.GV.tearoomSelftestDSK10() : {ok:false,checks:['API 不存在']}`],
