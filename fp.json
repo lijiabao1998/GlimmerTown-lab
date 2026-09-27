@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-09-27T14:14:48.127Z",
- "version": "13.87",
- "anchor": "T683",
+ "generatedAt": "2026-09-27T14:22:47.584Z",
+ "version": "13.89",
+ "anchor": "T685",
  "stats": {
   "families": 153,
-  "leaves": 2743,
-  "dayNonEmpty": 2733,
-  "nightNonEmpty": 1422
+  "leaves": 2744,
+  "dayNonEmpty": 2734,
+  "nightNonEmpty": 1423
  },
  "families": {
   "grass": {
@@ -101,11 +101,11 @@
    "night": 0
   },
   "bld": {
-   "leaves": 811,
-   "crc": "bd50f0a5",
-   "px": 28115576,
-   "op": 6789396,
-   "night": 786
+   "leaves": 812,
+   "crc": "f0ae1767",
+   "px": 28140600,
+   "op": 6799539,
+   "night": 787
   },
   "park": {
    "leaves": 9,
@@ -7458,6 +7458,13 @@
    "w": 136,
    "h": 184,
    "n": "e219e4c4"
+  },
+  "bld.194_1_0": {
+   "d": "ab55fe60",
+   "op": 10143,
+   "w": 136,
+   "h": 184,
+   "n": "d088704f"
   },
   "bld.193_1_0": {
    "d": "1ec93c68",
