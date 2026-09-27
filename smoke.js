@@ -121,6 +121,8 @@ const KEEP = process.argv.includes('--keep');
       ['ornDom676', `(window.GV && window.GV.ornDomSelftest676) ? window.GV.ornDomSelftest676() : {ok:false,checks:['API 不存在']}`],
       ['ukLandmark677', `(window.GV && window.GV.ukLandmarkSelftest677) ? window.GV.ukLandmarkSelftest677() : {ok:false,checks:['API 不存在']}`],
       ['battersea2x678', `(window.GV && window.GV.battersea2xSelftest678) ? window.GV.battersea2xSelftest678() : {ok:false,checks:['API 不存在']}`],
+      ['chippyDSK9', `(window.GV && window.GV.chippySelftestDSK9) ? window.GV.chippySelftestDSK9() : {ok:false,checks:['API 不存在']}`],
+      ['chippyNearDSK13', `(window.GV && window.GV.chippyNearSelftestDSK13) ? window.GV.chippyNearSelftestDSK13() : {ok:false,checks:['API 不存在']}`],
       ['georgeInnDSK6', `(window.GV && window.GV.georgeInnSelftestDSK6) ? window.GV.georgeInnSelftestDSK6() : {ok:false,checks:['API 不存在']}`],
       ['georgeInnNearDSK8', `(window.GV && window.GV.georgeInnNearSelftestDSK8) ? window.GV.georgeInnNearSelftestDSK8() : {ok:false,checks:['API 不存在']}`],
       ['albertHallDSK5', `(window.GV && window.GV.albertHallSelftestDSK5) ? window.GV.albertHallSelftestDSK5() : {ok:false,checks:['API 不存在']}`],
