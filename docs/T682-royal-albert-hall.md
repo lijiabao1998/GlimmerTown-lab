@@ -1,0 +1,91 @@
+# T682 — 皇家音樂廳（橢圓會堂＋玻璃鐵穹頂，k193 2×2）（原 DSK-005）
+
+> 原卡標題：DSK-005 皇家音樂廳（橢圓會堂＋玻璃鐵穹頂）— 分支 `dsk/oval-hall`
+
+> **合併（2026-09-27）**：原 **DSK-005**（DeepSeek 分支 `dsk/oval-hall`，分支卡 `docs/branch/DSK-005-皇家音樂廳.md`）。業主「dsk 的 PR 你能合嘛」→ 雲端 Claude 在最新 `main` 上本地 squash，配 **T682**。下文保留分支卡原文（含「不配 T 號」「不動版本號」等當時的說明）。
+
+
+> 分支寫入者卡。**不配 T 號**（合併進 `main` 時由 `main` 寫入者配）。業主長期自走令：英倫建築、取材真實街景、美術第一、不穿模／不出怪線／不非法交疊。
+> 開卡時間：2026-09-26（本地 `origin/main` = `d172e97` r128／T681／v13.85，煙霧 46.0s 綠）。
+> 本輪不動 `GAME_VER`／`GAME_ANCHOR`／開始畫面版本字，不動 `AUTORUN-LOG.md`、`fp.json`、`docs/DECISIONS.md`。
+
+## 1. 取材（真實世界，2026-09-26 聯網檢索）
+
+皇家阿爾伯特音樂廳（Royal Albert Hall, London）— 1871 年啟用，Francis Fowke 設計、Henry Y. D. Scott 續成，義大利文藝復興風格，藍本為古羅馬圓形劇場（Fowke 實地研究過 Nîmes、Arles 的競技場）。
+
+| 事實 | 數字 | 用在精靈哪一處 |
+|---|---|---|
+| 平面 | **橢圓**（非圓形），外徑 272 ft × 238 ft（83 × 72 m），比例 1.14:1 | 橢圓量體：rx:ry ≈ 1.14:1，一眼可辨「這是會堂不是圓塔」 |
+| 外牆 | **Fareham 紅磚＋奶油色赤陶（terracotta）橫帶**，赤陶塊由 Tamworth 的 Gibbs & Canning 製作 | 紅磚鼓身＋3 道奶油橫帶（最強識別特徵） |
+| 穹頂 | **玻璃＋鐵**（wrought-iron）大穹頂，工程師 Ordish & Grover，藍本是倫敦車站單跨玻璃屋頂（St Pancras 等）；頂上帶尖頂玻璃天窗與燈籠 | 橢圓玻璃穹頂：格狀肋條、透光藍灰玻璃、頂端燈籠 |
+| 飾帶 | 環繞外牆的**赤陶馬賽克飾帶**「The Triumph of Arts and Sciences」，Minton, Hollins & Co. 製作，分 16 格 | 鼓身頂一道深色飾帶＋彩色嵌片 |
+| 高度 | 135 ft（41 m）；周長 804 ft | 立繪高寬比 ≈ 0.5（寬 128px → 高 ≈ 64px） |
+| 窗 | 下層拱窗、上層拱窗兩層，飾帶下為盲欄杆帶（bands of windows and blind balustrades under the frieze） | 兩層拱窗＋盲欄杆小豎檔 |
+| 南入口 | 南面大門廊（South Porch／porte-cochère）＋階梯 | 正面（畫面南角）突出門廊＋山花 |
+
+**與 main 既有地標的區隔**：k190 大笨鐘（鐘塔）、k191 西敏宮（哥德長立面＋維多利亞塔）、k192 巴特西（磚造四煙囪 2×2）、k187 聖保羅（圓頂座堂）、k188 白塔（諾曼城垛）— 皆為直線量體；橢圓平面＋玻璃穹頂在本城**尚無同構**，天際線剪影獨立。
+
+## 2. 規格（本輪開工前實測的現行事實，2026-09-26）
+
+- 新 k 值：**k193**（main 最大 k＝192）。
+- 2×2 慣例（照 main 唯一 2×2 樣板 k192／T678，**不是**舊的 136×150）：畫布 **136×184**、`ax=68 ay=182`、`G2=(i,j,z)=>[ax+2*i-2*j, ay-64+i+j-(z||0)]`、`base dia` 半徑 **64** 畫在 `(ax, ay-64)`、`OL=[46,34,28]`。
+- 三代畫布：`const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g;`，收尾 `finish(K,0,base,st,nt,ax,ay,OL)`。
+- 烘焙插入點：`/* @@NEXT@@ */`（index.html:8410），包在 `if(!window.__noXxx)try{(function(){…})();}catch(e){console.error(...)}` 內。
+- 註冊點（照 k190/k191 現行樣板，逐條實測行號）：
+  1. `KNAME`（37736）
+  2. `COST`（37993）
+  3. `TOOLS`（38214；`cat:'culture'`、`unlockRank:17`）
+  4. `LMCFG309`（38583）
+  5. `canPlace` case 群組（52025）＋ 2×2 尺寸守衛（52072 樣板：`if(toolId==='westminster')return canPlaceMulti(x,y,2,'需 2×2 陸地');`）
+  6. `placeCost` switch（52270）
+  7. `doPlace` case（52699 樣板：根格 `{k,lv:1,v,age:0,pw:true,h:1,sz:2}`、其餘三格 `{k,ref:[x,y]}`）
+  8. `toolSize458` 清單（64847）
+  9. `catalogKeywords458` extra（64865）
+  10. `MSZ`（67772）
+  11. 觀光累加白名單（55801：`…||b.k===192` → 需加 `||b.k===193`）
+- 成本／地標數字（估）：`COST.albertHall=6200`（介於聖保羅 5200、西敏宮 6800 之間，低於巴特西 8800）；`LMCFG309[193]={t:40,j:16,u:16}`（音樂會堂＝高觀光、就業中高、維護中高；對照聖保羅 34/9/11、巴特西 38/14/14）。
+
+## 3. 驗收條件（動手前寫定；每一條都要能斷言）
+
+1. **精靈**：`SPR.bld['193_1_0']` 存在且非空；像素內容不出畫布（自行計算的越界直方圖＝0）；畫面內不與鄰格非法交疊（橢圓足跡落在 2×2 plaza 以內）。
+2. **註冊**：`KNAME[193]`、`COST.albertHall`、`TOOLS` 有一筆 `id==='albertHall'`、`LMCFG309[193]` 三項皆 >0、`MSZ[193]===2`、`toolSize458('albertHall')===2`、`canPlace('albertHall',…)` 在空 2×2 回 true。
+3. **放置**：`doPlace('albertHall',x,y,true)` → 根格 `{k:193,sz:2}`、其餘三格 `{k:193,ref:[x,y]}`、外圈一格不動；被佔用時擋下（回 false）。
+4. **畫得出來**：種子城內實際蓋一座，`draw` 不丟例外，`console` 0 error。
+5. **觀光**：`LMCFG309[193]` 進 `tourLm309` 累加（白名單含 193）。
+6. **逃生閥**：`window.__noAlbertHallDSK5`＝不烘精靈（工具仍在、不炸）；`window.__noAlbertHallNightDSK5`＝不畫夜圖。
+7. **自檢**：`smoke.js` 內新增頁內自檢 `albertHallDSK5`（≥14 條），`node smoke.js` 連跑 **3 次全綠**、console 乾淨。
+8. **指紋**：`node fp.js --check --expect=bld` — 變動僅限 `bld` 家族（＝新精靈葉子），其餘家族零變動；`block559` 不動；棘輪 OK。
+9. **日／夜兩張樣張**：`probeDSK5.js` 產出白天＋夜晚近拍與市景照，放卡裡。
+10. **不動清單**：`GAME_VER`／`GAME_ANCHOR`／開始畫面版本字／`AUTORUN-LOG.md`／`fp.json`／`docs/DECISIONS.md` 一律不動（合併者統一改）。
+
+## 4. 施工紀錄
+
+- **2026-09-26 開卡**：本地同步到 `origin/main` `d172e97`（r128／T681／v13.85）；`node smoke.js` 基準綠（46.0s、0 console error）。量到 2×2 慣例已由 T678 換代（136×184／ay=182，不再是 DSK-004 時代的 136×150／ay=148），本卡照**現行**樣板走。
+- **2026-09-26 量測（動手前）**：註冊樣板取 k190/k191（現行最新）共 11 處；助手世代取 7282–7360（`GP/fx/fy/box/topFace/faceRect/band/pyramid/plate/cyl/dome/ell/disc/lamp/mk/finish`），`mk`＝`{c,g}`、`finish(k,v,base,st,nt,ax,ay,ol)`；自檢 API 面照 T678（`tiles/idx/money/draw/canPlace/doPlace/toolSize458/__tick_502`）。
+- **2026-09-26 施工**：一支補丁腳本 `scratchpad/dsk5-apply.js` 一次寫入 16 步（精靈插 `@@NEXT@@` 前、自檢插 `ukLandmarkSelftest677` 前、KNAME／COST／TOOLS／LMCFG309／canPlace case 群／canPlace 2×2 守衛／placeCost／doPlace case／MSZ／toolSize458／catalogKeywords／觀光白名單／GV 匯出清單、smoke.js 條目），每步都有「單一命中」斷言，附帶**抽出全部 54 個 script 區塊做語法解析**的閘門。全程用行錨＋`replace(...,()=>...)`，沒有踩到 `$&` 或重複錨的雷。
+- **2026-09-26 美術迭代（三次，都留樣張）**：
+  1. 首版：穹頂畫成 rx44／鉛環太窄 ⇒ 整片屋頂讀成「玻璃棚」、鼓身矮胖、門廊與兩盞路燈在牆腳變白斑。
+  2. 二版：穹頂收成 rx29、鼓身加高到 40px、路燈改嵌門廊、台基欄杆只留在兩肩 ⇒ 讀得出會堂，但鉛灰屋頂環過寬像帽簷。
+  3. 三版（定稿）：穹頂放大成冠（**rx36／ry19／高 30，外徑 ≈ 0.54 全寬，照真實 41m/83m 比例**）、鼓身橢圓收成 56×27 讓台基露出來、山花改成山牆三角、門廊加大、夜層改成「玻璃整片透暖光＋鐵肋成剪影」＋燈籠發光。
+- **2026-09-26 兩條踩雷（都靠資料打掉，不是靠猜）**：
+  1. 自檢的 bbox 閘門量到 `x 4–135／y 183` 判紅 —— 追下去是 `polish526` 的柔影（alpha≈41）剛好過我寫的門檻：改量實心像素（alpha>120）＋「畫布邊緣不得有實心像素」。
+  2. 越界守衛用「台基＝橢圓（中心 (68,118)、半軸 64×32）」判 **127 欄越界**；做了決定性對照——**main 上已出貨的 k192 跑同一支守衛，數字一模一樣**（badCols=127／maxOver=31／bbox [4,131,16,181]）⇒ 是我的模型錯。實測台基形狀：2×2 台基是**等距菱形**，中心在 `(ax, ay-32)`、左右角 y=150、前角 y=181.5（不是橢圓）。模型改成菱形後：**k193 badCols=0／貼邊=0、k192 亦同**。
+- **2026-09-26 驗收結果**：
+  - 自檢 `albertHallDSK5` **15 項全綠**（精靈尺寸/錨點、夜圖亮像素 1.6k、實心像素不出畫布、註冊六項、觀光白名單含 193、地面層/紅磚/玻璃三項像素、夜圖疊層差異、夜間穹頂透光、目錄關鍵字、放置根格 sz2＋三格 ref、外圈 12 格不動、被佔擋下、放完 `draw(.016)` 不擲錯）。
+  - `node smoke.js` **連跑 3 次全綠**（105.7s／106.3s／66.2s），0 筆 console error。
+  - `node fp.js --check --expect=bld`：**觸及 bld、新增葉子 `bld.193_1_0`、指紋差 == 宣告清單、棘輪 OK（153 族無一下降）**。
+  - 真實放置：`GV.place('albertHall',x,y)` 回 true，2×2 區域 `B r / r r`（根格＋三格 ref）✓；市景 2× 近拍日／夜各一張，與鄰棟不接觸、無穿模。
+  - 樣張：`shotsDSK5/`（`sprite_day`、`sprite_night`、`place_zoom`、`place_night_zoom` 已入庫；`place_near*`、`place_far`、`dome_*` 為本機暫存）。
+- **沒動清單**：`GAME_VER`／`GAME_ANCHOR`／開始畫面版本字／`AUTORUN-LOG.md`／`fp.json`／`docs/DECISIONS.md` 全部未動 ✓（合併者統一改）。
+
+## 5. 沒做成的事（如實，不美化）
+
+1. **近景疊層（z≥1.22 的 `drawNearZoom*`）沒做**：k193 沒有 DSK-002/003/004 那種放大才出現的細節層；本輪只做主體立繪。若要，另開一段。
+2. **沒有內部/夜間活動**：沒有「音樂會」動態（觀眾進場、穹頂光束、鐘聲）。夜間只有窗光＋穹頂透光＋燈籠。
+3. **屋頂旗桿沒加**：真實音樂廳簷口有一圈旗桿，我留了空間但沒畫（怕變成雜訊，也沒有業主的方向）。
+4. **原型碼沒有另存 `docs/proto-*`**：精靈碼只在本分支的 `index.html`（b07 區、`@@NEXT@@` 前，`k193` 區塊）；沒有像第十一批那樣把原型獨立成檔。
+5. **PR 沒有自己開**：`gh pr create` 這個帳號沒有協作者權限（先前 DSK-001 就失敗過），照舊由業主開 PR 或直接指名分支。
+6. **沒有量效能**：這輪沒跑 `perf.js`（新增一片 2×2 精靈，理應無感，但**沒量就是沒量**）。
+7. **沒做旗艦級的「街區配置」**：只加了單一座會堂與其前庭，沒有處理「音樂廳＋周邊街廓（旅館、餐廳、綠地）」的成組配置。
+8. **旗艦細節讓步**：真實音樂廳的赤陶飾帶分 16 格、馬賽克人物題材，我壓成 3px 飾帶＋金／暖嵌片點描 —— 在這個尺寸讀不出 16 格，這是取捨不是還原。
+
