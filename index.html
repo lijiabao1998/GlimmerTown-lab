@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.96 · T692</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.97 · T693</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -8943,6 +8943,187 @@ table.dtab tr:hover td{background:#1b2334}
     }
     finish(K,0,base,st,nt,ax,ay,OL);
   })();}catch(e){console.error('v574 k193',e);}
+
+  /* ======================== T693 倫敦塔橋產生器（路橋長塔用；docs/T693-tower-bridge.md） ======================== */
+  try{window.__tb693=((function(A){
+  /* T693 倫敦塔橋精靈產生器（夠長的直線水橋長成塔橋；決策單第十二批原型碼的 C 檔，B 地標那一套拿掉）。純函式：只畫畫布、不動遊戲狀態。
+     座標：u 沿橋、w 橫向、z 高（16 單位＝1 格；1 單位＝橫 2px、縱 1px）。axis 0：u 沿 i（view x），1：u 沿 j（view y）。
+     w 越大越靠鏡頭、u 越大越靠鏡頭（兩軸皆然）。光從左上：左面亮、右面暗。 */
+  const R=Math.round,shade=A.shade,HL=A.hashLocal479;
+  const mk=(w,h)=>{const r=A.cv(w,h);r[1].imageSmoothingEnabled=false;return{c:r[0],g:r[1]};};
+  const P=(g,x,y,w,h,c)=>{if(!g)return;x=R(x);y=R(y);w=R(w);h=R(h);if(w<=0||h<=0)return;g.fillStyle=c;g.fillRect(x,y,w,h);};
+  // v14：同一組繪圖函式 f 對夜圖畫一次 destination-out＝後畫的白天實體蓋到哪裡，夜光就擦到哪裡（顏色不重要，全部是不透明色）
+  const ers=(ng,f)=>{if(!ng)return;ng.globalCompositeOperation='destination-out';f(ng);ng.globalCompositeOperation='source-over';};
+  // 凸多邊形填色（像素中心落在內部＝填；邊上容差 .01）。逐列解出每條邊對 x 的上下限、一列一個 fillRect（跟逐像素判斷的結果相同，快很多：C 挖橋面的大多邊形原本逐像素要幾十萬次 fillRect）
+  function poly(g,pts,c){let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const p of pts){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);}
+    g.fillStyle=c;const n=pts.length;let ar=0;for(let k=0;k<n;k++){const a=pts[k],b=pts[(k+1)%n];ar+=a[0]*b[1]-b[0]*a[1];}const s=ar>0?1:-1;
+    const xa=Math.floor(x0),xb=Math.ceil(x1);
+    for(let y=Math.floor(y0);y<=Math.ceil(y1);y++){const py=y+.5;let lo=-1e9,hi=1e9,ok=true;
+      for(let k=0;k<n;k++){const a=pts[k],b=pts[(k+1)%n],A=s*(b[0]-a[0])*(py-a[1]),Bc=-s*(b[1]-a[1]);   // 條件：A+Bc*(px−ax) ≥ −.01
+        if(Bc>0)lo=Math.max(lo,a[0]+(-.01-A)/Bc);else if(Bc<0)hi=Math.min(hi,a[0]+(-.01-A)/Bc);else if(A<-.01){ok=false;break;}}
+      if(!ok)continue;const xs=Math.max(xa,Math.ceil(lo-.5)),xe=Math.min(xb,Math.floor(hi-.5));if(xe>=xs)g.fillRect(xs,y,xe-xs+1,1);}}
+  const fy=(S,d)=>S[1]-((d+1)>>1),fx=(S,side,d)=>side<0?S[0]-1-d:S[0]+d;
+  const fc=(g,S,side,d,up,hh,c)=>P(g,fx(S,side,d),fy(S,d)-up-hh,1,hh,c);            // 牆面第 d 欄、離底 up、高 hh
+  function topFace(g,S,lenL,lenR,c){const sx=S[0],sy=S[1],nx=sx+2*lenR-2*lenL;
+    for(let x=sx-2*lenL;x<sx+2*lenR;x++){const L=x<sx?sy-((sx-x)>>1):sy-((x-sx+1)>>1);const U=x<nx?sy-lenL-((x-(sx-2*lenL)+1)>>1):sy-lenR-((sx+2*lenR-x)>>1);if(L-U>0)P(g,x,U,1,L-U,c);}}
+  function box(g,S,lenL,lenR,h,cL,cR,cT){for(let d=0;d<2*lenL;d++)fc(g,S,-1,d,0,h,cL);for(let d=0;d<2*lenR;d++)fc(g,S,1,d,0,h,cR);if(cT)topFace(g,[S[0],S[1]-h],lenL,lenR,cT);return S[1]-h;}
+  const C={SL:'#e6dfcd',SR:'#c9c0a9',SLd:'#b9af97',SRd:'#a1977f',ST:'#c3baa3',PL:'#cfc5ab',PR:'#aaa089',
+    RL:'#6e7885',RR:'#48505c',RK:'#39404a',GD:'#dcb44c',GL:'#303a48',ARCH:'#29282b',
+    BL:'#86bcd9',BR:'#5d93b3',BT:'#e9f3f7',BD:'#3d6f8e',CH:'#7db3d2',CHh:'#d4ebf6',CHd:'#467a99',HG:'#9cc7de',
+    LIT:'#ffd98a',LIT2:'#fff0c4',COOL:'#dcefff'};
+  function build(p){
+    const X=p.axis,nU=p.nU,nW=p.nW,nI=X===0?nU:nW,nJ=X===0?nW:nU,top=p.top||112,pad=4;
+    const W=2*(nI+nJ)+2*pad,ax=2*nJ+pad,ay0=top,H=ay0+nI+nJ+8;
+    const G=(i,j,z)=>[ax+2*i-2*j,ay0+i+j-(z||0)];
+    const IJ=(u,w)=>X===0?[u,w]:[w,u],at=(u,w,z)=>{const q=IJ(u,w);return G(q[0],q[1],z);};
+    const rect=(u0,u1,w0,w1)=>{const a=IJ(u0,w0),c=IJ(u1,w1);const i0=Math.min(a[0],c[0]),i1=Math.max(a[0],c[0]),j0=Math.min(a[1],c[1]),j1=Math.max(a[1],c[1]);return{S:z=>G(i1,j1,z),L:i1-i0,Rr:j1-j0};};
+    const layers={},order=[];
+    const lay=n=>{if(!layers[n]){layers[n]={day:mk(W,H),night:mk(W,H),fine:mk(W,H),lit:0};order.push(n);}return layers[n];};
+    const endSide=X===1?-1:1,longSide=-endSide;                                        // 端面（被橋穿過、有拱門）／長側面
+    const deckZ=p.deckZ||(()=>0);
+    /* ---------- 石墩：等距盒子（u0..u1 × w0..w1）＋上下游兩端的尖形分水（沿 w 各伸出 nose）。
+       朝鏡頭的面照法線上色（法線朝 +j＝畫面左下＝亮，朝 +i＝畫面右下＝暗）；盒子近角的兩條底緣是 2:1 斜線，交成朝鏡頭的 V，
+       近側分水尖的兩面短、坡緩（nose 小於半寬），水線從 V 底往尖端緩升。水線 1px 白浪在描邊之後才畫（蓋掉水線下那一圈黑描邊）。 ---------- */
+    const mix=(c1,c2,t)=>{const h=s=>[1,3,5].map(o=>parseInt(s.substr(o,2),16));const A1=h(c1),A2=h(c2);return'#'+A1.map((v,i)=>R(v*(1-t)+A2[i]*t).toString(16).padStart(2,'0')).join('');};
+    function pier(q){const Ly=lay(q.layer||'base'),g=Ly.day.g;const uc=(q.u0+q.u1)/2,n=q.nose||0;
+      const pl=[[q.u0,q.w0],[uc,q.w0-n],[q.u1,q.w0],[q.u1,q.w1],[uc,q.w1+n],[q.u0,q.w1]];                 // (u,w) 平面：盒身四角＋兩個分水尖
+      const ij=pl.map(p=>IJ(p[0],p[1])),ci=ij.reduce((s,p)=>s+p[0],0)/6,cj=ij.reduce((s,p)=>s+p[1],0)/6;
+      const faces=[];for(let k=0;k<6;k++){const a=ij[k],b=ij[(k+1)%6];let ni=b[1]-a[1],nj=-(b[0]-a[0]);const mi=(a[0]+b[0])/2,mj=(a[1]+b[1])/2;
+        if(ni*(mi-ci)+nj*(mj-cj)<0){ni=-ni;nj=-nj;}if(ni+nj<=1e-6)continue;                              // 只畫朝鏡頭的面
+        const t=Math.max(0,nj)/(Math.abs(ni)+Math.abs(nj));faces.push({a,b,t,d:mi+mj,k});}
+      faces.sort((x,y)=>x.d-y.d);
+      for(const f of faces){const col=mix(q.cS,q.cL,f.t),A0=z=>G(f.a[0],f.a[1],z),B0=z=>G(f.b[0],f.b[1],z);
+        poly(g,[A0(q.z0),B0(q.z0),B0(q.z1),A0(q.z1)],col);
+        for(let z=q.z0+3;z<q.z1-1.5;z+=2.5)poly(g,[A0(z),B0(z),B0(z+.6),A0(z+.6)],shade(col,-9));            // 石層縫
+        poly(g,[A0(q.z0),B0(q.z0),B0(q.z0+1.5),A0(q.z0+1.5)],shade(col,-24));                              // 水線濕帶
+        poly(g,[A0(q.z1-1.2),B0(q.z1-1.2),B0(q.z1),A0(q.z1)],shade(col,12));}                               // 壓頂石
+      poly(g,ij.map(p=>G(p[0],p[1],q.z1)),q.cT);
+      // 白浪：收尾（finishLayer）時沿可見面底緣畫 1px；近側分水尖（i+j 最大的那個尖）再加兩道斜開的船首浪
+      (Ly.foam=Ly.foam||[]).push(...faces.map(f=>[G(f.a[0],f.a[1],q.z0),G(f.b[0],f.b[1],q.z0)]));
+      const tips=[IJ(uc,q.w0-n),IJ(uc,q.w1+n)],tp=tips[0][0]+tips[0][1]>tips[1][0]+tips[1][1]?tips[0]:tips[1];(Ly.wake=Ly.wake||[]).push(G(tp[0],tp[1],q.z0));}
+    /* ---------- 塔 ---------- */
+    function tower(name,T){const Ly=lay(name),g=Ly.day.g,ng=Ly.night.g,both=f=>{f(g);ers(ng,f);};
+      const r=rect(T.u0,T.u1,T.w0,T.w1),S=r.S(T.zb),h=T.h,lenL=2*r.L,lenR=2*r.Rr;
+      const len=s=>s<0?lenL:lenR,sideC=s=>s<0?C.SL:C.SR,sideD=s=>s<0?C.SLd:C.SRd;
+      box(g,S,r.L,r.Rr,h,C.SL,C.SR,null);
+      for(const s of [-1,1]){const n=len(s);
+        for(let d=0;d<n;d++){fc(g,S,s,d,0,3,s<0?'#cdc3aa':'#a99f88');fc(g,S,s,d,3,1,s<0?'#f2ecdc':'#d8cfb8');}           // 台基
+        for(const d of [2,n-3])if(d>=0&&d<n)fc(g,S,s,d,4,h-4,shade(sideC(s),-10));                                // 角塔凹縫
+        for(let d=0;d<n;d++){for(const up of T.bands)fc(g,S,s,d,up,1,sideD(s));fc(g,S,s,d,h-2,1,s<0?'#f4efe2':'#ddd5c0');fc(g,S,s,d,h-3,1,sideD(s));}}
+      // 穿橋拱門（端面）：尖拱＝等邊雙心拱
+      const dA0=2*(T.w1-T.a1),dA1=2*(T.w1-T.a0),wd=dA1-dA0,cx=(dA0+dA1)/2,spring=R(T.ah*.5);
+      const archH=d=>{const t=Math.min(1,Math.abs(d+.5-cx)/(wd/2));return R(spring+(T.ah-spring)*Math.sqrt(Math.max(0,4-(1+t)*(1+t)))/Math.sqrt(3));};
+      for(let d=dA0-1;d<=dA1;d++)if(d>=0&&d<len(endSide)){const hh=d<dA0||d>=dA1?spring+1:archH(d)+1;fc(g,S,endSide,d,0,hh+1,shade(sideC(endSide),-18));}
+      for(let d=dA0;d<dA1;d++){const hh=archH(d);fc(g,S,endSide,d,0,hh,C.ARCH);fc(g,S,endSide,d,0,2,'#3d4047');}
+      // 尖拱窗：3 欄、中欄高 1
+      const win=(s,d,up,hh,key)=>{Ly.win=(Ly.win|0)+1;fc(g,S,s,d,up,hh-1,C.GL);fc(g,S,s,d+1,up,hh,C.GL);fc(g,S,s,d+2,up,hh-1,C.GL);for(let k=0;k<3;k++)fc(g,S,s,d+k,up-1,1,s<0?'#f4efe2':'#ddd5c0');
+        if(T.night&&HL(T.seed,key,12001)<(T.litP||.8)){fc(ng,S,s,d,up,hh-1,C.LIT);fc(ng,S,s,d+1,up,hh,C.LIT2);fc(ng,S,s,d+2,up,hh-1,C.LIT);Ly.lit++;}};
+      for(const s of [-1,1]){const n=len(s),isEnd=s===endSide;
+        for(let ri=0;ri<T.rows.length;ri++){const up=T.rows[ri];if(isEnd&&up<T.ah+3)continue;
+          const a0=4,a1=n-4,cnt=Math.max(1,Math.floor((a1-a0+2)/5)),off=a0+Math.floor(((a1-a0)-(cnt*5-2))/2);
+          for(let k=0;k<cnt;k++)win(s,off+k*5,up,up>=h-10?5:6,ri*97+k*7+(s<0?0:500));}}
+      // v14：窗戶之後才畫的東西（塔頂面、四角小塔的盒身與尖錐、中央四坡屋頂、小尖塔、老虎窗）一律用 both() 畫：
+      //   白天照畫，同一組形狀再對夜圖 ng 用 destination-out 擦一次＝後畫的實體蓋到哪裡，夜光就擦到哪裡（保險：現在的幾何本來就不重疊，擦 0 px）
+      both(q=>topFace(q,[S[0],S[1]-h],r.L,r.Rr,C.ST));
+      // 屋頂：四角小塔（尖錐＋金頂）＋中央四坡屋頂（脊沿 w）＋小尖塔
+      const zt=T.zb+h,ts=T.tur;
+      const cs=[[T.u0,T.w0],[T.u1-ts,T.w0],[T.u0,T.w1-ts],[T.u1-ts,T.w1-ts]].map(c=>{const q=IJ(c[0],c[1]);return{u:c[0],w:c[1],d:q[0]+q[1]+(q[0]-q[1])*.001};}).sort((a,b)=>a.d-b.d);
+      const turret=(c,g)=>{const rr=rect(c.u,c.u+ts,c.w,c.w+ts),SS=rr.S(zt);box(g,SS,rr.L,rr.Rr,T.hTur,'#efe9da','#d0c7b1','#ded6c2');
+        for(const s of [-1,1]){const n=s<0?2*rr.L:2*rr.Rr;fc(g,SS,s,(n>>1)-1,3,4,C.GL);fc(g,SS,s,(n>>1),3,4,C.GL);fc(g,SS,s,0,T.hTur-1,1,'#f6f2e6');for(let d=0;d<n;d++)fc(g,SS,s,d,T.hTur-2,1,s<0?'#c4bba4':'#aca38c');}   // 小塔窗縫夜裡不點（只點主塔面的窗；小塔角 1〜2px 的縫亮起來像髒點）
+        const tp=[SS[0],SS[1]-T.hTur],ap=[tp[0],tp[1]-rr.L-T.capH];poly(g,[[tp[0]-2*rr.L,tp[1]-rr.L],tp,ap],C.RL);poly(g,[tp,[tp[0]+2*rr.Rr,tp[1]-rr.Rr],ap],C.RR);P(g,ap[0],ap[1]-3,1,3,C.GD);P(g,ap[0],ap[1]-4,1,1,'#fff2b0');};
+      const roof=g=>{const u0=T.u0+1,u1=T.u1-1,w0=T.w0+ts,w1=T.w1-ts,uc=(u0+u1)/2,hs=(u1-u0)/2,zr=zt+T.hRoof;
+        const A0=at(u0,w0,zt),B0=at(u1,w0,zt),C0=at(u1,w1,zt),D0=at(u0,w1,zt),R0=at(uc,w0+hs,zr),R1=at(uc,w1-hs,zr);
+        const litU=X===1;poly(g,[A0,D0,R1,R0],C.RK);poly(g,[A0,B0,R0],C.RK);
+        poly(g,[B0,C0,R1,R0],litU?C.RL:C.RR);poly(g,[C0,D0,R1],litU?C.RR:C.RL);
+        for(let k=0;k<=1;k+=.5){const q=at(uc,w0+hs+(w1-hs-w0-hs)*k,zr);P(g,q[0],q[1]-(k===.5?7:3),1,k===.5?7:3,C.GD);}
+        const mid=at(u1-.5,(w0+w1)/2,zt+3);P(g,mid[0]-1,mid[1]-3,3,4,'#ded6c2');P(g,mid[0],mid[1]-2,1,2,C.GL);};   // 屋頂老虎窗 1px 縫夜裡也不點
+      both(q=>turret(cs[0],q));both(q=>turret(cs[1],q));both(roof);both(q=>turret(cs[2],q));both(q=>turret(cs[3],q));
+      // 前半（夾車用）：拱頂以下的外露牆面，扣掉拱洞
+      if(T.mask){const m=mk(W,H);Ly.mask=m;box(m.g,S,r.L,r.Rr,T.ah+2,'#fff','#fff',null);m.g.globalCompositeOperation='destination-out';for(let d=dA0;d<dA1;d++)fc(m.g,S,endSide,d,0,archH(d),'#000');m.g.globalCompositeOperation='source-over';}
+      return{S,r};}
+    /* ---------- 上層雙步道（淺藍白格構） ---------- */
+    function walk(q){const Ly=lay('walk'),g=Ly.day.g,ng=Ly.night.g;
+      for(const w of q.ws){const r=rect(q.uA,q.uB,w-1,w+1),S=r.S(q.z0);box(g,S,r.L,r.Rr,q.h,C.BL,C.BR,C.BT);
+        const n=longSide<0?2*r.L:2*r.Rr,fcol=longSide<0?C.BL:C.BR;
+        for(let d=0;d<n;d++){fc(g,S,longSide,d,q.h-1,1,C.BT);fc(g,S,longSide,d,0,1,C.BD);
+          if(d%4===0)fc(g,S,longSide,d,1,q.h-2,'#dcecf4');else{const k=d%8,y=k<4?k:8-k;fc(g,S,longSide,d,1+Math.min(q.h-3,y),1,shade(fcol,-26));}}}}   // 不加夜燈（T619：不為夜景硬加燈）
+    /* ---------- 側跨懸鏈＋吊桿＋岸端小岸塔 ----------
+       岸塔：方形小塔（兩面分明暗、壓頂線、一道窗縫、四坡小尖頂＋金頂），從橋端往橋內縮 inset 單位（C 避開引橋格的路燈），懸鏈收進塔頂 */
+    function chain(name,q){const Ly=lay(name),g=Ly.day.g,ng=Ly.night.g;const w=q.w,dir=Math.sign(q.uE-q.uT);
+      let uE=q.uE,zE=q.zE,anchor=null;
+      if(q.post){const s=q.post.s,sw=q.post.sw||2,ue=q.uE-dir*(q.post.inset||0),ua=Math.min(ue,ue-dir*s),ub=Math.max(ue,ue-dir*s),uc=(ua+ub)/2,z0=(q.post.z0||0)+q.deck(uc);
+        anchor={ua,ub,w0:w-sw/2,w1:w+sw/2,z0,h:q.post.h,cap:q.post.cap||0};uE=uc;zE=z0+q.post.h-1;}
+      const pw=q.pw||2,zAt=t=>t<q.tl?q.zLow+(q.zT-q.zLow)*Math.pow(1-t/q.tl,pw):q.zLow+(zE-q.zLow)*Math.pow((t-q.tl)/(1-q.tl),2);
+      const n=Math.max(8,R(Math.abs(uE-q.uT)*4));
+      const hang=g=>{for(let k=1;k<n;k++){const t=k/n,u=q.uT+(uE-q.uT)*t;if(Math.abs(u-q.uT)<1.2||Math.abs(uE-u)<2.2)continue;if((R(Math.abs(u-q.uT)*4))%10!==0)continue;
+        const c=at(u,w,zAt(t)),d=at(u,w,q.deck(u));P(g,c[0],c[1]+2,1,Math.max(0,d[1]-c[1]-2),C.HG);}};
+      // 鏈身＋岸塔（v14：同塔，白天畫完同形狀對夜圖擦一次；懸鏈層本來就沒有夜光，這是保險）
+      const body=g=>{for(let k=0;k<=n;k++){const t=k/n,u=q.uT+(uE-q.uT)*t,c=at(u,w,zAt(t));P(g,c[0],c[1]-1,1,1,C.CHh);P(g,c[0],c[1],1,1,C.CH);P(g,c[0],c[1]+1,1,1,C.CHd);}   // 不加夜燈
+      if(anchor){const a=anchor,r=rect(a.ua,a.ub,a.w0,a.w1),S=r.S(a.z0),h=a.h;box(g,S,r.L,r.Rr,h,'#e6dfcd','#bdb49d','#d4ccb7');
+        for(const s of [-1,1]){const nn=s<0?2*r.L:2*r.Rr;for(let d=0;d<nn;d++){fc(g,S,s,d,0,1,s<0?'#c9bfa6':'#a2987f');fc(g,S,s,d,h-3,1,s<0?'#cfc5ac':'#a99f88');fc(g,S,s,d,h-1,1,s<0?'#f6f2e6':'#dcd4bf');}
+          if(nn>=4)fc(g,S,s,(nn>>1)-1,3,Math.max(2,h-7),C.GL);}
+        if(a.cap){const tp=[S[0],S[1]-h],ap=[tp[0]+r.Rr-r.L,tp[1]-(r.L+r.Rr)/2-a.cap];poly(g,[[tp[0]-2*r.L,tp[1]-r.L],tp,ap],C.RL);poly(g,[tp,[tp[0]+2*r.Rr,tp[1]-r.Rr],ap],C.RR);P(g,ap[0],ap[1]-2,1,2,C.GD);P(g,ap[0],ap[1]-3,1,1,'#fff2b0');}
+        else P(g,S[0],S[1]-h-2,1,2,C.GD);}};
+      hang(Ly.fine.g);ers(ng,hang);body(g);ers(ng,body);}
+    return{W,H,ax,ay0,G,at,rect,layers,order,lay,pier,tower,walk,chain,endSide,longSide};
+  }
+  /* ---------- 收尾：描邊＋T526 打磨（不畫底部橢圓）＋T479 材質（逐式照 b07） ---------- */
+  function polishLite(c){const g=c.getContext('2d'),w=c.width,h=c.height;const im=g.getImageData(0,0,w,h),d=im.data;
+    for(let y=0;y<h;y++){let L=-1,Rr=-1;for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]>40){if(L<0)L=x;Rr=x;}}if(L<0)continue;
+      for(let x=L;x<Math.min(L+2,w);x++){const i=(y*w+x)*4;d[i]=Math.min(255,d[i]*1.14+12);d[i+1]=Math.min(255,d[i+1]*1.14+12);d[i+2]=Math.min(255,d[i+2]*1.14+12);}
+      const i=(y*w+Rr)*4;d[i]*=.88;d[i+1]*=.88;d[i+2]*=.88;}
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;if(d[i+3]<=40)continue;if((((x>>1)+(y>>1))&3)===0){d[i]*=.955;d[i+1]*=.955;d[i+2]*=.955;}}
+    g.putImageData(im,0,0);}
+  function mat479(c,k,key){const g=c.getContext('2d'),w=c.width,h=c.height,seed=479000+k*17+(String(key).length*13);
+    g.save();g.globalCompositeOperation='source-atop';
+    let gr=g.createLinearGradient(0,0,w,h);gr.addColorStop(0,'rgba(255,236,194,.075)');gr.addColorStop(.52,'rgba(255,255,255,0)');gr.addColorStop(1,'rgba(28,35,43,.10)');g.fillStyle=gr;g.fillRect(0,0,w,h);
+    const density=Math.min(360,Math.max(10,Math.floor(w*h/520)));const cols=['rgba(255,238,202,.09)','rgba(40,46,52,.075)','rgba(143,123,99,.065)'];
+    for(let i=0;i<density;i++){const x=Math.floor(HL(seed,i,47901)*w),y=Math.floor(HL(seed,i,47902)*h);const rw=HL(seed,i,47903)<.74?1:2,rh=HL(seed,i,47904)<.88?1:2;
+      g.fillStyle=cols[Math.floor(HL(seed,i,47905)*cols.length)%cols.length];g.fillRect(x,y,rw,rh);}
+    g.restore();}
+  function finishLayer(Ly,k,key,ol){A.outlineSprite(Ly.day.c,ol[0],ol[1],ol[2]);polishLite(Ly.day.c);mat479(Ly.day.c,k,key);
+    Ly.day.g.globalCompositeOperation='destination-over';Ly.day.g.drawImage(Ly.fine.c,0,0);Ly.day.g.globalCompositeOperation='source-over';   // 細吊桿不描邊，墊在鏈身底下
+    if(Ly.foam||Ly.wake)foam(Ly);if(Ly.clip)Ly.clip(Ly.day.g);}
+  /* 石墩水線白浪：沿可見面底緣，把墩身最底一排正下方那一格（描邊畫在那裡）換成 1px 白浪；墩身被橋面裁掉的欄位（正上方沒墩身）不畫。
+     近側分水尖另加兩道往兩側斜開、逐漸變淡的船首浪（只畫在透明處＝墩外的水面上） */
+  function foam(Ly){const c=Ly.day.c,g=Ly.day.g,W=c.width,H=c.height,im=g.getImageData(0,0,W,H),d=im.data;const al=(x,y)=>x>=0&&y>=0&&x<W&&y<H?d[(y*W+x)*4+3]:0;
+    const put=(x,y,rgb,a)=>{if(x<0||y<0||x>=W||y>=H)return;const i=(y*W+x)*4;d[i]=rgb[0];d[i+1]=rgb[1];d[i+2]=rgb[2];d[i+3]=a;};
+    for(const [pa,pb] of Ly.foam||[]){const x0=Math.min(pa[0],pb[0]),x1=Math.max(pa[0],pb[0]);
+      for(let x=Math.floor(x0);x<Math.ceil(x1);x++){const t=(x+.5-pa[0])/((pb[0]-pa[0])||1),yl=pa[1]+(pb[1]-pa[1])*Math.max(0,Math.min(1,t)),y=Math.floor(yl+.5);
+        if(al(x,y-1)>200)put(x,y,[232,242,247],235);}}
+    for(const tp of Ly.wake||[]){const x=R(tp[0]),y=R(tp[1]);for(let k=0;k<5;k++)for(const s of [-1,1]){const xx=x+s*(2+k*2),yy=y+1+(k>>1);if(al(xx,yy)<=40&&al(xx+s,yy)<=40){put(xx,yy,[226,238,245],R(220-k*38));put(xx+s,yy,[226,238,245],R(160-k*30));}}
+      if(al(x,y+1)<=40)put(x,y+1,[240,247,250],240);}
+    g.putImageData(im,0,0);}
+  /* ---------- 整座塔橋（依參數擺元件） ---------- */
+  function tb(p){const b=build(p);const T=p.T,[tA,tB]=p.towers;
+    const tw=(name,u0,u1,seed)=>b.tower(name,{u0,u1,w0:T.w0,w1:T.w1,zb:T.zb,h:T.h,a0:T.a0,a1:T.a1,ah:T.ah,tur:T.tur,hTur:T.hTur,capH:T.capH,hRoof:T.hRoof,rows:T.rows,bands:T.bands,night:true,seed,mask:!!p.mask,litP:T.litP});
+    for(const q of p.piers||[])b.pier(q);
+    // C：墩在物件層畫（地面層會被前面那格水蓋掉），所以要先把 480A 橋面（z=0，w clip.w0..w1）與其側緣蓋得到的部分挖掉，只留橋面近緣以下露出來的墩身
+    if(p.clip)for(const q of p.piers||[]){const Ly=b.layers[q.layer||'base'],c=p.clip;
+      Ly.clip=g=>{g.globalCompositeOperation='destination-out';for(const z of c.zs)poly(g,[b.at(0,c.w0,z),b.at(p.nU,c.w0,z),b.at(p.nU,c.w1,z),b.at(0,c.w1,z)],'#000');g.globalCompositeOperation='source-over';};
+      Ly.clip(Ly.day.g);Ly.clip(Ly.fine.g);}   // 收尾描邊後再挖一次（finishLayer）：描邊會往挖掉的橋面裡長 1px
+    const ch=(name,uT,uE,w)=>b.chain(name,{uT,uE,w,zT:p.ch.zT,zE:p.ch.zE,zLow:p.ch.zLow,tl:p.ch.tl||.72,pw:p.ch.pw||2,deck:p.deckZ||(()=>0),post:p.ch.post});
+    if(p.ch)for(const w of p.ch.ws)ch(w===p.ch.ws[0]?'chainB_far':'chainB_near',tA[0],0,w);
+    tw('tower0',tA[0],tA[1],1931);
+    b.walk({uA:tA[1],uB:tB[0],ws:p.walk.ws,z0:p.walk.z0,h:p.walk.h,night:true});
+    tw('tower1',tB[0],tB[1],1937);
+    if(p.ch)for(const w of p.ch.ws)ch(w===p.ch.ws[0]?'chainF_far':'chainF_near',tB[1],p.nU,w);
+    return b;}
+  // C：L 格直線水橋（16L×16 單位），塔在中央跨兩側各一格；橋面由 480A 地面層畫
+  // 墩（v13）：兩座塔格各一座，盒身 u 比塔身前後各寬 2（16t+2..16t+14）、w1..15＋上下游各伸 1 的分水尖（尖端剛好落在橋格菱形邊上 w0／w16），
+  //   墩頂＝橋面（z0），水面在橋面下 8；畫在物件層（地面層會被前面那格水蓋掉）。車道那一段（w1..15、z0）先挖掉（clip），
+  //   留下的是：塔身前後、兩側護欄那一條（w15..16／w0..1）的墩頂石，和橋面近緣以下露出來的墩身、V 形水線、白浪
+  // 岸塔 3×3、高 10＋尖頂 4，從橋端往內縮 2.5（避開引橋格的路燈）
+  // wide（業主選 1-2 B，預設開）：奇數 L≥7 的中央跨改用 3 格（偶數 L 本來就是 2 格；奇數取 2 格會一邊側跨長一邊短，所以取 3 格保持對稱）
+  function presetC(L,axis,wide){const W3=!!wide&&(L&1)===1&&L>=7,c0=W3?(L-3)>>1:(L-1)>>1,c1=W3?c0+2:L>>1,t0=c0-1,t1=c1+1,PC={cT:'#c4beb0',cL:'#a8a294',cS:'#6e6a61'};
+    const pr=t=>({layer:'pier'+(t===t0?0:1),u0:16*t+2,u1:16*t+14,w0:1,w1:15,nose:1,z0:-8,z1:0,...PC});
+    return{axis,nU:16*L,nW:16,top:100,mask:true,deckZ:()=>0,
+      piers:t0>=0&&t1<L?[pr(t0),pr(t1)]:[],clip:{w0:1,w1:15,zs:[0]},
+      T:{w0:1,w1:15,zb:0,h:40,a0:4,a1:12,ah:14,tur:3,hTur:8,capH:4,hRoof:15,rows:[7,19,29],bands:[15,25]},
+      towers:[[16*t0+4,16*t0+12],[16*t1+4,16*t1+12]],walk:{ws:[2,14],z0:28,h:5},
+      ch:t0>=1?{ws:[2,14],zT:33,zLow:3,post:{s:3,sw:3,inset:2.5,z0:0,h:10,cap:4}}:null,roles:{c0,c1,t0,t1}};}
+  return{build,tb,presetC,finishLayer,polishLite,mat479,C,VER:14};
+}))(A);}catch(e){console.error('T693 tower bridge',e);}
 
   /* @@NEXT@@ */
 });
@@ -38427,8 +38608,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.96'; // T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T692'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.97'; // T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T693'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -51876,7 +52057,7 @@ function waterfrontAudit498(){
    No save fields. Visual cache is rebuilt per ground-cache bake.
 ===================================================================== */
 let bridgeCompCache480A=new Map(), bridgeCompMeta480A=new Map();
-function resetBridgeVisualCache480A(){bridgeCompCache480A.clear();bridgeCompMeta480A.clear();}
+function resetBridgeVisualCache480A(){bridgeCompCache480A.clear();bridgeCompMeta480A.clear();tb693Cache=null;/* T693：不包閥門（只是清快取） */}
 function bridgeKind480A(t){if(!t||!t.road)return 0;if(t.ix475)return 3;if(t.fly475)return 2;if(t.bridge)return 1;return 0;}
 function bridgeTier480A(t){return t&&t.hw?5:Math.max(1,Math.min(5,(t&&t.rc)||2));}
 function bridgeComponentInfo480A(x,y){
@@ -51994,16 +52175,115 @@ function drawBridgeJoint480A(gc,sx,sy,z,rm,col='rgba(32,37,42,.65)'){
   else if(rm===10){for(let px=23;px<=41;px+=2){const yy=20+((px-32)>>1);gc.fillRect(sx+px*z,sy+(yy)*z,1*z,1*z);}}
   gc.restore();
 }
+/* ===== T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）=====
+   tb693Scan 每次地面重烘後重算全圖水橋；合格（直線、5≤L≤9、非快速路、無岔路）的橋取最長一座（同長取格索引最小；不記狀態），依世界 dist 分角色
+     （中央開合跨＝中間 1〜2 格，奇數 L≥7 取 3 格〔業主選寬中跨；閥門 __noTowerBridgeWide693 回 1 格〕、塔＝其兩側各 1 格、其餘＝側跨）。
+   低的東西（鋼藍樣式、格角石色小墩帽〔跟塔格共用的格角不疊，由塔下石墩收邊〕、開合縫、不撒施工桶〔排水格柵照舊〕、不畫 480A 小墩、
+     塔格與中央跨不發 T359 矮燈光洗〔燈柱被塔或上層步道整根擋住，只剩底座暗板和沒有燈的光池〕、塔橋 8 鄰格水面不放礁石／淺灘／浮標）在地面層；
+   塔下石墩、塔、步道、懸鏈進物件層：墩（dep−.6）最先；塔拆後半（dep−.24）與前半（dep+.26）夾住車；步道由較前那座塔帶（dep−.251）；
+     懸鏈遠側（dep−.49）在車之前、近側（dep+.49）在車之後。精靈依 (L, 軸, 寬中跨) 閒置時預烘。
+   逃生閥 window.__noTowerBridge693（執行期，切完 GV.testRebake592()）＝回原樣。 */
+var tb693Cache=null;const tb693Spr=new Map(),tb693CapC=new Map();let tb693PreQ=0;   // var：resetBridgeVisualCache480A 不包旗標地清 tb693Cache，用 var 免得開機早期呼叫時撞到 let 的暫時死區
+function tb693Near(x,y){ // C：(x,y) 的 8 鄰格裡有塔橋格（上下游緊貼塔橋的水面，不放礁石／淺灘／浮標，免得被懸鏈、步道切成碎片）
+  for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if((dx||dy)&&inMap(x+dx,y+dy)&&tb693Role(x+dx,y+dy))return true;return false;}
+function tb693Scan(){const map=new Map(),seen=new Set(),cands=[];const ok=t=>t&&t.road&&t.bridge&&!t.fly475&&!t.ix475;
+  tb693Prebake();
+  const Lmin=5;   // L=3、4 塔會貼岸、沒有側跨，不長
+  for(let i=0;i<N*N;i++){if(seen.has(i)||!ok(T(i)))continue;const mem=[],q=[i];seen.add(i);
+    while(q.length){const j=q.shift();mem.push(j);const xx=j%N,yy=(j/N)|0;for(const[dX,dY]of POW_DIR){const nx=xx+dX,ny=yy+dY;if(!inMap(nx,ny))continue;const k=idx(nx,ny);if(seen.has(k)||!ok(T(k)))continue;seen.add(k);q.push(k);}}
+    const L=mem.length;if(L<Lmin||L>9||mem.some(j=>T(j).hw))continue;
+    const vert=mem.every(j=>j%N===mem[0]%N),horiz=mem.every(j=>((j/N)|0)===((mem[0]/N)|0));if(!vert&&!horiz)continue;
+    const axM=vert?5:10;if(mem.some(j=>((T(j).mask|0)|axM)!==axM))continue;
+    mem.sort((a,b)=>vert?(((a/N)|0)-((b/N)|0)):((a%N)-(b%N)));cands.push({mem,L,vert,anchor:Math.min(...mem)});}
+  // 選橋（一城一座）：純規則——最長的那座，同長取 anchor 最小。不記狀態：存檔讀檔、換視角、重烘都選到同一座
+  const c1=cands.length?cands.slice().sort((a,b)=>b.L-a.L||a.anchor-b.anchor)[0]:null,pick=c1?[c1]:[];   // 業主選 1-3 A：每城一座
+  const wide=!window.__noTowerBridgeWide693;   // 業主選 1-2 B：奇數 L≥7 的中央跨取 3 格（同 presetC 的 wide）
+  for(const c of pick){const W3=wide&&(c.L&1)===1&&c.L>=7;c.wide=W3;c.c0=W3?(c.L-3)>>1:(c.L-1)>>1;c.c1=W3?c.c0+2:c.L>>1;c.t0=c.c0-1;c.t1=c.c1+1;
+    c.mem.forEach((j,d)=>{const role=(d===c.t0||d===c.t1)?'tower':(d>=c.c0&&d<=c.c1)?'center':'side';map.set(j,{comp:c,d,role,seam:role==='center'&&(c.c1-c.c0!==2||d===c.c0+1)});});}
+  tb693Cache={map,comps:pick,cands:cands.length};window.__tb693Stat={cands:cands.length,Lmin,picked:pick.map(c=>({anchor:c.anchor,L:c.L,vert:c.vert,wide:c.wide}))};return tb693Cache;}
+function tb693Role(x,y){if(!tb693Cache)tb693Scan();return tb693Cache.map.get(idx(x,y))||null;}
+// 閒置預烘：第一次掃描時排程，把 L＝下限..9 × 兩軸的精靈在 requestIdleCallback 裡烘好；一張精靈切成一層一段（產生器），
+// 每次閒置只跑到剩餘時間用完（至少一段），不會一口氣卡住一幀。之後有橋中途變合格時第一次畫就不用當場烘（原本一次性卡約 27 ms）
+function tb693Prebake(){if(tb693PreQ||!window.__tb693)return;tb693PreQ=1;const wide=!window.__noTowerBridgeWide693,jobs=[];for(let L=5;L<=9;L++)for(const ax of [0,1])jobs.push([L,ax,wide&&(L&1)===1&&L>=7?1:0]);
+  const kj=j=>j[0]+'_'+j[1]+(j[2]?'w':'');
+  const st=window.__tb693Pre={n:0,ms:0,slices:0,maxSlice:0,done:false},ric=f=>window.requestIdleCallback?requestIdleCallback(f,{timeout:1000}):setTimeout(()=>f(null),40);   // __tb693Pre：量測用（唯讀）
+  let cur=null;
+  const step=dl=>{if(window.__noTowerBridge693){tb693PreQ=0;return;}
+    if(!cur||tb693Spr.has(cur.key)){cur=null;let j;while((j=jobs.shift())&&tb693Spr.has(kj(j)));if(!j){st.done=true;return;}cur={key:kj(j),it:tb693SpriteGen(j[0],j[1],j[2])};}
+    const t0=performance.now();let q;do{q=cur.it.next();}while(!q.done&&dl&&dl.timeRemaining()>4);const dt=performance.now()-t0;
+    st.ms+=dt;st.slices++;st.maxSlice=Math.max(st.maxSlice,dt);if(q.done){st.n++;cur=null;}ric(step);};ric(step);}
+// 格角小墩帽：480A 的「小墩」其實是每格四個角露出來的側緣（護欄樣式色）。塔橋一律鋼藍（樣式 1）時這幾塊跟水同色、看不見；
+// 這裡把樣式 2（石色）同一張精靈在四個格角各一塊 ±9×±4.5 的菱形範圍裁出來疊上去＝每個格角照樣有石色小墩帽，其餘仍是鋼藍
+// cm：要疊的格角（1＝左、2＝右、4＝上、8＝下，畫面上的菱形頂點）。跟塔格共用的格角不疊（tb693CapMask），改由塔下石墩收邊，不然墩端會黏著幾塊棕色碎屑
+function tb693Caps(rc,rm,cm){if(!cm)return null;const key=(rc*16+rm)*16+cm;if(tb693CapC.has(key))return tb693CapC.get(key);let out=null;
+  const s=SPR.bridgeMaster480A&&SPR.bridgeMaster480A[rc-1]&&SPR.bridgeMaster480A[rc-1][2]&&SPR.bridgeMaster480A[rc-1][2][rm];
+  const V=[[0,21],[64,21],[32,5],[32,37]].filter((v,k)=>(cm>>k)&1);
+  if(s&&s.img){const c=document.createElement('canvas');c.width=64;c.height=48;const g=c.getContext('2d');g.drawImage(s.img,0,0);const im=g.getImageData(0,0,64,48),d=im.data;
+    for(let y=0;y<48;y++)for(let x=0;x<64;x++){let inZ=false;for(const[vx,vy]of V)if(Math.abs(x+.5-vx)/2+Math.abs(y+.5-vy)<=4.5){inZ=true;break;}if(!inZ)d[(y*64+x)*4+3]=0;}
+    g.putImageData(im,0,0);out=c;}
+  tb693CapC.set(key,out);return out;}
+// 這一格要疊哪幾個格角：塔格一個都不疊；其他格把朝塔格那一邊的兩個格角拿掉（鄰格在畫面上的方向由 w2v 差決定，跟視角無關）
+function tb693CapMask(x,y,R){if(R.role==='tower')return 0;const c=R.comp,a=w2v(x,y);let m=15;
+  for(const d2 of [R.d-1,R.d+1]){if(d2!==c.t0&&d2!==c.t1)continue;const j=c.mem[d2];if(j===undefined)continue;const b=w2v(j%N,(j/N)|0),dvx=b[0]-a[0],dvy=b[1]-a[1];
+    if(dvy<0)m&=~(4|2);else if(dvy>0)m&=~(1|8);else if(dvx>0)m&=~(2|8);else if(dvx<0)m&=~(1|4);}   // 右上鄰＝上＋右、左下鄰＝左＋下、右下鄰＝右＋下、左上鄰＝左＋上
+  return m;}
+function tb693SeamLine(gc,sx,sy,z,rm,x,y,R){ // 中央開合跨的接縫：橫過橋面的一道暗縫＋亮邊。中央 1 格或 3 格＝正中那格的正中；中央 2 格＝兩格的交界（由畫面座標較大、後畫的那格畫在它的近端邊，才不會被鄰格橋面蓋掉）
+  let s=.5;const c=R&&R.comp;
+  if(c&&c.c1-c.c0===1){const o=c.mem[R.d===c.c0?c.c1:c.c0],a=w2v(x,y),b=w2v(o%N,(o/N)|0),k=rm===5?1:0;if(!(b[k]<a[k]))return;s=2/64;}
+  const P=(lx,ly,col)=>{gc.fillStyle=col;gc.fillRect(sx+32*z+(lx-ly)*32*z,sy+(lx+ly)*16*z+z,Math.max(1,z),Math.max(1,z));};
+  for(let k=6;k<=58;k++){const a=k/64;if(rm===5){P(a,s,'#23262b');P(a,s+1/32,'#7c828a');}else{P(s,a,'#23262b');P(s+1/32,a,'#7c828a');}}}
+function tb693Sprite(L,axis,wide){const it=tb693SpriteGen(L,axis,wide);let q=it.next();while(!q.done)q=it.next();return q.value;}   // 當場烘（同步跑完產生器）
+function* tb693SpriteGen(L,axis,wide){const key=L+'_'+axis+(wide?'w':'');if(tb693Spr.has(key))return tb693Spr.get(key);const TB=window.__tb693;if(!TB)return null;   // 產生器：每畫完一層 yield 一次，閒置預烘才能切成小段
+  const p=TB.presetC(L,axis,wide),b=TB.tb(p),r=p.roles,parts=[],W=b.W,H=b.H;yield;
+  const bbox=cv=>{const d=cv.getContext('2d').getImageData(0,0,W,H).data;let x0=W,y0=H,x1=-1,y1=-1;for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(d[(y*W+x)*4+3]){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return x1<0?null:[Math.max(0,x0-1),Math.max(0,y0-1),Math.min(W,x1+2),Math.min(H,y1+2)];};
+  const cut=(src,bb)=>{const c=document.createElement('canvas');c.width=bb[2]-bb[0];c.height=bb[3]-bb[1];const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(src,-bb[0],-bb[1]);return c;};
+  const lit=cv=>{const d=cv.getContext('2d').getImageData(0,0,cv.width,cv.height).data;for(let i=3;i<d.length;i+=4)if(d[i])return true;return false;};
+  const push=(img,night,bb,k,dep)=>{if(!lit(img))return;parts.push({k,dep,img,night:night&&lit(night)?night:null,ox:bb[0],oy:bb[1],w:img.width,h:img.height});};
+  // 描邊收尾（全尺寸）→ 裁到外框 → T573 剪影（逐層）→ 夜圖只留白天像素
+  const L2={};for(const nm of b.order){const Ly=b.layers[nm];TB.finishLayer(Ly,193,'t693'+key+nm,[38,40,48]);const bb=bbox(Ly.day.c);if(!bb)continue;
+    const day=cut(Ly.day.c,bb),night=cut(Ly.night.c,bb),mask=Ly.mask?cut(Ly.mask.c,bb):null;if(typeof silhouetteOne573==='function'&&!window.__noSilhouette573)silhouetteOne573(day);
+    const ng=night.getContext('2d');ng.globalCompositeOperation='destination-in';ng.drawImage(day,0,0);ng.globalCompositeOperation='source-over';L2[nm]={day,night,mask,bb};yield;}
+  // 塔：遮罩膨脹 1px＝前半（拱頂以下的外露牆面），其餘＝後半
+  // 夜圖用同一個膨脹遮罩一起拆：前半的窗燈跟前半走（dep+.26），不然會留在後半（dep−.24）、被前半自己的 T629 遮擋擦掉
+  for(const [nm,k] of [['tower0',r.t0],['tower1',r.t1]]){const q=L2[nm];if(!q)continue;const w=q.day.width,h=q.day.height;
+    const md=q.mask.getContext('2d').getImageData(0,0,w,h).data,dg=q.day.getContext('2d'),dd=dg.getImageData(0,0,w,h),ngc=q.night.getContext('2d'),nd=ngc.getImageData(0,0,w,h);
+    const f=document.createElement('canvas');f.width=w;f.height=h;const fg=f.getContext('2d'),fd=fg.createImageData(w,h);
+    const fN=document.createElement('canvas');fN.width=w;fN.height=h;const fNg=fN.getContext('2d'),fNd=fNg.createImageData(w,h);
+    const inM=(x,y)=>x>=0&&y>=0&&x<w&&y<h&&md[(y*w+x)*4+3]>0;
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;if(!dd.data[i+3])continue;if(inM(x,y)||inM(x-1,y)||inM(x+1,y)||inM(x,y-1)||inM(x,y+1)){for(let c=0;c<4;c++){fd.data[i+c]=dd.data[i+c];dd.data[i+c]=0;fNd.data[i+c]=nd.data[i+c];nd.data[i+c]=0;}}}
+    dg.putImageData(dd,0,0);fg.putImageData(fd,0,0);ngc.putImageData(nd,0,0);fNg.putImageData(fNd,0,0);push(q.day,q.night,q.bb,k,-.24);push(f,fN,q.bb,k,.26);yield;}
+  if(L2.walk)push(L2.walk.day,L2.walk.night,L2.walk.bb,r.t1,-.251);
+  // 塔下石墩：只剩橋面近緣以下露出來的那一段（產生器已挖掉 480A 橋面蓋得到的部分），比塔、車、懸鏈都早畫
+  for(const [nm,k] of [['pier0',r.t0],['pier1',r.t1]])if(L2[nm])push(L2[nm].day,null,L2[nm].bb,k,-.6);
+  // 懸鏈：依畫面 x 切到各格（鏈在固定 w 上，x 跟 u 單調）
+  const w0=p.ch?p.ch.ws:[0,0];
+  for(const [nm,span,w,dep] of [['chainB_far',[0,r.t0-1],w0[0],-.49],['chainB_near',[0,r.t0-1],w0[1],.49],['chainF_far',[r.t1+1,L-1],w0[0],-.49],['chainF_near',[r.t1+1,L-1],w0[1],.49]]){
+    const q=L2[nm];if(!q)continue;if(span[0]===span[1]){push(q.day,q.night,q.bb,span[0],dep);continue;}
+    for(let k=span[0];k<=span[1];k++){const pc=[q.day,q.night].map(src=>{const c=document.createElement('canvas');c.width=src.width;c.height=src.height;const g=c.getContext('2d');
+        let xa,xb;if(axis===1){xa=b.ax+2*w-32*(k+1);xb=b.ax+2*w-32*k;}else{xa=b.ax-2*w+32*k;xb=b.ax-2*w+32*(k+1);}
+        if(k===span[0])(axis===1?(xb=1e9):(xa=-1e9));if(k===span[1])(axis===1?(xa=-1e9):(xb=1e9));
+        const l=Math.max(0,Math.floor(xa-q.bb[0])+(axis===1?1:0)),rr=Math.min(src.width,Math.floor(xb-q.bb[0])+(axis===1?1:0));if(rr>l)g.drawImage(src,l,0,rr-l,src.height,l,0,rr-l,src.height);return c;});
+      push(pc[0],pc[1],q.bb,k,dep);}}
+  const res={ax:b.ax,ay0:b.ay0,parts};tb693Spr.set(key,res);window.__tb693SprMap=tb693Spr;return res;}   // __tb693SprMap：量測用（唯讀）
+function tb693Push(objs,sxOf,syOf,vis){const C=tb693Cache||tb693Scan();if(!C.comps.length||!window.__tb693)return 0;let n=0;
+  for(const c of C.comps){const v=c.mem.map(j=>{const x=j%N,y=(j/N)|0,p=w2v(x,y);return{x,y,vx:p[0],vy:p[1]};});
+    if(!v.some(q=>vis(sxOf(q.x,q.y),syOf(q.x,q.y))))continue;const alongJ=v[0].vx===v[1].vx;v.sort((a,b)=>(a.vx+a.vy)-(b.vx+b.vy));
+    const spr=tb693Sprite(c.L,alongJ?1:0,c.wide);if(!spr)continue;const sx0=sxOf(v[0].x,v[0].y),sy0=syOf(v[0].x,v[0].y);
+    for(const pt of spr.parts){const q=v[pt.k];if(!q)continue;objs.push({dep:q.vx+q.vy+pt.dep,tb693:{pt,sx0,sy0,spr},x:q.x,y:q.y});n++;}}
+  window.__tb693Pushed=n;return n;}
+function tb693Draw(ctx,o,z,nightDepth,nightSprites,occPush){const q=o.tb693,pt=q.pt,spr=q.spr;
+  const x=q.sx0+(32-spr.ax+pt.ox)*z,y=q.sy0+(pt.oy-spr.ay0)*z,w=pt.w*z,h=pt.h*z;ctx.drawImage(pt.img,x,y,w,h);if(occPush)occPush(pt.img,x,y,w,h,null);
+  if(pt.night&&nightDepth>0)nightSprites.push({img:pt.night,x,y,w,h,a:.92,warm649:1});}   // warm649：照 T649（業主選暖黃）跟建築窗燈同樣染暖黃
 function drawBridgeMaster480A(gc,t,x,y,sx,sy,z,rm,mode='bridge'){
-  if(!SPR.bridgeMaster480A)return false;const info=bridgeComponentInfo480A(x,y);if(!info)return false;
-  const rc=Math.max(1,Math.min(5,t.hw?5:(t.rc||2))),style=info.style,offY=mode==='bridge'?-4:(mode==='ix'?-24:-20);
+  if(!SPR.bridgeMaster480A)return false;const info=bridgeComponentInfo480A(x,y);if(!info)return false;const tbR693=(!window.__noTowerBridge693&&mode==='bridge')?tb693Role(x,y):null; /* T693 */
+  const rc=Math.max(1,Math.min(5,t.hw?5:(t.rc||2))),style=tbR693?1:info.style,offY=mode==='bridge'?-4:(mode==='ix'?-24:-20); /* T693：塔橋一律鋼藍 */
   const approaches=bridgeApproachBits480A(x,y,info.kind),straight=(rm===5||rm===10);
   // understructure first
   if(SPR.bridgeShadow480A[rm])gc.drawImage(SPR.bridgeShadow480A[rm],sx,sy+(mode==='bridge'?5:-1)*z,64*z,32*z);
   const endpoint=!!approaches,pierPhase=info.size<=2?(info.dist===1):(info.dist>0&&info.dist<info.size-1&&(info.dist%4===2));
-  if(straight&&pierPhase&&!endpoint&&SPR.bridgePier480A[style]){const p=SPR.bridgePier480A[style],px=sx+(32-p.width/2)*z,py=sy+(mode==='bridge'?23:13)*z;gc.drawImage(p,px,py,p.width*z,p.height*z);}
+  if(!tbR693&&straight&&pierPhase&&!endpoint&&SPR.bridgePier480A[style]){ /* T693：塔橋整座不畫 480A 小墩（L=5、6 時 pierPhase 落在中央開合跨） */const p=SPR.bridgePier480A[style],px=sx+(32-p.width/2)*z,py=sy+(mode==='bridge'?23:13)*z;gc.drawImage(p,px,py,p.width*z,p.height*z);}
   // structure + deck master
-  const im=SPR.bridgeMaster480A[rc-1][style][rm];gc.drawImage(im.img,sx,sy+offY*z,64*z,48*z);
+  const im=SPR.bridgeMaster480A[rc-1][style][rm];gc.drawImage(im.img,sx,sy+offY*z,64*z,48*z);if(tbR693){const cp693=tb693Caps(rc,rm,tb693CapMask(x,y,tbR693));if(cp693)gc.drawImage(cp693,sx,sy+offY*z,64*z,48*z);if(tbR693.seam&&straight)tb693SeamLine(gc,sx,sy,z,rm,x,y,tbR693);} /* T693 */
   if(window.__nd550>0.25&&!window.__noBridgeLamp550&&im.night){gc.save();gc.globalAlpha=Math.min(1,window.__nd550*1.15);gc.drawImage(im.night,sx,sy+offY*z,64*z,48*z);gc.restore();}
   // true topology-based abutment / transition only where structure meets ground road
   if(approaches){gc.save();gc.fillStyle=style===2?'rgba(138,116,82,.88)':'rgba(145,153,160,.86)';
@@ -52122,7 +52402,7 @@ function drawCivilStreetProps476(gc,t,x,y,sx,sy,z){
   if(t.ud475&&U.cableCab?.length&&streetHash(x,y,47634)<.8){drawProp(U.cableCab[Math.floor(streetHash(x,y,47635)*U.cableCab.length)%U.cableCab.length],0,-2);} 
   if((t.wp||t.wm472)&&U.water?.length&&streetHash(x,y,47636)<.75){drawProp(U.water[Math.floor(streetHash(x,y,47637)*U.water.length)%U.water.length],-2,-1);} 
   if((t.sm472||t.wp)&&U.manhole?.length&&streetHash(x,y,47638)<.55){drawProp(U.manhole[Math.floor(streetHash(x,y,47639)*U.manhole.length)%U.manhole.length],0,0);} 
-  if((t.bridge||t.fly475||t.ix475)&&U.construction?.length&&streetHash(x,y,47640)<.18){drawProp(U.construction[Math.floor(streetHash(x,y,47641)*U.construction.length)%U.construction.length],0,-2);} 
+  if(!(!window.__noTowerBridge693&&t.bridge&&tb693Role(x,y))&&(t.bridge||t.fly475||t.ix475)&&U.construction?.length&&streetHash(x,y,47640)<.18) /* T693：塔橋不撒施工桶 */{drawProp(U.construction[Math.floor(streetHash(x,y,47641)*U.construction.length)%U.construction.length],0,-2);} 
   else if(t.road&&U.drain?.length&&streetHash(x,y,47642)<.22){drawProp(U.drain[Math.floor(streetHash(x,y,47643)*U.drain.length)%U.drain.length],0,0);} 
 }
 
@@ -62386,7 +62666,7 @@ function draw(dt){
           if(SPR.reef&&!t.wm&&!t.dock&&!t.bridge){
             const pk=streetHash(x,y,921);
             let dc=null;
-            if(pk<.035)dc=SPR.reef;else if(pk<.06)dc=SPR.shoal;else if(pk<.075)dc=SPR.buoy;
+            if(pk<.035)dc=SPR.reef;else if(pk<.06)dc=SPR.shoal;else if(pk<.075)dc=SPR.buoy;if(dc&&!window.__noTowerBridge693&&tb693Near(x,y))dc=null; /* T693 */
             if(dc){
               const jx=(streetHash(x,y,924)-.5)*20,jy=(streetHash(x,y,925)-.5)*8;
               const dcx=sx+(32+jx-dc.w/2)*z,dcy=sy+(16+jy-dc.h/2)*z;
@@ -62454,7 +62734,7 @@ function draw(dt){
             rdecGlow.push({img:SPR.lampGlow.img,x:sx+32*z-lw/2,y:sy+16*z-lh/2,w:lw,h:lh,grid487:1,gx:x,gy:y});
           }
         }
-        if(!lodFar&&!window.__noLamp&&t.bridge&&SPR.bridgeLamp&&streetHash(x,y,1652)<.35){ // T359：橋面欄杆燈（原街燈排除橋格）——日間矮桿貼欄杆頂，夜間光洗欄杆面板（參考月台燈洗欄杆光柱）
+        if(!lodFar&&!window.__noLamp&&t.bridge&&SPR.bridgeLamp&&streetHash(x,y,1652)<.35&&!(!window.__noTowerBridge693&&['tower','center'].includes((tb693Role(x,y)||{}).role))){ /* T693 */ // T359：橋面欄杆燈（原街燈排除橋格）——日間矮桿貼欄杆頂，夜間光洗欄杆面板（參考月台燈洗欄杆光柱）
           const bl=SPR.bridgeLamp;
           gc.drawImage(bl.img,sx+(32-bl.ax)*z,sy-4*z+(11-bl.ay)*z,bl.w*z,bl.h*z);
           const rw359=streetHash(x,y,1651)<.5?SPR.railWashWarm:SPR.railWashCool;
@@ -62951,6 +63231,7 @@ function draw(dt){
   }
   if(!lodFar&&SPR.ped&&!window.__noVeh)for(const c of citizens){if(c.at!==2)continue; // T295b：只畫通勤途中的市民（走在路上）；在家/工作＝室內不畫
     const _iso=isoW2V((c.fx-c.fy)*32,(c.fx+c.fy)*16+16); const wx=_iso[0],wy=_iso[1];objs.push({dep:viewDep(c.fx,c.fy)+.018,ped:c,wx,wy});}
+  if(!window.__noTowerBridge693)tb693Push(objs,sxOf,syOf,vis); /* T693 */
   objs.sort((a,b2)=>a.dep-b2.dep);
   const nightSprites=[];
   const occ629=[],occOn629=!window.__noNightOcc629;let dep629=-Infinity,oDep629=-Infinity; // T629：夜光遮擋——每筆夜光記深度 dep629（物件層＝推它的物件，超街區分條＝該街區最前面那一條；之前推的路燈＝所在路格；之後＝天空不擋），遮擋記 oDep629（畫它的那一條）
@@ -63257,6 +63538,7 @@ function draw(dt){
       }
       continue;
     }
+    if(o.tb693){tb693Draw(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;} /* T693 */
     if(o.rdecProp&&SPR.rdec){
       const rs=SPR.rdec,rx=o.sx+(32-rs.ax)*z,ry=o.sy+(32-rs.ay)*z;
       ctx.drawImage(rs.img,rx,ry,rs.w*z,rs.h*z);
@@ -74891,6 +75173,43 @@ function battersea2xSelftest678(){
   checks.push(['閥門 __noBattersea2x678：doPlace 回到 1×1 k189、只佔一格',old&&oldN]);
   return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
+/* T693 自檢：塔橋（世界無關）。暫時把世界上既有水橋的 bridge 旗標收起來，合成一條 9 格、一條 5 格的直線橋（只改 road／bridge／mask 欄位），
+   量選橋、角色、寬中跨、精靈切塊、閥門；測完全部還原、清快取、地面標記重烘。 */
+function towerBridgeSelftest693(){
+  const checks=[],TB=window.__tb693,sv=window.__noTowerBridge693,svW=window.__noTowerBridgeWide693,svP=window.__tb693Pushed;
+  checks.push(['產生器 window.__tb693 在（presetC、tb、finishLayer）',!!(TB&&TB.presetC&&TB.tb&&TB.finishLayer)]);
+  const free=(x,y)=>{if(!inMap(x,y))return false;const t=tiles[idx(x,y)];return !t.bld&&!t.road&&!t.rail&&!t.tram&&!t.bridge&&!t.fly475&&!t.ix475;};
+  let spot=null;for(let y=4;y<N-8&&!spot;y++)for(let x=4;x<N-14&&!spot;x++){let ok=true;for(let yy=-1;yy<=5&&ok;yy++)for(let xx=-1;xx<=10;xx++)if(!free(x+xx,y+yy)){ok=false;break;}if(ok)spot=[x,y];}
+  checks.push(['找得到 12×7 空地合成測試橋 '+(spot?'('+spot+')':''),!!spot]);
+  if(!spot||!TB)return {ok:false,checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+  const [x0,y0]=spot,saved=[],hid=[],F=['road','bridge','mask','rc','hw','fly475','ix475'];
+  const put=(x,y)=>{const t=tiles[idx(x,y)];saved.push([t,F.map(k=>t[k])]);t.road=true;t.bridge=true;t.mask=10;t.rc=2;t.hw=false;t.fly475=false;t.ix475=false;};
+  let r9=null,r9n=null,st=null,parts=0,nightOut=-1,pushOn=-2,pushOff=-2,err='';
+  try{
+    for(let i=0;i<N*N;i++){const t=tiles[i];if(t.bridge){hid.push(t);t.bridge=false;}}
+    for(let k=0;k<9;k++)put(x0+k,y0);for(let k=0;k<5;k++)put(x0+k,y0+3);
+    window.__noTowerBridge693=false;window.__noTowerBridgeWide693=false;resetBridgeVisualCache480A();
+    const C=tb693Scan();st={cands:C.cands,picked:C.comps.map(c=>c.L+'@'+c.anchor)};
+    r9=C.comps.length===1&&C.comps[0].anchor===idx(x0,y0)?C.comps[0].mem.map(j=>(tb693Role(j%N,(j/N)|0)||{}).role).join(','):null;
+    const sp=tb693Sprite(9,0,true);parts=sp?sp.parts.length:0;nightOut=0;
+    for(const pt of sp?sp.parts:[])if(pt.night){const d=pt.img.getContext('2d').getImageData(0,0,pt.w,pt.h).data,n=pt.night.getContext('2d').getImageData(0,0,pt.w,pt.h).data;for(let i=3;i<n.length;i+=4)if(n[i]&&!d[i])nightOut++;}
+    window.__noTowerBridgeWide693=true;resetBridgeVisualCache480A();tb693Scan();
+    r9n=Array.from({length:9},(_,k)=>(tb693Role(x0+k,y0)||{}).role).join(',');
+    window.__noTowerBridgeWide693=false;resetBridgeVisualCache480A();
+    {let errN=0;const se=console.error;console.error=()=>{errN++;};
+      try{window.__tb693Pushed=-1;window.__noTowerBridge693=true;draw(.016);pushOff=window.__tb693Pushed;window.__noTowerBridge693=false;draw(.016);pushOn=window.__tb693Pushed;}
+      catch(e){err=e.message;}finally{console.error=se;}if(errN)err=err||('console.error '+errN+' 筆');}
+  }catch(e){err=err||e.message;}
+  finally{for(const [t,v] of saved)F.forEach((k,i)=>{if(v[i]===undefined)delete t[k];else t[k]=v[i];});for(const t of hid)t.bridge=true;
+    window.__noTowerBridge693=sv;window.__noTowerBridgeWide693=svW;window.__tb693Pushed=svP;resetBridgeVisualCache480A();groundDirty=true;}
+  checks.push(['選橋：9 格與 5 格兩座候選，選中 9 格那座（一城一座取最長）'+JSON.stringify(st),!!st&&st.cands===2&&st.picked.length===1&&st.picked[0]===9+'@'+idx(x0,y0)]);
+  checks.push(['角色（寬中跨）'+r9,r9==='side,side,tower,center,center,center,tower,side,side']);
+  checks.push(['寬閥門下中央跨 1 格 '+r9n,r9n==='side,side,side,tower,center,tower,side,side,side']);
+  checks.push(['精靈切塊 '+parts+' 塊（塔前後半、步道、石墩、懸鏈）',parts>=10]);
+  checks.push(['夜圖亮像素都在白天不透明處（落在外面的 '+nightOut+'）',nightOut===0]);
+  checks.push(['閥門 __noTowerBridge693：draw 不推塔橋物件（'+pushOff+'）；關閥門推 '+pushOn+(err?'（'+err+'）':''),!err&&pushOff===-1&&pushOn>=0]);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
 /* T679 自檢：白塔 v0、v1 打磨過（開機時烘，閥門 __noKeepPolish679 在 probe679.js 驗）。
    基準是 T678 程式量的舊精靈（閥門開著量出來逐項相同）：鉛灰像素 v0 54／v1 80、金色 6／6、v0 最高不透明列 74。 */
 function keepPolishSelftest679(){
@@ -76182,7 +76501,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
