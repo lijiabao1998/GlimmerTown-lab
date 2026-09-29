@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v13.98 · T694</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v13.99 · T695</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -38614,8 +38614,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='13.98'; // T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T694'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='13.99'; // T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T695'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -60082,6 +60082,7 @@ function overlayLayers606(){
     ['429',(g,o,bd,s,x,y,z,a,n)=>drawMicroLife429(g,o,bd,s,x,y,z,a,n)],
     ['599',(g,o,bd,s,x,y,z,a,n)=>drawNearZoom599(g,o,bd,s,x,y,z,a)],
     ['187',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomCathedralDSK1(g,o,bd,s,x,y,z,a)], // DSK-002：座堂近距細節層
+    ...(!window.__noNearUK695?[['695',(g,o,bd,s,x,y,z,a,n)=>{nearDialCover695(g,bd,s,x,y,z,a,0,0);return nearLandmark695(g,o,bd,s,x,y,z,a,n,0);}]]:[]), // T695
     ['197',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomCornerPubDSK12(g,o,bd,s,x,y,z,a)], // DSK-012：轉角酒館近距細節層
     ['196',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomTearoomDSK14(g,o,bd,s,x,y,z,a)], // DSK-014：英式茶室近距細節層
     ['195',(g,o,bd,s,x,y,z,a,n)=>drawNearZoomChippyDSK13(g,o,bd,s,x,y,z,a)], // DSK-013：炸魚薯條店近距細節層
@@ -60093,6 +60094,274 @@ function overlayLayers606(){
    三種立面各有各的近距料：v0 鼓座柱頭＋欄杆加密、v1 彩繪玻璃＋小石像鬼、v2 磚牆砌紋＋琉璃窗。
    座標用精靈內既有的常數（東南面窗腳 WX＝fx/fy 的結果，見 k187 精靈段），逃生閥 __noNearCath187。 */
 /* DSK-003 白塔近距細節層：垛口逐顆加密、箭窗十字縫、石縫橫紋；只在 z≥1.22（遠距剪影不動）。 */
+/* T695（決策單第十二批 12-3 C）英式地標近距細節層：座標＝精靈畫布像素（與 GP/G2、fx、fy 同一套）。
+   op 物件 {x,y,w,h,c,a,m,sf,t,zm,nc,kd,fa,dy,rp}：m 0＝本體層、1＝本體層＋夜圖挖掉、2＝只在夜圖補光、3＝只在夜圖挖掉；
+   t 1＝B 輕、C 重都畫，2＝只有 C；zm＝最小縮放；nc＝夜圖挖掉的力度（預設同透明度）；rp＝鐘盤蓋格（在 ovClip 一開頭畫，見 nearDialCover695）；
+   kd 'mul'＝直櫺，x..x+w 是整扇窗，畫的時候在螢幕座標算：窗寬 round 後是奇數而且 ≥5px 才畫正中 1px，否則不畫；
+   kd 'edge'＝卷葉，落點時沿剪影內側 1px 展開（每 3 列 1 點）；fa＝不吃 detailAlpha432 淡入（鐘面）；dy＝只在白天（反光、高光，夜裡照 1−nightDepth 淡掉）。
+   落點類 sf：開機後第一次用到時對精靈像素逐筆檢查，蓋到描邊、透明或別的材質就裁掉／丟掉；c 寫成 '@x,y' 時取精靈那一格的顏色。
+   夜圖檢查：m＝0 的 op 若落在夜圖亮像素上、而且比玻璃亮（亮度 >110），自動改成「本體層＋夜圖同位置挖掉」，夜裡不會在亮窗上冒出牆色亮點。 */
+const NZK695=new Set([188,190,191,192]);
+const DIALV695={"L":{"bake":[[-1,0],[-1,-1],[-1,-2],[0,0],[1,0]],"col":"#20242c","fine":[[-1,0,3,1],[-1,-2,0.5,2]]}};
+const DIAL695={dA:1,dB:8,vLo:6,vHi:17,uc:5,vc:11,r:3.5,lit:'rgba(255,246,214,.95)'};   // 與 clockTower 的 D 烘焙同一組
+function nzBoot695(){return !window.__noKeepNight694&&!window.__noDial694;}   // T694 的 N、D 都開著才畫（任一個被閥門關掉：新層不畫、舊白塔層照舊）
+function nzDialV695(){return DIALV695.L;}   // 指針 3:00（業主選 3-2 L；跟 T694 烘進精靈的同一組）
+function handPt695(S2,side,ang,L){ // 動態指針（'h'、'hm'；螢幕空間、不斜切，水平縮 .9）：兩面同一時刻讀起來同一個角度
+  const c=DIAL695,a=ang*Math.PI/180;return [(side<0?S2[0]-c.uc:S2[0]+c.uc)+.9*L*Math.sin(a),S2[1]-c.uc/2-c.vc-L*Math.cos(a)];}
+function inDial695(S2,side,X,Y,m){const c=DIAL695,u=side<0?S2[0]-X:X-S2[0],v=S2[1]-u/2-Y,du=u-c.uc,dv=v-c.vc;return du*du+dv*dv<=(c.r-m)*(c.r-m);}
+function dialCell695(S2,side,x,y){ // (x,y) 是不是 D 烘的盤面格（跟 clockTower 的 D 迴圈同一式）
+  const c=DIAL695,d=side<0?S2[0]-1-x:x-S2[0];if(d<c.dA||d>c.dB)return false;const b=S2[1]-((d+1)>>1),v=b-y;if(v<c.vLo||v>c.vHi)return false;
+  const du=(d+.5)-c.uc,vv=(S2[1]-(d+.5)/2-(y+.5))-c.vc;return du*du+vv*vv<=c.r*c.r;}
+function nzOps695(k,v){ // 靜態 ops（鐘面另見 nzHandOps695）
+  const ops=[];let T=1;
+  const P=(x,y,w,h,c,a,m,sf,e)=>{const o={x,y,w,h,c,a:a==null?1:a,m:m|0,sf:sf||'N',t:T,zm:1.22};if(e)for(const q in e)o[q]=e[q];ops.push(o);return o;};
+  const fy=(S,d)=>S[1]-((d+1)>>1),fx=(S,side,d)=>side<0?S[0]-1-d:S[0]+d;
+  /* ---- 伊莉莎白塔（k190 整座、k191 東北角）：照抄 clockTower 的 S1..S4 ---- */
+  const clock=(SB,hS)=>{
+    const S1=[SB[0],SB[1]-6],S2=[S1[0],S1[1]-hS],hC=22,S3=[S2[0],S2[1]-hC],hB=12,S4=[S3[0],S3[1]-hB];
+    const winCols={'-1':[3,4],'1':[4,5]},MD={'-1':'#9c8658','1':'#7e6a44'};
+    // ① 塔身層帶：帶下 .5 陰影（B）；四葉飾點（C，z≥3、透明度 .5）
+    for(const side of [-1,1])for(let zb=14;zb<hS;zb+=15)for(let d=0;d<9;d++){const x=fx(S1,side,d),f=fy(S1,d);
+      if(winCols[side].indexOf(d)>=0&&[24,54,84].some(zw=>zw<hS-8&&zb>=zw-6&&zb<=zw+6))continue;
+      T=1;P(x,f-zb,1,.5,MD[side],.45,0,'W');
+      T=2;if(!(d&1))P(x+(side<0?0:.5),f-zb-2.5,.5,.5,side<0?'#f4e8c0':'#d8c898',.5,0,'W',{zm:3});}
+    // ② 尖拱小窗三層：窗台亮線（B）；直櫺（C，螢幕座標規則，牆中暗色；夜裡挖 .8）
+    for(let zw=24;zw<hS-8;zw+=30)for(const side of [-1,1]){const cs=winCols[side],x0=Math.min(...cs.map(d=>fx(S1,side,d)));
+      const t=Math.max(...cs.map(d=>fy(S1,d)-zw-5))+.5,b=Math.min(...cs.map(d=>fy(S1,d)-zw-1))+1;
+      T=2;P(x0,t,2,b-t,MD[side],.6,1,'G',{kd:'mul',nc:.8});
+      T=1;for(const d of cs)P(fx(S1,side,d),fy(S1,d)-zw,1,.5,side<0?'#f4e8c0':'#cdb888',.8,0,'W');}
+    // ③ 鐘面刻度：v5 拿掉（z3 讀成灰塵點；刻度照牆面斜切、指針不斜切，兩者對不上）。指針見 nzHandOps695
+    // ④ 鐘樓拱廊百葉（C；夜裡挖 .8＝光從百葉縫透出）：每個開口 2 條，兩欄合成一筆（取兩欄底的平均高度），螢幕上兩欄同高
+    T=2;for(const side of [-1,1])for(const d0 of [1,4,7]){const x=Math.min(fx(S3,side,d0),fx(S3,side,d0+1)),fm=(fy(S3,d0)+fy(S3,d0+1))/2;
+      for(const r of [7,4])P(x,fm-r,2,.5,side<0?'#766c60':'#5e564c',1,1,'A',{nc:.8});}
+    // ⑤ 尖頂：金箍亮線（B）；卷葉（C，z≥3，每 3 列 1 點，右側暗面用暗金）；Ayrton 燈日亮點（B）、夜亮核（C）；十字亮點（C）
+    const y0s=Math.round(S4[1]-4.5-38)+4,y1s=Math.round(S4[1]-4.5)-3;
+    T=1;for(const f of [.35,.6]){const y=Math.round(S4[1]-4.5-38*f),w=Math.round(9*(1-f));P(S4[0]-w+1,y,1.5,.5,'#f8e090',1,0,'A');P(S4[0]+w-1,y+.5,1,.5,'#8a6c22',.8,0,'A');}
+    T=2;P(0,y0s,.5,y1s-y0s,'#e0bc50',.85,0,'A',{kd:'edge',xs:S4[0]-13,dir:1,zm:3});P(0,y0s,.5,y1s-y0s,'#7a6222',.8,0,'A',{kd:'edge',xs:S4[0]+13,dir:-1,zm:3});
+    {const y=Math.round(S4[1]-4.5-38*.5);T=1;P(S4[0]-1,y-3,.5,.5,'#fff6d8',1,0,'A',{dy:1});T=2;P(S4[0]-.5,y-2.5,2,1,'rgba(255,250,220,1)',1,2,'A');}
+    T=2;P(S4[0],Math.round(S4[1]-4.5-38-5),.5,.5,'#fff0b0',1,0,'A');
+  };
+  if(k===188){ /* ---- 白塔：S1、hK 照抄 k188 精靈段；v0 前角塔擋 d0..2、西東角塔擋 d9..10；v1 圓塔另擋左 d3、右 d3..4 ---- */
+    const S1=[36,122],hK=34,visL=v===1?[4,5,6,7,8]:[3,4,5,6,7,8],visR=v===1?[5,6,7,8]:[3,4,5,6,7,8];
+    const vis=(side,d)=>(side<0?visL:visR).indexOf(d)>=0,WALL={'-1':'#e9e5db','1':'#c9c3b4'},MD={'-1':'#b0aa9a','1':'#8e897c'};
+    // ① Wren 圓頭窗：兩面上層＋左面下層（右面下層是門）
+    for(const [side,d0,up,hh] of [[-1,5,22,6],[1,5,22,6],[-1,5,12,5]]){if(!vis(side,d0)||!vis(side,d0+1))continue;
+      const x0=Math.min(fx(S1,side,d0),fx(S1,side,d0+1)),f=fy(S1,d0),top=f-up-hh+1,bot=f-up-1,H=bot-top+1;
+      T=1;P(x0,top,.5,.5,WALL[side],1,1,'G',{nc:1});P(x0+1.5,top,.5,.5,WALL[side],1,1,'G',{nc:1});   // 圓頭兩角：夜裡同位置挖掉，亮窗頂也是圓頭
+      P(x0,f-up,2,.5,'#fbf9f3',.8,0,'W');P(x0,f-up+1,2,.5,'#8f897c',.35,0,'W');                       // 窗台亮線＋落影
+      T=2;P(x0+.5,top-.5,1,.5,side<0?'#bdb6a6':'#a39d8e',.85,0,'W');                                  // 拱石暗線：v5 只畫圓頭正上方 1px（整條橫線會把圓頭壓平）
+      P(x0,top+.5,2,H-.5,MD[side],.6,1,'G',{kd:'mul',nc:.85});                                         // 直櫺（螢幕座標規則）；v5 橫櫺拿掉（兩欄寬的窗切了只剩碎玻璃）
+      P(x0,top+.5,.5,.5,side<0?'#7d93b4':'#5f7294',1,0,'G',{dy:1});}                                   // 玻璃反光（只在白天）
+    // 門（右面 d4..6）：兩道鐵箍＋門環（C）；v1 的 d4 被圓塔擋
+    T=2;for(const d of [4,5,6]){if(!vis(1,d))continue;const x=fx(S1,1,d),f=fy(S1,d);P(x,f-11,1,.5,'#2a2018',.9,0,'A');P(x,f-7.5,1,.5,'#2a2018',.9,0,'A');}
+    if(vis(1,5))P(fx(S1,1,5)+.5,fy(S1,5)-9.5,.5,.5,'#c8a860',1,0,'A');
+    // ② 扁壁柱亮邊／暗邊（B，.45、上下各縮 2 列）；柱頭淡亮線、柱腳暗線（C）
+    for(const side of [-1,1])for(const d of [3,7]){if(!vis(side,d)||!vis(side,d+1))continue;
+      const xl=fx(S1,side,d),xd=fx(S1,side,d+1),f=fy(S1,d),top=f-hK+1,door=side>0&&d===3;
+      T=1;P(xl+(side<0?.5:0),top+3,.5,hK-8,side<0?'#fdfcf8':'#f0ede4',.45,0,'W');
+      if(door)P(xd+.5,top+3,.5,f-13-top-3,MD[side],.45,0,'W');else P(xd+(side<0?0:.5),top+3,.5,hK-8,MD[side],.45,0,'W');
+      T=2;P(Math.min(xl,xd),top,2,.5,side<0?'#f3f0e8':'#dcd8cc',.5,0,'W');P(Math.min(xl,xd),f-3,2,.5,'#8f897c',.5,0,'W');}
+    // ③ 鉛皮蔥頂鏡面亮點＋金風標亮點（B）：v5 都只在白天（夜裡鉛頂上不再冒淡點）；v1 前角塔被圓塔擋、後塔改圓頂
+    const cups=v===1?[[24,85],[48,85]]:[[36,91],[24,85],[48,85],[36,79]],DY={dy:1};
+    T=1;for(const [cx,cy] of cups){P(cx-1,cy-6,.5,.5,'#eef3f6',.95,0,'L',DY);P(cx-1.5,cy-5,.5,.5,'#c8d2da',.85,0,'L',DY);P(cx,cy-12,.5,.5,'#fff0a8',1,0,'A',DY);}
+    if(v===1){P(34,71,.5,.5,'#eef3f6',.95,0,'L',DY);P(33.5,72,.5,.5,'#c8d2da',.85,0,'L',DY);
+      for(const x of [33,35,37,39])P(x,82,1,.5,'#f5f2ea',.8,0,'W');}                               // 圓塔小窗窗台
+    // ④ 垛口（C）：偶數欄在屋頂前緣補一格石垛，顏色取正下方牆頂那一格（不比牆亮），只准落在鉛皮上
+    T=2;for(const side of [-1,1])for(const d of [4,6,8]){if(!vis(side,d))continue;const x=fx(S1,side,d),y=fy(S1,d)-hK-1;P(x,y,1,1,'@'+x+','+(y+2),1,0,'L');}
+    // ⑤ 石縫（C）
+    for(const side of [-1,1])for(const d of [5,6]){if(!vis(side,d))continue;const x=fx(S1,side,d),f=fy(S1,d);
+      for(const r of side<0?[4,7,19,31]:[19,31])P(x,f-r,1,.5,side<0?'#cfc8b8':'#b2ab9c',.55,0,'W');}
+  }
+  else if(k===190){clock([36,206],104);}
+  else if(k===191){ /* ---- 西敏宮 2×2：伊莉莎白塔、宮殿本體、維多利亞塔（常數照抄 k191 精靈段） ---- */
+    clock([104,224],96);
+    const S=[72,238],hW=34,MD={'-1':'#9c8658','1':'#7e6a44'};
+    for(const side of [-1,1]){const n=side<0?34:20;   // 左面 d34–35 被維多利亞塔擋住
+      for(let d=0;d<n;d++){const x=fx(S,side,d),f=fy(S,d);
+        if(d&1){for(const up of [5,16,25]){T=2;P(x,f-up-4,1,.5,side<0?'#9a927e':'#7a7262',1,1,'G',{nc:.7});T=1;P(x,f-up,1,.5,side<0?'#f4e8c0':'#cdb888',.75,0,'W');}}  // 一欄寬的窗：橫櫺（C）、窗台（B）
+        else{T=1;for(const [a,b] of [[hW-2,25],[23,15],[13,3]])P(x,f-a,.5,a-b-1,side<0?'#f2e4b8':'#c8b27c',.5,0,'W');}   // 直向飾板左半亮邊（B）
+        T=1;for(const zb of [13,23])P(x,f-zb,1,.5,MD[side],.4,0,'W');                                                       // 層帶下陰影（B）
+        T=2;if(d%3===0){const y=f-hW;P(x,y-5,.5,.5,'#fff2b0',1,0,'A');P(x,y-4,.5,3,side<0?'#f4e8c0':'#d8c898',.6,0,'W');}}}   // 女兒牆小尖塔（C）
+    T=2;{const Tp=[S[0],S[1]-hW];for(let i=0;i<5;i++){const p=[Tp[0]-4-i*7,Tp[1]-3-((4+i*7)>>1)];P(p[0],p[1]-10,.5,.5,'#fff2b0',1,0,'A');}}   // 屋頂小尖塔金頂（C）
+    const V=[28,226],hV=88;   // 維多利亞塔
+    for(let zw=26;zw<hV-6;zw+=18)for(const [side,d0] of [[-1,2],[-1,6],[1,3]]){const cs=[d0,d0+1],x0=Math.min(...cs.map(d=>fx(V,side,d)));
+      const t=Math.max(...cs.map(d=>fy(V,d)-zw-7))+.5,b=Math.min(...cs.map(d=>fy(V,d)-zw-1))+1;
+      T=2;P(x0,t,2,b-t,MD[side],.6,1,'G',{kd:'mul',nc:.7});                                                                     // 直櫺（C，螢幕座標規則）
+      T=2;P(x0,(fy(V,cs[0])+fy(V,cs[1]))/2-zw-4,2,.5,MD[side],.6,1,'G',{nc:.7,zm:3});                                        // 橫櫺（C，z≥3；兩欄合成一筆、同高）
+      for(const d of cs){const f=fy(V,d);T=1;P(fx(V,side,d),f-zw,1,.5,side<0?'#f4e8c0':'#cdb888',.8,0,'W');}}                // 窗台（B）
+    T=1;for(const side of [-1,1])for(let zb=16;zb<hV;zb+=18)for(let d=0;d<10;d++)P(fx(V,side,d),fy(V,d)-zb,1,.5,MD[side],.4,0,'W');
+    T=2;for(const d of [3,4,5,6]){const f=fy(V,d),e=(d===3||d===6)?1:0;P(fx(V,-1,d),f-18+e-1,1,.5,'#f8ecc4',.9,0,'W');}   // 大拱門拱石（C）
+    P(fx(V,-1,4)+.5,fy(V,4)-19,.5,.5,'#fff6d8',1,0,'W');
+    for(const [side,d] of [[-1,0],[-1,9],[1,9]]){const x=fx(V,side,d),y=fy(V,d)-hV;T=1;P(x-1,y-8,.5,8,'#fff6de',.6,0,'W');T=2;P(x,y-12,.5,.5,'#fff2b0',1,0,'A');}
+    T=1;P(V[0]-1,V[1]-hV-8,.5,8,'#fff6de',.6,0,'W');
+    T=2;P(V[0],V[1]-hV-5-23,1,1,'#f0d27a',1,0,'A');   // 旗桿頂金球（C）：v5 放在旗桿那一欄、旗面頂之上一列；旗面摺痕拿掉（讀成兩條灰細線）
+  }
+  else if(k===192){ /* ---- 巴特西 2×2（常數照抄 k192 精靈段） ---- */
+    const ax=68,ay=182,G2=(i,j,z)=>[ax+2*i-2*j,ay-64+i+j-(z||0)];
+    const I0=3,I1=29,J0=8,J1=24,hB=34,hT=16,S=G2(I1,J1),nL=2*(I1-I0),nR=2*(J1-J0);
+    for(const side of [-1,1]){const n=side<0?nL:nR,isDoor=dd=>side<0&&dd>=23&&dd<=28,ST=side<0?'#56627a':'#44506a';
+      for(let d=0;d<n;d++){const x=fx(S,side,d),f=fy(S,d),m=d%4,door=isDoor(d),lo=door?13:4;   // 正門那幾欄只畫到門頂
+        T=1;P(x,f-hB,1,.5,side<0?'#fdfaf4':'#ece6da',.7,0,'W');P(x,f-hB+3,1,.5,side<0?'#5a2c1e':'#40180e',.35,0,'W');   // 簷口頂亮、簷下影（B）
+        if(m===0){T=1;P(x,f-hB+4,.5,hB-4-lo,side<0?'#c8826a':'#8a4c38',.5,0,'W');}                                  // 壁柱左半亮邊（B）
+        else if(m===1){T=2;for(let r=hB-5;r>=lo+1;r-=3)P(x,f-r,1,.5,side<0?'#7c4433':'#57281b',.45,0,'W');}           // 純磚欄磚縫（C）
+        else{T=2;if(m===2){const x2=fx(S,side,d+1),xm=Math.min(x,x2),f2=fy(S,d+1),fm=(f+f2)/2,lo2=(door||isDoor(d+1))?13:4;
+            // 高窗：深鋼色窗格（C）；兩欄合成一筆、取兩欄平均高度；夜裡整條挖掉，亮窗上讀成暗窗格。
+            // v5：z<2 隔一道畫（8 列一道，滾輪 1.4 不再切成梯子），z≥2 才是 4 列一道
+            for(let r=24,i=0;r>=9;r-=4,i++)if(r>lo2)P(xm,fm-r,2,.5,ST,.6,1,'G',{nc:1,zm:(i&1)?2:1.22});
+            const t=Math.max(f,f2)-27+.5,b=Math.min(f,f2)-((door||isDoor(d+1))?13:7);if(b>t)P(xm,t,2,b-t,ST,.6,0,'G',{kd:'mul'});}   // 直櫺只畫白天（暗色，夜裡被窗光蓋掉，不自動挖）
+          for(const r of [30,29])P(x,f-r,1,.5,side<0?'#7c4433':'#57281b',.45,0,'W');}}}                                // 窗頂上方磚縫（C）
+    const tw=(ci,cj)=>{const St=G2(ci,cj,hB);
+      for(const side of [-1,1]){
+        T=2;for(const [d,o] of side<0?[[3,0],[6,.5]]:[[3,.5],[6,0]]){const f=fy(St,d);P(fx(St,side,d)+o,f-13,.5,11,side<0?'#d8987a':'#a0604a',.55,0,'W');}   // 暗條兩側淺凹槽（C）
+        T=1;for(let d=0;d<10;d++){const x=fx(St,side,d),f=fy(St,d);P(x,f-hT,1,.5,'#fbf8f2',.6,0,'W');P(x,f-hT+2,1,.5,side<0?'#6a3424':'#4a2016',.35,0,'W');}   // 頂帶上緣亮、下緣影（B）
+        T=2;for(const d of [2,7]){const x=fx(St,side,d),f=fy(St,d);P(x,f-9,1,.5,side<0?'#8a96a8':'#6a7688',1,1,'G');P(x,f-6,1,.5,side<0?'#8a96a8':'#6a7688',1,1,'G');}}   // 塔窗橫櫺（C）
+      const C=G2(ci-2.5,cj-2.5,hB+hT+4),cx=C[0],cy=C[1],top=cy-58;   // 白色凹槽煙囪：亮條 dx=-2、0，暗條 +1、+3（光從左上）；環箍（B）
+      T=1;for(let dx=-3;dx<=3;dx++){const u=dx/3.6,e=Math.round(1.6*Math.sqrt(Math.max(0,1-u*u))),x=cx+dx;
+        const segs=[[top+e+3,top+12+e-1],[top+12+e+3,top+30+e-1],[top+30+e+3,cy-3]],lite=dx===-2||dx===0,dark=dx===1||dx===3;
+        for(const [a,b] of segs){if(b<=a)continue;if(lite)P(x,a,.5,b-a+1,'#fdfbf6',.75,0,'W');else if(dark)P(x+.5,a,.5,b-a+1,'#b4ac9e',.6,0,'W');}
+        for(const yy of [top+12,top+30]){P(x,yy+e,1,.5,'#f6f2ea',.8,0,'W');P(x,yy+e+2,1,.5,'#a8a092',.5,0,'W');}}
+      T=2;P(cx-2,top-1,5,.5,'#3a3430',.75,0,'A');                                                             // 頂口煤灰（C）
+      P(cx,top-5,.5,.5,'#ff9a80',1,0,'A',{dy:1});P(cx,top-5,1,1,'rgba(255,210,190,1)',1,2,'A');};   // 障礙燈：日亮點（只在白天）、夜核心（C）
+    tw(I0+5,J0+5);tw(I0+5,J1);tw(I1,J0+5);tw(I1,J1);
+    T=2;{const Sc=G2(22,18,hB);for(let d=1;d<28;d+=3)P(fx(Sc,-1,d),fy(Sc,d)-5,.5,.5,'#8aa0b8',1,0,'G',{dy:1});}   // 天窗玻璃反光（C，只在白天）
+  }
+  return ops;
+}
+function nzClockKey695(){ // 鐘面時刻：'s'（預設）＝固定、跟烘好的同形；'h'＝時針每遊戲小時一格、分針 12；'hm'＝5 遊戲分鐘一格
+  const dv='L',mode=window.__clock695||'hm';/* 業主選 3-3 hm；window.__clock695='s'|'h' 只給看圖 */if(mode!=='h'&&mode!=='hm')return {key:'s'+dv,mode:'s'};
+  const hrs=window.__clockH695!=null?(+window.__clockH695%24+24)%24:((((visT%CYCLE)+CYCLE)%CYCLE)/CYCLE)*24,H=Math.floor(hrs)%12;
+  if(mode==='hm'){const m5=Math.floor(hrs*12)%12;return {key:dv+'hm'+H+'_'+m5,mode,ah:(H+m5/12)*30,am:m5*30};}
+  return {key:dv+'h'+H,mode,ah:H*30,am:0};
+}
+function nzHandOps695(k,ck){ // 鐘面（z≥1.22）：先蓋掉烘好的指針格（rp，顏色取相鄰盤面格；夜圖同位置補亮），再畫針
+  const ops=[],sn=(u,w)=>Math.round((u-w/2)*2)/2,S2s=k===190?[[36,96]]:k===191?[[104,122]]:[],V=nzDialV695(),c=DIAL695;
+  const o=(x,y,w,h,col,m,e)=>{const q={x,y,w,h,c:col,a:1,m,sf:'A',t:1,zm:1.22,fa:1};if(e)Object.assign(q,e);ops.push(q);};
+  for(const S2 of S2s)for(const side of [-1,1]){
+    const cx=side<0?S2[0]-c.uc:S2[0]+c.uc,cy=Math.floor(S2[1]-c.uc/2-c.vc),bk=V.bake.filter(q=>dialCell695(S2,side,cx+q[0],cy+q[1])),HB=new Set(bk.map(q=>(cx+q[0])+','+(cy+q[1])));   // 只認真的烘在盤面上的指針格
+    const inHB=(x,y,w,h)=>{for(let yy=Math.floor(y);yy<Math.ceil(y+h);yy++)for(let xx=Math.floor(x);xx<Math.ceil(x+w);xx++)if(!HB.has(xx+','+yy))return false;return true;};
+    for(const q of bk){const x=cx+q[0],y=cy+q[1];let nb=null;   // 最近的非指針盤面格：同列左右、上下、再斜角
+      for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1],[-2,0],[2,0],[0,-2],[0,2]]){const X=x+dx,Y=y+dy;if(!HB.has(X+','+Y)&&dialCell695(S2,side,X,Y)){nb=X+','+Y;break;}}
+      o(x,y,1,1,nb?'@'+nb:(side<0?'#f2ecd8':'#d8d0b8'),0,{rp:1,nb:nb?nb.split(',').map(Number):null});o(x,y,1,1,c.lit,2);}
+    if(ck.mode==='s'){for(const f of V.fine)if(inHB(cx+f[0],cy+f[1],f[2],f[3]))o(cx+f[0],cy+f[1],f[2],f[3],V.col,1,{nc:1});continue;}   // 固定：跟烘好的同形，只削細分針（只畫在烘好的指針格裡）
+    const dot=(ang,L,w)=>{const p=handPt695(S2,side,ang,L);if(!inDial695(S2,side,p[0],p[1],w/2))return;o(sn(p[0],w),sn(p[1],w),w,w,V.col,1,{nc:1});};
+    for(const l of [0,.5,1,1.5])dot(ck.ah,l,1);                 // 時針：1×1 方塊沿針排（z2＝2px 寬）
+    for(const l of [.5,1,1.5,2,2.5,2.8])dot(ck.am,l,.5);}        // 分針：.5 點（z2＝1px 寬）
+  return ops;
+}
+function nzCls695(d,i){const a=d[i+3];if(a<200)return 'T';const r=d[i],g=d[i+1],b=d[i+2],L=.3*r+.59*g+.11*b;
+  if(r>g+25&&r-b>40&&g<150)return 'B';if(b>r+12)return L<100?'G':'L';if(L<60)return 'O';return L<90?'K':'S';}
+function nzOk695(c,sf){if(c==='T')return false;if(sf==='A')return true;if(c==='O')return false;
+  if(sf==='W')return c==='S'||c==='B';if(sf==='S')return c==='S'||c==='B'||c==='K';if(sf==='G')return c==='G';if(sf==='L')return c==='L';if(sf==='b')return c==='G'||c==='L';return true;}
+function nzGuard695(ops,d,W,H,extra){ // 逐筆檢查落點（長條逐列／逐欄裁掉不合格的段）；'@x,y' 色取精靈該點顏色；'edge' 先沿剪影展開；extra(x,y) 額外條件（積雪）
+  const out=[],drop=[],list=[];let trim=0;
+  const ok1=(x,y,sf)=>x>=0&&y>=0&&x<W&&y<H&&nzOk695(nzCls695(d,(y*W+x)*4),sf)&&(!extra||extra(x,y));
+  const opq=(x,y)=>x>=0&&y>=0&&x<W&&y<H&&d[(y*W+x)*4+3]>=200;
+  for(const p of ops){if(p.kd!=='edge'){list.push(p);continue;}
+    const y0=Math.round(p.y),y1=Math.round(p.y+p.h);
+    for(let y=y0;y<y1;y++){if((y-y0)%3)continue;let x=p.xs,n=0;while(n<16&&!opq(x,y)){x+=p.dir;n++;}
+      if(n>=16||!opq(x+p.dir,y)){drop.push(Object.assign({},p,{y,h:1}));continue;}
+      const q=Object.assign({},p,{kd:null,x:p.dir>0?x+1:x-1+.5,y,w:.5,h:1});list.push(q);}}
+  for(const p of list){const x0=Math.floor(p.x),x1=Math.ceil(p.x+p.w)-1,y0=Math.floor(p.y),y1=Math.ceil(p.y+p.h)-1,sf=p.sf;
+    const vert=y1-y0>=2&&y1-y0>=x1-x0,hor=!vert&&x1-x0>=2,pc=[];
+    if(vert){let s=-1;for(let y=y0;y<=y1+1;y++){let ok=y<=y1;for(let x=x0;x<=x1&&ok;x++)ok=ok1(x,y,sf);
+      if(ok&&s<0)s=y;if(!ok&&s>=0){const a=Math.max(p.y,s),b=Math.min(p.y+p.h,y);if(b>a)pc.push([p.x,a,p.w,b-a]);s=-1;}}}
+    else if(hor){let s=-1;for(let x=x0;x<=x1+1;x++){let ok=x<=x1;for(let y=y0;y<=y1&&ok;y++)ok=ok1(x,y,sf);
+      if(ok&&s<0)s=x;if(!ok&&s>=0){const a=Math.max(p.x,s),b=Math.min(p.x+p.w,x);if(b>a)pc.push([a,p.y,b-a,p.h]);s=-1;}}}
+    else{let ok=true;for(let y=y0;y<=y1&&ok;y++)for(let x=x0;x<=x1&&ok;x++)ok=ok1(x,y,sf);if(ok)pc.push([p.x,p.y,p.w,p.h]);}
+    if(!pc.length){drop.push(p);continue;}
+    if(pc.length>1||pc[0][2]!==p.w||pc[0][3]!==p.h)trim++;
+    let c=p.c;if(typeof c==='string'&&c[0]==='@'){const q=c.slice(1).split(','),i=((+q[1])*W+(+q[0]))*4;c='rgb('+d[i]+','+d[i+1]+','+d[i+2]+')';}
+    for(const q of pc)out.push(Object.assign({},p,{x:q[0],y:q[1],w:q[2],h:q[3],c}));}
+  return {out,drop,trim};
+}
+function nzPx695(im){let d=im.__nz695px;if(!d){const cv=document.createElement('canvas');cv.width=im.width;cv.height=im.height;const g=cv.getContext('2d',{willReadFrequently:true});g.drawImage(im,0,0);d=im.__nz695px=g.getImageData(0,0,im.width,im.height).data;}return d;}
+function nzLum695(c){ // op 顏色的亮度（'#rrggbb'、'rgb(…)'、'rgba(…)'）
+  let r=0,g=0,b=0;if(c[0]==='#'){r=parseInt(c.slice(1,3),16);g=parseInt(c.slice(3,5),16);b=parseInt(c.slice(5,7),16);}else{const m=c.match(/[\d.]+/g)||[];r=+m[0]||0;g=+m[1]||0;b=+m[2]||0;}
+  return .3*r+.59*g+.11*b;}
+function nzNightMark695(ops,s){ // 標出落在夜圖亮像素（α>100：窗燈、門燈、鐘盤；街燈外圈 .28 的光暈不算）上的 op；m＝0、比玻璃亮的自動改成夜圖同位置挖掉
+  if(!s.night)return {auto:0,lit:0};const nd=nzPx695(s.night),W=s.night.width,H=s.night.height;let auto=0,lit=0;
+  for(const p of ops){const x0=Math.max(0,Math.floor(p.x)),x1=Math.min(W-1,Math.ceil(p.x+p.w)-1),y0=Math.max(0,Math.floor(p.y)),y1=Math.min(H-1,Math.ceil(p.y+p.h)-1);let hit=false;
+    for(let y=y0;y<=y1&&!hit;y++)for(let x=x0;x<=x1&&!hit;x++)if(nd[(y*W+x)*4+3]>100)hit=true;
+    p.lit=hit;if(hit)lit++;if(hit&&p.m===0&&!p.dy&&!p.rp&&nzLum695(p.c)>110){p.m=1;p.nc=Math.min(1,p.a);p.auto=1;auto++;}}
+  return {auto,lit};}
+function nzVar695(s,bd){const s1=bd.k===188?SPR.bld['188_1_1']:null;return s1&&s.img===s1.img?1:0;}   // 變體看實際畫的精靈（v1 東北角圓塔擋住的欄不同）
+function nzStatic695(s,bd,snow){ // 靜態 ops（guard 過，含兩個 tier）；每張精靈只算一次，不含鐘面
+  const v=nzVar695(s,bd),key=bd.k+'_'+v;let c=s.__nz695;
+  if(!c||c.key!==key){const t0=performance.now(),im=s.img,d=nzPx695(im),r=nzGuard695(nzOps695(bd.k,v),d,im.width,im.height),nm=nzNightMark695(r.out,s);c=s.__nz695={key,ops:r.out,snow:null};
+    const st=window.__nz695Stat||(window.__nz695Stat={});
+    st[key]={ops:r.out.length,t1:r.out.filter(p=>p.t===1).length,drop:r.drop.length,trim:r.trim,onLit:nm.lit,autoCarve:nm.auto,dayOnly:r.out.filter(p=>p.dy).length,ms:+(performance.now()-t0).toFixed(2),
+      dropped:r.drop.slice(0,12).map(p=>[p.x,p.y,p.w,p.h,p.sf,p.kd||''].join(' ')),auto:r.out.filter(p=>p.auto).slice(0,12).map(p=>[p.x,p.y,p.w,p.h,p.c].join(' '))};}
+  if(!snow)return c.ops;
+  if(!c.snow){const sc=snowCap(s),sw=sc.width,sh=sc.height,sd=sc.getContext('2d').getImageData(0,0,sw,sh).data,im=s.img;   // 雪天：積雪（雪帽透明度 >60）上的 op 裁掉
+    c.snow=nzGuard695(c.ops,nzPx695(im),im.width,im.height,(x,y)=>x>=sw||y>=sh||sd[(y*sw+x)*4+3]<=60).out;}
+  return c.snow;
+}
+function nzHands695(s,bd){ // 鐘面 ops（每個時刻重建一次，只有幾十筆）
+  if(bd.k!==190&&bd.k!==191)return null;const ck=nzClockKey695();let c=s.__nz695h;
+  if(!c||c.key!==ck.key){const im=s.img,r=nzGuard695(nzHandOps695(bd.k,ck),nzPx695(im),im.width,im.height);c=s.__nz695h={key:ck.key,ops:r.out,drop:r.drop.length};}
+  return c.ops;
+}
+function nzRect695(p,ox,oy,k){ // 精靈座標 → 螢幕整數框；直櫺在螢幕座標取正中 1px（窗寬奇數且 ≥5 才畫）
+  let x0=Math.round(ox+p.x*k),x1=Math.round(ox+(p.x+p.w)*k);const y0=Math.round(oy+p.y*k),y1=Math.round(oy+(p.y+p.h)*k);
+  if(p.kd==='mul'){const w=x1-x0;if(w<5||!(w&1))return null;x0+=(w-1)/2;x1=x0+1;}
+  return [x0,y0,Math.max(1,x1-x0),Math.max(1,y1-y0)];
+}
+function nzGate695(bd,s,z){return !window.__noNearUK695&&z>=1.22&&!!bd&&!bd.ref&&(bd.age|0)>=9&&NZK695.has(bd.k)&&!!s&&!!s.img&&nzBoot695();}
+/* 鐘盤蓋格（v5）：在 ovClip 一開頭（老化、材質、濕反應等疊層之前）把烘好的指針格蓋成相鄰盤面格 nb 的顏色；
+   本體之後、ovClip 之前直接畫在畫面上的濕膜、雪帽、冰柱，也在蓋格裡補畫一次，而且取的是 nb 那一格的像素
+   （濕膜 wetSkin＝精靈本身疊暗色漸層，直接在蓋格原位補畫會把烘好的指針又畫回來）⇒ 蓋格跟相鄰盤面走同一條疊層路徑。
+   bx、by 跟 nearLandmark695 一樣帶小數相位；snowA、wetA＝呼叫端照原本畫雪帽／濕膜的條件算好的強度（沒畫＝0）。 */
+function nearDialCover695(g,bd,s,bx,by,z,drawA,snowA,wetA){
+  if((bd&&bd.k!==190&&bd.k!==191)||!nzGate695(bd,s,z)||window.__nearNoOps695)return 0;
+  const Hd=nzHands695(s,bd);if(!Hd)return 0;const q=s._scSrcW?s.w/s._scSrcW:1,k=z*q,a0=drawA==null?1:drawA,R=[];
+  const ga=g.globalAlpha,gf=g.fillStyle;g.globalAlpha=a0;
+  for(const p of Hd)if(p.rp){const r=nzRect695(p,bx,by,k);if(!r)continue;g.fillStyle=p.c;g.fillRect(r[0],r[1],r[2],r[3]);R.push([r,p.nb]);}
+  if(R.length&&(snowA>0||wetA>0)){const sc=snowA>0?snowCap(s):null,ic=snowA>0&&!window.__noIcicle?icicleCap(s):null,ws=wetA>0?wetSkin(s):null;
+    g.save();g.imageSmoothingEnabled=false;
+    for(const [r,nb] of R){if(!nb)continue;const sx=nb[0]*q,sy=nb[1]*q;   // 疊層畫布是顯示尺寸（s.w×s.h）
+      if(sc){g.globalAlpha=Math.min(1,snowA*1.08)*a0;g.drawImage(sc,sx,sy,q,q,r[0],r[1],r[2],r[3]);if(ic)g.drawImage(ic,sx,sy,q,q,r[0],r[1],r[2],r[3]);}
+      if(ws){g.globalAlpha=wetA*a0;g.drawImage(ws,sx,sy,q,q,r[0],r[1],r[2],r[3]);}}
+    g.restore();}
+  g.globalAlpha=ga;g.fillStyle=gf;window.__nz695CoverN=(window.__nz695CoverN|0)+R.length;return R.length;
+}
+/* 日間近距層：bx、by 是精靈左上角「這張畫布上」的座標，含真實螢幕座標的小數相位（呼叫端傳 X6+(bx−round(bx))），
+   所以 op 落在 round(真實bx+精靈x·z)，跟精靈本身最近鄰取樣的格線一致。 */
+function nearLandmark695(g,o,bd,s,bx,by,z,drawA,nightDepth,snowLvl,wetLvl){
+  if(!nzGate695(bd,s,z))return 0;
+  if(window.__nearNoOps695)return 0;
+  const tier=2,q=s._scSrcW?s.w/s._scSrcW:1,k=z*q,a0=drawA==null?1:drawA,nd=Math.min(1,Math.max(0,nightDepth||0));
+  const fa=a0*detailAlpha432(z)*(1-.4*Math.min(1,Math.max(0,wetLvl||0)));   // 雨天：濕膜把牆壓暗，細節跟著淡 40%
+  const ga=g.globalAlpha,gf=g.fillStyle;let n=0,lc='',la=-1;
+  const put=(p,al)=>{if(al<=.004)return;const r=nzRect695(p,bx,by,k);if(!r)return;if(al!==la){g.globalAlpha=al;la=al;}if(p.c!==lc){g.fillStyle=p.c;lc=p.c;}g.fillRect(r[0],r[1],r[2],r[3]);n++;};
+  for(const p of nzStatic695(s,bd,snowLvl>.05))if(p.m<2&&p.t<=tier&&z>=p.zm)put(p,fa*p.a*(p.dy?1-nd:1));
+  const Hd=nzHands695(s,bd);if(Hd)for(const p of Hd)if(p.m<2&&!p.rp&&z>=p.zm)put(p,a0*p.a);   // 鐘面指針不淡入；蓋格在 nearDialCover695 先畫過
+  g.globalAlpha=ga;g.fillStyle=gf;window.__nz695N=(window.__nz695N|0)+n;return n;
+}
+/* 近距夜圖：原夜圖照真實 bx、by 的小數相位（fx、fy）最近鄰放大到 1:1 畫布，套本體層同一份 ops（模式 2 補光、1/3 與自動挖掉），貼在 floor(bx)、floor(by)。
+   每個螢幕像素取到的夜圖像素跟白天精靈取到的是同一格（1.4、2.8 等非整數檔也一樣），op 也落在同一個 round(bx+精靈x·z)。
+   快取：每張精靈最多 4 張（鍵＝z、tier、相位、鐘面時刻）；同一座地標同一檔縮放的相位是固定的（ox、oy 取整），平移不重建。
+   換檔緩動（zoomAnim，約 150ms）中不重建：沿用上一張、按 z 比例縮放貼上。 */
+function nzNightPush695(list,s,bd,z,bx,by,a){
+  if(!nzGate695(bd,s,z)||!s.night)return false;
+  const tier=2,q=s._scSrcW?s.w/s._scSrcW:1,k=z*q,fx=bx-Math.floor(bx),fy=by-Math.floor(by),noop=!!window.__nearNoOps695;
+  const clk=bd.k===190||bd.k===191,ck=clk&&!noop?nzClockKey695().key:'',key=[z,tier,fx.toFixed(4),fy.toFixed(4),ck,noop?1:0].join('|');
+  const C=s.__nz695nn||(s.__nz695nn={m:new Map(),last:null});let c=C.m.get(key);
+  if(!c&&zoomAnim&&C.last){c=C.last;const f=z/c.z;window.__nz695NightTween=(window.__nz695NightTween|0)+1;   // 緩動中：沿用上一張
+    list.push({img:c.cv,x:bx-c.fx*f,y:by-c.fy*f,w:c.cv.width*f,h:c.cv.height*f,a,warm649:1});return true;}
+  if(!c){const t0=performance.now(),W=Math.ceil(fx+s.w*z)+1,H=Math.ceil(fy+s.h*z)+1,cv=document.createElement('canvas');cv.width=W;cv.height=H;
+    const g=cv.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(s.night,fx,fy,s.w*z,s.h*z);
+    if(!noop){const da=detailAlpha432(z),L=nzStatic695(s,bd,false).filter(p=>p.t<=tier&&z>=p.zm).concat((nzHands695(s,bd)||[]).filter(p=>z>=p.zm));
+      for(const p of L)if(p.m===2){const r=nzRect695(p,fx,fy,k);if(r){g.globalAlpha=Math.min(1,p.a*(p.fa?1:da));g.fillStyle=p.c;g.fillRect(r[0],r[1],r[2],r[3]);}}
+      g.globalCompositeOperation='destination-out';g.fillStyle='#000';
+      for(const p of L)if(p.m===1||p.m===3){const r=nzRect695(p,fx,fy,k);if(r){g.globalAlpha=Math.min(1,p.m===3?1:(p.nc!=null?p.nc:p.a))*(p.fa?1:da);g.fillRect(r[0],r[1],r[2],r[3]);}}
+      g.globalCompositeOperation='source-over';g.globalAlpha=1;}
+    c={cv,z,fx,fy};C.m.set(key,c);if(C.m.size>4)C.m.delete(C.m.keys().next().value);
+    window.__nz695NightMs=(window.__nz695NightMs||0)+(performance.now()-t0);window.__nz695NightN=(window.__nz695NightN|0)+1;}
+  C.last=c;
+  list.push({img:c.cv,x:Math.floor(bx),y:Math.floor(by),w:c.cv.width,h:c.cv.height,a,warm649:1});
+  return true;
+}
+
 /* DSK-004 巴特西發電站近距細節層：磚縫橫紋、壁柱逐格、煙囪環箍、夜間窗帶；只在 z≥1.22。 */
 function drawNearZoomBatterseaDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
   if(window.__noNearBattersea189||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k!==189)return 0;
@@ -60109,6 +60378,7 @@ function drawNearZoomBatterseaDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
   return drew;
 }
 function drawNearZoomKeepDSK1(g,o,bd,s,bx,by,z,drawA,nightDepth){
+  if(!window.__noNearUK695&&!window.__noKeepNight694&&!window.__noDial694)return 0; // T695：新近距層接手
   if(window.__noNearKeep188||z<1.22||!bd||bd.ref||(bd.age|0)<9||bd.k!==188)return 0;
   if(!detailPermit432(o.x,o.y,599,z,.62))return 0;
   const night=(nightDepth|0)>0,a=drawA*detailAlpha432(z),foot=by+s.h*z;
@@ -62546,6 +62816,7 @@ function draw(dt){
     }
   }
   waterT+=dt;if(waterT>.5){waterT=0;waterF=(waterF+1)%3;}
+  if(window.__waterF695!=null)waterF=window.__waterF695|0; // T695 守衛：釘住水面幀（跨開機逐像素比）
   const win=inWinter();                             // 冬季雪皮切換（T18；一次計算，draw 內零新配置）
   const sea=season();                                // T136：本幀四季索引（0春1夏2秋3冬；一次計算，draw 內零新配置），春季 sea===0 時下方各選鍵分支與改動前完全相同分支
   let rdecGlow=[];                                   // 路飾夜燈暫存，併入 nightSprites（T20）；T96 快取命中時改自快取複製
@@ -64092,7 +64363,7 @@ function draw(dt){
       winA413*=windowNightMul446D(bd); // T446D：真正讀每棟 bd；工業整體壓暗、住宅依財富調節
       winA413*=nightCurve486(Math.max(nightDepth,(ph>=.5?dusk*.42:0)),kcatOf(bd.k),bd); // T486：晚間商業更亮、深夜教育提早轉靜、住宅與公共服務保持節奏分化
       winA413*=nightGlobalPowerRate487(); // T487：夜間 dispatch 不足時，既有窗燈與 T486 燈光同步降載
-      nightSprites.push({img:s.night,x:bx,y:by,w:s.w*z,h:s.h*z,a:winA413,warm649:1}); // T649：建築窗燈畫之前染暖黃
+      if(!(!window.__noNearUK695&&nightDepth>0&&nzNightPush695(nightSprites,s,bd,z,bx,by,winA413)))nightSprites.push({img:s.night,x:bx,y:by,w:s.w*z,h:s.h*z,a:winA413,warm649:1}); // T649：建築窗燈畫之前染暖黃（T695：近距夜圖）
       if(nightDepth>0&&!window.__noNightCity&&s.nightCity)nightSprites.push({img:s.nightCity,x:bx,y:by,w:s.w*z,h:s.h*z,a:winA413,warm649:1});
       pushWindowLife446D(nightSprites,o,bd,s,bx,by,z,nightDepth,drawA); // T446D：per-building 決定性夜窗，修復 Grok build-time 死線
       if(strip643){const q=o,cl=g=>clipBlockDiag555(g,q.x,q.y,q.block547.w,q.block547.h,q.blockDiag555,z,sxOf,syOf);
@@ -64134,6 +64405,7 @@ function draw(dt){
     if(!constrRise&&(bd.age|0)>=9&&legacyOverlay606(s)){ // T606：外框比例疊畫只給舊圖建築；新等距街區精靈的細節改由貼牆層（drawWallDetail606）在精靈內畫
       const cl606=window.__noOvFix606?null:ovClipBegin606(s,z); // T606：本體層畫進離屏、剪進剪影再貼回（量測：舊層 37～100% 像素浮在建築外）
       const G6=cl606?cl606.g:ctx,X6=cl606?cl606.x:bx,Y6=cl606?cl606.y:by;
+      if(!window.__noNearUK695)nearDialCover695(G6,bd,s,cl606?X6+bx-Math.round(bx):X6,cl606?Y6+by-Math.round(by):Y6,z,drawA,(win&&snowLvl>0&&!lodFar&&bd.k!==4&&!window.__noRoofSnow)?snowLvl:0,(wetLvl>0&&!lodFar&&bd.k!==4&&!window.__noWetBld)?wetLvl:0); // T695：鐘盤蓋格先畫（疊層照常蓋上去）
       drawDistrictTexture424(G6,o,bd,s,X6,Y6,z,drawA);
       drawAgeWeathering591(G6,o,bd,s,X6,Y6,z,drawA); // T591 連續老化梯度（大面低透明先畫）
       drawSignAge593(G6,o,bd,s,X6,Y6,z,drawA); // T593 招牌新舊差異
@@ -64151,6 +64423,7 @@ function draw(dt){
       drawNearZoomGeorgeInnDSK8(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-008 有廊客棧近距細節層（日／夜）
       drawNearZoomKeepDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-003 白塔近距細節層
       drawNearZoomBatterseaDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-004 巴特西近距細節層
+      if(!window.__noNearUK695)nearLandmark695(G6,o,bd,s,cl606?X6+bx-Math.round(bx):X6,cl606?Y6+by-Math.round(by):Y6,z,drawA,nightDepth,snowLvl,wetLvl); // T695 英式地標近距層（原點帶小數相位）
       drawNearZoomAlbertHallDSK7(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-007 皇家音樂廳近距細節層（日／夜）
       if(cl606)ovClipEnd606(ctx,cl606,s,bx,by,z);
       drawIndustrialShift447(ctx,o,bd,s,bx,by,z,drawA, !!nightDepth); // T447-R01
@@ -74478,7 +74751,8 @@ function cathedralSelftestDSK2(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 /* DSK-003 白塔自檢：幾何／邊界／碎點／註冊／真實放置不非法交疊／近距層 z 閘門（日＋夜）。 */
-function keepSelftestDSK3(){
+function keepSelftestDSK3(){const sv695=window.__noNearUK695;window.__noNearUK695=true;try{return keepSelftestDSK3core();}finally{window.__noNearUK695=sv695;}} // T695：舊白塔近距層在新層接手時退場，這支量的是舊層本身，閥門下驗
+function keepSelftestDSK3core(){
   const checks=[],sp=SPR.bld&&SPR.bld['188_1_0'];
   checks.push(['SPR.bld[188_1_0] 存在且幾何正確（72×136、ax=36、ay=134）',!!(sp&&sp.w===72&&sp.h===136&&sp.ax===36&&sp.ay===134&&sp.img)]);
   let op=0,lit=0,iso=0,hardOut=0,minx=99,maxx=-1,miny=999,maxy=-1;
@@ -75251,6 +75525,36 @@ function keepNightDialSelftest694(){
   if(D){
     checks.push(['鐘盤夜裡最亮像素（盤面＋金框內圈泛光）k190 '+(c&&c.nBright)+'（舊 150）、k191 '+(e&&e.nBright)+'（舊 707），各多 ≥10',!!c&&!!e&&c.nBright>=160&&e.nBright>=717]);
   }else checks.push(['閥門開著（__noDial694）：鐘盤只驗尺寸',true]);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
+/* T695 自檢：英式地標近距層（k188 v0／v1、k190、k191、k192）。在離屏畫布上直接呼叫，不靠鏡頭；閥門 __noNearUK695 執行期切。 */
+function nearUKSelftest695(){
+  const checks=[],sv=window.__noNearUK695,svH=window.__clockH695,svM=window.__clock695;
+  const L=[['188_1_0',{k:188,v:0,age:30}],['188_1_1',{k:188,v:1,age:30}],['190_1_0',{k:190,v:0,age:30}],['191_1_0',{k:191,v:0,age:30,sz:2}],['192_1_0',{k:192,v:0,age:30,sz:2}]];
+  const cv=document.createElement('canvas');cv.width=720;cv.height=800;const g=cv.getContext('2d');
+  const boot=typeof nzBoot695==='function'&&nzBoot695();
+  checks.push(['T694 的 N、D 都開著（新層要它們）'+(boot?'':'（閥門開著：新層不畫，只驗閥門行為）'),typeof nzGate695==='function']);
+  let ops=[],z2=[],z1=[],nt=[],nt1=[],err='';
+  try{window.__noNearUK695=false;
+    for(const [k,bd] of L){const s=SPR.bld[k];if(!s){ops.push(-1);continue;}
+      ops.push(boot?(nzStatic695(s,bd,false)||[]).length:0);
+      g.clearRect(0,0,720,800);z2.push(nearLandmark695(g,{x:60,y:60},bd,s,20.3,20.6,2,1,0,0,0));
+      g.clearRect(0,0,720,800);z1.push(nearLandmark695(g,{x:60,y:60},bd,s,20.3,20.6,1,1,0,0,0));
+      const l2=[],l1=[];nt.push(nzNightPush695(l2,s,bd,2,20.3,20.6,1)&&l2.length===1);nt1.push(nzNightPush695(l1,s,bd,1,20.3,20.6,1));}
+  }catch(e){err=e.message;}finally{window.__noNearUK695=sv;}
+  if(boot){
+    checks.push(['四座（白塔兩款）都有近距細節 ops：'+ops.join('／'),ops.length===5&&ops.every(n=>n>=5)]);
+    checks.push(['z=2 真的畫：'+z2.join('／')+' 筆；z=1 不畫：'+z1.join('／')+(err?'（'+err+'）':''),!err&&z2.every(n=>n>0)&&z1.every(n=>n===0)]);
+    checks.push(['夜裡 z=2 換成近距夜圖、z=1 照原夜圖：'+nt.map(b=>b?1:0).join('')+'／'+nt1.map(b=>b?1:0).join(''),nt.every(b=>b)&&nt1.every(b=>!b)]);
+    let k1='',k2='',k3='';try{window.__clock695=undefined;window.__clockH695=10;k1=nzClockKey695().key;window.__clockH695=10.5;k2=nzClockKey695().key;window.__clock695='s';k3=nzClockKey695().key;}finally{window.__clockH695=svH;window.__clock695=svM;}
+    checks.push(['鐘會走（預設 hm）：10:00 '+k1+'、10:30 '+k2+' 不同；看圖用 s '+k3,k1!==k2&&/hm/.test(k1)&&k3==='sL']);
+  }
+  let off=-1,oldOn=0,oldOff=0;
+  try{const s=SPR.bld['188_1_0'],bd={k:188,v:0,age:30};const sp=SPR.bld['188_1_0'];
+    const oldRun=()=>{let n=0;for(let tx=60;tx<68;tx++){g.clearRect(0,0,720,800);n+=drawNearZoomKeepDSK1(g,{x:tx,y:60},bd,sp,20,20,2,1,0)||0;}return n;};
+    window.__noNearUK695=true;off=nearLandmark695(g,{x:60,y:60},bd,s,20.3,20.6,2,1,0,0,0);oldOff=oldRun();window.__noNearUK695=false;oldOn=oldRun();}
+  catch(e){err=err||e.message;}finally{window.__noNearUK695=sv;}
+  checks.push(['閥門 __noNearUK695：新層 '+off+' 筆、舊白塔近距層回來（'+oldOff+'）；關閥門時舊層退場（'+oldOn+'）',off===0&&oldOff>0&&(boot?oldOn===0:oldOn>0)]);
   return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
 /* T670 自檢：工業配色輪替（屋頂 ≥6 種、牆亮色 ≥5 種）、關閥門等於原配色、住宅商業配色不受影響、快取鍵帶閥門。 */
@@ -76528,7 +76832,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
