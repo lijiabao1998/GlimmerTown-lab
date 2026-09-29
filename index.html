@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.00 · T696</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.01 · T697</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -38614,8 +38614,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.00'; // T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T696'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.01'; // T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T697'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -63332,15 +63332,17 @@ function draw(dt){
     if(!vis(sx,sy))continue;
     /* T367b：地格 dep 走 view 深度（與實體 viewDep 同一基準）。單格 viewDep+y*.001；
        多格（k9／sz≥2）掃 footprint 取 max(viewDep)——rot=0 時即舊 SE 角公式，尾碼保留世界 y；
-       只動 dep 值、不動本迴圈迭代序（否決整迴圈改 view 序）。 */
-    let dep;
+       只動 dep 值、不動本迴圈迭代序（否決整迴圈改 view 序）。T697 起多格改取佔地中線 (min+max)/2（centerDep697），閥門下回 max。 */
+    let dep,cd697=false;
     if(t.bld&&(t.bld.k===9||t.bld.sz>=2)){
       const sz=t.bld.sz||2; // k9 無 sz 時與舊 (x+1)+(y+1) 對齊
-      let md=-1;
-      for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const d=viewDep(x+dx,y+dy);if(d>=md)md=d;}
-      dep=md+(window.__noTie585?y*.001:viewTie585(x,y));
+      let md=-1,mn697=1e9;
+      for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const d=viewDep(x+dx,y+dy);if(d>=md)md=d;if(d<mn697)mn697=d;}
+      dep=centerDep697(mn697,md)+(window.__noTie585?y*.001:viewTie585(x,y)); // T697：佔地中線（閥門下回最前角 md）
+      cd697=!window.__noCenterDep697;
+      if(window.__depFirst697&&window.__depFirst697===x+','+y)dep=-1e6; // T697 守衛鉤子：指定原點的這棟排到最前面先畫（＝前面的東西都在它上面），probe697 當參照
     }else dep=viewDep(x,y)+(window.__noTie585?y*.001:viewTie585(x,y));
-    objs.push({dep,x,y,sx,sy,t});
+    objs.push(cd697?{dep,x,y,sx,sy,t,cd697}:{dep,x,y,sx,sy,t}); // T697：cd697＝這棟用中線排序（外擴圈判斷要跟著改）
     /* ===== T368a 公園有人：遊樂場孩童／公園晨跑者／遛狗公園狗與主人（draw-time 決定性，零亂數消耗） ===== */
     if(animOn&&!window.__noParkLife){
       if(SPR.ped){ // T368 退修：__noVeh 時 SPR.ped 不生成（T155 契約），人形層整段短路；狗用自有素材照跑
@@ -74454,7 +74456,16 @@ function stripPaveOnce621(o){return !!window.__noStripPave621||o.blockDiag555==n
 /* T696：T160 外擴圈（大型公共建築的前庭石板＋T594 使用痕、所有建築的圍欄／綠籬小件）原本用建築自己的排序深度畫；
    多格建築的深度是佔地最前角，外擴圈在建築後側的格子比它淺，站在這些格子前面的鄰居建築先畫完，石板與綠籬接著蓋上去（業主：「空的格子非法疊在建築上面」）。
    後側格子（viewDep 比建築的整數深度淺）改由排序前的預處理抽成獨立物件，用那一格自己的深度畫；前側照舊。逃生閥 __noRingDepth696＝回原樣。 */
-function ringBack696(o,tx,ty){return !window.__noRingDepth696&&viewDep(tx,ty)<Math.floor(o.dep);}
+function ringBack696(o,tx,ty){
+  if(window.__noRingDepth696)return false;
+  if(o.cd697)return viewDep(tx,ty)+(window.__noTie585?ty*.001:viewTie585(tx,ty))-.0005<o.dep; // T697：中線排序的多格建築，這一格自己的排序位置比建築早就抽出（側角格深度等於中線，尾碼較小的那一格也要抽）
+  return viewDep(tx,ty)<Math.floor(o.dep);
+}
+/* T697：多格建築（sz≥2、k9）的排序深度原本取佔地最前角（T367b max viewDep），緊貼前兩面、靠近後角的鄰居比它淺、先畫，被地標整張蓋掉。
+   改取佔地深度的中線 (min+max)/2：方形佔地時前面緊貼的格子都 ≥ 中線＋1、後面緊貼的都 ≤ 中線−1，兩個側角等於中線但畫面上不重疊。
+   地標精靈本來就被 T596 裁在佔地柱子裡。外擴圈（T696）對這些建築改用「這一格自己的排序位置比建築早」判斷：
+   原本側角格比最前角淺、會抽出；改中線後它跟中線同深，若不抽，格上的樹會先畫、被前庭石板蓋掉。逃生閥 __noCenterDep697＝回最前角與 T696 取整判斷。 */
+function centerDep697(mn,md){return window.__noCenterDep697?md:(mn+md)/2;}
 function stripPaveSelftest621(){
   const saved=window.__noStripPave621,checks=[];
   try{
@@ -75592,6 +75603,34 @@ function ringDepthSelftest696(){
   checks.push(['draw 接線：石板、綠籬兩段迴圈與排序前預處理都走同一個判斷（'+nUse+' 處）、主迴圈有分派',nUse>=3&&src.indexOf('o.ring696')>=0&&src.indexOf('add696')>=0]);
   let err='',n=-1;{let errN=0;const se=console.error;console.error=()=>{errN++;};try{draw(.016);n=window.__ring696N;}catch(e){err=e.message;}finally{console.error=se;}if(errN)err=err||('console.error '+errN+' 筆');}
   checks.push(['真的 draw(.016) 一次不擲錯（這一幀抽出 '+n+' 格）'+(err?'（'+err+'）':''),!err&&n>=0]);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
+/* T697 自檢：中線深度（合成佔地，不動世界）＋外擴圈跟著改的判斷＋draw 接線＋真的 draw 一次。 */
+function centerDepSelftest697(){
+  const checks=[],sv=window.__noCenterDep697,svR=window.__noRingDepth696,tie=(tx,ty)=>window.__noTie585?ty*.001:viewTie585(tx,ty);
+  const foot=(x,y,n)=>{let mn=1e9,md=-1;for(let dy=0;dy<n;dy++)for(let dx=0;dx<n;dx++){const d=viewDep(x+dx,y+dy);if(d>md)md=d;if(d<mn)mn=d;}return [mn,md];};
+  const ring=(x,y,n)=>{const r=[];for(let dy=-1;dy<=n;dy++)for(let dx=-1;dx<=n;dx++)if(dx===-1||dx===n||dy===-1||dy===n)r.push([x+dx,y+dy]);return r;};
+  let a=false,b=true,c=false,e=true;const cnt=[];
+  try{
+    window.__noCenterDep697=false;window.__noRingDepth696=false;
+    {const [mn,md]=foot(10,10,3);a=centerDep697(mn,md)===viewDep(11,11)&&centerDep697(mn,md)===(mn+md)/2;window.__noCenterDep697=true;c=centerDep697(mn,md)===md;window.__noCenterDep697=false;}
+    for(const n of [2,3,4,5]){const [mn,md]=foot(10,10,n),cd=centerDep697(mn,md);let f=0,bk=0,sd=0;
+      for(const [tx,ty] of ring(10,10,n)){const d=viewDep(tx,ty);if(d>=cd+1)f++;else if(d<=cd-1)bk++;else if(d===cd)sd++;else b=false;}
+      if(sd!==2||f!==2*n+1||bk!==2*n+1)b=false;cnt.push(n+'×'+n+' 前'+f+'後'+bk+'側'+sd);
+      const o={dep:cd+tie(10,10),cd697:1};let sideBack=0;
+      for(const [tx,ty] of ring(10,10,n)){const d=viewDep(tx,ty),bb=ringBack696(o,tx,ty);
+        if(d<cd&&!bb)e=false;if(d>cd&&bb)e=false;if(d===cd&&bb){sideBack++;if(!(tie(tx,ty)<tie(10,10)))e=false;}}
+      if(sideBack!==1)e=false;
+      window.__noRingDepth696=true;for(const [tx,ty] of ring(10,10,n))if(ringBack696(o,tx,ty))e=false;window.__noRingDepth696=false;}
+  }finally{window.__noCenterDep697=sv;window.__noRingDepth696=svR;}
+  checks.push(['合成 3×3：中線＝(min+max)/2＝正中那一格的深度',a]);
+  checks.push(['2×2～5×5 外擴圈：前面緊貼的都 ≥ 中線＋1、後面緊貼的都 ≤ 中線−1、兩個側角等於中線（'+cnt.join('、')+'）',b]);
+  checks.push(['閥門 __noCenterDep697 下回最前角 max',c]);
+  checks.push(['外擴圈判斷（中線排序的建築）：後面緊貼的都抽出、前面的都不抽、兩個側角只抽尾碼較小的那一格；關 T696 閥門時都不抽',e]);
+  const src=String(draw)+(typeof __draw_501==='function'?String(__draw_501):'');
+  checks.push(['draw 接線：多格建築走 centerDep697、推物件時帶 cd697 記號',src.indexOf('centerDep697(mn697,md)')>=0&&src.indexOf('cd697=!window.__noCenterDep697')>=0]);
+  let err='';{let errN=0;const se=console.error;console.error=()=>{errN++;};try{draw(.016);}catch(e2){err=e2.message;}finally{console.error=se;}if(errN)err=err||('console.error '+errN+' 筆');}
+  checks.push(['真的 draw(.016) 一次不擲錯'+(err?'（'+err+'）':''),!err]);
   return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
 /* T670 自檢：工業配色輪替（屋頂 ≥6 種、牆亮色 ≥5 種）、關閥門等於原配色、住宅商業配色不受影響、快取鍵帶閥門。 */
@@ -76869,7 +76908,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
