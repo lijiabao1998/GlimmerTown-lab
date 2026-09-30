@@ -151,6 +151,7 @@ const KEEP = process.argv.includes('--keep');
       ['ukBatchSelftest708', `(window.GV && window.GV.ukBatchSelftest708) ? window.GV.ukBatchSelftest708() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest703', `(window.GV && window.GV.ukBatchSelftest703) ? window.GV.ukBatchSelftest703() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest704', `(window.GV && window.GV.ukBatchSelftest704) ? window.GV.ukBatchSelftest704() : {ok:false,checks:['API 不存在']}`],
+      ['legacyB714', `(window.GV && window.GV.legacyBSelftest714) ? window.GV.legacyBSelftest714() : {ok:false,checks:['API 不存在']}`],
       ['auditGeo709', `(window.GV && window.GV.auditGeoSelftest709) ? window.GV.auditGeoSelftest709() : {ok:false,checks:['API 不存在']}`],
       ['treeSeasonDSK1', `(window.GV && window.GV.treeSeasonSelftestDSK1) ? window.GV.treeSeasonSelftestDSK1() : {ok:false,checks:['API 不存在']}`],
     ];
