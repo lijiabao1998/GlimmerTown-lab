@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.14 · T714</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.15 · T712</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -43190,6 +43190,544 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
     fin(98,2,Z,'#a09a8c','#262a33');});
 });
 </script>
+<script>/* T712 普查修正④：公共設施第一個變體重畫（逃生閥 window.__noCivicV0712） */
+/* T712 普查修正④：公共設施第一個變體重畫（124 籃球場、125 網球場、126 兒童遊樂場、127 社會住宅、128 變電所、129 海水淡化廠、131 防災中心、132 避難公園、133 防災雷達的 _1_0）。
+   舊 v0（T364c/d）是扁平正立面立在菱形後方、地板空著；v1、v2 正常。新 v0 比照同建築 v1、v2 的畫法（半解析作畫、整數 2× 放大、sc .5、外框 26,30,44），
+   形制刻意不同；地坪鋪滿自己的菱形，收尾補上舊 v0 開機吃過的 T526 打磨＋T479 材質。尺寸錨點照舊（1×1＝144×224 錨 72,220；2×2＝272×300 錨 136,296）。
+   必須排在所有讀 v0 的批次（b10 civic() 取 v0 地坪、b04／b09…）之後才寫：不是佇列最後一棒就把本體排到隊尾。
+   逃生閥 window.__noCivicV0712＝整段不跑，九張 v0 維持舊畫法（逐像素相同）。例外逐鍵接住，記在 window.__fix712_errs，不中斷佇列。 */
+(window.__variants574=window.__variants574||[]).push(function fix712(A){
+  const QL=window.__variants574||[];
+  if(!fix712.__late&&QL.indexOf(fix712)>=0&&QL.indexOf(fix712)<QL.length-1){fix712.__late=1;QL.push(function fix712_late(A2){fix712(A2);});return;}
+  if(window.__noCivicV0712)return;
+  const B=A.SPR().bld,SH=A.shade,HL=A.hashLocal479,R=Math.round;
+  const errs=[];window.__fix712_errs=errs;
+  /* ---------- 像素基元（半解析作畫：1×1＝72×112 錨 36,110；2×2＝136×150 錨 68,148；收尾整數 2× 放大＋sc .5） ---------- */
+  const mk=(w,h)=>{const r=A.cv(w,h);return {c:r[0],g:r[1]};};
+  const P=(g,x,y,w,h,c)=>{w=R(w);h=R(h);if(w<=0||h<=0)return;g.fillStyle=c;g.fillRect(R(x),R(y),w,h);};
+  function poly(g,pts,c){ // 凸多邊形：像素中心取樣（同 b10）
+    let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const p of pts){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);}
+    g.fillStyle=c;const n=pts.length;let ar=0;for(let k=0;k<n;k++){const a=pts[k],b=pts[(k+1)%n];ar+=a[0]*b[1]-b[0]*a[1];}const s=ar>0?1:-1;
+    for(let y=Math.floor(y0);y<=Math.ceil(y1);y++){let run=-1;
+      for(let x=Math.floor(x0);x<=Math.ceil(x1)+1;x++){const px=x+.5,py=y+.5;let ok=x<=Math.ceil(x1);
+        for(let k=0;k<n&&ok;k++){const a=pts[k],b=pts[(k+1)%n];if(s*((b[0]-a[0])*(py-a[1])-(b[1]-a[1])*(px-a[0]))<-.01)ok=false;}
+        if(ok&&run<0)run=x;if(!ok&&run>=0){g.fillRect(run,y,x-run,1);run=-1;}}}}
+  function seg(g,x0,y0,x1,y1,c){x0=R(x0);y0=R(y0);x1=R(x1);y1=R(y1);
+    const dx=Math.abs(x1-x0),dy=Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let e=dx-dy;g.fillStyle=c;
+    for(let n=0;n<800;n++){g.fillRect(x0,y0,1,1);if(x0===x1&&y0===y1)break;const e2=2*e;if(e2>-dy){e-=dy;x0+=sx;}if(e2<dx){e+=dx;y0+=sy;}}}
+  const up=(p,z)=>[p[0],p[1]-z];
+  /* 等距方盒：足跡 i∈[i0,i0+a]、j∈[j0,j0+b]，z0 起、牆高 h；左面＝+j 面（亮、長 2a 欄）、右面＝+i 面（暗、長 2b 欄） */
+  function box(g,G,i0,j0,a,b,h,cL,cR,cT,z0){z0=z0||0;
+    const S=up(G(i0+a,j0+b),z0),E=up(G(i0+a,j0),z0),W=up(G(i0,j0+b),z0),N=up(G(i0,j0),z0);
+    if(cL&&a>0&&h>0)poly(g,[up(W,h),up(S,h),S,W],cL);
+    if(cR&&b>0&&h>0)poly(g,[up(S,h),up(E,h),E,S],cR);
+    if(cT)poly(g,[up(N,h),up(E,h),up(S,h),up(W,h)],cT);
+    return {S,E,W,N,h,a,b};}
+  const fx=(S,side,d)=>side<0?S[0]-1-d:S[0]+d;
+  const fyb=(S,d)=>S[1]-1-Math.ceil(d/2);
+  function fr(g,S,side,d0,w,t0,hh,c){for(let d=d0;d<d0+w;d++)P(g,fx(S,side,d),fyb(S,d)-t0-hh+1,1,hh,c);}
+  function topEdge(g,bx,cl,cr){const S=bx.S,h=bx.h;if(cl)fr(g,S,-1,0,2*bx.a,h-1,1,cl);if(cr)fr(g,S,1,0,2*bx.b,h-1,1,cr);}
+  function cyl(g,cx,cy,r,h,cols,top,rim){const ry=r/2;
+    for(let x=cx-r;x<cx+r;x++){const u=(x+.5-cx)/r,e=ry*Math.sqrt(Math.max(0,1-u*u));
+      const c=u<-.45?cols[0]:u<.1?cols[1]:u<.62?cols[2]:cols[3];
+      const yt=R(cy-h-e),yb=R(cy+e);P(g,x,yt,1,yb-yt+1,c);
+      if(top){const t0=R(cy-h-e),t1=R(cy-h+e);P(g,x,t0,1,t1-t0+1,top);if(rim)P(g,x,t0,1,1,rim);}}}
+  function ellipse(g,cx,cy,r,ry,c){for(let x=cx-r;x<cx+r;x++){const u=(x+.5-cx)/r,e=ry*Math.sqrt(Math.max(0,1-u*u));const t0=R(cy-e),t1=R(cy+e);P(g,x,t0,1,t1-t0+1,c);}}
+  function sphere(g,cx,cy,r,cols){for(let y=cy-r;y<cy+r;y++)for(let x=cx-r;x<cx+r;x++){const u=(x+.5-cx)/r,v=(y+.5-cy)/r,q=u*u+v*v;if(q>1)continue;
+    const l=-.55*u-.6*v+.35*Math.sqrt(1-q);P(g,x,y,1,1,l>.45?cols[0]:l>.05?cols[1]:l>-.35?cols[2]:cols[3]);}}
+  function gable(g,G,i0,j0,a,b,h,rh,ridge,cSlope,cBack,cWallL,cWallR,z0){z0=z0||0;const H=z0+h,T=z0+h+rh;
+    if(ridge==='i'){const jm=j0+b/2;
+      poly(g,[up(G(i0,j0),H),up(G(i0+a,j0),H),up(G(i0+a,jm),T),up(G(i0,jm),T)],cBack);
+      poly(g,[up(G(i0,j0+b),H),up(G(i0+a,j0+b),H),up(G(i0+a,jm),T),up(G(i0,jm),T)],cSlope);
+      poly(g,[up(G(i0+a,j0+b),H),up(G(i0+a,j0),H),up(G(i0+a,jm),T)],cWallR);
+    }else{const im=i0+a/2;
+      poly(g,[up(G(i0,j0),H),up(G(i0,j0+b),H),up(G(im,j0+b),T),up(G(im,j0),T)],cBack);
+      poly(g,[up(G(i0+a,j0),H),up(G(i0+a,j0+b),H),up(G(im,j0+b),T),up(G(im,j0),T)],cSlope);
+      poly(g,[up(G(i0,j0+b),H),up(G(i0+a,j0+b),H),up(G(im,j0+b),T)],cWallL);}}
+  function hip(g,G,i0,j0,a,b,h,rh,cL,cR,z0){z0=z0||0;const H=z0+h,T=up(G(i0+a/2,j0+b/2),H+rh);
+    poly(g,[up(G(i0,j0+b),H),up(G(i0+a,j0+b),H),T],cL);poly(g,[up(G(i0+a,j0+b),H),up(G(i0+a,j0),H),T],cR);}
+  const GREEN=['#a6cc80','#7fae60','#5e8e4a','#456f3b'];
+  function tree(g,x,y,r,tall,pal){P(g,x,y-(tall||4),1,tall||4,'#6a583f');sphere(g,x+1,y-(tall||4)-r+1,r,pal||GREEN);}
+  function bench(g,x,y,c){P(g,x-2,y-2,5,1,c||'#8a6a42');P(g,x-2,y-1,1,1,'#5a412c');P(g,x+2,y-1,1,1,'#5a412c');}
+  // 碟形天線（朝左上）
+  function dish(g,x,y,rx,ry,col){ellipse(g,x,y,rx,ry,SH(col,-26));ellipse(g,x-1,y-1,rx-1,Math.max(1,ry-1),col);ellipse(g,x,y,Math.max(1,R(rx*.45)),Math.max(1,R(ry*.45)),SH(col,-14));}
+  // 桁架塔：x＝中心欄，by＝地面，h 高，bw 半寬
+  function lattice(g,x,by,h,bw,col,col2){const top=by-h;seg(g,x-bw,by,x,top,col);seg(g,x+bw,by,x,top,col2||col);
+    let flip=0;for(let y=by-3;y>top+4;y-=5){const w0=R(bw*(y-top)/h),y2=y-5,w1=R(bw*Math.max(0,y2-top)/h);
+      if(flip)seg(g,x-w0,y,x+w1,y2,col2||col);else seg(g,x+w0,y,x-w1,y2,col2||col);flip^=1;}return top;}
+  const hsh=(a,b,s)=>HL(a|0,b|0,712000+(s|0));
+  const lampWarm='rgba(255,196,112,.9)',lampCool='rgba(150,222,255,.85)',winWarm='rgba(255,200,120,.82)',winCool='rgba(146,220,255,.72)';
+  const OL=[26,30,44];
+
+  /* ---------- 後製對齊：逐式複刻 T526 打磨＋T479 建築材質（抄 b07；舊 v0 在開機時吃過，這裡在 2× 原圖尺度補上） ---------- */
+  function polish526(c,ax,ay){const g=c.getContext('2d'),w=c.width,h=c.height,sc=Math.max(.6,Math.min(3,w/72));
+    if(!window.__x13StageNoShd){g.fillStyle='rgba(10,14,24,.16)';g.beginPath();g.ellipse(ax+8*sc,ay-6*sc,30*sc,12*sc,0,0,6.283);g.fill();}
+    const im=g.getImageData(0,0,w,h),d=im.data;
+    for(let y=0;y<h;y++){let L=-1,Rr=-1;for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]>40){if(L<0)L=x;Rr=x;}}if(L<0)continue;
+      for(let x=L;x<Math.min(L+2,w);x++){const i=(y*w+x)*4;d[i]=Math.min(255,d[i]*1.14+12);d[i+1]=Math.min(255,d[i+1]*1.14+12);d[i+2]=Math.min(255,d[i+2]*1.14+12);}
+      const i=(y*w+Rr)*4;d[i]*=.88;d[i+1]*=.88;d[i+2]*=.88;}
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;if(d[i+3]<=40)continue;if((((x>>1)+(y>>1))&3)===0){d[i]*=.955;d[i+1]*=.955;d[i+2]*=.955;}}
+    const rows=[];let topY=-1;
+    for(let y=0;y<h;y++){let L=-1,Rr=-1;for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]>40){if(L<0)L=x;Rr=x;}}rows[y]=L>=0?[L,Rr]:null;if(L>=0&&topY<0)topY=y;}
+    if(topY>=0)for(let y=h-2;y>topY+8;y-=8){const rb=rows[y];if(!rb)continue;for(let x=rb[0];x<=rb[1];x++){const i=(y*w+x)*4;if(d[i+3]>40){d[i]*=.93;d[i+1]*=.93;d[i+2]*=.93;}}}
+    g.putImageData(im,0,0);}
+  function mat479(c,k,key){const g=c.getContext('2d'),w=c.width,h=c.height,seed=479000+k*17+(String(key).length*13);
+    g.save();g.globalCompositeOperation='source-atop';
+    let gr=g.createLinearGradient(0,0,w,h);gr.addColorStop(0,'rgba(255,236,194,.075)');gr.addColorStop(.52,'rgba(255,255,255,0)');gr.addColorStop(1,'rgba(28,35,43,.10)');g.fillStyle=gr;g.fillRect(0,0,w,h);
+    const density=Math.min(360,Math.max(10,Math.floor(w*h/520)));const cols=['rgba(255,238,202,.09)','rgba(40,46,52,.075)','rgba(143,123,99,.065)'];
+    for(let i=0;i<density;i++){const x=Math.floor(HL(seed,i,47901)*w),y=Math.floor(HL(seed,i,47902)*h);const rw=HL(seed,i,47903)<.74?1:2,rh=HL(seed,i,47904)<.88?1:2;
+      g.fillStyle=cols[Math.floor(HL(seed,i,47905)*cols.length)%cols.length];g.fillRect(x,y,rw,rh);}
+    const tint=g.createLinearGradient(0,h*.28,w,h*.92);tint.addColorStop(0,'rgba(222,213,190,.035)');tint.addColorStop(1,'rgba(43,49,54,.07)');g.fillStyle=tint;g.fillRect(0,0,w,h);
+    const y0=Math.floor(h*.36),y1=Math.floor(h*.86);g.strokeStyle='rgba(68,62,55,.075)';g.lineWidth=1;
+    for(let y=y0;y<y1;y+=8){const off=Math.floor(HL(k,y,47941)*5);g.beginPath();g.moveTo(Math.floor(w*.22)+off,y);g.lineTo(Math.floor(w*.78)-off,y);g.stroke();}
+    const ao=g.createLinearGradient(0,h*.72,0,h);ao.addColorStop(0,'rgba(25,28,30,0)');ao.addColorStop(1,'rgba(20,23,25,.13)');g.fillStyle=ao;g.fillRect(0,Math.floor(h*.70),w,Math.ceil(h*.30));
+    g.restore();}
+
+  /* ---------- 畫布組：base＝地面層（不描邊）、st＝立體層、tg＝細件層（不描邊，最後疊）、ng＝夜光；obj()＝單件描邊後疊進 st（件與件之間也有外框） ---------- */
+  function kit(sz){const W=sz===1?72:136,H=sz===1?112:150,ax=W>>1,ay=sz===1?110:148,hw=32*sz,No=[ax,ay-hw];
+    const G=(i,j)=>[No[0]+2*i-2*j,No[1]+i+j];
+    const K={sz,W,H,ax,ay,hw,No,G,base:mk(W,H),st:mk(W,H),tg:mk(W,H),ng:mk(W,H),tmp:mk(W,H)};
+    K.obj=fn=>{const t=K.tmp;t.g.clearRect(0,0,W,H);fn(t.g);A.outlineSprite(t.c,OL[0],OL[1],OL[2]);K.st.g.drawImage(t.c,0,0);};
+    K.ground=(col,dk,lt)=>{A.dia(K.base.g,ax,No[1],hw,col);A.diaEdge(K.base.g,6,dk||SH(col,-16),ax,No[1],hw);A.diaEdge(K.base.g,9,lt||SH(col,12),ax,No[1],hw);};
+    // 地面逐像素上色：f(i,j)→色或 null（反投影到 z=0；只在菱形內）
+    K.gpx=f=>{const g=K.base.g,im=g.getImageData(0,0,W,H),d=im.data,cache=new Map();const n=16*sz;
+      for(let y=No[1];y<ay;y++)for(let x=ax-hw;x<ax+hw;x++){const a=(x+.5-ax)/2,b=(y+.5)-No[1],i=(a+b)/2,j=(b-a)/2;if(i<0||j<0||i>2*n||j>2*n)continue;
+        const q=f(i,j);if(!q)continue;let v=cache.get(q);if(!v){const m=parseInt(q.slice(1),16);v=[m>>16,(m>>8)&255,m&255];cache.set(q,v);}
+        const k=(y*W+x)*4;if(!d[k+3])continue;d[k]=v[0];d[k+1]=v[1];d[k+2]=v[2];}
+      g.putImageData(im,0,0);};
+    return K;}
+  // 收尾（extra＝精靈自帶的繪製參數，例如 courtConeAt）：st、tg 疊上地面層 → 整數 2× → T526 打磨 → T479 材質；夜圖 2× 後只留在白天有像素處；原有旗標照抄（nightCity 是舊圖烘的窗光，不抄）
+  function fin(k,K,extra){
+    K.base.g.drawImage(K.st.c,0,0);K.base.g.drawImage(K.tg.c,0,0);
+    const W2=K.W*2,H2=K.H*2,key=k+'_1_0';
+    const o=mk(W2,H2);o.g.imageSmoothingEnabled=false;o.g.drawImage(K.base.c,0,0,W2,H2);
+    polish526(o.c,K.ax*2,K.ay*2);mat479(o.c,k,key);
+    const n=mk(W2,H2);n.g.imageSmoothingEnabled=false;n.g.drawImage(K.ng.c,0,0,W2,H2);
+    n.g.save();n.g.globalCompositeOperation='destination-in';n.g.drawImage(o.c,0,0);n.g.restore();
+    const old=B[key],sp={img:o.c,night:n.c,ax:K.ax*2,ay:K.ay*2,w:W2,h:H2,smoke:[],sc:.5};
+    if(old)for(const f of ['__t479','__t516','__t555','__t610'])if(old[f]!==undefined)sp[f]=old[f];
+    if(extra)Object.assign(sp,extra);sp.__t712=1;B[key]=sp;}
+  /* ================= k124 籃球場 v0：風雨球場（台灣校園／社區常見的拱頂鋼棚籃球場）=================
+     跟 v1（露天全場＋三階看台）、v2（鐵網籠街頭半場）分開：藍色筒拱鋼棚架在八根白柱上、拱頂桁架端面朝左前；
+     棚子高，等距下只蓋住後半，前半的橘色 3×3 場地、藍禁區、白線與前方籃架都看得到。
+     夜裡棚簷下五盞投光燈、棚下場地一層暖光；燈在棚簷下，不用 T364c 掛在兩角燈桿頂的落地光錐（精靈帶 courtConeAt:[]，繪製端改讀它）。 */
+  try{(function(){const k=124,K=kit(1),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#9a9d92','#7c7f74','#b3b6aa');                                   // 水泥外環
+    K.obj(q=>box(q,G,1,1,14,14,1,'#3b4852','#2c363e','#45535d'));              // 深板岩 PU 外圈（1px 厚）
+    const Z=(i,j,z)=>up(G(i,j),(z||0)+1),ln='#eef2dc',L4=(a,b,c)=>{const p=Z(a[0],a[1]),q=Z(b[0],b[1]);seg(s,p[0],p[1],q[0],q[1],c||ln);};
+    poly(s,[Z(2.5,2),Z(13.5,2),Z(13.5,14),Z(2.5,14)],'#c9713d');               // 橘色場地（長軸沿 j）
+    poly(s,[Z(6,2),Z(10,2),Z(10,5.5),Z(6,5.5)],'#2f6b9c');poly(s,[Z(6,10.5),Z(10,10.5),Z(10,14),Z(6,14)],'#2f6b9c');   // 禁區
+    {const c=Z(8,8);ellipse(s,c[0],c[1],4,2,'#2f6b9c');}
+    L4([2.5,2],[13.5,2]);L4([13.5,2],[13.5,14]);L4([13.5,14],[2.5,14]);L4([2.5,14],[2.5,2]);L4([2.5,8],[13.5,8]);
+    L4([6,5.5],[10,5.5]);L4([6,10.5],[10,10.5]);
+    poly(ng,[Z(1,1),Z(15,1),Z(15,15),Z(1,15)],'rgba(255,226,160,.30)');           // 夜：棚下場地受光（棚頂遮住的部分下面再挖掉）
+    // 柱：i=1 與 i=15 兩排 × j 四根；後排（i=1、j<15）先畫，會被棚頂蓋住上段
+    const CJ=[1,5.7,10.3,15],EV=22,RS=6,col=(q,i,j)=>{const b=G(i,j);P(q,b[0]-1,b[1]-EV-1,1,EV,'#e6e9e4');P(q,b[0],b[1]-EV-1,1,EV,'#9aa3a6');P(q,b[0]-1,b[1]-2,2,2,'#5d666b');};
+    for(const j of CJ)if(j<15)col(s,1,j);
+    // 棚頂：筒拱（軸沿 j），i 0.6..15.4、j 0.4..15.6；-i 半坡朝左上受光，+i 半坡轉暗
+    const I0=.6,I1=15.4,J0=.4,J1=15.6,zr=i=>EV+RS*Math.sin(Math.PI*(i-I0)/(I1-I0)),NS=32;
+    const roof=(q,cf)=>{for(let n=0;n<NS;n++){const a=I0+(I1-I0)*n/NS,b=I0+(I1-I0)*(n+1)/NS,t=(n+.5)/NS;
+        poly(q,[up(G(a,J0),zr(a)),up(G(b,J0),zr(b)),up(G(b,J1),zr(b)),up(G(a,J1),zr(a))],cf(t));}};
+    {ng.save();ng.globalCompositeOperation='destination-out';roof(ng,()=>'#000');ng.restore();}
+    K.obj(q=>{roof(q,t=>t<.12?'#8fb8d6':t<.42?'#a9cde4':t<.6?'#7eaacb':t<.82?'#5f8fb6':'#4c7aa2');
+      for(let j=J0+1.5;j<J1-.5;j+=2){let pv=null;for(let n=0;n<=NS;n++){const a=I0+(I1-I0)*n/NS,p=up(G(a,j),zr(a));if(pv)seg(q,pv[0],pv[1],p[0],p[1],n<NS*.5?'#8ab3d1':'#4f7ea6');pv=p;}}   // 浪板肋
+      {let pv=null;for(let n=0;n<=NS;n++){const a=I0+(I1-I0)*n/NS,p=up(G(a,J1),zr(a));if(pv){seg(q,pv[0],pv[1],p[0],p[1],'#f0f3f0');seg(q,pv[0],pv[1]+1,p[0],p[1]+1,'#b9c3c6');}pv=p;}}   // 前端拱樑
+      {const a=up(G(I1,J0),EV),b=up(G(I1,J1),EV);seg(q,a[0],a[1],b[0],b[1],'#3d6388');seg(q,a[0],a[1]+1,b[0],b[1]+1,'#c9d1d3');}                 // 右簷天溝
+    });
+    // 前端拱頂桁架：簷高繫樑＋垂直腹桿（開放端面，看得到棚下）
+    {const a=up(G(I0,J1),EV),b=up(G(I1,J1),EV);seg(s,a[0],a[1],b[0],b[1],'#d6dcda');seg(s,a[0],a[1]+1,b[0],b[1]+1,'#7d888c');
+      for(let i=2.4;i<I1-1;i+=1.8){const p=up(G(i,J1),EV),r=up(G(i,J1),zr(i));P(s,p[0],r[1]+2,1,p[1]-r[1]-2,'#c3cbcc');}}
+    for(const j of CJ)col(s,15,j);col(s,1,15);                                                    // 前排柱
+    for(const j of [3.3,8,12.7]){const p=up(G(15,j),EV);P(s,p[0]-1,p[1]+1,3,1,'#e8e4cc');P(ng,p[0]-1,p[1]+1,3,2,'rgba(255,236,178,.95)');}   // 右簷投光燈
+    for(const i of [4.6,11.4]){const p=up(G(i,J1),EV);P(s,p[0]-1,p[1]+2,3,1,'#e8e4cc');P(ng,p[0]-1,p[1]+2,3,2,'rgba(255,236,178,.95)');}
+    // 前方籃架（棚外，面向場內）
+    {const b=G(8,15.7);P(tg,b[0],b[1]-12,1,12,'#56636b');P(tg,b[0]+1,b[1]-12,1,12,'#3a444a');P(tg,b[0]-1,b[1]-1,4,1,'#2b3338');
+      P(tg,b[0]-2,b[1]-16,6,5,'#eef0ec');P(tg,b[0]-2,b[1]-16,6,1,'#9aa5a8');P(tg,b[0],b[1]-14,2,2,'#c94f3c');P(tg,b[0]+2,b[1]-11,2,1,'#e08a3a');}
+    // 場邊長凳（左前外環）
+    {const b=G(4.6,15.2);bench(tg,b[0],b[1],'#4f7fa6');}
+    fin(k,K,{courtConeAt:[]});})();}catch(e){errs.push('124: '+(e&&e.stack||e));}
+  /* ================= k125 網球場 v0：草地球場（溫布頓式）=================
+     跟 v1（藍綠硬地＋山牆俱樂部小屋）、v2（紅土＋防風布圍牆＋裁判椅）分開：修剪出深淺條紋的草地、長軸沿 j、網橫跨 i；
+     後兩邊修剪矮籬、後方深綠計分板、網邊兩張深綠球員長椅、左側網柱旁與前角紫白繡球花盆、底線中央磨禿的黃土斑。夜裡兩角高燈桿（位置同 v1、v2，對齊繪製端的落地光錐）＋計分板亮字。 */
+  try{(function(){const k=125,K=kit(1),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#6f9950','#557a3c','#86ad64');
+    K.gpx((i,j)=>{if(i<1.2||j<1.2||i>15.4||j>15.4)return null;
+      if(i>=2.2&&i<=13.8&&j>=1.6&&j<=14.4){const worn=((i-8)**2)/5+((j-2.3)**2)/.5<1||((i-8)**2)/5+((j-13.7)**2)/.5<1;if(worn)return '#b49a62';
+        return (Math.floor((i-2.2)/1.45)&1)?'#66a048':'#84bf62';}
+      return (Math.floor(i*1.2+j*1.2)&1)?'#739f53':'#6b9a4d';});
+    const ln='#f4f6ec',Z=(i,j)=>G(i,j),L4=(a,b)=>{const p=Z(a[0],a[1]),q=Z(b[0],b[1]);seg(K.base.g,p[0],p[1],q[0],q[1],ln);};
+    L4([3,2],[13,2]);L4([13,2],[13,14]);L4([13,14],[3,14]);L4([3,14],[3,2]);
+    L4([3,4.8],[13,4.8]);L4([3,11.2],[13,11.2]);L4([8,4.8],[8,11.2]);
+    {const a=Z(8,2),b=Z(8,14);P(K.base.g,a[0],a[1],1,1,ln);P(K.base.g,b[0]-1,b[1]-1,1,1,ln);}
+    // 後兩邊修剪矮籬（先畫，被計分板、燈桿擋）
+    K.obj(q=>{const a=box(q,G,.7,.7,14.6,.9,3,'#4f8a44','#3b6e36','#6aa55a');const b=box(q,G,.7,1.6,.9,13.8,3,'#4f8a44','#3b6e36','#6aa55a');
+      for(let d=1;d<29;d+=3)P(q,fx(a.S,-1,d),fyb(a.S,d)-3,1,1,'#83bd6c');});
+    // 計分板（後方、面向場內＝左面受光）：兩根柱＋深綠板＋白字
+    K.obj(q=>{for(const i of [5.6,10.4]){const b=G(i,1.6);P(q,b[0],b[1]-5,1,5,'#4c5a52');}
+      const sb=box(q,G,5,1.3,6,.5,6,'#2f5a3e','#244834','#3f6e50',5);
+      fr(q,sb.S,-1,1,10,1,4,'#264a34');for(const d of [2,3,5,8,9])fr(q,sb.S,-1,d,1,2,2,'#f2f0dc');fr(q,sb.S,-1,6,1,3,1,'#c9a8e0');});
+    {const S=up(G(11,1.8),5);for(const d of [2,3,5,8,9])fr(ng,S,-1,d,1,2,2,'rgba(255,236,170,.95)');}
+    // 網：兩根網柱＋深色網身＋白色網帶（沿 i，j=8）
+    {const a=Z(2.4,8),b=Z(13.6,8);
+      seg(s,a[0],a[1]-1,b[0],b[1]-1,'#2c393e');seg(s,a[0],a[1]-2,b[0],b[1]-2,'#3b4a50');seg(s,a[0],a[1]-3,b[0],b[1]-3,'#f2f4ea');
+      P(s,a[0],a[1]-4,1,4,'#2f4a3a');P(s,b[0],b[1]-4,1,4,'#2f4a3a');P(s,b[0]+1,b[1]-4,1,4,'#1f3228');}
+    // 網邊球員長椅（右側場外兩張，深綠椅背白色椅條）＋紫白繡球花盆（前角、左側網柱旁）
+    for(const j of [5.8,10.2]){const b=G(14.8,j);K.obj(q=>{P(q,b[0]-2,b[1]-5,5,2,'#2f5a3e');P(q,b[0]-2,b[1]-3,5,1,'#e6e8dc');P(q,b[0]-2,b[1]-2,5,1,'#244834');P(q,b[0]-2,b[1]-1,1,1,'#1f3a28');P(q,b[0]+2,b[1]-1,1,1,'#1f3a28');});}
+    for(const [i,j] of [[14.6,14.6],[1.7,7.4],[1.7,9.2]]){const b=G(i,j);K.obj(q=>{P(q,b[0]-2,b[1]-3,5,3,'#6a5a4a');P(q,b[0]-2,b[1]-3,5,1,'#8a7a66');
+        for(const [dx,dy,c] of [[-2,-5,'#9a7ac8'],[0,-6,'#f4f0f4'],[1,-5,'#7a5ab0'],[-1,-4,'#b89ae0'],[2,-4,'#9a7ac8']])P(q,b[0]+dx,b[1]+dy,2,2,c);});}
+    // 球場燈桿：頭部位置跟 v1、v2 一樣（對齊繪製端 T364c 冷暖落地光錐的兩個掛點），細件層不描邊
+    for(const m of [{x:5,hy:45,by:94},{x:65,hy:43,by:93}]){
+      P(tg,m.x,m.hy+2,1,m.by-m.hy-2,'#7f8d95');P(tg,m.x+1,m.hy+2,1,m.by-m.hy-2,'#3f4c54');
+      P(tg,m.x-2,m.hy-1,6,1,'#2b353b');P(tg,m.x-2,m.hy,6,1,'#f4f0d0');P(tg,m.x-2,m.hy+1,6,1,'#b9bca8');P(tg,m.x-2,m.hy+2,6,1,'#2b353b');
+      P(tg,m.x-1,m.by-1,4,2,'#2b353b');P(ng,m.x-2,m.hy,6,2,'rgba(255,232,170,.95)');}
+    fin(k,K);})();}catch(e){errs.push('125: '+(e&&e.stack||e));}
+  /* ================= k126 兒童遊樂場 v0：鞦韆＋攀爬球網架＋直滑梯（木屑鋪面）=================
+     跟 v1（木造遊戲塔＋紅尖頂＋螺旋滑梯、沙地）、v2（繩網金字塔＋旋轉盤、紅膠地）分開：
+     後方黃色 A 字鞦韆架（兩座位）、右前紅色半球攀爬架、左側綠頂小平台接藍色直滑梯；木屑地、鞦韆下綠色安全墊、攀爬架下藍色安全墊。 */
+  try{(function(){const k=126,K=kit(1),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#b8b29e','#9a947f','#cdc7b3');                                   // 外圈水泥步道
+    K.obj(q=>box(q,G,1,1,14,14,1,'#8e6c46','#6f5335','#a8825a'));              // 木屑鋪面區（低緣石）
+    K.gpx((i,j)=>{if(i<1.3||j<1.3||i>14.9||j>14.9)return null;
+      if(i>3&&i<13&&j>1.8&&j<5.6)return (Math.floor(i*2)+Math.floor(j*2))%5?'#5f9a58':'#6aa663';            // 鞦韆安全墊
+      if((i-11)**2+(j-11)**2<11.5)return '#4f82b0';                                                           // 攀爬架安全墊
+      const h=hsh(Math.floor(i*4),Math.floor(j*4),3);return h<.18?'#94704a':h<.36?'#b8905e':'#a8825a';});
+    // 讓地面花色也落在 1px 厚鋪面頂（鋪面在 st；把 st 同位置清掉，改由地面層呈現）
+    {const q=K.st.g;q.save();q.globalCompositeOperation='destination-out';poly(q,[up(G(1.3,1.3),1),up(G(14.7,1.3),1),up(G(14.7,14.7),1),up(G(1.3,14.7),1)],'#000');q.restore();}
+    // 鞦韆（後方，沿 i）：兩座 A 字架＋頂樑、兩個座位
+    {const YL='#e8b83a',YD='#b88c24',Hs=14,j0=3.7;
+      for(const i of [3.6,12.4]){const top=up(G(i,j0),Hs);for(const dj of [-1.6,1.6]){const b=G(i,j0+dj);seg(s,b[0],b[1],top[0],top[1],dj>0?YL:YD);seg(s,b[0]+1,b[1],top[0]+1,top[1],YD);}}
+      const a=up(G(3.6,j0),Hs),b=up(G(12.4,j0),Hs);seg(s,a[0],a[1],b[0],b[1],YL);seg(s,a[0],a[1]+1,b[0],b[1]+1,YD);
+      for(const [i,c] of [[6.2,'#d94c3f'],[9.6,'#3f6f9c']]){const t=up(G(i,j0),Hs-1),sb=up(G(i,j0),3);
+        P(tg,t[0]-1,t[1],1,sb[1]-t[1],'#8d9aa0');P(tg,t[0]+2,t[1]+1,1,sb[1]-t[1]-1,'#6e7b82');P(s,sb[0]-1,sb[1],4,1,c);P(s,sb[0]-1,sb[1]+1,4,1,SH(c,-40));}}
+    // 左側平台＋綠頂＋藍直滑梯（滑向左前）＋右面爬梯
+    {const i0=2.6,j0=8.2;
+      for(const p of [[i0,j0],[i0+3,j0],[i0+3,j0+3],[i0,j0+3]]){const b=G(p[0],p[1]);P(s,b[0],b[1]-13,1,13,'#6b8f4e');}
+      K.obj(q=>{box(q,G,i0,j0,3,3,1,'#8a6a42','#6d523e','#b08a5a',8);
+        const w=box(q,G,i0,j0,3,3,2,'#6fae4f','#4f8a3a',null,9);
+        hip(q,G,i0-.3,j0-.3,3.6,3.6,13,4,'#7fc060','#4f8a3a');});
+      K.obj(q=>{const a=up(G(i0+.6,j0+3),9),b=up(G(i0+2.4,j0+3),9),c=up(G(i0+2.4,j0+7.4),1),d=up(G(i0+.6,j0+7.4),1);
+        poly(q,[a,b,c,d],'#4f83ad');seg(q,a[0],a[1],d[0],d[1],'#7fb0d6');seg(q,b[0],b[1],c[0],c[1],'#3a6388');
+        const e=up(G(i0+.6,j0+7.9),1),f=up(G(i0+2.4,j0+7.9),1);poly(q,[d,c,f,e],'#7fb0d6');});
+      {const b=G(i0+3.6,j0+1.5);P(s,b[0],b[1]-9,1,9,'#6a4a30');P(s,b[0]+3,b[1]-10,1,10,'#6a4a30');for(let t=2;t<9;t+=2)P(s,b[0]+1,b[1]-t-(t>>2),2,1,'#c79a62');}}
+    // 右前半球攀爬架（紅色鋼管經緯線）
+    {const ci=11,cj=11,r=3.3,Hd=9,N=12;
+      const pt=(ph,th)=>up(G(ci+r*Math.cos(th)*Math.cos(ph),cj+r*Math.cos(th)*Math.sin(ph)),Hd*Math.sin(th));
+      const arc=(q,ph,c)=>{let pv=null;for(let n=0;n<=8;n++){const p=pt(ph,Math.PI/2*n/8);if(pv)seg(q,pv[0],pv[1],p[0],p[1],c);pv=p;}};
+      const ring=(q,th,from,to,c)=>{let pv=null;for(let n=0;n<=24;n++){const ph=from+(to-from)*n/24,p=pt(ph,th);if(pv)seg(q,pv[0],pv[1],p[0],p[1],c);pv=p;}};
+      for(let m=0;m<N;m++){const ph=2*Math.PI*m/N;if(Math.sin(ph)+Math.cos(ph)<0)arc(s,ph,'#9e3a30');}
+      ring(s,.45,Math.PI*.75,Math.PI*1.75,'#9e3a30');ring(s,.95,Math.PI*.75,Math.PI*1.75,'#9e3a30');
+      ring(s,.45,-Math.PI*.25,Math.PI*.75,'#e0574a');ring(s,.95,-Math.PI*.25,Math.PI*.75,'#e0574a');
+      for(let m=0;m<N;m++){const ph=2*Math.PI*m/N;if(Math.sin(ph)+Math.cos(ph)>=0)arc(s,ph,'#e0574a');}
+      ring(s,0,-Math.PI*.25,Math.PI*.75,'#b8463a');const t=up(G(ci,cj),Hd);P(s,t[0]-1,t[1]-1,2,1,'#f2bd44');}
+    // 長椅、樹（左後角）、燈柱（左角）
+    {const b=G(1.9,13.2);bench(tg,b[0],b[1],'#8a6a42');}
+    {const b=G(13.5,1.9);tree(s,b[0],b[1],5,6);}
+    {const b=G(.9,14.5);P(tg,b[0],b[1]-17,1,17,'#6d7b82');P(tg,b[0]-1,b[1]-18,3,1,'#2b353b');P(tg,b[0]-1,b[1]-19,3,1,'#f2e2a8');P(ng,b[0]-1,b[1]-19,3,2,lampWarm);}
+    fin(k,K);})();}catch(e){errs.push('126: '+(e&&e.stack||e));}
+  /* ================= k127 社會住宅 v0（2×2）：兩棟平頂板樓（八層後棟＋四層前棟底層店面）＋前庭花園 =================
+     跟 v1（11 層點式塔樓＋社區中心）、v2（四層山牆連棟 L 形街廓）分開：兩棟平頂板樓前後錯開，連續陽台帶、墨綠欄板、
+     磚紅樓梯核突出屋頂；後棟屋頂太陽能板、前棟屋頂綠化菜圃＋水塔；前棟一樓店面玻璃與橘色遮陽篷；左前花園有樹、沙坑、長椅，右側單車棚。 */
+  try{(function(){const k=127,K=kit(2),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#8e9a80','#6f7a64','#a5b096');
+    const LAWN='#79a760',LAWN2='#6f9c58',PAV='#cfc8b6',PAV2='#c2bba8';
+    K.gpx((i,j)=>{if(i<.6||j<.6||i>31.6||j>31.6)return null;
+      if(j>=10.6&&j<=13.4)return (Math.floor(i)&1)?PAV:PAV2;                             // 後棟前步道
+      if(i>=7.6&&i<=9.8&&j>13.4)return (Math.floor(j)&1)?PAV:PAV2;                         // 通往後棟入口的步道
+      if(i<7.6&&j>13.4)return (Math.floor(i*.8+j*.8)&1)?LAWN:LAWN2;                         // 左前花園
+      if(j>=27.6||i>=28.6)return (Math.floor(i+j)&1)?PAV:PAV2;                               // 前棟店面前、右側
+      if(j>13.4&&j<19.6)return (Math.floor(i*.8+j*.8)&1)?LAWN:LAWN2;                        // 兩棟之間中庭
+      return null;});
+    {const c=G(4,25);ellipse(K.base.g,c[0],c[1],7,3,'#d9bd70');ellipse(K.base.g,c[0],c[1]-1,6,2,'#e6cd86');}   // 沙坑
+    const WL='#e2dac8',WR='#b5aa92',WT='#9e988a',BAL='#f4efe2',RAIL='#5c7776',RAILD='#48605f',GLS='#50626a',GLSL='#9fbac0',CORE='#b75f46',CORED='#8f4a37',CWIN='#e6d2b0';
+    const rk=(a,b)=>hsh(a,b,127);
+    // 板樓：i0..i0+a、j0..j0+b、fl 層（每層 5px）、gf＝一樓店面高（0＝沒有）；cores＝左面樓梯核欄位
+    function slab(i0,j0,a,b,fl,gf,cores){const H=gf+fl*5+2;let bx;
+      K.obj(q=>{bx=box(q,G,i0,j0,a,b,H,WL,WR,WT);topEdge(q,bx,'#f4eee0','#c9bfa8');
+        poly(q,[up(G(i0+.5,j0+.5),H),up(G(i0+a-.5,j0+.5),H),up(G(i0+a-.5,j0+b-.5),H),up(G(i0+.5,j0+b-.5),H)],'#8d887c');   // 女兒牆內
+        const nL=2*a,nR=2*b;
+        if(gf){fr(q,bx.S,-1,0,nL,0,gf,'#6d7f86');for(let d=2;d<nL-2;d+=6){fr(q,bx.S,-1,d,4,1,gf-2,'#87c4d6');fr(q,bx.S,-1,d+4,2,0,gf-1,'#6d7f86');}
+          fr(q,bx.S,-1,0,nL,gf,1,'#d0764f');fr(q,bx.S,-1,1,nL-2,gf-1,1,'#e89468');fr(q,bx.S,1,0,nR,0,gf,'#58686e');fr(q,bx.S,1,2,nR-4,1,gf-2,'#6f9fb0');}
+        for(let f=0;f<fl;f++){const t0=gf+f*5;
+          fr(q,bx.S,-1,0,nL,t0,1,BAL);                                                   // 陽台樓板
+          for(let d=1;d<nL-1;d++){const bay=Math.floor((d-1)/6),m=(d-1)%6;
+            fr(q,bx.S,-1,d,1,t0+1,2,m===0?'#d8d0bc':(bay&1)?RAIL:RAILD);fr(q,bx.S,-1,d,1,t0+3,2,m===0||m===5?'#cfc6b2':(m<3?GLS:GLSL));}
+          for(let d=3;d<nR-3;d+=5)fr(q,bx.S,1,d,2,t0+2,2,'#8aa0a6');}
+        for(const d of cores){fr(q,bx.S,-1,d,4,0,H+3,CORE);fr(q,bx.S,-1,d+3,1,0,H+3,CORED);
+          for(let f=0;f<fl;f++)fr(q,bx.S,-1,d+1,2,gf+f*5+2,2,CWIN);fr(q,bx.S,-1,d,4,H+2,1,'#cf7a5e');
+          if(gf)fr(q,bx.S,-1,d+1,2,0,gf-1,'#3a3a36');}});
+      return {bx,H};}
+    // ---- 後棟（八層）----
+    const A_=slab(2,3,22,7,8,0,[12,30]);
+    {const H=A_.H;K.obj(q=>{for(let r=0;r<3;r++)for(let c=0;c<5;c++){const i=3.6+c*3.8,j=4.2+r*1.9;
+        poly(q,[up(G(i,j),H+1),up(G(i+3.2,j),H+1),up(G(i+3.2,j+1.4),H+2),up(G(i,j+1.4),H+2)],'#34507a');
+        const a=up(G(i+1.6,j),H+1),b=up(G(i+1.6,j+1.4),H+2);seg(q,a[0],a[1],b[0],b[1],'#6d8fb8');}});}
+    // 後棟窗光
+    {const S=A_.bx.S,onCore=(d,cs)=>cs.some(c=>d+3>=c&&d<=c+3);for(let f=0;f<8;f++)for(let bay=0;bay<7;bay++){const d=1+bay*6+1;if(onCore(d,[12,30]))continue;if(rk(f*13+bay,1)<.42)fr(ng,S,-1,d,4,f*5+3,2,winWarm);}
+      for(let f=0;f<8;f++)for(const c of [12,30])if(rk(f,c)<.5)fr(ng,S,-1,c+1,2,f*5+2,2,winWarm);   // 樓梯間小窗
+      for(let f=0;f<8;f++)for(let d=3;d<11;d+=5)if(rk(f,d)<.3)fr(ng,S,1,d,2,f*5+2,2,winWarm);}
+    for(const p of [[13,16.2],[22,16.4]]){const q=G(p[0],p[1]);K.obj(o=>tree(o,q[0],q[1],5,5));}   // 中庭樹（在前棟之後＝先畫）
+    // ---- 前棟（四層＋一樓店面）----
+    const B_=slab(10,20,18,7,3,8,[14]);
+    {const H=B_.H;K.obj(q=>{poly(q,[up(G(10.6,20.6),H),up(G(27.4,20.6),H),up(G(27.4,26.4),H),up(G(10.6,26.4),H)],'#7fa866');for(let c=0;c<4;c++)box(q,G,12+c*3.6,22.6,2.6,2,1,'#8a6a42','#6d523e','#5f9048',H);
+        const t=up(G(25.5,22.5),H);cyl(q,t[0],t[1],3,5,['#e8ecee','#c9d0d4','#9aa5ab','#7f8a90'],'#dde3e6','#f4f7f8');
+        P(q,t[0]-3,t[1]-1,6,1,'#6f7a80');});}
+    {const S=B_.bx.S;for(let d=2;d<34;d+=6)if(d<12||d>18)fr(ng,S,-1,d,4,1,6,winCool);for(let f=0;f<3;f++)for(let bay=0;bay<6;bay++){const d=1+bay*6+1;if(d+3>=14&&d<=17)continue;if(rk(f*7+bay,2)<.45)fr(ng,S,-1,d,4,8+f*5+3,2,winWarm);}}
+    // 遮陽篷（前棟店面上方，外挑）
+    {const S=B_.bx.S;for(let d=0;d<36;d++){if(d>=13&&d<=18)continue;const x=fx(S,-1,d),y=fyb(S,d)-8;P(s,x,y+1,1,1,(d>>1)&1?'#e89468':'#f4efe2');}}
+    // ---- 花園：樹、長椅、單車棚、燈 ----
+    for(const p of [[2.6,16.5],[6,30],[2.4,29.5]]){const q=G(p[0],p[1]);K.obj(o=>tree(o,q[0],q[1],5,5));}
+    {const b=G(6.6,21);bench(tg,b[0],b[1]);}{const b=G(17,15.6);bench(tg,b[0],b[1]);}
+    K.obj(q=>{box(q,G,29,14,2.2,5,1,'#6f7d82','#56636a','#4f7f5f',6);for(const p of [[29,19],[31.2,19],[31.2,14]]){const b=G(p[0],p[1]);P(q,b[0],b[1]-6,1,6,'#56636a');}});   // 單車棚（右側）
+    {const b=G(7.4,26);P(tg,b[0],b[1]-10,1,10,'#6d7b82');P(tg,b[0]-1,b[1]-11,3,1,'#f2e2a8');P(ng,b[0]-1,b[1]-12,3,2,lampWarm);}
+    // 後棟入口雨庇（步道盡頭）
+    {const S=A_.bx.S;fr(s,S,-1,28,8,5,1,'#d0764f');fr(s,S,-1,31,2,0,4,'#3e4a50');fr(ng,S,-1,31,2,1,3,winWarm);}
+    fin(k,K);})();}catch(e){errs.push('127: '+(e&&e.stack||e));}
+  /* ================= k128 變電所 v0：戶外開關場（AIS 空氣絕緣變電站）=================
+     跟 v1（GIS 室內變電站＋格構進線塔）、v2（紅磚老變電塔）分開：碎石場上兩台主變壓器沿 i 並排、中間一道混凝土防火牆，
+     箱體左面散熱片、頂上瓷套管與臥式儲油櫃；後緣鍍鋅格構門型架掛懸垂絕緣子串、三條進線垂到套管；
+     前排三組隔離開關支柱、左前小控制室，四周鐵網圍籬＋黃色警告牌。 */
+  try{(function(){const k=128,K=kit(1),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#a19c8e','#827d70','#b9b4a6');
+    K.gpx((i,j)=>{if(i<.5||j<.5)return null;if(j>11.4&&i<6.4)return (Math.floor(i*2+j)&3)?'#b9b5a9':'#b0aca0';   // 控制室前水泥地
+      const h=hsh(Math.floor(i*3),Math.floor(j*3),1);return h<.26?'#99948a':h<.4?'#aaa598':null;});
+    const STL='#9aa5aa',STD='#5e686d',POR='#e8eae4',PORD='#9da6a4',CU='#c7b27a',WIRE='#c4ccd0';
+    const ins=(q,x,y,h)=>{for(let t=0;t<h;t++)P(q,x,y-1-t,1,1,(t&1)?PORD:POR);P(q,x-1,y-1,3,1,STD);P(q,x,y-h-1,1,1,CU);};
+    const fence=(q,a,b,n)=>{const p=G(a[0],a[1]),r=G(b[0],b[1]);seg(q,p[0],p[1]-6,r[0],r[1]-6,'#a3adb1');seg(q,p[0],p[1]-3,r[0],r[1]-3,'#848e92');
+      for(let t=0;t<=n;t++){const x=R(p[0]+(r[0]-p[0])*t/n),y=R(p[1]+(r[1]-p[1])*t/n);P(q,x,y-6,1,6,'#59646a');}};
+    fence(s,[.6,.6],[15.6,.6],6);fence(s,[.6,.6],[.6,10.8],4);                                   // 後兩邊圍籬（最先畫＝在最後面）
+    // 進線門型架（後緣沿 i）：兩根格構腿（2px 寬、斜撐）＋橫樑、三串懸垂絕緣子
+    const Hm=24,LA=G(3,1.6),LB=G(13,1.6);
+    K.obj(q=>{for(const b of [LA,LB]){P(q,b[0]-1,b[1]-Hm,1,Hm,STL);P(q,b[0]+1,b[1]-Hm,1,Hm,STD);for(let t=2;t<Hm;t+=4){P(q,b[0],b[1]-t,1,1,STL);P(q,b[0],b[1]-t-2,1,1,STD);}P(q,b[0]-2,b[1]-1,5,1,STD);}
+      const a=up(LA,Hm),c=up(LB,Hm);seg(q,a[0]-1,a[1],c[0]+1,c[1],STL);seg(q,a[0]-1,a[1]+2,c[0]+1,c[1]+2,STD);
+      for(let n=1;n<10;n++){const x=R(a[0]+(c[0]-a[0])*n/10),y=R(a[1]+(c[1]-a[1])*n/10);P(q,x,y+1,1,1,(n&1)?STD:STL);}
+      P(q,a[0]-1,a[1]-4,1,4,STL);P(q,c[0]+1,c[1]-4,1,4,STL);});
+    const hang=[.22,.5,.78].map(f=>{const a=up(LA,Hm),c=up(LB,Hm),x=R(a[0]+(c[0]-a[0])*f),y=R(a[1]+(c[1]-a[1])*f)+3;for(let t=0;t<4;t++)P(s,x,y+t,1,1,(t&1)?PORD:POR);return [x,y+4];});
+    {const a=up(LA,Hm);P(s,a[0]-1,a[1]-5,1,1,'#d24d42');P(ng,a[0]-1,a[1]-5,1,1,'rgba(255,110,90,.95)');}
+    // 主變壓器 ×2（沿 i 並排）＋中間防火牆
+    const TB=[];
+    const xfmr=(i0,j0)=>{K.obj(q=>{const bx=box(q,G,i0,j0,3.6,3.4,8,'#8a9893','#5f6c68','#a3b0ab');topEdge(q,bx,'#b8c4bf',null);
+        for(let d=0;d<7;d++)fr(q,bx.S,-1,d,1,1,6,(d&1)?'#6c7a75':'#a8b5b0');                              // 左面散熱片
+        fr(q,bx.S,1,1,3,2,3,'#4b5754');fr(q,bx.S,1,2,1,3,1,'#d9a64a');                                     // 右面端子箱＋銘牌
+        const c0=up(G(i0+.2,j0+.6),10),c1=up(G(i0+3.4,j0+.6),10);for(let t=0;t<3;t++)seg(q,c0[0],c0[1]+t,c1[0],c1[1]+t,t===0?'#bfcac5':t===1?'#8a9893':'#66736e');
+        const pz=up(G(i0+.8,j0+.8),8);P(q,pz[0],pz[1]-1,1,1,'#66736e');});
+      for(const f of [.7,1.8,2.9]){const b=up(G(i0+f,j0+2.3),8);ins(s,b[0],b[1],7);TB.push([b[0],b[1]-8]);}};
+    xfmr(5.6,5);
+    K.obj(q=>{const w=box(q,G,9.6,4.4,.8,5,14,'#cdc8bb','#a39e91','#dcd7ca');fr(q,w.S,1,0,10,6,1,'#b3aea1');fr(q,w.S,-1,0,2,13,1,'#e4dfd2');});
+    xfmr(10.8,5);
+    // 進線：門型架絕緣子串 → 兩台變壓器的套管
+    [[0,1],[1,4],[2,5]].forEach(([h,t])=>{const a=hang[h],b=TB[t];seg(tg,a[0],a[1],b[0],b[1],WIRE);});
+    // 前排隔離開關（三組支柱絕緣子＋鋼座＋橫桿）
+    for(const i of [8,11,14]){const b=G(i,12.2);P(s,b[0]-1,b[1]-5,3,5,STD);P(s,b[0]-1,b[1]-5,1,5,STL);ins(s,b[0],b[1]-5,5);}
+    {const a=up(G(8,12.2),11),b=up(G(14,12.2),11);seg(tg,a[0],a[1],b[0],b[1],WIRE);}
+    // 控制室（左前）
+    K.obj(q=>{const bx=box(q,G,1.2,11.4,4.8,3.8,9,'#ddd4c1','#aba28f','#8f897d');topEdge(q,bx,'#efe8d6','#c2b9a6');
+      poly(q,[up(G(1.7,11.9),9),up(G(5.5,11.9),9),up(G(5.5,14.7),9),up(G(1.7,14.7),9)],'#7a756b');
+      fr(q,bx.S,-1,2,3,0,6,'#5a6a74');fr(q,bx.S,-1,2,3,6,1,'#c9c0ac');fr(q,bx.S,-1,6,2,3,3,'#8fb6c6');fr(q,bx.S,1,2,3,2,3,'#6f8f9c');
+      const u=up(G(3,13),9);P(q,u[0]-2,u[1]-3,4,3,'#c8ccc8');P(q,u[0]-2,u[1]-3,4,1,'#e4e7e3');});
+    {const S=G(6,15.2);fr(ng,S,-1,6,2,3,3,winWarm);fr(ng,S,1,2,3,2,3,winWarm);P(s,fx(S,-1,4),fyb(S,4)-7,2,1,'#f2e2a8');P(ng,fx(S,-1,4)-1,fyb(S,4)-8,4,2,lampWarm);}
+    // 前兩邊圍籬（最上層）＋警告牌、場燈
+    fence(tg,[15.6,.6],[15.6,15.6],6);fence(tg,[6.8,15.6],[15.6,15.6],3);
+    {const w=G(11.2,15.6);P(tg,w[0]-2,w[1]-6,4,3,'#e8c43a');P(tg,w[0]-1,w[1]-5,2,1,'#2b2b2b');}
+    {const b=G(15,9.6);P(tg,b[0],b[1]-15,1,15,'#6d7b82');P(tg,b[0]-1,b[1]-16,3,1,'#2b353b');P(tg,b[0]-1,b[1]-17,3,1,'#f2e2a8');P(ng,b[0]-1,b[1]-17,3,2,lampWarm);}
+    fin(k,K);})();}catch(e){errs.push('128: '+(e&&e.stack||e));}
+  /* ================= k129 海水淡化廠 v0（2×2）：露天 RO 膜架＋大型清水池槽＋藍白廠房 =================
+     跟 v1（鋸齒天窗 RO 廠房＋兩座開放沉澱池）、v2（多級閃蒸臥式蒸發器＋高儲水槽＋紅白煙囪）分開：
+     左後一座矮胖的產水儲槽（淺錐頂、藍腰帶、外掛斜梯）、右後平頂藍白廠房、左前露天 RO 壓力容器架（白色膜管一層層橫躺、端頭藍蓋）、
+     前緣兩條藍色取水管從岸邊接進膜架、右前三支加藥小槽。 */
+  try{(function(){const k=129,K=kit(2),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#5a7f8c','#3f5e6a','#7596a2');
+    K.gpx((i,j)=>{if(i<.8||j<.8||i>31.4||j>31.4)return null;if(i>14.6&&j>14.6&&j<17)return '#9aa9aa';
+      return ((Math.floor(i/4)+Math.floor(j/4))&1)?'#8a9c9f':'#839598';});
+    const WH='#e4ece9',WHD='#aebcbc',BL='#2e85a7',BLL='#6fb3cf',BLD='#1f5f7a';
+    // 產水儲槽（左後）：矮胖圓槽＋淺錐頂＋藍腰帶＋斜梯
+    {const c=G(9,9),r=17;K.obj(q=>{cyl(q,c[0],c[1],r,16,['#f4f8f6','#dfe7e5','#b9c6c6','#97a6a8']);
+        for(let x=c[0]-r;x<c[0]+r;x++){const u=(x+.5-c[0])/r,e=(r/2)*Math.sqrt(Math.max(0,1-u*u));P(q,x,R(c[1]+e-11),1,2,u<.1?BL:BLD);}
+        for(let x=c[0]-r;x<c[0]+r;x++){const u=(x+.5-c[0])/r,e=(r/2)*Math.sqrt(Math.max(0,1-u*u)),yt=R(c[1]-16-e),ap=c[1]-16-5+Math.abs(u)*5;
+          for(let y=R(ap);y<=yt;y++)P(q,x,y,1,1,u<-.2?'#eef2f0':u<.35?'#d6dedd':'#b3bfbf');}
+        P(q,c[0]-1,c[1]-23,3,2,'#9aa6a8');
+        for(let t=0;t<14;t++)P(q,c[0]-r+3+t,c[1]+2-t,1,1,'#6e7b80');});}
+    // 廠房（右後）：平頂、藍色腰帶、窗列、屋頂空調機
+    let hb;K.obj(q=>{hb=box(q,G,17,3,13,10,16,WH,WHD,'#c9d3d2');topEdge(q,hb,'#ffffff','#c9d3d2');
+      fr(q,hb.S,-1,0,26,11,2,BL);fr(q,hb.S,1,0,20,11,2,BLD);
+      for(let d=2;d<24;d+=4)fr(q,hb.S,-1,d,2,4,4,'#87c4d6');fr(q,hb.S,-1,20,4,0,7,'#5f7f8a');
+      for(let d=3;d<18;d+=5)fr(q,hb.S,1,d,2,5,3,'#6b98a8');
+      for(const p of [[19,5],[23,5],[19,8.5]]){box(q,G,p[0],p[1],2.4,2,3,'#b9c4c4','#8e9a9a','#d3dbdb',16);}
+      box(q,G,26,4,2,2,6,'#a8b4b4','#7e8a8a','#c3cccc',16);});
+    for(let d=2;d<24;d+=4)if(d!==10)fr(ng,hb.S,-1,d,2,4,4,winCool);fr(ng,hb.S,1,3,2,5,3,winCool);fr(ng,hb.S,1,13,2,5,3,winCool);
+    // 膜架→廠房的架空管（沿 j）
+    for(const [i,c] of [[18,BL],[19.3,'#3f9ac0']]){const a=up(G(i,13),5),b=up(G(i,18),5);for(let t=0;t<2;t++)seg(s,a[0],a[1]+t,b[0],b[1]+t,t?SH(c,-30):c);
+      const p=G(i,16);P(s,p[0],p[1]-5,1,5,'#56636a');}
+    // 露天 RO 壓力容器架（左前）：四層白膜管沿 i，左面見管身、右面見藍色端蓋
+    K.obj(q=>{const i0=4,j0=18,a=13,b=6,H=12;const bx=box(q,G,i0,j0,a,b,H,'#35505e','#2b4250','#3e5c6a');
+      for(let lv=0;lv<4;lv++){const t0=1+lv*3;fr(q,bx.S,-1,0,2*a,t0,2,'#f3f7f5');fr(q,bx.S,-1,0,2*a,t0,1,'#c9d3d2');
+        for(let d=1;d<2*b-1;d+=2)fr(q,bx.S,1,d,1,t0,2,d%4===1?BL:BLL);}
+      for(let d=0;d<2*a;d+=6)fr(q,bx.S,-1,d,1,0,H,'#2b6f94');fr(q,bx.S,-1,0,2*a,H-1,1,'#3f8fb5');
+      for(let n=0;n<4;n++){const j=j0+.8+n*1.4;const p=up(G(i0+.3,j),H),r2=up(G(i0+a-.3,j),H);seg(q,p[0],p[1],r2[0],r2[1],'#e8eeec');}
+      const m=up(G(i0+a,j0+b),0);P(q,m[0]+1,m[1]-H-3,2,3,'#d5ad45');});
+    // 取水管（前緣進膜架）＋閘閥
+    for(const i of [7,11]){const a=up(G(i,24),2),b=up(G(i,31.4),2);for(let t=0;t<3;t++)seg(s,a[0],a[1]+t,b[0],b[1]+t,t===0?BLL:t===1?BL:BLD);
+      const v=up(G(i,28),5);P(s,v[0]-1,v[1],3,2,'#d5ad45');P(s,v[0],v[1]-1,1,1,'#6b5220');}
+    // 加藥小槽 ×3（右前）＋圍堰
+    K.obj(q=>{box(q,G,20,21,10,5,1,'#b6c0c0','#8e9a9a','#c9d2d2');
+      for(const i of [22,25.5,29]){const c=up(G(i,23.5),1);cyl(q,c[0],c[1],3,9,['#f2eed8','#e2dcc2','#bcb59b','#9e977e'],'#ece6cc','#fbf8ea');P(q,c[0]-3,c[1]-4,6,1,i===25.5?'#d5ad45':BL);}});
+    // 燈桿、樹
+    for(const p of [[15,30],[31,14]]){const b=G(p[0],p[1]);P(tg,b[0],b[1]-14,1,14,'#6d7b82');P(tg,b[0]-1,b[1]-15,3,1,'#dfe9ef');P(ng,b[0]-1,b[1]-16,3,2,lampCool);}
+    {const b=G(2,30);K.obj(q=>tree(q,b[0],b[1],4,4));}
+    fin(k,K);})();}catch(e){errs.push('129: '+(e&&e.stack||e));}
+  /* ================= k131 防災中心 v0（2×2）：兩層裙樓＋屋頂圓筒形指揮室＋三道車庫門＋前場救災車 =================
+     跟 v1（寬低指揮樓＋車庫翼＋地面格構通訊塔）、v2（高聳應變塔＋筒拱物資倉＋地面停機坪）分開：
+     石板藍兩層裙樓（橘色警示腰帶、左面玻璃大廳＋橘色雨庇），屋頂上一座圓筒形玻璃環帶指揮室（頂上天線、小碟），
+     右後屋頂紅白單管通訊桿；右面三道紅色捲門，前場停消防車、救護車、橘色救援車，左前三根旗桿與樹。 */
+  try{(function(){const k=131,K=kit(2),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#596875','#33414a','#6f7e8b');
+    K.gpx((i,j)=>{if(i<.6||j<.6||i>31.4||j>31.4)return null;
+      if(j>19.6||i>28.6){const lane=(j>19.6&&Math.abs(((i-3)%6))<.25&&j>21&&j<29)||(i>28.6&&Math.abs(((j-5)%5))<.25&&i>29.4);return lane?'#c8a24a':'#4d5a66';}
+      return null;});
+    const cF='#688091',cS='#465b69',cD='#2d414e',ORG='#d49a43',GLS='#cfe3e8',GLD='#9fbcc6',COOL='#8edcff';
+    // 裙樓
+    let P0;K.obj(q=>{P0=box(q,G,5,4,23,14,15,cF,cS,'#5a6c7a');topEdge(q,P0,'#8ea3b2','#5a6f7e');
+      fr(q,P0.S,-1,0,46,6,2,ORG);fr(q,P0.S,1,0,28,6,2,SH(ORG,-40));
+      for(let d=3;d<44;d+=5){fr(q,P0.S,-1,d,3,2,3,GLS);fr(q,P0.S,-1,d,3,9,4,GLS);}
+      fr(q,P0.S,-1,18,12,0,6,'#9cc4d2');for(let d=18;d<30;d+=3)fr(q,P0.S,-1,d,1,0,6,'#465b69');fr(q,P0.S,-1,16,16,6,1,ORG);   // 玻璃大廳＋雨庇
+      for(const d0 of [2,11,20]){fr(q,P0.S,1,d0,7,0,9,'#2a3640');for(let t=1;t<9;t+=2)fr(q,P0.S,1,d0,7,t,1,'#c0503f');}               // 三道捲門
+      for(let d=3;d<26;d+=5)fr(q,P0.S,1,d,2,10,3,GLD);
+      poly(q,[up(G(5.6,4.6),15),up(G(27.4,4.6),15),up(G(27.4,17.4),15),up(G(5.6,17.4),15)],'#4e5f6c');});
+    for(let d=3;d<44;d+=5){if(hsh(d,1,131)<.5)fr(ng,P0.S,-1,d,3,2,3,winCool);if(hsh(d,2,131)<.55)fr(ng,P0.S,-1,d,3,9,4,winCool);}
+    fr(ng,P0.S,-1,19,10,1,4,winWarm);for(let d=3;d<26;d+=5)if(hsh(d,3,131)<.5)fr(ng,P0.S,1,d,2,10,3,winCool);
+    // 屋頂設備、太陽能板
+    K.obj(q=>{box(q,G,22,6,3,3,4,'#8a9aa4','#5e6e78','#9aaab4',15);box(q,G,22,11,4,2.4,3,'#8a9aa4','#5e6e78','#9aaab4',15);});
+    // 屋頂圓筒形指揮室：灰色基座環＋玻璃環帶（直櫺）＋外挑頂蓋
+    {const c=up(G(12.5,11),15),r=15,H=13;
+      K.obj(q=>{cyl(q,c[0],c[1],r,3,['#8ea3b2','#6f8594','#56697a','#465868']);
+        const b=[c[0],c[1]-3];cyl(q,b[0],b[1],r-1,8,['#bfe0ea','#9cc4d2','#7aa6b8','#5f8ba0']);
+        for(let x=b[0]-r+2;x<b[0]+r-1;x+=3){const u=(x+.5-b[0])/(r-1),e=((r-1)/2)*Math.sqrt(Math.max(0,1-u*u));P(q,x,R(b[1]+e)-8,1,8,u<.2?'#6f8594':'#465868');}
+        const t=[c[0],c[1]-11];cyl(q,t[0],t[1],r+1,2,[ORG,SH(ORG,-10),SH(ORG,-40),SH(ORG,-60)],'#7b8f9c','#a8bcc8');
+        P(q,t[0]+3,t[1]-8,1,6,'#8a9aa4');P(q,t[0]+6,t[1]-11,1,9,'#8a9aa4');P(q,t[0]+5,t[1]-12,3,1,'#d24d42');
+        dish(q,t[0]-6,t[1]-3,4,2,'#d4d8d2');});
+      for(let x=c[0]-r+1;x<c[0]+r-1;x++){const u=(x+.5-c[0])/(r-1),e=((r-1)/2)*Math.sqrt(Math.max(0,1-u*u));if(((x-c[0]+r)%3)!==1&&u<.6)P(ng,x,R(c[1]-3+e)-7,1,6,u<.1?winCool:'rgba(110,196,234,.7)');}
+      P(ng,c[0]+5,c[1]-23,3,1,'rgba(255,90,74,.95)');}
+    // 紅白單管通訊桿（右後屋頂）
+    {const b=up(G(25,5.5),15);for(let t=0;t<36;t++)P(s,b[0],b[1]-t,2,1,(Math.floor(t/5)&1)?'#f0f0ea':'#d24d42');P(s,b[0]+1,b[1]-36,1,36,'rgba(0,0,0,.18)');
+      P(s,b[0]-3,b[1]-24,8,1,'#8a9aa4');P(s,b[0]-3,b[1]-25,1,2,'#c3d2d4');P(s,b[0]+4,b[1]-25,1,2,'#c3d2d4');P(s,b[0],b[1]-38,2,2,'#d24d42');P(ng,b[0],b[1]-38,2,2,'rgba(255,90,74,.95)');}
+    // 前場救災車：消防車（沿 i）、救護車、橘色救援車
+    const veh=(q,i0,j0,a,b,h,col,along,cab)=>{const bx=box(q,G,i0,j0,a,b,h,col,SH(col,-34),SH(col,26));
+      if(along==='i'){fr(q,bx.S,-1,1,2*a-2,h-3,2,'#34434e');fr(q,bx.S,1,1,2*b-2,h-3,2,'#2a3640');}else{fr(q,bx.S,1,1,2*b-2,h-3,2,'#34434e');fr(q,bx.S,-1,1,2*a-2,h-3,2,'#2a3640');}
+      if(cab)cab(bx);return bx;};
+    K.obj(q=>{const f=veh(q,4,22,8,2.8,6,'#d24d42','i');fr(q,f.S,-1,2,12,2,1,'#f0f0ea');const t=up(G(7,23.4),6);P(q,t[0]-3,t[1]-2,8,1,'#c8ccd0');});
+    K.obj(q=>{const a=veh(q,15,23,6,2.8,6,'#eeeee6','i');fr(q,a.S,-1,2,8,2,1,'#d24d42');});
+    K.obj(q=>{veh(q,29.2,20,2.4,6,6,'#e0843a','j');});
+    for(const [i,j] of [[7,23.4],[18,24.4]]){const t=up(G(i,j),7);P(s,t[0],t[1]-1,1,1,'#ff5a4a');P(s,t[0]+1,t[1]-1,1,1,'#3e7fb8');P(ng,t[0],t[1]-1,1,1,'rgba(255,90,74,.95)');P(ng,t[0]+1,t[1]-1,1,1,'rgba(106,168,255,.95)');}
+    // 左前旗桿×3、樹、燈
+    for(const [n,c] of [[0,'#d24d42'],[1,'#3e7fb8'],[2,'#e0a040']]){const b=G(2.5+n*1.2,20.5+n*.2);P(tg,b[0],b[1]-18,1,18,'#c8ccd0');P(tg,b[0]+1,b[1]-18,4,3,c);}
+    for(const p of [[2,28],[9,30.5],[31,30]]){const b=G(p[0],p[1]);K.obj(q=>tree(q,b[0],b[1],4,4,['#7fae60','#5e8e4a','#456f3b','#34562d']));}
+    for(const p of [[13,30],[31,17]]){const b=G(p[0],p[1]);P(tg,b[0],b[1]-12,1,12,'#606a74');P(tg,b[0]-1,b[1]-13,3,1,'#d6e6f0');P(ng,b[0]-1,b[1]-14,3,2,lampCool);}
+    fin(k,K);})();}catch(e){errs.push('131: '+(e&&e.stack||e));}
+  /* ================= k132 避難公園 v0（2×2）：大草坪集結區＋環形步道＋六角涼亭＋防災設施（日本「防災公園」形制）=================
+     跟 v1（大跨度避難棚＋水塔）、v2（帳篷營地＋覆土物資庫）分開：中央一大片修剪草坪當集結區，外圈環形碎石步道；
+     後方紅瓦六角涼亭、右後防災倉庫（貨櫃屋＋綠色標誌帶）、手壓抽水井、環道前緣一排「炊事長椅」（椅座掀開是爐灶）、
+     三支太陽能路燈、周邊一圈樹、前角步道口綠色避難標誌柱。 */
+  try{(function(){const k=132,K=kit(2),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    K.ground('#62875e','#3f5e45','#7a9f74');
+    const ci=16.5,cj=17,R0=9.2,R1=11;
+    K.gpx((i,j)=>{if(i<.6||j<.6||i>31.4||j>31.4)return null;const r=Math.hypot(i-ci,j-cj);
+      if(r<R0)return (Math.floor((i-j+40)/2.2)&1)?'#7cb068':'#71a55e';                  // 集結草坪（斜向修剪條紋）
+      if(r<R1)return (Math.floor(Math.atan2(j-cj,i-ci)*9)&1)?'#cbbb8c':'#c2b283';          // 環形碎石步道
+      if(Math.abs(i-j)<1.3&&i+j>2*(cj+R1)-4)return '#c9b98a';                               // 前角入口步道
+      if(i>21.5&&i<30.5&&j>1.5&&j<8.5)return '#aba68f';                                     // 倉庫前鋪面
+      return null;});
+    // 六角涼亭（後方，環道外）：六柱＋紅瓦六角錐頂
+    {const gi=6.2,gj=6.2,r=3.4,Hc=9,Hr=7;const V=[];for(let n=0;n<6;n++){const a=Math.PI/3*n+Math.PI/6;V.push([gi+r*Math.cos(a),gj+r*Math.sin(a)]);}
+      K.obj(q=>{box(q,G,gi-3,gj-3,6,6,1,'#c9c2b0','#a39c8a','#d8d2c2');});
+      const post=(q,p)=>{const b=up(G(p[0],p[1]),1);P(q,b[0],b[1]-Hc,1,Hc,'#e6e0cc');P(q,b[0]+1,b[1]-Hc,1,Hc,'#aaa48f');};
+      V.forEach(p=>{if(p[0]+p[1]<gi+gj)post(s,p);});
+      {const b=up(G(gi,gj),1);P(s,b[0]-3,b[1]-3,6,1,'#8a6a42');P(s,b[0]-3,b[1]-2,1,2,'#5f4a30');P(s,b[0]+2,b[1]-2,1,2,'#5f4a30');}
+      V.forEach(p=>{if(p[0]+p[1]>=gi+gj)post(s,p);});
+      K.obj(q=>{const ap=up(G(gi,gj),1+Hc+Hr),E=V.map(p=>{const d=[p[0]-gi,p[1]-gj];return up(G(gi+d[0]*1.25,gj+d[1]*1.25),1+Hc);});
+        for(let n=0;n<6;n++){const a=E[n],b=E[(n+1)%6],nx=Math.cos(Math.PI/3*n+Math.PI/3),ny=Math.sin(Math.PI/3*n+Math.PI/3);const l=ny*.8-nx*.2;
+          if(nx+ny<-.3)continue;poly(q,[a,b,ap],l>.5?'#c9745a':l>.1?'#b5654a':l>-.4?'#9a5240':'#7e4232');}
+        for(let n=0;n<6;n++){const a=E[n],b=E[(n+1)%6];if(Math.cos(Math.PI/3*n+Math.PI/3)+Math.sin(Math.PI/3*n+Math.PI/3)>-.3)seg(q,a[0],a[1],b[0],b[1],'#6e3a2c');}
+        P(q,ap[0],ap[1]-2,1,2,'#d9b45a');});
+      {const b=up(G(gi,gj),1+Hc);P(s,b[0]-1,b[1]+2,2,1,'#f2e6b0');P(ng,b[0]-2,b[1]+1,4,3,'rgba(255,214,140,.9)');}}
+    // 防災倉庫（右後）：貨櫃屋、綠色標誌帶、捲門、屋頂太陽能板
+    K.obj(q=>{const w=box(q,G,23,2.2,7,5,9,'#e2e0d6','#aeaba0','#c9c7bc');topEdge(q,w,'#f2f0e8',null);
+      fr(q,w.S,-1,0,14,5,2,'#3e9a5a');fr(q,w.S,1,0,10,5,2,'#2c6e40');
+      fr(q,w.S,-1,3,7,0,5,'#6a706e');for(let t=1;t<5;t+=2)fr(q,w.S,-1,3,7,t,1,'#7f8784');
+      for(let d=1;d<14;d+=2)fr(q,w.S,-1,d,1,7,2,'#cfcdc2');
+      poly(q,[up(G(23.6,2.8),9),up(G(29.4,2.8),9),up(G(29.4,5),10),up(G(23.6,5),10)],'#34507a');});
+    {const S=up(G(30,7.2),0);fr(ng,S,-1,11,2,6,1,'rgba(150,255,170,.85)');}
+    // 手壓抽水井（右側環道外）
+    {const b=G(27.5,13);K.obj(q=>{ellipse(q,b[0],b[1],4,2,'#b7b2a2');P(q,b[0]-1,b[1]-7,3,6,'#3e8a5a');P(q,b[0]-1,b[1]-7,1,6,'#5aae78');P(q,b[0]-1,b[1]-8,3,1,'#2c6e40');P(q,b[0]+2,b[1]-6,2,1,'#3e8a5a');P(q,b[0]-3,b[1]-8,2,1,'#3e8a5a');P(q,b[0]-4,b[1]-9,1,1,'#3e8a5a');});}
+    // 炊事長椅（環道前緣）×5
+    for(let n=0;n<5;n++){const a=Math.PI*(.12+.19*n),p=[ci+(R1+1.3)*Math.cos(a)*.98,cj+(R1+1.3)*Math.sin(a)];
+      K.obj(q=>{const bb=box(q,G,p[0]-1.5,p[1]-.6,3,1.2,2,'#b4b0a4','#8a867a','#b08a5a');fr(q,bb.S,-1,2,2,0,1,'#3a3430');for(let d=0;d<6;d+=2)P(q,fx([bb.S[0],bb.S[1]-2],-1,d),fyb([bb.S[0],bb.S[1]-2],d)-1,1,1,'#c89e68');});}
+    // 太陽能路燈 ×3
+    for(const [i,j] of [[4.2,17],[20,4.5],[29,24]]){const b=G(i,j);P(tg,b[0],b[1]-16,1,16,'#6d7a80');P(tg,b[0]+1,b[1]-16,1,16,'#4a555a');
+      P(tg,b[0]-2,b[1]-19,5,1,'#34507a');P(tg,b[0]-2,b[1]-18,5,1,'#4a6a98');P(tg,b[0]-1,b[1]-20,3,1,'#6d8fb8');
+      P(tg,b[0]+2,b[1]-15,2,1,'#e8ecef');P(ng,b[0]+1,b[1]-15,4,2,'rgba(230,244,255,.95)');}
+    // 周邊樹
+    for(const [i,j,r] of [[2.5,12,4],[2.2,24,4],[5.5,29.5,4],[12.5,2,4],[16,1.8,3],[31,12,3],[30.5,19,4],[24.5,30.5,4],[14,30.8,3]]){const b=G(i,j);K.obj(q=>tree(q,b[0],b[1],r,4,['#8fbf6a','#6a9e50','#4f7f3f','#3d6532']));}
+    // 前角避難標誌柱（綠底白跑人）
+    {const b=G(28.4,26.6);K.obj(q=>{P(q,b[0]-1,b[1]-14,3,14,'#e8ecef');P(q,b[0]-3,b[1]-16,7,6,'#3e9a5a');P(q,b[0]-3,b[1]-10,7,1,'#2c6e40');
+        P(q,b[0],b[1]-15,1,1,'#f4f4ea');P(q,b[0]-1,b[1]-14,2,1,'#f4f4ea');P(q,b[0],b[1]-13,1,1,'#f4f4ea');P(q,b[0]-1,b[1]-12,1,1,'#f4f4ea');P(q,b[0]+1,b[1]-12,1,1,'#f4f4ea');P(q,b[0]+2,b[1]-14,1,1,'#f4f4ea');});
+      P(ng,b[0]-3,b[1]-16,7,6,'rgba(120,255,160,.75)');}
+    fin(k,K);})();}catch(e){errs.push('132: '+(e&&e.stack||e));}
+  /* ================= k133 防災雷達 v0（2×2）：方形混凝土塔頂露天拋物面天線＋兩層作業樓＋油槽 =================
+     跟 v1（圓塔頂白色球形罩）、v2（斜面相位陣列楔形站）分開：左後一座方形混凝土塔（窗、頂部走台欄杆），
+     塔頂基座上一面露天的大拋物面碟（朝左上仰起、看得到凹面與饋源三腳架），右前兩層作業樓（橘色腰帶、屋頂鞭狀天線），
+     左前臥式備用油槽、前緣鐵網圍籬、廂型工程車。 */
+  try{(function(){const k=133,K=kit(2),G=K.G,s=K.st.g,tg=K.tg.g,ng=K.ng.g;
+    const ORG='#d49a43',COOL='#8edcff';
+    K.ground('#596875','#33414a','#6f7e8b');
+    K.gpx((i,j)=>{if(i<.6||j<.6||i>31.4||j>31.4)return null;if(i>2&&j>2&&i<30.6&&j<30.6)return ((Math.floor(i/3)+Math.floor(j/3))&1)?'#6b7883':'#66737e';return null;});
+    // 方形混凝土塔
+    let T;K.obj(q=>{T=box(q,G,4,4,9,9,40,'#b9bdb6','#8a8f88','#a4a8a2');topEdge(q,T,'#d4d8d0','#9ea39c');
+      for(const t of [12,24,36])fr(q,T.S,-1,0,18,t,1,'#a4a8a2');for(const t of [12,24,36])fr(q,T.S,1,0,18,t,1,'#7a7f78');
+      for(const t of [3,15,27]){fr(q,T.S,-1,7,4,t,6,'#3a4650');fr(q,T.S,1,7,3,t+1,5,'#2e3840');}
+      fr(q,T.S,-1,12,4,0,7,'#3a4650');fr(q,T.S,-1,11,6,7,1,ORG);});
+    fr(ng,T.S,-1,7,4,27,6,winCool);fr(ng,T.S,-1,7,4,15,6,winCool);fr(ng,T.S,-1,12,4,1,5,winWarm);
+    // 塔頂走台欄杆＋天線基座＋拋物面碟
+    {const top=40;const rail=(a,b)=>{const p=up(G(a[0],a[1]),top),r=up(G(b[0],b[1]),top);seg(s,p[0],p[1]-3,r[0],r[1]-3,'#d8dcd6');const n=Math.max(1,Math.round(Math.abs(r[0]-p[0])/3));for(let t=0;t<=n;t++){const x=R(p[0]+(r[0]-p[0])*t/n),y=R(p[1]+(r[1]-p[1])*t/n);P(s,x,y-3,1,3,'#9aa3a6');}};
+      rail([3.6,3.6],[13.4,3.6]);rail([3.6,3.6],[3.6,13.4]);
+      K.obj(q=>{box(q,G,6.5,6.5,4,4,5,'#7f8f98','#5a6a74','#9aaab2',top);const c=up(G(8.5,8.5),top+5);cyl(q,c[0],c[1],4,4,['#b0bcc2','#8a98a0','#6a7880','#56626a'],'#c3ccd2');
+        // 碟：朝左上仰起的拋物面（外緣亮框、凹面由左上往右下三階）、背面支架、饋源三腳架
+        const cx=c[0]-2,cy=c[1]-15,ux=13,uy=-4,vx=3,vy=8;
+        const inE=(x,y,sc)=>{const dx=x+.5-cx,dy=y+.5-cy,den=ux*vy-uy*vx,a=(dx*vy-dy*vx)/den,b=(ux*dy-uy*dx)/den;return a*a+b*b<=sc*sc;};
+        for(let y=cy-16;y<=cy+16;y++)for(let x=cx-16;x<=cx+16;x++){if(!inE(x,y,1))continue;
+          const dx=x+.5-cx,dy=y+.5-cy,den=ux*vy-uy*vx,a=(dx*vy-dy*vx)/den,b=(ux*dy-uy*dx)/den;
+          let c2;if(!inE(x,y,.86))c2=(b<0||a<-.3)?'#f4f6f2':'#aab4b8';else{const l=-a*.5-b*.8;c2=l>.35?'#8d9aa0':l>-.15?'#c4ccce':l>-.55?'#dde2e2':'#eef1ef';}
+          P(q,x,y,1,1,c2);}
+        P(q,c[0]-1,c[1]-8,3,4,'#56626a');
+        const fcx=cx-3,fcy=cy-3;for(const [px,py] of [[cx-ux*.8,cy-uy*.8],[cx+ux*.8,cy+uy*.8],[cx+vx*.8,cy+vy*.8]])seg(q,R(px),R(py),fcx,fcy,'#6a747c');
+        P(q,fcx-1,fcy-1,3,3,'#e8ecea');P(q,fcx,fcy,1,1,'#8a949a');
+        P(q,cx+11,cy-10,1,4,'#8a949a');P(q,cx+10,cy-11,3,1,'#d24d42');});
+      const c=up(G(8.5,8.5),top+5);P(ng,c[0]+8,c[1]-26,3,1,'rgba(255,90,74,.95)');}
+    // 兩層作業樓（右前）
+    let O;K.obj(q=>{O=box(q,G,17,14,12,11,13,'#8fa0a8','#62737c','#7f8f98');topEdge(q,O,'#b3c2c8','#7f8f98');
+      fr(q,O.S,-1,0,24,6,1,ORG);fr(q,O.S,1,0,22,6,1,SH(ORG,-40));
+      for(let d=2;d<22;d+=4){fr(q,O.S,-1,d,2,2,3,'#cfe3e8');fr(q,O.S,-1,d,2,8,3,'#cfe3e8');}
+      for(let d=2;d<20;d+=4){fr(q,O.S,1,d,2,2,3,'#9fbcc6');fr(q,O.S,1,d,2,8,3,'#9fbcc6');}
+      fr(q,O.S,-1,10,4,0,5,'#3a4650');
+      box(q,G,19,16,3,3,3,'#9aa6ac','#6f7b82','#b0bcc2',13);box(q,G,24,20,3,2,2,'#9aa6ac','#6f7b82','#b0bcc2',13);});
+    for(let d=2;d<22;d+=4){if(hsh(d,1,133)<.55)fr(ng,O.S,-1,d,2,8,3,winCool);if(hsh(d,2,133)<.45)fr(ng,O.S,-1,d,2,2,3,winCool);}
+    for(let d=2;d<20;d+=4)if(hsh(d,3,133)<.4)fr(ng,O.S,1,d,2,8,3,winCool);
+    for(const [i,j,h] of [[27,16,16],[21,23,11]]){const b=up(G(i,j),13);P(tg,b[0],b[1]-h,1,h,'#c3ccd2');P(tg,b[0],b[1]-h-1,1,1,'#d24d42');}
+    // 纜線槽（塔→作業樓）
+    {const a=up(G(13,11),2),b=up(G(17,17),2);seg(s,a[0],a[1],b[0],b[1],'#4a5660');seg(s,a[0],a[1]+1,b[0],b[1]+1,'#3a444c');}
+    // 臥式備用油槽（左前）＋工程車
+    K.obj(q=>{for(const i of [5.2,10.8])box(q,G,i,22,1.2,2,3,'#6e787e','#4e585e','#8a949a');
+      for(let n=0;n<=18;n++){const p=up(G(4.3+n*.45,23),2);ellipse(q,p[0],p[1]-4,3,3,n===18?'#b8c0c4':(n<3?'#e4e8e4':'#d2d8d4'));}
+      const e=up(G(12.4,23),2);ellipse(q,e[0],e[1]-4,3,3,'#b3bbbf');const t=up(G(8,23),9);P(q,t[0]-1,t[1],3,2,'#c8ccc8');P(q,t[0],t[1]-1,1,1,'#6e787e');const d=up(G(10.5,23.6),5);P(q,d[0],d[1],2,2,'#d24d42');});
+    K.obj(q=>{const v=box(q,G,21,27,6,2.6,5,'#e8e8e0','#b0b0a8','#f4f4ee');fr(q,v.S,-1,1,10,2,2,'#34434e');fr(q,v.S,1,1,3,2,2,'#2a3640');fr(q,v.S,-1,1,10,0,1,ORG);});
+    // 前緣圍籬
+    const fence=(a,b,step)=>{const p=G(a[0],a[1]),r=G(b[0],b[1]);seg(tg,p[0],p[1]-5,r[0],r[1]-5,'#a3adb1');seg(tg,p[0],p[1]-2,r[0],r[1]-2,'#7d878d');
+      const n=Math.round(Math.abs(r[0]-p[0])/step);for(let t=0;t<=n;t++){const x=R(p[0]+(r[0]-p[0])*t/n),y=R(p[1]+(r[1]-p[1])*t/n);P(tg,x,y-5,1,5,'#59646a');}};
+    fence([1,31.2],[31.2,31.2],8);fence([31.2,1],[31.2,31.2],8);
+    for(const p of [[2,17],[15,3]]){const b=G(p[0],p[1]);K.obj(q=>tree(q,b[0],b[1],4,4,['#7fae60','#5e8e4a','#456f3b','#34562d']));}
+    {const b=G(15.5,30);P(tg,b[0],b[1]-12,1,12,'#606a74');P(tg,b[0]-1,b[1]-13,3,1,'#d6e6f0');P(ng,b[0]-1,b[1]-14,3,2,lampCool);}
+    fin(k,K);})();}catch(e){errs.push('133: '+(e&&e.stack||e));}
+  window.__t712={ok:errs.length===0,errs:errs.slice()};
+});
+</script>
 <!-- T610 batches END -->
 <script>
 (()=>{ 'use strict';
@@ -43453,8 +43991,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.14'; // T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T714'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.15'; // T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T712'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -69819,7 +70357,7 @@ function draw(dt){
     if((bd.k===124||bd.k===125)&&bd.pw&&!lodFar&&!window.__noCourtLight){
       const cone364=streetHash(o.x,o.y,36491)<.5?SPR.lampConeWarm:SPR.lampConeCool;
       /* raw 144px 畫布中兩側燈頭為 (11,92)／(132,88)；經 sc=.5 後仍貼著各自燈桿起光。 */
-      const posts=[[.08,.42],[.92,.40]];
+      const posts=s.courtConeAt||[[.08,.42],[.92,.40]]; // T712：精靈自帶光錐掛點（新 124 v0 風雨球場燈在棚簷下＝[]）；沒帶＝照舊兩角
       for(const[f,fy]of posts)nightSprites.push({img:cone364.img,x:bx+s.w*z*f-cone364.w*z/2,y:by+s.h*z*fy,w:cone364.w*z,h:cone364.h*z});
     }
     if(nightDepth>0&&(bd.k===5||bd.pw)&&SPOT_K359[bd.k]&&!window.__noSpot){ /* T359：地標探照燈——玩家「部分地標建築增加往上照的探照燈以突出建築的宏偉效果」。
@@ -83621,6 +84159,31 @@ function legacyBSelftest714(){ // T714 煙霧自檢（舊式正面精靈重畫�
   if(nb)add('連成一體：'+nb+' 張沒有浮空的獨立塊'+T(stray),stray.length===0);
   return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
+function civicV0Selftest712(){ // T712 煙霧自檢（公共設施第一個變體重畫）：宣告的精靈都在、尺寸錨點照宣告、實心像素不貼畫布邊、不出地面菱形、夜光只在白天有像素處且夠多（逐像素比對在 probe712.js）
+  const checks=[],add=(k,ok)=>checks.push([k,!!ok]);const B=GV.art574.SPR().bld;
+  if(window.__noCivicV0712){add('閥門 __noCivicV0712 開：走舊畫法（本自檢只驗新圖，略過）',true);return {ok:true,checks:checks.map(q=>q[0]+' ✓')};}
+  const L=[{"k":"124_1_0","sz":1,"w":144,"h":224,"ax":72,"ay":220,"sc":0.5,"n":50,"d":true,"o":-1,"om":0,"em":0},{"k":"125_1_0","sz":1,"w":144,"h":224,"ax":72,"ay":220,"sc":0.5,"n":60,"d":true,"o":-1,"om":0,"em":0},{"k":"126_1_0","sz":1,"w":144,"h":224,"ax":72,"ay":220,"sc":0.5,"n":20,"d":true,"o":-1,"om":0,"em":0},{"k":"127_1_0","sz":2,"w":272,"h":300,"ax":136,"ay":296,"sc":0.5,"n":700,"d":true,"o":-1,"om":0,"em":0},{"k":"128_1_0","sz":1,"w":144,"h":224,"ax":72,"ay":220,"sc":0.5,"n":60,"d":true,"o":-1,"om":0,"em":0},{"k":"129_1_0","sz":2,"w":272,"h":300,"ax":136,"ay":296,"sc":0.5,"n":120,"d":true,"o":-1,"om":0,"em":0},{"k":"131_1_0","sz":2,"w":272,"h":300,"ax":136,"ay":296,"sc":0.5,"n":450,"d":true,"o":-1,"om":0,"em":0},{"k":"132_1_0","sz":2,"w":272,"h":300,"ax":136,"ay":296,"sc":0.5,"n":140,"d":true,"o":-1,"om":0,"em":0},{"k":"133_1_0","sz":2,"w":272,"h":300,"ax":136,"ay":296,"sc":0.5,"n":250,"d":true,"o":-1,"om":0,"em":0}],miss=[],size=[],edge=[],out=[],leak=[],dim=[],stray=[];let lit=0,nb=0;
+  for(const q of L){const sp=B[q.k];if(!sp||!sp.img){miss.push(q.k);continue;}
+    const scv=sp.sc===undefined?null:sp.sc;if(sp.w!==q.w||sp.h!==q.h||sp.ax!==q.ax||sp.ay!==q.ay||scv!==q.sc)size.push(q.k+'('+sp.w+'×'+sp.h+'@'+sp.ax+','+sp.ay+(scv!=null?' sc'+scv:'')+')');
+    const f=scv||1,w=sp.w,h=sp.h,d=sp.img.getContext('2d').getImageData(0,0,w,h).data,nd=sp.night?sp.night.getContext('2d').getImageData(0,0,w,h).data:null,cx=sp.ax,cy=sp.ay-16*q.sz/f,hw=32*q.sz/f;
+    let e=0,o=0,l=0,lo=0;
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;
+      if(d[i+3]>120){if(x<=0||y<=0||x>=w-1||y>=h-1)e++;if(q.d){const dx=Math.abs(x+.5-cx),low=cy+16*q.sz/f-dx/2;if(y+.5>low+1.5/f||dx>hw+1/f)o++;}}
+      if(nd&&nd[i+3]>40){l++;if(d[i+3]===0)lo++;}}
+    if(q.o>=0){nb++;const M=new Uint8Array(w*h);let best=0,tot=0;for(let i=0;i<w*h;i++)if(d[i*4+3]>120){M[i]=1;tot++;}
+      const st=[];for(let i=0;i<w*h;i++){if(M[i]!==1)continue;let n=0;st.push(i);M[i]=2;while(st.length){const j=st.pop();n++;const x=j%w,y=(j/w)|0;if(x>0&&M[j-1]===1){M[j-1]=2;st.push(j-1);}if(x<w-1&&M[j+1]===1){M[j+1]=2;st.push(j+1);}if(y>0&&M[j-w]===1){M[j-w]=2;st.push(j-w);}if(y<h-1&&M[j+w]===1){M[j+w]=2;st.push(j+w);}}if(n>best)best=n;}
+      if(tot-best>q.o)stray.push(q.k+'('+(tot-best)+')');}
+    if(e>q.em)edge.push(q.k+'('+e+')');if(o>q.om)out.push(q.k+'('+o+')');if(lo)leak.push(q.k+'('+lo+')');if(l<q.n)dim.push(q.k+'('+l+'<'+q.n+')');lit+=l;}
+  const T=a=>a.length?'：'+a.slice(0,8).join('、')+(a.length>8?' 等 '+a.length+' 張':''):'';
+  add('宣告的 '+L.length+' 張精靈都在'+T(miss),miss.length===0);
+  add('尺寸錨點照宣告'+T(size),size.length===0);
+  add('實心像素不貼畫布邊'+T(edge),edge.length===0);
+  add('不出地面菱形（下緣、左右角）'+T(out),out.length===0);
+  add('夜光都落在白天有像素處'+T(leak),leak.length===0);
+  add('夜光夠多（合計 '+lit+' px）'+T(dim),dim.length===0);
+  if(nb)add('連成一體：'+nb+' 張沒有浮空的獨立塊'+T(stray),stray.length===0);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
 function constrSelftest701(){ // T701 煙霧自檢：種一棟大笨鐘 age5，專屬施工畫得出、跟閥門版（T700 通用）不同、無例外；P8.999 對完工只差完工才亮的街燈；T700 閥門開時本卡跟著關；幾何自檢（吊臂、道具、吊桿不穿塔、包裝）全過；draw 不擲錯
   const checks=[],add=(k,ok)=>checks.push([k,!!ok]);
   if(typeof window.__x13BesDraw!=='function'||typeof window.__x13BesSelfCheck!=='function')return {ok:false,checks:['地標模組沒載入 ✗']};
@@ -84648,7 +85211,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-ukBatchSelftest707,ukBatchSelftest706,ukBatchSelftest705,ukBatchSelftest708,greenhouseSelftest702,ukBatchSelftest703,ukBatchSelftest704,auditGeoSelftest709,legacyBSelftest714,partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,tbPowerSelftest698,nightPowerTest698,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,facadeWxSelftest699,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+ukBatchSelftest707,ukBatchSelftest706,ukBatchSelftest705,ukBatchSelftest708,greenhouseSelftest702,ukBatchSelftest703,ukBatchSelftest704,auditGeoSelftest709,legacyBSelftest714,civicV0Selftest712,partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,tbPowerSelftest698,nightPowerTest698,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,facadeWxSelftest699,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
