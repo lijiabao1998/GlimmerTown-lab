@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.04 · T700</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.05 · T701</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -7243,6 +7243,971 @@ table.dtab tr:hover td{background:#1b2334}
   if(err.length){window.__b06err=err;console.error('b06',err);}
 });
 </script>
+<script>/* T701 地標專屬施工（x13Bes 模組；逃生閥 window.__noConstr701） */
+/* ===== T701 地標專屬施工：巴特西、大笨鐘（業主 2026-09-30 決策單第十三批 1C、1-4③；程式由決策單原型 bespoke 軌 resync 版產生，scratchpad/t701/gen701.js）=====
+   逃生閥 window.__noConstr701＝兩座地標回到 T700 的通用施工；T700 的閥門 __noConstr700 開時本段也不走（一個開關回現況）。閥門開時 draw 迴圈不進本段。
+   名字沿用原型：登記表 window.__x12Reg、構件進度 __x12bspQ／__x12bspB、本軌出口與測試旗標 window.__x13Bes*（13＝第十三批，不是卡號）。
+   登記表 window.__x12Reg[k]＝{name,sz,ms,pile,crane,parts,quant,site,rig(P,G),stage(P,v,E),deco}：本軌自己的施工檔（資料物件）。
+     ms／pile／crane／site：量體、樁、塔吊、工地配置（X12PROF 量體格式，座標＝builder 的 G 格）
+     parts／quant／stage／rig：專屬施工（builder 收構件進度 pt(id) 重烘的階段精靈＋腳本道具），只在 __x13Bes 開時用
+     注意（fix1 對齊說明）：generic 軌的 buildProfile 只收「函式型」登記 reg[k](s,bd)→{lot,ms}（先找 __x13Reg、沒有才找 __x12Reg），
+     本軌登記的是物件，generic 不會拿來用。所以 B 模式、以及本軌鉤子退讓時（例外被接住），地標照 generic 自己的自動量體／剪影灰模走。
+   三層：
+     Layer A（1× 快取，鍵＝量化階段）：工地地面、坑、樁、管溝、澆灌、圍籬、階段精靈、塔吊桅杆、鷹架、平台、料場
+     階段精靈：b07 builder 收 pt(id) 重跑（惰性烘、LRU、每幀 ≤1 張、完工後釋放）
+     Layer B（每幀現畫）：塔吊迴轉＋吊物、吊桿、挖掘機、傾卸車、打樁機、泵車、工人、夜燈
+   時間：P＝age＋日內小數（__x12Frac 覆寫）決定蓋到哪；動作讀 visT＋格雜湊相位（暫停時照動）。不耗 R()、不寫存檔。 */
+(function(){
+'use strict';
+const W13=window;
+const bes701On=()=>!W13.__noConstr701&&!W13.__noConstr700;W13.__x13BesOn=bes701On; // T701：本軌開關（兩個閥門都關著才走）
+const R=Math.round,c01=v=>v<0?0:v>1?1:v,seg=(P,a,b)=>c01((P-a)/(b-a)),lerp=(a,b,t)=>a+(b-a)*t,sm=v=>v*v*(3-2*v);
+const qz=(v,n)=>Math.floor(v*n+1e-6)/n;
+function hsh(a,b,c){let h=(Math.imul(a|0,374761393)+Math.imul(b|0,668265263)+Math.imul(c|0,1274126177))|0;h=Math.imul(h^(h>>>13),1274126177);return((h^(h>>>16))>>>0)/4294967296;}
+function mkc(w,h){const c=document.createElement('canvas');c.width=Math.max(1,Math.ceil(w));c.height=Math.max(1,Math.ceil(h));const g=c.getContext('2d');g.imageSmoothingEnabled=false;return [c,g];}
+const P=(g,x,y,w,h,c)=>{x=R(x);y=R(y);w=R(w);h=R(h);if(w<=0||h<=0)return;g.fillStyle=c;g.fillRect(x,y,w,h);};
+function ln(g,x0,y0,x1,y1,c){x0=R(x0);y0=R(y0);x1=R(x1);y1=R(y1);const dx=Math.abs(x1-x0),dy=Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let e=dx-dy;g.fillStyle=c;for(let n=0;n<1200;n++){g.fillRect(x0,y0,1,1);if(x0===x1&&y0===y1)break;const e2=2*e;if(e2>-dy){e-=dy;x0+=sx;}if(e2<dx){e+=dx;y0+=sy;}}}
+const yOn=(A,B,x)=>A[1]+(B[1]-A[1])*((x-A[0])/((B[0]-A[0])||1e-6));
+const mid=(a,b,t)=>[lerp(a[0],b[0],t),lerp(a[1],b[1],t)];
+// 立面帶：地面邊 A→B，離地 h0→h1（每欄 1px）
+function face(g,A,B,h0,h1,c){if(h1<=h0)return;const x0=R(Math.min(A[0],B[0])),x1=R(Math.max(A[0],B[0]));g.fillStyle=c;for(let x=x0;x<x1;x++){const y=yOn(A,B,x+.5);const t=R(y-h1),b=R(y-h0);if(b>t)g.fillRect(x,t,1,b-t);}}
+function eline(g,A,B,hh,c,th){face(g,A,B,hh,hh+(th||1),c);}
+// 四邊形（N,E,S,W）平面，抬高 h（負值＝往下）
+function quad(g,Q,h,c){const {N,E,S,W}=Q;const x0=R(Math.min(W[0],N[0],S[0])),x1=R(Math.max(E[0],N[0],S[0]));g.fillStyle=c;
+  for(let x=x0;x<x1;x++){const xc=x+.5;const top=xc<N[0]?yOn(W,N,xc):yOn(N,E,xc);const bot=xc<S[0]?yOn(W,S,xc):yOn(S,E,xc);const t=R(top-h),b=R(bot-h);if(b>t)g.fillRect(x,t,1,b-t);}}
+// 遮罩：只留菱形 Q 內（逐欄 rect，邊緣清脆）
+function maskQuad(mg,Q){const {N,E,S,W}=Q;mg.globalCompositeOperation='destination-in';mg.fillStyle='#000';mg.beginPath();
+  for(let x=R(Math.min(W[0],N[0],S[0]));x<R(Math.max(E[0],N[0],S[0]));x++){const xc=x+.5;const t=R(xc<N[0]?yOn(W,N,xc):yOn(N,E,xc)),b=R(xc<S[0]?yOn(W,S,xc):yOn(S,E,xc));if(b>t)mg.rect(x,t,1,b-t);}
+  mg.fill();mg.globalCompositeOperation='source-over';}
+const toIJ=(dx,dy)=>[(dy+dx/2)/2,(dy-dx/2)/2];
+const fromIJ=(i,j)=>[2*i-2*j,i+j];
+// 地塊格：跟 b07 builder 的 GP／G2 同一套（N 角＝(0,0)，i 往右下、j 往左下，1×1＝0..16、2×2＝0..32）
+function lotOf(s,n){const ax=s.ax,ay=s.ay,T=16*n;const G=(i,j,z)=>[ax+2*i-2*j,ay-2*T+i+j-(z||0)];
+  const Q=(i0,i1,j0,j1,z)=>({N:G(i0,j0,z),E:G(i1,j0,z),S:G(i1,j1,z),W:G(i0,j1,z)});
+  return {n,T,G,Q,ax,ay};}
+function inLot(L,i,j,m){m=m||0;return i>=m&&j>=m&&i<=L.T-m&&j<=L.T-m;}
+
+/* ---------- 色票（光從左上：左面亮、右面暗） ---------- */
+const C={dirt:'#8b6f50',dirt2:'#7d6246',dirtHi:'#9c8062',track:'#6f563d',
+  soil:'#5a4330',clay:'#a2653c',grav:'#c9b48a',pitF:'#6a5039',pitL:'#8a6a48',pitR:'#6d5438',water:'#58707e',waterHi:'#8ea6b2',
+  blind:'#a29b8c',wet:'#6c6a66',wetHi:'#9a9791',dry:'#b7b2a7',dryE:'#c9c4b8',
+  rebar:'#8d5234',rebarD:'#6a3a24',ply:'#c9a86a',plyD:'#a8864c',
+  pole:'#a3acb4',poleD:'#78818a',plank:'#caa062',plankHi:'#dcb878',plankD:'#8f6c3e',rail:'#c3c9ce',railD:'#9aa1a8',net:'rgba(62,112,178,.34)',
+  hoard:'#eeeae0',hoard2:'#e3ded3',band:'#2f5f9e',cap:'#8a8578',foot:'#77705f',sign:'#243a5e',
+  crane:'#e2b233',craneD:'#a97f1c',craneHi:'#f5d56a',cw:'#8d8a84',
+  vest:'#f07a1a',vestHi:'#f7e4a2',hat:'#f2d23a',hatW:'#f0f0ea',skin:'#dcae86',pant:'#343a44',
+  pipeO:'#e2742c',pipeG:'#8e959c',truck:'#d9a531',truckC:'#3a6ea8',tyre:'#26292d',
+  rl:'#b0442c',rlD:'#7e2e1e',rlH:'#cf6a4e',stone:'#d9c894',stoneHi:'#ece0b4',stoneD:'#b09c68'};
+
+/* =====================================================================
+   登記表（X12PROF 量體格式＋專屬施工檔）
+   ===================================================================== */
+const REG=W13.__x12Reg=W13.__x12Reg||{};
+// X12PROF 量體：box(S=南角、lenL/lenR 格、z0 起始高、h 高、win 結構窗、skin 外牆窗)
+function mbox(G,i1,j1,lL,lR,z0,h,win,skin,o){const S=G(i1,j1,z0);return Object.assign({S,W:[S[0]-2*lL,S[1]-lL],E:[S[0]+2*lR,S[1]-lR],N:[S[0]-2*lL+2*lR,S[1]-lL-lR],h,z0,top:h,win,skinWin:skin||[win[0]+.9,win[1]+.8]},o||{});}
+
+/* ---- k192 巴特西電廠 2×2：鋼構包磚，A 站（西半，史實 1929–35）先、B 站（東半，1937–55）後 ---- */
+{const G=(i,j,z)=>[68+2*i-2*j,118+i+j-(z||0)];
+ const ms=[mbox(G,16,24,13,16,0,34,[3.0,4.6],[3.5,4.8],{id:'hallA',scaf:1,fh:8,method:'steel'}),mbox(G,29,24,13,16,0,34,[3.4,5.2],[4.0,5.4],{id:'hallB',scaf:1,fh:8,method:'steel'}),
+   mbox(G,22,18,14,4,34,6,[5.4,6.0],[5.6,6.0],{id:'sky'})];
+ for(const [id,ci,cj,t0] of [['N',8,13,4.6],['W',8,24,4.65],['E',29,13,5.2],['S',29,24,5.4]])ms.push(mbox(G,ci,cj,5,5,34,20,[t0,t0+.4],[t0,t0+.45],{id:'t'+id,method:'masonry'}));
+ for(const [id,ci,cj,t0,t1] of [['N',8,13,5.2,6.1],['W',8,24,5.05,5.9],['E',29,13,5.9,6.8],['S',29,24,6.1,7.0]]){const c=G(ci-2.5,cj-2.5,58);ms.push({id:'c'+id,cyl:1,cx:c[0],by:c[1],r:3.8,h:64,z0:58,top:64,win:[t0,t1],skinWin:[t0,t1],method:'slipform'});}
+ REG[192]={k:192,name:'巴特西電廠',sz:2,bespoke:1,ms,
+  pile:{pts:(()=>{const a=[];for(const i of [6.25,12.75,19.25,25.75])for(const j of [10,14,18,22])a.push([i,j]);
+    for(const [ci,cj] of [[5.5,10.5],[5.5,21.5],[26.5,10.5],[26.5,21.5]])for(const di of [-1.1,1.1])for(const dj of [-1.1,1.1])a.push([ci+di,cj+dj]);
+    return a.sort((p,q)=>(p[0]+p[1])-(q[0]+q[1]));})(),mast:36,back:4.0},   // back：打樁機機身停在樁位後方幾格（坑深 14，機身要露出前坑壁）
+  // 動臂塔吊（luffing jib，倫敦市區因越界限制常用）：桅杆 96px、臂長 Lj＝24 格（仰起時臂尖高＝桅頂＋kv·√(Lj²−r²)），伸距 r≤L＝15 格；
+  // 吊煙囪節段（伸距約 12 格）時臂尖約 138px、吊鉤收到最高約 134px，都高過煙囪頂（122px）
+  crane:{base:[16,16],H:96,L:15,Lj:24,kv:2,luff:1,Lc:3,erect:[2.3,2.8],jibAt:2.8,strike:[7.3,7.8],inside:1},
+  // fix2：大門加寬成雙扇（i 20–27.7，拿掉兩片圍籬），泵車、攪拌車並排停在門內，澆完一起從大門開出去（不再原地消失）；
+  //       澆灌縮到 2.4–2.7，2.7–3.0 回填：地下室牆（灰色混凝土帶）沿兩面看得到的坑壁分 4 階長到地面，再蓋成平地板（塔吊桅杆底一直在筏基上，直到地板蓋好）
+  site:{pit:[3,29,8,24],depth:14,gate:{edge:'SW',a:20,b:27.7},yard:[17,28.6],cabin:[4.8,28.2],toilet:[8.4,29.4],truck:[22,28.9],exc:[[9,25.8],[27,25.8]],pump:[22.5,28.8],mixer:[25.8,28.8],
+    trench:[[31,4],[31,27.5]],box:[31,29.2],survey:[12,27.5],lamps:[[63,175],[72,177]],door:[16,24.3],flatbed:[22,28.8],van:[22,29],
+    gw:{survey:[0,.3],fence:[.05,.3],dirt:[.25,.4],dig:[.3,1.2],pile:[1.2,2.0],trench:[1.8,2.5],mesh:[1.8,2.4],pour:[2.4,2.7],fill:[2.7,3.0],fenceOff:[8.3,8.7],clean:[8.6,8.95]}},
+  // 專屬工序（P＝0–9 工期日）：parts＝構件進度窗，quant＝階段數（＝builder 重烘的格數）
+  parts:{frameA:[3.0,4.0],frameB:[3.4,4.8],hallA:[3.5,4.6],hallB:[4.0,5.2],cornA:[4.4,4.7],cornB:[5.0,5.4],roof:[5.4,6.0],
+    tN:[4.6,5.0],tW:[4.65,5.05],tE:[5.2,5.6],tS:[5.4,5.9],cW:[5.05,5.9],cN:[5.2,6.1],cE:[5.9,6.8],cS:[6.1,7.0],capA:[6.1,6.4],capB:[7.0,7.4],plate:[8.9,8.95],lamps:[9,9.5]},
+  quant:{frameA:5,frameB:5,hallA:12,hallB:12,cornA:4,cornB:4,roof:4,tN:4,tW:4,tE:4,tS:4,cW:4,cN:4,cE:4,cS:4,capA:2,capB:2,plate:1,lamps:1},
+  deco:{laydown:'steel|brick|chim',cabin:2},
+  rig(P,pt){ // 回傳這一刻的鷹架量體、平台、吊點、工人位置（全部用 builder 的 G2 格，跟精靈逐像素對齊）
+    const hB=34,hT=16,out={vols:[],plats:[],workers:[],sparks:[]};
+    const hA=R(hB*pt('hallA')),hBb=R(hB*pt('hallB')),fA=R(hB*pt('frameA')),fB=R(hB*pt('frameB'));
+    const topA=Math.max(hA,fA),topB=Math.max(hBb,fB);
+    // 主廳鷹架：比工作面高一層（8px），A 半邊 6.4–6.9 由上往下拆、B 半邊 7.8–8.4 拆
+    const scafTop=(top,done,s0,s1)=>{if(top<=0)return 0;let h=Math.min(hB+6,top+8);if(done)h=hB+6;return R(h*(1-seg(P,s0,s1)));};
+    const doneA=pt('cornA')>=1,doneB=pt('cornB')>=1;
+    const sA=scafTop(topA,doneA,6.4,6.9),sB=scafTop(topB,doneB,7.8,8.4);
+    if(P>=3&&sA>3)out.vols.push({S:G(16,24),lenL:13,lenR:0,h0:0,h1:sA,lift:8,off:1.5,net:!doneA&&P<6.4,stair:1});
+    if(P>=3&&sB>3)out.vols.push({S:G(29,24),lenL:13,lenR:16,h0:0,h1:sB,lift:8,off:1.4,net:!doneB&&P<7.8});
+    // 四座塔座：屋頂上的小鷹架（塔座砌好、煙囪開始後由上往下拆）
+    const TW=[['N',8,13,'A'],['W',8,24,'A'],['E',29,13,'B'],['S',29,24,'B']];
+    for(const [id,ci,cj] of TW){const pT=pt('t'+id),pC=pt('c'+id);if(pT<=0)continue;const ht=R(hT*pT);
+      const h=R((Math.min(hT,ht)+6)*(1-c01(pC/.5)));if(h>3)out.vols.push({S:G(ci,cj,hB),lenL:5,lenR:5,h0:0,h1:h,lift:6,off:1.1,back:id==='N'});
+      if(pC>0&&pC<1){const c=G(ci-2.5,cj-2.5,hB+hT+4+R(58*pC));out.plats.push({x:c[0],y:c[1],r:6});out.workers.push({x:c[0]+3,y:c[1]+1,pose:'crouch'});}}
+    // 塔吊的吊點（當下工作面）與吊物輪替
+    let drop=null,dropH=0,loads=['steel'];
+    const actC=TW.find(([id])=>pt('c'+id)>0&&pt('c'+id)<1)||TW.find(([id])=>pt('c'+id)>=1&&pt(id==='N'||id==='W'?'capA':'capB')<1&&pt('c'+id)>0);
+    if(actC){const [id,ci,cj]=actC,pC=pt('c'+id);drop=[ci-2.5,cj-2.5];dropH=hB+hT+4+R(58*pC);loads=pC<1?['chim','chim','bucket']:['cap'];}
+    else{const tw=TW.find(([id])=>pt('t'+id)>0&&pt('t'+id)<1);
+      if(tw){drop=[tw[1]-2.5,tw[2]-2.5];dropH=hB+R(hT*pt('t'+tw[0]));loads=['brick','brick','bucket'];}
+      else if(P<3){drop=[16,20];dropH=-8;loads=['rebar','form','rebar','bucket'];}
+      else if(pt('hallB')<1||pt('frameB')<1){const a=(pt('hallA')<1||pt('frameA')<1)&&P<4.2;drop=a?[9.5,17]:[23,17];dropH=a?topA:topB;
+        loads=(a?fA<hB:fB<hB)?['steel','steelc','steel','bucket']:['brick','brick','steel'];}
+      else if(pt('roof')<1){drop=[12,20];dropH=hB+2;loads=['glaze','roofb'];}   // fix1：吊點離桅杆 ≥4 格（動臂仰角 ≤80°）
+      else{drop=[22,20];dropH=hB+2;loads=['bucket'];}}
+    out.drop=drop;out.dropH=dropH;out.loads=loads;out.pick=[17,28.6];
+    // 工作面燈落點（一定是白天就有的面）：塔座頂、主廳已砌好的樓板頂（不是鋼骨頂）、屋頂
+    if(!actC){const tw=TW.find(([id])=>pt('t'+id)>0&&pt('t'+id)<1);
+      if(tw)out.lit=[tw[1]-2.5,tw[2]-2.5,hB+R(hT*pt('t'+tw[0]))];
+      else if(P>=3&&(pt('hallB')<1||pt('frameB')<1)){const a=(pt('hallA')<1||pt('frameA')<1)&&P<4.2,h=a?hA:hBb;if(h>0)out.lit=[a?9.5:23,17,h];}
+      else if(P>=3)out.lit=[pt('roof')<1?15:20,17,hB];}
+    // 工人：頂板 2 名（指揮、綁筋／砌磚）、鷹架走道 1 名、料場 1 名
+    if(P>=3&&P<5.4){const a=P<4.4&&(hA<hB||fA<hB),H=a?topA:topB,c=a?[9.5,17]:[23,17];
+      if(H>0){const p1=G(c[0]-2,c[1]+3,H),p2=G(c[0]+2.5,c[1]-1,H);out.workers.push({x:p1[0],y:p1[1],pose:'sign'},{x:p2[0],y:p2[1],pose:(a?fA:fB)>(a?hA:hBb)?'crouch':'hammer'});
+        const f=a?fA:fB;if(f>(a?hA:hBb)&&f<hB){for(const q of [[a?3:16,24],[a?16:29,24],[29,a?8:8]])if(!a||q[0]<=16){const s=G(q[0],q[1],f);out.sparks.push(s);}}}}
+    if(P>=3.2&&P<7.8){const v=out.vols[out.vols.length>1?1:0];if(v&&v.h1>10){const lv=Math.max(8,Math.floor((v.h1-4)/8)*8-8);out.walker={S:v.S,lenL:v.lenL,off:v.off,h:lv};}}
+    out.yardWorker=P>=2.8&&P<7.8;
+    out.laydown=P<2.2?null:P<3?'rebar':P<4.8?'steel':P<5.6?'brick':P<7.0?'chim':null;
+    return out;},
+ };
+}
+
+/* ---- k190 大笨鐘（伊莉莎白塔）1×1：由內往上砌、只在塔頂工作面包一圈平台，塔頂吊桿吊石 ---- */
+// 鐘盤期平台高度（離鐘室底）：盤面帶是 6..17，平台板 1.2 格深（畫面往下 1.2px）、護欄高 4px ⇒ 板面放在 19 以上才不蓋到盤面頂列
+const DIALZ=19;
+// 鐘盤期下一件要裝的構件（pD＝dials 進度，量化 8 格；每面 0 施工板→.25 金框→.5 下半玻璃→.75 滿玻璃→1 指針，左面先）
+function dialNext(pD){if(pD>=1)return null;const f=pD<.5-1e-6?pD*2:pD*2-1;return f<.25-1e-6?'dialF':f<.75-1e-6?'dialG':'dialH';}
+{const G=(i,j,z)=>[36+2*i-2*j,186+i+j-(z||0)];
+ const ms=[mbox(G,10,10,5,5,0,6,[2.4,3.0],[2.4,3.0],{id:'plinth',method:'masonry'}),mbox(G,10,10,4.5,4.5,6,104,[3.0,6.0],[3.0,6.0],{id:'shaft',method:'masonry',fh:15,scaf:0}),
+   mbox(G,10,10,4.5,4.5,110,22,[6.0,6.6],[6.0,7.2],{id:'clock',method:'masonry'}),mbox(G,10,10,4.5,4.5,132,12,[7.2,7.5],[7.2,7.5],{id:'belfry',method:'masonry'}),mbox(G,10,10,4.5,4.5,144,50,[7.5,8.4],[7.5,8.4],{id:'spire',method:'steel'})];
+ REG[190]={k:190,name:'大笨鐘（伊莉莎白塔）',sz:1,bespoke:1,ms,core:[5.5,10,5.5,10],
+  pile:{pts:(()=>{const a=[];for(const i of [6.2,7.75,9.3])for(const j of [6.2,7.75,9.3])a.push([i,j]);return a.sort((p,q)=>(p[0]+p[1])-(q[0]+q[1]));})(),mast:30,back:1.8},
+  crane:null,
+  site:{pit:[4.4,11,4.4,11],depth:10,gate:{edge:'SW',a:10.6,b:13.6},yard:[14.8,4.6],toilet:[1.7,11.6],toolbox:[3.4,13.4],shed:[4.6,14.0],truck:[12.1,13.0],exc:[[7.6,12.6]],pump:[12.1,13.0],mixer:[12.1,13.0],
+    trench:[[14.9,2.4],[14.9,8.6]],box:[14.9,9.8],survey:[12.8,12.8],lamps:[[22,196],[50,196]],flatbed:[12.1,13.0],van:[12.1,13.2],
+    gw:{survey:[0,.3],fence:[.05,.3],dirt:[.25,.4],dig:[.3,1.0],pile:[1.0,1.7],trench:[1.5,2.1],mesh:[1.6,1.95],pour:[2.0,2.2],fill:[2.2,2.4],fenceOff:[8.55,8.85],clean:[8.6,8.95]}},   // fix2：澆灌 2.0–2.2、回填 2.2–2.4（同巴特西）
+  parts:{plinth:[2.4,3.0],shaft:[3.0,6.0],clock:[6.0,6.6],dials:[6.6,7.2],belfry:[7.2,7.5],spire:[7.5,8.4],plate:[8.9,8.95],lamps:[9,9.5]},
+  quant:{plinth:3,shaft:35,clock:8,dials:8,belfry:2,spire:4,plate:1,lamps:1},   // fix1：dials 4→8（每面 施工板→金框→下半玻璃→滿玻璃→指針，先左後右）；fix2：clock 4→8（鐘室每 3px 一皮，平台跟著爬，不再一跳 6px）
+  deco:{laydown:'stone',shed:1},
+  rig(P,pt){const out={vols:[],plats:[],workers:[],sparks:[]};
+    const pS=pt('shaft'),pK=pt('clock'),pD=pt('dials'),pB=pt('belfry'),pX=pt('spire');
+    const hs=R(104*pS),hc=R(22*pK),hb=R(12*pB);
+    // 工作面平台高度（離地）：一律「牆頂高出平台約 5px（石匠胸口）、每 3px 一階往上爬」——塔身、鐘室、鐘樓同一條規則（fix2：鐘室、鐘樓不再停在段底）
+    const climb=(z0,h)=>z0+Math.max(0,Math.floor((h-5)/3)*3);
+    let zp=6;if(pS<1)zp=climb(6,hs);
+    else if(pK<1)zp=climb(110,hc);
+    else if(pD<1)zp=110+DIALZ;   // 鐘盤期：平台停在鐘室頂下、盤面帶（離鐘室底 6..17）之上，前條與護欄不蓋住正在裝的盤面
+    else if(pB<1)zp=climb(132,hb);else zp=144;
+    const strike=seg(P,8.5,8.75);
+    if(P>=3.0&&strike<1)out.ring={z:zp,keep:1-qz(strike,4)};
+    /* 吊桿（fix2，第 2 輪審查 major：吊桿穿牆）：
+       - 桅杆立在平台的前角（塔身前稜外 0.7 格），臂長 Lb、仰臂（伸距 r 越短臂尖越高）；臂只在「前方扇形」迴轉（θ∈[−90°,180°]）：
+         θ≥0 時臂尖 j≥10.7、θ≤0 時臂尖 i≥10.7，都在塔身佔地 [5.5,10]² 外 ⇒ 臂、臂尖、鋼索、吊物永遠不進塔身稜柱。
+       - 料場吊點在塔右前方的地面（跟本期堆料同一處）；卸料點：砌石期輪流卸在左前、右前平台板上（吊物底貼板面、石匠旁邊）；
+         鐘盤期吊到正在裝的那一面鐘盤正前方（平台外緣外、畫面上正對盤面），吊物中心對準盤面中心高。 */
+    const LB={stone:7,dialF:11,dialG:9,dialH:7,rib:12};
+    const load=P<6.6?'stone':P<7.2?(dialNext(pD)||'stone'):P<7.5?'stone':'rib';
+    // 尖頂期（P≥7.5）吊桿移到平台右後角（畫面上在尖頂右邊外側），從右後的料場吊肋條／石板，卸在右前板上：臂與臂尖都不跟深色尖頂重疊
+    const spireP=P>=7.5;let drops;
+    if(P>=6.6&&P<7.2&&pD<1){const left=pD<.5-1e-6;drops=[{p:left?[9.45,11.7]:[11.7,9.45],hz:121.5+({dialF:7,dialG:6,dialH:4}[load]||6),face:left?'L':'R'}];}
+    else if(spireP)drops=[{p:[10.7,6.9],hz:zp+LB[load]}];
+    else drops=[{p:[8.8,10.9],hz:zp+LB[load]},{p:[10.9,8.8],hz:zp+LB[load]}];
+    if(P>=3.0&&P<8.55)out.derrick={base:spireP?[10.6,4.9]:[10.7,10.7],z:zp,Lb:4.0,mast:20,pick:spireP?[13.6,7.2]:[13.6,11.0],drops,fold:seg(P,8.4,8.55),load,lb:LB[load]||5,sec:spireP?'R':'F'};
+    out.pickAt=spireP?[13.6,7.2]:[13.6,11.0];
+    // 工作面：石匠（蹲砌）、指揮；台基期兩名石匠在地面（fix2：讓開卸料點）
+    const wz=zp;
+    if(P>=3.0&&P<8.4){const a=G(7.0,10.6,wz),b=spireP?G(10.6,8.9,wz):G(10.6,7.0,wz);out.workers.push({x:a[0],y:a[1],pose:'hammer'},{x:b[0],y:b[1],pose:'sign'});out.bucket=G(6.1,10.6,wz);}
+    if(P>=2.4&&P<3.0){const a=G(7,11.3),b=G(11.3,8);out.workers.push({x:a[0],y:a[1],pose:'hammer'},{x:b[0],y:b[1],pose:'carry'});}
+    out.yardWorker=P>=2.4&&P<8.4;
+    out.laydown=P<2.4?null:P<6.6?'stone':P<7.2?(dialNext(pD)||'stone'):P<7.5?'stone':P<8.4?'rib':null;
+    out.workTop=pS<1?6+hs:pK<1?110+hc:pD<1?132:pB<1?132+hb:144+R(42*pX);
+    return out;},
+ };
+}
+
+/* ---------- 下一批施工檔草案（只寫表、不實作；登記進 __x12Reg 之前 generic 照 B 走） ----------
+   每列：工序（P 窗）→ builder 需要的構件閘 pt(id) → 專屬道具。取材待正式施工前再查一次。 */
+W13.__x12RegDraft={
+  191:{name:'西敏宮 2×2',steps:[['0–2.4','沿河基礎：臨河側先打鋼板樁圍堰、坑沿河岸長條開挖、樁沿長軸兩排'],['2.4–3.0','筏基分三段澆（長軸由東往西）'],
+    ['3.0–6.2','長立面一跨一跨沿長軸推進：揭露改成沿 u 軸掃（不是往上長），每跨先灰殼後貼飾板、尖窗'],['4.0–6.8','伊莉莎白塔：共用 clockTower 構件（plinth／shaft／clock／dials／belfry／spire），hS=96'],
+    ['6.2–7.2','屋頂石板＋女兒牆小尖塔逐支'],['6.8–8.2','維多利亞塔最後：方塔逐皮＋四角八角小塔＋旗桿（旗最後一格才掛）']],
+    parts:'hallSeg(0..1 沿 u 掃)、roof、pinn、vShaft、vTurret、flag＋clockTower 六構件',rig:'沿河浮吊（河側）、長立面走道鷹架隨跨移動、兩台塔吊（宮殿中段、維多利亞塔旁）'},
+  187:{name:'聖保羅座堂',steps:[['3.0–5.0','十字形主體＋西立面雙塔'],['5.0–5.8','鼓座（柱廊一圈圈）'],['5.8–6.5','木拱架肋（centring）由外往內'],['6.5–7.4','覆鉛皮穹頂（灰藍一片片由下往上）'],['7.4–7.9','燈籠頂'],['7.9–8.3','金球十字（最後一格）']],
+    parts:'nave、westTowers、drum、centring、leadDome、lantern、cross',rig:'鼓座外一圈平台鷹架、穹頂期中央內爬塔吊'},
+  188:{name:'倫敦塔白塔',steps:[['3.0–6.0','主樓石牆逐皮（Caen 石淺色隅石）'],['5.4–6.6','四角塔逐層（三方一圓）'],['6.6–7.2','城垛逐塊'],['7.2–7.8','四座鉛頂（洋蔥頂）'],['7.8–8.2','風向旗']],
+    parts:'keep、turretNE/NW/SW、roundTurret、crenel、cupola、vane',rig:'木造腳手架（淺木色）＋人力吊輪（treadwheel crane）'},
+  76:{name:'摩天輪（k76）',steps:[['2.4–3.4','A 字支架兩腳分段吊裝'],['3.4–4.2','輪轂＋主軸'],['4.2–6.8','輪框分段（每段一弧），先下半圈後上半圈；輪輻鋼索跟著拉'],['6.8–8.2','艙一個個掛上（順時針）'],['8.2–8.6','試轉（輪子第一次轉）']],
+    parts:'aLegs、hub、rimSeg(0..1)、spokes、pods(0..1)',rig:'大型履帶吊停在輪子正面；輪框段用浮吊（臨水時）'},
+  9:{name:'體育場（k9）',steps:[['3.0–5.2','預鑄看台分段吊（一圈順時針）'],['5.2–6.6','屋頂桁架地面組裝→頂升'],['6.6–7.4','屋面膜／板'],['7.4–8.0','燈架'],['8.0–8.5','草皮一捲捲鋪（綠色條帶逐條）']],
+    parts:'standSeg、trussLift、roofSkin、floodMasts、turf',rig:'兩台履帶吊在場內、場心放草皮卷'},
+  '5v1':{name:'冷卻塔（k5 v1）',steps:[['3.0–3.4','斜柱環（X 形支柱一圈）'],['3.4–7.4','滑模一圈圈往上（每圈 4px，腰身往內收再外擴）'],['7.4–7.8','頂緣收口'],['7.8–8.4','第一縷白汽（完工態才有）']],
+    parts:'legRing、shellRing(0..1)、lip',rig:'滑模環（灰模板環＋黃護欄＋工人＋環上燈帶）、塔心一台內爬塔吊'},
+};
+
+/* ---------- 精靈量測（不透明上緣；快取在 canvas 上） ---------- */
+function opaqueTop(img){if(img.__x13top!=null)return img.__x13top;let top=img.height;try{const g=img.getContext('2d'),w=img.width,h=img.height,d=g.getImageData(0,0,w,h).data;
+  outer:for(let y=0;y<h;y++)for(let x=0;x<w;x++)if(d[(y*w+x)*4+3]>40){top=y;break outer;}}catch(e){top=0;}img.__x13top=top;return top;}
+
+/* =====================================================================
+   階段精靈：builder 收構件進度重跑（快取／LRU／每幀 ≤1 張／完工後釋放）
+   ===================================================================== */
+const STAGE=new Map();let stageBytes=0;const STG={n:0,ms:0,evict:0};
+function partsOf(M,P){const o={};for(const id in M.parts){const[a,b]=M.parts[id];o[id]=qz(seg(P,a,b),M.quant[id]||4);}return o;}
+function pvKey(pv){return Object.keys(pv).map(id=>pv[id].toFixed(3)).join(',');}
+function isEmptyPv(M,pv){for(const id in pv)if(pv[id]>0)return false;return true;}
+function bakeStage(k,v,pv,E){
+  const fn=W13.__x12bspB&&W13.__x12bspB[k];if(!fn)return null;
+  const B=E.SPR.bld,bk=k+'_1_'+v,keep=B[bk];const t0=performance.now();let sp=null;
+  const structural=Object.keys(pv).some(id=>id!=='plate'&&id!=='lamps'&&pv[id]<1);
+  W13.__x12bspQ=id=>pv[id]==null?1:pv[id];W13.__x13StageNoShd=structural;
+  try{fn();sp=B[bk];}finally{W13.__x12bspQ=undefined;W13.__x13StageNoShd=undefined;B[bk]=keep;}
+  if(!sp||sp===keep)return null;
+  try{if(E.sil)E.sil(sp.img);}catch(e){}
+  sp.night=undefined;
+  const dt=performance.now()-t0;STG.n++;STG.ms+=dt;return sp;}
+function stageGet(k,v,pv,E,budget){
+  const key=k+'_'+v+'|'+pvKey(pv);let r=STAGE.get(key);
+  if(r){r.f=FR.id;r.t=performance.now();STAGE.delete(key);STAGE.set(key,r);return r.sp;}   // 命中：移到 LRU 尾
+  if(!budget())return undefined;                   // 本幀烘焙額度用完：呼叫端沿用上一張
+  const sp=bakeStage(k,v,pv,E);if(!sp)return null;sp.__x13key=key;
+  r={sp,key,f:FR.id,t:performance.now(),bytes:sp.img.width*sp.img.height*4};STAGE.set(key,r);stageBytes+=r.bytes;FR.stageBakes++;schedPurge();
+  const cap=(W13.__x13BesStageMB||16)*1048576;
+  while(stageBytes>cap&&STAGE.size>1){const f=STAGE.keys().next().value;if(f===key)break;stageBytes-=STAGE.get(f).bytes;STAGE.delete(f);STG.evict++;}
+  return sp;}
+
+/* =====================================================================
+   Layer A（1× 快取）
+   ===================================================================== */
+const LAYER=new Map();let layerBytes=0;const LYR={n:0,ms:0,evict:0};const MT=24;
+const LAST=new Map();   // 每個工地上一張 Layer A（超過本幀烘焙額度時沿用）
+const FR={id:0,ns:null,stageBakes:0,layerBakes:0,layerMs:0,sites:[]};
+function frameTick(E){if(E.nightSprites!==FR.ns){FR.ns=E.nightSprites;FR.id++;FR.stageBakes=0;FR.layerBakes=0;FR.layerMs=0;FR.sites.length=0;
+  if(FR.id%120===0){for(const [k,r] of STAGE)if(FR.id-r.f>240){stageBytes-=r.bytes;STAGE.delete(k);STG.evict++;}   // 完工／離開畫面的工地：釋放
+    for(const [k,r] of LAYER)if(FR.id-r.f>240){layerBytes-=r.bytes;LAYER.delete(k);LYR.evict++;}}}}
+/* 快取釋放（fix1）：
+   ① 完工那一刻：draw 鉤在 age≥9 的登記地標呼叫 __x13BesDone(x,y)，放掉這個工地的 Layer A、上一張；同 k 沒有別的工地在施工時，連階段精靈、地坪也放掉。
+   ② 完工時不在畫面裡（或整城不再有地標施工）：有快取時掛一個 2 秒的計時器，4 秒沒用到的快取與工地一律放掉，全部放完就不再排。旗標關時不會有快取，也就不會排計時器。 */
+const ACTIVE=new Map();let purgeT=0;const REL={done:0,idle:0,entries:0};
+function freeSite(site,k){let n=0;for(const sfx of ['','#sp','#b','#f','#p'])LAST.delete(site+sfx);const pre=k+'@'+site+'#';
+  for(const [key,r] of LAYER)if(key.startsWith(pre)){layerBytes-=r.bytes;LAYER.delete(key);n++;}
+  ACTIVE.delete(site);let other=false;for(const a of ACTIVE.values())if(a.k===k){other=true;break;}
+  if(!other){const sp=k+'_';for(const [key,r] of STAGE)if(key.startsWith(sp)){stageBytes-=r.bytes;STAGE.delete(key);n++;}PLATE.delete(k);}
+  REL.entries+=n;return n;}
+W13.__x13BesDone=(x,y)=>{const site=x+','+y,a=ACTIVE.get(site);if(!a)return 0;REL.done++;return freeSite(site,a.k);};
+function schedPurge(){if(purgeT)return;purgeT=setTimeout(()=>{purgeT=0;const now=performance.now(),old=r=>now-(r.t||0)>4000;
+  for(const [site,a] of ACTIVE)if(old(a)){REL.idle++;freeSite(site,a.k);}
+  for(const [key,r] of STAGE)if(old(r)){stageBytes-=r.bytes;STAGE.delete(key);REL.entries++;}
+  for(const [key,r] of LAYER)if(old(r)){layerBytes-=r.bytes;LAYER.delete(key);REL.entries++;}
+  if(STAGE.size||LAYER.size||ACTIVE.size)schedPurge();},2000);}
+
+// 坑：開口 Q（地面）、深 dp：兩道看得到的後坑壁（三層土）、坑底積水
+function drawPit(g,Q,dp,seed){if(dp<=0){quad(g,Q,0,C.pitF);return;}
+  const F={N:[Q.N[0],Q.N[1]+dp],E:[Q.E[0],Q.E[1]+dp],S:[Q.S[0],Q.S[1]+dp],W:[Q.W[0],Q.W[1]+dp]};
+  quad(g,Q,0,C.soil);quad(g,F,0,C.pitF);
+  const a=Math.max(1,R(dp*.22)),b=Math.max(1,R(dp*.42));
+  for(const [A,B,dk] of [[Q.W,Q.N,1],[Q.N,Q.E,0]]){ // 後左壁（面向 +i，偏暗）、後右壁（面向 +j，偏亮）
+    face(g,A,B,-dp,0,dk?'#94603a':'#ad7045');face(g,A,B,-a,0,dk?'#4e3a29':C.soil);face(g,A,B,-dp,-dp+b,dk?'#b09c76':C.grav);
+    for(let x=R(Math.min(A[0],B[0]))+2;x<R(Math.max(A[0],B[0]))-1;x+=5){const y=R(yOn(A,B,x+.5));P(g,x,y+a+1+((x>>2)&1),1,1,dk?'#7a4c2c':'#8a5a36');}}
+  // 坑底積水（一灘）＋機具車轍
+  const w=uvQ(F,.62,.72);P(g,w[0]-4,w[1]-1,8,2,C.water);P(g,w[0]-2,w[1]-1,3,1,C.waterHi);
+  for(let i=0;i<6;i++){const p=uvQ(F,.2+hsh(i,3,seed)*.6,.2+hsh(i,5,seed)*.6);P(g,p[0],p[1],2,1,'#5c4432');}
+}
+const uvQ=(Q,u,v)=>[Q.N[0]+u*(Q.E[0]-Q.N[0])+v*(Q.W[0]-Q.N[0]),Q.N[1]+u*(Q.E[1]-Q.N[1])+v*(Q.W[1]-Q.N[1])];
+// 圍籬：lot 內縮一圈、白色實板加藍腰帶（倫敦常見），每 5 片一片告示板；大門留空；n＝每片可見旗標
+function fencePanels(L,M){if(M.__fp)return M.__fp;const T=L.T,m=.35,gt=M.site.gate,out=[];
+  const edges=[['NW',[m,m],[m,T-m]],['NE',[m,m],[T-m,m]],['SW',[m,T-m],[T-m,T-m]],['SE',[T-m,m],[T-m,T-m]]];
+  for(const [nm,a,b] of edges){const len=Math.hypot(b[0]-a[0],b[1]-a[1]),n=Math.max(2,R(len/4));
+    for(let i=0;i<n;i++){const u0=i/n,u1=(i+1)/n;const p0=[lerp(a[0],b[0],u0),lerp(a[1],b[1],u0)],q0=[lerp(a[0],b[0],u1),lerp(a[1],b[1],u1)];
+      // fix2（第 2 輪審查：大笨鐘的大門沒有開口）：大門用幾何切——跨 gate.a／gate.b 的那一片從端點切開，只留門外那一段（不再整片依中心點剔除）
+      const ax=nm==='SW'?0:nm==='SE'?1:-1,pieces=[];
+      if(gt&&gt.edge===nm&&ax>=0){const lo=Math.min(p0[ax],q0[ax]),hi=Math.max(p0[ax],q0[ax]);
+        const cut=(v0,v1)=>{if(v1-v0<.05)return;const P0=p0.slice(),Q0=q0.slice();P0[ax]=v0;Q0[ax]=v1;pieces.push([P0,Q0]);};
+        cut(lo,Math.min(hi,gt.a));cut(Math.max(lo,gt.b),hi);}
+      else pieces.push([p0,q0]);
+      for(const [p,q] of pieces){const c=[(p[0]+q[0])/2,(p[1]+q[1])/2];const gc=gt?(gt.edge==='SW'?[(gt.a+gt.b)/2,T]:[T,(gt.a+gt.b)/2]):[T,T];
+        out.push({e:nm,p,q,d:Math.abs(c[0]-gc[0])+Math.abs(c[1]-gc[1]),front:nm==='SW'||nm==='SE',k:i});}}}
+  const dm=Math.max(...out.map(o=>o.d));out.forEach(o=>o.r=o.d/dm);M.__fp=out;return out;}
+function fenceKeep(o,f){ // f.up（0..1 立起）、f.off（0..1 拆）：立起從最遠（後角）往大門，拆照反序從大門往兩側
+  return (1-o.r)<=f.up+1e-6&&o.r>=f.off-1e-6;}
+function drawFence(g,L,M,f,front,lite){for(const o of fencePanels(L,M)){if(o.front!==front||!fenceKeep(o,f))continue;
+  const a=L.G(o.p[0],o.p[1]),b=L.G(o.q[0],o.q[1]);
+  if(lite){eline(g,a,b,0,C.hoard,4);continue;}
+  face(g,a,b,0,6,o.k%2?C.hoard:C.hoard2);eline(g,a,b,2,C.band);eline(g,a,b,6,C.cap);eline(g,a,b,0,C.foot);
+  if(o.k%5===2&&Math.hypot(o.q[0]-o.p[0],o.q[1]-o.p[1])>=2.5){const s0=mid(a,b,.2),s1=mid(a,b,.8);face(g,s0,s1,3,5.5,C.sign);eline(g,mid(a,b,.35),mid(a,b,.65),4,'#dfe6f0');}}
+  // 大門門柱
+  const gt=M.site.gate;if(gt&&f.off<1e-6&&f.up>.99){const T=L.T,m=.35;const p=gt.edge==='SW'?[L.G(gt.a,T-m),L.G(gt.b,T-m)]:[L.G(T-m,gt.a),L.G(T-m,gt.b)];
+    if(front)for(const q of p){P(g,q[0],q[1]-8,1,8,'#5d656d');P(g,q[0],q[1]-9,1,1,'#e8b030');}}}
+
+// 等距鷹架：量體（S 南角、lenL/lenR 格）外包兩個可見立面；貼牆外推 off 格
+function scaffold(g,v,lod){const S=v.S,off=v.off||1.5,lift=v.lift||8,h0=v.h0||0,h1=v.h1;if(h1-h0<3)return;
+  const W=[S[0]-2*v.lenL,S[1]-v.lenL],E=[S[0]+2*v.lenR,S[1]-v.lenR];
+  const Sc=[S[0]+2*(v.lenR>0?off:0)-2*off,S[1]+off+(v.lenR>0?off:0)],Wc=[W[0]-2*off,W[1]+off],Ec=[E[0]+2*off,E[1]+off];
+  const lifts=[];for(let y=h0+lift;y<=h1-2;y+=lift)lifts.push(y);const top=lifts.length?lifts[lifts.length-1]:h0;
+  const faces=[];if(v.lenL>0)faces.push([Wc,Sc,C.pole,C.plankHi,'#7c858e',C.rail]);if(v.lenR>0)faces.push([Sc,Ec,C.poleD,C.plank,'#666e76',C.railD]);
+  if(v.net&&lod>=2&&lifts.length){const y0=Math.max(h0,top-lift);for(const [A,B] of faces)face(g,A,B,y0,top+4,C.net);}
+  for(const y of lifts)for(const [A,B,,pc] of faces){face(g,A,B,y,y+1,pc);eline(g,A,B,y-1,C.plankD);}
+  const bays=(A,B,col)=>{const n=Math.max(1,R(Math.abs(B[0]-A[0])/10));for(let i=0;i<=n;i++){const x=R(lerp(A[0],B[0],i/n)),y=R(yOn(A,B,x+.01));P(g,x,y-top-4,1,top+4-h0,col);}return n;};
+  const ns=faces.map(([A,B,col])=>bays(A,B,col));
+  for(const y of lifts)for(const [A,B,,,,rc] of faces)eline(g,A,B,y+3,rc);
+  if(lod>=2)faces.forEach(([A,B,,,bc],fi)=>{const n=ns[fi];for(let i=1;i<n;i+=3){const a=mid(A,B,i/n),b=mid(A,B,(i+1)/n);for(let k=0;k<lifts.length;k+=2){const ya=k?lifts[k-1]:h0,yb=lifts[k];ln(g,a[0],a[1]-ya,b[0],b[1]-yb,bc);}}});
+  if(v.stair&&lifts.length>=3&&v.lenL>0){const a=Wc,b=mid(Wc,Sc,Math.min(1,1/Math.max(1,ns[0])));   // 之字樓梯塔（左端第一跨）
+    for(let k=0;k<lifts.length;k++){const ya=k?lifts[k-1]:h0,yb=lifts[k];const p=k%2?a:b,q=k%2?b:a;ln(g,p[0],p[1]-ya,q[0],q[1]-yb+1,'#d4d8dc');}}
+  if(v.lenL>0)P(g,Wc[0],Wc[1]-top-4,1,top+4-h0,C.poleD);if(v.lenR>0)P(g,Ec[0],Ec[1]-top-4,1,top+4-h0,C.poleD);}
+// 塔吊桅杆（Layer A）：從 z0（穿出樓板處）到 z1；2px 寬桁架（左亮右暗＋每 3px 左右交錯的斜撐點）
+function mast(pn,x,yb,z0,z1){x=R(x);if(z1<=z0)return;const yt=R(yb-z1),y0=R(yb-z0);
+  pn.px(x-1,yt,1,y0-yt,C.crane);pn.px(x,yt,1,y0-yt,C.craneD);for(let y=y0-2,k=0;y>yt;y-=3,k++)pn.px(x-1+(k&1),y,1,1,k&1?C.craneHi:'#8a6a1c');}
+function yardStack(g,p,kind){const x=p[0],y=p[1];
+  if(kind==='steel'){for(let i=0;i<3;i++){P(g,x-7,y-2-i*2,13,1,C.rlH);P(g,x-7,y-1-i*2,13,1,C.rlD);}P(g,x-8,y,15,1,'#5a4a3a');}
+  else if(kind==='rebar'){for(let i=0;i<3;i++)P(g,x-7,y-1-i,14,1,i%2?C.rebar:C.rebarD);}
+  else if(kind==='brick'){for(const dx of [-8,-1,6]){P(g,x+dx,y-4,6,4,'#b06a4a');P(g,x+dx,y-4,6,1,'#c9845f');P(g,x+dx,y,6,1,'#7b5a3a');P(g,x+dx+5,y-4,1,4,'#8e5038');}}
+  else if(kind==='chim'){for(let i=0;i<2;i++){P(g,x-8+i*9,y-4,8,4,'#e9e4da');P(g,x-8+i*9,y-4,8,1,'#f7f4ec');P(g,x-8+i*9,y-1,8,1,'#c9c2b4');P(g,x-9+i*9,y-4,1,4,'#8f8a80');}}
+  else if(kind==='stone'){for(const[dx,dy] of [[-7,0],[-2,0],[3,0],[-5,-3],[0,-3]]){P(g,x+dx,y+dy-3,5,3,C.stone);P(g,x+dx,y+dy-3,5,1,C.stoneHi);P(g,x+dx+4,y+dy-3,1,3,C.stoneD);}P(g,x-8,y,16,1,'#6b5a44');}
+  // fix2：鐘盤構件分三種堆料（跟塔上正在裝的那一步同步）：金框（空心方框兩片）→ 乳白玻璃（木箱裝、不帶指針）→ 指針（黑色細條一小捆）
+  else if(kind==='dialF'){for(const dx of [-8,1]){P(g,x+dx,y-7,7,1,'#e2c060');P(g,x+dx,y-7,1,7,'#d8b24a');P(g,x+dx,y-1,7,1,'#a8862e');P(g,x+dx+6,y-7,1,7,'#8a6c22');}P(g,x-9,y,18,1,'#6b5a44');}
+  else if(kind==='dialG'){P(g,x-6,y-5,12,5,'#b08c56');P(g,x-6,y-5,12,1,'#caa76c');P(g,x+5,y-5,1,5,'#8e6f42');P(g,x-6,y-3,12,1,'#8e6f42');P(g,x-5,y-8,4,3,'#f2ecd8');P(g,x-5,y-8,4,1,'#fbf8ee');P(g,x,y-7,4,2,'#e4dcc6');P(g,x-7,y,14,1,'#6b5a44');}
+  else if(kind==='dialH'){P(g,x-6,y-1,12,1,'#6b5a44');P(g,x-5,y-2,10,1,'#20242c');P(g,x-4,y-3,7,1,'#3a3f48');P(g,x-3,y-4,5,1,'#20242c');}
+  else if(kind==='rib'){for(let i=0;i<3;i++)P(g,x-7,y-1-i,14,1,i%2?'#3e4652':'#56606c');}}
+function cabin(g,p,two){const x=R(p[0]),y=R(p[1]);   // 雙層藍白工寮（2×2）／1×1 只放工具箱＋流動廁所
+  P(g,x-8,y-6,14,6,'#e8e4dc');P(g,x-8,y-6,14,1,'#fbf8f0');P(g,x+5,y-6,1,6,'#b8b4ac');for(const dx of [-6,-1])P(g,x+dx,y-4,3,2,'#bfe3f2');P(g,x+3,y-5,2,5,'#6d7f94');
+  if(two){P(g,x-8,y-12,14,6,'#3a6aa0');P(g,x-8,y-12,14,1,'#5a8ac0');P(g,x+5,y-12,1,6,'#2c5080');for(const dx of [-6,-1,3])P(g,x+dx,y-10,3,2,'#bfe3f2');P(g,x-9,y-7,16,1,'#8a8f96');P(g,x+6,y-11,1,5,'#8a8f96');}}
+function toilet(g,p){const x=R(p[0]),y=R(p[1]);P(g,x-1,y-7,4,7,'#2f73b8');P(g,x-1,y-7,4,1,'#6aa0d8');P(g,x+2,y-6,1,6,'#1f5690');P(g,x,y-5,1,2,'#9fc4e8');}
+function toolbox(g,p){const x=R(p[0]),y=R(p[1]);P(g,x-3,y-3,6,3,'#c8402e');P(g,x-3,y-3,6,1,'#e2684e');P(g,x-1,y-4,2,1,'#3a3a3a');}
+function shed(g,p){const x=R(p[0]),y=R(p[1]);P(g,x-6,y-7,11,7,'#8a7a62');P(g,x-6,y-7,11,1,'#a8987e');P(g,x+4,y-7,1,7,'#6a5a44');P(g,x-7,y-9,13,2,'#5a5f66');P(g,x-7,y-9,13,1,'#7a8088');
+  P(g,x-4,y-5,3,2,'#bfe3f2');P(g,x+1,y-4,2,4,'#4a3a2a');P(g,x+6,y-3,3,3,'#3a3f45');P(g,x+7,y-2,1,1,'#9aa0a6');}
+function distBox(g,p){const x=R(p[0]),y=R(p[1]);P(g,x-2,y-6,5,6,'#8f989f');P(g,x-2,y-6,5,1,'#c0c6cc');P(g,x+2,y-5,1,5,'#646c73');P(g,x-1,y-4,2,1,'#e0b83a');}
+
+/* ---------- 地面工序（每棟都有；專屬檔可給坑、樁、門、料場位置與時間窗） ---------- */
+function groundState(M,P){const gw=M.site.gw,s={};
+  s.survey=P<gw.survey[1]?qz(seg(P,gw.survey[0],gw.survey[1]*.85),5):-1;
+  s.fence={up:qz(seg(P,gw.fence[0],gw.fence[1]),10),off:qz(seg(P,gw.fenceOff[0],gw.fenceOff[1]),10)};
+  s.dirt=P<gw.dirt[0]?0:P<gw.clean[0]?qz(seg(P,gw.dirt[0],gw.dirt[1]),3):qz(1-seg(P,gw.clean[0],gw.clean[1]),6);
+  // fix2：澆完不再一格就變平地——回填窗 gw.fill：筏基留在坑底，地下室牆（灰色混凝土帶）沿兩面看得到的坑壁分 4 階長到地面（0→¼→½→¾→滿），滿了才蓋成平地板
+  const pourEnd=gw.pour[1],fillEnd=gw.fill?gw.fill[1]:pourEnd;s.pitOn=P>=gw.dig[0]&&P<fillEnd;
+  s.pitW=qz(.55+.45*seg(P,gw.dig[0],gw.dig[0]+.3),3);s.dp=Math.floor(M.site.depth*seg(P,gw.dig[0]+.05,gw.dig[1])/2)*2;
+  s.piles=Math.floor(M.pile.pts.length*seg(P,gw.pile[0],gw.pile[1]*.97)+1e-6);
+  s.trench=qz(seg(P,gw.trench[0],gw.trench[1]),5);s.mesh=qz(seg(P,gw.mesh[0],gw.mesh[1]),6);s.pour=qz(seg(P,gw.pour[0],gw.pour[1]*.97),8);
+  s.cured=P>=pourEnd;s.back=gw.fill&&P>=gw.fill[0]?qz(seg(P,gw.fill[0],gw.fill[0]+(gw.fill[1]-gw.fill[0])*.85),4):0;
+  s.filled=P>=fillEnd;s.boxOn=P>=gw.trench[1]&&P<gw.fenceOff[0];s.cabinOn=P>=gw.fence[0]+.05&&P<gw.fenceOff[0]+.1;
+  s.key=[s.survey,s.fence.up,s.fence.off,s.dirt,s.pitOn?1:0,s.pitW,s.dp,s.trench,s.mesh,s.pour,s.cured?1:0,s.back,s.filled?1:0,s.boxOn?1:0,s.cabinOn?1:0].join(',');
+  return s;}
+function drawGroundBack(g,L,M,st,lod){const gs=st.gs,site=M.site,T=L.T;
+  if(gs.dirt>0){const LQ=L.Q(.2,T-.2,.2,T-.2);g.globalAlpha=gs.dirt;quad(g,LQ,0,C.dirt);
+    for(let i=0;i<Math.min(120,26*L.n*L.n);i++){const u=.2+hsh(i,7,L.n*31)*(T-.4),v=.2+hsh(i,11,L.n*17)*(T-.4),p=L.G(u,v);P(g,p[0],p[1],2,1,i%3?C.dirt2:C.dirtHi);}
+    // 車轍：大門進來兩道
+    const gt=site.gate,gc=gt.edge==='SW'?[(gt.a+gt.b)/2,T]:[T,(gt.a+gt.b)/2];const pc=[(site.pit[0]+site.pit[1])/2,(site.pit[2]+site.pit[3])/2];
+    for(const o of [-.6,.6]){const a=L.G(gc[0]+(gt.edge==='SW'?o:0),gc[1]+(gt.edge==='SE'?o:0)),b=L.G(lerp(gc[0],pc[0],.55)+o,lerp(gc[1],pc[1],.55));ln(g,a[0],a[1]-1,b[0],b[1],C.track);}
+    g.globalAlpha=1;}
+  if(gs.survey>=0){const [i0,i1,j0,j1]=site.pit,Q=L.Q(i0,i1,j0,j1);const k=gs.survey;   // 放樣：四角木樁綁粉紅帶＋白線逐段拉出
+    const segs=[[Q.N,Q.E],[Q.E,Q.S],[Q.S,Q.W],[Q.W,Q.N]];segs.forEach(([a,b],i)=>{const f=c01(k*4-i);if(f>0){const e=mid(a,b,f);ln(g,a[0],a[1],e[0],e[1],'#f4f2ea');}});
+    for(const c of [Q.N,Q.E,Q.S,Q.W]){P(g,c[0],c[1]-3,1,3,'#a87838');P(g,c[0],c[1]-3,1,1,'#ff4f96');P(g,c[0]+1,c[1]-3,1,1,'#ff7ab0');}}
+  drawFence(g,L,M,gs.fence,false,lod<1);
+  if(gs.pitOn){const [i0,i1,j0,j1]=site.pit,ci=(i0+i1)/2,cj=(j0+j1)/2,hw=gs.pitW;const g0=g;
+    const Q=L.Q(lerp(ci,i0,hw),lerp(ci,i1,hw),lerp(cj,j0,hw),lerp(cj,j1,hw)),dp=gs.dp;const [pc,pgx]=scratch(L.ax*2+8,L.ay+8);g=pgx;drawPit(g,Q,dp,M.k);   // 坑內一律畫在暫存畫布，最後用開口菱形遮罩（前坑壁擋住坑底前緣）
+    const F=QQ=>({N:[QQ.N[0],QQ.N[1]+dp],E:[QQ.E[0],QQ.E[1]+dp],S:[QQ.S[0],QQ.S[1]+dp],W:[QQ.W[0],QQ.W[1]+dp]});
+    // 礫石墊層＋鏽色井字鋼筋網（由後往前）
+    if(gs.mesh>0){const Fq=F(L.Q(i0+.6,i1-.6,j0+.6,j1-.6));quad(g,Fq,0,C.blind);for(let i=0;i<40;i++){const p=uvQ(Fq,hsh(i,9,M.k),hsh(i,13,M.k));P(g,p[0],p[1],1,1,'#8d877a');}
+      const K=Math.max(6,R((i1-i0)/1.6)),Kj=Math.max(6,R((j1-j0)/1.6));
+      for(let a=0;a<=K;a++){const u=a/K;const vmax=c01(gs.mesh*2-u);if(vmax<=0)continue;const p=uvQ(Fq,u,0),q=uvQ(Fq,u,vmax);ln(g,p[0],p[1],q[0],q[1],C.rebar);}
+      for(let b=0;b<=Kj;b++){const v=b/Kj;const umax=c01(gs.mesh*2-v);if(umax<=0)continue;const p=uvQ(Fq,0,v),q=uvQ(Fq,umax,v);ln(g,p[0],p[1],q[0],q[1],C.rebarD);}
+      // 澆灌：由北角往前推，最近 25% 是濕的（深灰帶反光條），之前乾成淺灰
+      if(gs.pour>0){const N8=8;for(let a=0;a<N8;a++)for(let b=0;b<N8;b++){const d=(a+b+1)/(2*N8);if(d>gs.pour+1e-6)continue;
+        const cq={N:uvQ(Fq,a/N8,b/N8),E:uvQ(Fq,(a+1)/N8,b/N8),S:uvQ(Fq,(a+1)/N8,(b+1)/N8),W:uvQ(Fq,a/N8,(b+1)/N8)};quad(g,cq,0,!gs.cured&&d>gs.pour-.25?C.wet:C.dry);}
+        if(gs.pour<1){const f=gs.pour;const a=uvQ(Fq,c01(f*2),0),b=uvQ(Fq,0,c01(f*2));const a2=uvQ(Fq,1,c01(f*2-1)),b2=uvQ(Fq,c01(f*2-1),1);
+          const p=f<=.5?a:a2,q=f<=.5?b:b2;ln(g,p[0],p[1]-1,q[0],q[1]-1,C.wetHi);}}}
+    // 樁頭（照格點逐根出現）：fix2 改在 groundLive 每幀直接畫（一根一根冒出來不必重烘後層）；澆灌開始後樁頭埋進筏基，不再畫
+    // fix2 回填：地下室牆（灰色混凝土帶、每 4px 一個對拉螺栓孔）沿兩面後坑壁從坑底往上長，頂緣一條亮線；牆後的土跟著回填到同一高度
+    if(gs.back>0&&dp>0){const bh=Math.min(dp,R(dp*gs.back));
+      for(const [A,B,dk] of [[Q.W,Q.N,1],[Q.N,Q.E,0]]){face(g,A,B,-dp,-dp+bh,dk?'#9a968c':'#b5b0a5');eline(g,A,B,-dp+bh-1,dk?'#cfcabe':'#ddd8cc');
+        if(bh>=4)for(let x=R(Math.min(A[0],B[0]))+2;x<R(Math.max(A[0],B[0]))-1;x+=4){const y=R(yOn(A,B,x+.5));P(g,x,y+dp-R(bh/2),1,1,dk?'#7d7a73':'#8f8b82');}}}
+    maskQuad(g,Q);g=g0;g.drawImage(pc,0,0);eline(g,Q.W,Q.S,0,'#a58760');eline(g,Q.S,Q.E,0,'#957752');}
+  else if(gs.filled&&st.slab!==false){const [i0,i1,j0,j1]=site.pit;const Q=L.Q(i0,i1,j0,j1);quad(g,Q,0,C.dry);eline(g,Q.W,Q.S,0,C.dryE);eline(g,Q.S,Q.E,0,'#a8a397');}
+  // 管溝＋地下管線（橘色電纜管、灰色排水管按進度延伸），回填後留一條深色土
+  if(gs.trench>0){const [a0,b0]=site.trench;const a=L.G(a0[0],a0[1]),bE=L.G(lerp(a0[0],b0[0],gs.trench),lerp(a0[1],b0[1],gs.trench));
+    if(!gs.filled){face(g,a,bE,-3,0,'#4a3a2a');eline(g,a,bE,-1,C.pipeO);eline(g,a,bE,-2,C.pipeG);eline(g,a,bE,0,'#a58760');}
+    else if(gs.dirt>0){g.globalAlpha=gs.dirt;eline(g,a,bE,0,'#6a523a',2);g.globalAlpha=1;}}}
+function drawGroundFront(g,L,M,st,lod){const gs=st.gs,site=M.site;
+  if(gs.boxOn)distBox(g,L.G(site.box[0],site.box[1]));
+  if(gs.cabinOn){if(site.cabin)cabin(g,L.G(site.cabin[0],site.cabin[1]),1);if(site.toilet)toilet(g,L.G(site.toilet[0],site.toilet[1]));if(site.toolbox)toolbox(g,L.G(site.toolbox[0],site.toolbox[1]));}
+  if(st.laydown&&site.yard){const y=site.yard;if(M.k===190){const pa=st.pickAt||[13.6,11.0],other=pa[1]>9?[13.6,7.2]:[13.6,11.0];yardStack(g,L.G(other[0],other[1]),'stone');yardStack(g,L.G(pa[0],pa[1]),st.laydown);}else yardStack(g,L.G(y[0]+2.2,y[1]+.6),st.laydown);}   // fix2：大笨鐘本期堆料放在吊桿的吊點下（右前），石料堆在後
+  if(st.shedOn&&site.shed)shed(g,L.G(site.shed[0],site.shed[1]));
+  drawFence(g,L,M,gs.fence,true,lod<1);}
+
+/* ---------- 專屬施工狀態（P→量化工序＋腳本道具） ---------- */
+function stateOf(E,L,M,P,tier,lod){
+  const gs=groundState(M,P);const st={P,tier,gs,lod,vols:[],plats:[]};
+  const pt0=id=>qz(seg(P,M.parts[id][0],M.parts[id][1]),M.quant[id]||4);
+  const pv=partsOf(M,P);st.pv=pv;
+  st.plateUnder=P>=M.site.gw.clean[0]&&pv.plate<1;
+  if(tier>=2){const rg=M.rig(P,id=>pv[id]==null?1:pv[id]);st.rig=rg;
+    st.vols=rg.vols.map(v=>Object.assign({},v,{h1:Math.floor(v.h1/2)*2}));st.plats=rg.plats;st.laydown=rg.laydown;st.ring=rg.ring;st.pickAt=rg.pickAt;st.shedOn=M.deco.shed&&P>=2.2&&P<M.site.gw.fenceOff[0];}
+  else{st.laydown=P>=2.8&&P<7.0?(M.k===190?'stone':'steel'):null;st.shedOn=false;}
+  if(tier===1){ // 通用量體：結構（灰殼）與外牆高度逐量體（X12PROF 窗）
+    st.mh=M.ms.map(m=>{const fh=m.fh||(M.k===190?15:8),nF=Math.max(1,R(m.h/fh));const sp=seg(P,m.win[0],m.win[1]);const sh=sp>=1?m.h:Math.floor(sp*nF)*m.h/nF;
+      let kh=m.method==='masonry'||m.method==='slipform'?sh:Math.floor(m.h*seg(P,m.skinWin[0],m.skinWin[1])/(fh/2))*(fh/2);return [R(sh),R(Math.min(kh,sh))];});
+    for(let i=0;i<M.ms.length;i++){const m=M.ms[i];if(!m.scaf||P<3)continue;const top=st.mh[i][0];const done=st.mh[i][1]>=m.h;
+      const h=R(Math.min(m.h+6,top+8)*(1-seg(P,7.8,8.4)));if(h>3){const lenL=(m.S[0]-m.W[0])/2,lenR=(m.E[0]-m.S[0])/2;st.vols.push({S:m.S,lenL,lenR,h0:0,h1:Math.floor(h/2)*2,lift:m.fh||8,off:1.4,net:!done});}}}
+  if(tier===0){const s=E.s,Ht=s.ay-opaqueTop(s.img);st.Htot=Ht;st.Hs=Math.floor((Ht+2)*seg(P,3.0,6.4)/3)*3;st.Hf=Math.floor((Ht+6)*seg(P,4.2,7.4)/4)*4;}
+  // 塔吊（專屬檔或通用）
+  const cr=M.crane;
+  if(cr&&tier>=1){const up=seg(P,cr.erect[0],cr.erect[1]),dn=seg(P,cr.strike[1]-.25,cr.strike[1]);const H=cr.H;
+    const mH=Math.floor(H*up*(1-dn)/8)*8;st.crane={base:cr.base,H,mastH:mH,L:cr.L,Lc:cr.Lc,Lj:cr.Lj,kv:cr.kv,luff:cr.luff,jibK:P<cr.jibAt?0:1-seg(P,cr.strike[0],cr.strike[0]+.15),cjK:P<cr.jibAt?0:1-seg(P,cr.strike[0]+.12,cr.strike[0]+.22)};
+    const pz=cr.inside?(!gs.filled?-gs.dp:tier>=2?craneThrough(M,st.pv):(st.mh?Math.max(0,st.mh[0][0],st.mh[1][0]):0)):0;st.crane.z0=pz;}   // fix2：桅杆底一直站在坑底筏基上，地板蓋好（回填完）才從地板面算起
+  if(tier===1&&M.k===190&&P>=2.3&&P<7.8){const up=seg(P,2.3,2.8),dn=seg(P,7.55,7.8);st.crane={base:[13.6,2.2],H:212,mastH:Math.floor(212*up*(1-dn)/8)*8,L:9,Lc:2.5,jibK:P<2.8?0:1-seg(P,7.3,7.45),cjK:P<2.8?0:1-seg(P,7.42,7.52),z0:0};}
+  st.keyB=[tier,lod,gs.key,st.plateUnder?1:0].join('|');   // 後層
+  st.keyF=[tier,lod,gs.fence.up,gs.fence.off,gs.boxOn?1:0,gs.cabinOn?1:0,st.vols.map(volKey).join('/'),st.laydown||'',st.pickAt?st.pickAt.join(','):'',st.shedOn?1:0,
+    st.mh?st.mh.join(';'):'',st.Hs!=null?st.Hs+'/'+st.Hf:'',tier<2&&st.crane?st.crane.mastH+'m'+st.crane.z0:''].join('|');   // 前層（tier 2 不含構件向量、平台、桅杆、爬模平台——那些每幀直接畫）
+  st.keyLive=[tier>=2&&st.ring?st.ring.z+'r'+st.ring.keep:'',st.crane?st.crane.mastH+'m'+st.crane.z0:'',(st.plats||[]).map(p=>R(p.x)+','+R(p.y)).join('/')].join('|');   // 光池遮擋要用
+  return st;}
+// 塔吊桅杆穿出處（主廳中央）：當下結構在桅杆位置的高度
+function craneThrough(M,pv){if(M.k!==192)return 0;const hB=34;let h=Math.max(R(hB*pv.hallA),R(hB*pv.hallB),R(hB*pv.frameA),R(hB*pv.frameB));if(pv.roof>=.75)h=hB+6;return h;}
+
+/* ---------- 灰殼（通用量體用）：手動去色＋樓板亮暗線（第一次用到才烘，不依賴 ctx.filter） ---------- */
+function shellOf(s,M){if(s.img.__x13shell)return s.img.__x13shell;const w=s.img.width,h=s.img.height;const[c,g]=mkc(w,h);g.drawImage(s.img,0,0);
+  try{const im=g.getImageData(0,0,w,h),d=im.data;for(let i=0;i<d.length;i+=4){if(!d[i+3])continue;const l=.3*d[i]+.59*d[i+1]+.11*d[i+2],v=112+.46*l;d[i]=v;d[i+1]=v-2;d[i+2]=v-6;}g.putImageData(im,0,0);}catch(e){}
+  for(const m of M.ms){if(m.cyl)continue;const fh=m.fh||(M.k===190?15:8);for(let hh=fh;hh<m.h-1;hh+=fh){g.globalCompositeOperation='source-atop';
+    for(const [col,dy] of [['rgba(238,235,226,.9)',0],['rgba(52,52,58,.5)',1]]){const A=[m.W[0],m.W[1]+dy],S=[m.S[0],m.S[1]+dy],E=[m.E[0],m.E[1]+dy];eline(g,A,S,hh,col);eline(g,S,E,hh,col);}}}
+  g.globalCompositeOperation='source-over';s.img.__x13shell=c;return c;}
+// 量體稜柱剪影的聯集（逐欄 rect，邊緣清脆）→ 遮罩 destination-in
+function prismMask(mg,ms,hs,w,hh){if(!hs.some(v=>v>.5)){mg.clearRect(0,0,mg.canvas.width,mg.canvas.height);return;}   // 空路徑的 destination-in 不會清畫布，要自己清
+  mg.globalCompositeOperation='destination-in';mg.fillStyle='#000';mg.beginPath();
+  ms.forEach((m,i)=>{const h1=hs[i];if(h1<=.5)return;
+    if(m.cyl){mg.rect(R(m.cx-m.r-1),R(m.by-h1-2),R(2*m.r+3),R(h1+4));return;}
+    const Nb=m.N;for(let x=R(m.W[0]);x<R(m.E[0]);x++){const xc=x+.5,yb=(xc<m.S[0]?yOn(m.W,m.S,xc):yOn(m.S,m.E,xc))+3,yt=(xc<Nb[0]?yOn(m.W,Nb,xc):yOn(Nb,m.E,xc))-h1;const t=R(yt),b=R(yb);if(b>t)mg.rect(x,t,1,b-t);}});
+  mg.fill();mg.globalCompositeOperation='source-over';}
+let SCR=null;function scratch(w,h){if(!SCR||SCR[0].width<w||SCR[0].height<h)SCR=mkc(Math.max(w,SCR?SCR[0].width:0),Math.max(h,SCR?SCR[0].height:0));const g=SCR[1];g.globalCompositeOperation='source-over';g.globalAlpha=1;g.clearRect(0,0,SCR[0].width,SCR[0].height);return SCR;}
+// 剪影灰模（第 0 層）：精靈剪影染混凝土、等距 V 形樓板線，切在 Hs 的 V 線以下；外牆沿 V 線落後揭露
+function massing(g,s,S,Hs,fl,oy){if(Hs<=0)return;const w=s.w,hh=s.h;const[mc,mg]=scratch(w,hh);mg.drawImage(s.img,0,0,w,hh);
+  mg.globalCompositeOperation='source-in';mg.fillStyle='#b9b4a9';mg.fillRect(0,0,w,hh);
+  mg.globalCompositeOperation='source-atop';mg.fillStyle='rgba(40,36,32,.2)';mg.fillRect(R(S[0]),0,w,hh);
+  const vy=(x,H)=>S[1]-H-Math.abs(x+.5-S[0])/2;
+  for(let H=fl;H<Hs;H+=fl)for(let x=0;x<w;x++){const y=R(vy(x,H));mg.fillStyle='#d8d3c8';mg.fillRect(x,y,1,1);mg.fillStyle='rgba(40,38,34,.35)';mg.fillRect(x,y+1,1,1);}
+  mg.globalCompositeOperation='destination-in';mg.fillStyle='#000';mg.beginPath();for(let x=0;x<w;x++){const t=Math.max(0,R(vy(x,Hs)));mg.rect(x,t,1,hh-t);}mg.fill();
+  mg.globalCompositeOperation='source-over';g.drawImage(mc,0,0,w,hh,0,oy,w,hh);}
+function revealV(g,s,S,Hf,oy){if(Hf<=0)return;const w=s.w,hh=s.h;const[mc,mg]=scratch(w,hh);mg.drawImage(s.img,0,0,w,hh);
+  mg.globalCompositeOperation='destination-in';mg.fillStyle='#000';mg.beginPath();for(let x=0;x<w;x++){const t=Math.max(0,R(S[1]-Hf-Math.abs(x+.5-S[0])/2));mg.rect(x,t,1,hh-t);}mg.fill();
+  mg.globalCompositeOperation='source-over';g.drawImage(mc,0,0,w,hh,0,oy,w,hh);}
+
+// 平台（大笨鐘塔頂工作面一圈）：後兩條在精靈前畫、前兩條在精靈後畫
+function ringStrips(L,z,keep){const o=1.2,a0=5.5-o,a1=10+o;const Q=(i0,i1,j0,j1)=>L.Q(i0,i1,j0,j1,z);
+  const all=[['BL',Q(a0,5.5,a0,10),0],['BR',Q(5.5,10,a0,5.5),0],['FL',Q(a0,a1,10,a1),1],['FR',Q(10,a1,a0,10),1]];
+  return all.filter((s,i)=>i<R(4*keep+1e-6)||keep>=1);}
+/* 畫筆（fix2）：同一支畫法可以畫進 1× 快取畫布（penG）或每幀直接畫到螢幕（penD，mkDraw 的逐欄方塊＝1× 光柵放大，像素一樣）。
+   平台、塔吊桅杆、爬模平台這些「跟著結構每皮都在動」的東西改成每幀直接畫，不再逼 Layer 重烘。 */
+function penG(g){return {px:(x,y,w,h,c)=>P(g,x,y,w,h,c),quad:(Q,h,c)=>quad(g,Q,h,c),eline:(A,B,h,c,th)=>eline(g,A,B,h,c,th),line:(x0,y0,x1,y1,c)=>ln(g,x0,y0,x1,y1,c)};}
+function penD(D){return {px:D.px,quad:(Q,h,c)=>quadD(D,Q,h,c),eline:(A,B,h,c,th)=>faceD(D,A,B,h,h+(th||1),c),line:D.line};}
+function drawRing(pn,L,ring,front,lod){if(!ring)return;const z=ring.z;
+  for(const [nm,Q,fr] of ringStrips(L,z,ring.keep)){if(!!fr!==front)continue;
+    pn.quad(Q,0,C.plankHi);pn.eline(Q.W,Q.S,-1,C.plankD);pn.eline(Q.S,Q.E,-1,'#6e5230');
+    // 護欄：外緣立柱＋上扶手
+    const out=nm==='FL'?[Q.W,Q.S]:nm==='FR'?[Q.S,Q.E]:nm==='BL'?[Q.W,Q.N]:[Q.N,Q.E];
+    if(fr){pn.eline(out[0],out[1],4,C.rail);const n=Math.max(1,R(Math.abs(out[1][0]-out[0][0])/6));for(let i=0;i<=n;i++){const p=mid(out[0],out[1],i/n);pn.px(p[0],p[1]-4,1,4,C.poleD);}
+      // 托架：斜撐回塔身
+      if(lod>=2){const p=mid(out[0],out[1],.5);pn.line(p[0],p[1]+1,p[0]+(nm==='FL'?3:-3),p[1]+5,C.poleD);}}
+    else{pn.eline(out[0],out[1],4,C.railD);}}}
+function drawPlats(pn,plats){for(const p of plats||[]){const x=R(p.x),y=R(p.y);pn.px(x-p.r,y,2*p.r+1,2,C.plank);pn.px(x-p.r,y+2,2*p.r+1,1,C.plankD);pn.px(x-p.r,y-4,1,4,C.pole);pn.px(x+p.r,y-4,1,4,C.poleD);pn.px(x-p.r,y-4,2*p.r+1,1,C.rail);pn.px(x-2,y+3,1,3,C.poleD);pn.px(x+2,y+3,1,3,C.poleD);}}
+function drawMast(pn,L,cr){if(!cr||cr.mastH<=0)return;const b=L.G(cr.base[0],cr.base[1]);mast(pn,b[0],b[1],cr.z0,cr.mastH);}
+
+/* fix2（第 2 輪審查：Layer A 重烘太頻繁）：Layer A 拆成「後層」與「前層」，階段精靈不再烘進去、每幀直接畫在兩層中間。
+   後層＝地坪／地面工序／後圍籬／平台後兩條（鍵：地面工序＋平台高）；前層＝塔吊桅杆／鷹架／爬模平台／平台前兩條／前排道具（鍵：桅杆、鷹架層數、平台、道具）。
+   構件向量（pv）不進任何一層的鍵，鷹架用「層數」當鍵（畫法本來就只看層數）⇒ 結構每長一皮不必重烘。畫面跟 fix1 的單張 Layer A 是同一個疊放順序。 */
+function bakeBack(E,L,M,st){const s=E.s,W=s.w,H=s.h+MT;const[c,g]=mkc(W,H);g.save();g.translate(0,MT);
+  if(st.plateUnder){const pl=stagePlate(E,M);if(pl)g.drawImage(pl.img,0,0,pl.w,pl.h);}
+  drawGroundBack(g,L,M,st,st.lod);
+  g.restore();return {c,f:FR.id,bytes:W*H*4,st};}
+function bakeFront(E,L,M,st){const s=E.s,W=s.w,H=s.h+MT;const[c,g]=mkc(W,H);g.save();g.translate(0,MT);drawFrontPart(g,E,L,M,st);g.restore();return {c,f:FR.id,bytes:W*H*4,st};}
+// 本體（tier 0／1 才在這裡；tier 2 的階段精靈每幀直接畫）＋鷹架＋前排道具（塔吊桅杆、爬模平台、平台每幀直接畫：drawLiveMid／drawLiveTop）
+function drawFrontPart(g,E,L,M,st){const s=E.s,W=s.w,lod=st.lod;
+  if(st.tier===1){const[mc,mg]=scratch(W,s.h);const any=st.mh.some(v=>v[0]>0);
+    if(any){mg.drawImage(shellOf(s,M),0,0);prismMask(mg,M.ms,st.mh.map(v=>v[0]),W,s.h);g.drawImage(mc,0,0,W,s.h,0,0,W,s.h);
+      const[mc2,mg2]=scratch(W,s.h);mg2.drawImage(s.img,0,0);prismMask(mg2,M.ms,st.mh.map(v=>v[1]),W,s.h);g.drawImage(mc2,0,0,W,s.h,0,0,W,s.h);}}
+  else if(st.tier===0){g.restore();massing(g,s,[s.ax,s.ay],st.Hs,M.k===190?15:9,MT);revealV(g,s,[s.ax,s.ay],st.Hf,MT);g.save();g.translate(0,MT);}
+  if(st.tier<2)drawMast(penG(g),L,st.crane);
+  for(const v of st.vols)scaffold(g,v,lod);
+  drawGroundFront(g,L,M,st,lod);}
+// 每幀直接畫的三段（畫在 Layer 與階段精靈之間，順序跟 fix1 的單張 Layer A 一樣）：
+//   drawLiveBack：平台後兩條（精靈前）；drawLiveMid：塔吊桅杆（精靈後、鷹架前）；drawLiveTop：爬模平台＋平台前兩條（前層之後；跟前排道具在畫面上不重疊）
+function drawLiveBack(pn,L,st){if(st.tier>=2&&st.ring)drawRing(pn,L,st.ring,false,st.lod);}
+function drawLiveMid(pn,L,st){if(st.tier>=2)drawMast(pn,L,st.crane);}   // tier 0／1 的本體在前層裡，桅杆跟著烘在前層（本體之後）
+function drawLiveTop(pn,L,st){drawPlats(pn,st.plats);if(st.tier>=2&&st.ring)drawRing(pn,L,st.ring,true,st.lod);}
+// 地面以上的東西（平台後兩條、樓、桅杆、鷹架、前排道具）：夜燈第③級的地面光池用它當遮擋（樓擋住的地方不亮）
+function drawAbove(g,E,L,M,st){const pn=penG(g);
+  drawLiveBack(pn,L,st);
+  if(st.tier>=2&&st.sprite)g.drawImage(st.sprite.img,0,0,st.sprite.w,st.sprite.h);
+  drawLiveMid(pn,L,st);drawFrontPart(g,E,L,M,st);drawLiveTop(pn,L,st);}
+// 鷹架的畫法只看「層數」：h1−h0<3 不畫；否則 lifts＝floor((h1−2−h0)/lift)
+const volKey=v=>{const h0=v.h0||0,n=v.h1-h0<3?-1:Math.floor((v.h1-2-h0)/(v.lift||8));return R(v.S[0])+','+R(v.S[1])+','+v.lenL+','+v.lenR+':'+n+(v.net?'n':'');};
+/* 夜燈第③級的地面光池（fix2：跟 generic 軌 bandImg 同一組，C 裡地標工地與一般工地的③長一樣）：
+   地塊置中三層平色菱形（邊長 .96／.72／.46 × 地塊），由外往內一層層疊：rgba(255,214,150,.16)→rgba(255,214,150,.14)→rgba(255,220,164,.14)；不用漸層。
+   燈桿也照 generic：地塊左角、右角（地塊座標 .06／.94）各一支 15px 灰桿＋4×2 燈頭。
+   在 Layer 同一張畫布座標裡烘：只留地塊內（內縮 2.5%，同 generic），再用「地面以上的東西」（後圍籬、平台、樓、桅杆、鷹架、前排道具）挖掉，
+   所以樓自然擋住光池（generic 是剪掉量體稜柱，效果相同）。鍵＝前層鍵＋階段精靈（樓長高了要重挖），跟 Layer 同一個 LRU、完工一起釋放。 */
+const FLOOD_BANDS=[[.96,'rgba(255,214,150,.16)'],[.72,'rgba(255,214,150,.14)'],[.46,'rgba(255,220,164,.14)']],FLOOD_POLES=[[.06,.94],[.94,.06]];
+function bakePool(E,L,M,st){const s=E.s,W=s.w,H=s.h+MT,T=L.T;
+  const[pc,pg]=mkc(W,H);pg.save();pg.translate(0,MT);
+  for(const [s0,col] of FLOOD_BANDS){const a=T*(.5-s0/2),b=T*(.5+s0/2);quad(pg,L.Q(a,b,a,b),0,col);}
+  maskQuad(pg,L.Q(T*.025,T*.975,T*.025,T*.975));pg.restore();
+  const[oc,og]=mkc(W,H);og.save();og.translate(0,MT);drawFence(og,L,M,st.gs.fence,false,st.lod<1);drawAbove(og,E,L,M,st);og.restore();
+  pg.globalCompositeOperation='destination-out';pg.drawImage(oc,0,0);pg.globalCompositeOperation='source-over';
+  return {c:pc,f:FR.id,bytes:W*H*4,st};}
+// Layer 取用：命中就移到 LRU 尾；沒有時本幀額度內現烘，額度用完沿用這一層上一張（force＝不看額度）
+function layerGet(lk,lastKey,bake,force){let LA=LAYER.get(lk);
+  if(LA){LAYER.delete(lk);LAYER.set(lk,LA);}
+  else{const last=LAST.get(lastKey);
+    if(!force&&last&&(FR.layerBakes>=(W13.__x13BesMaxLayer||4)||FR.layerMs>=(W13.__x13BesMaxLayerMs||4))){LA=last;STAT.deferred++;}
+    else{const t0=performance.now();LA=bake();LA.key=lk;const dt=performance.now()-t0;FR.layerBakes++;FR.layerMs+=dt;LYR.n++;LYR.ms+=dt;
+      LAYER.set(lk,LA);layerBytes+=LA.bytes;schedPurge();const cap=(W13.__x13BesLayerMB||12)*1048576;
+      while(layerBytes>cap&&LAYER.size>1){const f=LAYER.keys().next().value;if(f===lk)break;layerBytes-=LAYER.get(f).bytes;LAYER.delete(f);LYR.evict++;}}}
+  LA.f=FR.id;LA.t=performance.now();LAST.set(lastKey,LA);return LA;}
+const stageKeyOf=sp=>{if(sp.__x13key)return sp.__x13key;for(const [k,r] of STAGE)if(r.sp===sp){sp.__x13key=k;return k;}return '?';};
+/* 階段精靈預烘（fix2）：畫完這一幀後，往後看 0.02–0.3 天，第一張還沒烘的階段精靈排進 requestIdleCallback（沒有就 setTimeout），
+   閒置時才烘（不佔這一幀）；同時最多排一張。內容跟當幀現烘完全一樣（同一支 builder、同一個構件向量），只是提早。 */
+let IDLE=null;const IDL={n:0,ms:0};
+function prebakeNext(M,bd,P,E){if(IDLE)return;const k=bd.k,v=bd.v||0;
+  for(const d of [.02,.05,.1,.2,.3]){const P2=Math.min(8.999,P+d);const pv=partsOf(M,P2);if(isStructEmpty(pv))continue;const key=k+'_'+v+'|'+pvKey(pv);if(STAGE.has(key))continue;
+    const run=()=>{IDLE=null;if(STAGE.has(key))return;const t0=performance.now();const sp=bakeStage(k,v,pv,E);if(!sp)return;
+      const r={sp,key,f:FR.id,t:performance.now(),bytes:sp.img.width*sp.img.height*4};sp.__x13key=key;STAGE.set(key,r);stageBytes+=r.bytes;IDL.n++;IDL.ms+=performance.now()-t0;schedPurge();
+      const cap=(W13.__x13BesStageMB||16)*1048576;while(stageBytes>cap&&STAGE.size>1){const f=STAGE.keys().next().value;if(f===key)break;stageBytes-=STAGE.get(f).bytes;STAGE.delete(f);STG.evict++;}};
+    IDLE=typeof requestIdleCallback==='function'?requestIdleCallback(run,{timeout:500}):setTimeout(run,30);return;}}
+const PLATE=new Map();
+function stagePlate(E,M){const k=M.k;if(PLATE.has(k))return PLATE.get(k);const pv={};for(const id in M.parts)pv[id]=id==='plate'?1:0;
+  const sp=bakeStage(k,0,pv,E);PLATE.set(k,sp);return sp;}
+
+/* =====================================================================
+   Layer B（每幀現畫）
+   ===================================================================== */
+function mkDraw(ctx,bx,by,z){const zz=Math.max(1,z),cz=Math.ceil(zz);let cur=null,n=0;   // 同色連續的方塊併成一條路徑一次 fill（保住先後順序，繪圖呼叫少一個量級）
+  const flush=()=>{if(cur!==null){ctx.fillStyle=cur;ctx.fill();cur=null;n=0;}};
+  const use=c=>{if(c!==cur||n>600){flush();cur=c;ctx.beginPath();}n++;};
+  const px=(x,y,w,h,c)=>{use(c);ctx.rect(R(bx+R(x)*z),R(by+R(y)*z),Math.max(1,R(w*z)),Math.max(1,R(h*z)));};
+  const line=(x0,y0,x1,y1,c)=>{x0=R(x0);y0=R(y0);x1=R(x1);y1=R(y1);use(c);if(x0===x1){const a=Math.min(y0,y1);ctx.rect(R(bx+x0*z),R(by+a*z),cz,Math.ceil((Math.abs(y1-y0)+1)*z));return;}
+    const dx=Math.abs(x1-x0),dy=Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let e=dx-dy;for(let k=0;k<600;k++){ctx.rect(R(bx+x0*z),R(by+y0*z),cz,cz);n++;if(x0===x1&&y0===y1)break;const e2=2*e;if(e2>-dy){e-=dy;x0+=sx;}if(e2<dx){e+=dx;y0+=sy;}}};
+  return {px,line,flush,sx:x=>bx+x*z,sy:y=>by+y*z,z};}
+// 工人：黃帽、橘背心、反光條；高 6px（比照 SPR.ped 5px＋帽）；pose＝walk／crouch／sign／carry／hammer，各 2 幀
+function worker(D,x,y,t,pose,seed,hat){x=R(x);y=R(y);const f=Math.floor(t*(pose==='hammer'?4:pose==='sign'?1.6:3)+seed*7)&1;hat=hat||C.hat;
+  if(pose==='crouch'||pose==='hammer'){D.px(x-1,y-4,3,1,hat);D.px(x-1,y-3,3,1,C.vest);D.px(x-1,y-2,3,1,C.vestHi);D.px(x-1,y-1,3,1,C.pant);D.px(x+2,y-1,1,1,C.pant);
+    if(pose==='hammer'){if(f){D.px(x+2,y-4,1,2,C.skin);D.px(x+2,y-5,2,1,'#5a4a3a');}else{D.px(x+2,y-2,1,1,C.skin);D.px(x+3,y-2,1,1,'#5a4a3a');}}
+    else D.px(x+2,y-2+(f?0:1),1,1,C.skin);return;}
+  D.px(x-1,y-6,3,1,hat);D.px(x,y-5,1,1,C.skin);D.px(x-1,y-4,3,1,C.vest);D.px(x-1,y-3,3,1,C.vestHi);
+  if(pose==='walk'||pose==='carry'){D.px(x-1,y-2,1,f?2:1,C.pant);D.px(x+1,y-2,1,f?1:2,C.pant);}else{D.px(x-1,y-2,1,2,C.pant);D.px(x+1,y-2,1,2,C.pant);}
+  if(pose==='sign'){if(f){D.px(x+2,y-7,1,3,C.skin);D.px(x+2,y-8,2,1,'#ff5a3a');}else{D.px(x+2,y-5,1,2,C.skin);}}
+  else if(pose==='carry'){D.px(x-3,y-7,7,1,C.plank);D.px(x-3,y-6,1,1,C.skin);}}
+const LOADS={steel:[15,3],steelc:[3,12],rebar:[13,4],form:[11,5],bucket:[5,6],brick:[7,6],chim:[7,12],cap:[9,4],glaze:[13,4],roofb:[11,3],stone:[6,6],dialF:[7,9],dialG:[9,7],dialH:[6,5],rib:[1,10]};
+function hookLoad(D,x,y,kind){ // (x,y)＝吊鉤點；吊物掛在下方
+  D.px(x,y,1,2,'#e0b83a');const sl=(dx,dy)=>{D.line(x,y+2,x-dx,y+2+dy,'#555a62');D.line(x,y+2,x+dx,y+2+dy,'#555a62');};
+  if(kind==='steel'){sl(5,3);D.px(x-7,y+5,15,1,C.rlH);D.px(x-7,y+6,15,1,C.rlD);}
+  else if(kind==='steelc'){sl(0,2);D.px(x-1,y+4,3,12,C.rl);D.px(x-1,y+4,1,12,C.rlH);}
+  else if(kind==='rebar'){sl(4,2);for(let i=0;i<3;i++)D.px(x-6,y+4+i,13,1,i%2?C.rebar:C.rebarD);}
+  else if(kind==='form'){sl(4,2);D.px(x-5,y+4,11,4,C.ply);D.px(x-5,y+4,11,1,'#dcc08a');D.px(x+5,y+4,1,4,C.plyD);}
+  else if(kind==='bucket'){D.px(x-2,y+2,5,4,'#8e8a82');D.px(x-2,y+2,5,1,'#b0aca4');D.px(x-1,y+6,3,2,'#6f6b64');}
+  else if(kind==='brick'){sl(3,2);D.px(x-3,y+4,7,4,'#b06a4a');D.px(x-3,y+4,7,1,'#c9845f');D.px(x-3,y+8,7,1,'#7b5a3a');}
+  else if(kind==='chim'){sl(2,2);D.px(x-3,y+4,7,12,'#e9e4da');D.px(x-3,y+4,2,12,'#f7f4ec');D.px(x+2,y+4,2,12,'#d6cfc2');D.px(x-3,y+15,7,1,'#c9c2b4');}
+  else if(kind==='cap'){sl(3,2);D.px(x-4,y+4,9,2,'#f7f4ec');D.px(x-3,y+6,7,1,'#5a524c');}
+  else if(kind==='glaze'){sl(5,2);D.px(x-6,y+4,13,3,'#2d4a78');D.px(x-6,y+4,13,1,'#4a74b0');D.px(x-2,y+4,1,3,'#9fb4d0');D.px(x+2,y+4,1,3,'#9fb4d0');}
+  else if(kind==='roofb'){sl(4,2);D.px(x-5,y+4,11,2,'#7a6a60');D.px(x-5,y+4,11,1,'#9a8a80');}
+  else if(kind==='stone'){D.line(x,y+2,x-2,y+3,'#555a62');D.line(x,y+2,x+2,y+3,'#555a62');D.px(x-3,y+3,6,4,C.stone);D.px(x-3,y+3,6,1,C.stoneHi);D.px(x+2,y+3,1,4,C.stoneD);}
+  // fix2：鐘盤構件分件吊（不再吊一整個完成的小鐘）：金框＝空心方框；乳白玻璃＝木托架上一片白玻璃（沒有指針）；指針＝兩根黑色細條
+  else if(kind==='dialF'){sl(3,2);D.px(x-3,y+4,7,1,'#e2c060');D.px(x-3,y+4,1,7,'#d8b24a');D.px(x-3,y+10,7,1,'#a8862e');D.px(x+3,y+4,1,7,'#8a6c22');}
+  else if(kind==='dialG'){sl(4,2);D.px(x-3,y+4,7,4,'#f2ecd8');D.px(x-3,y+4,7,1,'#fbf8ee');D.px(x+3,y+5,1,3,'#d8cfb6');D.px(x-4,y+8,9,1,'#8a6a3a');}
+  else if(kind==='dialH'){D.line(x,y+2,x-2,y+4,'#555a62');D.line(x,y+2,x+2,y+4,'#555a62');D.px(x-3,y+5,7,1,'#20242c');D.px(x-2,y+6,4,1,'#3a3f48');}
+  else if(kind==='rib'){D.px(x,y+2,1,10,'#3e4652');}
+  else D.px(x-3,y+2,7,3,'#8e959c');}
+// 夜燈推進 nightSprites（帶剪裁：只亮在指定小框內，不溢到天空）
+function nl(ns,D,x,y,w,h,col){if(W13.__x13BesNoNL)return;const r=[D.sx(R(x)),D.sy(R(y)),Math.max(1,R(w)*D.z),Math.max(1,R(h)*D.z)];if(W13.__x13BesNLlog)W13.__x13BesNLlog.push(r.slice());ns.push({rect:r,col,clip643:g=>{g.beginPath();g.rect(r[0]-1,r[1]-1,r[2]+2,r[3]+2);g.clip();}});}
+function lotClip(L,D){const q=L.Q(0,L.T,0,L.T);return g=>{g.beginPath();g.moveTo(D.sx(q.N[0]),D.sy(q.N[1]));g.lineTo(D.sx(q.E[0]),D.sy(q.E[1]));g.lineTo(D.sx(q.S[0]),D.sy(q.S[1]));g.lineTo(D.sx(q.W[0]),D.sy(q.W[1]));g.closePath();g.clip();};}
+
+// 塔吊（Layer B）：迴轉＋小車＋吊鉤＋吊物；6 秒一輪：掛料→起吊→迴轉（小車同時移動）→下放到當前樓板→脫鉤→空鉤回轉→落鉤
+function craneLive(D,L,cr,t,rg,night,ns,lite){
+  const H=cr.mastH;if(H<=0)return;const B=cr.base;const T=L.G(B[0],B[1],H);
+  if(cr.jibK<=0&&cr.cjK<=0){D.px(T[0]-1,T[1]-2,3,2,C.craneD);return;}
+  if(cr.luff)return luffLive(D,L,cr,t,rg,night,ns,lite);
+  const pick=rg&&rg.pick||[B[0]+4,B[1]+4],drop=rg&&rg.drop||[B[0]-3,B[1]+2],dropH=rg?rg.dropH:0,loads=rg&&rg.loads||['steel'];
+  const vP=[pick[0]-B[0],pick[1]-B[1]],vD=[drop[0]-B[0],drop[1]-B[1]];const Lj=cr.L*cr.jibK;
+  const rP=Math.min(Lj-.5,Math.hypot(vP[0],vP[1])),rD=Math.min(Lj-.5,Math.hypot(vD[0],vD[1]));
+  let th0=Math.atan2(vP[1],vP[0]),th1=Math.atan2(vD[1],vD[0]);let dth=th1-th0;while(dth>Math.PI)dth-=2*Math.PI;while(dth<-Math.PI)dth+=2*Math.PI;
+  const ph=(t/6)%1,n=Math.floor(t/6);const load=loads[n%loads.length],lh=(LOADS[load]||[5,4])[1]+3;
+  const topH=H-8,hP=(rg&&rg.pickH||0)+lh+1,hD=Math.max(dropH,0)+lh+1;let th,r,hh,carry;
+  if(cr.jibK<1){th=th0+dth*.5;r=Math.max(0,Lj*.5);hh=topH;carry=false;}
+  else if(ph<.10){th=th0;r=rP;hh=hP;carry=true;}
+  else if(ph<.28){th=th0;r=rP;hh=lerp(hP,topH,sm((ph-.10)/.18));carry=true;}
+  else if(ph<.50){const k=sm((ph-.28)/.22);th=th0+dth*k;r=lerp(rP,rD,k);hh=topH;carry=true;}
+  else if(ph<.64){th=th0+dth;r=rD;hh=lerp(topH,hD,sm((ph-.50)/.14));carry=true;}
+  else if(ph<.72){th=th0+dth;r=rD;hh=hD;carry=ph<.68;}
+  else if(ph<.80){th=th0+dth;r=rD;hh=lerp(hD,topH,sm((ph-.72)/.08));carry=false;}
+  else if(ph<.94){const k=sm((ph-.80)/.14);th=th0+dth*(1-k);r=lerp(rD,rP,k);hh=topH;carry=false;}
+  else{th=th0;r=rP;hh=lerp(topH,hP,sm((ph-.94)/.06));carry=false;}
+  hh=Math.min(hh,topH);   // 吊鉤永遠在吊臂下方
+  const dir=[Math.cos(th),Math.sin(th)],v=fromIJ(dir[0],dir[1]);
+  const J=[T[0]+v[0]*Lj,T[1]+v[1]*Lj],Lc=cr.Lc*cr.cjK,CJ=[T[0]-v[0]*Lc,T[1]-v[1]*Lc],AP=[T[0],T[1]-8];
+  if(lite){D.line(T[0],T[1],J[0],J[1],C.crane);return;}
+  const jib=()=>{if(Lj<=.3)return;D.line(T[0],T[1],J[0],J[1],C.crane);D.line(T[0],T[1]-2,J[0],J[1]-1,C.craneD);const n=Math.max(2,R(Lj/1.6));for(let i=0;i<n;i++){const a=mid(T,J,i/n),b=mid(T,J,(i+.5)/n);D.line(a[0],a[1],b[0],b[1]-2,C.craneHi);}
+    const tie=mid(T,J,.66);D.line(AP[0],AP[1],tie[0],tie[1]-2,'#8a6a1c');};
+  const cjib=()=>{if(Lc<=.2)return;D.line(T[0],T[1],CJ[0],CJ[1],C.crane);D.line(AP[0],AP[1],CJ[0],CJ[1]-1,'#8a6a1c');D.px(CJ[0]-2,CJ[1]-1,4,4,C.cw);D.px(CJ[0]-2,CJ[1]-1,4,1,'#b4b0a8');};
+  const back=v[1]<0;if(back){jib();cjib();}else{cjib();jib();}
+  D.px(T[0]-1,T[1]-8,1,8,C.craneD);D.px(T[0],T[1]-8,1,8,C.crane);D.px(T[0]-1,T[1]-9,3,1,C.craneD);   // 塔頭
+  D.px(T[0]+1,T[1]+1,4,3,C.crane);D.px(T[0]+2,T[1]+2,2,1,'#7ec8e8');   // 駕駛室
+  if(Lj>.5){const tr=[T[0]+v[0]*r,T[1]+v[1]*r];const g0=L.G(B[0]+dir[0]*r,B[1]+dir[1]*r);const hy=g0[1]-hh;
+    D.px(tr[0]-1,tr[1],3,1,'#555a62');D.line(tr[0],tr[1]+1,tr[0],hy,'#3c4046');if(carry)hookLoad(D,tr[0],hy,load);else D.px(tr[0],hy,1,2,'#e0b83a');}
+  if(night&&ns){if(Math.floor(t*2.2)%2===0){nl(ns,D,AP[0]-1,AP[1]-1,2,2,'#ff4a3a');if(Lj>.5)nl(ns,D,R(J[0]),R(J[1])-1,1,2,'#ff4a3a');}nl(ns,D,T[0]+2,T[1]+2,2,1,'#ffe0a0');}}   // 燈都釘在塔頭、吊臂尖、駕駛室窗（白天就有的像素）
+// 動臂塔吊（Layer B，fix1）：吊鉤掛在臂尖正下方（沒有小車），換伸距靠臂的仰角（變幅）；
+// 6 秒一輪：掛料→起吊（很快離地）→迴轉＋變幅→下放到當前工作面→脫鉤→空鉤收回→迴轉回料場→落鉤
+function luffLive(D,L,cr,t,rg,night,ns,lite){
+  const H=cr.mastH,B=cr.base,T=L.G(B[0],B[1],H),Lj=cr.Lj*cr.jibK,kv=cr.kv||2,Lc=cr.Lc*cr.cjK;
+  const vOf=r=>kv*Math.sqrt(Math.max(0,Lj*Lj-r*r));   // 臂尖離桅頂的高（px）
+  const pick=rg&&rg.pick||[B[0]+4,B[1]+4],drop=rg&&rg.drop||[B[0]-3,B[1]+2],dropH=rg?rg.dropH:0,loads=rg&&rg.loads||['steel'];
+  const vP=[pick[0]-B[0],pick[1]-B[1]],vD=[drop[0]-B[0],drop[1]-B[1]];
+  const rMin=Math.min(4,Lj*.4),rMax=Math.max(rMin,Math.min(cr.L,Lj*.92)),rc=q=>Math.max(rMin,Math.min(rMax,Math.hypot(q[0],q[1])));
+  const rP=rc(vP),rD=rc(vD);
+  let th0=Math.atan2(vP[1],vP[0]),th1=Math.atan2(vD[1],vD[0]);let dth=th1-th0;while(dth>Math.PI)dth-=2*Math.PI;while(dth<-Math.PI)dth+=2*Math.PI;
+  const ph=(t/6)%1,n=Math.floor(t/6);const load=loads[n%loads.length],lh=(LOADS[load]||[5,4])[1]+3;
+  const hP=(rg&&rg.pickH||0)+lh+1,hD=Math.max(dropH,0)+lh+1,top=q=>H+vOf(q)-4;   // top＝吊鉤收到最高（臂尖下 4px）
+  let th,r,hh,carry;
+  if(cr.jibK<1){th=th0+dth*.5;r=Math.max(rMin,Math.min(rMax,Lj*.45));hh=top(r);carry=false;}   // 裝臂／拆臂中：吊鉤收在臂尖下
+  else if(ph<.05){th=th0;r=rP;hh=hP;carry=true;}   // 在料場掛料（吊鉤貼地、鋼索最長的時間壓到一成左右）
+  else if(ph<.17){th=th0;r=rP;hh=lerp(hP,top(rP),sm((ph-.05)/.12));carry=true;}
+  else if(ph<.43){const k=sm((ph-.17)/.26);th=th0+dth*k;r=lerp(rP,rD,k);hh=top(r);carry=true;}
+  else if(ph<.57){th=th0+dth;r=rD;hh=lerp(top(rD),hD,sm((ph-.43)/.14));carry=true;}
+  else if(ph<.67){th=th0+dth;r=rD;hh=hD;carry=ph<.63;}
+  else if(ph<.75){th=th0+dth;r=rD;hh=lerp(hD,top(rD),sm((ph-.67)/.08));carry=false;}
+  else if(ph<.93){const k=sm((ph-.75)/.18);th=th0+dth*(1-k);r=lerp(rD,rP,k);hh=top(r);carry=false;}
+  else{th=th0;r=rP;hh=lerp(top(rP),hP,sm((ph-.93)/.07));carry=false;}
+  hh=Math.min(hh,top(r));
+  const dir=[Math.cos(th),Math.sin(th)],v=fromIJ(dir[0],dir[1]);
+  const J=L.G(B[0]+dir[0]*r,B[1]+dir[1]*r,H+vOf(r)),AP=[T[0],T[1]-8],CJ=[T[0]-v[0]*Lc,T[1]-v[1]*Lc];
+  if(lite){D.line(T[0],T[1],J[0],J[1],C.crane);return;}
+  const jib=()=>{if(Lj<=.3)return;const dx=J[0]-T[0],dy=J[1]-T[1],steep=Math.abs(dy)>=Math.abs(dx),ox=steep?1:0,oy=steep?0:1;
+    D.line(T[0],T[1],J[0],J[1],C.crane);D.line(T[0]+ox,T[1]+oy,J[0]+ox,J[1]+oy,C.craneD);   // 雙弦桁架臂
+    const m=Math.max(2,R(Math.hypot(dx,dy)/3));for(let i=1;i<m;i++){const a=mid(T,J,i/m);D.px(R(a[0])+(i&1?ox:0),R(a[1])+(i&1?oy:0),1,1,i&1?C.craneHi:'#8a6a1c');}   // 腹桿交錯點
+    D.line(AP[0],AP[1],J[0],J[1],'#5a5448');};   // 變幅鋼索：塔頭 A 架頂→臂尖
+  const cjib=()=>{if(Lc<=.2)return;D.line(T[0],T[1]-1,CJ[0],CJ[1]-1,C.crane);D.line(AP[0],AP[1],CJ[0],CJ[1]-2,'#5a5448');D.px(CJ[0]-2,CJ[1]-2,4,4,C.cw);D.px(CJ[0]-2,CJ[1]-2,4,1,'#b4b0a8');};   // 短平衡臂＋配重
+  const head=()=>{D.px(T[0]-1,T[1]-8,1,8,C.craneD);D.px(T[0],T[1]-8,1,8,C.crane);D.px(T[0]-1,T[1]-9,3,1,C.craneD);D.px(T[0]+1,T[1]+1,4,3,C.crane);D.px(T[0]+2,T[1]+2,2,1,'#7ec8e8');};   // 塔頭 A 架＋駕駛室
+  if(v[1]<0){jib();cjib();head();}else{cjib();head();jib();}   // 臂朝後先畫、朝前後畫
+  if(Lj>.5){const g0=L.G(B[0]+dir[0]*r,B[1]+dir[1]*r),hy=g0[1]-hh;D.line(J[0],J[1]+1,J[0],hy,'#646a72');if(carry)hookLoad(D,J[0],hy,load);else D.px(J[0],hy,1,2,'#e0b83a');}   // 鋼索用中灰（比黑線輕）
+  if(night&&ns){if(Math.floor(t*2.2)%2===0){nl(ns,D,AP[0]-1,AP[1]-1,2,2,'#ff4a3a');if(Lj>.5)nl(ns,D,R(J[0]),R(J[1]),1,1,'#ff4a3a');}nl(ns,D,T[0]+2,T[1]+2,2,1,'#ffe0a0');}}   // 燈都釘在塔頭、臂尖、駕駛室窗（白天就有的像素）
+/* 大笨鐘塔頂吊桿（fix2 重做）：桅杆立在平台前角，仰臂只在前方扇形迴轉（臂尖永遠在塔身佔地外），5 秒一輪：
+   料場掛料 → 吊起（長繩收短）→ 迴轉＋變幅到卸料點 → 放下（吊物底貼平台板／鐘盤期停在盤面正前方）→ 脫鉤 → 空鉤收起 → 轉回 → 落鉤。
+   幾何（臂尖、吊鉤高）全部由 derrickGeo 算，自檢用同一支函式。 */
+const DK_SEC=a=>{while(a<-Math.PI/2-1e-6)a+=2*Math.PI;while(a>Math.PI+1e-6)a-=2*Math.PI;return a;};   // 轉進前方扇形 [−90°,180°]（前角桅杆；右後角桅杆用 [−90°,90°]，挑的吊點、卸料點都在這一半，線性內插不會出扇形）
+function derrickGeo(dk,t){const B=dk.base,z=dk.z,fold=dk.fold||0,Lb=dk.Lb;
+  const n=Math.floor(t/5),ph=(t/5)%1,dr=dk.drops[((n%dk.drops.length)+dk.drops.length)%dk.drops.length];
+  const ang=q=>DK_SEC(Math.atan2(q[1]-B[1],q[0]-B[0])),rad=q=>Math.hypot(q[0]-B[0],q[1]-B[1]);
+  const thP=ang(dk.pick),thD=ang(dr.p),rP=Math.min(Lb*.97,rad(dk.pick)),rD=Math.min(Lb*.97,rad(dr.p));
+  const tipZ=r=>z+12+2.2*Math.sqrt(Math.max(0,Lb*Lb-r*r));   // 仰臂：伸距越短、臂尖越高
+  const gH=dk.lb+1,top=r=>tipZ(r)-3;   // gH＝吊物底貼地時吊鉤離地；top＝吊鉤收到最高（臂尖下 3px）
+  let th,r,hz,carry;
+  if(fold>0){th=(thP+thD)/2;r=lerp(Math.min(rP,rD),Lb*.3,fold);hz=top(r);carry=false;}
+  else if(ph<.40){th=thP;r=rP;hz=lerp(gH,top(rP),sm(ph/.40));carry=true;}
+  else if(ph<.55){const k=sm((ph-.40)/.15);th=lerp(thP,thD,k);r=lerp(rP,rD,k);hz=top(r);carry=true;}
+  else if(ph<.62){th=thD;r=rD;hz=lerp(top(rD),dr.hz,sm((ph-.55)/.07));carry=true;}
+  else if(ph<.67){th=thD;r=rD;hz=dr.hz;carry=ph<.645;}
+  else if(ph<.72){th=thD;r=rD;hz=lerp(dr.hz,top(rD),sm((ph-.67)/.05));carry=false;}
+  else if(ph<.84){const k=sm((ph-.72)/.12);th=lerp(thD,thP,k);r=lerp(rD,rP,k);hz=top(r);carry=false;}
+  else{th=thP;r=rP;hz=lerp(top(rP),gH,sm((ph-.84)/.16));carry=false;}
+  hz=Math.min(hz,top(r));   // 吊鉤永遠在臂尖下
+  const ti=B[0]+Math.cos(th)*r,tj=B[1]+Math.sin(th)*r;
+  return {th,r,ti,tj,tz:tipZ(r),hz,carry,dr,mastZ:z+R(dk.mast*(1-fold*.7))};}
+function derrickLive(D,L,dk,t,night,ns,lite){const B=dk.base,z=dk.z,fold=dk.fold||0;const q=derrickGeo(dk,t);
+  const M0=L.G(B[0],B[1],z),MT_=L.G(B[0],B[1],q.mastZ);
+  D.px(M0[0],MT_[1],1,M0[1]-MT_[1],'#6a5a44');D.px(M0[0]-1,M0[1]-1,3,1,'#4a4034');   // 桅杆＋底座
+  if(fold>=1)return;
+  const tp=L.G(q.ti,q.tj,q.tz),F=L.G(B[0],B[1],z+1);
+  D.line(F[0],F[1],tp[0],tp[1],'#7a6a50');D.line(MT_[0],MT_[1],tp[0],tp[1],'#4a4034');   // 臂（木色）＋頂索
+  if(lite)return;
+  const hk=L.G(q.ti,q.tj,q.hz);D.line(tp[0],tp[1]+1,tp[0],hk[1],'#3c4046');if(q.carry)hookLoad(D,tp[0],hk[1],dk.load);else D.px(tp[0],hk[1],1,2,'#e0b83a');
+  if(night&&ns&&Math.floor(t*2.2)%2===0)nl(ns,D,tp[0],tp[1],1,1,'#ff4a3a');}   // 吊桿尖 1 格（落在吊桿線端點上）
+
+// 等距小方塊（Layer B，精靈座標；box 佔 i∈[i1-li,i1]、j∈[j1-lj,j1]、z0 起高 h）
+function faceD(D,A,B,h0,h1,c){if(h1<=h0)return;const x0=R(Math.min(A[0],B[0])),x1=R(Math.max(A[0],B[0]));for(let x=x0;x<x1;x++){const y=yOn(A,B,x+.5);const t=R(y-h1),b=R(y-h0);if(b>t)D.px(x,t,1,b-t,c);}}
+function quadD(D,Q,h,c){const {N,E,S,W}=Q;for(let x=R(Math.min(W[0],N[0],S[0]));x<R(Math.max(E[0],N[0],S[0]));x++){const xc=x+.5;const t=R((xc<N[0]?yOn(W,N,xc):yOn(N,E,xc))-h),b=R((xc<S[0]?yOn(W,S,xc):yOn(S,E,xc))-h);if(b>t)D.px(x,t,1,b-t,c);}}
+function boxD(D,L,i1,j1,z0,li,lj,h,cT,cL,cR){const S=L.G(i1,j1,z0),W=L.G(i1-li,j1,z0),E=L.G(i1,j1-lj,z0),N=L.G(i1-li,j1-lj,z0);faceD(D,W,S,0,h,cL);faceD(D,S,E,0,h,cR);if(cT)quadD(D,{N,E,S,W},h,cT);return {S,W,E,N};}
+// 卡車（沿 j 軸、車頭朝 +j＝大門）：dump／mixer／pump／flat／van
+function truckD(D,L,ci,cj,type,o){o=o||{};const k=L.n<2?.78:1,w=.95,len=(type==='van'?1.7:2.7)*k,cab=(type==='van'?3.4:1.3)*k;
+  boxD(D,L,ci+w,cj+len,0,2*w,2*len,1.5,'#3a3f45','#2a2f35','#23272c');
+  const cabT=type==='van'?'#f6f4ee':'#5a8ac0',cabL=type==='van'?'#e8e6e0':'#3a6ea8',cabR=type==='van'?'#c9c6be':'#2c5a8c';
+  const ch=type==='van'?4:4.5;const cb=boxD(D,L,ci+w,cj+len,1.5,2*w,cab,ch,cabT,cabL,cabR);
+  const ws=mid(cb.W,cb.S,.2);D.px(ws[0],ws[1]-1.5-ch+1,3,2,'#bfe3f2');
+  const bj=cj+len-cab-.15,bl=2*len-cab-.15;
+  if(type==='dump'){boxD(D,L,ci+w,bj,1.5,2*w,bl,3,null,'#c45a2a','#9a4220');quadD(D,L.Q(ci-w,ci+w,bj-bl,bj,4.5),0,'#5a3a24');if(o.fill>0)quadD(D,L.Q(ci-w+.2,ci+w-.2,bj-bl+.2,bj-.2,4.5),R(o.fill*2),C.dirt);}
+  else if(type==='mixer'){boxD(D,L,ci+w-.1,bj,1.5,2*w-.2,bl,4,'#eeeae0','#e6e0d2','#c9c2b4');const r=L.G(ci+w-.1,bj-bl,0),q=L.G(ci+w-.1,bj,0);for(let k=0;k<3;k++){const f=((k/3)+(o.drum||0)/12)%1;const p=mid(q,r,.08+.84*f);D.px(p[0],p[1]-5,1,3,'#c05a3a');}}
+  else if(type==='pump'){boxD(D,L,ci+w,bj,1.5,2*w,bl,2.5,'#e6e0d2','#d8d2c4','#b8b2a4');boxD(D,L,ci+.5,bj-bl*.6,4,1,1,2,'#d0a030','#c09020','#a07818');}
+  else if(type==='flat'){boxD(D,L,ci+w,bj,1.5,2*w,bl,1,'#6a6f76','#5a5f66','#4a4f55');for(let k=0;k<(o.n||0);k++){const a=L.G(ci-w+.4,bj-.2,2.5+k),b=L.G(ci-w+.4,bj-bl+.2,2.5+k);D.line(a[0],a[1],b[0],b[1],k%2?C.pole:C.poleD);}}
+  for(const f of [.2,.8]){const p=L.G(ci+w,cj+len-2*len*f,0);D.px(p[0],p[1]-1,2,2,C.tyre);}}
+// 打樁機機身箱的 i1（ax=0）／j1（ax=1）：中心＝樁位 −back，夾在坑內（離坑壁 ≥1.3 格）
+function pileBody(M,q,ax){const p=M.site.pit,lo=p[ax*2]+1.3,hi=p[ax*2+1]-1.3,back=M.pile.back||1.8;return Math.min(hi,Math.max(lo,q[ax]-back))+1.1;}
+// 挖掘機：履帶＋機身（黃）＋三節臂朝坑心、2.4 秒一斗
+function excavD(D,L,ei,ej,tgt,dp,ph){boxD(D,L,ei+1,ej+1.3,0,2,2.6,1.5,'#3a3f45','#2e3237','#23272c');
+  const b=boxD(D,L,ei+.8,ej+.9,1.5,1.6,1.8,3.5,'#e8c040',C.truck,'#b0831d');const ws=mid(b.W,b.S,.4);D.px(ws[0],ws[1]-4.5,2,2,'#7ec8e8');
+  const top=L.G(ei,ej,5),T=L.G(tgt[0],tgt[1]);const dig=Math.sin(ph*6.283);
+  const el=[lerp(top[0],T[0],.45),Math.min(top[1],T[1])-9-dig*2],bk=[T[0],T[1]+dp*.55+dig*3];
+  D.line(top[0],top[1],el[0],el[1],'#c9973a');D.line(top[0]+1,top[1],el[0]+1,el[1],'#a07820');D.line(el[0],el[1],bk[0],bk[1]-2,'#c9973a');D.px(bk[0]-1,bk[1]-2,3,2,'#555b62');if(dig>.3)D.px(bk[0]-1,bk[1]-4,3,2,C.dirt);return bk;}
+// 地面機具與工人（Layer B）
+function groundLive(D,L,M,st,t,seed,ctx,night,ns){const P=st.P,gw=M.site.gw,site=M.site,gs=st.gs,G=L.G,T=L.T,small=(M.sz||1)<2;
+  const clipLot=fn=>{D.flush();ctx.save();lotClip(L,D)(ctx);fn();D.flush();ctx.restore();};
+  const pitQ=L.Q(site.pit[0],site.pit[1],site.pit[2],site.pit[3]);
+  const clipPit=fn=>{D.flush();ctx.save();ctx.beginPath();const q=pitQ;ctx.moveTo(D.sx(q.W[0]),D.sy(q.W[1]));ctx.lineTo(D.sx(q.S[0]),D.sy(q.S[1]));ctx.lineTo(D.sx(q.E[0]),D.sy(q.E[1]));ctx.lineTo(D.sx(q.E[0]),-9999);ctx.lineTo(D.sx(q.W[0]),-9999);ctx.closePath();ctx.clip();fn();D.flush();ctx.restore();};   // 前坑壁以下看不到
+  const gate=site.gate,gOut=gate.edge==='SW'?[(gate.a+gate.b)/2,T+3]:[T+3,(gate.a+gate.b)/2];
+  if(gs.survey>=0){const p=G(site.survey[0],site.survey[1]);   // 測量員＋三腳經緯儀
+    D.line(p[0]+4,p[1]-4,p[0]+2,p[1],'#555');D.line(p[0]+4,p[1]-4,p[0]+6,p[1],'#555');D.line(p[0]+4,p[1]-4,p[0]+4,p[1],'#444');D.px(p[0]+3,p[1]-6,3,2,'#e8c030');
+    worker(D,p[0],p[1],t,Math.floor(t/2.5+seed*3)%2?'walk':'sign',seed,C.hatW);}
+  const pc=[(site.pit[0]+site.pit[1])/2,(site.pit[2]+site.pit[3])/2];
+  if(P>=gw.dig[0]&&P<gw.dig[1]+.1){ // 挖掘機 2.4 秒一斗＋3 團揚塵；傾卸車 5.5 秒一趟、斗越裝越滿、滿了開走（地塊裁切）；大門旗手
+    site.exc.forEach((q,ei)=>{const ph=((t+ei*1.1)/2.4+seed)%1;const tg=[lerp(q[0],pc[0],small?.45:.18),lerp(q[1],pc[1],small?.45:.3)];
+      const bk=excavD(D,L,q[0],q[1],tg,gs.dp,ph);
+      D.flush();for(let d=0;d<3;d++){const q2=(t*.55+d*.33+seed)%1;ctx.fillStyle='rgba(170,150,120,'+(0.34*(1-q2)).toFixed(2)+')';ctx.fillRect(D.sx(bk[0]+1+d*2),D.sy(bk[1]-4-q2*7),R((2+q2*3)*D.z),R((2+q2*3)*D.z));}});
+    const tp=((t/5.5)+seed)%1;let tj=site.truck[1],fill=c01(tp/.62);if(tp>=.62&&tp<.82){tj=lerp(site.truck[1],gOut[1]+3,sm((tp-.62)/.2));fill=1;}else if(tp>=.82){tj=lerp(gOut[1]+3,site.truck[1],sm((tp-.82)/.18));fill=0;}
+    clipLot(()=>truckD(D,L,site.truck[0],tj,'dump',{fill}));
+    const fg=G(gate.edge==='SW'?gate.a+.25:T-1.0,gate.edge==='SW'?T-1.0:gate.a+.25);worker(D,fg[0],fg[1],t,'sign',seed+.2);}   // fix2：旗手站在大門開口裡（不再畫在圍籬前面）
+  if(P>=gw.pile[0]&&P<gw.pile[1]+.05){ // 打樁機：桅杆約樓高、錘 1.0 秒一循環（78% 慢升、22% 快落）、落地冒塵環；一名工人扶樁
+    // fix2（第 2 輪審查：打樁機常常只剩一根灰桿）：機身（履帶＋黃色機房＋駕駛室）改停在樁位「背離鏡頭」那一側（−i−j），
+    //   不再被前坑壁擋掉；樁架（leader）改成黃色桁架＋頂上滑輪座，後撐從架頂斜回機身；錘黑色、落錘冒塵。扶樁工人站在樁的鏡頭側。
+    const i=Math.min(gs.piles,M.pile.pts.length-1),q=M.pile.pts[i];const hm=M.pile.mast;
+    const bi=pileBody(M,q,0),bj=pileBody(M,q,1);   // 機身中心在樁位後方 M.pile.back 格（沿 −i−j），留在坑內；bi／bj＝機身箱的 i1／j1
+    clipPit(()=>{boxD(D,L,bi,bj,-gs.dp,2.2,2.2,1.5,'#3a3f45','#2e3237','#23272c');const bb=boxD(D,L,bi-.2,bj-.2,-gs.dp+1.5,1.8,1.8,5,'#f0c848','#e0b030','#a87c18');
+      const cw=mid(bb.W,bb.S,.3);D.px(cw[0],cw[1]-1.5-5+1,2,2,'#7ec8e8');   // 駕駛室窗
+      const p=G(q[0],q[1],-gs.dp);const x=p[0],y=p[1];const ph=(t/1.0+seed)%1,hy=ph<.78?lerp(3,hm-8,ph/.78):lerp(hm-8,3,(ph-.78)/.22);
+      const bt=G(bi-1.1,bj-1.1,-gs.dp+6.5);D.line(x+2,y-hm+3,bt[0],bt[1],'#b0831d');   // 後撐：架頂 → 機身
+      D.px(x+1,y-hm,1,hm,'#e8b830');D.px(x+3,y-hm,1,hm,'#b0831d');for(let k=1;k<hm/4;k++)D.px(x+1,y-k*4,3,1,'#c9973a');D.px(x,y-hm-2,5,2,'#555a62');
+      D.px(x+1,y-hy-4,3,4,'#26292d');D.px(x+2,y-hy,1,Math.max(1,hy-1),'#c9c4b8');
+      if(ph>.97||ph<.12){D.flush();const k=ph<.12?ph/.12:0;ctx.fillStyle='rgba(160,140,110,'+(0.5*(1-k)).toFixed(2)+')';ctx.fillRect(D.sx(x-2-k*3),D.sy(y-1),R((8+k*6)*D.z),R(2*D.z));}
+      worker(D,x+3,y+2,t,'crouch',seed,C.hatW);});}
+  if(gs.pitOn&&gs.pour<=0&&gs.piles>0)clipPit(()=>{for(let i=0;i<gs.piles;i++){const p=M.pile.pts[i],q=G(p[0],p[1],-gs.dp);   // 樁頭（每幀直接畫，坑口遮罩＝前坑壁以下看不到）
+      D.px(q[0]-1,q[1]-2,3,2,'#cfcac0');D.px(q[0]-1,q[1],3,1,'#8f8a80');if(gs.mesh<=0)D.px(q[0],q[1]-4,1,2,C.rebar);}});
+  if(gs.mesh>0&&gs.mesh<1&&gs.pitOn){const [i0,i1,j0,j1]=site.pit;const f=gs.mesh;const a=G(lerp(i0,i1,.35),lerp(j0,j1,c01(f*1.6)),-gs.dp),b=G(lerp(i0,i1,.65),lerp(j0,j1,c01(f*1.3)),-gs.dp);
+    clipPit(()=>{worker(D,a[0],a[1],t,'crouch',seed);worker(D,b[0],b[1],t,'hammer',seed+.5);});}
+  if(P>=gw.pour[0]&&P<gw.pour[1]){ // 泵浦車三節臂拱在坑上、臂端沿澆灌前緣來回掃（約 5.7 秒）；攪拌車滾筒 4 幀；兩名工人蹲在前緣抹平（1×1：攪拌車直接溜槽）
+    const [i0,i1,j0,j1]=site.pit;const f=Math.max(.06,gs.pour),sw=(Math.sin((t/5.7+seed)*6.283)+1)/2;
+    const u=c01(f*2),fr=f<=.5?[lerp(i0,i1,u*sw),lerp(j0,j1,u*(1-sw))]:[lerp(i0,i1,lerp(c01(f*2-1),1,sw)),lerp(j0,j1,lerp(1,c01(f*2-1),sw))];
+    const e=G(fr[0],fr[1],-gs.dp);const dr=Math.floor(t*6)%4;
+    truckD(D,L,site.mixer[0],site.mixer[1],'mixer',{drum:dr});
+    if(!small){truckD(D,L,site.pump[0],site.pump[1],'pump');const b0=G(site.pump[0]+.5,site.pump[1]-1.6,6.5);
+      const b1=[lerp(b0[0],e[0],.3),Math.min(b0[1],e[1])-22],b2=[lerp(b0[0],e[0],.72),Math.min(b0[1],e[1])-18],b3=[e[0],e[1]-10];
+      D.line(b0[0],b0[1],b1[0],b1[1],'#d0a030');D.line(b1[0],b1[1],b2[0],b2[1],'#e8e4da');D.line(b2[0],b2[1],b3[0],b3[1],'#d0a030');D.line(b3[0],b3[1],b3[0],b3[1]+7,'#555a62');
+      D.flush();const pr=(t*2)%1;ctx.fillStyle='rgba(120,118,112,.8)';ctx.fillRect(D.sx(b3[0]-1),D.sy(b3[1]+7+pr*2),R(3*D.z),R(1*D.z));}
+    else{const c0=G(site.mixer[0]-.4,site.mixer[1]-2.6,4);D.line(c0[0],c0[1],e[0],e[1]-2,'#8e959c');D.line(c0[0],c0[1]+1,e[0],e[1]-1,'#6a7078');}
+    const w1=G(fr[0]+1.2,fr[1]+1.2,-gs.dp),w2=G(fr[0]-1.4,fr[1]+2.2,-gs.dp);clipPit(()=>{worker(D,w1[0],w1[1],t,'crouch',seed);worker(D,w2[0],w2[1],t,'crouch',seed+.4,C.hatW);});}
+  // fix2：澆完泵車（臂收起）與攪拌車一起從大門開出去（0.1 天，同傾卸車；地塊裁切），不再原地消失
+  if(P>=gw.pour[1]&&P<gw.pour[1]+.1){const k=sm(seg(P,gw.pour[1],gw.pour[1]+.1)),dr=Math.floor(t*6)%4;
+    clipLot(()=>{if(!small)truckD(D,L,site.pump[0],lerp(site.pump[1],gOut[1]+3,k),'pump');truckD(D,L,site.mixer[0],lerp(site.mixer[1],gOut[1]+3,k),'mixer',{drum:dr});});}
+  // 回填：兩名工人在坑邊夯土（坑沿內側，跟著牆高）
+  if(gs.back>0&&!gs.filled&&gs.pitOn){const [i0,i1,j0,j1]=site.pit,hb=-gs.dp+Math.min(gs.dp,R(gs.dp*gs.back));const a=G(lerp(i0,i1,.3),j0+.9,hb),b=G(i0+.9,lerp(j0,j1,.55),hb);
+    clipPit(()=>{worker(D,a[0],a[1],t,'hammer',seed+.2);worker(D,b[0],b[1],t,'crouch',seed+.6,C.hatW);});}
+  // 竣工清場：掃地工人來回、裝街燈座的工人；收工後兩人走到廂型車旁上車（上車就不畫），車在最後 0.1 天開走 ⇒ P≥清場結束時工地上沒有人（fix1：最後一格＝完工）
+  if(P>=gw.clean[0]){const y=site.yard,c0=gw.clean[0],c1=gw.clean[1],go=c1-.1,board=go-.02,w0=c0+(board-c0)*.6,vanP=G(site.van[0]-1.5,site.van[1]);
+    if(P<board){const q=sm(seg(P,w0,board));
+      {const a=G(y[0]-3,y[1]+1.2),b=G(y[0]+3,y[1]+1.2);const k=(Math.sin(t*.8+seed*5)+1)/2;const x=lerp(lerp(a[0],b[0],k),vanP[0],q),yy=lerp(lerp(a[1],b[1],k),vanP[1],q);worker(D,x,yy,t,'walk',seed);if(q<=0){D.px(x+2,yy-2,1,2,'#8a6a3a');D.px(x+2,yy,2,1,'#c9b070');}}
+      {const lp=site.lamps[0],x=lerp(lp[0]+3,vanP[0]+2,q),yy=lerp(lp[1]+2,vanP[1]+1,q);worker(D,x,yy,t,q>0?'walk':'crouch',seed+.3);}}
+    const vp=sm(seg(P,go,c1));if(vp<1)clipLot(()=>truckD(D,L,site.van[0],lerp(site.van[1],gOut[1]+3,vp),'van'));}
+  // 拆圍籬：工人扛片走向貨車
+  if(P>=gw.fenceOff[0]&&P<gw.fenceOff[1]){const f0=G(gate.edge==='SW'?gate.a-3:T-.8,gate.edge==='SW'?T-.8:gate.a-3),tk=G(site.flatbed[0],site.flatbed[1]);const k=((t/3.2)+seed)%1,kk=k<.5?k*2:2-k*2;
+    const x=lerp(f0[0],tk[0],kk),y=lerp(f0[1],tk[1],kk);worker(D,x,y,t,'walk',seed);if(k<.5){D.px(x-3,y-9,6,4,C.hoard);D.px(x-3,y-7,6,1,C.band);}}}
+
+/* ---------- 夜燈級（fix2：業主一個答案 k∈{1,2,3} 同時管兩軌） ----------
+   本軌 __x13BesNight＝k（1 航空燈＋駕駛室／2 ＋工作面燈、工寮窗／3 ＋投光燈與地面光池），generic 的 __x13Night＝k−1（0／1／2）。
+   本軌沒設 __x13BesNight 時就跟 generic 的 __x13Night＋1 走；兩個都沒設＝2（＝generic 預設 1）。__x13NightSet(k) 一次設兩個。 */
+function nightLevel(){const b=W13.__x13BesNight;if(b!=null&&b!=='')return +b;const g=W13.__x13Night;return g!=null&&g!==''?(+g)+1:3;} // T701：兩個都沒設＝第③級（業主 1-4③；T700 generic 預設同級）
+W13.__x13NightSet=k=>{k=+k;W13.__x13BesNight=k;W13.__x13Night=k-1;return k;};
+
+/* ---------- 擁有權（fix2，第 2 輪審查 major）：本軌開著時，有施工檔的地標整個工期（含 generic 的 B2 收尾 age 9–10）都歸本軌 ----------
+   __x13BesOwns(bd)：旗標開、有施工檔（bespoke）、不是 ref 格 ⇒ true。
+   generic 軌不用改檔：每幀畫物件前（patch 在 draw 的 nightSprites 宣告後插一行）呼叫 __x13BesGen()，把 GV.constr13（＝generic 的 X13G 物件）的
+     b2 包一層：本軌擁有的地標直接回 false ⇒ B2 不會在完工的地標上再搭 generic 鷹架、塔吊、圍籬（pre 與 post 兩個呼叫點都走 X13G.b2）；
+     frame 包一層：排名（離畫面中心最近 8 站全細節）不把本軌擁有的地標算進去 ⇒ C 的一般工地細節跟 B 一樣。
+   只包一次；generic 自己若日後改成讀 __x13BesOwns，把 X13G.ownsAware 設 1，這裡就不包。旗標關時 draw 裡那一行不進來，零呼叫。 */
+const owns=bd=>!!(bes701On()&&bd&&!bd.ref&&REG[bd.k]&&REG[bd.k].bespoke&&REG[bd.k].site);
+W13.__x13BesOwns=owns;
+// resync（第 3 輪審查 minor ②：包裝會靜靜失效）：b2 或 frame 不是函式（generic 改名、併進別的函式、改閉包直呼）時一個都不包、
+//   不設 __x13BesWrap、不算 wrapped；改記 GW.fail＋W13.__x13BesErr（第一次 console.error），自檢「generic 包裝成功且被呼叫過」亮紅。
+//   包了以後，b2／frame 包裝每被 generic 的 draw 呼叫一次就計 b2Calls／frameCalls（自檢要 frame 至少被呼叫過一次）。
+const GW={wrapped:0,b2Skip:0,rankSkip:0,fail:0,why:'',b2Calls:0,frameCalls:0,failG:null};
+W13.__x13BesGen=function(){const G=W13.GV&&W13.GV.constr13;if(!G||G.__x13BesWrap||G.ownsAware||G===GW.failG)return;
+  const b2=G.b2,fr=G.frame;
+  if(typeof b2!=='function'||typeof fr!=='function'){const bad=[typeof b2!=='function'?'b2':'',typeof fr!=='function'?'frame':''].filter(Boolean).join('、');
+    GW.fail++;GW.failG=G;GW.why='generic API 變了：GV.constr13.'+bad+' 不是函式，本軌沒包（C×B2 會再包地標、細節名額會算進地標）';
+    W13.__x13BesErr=(W13.__x13BesErr?W13.__x13BesErr+'｜':'')+GW.why;if(GW.fail===1)console.error('[x13Bes] '+GW.why);return;}
+  G.b2=function(A){GW.b2Calls++;if(A&&owns(A.bd)){GW.b2Skip++;return false;}return b2.apply(this,arguments);};
+  G.frame=function(objs){GW.frameCalls++;
+    if(bes701On()&&objs&&objs.length){let hit=false;for(let i=0;i<objs.length;i++){const t=objs[i].t,b=t&&t.bld;if(b&&(b.age|0)<11&&owns(b)){hit=true;break;}}
+      if(hit){const a=Array.prototype.slice.call(arguments),n0=objs.length;a[0]=objs.filter(o=>{const t=o.t,b=t&&t.bld;return !(b&&(b.age|0)<11&&owns(b));});GW.rankSkip+=n0-a[0].length;return fr.apply(this,a);}}
+    return fr.apply(this,arguments);};
+  G.__x13BesOrig={b2,frame:fr};G.__x13BesWrap=1;GW.wrapped++;};
+// 自檢列：generic 在（GV.constr13 有）時，要「包成功（wrapped、沒失敗）＋ generic 開著時 frame 包裝被呼叫過」才 ok；generic 自己讀 __x13BesOwns（ownsAware）也算 ok
+function genWrapRow(){const G=W13.GV&&W13.GV.constr13;
+  if(!G)return ['gen','generic 包裝成功且被呼叫過（沒有 generic 軌：免包）','ok'];
+  const d='generic 包裝成功且被呼叫過（wrapped '+GW.wrapped+'、失敗 '+GW.fail+'、frame 呼叫 '+GW.frameCalls+'、b2 呼叫 '+GW.b2Calls+'、b2 跳過地標 '+GW.b2Skip+'）';
+  if(GW.fail)return ['gen',d,'紅：'+GW.why];
+  if(G.ownsAware&&!G.__x13BesOrig)return ['gen',d,'ok'];
+  if(!G.__x13BesWrap||GW.wrapped<1)return ['gen',d,bes701On()?'紅：還沒包（本軌開著但 draw 沒呼叫 __x13BesGen）':'紅：本軌沒開，沒包'];
+  if(G.b2===G.__x13BesOrig.b2||G.frame===G.__x13BesOrig.frame)return ['gen',d,'紅：包裝被換掉了（GV.constr13.b2／frame 又被覆寫）'];
+  if(!W13.__noConstr700&&GW.frameCalls<1)return ['gen',d,'紅：包了但 generic 的 draw 沒經 GV.constr13.frame 呼叫（可能改成閉包直呼）'];
+  return ['gen',d,'ok'];}
+// 檢查用：暫時拿掉包裝（ownsAware＝1 讓它不再包），__x13BesGenRewrap() 放回。量「名額不算地標」到底改了哪些一般工地用
+W13.__x13BesGenUnwrap=()=>{const G=W13.GV&&W13.GV.constr13;if(!G||!G.__x13BesOrig)return 0;G.b2=G.__x13BesOrig.b2;G.frame=G.__x13BesOrig.frame;delete G.__x13BesOrig;delete G.__x13BesWrap;G.ownsAware=1;return 1;};
+W13.__x13BesGenRewrap=()=>{const G=W13.GV&&W13.GV.constr13;if(!G)return 0;delete G.ownsAware;W13.__x13BesGen();return 1;};
+
+/* ---------- 進度（fix2，第 2 輪審查：第一天被隨機截掉一段）----------
+   P＝age＋日內進度。age＝0 時，記住這個工地「第一次畫到」那一刻的日內進度 f0（WeakMap，以 bd 物件為鍵；不進存檔、不耗 R()），
+   把第一天剩下的時間拉滿：P0＝(f−f0)/(1−f0)，放樣、圍籬一片片立起、開挖都看得到。age≥1 照舊。__x12Frac／__x13Frac 覆寫時不重映射（拍照、檢查用）。
+   讀檔重開、或旗標中途打開：從當下重新起算。__x13BesNoP0＝1 關掉（回到 fix1 的 P）。
+   generic 軌要跟 B 一致時可以直接呼叫 window.__x13P0(bd,frac)（同一個 WeakMap；本軌不改 generic 的碼）。 */
+let P0MAP=new WeakMap();
+function remapP0(bd,f){if(W13.__x13BesNoP0)return f;let f0=P0MAP.get(bd);if(f0==null||f<f0-1e-9){f0=f;P0MAP.set(bd,f0);}
+  return f0>=.999?.999:Math.min(.999,Math.max(0,(f-f0)/(1-f0)));}
+W13.__x13P0=(bd,frac)=>{const f=Math.min(.999,Math.max(0,+frac||0));return (bd.age|0)===0?remapP0(bd,f):(bd.age|0)+f;};
+function progOf(E,bd){if(E.P!=null&&E.frac==null)return E.P;const a=bd.age|0,f=Math.min(.999,Math.max(0,+E.frac||0));
+  return a===0&&!E.fracOv?remapP0(bd,f):a+f;}
+
+/* ---------- 主入口：draw 迴圈在 bx／by 算完後呼叫；回 true＝已畫（呼叫端 continue） ---------- */
+W13.__x13BesDraw=function(ctx,E){const tA=performance.now();try{return drawImpl(ctx,E);}finally{STAT.ms+=performance.now()-tA;STAT.calls++;}};
+const STAT={ms:0,calls:0,deferred:0,finOv:0,finOvErr:0};
+let SIL=null;   // silhouetteOne573（主程式在 IIFE 裡，由 draw 鉤傳進來；守衛測試用）
+W13.__x13BesGuard9=()=>{ // P=9 重烘守衛：Q 恆 1 → builder 走原碼 → 補跑 silhouetteOne573 → 雜湊要＝開機精靈（190／191／192）
+  if(!SIL||!W13.__x12bspB)return 'need one draw with T701 on first';const S=W13.GV.art574.SPR().bld;
+  const hs=c=>{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let x=2166136261;for(let i=0;i<d.length;i++){x^=d[i];x=Math.imul(x,16777619);}return (x>>>0).toString(16);};
+  const keep={},r={};for(const k of ['190_1_0','191_1_0','192_1_0'])keep[k]=S[k];
+  W13.__x12bspQ=()=>1;try{W13.__x12bspB[192]();W13.__x12bspB.blk19();}finally{W13.__x12bspQ=undefined;}
+  for(const k in keep){const n=S[k];SIL(n.img);/* 開機時 T573 只處理 img（夜圖不跑剪影後製） */r[k]={img:hs(n.img)===hs(keep[k].img),night:(n.night&&keep[k].night)?hs(n.night)===hs(keep[k].night):'n/a',boot:hs(keep[k].img),rebake:hs(n.img)};S[k]=keep[k];}
+  W13.__x12bspQ=()=>1;try{W13.__x12bspB[190]();}finally{W13.__x12bspQ=undefined;}{const n=S['190_1_0'];SIL(n.img);r['190_single_builder']=hs(n.img)===hs(keep['190_1_0'].img);S['190_1_0']=keep['190_1_0'];}
+  return r;};
+function drawImpl(ctx,E){
+  const {o,bd,s,z,visT,animOn,nightSprites:ns}=E;SIL=E.sil||SIL;
+  if(!s||!s.img||s._scSrcW!==undefined)return false;
+  const M=REG[bd.k];if(!M||!M.site)return false;
+  if(W13.__x13BesHide)return true;   // 自檢用：整個工地不畫（夜燈浮空檢查的底圖）
+  const tier=W13.__x13BesTier==null?2:+W13.__x13BesTier;
+  frameTick(E);
+  const P=Math.max(0,Math.min(8.999,progOf(E,bd)));const L=lotOf(s,M.sz||1);
+  const lod=E.lodFar?0:z<1.22?1:2;
+  const st=stateOf(E,L,M,P,tier,lod);
+  // 階段精靈（專屬）
+  const site=o.x+','+o.y;const lastSp=LAST.get(site+'#sp');const now=performance.now();
+  {const a=ACTIVE.get(site);if(a){a.t=now;a.k=bd.k;a.P=P;}else ACTIVE.set(site,{k:bd.k,t:now,P});}
+  if(tier>=2&&!isEmptyPv(M,st.pv)){const budget=()=>FR.stageBakes<(W13.__x13BesMaxStage||1);let sp=stageGet(bd.k,bd.v||0,st.pv,E,budget);
+    if(sp===undefined&&!lastSp)sp=stageGet(bd.k,bd.v||0,st.pv,E,()=>true);   // fix1：這個工地還沒有上一張（剛開始畫、或閒置被放掉）時不等額度，免得空一幀沒有樓
+    if(sp===undefined){sp=lastSp||null;STAT.deferred++;}
+    if(sp)LAST.set(site+'#sp',sp);st.sprite=sp;
+    if(st.pv.plate<1&&isStructEmpty(st.pv))st.sprite=null;
+    if(!W13.__x13BesNoIdle)prebakeNext(M,bd,P,E);}   // fix2：下一張階段精靈趁閒置時先烘
+  const LB=layerGet(bd.k+'@'+site+'#B|'+st.keyB,site+'#b',()=>bakeBack(E,L,M,st));
+  const LF=layerGet(bd.k+'@'+site+'#F|'+st.keyF,site+'#f',()=>bakeFront(E,L,M,st));
+  st.LF=LF;
+  const bx=E.bx,by=E.by;
+  // 貼地陰影：P≥8.6 畫完工陰影；施工中只畫已揭露部分的淡影
+  if(E.gshade&&!E.lodFar&&!W13.__noShadow596){let hh=0;if(P>=8.6)hh=s.h;else if(st.sprite)hh=Math.max(0,st.sprite.ay-opaqueTop(st.sprite.img));else if(st.tier===1&&st.mh)hh=Math.max(...st.mh.map((v,i)=>v[1]>0?(M.ms[i].z0||0)+v[1]:0));else if(st.Hf)hh=st.Hf;
+    if(hh>10)E.gshade(P>=8.6?s.h:Math.min(s.h,hh*1.1));}
+  // T596 對齊：地標精靈原本就裁在地塊稜柱內（drawBldClipped596），施工層同一把剪刀（接觸影、坑沿不會溢出地塊）
+  const clipF=E.lotClip&&!W13.__noLotClip596?E.lotClip:null;
+  if(clipF){ctx.save();clipF(ctx);}
+  ctx.drawImage(LB.c,bx,by-MT*z,LB.c.width*z,LB.c.height*z);
+  {const D=mkDraw(ctx,bx,by,z),pn=penD(D);drawLiveBack(pn,L,st);D.flush();
+    if(st.sprite)ctx.drawImage(st.sprite.img,bx,by,st.sprite.w*z,st.sprite.h*z);   // 階段精靈：每幀直接畫（快取在 STAGE），不再烘進 Layer
+    drawLiveMid(pn,L,st);D.flush();
+    ctx.drawImage(LF.c,bx,by-MT*z,LF.c.width*z,LF.c.height*z);
+    drawLiveTop(pn,L,st);D.flush();}
+  if(clipF)ctx.restore();
+  if(E.occPush)try{E.occPush(LB.c,bx,by-MT*z,LB.c.width*z,LB.c.height*z,clipF);if(st.sprite)E.occPush(st.sprite.img,bx,by,st.sprite.w*z,st.sprite.h*z,clipF);E.occPush(LF.c,bx,by-MT*z,LF.c.width*z,LF.c.height*z,clipF);}catch(e){}
+  // fix1：收尾段（結構全完成、鷹架／平台／圍籬都拆完）起，疊上原碼完工那段疊層（E.finOv：ovClip＋微雕＋DSK／T695 近距層，含鐘盤蓋格與會走的指針）⇒ 最後一格＝完工
+  // fix2：finOv 出錯一律記 __x13BesErr、計 finOvErr，第一次還會 console.error（拍照／檢查腳本開頭跑 __x13BesSmoke 會直接失敗，不會靜靜退回）
+  if(E.finOv&&!E.lodFar&&isStructDone(st.pv)&&P>=M.site.gw.fenceOff[1]&&!st.vols.length&&!st.ring&&!(st.plats&&st.plats.length)){try{E.finOv();STAT.finOv++;}catch(e){STAT.finOvErr++;W13.__x13BesErr=String(e&&e.stack||e);if(STAT.finOvErr===1)console.error('x13Bes finOv failed',e);}}
+  // ===== Layer B =====
+  if(clipF){ctx.save();clipF(ctx);}   // Layer B 也在地塊稜柱內（出了地塊的像素一律不畫）
+  try{return liveB(ctx,E,M,L,st,P,tier,lod,o,s,z,ns);}finally{if(clipF)ctx.restore();}}
+function liveB(ctx,E,M,L,st,P,tier,lod,o,s,z,ns){const {animOn,visT}=E,bx=E.bx,by=E.by;
+  const D=mkDraw(ctx,bx,by,z);const seed=E.hs!=null?E.hs:hsh(o.x,o.y,12);
+  const still=!animOn||E.lodMini||W13.__x13BesStill;const t=still?seed*37+2.3:visT+seed*37;
+  const night=(E.nightDepth||0)>0&&!W13.__noWinLit,NL=nightLevel();
+  const rg=st.rig||null;
+  if(st.crane&&st.crane.mastH>0){const rgc=rg||(M.k===190?{pick:[14,6],drop:[8.5,7.5],dropH:st.Hs!=null?st.Hs:(st.mh?Math.max(...st.mh.map(v=>v[0]+ (0))):0),loads:['bucket','stone']}:{pick:[17,28.6],drop:[16,18],dropH:st.mh?Math.max(st.mh[0][0],st.mh[1][0]):0,loads:['steel','bucket']});
+    if(tier===1&&M.k===190){rgc.dropH=Math.max(...st.mh.map((v,i)=>v[0]>0?(M.ms[i].z0||0)+v[0]:0));}
+    craneLive(D,L,st.crane,t,rgc,night,ns,lod===0);}
+  if(rg&&rg.derrick)derrickLive(D,L,rg.derrick,t,night,ns,lod===0);
+  if(tier===0&&P>=3&&P<7.6)truckCrane(D,L,M,st,t,s);
+  if(lod===0||W13.__x13BesNoLive){D.flush();return true;}
+  groundLive(D,L,M,st,t,seed,ctx,night,ns);
+  if(rg){for(const w of rg.workers)worker(D,w.x,w.y,t,w.pose,seed+w.x*.013);
+    if(rg.bucket){D.px(rg.bucket[0]-1,rg.bucket[1]-2,3,2,'#8e8a82');D.px(rg.bucket[0]-1,rg.bucket[1]-2,3,1,'#b0aca4');}
+    if(rg.walker){const w=rg.walker,S=w.S,off=w.off,Wc=[S[0]-2*w.lenL-2*off,S[1]-w.lenL+off],Sc=[S[0]-2*off+(w.lenL?0:0),S[1]+off];const k=(Math.sin(t*.35+seed*9)+1)/2;const a=mid(Wc,Sc,.12+.76*k);worker(D,a[0],a[1]-w.h,t,'carry',seed+.8,C.hatW);}
+    if(rg.yardWorker&&M.site.yard){const y=L.G(M.site.yard[0]-1.6,M.site.yard[1]+1.4);worker(D,y[0],y[1],t,M.k===190?'crouch':'sign',seed+.1);}
+    if(M.k===190&&st.shedOn&&P>=3){const s2=L.G(M.site.shed[0]+2.2,M.site.shed[1]-.6);worker(D,s2[0],s2[1],t,'crouch',seed+.7);
+      const sh=L.G(M.site.shed[0],M.site.shed[1]);const ph=(t/5)%1,spin=ph<.42||ph>=.75;const f=spin?Math.floor(t*8)%3:0;D.px(sh[0]+6,sh[1]-3,3,3,'#3a3f45');D.px(sh[0]+6+f,sh[1]-3,1,3,'#9aa0a6');
+      if(P<8.4){const a=L.G(12.4,8.4),b=L.G(M.site.yard[0]-.6,M.site.yard[1]+1.2);const k=((t/6)+seed*.5)%1,kk=k<.5?sm(k*2):1-sm((k-.5)*2);const x=lerp(a[0],b[0],kk),y=lerp(a[1],b[1],kk);
+        worker(D,x,y,t,'walk',seed+.9);D.px(x+2,y-3,4,2,k<.5?C.stone:'#6f6b64');D.px(x+2,y-3,4,1,k<.5?C.stoneHi:'#8e8a82');D.px(x+5,y-1,1,1,C.tyre);}}
+    if(lod>=2&&animOn)for(const sp of rg.sparks){const k=Math.floor(t*6+seed*5+sp[0])%5;if(k<2){D.px(sp[0],sp[1]-1,1,1,'#fff6d0');D.px(sp[0]-1,sp[1],1,1,'#ffd070');D.px(sp[0]+1,sp[1]-2,1,1,'#ffe8a0');if(night)nl(ns,D,sp[0]-1,sp[1]-2,3,3,'#ffe8b0');}}
+    // 首層門面安裝（巴特西正門）：兩名工人抬門板從料場走到正門
+    if(M.site.door&&P>=7.5&&P<8.3){const y0=L.G(M.site.yard[0]-.5,M.site.yard[1]),d0=L.G(M.site.door[0],M.site.door[1]+.8);const k=((t/5)+seed)%1,kk=k<.6?sm(k/.6):1-sm((k-.6)/.4);
+      const x=lerp(y0[0],d0[0],kk),y=lerp(y0[1],d0[1],kk);if(k<.6){D.px(x-3,y-10,7,5,'#3a2e24');D.px(x-3,y-10,7,1,'#5a4a3a');}worker(D,x-3,y,t,'walk',seed);worker(D,x+3,y+1,t,'walk',seed+.5);}
+    // 拆鷹架：頂上工人往下遞管（1.4 秒一根），門口平板車上的鋼管越堆越高
+    const dv=M.k===192&&P>=7.8&&P<8.45?rg.vols.find(v=>v.lenR>0):null;
+    if(dv){const S=dv.S,top=Math.max(8,dv.h1-4);const p=[S[0]+2*dv.lenR*.35,S[1]-dv.lenR*.35];worker(D,p[0],p[1]-top+2,t,'sign',seed);
+      const ph=((t/1.4)+seed)%1;D.px(p[0]+2,p[1]-top+2+ph*(top-2),1,5,C.pole);
+      const fb=L.G(M.site.flatbed[0],M.site.flatbed[1]);D.px(fb[0]-8,fb[1]-3,16,2,'#4a4f55');D.px(fb[0]+6,fb[1]-7,4,5,C.truckC);D.px(fb[0]-6,fb[1]-1,2,2,C.tyre);D.px(fb[0]+5,fb[1]-1,2,2,C.tyre);
+      const n=Math.floor(seg(P,7.8,8.4)*5);for(let i=0;i<n;i++)D.px(fb[0]-7,fb[1]-4-i,12,1,i%2?C.pole:C.poleD);}}
+  // 夜：航空燈、駕駛室（NL≥1）；工作面燈、工寮／絞車棚窗（NL≥2）；投光燈（NL≥3）
+  const floodOn=NL>=3&&P>=M.site.gw.fence[1]&&P<M.site.gw.fenceOff[0];   // fix2：時間窗同 generic（圍籬立好 → 開始拆圍籬）
+  if(floodOn)for(const u of FLOOD_POLES){const p=L.G(u[0]*L.T,u[1]*L.T);D.px(p[0],p[1]-15,1,16,'#50565c');D.px(p[0]-2,p[1]-17,4,2,'#d8dce0');}   // 投光燈桿（白天也在；左角、右角各一支，樣式同 generic）
+  if(night){
+    if(NL>=2){if(M.site.cabin&&st.gs.cabinOn){const c=L.G(M.site.cabin[0],M.site.cabin[1]);for(const dx of [-6,-1,3])nl(ns,D,c[0]+dx,c[1]-10,3,2,'#ffdca0');nl(ns,D,c[0]-6,c[1]-4,3,2,'#ffdca0');}
+      if(M.site.shed&&st.shedOn){const c=L.G(M.site.shed[0],M.site.shed[1]);nl(ns,D,c[0]-4,c[1]-5,3,2,'#ffdca0');}
+      if(rg&&P>=3&&P<8.4){   // 工作面燈：只亮在白天就有的面上（平台板、樓板頂、塔座頂），沿等距 i 軸一段段（每段 2×1）
+        const strip=(i0,j,h,n)=>{for(let k=0;k<n;k++){const q=L.G(i0+k,j,h);nl(ns,D,R(q[0]),R(q[1]),2,1,'#fff2c8');}};
+        if(rg.ring)strip(6.4,10.6,rg.ring.z,4);
+        else if(rg.plats&&rg.plats.length){for(const p of rg.plats)nl(ns,D,R(p.x)-5,R(p.y),11,1,'#fff2c8');}
+        else if(rg.lit)strip(rg.lit[0]-1.5,rg.lit[1],rg.lit[2],3);}}
+    if(floodOn){for(const u of FLOOD_POLES){const p=L.G(u[0]*L.T,u[1]*L.T);nl(ns,D,p[0]-2,p[1]-17,4,2,'#fff4d8');}   // 投光燈頭（同 generic）
+      if(st.LF&&!W13.__x13BesNoNL&&!W13.__x13BesNoPool){const site=o.x+','+o.y,pk=M.k+'@'+site+'#P|'+st.keyF+'|'+st.keyLive+'|'+(st.sprite?stageKeyOf(st.sprite):'-');const PL=layerGet(pk,site+'#p',()=>bakePool(E,L,M,st),true);const pc=PL.c;ns.push({img:pc,x:E.bx,y:E.by-MT*z,w:pc.width*z,h:pc.height*z,x13ground:1});}}}   // 地面光池：三階硬色菱形，樓擋住的地方已挖掉
+  D.flush();return true;}
+function isStructDone(pv){for(const id in pv){if(id==='plate'||id==='lamps')continue;if(pv[id]<1)return false;}return true;}
+function isStructEmpty(pv){for(const id in pv){if(id==='plate'||id==='lamps')continue;if(pv[id]>0)return false;}return true;}
+// 剪影灰模用的汽車吊（停在大門）
+function truckCrane(D,L,M,st,t,s){const gt=M.site.gate,T=L.T;const p=L.G(gt.edge==='SW'?(gt.a+gt.b)/2:T-2.2,gt.edge==='SW'?T-2.2:(gt.a+gt.b)/2);
+  D.px(p[0]-9,p[1]-3,18,3,'#2a2f35');D.px(p[0]-9,p[1]-7,6,4,'#d8b030');D.px(p[0]-2,p[1]-6,9,3,'#e2b233');
+  const top=Math.min(st.Hs+10,(st.Htot||60)+6),tg=[s.ax,s.ay-Math.max(8,st.Hs)];const sw=Math.sin(t*.5)*6;const tip=[lerp(p[0],tg[0],.8)+sw,Math.max(p[1]-70,Math.min(p[1],tg[1])-10)];   // 汽車吊臂長有限（最高 70px）
+  D.line(p[0],p[1]-6,tip[0],tip[1],'#d0a030');D.line(p[0]+1,p[1]-6,tip[0]+1,tip[1],'#a98020');const hy=tip[1]+8+Math.sin(t*.9)*3;D.line(tip[0],tip[1],tip[0],hy,'#3c4046');hookLoad(D,tip[0],hy,'bucket');}
+
+/* ---------- 對外：登記表的 stage(P)（generic 軌可直接要階段精靈）、統計、清快取、自檢 ---------- */
+for(const k in REG){const M=REG[k];M.stage=function(P,v,E){const pv=partsOf(M,Math.max(0,Math.min(8.999,P)));if(P>=9||isStructEmpty(pv))return null;return stageGet(+k,v||0,pv,E,()=>FR.stageBakes<(W13.__x13BesMaxStage||1))||null;};}
+W13.__x13BesStats=()=>({stage:{count:STAGE.size,MB:+(stageBytes/1048576).toFixed(2),bakes:STG.n,bakeMs:+STG.ms.toFixed(1),perMs:STG.n?+(STG.ms/STG.n).toFixed(2):0,evict:STG.evict,idle:IDL.n,idleMs:+IDL.ms.toFixed(1),onFrame:STG.n-IDL.n},
+  layer:{count:LAYER.size,MB:+(layerBytes/1048576).toFixed(2),bakes:LYR.n,bakeMs:+LYR.ms.toFixed(1),perMs:LYR.n?+(LYR.ms/LYR.n).toFixed(2):0,evict:LYR.evict},drawMs:+STAT.ms.toFixed(1),calls:STAT.calls,deferred:STAT.deferred,frame:FR.id,
+  active:ACTIVE.size,last:LAST.size,plate:PLATE.size,release:{done:REL.done,idle:REL.idle,entries:REL.entries},purgeTimer:!!purgeT,finOv:STAT.finOv,finOvErr:STAT.finOvErr,gen:{wrapped:GW.wrapped,b2Skip:GW.b2Skip,rankSkip:GW.rankSkip,fail:GW.fail,b2Calls:GW.b2Calls,frameCalls:GW.frameCalls,why:GW.why}});
+W13.__x13BesP=(x,y)=>{const a=ACTIVE.get(x+','+y);return a?a.P:null;};   // 這個工地上一幀畫的 P（檢查第一天重映射用）
+W13.__x13BesLayerOf=(x,y,w)=>{const L=LAST.get(x+','+y+'#'+(w||'f'));return L?L.c:null;};
+W13.__x13BesClear=()=>{STAGE.clear();stageBytes=0;LAYER.clear();layerBytes=0;LAST.clear();PLATE.clear();ACTIVE.clear();REL.done=0;REL.idle=0;REL.entries=0;STG.n=0;STG.ms=0;STG.evict=0;LYR.n=0;LYR.ms=0;LYR.evict=0;STAT.ms=0;STAT.calls=0;STAT.deferred=0;IDL.n=0;IDL.ms=0;if(IDLE){try{(typeof cancelIdleCallback==='function'?cancelIdleCallback:clearTimeout)(IDLE);}catch(e){}IDLE=null;}P0MAP=new WeakMap();};
+// 美術自檢（純幾何）：吊臂尖投影在地塊內、吊鉤在吊臂下、道具釘在地塊內
+W13.__x13BesSelfCheck=()=>{const out=[];for(const k in REG){const M=REG[k],T=16*(M.sz||1);
+  const cr=M.crane;if(cr){let bad=0;for(let a=0;a<360;a+=3){const th=a*Math.PI/180,i=cr.base[0]+cr.L*Math.cos(th),j=cr.base[1]+cr.L*Math.sin(th);if(i<0||j<0||i>T||j>T)bad++;
+      const ci=cr.base[0]-cr.Lc*Math.cos(th),cj=cr.base[1]-cr.Lc*Math.sin(th);if(ci<-.2*16||cj<-.2*16||ci>T+.2*16||cj>T+.2*16)bad++;}out.push([k,'吊臂尖／平衡臂投影出地塊的角度數',bad]);}
+  const site=M.site;const pts=[['yard',site.yard],['cabin',site.cabin],['toilet',site.toilet],['truck',site.truck],['pump',site.pump],['mixer',site.mixer],['box',site.box],['shed',site.shed],['survey',site.survey]].filter(p=>p[1]);
+  out.push([k,'道具釘在地塊內',pts.filter(p=>!(p[1][0]>=0&&p[1][1]>=0&&p[1][0]<=T&&p[1][1]<=T)).map(p=>p[0]).join(',')||'ok']);
+  for(const e of site.exc)out.push([k,'挖掘機在地塊內',e[0]>=0&&e[1]>=0&&e[0]<=T&&e[1]<=T?'ok':'出界']);
+  if(M.rig){let dk=0,hk=0,lo=0,nn=0;
+    // 動臂：伸距 r 時吊鉤最高＝桅頂＋kv·√(Lj²−r²)−4；吊點離桅杆的伸距要在 [4, L] 內
+    const topAt=r=>cr&&cr.luff?cr.H+(cr.kv||2)*Math.sqrt(Math.max(0,cr.Lj*cr.Lj-r*r))-4:cr?cr.H-8:0,rOf=p=>Math.max(Math.min(4,cr.Lj*.4),Math.min(cr.L,Math.hypot(p[0]-cr.base[0],p[1]-cr.base[1])));
+    // fix2：吊桿用畫面同一支 derrickGeo 掃（每 0.05 天 × 一輪 5 秒每 0.05 秒 × 每個卸料點）：臂（桅杆腳→臂尖 11 點）落在塔身佔地內且低於當下結構頂＋2 的取樣、臂尖落在佔地內、
+    //   平台卸料時吊物底沒貼在板面（差 >1px）、鐘盤期吊物中心離盤面中心高 >2px 或吊點在平台板上（應在板外、盤面正前方）
+    let wall=0,coreTip=0,plank=0,dial=0,ns2=0;const cz=M.core;
+    for(let P=3;P<8.55;P+=.05){const pv=partsOf(M,P);const rg=M.rig(P,id=>pv[id]==null?1:pv[id]);if(rg.derrick){const d=rg.derrick;if((d.fold||0)>=1)continue;
+        if((d.fold||0)>0)continue;for(let t=0;t<5*d.drops.length;t+=.05){const q=derrickGeo(d,t);ns2++;if(q.ti<0||q.tj<0||q.ti>T||q.tj>T)dk++;
+          if(cz){const inC=(i,j)=>i>cz[0]+1e-6&&i<cz[1]-1e-6&&j>cz[2]+1e-6&&j<cz[3]-1e-6;if(inC(q.ti,q.tj))coreTip++;
+            for(let u=0;u<=1.0001;u+=.1){const i=lerp(d.base[0],q.ti,u),j=lerp(d.base[1],q.tj,u),zz=lerp(d.z+1,q.tz,u);if(inC(i,j)&&zz<rg.workTop+2)wall++;}}
+          const ph=(t/5)%1;if(ph>=.62&&ph<.645){const lb=d.lb||5;if(q.dr.face){if(Math.abs(q.hz-(d.lb>=11?7:d.lb>=9?6:4)-121.5)>2||Math.max(q.ti,q.tj)<11.2)dial++;}else if(Math.abs(q.hz-lb-d.z)>1)plank++;}}}
+      if(rg.drop&&cr){nn++;const lh=Math.max(...rg.loads.map(q=>(LOADS[q]||[5,4])[1]))+3;if(rg.dropH+lh+1>topAt(rOf(rg.drop)))hk++;
+        if(cr.luff){const a=rOf(rg.pick),b=rOf(rg.drop);for(let q=0;q<=10;q++)if(topAt(lerp(a,b,q/10))<122)lo++;}}}   // 迴轉、變幅途中吊鉤要高過煙囪頂 122px
+    out.push([k,'吊桿尖出地塊次數',dk],[k,'吊物頂高過吊鉤行程（吊鉤會高過吊臂）次數',hk]);if(cr&&cr.luff)out.push([k,'迴轉途中吊鉤低於煙囪頂 122px 的取樣數（共 '+nn*11+'）',lo]);
+    if(ns2)out.push([k,'吊桿臂落在塔身佔地內且低於結構頂＋2 的取樣數（共 '+ns2*11+'）',wall],[k,'吊桿臂尖落在塔身佔地內的取樣數（共 '+ns2+'）',coreTip],[k,'平台卸料時吊物底沒貼板面的取樣數',plank],[k,'鐘盤期吊物沒對準盤面／吊點在平台板上的取樣數',dial]);}
+  // fix2：大門開口、車輛在開口內（車身 i 範圍 ⊂ 大門）
+  {const gt=site.gate;if(gt){const bad=[];for(const nm of ['truck','pump','mixer','flatbed','van'])if(site[nm]){const c=gt.edge==='SW'?site[nm][0]:site[nm][1];if(c-.95<gt.a-1e-6||c+.95>gt.b+1e-6)bad.push(nm);}
+      out.push([k,'車輛車身在大門開口內',bad.join(',')||'ok']);
+      const L0=lotOf({ax:0,ay:2*T},M.sz||1);let open=0;for(const o of fencePanels(L0,M))if(o.e===gt.edge){const ax=gt.edge==='SW'?0:1,lo=Math.min(o.p[ax],o.q[ax]),hi=Math.max(o.p[ax],o.q[ax]);if(hi>gt.a+1e-6&&lo<gt.b-1e-6)open++;}
+      out.push([k,'大門開口裡的圍籬片數',open]);}}
+  // fix2：打樁機——每根樁打的時候，黃色機身頂、樁架頂露出前坑壁的最少 px（機身停在樁位背離鏡頭那一側）
+  if(M.pile&&site.pit){const [i0,i1,j0,j1]=site.pit,dp=site.depth,Gz=(i,j,z)=>[2*i-2*j,i+j-(z||0)];const Wr=Gz(i0,j1),Sr=Gz(i1,j1),Er=Gz(i1,j0);
+    const rimY=x=>x<Wr[0]||x>Er[0]?-1e9:x<=Sr[0]?Wr[1]+(Sr[1]-Wr[1])*(x-Wr[0])/((Sr[0]-Wr[0])||1):Sr[1]+(Er[1]-Sr[1])*(x-Sr[0])/((Er[0]-Sr[0])||1);
+    let minBody=1e9,minLead=1e9;for(const q of M.pile.pts){const bi=pileBody(M,q,0),bj=pileBody(M,q,1);
+      const bt=Gz(bi-1.1,bj-1.1,-dp+6.5),lt=Gz(q[0],q[1],-dp+M.pile.mast);minBody=Math.min(minBody,R(rimY(bt[0])-bt[1]));minLead=Math.min(minLead,R(rimY(lt[0])-lt[1]));}
+    out.push([k,'打樁機機身頂露出前坑壁的最少 px（全部樁位）',minBody],[k,'打樁機樁架頂露出前坑壁的最少 px',minLead]);}}
+  out.push(genWrapRow());   // resync：跟 generic 並存的包裝（第 3 輪審查 minor ②）
+  return out;};
+})();
+
+</script>
 <script>/* T574 b07.js */
 (window.__variants574=window.__variants574||[]).push(function b07(A){
   /* T574 批次 b07：地標與景觀塔（67 鐘樓／72 紀念碑／73 觀景塔／75 凱旋門／89 電視塔／103 天際觀景餐廳／
@@ -7305,7 +8270,7 @@ table.dtab tr:hover td{background:#1b2334}
 
   /* ---------- 後製對齊：逐式複刻 T526 打磨＋T479 建築材質（v0 在開機時吃過，變體跑在它們之後） ---------- */
   function polish526(c,ax,ay){const g=c.getContext('2d'),w=c.width,h=c.height,sc=Math.max(.6,Math.min(3,w/72));
-    g.fillStyle='rgba(10,14,24,.16)';g.beginPath();g.ellipse(ax+8*sc,ay-6*sc,30*sc,12*sc,0,0,6.283);g.fill();
+    if(!window.__x13StageNoShd){g.fillStyle='rgba(10,14,24,.16)';g.beginPath();g.ellipse(ax+8*sc,ay-6*sc,30*sc,12*sc,0,0,6.283);g.fill();} // x13Bes：施工中階段精靈不畫接觸影
     const im=g.getImageData(0,0,w,h),d=im.data;
     for(let y=0;y<h;y++){let L=-1,Rr=-1;for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]>40){if(L<0)L=x;Rr=x;}}if(L<0)continue;
       for(let x=L;x<Math.min(L+2,w);x++){const i=(y*w+x)*4;d[i]=Math.min(255,d[i]*1.14+12);d[i+1]=Math.min(255,d[i+1]*1.14+12);d[i+2]=Math.min(255,d[i+2]*1.14+12);}
@@ -8299,12 +9264,56 @@ table.dtab tr:hover td{background:#1b2334}
      女兒牆小尖塔、深灰石板屋頂；西南角 Victoria Tower（方形巨塔、四角八角小塔、旗）。
      k190：1×1、72×220、ax=36 ay=218。k191：2×2、136×250、ax=68 ay=248。精靈照決策單原型碼（docs/proto-b11/bigben.js）一字不改，只把閥門拆開：
      __noBigBen190／__noBigBenNight190（大笨鐘）、__noWestminster191／__noWestminsterNight191（西敏宮）。 */
-  if(!window.__noBigBen190||!window.__noWestminster191)try{(function(){
+  if(!window.__noBigBen190||!window.__noWestminster191)try{(function bb19x13(){
+    const pt12=id=>{const q=window.__x12bspQ;return q?q(id):1;};(window.__x12bspB=window.__x12bspB||{}).blk19=bb19x13; // x13Bes：構件進度（沒設＝1＝原碼）；blk19＝整段重跑（守衛用）
     const ST='#d6c28c',STL='#e6d5a4',STD='#b8a270',STX='#9c8658',
           SLL='#4e5c6e',SLD='#2a3340',SLT='#5a6676',GD='#d8b24a',GD2='#f0d27a',DIAL='#f2ecd8',DIALD='#d8d0b8',HAND='#20242c',
           GL='#2e3a4c',LIT='#ffe7b0',DLIT='rgba(255,246,214,.95)';
     // 伊莉莎白塔：SB＝台基南角地面點；回傳頂端十字尖的 y
+    function clockTowerStage13(g,SB,hS,pP,pS,pK,pD,pB,pX){ // x13Bes：施工中的伊莉莎白塔（完工態不走這裡）：台基→塔身逐皮砌→鐘室（鐘盤開口先用施工板封住）→鐘盤每面：金框→乳白玻璃（先下半）→指針，先左後右→鐘樓拱廊→鑄鐵尖頂（肋直上塔尖＋菱形環→下段掛石板→全掛）
+      const BED='#cfc39c';
+      const course=(S,lL,lR,h)=>{for(let d=1;d<2*lL;d+=4)P(g,fx(S,-1,d),fy(S,d)-h,1,1,'#c2b184');for(let d=3;d<2*lR;d+=4)P(g,fx(S,1,d),fy(S,d)-h,1,1,'#a8946a');};   // 頂皮新砌石塊的接縫：1px、每 4 欄一點（不排成一列牙）
+      if(pP<=0)return;
+      const hp=pP>=1?6:Math.max(2,R(6*pP));box(g,SB,5,5,hp,'#b2aa98','#9a9282',pP>=1?'#c4bcaa':BED);if(pP<1){course(SB,5,5,hp);return;}
+      const S1=[SB[0],SB[1]-6],hs=pS>=1?hS:R(hS*pS);if(hs<=0)return;
+      box(g,S1,4.5,4.5,hs,STL,ST,pS<1?BED:null);
+      const vh=Math.min(hs,hS-2);if(vh>2)for(let d=1;d<9;d+=2){P(g,fx(S1,-1,d),fy(S1,d)-vh,1,vh-2,STD);P(g,fx(S1,1,d),fy(S1,d)-vh,1,vh-2,STX);}
+      for(let z=14;z<hs;z+=15){band(g,S1,-1,0,9,z,1,STD);band(g,S1,1,0,9,z,1,STX);}
+      for(let z=24;z<hS-8;z+=30)if(hs>z){const wh=Math.min(6,hs-z);faceRect(g,S1,-1,3,2,z,wh,GL,wh>=6);faceRect(g,S1,1,4,2,z,wh,GL,wh>=6);}
+      if(pS<1){course(S1,4.5,4.5,hs);return;}
+      const S2=[S1[0],S1[1]-hS],hC=22,hc=pK>=1?hC:R(hC*pK);if(hc<=0)return;
+      box(g,S2,4.5,4.5,hc,STL,ST,pK<1?BED:pB<=0?'#c4bcaa':null);
+      // 鐘盤：跟 T694 完工盤面同一組格子（每面 d1..8、離鐘室底 6..17、斜切圓 r3.5、指針 3:00）。
+      // 每面進度 f：0＝開口用施工板封住（木色、每 3 列一道橫縫）→ .25 金框 → .5 下半乳白玻璃 → .75 滿玻璃 → 1 指針＝完工盤面；左面先、右面後（dials 量化 8 格）
+      const DQ={dA:1,dB:8,vLo:6,vHi:17,uc:5,vc:11,r:3.5};
+      for(const side of [-1,1]){const f=pK<1?0:side<0?Math.min(1,pD*2):Math.max(0,pD*2-1);
+        const HX=side<0?S2[0]-DQ.uc:S2[0]+DQ.uc,HY=Math.floor(S2[1]-DQ.uc/2-DQ.vc),HB=new Set([[-1,0],[-1,-1],[-1,-2],[0,0],[1,0]].map(o=>(HX+o[0])+','+(HY+o[1])));
+        for(let d=DQ.dA;d<=DQ.dB;d++){const x=fx(S2,side,d),b=fy(S2,d);
+          for(let v=DQ.vLo;v<=Math.min(DQ.vHi,hc);v++){const y=b-v,du=(d+.5)-DQ.uc,vv=(S2[1]-(d+.5)/2-(y+.5))-DQ.vc,e=(v===DQ.vLo||v===DQ.vHi||d===DQ.dA||d===DQ.dB),inD=du*du+vv*vv<=DQ.r*DQ.r;let c;
+            if(!inD&&f>=.25)c=e?(side<0?'#a8862e':'#8a6c22'):(side<0?GD:'#b8923a');   // 金框（T694 同色）
+            else if(inD&&(f>=.75||(f>=.5&&vv<0)))c=(f>=1&&HB.has(x+','+y))?'#20242c':(side<0?DIAL:DIALD);   // 乳白玻璃（先下半）；指針最後
+            else c=(e||v%3===0)?(side<0?'#b08c56':'#8e6f42'):(side<0?'#caa76c':'#aa8852');   // 施工板
+            P(g,x,y,1,1,c);}}
+        if(hc>=hC)band(g,S2,side,0,9,hC,1,side<0?STD:STX);if(hc>=3)band(g,S2,side,0,9,2,1,side<0?STD:STX);}
+      if(pK<1){course(S2,4.5,4.5,hc);return;}
+      if(pB<=0)return;
+      for(const [side,d] of [[-1,0],[-1,8],[1,8]]){const x=fx(S2,side,d),y=fy(S2,d)-hC;P(g,x,y-6,1,6,STD);P(g,x,y-8,1,2,GD2);}
+      P(g,S2[0],S2[1]-hC-6,1,6,STD);P(g,S2[0],S2[1]-hC-8,1,2,GD2);
+      const S3=[S2[0],S2[1]-hC],hB=12,hb=pB>=1?hB:R(hB*pB),LEAD13='#7a808a';box(g,S3,4.5,4.5,hb,STL,ST,pB<1?BED:pX<=0?LEAD13:null);
+      if(hb>2)for(const side of [-1,1])for(let d=1;d<9;d+=3)faceRect(g,S3,side,d,2,2,Math.min(8,hb-2),'#2a2622',hb>=10);
+      if(pB<1)return;
+      band(g,S3,-1,0,9,hB,1,GD);band(g,S3,1,0,9,hB,1,'#b8923a');
+      const S4=[S3[0],S3[1]-hB];if(pX<=0)return;
+      // 尖頂：nx1＝四根鑄鐵肋直上塔尖＋.35 高一圈等距菱形環；nx2＝下段 .35 先掛石板＋.6 高的環；nx3＝全掛石板＋金帶；完工（Ayrton 燈、十字尖）走原碼
+      const nx=R(pX*4),IR='#3e4652',IRL='#6a7482',ap=[S4[0],S4[1]-4.5-38],W4=[S4[0]-9,S4[1]-4.5],E4=[S4[0]+9,S4[1]-4.5],N4=[S4[0],S4[1]-9],at=(A,f)=>[R(A[0]+(ap[0]-A[0])*f),R(A[1]+(ap[1]-A[1])*f)];
+      if(nx<=2){topFace(g,S4,4.5,4.5,LEAD13,null,null);
+        if(nx>=2){poly(g,[W4,S4,at(S4,.35),at(W4,.35)],SLL);poly(g,[S4,E4,at(E4,.35),at(S4,.35)],SLD);}
+        line(g,N4[0],N4[1],ap[0],ap[1],IRL);for(const A of [W4,E4,S4])line(g,A[0],A[1],ap[0],ap[1],IR);   // 後肋淺色先畫，左、右、前肋蓋上去
+        for(const ff of (nx<=1?[.35]:[.6])){const a=at(W4,ff),b=at(S4,ff),c=at(E4,ff),n=at(N4,ff);line(g,a[0],a[1],n[0],n[1],IRL);line(g,n[0],n[1],c[0],c[1],IRL);line(g,a[0],a[1],b[0],b[1],IR);line(g,b[0],b[1],c[0],c[1],IR);}   // 環：後兩邊淺、前兩邊深
+        return;}
+      pyramid(g,S4,4.5,38,SLL,SLD,GD);for(const f of [.35,.6]){const y=R(S4[1]-4.5-38*f),w=R(9*(1-f));P(g,S4[0]-w,y,2*w+1,1,GD);}}   // 掛完石板；Ayrton 燈與金色十字尖是最後一步（＝完工原碼）
     function clockTower(g,ng,SB,hS,LU){
+      {const s13=[pt12('plinth'),pt12('shaft'),pt12('clock'),pt12('dials'),pt12('belfry'),pt12('spire')];if(s13.some(v=>v<1)){clockTowerStage13(g,SB,hS,...s13);return SB[1];}} // x13Bes
       box(g,SB,5,5,6,'#b2aa98','#9a9282','#c4bcaa');                                     // 台基
       const S1=[SB[0],SB[1]-6];box(g,S1,4.5,4.5,hS,STL,ST,null);                          // 塔身
       for(let d=1;d<9;d+=2){P(g,fx(S1,-1,d),fy(S1,d)-hS+2,1,hS-4,STD);P(g,fx(S1,1,d),fy(S1,d)-hS+2,1,hS-4,STX);}   // 直向飾板
@@ -8335,11 +9344,13 @@ table.dtab tr:hover td{background:#1b2334}
       P(g,ap[0],ap[1]-7,1,8,GD);P(g,ap[0]-1,ap[1]-5,3,1,GD2);                             // 十字尖
       return ap[1]-7;}
     /* k190 大笨鐘 1×1 */
-    if(!window.__noBigBen190){const K=190,OL=[40,34,24],W=72,H=220,ax=36,ay=218,G=GP(ax,ay);const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g;
-      plate(base.g,ax,ay,'#a8a294','#948c7c','#b8b2a4');
+    const bb190x13=()=>{const K=190,OL=[40,34,24],W=72,H=220,ax=36,ay=218,G=GP(ax,ay);const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g; // x13Bes：具名＝可按構件進度重跑
+      if(pt12('plate')>=1)plate(base.g,ax,ay,'#a8a294','#948c7c','#b8b2a4');
       clockTower(g,ng,G(10,10),104,!window.__noBigBenNight190);
-      lamp(g,ng,22,196,7,'#6e6a60',GD,'rgba(255,214,120,.55)');lamp(g,ng,50,196,7,'#6e6a60',GD,'rgba(255,214,120,.55)');
-      finish(K,0,base,st,nt,ax,ay,OL);}
+      if(pt12('lamps')>=1){lamp(g,ng,22,196,7,'#6e6a60',GD,'rgba(255,214,120,.55)');lamp(g,ng,50,196,7,'#6e6a60',GD,'rgba(255,214,120,.55)');}
+      finish(K,0,base,st,nt,ax,ay,OL);};
+    (window.__x12bspB=window.__x12bspB||{})[190]=bb190x13;
+    if(!window.__noBigBen190)bb190x13();
     /* k191 西敏宮 2×2：東北角伊莉莎白塔（後）、中段宮殿長立面、西南角維多利亞塔（前） */
     if(!window.__noWestminster191){const K=191,OL=[40,34,24],W=136,H=250,ax=68,ay=248,LU=!window.__noWestminsterNight191;
       const G2=(i,j,z)=>[ax+2*i-2*j,ay-64+i+j-(z||0)];const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g;
@@ -8374,14 +9385,17 @@ table.dtab tr:hover td{background:#1b2334}
      取材 Battersea Power Station：橫長磚造主量體（壁柱分格、細長高窗、白石簷口）、四角磚砌塔座（Art Deco 退台）
      各頂一根白色凹槽煙囪（頂端航空障礙紅燈）、屋頂中段長條天窗。2×2、136×184、ax=68 ay=182。精靈照決策單原型碼（docs/proto-b11/batt2.js）一字不改；
      逃生閥 __noBattersea192（不建精靈）／__noBatterseaNight192（不畫夜圖）；工具行為的閥門是 __noBattersea2x678。 */
-  if(!window.__noBattersea192)try{(function(){const K=192,OL=[46,34,28];
+  if(!window.__noBattersea192)try{(function bat192x13(){const K=192,OL=[46,34,28];
+    const Q13=window.__x12bspQ||null,pt=id=>Q13?Q13(id):1;(window.__x12bspB=window.__x12bspB||{})[192]=bat192x13; // x13Bes：builder 收構件進度（沒設＝全部 1＝原碼）
     const BR='#9a5a44',BRL='#b06f54',BRD='#7c4433',BRX='#633324',RED='#c8503a',
           WH='#efeae0',WHL='#f7f4ec',WHD='#d6cfc2',GL='#3a4658',LIT='#ffe3a6',GD='#d7ae38',LEAD='#8f9ca6',RT='#7a6a60';
     const W=136,H=184,ax=68,ay=182,LU=!window.__noBatterseaNight192;
     const G2=(i,j,z)=>[ax+2*i-2*j,ay-64+i+j-(z||0)];
     const base=mk(W,H),st=mk(W,H),nt=mk(W,H),g=st.g,ng=nt.g;
-    A.dia(base.g,ax,ay-64,64,'#9a968c');A.diaEdge(base.g,6,'#867f74',ax,ay-64,64);A.diaEdge(base.g,9,'#aaa79c',ax,ay-64,64);
+    if(pt('plate')>=1){A.dia(base.g,ax,ay-64,64,'#9a968c');A.diaEdge(base.g,6,'#867f74',ax,ay-64,64);A.diaEdge(base.g,9,'#aaa79c',ax,ay-64,64);}
     const I0=3,I1=29,J0=8,J1=24,hB=34,hT=16,S=G2(I1,J1),nL=2*(I1-I0),nR=2*(J1-J0);
+    const post13=[];
+    if(['frameA','frameB','hallA','hallB','cornA','cornB','roof'].every(id=>pt(id)>=1)){ // x13Bes
     box(g,S,I1-I0,J1-J0,hB,BR,BRD,RT);                                                   // 磚造主量體
     band(g,S,-1,0,nL,0,3,'#8a8074');band(g,S,1,0,nR,0,3,'#7c7268');                      // 石台基
     for(let d=0;d<nL;d+=4)P(g,fx(S,-1,d),fy(S,d)-hB,1,hB-3,BRL);                         // 壁柱（凹槽感）
@@ -8390,7 +9404,9 @@ table.dtab tr:hover td{background:#1b2334}
     for(let d=1;d<nR-1;d+=4){const lit=((d*3+1)%5)<3;faceRect(g,S,1,d+1,2,6,22,GL,true);if(LU&&lit)faceRect(ng,S,1,d+1,2,6,22,LIT,true);}
     band(g,S,-1,0,nL,hB-3,3,WH);band(g,S,1,0,nR,hB-3,3,WHD);                              // 白石簷口
     faceRect(g,S,-1,nL/2-3,6,0,12,'#3a2e24',true);                                        // 正門
-    function tower(ci,cj,front){                                                          // 塔座＋退台＋煙囪；(ci,cj)＝塔南角
+    }else hallStage13(); // x13Bes
+    function tower(ci,cj,front,id13){const cp13=id13==='N'||id13==='W'?'capA':'capB';if(id13&&Q13&&(pt('t'+id13)<1||pt('c'+id13)<1||pt(cp13)<1||pt('lamps')<1)){towerStage13(ci,cj,pt('t'+id13),pt('c'+id13),pt(cp13));return;} // x13Bes：施工中（紅色頂燈只在完工態）
+                                                          // 塔座＋退台＋煙囪；(ci,cj)＝塔南角
       const St=G2(ci,cj,hB);box(g,St,5,5,hT,BRL,BRD,RT,{noAO:true});
       for(const side of [-1,1]){P(g,fx(St,side,4),fy(St,4)-hT,1,hT,side<0?BRD:BRX);P(g,fx(St,side,5),fy(St,5)-hT,1,hT,side<0?BRD:BRX);
         faceRect(g,St,side,2,1,3,9,GL,false);faceRect(g,St,side,7,1,3,9,GL,false);
@@ -8404,13 +9420,69 @@ table.dtab tr:hover td{background:#1b2334}
       for(const yy of [top+12,top+30])for(let dx=-3;dx<=3;dx++){const u=dx/3.6,e=R(1.6*Math.sqrt(Math.max(0,1-u*u)));P(g,cx+dx,yy+e,1,2,'#cfc8ba');}
       ell(g,cx,top,4,1.8,WHL);ell(g,cx,top-1,3,1.2,'#5a524c');
       P(g,cx,top-4,1,3,'#8a8274');P(g,cx,top-5,1,1,RED);if(LU)disc(ng,cx,top-5,2,'rgba(255,90,70,.75)');}
-    tower(I0+5,J0+5,false);                                                               // 北（最後面）
-    {const Sc=G2(22,18,hB);box(g,Sc,14,4,6,BRL,BRD,LEAD,{noAO:true});                    // 屋頂長條天窗
+    tower(I0+5,J0+5,false,'N');                                                               // 北（最後面）
+    if(pt('roof')<1){if(pt('roof')>=.75)skyStage13();}else{const Sc=G2(22,18,hB);box(g,Sc,14,4,6,BRL,BRD,LEAD,{noAO:true});                    // 屋頂長條天窗
       for(let d=1;d<28;d+=3)P(g,fx(Sc,-1,d),fy(Sc,d)-5,1,3,GL);if(LU)for(let d=1;d<28;d+=6)P(ng,fx(Sc,-1,d),fy(Sc,d)-5,1,3,LIT);}
-    tower(I0+5,J1,false);tower(I1,J0+5,false);                                            // 西、東
-    tower(I1,J1,true);                                                                    // 南（最前面）
-    lamp(g,ng,63,175,7,'#6e6a60',GD,'rgba(255,214,120,.55)');lamp(g,ng,72,177,7,'#6e6a60',GD,'rgba(255,214,120,.55)');
-    finish(K,0,base,st,nt,ax,ay,OL);
+    tower(I0+5,J1,false,'W');tower(I1,J0+5,false,'E');                                            // 西、東
+    tower(I1,J1,true,'S');                                                                    // 南（最前面）
+    if(pt('lamps')>=1){lamp(g,ng,63,175,7,'#6e6a60',GD,'rgba(255,214,120,.55)');lamp(g,ng,72,177,7,'#6e6a60',GD,'rgba(255,214,120,.55)');}
+    /* x13Bes 施工中構件（完工態不走這裡） */
+    function hallStage13(){ // 主廳：A 站（西半、先）／B 站（東半、後）分期；紅丹鋼骨先行、磚牆逐皮往上、窗隨牆長、白石簷口逐塊鋪
+      const SLAB='#a9a498',hA=R(hB*pt('hallA')),hBh=R(hB*pt('hallB')),fA=R(hB*pt('frameA')),fB=R(hB*pt('frameB')),pCA=pt('cornA'),pCB=pt('cornB'),pR=pt('roof');
+      const SA=G2(16,24);
+      const corA=d=>d>=26&&(51-d)/26<pCA-1e-6,corB=d=>{const ix=d<26?25-d:26+(d-nL);return ix/58<pCB-1e-6;};
+      const half=(Sx,h,top,d0,dN,right,cor)=>{if(h<=0)return;box(g,Sx,13,16,h,BR,BRD,top);
+        for(let d=d0;d<dN;d++){const x=fx(S,-1,d),yb=fy(S,d);
+          if(h>=3)P(g,x,yb-3,1,3,'#8a8074');
+          if(d%4===0&&h>3)P(g,x,yb-h,1,h-3,BRL);
+          if(d>=2&&(d%4===2||d%4===3)&&h>6){const wh=Math.min(21,h-6);P(g,x,yb-6-wh,1,wh,GL);}
+          if(h>=hB&&cor(d))P(g,x,yb-hB,1,3,WH);
+          if(d>=nL/2-3&&d<nL/2+3){const e=(d===nL/2-3||d===nL/2+2)?1:0,dh=Math.min(12-e,h);P(g,x,yb-dh,1,dh,'#3a2e24');}}
+        if(right)for(let d=0;d<nR;d++){const x=fx(S,1,d),yb=fy(S,d);
+          if(h>=3)P(g,x,yb-3,1,3,'#7c7268');
+          if(d%4===0&&h>3)P(g,x,yb-h,1,h-3,BRX);
+          if(d>=2&&(d%4===2||d%4===3)&&h>6){const wh=Math.min(21,h-6);P(g,x,yb-6-wh,1,wh,GL);}
+          if(h>=hB&&cor(nL+d))P(g,x,yb-hB,1,3,WHD);}};
+      half(SA,hA,pR>=.25?RT:SLAB,26,nL,false,corA);
+      half(S,hBh,pR>=.5?RT:SLAB,0,26,true,corB);
+      if(hA>0&&hA<hB)post13.push(bg=>slabTop13(bg,SA,13,16,hA,1));
+      if(fA>hA)post13.push(bg=>frame13(bg,SA,13,16,hA,fA));
+      if(hBh>0&&hBh<hB)post13.push(bg=>slabTop13(bg,S,13,16,hBh,2));
+      if(fB>hBh)post13.push(bg=>frame13(bg,S,13,16,hBh,fB));}
+    function frame13(bg,S0,lL,lR,h0,h1){const RL='#b0442c',RLD='#7e2e1e',RLH='#cf6a4e',nL2=2*lL,nR2=2*lR;   // 紅丹鋼骨籠：柱、每 8px 一圈樑、隔跨斜撐（走 finish 的 post，不描邊）
+      const Wp=[S0[0]-nL2,S0[1]-lL],Ep=[S0[0]+nR2,S0[1]-lR],Np=[S0[0]+nR2-nL2,S0[1]-lL-lR];
+      for(let y=8;y<=h1;y+=8)if(y>h0){line(bg,Wp[0],Wp[1]-y,Np[0],Np[1]-y,RLD);line(bg,Np[0],Np[1]-y,Ep[0],Ep[1]-y,RLD);}
+      for(const p of [Wp,Np,Ep])P(bg,p[0],p[1]-h1,1,h1-h0,RLD);
+      for(let d=0;d<nL2;d+=4)P(bg,fx(S0,-1,d),fy(S0,d)-h1,1,h1-h0,RL);
+      for(let d=0;d<nR2;d+=4)P(bg,fx(S0,1,d),fy(S0,d)-h1,1,h1-h0,RLD);
+      for(let y=8;y<h1;y+=8)if(y>h0){band(bg,S0,-1,0,nL2,y-1,1,RLH);band(bg,S0,1,0,nR2,y-1,1,RL);}
+      band(bg,S0,-1,0,nL2,h1-1,1,RLH);band(bg,S0,1,0,nR2,h1-1,1,RL);
+      const hb=Math.min(h1,h0+8);for(let d=0;d+4<=nL2;d+=12)line(bg,fx(S0,-1,d),fy(S0,d)-h0,fx(S0,-1,d+4),fy(S0,d+4)-hb,RLD);
+      for(let d=4;d+4<=nR2;d+=12)line(bg,fx(S0,1,d),fy(S0,d)-h0,fx(S0,1,d+4),fy(S0,d+4)-hb,'#6a2618');}
+    function slabTop13(bg,S0,lL,lR,h,sd){const T=[S0[0],S0[1]-h],at=(a,b)=>[T[0]-2*a+2*b,T[1]-a-b];   // 工作面：隔間牆（剖開的房間）、鋼筋頭、棧板
+      const W3=sd===1?[[[lL*.45,1],[lL*.45,lR-1]],[[1,lR*.5],[lL*.45,lR*.5]],[[lL*.8,lR*.2],[lL*.8,lR*.75]]]:[[[lL*.55,1],[lL*.55,lR-1]],[[lL*.55,lR*.4],[lL-1,lR*.4]],[[2,lR*.7],[lL*.55,lR*.7]]];
+      for(const [a0,b0] of W3){const a=at(a0[0],a0[1]),b=at(b0[0],b0[1]);line(bg,a[0],a[1]-2,b[0],b[1]-2,'#d8d3c8');line(bg,a[0],a[1]-1,b[0],b[1]-1,'#9d978b');line(bg,a[0],a[1],b[0],b[1],'#8e887c');}
+      for(let d=1;d<2*lL;d+=4)P(bg,fx(S0,-1,d),fy(S0,d)-h-3,1,2,'#8a5a3a');
+      for(let d=1;d<2*lR;d+=4)P(bg,fx(S0,1,d),fy(S0,d)-h-3,1,2,'#8a5a3a');
+      const p1=at(lL*.3,lR*.72);P(bg,p1[0]-3,p1[1]-3,6,3,'#b06a4a');P(bg,p1[0]-3,p1[1]-3,6,1,'#c9845f');
+      const p2=at(lL*.7,lR*.3);P(bg,p2[0]-3,p2[1]-2,6,1,'#7d8891');P(bg,p2[0]-3,p2[1]-1,6,1,'#55606a');}
+    function towerStage13(ci,cj,pT,pK,pC){if(pT<=0)return;const ht=pT>=1?hT:R(hT*pT),St=G2(ci,cj,hB);   // 塔座逐皮砌、煙囪分 4 節（頂端開口＝爬模中）、頂飾最後（紅燈只在完工態）
+      box(g,St,5,5,ht,BRL,BRD,pT>=1?RT:'#a9a498',{noAO:true});
+      for(const side of [-1,1]){P(g,fx(St,side,4),fy(St,4)-ht,1,ht,side<0?BRD:BRX);P(g,fx(St,side,5),fy(St,5)-ht,1,ht,side<0?BRD:BRX);
+        if(ht>3){const wh=Math.min(9,ht-3);faceRect(g,St,side,2,1,3,wh,GL,false);faceRect(g,St,side,7,1,3,wh,GL,false);}
+        if(pT>=1)band(g,St,side,0,10,hT-2,2,side<0?WHL:WHD);}
+      if(pT<1)return;
+      const S2=G2(ci-1,cj-1,hB+hT);box(g,S2,3,3,4,BRL,BRD,RT,{noAO:true});band(g,S2,-1,0,6,3,1,WHL);band(g,S2,1,0,6,3,1,WHD);
+      if(pK<=0)return;
+      const C=G2(ci-2.5,cj-2.5,hB+hT+4),cx=C[0],cy=C[1],hC=58,hc=pK>=1?hC:R(hC*pK),top=cy-hc,topF=cy-hC;
+      for(let dx=-3;dx<=3;dx++){const u=dx/3.6,e=R(1.6*Math.sqrt(Math.max(0,1-u*u)));P(g,cx+dx,top+e,1,hc,u<-.5?WHL:(dx%2===0?WH:WHD));}
+      ell(g,cx,cy,3.8,1.8,WHD);
+      for(const yy of [topF+12,topF+30])if(yy>=top+2)for(let dx=-3;dx<=3;dx++){const u=dx/3.6,e=R(1.6*Math.sqrt(Math.max(0,1-u*u)));P(g,cx+dx,yy+e,1,2,'#cfc8ba');}
+      if(pK<1||pC<.5){ell(g,cx,top,3,1.4,WHL);ell(g,cx,top,2,1,'#5a524c');return;}
+      ell(g,cx,top,4,1.8,WHL);ell(g,cx,top-1,3,1.2,'#5a524c');
+      if(pC>=1)P(g,cx,top-4,1,3,'#8a8274');}
+    function skyStage13(){const Sc=G2(22,18,hB);box(g,Sc,14,4,6,BRL,BRD,'#9aa6ae',{noAO:true});for(let d=1;d<28;d+=3)P(g,fx(Sc,-1,d),fy(Sc,d)-5,1,3,'#6f7a84');}   // 天窗骨架（還沒上玻璃）
+    finish(K,0,base,st,nt,ax,ay,OL,undefined,post13.length?(bg=>{for(const f of post13)f(bg);}):undefined); // x13Bes：post13 空＝跟原碼同參數
   })();}catch(e){console.error('v574 k192',e);}
 
   /* ======================== k198 英式書店（1×1 高街店面；DSK-015，分支卡 docs/T692-bookshop.md） ========================
@@ -38614,8 +39686,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.04'; // T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T700'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.05'; // T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T701'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -63916,6 +64988,7 @@ function draw(dt){
   if(!window.__noTowerBridge693)tb693Push(objs,sxOf,syOf,vis); /* T693 */
   objs.sort((a,b2)=>a.dep-b2.dep);
   const nightSprites=[];
+  if(!window.__noConstr701&&!window.__noConstr700&&window.__x13BesGen)window.__x13BesGen(); // T701：本卡開著時，T700 的 B2 收尾與細節名額跳過本卡擁有的地標
   const occ629=[],occOn629=!window.__noNightOcc629;let dep629=-Infinity,oDep629=-Infinity; // T629：夜光遮擋——每筆夜光記深度 dep629（物件層＝推它的物件，超街區分條＝該街區最前面那一條；之前推的路燈＝所在路格；之後＝天空不擋），遮擋記 oDep629（畫它的那一條）
   if(occOn629){const _p629=nightSprites.push;nightSprites.push=function(){for(let i=0;i<arguments.length;i++){const e=arguments[i];if(e&&typeof e==='object'&&e.dep629===undefined)e.dep629=(dep629===-Infinity&&e.gx!=null)?viewDep(e.gx,e.gy)+.5:dep629;}return _p629.apply(this,arguments);};}
   const occ629Push=(img,x,y,w,h,clip,src)=>{if(occOn629&&img)occ629.push({dep:oDep629,img,x,y,w,h,clip,src,alpha:ctx.globalAlpha});};
@@ -64440,6 +65513,39 @@ function draw(dt){
     }
     else if(bd.k===9){bx=sxOf(o.x+1,o.y+1)+(32-s.ax)*z;by=syOf(o.x+1,o.y+1)+(32-s.ay)*z;}
     else{bx=o.sx+(32-s.ax)*z;by=o.sy+(32-s.ay)*z;}
+    if(!window.__noConstr701&&!window.__noConstr700&&bd.k!==4&&window.__x12Reg&&window.__x12Reg[bd.k]){if(bd.age<9&&window.__x13BesDraw){let r13=false;try{r13=window.__x13BesDraw(ctx,{o,bd,s,bx,by,z,sxOf,syOf,visT,animOn,lodFar,lodMini,nightSprites,nightDepth,SPR,sil:silhouetteOne573,occPush:occ629Push,lotClip:(!o.block547&&!bd.ref)?(g13=>clipLotFootprint596(g13,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf)):null,gshade:hh13=>groundShade572(ctx,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf,hh13),finOv:()=>{if(!legacyOverlay606(s))return;(function(bd,drawA){
+      const cl606=window.__noOvFix606?null:ovClipBegin606(s,z); // T606：本體層畫進離屏、剪進剪影再貼回（量測：舊層 37～100% 像素浮在建築外）
+      const G6=cl606?cl606.g:ctx,X6=cl606?cl606.x:bx,Y6=cl606?cl606.y:by;
+      if(!window.__noNearUK695)nearDialCover695(G6,bd,s,cl606?X6+bx-Math.round(bx):X6,cl606?Y6+by-Math.round(by):Y6,z,drawA,(win&&snowLvl>0&&!lodFar&&bd.k!==4&&!window.__noRoofSnow)?snowLvl:0,(wetLvl>0&&!lodFar&&bd.k!==4&&!window.__noWetBld)?wetLvl:0); // T695：鐘盤蓋格先畫（疊層照常蓋上去）
+      drawDistrictTexture424(G6,o,bd,s,X6,Y6,z,drawA);
+      drawAgeWeathering591(G6,o,bd,s,X6,Y6,z,drawA); // T591 連續老化梯度（大面低透明先畫）
+      drawSignAge593(G6,o,bd,s,X6,Y6,z,drawA); // T593 招牌新舊差異
+      drawFacadeMemory426(G6,o,bd,s,X6,Y6,z,drawA);
+      drawLivedIn421(G6,o,bd,s,X6,Y6,z,drawA);
+      drawRooftop425(G6,o,bd,s,X6,Y6,z,drawA);
+      drawMaterialResponse430(G6,o,bd,s,X6,Y6,z,drawA,wetLvl,snowLvl,nightDepth);
+      drawNightIdentity423(G6,o,bd,s,X6,Y6,z,drawA,nightDepth);
+      drawNightMicro431(G6,o,bd,s,X6,Y6,z,drawA,nightDepth);
+      drawNearZoom599(G6,o,bd,s,X6,Y6,z,drawA); // T599 近距第二層
+      drawNearZoomCathedralDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-002 座堂近距細節層（日／夜）
+      drawNearZoomCornerPubDSK12(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-012 轉角酒館近距細節層（日／夜）
+      drawNearZoomTearoomDSK14(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-014 英式茶室近距細節層（日／夜）
+      drawNearZoomChippyDSK13(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-013 炸魚薯條店近距細節層（日／夜）
+      drawNearZoomGeorgeInnDSK8(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-008 有廊客棧近距細節層（日／夜）
+      drawNearZoomKeepDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-003 白塔近距細節層
+      drawNearZoomBatterseaDSK1(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-004 巴特西近距細節層
+      if(!window.__noNearUK695)nearLandmark695(G6,o,bd,s,cl606?X6+bx-Math.round(bx):X6,cl606?Y6+by-Math.round(by):Y6,z,drawA,nightDepth,snowLvl,wetLvl); // T695 英式地標近距層（原點帶小數相位）
+      drawNearZoomAlbertHallDSK7(G6,o,bd,s,X6,Y6,z,drawA,nightDepth); // DSK-007 皇家音樂廳近距細節層（日／夜）
+      if(cl606)ovClipEnd606(ctx,cl606,s,bx,by,z);
+      drawIndustrialShift447(ctx,o,bd,s,bx,by,z,drawA, !!nightDepth); // T447-R01
+      drawCommService447(ctx,o,bd,s,bx,by,z,drawA); // T447-R03
+      drawParkUsage447(ctx,o,bd,s,bx,by,z,drawA); // T447-R04
+      drawResYard447(ctx,o,bd,s,bx,by,z,drawA); // T447-R05
+      drawIndFooting447(ctx,o,bd,s,bx,by,z,drawA); // T447-R06
+      drawSchoolFront447(ctx,o,bd,s,bx,by,z,drawA); // T447-R09
+      drawActivityPocket422(ctx,o,bd,s,bx,by,z,drawA,nightDepth);
+      drawMicroLife429(ctx,o,bd,s,bx,by,z,drawA,nightDepth);
+    })(Object.assign({},bd,{age:9}),1);},age:bd.age,frac:(window.__x12Frac!=null?+window.__x12Frac:window.__x13Frac!=null?+window.__x13Frac:simAcc/DAYLEN),fracOv:(window.__x12Frac!=null||window.__x13Frac!=null)?1:0,hs:streetHash(o.x,o.y,1212)});}catch(e13){window.__x13BesErr=String(e13&&e13.stack||e13);}if(r13)continue;}else if(bd.age>=9&&window.__x13BesDone)window.__x13BesDone(o.x,o.y);} // T701 地標專屬施工（逃生閥 __noConstr701）
     const once575=window.__noOnce575||o.blockDiag555==null||o.blockDiag555===o.blockD0575; // T575：超街區切條時地面效果只在第一條畫
     if(!lodFar&&bd.k!==4&&bd.age>=(!window.__noConstr700&&!flatLot610(bd)?9:4)&&once575){
       const lotW=o.block547?o.block547.w:(bd.sz||1),lotH=o.block547?o.block547.h:(bd.sz||1);
@@ -78278,6 +79384,40 @@ g.moveTo(D.X(L.N[0]),D.Y(L.N[1]));g.lineTo(D.X(L.E[0]),D.Y(L.E[1]));g.lineTo(D.X
   return {reset,site,frame,b2,profile,prog,heights,selftest,sched,SCH,stats:()=>stats,flush,pending:()=>PQ.size,_shell:SHELL,_timb:TIMB,_la:LA,clipLotFor,clipLotGround,craneGeo,scafTop,_silField:silField,_silScreen:(s,M,hq)=>silScreen({M,A:{s}},hq)};
 })();
 
+function constrSelftest701(){ // T701 煙霧自檢：種一棟大笨鐘 age5，專屬施工畫得出、跟閥門版（T700 通用）不同、無例外；P8.999 對完工只差完工才亮的街燈；T700 閥門開時本卡跟著關；幾何自檢（吊臂、道具、吊桿不穿塔、包裝）全過；draw 不擲錯
+  const checks=[],add=(k,ok)=>checks.push([k,!!ok]);
+  if(typeof window.__x13BesDraw!=='function'||typeof window.__x13BesSelfCheck!=='function')return {ok:false,checks:['地標模組沒載入 ✗']};
+  const free=(x,y)=>{if(!inMap(x,y))return false;const t=tiles[idx(x,y)];return t.t!==0&&!t.road&&!t.rail&&!t.tram&&!t.bridge&&!t.bld;};
+  let area=null;for(let y=2;y<N-7&&!area;y++)for(let x=2;x<N-7&&!area;x++){let ok=true;for(let dy=0;dy<5&&ok;dy++)for(let dx=0;dx<5;dx++)if(!free(x+dx,y+dy)){ok=false;break;}if(ok)area={x,y};}
+  if(!area)return {ok:false,checks:['找不到 5×5 空地 ✗']};
+  const saved=[];for(let dy=0;dy<5;dy++)for(let dx=0;dx<5;dx++){const t=tiles[idx(area.x+dx,area.y+dy)];saved.push([t,t.bld,t.tree,t.deco,t.ruin]);t.tree=0;t.deco=0;t.ruin=0;}
+  const tx=area.x+2,ty=area.y+2,b={k:190,lv:1,v:0,age:5,pw:true,h:1};tiles[idx(tx,ty)].bld=b;
+  const cvs=document.getElementById('game'),g=cvs.getContext('2d'),W=cvs.width,H=cvs.height;
+  const sv={o1:window.__noConstr701,o0:window.__noConstr700,frac:window.__x13Frac,noq:window.__x13NoQ,err:window.__x13BesErr,sync:window.__x13SyncProf,sig:window.__noSignal,vt:visT,cx:cam.x,cy:cam.y,cz:cam.z,rot:viewRot,shk:shakeT,wT:waterT,wF:waterF};
+  const snap=()=>g.getImageData(0,0,W,H).data,diff=(a,c)=>{let n=0;for(let i=0;i<a.length;i+=4)if(a[i]!==c[i]||a[i+1]!==c[i+1]||a[i+2]!==c[i+2])n++;return n;};
+  const fd=k=>{for(let i=0;i<(k||1);i++){waterT=0;GV.forceDraw();if(GV.constr13&&GV.constr13.pending())GV.constr13.flush();}};
+  try{
+    shakeT=0;setViewRot(0);window.__x13SyncProf=1;window.__x13NoQ=1;window.__x13BesErr=null;window.__noSignal=true;
+    GV.lookAt(tx,ty-1);GV.art574.zoom574(2);GV.setVisT(GV.art574.cycle574()*.5);
+    b.age=5;window.__x13Frac=.5;
+    window.__noConstr701=true;fd(6);const v=snap();
+    window.__noConstr701=false;fd(6);const n=snap(),d=diff(v,n);
+    add('閥門 __noConstr701 關：大笨鐘 ('+tx+','+ty+') 走專屬工序（跟閥門版＝T700 通用施工差 '+d+' px）',d>500);
+    add('專屬施工沒有例外（__x13BesErr 空）',!window.__x13BesErr);
+    window.__noConstr700=true;window.__noConstr701=true;fd(3);const a0=snap();window.__noConstr701=false;fd(3);const a1=snap();window.__noConstr700=false;
+    add('T700 閥門 __noConstr700 開時本卡跟著關（兩張差 '+diff(a0,a1)+' px）',diff(a0,a1)===0);
+    b.age=9;window.__x13Frac=0;fd(3);const a9=snap();b.age=8;window.__x13Frac=.999;fd(3);const m=diff(snap(),a9);
+    add('P8.999 對完工：差 '+m+' px（只剩完工才亮的街燈，門檻 800）',m<=800);
+    const sc=window.__x13BesSelfCheck(),bad=sc.filter(r=>/露出/.test(r[1])?!(+r[2]>0):!(r[2]==='ok'||r[2]===0));
+    add('幾何自檢 '+(sc.length-bad.length)+'/'+sc.length+'（吊臂、道具、吊桿不穿塔、跟 T700 的包裝）'+(bad.length?'：'+bad.map(r=>r[0]+' '+r[1]+' '+r[2]).join('；'):''),bad.length===0);
+  }catch(e){add('例外：'+e.message,false);}
+  finally{for(let i=saved.length-1;i>=0;i--){const [t,bb,tr,de,ru]=saved[i];t.bld=bb;t.tree=tr;t.deco=de;t.ruin=ru;}if(window.__x13BesDone)window.__x13BesDone(tx,ty);
+    window.__noConstr701=sv.o1;window.__noConstr700=sv.o0;window.__x13Frac=sv.frac;window.__x13NoQ=sv.noq;window.__x13BesErr=sv.err;window.__x13SyncProf=sv.sync;window.__noSignal=sv.sig;
+    setViewRot(sv.rot);shakeT=sv.shk;waterT=sv.wT;waterF=sv.wF;cam.x=sv.cx;cam.y=sv.cy;cam.z=sv.cz;zoomAnim=null;try{GV.setVisT(sv.vt);GV.forceDraw();}catch(e){}}
+  let e2='';{let errN=0;const se=console.error;console.error=()=>{errN++;};try{draw(.016);}catch(e){e2=e.message;}finally{console.error=se;}if(errN)e2=e2||('console.error '+errN+' 筆');}
+  add('真的 draw(.016) 一次不擲錯'+(e2?'（'+e2+'）':''),!e2);
+  return {ok:checks.every(q=>q[1]),at:[tx,ty],checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
 function constrSelftest700(){ // T700 煙霧自檢：閥門、施工中畫得出、最後一格＝完工、量化不倒退、draw 不擲錯（完整版是 GV.constr13.selftest，守衛 probe700.js 跑）
   const checks=[],add=(k,ok)=>checks.push([k,!!ok]);
   // 找一片 5×5 空地，正中種一棟 1×1 住宅（比照 T635 自檢：整塊存下、驗完還原；水面計時歸零、視角轉回 0°）
@@ -79167,7 +80307,7 @@ Object.assign(window.GV,{build527:()=>({...BUILD_META527})}); // T527：QA 讀�
 Object.assign(window.GV,{build528:()=>({...BUILD_META528})}); // T528：QA 讀數
 Object.assign(window.GV,{build529:()=>({...BUILD_META529})}); // T529：QA 讀數
 Object.assign(window.GV,{build530:()=>({...BUILD_META530}),fc530:()=>({facade:window.__t530facade|0})}); // T530：QA 讀數
-Object.assign(window.GV,{testInjectResident534:testInjectResident534,testUiRoundtrip534:testUiRoundtrip534,testAdvance588:dt=>{advance(dt);return true;},testZone592:(x,y,z)=>{const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.deco=0;t.ruin=0;t.zone=z;buildTickIndex();groundDirty=true;return true;},testRebake592:()=>{groundDirty=true;return true;},constr13:X13G,constrSelftest700,testTile592:(x,y)=>{const t=tiles[idx(x,y)];return JSON.stringify({zone:t.zone,bld:!!t.bld,ruin:t.ruin,road:t.road,t:t.t,tree:t.tree,deco:t.deco});}}); // T592：強制地面重烘（測試出口） // T592：測試用空置地格製造（跟隨/風化探針同款 test-only 出口） // T588：測試推進模擬（跟隨原型 live demo 用）
+Object.assign(window.GV,{testInjectResident534:testInjectResident534,testUiRoundtrip534:testUiRoundtrip534,testAdvance588:dt=>{advance(dt);return true;},testZone592:(x,y,z)=>{const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.deco=0;t.ruin=0;t.zone=z;buildTickIndex();groundDirty=true;return true;},testRebake592:()=>{groundDirty=true;return true;},constr13:X13G,constrSelftest700,constrSelftest701,testTile592:(x,y)=>{const t=tiles[idx(x,y)];return JSON.stringify({zone:t.zone,bld:!!t.bld,ruin:t.ruin,road:t.road,t:t.t,tree:t.tree,deco:t.deco});}}); // T592：強制地面重烘（測試出口） // T592：測試用空置地格製造（跟隨/風化探針同款 test-only 出口） // T588：測試推進模擬（跟隨原型 live demo 用）
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
