@@ -144,6 +144,7 @@ const KEEP = process.argv.includes('--keep');
       ['facadeWx699', `(window.GV && window.GV.facadeWxSelftest699) ? window.GV.facadeWxSelftest699() : {ok:false,checks:['API 不存在']}`],
       ['constr700', `(window.GV && window.GV.constrSelftest700) ? window.GV.constrSelftest700() : {ok:false,checks:['API 不存在']}`],
       ['constr701', `(window.GV && window.GV.constrSelftest701) ? window.GV.constrSelftest701() : {ok:false,checks:['API 不存在']}`],
+      ['greenhouse702', `(window.GV && window.GV.greenhouseSelftest702) ? window.GV.greenhouseSelftest702() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest707', `(window.GV && window.GV.ukBatchSelftest707) ? window.GV.ukBatchSelftest707() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest706', `(window.GV && window.GV.ukBatchSelftest706) ? window.GV.ukBatchSelftest706() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest705', `(window.GV && window.GV.ukBatchSelftest705) ? window.GV.ukBatchSelftest705() : {ok:false,checks:['API 不存在']}`],
