@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.02 · T698</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.03 · T699</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -38614,8 +38614,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.02'; // T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T698'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.03'; // T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T699'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -59909,10 +59909,373 @@ function ovClipEnd606(ctx,cl,s,bx,by,z){
 }
 const WD606={n:0,list:[]};
 function wallPolyPts606(w){const up=p=>[p[0],p[1]-w.h];return [[w.W,w.S,up(w.S),up(w.W)],[w.S,w.E,up(w.E),up(w.S)]];}
+/* ===== T699 英美立面街屋加風化（業主 2026-09-30 決策單第十二批 12-2 選 B）：立面繪製器畫牆身時登記真正的牆面（門、窗、店面、凸窗都避開），
+   貼牆風化照一般街區（paintWeather606）同一套硬像素筆觸、同濃度，畫在登記到的牆身上；繪製時照正前方會後畫的東西修剪，碎點不畫。
+   程式由決策單原型 b12/weather/patch12.js 第十三版產生（scratchpad/t699/gen699.js）：煤煙（C）、再舊一級（D）、舊牆盒子法、量測旗標都沒進來。
+   逃生閥 window.__noFacadeWx699＝回現況（立面街屋不疊貼牆層）；登記在街區精靈烘焙時做，開機後才關閥門要 GV.block559.cache().clear()。 ===== */
+function fw699On(){return !window.__noFacadeWx699;}
+var fw699MassHook=null; // T624 後畫量體的牆面登記出口（只在登記中的立面精靈畫後畫量體時設；平時 null，massBox568 不受影響）
+function fw699Col(v){ // 正規化後的 fillStyle → [r,g,b]；解析不了回 null
+  if(typeof v!=='string')return null;if(v[0]==='#')return v.length>=7?[parseInt(v.slice(1,3),16),parseInt(v.slice(3,5),16),parseInt(v.slice(5,7),16)]:null;
+  const m=/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(v);return m?[+m[1],+m[2],+m[3]]:null;}
+function fw699Mark(L,g,x,y,w,h){ // 登記之後的每一筆 fillRect。不透明的：在序號圖記「最後一次被畫」的序號（凸窗正面、同色戶界、壁柱這種後畫的都抓得到）；
+  // 半透明的（褪色舊牆廣告、裙樓淺色腰帶、影子）：照 source-over 公式疊到每一面的快照上，之後比對時預測色相符＝仍是牆
+  const op=g.globalCompositeOperation;if(op!=='source-over'&&op!=='source-atop')return;
+  const fsv=g.fillStyle,al=g.globalAlpha*alpha653(fsv);if(!(al>.004))return;
+  if(w<0){x+=w;w=-w;}if(h<0){y+=h;h=-h;}
+  const m=g.getTransform();let x0,y0,x1,y1;
+  if(m.a===1&&m.b===0&&m.c===0&&m.d===1){x0=x+m.e;y0=y+m.f;x1=x0+w;y1=y0+h;}
+  else{const xs=[m.a*x+m.c*y+m.e,m.a*(x+w)+m.c*y+m.e,m.a*x+m.c*(y+h)+m.e,m.a*(x+w)+m.c*(y+h)+m.e],ys=[m.b*x+m.d*y+m.f,m.b*(x+w)+m.d*y+m.f,m.b*x+m.d*(y+h)+m.f,m.b*(x+w)+m.d*(y+h)+m.f];
+    x0=Math.min(...xs);y0=Math.min(...ys);x1=Math.max(...xs);y1=Math.max(...ys);}
+  const W=L.W,H=L.H,a=Math.max(0,Math.floor(x0)),b=Math.max(0,Math.floor(y0)),c=Math.min(W,Math.ceil(x1)),d=Math.min(H,Math.ceil(y1));if(c<=a||d<=b)return;
+  const col=al<.99?fw699Col(fsv):null;
+  if(!col){const k=++L.k,S=L.seq;for(let yy=b;yy<d;yy++)S.fill(k,yy*W+a,yy*W+c);return;}
+  for(const f of L){const fx0=Math.max(a,f.bx),fy0=Math.max(b,f.by),fx1=Math.min(c,f.bx+f.bw),fy1=Math.min(d,f.by+f.bh);if(fx1<=fx0||fy1<=fy0||!f.snap)continue;
+    const sn=f.snap,sm=f.semi||(f.semi=new Uint8Array(f.bw*f.bh));if(!f.snap0)f.snap0=Uint8ClampedArray.from(sn); // 第十三版：疊之前的牆色（煤煙跟著底下那面牆判材質）
+    for(let yy=fy0;yy<fy1;yy++)for(let xx=fx0;xx<fx1;xx++){const p=(yy-f.by)*f.bw+(xx-f.bx),i=p*4;if(sn[i+3]!==255)continue;
+      sn[i]=Math.round(sn[i]*(1-al)+col[0]*al);sn[i+1]=Math.round(sn[i+1]*(1-al)+col[1]*al);sn[i+2]=Math.round(sn[i+2]*(1-al)+col[2]*al);if(sm[p]<250)sm[p]++;}}
+}
+function fw699FaceAdd(c,L,sd,x0,x1,ft,h,cap){ // 繪製器畫完一面牆身時登記（牆腳函式＝繪製器自己的取整；h＝簷口／簷溝下緣到牆腳），順便拍下這一面的快照
+  // 第十三版：cap＝牆身頂到屋面前緣之間還屬於立面的列數（簷口、簷溝、女兒牆、壓頂；繪製器自己畫的列數）——煤煙長出去只到這裡為止
+  x0=Math.round(x0);x1=Math.round(x1);h=h|0;cap=cap==null?3:Math.max(0,cap|0);if(x1<x0||h<2)return;
+  const W=c.width,H=c.height,g=c.getContext('2d');
+  if(!L.seq){L.W=W;L.H=H;L.k=0;L.seq=new Int32Array(W*H);L.g=g;const f0=g.fillRect;g.fillRect=function(a,b,w,hh){const r=f0.call(this,a,b,w,hh);fw699Mark(L,this,a,b,w,hh);return r;};}
+  const n=x1-x0+1,foot=new Int32Array(n);let ya=1e9,yb=-1e9;
+  for(let i=0;i<n;i++){foot[i]=Math.round(ft(x0+i));if(foot[i]-h<ya)ya=foot[i]-h;if(foot[i]-1>yb)yb=foot[i]-1;}
+  const bx=Math.max(0,x0),by=Math.max(0,ya),bw=Math.min(W-1,x1)-bx+1,bh=Math.min(H-1,yb)-by+1;if(bw<1||bh<1)return;
+  L.push({sd:sd?1:0,x0,x1,foot,h,cap,bx,by,bw,bh,k:L.k,snap:g.getImageData(bx,by,bw,bh).data,semi:null,snap0:null});
+}
+function fw699ZoneAdd(L,pts,kind,col){ // 第十三版：煤煙的區（kind 1＝准燻：山牆三角、角樓圓柱；kind 2＝禁燻：後畫量體的屋頂，col＝屋面色）；照登記順序，後登記的蓋前面的
+  if(!L||!pts||pts.length<3)return;(L.zones||(L.zones=[])).push({pts:pts.map(p=>[+p[0],+p[1]]),kind,col:col||null,ord:L.length});}
+function fw699InPoly(x,y,P){let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;}
+function fw699Unwrap(L){if(L&&L.g){try{delete L.g.fillRect;}catch(e){}L.g=null;}} // 第七版：fillRect 包裝的還原（makeBlockSprite547 收尾的 finally 一定叫）
+function fw699EdgeFoot(a,b,h){ // edgeWall547 的取整：每欄最後一次畫的那一筆，牆腳＝round(y-h)+h
+  const dx=b[0]-a[0],dy=b[1]-a[1],n=Math.max(1,Math.hypot(dx,dy)|0),m=new Map();
+  for(let i=0;i<=n;i++){const x=Math.round(a[0]+dx*i/n),y=a[1]+dy*i/n;m.set(x,Math.round(y-h)+h);}
+  const k=dy/(dx||1);return x=>m.has(x)?m.get(x):Math.round(a[1]+(x-a[0])*k);}
+function fw699MassFaces(c,L,C,h){ // T624 後畫量體兩面（massBox568 畫完牆、還沒畫窗與腰帶時登記）；頂列會被屋頂蓋掉一半，牆高扣 1
+  const r=Math.round,n0=L.length;
+  fw699FaceAdd(c,L,0,Math.min(r(C.W[0]),r(C.S[0])),Math.max(r(C.W[0]),r(C.S[0])),fw699EdgeFoot(C.W,C.S,h),h-1,1);
+  fw699FaceAdd(c,L,1,Math.min(r(C.E[0]),r(C.S[0])),Math.max(r(C.E[0]),r(C.S[0])),fw699EdgeFoot(C.E,C.S,h),h-1,1);
+  for(let i=n0;i<L.length;i++)L[i].mass=1;
+  fw699ZoneAdd(L,[C.N,C.E,C.S,C.W].map(p=>[p[0],p[1]-h]),2,null);} // 第十三版：量體屋頂（massBox568 的 roof＝C 往上 wallH）＝禁燻區
+function fw699Shade(s,i,f,j){ // 成品比快照暗、而且像是「蓋了一層半透明深色影子」（各通道推回的透明度一致、0–0.75）⇒ 仍是牆（例：側翼落在主量體牆上的影子）
+  if(f[j]>s[i]+1||f[j+1]>s[i+1]+1||f[j+2]>s[i+2]+1)return false;
+  const a0=(s[i]-f[j])/Math.max(8,s[i]-20),a1=(s[i+1]-f[j+1])/Math.max(8,s[i+1]-27),a2=(s[i+2]-f[j+2])/Math.max(8,s[i+2]-22);
+  const lo=Math.min(a0,a1,a2),hi=Math.max(a0,a1,a2);return hi>.02&&lo>=-.02&&hi<=.75&&hi-lo<=.15;
+}
+function fw699FaceDone(c,L){ // 精靈畫完後，牆段內「登記後沒被不透明 fillRect 再畫過，而且跟（疊過半透明筆畫的）快照同色，或只是被半透明影子壓暗」的像素＝牆身；後登記的面優先認領
+  if(!L)return null;fw699Unwrap(L);
+  if(!L.length){L.seq=null;return null;}
+  let bx0=1e9,by0=1e9,bx1=-1,by1=-1;for(const f of L){bx0=Math.min(bx0,f.bx);by0=Math.min(by0,f.by);bx1=Math.max(bx1,f.bx+f.bw-1);by1=Math.max(by1,f.by+f.bh-1);}
+  const uw=bx1-bx0+1,uh=by1-by0+1,fin=c.getContext('2d').getImageData(bx0,by0,uw,uh).data,claim=new Uint8Array(uw*uh),out=[],S=L.seq,W=L.W;
+  let ox0=1e9,oy0=1e9,ox1=-1,oy1=-1,px=0,shade=0,semi=0,massPx=0;
+  for(let k=L.length-1;k>=0;k--){const f=L[k],n=f.x1-f.x0+1,m=new Uint8Array(n*f.h);let cnt=0,uc=null;
+    for(let i=0;i<n;i++){const x=f.x0+i;if(x<f.bx||x>=f.bx+f.bw)continue;const top=f.foot[i]-f.h;
+      for(let e=0;e<f.h;e++){const y=top+e;if(y<f.by||y>=f.by+f.bh)continue;const ui=(y-by0)*uw+(x-bx0);if(claim[ui])continue;claim[ui]=1;
+        const si=((y-f.by)*f.bw+(x-f.bx))*4,fi=ui*4,sn=f.snap;
+        if(S[y*W+x]>f.k||fin[fi+3]!==255||sn[si+3]!==255)continue;
+        const sc=f.semi?f.semi[si>>2]:0,tl=sc?Math.min(8,1+2*sc):0;
+        const same=Math.abs(fin[fi]-sn[si])<=tl&&Math.abs(fin[fi+1]-sn[si+1])<=tl&&Math.abs(fin[fi+2]-sn[si+2])<=tl;if(!same&&!fw699Shade(sn,si,fin,fi))continue;
+        m[i*f.h+e]=1;cnt++;if(!same)shade++;else if(sc)semi++;
+        if(sc&&f.snap0){const s0=f.snap0;if(!uc)uc=new Int32Array(n*f.h).fill(-1);uc[i*f.h+e]=(s0[si]<<16)|(s0[si+1]<<8)|s0[si+2];} // 第十三版：半透明疊色下面的牆色
+        if(x<ox0)ox0=x;if(x>ox1)ox1=x;if(y<oy0)oy0=y;if(y>oy1)oy1=y;}}
+    f.snap=null;f.semi=null;f.snap0=null;
+    if(cnt){out.unshift({sd:f.sd,x0:f.x0,x1:f.x1,foot:f.foot,h:f.h,cap:f.cap,m,n:cnt,mass:f.mass?1:0,uc,ord:k});px+=cnt;if(f.mass)massPx+=cnt;}}
+  L.seq=null;
+  return out.length?{list:out,zones:L.zones||[],box:[ox0,oy0,ox1-ox0+1,oy1-oy0+1],px,shade,semi,massPx,faces:L.length}:null;
+}
+function fw699Rgb(s){const m=/(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(String(s));return m?[+m[1],+m[2],+m[3]]:[80,74,66];}
+// 濃度（第八版）：跟一般街區（paintWeather606）同一條透明度公式、同一組顏色，只多兩條：
+//   1. 顏色逐通道夾在「該像素底色×係數」以下（雨漬 .62、牆腳污垢 .55、簷下積灰 .50）⇒ 疊上去只會變暗，不會把暗牆畫亮；
+//   2. 比一般街區參照米色牆（建築 (13,36)，牆身亮度 FW699_LR＝175）暗的牆：每一筆的降幅照畫在那面米色牆上一樣——
+//      目標降幅＝透明度×(FW699_LR−筆色亮度)，換成實際用色（同色系加深）要多少透明度。亮度 ≥ FW699_LR 的牆跟一般街區完全同一條公式。
+//      最後仍受最終色下限約束（近黑的牆最多再暗 15%，不黑成描邊）。
+const FW699_LR=175; // 校準值＝一般街區參照米色牆（建築 (13,36)）改到的牆身像素亮度中位數。掃 0～200 共 8 檔，八種樣式跟鄰居的總差（平均＋最暗一成）：0→124.0、110→104.3、126→89.5、141→78.8、150→72.0、175→59.9、185→57.9、200→65.1；175 起就平了，取參照牆本身的亮度
+function fw699WxFaces(s,key,cat,mood,tt,ab){ // 立面登記法：用登記面畫；筆觸與濃度公式照 paintWeather606（雨漬、牆腳污垢、簷下積灰），外加窗台下垂漬
+  // 第九版回傳 {c＝整張貼牆層, im＝它的像素, S＝每一筆（簷線、雨漬、垂漬、牆腳段）的像素清單}；繪製期（fw699Vis）若正前方有會後畫的東西擋住某一筆的一部分，
+  //   只留這一筆沒被擋、而且夠長的部分（橫筆 ≥6 欄、直筆 ≥5 列），擋剩 1–2 格的碎點不畫
+  const t=s&&s.__t547,F=t&&t.faces699;if(!F)return null;
+  let mp=s.__wd606;
+  if(!mp){if(WD606.n>(fw699On()?800:520)){for(const q of WD606.list)delete q.__wd606;WD606.list=[];WD606.n=0;}mp=s.__wd606=new Map();WD606.list.push(s);}
+  if(mp.has(key))return mp.get(key);
+  const X0=F.box[0],Y0=F.box[1],BW=F.box[2],BH=F.box[3],N=BW*BH,A=new Float32Array(N),CR=new Float32Array(N),CG=new Float32Array(N),CB=new Float32Array(N),LY=new Uint16Array(N);
+  const K=1,wc=fw699Rgb((WX606[cat]||WX606.R)[mood&3]),moss=cat==='R'&&mood===2,gr=moss?[74,110,64]:[58,54,48],soot=[40,38,36],KD=[.62,.55,.5];
+  const CC=[wc,gr,soot],LC=CC.map(c=>.299*c[0]+.587*c[1]+.114*c[2]),LR=FW699_LR;
+  const IMG=s.img;
+  const rdB=im=>{const bc=document.createElement('canvas');bc.width=BW;bc.height=BH;const bg=bc.getContext('2d',{willReadFrequently:true});bg.drawImage(im,-X0,-Y0);return bg.getImageData(0,0,BW,BH).data;};
+  const SB=rdB(IMG),SB0=SB; // SB＝底色；SB0＝原圖（最終色下限用，跟底色同一張）
+  const seed0=(t.v|0)*131+(t.bw|0)*17+(t.bh|0)*7+(t.lv|0)*3;let n=0,nMany=0,nDots=0,nDrip=0,maxSills=0,nBase=0,brE=0,brB=0,nSill=0,nReg=0,nLedge=0,nInner=0,nEj=0;const baseRuns=[],ledgeRuns=[],DBG=[],RI=[null],nid=m=>{if(RI.length>=65000)return 0;RI.push(m);return RI.length-1;};
+  const med=v=>{const s2=v.slice().sort((p,q)=>p-q);return s2.length?s2[s2.length>>1]:0;};
+  const opq=(x,y)=>{const j=(y-Y0)*BW+(x-X0);return x>=X0&&x<X0+BW&&y>=Y0&&y<Y0+BH&&SB0[j*4+3]===255;}; // 精靈這一格不透明（跨接只畫在不透明的地方：不浮空）
+  const put=(x,y,kind,a,ly)=>{if(a<=0)return;const j=(y-Y0)*BW+(x-X0);if(x<X0||x>=X0+BW||j<0||j>=N)return;const o=j*4,c=CC[kind],b0=SB[o],b1=SB[o+1],b2=SB[o+2],Lb=.299*b0+.587*b1+.114*b2,kd=KD[kind];
+    const r=Math.min(c[0],b0*kd),g=Math.min(c[1],b1*kd),b=Math.min(c[2],b2*kd),Lq=.299*r+.587*g+.114*b; // 夾在底色×係數以下：只加深
+    if(Lb<LR&&Lb-Lq>1)a*=(LR-LC[kind])/(Lb-Lq); // 比參照米色牆暗：降幅照參照米色牆
+    a=Math.min(1,a);const da=A[j],oa=a+da*(1-a),w=da*(1-a);CR[j]=(r*a+CR[j]*w)/oa;CG[j]=(g*a+CG[j]*w)/oa;CB[j]=(b*a+CB[j]*w)/oa;A[j]=oa;if(ly)LY[j]=ly;};
+  // 第一趟：每面的牆身工具、窗台清單（以「窗」為單位：牆身上一段開口的下緣；開口至少 2 寬、連續 2 欄以上高 ≥2）、層高（同一窗列上下窗台距離的中位數）
+  const PF=F.list.map((f,fi)=>{
+    const len=f.x1-f.x0+1,h=f.h;if(len<4||h<6)return null;
+    const ft=x=>f.foot[x-f.x0];
+    const at=(x,y)=>{const i=x-f.x0;if(i<0||i>=len)return -1;const e=y-(f.foot[i]-h);return e>=0&&e<h?i*h+e:-1;};
+    const on=(x,y)=>{const j=at(x,y);return j>=0&&f.m[j]===1;};
+    let fw=-1,lw=-1;for(let i=0;i<len;i++){for(let e=0;e<h;e++)if(f.m[i*h+e]){if(fw<0)fw=i;lw=i;break;}}
+    if(fw<0)return null;
+    const hole=(x,y)=>{const top=ft(x)-h;let k=0;for(let yy=y-1;yy>=top;yy--){if(on(x,yy))return k;k++;}return -1;};
+    const pier=(x,y,dx)=>{let k=0;for(let xx=x+dx;xx>=f.x0&&xx<=f.x1;xx+=dx){if(!on(xx,y))return k;k++;if(k>=3)return k;}return 99;};
+    const seen=new Set(),sills=[],sillsO=[]; // 第十二版：sillsO＝窗一路頂到簷口（上面沒有牆身）的窗台，只拿來判斷是不是規則窗格
+    for(let x=f.x0;x<=f.x1;x++){const top=ft(x)-h;
+      for(let y=top+2;y<ft(x)-2;y++){if(seen.has(y*8192+x)||!on(x,y)||on(x,y-1))continue;
+        let xb=x;while(xb+1<=f.x1&&on(xb+1,y)&&!on(xb+1,y-1)&&ft(xb+1)-h<=y-1){xb++;seen.add(y*8192+xb);}
+        const w=xb-x+1;if(w<2)continue;
+        let run=0,best=0,open=false,hm=0,runO=0,bestO=0;for(let xx=x;xx<=xb;xx++){const hk=hole(xx,y);if(hk<0)open=true;if(hk>hm)hm=hk;if(hk>=2){run++;if(run>best)best=run;}else run=0;if(hk>=2||hk<0){runO++;if(runO>bestO)bestO=runO;}else runO=0;}
+        const pierOk=!(pier(x,y-1,-1)<3||pier(xb,y-1,1)<3);
+        if(open){if(bestO>=2&&w<=6)sillsO.push({x,xb,y,w,hm,pierOk});continue;}
+        if(best<2)continue;
+        sills.push({x,xb,y,w,hm,pierOk});}}
+    let fh=0;{const ds=[];for(const p of sills){let b=1e9;for(const q of sills)if(q.y>p.y&&q.x<=p.xb&&q.xb>=p.x&&q.y-p.y<b)b=q.y-p.y;if(b<1e9)ds.push(b);}if(ds.length)fh=Math.max(6,Math.min(14,med(ds)));}
+    return {f,fi,len,h,ft,on,fw,lw,sills,sillsO,fh};});
+  const fhs=PF.filter(q=>q&&q.fh).map(q=>q.fh),fhS=fhs.length?med(fhs):9; // 沒窗的端牆：用同一棟其他面的層高
+  // 第十二版：同一排相鄰的兩面（同一向、牆腳線共線、牆高相近、斷口 ≤4 欄）——連棟屋、布朗石一戶一面，戶與戶之間不是牆角，雨漬不用離面的頭尾 2 欄
+  {const EP=PF.filter(q=>q).sort((p,q)=>p.f.sd-q.f.sd||p.f.x0-q.f.x0);
+    for(let k=0;k+1<EP.length;k++){const P=EP[k],Q=EP[k+1];if(P.f.sd!==Q.f.sd||Math.abs(P.h-Q.h)>2)continue;const g=Q.f.x0-P.f.x1-1;if(g<0||g>4)continue;
+      const fp=P.f.foot,nP=fp.length,m0=Math.max(0,nP-5),sl=nP>1?(fp[nP-1]-fp[m0])/Math.max(1,nP-1-m0):0,pred=fp[nP-1]+sl*(Q.f.x0-P.f.x1);if(Math.abs(pred-Q.f.foot[0])>1.5)continue;
+      P.nbR=1;Q.nbL=1;}}
+  for(const P of PF){if(!P)continue;const {f,fi,len,h,ft,on,fw,lw,sills,sillsO}=P,floorH=P.fh||fhS;
+    const am=f.sd?.8:1,seed=seed0+fi*977;
+    // 雨漬只落在 [xL,xR]：離面的首末兩欄、也離真牆的首末兩欄
+    const xL=f.x0+(P.nbL?Math.max(0,fw):Math.max(2,fw+2)),xR=f.x0+(P.nbR?Math.min(len-1,lw):Math.min(len-3,lw-2)); // 第十二版：跟鄰戶相接的那一頭不留邊
+    // 落水管＝高（≥ 牆高 45%、≥10 列）而窄（連續 ≤2 欄）的非牆直條——雨漬離它至少 4 欄，不跟它平行成「第二根管子」
+    const tallC=new Uint8Array(len),pipeC=new Uint8Array(len),tallMin=Math.max(10,Math.round(h*.45));
+    for(let i=0;i<len;i++){const x=f.x0+i;let r=0,b=0;for(let y=ft(x)-h+1;y<ft(x)-1;y++){if(!on(x,y)){r++;if(r>b)b=r;}else r=0;}tallC[i]=b>=tallMin?1:0;}
+    for(let i=0;i<len;){if(!tallC[i]){i++;continue;}let j=i;while(j+1<len&&tallC[j+1])j++;if(j-i+1<=2&&i>0&&j<len-1)for(let q=i;q<=j;q++)pipeC[q]=1;i=j+1;}
+    const nearTall=x=>{for(let d=-3;d<=3;d++){const i=x+d-f.x0;if(i>=0&&i<len&&pipeC[i])return true;}return false;};
+    let wallL=0;{const ls=[];for(let i=0;i<len;i+=2){const x=f.x0+i;for(let y=ft(x)-h;y<ft(x);y+=2)if(on(x,y)){const o=((y-Y0)*BW+(x-X0))*4;ls.push(.299*SB0[o]+.587*SB0[o+1]+.114*SB0[o+2]);}}wallL=med(ls);} // 牆身中位亮度（原圖）
+    const wx=(x,y,kind,a,id)=>{if(on(x,y))put(x,y,kind,a,id);}; // kind 0 雨漬／垂漬、1 牆腳污垢、2 簷下積灰；id＝這一筆的編號
+    const clear=(x,y)=>on(x,y)&&on(x-1,y)&&on(x+1,y); // 本欄與左右各 1 欄都是牆身＝離窗、門、店面至少 1 欄
+    const clear2=(x,y)=>on(x,y)&&(on(x-1,y)||on(x+1,y)); // 第九版：窗間只有 2 欄寬的壁柱（連棟屋、布朗石、芝加哥樓正面）——找不到 3 欄寬的位置時，雨漬可以順著 2 欄壁柱流（壁柱另一欄留原色）
+    const dots=sills.length>=6&&med(sills.map(q=>q.w))<=3&&med(sills.map(q=>q.hm))<=4&&wallL<150; // 規則深色窗點陣（第六版）
+    const many=sills.length>40;if(many)nMany++;if(dots)nDots++;if(sills.length>maxSills)maxSills=sills.length; // 一面超過 40 扇窗（規則窗格的塔樓）：窗台垂漬整面不畫，雨漬也只從簷口起流
+    // 第十二版：規則窗格的正面（窗間壁柱 <3 欄的窗佔一半以上、或深色窗點陣；不是塔樓、不是後畫量體）＝reg：
+    //   雨漬改成「從簷口順著壁柱流」——條數照 paintWeather606（正面每 8 欄一個名額、端牆每 11 欄，名額位置照原本抖動），每個名額落到最近（±4 欄內）
+    //   一根 ≥2 欄寬、從簷線往下連續 ≥5 列牆身的壁柱上；跳過比例、長度、透明度也照 paintWeather606。1 欄寬的壁柱（布朗石窗間）不畫：整根壁柱會被塗暗、
+    //   看起來像窗連成一條黑縫。窗台下不畫：試過「每扇一小格」（1 欄 3–4 列），但每一格本身就是 ≤4 px 的孤立小塊（導演第 2 條要接近 0），z2 主鏡頭多出 95 個深色小塊
+    const SA=sills.concat(sillsO),reg=!many&&!f.mass&&SA.length>=2&&(dots||SA.filter(q=>!q.pierOk).length*2>=SA.length);if(reg)nReg++;
+    const dbgF=false?{fi,sd:f.sd,x0:f.x0,x1:f.x1,h,floorH,nS:sills.length,nSO:sillsO.length,pierBad:SA.filter(q=>!q.pierOk).length,dots,many,reg,piers:[],ps:0,ticks:0,tickCand:0}:null;if(dbgF)DBG.push(dbgF);
+    if(reg&&len>=8){const e0=x=>{const t0=ft(x)-h;for(let e=0;e<=2;e++)if(on(x,t0+e))return t0+e;return -1;};
+      const run=new Int16Array(len);for(let i=0;i<len;i++){const x=f.x0+i;if(x<xL||x>xR||nearTall(x))continue;const y0=e0(x);if(y0<0)continue;let r=0;while(y0+r<ft(x)-2&&on(x,y0+r))r++;run[i]=r;}
+      const PC=[];for(let i=0;i<len;){if(run[i]<5){i++;continue;}let j=i;while(j+1<len&&run[j+1]>=5)j++;const pw=j-i+1;if(dbgF)dbgF.piers.push([f.x0+i,pw]);
+        if(pw>=2){const q=streetHash(seed,200+i,60611)<.5?i:j;PC.push(q);}i=j+1;} // 每根壁柱一個候選欄（左或右，按雜湊）
+      const ns=Math.max(1,Math.round(len/(f.sd?11:8))),used=new Set();let lastX=-99,lastGap=0;
+      for(let s2=0;s2<ns&&PC.length;s2++){const id=s2+f.sd*40,hh=streetHash(seed,id,60610);if(hh>.46+tt*.36)continue;
+        const xt=Math.floor(len*(s2+.5+.9*(streetHash(seed,id,60611)-.5))/ns);let q=-1,bd=5;for(const c of PC)if(!used.has(c)&&Math.abs(c-xt)<bd){bd=Math.abs(c-xt);q=c;}if(q<0)continue;
+        const x=f.x0+q;if(x-lastX<3||(lastGap&&Math.abs((x-lastX)-lastGap)<2))continue;used.add(q);
+        const y0=e0(x),Lw=Math.max(5,Math.min(floorH,Math.round(h*(.20+.38*hh)*(.6+tt*.7)))),L=Math.min(Lw,run[q]);
+        const a=(.10+tt*.16)*(.7+.3*hh)*am,hd=Math.ceil(L*.55),sid=nid({v:1,sd:f.sd,pier:1});for(let k=0;k<L;k++)wx(x,y0+k,0,k<hd?a:a*.55,sid);
+        if(lastX>-99)lastGap=x-lastX;lastX=x;n++;if(dbgF)dbgF.ps++;}}
+    // 雨漬（1 欄硬垂線、2 階）：條數、透明度、長度照 paintWeather606；候選位置抖動、牆越長跳過越多、彼此至少隔 3–6 欄、跟上一段間距差 ≥2 欄；
+    //   往下流時一碰到開口邊就停；單條上限＝約一層樓（floorH）、最短 5 列；高牆（≥32 列）每 28 列一段各自起漬；左右挪 0～3 欄取流得最長的位置
+    if(len>=8&&!reg){const tall=h>=32,nb=tall?Math.max(1,Math.floor(h/28)):1,ns=Math.max(1,Math.round(len/(f.sd?11:8))),skipL=Math.min(.45,Math.max(0,(len-24)/150));
+      for(let band=0;band<(many?1:nb);band++){let lastX=-99,lastGap=0;
+      for(let i=0;i<ns;i++){const id=i+f.sd*40+band*97,hh=streetHash(seed,id,60610);if(hh>(band?.30+tt*.25:.46+tt*.36))continue;if(streetHash(seed,id,60612)<skipL)continue;
+        const xc=f.x0+Math.floor(len*(i+.5+.9*(streetHash(seed,id,60611)-.5))/ns),gap=3+Math.floor(streetHash(seed,id,60613)*4);
+        const r3=streetHash(seed,id,60614),r4=streetHash(seed,id,60617);
+        const Lw=Math.max(5,Math.min(floorH,Math.round(h*(.20+.38*hh)*(.6+tt*.7))));
+        let Q=null;
+        for(const dx of [0,1,-1,2,-2,3,-3]){const x=xc+dx;if(x<xL||x>xR||x-lastX<gap||nearTall(x))continue;
+          if(lastGap&&Math.abs((x-lastX)-lastGap)<2)continue; // 相鄰漬不等距
+          const top=ft(x)-h,bt=top+band*28;let y0=band?bt+Math.floor(r4*6):top;
+          if(!many&&r3<(tall?.6:.42)){const ls=[],yE=tall?Math.min(ft(x)-6,bt+28):top+Math.round(h*.75);for(let y=bt+2;y<yE;y++)if(on(x,y)&&!on(x,y-1)&&!on(x,y-2)&&!on(x-1,y-1)&&!on(x+1,y-1))ls.push(y);
+            if(ls.length)y0=ls[Math.floor(r4*ls.length)];else if(r3<.16&&!band)y0=top+1+Math.floor(r4*h*.33);}
+          const lim=Math.min(Lw,ft(x)-2-y0);let L=0;while(L<lim&&clear(x,y0+L))L++;
+          if(L>=5&&(!Q||Q.p||L>Q.L))Q={x,y0,L};
+          else if(!Q||Q.p){let L2=0;while(L2<lim&&clear2(x,y0+L2))L2++;if(L2>=5&&(!Q||L2>Q.L))Q={x,y0,L:L2,p:1};}}
+        if(!Q)continue;
+        const {x,y0,L}=Q,a=(.10+tt*.16)*(.7+.3*hh)*am,hd=Math.ceil(L*.55),sid=nid({v:1,sd:f.sd});
+        for(let k=0;k<L;k++)wx(x,y0+k,0,k<hd?a:a*.55,sid); // 頭深尾淡，2 階硬色
+        if(lastX>-99)lastGap=x-lastX;lastX=x;n++;}}}
+    // 牆腳污垢（1–2 列硬污垢，透明度照 paintWeather606）。第九版：
+    //   每欄找最低一格牆身（牆腳往上 0–3 列內；前院矮牆、台階、樹籬、凸窗勒腳蓋住牆腳時，污垢落在它上緣的牆身上）；
+    //   缺口 ≤3 欄（欄杆、樹籬、台階邊這種上方 4 列內還看得到牆的矮東西）、兩邊高差 ≤1 就接上（照左邊那一欄的高度，只畫在不透明像素上）；門不接；
+    //   相鄰兩欄高差 ≤1 才算同一段，連續 ≥5 欄的段才畫 ⇒ 沒有門口旁 1–4 欄的碎段，也沒有一樓窗切出的「- - - -」虛線
+    {const ga=(.10+tt*.15)*am,gn=tt>.55?2:1,D=3,G=3,MIN=5,bd=new Int8Array(len).fill(-1),br=new Uint8Array(len);
+      for(let i=0;i<len;i++){const x=f.x0+i;for(let d=0;d<=D;d++)if(on(x,ft(x)-1-d)){bd[i]=d;break;}}
+      for(let i=0;i<len;){if(bd[i]>=0){i++;continue;}let j=i;while(j<len&&bd[j]<0)j++;
+        if(i>0&&j<len&&j-i<=G&&Math.abs(bd[i-1]-bd[j])<=1){let ok=true;for(let q=i;q<j;q++){const x=f.x0+q,y=ft(x)-1-bd[i-1];if(!opq(x,y)){ok=false;break;}let low=j-i<=1;for(let e=1;e<=4&&!low;e++)if(on(x,y-e))low=true;if(!low){ok=false;break;}} // 缺口上方 4 列內要有牆身（矮牆、欄杆、樹籬、台階），或只有 1 欄寬（店面分隔柱、落水管）；門這種整片開口不接
+          if(ok)for(let q=i;q<j;q++){bd[q]=bd[i-1];br[q]=1;}}
+        i=j;}
+      // 第十二版：兩端都碰到門、開口或高差（不是這一面牆身的頭尾）的段要 ≥8 欄才畫（審查 B minor：z1.2 門口、前院之間 5–8 欄的牆腳短段像短虛線）
+      let bF=-1,bL=-1;for(let i=0;i<len;i++)if(bd[i]>=0){if(bF<0)bF=i;bL=i;}
+      for(let i=0;i<len;){if(bd[i]<0){i++;continue;}let j=i+1;while(j<len&&bd[j]>=0&&Math.abs(bd[j]-bd[j-1])<=1)j++;
+        const inner=i>bF&&j-1<bL;if(inner&&j-i>=MIN&&j-i<8)nInner++;
+        if(j-i>=(inner?8:MIN)){const ly=nid({v:0,sd:f.sd,base:1,fi});for(let q=i;q<j;q++){const x=f.x0+q,y=ft(x)-1-bd[q];for(let e=0;e<gn;e++){const yy=y-e;if(br[q]?opq(x,yy):on(x,yy)){put(x,yy,1,ga,ly);if(br[q])brB++;}}}nBase++;baseRuns.push(j-i);}
+        i=j;}
+      // 第十二版：店面、店招、雨遮上緣當牆腳（審查 B minor：芝加哥樓一樓店面以上完全沒有風化）——牆腳往上 0–3 列沒有牆身、再往上到 45% 牆高之間一路不透明
+      //   （店面、店招、雨遮）時，落在那一塊上緣的第一列牆身；相鄰兩欄高差 ≤1 算同一段，連續 ≥8 欄才畫（門、凸窗、台階這種窄的不算），1 列
+      const ld=new Int16Array(len).fill(-1),LDM=Math.max(6,Math.round(h*.45));
+      for(let i=0;i<len;i++){if(bd[i]>=0)continue;const x=f.x0+i,fb=ft(x)-1;for(let d=0;d<=LDM;d++){const y=fb-d;if(on(x,y)){if(d>D)ld[i]=d;break;}if(!opq(x,y))break;}}
+      for(let i=0;i<len;){if(ld[i]<0){i++;continue;}let j=i+1;while(j<len&&ld[j]>=0&&Math.abs((ft(f.x0+j)-ld[j])-(ft(f.x0+j-1)-ld[j-1]))<=1)j++;
+        if(j-i>=8){const ly=nid({v:0,sd:f.sd,base:1,ledge:1,fi});for(let q=i;q<j;q++){const x=f.x0+q;put(x,ft(x)-1-ld[q],1,ga,ly);}nLedge++;ledgeRuns.push(j-i);}
+        i=j;}}
+    // 簷口正下方積灰（1 列硬線，透明度照 paintWeather606）：逐欄從登記牆頂往下 0–2 列找第一個牆身像素（階梯簷口也接得上）。
+    //   第九版：窗楣頂到簷口的欄（窗、門楣、落水管頂）——左右兩邊都有簷線、缺口 ≤8 欄就照左邊那一欄的高度接過去（只畫在不透明像素上），
+    //   跟一般街區一樣是一整條，不會被窗切成 2–3 格的碎段
+    if(tt>.25){const sa=(.05+tt*.07)*am,eR=new Int8Array(len).fill(-1),eid=nid({v:0,sd:f.sd,eave:1});
+      for(let i=0;i<len;i++){const x=f.x0+i,t0=ft(x)-h;for(let e=0;e<=2;e++)if(on(x,t0+e)){eR[i]=e;break;}}
+      for(let i=0;i<len;){if(eR[i]>=0){i++;continue;}let j=i;while(j<len&&eR[j]<0)j++;
+        if(i>0&&j<len&&j-i<=8)for(let q=i;q<j;q++){const x=f.x0+q,y=ft(x)-h+eR[i-1];if(opq(x,y)){put(x,y,2,sa,eid);brE++;}}
+        i=j;}
+      for(let i=0;i<len;i++)if(eR[i]>=0){const x=f.x0+i;put(x,ft(x)-h+eR[i],2,sa,eid);}
+      {let i0=-1,i1=-1;for(let i=0;i<len;i++)if(eR[i]>=0){if(i0<0)i0=i;i1=i;}if(i0>=0){P.eF=[f.x0+i0,ft(f.x0+i0)-h+eR[i0]];P.eL=[f.x0+i1,ft(f.x0+i1)-h+eR[i1]];P.eid=eid;P.sa=sa;}}}
+    n++;
+    // 窗台下垂漬（1 欄、2 階）：約 42% 的窗才有（後畫量體只抽 15%）；窗兩側牆寬 <3 的密窗不畫；最短 5 列、頭一格貼窗台、流不到 5 列整條不畫；
+    //   深色窗點陣（dots）、一面超過 40 扇窗（many）整面不畫
+    //   第十二版：規則窗格（reg）的窗台下不畫（見上：試過每扇一小格，但每格都是 ≤4 px 的孤立小塊）
+    if(!reg&&!dots&&!many){const da=(.09+tt*.17)*am,pk=f.mass?.15:.42;
+      for(const {x,xb,y,w,pierOk} of sills){if(!pierOk)continue;
+          const h1=streetHash(seed+y*7,x,60652);if(h1>=pk)continue;
+          const h2=streetHash(seed+y*7,x,60653),ends=[h2<.5?x:xb];if(w>=4&&streetHash(seed+y*7,x,60654)<.35)ends.push(h2<.5?xb:x);
+          for(const xd of ends){const Ld=5+Math.floor(streetHash(seed+y*13,xd,60655)*(1+4*tt));
+            let av=0;while(av<Ld&&y+av<ft(xd)-1&&on(xd,y+av)&&on(xd-1,y+av)&&on(xd+1,y+av))av++;
+            if(av<5)continue;
+            const hd=Math.ceil(av*.55),did=nid({v:1,sd:f.sd});for(let k=0;k<av;k++)wx(xd,y+k,0,k<hd?da:da*.55,did);n++;nDrip++;}}}
+  }
+  // 第十二版：相鄰兩面（同一向、牆腳線共線、牆高相近）之間的簷線斷口 ≤4 欄就接上（只畫在不透明像素上）——連棟屋、布朗石一戶一面，
+  //   戶界的落水管、壁柱把簷線切成一戶一段；接上後跟一般街區一樣是整排一條（審查 B minor：z2／z1.2 的短段）
+  {const EP=PF.filter(q=>q&&q.eF).sort((p,q)=>p.f.sd-q.f.sd||p.f.x0-q.f.x0);
+    for(let k=0;k+1<EP.length;k++){const P=EP[k],Q=EP[k+1];if(P.f.sd!==Q.f.sd||Math.abs(P.h-Q.h)>2)continue;const g=Q.eF[0]-P.eL[0]-1;if(g<1||g>4)continue;
+      const fp=P.f.foot,nP=fp.length,m0=Math.max(0,nP-5),sl=nP>1?(fp[nP-1]-fp[m0])/Math.max(1,nP-1-m0):0,pred=fp[nP-1]+sl*(Q.f.x0-P.f.x1);if(Math.abs(pred-Q.f.foot[0])>1.5)continue;
+      if(Math.abs(Q.eF[1]-P.eL[1])>g+1)continue;
+      for(let x=P.eL[0]+1;x<Q.eF[0];x++){const y=Math.round(P.eL[1]+(Q.eF[1]-P.eL[1])*(x-P.eL[0])/(Q.eF[0]-P.eL[0]));if(opq(x,y)){put(x,y,2,P.sa,P.eid);brE++;nEj++;}}}}
+  let out=null;
+  if(n>0){
+    // 第十版：先算每個像素最後真的會畫的透明度（倍率先乘、再封頂 α≤.9；最終色下限——疊完的顏色每通道 ≥ 原圖×.5，亮度 ≥ max(原圖亮度×.5, min(原圖亮度×.85, 描邊亮度 25.6＋12))），
+    //   再做小連通塊清理：下限把暗牆上某些像素壓到 0 時，一筆會被切成碎段，清理要看最後真的會畫的像素（第九版先清理後算透明度，暗牆上留下 1–2 px 的碎段）
+    const LOUT=37.6,a8=new Uint8Array(N);
+    for(let j=0;j<N;j++){if(A[j]<=0)continue;const o=j*4,cr=CR[j],cg=CG[j],cb=CB[j],s0=SB[o],s1=SB[o+1],s2=SB[o+2],b0=SB0[o],b1=SB0[o+1],b2=SB0[o+2];let al=Math.min(.9,A[j]*K);
+      if(s0>cr)al=Math.min(al,Math.max(0,(s0-.5*b0)/(s0-cr)));if(s1>cg)al=Math.min(al,Math.max(0,(s1-.5*b1)/(s1-cg)));if(s2>cb)al=Math.min(al,Math.max(0,(s2-.5*b2)/(s2-cb)));
+      const Ls=.299*s0+.587*s1+.114*s2,Lb=.299*b0+.587*b1+.114*b2,Lc=.299*cr+.587*cg+.114*cb,Lf=Math.max(Lb*.5,Math.min(Lb*.85,LOUT));if(Ls>Lc)al=Math.min(al,Math.max(0,(Ls-Lf)/(Ls-Lc)));
+      if(al*(Ls-Lc)<2)al=0; // 第十版：壓暗不到 2 階亮度的像素（跨接落在描邊上、暗牆被下限卡住）看不出來，算成沒畫——不然繪製時再乘淡化係數會四捨五入成 0，一條線斷成 1–2 px 的碎點
+      a8[j]=Math.round(al*255);}
+    // 小連通塊清理（8 鄰，每一筆各自算）：面積 ≥5 而且（寬 ≥3 或高 ≥3）才留 ⇒ 精靈座標上沒有 ≤4 px 的孤立點
+    //   第十版：簷下積灰（eave）同一列前後、間隔 ≤3 欄的碎段先當成一條再判大小（窗楣頂到簷口、跨接又碰到透明像素時，碎段不會被當孤立點清掉）
+    const lab=new Int32Array(N),st=[],mem=[];let cid=0,drop=0,dropN=0,dropE=0,keptE=0;
+    for(let j0=0;j0<N;j0++){if(!a8[j0]||lab[j0])continue;const L0=LY[j0],EV=!!(RI[L0]&&RI[L0].eave),DX=EV?4:1;lab[j0]=++cid;st.length=0;mem.length=0;st.push(j0);let x0=1e9,y0=1e9,x1=-1,y1=-1;
+      while(st.length){const j=st.pop();mem.push(j);const x=j%BW,y=(j/BW)|0;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+        for(let dy=-1;dy<=1;dy++)for(let dx=-DX;dx<=DX;dx++){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=BW||yy>=BH)continue;const q=yy*BW+xx;if(a8[q]&&!lab[q]&&LY[q]===L0){lab[q]=cid;st.push(q);}}}
+      const w=x1-x0+1,hh=y1-y0+1,ar=mem.length;
+      if(!(ar>=5&&(w>=3||hh>=3))){for(const j of mem)a8[j]=0;drop+=ar;dropN++;if(EV)dropE+=ar;}else if(EV)keptE+=ar;}
+    // 量測：清理後每一筆照純 8 鄰再數一次 ≤4 px 的塊（牆腳 b、簷線 e、直條 v），給對照腳本報「孤立點」
+    const sm={b:0,e:0,v:0};{const lb=new Uint8Array(N);for(let j0=0;j0<N;j0++){if(!a8[j0]||lb[j0])continue;const L0=LY[j0];lb[j0]=1;st.length=0;st.push(j0);let ar=0;
+      while(st.length){const j=st.pop();ar++;const x=j%BW,y=(j/BW)|0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=BW||yy>=BH)continue;const q=yy*BW+xx;if(a8[q]&&!lb[q]&&LY[q]===L0){lb[q]=1;st.push(q);}}}
+      if(ar<=4){const R=RI[L0]||{};sm[R.base?'b':R.eave?'e':'v']++;}}}
+    const cv=document.createElement('canvas');cv.width=BW;cv.height=BH;const im=cv.getContext('2d').createImageData(BW,BH),d=im.data;let pxM=0,pxB=0;const SP=RI.map(()=>[]);
+    for(let j=0;j<N;j++){if(!a8[j])continue;const o=j*4;d[o]=Math.floor(CR[j]);d[o+1]=Math.floor(CG[j]);d[o+2]=Math.floor(CB[j]);d[o+3]=a8[j];const l=LY[j];if(RI[l]&&RI[l].base)pxB++;else pxM++;SP[l].push(j);}
+    const S=[];for(let l=1;l<RI.length;l++)if(SP[l].length)S.push(Object.assign({px:Int32Array.from(SP[l])},RI[l]));
+    if(pxM+pxB){cv.getContext('2d').putImageData(im,0,0);out={c:cv,im,S,BW,BH,x:X0,y:Y0,vis:new Map(),n,px:pxM+pxB,pxMain:pxM,pxBase:pxB,drop,dropN,dropE,keptE,sm,many:nMany,dots:nDots,drips:nDrip,maxSills,base:nBase,baseRuns,brE,brB,sillTicks:nSill,regFaces:nReg,ledge:nLedge,ledgeRuns,innerDrop:nInner,eaveJoin:nEj,dbg:false?DBG:null};}}
+  mp.set(key,out);WD606.n++;return out;
+}
+function fw699Alpha(sp){ // 精靈 alpha 快取（繪製期量遮擋用）：w/h＝邏輯尺寸，kx/ky＝原圖對邏輯的倍率（T364a 的 2× 畫布）
+  const c=sp&&sp.img;if(!c||!c.width||!sp.w||!sp.h||typeof c.getContext!=='function')return null;let a=sp.__a12;if(a&&a.img===c&&a.w===sp.w)return a;
+  const W=c.width,H=c.height,d=c.getContext('2d').getImageData(0,0,W,H).data,A=new Uint8Array(W*H);for(let i=0;i<W*H;i++)A[i]=d[i*4+3];
+  return sp.__a12={img:c,w:sp.w,h:sp.h,W,H,A,kx:W/sp.w,ky:H/sp.h};}
+function fw699LandSpr(ox,oy,b){ // 多格的地標／公共建築：照繪製迴圈一般分支挑精靈（公園、發電廠、水塔、警消醫、農場這些特別分支不算，回 null）
+  if(!b||!(b.sz>=2)||[1,2,3,4,5,9,10,11,12,13,22,52,53].includes(b.k))return null;
+  const o={x:ox,y:oy},v=vdraw574(o,b),B=SPR.bld;let sp=B[b.k+'_'+b.lv+'_'+v]||B[b.k+'_'+b.lv+'_'+b.v]||B[b.k+'_'+b.lv+'_0']||B[b.k+'_1_'+b.v]||B[b.k+'_1_0'];
+  if(!(VARK574.has(b.k)&&v!==0))sp=metroIndustrySprite516A(b,sp);if(!sp)return null;
+  if(sp.sc!==undefined){const raw=sp,q=sp.sc;sp=raw._scView||{...raw,w:raw.w*q,h:raw.h*q,ax:raw.ax*q,ay:raw.ay*q};}
+  return sp;}
+let FW699_AID=0;const FW699_FC={P:null,m:null}; // 第九版：遮擋判定的每幀快取（以 part639 物件當幀的身分）
+const FW699_OCCD=8; // 第十一版：街區、多格地標往前看 8 格（4–8 格外的高樓也會蓋到這棟的牆腳，例：旅館 (22,9) 門口被 (27,16) 的高樓蓋住只露出 3 欄牆腳）；路邊物件、樹、概略遮擋照舊 1–3 格
+function fw699Tie(x,y){return window.__noTie585?y*.001:viewTie585(x,y);}
+function fw699Tiles(x,y,w,h,ax,ay,vx1,vy1){ // 一個街區每一格在它精靈上的「分條裁切柱」：左緣 l、格頂 sy、深度 dep（照 clipBlockDiag555：格子菱形下半＋往上整柱）
+  const out=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const p=w2v(x+dx,y+dy);out.push({l:ax-32+((p[0]-p[1])-(vx1-vy1))*32,sy:ay-32+((p[0]+p[1])-(vx1+vy1))*16,dep:p[0]+p[1]});}return out;}
+function fw699Ord(tl,X,Y){ // 精靈上 (X,Y) 由哪一條最後畫（回傳那一條的深度；不在任何一條的柱內＝-1：被裁掉、沒畫）
+  let best=-1;const u0=X+.5,v0=Y+.5;for(const t of tl){const u=u0-t.l;if(u<0||u>64||t.dep<=best)continue;const bot=u<=32?t.sy+16+u/2:t.sy+32-(u-32)/2;if(v0<=bot)best=t.dep;}return best;}
+function fw699Occluders(o,bd,s){ // 第九版繪製期：這棟正前方 1–3 格、在它之後才畫的東西（照繪製迴圈同一套位置、深度與分條裁切算）：
+  //   住商工街區（part639 切分表查得到起點）＝它的街區精靈；路燈、路邊小物、公車站＝它們的精靈（照繪製迴圈的偏移）——這些都逐格比 alpha（blk），
+  //   而且逐格比「誰後畫」：超街區每一格是一條（clipBlockDiag555 的柱），深度大的後畫，同深度比 tie（起點的 view y）；
+  //   其他建築（地標、公共建築、多格建築）與樹 1–2 格內當成整格菱形（樹＝格子中間 32 欄）擋住低處（rect，只用在牆腳段）
+  //   精靈上 x＝s.ax、y＝s.ay 對齊最前面那一格的 S 角；view 格差換成螢幕差＝(Δvx−Δvy)×32、(Δvx+Δvy)×16
+  if(!o||!s)return null;
+  const bw=o.block547?o.block547.w:(bd&&bd.sz)||1,bh=o.block547?o.block547.h:(bd&&bd.sz)||1,rot=viewRotEff(),P=fillOn639()?part639():null,ov555=!window.__noOverlap555;
+  const ck=o.x+','+o.y+','+rot+','+bw+','+bh;if(P&&s.__occ12&&s.__occ12.P===P&&s.__occ12.k===ck)return s.__occ12.r; // 同一幀（part639 每幀重建一次＝幀的身分）同一棟的每一條共用
+  if(P&&FW699_FC.P!==P){FW699_FC.P=P;FW699_FC.m=new Map();}const FC=P?FW699_FC.m:new Map();
+  let vx0=1e9,vy0=1e9,vx1=-1e9,vy1=-1e9;
+  for(const q of [[0,0],[bw-1,0],[0,bh-1],[bw-1,bh-1]]){const p=w2v(o.x+q[0],o.y+q[1]);if(p[0]<vx0)vx0=p[0];if(p[0]>vx1)vx1=p[0];if(p[1]<vy0)vy0=p[1];if(p[1]>vy1)vy1=p[1];}
+  const strip=(bw>1||bh>1)&&ov555,myT=fw699Tie(o.x,o.y),me=strip?{tl:fw699Tiles(o.x,o.y,bw,bh,s.ax,s.ay,vx1,vy1),tie:myT}:{dep:vx1+vy1+myT};
+  const col=(vx,vy)=>s.ax-32+((vx-vy)-(vx1-vy1))*32,seen=new Set(),blk=[],rect=[];
+  const prop=(sp,vx,vy,ox,oy,dd,w)=>{const al=fw699Alpha(sp);if(al)blk.push({al,dx:((vx1-vy1)-(vx-vy))*32-s.ax+32-ox,dy:((vx1+vy1)-(vx+vy))*16+32-s.ay-oy,dep:vx+vy+dd,src:'p'+w[0]+'/'+w[1]});};
+  const add=(vx,vy,d,sd,diag)=>{const w=v2w(vx,vy);if(!inMap(w[0],w[1]))return;const i=idx(w[0],w[1]),t=T(i);if(!t)return;const b=t.bld;
+    if(t.road&&!t.bridge&&!t.hw&&!window.__noStreetDepth547){if(d>3)return; // 路邊物件層（跟繪製迴圈同一套判定、偏移、深度；矮，只看 1–3 格）
+      if(t.rdec&&SPR.rdec)prop(SPR.rdec,vx,vy,32-SPR.rdec.ax,32-SPR.rdec.ay,.009,w);
+      else if(t.bus&&SPR.busStop)prop(SPR.busStop,vx,vy,32-SPR.busStop.ax,32-SPR.busStop.ay,.009,w);
+      else if(!window.__noLamp&&streetHash(w[0],w[1],1650)<.16&&SPR.streetLamp){const sl=SPR.streetLamp,side=streetHash(w[0],w[1],1653)<.5?1:-1,rm=rotMask(t.mask||0);let ox=32-sl.ax,oy=16-sl.ay;
+        if((rm&5)===5)ox+=side*11;else if((rm&10)===10)oy+=side*5;else{ox+=side*8;oy+=side*4;}prop(sl,vx,vy,ox,oy,.008,w);}
+      return;}
+    if(b&&!b.ref&&b.k>=1&&b.k<=3&&!(b.sz>=2)&&P&&!window.__noUkCottage596&&!window.__noMass1x1600){
+      const r0=P.cl[i],ri=r0>=0?r0:i;if(seen.has(ri))return;seen.add(ri);
+      let D=FC.get(ri); // 這一幀這個街區的精靈、錨點、分條柱（每幀每個街區只算一次）
+      if(D===undefined){const r=r0>=0?P.map.get(r0):null,ox=r?r0%N:w[0],oy=r?(r0/N)|0:w[1],ow=r?r.w:1,oh=r?r.h:1,ob=r?T(r0).bld:b;D=null;
+        if(ob){const dm=(ow>1||oh>1)?blockDims622(ow,oh,rot):[1,1],os=getBlockSprite547(ob.k,ob.lv||1,dm[0],dm[1],ob.v||0),al=fw699Alpha(os);
+          if(al){let ovx1=-1e9,ovy1=-1e9;for(const q of [[0,0],[ow-1,0],[0,oh-1],[ow-1,oh-1]]){const p=w2v(ox+q[0],oy+q[1]);if(p[0]>ovx1)ovx1=p[0];if(p[1]>ovy1)ovy1=p[1];}
+            const oT=fw699Tie(ox,oy);D={al,ax:os.ax,ay:os.ay,ovx1,ovy1,src:[ox,oy,ow,oh],tl:(ow>1||oh>1)&&ov555?fw699Tiles(ox,oy,ow,oh,os.ax,os.ay,ovx1,ovy1):null,tie:oT,dep:ovx1+ovy1+oT};}
+          else D=0;}
+        FC.set(ri,D);}
+      if(D===0){if(d<=2)rect.push([sd,col(vx,vy),col(vx,vy)+63]);return;}
+      if(!D||(D.src[0]===o.x&&D.src[1]===o.y))return;
+      blk.push({al:D.al,dx:((vx1-vy1)-(D.ovx1-D.ovy1))*32-s.ax+D.ax,dy:((vx1+vy1)-(D.ovx1+D.ovy1))*16-s.ay+D.ay,src:D.src,tl:D.tl,tie:D.tie,dep:D.dep});return;}
+    if(b&&(b.ref||b.sz>=2)){ // 多格的地標／公共建築：照一般分支挑到精靈就逐格比（整棟一次畫、剪在地塊內：clipLotFootprint596），挑不到只算正前方緊鄰那一格
+      const rr=b.ref?b.ref:[w[0],w[1]],ob=b.ref?(inMap(rr[0],rr[1])?T(idx(rr[0],rr[1])).bld:null):b,key=rr[0]*4096+rr[1];if(seen.has(key))return;seen.add(key);
+      const os=ob&&fw699LandSpr(rr[0],rr[1],ob),al=os&&fw699Alpha(os);
+      if(al){const sz=ob.sz;let ovx1=-1e9,ovy1=-1e9;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const p=w2v(rr[0]+dx,rr[1]+dy);if(p[0]+p[1]>ovx1+ovy1){ovx1=p[0];ovy1=p[1];}}
+        blk.push({al,dx:((vx1-vy1)-(ovx1-ovy1))*32-s.ax+os.ax,dy:((vx1+vy1)-(ovx1+ovy1))*16-s.ay+os.ay,src:[rr[0],rr[1],sz,sz],tl:window.__noLotClip596?null:fw699Tiles(rr[0],rr[1],sz,sz,os.ax,os.ay,ovx1,ovy1),clip:1,dep:ovx1+ovy1+fw699Tie(rr[0],rr[1])});return;}
+      if(d===1&&!diag&&ob&&ob.k!==4&&!flatLot610(ob))rect.push([sd,col(vx,vy),col(vx,vy)+63]);return;}
+    if(d>2)return;
+    if(b){if(d===1&&!diag&&b.k!==4&&!flatLot610(b))rect.push([sd,col(vx,vy),col(vx,vy)+63]);} // 其他單格建築：只算正前方緊鄰那一格
+    else if(t.tree||t.deco)rect.push([sd,col(vx,vy)+16,col(vx,vy)+47]);};
+  for(let d=1;d<=FW699_OCCD;d++){for(let vx=vx0-1;vx<=vx1+d;vx++)add(vx,vy1+d,d,0,vx<vx0||vx>vx1);for(let vy=vy0-1;vy<=vy1+d;vy++)add(vx1+d,vy,d,1,vy<vy0||vy>vy1);}
+  let r=null;if(blk.length||rect.length){let sig='';for(const b of blk){if(!b.al.id)b.al.id=++FW699_AID;sig+=b.al.id+'@'+b.dx+','+b.dy+'@'+b.dep+';';}for(const q of rect)sig+=q.join(',')+';';r={blk,rect,me,sig};}
+  if(P)s.__occ12={P,k:ck,r};return r;
+}
+function fw699Vis(e,oc){ // 繪製期：扣掉被擋剩的碎點。沒有東西擋＝整張照畫；有＝每一筆看有沒有被擋住的像素，被擋的那一筆只留沒被擋、夠長的連通部分（橫筆 ≥6 欄、直筆 ≥5 列），
+  //   確切遮擋（街區精靈、路邊物件，alpha ≥250）的像素原樣留著（反正看不到；判錯時也不會把一條線切斷）；概略遮擋（rect）的像素拿掉。結果按遮擋組合快取在 e.vis
+  if(!oc)return e;
+  const sig=oc.sig;if(e.vis.has(sig))return e.vis.get(sig);
+  const BW=e.BW,X0=e.x,Y0=e.y,src=e.im.data;let d=null,cut=0;
+  for(const st of e.S){const n=st.px.length,hid=new Uint8Array(n);let nh=0;
+    for(let k=0;k<n;k++){const j=st.px[k],x=X0+j%BW,y=Y0+((j/BW)|0);let h=false;
+      if(st.base)for(const r of oc.rect)if(r[0]===st.sd&&x>=r[1]&&x<=r[2]){h=2;break;} // 概略遮擋（整格菱形、樹）：不知道確切輪廓，這些像素直接拿掉，免得從輪廓邊露出 1–2 格
+      if(!h){let mo=-2;for(const b of oc.blk){const A=b.al,X=x+b.dx,Y=y+b.dy;if(X<0||Y<0||X>=A.w||Y>=A.h||A.A[Math.floor(Y*A.ky)*A.W+Math.floor(X*A.kx)]<250)continue; // 半透明（影子、邊緣）不算擋：底下的線看得到
+        if(mo===-2)mo=oc.me.tl?fw699Ord(oc.me.tl,x,y)+oc.me.tie:oc.me.dep; // 這一筆的這一格由自己哪一條畫
+        let od;if(b.tl){const q=fw699Ord(b.tl,X,Y);if(q<0)continue;od=b.clip?b.dep:q+b.tie;}else od=b.dep; // 擋的那一格由它哪一條畫；被分條裁掉（地塊裁切）的地方沒畫
+        if(od>mo){h=1;break;}}}
+      if(h){hid[k]=h;nh++;}}
+    if(!nh)continue;
+    for(let k=0;k<n;k++)if(hid[k]===2){if(!d)d=new Uint8ClampedArray(src);d[st.px[k]*4+3]=0;cut++;}
+    // 沒被擋的像素分連通塊，太短的整塊拿掉
+    const pos=new Map();for(let k=0;k<n;k++)if(!hid[k])pos.set(st.px[k],k);
+    const done=new Uint8Array(n),DX=st.eave?4:1; // 第十版：簷線同一列間隔 ≤3 欄的碎段當成一條再判長短（同精靈烘焙時的清理）
+    for(let k0=0;k0<n;k0++){if(hid[k0]||done[k0])continue;const mem=[k0];done[k0]=1;let x0=1e9,x1=-1,y0=1e9,y1=-1;
+      for(let m=0;m<mem.length;m++){const j=st.px[mem[m]],x=j%BW,y=(j/BW)|0;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+        for(let dy=-1;dy<=1;dy++)for(let dx=-DX;dx<=DX;dx++){if(!dx&&!dy)continue;const xx=x+dx,yy=y+dy;if(xx<0||xx>=BW||yy<0)continue;const q=pos.get(yy*BW+xx);if(q!=null&&!done[q]){done[q]=1;mem.push(q);}}}
+      if(st.v?y1-y0+1>=5:x1-x0+1>=(st.base?8:6))continue; // 第十二版：牆腳（含店面上緣）被擋剩不到 8 欄的連通段整段拿掉（審查 B minor：z1.2 門口、前院之間的牆腳短段像短虛線）
+      if(!d)d=new Uint8ClampedArray(src);for(const m of mem){d[st.px[m]*4+3]=0;cut++;}}
+    // 第十版：最後整筆（沒被擋而留下的＋被擋但原樣留著的）再照純 8 鄰看一次，≤4 px 的塊整塊拿掉——
+    //   例：斜的端牆簷線被前面房子的屋簷隔欄擋住，露出的那幾格太短已拿掉，被擋的那幾格就剩 1 px 一顆；拿掉的只會是被擋住的像素或很短的露出段，精靈座標上也不會留下孤立小塊
+    {const al=k=>(d||src)[st.px[k]*4+3]>0,pos2=new Map();for(let k=0;k<n;k++)if(al(k))pos2.set(st.px[k],k);const dn=new Uint8Array(n);
+      for(let k0=0;k0<n;k0++){if(dn[k0]||!al(k0))continue;const mem=[k0];dn[k0]=1;
+        for(let m=0;m<mem.length;m++){const j=st.px[mem[m]],x=j%BW,y=(j/BW)|0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const xx=x+dx,yy=y+dy;if(xx<0||xx>=BW||yy<0)continue;const q=pos2.get(yy*BW+xx);if(q!=null&&!dn[q]){dn[q]=1;mem.push(q);}}}
+        if(mem.length<=4){if(!d)d=new Uint8ClampedArray(src);for(const m of mem){d[st.px[m]*4+3]=0;cut++;}}}}}
+  let r=e;
+  if(d){const c=document.createElement('canvas');c.width=BW;c.height=e.BH;c.getContext('2d').putImageData(new ImageData(d,BW,e.BH),0,0);r={c,x:X0,y:Y0,cut};}
+  if(e.vis.size>64)e.vis.clear();e.vis.set(sig,r);return r;
+}
+
+
 function wallCache606(s,key,paint){
   const w=s&&s.__t547&&s.__t547.wall;if(!w)return null;
   let m=s.__wd606;
-  if(!m){if(WD606.n>520){for(const q of WD606.list)delete q.__wd606;WD606.list=[];WD606.n=0;}m=s.__wd606=new Map();WD606.list.push(s);}
+  if(!m){if(WD606.n>(fw699On()?800:520)){for(const q of WD606.list)delete q.__wd606;WD606.list=[];WD606.n=0;}m=s.__wd606=new Map();WD606.list.push(s);}
   if(m.has(key))return m.get(key);
   const P=wallPolyPts606(w),occ=s.__t547.occ||null;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; // T624：主體前方後畫的量體（occ）蓋住的地方，貼牆層讓開
   for(const q of P)for(const p of q){if(p[0]<x0)x0=p[0];if(p[1]<y0)y0=p[1];if(p[0]>x1)x1=p[0];if(p[1]>y1)y1=p[1];}
@@ -60042,17 +60405,20 @@ function paintGhost606(g,w,s,tt){
 function alphaG2(v){return Math.max(.04,Math.min(.92,v)).toFixed(3);}
 function drawWallDetail606(ctx,o,bd,s,bx,by,z){
   const t5=s&&s.__t547;if(window.__noWallDetail606||!t5||!t5.wall||!bd||bd.ref||bd.k===4)return 0;
-  if(String(t5.sty||'').indexOf('f577:')===0)return 0; // 英美立面在精靈內自帶門窗花台，不再疊
+  const fac699=String(t5.sty||'').indexOf('f577:')===0,wx699=fac699&&fw699On()?2:0; // T699：英美立面風化（閥門 __noFacadeWx699 下照舊不疊）
+  if(fac699&&!(wx699===2&&t5.faces699))return 0; // 英美立面在精靈內自帶門窗花台，不再疊
   const age=bd.age|0,cat=bd.k===1?'R':bd.k===2?'C':'I',a0=ctx.globalAlpha,dA=detailAlpha432(z);if(dA<=0)return 0;
   let n=0;const put=e=>{if(!e)return;ctx.globalAlpha=a0*dA;ctx.drawImage(e.c,bx+e.x*z,by+e.y*z,e.c.width*z,e.c.height*z);n++;};
   if(age>=14&&z>=.9&&!window.__noAgeW591){
     const ab=age<120?1:age<240?2:3,mood=districtMood424(o.x,o.y);
-    put(wallCache606(s,'w'+ab+mood+cat,(g,w,sp)=>paintWeather606(g,w,sp,cat,mood,[0,.3,.6,.95][ab])));
+    if(wx699===2){const e699=fw699WxFaces(s,'w'+ab+mood+cat+'F',cat,mood,[0,.3,.6,.95][ab],ab); // 第九版：正前方有會後畫的東西擋住某一筆時，只留那一筆沒被擋、夠長的部分（fw699Vis）
+      if(e699)put(fw699Vis(e699,fw699Occluders(o,bd,s)));}
+    else put(wallCache606(s,'w'+ab+mood+cat,(g,w,sp)=>paintWeather606(g,w,sp,cat,mood,[0,.3,.6,.95][ab])));
   }
   if(cat==='I'&&age>=40&&z>=.9&&!window.__noGhostGLM2&&streetHash(o.x,o.y,59400)<.5){ // GLM-002 舊牆廣告＋磚修補
     const ge2=wallCache606(s,'g'+((age/60)|0)+'I'+((s.__t547.v|0)%6),(g,w,sp)=>paintGhost606(g,w,sp,Math.min(1,age/360)));if(ge2){put(ge2);window.__tGLM2GhostCount=(window.__tGLM2GhostCount||0)+1;}
   }
-    if(z>=1.22&&age>=9&&!window.__noNearZoom599&&streetHash(o.x,o.y,60630)<.72){
+    if(z>=1.22&&age>=9&&!window.__noNearZoom599&&!fac699&&streetHash(o.x,o.y,60630)<.72){
     const hb=Math.floor(streetHash(o.x,o.y,60631)*3);
     put(wallCache606(s,'n'+hb+cat+(bd.lv||1),(g,w,sp)=>paintNear606(g,w,sp,cat,hb,bd.lv||1)));
   }
@@ -60737,7 +61103,7 @@ function inPoly606(px,py,P){let c=false;for(let i=0,j=P.length-1;i<P.length;j=i+
 function wallPolys606(s){const w=s&&s.__t547&&s.__t547.wall;if(!w)return null;const up=p=>[p[0],p[1]-w.h];return [[w.W,w.S,up(w.S),up(w.W)],[w.S,w.E,up(w.E),up(w.S)]];}
 function wallDetailSelftest606(){
   const checks=[],add=(n,ok,d)=>checks.push((ok?'OK ':'NG ')+n+(d!=null?'：'+d:''));
-  add('版本錨 ≥T606',/^T6\d\d$/.test(GAME_ANCHOR)&&+GAME_ANCHOR.slice(1)>=606,GAME_VER+'/'+GAME_ANCHOR);
+  add('版本錨 ≥T606',/^T\d{3,}$/.test(GAME_ANCHOR)&&+GAME_ANCHOR.slice(1)>=606,GAME_VER+'/'+GAME_ANCHOR); // T699：原本 /^T6\d\d$/，T700 起會誤判
   const B=window.GV.block559;const keep=window.__facadeForce577;window.__facadeForce577=undefined;
   const mk=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;return [c,g];};
   const sp=[];
@@ -60767,7 +61133,8 @@ function wallDetailSelftest606(){
     add('z<.9 不畫',measure(s0,b0(300),.8).px===0);
     window.__noWallDetail606=true;const off=measure(s0,b0(300),1.5).px;window.__noWallDetail606=false;
     add('逃生閥 __noWallDetail606',off===0);}
-  add('立面街屋不疊貼牆層',fac?measure(fac,{k:1,lv:1,v:0,age:300},1.5).px===0:false);
+  {const sv699=window.__noFacadeWx699;let px699=-1;window.__noFacadeWx699=true;try{px699=fac?measure(fac,{k:1,lv:1,v:0,age:300},1.5).px:-1;}finally{window.__noFacadeWx699=sv699;} // T699 起立面街屋照 B 疊風化；這一條改在閥門下驗
+  add('立面街屋不疊貼牆層（閥門 __noFacadeWx699 下）',px699===0);}
   // 舊圖剪影剪裁：一塊蓋滿外框的測試色塊，剪完只剩精靈不透明處
   const leg=Object.values(window.GV.art574.SPR().bld).find(q=>q&&q.img&&!q.__t547&&q.w>=48&&q.h>=48);
   if(leg){const z=1.5,cl=ovClipBegin606(leg,z);cl.g.fillStyle='#ff00ff';cl.g.fillRect(cl.x-10,cl.y-10,leg.w*z+20,leg.h*z+20);
@@ -60777,6 +61144,28 @@ function wallDetailSelftest606(){
   else add('舊圖本體層剪進剪影',false,'找不到舊圖樣本');
   window.__facadeForce577=keep;B.cache().clear();
   return {ok:checks.every(c=>c.startsWith('OK')),checks};
+}
+/* T699 自檢：英美立面街屋加風化（B）——立面精靈登記到牆面、閥門關時貼牆層真的畫、不變亮、閥門開時跟原圖逐像素相同、draw 接線、真的 draw 一次。 */
+function facadeWxSelftest699(){
+  const checks=[],B=window.GV.block559,keep=window.__facadeForce577,sv=window.__noFacadeWx699;let fac=null,faces=0,px=0,bright=0,off=-1,err='';
+  const z=1.5,PAD=6,bd={k:1,lv:1,v:0,age:300};
+  try{window.__facadeForce577=undefined;window.__noFacadeWx699=false;
+    for(let v=0;v<9&&!fac;v++){let q=null;try{B.cache().clear();q=B.make(1,1,3,1,v);}catch(e){}if(q&&q.__t547&&String(q.__t547.sty||'').indexOf('f577:')===0)fac=q;}
+    if(fac){faces=fac.__t547.faces699?fac.__t547.faces699.list.length:0;
+      const W=Math.ceil(fac.w*z)+PAD*2,H=Math.ceil(fac.h*z)+PAD*2,mk=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;g.drawImage(fac.img,PAD,PAD,fac.w*z,fac.h*z);return g;};
+      const g0=mk(),base=g0.getImageData(0,0,W,H).data;
+      const g1=mk();drawWallDetail606(g1,{x:11,y:7},bd,fac,PAD,PAD,z);const d=g1.getImageData(0,0,W,H).data;
+      for(let i=0;i<d.length;i+=4){if(d[i]===base[i]&&d[i+1]===base[i+1]&&d[i+2]===base[i+2])continue;px++;if(.299*d[i]+.587*d[i+1]+.114*d[i+2]>.299*base[i]+.587*base[i+1]+.114*base[i+2]+.5)bright++;}
+      window.__noFacadeWx699=true;const g2=mk();drawWallDetail606(g2,{x:11,y:7},bd,fac,PAD,PAD,z);const d2=g2.getImageData(0,0,W,H).data;off=0;for(let i=0;i<d2.length;i++)if(d2[i]!==base[i])off++;}
+  }catch(e){err=e.message;}finally{window.__noFacadeWx699=sv;window.__facadeForce577=keep;B.cache().clear();}
+  checks.push(['立面精靈（k1 3×1）登記到牆面 '+faces+' 面'+(err?'（'+err+'）':''),!!fac&&faces>0&&!err]);
+  checks.push(['閥門關：貼牆層有畫（z1.5、300 歲，改 '+px+' px）',px>0]);
+  checks.push(['任何像素都不變亮（變亮 '+bright+' px）',px>0&&bright===0]);
+  checks.push(['閥門 __noFacadeWx699 開：跟精靈原圖逐像素相同（差 '+off+'）',off===0]);
+  checks.push(['接線：drawWallDetail606 放行立面並走 fw699WxFaces、makeBlockSprite547 登記牆面',String(drawWallDetail606).indexOf('fw699WxFaces(')>=0&&String(makeBlockSprite547).indexOf('fw699FaceDone(')>=0]);
+  let e2='';{let errN=0;const se=console.error;console.error=()=>{errN++;};try{draw(.016);}catch(e){e2=e.message;}finally{console.error=se;}if(errN)e2=e2||('console.error '+errN+' 筆');}
+  checks.push(['真的 draw(.016) 一次不擲錯'+(e2?'（'+e2+'）':''),!e2]);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
 function overlayAudit606(opt){
   opt=opt||{};const z=opt.z||1.5,night=opt.night?1:0,list=(opt.list||window.__ovCap606||[]).slice(0,opt.max||260),only=opt.only||null;
@@ -73284,7 +73673,7 @@ function massHex624(C,h){return [C.W,C.S,C.E,[C.E[0],C.E[1]-h],[C.N[0],C.N[1]-h]
 // 第二量體：裙樓／側翼。用既有語彙畫得夠密，但不重複主量體的全部細節。
 function massBox568(g,ng,C,wallH,pal,cL,cR,k,rk){
   fillPara547(g,C,k===3?'#6a6862':k===2?'#7a828c':'#8a7a68');
-  edgeWall547(g,C.W,C.S,wallH,cL);edgeWall547(g,C.E,C.S,wallH,cR);
+  edgeWall547(g,C.W,C.S,wallH,cL);edgeWall547(g,C.E,C.S,wallH,cR);if(fw699MassHook)fw699MassHook(C,wallH);
   const stepY=k===2?5:4,stepX=k===2?4:3,ww=k===2?3:2,skip645=window.__noMassWin645?1:2; // T645：窗距加倍＝原位置隔一扇畫一扇，排距不變
   const face=(a,b,bandCol,litP)=>{
     const dx=b[0]-a[0],dy=b[1]-a[1],n=Math.max(1,Math.hypot(dx,dy)|0);
@@ -73864,11 +74253,13 @@ function makeBlockSprite547(k,lv,bw,bh,v){
   const fr577=facadeFor577(k,lv,bw,bh,v,ar568);
   const bayRow604=k===1&&Math.min(bw,bh)>=2&&!window.__noBay604&&!window.__facadeForce577&&(window.__noMassOrder624||!(ar568&&ar568.flat)); // T624：平屋頂原型畫不出「一戶一尖」，不再因此擋掉英美立面（原本退回核心畫法的密格小窗） // T604：進深≥2 的住宅不用整棟立面，改一戶一尖；強制風格時仍交立面
   if(fr577&&!bayRow604){ // T577：英美街景風格繪製器接手牆／窗／屋頂；地坪、陰影、前庭、裙樓已由核心畫好
-    const top613=[],n613=smk608.length;let res577=null;try{res577=fr577.draw({A:window.GV.art574,g,ng,G,G0:G0559,wallH,pitchH,stepH,towH,k,lv,bw,bh,v,pal,rand:rk559,rand2:rand,cL,cR,long,span,axis,W,H,ax,ay,typ,grain,ar:ar568,
+    const top613=[],n613=smk608.length,fc699=fw699On()?[]:null;let res577=null;try{res577=fr577.draw({A:window.GV.art574,g,ng,G,G0:G0559,wallH,pitchH,stepH,towH,k,lv,bw,bh,v,pal,rand:rk559,rand2:rand,cL,cR,long,span,axis,W,H,ax,ay,typ,grain,ar:ar568,face577:fc699?((sd,x0,x1,ft,h,cap)=>fw699FaceAdd(c,fc699,sd,x0,x1,ft,h,cap)):null,
       chim:window.__noFacadeSmoke613?null:(x,y,top)=>{smk608.push([Math.round(x),Math.round(y)]);top613.push(top||null);}});}
     catch(e){console.error('facade577 '+fr577.name,e);res577=null;}
-    if(res577!==false){exLateDraw624();chimVisible613(g,smk608,top613);if(occ653)occ653.flush();outlineSprite(c,22,26,34);return{img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH},occ:occ624}};}
-    smk608.length=n613;
+    if(res577!==false){if(fc699)fw699MassHook=(C5,h5)=>fw699MassFaces(c,fc699,C5,h5);try{exLateDraw624();chimVisible613(g,smk608,top613);if(occ653)occ653.flush();outlineSprite(c,22,26,34);}finally{fw699MassHook=null;if(fc699)fw699Unwrap(fc699);}
+      const r699={img:c,night:nc,ax,ay,w:W,h:H,smoke:[],smoke608:smk608,__t547:{k,lv,bw,bh,v,pitch:!!(res577&&res577.pitch),sty:'f577:'+fr577.name,wall:{W:G.W,S:G.S,E:G.E,N:G.N,h:wallH},occ:occ624,...(fc699?{faces699:fw699FaceDone(c,fc699)}:{})}};
+      return r699;}
+    if(fc699)fw699FaceDone(c,fc699);smk608.length=n613;
   }
   edgeWall547(g,G.W,G.S,wallH,cL);edgeWall547(g,G.E,G.S,wallH,cR);
   if(typ&&k===1){wallCourse556(g,G.W,G.S,wallH,'rgba(80,40,28,.22)',4);wallCourse556(g,G.E,G.S,wallH,'rgba(40,20,16,.28)',4);}
@@ -76930,7 +77321,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,tbPowerSelftest698,nightPowerTest698,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,tbPowerSelftest698,nightPowerTest698,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,facadeWxSelftest699,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
@@ -77068,7 +77459,7 @@ REG.ukTerrace={name:'ukTerrace',draw(ctx){
     // 端牆（背光）＋山牆
     wall(g,C.S,C.E,wallH,endBrick);
     rc(g,R(C.S[0]),foot(C.W,C.S,R(C.S[0]))-wallH,1,wallH,sh(base,-30));   // 轉角柱
-    cols(C.S,C.E,(x,y)=>{rc(g,x,y-1,1,1,sh(endBrick,-16));});                 // 勒腳
+    cols(C.S,C.E,(x,y)=>{rc(g,x,y-1,1,1,sh(endBrick,-16));});ctx.face577&&ctx.face577(1,Math.min(C.S[0],C.E[0]),Math.max(C.S[0],C.E[0]),x=>foot(C.S,C.E,x),wallH,0);                 // 勒腳
     {const xp=R(C.S[0])+2;rc(g,xp,foot(C.S,C.E,xp)-wallH+1,1,wallH-1,'#3e4249');}   // 端牆落水管
     if(rand()<.5){const p=lerp(C.S,C.E,.5);const x=R(p[0])-1,y=foot(C.S,C.E,R(p[0]));win(g,ng,x,y-fh-5,2,3,glassR,trimR,rand()<.4);}
     // 屋頂：背坡→山牆三角→前坡→石板橫縫→屋脊→封簷
@@ -77093,6 +77484,7 @@ REG.ukTerrace={name:'ukTerrace',draw(ctx){
           rc(g,x,y-fh-1,1,1,painted?sh(bcol,-14):sh(bcol,20));    // 樓層腰線
           rc(g,x,y-1,1,1,sh(bcol,-26));                          // 勒腳
         }
+        ctx.face577&&ctx.face577(0,xi0,xi1,x=>foot(C.W,C.S,x),wallH-2,2);
         // 門（左）：扇形窗＋門色
         const dx=xi0+2,dy=foot(C.W,C.S,dx+1);
         rc(g,dx-1,dy-fh,5,1,trim);                               // 門楣
@@ -77170,7 +77562,7 @@ REG.ukSemi={name:'ukSemi',draw(ctx){
       const xi0=R(Cp.W[0]),xi1=R(Cp.S[0])-1;
       // 端牆（背光）：下磚上粉刷
       wall(g,Cp.S,Cp.E,wallH,sh(render,-62));
-      cols(Cp.S,Cp.E,(x,y)=>{rc(g,x,y-fh,1,fh,sh(bcol,-44));rc(g,x,y-1,1,1,sh(bcol,-58));rc(g,x,y-wallH,1,1,'#3a3d43');});
+      cols(Cp.S,Cp.E,(x,y)=>{rc(g,x,y-fh,1,fh,sh(bcol,-44));rc(g,x,y-1,1,1,sh(bcol,-58));rc(g,x,y-wallH,1,1,'#3a3d43');});ctx.face577&&ctx.face577(1,Math.min(Cp.S[0],Cp.E[0]),Math.max(Cp.S[0],Cp.E[0]),x=>foot(Cp.S,Cp.E,x),wallH-1,1);
       if(rand()<.5){const q=lerp(Cp.S,Cp.E,.5);const x=R(q[0])-1,y=foot(Cp.S,Cp.E,R(q[0]));win(g,ng,x,y-wallH+4,2,3,glassR,sh(trimW,-30),rand()<.4);}
       // 四坡屋頂
       const fm=mid(Ct.W,Ct.N),bm=mid(Ct.S,Ct.E),hipT=clampN(dxRow*.4/Math.max(8,pw),.12,.38);
@@ -77190,6 +77582,7 @@ REG.ukSemi={name:'ukSemi',draw(ctx){
           rc(g,x,y-fh-1,1,1,sh(render,-34));                     // 粉刷下緣陰影
           rc(g,x,y-1,1,1,sh(bcol,-28));                          // 勒腳
         }
+        ctx.face577&&ctx.face577(0,xi0,xi1,x=>foot(Cp.W,Cp.S,x),wallH-1,1);
         // 兩戶鏡像：h=0 左戶（凸窗左、門右），h=1 右戶（門左、凸窗右）
         for(let h=0;h<2;h++){
           const bx=h===0?xi0+1:xi1-5;                             // 凸窗牆柱 [bx,bx+4]
@@ -77336,7 +77729,7 @@ REG.ukVictorian={name:'ukVictorian',draw(ctx){
     if(par>3)band(g,F,F.x0,F.x1,zTop+2,H-1,C.parapet);
     band(g,F,F.x0,F.x1,H-1,H,C.corL);
   };
-  wall(FL,CL);wall(FR,CR);
+  wall(FL,CL);wall(FR,CR);ctx.face577&&(ctx.face577(0,FL.x0,FL.x1,FL.fy,zTop,par),ctx.face577(1,FR.x0,FR.x1,FR.fy,zTop,par));
   // ---- 採光井帶：G 前緣與 B 前緣之間（兩端斜切），黑鐵欄杆立在 G 邊上 ----
   const fG=x=>G.W[1]+(x-G.W[0])/2;
   const pitTop=x=>Math.max(fG(x)-2*d,G.W[1]-(x-G.W[0])/2),pitBot=x=>Math.min(fG(x),G.S[1]-(x-G.S[0])/2);
@@ -77436,7 +77829,7 @@ REG.ukMansion={name:'ukMansion',draw(ctx){
       band(g,F,F.x0,F.x1,zC,zC+1,C.corS);
       band(g,F,F.x0,F.x1,zC+1,Hb,C.corL);
     };
-    wall(FL,CL);wall(FR,CR);
+    wall(FL,CL);wall(FR,CR);ctx.face577&&(ctx.face577(0,FL.x0,FL.x1,FL.fy,zC,Hb-zC),ctx.face577(1,FR.x0,FR.x1,FR.fy,zC,Hb-zC));
     // 窗：成對直立窗（2＋石中挺＋2），每 12 列一組；基座層單窗
     const bays=F=>{const n=Math.max(1,Math.floor((F.len-3)/12)),tot=(n-1)*12+7,st=F.x0+Math.floor((F.len-tot)/2)+1;const a=[];for(let i=0;i<n;i++)a.push(st+i*12);return a;};
     const sillZ=fh>=7?2:1,wh=fh>=8?fh-4:Math.min(3,fh-3);
@@ -77637,6 +78030,7 @@ function drawShops(ctx,T){
       for(let f=1;f<nUp;f++)rc(g,x,y-shopH-fh*f,1,1,sh(U.brick,U.painted?-10:16));  // 樓層腰線
     }
   }
+  if(ctx.face577)for(const U of units)ctx.face577(0,U.x0,U.x1,yF,wallH-2,2);
   // ---- 店面（d=1..12）
   const shopFront=(a,b,x0,x1,U,side,withDoor)=>{
     const yAt=x=>foot(a,b,x);
@@ -77721,7 +78115,7 @@ function drawShops(ctx,T){
     rc(g,x,y-wallH,1,1,'#33373d');rc(g,x,y-wallH+1,1,1,sh(sideBrick,22));
     for(let f=1;f<nUp;f++)rc(g,x,y-shopH-fh*f,1,1,sh(sideBrick,12));
   }
-  const retX1=Math.min(xE-1,sx0+11);
+  ctx.face577&&ctx.face577(1,sx0,xE,yR,wallH-2,2);const retX1=Math.min(xE-1,sx0+11);
   const hasRet=retX1-sx0>=5;
   if(hasRet){const U2=Object.assign({},uLast,{x0:sx0-1,x1:retX1+1,awn:false});shopFront(G.S,G.E,sx0-1,retX1+1,U2,true,false);}
   {const sTrim=sh(STONE,-40),sGl=sh(GLASS_U,-12);
@@ -77808,6 +78202,7 @@ function drawHotel(ctx,T){
       rc(g,x,y-wallH-1,1,1,sh(tr,10));rc(g,x,y-wallH-2,1,1,tr);                                                  // 頂簷口兩列
       rc(g,x,y-paraH,1,1,sh(wall,isL?22:14));                                                                    // 女兒牆壓頂
     }
+    ctx.face577&&ctx.face577(isL?0:1,x0,x1,yAt,wallH,paraH-wallH);
     // 一樓拱窗：每 7 欄一扇，避開大門
     for(let xc=x0+3;xc<=x1-2;xc+=7){
       if(isL&&Math.abs(xc-dc)<=6)continue;
@@ -77933,6 +78328,7 @@ function drawCornerShop001(ctx){
   poly(g,[roof.N,roof.E,roof.S,roof.W],'#4c5158');
   band(g,G.W,G.S,xW,xS,H-1,2,trim); band(g,G.S,G.E,xS,xE,H-1,2,sh(trim,-18));
   band(g,G.W,G.S,xW,xS,H-4,1,stone); band(g,G.S,G.E,xS,xE,H-4,1,sh(stone,-22));
+  if(ctx.face577){ctx.face577(0,Math.min(G.W[0],G.S[0]),Math.max(G.W[0],G.S[0]),x=>R(foot(G.W,G.S,x)),H-5,5);ctx.face577(1,Math.min(G.S[0],G.E[0]),Math.max(G.S[0],G.E[0]),x=>R(foot(G.S,G.E,x)),H-5,5);}
 
   // 木製 shopfront：stallriser、plate glass、fascia、cornice、pilaster / console。
   const resW=clamp(R(fw*.18),3,5), shopRight=xS-resW-1;
@@ -78197,6 +78593,7 @@ REG.usBrownstone={name:'usBrownstone',draw(ctx){
     const last=houses[nH-1],endCol=sh(last.col,-46);
     wall(g,C.S,C.E,H,endCol);
     cols(C.S,C.E,(x,y)=>{rc(g,x,y-hB,1,hB,sh(endCol,-8));rc(g,x,y-hB-1,1,1,sh(endCol,14));rc(g,x,y-1,1,1,sh(endCol,-20));rc(g,x,y-H,1,1,sh(last.trim,-40));rc(g,x,y-H+2,1,1,sh(endCol,-16));});
+    ctx.face577&&ctx.face577(1,Math.min(C.S[0],C.E[0]),Math.max(C.S[0],C.E[0]),x=>foot(C.S,C.E,x),H-3,3);
     const DXe=C.E[0]-C.S[0];
     if(DXe>=12){const xw=R(C.S[0]+DXe*.5)-1,yw=foot(C.S,C.E,xw+1);
       for(let f=0;f<=nUp;f++){const yb=yw-hB-(f===0?0:fhP+(f-1)*fh),fhF=f===0?fhP:fh;
@@ -78215,7 +78612,7 @@ REG.usBrownstone={name:'usBrownstone',draw(ctx){
         if(front){rc(g,x,y-H,1,1,trim);rc(g,x,y-H+1,1,1,(x&1)?trim:sh(col,-30));rc(g,x,y-H+2,1,1,sh(col,-34));}   // 托架簷口
         else{rc(g,x,y-H,1,1,sh(trim,-18));}
       }
-      {const y=foot(C.W,C.S,xi1);rc(g,xi1,y-H+3,1,H-3,sh(col,-12));}      // 戶界
+      ctx.face577&&ctx.face577(0,xi0,xi1,x=>foot(C.W,C.S,x),H-3,3);{const y=foot(C.W,C.S,xi1);rc(g,xi1,y-H+3,1,H-3,sh(col,-12));}      // 戶界
       // 開間
       const nBay=hwI>=12?3:hwI>=8?2:1,bayW=Math.max(3,Math.floor((hwI-1)/nBay)),pad=Math.max(0,Math.floor((hwI-1-nBay*bayW+1)/2));
       const doorJ=front?(h.side?nBay-1:0):-1;
@@ -78341,6 +78738,7 @@ REG.usPrewar={name:'usPrewar',draw(ctx){
         rc(g,x,y-Hs+1,1,1,S.brickPar?((x&1)?sh(brick,-30):sh(brick,-6)):sh(stone,-14));
         rc(g,x,y-Hs+2,1,1,sh(brick,-30));
       }
+      ctx.face577&&ctx.face577(0,xs0,xsS,x=>foot(Cs.W,Cs.S,x),Hs-3,3);
       // 窗位
       const avail=hwI-2,wx=[];
       if(S.paired){const nP=Math.max(1,Math.floor((avail+3)/10)),pad=Math.max(0,Math.floor((avail-(10*nP-3))/2));for(let p=0;p<nP;p++){wx.push(xs0+1+pad+10*p);wx.push(xs0+1+pad+10*p+4);}}
@@ -78383,6 +78781,7 @@ REG.usPrewar={name:'usPrewar',draw(ctx){
       cols(Cs.S,Cs.E,(x,y)=>{if(x===xsS)return;rc(g,x,y-gf,1,gf,sh(base,-44));rc(g,x,y-gf-1,1,1,sh(stone,-50));rc(g,x,y-1,1,1,sh(brickR,-18));
         for(let f=0;f<S.nF;f++)rc(g,x,y-gf-2-f*fh,1,1,sh(brickR,12));
         rc(g,x,y-Hs,1,1,sh(stone,-38));rc(g,x,y-Hs+1,1,1,sh(brickR,-8));rc(g,x,y-Hs+2,1,1,sh(brickR,-22));});
+      ctx.face577&&ctx.face577(1,Math.min(Cs.S[0],Cs.E[0]),Math.max(Cs.S[0],Cs.E[0]),x=>foot(Cs.S,Cs.E,x),Hs-3,3);
       for(let x=xsS+3;x+3<=xsE-2;x+=5){const yx=foot(Cs.S,Cs.E,x+1);
         for(let f=0;f<S.nF;f++){const yb=yx-gf-2-f*fh;rc(g,x,yb-4,3,1,sh(stone,-44));glass(x,yb-3,3,3,glassR,rand()<.26,'#e8c47a');}
         if(rand()<.6)glass(x,yx-6,3,3,sh(glassR,-6),rand()<.25,'#e8c47a');}
@@ -78597,6 +78996,7 @@ function rearWing(ctx,T,Cr,Hr,nFr,brick,stone,S){
   wall(g,Cr.S,Cr.E,Hr,brickR);
   const xrS=R(Cr.S[0]),xrE=R(Cr.E[0]),DXr=xrE-xrS,fE=(x)=>foot(Cr.S,Cr.E,x);
   cols(Cr.S,Cr.E,(x,y)=>{rc(g,x,y-1,1,1,sh(brickR,-16));rc(g,x,y-Hr,1,1,sh(stone,-40));rc(g,x,y-Hr+1,1,1,sh(brickR,-4));rc(g,x,y-Hr+3,1,1,sh(stone,-52));rc(g,x,y-Hr+4,1,1,sh(brickR,-14));});
+  if(ctx.face577){ctx.face577(0,Math.min(Cr.W[0],Cr.S[0]),Math.max(Cr.W[0],Cr.S[0]),x=>foot(Cr.W,Cr.S,x),Hr,0);ctx.face577(1,Math.min(Cr.S[0],Cr.E[0]),Math.max(Cr.S[0],Cr.E[0]),x=>foot(Cr.S,Cr.E,x),Hr-5,5);}
   if(DXr>=10){const wx=xrS+R(DXr*.5),yw=fE(wx+1);
     for(let f=0;f<nFr;f++)dh(wx,yw-14-1-f*8,3,4,'#2e3c46',sh(stone,-56),rand()<.2,'#e8c47a');
     if(rand()<.7)dh(wx,yw-3,3,4,'#2a3640',sh(stone,-56),rand()<.25,'#e8c47a');}
@@ -78651,6 +79051,7 @@ function mainStreet(ctx,T,C,vFront){
       rc(g,x,y-1,1,1,sh(brickR,-16));rc(g,x,y-gf,1,1,sh(stone,-60));
       if(S.belt)for(let f=0;f<S.nF;f++)rc(g,x,y-gf-1-f*fh,1,1,sh(brickR,10));
       rc(g,x,y-H,1,1,sh(stone,-40));rc(g,x,y-H+pp+1,1,1,sh(stone,-52));rc(g,x,y-H+pp+2,1,1,((x-xsS)%3===1)?sh(stone,-74):sh(stone,-56));rc(g,x,y-H+pp+3,1,1,sh(brickR,-14));});
+    ctx.face577&&ctx.face577(1,Math.min(Cs.S[0],Cs.E[0]),Math.max(Cs.S[0],Cs.E[0]),fE,H-pp-cr-1,pp+cr+1);
     if(S.ghost&&DXe>=12){const gw=Math.min(DXe-5,18),gh=Math.min(S.nF*fh-2,14);ghostSign(T,g,Cs.S,Cs.E,H,xsS+2,gw,pp+cr+2,gh,GHOST[(rand()*GHOST.length)|0]);}
     if(DXe>=14){const wx=xsE-5,yw=fE(wx+1);for(let f=0;f<S.nF;f++)dh(wx,yw-gf-1-f*fh,3,4,GLASS_R,sh(stone,-56),rand()<.22,'#e8c47a');
       if(rand()<.5){rc(g,wx,yw-7,3,1,sh(stone,-56));rc(g,wx,yw-6,3,5,'#2a2622');rc(g,wx+1,yw-6,1,5,'#1e1c1a');}}          // 後門
@@ -78666,6 +79067,7 @@ function mainStreet(ctx,T,C,vFront){
       rc(g,x,y-H+pp+2,1,1,((x-xs0)%3===1)?sh(stone,-44):sh(stone,-6));     // 托架
       rc(g,x,y-H+pp+3,1,1,sh(brick,-36));                                  // 簷下陰影
     }
+    ctx.face577&&ctx.face577(0,xs0,xsS,fF,H-pp-cr-1,pp+cr+1);
     const xa=xs0+1,xb=xsS-1;
     const sf=storefront(T,g,Cs,xa,xb,{bulk:S.bulk,sign:S.sign,signH:3,door:S.door,doorSide:S.doorSide,awn:S.awn,signLit:S.signLit,rand,first:i===0});
     // 鑄鐵柱（一樓）＋上層戶界
@@ -78739,6 +79141,7 @@ function chicago(ctx,T,C){
       rc(g,x,y-1,1,1,sh(brickR,-16));rc(g,x,y-gf,1,1,stoneR);
       if(S.belt)for(let f=0;f<S.nF;f++)rc(g,x,y-gf-1-f*fh,1,1,sh(brickR,10));
       rc(g,x,y-H,1,1,sh(stone,-40));rc(g,x,y-H+pp+1,1,1,sh(stone,-46));rc(g,x,y-H+pp+2,1,1,sh(stone,-54));rc(g,x,y-H+pp+3,1,1,((x-xsS)%3===1)?sh(stone,-76):sh(stone,-58));rc(g,x,y-H+pp+4,1,1,sh(brickR,-14));});
+    ctx.face577&&ctx.face577(1,Math.min(Cs.S[0],Cs.E[0]),Math.max(Cs.S[0],Cs.E[0]),fE,H-pp-cr-1,pp+cr+1);
     const wxs=[];if(DXe>=24){wxs.push(xsS+R(DXe*.62));wxs.push(xsS+R(DXe*.86));}else if(DXe>=12)wxs.push(xsS+R(DXe*.68));
     for(const wx of wxs){const yw=fE(wx+1);for(let f=0;f<S.nF;f++)dh(wx,yw-gf-1-f*fh,3,5,GLASS_R,stoneR,rand()<.24,'#e8c47a');
       dh(wx,yw-2,3,5,sh(GLASS_R,-6),stoneR,rand()<.3,'#e8c47a');}
@@ -78763,6 +79166,7 @@ function chicago(ctx,T,C){
     const nB=Math.max(1,Math.floor((wi+2)/bp)),pad=Math.max(0,(wi-(nB*bp-2))>>1);
     const bayX=[];for(let j=0;j<nB;j++)bayX.push(xa+pad+j*bp);
     if(S.piers){for(let j=0;j<=nB;j++){const px=j<nB?bayX[j]-1:bayX[nB-1]+bwid;if(px<xa||px>xb)continue;const y=fF(px);rc(g,px,y-H+pp+cr+1,1,H-pp-cr-1-gf,sh(brick,-14));}}
+    ctx.face577&&ctx.face577(0,xs0,xsS,fF,H-pp-cr-1,pp+cr+1);
     for(let j=0;j<nB;j++){const x0=bayX[j],yx=fF(x0+(bwid>>1));
       for(let f=0;f<S.nF;f++){const sb=yx-gf-1-f*fh,top=(S.wt==='arch'&&f===S.nF-1);
         if(S.wt==='chicago'){
@@ -78955,7 +79359,7 @@ function mewsBays681(ctx){ // T681（業主決策單第十一批 11-5 選 B）�
   const PAINT=['#c4a36a','#e6ddca','#d8c49c','#b9c6c8','#d6b2a4','#c9ad7e'],DOOR=['#1f3c32','#5b2028','#243554','#2a2522','#6a4a1f'];
   const side='#8f7550';
   wall(g,G.S,G.E,wallH,side);
-  cols(G.S,G.E,(x,y)=>{rc(g,x,y-3,1,3,sh(side,-18));rc(g,x,y-wallH,1,2,'#3e4650');rc(g,x,y-gF-1,1,1,sh(side,14));});
+  cols(G.S,G.E,(x,y)=>{rc(g,x,y-3,1,3,sh(side,-18));rc(g,x,y-wallH,1,2,'#3e4650');rc(g,x,y-gF-1,1,1,sh(side,14));});ctx.face577&&ctx.face577(1,Math.min(G.S[0],G.E[0]),Math.max(G.S[0],G.E[0]),x=>foot(G.S,G.E,x),wallH-2,2);
   {const sx=R((G.S[0]*.6+G.E[0]*.4)),sy=foot(G.S,G.E,sx);rc(g,sx,sy-gF-8,3,5,sh(glass,-28));rc(g,sx-1,sy-gF-3,5,1,sh(trim,-24));if(ng)rc(ng,sx,sy-gF-8,3,5,'#d9c78f');
     const dx=R((G.S[0]*.3+G.E[0]*.7)),dy=foot(G.S,G.E,dx);rc(g,dx,dy-9,3,8,sh(DOOR[v%DOOR.length],-20));}
   const x0=R(Math.min(G.W[0],G.S[0])),x1=R(Math.max(G.W[0],G.S[0])),fw=x1-x0;
@@ -78963,6 +79367,7 @@ function mewsBays681(ctx){ // T681（業主決策單第十一批 11-5 選 B）�
   for(let b=0;b<nb;b++){
     const col=PAINT[(b*7+v*3)%PAINT.length],door=DOOR[(b*3+v)%DOOR.length],bx0=R(x0+b*bw),bx1=b===nb-1?x1:R(x0+(b+1)*bw)-1;
     for(let x=bx0;x<=bx1;x++){const y=foot(G.W,G.S,x);rc(g,x,y-wallH,1,wallH,col);rc(g,x,y-wallH,1,2,'#4a5560');rc(g,x,y-1,1,1,sh(col,-28));rc(g,x,y-gF-1,1,1,sh(col,18));}
+    ctx.face577&&ctx.face577(0,bx0,bx1,x=>foot(G.W,G.S,x),wallH-2,2);
     if(b>0){const y=foot(G.W,G.S,bx0);rc(g,bx0,y-wallH,1,wallH,sh(col,-26));stacks.push([bx0+dp[0],y+dp[1]]);}
     const mid=R((bx0+bx1)/2),kind=(b+v)%3;
     if(kind===0){for(let x=mid-5;x<=mid+5;x++){const y=foot(G.W,G.S,x),adx=Math.abs(x-mid),rise=Math.round(Math.sqrt(Math.max(0,25-adx*adx))),lip=y-3-rise;
