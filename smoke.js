@@ -151,6 +151,7 @@ const KEEP = process.argv.includes('--keep');
       ['ukBatchSelftest708', `(window.GV && window.GV.ukBatchSelftest708) ? window.GV.ukBatchSelftest708() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest703', `(window.GV && window.GV.ukBatchSelftest703) ? window.GV.ukBatchSelftest703() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest704', `(window.GV && window.GV.ukBatchSelftest704) ? window.GV.ukBatchSelftest704() : {ok:false,checks:['API 不存在']}`],
+      ['renew711', `(window.GV && window.GV.renewSelftest711) ? window.GV.renewSelftest711() : {ok:false,checks:['API 不存在']}`],
       ['legacyA713', `(window.GV && window.GV.legacyASelftest713) ? window.GV.legacyASelftest713() : {ok:false,checks:['API 不存在']}`],
       ['plants710', `(window.GV && window.GV.plantsSelftest710) ? window.GV.plantsSelftest710() : {ok:false,checks:['API 不存在']}`],
       ['civicV0712', `(window.GV && window.GV.civicV0Selftest712) ? window.GV.civicV0Selftest712() : {ok:false,checks:['API 不存在']}`],
