@@ -1,0 +1,55 @@
+name: pr7-game-samples
+on:
+  push:
+    branches: ['gpt/pr7-game-samples']
+    paths: ['pr7-game-samples.js', '.github/workflows/pr7-game-samples.yml']
+permissions:
+  contents: read
+concurrency:
+  group: pr7-game-samples-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  samples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Chinese font from Ubuntu registry
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Verify unchanged product source
+        run: |
+          printf '%s  %s\n' b2d4979497e23f32ba7cd6a4a5980710055f43da2313a293fc065e02a6c8d152 index.html | sha256sum -c -
+          mkdir -p pr7-evidence/logs
+          git rev-parse HEAD > pr7-evidence/workflow-sha.txt
+      - name: Render 19 buildings day and night in Chromium
+        run: node pr7-game-samples.js 2>&1 | tee pr7-evidence/logs/samples.txt
+        shell: bash
+      - name: Run three smoke passes
+        if: always()
+        run: |
+          set -o pipefail
+          mkdir -p pr7-evidence/logs
+          for n in 1 2 3; do node smoke.js 2>&1 | tee "pr7-evidence/logs/smoke-$n.txt"; done
+        shell: bash
+      - name: Run dedicated guards and fingerprint
+        if: always()
+        run: |
+          set -o pipefail
+          node probeGROK3.js 2>&1 | tee pr7-evidence/logs/probeGROK3.txt
+          node probeGROK4.js 2>&1 | tee pr7-evidence/logs/probeGROK4.txt
+          node probeGROK5.js 2>&1 | tee pr7-evidence/logs/probeGROK5.txt
+          node fp.js --check --expect=bld 2>&1 | tee pr7-evidence/logs/fingerprint.txt
+        shell: bash
+      - name: Upload evidence without deployment
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr7-game-samples-${{ github.sha }}
+          path: pr7-evidence/
+          if-no-files-found: error
+          retention-days: 7
