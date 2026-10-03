@@ -15,9 +15,9 @@ const SOURCE_DIGEST = '5c60ef1809599419b9e456a136da2b6e9e499b6069d4b5d10f8e7b222
 const OUT = path.join(__dirname, 'british-prototypes-evidence');
 const ART = path.join(__dirname, 'british-prototypes-art.js');
 const TARGETS = [
-  { id: 'UKP01', k: 41, carrier: 'grandlib', sz: 2, x: 8, y: 14, w: 136, h: 150, ax: 68, ay: 148 },
-  { id: 'UKP02', k: 42, carrier: 'civicHall', sz: 2, x: 14, y: 14, w: 136, h: 150, ax: 68, ay: 148 },
-  { id: 'UKP03', k: 44, carrier: 'convention', sz: 3, x: 8, y: 20, w: 208, h: 220, ax: 104, ay: 218 },
+  { id: 'UKP01', k: 63, carrier: 'greenhouse', sz: 2, x: 8, y: 14, w: 136, h: 150, ax: 68, ay: 148 },
+  { id: 'UKP02', k: 91, carrier: 'tradepost', sz: 2, x: 14, y: 14, w: 136, h: 150, ax: 68, ay: 148 },
+  { id: 'UKP03', k: 47, carrier: 'botanical', sz: 3, x: 8, y: 20, w: 208, h: 220, ax: 104, ay: 218 },
 ];
 const BENCHMARKS = [
   { k: 197, nm: 'Existing corner pub', sz: 2, x: 14, y: 20 },
@@ -38,10 +38,12 @@ const report = {
     zooms: [2, 1.2], maturity: 30, lightingPowerRate: 1,
     description: 'Paused GV.metroArtSeedWorld516 QA town with small controlled patches. Existing nearby town blocks and three unmodified benchmark building types remain. Temporary art carriers do not represent new buildable/economic/save integration.',
     targets: TARGETS, benchmarks: BENCHMARKS,
+    carrierRationale: 'k63/F, k91/C and k47/G match existing registered 2x2/2x2/3x3 footprints while avoiding k41/D educational early lights-off and A/S/H/D top-layer civic-glow dots. They are also excluded from hard-coded neon, aviation, landmark and searchlight overlays. No global visual feature is disabled.',
     rendererMetadata: '__t479 prevents old fallback flag coordinates; __t547 marks self-contained aligned art and suppresses legacy facade/synthetic-window overlays. Standard game draw, ground shadows, depth and T629 night composition remain active.',
   }, checks: [], failures: [], samples: [], town: [], artifacts: [], limitations: [
     'Simulation R is private inside the unchanged product IIFE, with no exposed state/call-counter hook. Its stream is not directly measured. External renderer generation is checked for Math.random calls and accessible world/save/sprite mutations.',
     'This is an isolated visual fixture, not a natural construction, economy, save/load, catalog, AI-placement, or production integration test.',
+    'The unchanged product autosaves every 25 seconds whenever tiles exist (index.html:79415), including paused QA fixtures. Only disposable slot-3 save/backup bytes are restored to their pre-prototype values during cleanup; all other storage differences fail.',
     'Timing numbers are one GitHub runner observation, not a cross-device performance guarantee. Pixel guards establish technical boundaries, not art quality.',
   ],
 };
@@ -165,14 +167,25 @@ function buildAndInstall() {
     }
     const keys = Object.keys(B).filter(k => k.startsWith(target.k + '_'));
     if (!keys.length) throw Error('No existing carrier keys: ' + target.k);
+    const carrierCategory = GV.kcat345(target.k).cat;
+    // Lists are read from the pinned product's drawNight*413/486 and SPOT_K359.
+    const carrierOverlay = { category: carrierCategory,
+      educationalEarlyDim: carrierCategory === 'D',
+      civicRoofDots: ['A', 'S', 'H', 'D'].includes(carrierCategory),
+      hardcodedNeon: [2,34,65,86,87,81,82,83,106,98].includes(target.k),
+      aviation: [3,62,58,57,121,122,123].includes(target.k),
+      landmark: [69,76,89].includes(target.k),
+      searchlight: [24,67,68,69,70,71,72,73,74,75,76,77,78,79,80,89,179,180,181,182,183,184,185,186].includes(target.k),
+      globalNightCityDisabled: !!window.__noNightCity };
     const replacement = { ...s, smoke: [], __t479: 1,
       __t547: { k: target.k, lv: 1, v: 0, bw: target.sz, bh: target.sz }, __britishPrototype: s.id };
+    carrierOverlay.fallbackFlag = GV.anchorPts636.flagPt636({ k: target.k, sz: target.sz }, replacement);
     q.replacements.set(target.id, replacement);
     for (const key of keys) { q.originals.set(key, B[key]); B[key] = replacement; }
     metrics.push({ id: s.id, nm: s.nm, sz: s.sz, w: s.w, h: s.h, ax: s.ax, ay: s.ay,
       canvasDimensions: [s.img.width, s.img.height, s.night.width, s.night.height],
       solid, edge, nightPixels, unsupportedNightAny, unsupportedNight40, outsideLotAny, outsideLotSolid,
-      footprintRule: 'pixel centers; vertical lot prism; 1px rasterization tolerance', carrierKeys: keys,
+      footprintRule: 'pixel centers; vertical lot prism; 1px rasterization tolerance', carrierKeys: keys, carrierOverlay,
       day: s.img.toDataURL(), night: s.night.toDataURL() });
   }
   return { version: api.version || null, specs: api.specs, buildMs, rebuildMs, deterministicRebuild, escapeValveNoop, pure, metrics,
@@ -258,7 +271,7 @@ function captureView(arg) {
     targetLighting: lighting, sceneContactShadows: shadow, drawCount: caps.length, phase: ph };
 }
 
-function restoreEverything() {
+async function restoreEverything() {
   const q = window.__britishQA;
   if (!q) return { noFixture: true };
   const B = GV.art574.SPR().bld;
@@ -266,7 +279,29 @@ function restoreEverything() {
   const identicalReferences = [...q.originals].every(([key, original]) => B[key] === original);
   for (const [key, own, value] of q.valves) { if (own) window[key] = value; else delete window[key]; }
   GV.nightPowerTest698(null);
+  const baseline = JSON.parse(q.baselineStorage), beforeCleanup = q.storage();
+  const changedKeys = [...new Set([...Object.keys(baseline), ...Object.keys(beforeCleanup)])].sort().filter(k => baseline[k] !== beforeCleanup[k]);
+  const ownFixtureSaveKeys = ['glimmerville.v1.s3', 'glimmerville.v1.s3_bak'];
+  const unexpectedKeys = changedKeys.filter(k => !ownFixtureSaveKeys.includes(k));
+  const digest = async value => value === undefined ? null : Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)))).map(x => x.toString(16).padStart(2, '0')).join('');
+  const storageChanges = await Promise.all(changedKeys.map(async key => ({
+    key, beforeBytes: baseline[key] === undefined ? null : new TextEncoder().encode(baseline[key]).length,
+    afterBytes: beforeCleanup[key] === undefined ? null : new TextEncoder().encode(beforeCleanup[key]).length,
+    beforeSHA256: await digest(baseline[key]), afterSHA256: await digest(beforeCleanup[key]),
+    knownDisposableAutosaveKey: ownFixtureSaveKeys.includes(key),
+  })));
+  const provisionalIdsBeforeCleanup = /UKP0[123]/.test(JSON.stringify(beforeCleanup));
+  // Product autosave is still active while running=false (index:79415).
+  // Undo only our isolated fixture's slot-3 writes, never an unrelated key.
+  // This is explicit cleanup, not a claim that the capture session wrote nothing.
+  for (const key of ownFixtureSaveKeys) {
+    if (Object.prototype.hasOwnProperty.call(baseline, key)) localStorage.setItem(key, baseline[key]);
+    else localStorage.removeItem(key);
+  }
   return {
+    storageAudit: { changesBeforeCleanup: storageChanges, unexpectedKeys,
+      provisionalIdsBeforeCleanup, rawStorageUnchangedDuringCapture: changedKeys.length === 0,
+      cleanupScope: ownFixtureSaveKeys, reason: 'Existing 25-second product autosave continues in a paused fixture; exact isolated slot-3 bytes restored in finally.' },
     restoredSpriteReferences: identicalReferences, restoredKeyCount: q.originals.size,
     sameCatalogKeys: JSON.stringify(Object.keys(B).sort()) === JSON.stringify(q.baselineKeys),
     fingerprint: GV.fp536(),
@@ -316,6 +351,7 @@ function restoreEverything() {
         png('assets/' + m.id + '-day.png', m.day, { kind: 'direct sprite', id: m.id, mode: 'day' });
         png('assets/' + m.id + '-night-layer.png', m.night, { kind: 'direct night layer', id: m.id, mode: 'night' });
         delete m.day; delete m.night;
+        check(m.id + ' carrier contributes no educational dim or mismatched night overlays', !m.carrierOverlay.educationalEarlyDim && !m.carrierOverlay.civicRoofDots && !m.carrierOverlay.hardcodedNeon && !m.carrierOverlay.aviation && !m.carrierOverlay.landmark && !m.carrierOverlay.searchlight && !m.carrierOverlay.globalNightCityDisabled && m.carrierOverlay.fallbackFlag === null, m.carrierOverlay);
         check(m.id + ' exact dimensions anchor and footprint', ['w', 'h', 'ax', 'ay', 'sz'].every(k => m[k] === t[k]) && m.canvasDimensions.join(',') === [t.w, t.h, t.w, t.h].join(','), m);
         check(m.id + ' solid image border zero', m.solid > 0 && m.edge === 0, { edge: m.edge });
         check(m.id + ' every night-alpha pixel supported by day alpha', m.nightPixels > 0 && m.unsupportedNightAny === 0 && m.unsupportedNight40 === 0, m);
@@ -366,7 +402,8 @@ function restoreEverything() {
           report.restore.fingerprintSHA256 = sha(JSON.stringify(report.restore.fingerprint)); delete report.restore.fingerprint;
           check('all existing sprite fingerprints identical after restore', report.restore.fingerprintSHA256 === report.baselineFingerprintSHA256, report.restore.fingerprintSHA256);
           check('every substituted reference and key restored', report.restore.restoredSpriteReferences && report.restore.sameCatalogKeys, report.restore);
-          check('persistent storage unchanged and provisional IDs absent', report.restore.storageUnchanged && !report.restore.provisionalIdsInStorage, report.restore);
+          check('only documented disposable fixture autosave keys changed during capture', report.restore.storageAudit.unexpectedKeys.length === 0 && !report.restore.storageAudit.provisionalIdsBeforeCleanup, report.restore.storageAudit);
+          check('persistent storage exactly restored and provisional IDs absent', report.restore.storageUnchanged && !report.restore.provisionalIdsInStorage, report.restore);
         }
       } catch (e) { check('restore completed', false, String(e.stack || e)); }
       save();

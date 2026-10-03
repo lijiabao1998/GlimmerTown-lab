@@ -117,13 +117,16 @@
   }
   function wallBrick(S,a,b,z0,z1,right,seed) {const f=S.face(a,b);f.panel(0,f.length,z0,z1,brick(right,seed,z1-z0),0);return f;}
   function tileRoof(right,seed,axis) {
-    const pal=right?P.roofR:P.roof;
+    // Slate reads as long, orderly courses, not independent high-contrast pixels.
+    // Restrained tone changes occur per whole slate; most slates keep the base tone.
+    const pal=right?[C('45525c'),C('48555e'),C('414e57')]:[C('596870'),C('5d6c73'),C('55646d')];
+    const course=right?C('3c4a54'):C('4e5e68');
     return (i,j,z)=>{
-      const across=axis==='j'?j:i,down=axis==='j'?i:j,row=Math.floor(down*1.5),seam=mod(down*1.5,1);
-      const col=Math.floor((across+(row&1)*.65)/1.3),n=hash(col,row,seed);
-      if(seam<.12)return right?P.roofEdge:C('475760');
-      if(mod(across+(row&1)*.65,1.3)<.07)return pal[2];
-      return pal[(n>>>8)&3];
+      const across=axis==='j'?j:i,down=axis==='j'?i:j,row=Math.floor(down/1.12),seam=mod(down,1.12);
+      const phase=(row&1)*.95,col=Math.floor((across+phase)/1.9),n=hash(col,row,seed);
+      if(seam<.085)return course;
+      if(mod(across+phase,1.9)<.075&&n%3===0)return pal[2];
+      return n%19===0?pal[1]:n%23===0?pal[2]:pal[0];
     };
   }
   function ridge(S,a,b,z,col) {S.line([a[0],a[1],z],[b[0],b[1],z],col||P.lead,1);S.line([a[0],a[1]+.3,z-.7],[b[0],b[1]+.3,z-.7],P.roofEdge,1);}
@@ -383,9 +386,10 @@
     S.box(18.7,29.8,32,37.3,2.2,5.2,P.stone,P.stoneR,P.stoneHi);
     for(const u of [0,9.4])entry.panel(u,u+1.1,5,45,P.stone,.2);
     entry.panel(0,10.5,30.5,32.1,P.stone,.18);
-    doorway(S,entry,2.7,5.2,5.1,20.5,{double:true,col:C('586151')});
+    doorway(S,entry,2.7,5.2,5.1,16.4,{double:true,col:C('586151')});
     // Stone voussoirs and a recessed fanlight make the main entrance readable at z1.
-    windowOn(S,entry,2.3,25,5.9,8.5,{arch:true,panes:3,transom:2,lit:true,border:.6});
+    windowOn(S,entry,2.1,22.2,6.3,9.6,{arch:true,panes:3,transom:3.8,lit:true,border:.65});
+    entry.panel(1.85,8.65,21.35,22.65,P.stoneHi,.28);
     entry.panel(1.15,9.3,35.2,41.1,P.stone,.2);
     letters(entry,'LIBRARY',1.68,36.5,.27,C('65564a'));
     entry.panel(.3,10.2,44.5,46.3,P.stoneHi,.2);
@@ -399,8 +403,9 @@
     S.poly([[29.85,37.35,46.2],[24.25,37.35,61],[24.25,28,61],[29.85,28,46.2]],tileRoof(true,146,'j'));
     S.line([18.65,37.4,46.2],[24.25,37.4,61],P.stoneHi,1);S.line([24.25,37.4,61],[29.85,37.4,46.2],P.stoneR,1);
     // Small stone roundel and copper finial, avoiding a clock-tower silhouette.
-    entry.panel(3.75,6.75,49,55.3,(x,z)=>((x-1.5)/1.5)**2+((z-3.1)/3.1)**2<=1?P.stone:null,.25);
-    entry.panel(4.3,6.2,50.3,53.8,(x,z)=>((x-.95)/.95)**2+((z-1.75)/1.75)**2<=1?P.brick[1]:null,.3);
+    const gableFace=S.face([19,37.43],[29.5,37.43]);
+    gableFace.panel(3.75,6.75,49,55.3,(x,z)=>((x-1.5)/1.5)**2+((z-3.1)/3.1)**2<=1?P.stone:null,.25);
+    gableFace.panel(4.3,6.2,50.3,53.8,(x,z)=>((x-.95)/.95)**2+((z-1.75)/1.75)**2<=1?P.brick[1]:null,.3);
     S.line([24.25,37.4,61],[24.25,37.4,64.1],P.copper,1);
     step(S,19.3,29.25,37,43.9,7);
     // Handrails follow the step flight, with no inaccessible ornamental front door.
@@ -419,5 +424,5 @@
 
   const builders={UKP01:terrace,UKP02:pub,UKP03:library};
   function build(id) {if(root.__noBritishPrototypes003)return null;const s=specs.find(q=>q.id===id);if(!s)throw new Error('Unknown British prototype: '+id);return builders[id](s);}
-  root.BritishPrototypes=Object.freeze({version:'UKP-art-r1',specs,build,buildAll:()=>root.__noBritishPrototypes003?[]:specs.map(s=>builders[s.id](s))});
+  root.BritishPrototypes=Object.freeze({version:'UKP-art-r2',specs,build,buildAll:()=>root.__noBritishPrototypes003?[]:specs.map(s=>builders[s.id](s))});
 })(window);
