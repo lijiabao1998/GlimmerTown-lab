@@ -15,7 +15,13 @@ All three use native Canvas-generated hard pixels and true 2:1 ground-plane proj
 
 ## Method
 
-Follow the concrete lessons of T702 (complete form, correct two-face isometry, shared geometry for day/night, iterate rendered pixels), T711 (inspect inside actual city rather than floating sprite), T699 (controlled A/B and no incidental changes). Architectural reference URLs and exact form decisions will be recorded during research. Existing product colors, global shadows/night look, simulation RNG, save format and normal catalog stay unchanged. Prototype generation is deterministic and opt-in.
+Follow the concrete lessons of T702 (complete form, correct two-face isometry, shared geometry for day/night, iterate rendered pixels), T711 (inspect inside actual city rather than floating sprite), T699 (controlled A/B and no incidental changes). Architectural references, used for form rather than copied images:
+- Historic England, Church Terrace: https://historicengland.org.uk/listing/the-list/list-entry/1235883 — joined two-storey domestic massing.
+- Historic England, Blenheim Terrace: https://historicengland.org.uk/listing/the-list/list-entry/1255663 — terrace facade and roof/chimney rhythm.
+- Historic England, The George (1897): https://historicengland.org.uk/listing/the-list/list-entry/1395110 — pub hierarchy and street-facing ground floor.
+- Historic England, The Cricketers: https://historicengland.org.uk/listing/the-list/list-entry/1132544 — canted corner entry.
+- Historic England, Knutsford Carnegie Library (1904): https://historicengland.org.uk/listing/the-list/list-entry/1388310 — broad reading-room volume, gable and subsidiary entry wing.
+These are original compressed pixel interpretations, not exact replicas of the listed buildings. Existing product colors, global shadows/night look, simulation RNG, save format and normal catalog stay unchanged. Prototype generation is deterministic and opt-in.
 
 ## Acceptance before construction
 
