@@ -29,7 +29,11 @@ const BENCHMARKS = [{k:197,nm:'Existing corner pub',sz:2,x:14,y:20},{k:194,nm:'E
 const sha = d => crypto.createHash('sha256').update(d).digest('hex');
 const html = fs.readFileSync(path.join(ROOT,'index.html'));
 const archivedArt = fs.readFileSync(path.join(ROOT,'british-prototypes-art.js'),'utf8');
-const baselineText = fs.readFileSync(path.join(ROOT,'fp.json'),'utf8'), baseline = JSON.parse(baselineText);
+const PINNED_BASE='8b8ff01c1f157acf8baed0e1d4e305dabef049be';
+const PINNED_FP_SHA256='3ea7e02e9cfdf5f41c67b0458f4f1e6b36a50828d12aa0cc3ef07fe39af3917b';
+const APPROVED_HTML_SHA256='de52f6354fd6924e0f81b0fd2cb15d300a312d21c117c61cfca21f254574a896';
+const baselineText=execFileSync('git',['show',PINNED_BASE+':fp.json'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024}),baseline=JSON.parse(baselineText);
+const releaseBaselineText=fs.readFileSync(path.join(ROOT,'fp.json'),'utf8'),releaseBaseline=JSON.parse(releaseBaselineText);
 const APPROVED_ART_SHA256 = '65f81745a1f9e6bda70cebd8fb31b8cce1e5278b24a02eb54802a0d6f8ee5780';
 const workerStart=html.toString().indexOf('  function workers(){',html.toString().indexOf('let WK=null;'));
 const workerEnd=html.toString().indexOf('\n  /* ---------- Layer A',workerStart);
@@ -39,7 +43,7 @@ const checkedSHA = execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'u
 for(const d of ['', 'full','crops','browser','assets','guards','logs'])fs.mkdirSync(path.join(OUT,d),{recursive:true});
 const report = {createdAt:new Date().toISOString(),checkedSHA,workflowSHA:process.env.GITHUB_SHA||null,
   workflowRun:process.env.GITHUB_RUN_ID?`https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`:null,
-  source:{htmlSHA256:sha(html),htmlBytes:html.length,archivedArtSHA256:sha(archivedArt),harnessSHA256:sha(fs.readFileSync(__filename)),baselineSHA256:sha(baselineText),legacyWorkerSourceSHA256:sha(workerSource)},
+  source:{htmlSHA256:sha(html),htmlBytes:html.length,archivedArtSHA256:sha(archivedArt),harnessSHA256:sha(fs.readFileSync(__filename)),baselineSHA256:sha(baselineText),pinnedBaselineCommit:PINNED_BASE,trackedBaselineSHA256:sha(releaseBaselineText),legacyWorkerSourceSHA256:sha(workerSource)},
   fixture:{seed:5162026,slot:3,port:8199,targets:TARGETS,benchmarks:BENCHMARKS,rotations:[0,1,2,3],zooms:[1.2,2],description:'Ordinary catalog IDs and canonical post-boot assets in an existing seeded city, with controlled small placement patches. Camera rotations reuse the normal fixed-orientation square-building art; these are not four unique elevations.'},
   checks:[],failures:[],samples:[],town:[],weather:[],construction:[],occlusion:[],artifacts:[],limitations:[
     'This script was staged with syntax validation only; all browser and pixel results come from the exact-SHA remote CI run.',
@@ -91,6 +95,16 @@ function compareSessionFingerprint(before,after,worker){
   check('every boot-time existing and British day/night leaf remains exact',before.ok&&after.ok&&removed.length===0&&changed.length===0&&changedExistingFamilies.length===0,out);
   check('only source-verified existing lazy construction worker atlas may be added',JSON.stringify(added.map(q=>q.key).sort())===JSON.stringify(expectedAdded)&&worker?.sourcePinned&&(!after.subs?.worker12||worker?.exact&&worker?.deterministic&&worker?.mathRandomCalls===0),out);
   return out;
+}
+function compareReleaseBaseline(fp,blocks){
+  const same=(a,b)=>!!a&&!!b&&['d','n','w','h','op'].every(k=>a[k]===b[k]);
+  const missing=Object.keys(releaseBaseline.subs).filter(k=>!fp.subs[k]),added=Object.keys(fp.subs).filter(k=>!releaseBaseline.subs[k]);
+  const changed=Object.keys(releaseBaseline.subs).filter(k=>!same(releaseBaseline.subs[k],fp.subs[k]));
+  const families=Object.keys(releaseBaseline.families).filter(k=>JSON.stringify(releaseBaseline.families[k])!==JSON.stringify(fp.families[k]));
+  const result={missing,added,changed,families,version:releaseBaseline.version,anchor:releaseBaseline.anchor,
+    blocks:{fam:blocks.fam,count:blocks.count},stats:fp.stats};
+  check('strict promoted release fingerprint equals every actual boot leaf family and block',missing.length===0&&added.length===0&&changed.length===0&&families.length===0&&Object.keys(releaseBaseline.families).length===Object.keys(fp.families).length&&JSON.stringify(releaseBaseline.stats)===JSON.stringify(fp.stats)&&JSON.stringify(releaseBaseline.blocks)===JSON.stringify(result.blocks),result);
+  return result;
 }
 // All following functions are serialized and run inside the remote browser only.
 function prepareFixture(targets,benchmarks){
@@ -363,6 +377,10 @@ async function cleanup(){
   const probeSource=html.toString('utf8').split('function britishGameplayProbe004(groupFilter)')[1]?.split('window.GV={')[0]||'';
   const sourceGroups=[...probeSource.matchAll(/\bgroup\('([^']+)'/g)].map(m=>m[1]).filter(n=>n!=='cleanup').sort();
   check('all declared gameplay groups run exactly once',JSON.stringify(sourceGroups)===JSON.stringify([...GAMEPLAY_GROUPS].sort()),{sourceGroups,scheduled:GAMEPLAY_GROUPS});
+  check('pinned pre-integration baseline hash remains exact',sha(baselineText)===PINNED_FP_SHA256,{commit:PINNED_BASE,sha256:sha(baselineText)});
+  const normalizedHTML=html.toString().replace("const GAME_VER='14.21'","const GAME_VER='14.20'").replace("const GAME_ANCHOR='T717'","const GAME_ANCHOR='T716'").replace('id="startVersion456">v14.21 · T717','id="startVersion456">v14.20 · T716');
+  check('release HTML differs from approved candidate only in three metadata fields',sha(normalizedHTML)===APPROVED_HTML_SHA256&&html.includes("const GAME_VER='14.21'")&&html.includes("const GAME_ANCHOR='T717'")&&html.includes('id="startVersion456">v14.21 · T717'),{normalizedSHA256:sha(normalizedHTML)});
+  check('release baseline metadata is v14.21 T717',releaseBaseline.version==='14.21'&&releaseBaseline.anchor==='T717',{version:releaseBaseline.version,anchor:releaseBaseline.anchor});
   check('archived renderer is the immutable approved R2 source',sha(archivedArt)===APPROVED_ART_SHA256,report.source.archivedArtSHA256);
   check('existing lazy worker renderer source remains approved',sha(workerSource)===APPROVED_WORKER_SHA256,sha(workerSource));
   check('workflow checked SHA matches actual checkout',!report.workflowSHA||report.workflowSHA===checkedSHA,{checkedSHA,workflowSHA:report.workflowSHA});
@@ -389,7 +407,7 @@ async function cleanup(){
       report.boot=await ev('({ready:!!window.__bootDone453,slot:localStorage.getItem("glimmerville.v1.slot"),version:GV.ver(),title:document.title,batches:window.__t574,pageElapsedMs:performance.now()})');report.boot.wallToReadyMs=Date.now()-wallStart;
       check('normal boot ready in disposable slot 3',report.boot.ready&&report.boot.slot==='3',report.boot);
       check('normal art bake reports no errors',!(report.boot.batches?.err||[]).length,report.boot.batches?.err);
-      const fp=await ev('GV.fp536()','canonical fingerprint',300000),blocks=await ev('GV.blockFp536()','full superblock fingerprint',300000);bootFP=fp;report.fingerprint=compareFingerprint(fp,blocks);report.bootFingerprintSHA256=sha(JSON.stringify(fp));
+      const fp=await ev('GV.fp536()','canonical fingerprint',300000),blocks=await ev('GV.blockFp536()','full superblock fingerprint',300000);bootFP=fp;report.fingerprint=compareFingerprint(fp,blocks);report.releaseFingerprint=compareReleaseBaseline(fp,blocks);check('runtime release version is14.21',report.boot.version==='14.21',report.boot.version);report.bootFingerprintSHA256=sha(JSON.stringify(fp));
       fs.writeFileSync(path.join(OUT,'guards','fingerprint-current.json'),JSON.stringify({checkedSHA,fp,blocks},null,2));
       report.selftest=await ev('typeof GV.britishSelftest004==="function"?GV.britishSelftest004():{ok:false,error:"missing britishSelftest004"}');check('product British integration selftest',report.selftest?.ok,report.selftest);
       await ev('window.__britishQA004=true;1');
@@ -482,6 +500,6 @@ async function cleanup(){
   });
   report.session={ok:result.ok,fails:result.fails,seconds:result.seconds,chromeMs:result.chromeMs};check('remote browser session completed',result.ok&&result.result,report.session);
   check('product source unchanged during evidence generation',sha(fs.readFileSync(path.join(ROOT,'index.html')))===report.source.htmlSHA256);
-  check('fingerprint baseline unchanged',sha(fs.readFileSync(path.join(ROOT,'fp.json')))==report.source.baselineSHA256);
+  check('fingerprint baseline unchanged',sha(fs.readFileSync(path.join(ROOT,'fp.json')))==report.source.trackedBaselineSHA256);
   report.ok=report.failures.length===0;save();console.log(JSON.stringify({ok:report.ok,checkedSHA,checks:report.checks.length,failures:report.failures,samples:report.samples.length,weather:report.weather.length,construction:report.construction.length,session:report.session},null,2));process.exit(report.ok?0:1);
 })().catch(e=>{report.ok=false;report.failures.push(String(e.stack||e));save();console.error(e);process.exit(1);});

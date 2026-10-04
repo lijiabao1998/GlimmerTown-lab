@@ -10,6 +10,9 @@ on:
       - 'british-integration-qa.js'
       - 'british-compatibility-qa.js'
       - 'smoke.js'
+      - 'fp.json'
+      - 'style.json'
+      - 'fp.js'
       - '.github/workflows/british-integration.yml'
 permissions:
   contents: read
@@ -34,6 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p british-integration-evidence/logs
+          git fetch --depth=1 origin 8b8ff01c1f157acf8baed0e1d4e305dabef049be
           node --check british-integration-qa.js
           git rev-parse HEAD > british-integration-evidence/checked-sha.txt
           sha256sum index.html british-prototypes-art.js british-integration-qa.js fp.json style.json > british-integration-evidence/source-sha256.txt
@@ -63,11 +67,11 @@ jobs:
             if [ "$code" -ne 0 ]; then status=1; fi
           done
           exit "$status"
-      - name: Existing fingerprint and style guard, only declared bld family
+      - name: Strict promoted release fingerprint and all-family style guard
         if: always()
         run: |
           set -o pipefail
-          node fp.js --check --expect=bld 2>&1 | tee british-integration-evidence/logs/fingerprint.txt
+          node fp.js --check 2>&1 | tee british-integration-evidence/logs/fingerprint.txt
       - name: Compare two existing cities against pinned main simulation
         if: always()
         run: |
