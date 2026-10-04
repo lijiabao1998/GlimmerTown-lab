@@ -45,6 +45,7 @@ const KEEP = process.argv.includes('--keep');
     log('4b 功能自我測試 …');
     const selftests = [
       ['british004', `(window.GV && window.GV.britishSelftest004) ? window.GV.britishSelftest004() : {ok:false,checks:['API missing']}`],
+      ['highStreet005', `(window.GV && window.GV.highStreetSelftest005) ? window.GV.highStreetSelftest005() : {ok:false,checks:['API missing']}`],
       ['life533', `(window.GV && window.GV.life533Selftest) ? window.GV.life533Selftest() : {ok:false,checks:['API 不存在']}`],
       ['life535', `(window.GV && window.GV.life535Selftest) ? window.GV.life535Selftest() : {ok:false,checks:['API 不存在']}`],
       ['overlay596', `(window.GV && window.GV.overlaySelftest596) ? window.GV.overlaySelftest596() : {ok:false,checks:['API 不存在']}`],

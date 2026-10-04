@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T718 release entry BEGIN -->
+## r165 — T718 八款英式高街與社區建築（原 GPT-005）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r165 | [T718](docs/T718-british-high-street.md) | 業主確認八張圖片並明確批准合併PR10上線：k238–245合作社、石砌麵包店、室內市場、公立學校、診所、郵局、市立浴場與社區會堂。完整目錄、九天施工、碰撞、通水通電、工作／財政／供貨／服務、拆除撤銷及存讀檔。v14.22／T718；只提升八個新葉與bld匯總，舊葉／超街區／style保持。 | 批准候選5f91c338：[CI37193328431](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37193328431)779項範圍內檢查、1687新／498舊遊戲斷言、128視角、32天氣、80施工、3遮擋、smoke三次、指紋／棘輪與兩個舊城比較全綠。正式metadata候選須重新跑完整套；最終結果見PR10/Actions，這裡不預稱通過。 | [PR10](https://github.com/lijiabao1998/GlimmerTown-lab/pull/10)的T718 squash merge，確切SHA見PR | 已交付八張原生PNG、102個驗證面板；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37193328431) | ① 四鏡頭固定立面 ② 通用鷹架／既有雪層 ③ 真實裝置／手機FPS未測 ④ 展示城11棟舊樓未接通，不聲稱全城經濟認證 ⑤ 四項原有seeded audit診斷仍在，不稱全部巢狀診斷綠 ⑥ 無新麵包產業鏈 ⑦ PR7未用，正式站未刪除或搬遷 |
+
+<!-- T718 release entry END -->
 ## r164 — T717 三款英式建築正式接入（原 GPT-004）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
