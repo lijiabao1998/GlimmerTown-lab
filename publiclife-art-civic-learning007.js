@@ -184,6 +184,13 @@ function plHistoricTownHall007(spec) {
   plCivicPlaque007(A.F,19.5,34,9.3,'HALL');
   // The shelter floor and three posts are visible below the independent pentice.
   S.box(34,44.8,13,29.5,0,.8,P.stoneR,P.stoneD,P.path[2]);
+  // R1 pixels: the sunlit paving read as solid infill between the pale posts.
+  // Shade only the existing shelter floor; retain the lit edge, open geometry,
+  // masonry palette and window-only emission. No screen-space shadow overlay.
+  S.flat(34.1,44.25,13.0,29.25,.82,(i,j)=>{
+    if(mod(i-34.1,3.2)<.12||mod(j-13,3.2)<.12)return C('817f6f');
+    return [C('8f8c79'),C('96927e'),C('898774')][hash(Math.floor(i/3.2),Math.floor(j/3.2),1210)%3];
+  },.02,1);
   for(const j of [14,21.3,28.9]){S.box(43.4,44.1,j-.35,j+.35,.8,16.4,P.stone,P.stoneR,P.stoneHi);S.line([43.7,j,14],[40.8,j,17.4],P.wood,1);}
   S.poly([[33.7,12.6,22],[33.7,29.7,22],[44.6,29.7,16.8],[44.6,12.6,16.8]],plCivicStoneRoof007(true,1208));
   S.line([44.6,12.6,16.8],[44.6,29.7,16.8],P.iron,1);bench(S,35.4,27.5,6.5);

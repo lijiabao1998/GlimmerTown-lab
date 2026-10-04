@@ -434,6 +434,13 @@ function plHistoricTownHall007(spec) {
   plCivicPlaque007(A.F,19.5,34,9.3,'HALL');
   // The shelter floor and three posts are visible below the independent pentice.
   S.box(34,44.8,13,29.5,0,.8,P.stoneR,P.stoneD,P.path[2]);
+  // R1 pixels: the sunlit paving read as solid infill between the pale posts.
+  // Shade only the existing shelter floor; retain the lit edge, open geometry,
+  // masonry palette and window-only emission. No screen-space shadow overlay.
+  S.flat(34.1,44.25,13.0,29.25,.82,(i,j)=>{
+    if(mod(i-34.1,3.2)<.12||mod(j-13,3.2)<.12)return C('817f6f');
+    return [C('8f8c79'),C('96927e'),C('898774')][hash(Math.floor(i/3.2),Math.floor(j/3.2),1210)%3];
+  },.02,1);
   for(const j of [14,21.3,28.9]){S.box(43.4,44.1,j-.35,j+.35,.8,16.4,P.stone,P.stoneR,P.stoneHi);S.line([43.7,j,14],[40.8,j,17.4],P.wood,1);}
   S.poly([[33.7,12.6,22],[33.7,29.7,22],[44.6,29.7,16.8],[44.6,12.6,16.8]],plCivicStoneRoof007(true,1208));
   S.line([44.6,12.6,16.8],[44.6,29.7,16.8],P.iron,1);bench(S,35.4,27.5,6.5);
@@ -949,7 +956,14 @@ function cricketPavilion007(spec) {
   for(const i of [6.2,14.5,34.2,41.3])S.box(i-.36,i+.36,24.25,24.6,28.0,36.4,C('58715b'),C('3b5245'),P.frameR);
   // Terrace and veranda have separate height levels and supported load paths.
   S.box(3.8,43.6,24.2,34.9,0,9.0,(i,j,z)=>plLeisureBrick007(false,810)(i,z),(i,j,z)=>plLeisureBrick007(true,811)(j,z),C('a19b80'));
-  S.flat(4.1,43.3,24.2,34.7,9.08,(i,j)=>mod(i,1.15)<.12?C('827e68'):C('b3a386'));
+  // Shade only the real deck under the veranda; leave the exposed lip unchanged.
+  // This separates the cream posts from the floor seen through the open bays.
+  S.flat(4.1,43.3,24.2,34.7,9.08,(i,j)=>{
+    const seam=mod(i,1.15)<.12;
+    if(j>34.4)return seam?C('827e68'):C('b3a386');
+    if(j>32.8)return seam?C('78806a'):C('9a947c');
+    return seam?C('65715d'):C('80836c');
+  });
   for(const i of [5.5,13.1,20.7,28.3,35.9,42.4]){
     plLeisurePost007(S,i,33.65,9.1,27.4,true);
     S.line([i,33.65,23.9],[i+2.0,33.65,27.1],C('aeb89b'),1);
@@ -999,7 +1013,12 @@ function bowlsClub007(spec) {
   // Rear changing room with weatherboard, and three truly open segmental bays.
   const W=plLeisureWalls007(S,3.1,29.0,7.1,14.5,0,23.4,(right,seed)=>plLeisureBoard007(right,seed,false),827);
   S.box(2.7,29.4,6.8,23.8,0,2.35,(i,j,z)=>plLeisureBrick007(false,829)(i,z),(i,j,z)=>plLeisureBrick007(true,830)(j,z),C('8c977d'));
-  S.flat(3,29.1,14.4,23.7,2.42,(i,j)=>mod(i,1.15)<.1?C('7e8269'):C('a6a786'));
+  // A shaded timber floor makes the three open archways legible as depth.
+  // The frontmost strip catches edge light; no dark fill is placed in the air.
+  S.flat(3,29.1,14.4,23.7,2.42,(i,j)=>{
+    const seam=mod(i,1.15)<.1;
+    return j>22.6?(seam?C('7e8269'):C('91967b')):(seam?C('697461'):C('7b846b'));
+  });
   doorway(S,W.F,10.45,2.45,5.0,14.6,{double:true,col:C('4e6856')});
   for(const u of [2.2,19.0])windowOn(S,W.F,u,8.5,4.8,8.6,{panes:3,lit:u>10,border:.3});
   windowOn(S,W.R,2.0,8.4,3.6,8.4,{right:true,panes:2,lit:false});
@@ -1068,8 +1087,18 @@ function ironBandstand007(spec) {
       plLeisureRails007(S,a,[19.4,a[1]],5.4,4.5,{cross:true});
       plLeisureRails007(S,[12.6,a[1]],b,5.4,4.5,{cross:true});
     }else plLeisureRails007(S,a,b,5.4,4.5,{cross:true});
-    // Every luminous pixel is confined to these small opaque column fixtures.
-    if(k===2||k===3||k===4||k===5)plLeisureSconce007(S,a[0],a[1]+.12,22.9);
+    // Lower the four lanterns below the eave and mount them on the outer
+    // column faces. The opaque casing and panes share normal scene depth.
+    if(k===2||k===3||k===4||k===5){
+      const li=a[0]+(k<4?.62:0),lj=a[1]+(k>=4?.62:0),lz=18.3;
+      S.box(Math.min(a[0],li)-.18,Math.max(a[0],li)+.18,Math.min(a[1],lj)-.18,Math.max(a[1],lj)+.18,lz-.15,lz+.5,P.iron,P.iron,P.ironHi);
+      S.box(li-.65,li+.65,lj-.58,lj+.58,lz-1.5,lz+1.9,P.iron,P.iron,P.ironHi);
+      const LF=S.face([li-.44,lj+.60],[li+.44,lj+.60]);
+      const LR=S.face([li+.67,lj-.34],[li+.67,lj+.34]);
+      LF.panel(0,.88,lz-1.04,lz+1.28,[C('ceb47f'),P.warm[0]],.08);
+      LR.panel(0,.68,lz-1.04,lz+1.28,[C('ad905f'),P.warm[2]],.08);
+      S.box(li-.75,li+.75,lj-.68,lj+.68,lz+1.75,lz+2.08,P.iron,P.iron,P.ironHi);
+    }
   }
   // A shallow eight-facet metal canopy, never a double-eaved temple roof.
   for(let k=0;k<8;k++){
@@ -1120,7 +1149,13 @@ function seasideConcertHall007(spec) {
   S.box(17.3,21.9,11.0,23.8,41.0,44.0,C('b5bda2'),C('8e9d8a'),C('738c78'));
   const VF=S.face([17.3,23.8],[21.9,23.8]);VF.panel(.55,4.05,41.4,43.35,(x,z)=>mod(z,.85)<.32?C('acb89d'):C('526b5d'),.12);
   // Right-hand colonnaded promenade provides the visible roof void from the road.
-  S.box(35.2,44.8,5.4,42.4,0,1.8,P.stoneR,P.stoneD,P.path[2]);
+  // Apply roof shelter to the slab's actual top surface, bounded by its roof.
+  // Outer slab margins keep the existing sunlit paving colour.
+  S.box(35.2,44.8,5.4,42.4,0,1.8,P.stoneR,P.stoneD,(i,j)=>{
+    if(i<35.3||i>44.3||j<5.8||j>41.8)return P.path[2];
+    if(i>42.8)return C('a2a58f');
+    return mod(j,3.2)<.12?C('7e8775'):C('909682');
+  });
   for(const j of [6.8,14.9,23.0,31.1,40.6]){
     plLeisurePost007(S,43.4,j,1.9,20.4,true);
     S.line([43.4,j,17.3],[43.4,j+1.65,20.2],C('b7c0a3'),1);
