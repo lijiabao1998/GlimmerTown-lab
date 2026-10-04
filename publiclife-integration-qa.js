@@ -177,7 +177,7 @@ function prepareWorkforceFixture(){
   if(window.__publicLifeQA007!==true||localStorage.getItem('glimmerville.v1.slot')!=='3')throw Error('Disposable workforce fixture guard failed');
   const cohort=Q.utilityFixture.eligibleNeighbors.map(q=>({...q,physicalRoadWitnesses:[...q.physicalRoadWitnesses]}));
   const originalRoots=Q.all().flatMap((t,i)=>t.bld&&!t.bld.ref?[{i,k:t.bld.k,sz:t.bld.sz||1,lv:t.bld.lv,v:t.bld.v,age:t.bld.age}]:[]);
-  const W=Q.workforceFixture={ok:false,maxHomes:30,maxOrdinaryDays:21,maxPreloadDays:19,minHousingDays:9,startDay:GV.stats().day,preloadDays:0,housingDays:0,homes:[],pipes:[],daily:[],cohortRoots:cohort.map(q=>q.i).sort((a,b)=>a-b),originalRoots,placementAudit:[],failures:[],method:'Thirty ordinary pure-residential placements on previously empty eastern utility-grid plots, ordinary nine-day construction and native housing/enterprise/civic simulation only. No age, population, employment, utility, budget or capacity injection. Maximum21 total ordinary fixture days reserves one save/load day and one performance-restoration day.'};
+  const W=Q.workforceFixture={ok:false,maxHomes:30,maxOrdinaryDays:21,maxPreloadDays:19,minHousingDays:9,startDay:GV.stats().day,preloadDays:0,housingDays:0,homes:[],pipes:[],terrain:[],daily:[],cohortRoots:cohort.map(q=>q.i).sort((a,b)=>a-b),originalRoots,placementAudit:[],failures:[],method:'Thirty ordinary pure-residential placements on previously empty eastern utility-grid plots, ordinary nine-day construction and native housing/enterprise/civic simulation only. No age, population, employment, utility, budget or capacity injection. Maximum21 total ordinary fixture days reserves one save/load day and one performance-restoration day.'};
   Q.fixtureOrdinaryDays=0;
   Q.workforceRead=()=>{
     // This must be the first observation. GV.tile performs JSON-copy reads only;
@@ -214,13 +214,26 @@ function prepareWorkforceFixture(){
     if(!initial.nativeDayOK)throw Error('Initial raw ordinary-day root, neighbor or target utility witness failed before support homes');
     W.initialEmergency={stations:initial.stations,negativeObserved:initial.stations.every(q=>!q.authority?.emergencyReady),source:'Actual native staffing after an ordinary day; not a forced failure state.'};
     const place=(tool,x,y)=>{const difficulty=GV.diff(),developer=GV.dev516B(),moneyBefore=GV.devMoney516B(),roundedMoneyBefore=GV.stats().money,preview=GV.placePreview459(tool,x,y);if(difficulty!==1||developer.sandbox||developer.god||!preview?.ok||!(preview.cost>0))throw Error('Paid normal-mode workforce preview required '+tool+' '+x+','+y+': '+JSON.stringify({difficulty,developer,preview}));if(!GV.place(tool,x,y))throw Error('Normal workforce placement failed '+tool+' '+x+','+y);const moneyAfter=GV.devMoney516B(),charged=moneyBefore-moneyAfter,row={tool,x,y,difficulty,developer,cost:preview.cost,moneyBefore,moneyAfter,roundedMoneyBefore,roundedMoneyAfter:GV.stats().money,charged,paidExactly:Math.abs(charged-preview.cost)<1e-7};if(!row.paidExactly)throw Error('Normal workforce charge mismatch '+JSON.stringify(row));return row;};
-    // Pipes are added only to the already existing eastern road grid, not to
-    // retained western neighborhoods. No demolition or terrain replacement.
-    for(const y of[13,17,21,25,29,33,37])for(let x=49;x<=69;x++){const t=GV.tile(x,y);if(!t.road||t.bld)throw Error('Workforce pipe corridor is not an empty existing road '+x+','+y);if(!t.wp)W.pipes.push(place('wpipe',x,y));}
+    // The eastern grid was laid over unmodified generated terrain: an existing
+    // road may still cross water. Reclaim only the selected empty support cells
+    // with the normal paid one-cell tool before adding pipes or homes.
+    const land=(x,y)=>{
+      const before=GV.tile(x,y);if(before.t===1||before.t===2)return;
+      if(x<50||x>69||y<13||y>37||before.t!==0||before.bld)throw Error('Support terrain conversion is outside empty bounded water '+x+','+y);
+      const transaction=place('tland',x,y),after=GV.tile(x,y);
+      const fields=['road','rc','bridge','rail','tram','bld','wp','wm472','sm472','hv471','ug471','lv475','ud475'];
+      const identityPreserved=fields.every(k=>JSON.stringify(before[k])===JSON.stringify(after[k]));
+      const row={...transaction,before,after,identityPreserved,singleCell:transaction.cost===60};
+      W.terrain.push(row);
+      if(after.t!==2||!identityPreserved||!row.singleCell)throw Error('Paid single-cell support reclamation changed an existing structure or transport '+JSON.stringify(row));
+    };
+    // Pipe additions keep the existing eastern road topology and western cohort.
+    for(const y of[13,17,21,25,29,33,37])for(let x=49;x<=69;x++){const t=GV.tile(x,y);if(!t.road||t.bld)throw Error('Workforce pipe corridor is not an empty existing road '+x+','+y);land(x,y);if(!GV.tile(x,y).wp)W.pipes.push(place('wpipe',x,y));}
     const pure=[{k:246,tool:'georgianRow',capacity:36,band:'mid'},{k:247,tool:'georgianCorner',capacity:40,band:'mid'},{k:258,tool:'workersNarrowRow',capacity:32,band:'mid'},{k:260,tool:'workersCourt',capacity:36,band:'mid'}];
     for(const y of[14,18,22,26,30,34])for(const x of[50,54,58,62,66]){
       const spec=pure[W.homes.length%pure.length],cells=[];for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)cells.push({x:x+dx,y:y+dy,tile:GV.tile(x+dx,y+dy)});
-      if(cells.some(q=>q.tile.bld||q.tile.road||q.tile.rail||q.tile.tram||q.tile.t===0||q.tile.t===3))throw Error('Support housing plot is not vacant buildable land '+x+','+y);
+      if(cells.some(q=>q.tile.bld||q.tile.road||q.tile.rail||q.tile.tram||![0,1,2].includes(q.tile.t)))throw Error('Support housing plot is not vacant convertible land '+x+','+y);
+      for(const q of cells)land(q.x,q.y);
       const transaction=place(spec.tool,x,y),b=GV.tile(x,y).bld;if(b?.k!==spec.k||b.age!==0||b.sz!==2)throw Error('Normal housing placement did not create a new age0 two-square root');
       W.homes.push({...spec,x,y,sz:2,placedDay:GV.stats().day});W.placementAudit.push({...transaction,before:cells,after:b});
     }
@@ -482,7 +495,7 @@ function scoreStyle007(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
       for(const m of report.parity.metrics){const t=TARGETS.find(t=>t.id===m.id);png('assets/'+m.id+'-day.png',m.day,{kind:'canonical game sprite',id:m.id});png('assets/'+m.id+'-night.png',m.night,{kind:'canonical emissive layer',id:m.id});delete m.day;delete m.night;check(m.id+' canonical source parity and independent repeat',m.canonicalEqualsSource&&m.canonicalEqualsRenderer&&m.deterministic,m);check(m.id+' exact anchor/dimensions and supported hard pixels',['w','h','ax','ay','sz'].every(k=>t[k]===m[k])&&m.solid>0&&m.lit>0&&m.edge===0&&m.unsupported===0&&m.outside===0&&m.partial===0,m);}
       save();if(report.failures.length)throw Error('Core asset preflight failed before city matrix');
       report.utilityFixture=await call(buildFixtureUtilities);check('real topology and power before save',report.utilityFixture.ok,report.utilityFixture);save();if(!report.utilityFixture.ok)throw Error('Utility topology failed');
-      report.workforceFixture=await call(prepareWorkforceFixture);check('normal bounded30-home workforce preparation',report.workforceFixture.ok&&report.workforceFixture.homes.length===30&&report.workforceFixture.placementAudit.every(q=>q.difficulty===1&&q.cost>0&&q.paidExactly&&!q.developer.sandbox&&!q.developer.god),report.workforceFixture);check('same203 R1 physical-road neighbors frozen before added housing',sha(JSON.stringify(report.workforceFixture.cohortRoots))===R1_PHYSICAL_NEIGHBOR_SHA256,report.workforceFixture.cohortRoots);save();if(report.failures.length)throw Error('Normal workforce preparation failed');
+      report.workforceFixture=await call(prepareWorkforceFixture);check('normal bounded30-home workforce preparation',report.workforceFixture.ok&&report.workforceFixture.homes.length===30&&report.workforceFixture.placementAudit.every(q=>q.difficulty===1&&q.cost>0&&q.paidExactly&&!q.developer.sandbox&&!q.developer.god)&&report.workforceFixture.terrain.every(q=>q.difficulty===1&&q.cost===60&&q.paidExactly&&q.singleCell&&q.identityPreserved&&!q.developer.sandbox&&!q.developer.god),report.workforceFixture);check('same203 R1 physical-road neighbors frozen before added housing',sha(JSON.stringify(report.workforceFixture.cohortRoots))===R1_PHYSICAL_NEIGHBOR_SHA256,report.workforceFixture.cohortRoots);save();if(report.failures.length)throw Error('Normal workforce preparation failed');
       let workforceReady=false;for(let day=report.workforceFixture.preloadDays;day<report.workforceFixture.maxPreloadDays;day++){const q=await call(advanceWorkforceFixture);report.workforceFixture.daily.push(q);report.workforceFixture.preloadDays=q.preloadDays;report.workforceFixture.housingDays=q.housingDays;check('ordinary workforce day '+q.day+' preserves original roots and exact fixed neighbor cohort',q.ok,q);save();if(!q.ok)throw Error('Ordinary workforce invariant failed');if(q.ready){workforceReady=true;break;}}
       report.workforceFixture.ready=workforceReady;report.workforceFixture.ok=workforceReady;
       check('ordinary matured homes produce native police3/fire4 crews within explicit21-day total budget',workforceReady&&report.workforceFixture.housingDays>=9&&report.workforceFixture.preloadDays<=19,report.workforceFixture);save();if(!workforceReady)throw Error('Normal workforce remained insufficient within30 homes/21 total days; no staffing or age override permitted');
