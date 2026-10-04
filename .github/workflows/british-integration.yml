@@ -15,7 +15,7 @@ permissions:
   contents: read
 concurrency:
   group: british-integration-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   evidence:
     if: github.ref == 'refs/heads/gpt/british-building-integration'
@@ -82,6 +82,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: british-integration-complete-${{ github.sha }}
-          path: british-integration-evidence/
+          path: |
+            british-integration-evidence/manifest.json
+            british-integration-evidence/guards/
+            british-integration-evidence/logs/
+            british-integration-evidence/source-sha256.txt
+            british-integration-evidence/checked-sha.txt
           if-no-files-found: warn
           retention-days: 14

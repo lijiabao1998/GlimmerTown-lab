@@ -64284,7 +64284,7 @@ function powerDispatchPeriod471(pool,period,periodDemand,sourceRecords,storageRe
   if(remain>0&&(period==='evening'||period==='night'))for(const st of stores){const eff=Math.min(.97,st.meta.eff+(control?.03:0)),pow=st.meta.power*(control?1.15:1),out=Math.min(pow,st.soc*eff,remain);if(out>0){st.soc-=out/eff;st.discharge+=out;dispatched+=out;remain-=out;bySource.push({root:st.root,k:st.k,take:+out.toFixed(2),available:+pow.toFixed(2),storage:true,controlled:control});}}
   for(const s of late)if(remain>0)use(s,remain);
   const available=sources.reduce((a,s)=>a+s.available[period],0)+storageAvailableAtStart;
-  return {period,demand:+periodDemand.toFixed(2),available:+available.toFixed(2),dispatched:+dispatched.toFixed(2),unserved:+Math.max(0,remain).toFixed(2),reserve:+Math.max(0,available-periodDemand).toFixed(2),renewable:+renewDispatch.toFixed(2),curtailed:+curtailed.toFixed(2),carbon:dispatched?+(carbon/dispatched).toFixed(3):0,cost:+cost.toFixed(2),bySource};
+  return {period,demand:+periodDemand.toFixed(2),available:+available.toFixed(2),dispatched:+dispatched.toFixed(2),unserved:+Math.max(0,remain).toFixed(2),reserve:+Math.max(0,available-periodDemand).toFixed(2),renewable:+renewDispatch.toFixed(2),curtailed:+curtailed.toFixed(2),carbon:dispatched?+(carbon/dispatched).toFixed(3):0,cost:+cost.toFixed(2),bySource,...(pool.britishPhysical004?{physicalDispatched004:dispatched}:{})};
 }
 function preparePowerDispatch471(){
   if(nightInputs487.day!==day)prepareNightInputs487();
@@ -64313,13 +64313,13 @@ function preparePowerDispatch471(){
         litConnectedEvening487=nightInputs487.lightingEvening*litNetworkShare487,litConnectedNight487=nightInputs487.lightingNight*litNetworkShare487;
   if(litRoadTotal487>0&&litConnectedNight487>0)for(const d of powerDistricts450){if(!d.roads)continue;const pool=poolByDistrict[d.id],share=d.roads/litRoadTotal487;loads.push({root:-1000-d.id,k:0,pool,district:d.id,tier:1.5,synthetic:'public-lighting',servedEvening:0,servedNight:0,energyServedEvening:0,energyServedNight:0,service:{evening:+(litConnectedEvening487*share).toFixed(3),night:+(litConnectedNight487*share).toFixed(3)},demand:{day:0,evening:+(litConnectedEvening487*share).toFixed(3),night:+(litConnectedNight487*share).toFixed(3)}});}
   // 調度中心讓所屬 pool 的需求管理效率提升 3%；所有負載與 pool demand 共讀同一份修正後真相。
-  for(const l of loads)if(l.pool>=0){const p=pools[l.pool],mul=p.control?.97:1;for(const per of POWER_PERIODS471){l.demand[per]=+(l.demand[per]*mul).toFixed(3);p.demand[per]+=l.demand[per];}}
+  for(const l of loads)if(l.pool>=0){const p=pools[l.pool],mul=p.control?.97:1;if(BRITISH004[l.k])p.britishPhysical004=true;for(const per of POWER_PERIODS471){l.demand[per]=+(l.demand[per]*mul).toFixed(3);p.demand[per]+=l.demand[per];}}
   // 無 distribution district 但只有 remote source 的 component 不創造虛擬負載池；UI 將其列為離線輸電資產。
   const periods={day:[],evening:[],night:[]};for(const p of pools){for(const per of POWER_PERIODS471){const r=powerDispatchPeriod471(p,per,p.demand[per],sourceRecords,storageRecords);p[per]=r;periods[per].push(r);}}
   for(const st of storageRecords){st.soc=clamp(st.soc,0,st.meta.energy);powerStorageState471.set(st.root,st.soc);}
   // 以晚峰可服務電量分配到各 distribution district；先服務關鍵／公共設施，再由既有 row-major RCI 分配吃餘量。
   for(const d of powerDistricts450){d.capacity=0;d.used=0;d.spare=0;}
-  for(const p of pools){const total=p.demand.evening||0,supply=p.evening.dispatched;for(const d of p.districts){let dd=0;for(const l of loads)if(l.district===d)dd+=l.demand.evening;const share=total>0?supply*(dd/total):supply/p.districts.length;const q=powerDistricts450[d];q.capacity=+share.toFixed(3);q.used=0;q.spare=q.capacity;}}
+  for(const p of pools){const total=p.demand.evening||0,supply=p.britishPhysical004?p.evening.physicalDispatched004:p.evening.dispatched;for(const d of p.districts){let dd=0;for(const l of loads)if(l.district===d)dd+=l.demand.evening;const share=total>0?supply*(dd/total):supply/p.districts.length;const q=powerDistricts450[d];q.capacity=p.britishPhysical004?share:+share.toFixed(3);q.used=0;q.spare=q.capacity;}} // GPT-004: all districts in a British-containing pool share actual physical dispatch, conserving that coupled pool; wholly old-only pools retain exact prior arithmetic.
   powerAlloc450={seasonMul:1,served:0,noGrid:0,noCapacity:0,effectiveCapacity:powerDistricts450.reduce((a,d)=>a+d.capacity,0)};
   if(POWER_ROOT_OK471.length!==N*N)POWER_ROOT_OK471=new Uint8Array(N*N);else POWER_ROOT_OK471.fill(0);
   // Tier 0 關鍵設施 → Tier 1 民生／交通 → Tier 1.5 公共照明 → Tier 2 商業 → Tier 3 工業；照明不再是 dispatch 有負載、district spare 卻免費的幽靈帳。
@@ -81477,7 +81477,8 @@ function britishSelftest004(){
    Embed inside the main IIFE; export only britishGameplayProbe004 through GV.
    All systems under test remain real. Fixture tiles/ages and citizen records are
    seeded inputs, never replacement return values for placement or authority APIs. */
-function britishGameplayProbe004(){
+function britishGameplayProbe004(groupFilter){
+  if(groupFilter!=null&&typeof groupFilter!=='string')throw new Error('QA group must be a string');
   const checks=[],details=[],exceptions=[],started=performance.now();
   const add=(name,ok,actual)=>{checks.push(name+(ok?' ✓':' ✗'));details.push({name,ok:!!ok,actual});return !!ok;};
   if(window.__britishQA004!==true||curSlot()!==3){add('disposable slot-3 guard',false,{marker:window.__britishQA004===true,slot:curSlot()});return{ok:false,checks,details,guarded:true};}
@@ -81486,7 +81487,7 @@ function britishGameplayProbe004(){
   if(flags.some(k=>window[k])||powerLegacy450()||waterLegacy449()){add('production authority escape valves are off',false,{flags:flags.filter(k=>window[k]),legacyPower:powerLegacy450(),legacyWater:waterLegacy449()});return{ok:false,checks,details,guarded:true};}
   const slots12=[localStorage.getItem(slotKey(1)),localStorage.getItem(slotKey(2))],specs=Object.values(BRITISH004);
   const require=(ok,msg)=>{if(!ok)throw new Error(msg);};
-  const group=(name,fn)=>{try{fn();}catch(e){const error={group:name,name:e.name,message:e.message,stack:String(e.stack||'')};exceptions.push(error);add(name+' exception',false,error);}};
+  const group=(name,fn)=>{if(groupFilter&&name!==groupFilter&&name!=='cleanup')return;try{fn();}catch(e){const error={group:name,name:e.name,message:e.message,stack:String(e.stack||'')};exceptions.push(error);add(name+' exception',false,error);}};
   const fresh=()=>{
     require(window.__britishQA004===true&&curSlot()===3,'QA guard changed');
     speed=0;mapSizePref=72;diff=1;disastersOn=false;newWorld(4004004);speed=0;money=1000000;rankIdx=25;
@@ -81570,6 +81571,15 @@ function britishGameplayProbe004(){
       // The library remains nominally mapped even offline; effective service must reach zero.
       require(doPlace('doze',5,11,true),'plant demolition');tick();const off=publicStaffRoot495.get(lr);add('library power loss removes effective jobs seats and coverage',publicJobCapacity491(lb)===16&&(off?.activePositions||0)===0&&civic495.education.effectiveSeats===0&&COV.grandlib[lr]===0,{nominal:publicJobCapacity491(lb),staff:off,education:civic495.education,coverage:COV.grandlib[lr]});
     });
+    group('old-only commercial power precision baseline control',()=>{
+      fresh();const x=30,y=30,root=idx(x,y);
+      place('road',x,y-1);place('wpipe',x,y-1);place('plant',x,y-2);place('water',x+1,y-1);
+      // Existing level-2 RCI building is a fixture input, as in old-ID save parity.
+      // All source, carrier, dispatch, allocation and water APIs are the real systems.
+      place('zc',x,y);at(x,y).bld={k:2,lv:2,v:0,age:30,pw:true,h:1};tick();
+      const p=power471.pools[0],d=powerDistricts450[0],load=power471.loads.find(l=>l.root===root),total=power471.loads.reduce((a,l)=>a+l.demand.evening,0);
+      add('old-only k2 lv2 retains unchanged baseline rounding path',at(x,y).bld.k===2&&at(x,y).bld.lv===2&&Math.abs(load.demand.evening-1.842)<1e-9&&Math.abs(total-3.453)<1e-9&&p.evening.dispatched===3.45&&d.capacity===3.45&&POWER_ROOT_OK471[root]===2&&!Object.prototype.hasOwnProperty.call(p.evening,'physicalDispatched004'),{note:'Existing pre-integration 0.003 rounding shortfall intentionally left unchanged for old-only districts',load,total,period:p.evening,district:{capacity:d.capacity,used:d.used,spare:d.spare},state:POWER_ROOT_OK471[root],allocation:{...powerAlloc450}});
+    });
     group('all perimeter edge utility connectivity',()=>{
       for(const q of specs)for(const side of ['north','east','south','west']){
         fresh();const x=30,y=30,n=q.sz;
@@ -81577,9 +81587,14 @@ function britishGameplayProbe004(){
         const [ex,ey,nx,ny,tx,ty]=e;
         place('road',ex,ey);place('wpipe',ex,ey);place('plant',ex+nx,ey+ny);place('water',ex+tx,ey+ty);const b=place(q.id,x,y);b.age=30;
         tick();const root=idx(x,y),edge=idx(ex,ey),w=waterRootStatus472(root),pc=powerCandidateDistricts450(x,y,2),wc=facilityComps472(root,WATER_NET_COMP472,t=>!!(t.wp||t.wm472));
-        add(q.id+' '+side+' edge is real road entrance',britishRoad004(root)&&sanRoadSeeds445(root).includes(edge)&&nearRoad(x,y)?.join(',')===[ex,ey].join(','),{frontage:sanRoadSeeds445(root),edge,entrance:nearRoad(x,y)});
-        add(q.id+' '+side+' edge feeds authoritative power',b.pw&&POWER_ROOT_OK471[root]===1&&pc.includes(POWER_DIST450[edge]),{powered:b.pw,state:POWER_ROOT_OK471[root],candidates:pc,edgeDistrict:POWER_DIST450[edge]});
-        add(q.id+' '+side+' edge feeds authoritative water',b.wa&&w.code>=2&&w.delivered>0&&wc.includes(WATER_NET_COMP472[edge]),{water:w,components:wc,edgeComponent:WATER_NET_COMP472[edge]});
+        const powerEvidence004=JSON.parse(JSON.stringify({snapshot:power471,allocation:powerAlloc450,status:powerStatusAt450(x,y,2),districts:powerDistricts450.map(d=>({id:d.id,capacity:d.capacity,used:d.used,spare:d.spare,rawCapacity:d.rawCapacity})),rootLoad:powerLoadWeight471(b,'evening'),sumEveningLoads:power471.loads.reduce((a,l)=>a+l.demand.evening,0)}));
+        add(q.id+' '+side+' edge is real road entrance',britishRoad004(root)&&sanRoadSeeds445(root).length===1&&sanRoadSeeds445(root)[0]===edge&&nearRoad(x,y)?.join(',')===[ex,ey].join(','),{frontage:sanRoadSeeds445(root),edge,entrance:nearRoad(x,y)});
+        const pool004=power471.pools.find(p=>p.districts.includes(POWER_DIST450[edge])),physical004=pool004?.evening?.physicalDispatched004,district004=powerDistricts450[POWER_DIST450[edge]];
+        const allocated004=pool004?.districts.reduce((a,d)=>a+powerDistricts450[d].capacity,0),roundoff004=Number.EPSILON*Math.max(1,Math.abs(physical004||0))*Math.max(16,power471.loads.length*4);
+        add(q.id+' '+side+' affected pool conserves physical dispatched capacity',Number.isFinite(physical004)&&physical004>0&&allocated004<=physical004+roundoff004&&Math.abs(allocated004-physical004)<=roundoff004,{physical:physical004,allocated:allocated004,difference:allocated004-physical004,machineRoundoffBound:roundoff004,districts:pool004?.districts});
+        add(q.id+' '+side+' real physical dispatch covers one-frontage fixture',Number.isFinite(physical004)&&physical004>0&&Math.abs(district004.capacity-physical004)<=roundoff004&&power471.available>powerEvidence004.sumEveningLoads,{physical:physical004,districtCapacity:district004?.capacity,available:power471.available,loads:powerEvidence004.sumEveningLoads});
+        add(q.id+' '+side+' edge feeds authoritative power',b.pw&&POWER_ROOT_OK471[root]===1&&pc.includes(POWER_DIST450[edge]),{powered:b.pw,state:POWER_ROOT_OK471[root],candidates:pc,edgeDistrict:POWER_DIST450[edge],power:powerEvidence004});
+        add(q.id+' '+side+' edge feeds authoritative water',b.wa&&w.code>=2&&w.delivered>0&&wc.includes(WATER_NET_COMP472[edge]),{water:w,buildingWater:b.wa,buildingPower:b.pw,powerState:POWER_ROOT_OK471[root],components:wc,edgeComponent:WATER_NET_COMP472[edge]});
       }
     });
     group('library capacity budget coverage symmetry and water loss',()=>{
