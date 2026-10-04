@@ -93,3 +93,9 @@ Actual day/night sprites, individual game crops and four complete streets were i
 The external demonstration layout also moves its3×3 prior-library benchmark away from a newly introduced frontage road and adds an explicit authored-footprint/road-crossing guard. This is a QA scene correction, not a change to the approved library. The broad matrix and remaining four new gameplay groups remain unrun at this point.
 
 Measurements: sixteen native builders78.3ms/rebuild43.8ms. Heavy software-rendered town medians2734.7ms with/2822.1ms without the new roots are noisy and do not establish an optimization or real-device FPS pass. Four unchanged nested atlas diagnostics remain: `industry:165_1_0`, `industry:166_1_0`, `industry:174_1_0`, `version-anchor`. They are not represented as passing nested audits.
+
+## R2 strict save guard caught a fixture defect
+
+`e1ecb36a622ec6eed999f1a039eee7fca8a2e09c`: smoke passed, but [preflight37199986892](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37199986892) stopped red at old-root save preservation (825→824). All16 new identities, actual utilities and retained14 sprite pins passed; no full shards ran. Investigation found the moved library at(21,35) overlapped seeded k166 at(19,32), size4. The gallery helper erased some reference cells but left the old root; normal loading reconstructed that root's full footprint over the library. This was a malformed QA fixture, not a reason to loosen save preservation.
+
+R3 removes whole pre-existing root/reference groups intersecting the planned patches or frontage roads through ordinary game demolition before planting. It records those bounded removals and adds exact missing/added/changed root diagnostics. Product HTML, all16 art pixels and gameplay remain R2-exact; the same strict root-preservation assertion must pass. This does not touch a player's save or the public site.

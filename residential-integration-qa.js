@@ -72,12 +72,24 @@ function compareSessionFingerprint(before,after,worker){
 function prepareFixture(targets,benchmarks){
   const seeded=GV.metroArtSeedWorld516(5162026);GV.setSpeed(0);GV.ai(false);GV.setDay(1);GV.weather(0);GV.setRot(0);GV.nightPowerTest698(null);
   const all=()=>{const a=[];for(let y=0;y<seeded.N;y++)for(let x=0;x<seeded.N;x++)a.push(GV.tile(x,y));return a;};
-  const before=all(),patches=[];
-  for(const q of [...targets,...benchmarks]){const p={x:q.x-1,y:q.y-1,w:q.sz+2,h:q.sz+2};patches.push(p);GV.art574.clear574(p.x,p.y,p.w,p.h);}
+  const before=all(),patches=[...targets,...benchmarks].map(q=>({x:q.x-1,y:q.y-1,w:q.sz+2,h:q.sz+2}));
+  const roads=[];for(const y of[13,16,19,22,25,28,31,34])for(let x=6;x<=34;x++)roads.push([x,y]);for(const x of[6,16,18,24,30])for(let y=12;y<=37;y++)roads.push([x,y]);
+  const roadCrossings=roads.filter(([x,y])=>[...targets,...benchmarks].some(t=>x>=t.x&&x<t.x+t.sz&&y>=t.y&&y<t.y+t.sz));if(roadCrossings.length)throw Error('Fixture road crosses authored footprint: '+JSON.stringify(roadCrossings));
+  // Clear entire old root/reference groups when a bounded patch or frontage
+  // intersects them. The old gallery clear/road helpers erase individual cells;
+  // clipping a large neighbor can otherwise leave an invalid old save record.
+  const touched=(x,y)=>patches.some(p=>x>=p.x&&x<p.x+p.w&&y>=p.y&&y<p.y+p.h)||roads.some(p=>p[0]===x&&p[1]===y);
+  const oldGroups=new Map();for(let i=0;i<before.length;i++){const b=before[i].bld;if(!b)continue;const root=b.ref?b.ref[1]*seeded.N+b.ref[0]:i;if(!oldGroups.has(root))oldGroups.set(root,[]);oldGroups.get(root).push(i);}
+  for(const [root,cells]of oldGroups){const b=before[root]?.bld;if(!b||b.ref)throw Error('Original showcase orphan root '+root);const x=root%seeded.N,y=Math.floor(root/seeded.N),sz=Math.max(1,b.sz||1);for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const i=(y+dy)*seeded.N+x+dx;if(!cells.includes(i))cells.push(i);}}
+  const clearedRoots=[];GV.innovationSetQA507({money:99999999,rank:25,tech:false});
+  for(const [root,cells]of oldGroups){if(!cells.some(i=>touched(i%seeded.N,Math.floor(i/seeded.N))))continue;const x=root%seeded.N,y=Math.floor(root/seeded.N),b=before[root]?.bld;if(!b||b.ref)throw Error('Original showcase contains orphan reference root '+root);if(!GV.place('doze',x,y))throw Error('Cannot clear intersecting whole fixture root '+root);if(cells.some(i=>GV.tile(i%seeded.N,Math.floor(i/seeded.N)).bld))throw Error('Whole fixture demolition left reference cells '+root);clearedRoots.push({root,x,y,k:b.k,cells:cells.length});}
+  for(const p of patches)GV.art574.clear574(p.x,p.y,p.w,p.h);
   const planted=GV.art574.plant574([...targets,...benchmarks].map(q=>({...q,lv:1,v:0})));
-  const roads=[];for(const y of[13,16,19,22,25,28,31,34])for(let x=6;x<=34;x++)roads.push([x,y]);for(const x of[6,16,18,24,30])for(let y=12;y<=37;y++)roads.push([x,y]);const roadCrossings=roads.filter(([x,y])=>[...targets,...benchmarks].some(t=>x>=t.x&&x<t.x+t.sz&&y>=t.y&&y<t.y+t.sz));if(roadCrossings.length)throw Error('Fixture road crosses authored footprint: '+JSON.stringify(roadCrossings));GV.art574.road577(roads);for(const t of [...targets,...benchmarks])for(let dy=0;dy<t.sz;dy++)for(let dx=0;dx<t.sz;dx++){const b=GV.tile(t.x+dx,t.y+dy).bld;if(!b||b.k!==t.k||(dx+dy>0&&(!b.ref||b.ref[0]!==t.x||b.ref[1]!==t.y)))throw Error('Fixture footprint damaged '+t.k+' '+dx+','+dy);}GV.testRebake592();
-  const after=all();let unchangedRoots=0,changedTiles=0;
-  for(let i=0;i<before.length;i++){if(JSON.stringify(before[i])!==JSON.stringify(after[i]))changedTiles++;else if(before[i].bld&&!before[i].bld.ref)unchangedRoots++;}
+  GV.art574.road577(roads);for(const t of [...targets,...benchmarks])for(let dy=0;dy<t.sz;dy++)for(let dx=0;dx<t.sz;dx++){const b=GV.tile(t.x+dx,t.y+dy).bld;if(!b||b.k!==t.k||(dx+dy>0&&(!b.ref||b.ref[0]!==t.x||b.ref[1]!==t.y)))throw Error('Fixture footprint damaged '+t.k+' '+dx+','+dy);}GV.testRebake592();
+  const after=all(),clearedRootSet=new Set(clearedRoots.map(q=>q.root)),structural=b=>b?[b.k,b.lv,b.v,b.age,b.sz||1]:null,untouchedOldRoots=before.flatMap((t,i)=>t.bld&&!t.bld.ref&&!clearedRootSet.has(i)?[{root:i,before:structural(t.bld),after:structural(after[i]?.bld)}]:[]);
+  const changedRetainedRoots=untouchedOldRoots.filter(q=>JSON.stringify(q.before)!==JSON.stringify(q.after));if(changedRetainedRoots.length)throw Error('Fixture changed an old root outside declared removals: '+JSON.stringify(changedRetainedRoots));
+  const unchangedRoots=untouchedOldRoots.length;let changedTiles=0;for(let i=0;i<before.length;i++)if(JSON.stringify(before[i])!==JSON.stringify(after[i]))changedTiles++;
+  const footprintIntegrity={roots:0,references:0,issues:[]};for(let i=0;i<after.length;i++){const b=after[i].bld;if(!b)continue;const x=i%seeded.N,y=Math.floor(i/seeded.N);if(b.ref){footprintIntegrity.references++;const [rx,ry]=b.ref,owner=after[ry*seeded.N+rx]?.bld,n=owner?.sz||1;if(rx<0||ry<0||rx>=seeded.N||ry>=seeded.N||!owner||owner.ref||owner.k!==b.k||x<rx||y<ry||x>=rx+n||y>=ry+n)footprintIntegrity.issues.push({i,reason:'invalid-reference',b});}else{footprintIntegrity.roots++;const n=b.sz||1;for(let dy=0;dy<n;dy++)for(let dx=0;dx<n;dx++){const q=after[(y+dy)*seeded.N+x+dx]?.bld;if(x+dx>=seeded.N||y+dy>=seeded.N||!q||q.k!==b.k||((dx||dy)&&(!q.ref||q.ref[0]!==x||q.ref[1]!==y)))footprintIntegrity.issues.push({root:i,cell:[x+dx,y+dy],reason:'incomplete-footprint'});}}}if(footprintIntegrity.issues.length)throw Error('Fixture root/reference integrity: '+JSON.stringify(footprintIntegrity.issues.slice(0,20)));
   const storage=()=>Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]));
   const windowKeys=['__waterF695','__noSignal','__nightOccNoErase629','__ovCap606','__ovCapMax606','__ovCapAll608','__x13Frac','__x13SyncProf'];
   const Q=window.__residential006QA={targets,benchmarks,N:seeded.N,all,storage,world:()=>JSON.stringify({tiles:all(),stats:GV.stats()}),live:new Map(),
@@ -86,7 +98,7 @@ function prepareFixture(targets,benchmarks){
   window.__waterF695=0;window.__noSignal=true;
   for(const id of['start','startOverlay456']){const el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('show');}}
   GV.selectTool434('pan');
-  return {seeded,planted,patches,unchangedExistingRoots:unchangedRoots,changedFixtureTiles:changedTiles,storageKeys:Object.keys(storage()),
+  return {seeded,planted,patches,clearedRoots,changedRetainedRoots,footprintIntegrity,unchangedExistingRootContract:'Every non-demolished old root retains exact index/k/lv/v/age/size; utility flags may legitimately recompute during ordinary demolition.',unchangedExistingRoots:unchangedRoots,changedFixtureTiles:changedTiles,storageKeys:Object.keys(storage()),
     targets:targets.map(t=>({...t,root:GV.tile(t.x,t.y).bld,refs:Array.from({length:t.sz*t.sz},(_,i)=>GV.tile(t.x+i%t.sz,t.y+Math.floor(i/t.sz)).bld)}))};
 }
 function buildFixtureUtilities(){
@@ -235,12 +247,14 @@ function saveLoadFixture(){
     return{id:t.id,k:t.k,root,record,refs,ok:record?.[1]===t.k&&record[2]===1&&record[3]===0&&record[4]===30&&root?.k===t.k&&root.sz===t.sz&&root.lv===1&&root.v===0&&root.age===30&&refs.every((b,i)=>i===0?!b.ref:b?.k===t.k&&b.ref?.[0]===t.x&&b.ref?.[1]===t.y)};
   });
   const oldBefore=before.filter(b=>b[1]<246),oldAfter=after.filter(b=>b[1]<246);
+  const beforeMap=new Map(before.map(r=>[r[0],r])),afterMap=new Map(after.map(r=>[r[0],r]));const rootEvidence=r=>{const i=r[0],x=i%Q.N,y=Math.floor(i/Q.N),tile=GV.tile(x,y),owner=tile?.bld?.ref,oi=owner?owner[1]*Q.N+owner[0]:null;return{before:r,x,y,savedRecord:data.bl.find(a=>a[0]===i)||null,loadedAtRoot:tile?.bld||null,replacementOwnerBefore:oi===null?null:beforeMap.get(oi)||null,replacementOwnerAfter:oi===null?null:afterMap.get(oi)||null};};
   Q.savedTown={loaded:true,slot:3,savedRootCount:data.bl.length,rootRecords:targetResults.map(t=>t.record)};
   // Runtime fields and existing RCI visual variants legitimately normalize on load.
   // Root coordinates, numeric identities, levels, ages and footprints must survive.
   return{saved:!!saved,loaded,slot:3,bytes:raw.length,version:data.v,mapSize:data.n,seed:data.seed,day:data.day,
     newRootRecordCount:data.bl.filter(b=>b[1]>=246&&b[1]<=261).length,targets:targetResults,
     rootsBefore:before.length,rootsAfter:after.length,existingRoots:oldBefore.length,
+    missingRoots:before.filter(b=>!afterMap.has(b[0])).map(rootEvidence),addedRoots:after.filter(b=>!before.some(a=>a[0]===b[0])),changedRoots:before.flatMap(b=>{const a=after.find(a=>a[0]===b[0]);return a&&JSON.stringify(a)!==JSON.stringify(b)?[{before:b,after:a}]:[];}),
     rootIdentityAgeFootprintPreserved:JSON.stringify(before)===JSON.stringify(after),
     existingRootIdentityAgeFootprintPreserved:JSON.stringify(oldBefore)===JSON.stringify(oldAfter),
     otherPlayerSlotsUnchanged:slots12.every((k,i)=>localStorage.getItem(k)===otherBefore[i]),
