@@ -399,9 +399,10 @@ function scoreStyle005(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
         check('all eighty construction frames recorded',report.construction.length===80);
       }else throw Error('Unknown mode '+MODE);
       report.nightCompositor=await ev('GV.nightOccSelftest629()');check('existing depth-aware night compositor',report.nightCompositor.ok,report.nightCompositor);
-      report.consoleErrors=cdp.errors;check('no console or uncaught errors',cdp.errors.length===0,cdp.errors);return true;
+      return true;
     }finally{
       if(!stalled&&bootFP){try{report.finalWorker=await call(legacyWorkerProof,workerSource);report.finalWorker.sourcePinned=sha(workerSource)===APPROVED_WORKER_SHA256;report.cleanup=await call(cleanup);if(report.cleanup.fingerprint){report.sessionFingerprint=compareSessionFingerprint(bootFP,report.cleanup.fingerprint,report.finalWorker);delete report.cleanup.fingerprint;}check('canonical references and catalog preserved after diagnostics',report.cleanup.sameSpriteReferences&&report.cleanup.sameCatalogKeys,report.cleanup);check('only disposable save/camera preferences changed and restored',report.cleanup.unexpectedKeys?.length===0&&report.cleanup.storageExactlyRestored,report.cleanup);}catch(e){check('cleanup completed',false,String(e.stack||e));}}
+      report.consoleErrors=cdp.errors;check('no console or uncaught errors in every mode and cleanup',cdp.errors.length===0,cdp.errors);
       save();
     }
   });

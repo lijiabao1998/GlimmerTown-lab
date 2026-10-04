@@ -39,7 +39,7 @@ function runWorld(seed){
           const data=await cdp.evalJs('('+runWorld.toString()+')('+seed+')');
           const checkpoints=data.map(q=>({stats:q.stats,tilesSHA256:hash(JSON.stringify(q.tiles))}));
           arr.push({seed,checkpoints});
-        }return arr;
+        }if(cdp.errors.length){out.consoleErrors={label,errors:cdp.errors};throw Error(label+' console or uncaught errors: '+JSON.stringify(cdp.errors));}return arr;
       });
       if(!session.ok||!session.result)throw Error(label+' browser failure: '+JSON.stringify(session.fails));
       out.runs.push({label,result:session.result});

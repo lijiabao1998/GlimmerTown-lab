@@ -1,6 +1,6 @@
 # GPT-005 — A working British high street and community quarter
 
-Status: pre-code acceptance card. Architecture references and catalog collision audit underway; no product changes yet.
+Status: integrated eight-building review branch; first runtime smoke passed, strict placement preflight requires the R2 fix below. Owner image approval is pending.
 Base: current origin/main 7da1b6985e6ddab6cdb036c66c165930d71107fb (v14.21 / T717), fetched and verified 2026-10-04.
 Branch: gpt/british-high-street.
 
@@ -66,3 +66,7 @@ New buildings are player-buildable and manual-only for the AI mayor, preserving 
 Initial HTML:9,808,796 bytes (+112,613,1.16%). Native art source:59,526 bytes. All64 inline scripts parse without execution. Gameplay probe has ten bounded groups plus guarded cleanup; every scheduled group must actually run. All runtime/pixel/compatibility/performance acceptance remains pending, with no local game/Chrome execution.
 
 During the source-upload approval wait, the cloud workspace was replaced. After explicit owner permission to retry recovery, the uploaded HTML was downloaded and verified exactly:SHA256 78bd03e984650899019e9fd485099fe70069488ca646267b139146f164bc34ca; generator3473fd26085cdd18e82111e8b98cd34020ef9d1204e862ef6c9ce626b91c5b73; gameplay probe69fa28a796e97958af13ba6e6c0b7457ba9ad527bd4316c3480e30368fcbbab5. Original artwork/probes were extracted unchanged; no redraw or stale reconstruction. External CI wrapper was restored from recorded commands and pinned T717 helper source and re-parsed. The new checkout is in the persistent conversation workspace. No main write, deployment or production migration occurred.
+
+## R1 actual CI and R2 correction
+
+Commit2d06306cd1dd7de069e45d23d73e5bddd56d6c44 passed [ordinary smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37190654182), including81 new and26 prior British selfchecks. Eight sprites baked in70.8ms in the isolated preflight runner; this is asset build time, not whole-game startup. [Strict preflight](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37190654221) failed the map-edge placement probe before art captures: an old fiscal wrapper called placeCost before canPlace, and negative-y dereferenced an absent anchor tile. R2 adds a bounds-only quote guard for new high-street tools, leaving normal rejection and legacy paths unchanged. Guards were not relaxed. Independent review also moved console/uncaught-error acceptance into every evidence mode and added it to the old-city comparison. Runtime, visual matrix, compatibility and owner approval are still pending.

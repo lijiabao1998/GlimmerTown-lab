@@ -63922,6 +63922,8 @@ function canPlaceMulti(x,y,sz,msg){
 }
 function placeCost(toolId,x,y){
   if(diff===3)return 0; // T115：沙盒短路——建造／拆除一律免費
+  const highStreet005=HIGHSTREET_TOOL005[toolId];
+  if(highStreet005&&(!inMap(x,y)||!inMap(x+highStreet005.sz-1,y+highStreet005.sz-1)))return 0; // GPT-005: fiscal wrapper quotes before placement validation
   const t=T(idx(x,y));
   let c=0;
   switch(toolId){
