@@ -1,0 +1,87 @@
+# Review branch filter before copying to .github/workflows/british-integration.yml.
+# Remote CI only. No deployment, credentials, baseline updates or remote writes.
+name: british-integration
+on:
+  push:
+    branches: ['gpt/british-building-integration']
+    paths:
+      - 'index.html'
+      - 'british-prototypes-art.js'
+      - 'british-integration-qa.js'
+      - 'british-compatibility-qa.js'
+      - 'smoke.js'
+      - '.github/workflows/british-integration.yml'
+permissions:
+  contents: read
+concurrency:
+  group: british-integration-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  evidence:
+    if: github.ref == 'refs/heads/gpt/british-building-integration'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Use existing smoke font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Verify syntax and record exact checked source
+        run: |
+          set -euo pipefail
+          mkdir -p british-integration-evidence/logs
+          node --check british-integration-qa.js
+          git rev-parse HEAD > british-integration-evidence/checked-sha.txt
+          sha256sum index.html british-prototypes-art.js british-integration-qa.js fp.json style.json > british-integration-evidence/source-sha256.txt
+          git diff --exit-code -- index.html british-prototypes-art.js british-integration-qa.js fp.json style.json
+      - name: Capture normal assets through actual city rendering
+        run: |
+          set -o pipefail
+          node british-integration-qa.js 2>&1 | tee british-integration-evidence/logs/integration.txt
+      - name: Upload visual evidence immediately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: british-integration-images-${{ github.sha }}
+          path: british-integration-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Three existing smoke passes
+        if: always()
+        run: |
+          set +e
+          set -uo pipefail
+          status=0
+          for n in 1 2 3; do
+            node smoke.js 2>&1 | tee "british-integration-evidence/logs/smoke-$n.txt"
+            code=${PIPESTATUS[0]}
+            printf '%s\n' "$code" > "british-integration-evidence/logs/smoke-$n.exit"
+            if [ "$code" -ne 0 ]; then status=1; fi
+          done
+          exit "$status"
+      - name: Existing fingerprint and style guard, only declared bld family
+        if: always()
+        run: |
+          set -o pipefail
+          node fp.js --check --expect=bld 2>&1 | tee british-integration-evidence/logs/fingerprint.txt
+      - name: Compare two existing cities against pinned main simulation
+        if: always()
+        run: |
+          set -o pipefail
+          git fetch --depth=1 origin 8b8ff01c1f157acf8baed0e1d4e305dabef049be
+          node british-compatibility-qa.js 2>&1 | tee british-integration-evidence/logs/compatibility.txt
+      - name: Ensure tests never rewrite tracked baselines or source
+        if: always()
+        run: git diff --exit-code -- index.html british-prototypes-art.js british-integration-qa.js fp.json style.json
+      - name: Upload complete evidence and failure logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: british-integration-complete-${{ github.sha }}
+          path: british-integration-evidence/
+          if-no-files-found: warn
+          retention-days: 14
