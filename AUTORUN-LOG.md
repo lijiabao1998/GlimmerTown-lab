@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T719 release entry BEGIN -->
+## r166 — T719 十六款英式住宅街區（原 GPT-006）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r166 | [T719](docs/T719-british-residential-streets.md) | 業主看過十張確認圖，明確要求本輪合併上線。k246–261 喬治式街屋、維多利亞郊區、英式鄉村與工人街屋四組共十六款；356 住戶名額與角店 6 工作職缺；全地塊放置、九日施工、真實道路水電、拆除退款與復原、存讀檔。v14.23／T719；只提升新增十六葉、bld 匯總與必要統計，舊基準／style 保持。 | 批准候選 05fa1676：[CI37202014826](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37202014826) 十二工作成功，1792 頂層檢查、2645 新／2185 舊玩法斷言、256 視角、64 天氣、160 施工、4 遮擋；三次 smoke、嚴格舊基準與三城模擬／RNG 比較通過。正式 metadata 候選須重跑完整套；本記錄不預稱發布重驗通過。 | [PR11](https://github.com/lijiabao1998/GlimmerTown-lab/pull/11) 的 T719 squash merge，確切 SHA 見 PR | 十張原生 PNG、70 個真實遊戲畫面面板；1244 份來源檔案及 362 對全畫面／裁圖已核驗；[實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37202014826) | ① 四鏡頭固定繪製立面 ② 施工及積雪沿用現有系統 ③ 真實裝置／手機 FPS 未測 ④ 四項既有巢狀 atlas 診斷保留，不稱全部巢狀審核綠 ⑤ 未加入新的零售產業鏈 ⑥ PR7 未用，正式站未刪除或搬遷 ⑦ 下一輪另開分支、再等看圖確認 |
+
+<!-- T719 release entry END -->
 <!-- T718 release entry BEGIN -->
 ## r165 — T718 八款英式高街與社區建築（原 GPT-005）
 

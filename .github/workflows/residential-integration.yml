@@ -93,7 +93,7 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Pinned T718 source
         run: git fetch --depth=1 origin 0072ac19b3c33f2dda98552d8b6c6bf447ba296c
-      - name: Three smoke passes, strict declared-delta fingerprint and old-city simulation
+      - name: Three smoke passes, strict promoted fingerprint and old-city simulation
         run: |
           set -uo pipefail
           set +e
@@ -108,7 +108,7 @@ jobs:
             if [ "${codes[0]}" -ne 0 ] || [ "${codes[1]}" -ne 0 ]; then status=1; fi
           }
           for n in 1 2 3; do run_check "smoke-$n" node smoke.js; done
-          run_check fingerprint node fp.js --check --expect=bld
+          run_check fingerprint node fp.js --check
           run_check compatibility node residential-compatibility-qa.js
           QA_STATUS="$status" node residential-regression-manifest006.js
           code=$?; if [ "$code" -ne 0 ]; then status=1; fi
