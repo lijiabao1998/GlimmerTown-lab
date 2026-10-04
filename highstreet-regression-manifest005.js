@@ -5,7 +5,7 @@ const fs=require('fs'),path=require('path'),crypto=require('crypto');
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('Authorized isolated CI only');
 const out=path.join(__dirname,'highstreet-evidence','regression');
 const names=['smoke-1','smoke-2','smoke-3','fingerprint','compatibility'];
-const checks=names.map(name=>{const f=path.join(out,'logs',name+'.exit'),value=fs.existsSync(f)?fs.readFileSync(f,'utf8').trim():null;return{name,ok:value==='0',exit:value};});
+const checks=names.map(name=>{const read=suffix=>{const f=path.join(out,'logs',name+suffix);return fs.existsSync(f)?fs.readFileSync(f,'utf8').trim():null;},value=read('.exit'),tee=read('.tee.exit');return{name,ok:value==='0'&&tee==='0',exit:value,teeExit:tee};});
 const cp=path.join(out,'guards','compatibility.json'),comparison=fs.existsSync(cp)?JSON.parse(fs.readFileSync(cp,'utf8')):null;
 checks.push({name:'actual old-city equality and candidate restoration',ok:comparison?.ok===true&&comparison?.restored===true});
 const artifacts=[];

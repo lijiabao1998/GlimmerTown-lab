@@ -5,7 +5,7 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const {execFileSync}=require('child_process');
 const {withGame}=require('./harness');
-const ROOT=__dirname,BASE='7da1b6985e6ddab6cdb036c66c165930d71107fb';
+const ROOT=__dirname,BASE='f6d626c04c2979e8b2855f0f4a9e9ab1eef35654';
 const HASH='23dda09f84a6152e7324d988d4741a45b42ec6f0ee45ac02b8f7dd824eb2fc27';
 const hash=x=>crypto.createHash('sha256').update(x).digest('hex');
 const current=fs.readFileSync(path.join(ROOT,'index.html'));

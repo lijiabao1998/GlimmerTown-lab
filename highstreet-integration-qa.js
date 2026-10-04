@@ -5,16 +5,18 @@ const fs=require('fs'),path=require('path'),crypto=require('crypto'),{execFileSy
 const ROOT=__dirname,{withGame}=require('./harness');
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('Run only in authorized isolated GitHub Actions');
 const MODE=process.env.HS005_MODE||'preflight',OUT=path.join(ROOT,'highstreet-evidence',MODE);
-const PINNED_BASE='7da1b6985e6ddab6cdb036c66c165930d71107fb';
+const PINNED_BASE='f6d626c04c2979e8b2855f0f4a9e9ab1eef35654';
 const TARGETS=[
-{id:'UKH01',k:222,tool:'coOpStores',sz:2,x:8,y:14,w:136,h:170,ax:68,ay:168},
-{id:'UKH02',k:223,tool:'stoneBakehouse',sz:2,x:14,y:14,w:136,h:150,ax:68,ay:148},
-{id:'UKH03',k:224,tool:'coveredMarket',sz:3,x:20,y:14,w:208,h:210,ax:104,ay:208},
-{id:'UKH04',k:225,tool:'boardSchool',sz:3,x:26,y:14,w:208,h:195,ax:104,ay:193},
-{id:'UKH05',k:226,tool:'cottageSurgery',sz:2,x:8,y:20,w:136,h:145,ax:68,ay:143},
-{id:'UKH06',k:227,tool:'highStreetPost',sz:2,x:14,y:20,w:136,h:155,ax:68,ay:153},
-{id:'UKH07',k:228,tool:'municipalBaths',sz:3,x:20,y:20,w:208,h:205,ax:104,ay:203},
-{id:'UKH08',k:229,tool:'villageHall',sz:2,x:26,y:20,w:136,h:145,ax:68,ay:143}];
+{id:'UKH01',k:238,tool:'coOpStores',sz:2,x:8,y:14,w:136,h:170,ax:68,ay:168},
+{id:'UKH02',k:239,tool:'stoneBakehouse',sz:2,x:14,y:14,w:136,h:150,ax:68,ay:148},
+{id:'UKH03',k:240,tool:'coveredMarket',sz:3,x:20,y:14,w:208,h:210,ax:104,ay:208},
+{id:'UKH04',k:241,tool:'boardSchool',sz:3,x:26,y:14,w:208,h:195,ax:104,ay:193},
+{id:'UKH05',k:242,tool:'cottageSurgery',sz:2,x:8,y:20,w:136,h:145,ax:68,ay:143},
+{id:'UKH06',k:243,tool:'highStreetPost',sz:2,x:14,y:20,w:136,h:155,ax:68,ay:153},
+{id:'UKH07',k:244,tool:'municipalBaths',sz:3,x:20,y:20,w:208,h:205,ax:104,ay:203},
+{id:'UKH08',k:245,tool:'villageHall',sz:2,x:26,y:20,w:136,h:145,ax:68,ay:143}];
+const R3_ART_SHA256='66bec7f6d6ceca1efa860357e662217993bfdf8995e86530d457815479685832';
+const R3_PIXEL_PINS={"UKH01":{"d":"e2bfbf5a","op":10416,"w":136,"h":170,"n":"9abf5f19"},"UKH02":{"d":"07d65013","op":6084,"w":136,"h":150,"n":"ccdc8d0b"},"UKH03":{"d":"09da2fb7","op":13248,"w":208,"h":210,"n":"c29d7652"},"UKH04":{"d":"9718de4c","op":11325,"w":208,"h":195,"n":"408e9e14"},"UKH05":{"d":"d33132d0","op":5393,"w":136,"h":145,"n":"299a908e"},"UKH06":{"d":"cad51dd1","op":6277,"w":136,"h":155,"n":"5f2f2620"},"UKH07":{"d":"2b8f1d97","op":12311,"w":208,"h":205,"n":"79fedf8c"},"UKH08":{"d":"664ebbdb","op":5163,"w":136,"h":145,"n":"8c267ba0"}};
 const BENCHMARKS=[{k:219,nm:'Approved Victorian terrace',sz:2,x:8,y:26},{k:220,nm:'Approved Fox and Finch',sz:2,x:14,y:26},{k:221,nm:'Approved Edwardian library',sz:3,x:20,y:26},{k:197,nm:'Existing corner pub',sz:2,x:26,y:26}];
 const GAMEPLAY_GROUPS=['catalog-unlock-rejection','placement-inspector-undo','construction-day-nine','perimeter-real-utilities','utility-loss','public-workforce-budget','coverage-symmetry','save-load-identities','commerce-supply-tax-mobility','offline-upkeep'];
 const LEGACY_GROUPS=['unlock and rejection matrix','placement transaction tree and inspector','real construction and financial classification','old-only commercial power precision baseline control','all perimeter edge utility connectivity','library capacity budget coverage symmetry and water loss','save load age references old ID compatibility and normalization','offline private buildings have no municipal upkeep','library construction charges and fixed mature identity'];
@@ -49,6 +51,7 @@ function compareFingerprint(fp,blocks){
   const out={added:added.sort(),removed,changed,envMatched,touched,expected,blocks:{current:blocks?.fam,count:blocks?.count,baseline:baseline.blocks}};
   check('fingerprint enumerator succeeded',fp.ok&&blocks?.ok);
   check('exactly eight new canonical building leaves',JSON.stringify(out.added)===JSON.stringify(expected),out);
+  for(const t of TARGETS)check(t.id+' renumbered asset exactly matches reviewed R3 pixels',same(fp.subs['bld.'+t.k+'_1_0'],R3_PIXEL_PINS[t.id]),{current:fp.subs['bld.'+t.k+'_1_0'],reviewed:R3_PIXEL_PINS[t.id]});
   check('zero changed or removed legacy leaves outside registered environment differences',changed.length===0&&removed.length===0,out);
   check('only bld family touched',JSON.stringify(touched.sort())==='["bld"]',touched);
   check('all enumerated superblock sprites unchanged',!!baseline.blocks&&blocks?.fam===baseline.blocks.fam&&blocks?.count===baseline.blocks.count,out.blocks);
@@ -242,7 +245,7 @@ function saveLoadFixture(){
   // Runtime fields and existing RCI visual variants legitimately normalize on load.
   // Root coordinates, numeric identities, levels, ages and footprints must survive.
   return{saved:!!saved,loaded,slot:3,bytes:raw.length,version:data.v,mapSize:data.n,seed:data.seed,day:data.day,
-    newRootRecordCount:data.bl.filter(b=>b[1]>=222&&b[1]<=229).length,targets:targetResults,
+    newRootRecordCount:data.bl.filter(b=>b[1]>=238&&b[1]<=245).length,targets:targetResults,
     rootsBefore:before.length,rootsAfter:after.length,existingRoots:oldBefore.length,
     rootIdentityAgeFootprintPreserved:JSON.stringify(before)===JSON.stringify(after),
     existingRootIdentityAgeFootprintPreserved:JSON.stringify(oldBefore)===JSON.stringify(oldAfter),
@@ -340,6 +343,7 @@ async function cleanup(){
 }
 function scoreStyle005(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=[Math.min(1,f.colors/L/16),Math.max(0,1-Math.min(1,f.semi/op*20)),f.leftLit/L,Math.max(0,Math.min(1,(f.buckets/L-2)/4)),Math.min(1,(f.colors/op)*100/4),.5*f.nightLeaves/L+.5*(f.nightOp>0?1-f.nightViol/f.nightOp:1),Math.min(1,f.leaves/8)];return {axes,total:+(axes.reduce((a,b)=>a+b,0)/7).toFixed(4)};}
 (async()=>{
+  check('ID migration preserves exact reviewed R3 art source',sha(art)===R3_ART_SHA256,{sha256:sha(art)});
   const protectedPaths=['fp.json','style.json','AUTORUN-LOG.md','docs/DECISIONS.md','british-prototypes-art.js'];
   for(const f of protectedPaths){const old=execFileSync('git',['show',PINNED_BASE+':'+f],{cwd:ROOT,maxBuffer:8*1024*1024});check('protected '+f+' exact T717 bytes',sha(old)===sha(fs.readFileSync(path.join(ROOT,f))));}
   for(const rx of [/const GAME_VER='[^']+'/g,/const GAME_ANCHOR='[^']+'/g,/id="startVersion456">[^<]+/g])check('review release metadata unchanged '+rx,JSON.stringify(baseHTML.match(rx))===JSON.stringify(html.toString().match(rx)));

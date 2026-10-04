@@ -24,7 +24,7 @@ jobs:
       - name: Source and baseline contract
         run: |
           set -euo pipefail
-          git fetch --depth=1 origin 7da1b6985e6ddab6cdb036c66c165930d71107fb
+          git fetch --depth=1 origin f6d626c04c2979e8b2855f0f4a9e9ab1eef35654
           node --check highstreet-integration-qa.js
           node --check british-high-street-art.js
           node --check highstreet-gameplay-probe005.js
@@ -63,7 +63,7 @@ jobs:
       - name: Existing repository font environment
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Pinned T717 source
-        run: git fetch --depth=1 origin 7da1b6985e6ddab6cdb036c66c165930d71107fb
+        run: git fetch --depth=1 origin f6d626c04c2979e8b2855f0f4a9e9ab1eef35654
       - name: Exact source evidence shard
         run: |
           set -o pipefail
@@ -92,22 +92,24 @@ jobs:
       - name: Existing repository font environment
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Pinned T717 source
-        run: git fetch --depth=1 origin 7da1b6985e6ddab6cdb036c66c165930d71107fb
+        run: git fetch --depth=1 origin f6d626c04c2979e8b2855f0f4a9e9ab1eef35654
       - name: Three smoke passes, declared-delta fingerprint and old-city simulation
         run: |
           set -uo pipefail
+          set +e
           mkdir -p highstreet-evidence/regression/logs
           status=0
-          for n in 1 2 3; do
-            node smoke.js 2>&1 | tee highstreet-evidence/regression/logs/smoke-$n.txt
-            code=${PIPESTATUS[0]}
-            printf '%s\n' "$code" > highstreet-evidence/regression/logs/smoke-$n.exit
-            if [ "$code" -ne 0 ]; then status=1; fi
-          done
-          node fp.js --check --expect=bld 2>&1 | tee highstreet-evidence/regression/logs/fingerprint.txt
-          code=${PIPESTATUS[0]}; printf '%s\n' "$code" > highstreet-evidence/regression/logs/fingerprint.exit; if [ "$code" -ne 0 ]; then status=1; fi
-          node highstreet-compatibility-qa.js 2>&1 | tee highstreet-evidence/regression/logs/compatibility.txt
-          code=${PIPESTATUS[0]}; printf '%s\n' "$code" > highstreet-evidence/regression/logs/compatibility.exit; if [ "$code" -ne 0 ]; then status=1; fi
+          run_check() {
+            name="$1"; shift
+            "$@" 2>&1 | tee "highstreet-evidence/regression/logs/$name.txt"
+            codes=("${PIPESTATUS[@]}")
+            printf '%s\n' "${codes[0]}" > "highstreet-evidence/regression/logs/$name.exit"
+            printf '%s\n' "${codes[1]}" > "highstreet-evidence/regression/logs/$name.tee.exit"
+            if [ "${codes[0]}" -ne 0 ] || [ "${codes[1]}" -ne 0 ]; then status=1; fi
+          }
+          for n in 1 2 3; do run_check "smoke-$n" node smoke.js; done
+          run_check fingerprint node fp.js --check --expect=bld
+          run_check compatibility node highstreet-compatibility-qa.js
           QA_STATUS="$status" node highstreet-regression-manifest005.js
           code=$?; if [ "$code" -ne 0 ]; then status=1; fi
           exit "$status"

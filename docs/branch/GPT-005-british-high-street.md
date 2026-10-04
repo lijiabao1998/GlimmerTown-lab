@@ -1,7 +1,7 @@
 # GPT-005 — A working British high street and community quarter
 
-Status: integrated eight-building review branch; strict R2 preflight passed, four actual-pixel refinements prepared for the full matrix. Owner image approval is pending.
-Base: current origin/main 7da1b6985e6ddab6cdb036c66c165930d71107fb (v14.21 / T717), fetched and verified 2026-10-04.
+Status: all six R3 full-matrix jobs passed; R4 moves this unreleased batch to238–245 following the new upstream ID rule and requires fresh exact-SHA certification. Owner image approval is pending.
+Initial base:7da1b6985e6ddab6cdb036c66c165930d71107fb (v14.21 / T717). Current R4 base:f6d626c04c2979e8b2855f0f4a9e9ab1eef35654, whose only upstream change is the owner decision recorded2026-10-04. Product bytes remain exact T717.
 Branch: gpt/british-high-street.
 
 ## Scope before implementation
@@ -42,18 +42,18 @@ Release metadata and the next T number will be staged only after image approval,
 
 ## Locked reference and balance table (before implementation)
 
-Catalog audited on T717. Numeric IDs222–229 have no building metadata, tool, sprite or placement registrations; incidental 225/226 values occur outside building IDs. Fixed lv1/v0; eight canonical sprites, no aliases.
+Catalog audited on T717. The initial pre-code audit reserved222–229, before the later main decision. R4 uses permanent IDs238–245 after auditing the latest main registry;222–237 remain unregistered. Fixed lv1/v0; eight canonical sprites, no aliases.
 
 | ID / tool | Original form / authoritative reference | Footprint | Gameplay / balance |
 |---|---|---|---|
-|222 coOpStores|Sheffield faience-front 3-storey co-operative shop; [Page Hall](https://historicengland.org.uk/listing/the-list/list-entry/1246876)|2×2|Commerce12 jobs; $2000, rank4; power2.4/water3|
-|223 stoneBakehouse|Corfe rubble-stone one-and-attic shop, stone-slate roof/dormers and rear bakehouse wing; [Corfe](https://historicengland.org.uk/listing/the-list/list-entry/1120972)|2×2|Commerce8 jobs; $1500, rank3; power2.6/water3.4|
-|224 coveredMarket|Perpendicular shop cross-range plus long glazed cast-iron hall, distinct from k87's brick gable/lantern; [Burslem](https://historicengland.org.uk/listing/the-list/list-entry/1483420)|3×3|Commerce24 jobs; $3500, rank6; power4.5/water5|
-|225 boardSchool|Sandstone single-storey H-plan classroom halls and bellcote; [Alnmouth](https://historicengland.org.uk/listing/the-list/list-entry/1494938)|3×3|10 public jobs,120 seats,school coverage; $2200,rank4,upkeep4; power2.8/water2|
-|226 cottageSurgery|White roughcast Arts-and-Crafts low wings, veranda and garden; [Winsford](https://www.landmarktrust.org.uk/properties/winsford-cottage-hospital/)|2×2|6 public jobs,6 clinic beds,100 service capacity; $1600,rank3,upkeep3.5; power2.2/water3|
-|227 highStreetPost|Neo-Georgian T-plan, stone lower/rendered upper, pitched slate between parapets and rear sorting hall; [Cullompton](https://historicengland.org.uk/listing/the-list/list-entry/1481957)|2×2|6 public jobs,85 service capacity,post coverage; $1400,rank3,upkeep3; power1.8/water1.3|
-|228 municipalBaths|Terracotta/redbrick entrance, paired low vent cupolas, rooflit enclosed pool halls and boiler chimney; [Moseley](https://historicengland.org.uk/listing/the-list/list-entry/1076274)|3×3|10 public jobs,140 leisure capacity,pool coverage; $3000,rank5,upkeep5; power4/water7|
-|229 villageHall|Single-storey weatherboards/corrugated-iron pitched roof, veranda and lower cross-wing; [Colony Hall](https://historicengland.org.uk/listing/the-list/list-entry/1454581)|2×2|5 public jobs,70 service and85 leisure capacity,community coverage; $1200,rank3,upkeep2; power1.6/water1.4|
+|238 coOpStores|Sheffield faience-front 3-storey co-operative shop; [Page Hall](https://historicengland.org.uk/listing/the-list/list-entry/1246876)|2×2|Commerce12 jobs; $2000, rank4; power2.4/water3|
+|239 stoneBakehouse|Corfe rubble-stone one-and-attic shop, stone-slate roof/dormers and rear bakehouse wing; [Corfe](https://historicengland.org.uk/listing/the-list/list-entry/1120972)|2×2|Commerce8 jobs; $1500, rank3; power2.6/water3.4|
+|240 coveredMarket|Perpendicular shop cross-range plus long glazed cast-iron hall, distinct from k87's brick gable/lantern; [Burslem](https://historicengland.org.uk/listing/the-list/list-entry/1483420)|3×3|Commerce24 jobs; $3500, rank6; power4.5/water5|
+|241 boardSchool|Sandstone single-storey H-plan classroom halls and bellcote; [Alnmouth](https://historicengland.org.uk/listing/the-list/list-entry/1494938)|3×3|10 public jobs,120 seats,school coverage; $2200,rank4,upkeep4; power2.8/water2|
+|242 cottageSurgery|White roughcast Arts-and-Crafts low wings, veranda and garden; [Winsford](https://www.landmarktrust.org.uk/properties/winsford-cottage-hospital/)|2×2|6 public jobs,6 clinic beds,100 service capacity; $1600,rank3,upkeep3.5; power2.2/water3|
+|243 highStreetPost|Neo-Georgian T-plan, stone lower/rendered upper, pitched slate between parapets and rear sorting hall; [Cullompton](https://historicengland.org.uk/listing/the-list/list-entry/1481957)|2×2|6 public jobs,85 service capacity,post coverage; $1400,rank3,upkeep3; power1.8/water1.3|
+|244 municipalBaths|Terracotta/redbrick entrance, paired low vent cupolas, rooflit enclosed pool halls and boiler chimney; [Moseley](https://historicengland.org.uk/listing/the-list/list-entry/1076274)|3×3|10 public jobs,140 leisure capacity,pool coverage; $3000,rank5,upkeep5; power4/water7|
+|245 villageHall|Single-storey weatherboards/corrugated-iron pitched roof, veranda and lower cross-wing; [Colony Hall](https://historicengland.org.uk/listing/the-list/list-entry/1454581)|2×2|5 public jobs,70 service and85 leisure capacity,community coverage; $1200,rank3,upkeep2; power1.6/water1.4|
 
 All numbers are game-design values compared with existing pub10jobs/library16jobs160seats, school8jobs90seats and clinic4beds. They are not factual staffing claims about the references. Commerce is normal employment/shopping/supply/tax; bakehouse does not claim a new grain/bread production chain and covered market does not inherit k87's unrelated food/export side effects. Public capacities use existing workforce and budget authority; all new service coverage is completion/power/water/road gated. Paid construction and running costs discourage the new group from replacing every established civic option. Parent must check these intended values against actual guards after implementation.
 
@@ -80,3 +80,13 @@ Actual PNG inspection, independently reviewed and compared with approved T717 im
 Runtime-guard review also added detached end-of-tick physical-power snapshots before any diagnostic repair, alongside immediately-after-dispatch evidence. Used/served energy must not exceed physical dispatch; indivisible-load slack is allowed and nominal capacity is never mistaken for energy dispatched. Disposable QA fresh worlds explicitly reset existing in-memory fiscal/observatory state. These changes do not alter normal game resets.
 
 R2 software-rendered full-town forced-draw medians were2628.7ms with the eight roots and2557.0ms after their normal removal (nine warm draws each; +71.7ms). This is a heavy isolated CI renderer comparison, not real-device FPS certification. R2 native-generator rebuilds took42.5/27.4ms. R3 will record fresh values. Full gameplay, four cameras, weather,80 construction frames, occlusion, smoke×3 and two old-city comparisons remain pending.
+
+## R3 complete evidence and R4 upstream reconciliation
+
+[Full R3 CI](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37191639236), exact commitd815ca32f1d1a4bc39c07a7373371226f5e8378c: all six jobs passed. Counts:107 preflight checks;10 new gameplay groups/1658 assertions;9 prior groups/498 assertions;128 camera samples across four rotations/two zooms/day-night;32 rain/snow samples;80 construction frames and3 foreground-occlusion scenes;three smoke passes; declared-delta fingerprints/style; and two old cities exactly equal at days1/2/6/21. Construction contributed168 checks. Actual revised pixels were reviewed independently: co-op mullions/floors, market roof, surgery/hall entries were acceptable. Dense foreground towers legitimately obscure some rotated city views; those are placement/occlusion evidence, not four unobstructed elevations. Full native sprites and clear R0 captures show complete forms.
+
+At09:34:45 main advanced to f6d626c04. Its single upstream docs/DECISIONS line rejects PR7 and directs new building IDs to begin at238. This different eight-building batch had already reserved222–229 before that change, but has never been released or placed in an owner save. We therefore adopt238–245 before approval. Eight exact production registry-prefix replacements change16 integer identity tokens; all production authorities derive their keys from the registry. Old IDs1–221 and the reserved gap222–237 are unchanged. No PR7 code, art or commit is included. The upstream decision is imported byte-for-byte, not rewritten.
+
+All guard/fixture references are migrated explicitly, not by global numeric replacement. Resident selftest now checks100 facts, including16 absent gap IDs and3 exact prior British definitions. Save tests add10 gap/approved-record checks across the five ages. R4 pins the reviewed R3 art source SHA25666bec7f6d6ceca1efa860357e662217993bfdf8995e86530d457815479685832 and every target day/night pixel fingerprint, requiring the identity move to preserve art exactly. Full latest-base/head CI will be repeated before the final PR/image packet.
+
+While synchronizing CI, regression failure reporting is corrected with controlled errexit disabled, separate command/tee exit records, and strict aggregate status. This fixes diagnostic collection on a failing pipeline without changing any successful test criterion. No game test has run on the local cloud computer.
