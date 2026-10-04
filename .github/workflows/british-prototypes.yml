@@ -1,0 +1,93 @@
+# GPT-003: isolated branch evidence only. No Pages workflow, site publication,
+# production changes, repository writes, secrets, or new credentials.
+name: british-prototypes
+on:
+  push:
+    branches: ['gpt/british-prototypes']
+    paths:
+      - 'british-prototypes-art.js'
+      - 'british-prototypes-samples.js'
+      - '.github/workflows/british-prototypes.yml'
+permissions:
+  contents: read
+concurrency:
+  group: british-prototypes-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  evidence:
+    if: github.ref == 'refs/heads/gpt/british-prototypes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Same font package/source as the repository's existing smoke workflow.
+      - name: Install Chinese font from Ubuntu registry
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pin unchanged product and prepare evidence provenance
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' bf306be0057ca4516944a5bf5ccf4765369bf7d2c52b243dfb2a3331b48ad26e index.html | sha256sum -c -
+          mkdir -p british-prototypes-evidence/logs
+          git rev-parse HEAD > british-prototypes-evidence/workflow-sha.txt
+          sha256sum index.html british-prototypes-art.js british-prototypes-samples.js > british-prototypes-evidence/source-sha256.txt
+          node --check british-prototypes-art.js
+          node --check british-prototypes-samples.js
+        shell: bash
+      - name: Capture prototypes through actual day and night game draw
+        if: always()
+        run: |
+          set -o pipefail
+          mkdir -p british-prototypes-evidence/logs
+          node british-prototypes-samples.js 2>&1 | tee british-prototypes-evidence/logs/prototypes.txt
+        shell: bash
+      - name: Upload first images without waiting for baseline checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: british-prototypes-images-${{ github.sha }}
+          path: british-prototypes-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Run three independent existing smoke passes
+        if: always()
+        run: |
+          set +e
+          set -uo pipefail
+          status=0
+          for n in 1 2 3; do
+            node smoke.js 2>&1 | tee "british-prototypes-evidence/logs/smoke-$n.txt"
+            code=${PIPESTATUS[0]}
+            printf '%s\n' "$code" > "british-prototypes-evidence/logs/smoke-$n.exit"
+            if [ "$code" -ne 0 ]; then status=1; fi
+          done
+          exit "$status"
+        shell: bash
+      - name: Run strict existing fingerprint guard without rewriting baseline
+        if: always()
+        run: |
+          set -o pipefail
+          mkdir -p british-prototypes-evidence/logs
+          node fp.js --check 2>&1 | tee british-prototypes-evidence/logs/fingerprint.txt
+        shell: bash
+      - name: Verify tracked product files remained unchanged
+        if: always()
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' bf306be0057ca4516944a5bf5ccf4765369bf7d2c52b243dfb2a3331b48ad26e index.html | sha256sum -c -
+          git diff --exit-code -- index.html fp.json AUTORUN-LOG.md docs/DECISIONS.md
+        shell: bash
+      - name: Upload evidence without deployment
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: british-prototypes-${{ github.sha }}
+          path: |
+            british-prototypes-evidence/
+            shots/smoke-*.png
+          if-no-files-found: error
+          retention-days: 14

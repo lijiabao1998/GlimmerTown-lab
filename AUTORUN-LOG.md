@@ -13,6 +13,12 @@
 
 ---
 
+## r163 — T716 英式建築原型歸檔（原 GPT-003；未接入建造選單）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r163 | [T716](docs/T716-british-prototypes-archive.md) | 業主批准 gpt/british-prototypes 的三款原型歸檔：2×2 維多利亞連棟住宅、2×2 轉角酒館、3×3 公共圖書館。保留獨立 renderer、實景測試 harness 與原 GPT-003 卡；HTML 只更新 GAME_VER／GAME_ANCHOR／首幀標籤至 v14.20／T716，不載入原型、不改建造選單。 | R2 基線 [CI 37150185803](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37150185803)：96/96 守衛、smoke 3/3、嚴格指紋全綠；新版本 metadata 候選需同套 CI 通過後才合，確切 SHA／結果見合併 PR 與 Actions。 | gpt/british-prototypes 的 T716 squash merge；確切 SHA 見 PR | [GPT-003 原驗收、樣張與 CI 證據](docs/branch/GPT-003-british-prototypes.md) | ① 三棟不在正常建造選單 ② 永久建築 ID、施工與遊戲整合未做 ③ 四向、季節、天氣、手機與使用者硬體未驗證 ④ 原型保留固定旋轉樣張 ⑤ 沒改 PR #7 |
+
 ## r162 — T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道（9 張）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
