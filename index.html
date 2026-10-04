@@ -3746,36 +3746,47 @@ function workersNarrowRow006(spec) {
 
 function workersYardTerrace006(spec) {
   const S=Scene(spec);vwWorkersBase006(S,720);
-  // Three individual rear kitchens project from a shallow through-house range.
-  // Staggered outriggers leave the visible-side yards and back passage legible.
-  for(const [k,i]of [1.5,11.7,21.9].entries()){
-    const depth=[12.4,10.5,7.0][k],end=i+3.7;
-    const KR=S.face([end,depth],[end,22.0]),KF=S.face([i,22],[end,22]);
-    KR.panel(0,22-depth,0,14.4,vwBrick006(true,722+k*3),0);
-    KF.panel(0,3.7,0,14.4,vwBrick006(false,723+k*3),0);
-    S.poly([[i-.25,depth-.3,15.0],[end+.25,depth-.3,15.0],[end+.25,22.2,22.3],[i-.25,22.2,22.3]],tileRoof(true,724+k*3,'i'));
-    S.poly([[end,depth,14.4],[end,22,14.4],[end,22,22.1]],(ii,j,z)=>vwBrick006(true,730+k)(j,z),-.02);
-    vwPlainDoor006(S,KR,2.0,.2,2.35,11.2,{right:true,col:C('5a6657')});
-    if(k===2)vwCottageWindow006(S,KR,7.2,4.2,2.6,7.2,{right:true,lit:true});
-    vwGardenWall006(S,[i+8.95,3.4],[i+8.95,22],3.9,734+k,false);
-    vwGardenWall006(S,[i-.3,3.4],[i+4.5,3.4],3.5,737+k,false);
-    vwGate006(S,[i+4.6,3.4],[i+8.8,3.4],3.4);
+  // The two-address range ends at a genuine side service alley. Its low rear
+  // kitchens and divided yards are visible beyond that end, rather than buried
+  // behind a full-width street wall. The left join keeps the common eave datum.
+  for(const [k,i]of [1.5,15.8].entries()){
+    const rear=[3.8,6.0][k],end=i+4.2;
+    const KR=S.face([end,rear],[end,22.0]),KF=S.face([i,22],[end,22]);
+    KR.panel(0,22-rear,0,14.4,vwBrick006(true,722+k*3),0);
+    KF.panel(0,4.2,0,14.4,vwBrick006(false,723+k*3),0);
+    S.poly([[i-.25,rear-.3,15.0],[end+.25,rear-.3,15.0],[end+.25,22.2,22.3],[i-.25,22.2,22.3]],tileRoof(true,724+k*3,'i'));
+    S.poly([[end,rear,14.4],[end,22,14.4],[end,22,22.1]],(ii,j,z)=>vwBrick006(true,730+k)(j,z),-.02);
+    vwPlainDoor006(S,KR,2.0,.2,2.55,11.2,{right:true,col:C('5a6657')});
+    vwCottageWindow006(S,KR,7.1,4.2,3.0,7.2,{right:true,lit:k===1});
   }
-  // Back passage runs uninterrupted behind the three gated yards.
+  // Two low-walled yards have separate gates onto the continuous back passage.
+  vwGardenWall006(S,[11.1,3.4],[11.1,21.9],3.6,734,false);
+  vwGardenWall006(S,[.9,3.4],[6.7,3.4],3.4,737,false);
+  vwGate006(S,[6.8,3.4],[10.9,3.4],3.3);
+  vwGardenWall006(S,[11.2,3.4],[23.2,3.4],3.4,738,false);
+  vwGate006(S,[23.3,3.4],[27.1,3.4],3.3);
+  vwGardenWall006(S,[27.2,3.4],[31.0,3.4],3.4,739,false);
+  vwGardenWall006(S,[31.0,3.4],[31.0,29.8],3.6,740,false);
   S.flat(.8,31.2,.8,3.25,.22,(i,j)=>mod(i,2.4)<.15?C('8b8d80'):C('a1a191'),.03,1);
-  const F=S.face([.65,30.0],[31.35,30.0]),R=S.face([31.35,21.9],[31.35,30.0]);
-  vwWorkersFace006(S,F,30.7,741);vwWorkersFace006(S,R,8.1,742,{right:true});
-  vwRoof006(S,.6,31.4,21.5,30.25,37.8,9.7,743,{gable:vwBrick006(true,744)});
-  for(const [k,u]of [0,10.2,20.4].entries())vwWorkerAddress006(S,F,u,{col:[C('5f6b58'),C('546a64'),C('6e695c')][k],upperLit:k!==0});
-  chimney(S,9.4,24.8,46.8,2.1,1.9,2,745);chimney(S,19.6,24.8,46.8,2.1,1.9,2,746);
-  downpipe(S,10.3,30.15,37.4);downpipe(S,30.9,30.15,37.4);
-  // Low privy, coal store and drying line in the exposed right-hand rear yard.
+  const F=S.face([.65,30.0],[21.2,30.0]),R=S.face([21.2,21.9],[21.2,30.0]);
+  vwWorkersFace006(S,F,20.55,741);vwWorkersFace006(S,R,8.1,742,{right:true});
+  vwRoof006(S,.6,21.55,21.5,30.25,37.8,9.7,743,{gable:vwBrick006(true,744)});
+  for(const [k,u]of [0,10.2].entries())vwWorkerAddress006(S,F,u,{col:[C('5f6b58'),C('546a64')][k],upperLit:k!==0});
+  vwCottageWindow006(S,R,2.3,6.0,3.4,9.6,{right:true,lit:false});
+  vwCottageWindow006(S,R,2.3,24.6,3.4,9.8,{right:true,lit:false});
+  chimney(S,9.4,24.8,46.8,2.1,1.9,2,745);chimney(S,18.8,24.8,46.8,2.1,1.9,2,746);
+  downpipe(S,10.3,30.15,37.4);downpipe(S,20.9,30.15,37.4);
+  // The side alley is open from the street gate to the rear passage. The privy,
+  // coal store and clothes line stay against its outside wall, leaving a path.
+  vwGardenWall006(S,[21.7,29.8],[23.3,29.8],3.4,750,false);
+  vwGardenWall006(S,[29.2,29.8],[31.0,29.8],3.4,751,false);
+  vwGate006(S,[23.4,29.8],[29.1,29.8],3.5);
   S.box(27.6,30.2,4.5,7.3,0,8.3,(i,j,z)=>vwBrick006(false,747)(i,z),(i,j,z)=>vwBrick006(true,748)(j,z),P.roofR[0]);
   S.poly([[27.4,4.3,8.2],[30.4,4.3,8.2],[30.4,7.5,9.6],[27.4,7.5,9.6]],tileRoof(false,749,'i'));
   vwPlainDoor006(S,S.face([27.6,7.3],[30.2,7.3]),.5,.2,1.6,6.5,{col:C('665f4e')});
-  vwLaundry006(S,[26.9,9.2],[30.3,15.2],7.1);
+  vwLaundry006(S,[22.5,10.0],[29.3,14.8],7.1);
   S.box(28.1,30.3,17.1,19.2,0,2.5,C('6a6455'),C('4e5147'),C('414841'));
-  vwPot006(S,26.7,19.7,false);
+  vwPot006(S,29.2,22.0,false);
   return S.finish();
 }
 
@@ -3800,41 +3811,40 @@ function workersCourt006(spec) {
   vwPlainDoor006(S,LR,2.0,.4,2.6,14.3,{right:true,col:C('677361'),glazed:true});
   vwCottageWindow006(S,LR,6.3,4.8,3.8,9.0,{right:true});
   vwCottageWindow006(S,LR,5.6,22.0,3.8,7.3,{right:true,lit:false});
-  const F=S.face([.65,30.0],[31.35,30.0]),R=S.face([31.35,22.7],[31.35,30]);
-  // A real rectangular cut-out under a segmental arch opens the covered passage.
-  const openingA=24.0,openingB=28.7;
-  F.panel(0,30.7,0,37.6,(u,z)=>{
-    if(u>openingA&&u<openingB&&z<14.7)return null;
-    return vwBrick006(false,770)(u,z);
-  },0);
-  R.panel(0,7.3,0,37.6,vwBrick006(true,771),0);
-  const CF=S.face([31.35,22.7],[.65,22.7]);
-  CF.panel(0,30.7,0,37.6,(u,z)=>{
-    // The same passage is open at both ends, while the adjacent homes have
-    // independent court doors. These rear openings obey ordinary roof occlusion.
-    if(u>2.0&&u<6.7&&z<14.7)return null;
-    return vwBrick006(true,782)(u,z);
-  },0);
-  for(const u of [8.1,18.7]){
+  // The two-address street range is truly back-to-back, but stops before the
+  // side access. Removing its former right-hand bay reveals the court ground.
+  const F=S.face([.65,30.0],[21.4,30.0]),R=S.face([21.4,22.7],[21.4,30]);
+  vwWorkersFace006(S,F,20.75,770);vwWorkersFace006(S,R,7.3,771,{right:true});
+  const CF=S.face([21.4,22.7],[.65,22.7]);
+  CF.panel(0,20.75,0,37.6,vwBrick006(true,782),0);
+  for(const u of [1.0,11.2]){
     vwPlainDoor006(S,CF,u,.4,2.7,15.3,{right:true,col:C('596855'),glazed:true});
     vwCottageWindow006(S,CF,u+4.4,5.0,3.9,10.1,{right:true,lit:false});
     vwCottageWindow006(S,CF,u+2.4,24.7,4.1,10.0,{right:true,lit:false});
   }
-  S.flat(.65,31.35,22.7,30,37.6,P.brickR[0]);
-  vwRoof006(S,.6,31.4,22.3,30.25,37.8,9.7,772,{gable:vwBrick006(true,773)});
+  S.flat(.65,21.4,22.7,30,37.6,P.brickR[0]);
+  vwRoof006(S,.6,21.75,22.3,30.25,37.8,9.7,772,{gable:vwBrick006(true,773)});
   for(const u of [.2,10.6])vwWorkerAddress006(S,F,u,{upperLit:u<1});
-  vwCottageWindow006(S,F,24.25,25.0,4.5,9.9,{lit:true});
-  // Tunnel walls and a dark soffit, not an opaque door painted over a facade.
-  S.wall([24.65,22.7],[24.65,30],0,14.7,C('6c5548'),0);
-  S.wall([29.35,22.7],[29.35,30],0,14.7,C('8a6852'),0);
-  S.flat(24.65,29.35,22.7,30,14.7,C('493f38'),-.02);
-  F.panel(openingA-.3,openingB+.3,14.7,17.5,(u,z)=>{
-    const x=u-.3,half=(openingB-openingA)/2,top=2.5*Math.sqrt(Math.max(0,1-((x-half)/half)**2));
-    return z<top?C('655044'):C('9e6d54');
-  },.14);
-  F.panel(0,30.7,35.8,36.8,C('98644f'),.1);
+  vwCottageWindow006(S,R,2.0,24.6,3.2,9.9,{right:true,lit:false});
   chimney(S,10.2,25.1,46.7,2.25,1.9,2,774);
   downpipe(S,20.8,30.15,37.4);
+  // A shallow, low arched gatehouse covers the route. Both ends use the same
+  // actual opening; there is no opaque rear wall or painted imitation doorway.
+  const gateFront=S.face([21.6,30.0],[31.0,30.0]);
+  const gateBack=S.face([21.6,27.2],[31.0,27.2]);
+  const archTop=u=>11.8+3.1*Math.sqrt(Math.max(0,1-((u-4.7)/3.25)**2));
+  const archMat=(u,z)=>u>1.45&&u<7.95&&z<archTop(u)?null:vwBrick006(false,783)(u,z);
+  gateFront.panel(0,9.4,0,16.3,archMat,0);
+  gateBack.panel(0,9.4,0,16.3,archMat,0);
+  S.wall([23.05,27.2],[23.05,30],0,11.8,C('735647'),0);
+  S.wall([29.55,27.2],[29.55,30],0,11.8,C('8c6650'),0);
+  S.wall([31.0,27.2],[31.0,30],0,16.3,(i,j,z)=>vwBrick006(true,784)(j,z),0);
+  S.flat(23.05,29.55,27.2,30,15.4,C('55483c'),-.02);
+  vwRoof006(S,21.4,31.25,26.95,30.25,16.5,2.8,785,{gable:vwBrick006(true,786)});
+  for(let k=0;k<12;k++){
+    const x=1.45+(k+.5)*6.5/12,z=archTop(x)+.35;
+    gateFront.panel(x-.22,x+.22,z-.25,z+.5,C('bf946e'),.18);
+  }
   // Small shared brewhouse / washhouse has a chimney, sink and drying yard.
   const W=S.face([25.4,11.0],[31.0,11.0]),WR=S.face([31,3.2],[31,11]);
   W.panel(0,5.6,0,12.0,vwBrick006(false,775),0);WR.panel(0,7.8,0,12.0,vwBrick006(true,776),0);
@@ -3844,7 +3854,7 @@ function workersCourt006(spec) {
   S.box(26.4,28.9,13.0,14.7,0,2.8,C('a7a28b'),C('827f6e'),C('646d65'));
   S.line([29.7,13.7,0],[29.7,13.7,6.0],P.iron,1);
   S.line([29.7,13.7,5.9],[28.9,13.7,5.9],P.ironHi,1);
-  vwLaundry006(S,[17.2,12.3],[24.4,15.1],7.8);
+  vwLaundry006(S,[21.8,14.7],[28.6,18.0],7.8);
   vwGardenWall006(S,[31.1,12.0],[31.1,20.3],3.2,780,false);
   return S.finish();
 }
