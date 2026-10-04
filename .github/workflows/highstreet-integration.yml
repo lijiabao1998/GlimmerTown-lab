@@ -1,0 +1,121 @@
+# GPT-005 isolated branch evidence; no credentials, writes, secrets or deployment.
+name: highstreet-integration
+on:
+  push:
+    branches: ['gpt/british-high-street']
+    paths-ignore: ['**.md', 'docs/**']
+permissions:
+  contents: read
+concurrency:
+  group: highstreet-integration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    if: github.ref == 'refs/heads/gpt/british-high-street'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Source and baseline contract
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin 7da1b6985e6ddab6cdb036c66c165930d71107fb
+          node --check highstreet-integration-qa.js
+          node --check british-high-street-art.js
+          node --check highstreet-gameplay-probe005.js
+          node --check highstreet-selftest005.js
+          mkdir -p highstreet-evidence/preflight/logs
+          git rev-parse HEAD > highstreet-evidence/preflight/checked-sha.txt
+          sha256sum index.html british-high-street-art.js highstreet-integration-qa.js fp.json style.json > highstreet-evidence/preflight/source-sha256.txt
+      - name: Fast gameplay, canonical pixels, real loaded town and catalog
+        run: |
+          set -o pipefail
+          HS005_MODE=preflight node highstreet-integration-qa.js 2>&1 | tee highstreet-evidence/preflight/logs/preflight.txt
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json british-prototypes-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: highstreet-preflight-${{ github.sha }}
+          path: highstreet-evidence/preflight/
+          retention-days: 14
+          if-no-files-found: warn
+  matrix:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera01, camera23, construction]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T717 source
+        run: git fetch --depth=1 origin 7da1b6985e6ddab6cdb036c66c165930d71107fb
+      - name: Exact source evidence shard
+        run: |
+          set -o pipefail
+          mkdir -p highstreet-evidence/${{ matrix.mode }}/logs
+          HS005_MODE=${{ matrix.mode }} node highstreet-integration-qa.js 2>&1 | tee highstreet-evidence/${{ matrix.mode }}/logs/run.txt
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json british-prototypes-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: highstreet-${{ matrix.mode }}-${{ github.sha }}
+          path: highstreet-evidence/${{ matrix.mode }}/
+          retention-days: 14
+          if-no-files-found: warn
+  regression:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T717 source
+        run: git fetch --depth=1 origin 7da1b6985e6ddab6cdb036c66c165930d71107fb
+      - name: Three smoke passes, declared-delta fingerprint and old-city simulation
+        run: |
+          set -uo pipefail
+          mkdir -p highstreet-evidence/regression/logs
+          status=0
+          for n in 1 2 3; do
+            node smoke.js 2>&1 | tee highstreet-evidence/regression/logs/smoke-$n.txt
+            code=${PIPESTATUS[0]}
+            printf '%s\n' "$code" > highstreet-evidence/regression/logs/smoke-$n.exit
+            if [ "$code" -ne 0 ]; then status=1; fi
+          done
+          node fp.js --check --expect=bld 2>&1 | tee highstreet-evidence/regression/logs/fingerprint.txt
+          code=${PIPESTATUS[0]}; if [ "$code" -ne 0 ]; then status=1; fi
+          node highstreet-compatibility-qa.js 2>&1 | tee highstreet-evidence/regression/logs/compatibility.txt
+          code=${PIPESTATUS[0]}; if [ "$code" -ne 0 ]; then status=1; fi
+          exit "$status"
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json british-prototypes-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: highstreet-regression-${{ github.sha }}
+          path: highstreet-evidence/regression/
+          retention-days: 14
+          if-no-files-found: warn
