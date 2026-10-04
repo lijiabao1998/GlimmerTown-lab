@@ -177,7 +177,7 @@ function prepareWorkforceFixture(){
   if(window.__publicLifeQA007!==true||localStorage.getItem('glimmerville.v1.slot')!=='3')throw Error('Disposable workforce fixture guard failed');
   const cohort=Q.utilityFixture.eligibleNeighbors.map(q=>({...q,physicalRoadWitnesses:[...q.physicalRoadWitnesses]}));
   const originalRoots=Q.all().flatMap((t,i)=>t.bld&&!t.bld.ref?[{i,k:t.bld.k,sz:t.bld.sz||1,lv:t.bld.lv,v:t.bld.v,age:t.bld.age}]:[]);
-  const W=Q.workforceFixture={ok:false,maxHomes:30,maxOrdinaryDays:21,maxPreloadDays:19,minHousingDays:9,startDay:GV.stats().day,preloadDays:0,housingDays:0,homes:[],pipes:[],terrain:[],daily:[],cohortRoots:cohort.map(q=>q.i).sort((a,b)=>a-b),originalRoots,placementAudit:[],failures:[],method:'Thirty ordinary pure-residential placements on previously empty eastern utility-grid plots, ordinary nine-day construction and native housing/enterprise/civic simulation only. No age, population, employment, utility, budget or capacity injection. Maximum21 total ordinary fixture days reserves one save/load day and one performance-restoration day.'};
+  const W=Q.workforceFixture={ok:false,maxHomes:30,maxOrdinaryDays:21,maxPreloadDays:19,minHousingDays:9,startDay:GV.stats().day,preloadDays:0,housingDays:0,homes:[],pipes:[],terrain:[],daily:[],maintenance:[],maxMaintenanceActions:32,cohortRoots:cohort.map(q=>q.i).sort((a,b)=>a-b),originalRoots,placementAudit:[],failures:[],method:'Thirty ordinary pure-residential placements on previously empty eastern utility-grid plots, ordinary nine-day construction and native housing/enterprise/civic simulation only. After raw day witnesses, retained-root natural fires use at most32 existing paid $30 inspector actions, not vehicle-arrival evidence. No age, population, employment, utility, budget or capacity injection. Maximum21 total ordinary fixture days reserves one save/load day and one performance-restoration day.'};
   Q.fixtureOrdinaryDays=0;
   Q.workforceRead=()=>{
     // This must be the first observation. GV.tile performs JSON-copy reads only;
@@ -206,6 +206,24 @@ function prepareWorkforceFixture(){
     const nativeDayOK=worldModeOK&&constructionExact&&preservedOK&&neighborsOK&&targetsOK&&(W.housingDays<9||homesReady)&&rawFailures.length===0;
     return{day:GV.stats().day,ordinaryDays:Q.fixtureOrdinaryDays,preloadDays:W.preloadDays,housingDays:W.housingDays,raw,rawFailures,observationChanges,nativeDayOK,worldModeOK,supportPopulation:{raw:homes.reduce((n,q)=>n+q.rawOccupation.population,0),later:homes.reduce((n,q)=>n+q.laterOccupation.population,0),occupiedHomes:homes.filter(q=>q.occupied).length},population:housing.population,housing:housing.housing,truthPopulation:truth.population,labor:truth.labor,stations,targets,targetsOK,homes,constructionExact,homesReady,originalRootsPreserved:preservedOK,originalRootChanges:preserved.filter(q=>!q.after||['k','sz','lv','v','age'].some(k=>q.before[k]!==q.after[k])),originalRootFailures:preserved.filter(q=>!q.ok),neighbors,neighborsOK,ready:W.housingDays>=9&&homesReady&&stations.length===2&&stations.every(q=>q.ok)&&nativeDayOK};
   };
+  Q.maintainOriginalRoots=()=>{
+    // Batch day ticks occur while T411 emergency vehicles are correctly paused.
+    // Use the actual paid player action after the raw day witness, never a QA
+    // clear-fire hook or direct assignment to simulation/utility/staff state.
+    const actions=[];
+    for(const q of originalRoots){
+      const x=q.i%Q.N,y=Math.floor(q.i/Q.N),before=GV.tile(x,y).bld;if(!before?.fire)continue;
+      if(W.maintenance.length>=W.maxMaintenanceActions)throw Error('Ordinary inspector maintenance exceeded its explicit32-action bound');
+      if(GV.diff()!==1||GV.dev516B().sandbox||GV.dev516B().god||before.ref||before.k!==q.k)throw Error('Unsafe original-root maintenance target');
+      const day=GV.stats().day,moneyBefore=GV.devMoney516B();GV.inspectAt(x,y);
+      const button=document.getElementById('fireBtn');if(!button||!button.textContent.includes('30'))throw Error('Existing paid native fire button unavailable');button.click();
+      const after=GV.tile(x,y).bld,moneyAfter=GV.devMoney516B(),a={...before},b={...after};delete a.fire;delete b.fire;
+      const row={i:q.i,x,y,k:q.k,day,before,after,moneyBefore,moneyAfter,charged:moneyBefore-moneyAfter,identityAndUtilitiesExact:JSON.stringify(a)===JSON.stringify(b),source:'Existing native inspectAt + fireBtn.click, ordinary $30 player action after raw day witness; no emergency-arrival claim.'};
+      W.maintenance.push(row);actions.push(row);
+      if(!after||after.fire!==0||row.charged!==30||!row.identityAndUtilitiesExact||GV.stats().day!==day)throw Error('Native paid inspector maintenance failed its exact state/debit contract');
+    }
+    return actions;
+  };
   const step=()=>{const before=GV.stats().day,after=GV.step(1);GV.setSpeed(0);GV.ai(false);W.preloadDays++;Q.fixtureOrdinaryDays++;if(after!==before+1)throw Error('Ordinary workforce day did not advance exactly once');};
   try{
     if(cohort.length!==203)throw Error('The frozen R1 physical-road cohort must contain exactly203 roots');
@@ -213,6 +231,7 @@ function prepareWorkforceFixture(){
     step();const initial=Q.workforceRead();W.daily.push({phase:'initial-before-support-homes',...initial});
     if(!initial.nativeDayOK)throw Error('Initial raw ordinary-day root, neighbor or target utility witness failed before support homes');
     W.initialEmergency={stations:initial.stations,negativeObserved:initial.stations.every(q=>!q.authority?.emergencyReady),source:'Actual native staffing after an ordinary day; not a forced failure state.'};
+    initial.maintenance=Q.maintainOriginalRoots();
     const place=(tool,x,y)=>{const difficulty=GV.diff(),developer=GV.dev516B(),moneyBefore=GV.devMoney516B(),roundedMoneyBefore=GV.stats().money,preview=GV.placePreview459(tool,x,y);if(difficulty!==1||developer.sandbox||developer.god||!preview?.ok||!(preview.cost>0))throw Error('Paid normal-mode workforce preview required '+tool+' '+x+','+y+': '+JSON.stringify({difficulty,developer,preview}));if(!GV.place(tool,x,y))throw Error('Normal workforce placement failed '+tool+' '+x+','+y);const moneyAfter=GV.devMoney516B(),charged=moneyBefore-moneyAfter,row={tool,x,y,difficulty,developer,cost:preview.cost,moneyBefore,moneyAfter,roundedMoneyBefore,roundedMoneyAfter:GV.stats().money,charged,paidExactly:Math.abs(charged-preview.cost)<1e-7};if(!row.paidExactly)throw Error('Normal workforce charge mismatch '+JSON.stringify(row));return row;};
     // The eastern grid was laid over unmodified generated terrain: an existing
     // road may still cross water. Reclaim only the selected empty support cells
@@ -248,6 +267,7 @@ function advanceWorkforceFixture(){
   const before=GV.stats().day,after=GV.step(1);GV.setSpeed(0);GV.ai(false);W.preloadDays++;W.housingDays++;Q.fixtureOrdinaryDays++;
   const row={phase:'ordinary-housing-construction-and-occupancy',...Q.workforceRead()};
   row.exactDay=after===before+1;row.ok=row.exactDay&&row.nativeDayOK;
+  if(row.ok)row.maintenance=Q.maintainOriginalRoots();
   W.daily.push(row);if(!row.ok)W.failures.push('Native day '+after+' violated the fixed construction/root/neighbor contract');
   return row;
 }
