@@ -1,6 +1,6 @@
 # GPT-004 — Three British buildings: playable integration
 
-Status: acceptance recorded before implementation. Awaiting implementation and evidence.
+Status: implemented on the review branch; R1 and R2 evidence recorded below. Final corrected evidence and owner image approval remain pending.
 Base: latest origin/main `8b8ff01c1f157acf8baed0e1d4e305dabef049be` (v14.20 / T716), verified 2026-10-04.
 Branch: `gpt/british-building-integration`.
 Scope: integrate exactly the three owner-selected GPT-003 designs, retaining their approved architecture.
@@ -63,3 +63,19 @@ Protected files/fields: GAME_VER, GAME_ANCHOR, start-version text, AUTORUN-LOG.m
 - The final whole-object fingerprint changed because T700 lazily creates its pre-existing worker12 sprite. R2 writes all final leaf diagnostics, requires every boot-time pixel/family unchanged, permits only that named worker atlas, and compares its complete pixels to an independently evaluated, source-pinned legacy generator. Final British pixels are compared to the approved source again.
 - R1 smoke ×3 passed; full fp.js --check --expect=bld passed; both old-city simulations matched pinned main at every checkpoint. These checks must pass again on R2's exact commit.
 - Independent visual inspection found no further geometry/alignment defect. Generic snow is lighter/thinner than some neighboring broad roof caps; construction uses the existing staged frame before the authored roof finish. No bespoke snow or four rear elevations are claimed.
+
+## R2 final diagnosis and R3 verification corrections
+
+- Exact R2 candidate `8c745523d5708365e6d6c49db21c816768a59b56`: https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37178585832 . The capture session completed in 865.4 seconds with zero browser errors. Both ordinary push and PR smoke jobs passed.
+- The real power fix passes all twelve new-building perimeter cases, including all four formerly failing pub edges. Measured physical dispatch = served demand = sum of used allocations: terrace4.875, pub3.4530000000000003, library4.341. Every edge has zero noGrid/noCapacity and working power/water. The unchanged old-only control still has state2, served1.611 and noCapacity1.842.
+- R2 ran484 gameplay assertions;459 passed and25 new diagnostic assertions failed. These25 checked `powerDistricts450.capacity` after the legacy post-tick refresh rewrote it to nominal transformer capacity75. That field is not the retained delivered energy. R3 retains both post-tick authoritative service/served evidence and an immediate actual redispatch snapshot; scarcity checks use an upper bound because indivisible loads can leave dispatch unused.
+- R2's stronger real save/load screenshot fixture exposed a second test-fixture flaw: the old art574 planting helper sets pw:true without installing utility topology. Normal load correctly recalculated those buildings as unpowered. Night-light checks correctly failed instead of accepting unlit shots. The correction must supply a real saved utility network and assert its authority after load; it must not simply force powered flags.
+- Canonical/final pixel guards passed on R2: every boot-time day/night leaf and existing family remained exact. The only late addition was the original worker12 atlas, with complete RGBA equality against its source-pinned legacy generator. All three new buildings retained exact approved day/night pixels.
+- R3 adds an early strict loaded-network/night/construction preflight before the long image matrix, so an unresolved fixture error fails with diagnostics before generating the whole gallery. No assertion is waived solely to make the run green.
+- Still pending: corrected screenshot fixture, the precise nighttime construction completion comparison, final complete CI on one exact candidate, image inspection, and owner approval. No merge or deployment has occurred.
+
+- R2 subsequently completed all remaining regression stages successfully: smoke×3, `fp.js --check --expect=bld`, both old-city comparisons at every checkpoint, and protected-source checks. Overall run remains failed because the integration assertions above failed; no pass is inferred from the independent green stages.
+- The nighttime P8.999→P9 hypothesis was incomplete. Independent pixel/source review found the legacy T149 `brightness(0)` flattened ground-shadow pass also activates only on the completed sprite, whereas T700 construction bypasses that extra pass. R3 retains raw normal captures and proves exact convergence with a narrowly scoped diagnostic excluding only that target shadow draw, in addition to the completed-light comparison. No global rendering change is requested by this finding.
+
+- R3's staged utility fixture was independently source-reviewed: all roads, generation, pipes and towers use normal preview/place APIs; no capacity or root pw/wa flags are injected by the service setup. Exact post-tick flags are frozen before diagnostic reads and exactly one day must elapse. Existing root/age/footprint parity is checked immediately after normal load, before that natural simulation day. The source remains a labeled visual test city, not certification that its whole economy is solved.
+- R3 also preserves original one-road tick assertions, adds a genuine38-pub supply-shortage fixture and a separately supplied gameplay save/load round-trip. No production dispatch or artwork changes were made after R2; this revision corrects/strengthens the test probes. Final runtime outcome remains pending.

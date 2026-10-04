@@ -81501,6 +81501,9 @@ function britishGameplayProbe004(groupFilter){
   const place=(id,x,y)=>{const err=canPlace(id,x,y);require(err===null,id+' ('+x+','+y+') rejected: '+err);require(doPlace(id,x,y,true),id+' doPlace returned false');return at(x,y).bld;};
   const noRng=(name,fn,allowAmbient=false)=>{let seeded=0,ambient=0;const sr=R,mr=Math.random;R=function(){seeded++;return sr();};Math.random=function(){ambient++;return mr();};try{fn();}finally{R=sr;Math.random=mr;add(name+(allowAmbient?' consumes zero simulation RNG':' consumes zero RNG'),seeded===0&&(allowAmbient||ambient===0),{seeded,ambient,ambientPurpose:allowAmbient?'existing spawnDust particles':null});}};
   const refresh=()=>{buildTickIndex();prepareNightInputs487();computePower();preparePowerDispatch471();computeWater();ensureWaterCycle472(true);};
+  // T450 computePower() can later refresh capacity to nominal nameplate. Observe
+  // the actual physical allocation immediately, before status/UI calls or water refreshes.
+  const capturePhysical004=()=>{preparePowerDispatch471();return JSON.parse(JSON.stringify({snapshot:power471,allocation:{...powerAlloc450},districts:powerDistricts450.map(d=>({id:d.id,capacity:d.capacity,used:d.used,spare:d.spare,rawCapacity:d.rawCapacity})),rootStates:power471.loads.filter(l=>l.root>=0).map(l=>({root:l.root,k:l.k,state:POWER_ROOT_OK471[l.root],powered:tiles[l.root].bld.pw})),sumEveningLoads:power471.loads.reduce((a,l)=>a+l.demand.evening,0)}));};
   const inspectFootprint=(q,x,y,label)=>{for(const i of cells(x,y,q.sz)){inspect(i%N,(i/N)|0);add(label+' inspector '+i,$('#infoBody').textContent.includes(q.nm)&&selTile?.x===x&&selTile?.y===y,{title:$('#infoBody').textContent.slice(0,100),selection:selTile});}hideInfo();};
   const readSave=()=>saveInflate(JSON.parse(localStorage.getItem(slotKey(3))));
   const save3=()=>{require(curSlot()===3,'unsafe slot during save');save();const d=readSave();require(d&&d.v===1,'slot3 save missing/invalid');return d;};
@@ -81577,8 +81580,8 @@ function britishGameplayProbe004(groupFilter){
       // Existing level-2 RCI building is a fixture input, as in old-ID save parity.
       // All source, carrier, dispatch, allocation and water APIs are the real systems.
       place('zc',x,y);at(x,y).bld={k:2,lv:2,v:0,age:30,pw:true,h:1};tick();
-      const p=power471.pools[0],d=powerDistricts450[0],load=power471.loads.find(l=>l.root===root),total=power471.loads.reduce((a,l)=>a+l.demand.evening,0);
-      add('old-only k2 lv2 retains unchanged baseline rounding path',at(x,y).bld.k===2&&at(x,y).bld.lv===2&&Math.abs(load.demand.evening-1.842)<1e-9&&Math.abs(total-3.453)<1e-9&&p.evening.dispatched===3.45&&d.capacity===3.45&&POWER_ROOT_OK471[root]===2&&!Object.prototype.hasOwnProperty.call(p.evening,'physicalDispatched004'),{note:'Existing pre-integration 0.003 rounding shortfall intentionally left unchanged for old-only districts',load,total,period:p.evening,district:{capacity:d.capacity,used:d.used,spare:d.spare},state:POWER_ROOT_OK471[root],allocation:{...powerAlloc450}});
+      const phase004=capturePhysical004(),p=phase004.snapshot.pools[0],d=phase004.districts[0],load=phase004.snapshot.loads.find(l=>l.root===root),total=phase004.sumEveningLoads;
+      add('old-only k2 lv2 retains unchanged baseline rounding path',at(x,y).bld.k===2&&at(x,y).bld.lv===2&&Math.abs(load.demand.evening-1.842)<1e-9&&Math.abs(total-3.453)<1e-9&&p.evening.dispatched===3.45&&d.capacity===3.45&&POWER_ROOT_OK471[root]===2&&!Object.prototype.hasOwnProperty.call(p.evening,'physicalDispatched004'),{note:'Existing pre-integration 0.003 rounding shortfall intentionally left unchanged for old-only districts; capacities captured immediately after real dispatch',load,total,period:p.evening,district:d,state:POWER_ROOT_OK471[root],allocation:phase004.allocation});
     });
     group('all perimeter edge utility connectivity',()=>{
       for(const q of specs)for(const side of ['north','east','south','west']){
@@ -81586,16 +81589,23 @@ function britishGameplayProbe004(groupFilter){
         const e=side==='north'?[x+n-1,y-1,0,-1,1,0]:side==='east'?[x+n,y+n-1,1,0,0,1]:side==='south'?[x+n-1,y+n,0,1,1,0]:[x-1,y+n-1,-1,0,0,1];
         const [ex,ey,nx,ny,tx,ty]=e;
         place('road',ex,ey);place('wpipe',ex,ey);place('plant',ex+nx,ey+ny);place('water',ex+tx,ey+ty);const b=place(q.id,x,y);b.age=30;
-        tick();const root=idx(x,y),edge=idx(ex,ey),w=waterRootStatus472(root),pc=powerCandidateDistricts450(x,y,2),wc=facilityComps472(root,WATER_NET_COMP472,t=>!!(t.wp||t.wm472));
-        const powerEvidence004=JSON.parse(JSON.stringify({snapshot:power471,allocation:powerAlloc450,status:powerStatusAt450(x,y,2),districts:powerDistricts450.map(d=>({id:d.id,capacity:d.capacity,used:d.used,spare:d.spare,rawCapacity:d.rawCapacity})),rootLoad:powerLoadWeight471(b,'evening'),sumEveningLoads:power471.loads.reduce((a,l)=>a+l.demand.evening,0)}));
+        tick();const root=idx(x,y),edge=idx(ex,ey),postTick004={powered:b.pw,watered:b.wa,state:POWER_ROOT_OK471[root],served:powerAlloc450.served,noCapacity:powerAlloc450.noCapacity,noGrid:powerAlloc450.noGrid,observedTopology:powerDistricts450.map(d=>({id:d.id,capacity:d.capacity,used:d.used,spare:d.spare}))};
+        const powerEvidence004=capturePhysical004();powerEvidence004.postTick=postTick004;
+        const w=waterRootStatus472(root),pc=powerCandidateDistricts450(x,y,2),wc=facilityComps472(root,WATER_NET_COMP472,t=>!!(t.wp||t.wm472));
         add(q.id+' '+side+' edge is real road entrance',britishRoad004(root)&&sanRoadSeeds445(root).length===1&&sanRoadSeeds445(root)[0]===edge&&nearRoad(x,y)?.join(',')===[ex,ey].join(','),{frontage:sanRoadSeeds445(root),edge,entrance:nearRoad(x,y)});
-        const pool004=power471.pools.find(p=>p.districts.includes(POWER_DIST450[edge])),physical004=pool004?.evening?.physicalDispatched004,district004=powerDistricts450[POWER_DIST450[edge]];
-        const allocated004=pool004?.districts.reduce((a,d)=>a+powerDistricts450[d].capacity,0),roundoff004=Number.EPSILON*Math.max(1,Math.abs(physical004||0))*Math.max(16,power471.loads.length*4);
+        const pool004=powerEvidence004.snapshot.pools.find(p=>p.districts.includes(POWER_DIST450[edge])),physical004=pool004?.evening?.physicalDispatched004,district004=powerEvidence004.districts.find(d=>d.id===POWER_DIST450[edge]);
+        const allocated004=pool004?.districts.reduce((a,d)=>a+powerEvidence004.districts.find(q=>q.id===d).capacity,0),used004=pool004?.districts.reduce((a,d)=>a+powerEvidence004.districts.find(q=>q.id===d).used,0),roundoff004=Number.EPSILON*Math.max(1,Math.abs(physical004||0))*Math.max(16,powerEvidence004.snapshot.loads.length*4);
+        add(q.id+' '+side+' real tick served demand conserves physical dispatch',postTick004.noGrid===0&&postTick004.noCapacity===0&&Math.abs(postTick004.served-physical004)<=roundoff004&&Math.abs(used004-powerEvidence004.allocation.served)<=roundoff004,{postTick:postTick004,physical:physical004,used:used004,physicalAllocation:powerEvidence004.allocation});
         add(q.id+' '+side+' affected pool conserves physical dispatched capacity',Number.isFinite(physical004)&&physical004>0&&allocated004<=physical004+roundoff004&&Math.abs(allocated004-physical004)<=roundoff004,{physical:physical004,allocated:allocated004,difference:allocated004-physical004,machineRoundoffBound:roundoff004,districts:pool004?.districts});
         add(q.id+' '+side+' real physical dispatch covers one-frontage fixture',Number.isFinite(physical004)&&physical004>0&&Math.abs(district004.capacity-physical004)<=roundoff004&&power471.available>powerEvidence004.sumEveningLoads,{physical:physical004,districtCapacity:district004?.capacity,available:power471.available,loads:powerEvidence004.sumEveningLoads});
-        add(q.id+' '+side+' edge feeds authoritative power',b.pw&&POWER_ROOT_OK471[root]===1&&pc.includes(POWER_DIST450[edge]),{powered:b.pw,state:POWER_ROOT_OK471[root],candidates:pc,edgeDistrict:POWER_DIST450[edge],power:powerEvidence004});
-        add(q.id+' '+side+' edge feeds authoritative water',b.wa&&w.code>=2&&w.delivered>0&&wc.includes(WATER_NET_COMP472[edge]),{water:w,buildingWater:b.wa,buildingPower:b.pw,powerState:POWER_ROOT_OK471[root],components:wc,edgeComponent:WATER_NET_COMP472[edge]});
+        add(q.id+' '+side+' edge feeds authoritative power',postTick004.powered&&postTick004.state===1&&b.pw&&POWER_ROOT_OK471[root]===1&&pc.includes(POWER_DIST450[edge]),{powered:b.pw,state:POWER_ROOT_OK471[root],candidates:pc,edgeDistrict:POWER_DIST450[edge],power:powerEvidence004});
+        add(q.id+' '+side+' edge feeds authoritative water',postTick004.watered&&b.wa&&w.code>=2&&w.delivered>0&&wc.includes(WATER_NET_COMP472[edge]),{water:w,buildingWater:b.wa,buildingPower:b.pw,powerState:POWER_ROOT_OK471[root],components:wc,edgeComponent:WATER_NET_COMP472[edge]});
       }
+      // Genuine bounded shortage on a shared real grid, inside this already-run group.
+      fresh();for(let x=5;x<=64;x++){place('road',x,25);place('wpipe',x,25);}place('plant',5,24);place('water',8,24);
+      const shortageRoots004=[];for(const y of [23,26])for(let x=6;x<=60;x+=3){const b=place('foxFinchPub',x,y);b.age=30;shortageRoots004.push(idx(x,y));}
+      tick();const shortage004=capturePhysical004(),sp004=shortage004.snapshot.pools[0],raw004=sp004.evening.physicalDispatched004,cap004=shortage004.districts.reduce((a,d)=>a+d.capacity,0),usedS004=shortage004.districts.reduce((a,d)=>a+d.used,0),tol004=Number.EPSILON*Math.max(1,Math.abs(raw004))*Math.max(16,shortage004.snapshot.loads.length*4),off004=shortage004.rootStates.filter(s=>s.k===220&&s.state===2).length,on004=shortage004.rootStates.filter(s=>s.k===220&&s.state===1).length;
+      add('real shortage limits allocation to physically dispatched supply',shortage004.snapshot.pools.length===1&&raw004>0&&raw004<sp004.demand.evening&&off004>0&&on004>0&&on004+off004===shortageRoots004.length&&shortage004.allocation.noGrid===0&&shortage004.allocation.noCapacity>0&&cap004<=raw004+tol004&&Math.abs(cap004-raw004)<=tol004&&usedS004<=raw004+tol004&&Math.abs(usedS004-shortage004.allocation.served)<=tol004&&Math.abs(shortage004.allocation.served+shortage004.allocation.noCapacity-shortage004.sumEveningLoads)<=tol004,{fixturePubs:shortageRoots004.length,on:on004,off:off004,raw:raw004,capacity:cap004,used:usedS004,roundoff:tol004,evidence:shortage004});
     });
     group('library capacity budget coverage symmetry and water loss',()=>{
       fresh();const rows=utilityFixture();for(const r of rows)at(r.x,r.y).bld.age=30;tick();tick();
@@ -81610,6 +81620,14 @@ function britishGameplayProbe004(groupFilter){
       add('library water loss removes seats jobs and coverage',dry.pw&&!dry.wa&&publicJobCapacity491(dry)===16&&(staff?.activePositions||0)===0&&civic495.education.effectiveSeats===0&&COV.grandlib[lr]===0,{power:dry.pw,water:dry.wa,nominal:publicJobCapacity491(dry),staff,education:civic495.education,coverage:COV.grandlib[lr]});
     });
     group('save load age references old ID compatibility and normalization',()=>{
+      // Real supported city round-trip. Utility booleans are runtime state, so
+      // recovery is asserted after the first ordinary day, not by forcing flags.
+      fresh();const supplied004=utilityFixture();for(const r of supplied004)at(r.x,r.y).bld.age=30;tick();tick();
+      const suppliedBefore004=supplied004.map(r=>({k:r.q.k,age:at(r.x,r.y).bld.age,power:at(r.x,r.y).bld.pw,water:at(r.x,r.y).bld.wa}));
+      save3();require(load(3),'supported-city load failed');
+      const immediate004=supplied004.map(r=>({k:r.q.k,age:at(r.x,r.y).bld.age,power:at(r.x,r.y).bld.pw,water:at(r.x,r.y).bld.wa,footprint:footprint(r.q,r.x,r.y)}));
+      tick();const restored004=supplied004.map(r=>{const root=idx(r.x,r.y),b=tiles[root].bld;return{k:b.k,age:b.age,power:b.pw,water:b.wa,authority:POWER_ROOT_OK471[root],supply:waterRootStatus472(root),operational:britishOperational004(root,b),footprint:footprint(r.q,r.x,r.y)};});
+      add('supported save/load restores real utilities on first ordinary day',suppliedBefore004.every(q=>q.power&&q.water)&&immediate004.every((q,i)=>q.footprint&&q.age===suppliedBefore004[i].age)&&restored004.every((q,i)=>q.footprint&&q.power&&q.water&&q.authority===1&&q.supply.code>=2&&q.operational&&q.age===suppliedBefore004[i].age+1),{before:suppliedBefore004,immediate:immediate004,afterFirstDay:restored004});
       fresh();const positions=specs.map((q,n)=>({q,x:8+n*7,y:8}));for(const r of positions)place(r.q.id,r.x,r.y);
       // Every previous British numeric ID is represented by a valid fixed-size fixture root.
       const oldIds=[1,2,3,127,...Array.from({length:40},(_,n)=>179+n)];

@@ -48,6 +48,9 @@ const report = {createdAt:new Date().toISOString(),checkedSHA,workflowSHA:proces
     'Pixel masks and deterministic comparisons establish technical invariants; owner-facing visual quality still requires viewing the PNG evidence.',
     'Rain/snow use normal material layers with deterministic fixture weather accumulation. Device performance, touch UX and mobile hardware are not certified.'
   ]};
+function completionNightOK(r){
+  const n=r.nightCompletion;return !!n?.powerBefore&&n.beforeCompletionPowerDelta===0&&n.beforeCompletionPowerWholeDelta===0&&n.completedPowerDelta>0&&n.legacyShadowDelta>0&&n.exactGeometryWholeDelta===0&&n.exactGeometryRGBEqual&&n.diagnosticBeforeMatchesRaw&&n.shadowInterceptions.before.length===0&&n.shadowInterceptions.completed.length===1;
+}
 function save(){fs.writeFileSync(path.join(OUT,'manifest.json'),JSON.stringify(report,null,2));}
 const processStarted=Date.now();
 function progress(phase,detail={}){
@@ -81,17 +84,17 @@ function compareSessionFingerprint(before,after,worker){
   }
   for(const [key,value]of Object.entries(before.subs||{}))if(!after.subs?.[key])removed.push({key,before:value});
   const changedExistingFamilies=Object.keys(before.families||{}).filter(k=>JSON.stringify(before.families[k])!==JSON.stringify(after.families?.[k]));
-  const expectedAdded=before.subs?.worker12?[]:['worker12'];
+  const expectedAdded=!before.subs?.worker12&&after.subs?.worker12?['worker12']:[];
   const out={added,removed,changed,changedExistingFamilies,pairedExistingLeaves:Object.keys(before.subs||{}).length,
     expectedAdded,legacyWorker:worker,beforeStats:before.stats,afterStats:after.stats,
     contract:'Every boot-time day/night leaf and existing family must remain exact. Only the existing lazily generated T700 worker12 atlas may appear; its source is pinned and its full RGBA bytes independently compared.'};
   check('every boot-time existing and British day/night leaf remains exact',before.ok&&after.ok&&removed.length===0&&changed.length===0&&changedExistingFamilies.length===0,out);
-  check('only source-verified existing lazy construction worker atlas may be added',JSON.stringify(added.map(q=>q.key).sort())===JSON.stringify(expectedAdded)&&worker?.sourcePinned&&worker?.exact&&worker?.deterministic&&worker?.mathRandomCalls===0,out);
+  check('only source-verified existing lazy construction worker atlas may be added',JSON.stringify(added.map(q=>q.key).sort())===JSON.stringify(expectedAdded)&&worker?.sourcePinned&&(!after.subs?.worker12||worker?.exact&&worker?.deterministic&&worker?.mathRandomCalls===0),out);
   return out;
 }
 // All following functions are serialized and run inside the remote browser only.
 function prepareFixture(targets,benchmarks){
-  const seeded=GV.metroArtSeedWorld516(5162026);GV.setSpeed(0);GV.ai(false);GV.setDay(1);GV.weather(0);GV.setRot(0);GV.nightPowerTest698(1);
+  const seeded=GV.metroArtSeedWorld516(5162026);GV.setSpeed(0);GV.ai(false);GV.setDay(1);GV.weather(0);GV.setRot(0);GV.nightPowerTest698(null);
   const all=()=>{const a=[];for(let y=0;y<seeded.N;y++)for(let x=0;x<seeded.N;x++)a.push(GV.tile(x,y));return a;};
   const before=all(),patches=[];
   for(const q of [...targets,...benchmarks]){const p={x:q.x-1,y:q.y-1,w:q.sz+2,h:q.sz+2};patches.push(p);GV.art574.clear574(p.x,p.y,p.w,p.h);}
@@ -109,6 +112,69 @@ function prepareFixture(targets,benchmarks){
   GV.selectTool434('pan');
   return {seeded,planted,patches,unchangedExistingRoots:unchangedRoots,changedFixtureTiles:changedTiles,storageKeys:Object.keys(storage()),
     targets:targets.map(t=>({...t,root:GV.tile(t.x,t.y).bld,refs:Array.from({length:t.sz*t.sz},(_,i)=>GV.tile(t.x+i%t.sz,t.y+Math.floor(i/t.sz)).bld)}))};
+}
+function buildFixtureUtilities(){
+  const Q=window.__british004QA;
+  if(window.__britishQA004!==true||localStorage.getItem('glimmerville.v1.slot')!=='3')throw Error('Disposable utility fixture guard failed');
+  const placed=[],skipped=[],place=(tool,x,y)=>{
+    const preview=GV.placePreview459(tool,x,y);
+    if(!preview?.ok||!GV.place(tool,x,y))throw Error('Real fixture placement failed '+tool+' '+x+','+y+': '+JSON.stringify(preview));
+    placed.push({tool,x,y,cost:preview.cost});
+  };
+  const land=(x,y)=>{const t=GV.tile(x,y);if(t.t===0)place('tland',x,y);return GV.tile(x,y).t!==3;};
+  const road=(x,y)=>{const t=GV.tile(x,y);if(!t.road)place('road',x,y);};
+  const pipe=(x,y)=>{if(!land(x,y))throw Error('Unexpected mountain under utility pipe '+x+','+y);if(!GV.tile(x,y).wp)place('wpipe',x,y);};
+  GV.innovationSetQA507({money:99999999,rank:25,tech:false});
+  // Outside the original 49x47 showcase patch; no old building is removed.
+  // Connect each candidate plot to existing y13 road before adding a real source.
+  for(let x=48;x<=69;x++)road(x,13);
+  for(let y=1;y<=37;y++)for(const x of[49,53,57,61,65,69])road(x,y);
+  for(let y=1;y<=37;y+=4)for(let x=49;x<=69;x++)road(x,y);
+  let power=null,sources=0;
+  outer:for(let y=2;y<=34;y+=4)for(const x of[50,54,58,62,66]){
+    const cells=[];for(let dy=0;dy<3;dy++)for(let dx=0;dx<3;dx++)cells.push([x+dx,y+dy]);
+    if(cells.some(([xx,yy])=>{const t=GV.tile(xx,yy);return t.t===3||t.bld||t.road||t.rail||t.tram;})){skipped.push({x,y,reason:'existing terrain or occupied plot'});continue;}
+    for(const [xx,yy]of cells)land(xx,yy);
+    place('nuclear',x,y);sources++;power=GV.t471();
+    if(power.available>=Math.max(600,power.demand*1.6)&&Q.targets.every(t=>GV.tile(t.x,t.y).bld?.pw))break outer;
+    if(sources>=25)break outer;
+  }
+  if(!sources)throw Error('No real generation plot could be placed in bounded eastern utility strip');
+  // Ten ordinary towers feed a pipe-only local service corridor. Existing road
+  // and building identities remain intact; capacity is never injected.
+  for(let x=8;x<=49;x++)pipe(x,13);
+  for(let y=1;y<=37;y++)pipe(49,y);
+  for(let y=13;y<=25;y++)pipe(12,y);
+  for(const y of[19,25])for(let x=6;x<=19;x++)pipe(x,y);
+  const towers=[];for(const y of[2,4,8,10,14,16,20,22,26,28]){
+    const x=48;if(!land(x,y)||GV.tile(x,y).bld){skipped.push({x,y,reason:'water tower terrain unavailable'});continue;}
+    place('water',x,y);towers.push({x,y});
+  }
+  GV.recomputePower450();power=GV.t471();GV.recomputeWater449();const water=GV.t472();GV.testRebake592();
+  const result={bounds:{x0:48,y0:1,x1:70,y1:38},sources,towers,placed,skipped,power,water,
+    method:'Existing normal GV.placePreview459 + GV.place for roads, terrain fill, nuclear sources, water towers and pipes. No root utility flags, source capacities or dispatch results are assigned. Remote sources support the road-connected showcase; water service proof is local to the pipe corridor, not whole-city certification.'};
+  Q.utilityFixture={sources,towers,placed:placed.length};return result;
+}
+function loadedUtilityPreflight(){
+  const Q=window.__british004QA;
+  if(!Q.savedTown?.loaded)throw Error('Actual loaded-town proof missing');
+  const rootRows=()=>Q.all().flatMap((t,i)=>t.bld&&!t.bld.ref?[{i,k:t.bld.k,lv:t.bld.lv,v:t.bld.v,age:t.bld.age,pw:!!t.bld.pw,wa:!!t.bld.wa}]:[]);
+  const beforeRoots=rootRows(),beforeDay=GV.stats().day,afterDay=GV.step(1);GV.setSpeed(0);GV.ai(false);
+  // A real first simulation day updates building wa via the production tick.
+  // Snapshot reads expose the actual dispatch and water-cycle authority.
+  const afterRoots=rootRows(),bm=new Map(beforeRoots.map(b=>[b.i,b])),am=new Map(afterRoots.map(b=>[b.i,b]));
+  const simulationChanges={beforeRoots:beforeRoots.length,afterRoots:afterRoots.length,removed:beforeRoots.filter(b=>!am.has(b.i)),added:afterRoots.filter(b=>!bm.has(b.i)),changed:afterRoots.filter(b=>bm.has(b.i)&&JSON.stringify(bm.get(b.i))!==JSON.stringify(b)).map(b=>({before:bm.get(b.i),after:b}))};
+  const power=GV.t471(),water=GV.t472(),targets=Q.targets.map(t=>{
+    const b=GV.tile(t.x,t.y).bld,p=GV.powerAt471(t.x,t.y),w=GV.waterAt472(t.x,t.y),pool=power.pools.find(q=>q.id===p?.load?.pool);
+    const firstDayRoot=am.get(t.y*Q.N+t.x);
+    return{id:t.id,k:t.k,firstDayRoot,root:b,power:p,water:w,pool,
+      ok:!!firstDayRoot?.pw&&!!firstDayRoot?.wa&&!!b?.pw&&!!b?.wa&&p?.load?.root===t.y*Q.N+t.x&&p.load.pool>=0&&!!pool&&pool.evening.available>=pool.evening.demand&&w?.water?.code===4&&w.water.delivered>0};
+  });
+  const neighbors=[];for(let y=9;y<=29;y++)for(let x=3;x<=22;x++){const b=GV.tile(x,y).bld;if(b&&!b.ref&&b.k<=3)neighbors.push({x,y,k:b.k,pw:!!b.pw,wa:!!b.wa});}
+  Q.savedTown.postLoadSimulationDays=1;Q.savedTown.utilityProven=targets.every(t=>t.ok);Q.savedTown.utilitySourceCount=Q.utilityFixture?.sources;
+  return{ok:afterDay===beforeDay+1&&targets.every(t=>t.ok)&&neighbors.length>30&&neighbors.every(b=>b.pw),beforeDay,afterDay,targets,simulationChanges,
+    localNeighbors:neighbors,localPowered:neighbors.filter(b=>b.pw).length,power,water,
+    claims:'Three loaded buildings have real stable water and served power; the inspected neighboring RCI roots have served power. The large city remains a visual fixture, not a whole-city economy or utility certification.'};
 }
 function buildParity(archivedSource){
   const Q=window.__british004QA,api=window.BritishArchitecture004;
@@ -158,7 +224,7 @@ function saveLoadFixture(){
   const before=roots(),saved=GV.save(),raw=localStorage.getItem('glimmerville.v1.s3'),data=raw&&JSON.parse(raw);
   if(!saved||!data||data.v!==1||!Array.isArray(data.bl))throw Error('Normal GV.save did not produce a valid slot-3 save');
   const loaded=GV.load();if(!loaded)throw Error('Normal GV.load rejected its fixture save');
-  GV.setSpeed(0);GV.ai(false);GV.nightPowerTest698(1);GV.selectTool434('pan');GV.testRebake592();Q.live.clear();
+  GV.setSpeed(0);GV.ai(false);GV.nightPowerTest698(null);GV.selectTool434('pan');GV.testRebake592();Q.live.clear();
   const after=roots(),targetResults=Q.targets.map(t=>{
     const root=GV.tile(t.x,t.y).bld,refs=Array.from({length:t.sz*t.sz},(_,i)=>GV.tile(t.x+i%t.sz,t.y+Math.floor(i/t.sz)).bld);
     const record=data.bl.find(b=>b[0]===t.y*Q.N+t.x);
@@ -189,12 +255,12 @@ function scene(arg){
     let corner=null,dep=-Infinity;for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++){const p=GV.w2v(q.x+dx,q.y+dy),d=p[0]+p[1];if(d>=dep){dep=d;corner=p;}}
     const ex=Math.round(c.width/2-camera.x*arg.z)+(corner[0]-corner[1])*32*arg.z-a.s.ax*arg.z;
     const ey=Math.round(c.height/2-camera.y*arg.z)+(corner[0]+corner[1])*16*arg.z+(32-a.s.ay)*arg.z;
-    return{id:q.id,k:q.k,bx:a.bx,by:a.by,z:a.z,width:a.s.w*a.z,height:a.s.h*a.z,depth:a.o.dep,canonicalIdentity:a.s===Q.canonical.get(q.id),
+    return{id:q.id,k:q.k,powered:!!a.bd.pw,watered:!!a.bd.wa,bx:a.bx,by:a.by,z:a.z,width:a.s.w*a.z,height:a.s.h*a.z,depth:a.o.dep,canonicalIdentity:a.s===Q.canonical.get(q.id),
       anchorError:[a.bx-ex,a.by-ey],expected:[ex,ey],withinCanvas:a.bx>=0&&a.by>=0&&a.bx+a.s.w*a.z<=c.width&&a.by+a.s.h*a.z<=c.height};});
   const h=t&&hits.find(h=>h.id===t.id);if(t&&(!h||h.missing||!h.canonicalIdentity))throw Error('Normal sprite did not enter draw: '+t.id);
   const rect=h?{x:Math.max(0,Math.floor(h.bx-110)),y:Math.max(0,Math.floor(h.by-40)),w:0,h:0}:{x:0,y:0,w:c.width,h:c.height};
   if(h){rect.w=Math.min(c.width-rect.x,Math.ceil(h.width+220));rect.h=Math.min(c.height-rect.y,Math.ceil(h.height+145));}
-  Q.lastRect=rect;Q.lastTargetRect=h?{x:Math.max(0,Math.floor(h.bx)),y:Math.max(0,Math.floor(h.by)),w:Math.ceil(h.width),h:Math.ceil(h.height)}:rect;Q.lastFull=c.toDataURL();const crop=document.createElement('canvas');crop.width=rect.w;crop.height=rect.h;crop.getContext('2d').drawImage(c,rect.x,rect.y,rect.w,rect.h,0,0,rect.w,rect.h);Q.lastCrop=crop.toDataURL();
+  Q.lastRect=rect;Q.lastHit=h||null;Q.lastTargetRect=h?{x:Math.max(0,Math.floor(h.bx)),y:Math.max(0,Math.floor(h.by)),w:Math.ceil(h.width),h:Math.ceil(h.height)}:rect;Q.lastFull=c.toDataURL();const crop=document.createElement('canvas');crop.width=rect.w;crop.height=rect.h;crop.getContext('2d').drawImage(c,rect.x,rect.y,rect.w,rect.h,0,0,rect.w,rect.h);Q.lastCrop=crop.toDataURL();
   const neighbors=caps.filter(a=>!Q.targets.some(t=>t.k===a.bd.k&&t.x===a.o.x&&t.y===a.o.y)&&a.bx+a.s.w*a.z>rect.x&&a.bx<rect.x+rect.w&&a.by+a.s.h*a.z>rect.y&&a.by<rect.y+rect.h).map(a=>({k:a.bd.k,x:a.o.x,y:a.o.y,depth:a.o.dep}));
   return{...arg,savedTown:Q.savedTown||null,weather,actualRotation:GV.rot(),daylight:GV.daylightDbg(),hits,rect,canvas:{w:c.width,h:c.height},existingNeighbors:[...new Map(neighbors.map(n=>[n.x+','+n.y,n])).values()],nightComposition:{...window.__t629},weatherCaches:t?{snow:!!s.snow,wet:!!s.wet,icicle:!!s.icicle}:null};
 }
@@ -213,7 +279,7 @@ function constructionFrame(id,p,mode){
   const oldAge=b.age,oldPower=b.pw,oldFrac=window.__x13Frac,oldSync=window.__x13SyncProf;
   try{GV.britishWeather004(0,0,0);GV.setVisT(GV.art574.cycle574()*(mode==='night'?.9:.5));b.age=Math.floor(p);window.__x13Frac=p-Math.floor(p);window.__x13SyncProf=1;
     for(let i=0;i<8;i++){GV.forceDraw();if(GV.constr13.pending())GV.constr13.flush();}
-    const c=document.getElementById('game'),g=c.getContext('2d'),box=Q.lastRect,snap=()=>g.getImageData(box.x,box.y,box.w,box.h).data,a=snap();Q.lastFull=c.toDataURL();
+    const c=document.getElementById('game'),g=c.getContext('2d'),box=Q.lastRect,snap=()=>g.getImageData(box.x,box.y,box.w,box.h).data,whole=()=>g.getImageData(0,0,c.width,c.height).data,a=snap(),aWhole=whole();Q.lastFull=c.toDataURL();
     const delta=(u,v)=>{let n=0;for(let i=0;i<u.length;i+=4)if(u[i]!==v[i]||u[i+1]!==v[i+1]||u[i+2]!==v[i+2])n++;return n;};
     GV.forceDraw();const diff=delta(a,snap());let completionDelta=null,nightCompletion=null;
     if(p===8.999){
@@ -221,9 +287,29 @@ function constructionFrame(id,p,mode){
       if(mode==='night'){
         b.pw=false;GV.forceDraw();const completedUnpowered=snap();
         b.age=8;window.__x13Frac=.999;GV.forceDraw();const beforeUnpowered=snap();
+        const beforeUnpoweredWhole=whole(),hit=Q.lastHit,z=hit.z,shH=Math.max(2,s.h*z*.32),expected=[hit.bx+16*z,hit.by+s.h*z-shH+8*z,s.w*z,shH];
+        const d=GV.daylightDbg(),nd=Math.max(0,Math.min(1,(.72-d.b)/.38)),expectedAlpha=.30*(.3+.7*(1-nd));
+        const noShadow=(age,frac)=>{
+          const desc=Object.getOwnPropertyDescriptor(g,'drawImage'),original=g.drawImage,hits=[];
+          b.age=age;window.__x13Frac=frac;
+          g.drawImage=function(...args){
+            if(this===g&&args.length===5&&args[0]===s.img&&this.filter==='brightness(0)'&&Math.abs(this.globalAlpha-expectedAlpha)<1e-8&&args.slice(1).every((v,i)=>Math.abs(v-expected[i])<1e-6)){
+              hits.push({filter:this.filter,alpha:this.globalAlpha,args:args.slice(1)});return;
+            }
+            return original.apply(this,args);
+          };
+          try{GV.forceDraw();return{pixels:snap(),full:whole(),hits};}
+          finally{if(desc)Object.defineProperty(g,'drawImage',desc);else delete g.drawImage;}
+        };
+        const unpoweredBeforeNoShadow=noShadow(8,.999),unpoweredCompletedNoShadow=noShadow(9,0);
         nightCompletion={powerBefore:!!oldPower,unpoweredConvergenceDelta:delta(beforeUnpowered,completedUnpowered),
-          beforeCompletionPowerDelta:delta(a,beforeUnpowered),completedPowerDelta:delta(completed,completedUnpowered),
-          method:'Four same-turn real renders: P8.999/age9 × root power on/off. Only this fixture root power is toggled and restored; all canonical art and global light renderers remain untouched.'};
+          beforeCompletionPowerDelta:delta(a,beforeUnpowered),beforeCompletionPowerWholeDelta:delta(aWhole,beforeUnpoweredWhole),
+          completedPowerDelta:delta(completed,completedUnpowered),legacyShadowDelta:delta(completedUnpowered,unpoweredCompletedNoShadow.pixels),
+          exactGeometryWholeDelta:delta(unpoweredBeforeNoShadow.full,unpoweredCompletedNoShadow.full),
+          exactGeometryRGBEqual:unpoweredBeforeNoShadow.full.every((v,i)=>i%4===3||v===unpoweredCompletedNoShadow.full[i]),
+          diagnosticBeforeMatchesRaw:delta(beforeUnpoweredWhole,unpoweredBeforeNoShadow.full)===0,
+          shadowInterceptions:{before:unpoweredBeforeNoShadow.hits,completed:unpoweredCompletedNoShadow.hits,expected,expectedAlpha},
+          method:'Raw normal captures are unchanged. Full-RGB P8.999/age9 equality is tested with only root power off and only this root canonical img brightness(0) T149 flattened shadow call suppressed, matching exact source, filter, coordinates, size and alpha. Exactly zero interceptions before completion and one after are required. Instance drawImage and root power/age are restored in finally. Existing completed lighting and T149 night-shadow activation are separately measured; no production art change.'};
         b.pw=oldPower;
       }
     }
@@ -297,11 +383,27 @@ async function cleanup(){
         check(m.id+' exact approved pixels and deterministic independent regeneration',m.deterministic&&m.canonicalEqualsRenderer&&m.canonicalEqualsApproved,m);
         check(m.id+' exact dimensions and anchor',['w','h','ax','ay','sz'].every(k=>m[k]===t[k])&&m.canvasDimensions.join(',')===[t.w,t.h,t.w,t.h].join(','),m);
         check(m.id+' supported hard pixels with safe canvas and lot bounds',m.solid>0&&m.lit>0&&m.edge===0&&m.unsupported===0&&m.outside===0&&m.partial===0,m);}
+      if(report.failures.length){progress('core preflight failed',{failures:report.failures});throw Error('Core gameplay/asset preflight failed; stopping before the long capture matrix');}
+      report.utilityFixture=await call(buildFixtureUtilities);progress('real utility fixture placed',{sources:report.utilityFixture.sources,towers:report.utilityFixture.towers.length});
       report.savedTown=await call(saveLoadFixture);
       check('actual normal save/load keeps all three complete British roots and refs',report.savedTown.loaded&&report.savedTown.newRootRecordCount===3&&report.savedTown.targets.every(t=>t.ok),report.savedTown);
       check('actual normal save/load preserves existing city root identities ages and footprints',report.savedTown.existingRoots>100&&report.savedTown.rootIdentityAgeFootprintPreserved&&report.savedTown.existingRootIdentityAgeFootprintPreserved,report.savedTown);
       check('actual normal save/load preserves canonical sprite references and owner slots',report.savedTown.canonicalSpritesPreserved&&report.savedTown.otherPlayerSlotsUnchanged,report.savedTown);
       progress('saved town ready for actual capture',{roots:report.savedTown.rootsAfter});
+      report.preflight={ok:false,utility:await call(loadedUtilityPreflight),visual:[]};
+      check('loaded real utility authority and neighboring power preflight',report.preflight.utility.ok,report.preflight.utility);save();
+      if(!report.preflight.utility.ok)throw Error('Utility preflight failed; stopping before the long capture matrix');
+      for(const t of TARGETS){
+        const shot=await call(scene,{id:t.id,z:2,mode:'night',rot:0});
+        png('guards/'+t.id+'-preflight-loaded-night.png',await ev('window.__british004QA.lastFull'),{kind:'raw actual loaded powered town preflight',id:t.id});
+        const lamps=await call(lampProbe,t.id),construction=await call(constructionFrame,t.id,8.999,'night');
+        png('guards/'+t.id+'-preflight-construction-night.png',await ev('window.__british004QA.lastFull'),{kind:'raw normal final construction night preflight',id:t.id});
+        const ok=lamps.changedPixels>0&&completionNightOK(construction);report.preflight.visual.push({id:t.id,shot,lamps,construction,ok});
+        check(t.id+' loaded own lamps and exact nighttime transition preflight',ok,{lamps,construction});save();
+      }
+      report.preflight.ok=report.preflight.visual.every(q=>q.ok);progress('loaded visual preflight complete',{ok:report.preflight.ok});
+      if(!report.preflight.ok)throw Error('Nighttime visual preflight failed; stopping before the long capture matrix');
+
       const output=async(arg,stem,arr)=>{progress('capture',{stem});const r=await call(scene,arg);png('full/'+stem+'.png',await ev('window.__british004QA.lastFull'),{kind:'actual game canvas',...arg});png('crops/'+stem+'.png',await ev('window.__british004QA.lastCrop'),{kind:'unaltered canvas crop',...arg,rect:r.rect});
         check(stem+' camera and light phase',r.actualRotation===(arg.rot||0)&&(arg.mode==='day'?r.daylight.b>.95:r.daylight.b<.45),{rot:r.actualRotation,daylight:r.daylight});
         if(arg.id){const h=r.hits.find(h=>h.id===arg.id);check(stem+' normal canonical sprite and nearest-corner anchor',h?.canonicalIdentity&&h.withinCanvas&&h.anchorError.every(v=>Math.abs(v)<1e-5),h);
@@ -318,7 +420,7 @@ async function cleanup(){
       for(const t of TARGETS){await call(scene,{id:t.id,z:2,mode:'day',rot:0});for(const p of[0,3,5.5,8.999,9])for(const mode of['day','night']){
         const r=await call(constructionFrame,t.id,p,mode),stem=t.id+'-construction-'+String(p).replace('.','p')+'-'+mode;
         png('full/'+stem+'.png',await ev('window.__british004QA.lastFull'),{kind:'actual generic construction frame',id:t.id,progress:p,mode});report.construction.push({stem,...r});if(p===8.999){if(mode==='day')check(stem+' final construction geometry equals completed sprite',r.completionDelta===0,r.completionDelta);
-          else check(stem+' completion difference is exclusively completed powered lighting',r.nightCompletion?.powerBefore&&r.nightCompletion.unpoweredConvergenceDelta===0&&r.nightCompletion.beforeCompletionPowerDelta===0&&r.nightCompletion.completedPowerDelta===r.completionDelta&&r.completionDelta>0,{completionDelta:r.completionDelta,...r.nightCompletion});}check(stem+' settled and correct lot',r.stableDiff===0&&r.root.k===t.k&&r.root.sz===t.sz&&r.profile?.sz===t.sz&&r.profile.area===t.sz*t.sz,r);save();}}
+          else check(stem+' completion difference is exactly completed lighting and existing night shadow',completionNightOK(r),{completionDelta:r.completionDelta,...r.nightCompletion});}check(stem+' settled and correct lot',r.stableDiff===0&&r.root.k===t.k&&r.root.sz===t.sz&&r.profile?.sz===t.sz&&r.profile.area===t.sz*t.sz,r);save();}}
       for(const t of TARGETS)for(const mode of['day','night']){const sigs=report.construction.filter(r=>r.id===t.id&&r.mode===mode).map(r=>r.signature);check(t.id+' '+mode+' has distinct visible construction stages',new Set(sigs).size>=4,sigs);}
       // Existing corner pub in front of a disjoint 3x3 library footprint.
       report.occluder=await ev('(()=>{GV.art574.clear574(10,23,2,2);const p=GV.art574.plant574([{k:197,x:10,y:23,sz:2,v:0,lv:1}]);GV.testRebake592();return p;})()');
