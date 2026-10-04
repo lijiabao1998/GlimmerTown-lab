@@ -113,6 +113,9 @@ function prepareFixture(targets, benchmarks) {
 function buildAndInstall() {
   const q = window.__britishQA, api = window.BritishPrototypes;
   if (!api || typeof api.buildAll !== 'function') throw Error('Missing BritishPrototypes.buildAll');
+  // Compare only the synchronous renderer transaction. Existing autosave may run
+  // between CDP calls; whole-session key auditing and exact cleanup stay below.
+  const generationStorageBefore = JSON.stringify(q.storage());
   const oldRandom = Math.random; let randomCalls = 0;
   Math.random = function () { randomCalls++; return oldRandom.apply(this, arguments); };
   let sprites, buildMs, rebuildMs, deterministicRebuild = false, escapeValveNoop = false;
@@ -142,7 +145,8 @@ function buildAndInstall() {
   const afterGeneration = GV.fp536();
   const pure = {
     worldUnchanged: q.world() === q.baselineWorld,
-    storageUnchanged: JSON.stringify(q.storage()) === q.baselineStorage,
+    storageUnchanged: JSON.stringify(q.storage()) === generationStorageBefore,
+    storageScope: 'same synchronous generation call; full fixture audited separately',
     spriteFingerprintUnchanged: JSON.stringify(afterGeneration) === JSON.stringify(q.baselineFingerprint),
     mathRandomCalls: randomCalls, simulationRngDirectlyAccessible: false,
   };
@@ -339,7 +343,7 @@ async function restoreEverything() {
         check(t.id + ' existing carrier footprint roots and refs', t.root?.k === t.k && t.root.sz === t.sz && t.refs.every((b, i) => i === 0 ? b.k === t.k && !b.ref : b.k === t.k && b.ref?.[0] === t.x && b.ref?.[1] === t.y), t);
       }
       // Injection occurs only after full boot. Product source itself is not patched.
-      report.rendererEvaluation = await ev(`(()=>{const q=window.__britishQA,old=Math.random;let calls=0;Math.random=function(){calls++;return old.apply(this,arguments);};const t=performance.now();try{(0,eval)(${JSON.stringify(art)});}finally{Math.random=old;}return {ms:performance.now()-t,mathRandomCalls:calls,worldUnchanged:q.world()===q.baselineWorld,storageUnchanged:JSON.stringify(q.storage())===q.baselineStorage};})()`);
+      report.rendererEvaluation = await ev(`(()=>{const q=window.__britishQA,storageBefore=JSON.stringify(q.storage()),old=Math.random;let calls=0;Math.random=function(){calls++;return old.apply(this,arguments);};const t=performance.now();try{(0,eval)(${JSON.stringify(art)});}finally{Math.random=old;}return {ms:performance.now()-t,mathRandomCalls:calls,worldUnchanged:q.world()===q.baselineWorld,storageUnchanged:JSON.stringify(q.storage())===storageBefore,storageScope:'same synchronous evaluation call; full fixture audited separately'};})()`);
       check('renderer evaluation is pure', report.rendererEvaluation.mathRandomCalls === 0 && report.rendererEvaluation.worldUnchanged && report.rendererEvaluation.storageUnchanged, report.rendererEvaluation);
       report.build = await call(buildAndInstall);
       check('prototype generation preserves world saves and existing sprites', report.build.pure.worldUnchanged && report.build.pure.storageUnchanged && report.build.pure.spriteFingerprintUnchanged && report.build.pure.mathRandomCalls === 0, report.build.pure);

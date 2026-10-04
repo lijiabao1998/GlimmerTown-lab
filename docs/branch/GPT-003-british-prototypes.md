@@ -60,3 +60,9 @@ These are visual proposals, not completed gameplay integration, construction ani
 ## T716 merge preparation — 2026-10-04
 
 The owner approved merging these three delivered prototypes. [T716](../T716-british-prototypes-archive.md) is the release card; this original pre-implementation acceptance and iteration history is retained. Version metadata is v14.20 / T716; exactly three HTML metadata strings change, with the normal renderer/catalog unchanged. The release HTML SHA256 is `bf306be0057ca4516944a5bf5ccf4765369bf7d2c52b243dfb2a3331b48ad26e` (still 9,627,011 bytes). The prototype harness/workflow now pin that release digest; the exact candidate must pass the same 96 prototype guards, smoke ×3 and strict fingerprint check before merge. PR/Actions are the authoritative live release-status record. All earlier no-merge/pending statements above describe the original prototype delivery, before this approval. The buildings remain opt-in prototypes outside the normal build menu.
+
+## Release-candidate CI correction
+
+Candidate c30ca0dad0c3e043632016a3505b883fddc6d12a failed one prototype guard in [run 37172698696](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37172698696): 95/96 passed; world and sprite fingerprints were unchanged, but existing autosave wrote the disposable slot-3 save between separate CDP calls. Final key audit found only s3/s3_bak and exact cleanup passed. Both ordinary smoke runs passed. This was not accepted as a green candidate.
+
+The harness now snapshots storage immediately before synchronous renderer evaluation and generation, and compares immediately afterward in the same JavaScript turn. It retains the full-session unexpected-key audit, original fixture storage baseline, provisional-ID check and exact final restoration. No assertion was removed or ignored, and the product/art renderer was not changed. Full CI must pass again on the corrected exact candidate before merge.

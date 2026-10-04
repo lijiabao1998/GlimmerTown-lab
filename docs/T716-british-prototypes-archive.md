@@ -25,3 +25,9 @@ Status: release bookkeeping prepared before changes; owner approved merging the 
 ## Unfinished / limits
 
 The three buildings are approved visual prototypes and will not appear in the normal build menu after this merge. Four rotations, weather, seasons, mobile performance and permanent gameplay integration remain unimplemented/unverified. Source prototype card is retained to preserve evidence; this T card is the release record. No production-site deletion or migration is involved.
+
+## Release-candidate CI correction
+
+Candidate c30ca0dad0c3e043632016a3505b883fddc6d12a failed one prototype guard in [run 37172698696](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37172698696): 95/96 passed; world and sprite fingerprints were unchanged, but existing autosave wrote the disposable slot-3 save between separate CDP calls. Final key audit found only s3/s3_bak and exact cleanup passed. Both ordinary smoke runs passed. This was not accepted as a green candidate.
+
+The harness now snapshots storage immediately before synchronous renderer evaluation and generation, and compares immediately afterward in the same JavaScript turn. It retains the full-session unexpected-key audit, original fixture storage baseline, provisional-ID check and exact final restoration. No assertion was removed or ignored, and the product/art renderer was not changed. Full CI must pass again on the corrected exact candidate before merge.
