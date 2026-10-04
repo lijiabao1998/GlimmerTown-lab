@@ -49,6 +49,31 @@ jobs:
           path: publiclife-evidence/preflight/
           retention-days: 14
           if-no-files-found: warn
+      - name: Readable preflight evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-preflight-metadata-${{ github.sha }}
+          path: |
+            publiclife-evidence/preflight/manifest.json
+            publiclife-evidence/preflight/checked-sha.txt
+            publiclife-evidence/preflight/source-sha256.txt
+            publiclife-evidence/preflight/guards/
+            publiclife-evidence/preflight/logs/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Native preflight review images
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-preflight-review-${{ github.sha }}
+          path: |
+            publiclife-evidence/preflight/full/*-street-*.png
+            publiclife-evidence/preflight/full/town-*.png
+            publiclife-evidence/preflight/crops/
+            publiclife-evidence/preflight/assets/
+          retention-days: 14
+          if-no-files-found: warn
   matrix:
     needs: preflight
     if: contains(github.event.head_commit.message, '[full]')
@@ -80,6 +105,32 @@ jobs:
         with:
           name: publiclife-${{ matrix.mode }}-${{ github.sha }}
           path: publiclife-evidence/${{ matrix.mode }}/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Readable shard evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-${{ matrix.mode }}-metadata-${{ github.sha }}
+          path: |
+            publiclife-evidence/${{ matrix.mode }}/manifest.json
+            publiclife-evidence/${{ matrix.mode }}/logs/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Native camera review crops at zoom2
+        uses: actions/upload-artifact@v4
+        if: always() && startsWith(matrix.mode, 'camera')
+        with:
+          name: publiclife-${{ matrix.mode }}-review-${{ github.sha }}
+          path: publiclife-evidence/${{ matrix.mode }}/crops/*-z2-*.png
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Native weather and construction review crops
+        uses: actions/upload-artifact@v4
+        if: always() && (matrix.mode == 'weather' || startsWith(matrix.mode, 'construction'))
+        with:
+          name: publiclife-${{ matrix.mode }}-review-${{ github.sha }}
+          path: publiclife-evidence/${{ matrix.mode }}/crops/
           retention-days: 14
           if-no-files-found: warn
   regression:
