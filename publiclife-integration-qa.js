@@ -228,10 +228,11 @@ function prepareWorkforceFixture(){
   try{
     if(cohort.length!==203)throw Error('The frozen R1 physical-road cohort must contain exactly203 roots');
     // An actual initial ordinary day records the R1 labor shortage before homes.
-    step();const initial=Q.workforceRead();W.daily.push({phase:'initial-before-support-homes',...initial});
+    step();const initial=Q.workforceRead();
     if(!initial.nativeDayOK)throw Error('Initial raw ordinary-day root, neighbor or target utility witness failed before support homes');
     W.initialEmergency={stations:initial.stations,negativeObserved:initial.stations.every(q=>!q.authority?.emergencyReady),source:'Actual native staffing after an ordinary day; not a forced failure state.'};
     initial.maintenance=Q.maintainOriginalRoots();
+    W.daily.push({phase:'initial-before-support-homes',...initial});
     const place=(tool,x,y)=>{const difficulty=GV.diff(),developer=GV.dev516B(),moneyBefore=GV.devMoney516B(),roundedMoneyBefore=GV.stats().money,preview=GV.placePreview459(tool,x,y);if(difficulty!==1||developer.sandbox||developer.god||!preview?.ok||!(preview.cost>0))throw Error('Paid normal-mode workforce preview required '+tool+' '+x+','+y+': '+JSON.stringify({difficulty,developer,preview}));if(!GV.place(tool,x,y))throw Error('Normal workforce placement failed '+tool+' '+x+','+y);const moneyAfter=GV.devMoney516B(),charged=moneyBefore-moneyAfter,row={tool,x,y,difficulty,developer,cost:preview.cost,moneyBefore,moneyAfter,roundedMoneyBefore,roundedMoneyAfter:GV.stats().money,charged,paidExactly:Math.abs(charged-preview.cost)<1e-7};if(!row.paidExactly)throw Error('Normal workforce charge mismatch '+JSON.stringify(row));return row;};
     // The eastern grid was laid over unmodified generated terrain: an existing
     // road may still cross water. Reclaim only the selected empty support cells
@@ -342,7 +343,9 @@ function legacyWorkerProof(source){
 function saveLoadFixture(){
   const Q=window.__publicLife007QA;
   if(window.__publicLifeQA007!==true||localStorage.getItem('glimmerville.v1.slot')!=='3')throw Error('Disposable save/load guard failed');
-  GV.setSpeed(0);GV.ai(false);GV.britishWeather004(0,0,0);
+  // The seasonal visual helper writes day=1/101/201/301. A normal save/load
+  // must preserve the actual ordinary construction calendar instead.
+  const beforeDay=GV.stats().day;GV.setSpeed(0);GV.ai(false);GV.weather(0);
   const slots12=['glimmerville.v1.s1','glimmerville.v1.s1_bak','glimmerville.v1.s2','glimmerville.v1.s2_bak'];
   const otherBefore=slots12.map(k=>localStorage.getItem(k));
   const roots=()=>Q.all().flatMap((t,i)=>t.bld&&!t.bld.ref?[[i,t.bld.k,t.bld.lv,t.bld.age,t.bld.sz||1]]:[]);
@@ -350,6 +353,8 @@ function saveLoadFixture(){
   if(!saved||!data||data.v!==1||!Array.isArray(data.bl))throw Error('Normal GV.save did not produce a valid slot-3 save');
   const loaded=GV.load();if(!loaded)throw Error('Normal GV.load rejected its fixture save');
   GV.setSpeed(0);GV.ai(false);GV.nightPowerTest698(null);GV.selectTool434('pan');GV.testRebake592();Q.live.clear();
+  const afterDay=GV.stats().day,calendarPreserved=data.day===beforeDay&&afterDay===beforeDay;
+  if(!calendarPreserved)throw Error('Normal save/load changed the genuine ordinary construction calendar');
   const after=roots(),targetResults=Q.targets.map(t=>{
     const root=GV.tile(t.x,t.y).bld,refs=Array.from({length:t.sz*t.sz},(_,i)=>GV.tile(t.x+i%t.sz,t.y+Math.floor(i/t.sz)).bld);
     const record=data.bl.find(b=>b[0]===t.y*Q.N+t.x),expectedAge=before.find(b=>b[0]===t.y*Q.N+t.x)?.[3];
@@ -357,10 +362,10 @@ function saveLoadFixture(){
   });
   const oldBefore=before.filter(b=>b[1]<262),oldAfter=after.filter(b=>b[1]<262);
   const beforeMap=new Map(before.map(r=>[r[0],r])),afterMap=new Map(after.map(r=>[r[0],r]));const rootEvidence=r=>{const i=r[0],x=i%Q.N,y=Math.floor(i/Q.N),tile=GV.tile(x,y),owner=tile?.bld?.ref,oi=owner?owner[1]*Q.N+owner[0]:null;return{before:r,x,y,savedRecord:data.bl.find(a=>a[0]===i)||null,loadedAtRoot:tile?.bld||null,replacementOwnerBefore:oi===null?null:beforeMap.get(oi)||null,replacementOwnerAfter:oi===null?null:afterMap.get(oi)||null};};
-  Q.savedTown={loaded:true,slot:3,savedRootCount:data.bl.length,rootRecords:targetResults.map(t=>t.record)};
+  Q.savedTown={loaded:true,slot:3,day:afterDay,savedRootCount:data.bl.length,rootRecords:targetResults.map(t=>t.record)};
   // Runtime fields and existing RCI visual variants legitimately normalize on load.
   // Root coordinates, numeric identities, levels, ages and footprints must survive.
-  return{saved:!!saved,loaded,slot:3,bytes:raw.length,version:data.v,mapSize:data.n,seed:data.seed,day:data.day,
+  return{saved:!!saved,loaded,slot:3,bytes:raw.length,version:data.v,mapSize:data.n,seed:data.seed,day:data.day,beforeDay,afterDay,calendarPreserved,
     newRootRecordCount:data.bl.filter(b=>b[1]>=262&&b[1]<=273).length,targets:targetResults,
     rootsBefore:before.length,rootsAfter:after.length,existingRoots:oldBefore.length,
     missingRoots:before.filter(b=>!afterMap.has(b[0])).map(rootEvidence),addedRoots:after.filter(b=>!before.some(a=>a[0]===b[0])),changedRoots:before.flatMap(b=>{const a=after.find(a=>a[0]===b[0]);return a&&JSON.stringify(a)!==JSON.stringify(b)?[{before:b,after:a}]:[];}),
@@ -373,7 +378,8 @@ function saveLoadFixture(){
 function scene(arg){
   const Q=window.__publicLife007QA,t=arg.id&&Q.targets.find(t=>t.id===arg.id),s=t&&Q.canonical.get(t.id);
   if(typeof GV.britishWeather004!=='function')throw Error('Missing deterministic britishWeather004 fixture hook');
-  const wx=arg.wx||'clear',weather=GV.britishWeather004(wx==='snow'?3:0,wx==='clear'?0:1,wx==='snow'?6:wx==='rain'?5:0);
+  const wx=arg.wx||'clear',day=GV.stats().day,doy=(day-1)%360;
+  const weather=wx==='clear'?{season:doy>=300?3:doy>=200?2:doy>=100?1:0,weather:GV.weather(0),day,calendarPreserved:GV.stats().day===day}:GV.britishWeather004(wx==='snow'?3:0,1,wx==='snow'?6:5);
   GV.setRot(arg.rot||0);GV.setZoom(arg.z);GV.setVisT(GV.art574.cycle574()*(arg.mode==='night'?.9:.5));
   if(t){const d=Math.round((s.ay-32*t.sz-s.h/2)/32),p=GV.w2v(t.x,t.y),world=GV.v2w(p[0]-d,p[1]-d);GV.lookAt(world[0],world[1]);}else if(arg.family){const row=Q.targets.filter(t=>t.family===arg.family);GV.lookAt(row.reduce((a,t)=>a+t.x,0)/row.length+1,row[0].y-1);}else GV.lookAt(17,24);
   window.__ovCapMax606=12000;window.__ovCap606=[];GV.forceDraw();const caps=window.__ovCap606.slice();window.__ovCap606=null;
@@ -418,7 +424,7 @@ function lampProbe(id){
 function constructionFrame(id,p,mode){
   const Q=window.__publicLife007QA,t=Q.targets.find(t=>t.id===id),s=Q.canonical.get(id),b=Q.live.get(id);if(!b)throw Error('No previously captured live root for '+id);
   const oldAge=b.age,oldPower=b.pw,oldFrac=window.__x13Frac,oldSync=window.__x13SyncProf;
-  try{GV.britishWeather004(0,0,0);GV.setVisT(GV.art574.cycle574()*(mode==='night'?.9:.5));b.age=Math.floor(p);window.__x13Frac=p-Math.floor(p);window.__x13SyncProf=1;
+  try{GV.weather(0);GV.setVisT(GV.art574.cycle574()*(mode==='night'?.9:.5));b.age=Math.floor(p);window.__x13Frac=p-Math.floor(p);window.__x13SyncProf=1;
     for(let i=0;i<8;i++){GV.forceDraw();if(GV.constr13.pending())GV.constr13.flush();}
     const c=document.getElementById('game'),g=c.getContext('2d'),box=Q.lastRect,snap=()=>g.getImageData(box.x,box.y,box.w,box.h).data,whole=()=>g.getImageData(0,0,c.width,c.height).data,a=snap(),aWhole=whole();Q.lastFull=c.toDataURL();
     const delta=(u,v)=>{let n=0;for(let i=0;i<u.length;i+=4)if(u[i]!==v[i]||u[i+1]!==v[i+1]||u[i+2]!==v[i+2])n++;return n;};
@@ -461,7 +467,7 @@ function constructionFrame(id,p,mode){
 async function cleanup(){
   const Q=window.__publicLife007QA;if(!Q)return{missing:true};
   for(const[k,own,v]of Q.valves){if(own)window[k]=v;else delete window[k];}
-  GV.nightPowerTest698(null);GV.britishWeather004(0,0,0);GV.setRot(0);GV.selectTool434('pan');
+  GV.nightPowerTest698(null);GV.weather(0);GV.setRot(0);GV.selectTool434('pan');
   const a=JSON.parse(Q.baselineStorage),b=Q.storage(),keys=[...new Set([...Object.keys(a),...Object.keys(b)])].sort().filter(k=>a[k]!==b[k]);
   const allowed=['glimmerville.v1.s3','glimmerville.v1.s3_bak','glimmerville.v1.viewRot'];
   // Explicitly restore only the disposable fixture autosave keys and camera preference
@@ -518,8 +524,10 @@ function scoreStyle007(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
       report.workforceFixture=await call(prepareWorkforceFixture);check('normal bounded30-home workforce preparation',report.workforceFixture.ok&&report.workforceFixture.homes.length===30&&report.workforceFixture.placementAudit.every(q=>q.difficulty===1&&q.cost>0&&q.paidExactly&&!q.developer.sandbox&&!q.developer.god)&&report.workforceFixture.terrain.every(q=>q.difficulty===1&&q.cost===60&&q.paidExactly&&q.singleCell&&q.identityPreserved&&!q.developer.sandbox&&!q.developer.god),report.workforceFixture);check('same203 R1 physical-road neighbors frozen before added housing',sha(JSON.stringify(report.workforceFixture.cohortRoots))===R1_PHYSICAL_NEIGHBOR_SHA256,report.workforceFixture.cohortRoots);save();if(report.failures.length)throw Error('Normal workforce preparation failed');
       let workforceReady=false;for(let day=report.workforceFixture.preloadDays;day<report.workforceFixture.maxPreloadDays;day++){const q=await call(advanceWorkforceFixture);report.workforceFixture.daily.push(q);report.workforceFixture.preloadDays=q.preloadDays;report.workforceFixture.housingDays=q.housingDays;check('ordinary workforce day '+q.day+' preserves original roots and exact fixed neighbor cohort',q.ok,q);save();if(!q.ok)throw Error('Ordinary workforce invariant failed');if(q.ready){workforceReady=true;break;}}
       report.workforceFixture.ready=workforceReady;report.workforceFixture.ok=workforceReady;
+      report.workforceFixture.maintenance=await ev('window.__publicLife007QA.workforceFixture.maintenance','actual accumulated paid retained-root maintenance');
+      check('bounded retained-root fire maintenance uses exact native paid actions',report.workforceFixture.maintenance.length<=report.workforceFixture.maxMaintenanceActions&&report.workforceFixture.maintenance.every(q=>q.charged===30&&q.identityAndUtilitiesExact&&q.after.fire===0),report.workforceFixture.maintenance);
       check('ordinary matured homes produce native police3/fire4 crews within explicit21-day total budget',workforceReady&&report.workforceFixture.housingDays>=9&&report.workforceFixture.preloadDays<=19,report.workforceFixture);save();if(!workforceReady)throw Error('Normal workforce remained insufficient within30 homes/21 total days; no staffing or age override permitted');
-      report.savedTown=await call(saveLoadFixture);check('normal slot3 save/load all twelve IDs and footprints',report.savedTown.loaded&&report.savedTown.newRootRecordCount===12&&report.savedTown.targets.every(t=>t.ok),report.savedTown);check('normal save preserves pre-existing identities and owner slots',report.savedTown.existingRoots>100&&report.savedTown.rootIdentityAgeFootprintPreserved&&report.savedTown.existingRootIdentityAgeFootprintPreserved&&report.savedTown.otherPlayerSlotsUnchanged&&report.savedTown.canonicalSpritesPreserved,report.savedTown);
+      report.savedTown=await call(saveLoadFixture);check('normal slot3 save/load all twelve IDs and footprints',report.savedTown.loaded&&report.savedTown.newRootRecordCount===12&&report.savedTown.targets.every(t=>t.ok),report.savedTown);check('normal save preserves actual day, pre-existing identities and owner slots',report.savedTown.calendarPreserved&&report.savedTown.existingRoots>100&&report.savedTown.rootIdentityAgeFootprintPreserved&&report.savedTown.existingRootIdentityAgeFootprintPreserved&&report.savedTown.otherPlayerSlotsUnchanged&&report.savedTown.canonicalSpritesPreserved,report.savedTown);
       report.utilityAfterLoad=await call(loadedUtilityPreflight);report.workforceFixture.daily.push({phase:'first-ordinary-loaded-day',...report.utilityAfterLoad.workforce});report.workforceFixture.totalOrdinaryDays=report.utilityAfterLoad.workforce.ordinaryDays;report.workforceFixture.finalHousingDays=report.utilityAfterLoad.workforce.housingDays;check('one normal loaded day proves all12 native staffed capacities and served power/water plus prior neighbor power',report.utilityAfterLoad.ok,report.utilityAfterLoad);save();if(report.failures.length)throw Error('Loaded utility preflight failed');
       if(MODE==='gameplay'){
         report.gameplay=[];for(const name of GAMEPLAY_GROUPS){const q=await ev('GV.publicLifeGameplayProbe007('+JSON.stringify(name)+')','gameplay '+name,300000);report.gameplay.push({name,...q});check('gameplay '+name,q.ok&&q.details?.length>2&&q.groups?.some(g=>g.name===name&&g.ran&&!g.skipped&&g.ok),q);save();if(!q.ok)throw Error('Gameplay group failed: '+name);}
