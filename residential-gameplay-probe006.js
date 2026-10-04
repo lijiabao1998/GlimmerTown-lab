@@ -172,11 +172,41 @@ function residentialGameplayProbe006(groupFilter){
       require(doPlace('doze',home.x+1,home.y+1,true),'home reference demolition');updateCitizens();add('demolished new home removes its citizen',!citizens.includes(citizen),{present:citizens.includes(citizen)});
     });
     group('save-load-identities',()=>{
+      // T510's existing load wrapper restores h488, then performs one ordinary
+      // market recalculation. Observe both phases without adding, skipping or
+      // replacing a market step; all original functions are restored in finally.
+      const observedLoad=(saved,rows,label)=>{
+        const original={load,housingLoad488,housingMarketStep488,preparePowerDispatch471};
+        const trace={loadCalls:[],restores:[],marketSteps:[],powerDispatchCalls:0,events:[],savedOccupancy:copy(saved.h488),savedDay:saved.day};
+        const housingState=()=>({day,ready:housing488.ready,grace:housing488.grace,occ:copy(housing488.occ),markets:copy(housing488.markets)});
+        let ok=false;
+        load=function(...args){trace.loadCalls.push(copy(args));return original.load.apply(this,args);};
+        housingLoad488=function(...args){const value=original.housingLoad488.apply(this,args);trace.restores.push({raw:copy(args[0]),legacy:args[1]===true,state:housingState()});trace.events.push('restored');return value;};
+        housingMarketStep488=function(...args){const step={before:housingState()};trace.events.push('market-start');const value=original.housingMarketStep488.apply(this,args);step.after=housingState();trace.marketSteps.push(step);trace.events.push('market-end');return value;};
+        preparePowerDispatch471=function(...args){trace.powerDispatchCalls++;return original.preparePowerDispatch471.apply(this,args);};
+        try{ok=load(3);trace.loaded=housingState();trace.roots=rows.map(snapshot);trace.dispatch=copy({day:power471.day,allocation:powerAlloc450,pools:power471.pools,sources:power471.sources,loads:power471.loads,districts:powerDistricts450.map(d=>({id:d.id,capacity:d.capacity,used:d.used,spare:d.spare}))});}
+        finally{load=original.load;housingLoad488=original.housingLoad488;housingMarketStep488=original.housingMarketStep488;preparePowerDispatch471=original.preparePowerDispatch471;}
+        add(label+' load observers restore every original function',load===original.load&&housingLoad488===original.housingLoad488&&housingMarketStep488===original.housingMarketStep488&&preparePowerDispatch471===original.preparePowerDispatch471,{load:load===original.load,housingLoad:housingLoad488===original.housingLoad488,marketStep:housingMarketStep488===original.housingMarketStep488,powerDispatch:preparePowerDispatch471===original.preparePowerDispatch471});
+        require(ok,label+' normal load failed');
+        const restored=trace.restores[0],step=trace.marketSteps[0],expected=Object.fromEntries(HOUSING_BANDS488.map((band,n)=>[band,saved.h488?.[n]]));
+        add(label+' native load restores serialized occupancy exactly once before its one market pass',trace.loadCalls.length===1&&same(trace.loadCalls[0],[3])&&trace.restores.length===1&&restored?.legacy===false&&JSON.stringify(restored.raw)===JSON.stringify(saved.h488)&&HOUSING_BANDS488.every(band=>restored?.state.occ[band]===expected[band])&&restored?.state.grace===0&&!restored?.state.ready&&trace.marketSteps.length===1&&same(trace.events,['restored','market-start','market-end']),{loadCalls:trace.loadCalls,restores:trace.restores,marketStepCount:trace.marketSteps.length,events:trace.events,serializedOccupancy:trace.savedOccupancy});
+        const bounds=HOUSING_BANDS488.map(band=>{const before=step?.before.occ[band],after=step?.after.occ[band],market=step?.after.markets[band],delta=after-before,limit=step?.before.grace>0?.0035:.012,target=market?.targetOccupancy;return{band,before,after,delta,limit,capacity:market?.capacity,target,ok:Number.isFinite(after)&&after>=.35&&after<=1&&before===expected[band]&&after===trace.loaded.occ[band]&&(market?.capacity>0?Math.abs(delta)<=limit+1e-12&&delta*(target-before)>=-1e-12:after===1)};});
+        add(label+' native load has exactly one bounded occupancy recalculation without advancing a day',trace.marketSteps.length===1&&step?.before.day===saved.day&&step?.after.day===saved.day&&trace.loaded.day===saved.day&&bounds.every(b=>b.ok),{bounds,marketSteps:trace.marketSteps,loadedOccupancy:trace.loaded.occ,savedDay:saved.day,loadedDay:trace.loaded.day});
+        // Snapshot raw authority state before any status/ensure query. A normal
+        // load may already dispatch real power, while water eligibility remains
+        // unset until the first ordinary day. Power is never assigned by this guard.
+        const dispatch=trace.dispatch;
+        add(label+' native load invokes real power dispatch',trace.powerDispatchCalls>0&&dispatch.day===saved.day,{powerDispatchCalls:trace.powerDispatchCalls,dispatchDay:dispatch.day,savedDay:saved.day});
+        for(const [n,r]of rows.entries()){
+          const s=trace.roots[n],l=dispatch.loads.find(l=>l.root===s.root),pool=dispatch.pools.find(p=>p.id===l?.pool),district=dispatch.districts.find(d=>d.id===l?.district),sources=dispatch.sources.filter(q=>q.online&&q.pool===l?.pool);
+          add(r.q.id+' '+label+' loaded power matches physically supplied root authority',s.pw===(s.powerState===1)&&s.powerState===1&&l?.k===r.q.k&&l.pool>=0&&l.district>=0&&pool?.districts.includes(l.district)&&sources.length>0&&pool.evening.physicalDispatched004>0&&district?.used>=l.demand.evening-1e-9,{snapshot:s,load:l,pool:pool?.id,physical:pool?.evening.physicalDispatched004,district,sources:sources.map(q=>({root:q.root,k:q.k,pool:q.pool,online:q.online}))});
+        }
+        for(const pool of dispatch.pools){const raw=pool.evening?.physicalDispatched004,ds=dispatch.districts.filter(d=>pool.districts.includes(d.id)),used=sum(ds.map(d=>d.used)),capacity=sum(ds.map(d=>d.capacity)),tol=Number.EPSILON*Math.max(1,Math.abs(raw||0))*Math.max(16,dispatch.loads.length*4);add(label+' loaded pool '+pool.id+' conserves physical dispatch across all districts',Number.isFinite(raw)&&raw>0&&used<=raw+tol&&capacity<=raw+tol&&ds.every(d=>d.used>=0&&d.used<=d.capacity+tol),{physical:raw,used,capacity,tolerance:tol,districts:ds});}
+        return trace.roots;
+      };
       // Clean ordinary sixteen-home save, with no legacy homes obscuring totals.
-      fresh();const clean=fixture();tick();tick();tick();save3();
-      const beforeOccupancy=Object.fromEntries(HOUSING_BANDS488.map((band,n)=>[band,housingSave488()[n]])),beforeCaps=clean.rows.map(r=>residentCapacity488(at(r.x,r.y).bld));
-      require(load(3),'clean mature sixteen-home load failed');
-      add('ordinary load preserves both housing market occupancy values',near(housing488.occ.low,beforeOccupancy.low)&&near(housing488.occ.mid,beforeOccupancy.mid),{before:beforeOccupancy,loaded:copy(housing488.occ)});
+      fresh();const clean=fixture();tick();tick();tick();const cleanSave=save3(),beforeCaps=clean.rows.map(r=>residentCapacity488(at(r.x,r.y).bld));
+      observedLoad(cleanSave,clean.rows,'clean mature sixteen-home');
       tick();const firstDay=clean.rows.map(snapshot),firstPop=sum(firstDay.map(r=>r.population)),firstCapacity=sum(beforeCaps);
       add('first ordinary loaded day counts all sixteen homes in capacity and population authorities',pop===firstPop&&pop>0&&housing488.capacity===firstCapacity&&housing488.effectiveCapacity===firstCapacity&&sum(mobilityBlocks491().map(b=>b.pop))===pop,{cityPopulation:pop,sumResidentPopulation:firstPop,expectedCapacity:firstCapacity,housing:housing488});
       for(const [n,r]of clean.rows.entries()){
@@ -194,8 +224,8 @@ function residentialGameplayProbe006(groupFilter){
         for(const r of f.rows)at(r.x,r.y).bld.age=age;
         const first=save3(),old=first.bl.filter(a=>a[1]<246),newer=first.bl.filter(a=>a[1]>=246&&a[1]<=261);
         add('age '+age+' exactly sixteen fixed save records',newer.length===16&&same(newer.map(a=>a[1]).sort((a,b)=>a-b),specs.map(q=>q.k))&&newer.every(a=>a[2]===1&&a[3]===0&&a[4]===age),newer);
-        require(load(3),'supported load age '+age);const loaded=f.rows.map(snapshot);
-        for(const [n,r]of f.rows.entries())add(r.q.id+' age '+age+' load preserves identity and resets readiness',footprint(r.q,r.x,r.y)&&loaded[n].age===age&&loaded[n].pw===false&&loaded[n].wa===false&&at(r.x,r.y).bld.we===1&&at(r.x,r.y).bld.den===(r.q.band==='low'?2:3),{snapshot:loaded[n],building:at(r.x,r.y).bld});
+        const loaded=observedLoad(first,f.rows,'age '+age);
+        for(const [n,r]of f.rows.entries())add(r.q.id+' age '+age+' load preserves identity with water and resident eligibility pending',footprint(r.q,r.x,r.y)&&loaded[n].age===age&&loaded[n].wa===false&&loaded[n].population===0&&!residentialOperational006(loaded[n].root,at(r.x,r.y).bld)&&at(r.x,r.y).bld.we===1&&at(r.x,r.y).bld.den===(r.q.band==='low'?2:3),{snapshot:loaded[n],building:at(r.x,r.y).bld});
         const roundtrip=save3();add('age '+age+' every T717/T718 record stays byte-exact',JSON.stringify(roundtrip.bl.filter(a=>a[1]<246))===JSON.stringify(old)&&oldSpecs.every(q=>old.some(a=>a[1]===q.k)),{oldCount:old.length,ids:old.map(a=>a[1])});
         add('age '+age+' rejected gap absent',!roundtrip.bl.some(a=>a[1]>=222&&a[1]<=237),{ids:roundtrip.bl.map(a=>a[1])});
         tick();const ordinary=f.rows.map(snapshot);

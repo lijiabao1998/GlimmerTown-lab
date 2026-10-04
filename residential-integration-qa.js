@@ -351,6 +351,7 @@ async function cleanup(){
 }
 function scoreStyle006(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=[Math.min(1,f.colors/L/16),Math.max(0,1-Math.min(1,f.semi/op*20)),f.leftLit/L,Math.max(0,Math.min(1,(f.buckets/L-2)/4)),Math.min(1,(f.colors/op)*100/4),.5*f.nightLeaves/L+.5*(f.nightOp>0?1-f.nightViol/f.nightOp:1),Math.min(1,f.leaves/8)];return {axes,total:+(axes.reduce((a,b)=>a+b,0)/7).toFixed(4)};}
 (async()=>{
+  check('all sixteen reviewed R2 art source bytes remain exact',sha(art)==='d55748e8422ee331482e939a9a9f22287abe45ad9da935e072c1865a67c8d9f5');
   const protectedPaths=['fp.json','style.json','AUTORUN-LOG.md','docs/DECISIONS.md','british-prototypes-art.js','british-high-street-art.js'];
   for(const f of protectedPaths){const old=execFileSync('git',['show',PINNED_BASE+':'+f],{cwd:ROOT,maxBuffer:8*1024*1024});check('protected '+f+' exact T718 bytes',sha(old)===sha(fs.readFileSync(path.join(ROOT,f))));}
   for(const text of ["const GAME_VER='14.22'","const GAME_ANCHOR='T718'",'id="startVersion456">v14.22 · T718'])check('unchanged release metadata '+text,html.toString().split(text).length===2);
@@ -411,7 +412,15 @@ function scoreStyle006(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
         const shard=Number(MODE.slice(-1)),constructionTargets=TARGETS.slice(shard*4,shard*4+4);
         for(const t of constructionTargets){await call(scene,{id:t.id,z:2,mode:'day',rot:0});for(const p of[0,3,5.5,8.999,9])for(const mode of['day','night']){const q=await call(constructionFrame,t.id,p,mode),stem=`${t.id}-construction-${p}-${mode}`;png('full/'+stem+'.png',await ev('window.__residential006QA.lastFull'),{kind:'actual construction',id:t.id,progress:p,mode});report.construction.push({stem,...q});check(stem+' stable correct plot/profile',q.stableDiff===0&&q.root.k===t.k&&q.profile?.sz===t.sz&&q.profile.area===t.sz*t.sz,q);if(p===8.999)check(stem+' exact completed geometry boundary',mode==='day'?q.completionDelta===0:completionNightOK(q),q);save();}}
         for(const t of constructionTargets)for(const mode of['day','night']){const sig=report.construction.filter(q=>q.id===t.id&&q.mode===mode).map(q=>q.signature);check(t.id+' '+mode+' construction distinct stages',new Set(sig).size>=4,sig);}
-        for(const t of constructionTargets.filter((t,i)=>i===0)){await ev(`GV.art574.clear574(${t.x+1},${t.y+t.sz},2,2);GV.art574.plant574([{k:197,x:${t.x+1},y:${t.y+t.sz},sz:2,v:0,lv:1}]);GV.testRebake592();1`);await output({id:t.id,z:2,mode:'night',rot:0},t.id+'-foreground',report.occlusion);const q=await call(lampProbe,t.id);check(t.id+' foreground masks own lamps yet others visible',q.fullyBlockedLightPixels>0&&q.visibleLightPixels>0,q);}
+        for(const t of constructionTargets.filter((t,i)=>i===0)){
+          const clear=()=>ev(`GV.art574.clear574(${t.x+1},${t.y+t.sz},6,2);GV.testRebake592();1`,'clear bounded foreground fixture');
+          await clear();await call(scene,{id:t.id,z:2,mode:'night',rot:0});const baseline=await call(lampProbe,t.id),attempts=[];let chosen=null;
+          // Fixed authored forms differ in height. Seek an actual partially
+          // occluding neighbor in a bounded declared strip, not a fully hidden
+          // house. Both newly blocked and still-visible portions must be real.
+          for(const dx of[3,4,2,1]){await clear();await ev(`GV.art574.plant574([{k:197,x:${t.x+dx},y:${t.y+t.sz},sz:2,v:0,lv:1}]);GV.testRebake592();1`,'plant physical foreground at '+dx);await call(scene,{id:t.id,z:2,mode:'night',rot:0});const q=await call(lampProbe,t.id),newlyBlocked=q.fullyBlockedLightPixels-baseline.fullyBlockedLightPixels,minimum=Math.max(8,Math.ceil(q.candidateLightPixels*.12)),ok=newlyBlocked>=minimum&&q.visibleLightPixels>=minimum;attempts.push({dx,k:197,newlyBlocked,minimum,ok,...q});if(ok){chosen=attempts.at(-1);break;}}
+          await output({id:t.id,z:2,mode:'night',rot:0},t.id+'-foreground',report.occlusion);const proof={baseline,attempts,chosen,strip:{x:t.x+1,y:t.y+t.sz,w:6,h:2},method:'Unaltered actual renderer; same cleared baseline strip, one real pub at each bounded candidate. Requires at least12% of target light candidates newly blocked and12% still visible; no transparency, light override or threshold relaxation.'};(report.occlusionProofs||(report.occlusionProofs=[])).push({id:t.id,...proof});check(t.id+' physical foreground newly masks some lamps while others remain visible',!!chosen,proof);
+        }
         check('all forty construction shard frames recorded',report.construction.length===40);
       }else throw Error('Unknown mode '+MODE);
       report.nightCompositor=await ev('GV.nightOccSelftest629()');check('existing depth-aware night compositor',report.nightCompositor.ok,report.nightCompositor);
