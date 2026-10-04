@@ -1,0 +1,125 @@
+# GPT-006 isolated branch evidence; no credentials, writes, secrets or deployment.
+name: residential-integration
+on:
+  push:
+    branches: ['gpt/british-residential-streets']
+    paths-ignore: ['**.md', 'docs/**']
+permissions:
+  contents: read
+concurrency:
+  group: residential-integration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    if: github.ref == 'refs/heads/gpt/british-residential-streets'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Source and baseline contract
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin 0072ac19b3c33f2dda98552d8b6c6bf447ba296c
+          node --check residential-integration-qa.js
+          node --check british-residential-art.js
+          node --check residential-gameplay-probe006.js
+          node --check residential-selftest006.js
+          mkdir -p residential-evidence/preflight/logs
+          git rev-parse HEAD > residential-evidence/preflight/checked-sha.txt
+          sha256sum index.html british-residential-art.js residential-integration-qa.js fp.json style.json > residential-evidence/preflight/source-sha256.txt
+      - name: Fast gameplay, canonical pixels, real loaded town and catalog
+        run: |
+          set -o pipefail
+          RS006_MODE=preflight node residential-integration-qa.js 2>&1 | tee residential-evidence/preflight/logs/preflight.txt
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json british-prototypes-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: residential-preflight-${{ github.sha }}
+          path: residential-evidence/preflight/
+          retention-days: 14
+          if-no-files-found: warn
+  matrix:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, weather, construction0, construction1, construction2, construction3]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T718 source
+        run: git fetch --depth=1 origin 0072ac19b3c33f2dda98552d8b6c6bf447ba296c
+      - name: Exact source evidence shard
+        run: |
+          set -o pipefail
+          mkdir -p residential-evidence/${{ matrix.mode }}/logs
+          RS006_MODE=${{ matrix.mode }} node residential-integration-qa.js 2>&1 | tee residential-evidence/${{ matrix.mode }}/logs/run.txt
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json british-prototypes-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: residential-${{ matrix.mode }}-${{ github.sha }}
+          path: residential-evidence/${{ matrix.mode }}/
+          retention-days: 14
+          if-no-files-found: warn
+  regression:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T718 source
+        run: git fetch --depth=1 origin 0072ac19b3c33f2dda98552d8b6c6bf447ba296c
+      - name: Three smoke passes, strict declared-delta fingerprint and old-city simulation
+        run: |
+          set -uo pipefail
+          set +e
+          mkdir -p residential-evidence/regression/logs
+          status=0
+          run_check() {
+            name="$1"; shift
+            "$@" 2>&1 | tee "residential-evidence/regression/logs/$name.txt"
+            codes=("${PIPESTATUS[@]}")
+            printf '%s\n' "${codes[0]}" > "residential-evidence/regression/logs/$name.exit"
+            printf '%s\n' "${codes[1]}" > "residential-evidence/regression/logs/$name.tee.exit"
+            if [ "${codes[0]}" -ne 0 ] || [ "${codes[1]}" -ne 0 ]; then status=1; fi
+          }
+          for n in 1 2 3; do run_check "smoke-$n" node smoke.js; done
+          run_check fingerprint node fp.js --check --expect=bld
+          run_check compatibility node residential-compatibility-qa.js
+          QA_STATUS="$status" node residential-regression-manifest006.js
+          code=$?; if [ "$code" -ne 0 ]; then status=1; fi
+          exit "$status"
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json british-prototypes-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: residential-regression-${{ github.sha }}
+          path: residential-evidence/regression/
+          retention-days: 14
+          if-no-files-found: warn

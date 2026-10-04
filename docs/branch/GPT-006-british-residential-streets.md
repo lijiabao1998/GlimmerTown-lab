@@ -37,3 +37,49 @@ Persistent dot-cloud checkout, plus authorized GitHub branch CI only. Do not use
 ## Not completed / limitations
 
 Catalog/reference balance lock, implementation, all runtime checks, pixel review and image approval remain pending. Real-device/mobile performance is not certified. No site release authorized for this round yet.
+
+## Locked forms and balance before implementation
+
+All sixteen use2×2 plots, fixedlv1/v0 andwealth1. Figures below are game balance, not historical staffing claims. Low/mid occupancy and all utilities use existing game authorities.
+
+| ID | Form | Housing / band | Cost / rank | Power / water |
+|---|---|---|---|---|
+|246 georgianRow|Georgian continuous row|36 / mid|$1300 / 3|2.62 / 2.04|
+|247 georgianCorner|Georgian L-corner terrace|40 / mid|$1600 / 4|2.8 / 2.2|
+|248 georgianEnd|Georgian end pavilion|28 / mid|$1200 / 3|2.26 / 1.72|
+|249 georgianArea|Georgian raised-basement terrace|32 / mid|$1400 / 4|2.44 / 1.88|
+|250 victorianGabledSemi|Victorian cross-gabled semi pair|20 / low|$950 / 3|1.9 / 1.4|
+|251 victorianBayVilla|Victorian canted-bay villa|12 / low|$1100 / 4|1.54 / 1.08|
+|252 victorianGardenVilla|Victorian double-fronted garden villa|12 / low|$1200 / 4|1.54 / 1.08|
+|253 victorianGothicVilla|Victorian Gothic cross-wing villa|16 / low|$1250 / 4|1.72 / 1.24|
+|254 stoneCottagePair|English stone cottage pair|12 / low|$600 / 2|1.54 / 1.08|
+|255 brickCatslideCottage|English brick catslide cottage|10 / low|$550 / 2|1.45 / 1.0|
+|256 courtyardCottages|English courtyard cottages|18 / low|$800 / 2|1.81 / 1.32|
+|257 thatchedLongCottage|English thatched long cottage|8 / low|$500 / 2|1.36 / 0.92|
+|258 workersNarrowRow|British narrow workers row|32 / mid|$850 / 2|2.44 / 1.88|
+|259 workersYardTerrace|British through-terrace with yards|28 / mid|$900 / 2|2.26 / 1.72|
+|260 workersCourt|British back-to-back court|36 / mid|$1000 / 3|2.62 / 2.04|
+|261 workersCornerShop|British corner shop and homes|16 / mid +6commercialjobs|$1200 / 3|2.72 / 2.04|
+
+Distinct geometry: Georgian straight row/L-corner/end pavilion plus rear wing/raised-basement area; Victorian cross-gabled semi/asymmetric canted-bay villa/double-fronted garden villa/Gothic cross-wing; village stone pair/brick catslide/L-courtyard/low cob-thatched longhouse; workers narrow row/through-terrace backyards/back-to-back court/mixed-use corner shop. Existing1930s hip-roof semis, stucco terrace blocks, k219 bay terraces andk239 bakehouse are protected.
+
+## Reference audit before drawing
+
+All references describe building form/material only; sprites are original geometry. Authoritative references were read during the catalog audit on the pinned base.
+
+- Georgian: [York Road1282037](https://historicengland.org.uk/listing/the-list/list-entry/1282037), [Dowry Square1202208](https://historicengland.org.uk/listing/the-list/list-entry/1202208), [Sion Hill1293317](https://historicengland.org.uk/listing/the-list/list-entry/1293317), [Sion Hill1208177](https://historicengland.org.uk/listing/the-list/list-entry/1208177).
+- Victorian: [Cross-gabled semi pair1187578](https://historicengland.org.uk/listing/the-list/list-entry/1187578), [Oakhurst1404507](https://historicengland.org.uk/listing/the-list/list-entry/1404507), [Priory Road1386341](https://historicengland.org.uk/listing/the-list/list-entry/1386341), [Red House1064203](https://historicengland.org.uk/listing/the-list/list-entry/1064203).
+- Village: [Arlington Row1155677](https://historicengland.org.uk/listing/the-list/list-entry/1155677), [Hope Cottage1486407](https://historicengland.org.uk/listing/the-list/list-entry/1486407), [Court Cottages1319628](https://historicengland.org.uk/listing/the-list/list-entry/1319628), [Faith Cottage1273686](https://historicengland.org.uk/listing/the-list/list-entry/1273686).
+- Workers' houses: [Elsecar Old Row1151094](https://historicengland.org.uk/listing/the-list/list-entry/1151094), [National Trust Birmingham Back to Backs](https://www.nationaltrust.org.uk/visit/birmingham-west-midlands/birmingham-back-to-backs/history-of-birmingham-back-to-backs).
+
+Catalog collisions explicitly avoided: ukVictorian already has tall stucco Georgian-like rows/basements/balconies; ukSemi uses1930s hips; ukTerrace/k219 already supply bay-fronted redbrick rows; ukMews has carriage openings; k81 is jettied Tudor B&B; k242 is a white Arts-and-Crafts surgery. New plans and sections, rather than renamed colors, supply each distinction.
+
+- Pre-code remote card commit: `c336b7e90957fe058799e7e68449c48fb3ff1fe9`. Locked forms/balance and reference audit recorded before the drawing/integration workers started implementation.
+
+## R1 integrated candidate, before runtime evidence
+
+All sixteen original builders and their normal catalog/placement/housing authorities are assembled. k261 carries16 nominal residents and6 commercial jobs through the existing housing and enterprise systems. Total nominal housing is356:108low-density and248mid-density. All65 inline scripts parse without executing the game. The candidate adds about1.2% to the HTML; no external raster payloads or shared simulation RNG are used.
+
+Independent static review caught and corrected a fixture road crossing its own plant, a stale external group list, an occupancy-rounding assumption and a compatibility-world metadata type assumption. These were QA corrections, not accepted failures hidden by weaker thresholds. Actual CI/runtime, rendered pixels, performance results and owner approval remain pending.
+
+Verification design: fast preflight; six substantive gameplay groups plus every existing T717/T718 gameplay group; four single-camera shards; rain/snow; four construction shards (40frames each); smoke three times; strict declared-delta fingerprints; exact simulation comparison of two seeded sandbox showcases plus a normal-difficulty approved-British city. The compatibility harness additionally exposes the seeded PRNG's integer closure state without advancing it, after proving the original update/return sequence unchanged on1280 controlled draws. Temporary CI observation edits are restored, never published as product code.
