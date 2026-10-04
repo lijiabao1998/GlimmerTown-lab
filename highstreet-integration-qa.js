@@ -5,6 +5,10 @@ const fs=require('fs'),path=require('path'),crypto=require('crypto'),{execFileSy
 const ROOT=__dirname,{withGame}=require('./harness');
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('Run only in authorized isolated GitHub Actions');
 const MODE=process.env.HS005_MODE||'preflight',OUT=path.join(ROOT,'highstreet-evidence',MODE);
+const deepEqual=require('util').isDeepStrictEqual;
+const RELEASE_VERSION='14.22',RELEASE_ANCHOR='T718';
+const APPROVED_HTML_SHA256='eb6ff6eedabd78c117215d61a5c9f80dbd26ee29eefe7603d7a5fdb73c4a73bf';
+const releaseBaseline=JSON.parse(fs.readFileSync(path.join(ROOT,'fp.json'),'utf8'));
 const PINNED_BASE='f6d626c04c2979e8b2855f0f4a9e9ab1eef35654';
 const TARGETS=[
 {id:'UKH01',k:238,tool:'coOpStores',sz:2,x:8,y:14,w:136,h:170,ax:68,ay:168},
@@ -56,6 +60,10 @@ function compareFingerprint(fp,blocks){
   check('only bld family touched',JSON.stringify(touched.sort())==='["bld"]',touched);
   check('all enumerated superblock sprites unchanged',!!baseline.blocks&&blocks?.fam===baseline.blocks.fam&&blocks?.count===baseline.blocks.count,out.blocks);
   return out;
+}
+function compareReleaseBaseline(fp,blocks){
+  const result={leaves:deepEqual(releaseBaseline.subs,fp.subs),families:deepEqual(releaseBaseline.families,fp.families),stats:deepEqual(releaseBaseline.stats,fp.stats),blocks:deepEqual(releaseBaseline.blocks,{fam:blocks.fam,count:blocks.count})};
+  check('strict promoted release baseline equals every complete boot leaf family count and block',Object.values(result).every(Boolean),result);return result;
 }
 function compareSessionFingerprint(before,after,worker){
   const keys=['d','n','w','h','op','nop'],added=[],removed=[],changed=[];
@@ -344,9 +352,18 @@ async function cleanup(){
 function scoreStyle005(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=[Math.min(1,f.colors/L/16),Math.max(0,1-Math.min(1,f.semi/op*20)),f.leftLit/L,Math.max(0,Math.min(1,(f.buckets/L-2)/4)),Math.min(1,(f.colors/op)*100/4),.5*f.nightLeaves/L+.5*(f.nightOp>0?1-f.nightViol/f.nightOp:1),Math.min(1,f.leaves/8)];return {axes,total:+(axes.reduce((a,b)=>a+b,0)/7).toFixed(4)};}
 (async()=>{
   check('ID migration preserves exact reviewed R3 art source',sha(art)===R3_ART_SHA256,{sha256:sha(art)});
-  const protectedPaths=['fp.json','style.json','AUTORUN-LOG.md','docs/DECISIONS.md','british-prototypes-art.js'];
+  const protectedPaths=['style.json','docs/DECISIONS.md','british-prototypes-art.js'];
   for(const f of protectedPaths){const old=execFileSync('git',['show',PINNED_BASE+':'+f],{cwd:ROOT,maxBuffer:8*1024*1024});check('protected '+f+' exact T717 bytes',sha(old)===sha(fs.readFileSync(path.join(ROOT,f))));}
-  for(const rx of [/const GAME_VER='[^']+'/g,/const GAME_ANCHOR='[^']+'/g,/id="startVersion456">[^<]+/g])check('review release metadata unchanged '+rx,JSON.stringify(baseHTML.match(rx))===JSON.stringify(html.toString().match(rx)));
+  const normalizedHTML=html.toString().replace("const GAME_VER='14.22'","const GAME_VER='14.21'").replace("const GAME_ANCHOR='T718'","const GAME_ANCHOR='T717'").replace('id="startVersion456">v14.22 · T718','id="startVersion456">v14.21 · T717');
+  check('approved product changes only three exact release metadata fields',sha(normalizedHTML)===APPROVED_HTML_SHA256);
+  for(const text of ["const GAME_VER='14.22'","const GAME_ANCHOR='T718'",'id="startVersion456">v14.22 · T718'])check('exact release metadata '+text,html.toString().split(text).length===2);
+  const promoted=JSON.parse(JSON.stringify(baseline));promoted.generatedAt=releaseBaseline.generatedAt;promoted.version=RELEASE_VERSION;promoted.anchor=RELEASE_ANCHOR;promoted.stats={families:153,leaves:2779,dayNonEmpty:2769,nightNonEmpty:1465};promoted.families.bld={leaves:847,crc:'7c6e911a',px:29097152,op:6897233,night:822};
+  for(const t of TARGETS)promoted.subs['bld.'+t.k+'_1_0']=R3_PIXEL_PINS[t.id];
+  check('release baseline is strictly additive promotion of eight approved full leaf records',deepEqual(releaseBaseline,promoted)&&Number.isFinite(Date.parse(releaseBaseline.generatedAt)));
+  const priorLog=execFileSync('git',['show',PINNED_BASE+':AUTORUN-LOG.md'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024}),currentLog=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8');
+  const logEntries=currentLog.match(/<!-- T718 release entry BEGIN -->[\s\S]*?<!-- T718 release entry END -->\n/g)||[];
+  check('release log is one bounded insertion preserving every prior byte',logEntries.length===1&&currentLog.replace(logEntries[0],'')===priorLog&&logEntries[0].includes('r165')&&logEntries[0].includes('PR10'));
+
   const oldArt=x=>x.slice(x.indexOf('<!-- GPT-004 approved British art BEGIN'),x.indexOf('<!-- GPT-004 approved British art END')+1);
   check('approved T717 British embedded generator unchanged',oldArt(baseHTML).length>20000&&oldArt(baseHTML)===oldArt(html.toString()));
   check('existing T700 worker renderer remains source-pinned',sha(workerSource)===APPROVED_WORKER_SHA256);
@@ -366,7 +383,7 @@ function scoreStyle005(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
     const output=async(arg,stem,arr)=>{const q=await ev('(()=>{const r=('+scene.toString()+')('+JSON.stringify(arg)+');return{r,full:window.__highStreet005QA.lastFull,crop:window.__highStreet005QA.lastCrop};})()','capture '+stem);const r=q.r;png('full/'+stem+'.png',q.full,{kind:'actual loaded game canvas',...arg});png('crops/'+stem+'.png',q.crop,{kind:'unaltered crop',...arg,rect:r.rect});check(stem+' correct camera/daylight',r.actualRotation===(arg.rot||0)&&(arg.mode==='day'?r.daylight.b>.95:r.daylight.b<.45));if(arg.id){const h=r.hits.find(h=>h.id===arg.id);check(stem+' canonical asset, in frame and exact footprint anchor',h?.canonicalIdentity&&h.withinCanvas&&h.anchorError.every(x=>Math.abs(x)<1e-5),h);}arr.push({stem,...r});save();return r;};
     try{
       await rpc('Emulation.setDeviceMetricsOverride',{width:1440,height:1080,deviceScaleFactor:1,mobile:false});
-      report.boot=await ev('({ready:!!window.__bootDone453,slot:localStorage.getItem("glimmerville.v1.slot"),version:GV.ver(),batches:window.__t574,highstreet:window.__highStreetArt005,elapsedMs:performance.now()})','boot');report.boot.wallMs=Date.now()-wallStart;check('ordinary ready boot slot3',report.boot.ready&&report.boot.slot==='3'&&report.boot.version==='14.21',report.boot);check('asset batches error-free',!(report.boot.batches?.err||[]).length,report.boot.batches?.err);
+      report.boot=await ev('({ready:!!window.__bootDone453,slot:localStorage.getItem("glimmerville.v1.slot"),version:GV.ver(),batches:window.__t574,highstreet:window.__highStreetArt005,elapsedMs:performance.now()})','boot');report.boot.wallMs=Date.now()-wallStart;check('ordinary ready boot slot3',report.boot.ready&&report.boot.slot==='3'&&report.boot.version===RELEASE_VERSION,report.boot);check('asset batches error-free',!(report.boot.batches?.err||[]).length,report.boot.batches?.err);
       report.selftest=await ev('({new:GV.highStreetSelftest005(),prior:GV.britishSelftest004()})','selftests');check('new and approved-three smoke selftests',report.selftest.new.ok&&report.selftest.prior.ok,report.selftest);
       await ev('window.__highStreetQA005=true;window.__britishQA004=true;1');
       if(MODE==='gameplay'||MODE==='preflight'){
@@ -375,7 +392,7 @@ function scoreStyle005(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
       }
       bootFP=await ev('GV.fp536()','boot fingerprints',300000);
       if(MODE==='preflight'){
-        const blocks=await ev('GV.blockFp536()','all legacy block fingerprints',300000);report.fingerprint=compareFingerprint(bootFP,blocks);fs.writeFileSync(path.join(OUT,'guards','fingerprint-current.json'),JSON.stringify({checkedSHA,fp:bootFP,blocks},null,2));
+        const blocks=await ev('GV.blockFp536()','all legacy block fingerprints',300000);report.fingerprint=compareFingerprint(bootFP,blocks);report.releaseFingerprint=compareReleaseBaseline(bootFP,blocks);fs.writeFileSync(path.join(OUT,'guards','fingerprint-current.json'),JSON.stringify({checkedSHA,fp:bootFP,blocks},null,2));
         const raw=await ev('GV.style536()','all-family style score',300000),prior=JSON.parse(fs.readFileSync(path.join(ROOT,'style.json'),'utf8'));report.style={drops:[],bld:null};for(const [k,v]of Object.entries(raw.families||{})){const n=scoreStyle005(v),p=prior.families?.[k];if(p&&n.total<p.total-1e-6)report.style.drops.push({family:k,before:p.total,after:n.total});if(k==='bld')report.style.bld={before:p,after:n,raw:v};}check('all-family style ratchet including new bld',raw.ok&&report.style.drops.length===0,report.style.drops);
       }
       report.fixtureResult=await call(prepareFixture,TARGETS,BENCHMARKS);check('bounded patches retain existing town',report.fixtureResult.unchangedExistingRoots>100,report.fixtureResult);
