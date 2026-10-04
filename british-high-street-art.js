@@ -1,4 +1,5 @@
-/* British architecture study, UKP01–03. Prototype-only, no game registration.
+/* GPT-005 British high-street buildings, UKH01–08.
+ * Canonical native art registered by installHighStreetArt005 in the playable game.
  * Native 2:1 pixel geometry: x=ax+2i-2j, y=ay-32*sz+i+j-z.
  * A deterministic opaque surface z-buffer writes day and emissive pixels together.
  * No raster imports, shared RNG, Canvas anti-aliasing, or changes to existing assets.
@@ -287,7 +288,10 @@ function hsWindow005(S,F,u,z,w,h,opt) {
     const top=archTop(x);if(y>top)return null;
     if(x<border||x>w-border||y<.45||y>top-.5)return frame;
     const panes=opt.panes||2;
-    if(panes>1&&Math.abs(mod(x,w/panes))<.20)return frame;
+    const paneWidth=w/panes,seam=mod(x,paneWidth);
+    // Opt-in centred strips survive the quarter-pixel sample phase of the
+    // tall co-op bays; preserve the original sampling on every other asset.
+    if(panes>1&&(opt.centeredMullions?Math.min(seam,paneWidth-seam)<=.30:Math.abs(seam)<.20))return frame;
     const bars=opt.bars||[h*.5];
     if(bars.some(b=>Math.abs(y-b)<.28))return frame;
     if(opt.leaded&&mod(x*1.45+y*.45,2.4)<.11)return right?P.iron:P.ironHi;
@@ -368,9 +372,13 @@ function coOp005(spec) {
   // Wide faience pilasters and solid spandrels maintain a three-storey reading.
   for(const u of [1.5,10,18.5]){
     front.panel(u-.5,u+6.55,27,61.3,C('c8bda4'),.1);
-    hsWindow005(S,front,u,28.5,6.0,30.4,{arch:true,frame:blue,panes:3,bars:[11.7,14.7,23.5],lit:u!==10,border:.45});
-    front.panel(u+.2,u+5.8,41.1,44.0,blueR,.27);
-    front.panel(u+.5,u+5.5,41.5,43.6,C('b8b397'),.31);
+    hsWindow005(S,front,u,28.5,6.0,30.4,{arch:true,frame:C('879991'),panes:3,centeredMullions:true,bars:[5.8,23.5,25.5],lit:u!==10,border:.45});
+    // Opaque faience spandrels make the first/second-floor separation visible
+    // at city zoom, while the tall outer arches still tie the bays together.
+    front.panel(u+.2,u+5.8,40.9,44.5,blueR,.27);
+    front.panel(u+.35,u+5.65,41.4,44.0,C('d1c7ad'),.31);
+    front.panel(u+.15,u+5.85,44.0,44.6,P.stoneHi,.33);
+    front.panel(u+.15,u+5.85,40.7,41.4,P.stoneR,.33);
     // Low-relief faience swag, drawn on the wall plane around each arch.
     for(let n=0;n<6;n++){
       const x=u+n,zz=61.2-1.3*Math.sin((n+.5)/6*Math.PI);
@@ -385,7 +393,8 @@ function coOp005(spec) {
   }
   for(const u of [2.3,8.1])for(const z of [30.3,47.3])
     hsWindow005(S,side,u,z,3.2,10.6,{right:true,frame:blueR,lit:z<40&&u<4,panes:2});
-  hsWindow005(S,side,17.6,28.6,3.9,29.8,{right:true,arch:true,frame:blueR,panes:2,bars:[12,15,23],lit:false});
+  hsWindow005(S,side,17.6,28.6,3.9,29.8,{right:true,arch:true,frame:C('687c7b'),panes:2,centeredMullions:true,bars:[5.8,23.2,25.0],lit:false});
+  side.panel(17.8,21.3,41.1,44.4,P.stoneR,.31);
   // Broad cornice, a blind attic and a subordinate hipped slate roof.
   for(const z of [62.6,68])cornice(S,3,29,4,27,z);
   front.panel(.2,25.8,64.3,67.8,C('d7ceb6'),.1);
@@ -502,9 +511,9 @@ function marketHall005(spec) {
     if(mod(i-11.6,2.2)<.09)return right?C('5d7273'):C('839791');
     const n=hash(slat,bay,583),highlight=mod(i+j*.3,9.5)<.48;
     const col=highlight?(right?C('8a9e9e'):C('a3b3ab')):(right?C('6d888e'):C('90a6a4'));
-    // Small warm interior bands imply light below glass, not a luminous roof.
-    const lit=bay!==1&&mod(j-4.1,5.4)>1.3&&mod(j-4.1,5.4)<4.35&&slat%3===1?C('bcae7d'):0;
-    return [n%13===0?(right?C('667f86'):C('889f9d')):col,lit];
+    // The glass roof reflects the night environment; coherent interior light
+    // comes from the supported side/front glazing below. No isolated roof lamps.
+    return n%13===0?(right?C('667f86'):C('889f9d')):col;
   };
   const a=11.6,b=43.4,m=27.5,back=4.1,near=32.4,eave=30.2,top=51.8;
   S.poly([[a,back,eave],[m,back,top],[m,near,top],[a,near,eave]],roofMat(false));
@@ -839,18 +848,21 @@ function cottageSurgery005(spec){
   for(const u of [1.4,6.3])windowOn(S,side,u,4.4,3.5,9.5,{right:true,panes:2,curtain:true,lit:u>4});
   front.panel(8.1,9.8,6.5,10.6,P.greenD,.24);
   front.panel(8.4,9.5,7.1,7.5,P.gold,.26);front.panel(8.4,9.5,8.2,8.5,P.frame,.26);
-  // Deep veranda shade belongs to actual recessed wall and roof geometry.
-  S.box(3.1,28.6,19.1,23.7,0,.75,P.stoneR,P.stoneD,C('b1b49e'));
-  S.poly([[2.9,19.3,16.3],[28.8,19.3,16.3],[28.8,23.8,12.9],[2.9,23.8,12.9]],tileRoof(false,554,'i'));
-  S.line([2.9,23.8,12.9],[28.8,23.8,12.9],P.iron,1);
-  for(const i of [3.7,8.5,13.1,18,22.8,28]){
-    S.box(i-.2,i+.2,23.15,23.55,.75,12.8,C('b8c2a8'),C('8b9f8a'),C('c9cfb7'));
-    S.line([i,23.4,10.7],[i+1.2,23.4,12.8],C('8eaa91'),1);
+  // At 2:1 projection the canopy obscures a rear-wall height of twice its
+  // plan depth. Keep a real opaque lean-to, but leave 11.4 px of facade below
+  // its projected front eave so the door and mullioned windows can be read.
+  S.box(3.1,28.6,19.1,21.85,0,.75,P.stoneR,P.stoneD,C('b1b49e'));
+  S.poly([[2.9,19.3,17.9],[28.8,19.3,17.9],[28.8,21.9,16.8],[2.9,21.9,16.8]],tileRoof(false,554,'i'));
+  S.line([2.9,21.9,16.8],[28.8,21.9,16.8],P.iron,1);
+  // A wider entrance bay also keeps a foreground post off the door's sightline.
+  for(const i of [3.7,8.5,13.1,20,24,28]){
+    S.box(i-.2,i+.2,21.5,21.9,.75,16.7,C('b8c2a8'),C('8b9f8a'),C('c9cfb7'));
+    S.line([i,21.7,14.6],[i+1.2,21.7,16.7],C('8eaa91'),1);
   }
   communityRenderedStack005(S,6.6,10,28.4);communityRenderedStack005(S,22.8,9.1,28.5);
-  downpipe(S,28.65,18.9,17.5);downpipe(S,3.2,23.7,12.7);
-  step(S,13.7,17.9,23.7,25,1);
-  S.flat(13.9,17.7,24.4,31.3,.08,C('bdb6a4'),.05,1);
+  downpipe(S,28.65,18.9,17.5);downpipe(S,3.2,21.9,16.7);
+  step(S,13.7,17.9,21.85,23.15,1);
+  S.flat(13.9,17.7,22.6,31.3,.08,C('bdb6a4'),.05,1);
   // Two quiet planted beds leave the entry path clear. This is a small clinic,
   // without hospital-tower iconography or an oversized medical rooftop sign.
   S.flat(3.4,12.4,25.1,29.6,.08,C('7b8d66'),.05,1);
@@ -858,7 +870,7 @@ function cottageSurgery005(spec){
   for(const i of [5,9.4,21,25.8])bush(S,i,28.1,1.15,3.7,i===9.4);
   communityYardWall005(S,2.7,12.9,30,30.6,2.4,true);
   communityYardWall005(S,18.5,29.3,30,30.6,2.4,true);
-  bench(S,20.6,21.2,4.6);
+  bench(S,20.6,19.9,4.6);
   return S.finish();
 }
 
@@ -998,18 +1010,20 @@ function villageHall005(spec){
   windowOn(S,wing,1,3.6,3.5,8.3,{panes:2,lit:false});
   for(const u of [2,9.6])windowOn(S,wingSide,u,4,3.3,7.9,{right:true,panes:2,lit:u>5});
   // Continuous veranda, five bays of timber posts and restrained brackets.
-  S.box(2.7,25.2,22,26.6,0,.8,C('9e9f8b'),C('777f6e'),C('b7b6a0'));
-  S.poly([[2.4,22.35,17.4],[25.3,22.35,17.4],[25.3,26.8,13.2],[2.4,26.8,13.2]],communityIronRoof005(false,'i'));
-  S.line([2.4,26.8,13.2],[25.3,26.8,13.2],community005Pal.timberR,1);
+  // The shallow opaque canopy joins beneath the main eave while its raised
+  // front edge leaves the actual back-wall entry and windows visible.
+  S.box(2.7,25.2,22,25.0,0,.8,C('9e9f8b'),C('777f6e'),C('b7b6a0'));
+  S.poly([[2.4,22.35,19.2],[25.3,22.35,19.2],[25.3,25.1,18.1],[2.4,25.1,18.1]],communityIronRoof005(false,'i'));
+  S.line([2.4,25.1,18.1],[25.3,25.1,18.1],community005Pal.timberR,1);
   for(const i of [3.1,7.4,11.7,16,20.3,24.6]){
-    S.box(i-.32,i+.32,26.2,26.8,.8,1.7,P.stone,P.stoneR,P.stoneHi);
-    S.box(i-.21,i+.21,26.35,26.65,1.7,13.1,community005Pal.timber,community005Pal.timberR,community005Pal.timber);
-    if(i<24){S.line([i,26.5,10.7],[i+1.25,26.5,13.0],community005Pal.timber,1);S.line([i+3.1,26.5,13],[i+4.3,26.5,10.7],community005Pal.timberR,1);}
+    S.box(i-.32,i+.32,24.65,25.05,.8,1.7,P.stone,P.stoneR,P.stoneHi);
+    S.box(i-.21,i+.21,24.7,25,1.7,18.0,community005Pal.timber,community005Pal.timberR,community005Pal.timber);
+    if(i<24){S.line([i,24.85,15.6],[i+1.25,24.85,17.9],community005Pal.timber,1);S.line([i+3.1,24.85,17.9],[i+4.3,24.85,15.6],community005Pal.timberR,1);}
   }
-  downpipe(S,25.1,26.7,13.1);downpipe(S,30.2,21.8,14);
-  step(S,13.1,17.7,26.65,28,1);S.flat(13.3,17.5,27.7,31.25,.08,C('bbb3a0'),.04,1);
+  downpipe(S,25.1,25.05,18.0);downpipe(S,30.2,21.8,14);
+  step(S,13.6,18.4,25.05,26.4,1);S.flat(14,18,26.1,31.25,.08,C('bbb3a0'),.04,1);
   // The noticeboard is attached to the veranda rather than scattered signage.
-  const notice=S.face([5.1,26.75],[8.3,26.75]);notice.panel(0,3.2,3.8,9.2,C('536650'),.12);
+  const notice=S.face([5.1,25.1],[8.3,25.1]);notice.panel(0,3.2,3.8,9.2,C('536650'),.12);
   notice.panel(.25,2.95,4.15,8.9,C('bcbaa1'),.14);notice.panel(.55,1.35,5.7,8.2,C('d8d3b8'),.18);notice.panel(1.75,2.7,4.7,7.4,C('c7b496'),.18);
   for(const z of [6.4,7.3])notice.panel(.7,1.2,z,z+.18,C('8e927a'),.2);
   front.panel(10.6,15.1,15.5,17.8,C('526d59'),.26);letters(front,'HALL',11.2,15.9,.22,P.frame);
@@ -1019,5 +1033,5 @@ function villageHall005(spec){
 
   const builders={UKH01:coOp005,UKH02:bakehouse005,UKH03:marketHall005,UKH04:boardSchool005,UKH05:cottageSurgery005,UKH06:postOffice005,UKH07:municipalBaths005,UKH08:villageHall005};
   function build(id){const s=specs.find(q=>q.id===id);if(!s)throw Error('Unknown high-street building: '+id);return builders[id](s);}
-  root.HighStreetArchitecture005=Object.freeze({version:'UKH-art-r1',specs,build,buildAll:()=>specs.map(s=>builders[s.id](s))});
+  root.HighStreetArchitecture005=Object.freeze({version:'UKH-art-r2',specs,build,buildAll:()=>specs.map(s=>builders[s.id](s))});
 })(window);

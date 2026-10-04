@@ -105,9 +105,11 @@ jobs:
             if [ "$code" -ne 0 ]; then status=1; fi
           done
           node fp.js --check --expect=bld 2>&1 | tee highstreet-evidence/regression/logs/fingerprint.txt
-          code=${PIPESTATUS[0]}; if [ "$code" -ne 0 ]; then status=1; fi
+          code=${PIPESTATUS[0]}; printf '%s\n' "$code" > highstreet-evidence/regression/logs/fingerprint.exit; if [ "$code" -ne 0 ]; then status=1; fi
           node highstreet-compatibility-qa.js 2>&1 | tee highstreet-evidence/regression/logs/compatibility.txt
-          code=${PIPESTATUS[0]}; if [ "$code" -ne 0 ]; then status=1; fi
+          code=${PIPESTATUS[0]}; printf '%s\n' "$code" > highstreet-evidence/regression/logs/compatibility.exit; if [ "$code" -ne 0 ]; then status=1; fi
+          QA_STATUS="$status" node highstreet-regression-manifest005.js
+          code=$?; if [ "$code" -ne 0 ]; then status=1; fi
           exit "$status"
       - name: Never rewrite source or protected baseline
         if: always()

@@ -25,6 +25,9 @@ function highStreetGameplayProbe005(groupFilter){
   const fresh=()=>{
     require(window.__highStreetQA005===true&&curSlot()===3,'unsafe fresh-world guard');
     speed=0;mapSizePref=72;diff=1;disastersOn=false;newWorld(5005005);speed=0;money=1000000;rankIdx=25;
+    // Same-seed disposable fixtures must not inherit prior fiscal/observatory
+    // state: their existing resets are in-memory only, with no save access.
+    observatoryReset514();fiscalReset515();
     for(const t of tiles)Object.assign(t,{t:2,tree:0,el:0,em:0,zone:0,deco:0,bld:null,road:0,bridge:0,hw:0,rc:0,mask:0,rail:0,railBridge:0,railMask:0,tram:0,tramBridge:0,tramMask:0,wp:0,wr:false,wm:0,rp:false,dock:0,office:0,bus:0,rdec:0,ruin:0,crater:0,oneway:0,light:0,parkMeter:0,busLane:0,flood:0,levee:0,abandoned:0,hv471:0,ug471:0,hvMask471:0,wm472:0,sm472:0,wmMask472:0,smMask472:0,lv475:0,ud475:0,lvMask475:0,udMask475:0,wpMask475:0,fly475:0,ix475:0,am502:0});
     computeFoam();computeElMask();recalcAllMasks();rebuildCov();buildTickIndex();
     markPowerDirty450();markPowerDirty471();markWaterCycleDirty472();markMobilityDirty462();sanDirty445=true;
@@ -101,14 +104,25 @@ function highStreetGameplayProbe005(groupFilter){
     group('perimeter-real-utilities',()=>{
       for(const q of specs)for(const side of ['north','east','south','west']){
         fresh();const x=30,y=30,n=q.sz,[ex,ey,nx,ny,tx,ty]=side==='north'?[x+n-1,y-1,0,-1,1,0]:side==='east'?[x+n,y+n-1,1,0,0,1]:side==='south'?[x+n-1,y+n,0,1,1,0]:[x-1,y+n-1,-1,0,0,1];
-        place('road',ex,ey);place('wpipe',ex,ey);place('plant',ex+nx,ey+ny);place('water',ex+tx,ey+ty);place(q.id,x,y).age=30;tick();
-        const r={q,x,y},root=idx(x,y),edge=idx(ex,ey),seeds=sanRoadSeeds445(root),road=nearRoad(x,y),pc=powerCandidateDistricts450(x,y,2),wc=facilityComps472(root,WATER_NET_COMP472,t=>!!(t.wp||t.wm472));
+        place('road',ex,ey);place('wpipe',ex,ey);place('plant',ex+nx,ey+ny);place('water',ex+tx,ey+ty);place(q.id,x,y).age=30;
+        const r={q,x,y},root=idx(x,y),edge=idx(ex,ey);
+        // Pure snapshots: no ensure/status/dispatch calls are allowed before the
+        // first capture. The tick's own readiness must not be repaired by QA.
+        const capture=()=>copy({root:{k:tiles[root].bld.k,age:tiles[root].bld.age,pw:tiles[root].bld.pw,wa:tiles[root].bld.wa,state:POWER_ROOT_OK471[root],waterState:WATER_ROOT_STATE472[root],waterDelivered:WATER_ROOT_DELIVERED472[root]},edgeDistrict:POWER_DIST450[edge],allocation:powerAlloc450,districts:powerDistricts450.map(d=>({id:d.id,capacity:d.capacity,used:d.used,spare:d.spare,rawCapacity:d.rawCapacity})),pools:power471.pools,loads:power471.loads});
+        tick();const tickEnd=capture();
+        add(q.id+' '+side+' ordinary tick independently powers and waters root',tickEnd.root.pw===true&&tickEnd.root.wa===true&&tickEnd.root.state===1&&tickEnd.root.waterState>=2&&tickEnd.root.waterDelivered>0,tickEnd.root);
+        const seeds=sanRoadSeeds445(root),road=nearRoad(x,y),pc=powerCandidateDistricts450(x,y,2),wc=facilityComps472(root,WATER_NET_COMP472,t=>!!(t.wp||t.wm472));
         add(q.id+' '+side+' exact far-edge road entrance',britishRoad004(root)&&seeds.length===1&&seeds[0]===edge&&road?.join(',')===[ex,ey].join(','),{frontage:seeds,edge,entrance:road});
         add(q.id+' '+side+' actual carrier components reach root',POWER_DIST450[edge]>=0&&pc.includes(POWER_DIST450[edge])&&WATER_NET_COMP472[edge]>=0&&wc.includes(WATER_NET_COMP472[edge]),{powerCandidates:pc,powerDistrict:POWER_DIST450[edge],waterComponents:wc,waterComponent:WATER_NET_COMP472[edge]});
         requireReady(r,q.id+' '+side+' real plant/tower readiness');
-        // Capture physical dispatch before any later T450 nominal refresh.
-        preparePowerDispatch471();const pool=power471.pools.find(p=>p.districts.includes(POWER_DIST450[edge])),raw=pool?.evening?.physicalDispatched004??pool?.evening?.physicalDispatched005,allocated=pool?.districts.reduce((s,d)=>s+powerDistricts450.find(z=>z.id===d).capacity,0),used=pool?.districts.reduce((s,d)=>s+powerDistricts450.find(z=>z.id===d).used,0),tol=Number.EPSILON*Math.max(1,Math.abs(raw||0))*Math.max(16,power471.loads.length*4);
-        add(q.id+' '+side+' physical power is conserved',Number.isFinite(raw)&&raw>0&&near(allocated,raw,tol)&&used<=raw+tol&&powerAlloc450.noGrid===0&&powerAlloc450.noCapacity===0,{physical:raw,allocated,used,roundoff:tol,allocation:powerAlloc450,pool});
+        // A later T450 refresh may expose nominal district capacity (e.g.75),
+        // which is not dispatched energy. Check actual used/served against the
+        // detached physical dispatch. Indivisible-load slack is legitimate.
+        preparePowerDispatch471();const prepared=capture();
+        for(const [phase,snap]of [['tick-end',tickEnd],['immediately-after-prepare',prepared]]){
+          const pool=snap.pools.find(p=>p.districts.includes(snap.edgeDistrict)),raw=pool?.evening?.physicalDispatched004??pool?.evening?.physicalDispatched005,ds=pool?.districts.map(id=>snap.districts.find(d=>d.id===id))||[],capacity=sum(ds.map(d=>d.capacity)),used=sum(ds.map(d=>d.used)),tol=Number.EPSILON*Math.max(1,Math.abs(raw||0))*Math.max(16,snap.loads.length*4);
+          add(q.id+' '+side+' '+phase+' conserves actually used physical power',Number.isFinite(raw)&&raw>0&&ds.length>0&&ds.every(d=>Number.isFinite(d.used)&&d.used>=0)&&used<=raw+tol&&snap.allocation.served<=raw+tol&&near(used,snap.allocation.served,tol)&&snap.allocation.noGrid===0&&snap.allocation.noCapacity===0,{phase,physical:raw,observedCapacity:capacity,used,slack:raw-used,roundoff:tol,allocation:snap.allocation,root:snap.root,districts:ds,pool});
+        }
       }
     });
     group('utility-loss',()=>{

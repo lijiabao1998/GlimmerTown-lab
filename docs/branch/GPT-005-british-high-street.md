@@ -1,6 +1,6 @@
 # GPT-005 — A working British high street and community quarter
 
-Status: integrated eight-building review branch; first runtime smoke passed, strict placement preflight requires the R2 fix below. Owner image approval is pending.
+Status: integrated eight-building review branch; strict R2 preflight passed, four actual-pixel refinements prepared for the full matrix. Owner image approval is pending.
 Base: current origin/main 7da1b6985e6ddab6cdb036c66c165930d71107fb (v14.21 / T717), fetched and verified 2026-10-04.
 Branch: gpt/british-high-street.
 
@@ -70,3 +70,13 @@ During the source-upload approval wait, the cloud workspace was replaced. After 
 ## R1 actual CI and R2 correction
 
 Commit2d06306cd1dd7de069e45d23d73e5bddd56d6c44 passed [ordinary smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37190654182), including81 new and26 prior British selfchecks. Eight sprites baked in70.8ms in the isolated preflight runner; this is asset build time, not whole-game startup. [Strict preflight](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37190654221) failed the map-edge placement probe before art captures: an old fiscal wrapper called placeCost before canPlace, and negative-y dereferenced an absent anchor tile. R2 adds a bounds-only quote guard for new high-street tools, leaving normal rejection and legacy paths unchanged. Guards were not relaxed. Independent review also moved console/uncaught-error acceptance into every evidence mode and added it to the old-city comparison. Runtime, visual matrix, compatibility and owner approval are still pending.
+
+## R2 actual pixel review and R3 full-matrix candidate
+
+[Preflight396fc71](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37190929206) passed107 checks, plus657 catalog/edge assertions and200 placement/inspection/undo assertions. All2771 prior leaves remain unchanged; only the eight declared canonical leaves were added. All1728 superblock sprites preserveCRC5ef6eb67. Eight normal saves/loads retain IDs and real utilities after an ordinary day, with289 physically connected old neighbors retaining power. Eleven disconnected background neighbors remain visible and are not claimed as served. Normal smoke also passed.
+
+Actual PNG inspection, independently reviewed and compared with approved T717 images, found four visual deficiencies that guards alone could not judge: co-op upper glazing looked too blank, the market glass roof had distracting isolated emission squares, and surgery/hall opaque veranda roofs hid too much of their entrances/windows. R3 strengthens only co-op mullions/floor divisions, removes only market roof emission, and raises/shortens the two verandas with structurally aligned posts/steps/drains. Bakery, post, school and baths forms remain unchanged. Recapture must validate these revisions; no owner image approval has occurred.
+
+Runtime-guard review also added detached end-of-tick physical-power snapshots before any diagnostic repair, alongside immediately-after-dispatch evidence. Used/served energy must not exceed physical dispatch; indivisible-load slack is allowed and nominal capacity is never mistaken for energy dispatched. Disposable QA fresh worlds explicitly reset existing in-memory fiscal/observatory state. These changes do not alter normal game resets.
+
+R2 software-rendered full-town forced-draw medians were2628.7ms with the eight roots and2557.0ms after their normal removal (nine warm draws each; +71.7ms). This is a heavy isolated CI renderer comparison, not real-device FPS certification. R2 native-generator rebuilds took42.5/27.4ms. R3 will record fresh values. Full gameplay, four cameras, weather,80 construction frames, occlusion, smoke×3 and two old-city comparisons remain pending.
