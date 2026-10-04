@@ -20,7 +20,7 @@ Status: release bookkeeping prepared before changes; owner approved merging the 
 
 - Original base: 9be7bc069a9f3dcb5bd71787dc4ab8e672b4f7d1; approved branch snapshot: 05d73b25613db1e2d4b0b96f45b9e872d46c1278.
 - R2 implementation 0888d0b867a0381fcc2d4782e6154954be76745f: [CI 37150185803](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37150185803), 96/96 guards, smoke ×3, strict fingerprints passed. The subsequent approved snapshot changes only the GPT-003 documentation.
-- New release-candidate and merge results: pending; authoritative exact-SHA results will be recorded in the PR and Actions runs.
+- New release-candidate and merge results: the PR and Actions runs are the authoritative exact-SHA release-status record. The merge gate requires all listed checks to pass; pre-merge documentation does not claim unrun checks passed.
 
 ## Unfinished / limits
 

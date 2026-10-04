@@ -11,7 +11,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { withGame } = require('./harness');
 const SOURCE_SHA = '9be7bc069a9f3dcb5bd71787dc4ab8e672b4f7d1';
-const SOURCE_DIGEST = '5c60ef1809599419b9e456a136da2b6e9e499b6069d4b5d10f8e7b222932585a';
+const SOURCE_DIGEST = 'bf306be0057ca4516944a5bf5ccf4765369bf7d2c52b243dfb2a3331b48ad26e';
 const OUT = path.join(__dirname, 'british-prototypes-evidence');
 const ART = path.join(__dirname, 'british-prototypes-art.js');
 const TARGETS = [
@@ -312,7 +312,7 @@ async function restoreEverything() {
 }
 
 (async () => {
-  check('exact unchanged main product source', report.sourceSHA256 === SOURCE_DIGEST && html.length === 9627011);
+  check('exact release product source (T716 metadata only)', report.sourceSHA256 === SOURCE_DIGEST && html.length === 9627011);
   if (report.failures.length) throw Error('Unexpected product source; stop rather than silently changing the pinned base');
   const wallStart = Date.now();
   const session = await withGame({ port: 8199, timeout: 400, fresh: true,

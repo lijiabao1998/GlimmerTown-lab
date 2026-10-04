@@ -31,7 +31,7 @@ jobs:
       - name: Pin unchanged product and prepare evidence provenance
         run: |
           set -euo pipefail
-          printf '%s  %s\n' 5c60ef1809599419b9e456a136da2b6e9e499b6069d4b5d10f8e7b222932585a index.html | sha256sum -c -
+          printf '%s  %s\n' bf306be0057ca4516944a5bf5ccf4765369bf7d2c52b243dfb2a3331b48ad26e index.html | sha256sum -c -
           mkdir -p british-prototypes-evidence/logs
           git rev-parse HEAD > british-prototypes-evidence/workflow-sha.txt
           sha256sum index.html british-prototypes-art.js british-prototypes-samples.js > british-prototypes-evidence/source-sha256.txt
@@ -78,7 +78,7 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
-          printf '%s  %s\n' 5c60ef1809599419b9e456a136da2b6e9e499b6069d4b5d10f8e7b222932585a index.html | sha256sum -c -
+          printf '%s  %s\n' bf306be0057ca4516944a5bf5ccf4765369bf7d2c52b243dfb2a3331b48ad26e index.html | sha256sum -c -
           git diff --exit-code -- index.html fp.json AUTORUN-LOG.md docs/DECISIONS.md
         shell: bash
       - name: Upload evidence without deployment
