@@ -418,6 +418,21 @@ function clearForegroundFixture(id){
   for(const i of roots){const x=i%Q.N,y=Math.floor(i/Q.N);if([...Q.targets,...Q.benchmarks].some(q=>q.x===x&&q.y===y))throw Error('Foreground would erase a protected fixture target');if(!GV.place('doze',x,y))throw Error('Foreground whole-root demolition failed '+i);}
   GV.art574.clear574(p.x,p.y,p.w,p.h);GV.testRebake592();return{bounds:p,demolishedRoots:[...roots]};
 }
+function placeForegroundFixture(arg){
+  const Q=window.__publicLife007QA,t=Q.targets.find(q=>q.id===arg.id),tools={197:'cornerPub',191:'westminster',199:'cathedral'},x=t.x+arg.dx,y=t.y+t.sz;
+  if(tools[arg.k]!==arg.tool||![3,4,2,1].includes(arg.dx)||x<t.x+1||x+2>t.x+7)throw Error('Foreground candidate outside the unchanged six-by-two strip');
+  const preview=GV.placePreview459(arg.tool,x,y),developer=GV.dev516B(),moneyBefore=GV.devMoney516B();
+  if(GV.diff()!==1||developer.sandbox||developer.god||!preview?.ok||!(preview.cost>0)||!GV.place(arg.tool,x,y))throw Error('Foreground requires ordinary paid placement '+JSON.stringify({arg,preview,developer}));
+  const moneyAfter=GV.devMoney516B(),charged=moneyBefore-moneyAfter,before=GV.tile(x,y).bld;
+  if(before?.k!==arg.k||before.sz!==2||before.age!==0||Math.abs(charged-preview.cost)>1e-7)throw Error('Foreground normal root/price mismatch');
+  // Age-only visual preview, after actual loaded staffing has been witnessed.
+  // Native placement/utility authority is retained; no service flags are set.
+  GV.testAge635(x,y,1,1,40);const after=GV.tile(x,y).bld,a={...before},b={...after};delete a.age;delete b.age;
+  const ageOnly=after.age===40&&JSON.stringify(a)===JSON.stringify(b);
+  const refs=[[1,0],[0,1],[1,1]].every(([dx,dy])=>{const q=GV.tile(x+dx,y+dy).bld;return q?.k===arg.k&&JSON.stringify(q.ref)===JSON.stringify([x,y]);});
+  if(!ageOnly||!refs)throw Error('Foreground preview changed fields beyond its own age or footprint');
+  GV.testRebake592();return{...arg,x,y,sz:2,cost:preview.cost,moneyBefore,moneyAfter,charged,paidExactly:true,before,after,ageOnly,refs,source:'Existing paid player tool and age-only render preview; no utility/staff assignment.'};
+}
 function lampProbe(id){
   const Q=window.__publicLife007QA,s=Q.canonical.get(id),c=document.getElementById('game'),g=c.getContext('2d'),old=s.night;
   const own=Object.prototype.hasOwnProperty.call(window,'__nightOccNoErase629'),val=window.__nightOccNoErase629;
@@ -562,11 +577,12 @@ function scoreStyle007(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
         for(const t of constructionTargets.filter((t,i)=>i===0)){
           const clear=()=>call(clearForegroundFixture,t.id);
           await clear();await call(scene,{id:t.id,z:2,mode:'night',rot:0});const baseline=await call(lampProbe,t.id),attempts=[];let chosen=null;
-          // Fixed authored forms differ in height. Seek an actual partially
-          // occluding neighbor in a bounded declared strip, not a fully hidden
-          // house. Both newly blocked and still-visible portions must be real.
-          for(const dx of[3,4,2,1]){await clear();await ev(`GV.art574.plant574([{k:197,x:${t.x+dx},y:${t.y+t.sz},sz:2,v:0,lv:1}]);GV.testRebake592();1`,'plant physical foreground at '+dx);await call(scene,{id:t.id,z:2,mode:'night',rot:0});const q=await call(lampProbe,t.id),newlyBlocked=q.fullyBlockedLightPixels-baseline.fullyBlockedLightPixels,minimum=Math.max(8,Math.ceil(q.candidateLightPixels*.12)),ok=newlyBlocked>=minimum&&q.visibleLightPixels>=minimum;attempts.push({dx,k:197,newlyBlocked,minimum,ok,...q});if(ok){chosen=attempts.at(-1);break;}}
-          await output({id:t.id,z:2,mode:'night',rot:0},t.id+'-foreground',report.occlusion);const proof={baseline,attempts,chosen,strip:{x:t.x+1,y:t.y+t.sz,w:6,h:2},method:'Unaltered actual renderer; same cleared baseline strip, one real pub at each bounded candidate. Requires at least12% of target light candidates newly blocked and12% still visible; no transparency, light override or threshold relaxation.'};(report.occlusionProofs||(report.occlusionProofs=[])).push({id:t.id,...proof});check(t.id+' physical foreground newly masks some lamps while others remain visible',!!chosen,proof);
+          // The pub's silhouette can miss upper pavilion lamps. Keep the same
+          // positions, strip and sensitivity gates; taller existing native
+          // two-square forms provide bounded fallback geometry.
+          const candidates=[{k:197,tool:'cornerPub'},{k:191,tool:'westminster'},{k:199,tool:'cathedral'}].flatMap(q=>[3,4,2,1].map(dx=>({...q,dx})));
+          for(const candidate of candidates){await clear();const placement=await call(placeForegroundFixture,{id:t.id,...candidate});await call(scene,{id:t.id,z:2,mode:'night',rot:0});const q=await call(lampProbe,t.id),newlyBlocked=q.fullyBlockedLightPixels-baseline.fullyBlockedLightPixels,minimum=Math.max(8,Math.ceil(q.candidateLightPixels*.12)),ok=newlyBlocked>=minimum&&q.visibleLightPixels>=minimum;attempts.push({...candidate,placement,newlyBlocked,minimum,ok,...q});if(ok){chosen=attempts.at(-1);break;}}
+          await output({id:t.id,z:2,mode:'night',rot:0},t.id+'-foreground',report.occlusion);const proof={baseline,attempts,chosen,strip:{x:t.x+1,y:t.y+t.sz,w:6,h:2},method:'Unaltered actual renderer; same cleared baseline strip, one normally paid existing two-square building at each bounded candidate, with age-only render preview. Requires at least12% of target light candidates newly blocked and12% still visible; no utility/staff assignment, transparency, light override or threshold relaxation.'};(report.occlusionProofs||(report.occlusionProofs=[])).push({id:t.id,...proof});check(t.id+' physical foreground newly masks some lamps while others remain visible',!!chosen,proof);
         }
         check('all forty construction shard frames recorded',report.construction.length===40);
       }else throw Error('Unknown mode '+MODE);
