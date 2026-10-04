@@ -125,18 +125,38 @@ function buildFixtureUtilities(){
   const road=(x,y)=>{const t=GV.tile(x,y);if(!t.road)place('road',x,y);};
   const pipe=(x,y)=>{if(!land(x,y))throw Error('Unexpected mountain under utility pipe '+x+','+y);if(!GV.tile(x,y).wp)place('wpipe',x,y);};
   GV.innovationSetQA507({money:99999999,rank:25,tech:false});
-  // Outside the original 49x47 showcase patch; no old building is removed.
-  // Connect each candidate plot to existing y13 road before adding a real source.
-  for(let x=48;x<=69;x++)road(x,13);
+  // The seeded k136 footprint at (38,13), size5, severs row13. Its eastern
+  // stub cannot connect the old city by itself. Join every actual x47 boundary
+  // road to x49 through the clear x48 seam; no existing building is removed.
+  const boundaryLinks=[];
+  for(let y=1;y<=37;y++)if(GV.tile(47,y).road){road(48,y);boundaryLinks.push({x:48,y,from:[47,y],to:[49,y]});}
+  for(let x=49;x<=69;x++)road(x,13);
   for(let y=1;y<=37;y++)for(const x of[49,53,57,61,65,69])road(x,y);
   for(let y=1;y<=37;y+=4)for(let x=49;x<=69;x++)road(x,y);
+  // Independent read-only BFS on actual road tiles records a witness path to
+  // each target's footprint frontage before generation or save/load can mask it.
+  const roadTopology=()=>{
+    const tiles=Q.all(),start=13*Q.N+49,previous=new Int32Array(tiles.length);previous.fill(-1);previous[start]=start;
+    const queue=[start];for(let head=0;head<queue.length;head++){const i=queue[head],x=i%Q.N,y=Math.floor(i/Q.N);
+      for(const [dx,dy]of [[1,0],[-1,0],[0,1],[0,-1]]){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=Q.N||yy>=Q.N)continue;const j=yy*Q.N+xx;if(tiles[j].road&&previous[j]<0){previous[j]=i;queue.push(j);}}}
+    const targets=Q.targets.map(t=>{const frontage=[];for(let d=0;d<t.sz;d++)frontage.push([t.x+d,t.y-1],[t.x+d,t.y+t.sz],[t.x-1,t.y+d],[t.x+t.sz,t.y+d]);
+      const reachable=frontage.map(([x,y])=>y*Q.N+x).filter(i=>tiles[i]?.road&&previous[i]>=0),end=reachable[0],path=[];
+      if(end!==undefined){let i=end;while(i!==start){path.push([i%Q.N,Math.floor(i/Q.N)]);i=previous[i];}path.push([49,13]);path.reverse();}
+      return{id:t.id,connected:reachable.length>0,frontage:reachable.map(i=>[i%Q.N,Math.floor(i/Q.N)]),path};});
+    return{ok:targets.every(t=>t.connected),start:[49,13],reachableRoads:queue.length,boundaryLinks,targets};
+  };
+  const topology=roadTopology(),capacitySteps=[];
+  if(!topology.ok)return{ok:false,failure:'No actual road path from eastern utility strip to target frontage',sources:0,towers:[],placed,skipped,topology};
   let power=null,sources=0;
   outer:for(let y=2;y<=34;y+=4)for(const x of[50,54,58,62,66]){
     const cells=[];for(let dy=0;dy<3;dy++)for(let dx=0;dx<3;dx++)cells.push([x+dx,y+dy]);
     if(cells.some(([xx,yy])=>{const t=GV.tile(xx,yy);return t.t===3||t.bld||t.road||t.rail||t.tram;})){skipped.push({x,y,reason:'existing terrain or occupied plot'});continue;}
     for(const [xx,yy]of cells)land(xx,yy);
     place('nuclear',x,y);sources++;power=GV.t471();
-    if(power.available>=Math.max(600,power.demand*1.6)&&Q.targets.every(t=>GV.tile(t.x,t.y).bld?.pw))break outer;
+    const loads=Q.targets.map(t=>({id:t.id,pw:!!GV.tile(t.x,t.y).bld?.pw,load:GV.powerAt471(t.x,t.y)?.load}));
+    capacitySteps.push({sources,x,y,available:power.available,demand:power.demand,peak:power.peak,loads});
+    if(loads.some(t=>t.load?.pool<0||t.load?.district<0||!t.load))return{ok:false,failure:'Connected road witness did not produce actual target power district/pool',sources,towers:[],placed,skipped,topology,capacitySteps,power};
+    if(power.available>=Math.max(600,power.demand*1.6)&&loads.every(t=>t.pw))break outer;
     if(sources>=25)break outer;
   }
   if(!sources)throw Error('No real generation plot could be placed in bounded eastern utility strip');
@@ -151,9 +171,13 @@ function buildFixtureUtilities(){
     place('water',x,y);towers.push({x,y});
   }
   GV.recomputePower450();power=GV.t471();GV.recomputeWater449();const water=GV.t472();GV.testRebake592();
-  const result={bounds:{x0:48,y0:1,x1:70,y1:38},sources,towers,placed,skipped,power,water,
+  const targets=Q.targets.map(t=>{const root=GV.tile(t.x,t.y).bld,p=GV.powerAt471(t.x,t.y),pool=power.pools.find(q=>q.id===p?.load?.pool);
+    return{id:t.id,root,power:p,pool,ok:!!root?.pw&&p?.load?.root===t.y*Q.N+t.x&&p.load.pool>=0&&p.load.district>=0&&!!pool&&pool.evening.available>=pool.evening.demand};});
+  const localNeighbors=[];for(let y=9;y<=29;y++)for(let x=3;x<=22;x++){const b=GV.tile(x,y).bld;if(b&&!b.ref&&b.k<=3){const i=y*Q.N+x,load=power.loads.find(q=>q.root===i);localNeighbors.push({i,x,y,k:b.k,pw:!!b.pw,wa:!!b.wa,pool:load?.pool??-1,district:load?.district??-1,eligible:!!load&&load.pool>=0&&load.district>=0});}}
+  const eligibleNeighbors=localNeighbors.filter(b=>b.eligible),disconnectedBackground=localNeighbors.filter(b=>!b.eligible);
+  const result={ok:topology.ok&&targets.every(t=>t.ok)&&eligibleNeighbors.length>30&&eligibleNeighbors.every(b=>b.pw),bounds:{x0:48,y0:1,x1:70,y1:38},sources,towers,placed,skipped,topology,capacitySteps,targets,localNeighbors,eligibleNeighbors,disconnectedBackground,power,water,
     method:'Existing normal GV.placePreview459 + GV.place for roads, terrain fill, nuclear sources, water towers and pipes. No root utility flags, source capacities or dispatch results are assigned. Remote sources support the road-connected showcase; water service proof is local to the pipe corridor, not whole-city certification.'};
-  Q.utilityFixture={sources,towers,placed:placed.length};return result;
+  Q.utilityFixture={sources,towers,placed:placed.length,eligibleNeighbors,disconnectedBackground};return result;
 }
 function loadedUtilityPreflight(){
   const Q=window.__british004QA;
@@ -171,10 +195,14 @@ function loadedUtilityPreflight(){
       ok:!!firstDayRoot?.pw&&!!firstDayRoot?.wa&&!!b?.pw&&!!b?.wa&&p?.load?.root===t.y*Q.N+t.x&&p.load.pool>=0&&!!pool&&pool.evening.available>=pool.evening.demand&&w?.water?.code===4&&w.water.delivered>0};
   });
   const neighbors=[];for(let y=9;y<=29;y++)for(let x=3;x<=22;x++){const b=GV.tile(x,y).bld;if(b&&!b.ref&&b.k<=3)neighbors.push({x,y,k:b.k,pw:!!b.pw,wa:!!b.wa});}
+  // Preserve the pre-save physically connected set. Dense showcase interior
+  // roots outside ordinary radius2 were never utility claims; record them too.
+  const eligibleNeighbors=(Q.utilityFixture?.eligibleNeighbors||[]).map(before=>{const firstDayRoot=am.get(before.i),root=GV.tile(before.x,before.y).bld,load=power.loads.find(q=>q.root===before.i);
+    return{before,firstDayRoot,root,load,ok:before.pw&&firstDayRoot?.k===before.k&&!!firstDayRoot?.pw&&root?.k===before.k&&!root.ref&&!!root.pw&&!!load&&load.pool>=0&&load.district>=0};});
   Q.savedTown.postLoadSimulationDays=1;Q.savedTown.utilityProven=targets.every(t=>t.ok);Q.savedTown.utilitySourceCount=Q.utilityFixture?.sources;
-  return{ok:afterDay===beforeDay+1&&targets.every(t=>t.ok)&&neighbors.length>30&&neighbors.every(b=>b.pw),beforeDay,afterDay,targets,simulationChanges,
-    localNeighbors:neighbors,localPowered:neighbors.filter(b=>b.pw).length,power,water,
-    claims:'Three loaded buildings have real stable water and served power; the inspected neighboring RCI roots have served power. The large city remains a visual fixture, not a whole-city economy or utility certification.'};
+  return{ok:afterDay===beforeDay+1&&targets.every(t=>t.ok)&&eligibleNeighbors.length>30&&eligibleNeighbors.every(b=>b.ok),beforeDay,afterDay,targets,simulationChanges,
+    localNeighbors:neighbors,localPowered:neighbors.filter(b=>b.pw).length,eligibleNeighbors,disconnectedBackgroundBeforeSave:Q.utilityFixture?.disconnectedBackground||[],power,water,
+    claims:'Three loaded buildings have real stable water and served power. A fixed pre-save set of physically connected neighboring RCI roots retains identity and served power after the first loaded day. Other dense showcase interior roots remain honestly visible with their actual utility state; this is not whole-city utility certification.'};
 }
 function buildParity(archivedSource){
   const Q=window.__british004QA,api=window.BritishArchitecture004;
@@ -384,7 +412,9 @@ async function cleanup(){
         check(m.id+' exact dimensions and anchor',['w','h','ax','ay','sz'].every(k=>m[k]===t[k])&&m.canvasDimensions.join(',')===[t.w,t.h,t.w,t.h].join(','),m);
         check(m.id+' supported hard pixels with safe canvas and lot bounds',m.solid>0&&m.lit>0&&m.edge===0&&m.unsupported===0&&m.outside===0&&m.partial===0,m);}
       if(report.failures.length){progress('core preflight failed',{failures:report.failures});throw Error('Core gameplay/asset preflight failed; stopping before the long capture matrix');}
-      report.utilityFixture=await call(buildFixtureUtilities);progress('real utility fixture placed',{sources:report.utilityFixture.sources,towers:report.utilityFixture.towers.length});
+      report.utilityFixture=await call(buildFixtureUtilities);progress('real utility fixture placed',{sources:report.utilityFixture.sources,towers:report.utilityFixture.towers.length,connected:report.utilityFixture.ok});
+      check('actual road path and served target utility authority before save',report.utilityFixture.ok,report.utilityFixture);save();
+      if(!report.utilityFixture.ok)throw Error('Pre-save utility connectivity failed; stopping before save/load and the long capture matrix');
       report.savedTown=await call(saveLoadFixture);
       check('actual normal save/load keeps all three complete British roots and refs',report.savedTown.loaded&&report.savedTown.newRootRecordCount===3&&report.savedTown.targets.every(t=>t.ok),report.savedTown);
       check('actual normal save/load preserves existing city root identities ages and footprints',report.savedTown.existingRoots>100&&report.savedTown.rootIdentityAgeFootprintPreserved&&report.savedTown.existingRootIdentityAgeFootprintPreserved,report.savedTown);
