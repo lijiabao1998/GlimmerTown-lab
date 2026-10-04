@@ -38,7 +38,7 @@ function runWorld(seed,fixture){
       const st=GV.stats();delete st.cars;delete st.buses;
       const rng=window.__qaSeedState007();if(rng!==window.__qaSeedState007())throw Error('PRNG observation consumed state');return{stats:st,tiles,rngState:rng,...(Array.isArray(q.roots)?{approvedBritish:q.roots.map(r=>({k:r.k,x:r.x,y:r.y,actual:GV.tile(r.x,r.y).bld})),difficulty:GV.diff()}: {})};
     };
-    const result=[snap()];for(const n of[1,4,15]){GV.step(n);result.push(snap());}
+    const result=[snap()];if(Array.isArray(q.terrainAudit))result[0].fixtureTerrainAudit=q.terrainAudit;for(const n of[1,4,15]){GV.step(n);result.push(snap());}
     return result;
   }finally{Math.random=random;}
 }
@@ -57,7 +57,9 @@ function runWorld(seed,fixture){
         }
         const approved=await cdp.evalJs('('+runWorld.toString()+')(7006719,('+seedApprovedBritishLegacy007.toString()+'))');
         if(approved.length!==4||approved.some(q=>q.difficulty!==1||q.approvedBritish.length!==35||q.approvedBritish.some(r=>r.actual?.k!==r.k))||approved.slice(1).some(q=>q.approvedBritish.some(r=>!r.actual?.pw||!r.actual?.wa)))throw Error('Approved-British normal-difficulty fixture identity/service failed');
-        arr.push({seed:7006719,kind:'normal-difficulty old-only city with all27 approved T717/T718/T719 identities plus8 supporting homes',checkpoints:approved.map(q=>({stats:q.stats,rngState:q.rngState,difficulty:q.difficulty,approvedBritish:q.approvedBritish,tilesSHA256:hash(JSON.stringify(q.tiles))}))});
+        const terrainAudit=approved[0].fixtureTerrainAudit;
+        if(!Array.isArray(terrainAudit)||!terrainAudit.length||terrainAudit.some(q=>q.before.t!==0||q.after.t!==2||q.cost!==60||!q.paidExactly||!q.identityPreserved||q.x<1||q.x>49||q.y<1||q.y>63))throw Error('Approved-British bounded paid terrain audit failed');
+        arr.push({seed:7006719,kind:'normal-difficulty old-only city with all27 approved T717/T718/T719 identities plus8 supporting homes',terrainAudit,checkpoints:approved.map(q=>({stats:q.stats,rngState:q.rngState,difficulty:q.difficulty,approvedBritish:q.approvedBritish,tilesSHA256:hash(JSON.stringify(q.tiles))}))});
         if(cdp.errors.length){out.consoleErrors={label,errors:cdp.errors};throw Error(label+' console or uncaught errors: '+JSON.stringify(cdp.errors));}return arr;
       });
       if(!session.ok||!session.result)throw Error(label+' browser failure: '+JSON.stringify(session.fails));
