@@ -38,3 +38,21 @@ Release metadata and the next T number will be staged only after image approval,
 - 2026-10-04: fetched main, read AGENTS/AUTORUN/CLAUDE/DECISIONS/STYLE-THEOTOWN and T702/T711/T699 plus T717 integration records. Independent reference/catalog and gameplay integration audits started before coding.
 - Catalog collision review: removed proposed Art Deco cinema and English fire station because k40v0 and k6v0 already have those precise forms. Replacements are a neo-Georgian post office and timber/corrugated-iron village hall. Board school will use a single-storey sandstone H-plan, distinct from existing k7 two-storey brick L-plan.
 - No implementation, runtime result or visual approval yet. Actual-device/mobile performance remains unmeasured. Eight types above are the proposed bounded scope; source and balance table still pending research.
+
+
+## Locked reference and balance table (before implementation)
+
+Catalog audited on T717. Numeric IDs222–229 have no building metadata, tool, sprite or placement registrations; incidental 225/226 values occur outside building IDs. Fixed lv1/v0; eight canonical sprites, no aliases.
+
+| ID / tool | Original form / authoritative reference | Footprint | Gameplay / balance |
+|---|---|---|---|
+|222 coOpStores|Sheffield faience-front 3-storey co-operative shop; [Page Hall](https://historicengland.org.uk/listing/the-list/list-entry/1246876)|2×2|Commerce12 jobs; $2000, rank4; power2.4/water3|
+|223 stoneBakehouse|Corfe rubble-stone one-and-attic shop, stone-slate roof/dormers and rear bakehouse wing; [Corfe](https://historicengland.org.uk/listing/the-list/list-entry/1120972)|2×2|Commerce8 jobs; $1500, rank3; power2.6/water3.4|
+|224 coveredMarket|Perpendicular shop cross-range plus long glazed cast-iron hall, distinct from k87's brick gable/lantern; [Burslem](https://historicengland.org.uk/listing/the-list/list-entry/1483420)|3×3|Commerce24 jobs; $3500, rank6; power4.5/water5|
+|225 boardSchool|Sandstone single-storey H-plan classroom halls and bellcote; [Alnmouth](https://historicengland.org.uk/listing/the-list/list-entry/1494938)|3×3|10 public jobs,120 seats,school coverage; $2200,rank4,upkeep4; power2.8/water2|
+|226 cottageSurgery|White roughcast Arts-and-Crafts low wings, veranda and garden; [Winsford](https://www.landmarktrust.org.uk/properties/winsford-cottage-hospital/)|2×2|6 public jobs,6 clinic beds,100 service capacity; $1600,rank3,upkeep3.5; power2.2/water3|
+|227 highStreetPost|Neo-Georgian T-plan, stone lower/rendered upper, pitched slate between parapets and rear sorting hall; [Cullompton](https://historicengland.org.uk/listing/the-list/list-entry/1481957)|2×2|6 public jobs,85 service capacity,post coverage; $1400,rank3,upkeep3; power1.8/water1.3|
+|228 municipalBaths|Terracotta/redbrick entrance, paired low vent cupolas, rooflit enclosed pool halls and boiler chimney; [Moseley](https://historicengland.org.uk/listing/the-list/list-entry/1076274)|3×3|10 public jobs,140 leisure capacity,pool coverage; $3000,rank5,upkeep5; power4/water7|
+|229 villageHall|Single-storey weatherboards/corrugated-iron pitched roof, veranda and lower cross-wing; [Colony Hall](https://historicengland.org.uk/listing/the-list/list-entry/1454581)|2×2|5 public jobs,70 service and85 leisure capacity,community coverage; $1200,rank3,upkeep2; power1.6/water1.4|
+
+All numbers are game-design values compared with existing pub10jobs/library16jobs160seats, school8jobs90seats and clinic4beds. They are not factual staffing claims about the references. Commerce is normal employment/shopping/supply/tax; bakehouse does not claim a new grain/bread production chain and covered market does not inherit k87's unrelated food/export side effects. Public capacities use existing workforce and budget authority; all new service coverage is completion/power/water/road gated. Paid construction and running costs discourage the new group from replacing every established civic option. Parent must check these intended values against actual guards after implementation.
