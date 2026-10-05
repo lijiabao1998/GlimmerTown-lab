@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.28 · T724</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.29 · T725</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -3910,6 +3910,821 @@ function workersCornerShop006(spec) {
 })(window);
 </script>
 <!-- GPT-006 native residential art END -->
+<!-- GPT-012 native riverside art BEGIN: source british-riverside-art012.js -->
+<script>
+/* GPT-012: original British riverside market and native walking-path furniture.
+ * Design evidence (Historic England list entries, consulted 2026-10-05):
+ * https://historicengland.org.uk/listing/the-list/list-entry/1286182
+ *   Leadenhall: brick/Portland-stone shop fronts, cast iron and glass canopies.
+ * https://historicengland.org.uk/listing/the-list/list-entry/1358951
+ *   Greenwich entrance: two storeys, five bays, open passage and sash windows.
+ * https://historicengland.org.uk/listing/the-list/list-entry/1419872
+ *   Custom House Quay: granite coping and stairs parallel to the river wall.
+ * https://historicengland.org.uk/listing/the-list/list-entry/1455446
+ *   Hayle: battered masonry retaining faces and substantial stone coping.
+ * https://historicengland.org.uk/listing/the-list/list-entry/1078922
+ *   Greenwich boundary: stone plinth, ornamental iron railings and lamp piers.
+ * This is an original composite, NOT a surveyed reconstruction or imported art.
+ *
+ * Spatial contract: the roof-free principal court is x=9..39, y=12..47,
+ * 1,050 / 2,304 square units (45.57% of the native 3x3 footprint). Low
+ * single-storey wings and a two-storey five-bay rear range form a genuine U;
+ * nothing spans the courtyard. A through-passage is modeled as missing solids.
+ * Stalls, carts and furniture sit at the court edges, leaving its middle open.
+ * Four cameras rotate the same complete world-space geometry, never an image.
+ * Native 2:1 grid: x=ax+2i-2j, y=ay-32*sz+i+j-z; one tile is 16 units.
+ * The shared opaque depth buffer is adapted from british-museum-art010.js.
+ * Day surfaces and only their physically exposed lamps/window panes contribute
+ * to emission together, so an opaque arch, canopy, shutter or rail removes the
+ * night pixel behind it. Glass is pale colored geometry, not an emissive roof.
+ * No fonts, imported images, simulation state, storage, RNG or mutable cache.
+ */
+(function (root) {
+  'use strict';
+  const C = s => parseInt(s,16);
+  const P = {
+    brick:[C('ab6651'),C('b37259'),C('985d4c'),C('bb7e62')],
+    brickR:[C('805046'),C('915c4b'),C('774a40'),C('9c6752')],
+    mortar:C('916955'),mortarR:C('705346'),
+    stone:C('d4c7ac'),stoneHi:C('e3d5ba'),stoneR:C('b7aa93'),stoneD:C('948a77'),
+    slate:C('52616a'),slateHi:C('657780'),slateR:C('40515c'),slateD:C('35464e'),
+    iron:C('294a3e'),ironHi:C('4d6c58'),ironD:C('253a35'),ink:C('2b3837'),
+    green:C('3d6150'),greenHi:C('527563'),greenD:C('29493f'),
+    wood:C('a48a60'),woodHi:C('c3a97b'),woodR:C('7b674d'),woodD:C('655742'),
+    glass:C('5a7880'),glassHi:C('8ca4a5'),glassR:C('3d5a63'),
+    canopy:C('adc0b8'),canopyHi:C('cfdbca'),canopyR:C('819b98'),
+    frame:C('dbd3bb'),frameR:C('b6b4a0'),lead:C('879490'),gold:C('cdb880'),
+    pave:C('b4afa0'),paveHi:C('c1bbaa'),paveR:C('a4a495'),seam:C('969a91'),
+    granite:C('969d98'),graniteHi:C('b0b5aa'),graniteR:C('747f7b'),graniteD:C('62716d'),
+    leaf:[C('426b42'),C('668a4e'),C('557945'),C('355c3d')],
+    flower:[C('d894a5'),C('e0c25e'),C('ede1c5'),C('a67daf'),C('c46c86')],
+    apple:C('a45f4d'),appleHi:C('d39065'),pear:C('b1b55b'),carrot:C('c18a46'),
+    cabbage:C('78955e'),soil:C('695a48'),pot:C('b67d59'),potR:C('8e6249'),
+    zinc:C('8d9e98'),zincR:C('677e7a'),paper:C('e8dfc6'),
+    canvas:C('e0d6b7'),canvasD:C('b9b099'),canvasGreen:C('768b6c'),canvasRose:C('b67e83'),
+    warm:C('efc989'),warmHi:C('ffdfa1'),warmD:C('dba766')
+  };
+  const GLOW=[[P.glass,P.warm],[P.glassHi,P.warmHi],[P.glassR,P.warmD]];
+  const LAMP=[C('dcca98'),P.warmHi];
+  const mod=(n,d)=>((n%d)+d)%d;
+  function hash(x,y,seed) {
+    let n=Math.imul((x|0)^Math.imul(y|0,374761393),668265263)^(seed|0);
+    n=Math.imul(n^(n>>>13),1274126177);
+    return (n^(n>>>16))>>>0;
+  }
+  function Scene(sz,view,w,h) {
+    const size=16*sz,ax=w/2,ay=h-2,oy=ay-2*size,count=w*h;
+    const depth=new Float64Array(count),day=new Uint32Array(count),night=new Uint32Array(count);
+    const occupied=new Uint8Array(count);
+    depth.fill(-Infinity);
+    function project(p) {
+      let x=p[0],y=p[1];
+      if(view===1){x=size-p[1];y=p[0];}
+      else if(view===2){x=size-p[0];y=size-p[1];}
+      else if(view===3){x=p[1];y=size-p[0];}
+      return [ax+2*x-2*y,oy+x+y-p[2],x+y+2*p[2]];
+    }
+    function triangle(a,b,c,material,bias) {
+      const A=project(a),B=project(b),D=project(c);
+      const det=(B[1]-D[1])*(A[0]-D[0])+(D[0]-B[0])*(A[1]-D[1]);
+      if(Math.abs(det)<1e-9)return;
+      const x0=Math.max(0,Math.floor(Math.min(A[0],B[0],D[0])));
+      const x1=Math.min(w-1,Math.ceil(Math.max(A[0],B[0],D[0])));
+      const y0=Math.max(0,Math.floor(Math.min(A[1],B[1],D[1])));
+      const y1=Math.min(h-1,Math.ceil(Math.max(A[1],B[1],D[1])));
+      const sample=typeof material==='function';
+      for(let py=y0;py<=y1;py++)for(let px=x0;px<=x1;px++){
+        const u=((B[1]-D[1])*(px+.5-D[0])+(D[0]-B[0])*(py+.5-D[1]))/det;
+        const v=((D[1]-A[1])*(px+.5-D[0])+(A[0]-D[0])*(py+.5-D[1]))/det,t=1-u-v;
+        if(u<-.000001||v<-.000001||t<-.000001)continue;
+        const z=A[2]*u+B[2]*v+D[2]*t+(bias||0),k=py*w+px;
+        if(z<depth[k]-.000001)continue;
+        const color=sample?material(a[0]*u+b[0]*v+c[0]*t,a[1]*u+b[1]*v+c[1]*t,a[2]*u+b[2]*v+c[2]*t):material;
+        if(color===null||color===undefined)continue;
+        depth[k]=z;occupied[k]=1;
+        day[k]=Array.isArray(color)?color[0]:color;
+        night[k]=Array.isArray(color)?color[1]||0:0;
+      }
+    }
+    function poly(points,material,bias) {
+      for(let i=1;i<points.length-1;i++)triangle(points[0],points[i],points[i+1],material,bias);
+    }
+    function flat(x0,x1,y0,y1,z,c,b) {
+      poly([[x0,y0,z],[x1,y0,z],[x1,y1,z],[x0,y1,z]],c,b);
+    }
+    function wall(a,b,z0,z1,c,bias) {
+      poly([[a[0],a[1],z0],[b[0],b[1],z0],[b[0],b[1],z1],[a[0],a[1],z1]],c,bias);
+    }
+    function box(x0,x1,y0,y1,z0,z1,front,side,top) {
+      wall([x0,y0],[x1,y0],z0,z1,front);
+      wall([x0,y1],[x1,y1],z0,z1,front);
+      wall([x0,y0],[x0,y1],z0,z1,side===undefined?front:side);
+      wall([x1,y0],[x1,y1],z0,z1,side===undefined?front:side);
+      if(top!==null)flat(x0,x1,y0,y1,z1,top===undefined?front:top);
+    }
+    // Solid world-space rails, not screen-space strokes. Rotations keep real depth.
+    function beam(a,b,c,width) {
+      const t=(width===undefined?.35:width)/2,dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy);
+      if(len<.0001){box(a[0]-t,a[0]+t,a[1]-t,a[1]+t,Math.min(a[2],b[2]),Math.max(a[2],b[2]),c,c,c);return;}
+      const nx=-dy/len*t,ny=dx/len*t;
+      const q=[[a[0]+nx,a[1]+ny,a[2]-t],[b[0]+nx,b[1]+ny,b[2]-t],[b[0]-nx,b[1]-ny,b[2]-t],[a[0]-nx,a[1]-ny,a[2]-t]];
+      const r=q.map(p=>[p[0],p[1],p[2]+2*t]);
+      poly(r,c);poly(q,c);
+      for(let i=0;i<4;i++)poly([q[i],q[(i+1)%4],r[(i+1)%4],r[i]],c);
+    }
+    function face(a,b,nx,ny) {
+      const length=Math.hypot(b[0]-a[0],b[1]-a[1]),tx=(b[0]-a[0])/length,ty=(b[1]-a[1])/length;
+      const point=(u,d,z)=>[a[0]+tx*u+nx*d,a[1]+ty*u+ny*d,z];
+      function panel(u0,u1,z0,z1,mat,d,bias) {
+        d=d===undefined?.06:d;
+        poly([point(u0,d,z0),point(u1,d,z0),point(u1,d,z1),point(u0,d,z1)],
+          typeof mat==='function'?(x,y,z)=>mat((x-a[0])*tx+(y-a[1])*ty-u0,z-z0):mat,bias===undefined?.025:bias);
+      }
+      function block(u0,u1,d0,d1,z0,z1,c,r,top) {
+        const A=point(u0,d0,0),B=point(u1,d1,0);
+        box(Math.min(A[0],B[0]),Math.max(A[0],B[0]),Math.min(A[1],B[1]),Math.max(A[1],B[1]),z0,z1,c,r,top);
+      }
+      return {length,point,panel,block,polygon:(points,c)=>poly(points,c,.03)};
+    }
+    function finish(meta) {
+      const make=emissive=>{
+        const img=document.createElement('canvas');img.width=w;img.height=h;
+        const context=img.getContext('2d'),pixels=context.createImageData(w,h);
+        for(let k=0;k<count;k++){
+          if(!occupied[k]||(emissive&&!night[k]))continue;
+          const c=emissive?night[k]:day[k],i=k*4;
+          pixels.data[i]=c>>>16;pixels.data[i+1]=(c>>>8)&255;pixels.data[i+2]=c&255;pixels.data[i+3]=255;
+        }
+        context.putImageData(pixels,0,0);return img;
+      };
+      return Object.assign({img:make(false),night:make(true),w,h,ax,ay,sz,view,original:true},meta);
+    }
+    return {poly,flat,wall,box,beam,face,finish};
+  }
+
+
+  function brick(right,seed) {
+    return (x,y,z)=>{
+      const u=right?y:x,row=Math.floor(z/1.5),phase=(row&1)*1.45;
+      if(mod(z,1.5)<.14||mod(u+phase,2.9)<.12)return right?P.mortarR:P.mortar;
+      const n=hash(Math.floor((u+phase)/2.9),row,seed);
+      return (right?P.brickR:P.brick)[n%17===0?3:n%7===0?2:n%5===0?1:0];
+    };
+  }
+  function paving(x,y) {
+    const row=Math.floor(y/3),u=x+(row&1)*2.25;
+    if(mod(y,3)<.14||mod(u,4.5)<.13)return P.seam;
+    const n=hash(Math.floor(u/4.5),row,12012);
+    return n%11===0?P.paveHi:n%7===0?P.paveR:P.pave;
+  }
+  function granite(right) {
+    return (x,y,z)=>{
+      const u=right?y:x,row=Math.floor(z/1.55);
+      if(mod(z,1.55)<.11||mod(u+(row&1)*2.5,5)<.13)return P.graniteD;
+      const n=hash(Math.floor(u*2),Math.floor(z*3),129);
+      return n%23===0?P.graniteHi:right?P.graniteR:P.granite;
+    };
+  }
+  function slate(right) {
+    return (x,y,z)=>{
+      const row=Math.floor(z/1.0);
+      if(mod(z,1)<.11||mod(x+y+(row&1)*1.3,2.6)<.13)return P.slateD;
+      return right?P.slateR:hash(Math.floor(x),row,1208)%19===0?P.slateHi:P.slate;
+    };
+  }
+  function band(S,x0,x1,y0,y1,z,h) {
+    S.box(x0-.2,x1+.2,y0-.2,y1+.2,z,z+h,P.stone,P.stoneR,P.stoneHi);
+  }
+  function masonry(S,x0,x1,y0,y1,z0,z1,seed) {
+    S.box(x0,x1,y0,y1,z0,z1,brick(false,seed),brick(true,seed),P.stoneD);
+    return {front:S.face([x0,y1],[x1,y1],0,1),back:S.face([x1,y0],[x0,y0],0,-1),
+      right:S.face([x1,y1],[x1,y0],1,0),left:S.face([x0,y0],[x0,y1],-1,0)};
+  }
+  function cylinder(S,x,y,z0,z1,r0,r1,c,side,top,n) {
+    n=n||8;
+    const ring=[];
+    for(let i=0;i<n;i++){
+      const a=i*Math.PI*2/n,b=(i+1)*Math.PI*2/n;
+      const A=[x+Math.cos(a)*r0,y+Math.sin(a)*r0,z0],B=[x+Math.cos(b)*r0,y+Math.sin(b)*r0,z0];
+      const C1=[x+Math.cos(b)*r1,y+Math.sin(b)*r1,z1],D=[x+Math.cos(a)*r1,y+Math.sin(a)*r1,z1];
+      S.poly([A,B,C1,D],i<n/2?c:side);ring.push(D);
+    }
+    if(top!==null)S.poly(ring,top===undefined?c:top);
+  }
+  function ring(S,F,u,z,rx,rz,thick,d,c,n) {
+    n=n||16;
+    for(let i=0;i<n;i++){
+      const a=i*Math.PI*2/n,b=(i+1)*Math.PI*2/n;
+      S.poly([F.point(u+Math.cos(a)*rx,d,z+Math.sin(a)*rz),F.point(u+Math.cos(b)*rx,d,z+Math.sin(b)*rz),
+        F.point(u+Math.cos(b)*(rx-thick),d,z+Math.sin(b)*(rz-thick)),F.point(u+Math.cos(a)*(rx-thick),d,z+Math.sin(a)*(rz-thick))],c,.035);
+    }
+  }
+  const GLYPHS={
+    A:['010','101','111','101','101'],B:['110','101','110','101','110'],
+    C:['011','100','100','100','011'],D:['110','101','101','101','110'],
+    E:['111','100','110','100','111'],F:['111','100','110','100','100'],
+    G:['011','100','101','101','011'],H:['101','101','111','101','101'],
+    I:['111','010','010','010','111'],K:['101','101','110','101','101'],
+    L:['100','100','100','100','111'],M:['101','111','111','101','101'],
+    N:['101','111','111','111','101'],O:['010','101','101','101','010'],
+    P:['110','101','110','100','100'],R:['110','101','110','101','101'],
+    S:['011','100','010','001','110'],T:['111','010','010','010','010'],
+    U:['101','101','101','101','111'],V:['101','101','101','101','010'],
+    W:['101','101','111','111','101'],Y:['101','101','010','010','010'],
+    ' ':['000','000','000','000','000']
+  };
+  function letters(F,text,u,z,unit,col,d) {
+    for(let i=0;i<text.length;i++){
+      const g=GLYPHS[text[i]]||GLYPHS[' '];
+      for(let y=0;y<5;y++)for(let x=0;x<3;x++)if(g[y][x]==='1')
+        F.panel(u+(i*4+x)*unit,u+(i*4+x+1)*unit,z+(4-y)*unit*1.6,z+(5-y)*unit*1.6,col,d,.075);
+    }
+  }
+  function sash(S,F,u,z,w,h,lit) {
+    F.panel(u-.28,u+w+.28,z-.15,z+h+.35,P.stoneD,.08);
+    F.panel(u,u+w,z,z+h,(x,y)=>{
+      if(x<.25||x>w-.25||y<.28||y>h-.28)return P.frame;
+      if(Math.abs(x-w/2)<.11||Math.abs(y-h/2)<.22)return P.frame;
+      if(Math.abs(y-h*.25)<.095||Math.abs(y-h*.75)<.095)return P.frameR;
+      if(!lit||y<h*.19)return P.glassR;
+      return y>h/2?GLOW[0]:GLOW[2];
+    },.13);
+    F.block(u-.45,u+w+.45,0,.64,z-.55,z-.12,P.stone,P.stoneR,P.stoneHi);
+    F.block(u-.36,u+w+.36,0,.32,z+h+.18,z+h+.72,P.stone,P.stoneR,P.stoneHi);
+    // Flat brick heads have individually pointed joints and a pale central key.
+    for(let i=0;i<7;i++)F.panel(u-.35+i*(w+.7)/7,u-.39+(i+1)*(w+.7)/7,z+h+.75,z+h+1.5,i%2?P.brick[1]:P.brick[0],.09);
+    F.panel(u+w/2-.28,u+w/2+.28,z+h+.6,z+h+1.58,P.stoneHi,.16);
+  }
+  function shopDoor(F,u,z,w,h,lit) {
+    F.panel(u-.3,u+w+.3,z,z+h+.45,P.woodD,.035);
+    F.panel(u,u+w,z,z+h,(x,y)=>{
+      if(x<.2||x>w-.2||y<.25||y>h-.25||Math.abs(x-w/2)<.13)return P.greenD;
+      if(y>h*.58)return Math.abs(y-h*.79)<.13||mod(x,1.3)<.12?P.frameR:lit?GLOW[2]:P.glassR;
+      if(y>h*.20&&y<h*.47)return P.greenHi;
+      if(y>h*.48&&y<h*.55&&Math.abs(x-w*.7)<.2)return P.gold;
+      return P.green;
+    },.10);
+    F.block(u-.32,u+w+.32,-.1,.55,z-.15,z+.18,P.stone,P.stoneR,P.stoneHi);
+  }
+  function shutter(F,u,z,w,h) {
+    F.panel(u,u+w,z,z+h,(x,y)=>mod(x,1.25)<.12?P.greenD:y<.5||y>h-.5?P.greenHi:P.green,.16);
+    for(const zz of[z+1,z+h-1.3])F.panel(u+.2,u+w-.2,zz,zz+.32,P.ironD,.2);
+    F.panel(u+w*.44,u+w*.56,z+h*.43,z+h*.57,P.gold,.23);
+  }
+  function hippedRoof(S,x0,x1,y0,y1,z,rise,ridgeAlongX) {
+    const cx=(x0+x1)/2,cy=(y0+y1)/2;
+    if(ridgeAlongX){
+      const inset=Math.min((y1-y0)/2,(x1-x0)/3),a=x0+inset,b=x1-inset;
+      S.poly([[x0,y0,z],[x1,y0,z],[b,cy,z+rise],[a,cy,z+rise]],slate(true));
+      S.poly([[x0,y1,z],[a,cy,z+rise],[b,cy,z+rise],[x1,y1,z]],slate(false));
+      S.poly([[x0,y0,z],[a,cy,z+rise],[x0,y1,z]],slate(false));
+      S.poly([[x1,y0,z],[x1,y1,z],[b,cy,z+rise]],slate(true));
+      S.beam([a,cy,z+rise+.08],[b,cy,z+rise+.08],P.lead,.35);
+      for(const [x,xx]of[[x0,a],[x1,b]])for(const y of[y0,y1])S.beam([x,y,z+.06],[xx,cy,z+rise+.06],P.slateHi,.17);
+    }else{
+      const inset=Math.min((x1-x0)/2,(y1-y0)/3),a=y0+inset,b=y1-inset;
+      S.poly([[x0,y0,z],[cx,a,z+rise],[cx,b,z+rise],[x0,y1,z]],slate(false));
+      S.poly([[x1,y0,z],[x1,y1,z],[cx,b,z+rise],[cx,a,z+rise]],slate(true));
+      S.poly([[x0,y0,z],[x1,y0,z],[cx,a,z+rise]],slate(true));
+      S.poly([[x0,y1,z],[cx,b,z+rise],[x1,y1,z]],slate(false));
+      S.beam([cx,a,z+rise+.08],[cx,b,z+rise+.08],P.lead,.35);
+      for(const [y,yy]of[[y0,a],[y1,b]])for(const x of[x0,x1])S.beam([x,y,z+.06],[cx,yy,z+rise+.06],P.slateHi,.17);
+    }
+    for(const y of[y0,y1])S.beam([x0,y,z],[x1,y,z],P.ironD,.35);
+    for(const x of[x0,x1])S.beam([x,y0,z],[x,y1,z],P.ironD,.35);
+  }
+  function chimney(S,x,y,z) {
+    S.box(x-.65,x+.65,y-.65,y+.65,z,z+3.8,brick(false,28),brick(true,28),P.brick[1]);
+    S.box(x-.84,x+.84,y-.84,y+.84,z+3.3,z+4.0,P.stoneD,P.stoneR,P.stone);
+    for(const xx of[x-.4,x+.4])cylinder(S,xx,y,z+4,z+5.7,.27,.31,P.pot,P.potR,P.ink,6);
+  }
+  function rainpipe(S,x,y,h) {
+    S.beam([x,y,.45],[x,y,h],P.ironD,.26);
+    for(const z of[3.5,9.5,18,25])if(z<h)S.box(x-.22,x+.22,y-.22,y+.22,z,z+.24,P.ironHi,P.iron,P.ironHi);
+    S.beam([x,y,.5],[x+.42,y,.2],P.ironD,.29);
+  }
+  function lantern(S,x,y,z,post) {
+    if(post){
+      S.box(x-.54,x+.54,y-.54,y+.54,0,.7,P.stone,P.stoneR,P.stoneHi);
+      cylinder(S,x,y,.7,2,.29,.22,P.ironHi,P.ironD,P.iron,6);
+      cylinder(S,x,y,2,z,.18,.13,P.iron,P.ironD,P.ironHi,6);
+      S.box(x-.29,x+.29,y-.29,y+.29,z-.45,z,P.ironHi,P.ironD,P.ironHi);
+    }
+    S.box(x-.57,x+.57,y-.57,y+.57,z,z+2.1,P.iron,P.ironD,P.iron);
+    S.box(x-.36,x+.36,y-.60,y+.60,z+.3,z+1.76,LAMP,LAMP,P.iron);
+    S.box(x-.60,x+.60,y-.36,y+.36,z+.3,z+1.76,LAMP,LAMP,P.iron);
+    for(const xx of[x-.41,x+.41])for(const yy of[y-.41,y+.41])S.beam([xx,yy,z+.2],[xx,yy,z+1.9],P.ironD,.15);
+    for(const [a,b]of[[[x-.76,y-.76],[x+.76,y-.76]],[[x+.76,y-.76],[x+.76,y+.76]],[[x+.76,y+.76],[x-.76,y+.76]],[[x-.76,y+.76],[x-.76,y-.76]]])
+      S.poly([[a[0],a[1],z+2.05],[b[0],b[1],z+2.05],[x,y,z+3.05]],P.ironD);
+    S.beam([x,y,z+2.9],[x,y,z+3.6],P.iron,.22);
+  }
+  function wallLamp(S,F,u,z) {
+    S.beam(F.point(u,.15,z-1.5),F.point(u,1.0,z),P.iron,.24);
+    const p=F.point(u,1,z);lantern(S,p[0],p[1],p[2],false);
+  }
+
+  // A real load-bearing masonry arch: no rectangle is painted over its opening.
+  // Front and back spandrels plus the intrados give it thickness in every view.
+  function arcadeArch(S,F,u,w,spring,top,depth,seed) {
+    const r=w/2,c=u+r,segments=14;
+    for(const [a,b]of[[u-.72,u],[u+w,u+w+.72]]){
+      F.block(a,b,-depth,0,.35,top,brick(false,seed),brick(true,seed),P.stone);
+      F.block(a-.09,b+.09,-depth-.08,.12,.35,1.1,P.stone,P.stoneR,P.stoneHi);
+      F.block(a-.11,b+.11,-depth-.10,.19,spring-.48,spring+.17,P.stone,P.stoneR,P.stoneHi);
+    }
+    for(let i=0;i<segments;i++){
+      const a=i*Math.PI/segments,b=(i+1)*Math.PI/segments;
+      const xa=c+Math.cos(a)*r,xb=c+Math.cos(b)*r,za=spring+Math.sin(a)*r,zb=spring+Math.sin(b)*r;
+      for(const d of[-depth,0])S.poly([F.point(xa,d,za),F.point(xb,d,zb),F.point(xb,d,top),F.point(xa,d,top)],d?P.brickR[0]:P.brick[0]);
+      S.poly([F.point(xa,-depth,za),F.point(xb,-depth,zb),F.point(xb,0,zb),F.point(xa,0,za)],P.brickR[2]);
+      const aa=a+.018,bb=b-.018;
+      for(const d of[.08,-depth-.08])S.poly([
+        F.point(c+Math.cos(aa)*(r+.65),d,spring+Math.sin(aa)*(r+.65)),
+        F.point(c+Math.cos(bb)*(r+.65),d,spring+Math.sin(bb)*(r+.65)),
+        F.point(c+Math.cos(bb)*r,d,spring+Math.sin(bb)*r),
+        F.point(c+Math.cos(aa)*r,d,spring+Math.sin(aa)*r)
+      ],i===6||i===7?P.stoneHi:i%3===0?P.brick[3]:P.brick[1],.035);
+    }
+    F.block(c-.3,c+.3,-.02,.29,spring+r-.15,spring+r+1.0,P.stone,P.stoneR,P.stoneHi);
+  }
+  function leafRelief(S,F,u,z,h,d,col) {
+    const p=(x,y)=>F.point(u+x,d,z+y),c=col||P.stoneHi;
+    S.beam(p(0,0),p(0,h),c,.18);
+    for(let i=1;i<4;i++)for(const sign of[-1,1]){
+      const yy=i*h/4,w=(i===2?.32:.25)*h;
+      S.poly([p(0,yy-.2),p(sign*w,yy+.12),p(sign*w*.68,yy+.58),p(0,yy+.35)],c,.05);
+    }
+  }
+  function produceFrieze(S,F,u,z,w) {
+    F.panel(u,u+w,z,z+2.25,P.stoneR,.12);
+    F.panel(u+.12,u+w-.12,z+.18,z+2.08,P.stone,.16);
+    const cx=u+w/2;
+    // A sheaf and a pair of rounded fruits: carved stone, never luminous signs.
+    for(const off of[-1.8,-1.35,1.35,1.8])leafRelief(S,F,cx+off,z+.3,1.65,.22,P.stoneHi);
+    for(const [off,r]of[[-.47,.55],[.42,.64]]){
+      const pts=[];
+      for(let i=0;i<10;i++){const a=i*Math.PI/5;pts.push(F.point(cx+off+Math.cos(a)*r,.25,z+.91+Math.sin(a)*r));}
+      S.poly(pts,P.stoneD,.04);
+      S.poly(pts.map(p=>[p[0],p[1],p[2]+.12]),P.stoneHi,.055);
+      S.beam(F.point(cx+off,.26,z+1.37),F.point(cx+off+.1,.26,z+1.73),P.stoneD,.14);
+    }
+  }
+  function canopy(S,F,u0,u1,projection,innerZ,outerZ,spacing) {
+    const n=Math.max(1,Math.round((u1-u0)/(spacing||4.1))),step=(u1-u0)/n;
+    // Long slender panels remain confined to the arcade perimeter. No center roof.
+    for(let i=0;i<n;i++){
+      const a=u0+i*step,b=a+step;
+      for(let j=0;j<2;j++){
+        const d0=projection*j/2,d1=projection*(j+1)/2,z0=innerZ+(outerZ-innerZ)*j/2,z1=innerZ+(outerZ-innerZ)*(j+1)/2;
+        S.poly([F.point(a,d0,z0),F.point(b,d0,z0),F.point(b,d1,z1),F.point(a,d1,z1)],i%4===1?P.canopyHi:j?P.canopy:P.canopyR);
+        // Small cool diagonal glints suggest glass without exposing rear emission.
+        if(i%2===0)S.beam(F.point(a+.65,d0+.15,z0+.04),F.point(a+1.42,d1-.15,z1+.04),P.canopyHi,.18);
+      }
+    }
+    for(let i=0;i<=n;i++){
+      const u=u0+i*step;
+      S.beam(F.point(u,0,innerZ+.09),F.point(u,projection,outerZ+.09),P.ironHi,.25);
+    }
+    for(const t of[0,.5,1])S.beam(F.point(u0,projection*t,innerZ+(outerZ-innerZ)*t+.10),F.point(u1,projection*t,innerZ+(outerZ-innerZ)*t+.1),P.iron,.29);
+    const count=Math.max(1,Math.round((u1-u0)/8.3));
+    for(let i=0;i<=count;i++){
+      const u=u0+(u1-u0)*i/count,p=F.point(u,projection,0);
+      cylinder(S,p[0],p[1],.25,.95,.35,.29,P.ironHi,P.ironD,P.iron,6);
+      cylinder(S,p[0],p[1],.95,outerZ-.55,.18,.16,P.iron,P.ironD,P.ironHi,6);
+      S.box(p[0]-.33,p[0]+.33,p[1]-.33,p[1]+.33,outerZ-.55,outerZ-.16,P.ironHi,P.ironD,P.ironHi);
+      // Open spandrel brackets meet the actual post and beam.
+      for(const sign of[-1,1])if(u+sign*1.5>=u0&&u+sign*1.5<=u1){
+        let last=F.point(u,projection,outerZ-2.1);
+        for(let j=1;j<=7;j++){
+          const a=j*Math.PI/14,q=F.point(u+sign*1.7*(1-Math.cos(a)),projection,outerZ-2.1+1.9*Math.sin(a));
+          S.beam(last,q,P.ironHi,.19);last=q;
+        }
+      }
+    }
+    // Fine gutter and a shallow toothed fascia, not a hanging opaque apron.
+    S.beam(F.point(u0,projection+.12,outerZ-.16),F.point(u1,projection+.12,outerZ-.16),P.ironD,.34);
+    for(let u=u0+.35;u<u1;u+=1.15)S.beam(F.point(u,projection,outerZ-.2),F.point(u,projection,outerZ-.55),P.iron,.17);
+  }
+  function crate(S,x,y,z,w,d,h) {
+    const front=(xx,yy,zz)=>mod(zz-z,1.0)<.15?P.woodD:mod(xx-x,2.5)<.12?P.woodR:P.wood;
+    const side=(xx,yy,zz)=>mod(zz-z,1.0)<.15?P.woodD:P.woodR;
+    S.box(x,x+w,y,y+d,z,z+h,front,side,null);
+    S.flat(x+.2,x+w-.2,y+.2,y+d-.2,z+.12,P.woodD);
+    for(const xx of[x,x+w-.25])for(const yy of[y,y+d-.25])S.box(xx,xx+.25,yy,yy+.25,z,z+h+.1,P.woodHi,P.wood,P.woodHi);
+    for(const yy of[y,y+d-.20])S.box(x,x+w,yy,yy+.20,z+h-.2,z+h+.12,P.woodHi,P.woodR,P.woodHi);
+  }
+  function fruit(S,x,y,z,r,c,kind) {
+    const rr=kind==='pear'?r*.82:r;
+    cylinder(S,x,y,z,z+r*.65,rr*.78,rr,c,P.woodR,c,7);
+    cylinder(S,x,y,z+r*.65,z+r*1.2,rr,kind==='pear'?rr*.36:rr*.55,c,c,c,7);
+    if(kind==='cabbage'){
+      for(let k=0;k<3;k++)S.beam([x-r*.65+k*r*.4,y-r*.5,z+r*.8],[x-r*.65+k*r*.4,y+r*.5,z+r*1.13],P.leaf[1],.12);
+    }else S.beam([x,y,z+r*1.12],[x+.09,y,z+r*1.5],P.leaf[3],.13);
+  }
+  function produceCrate(S,x,y,z,w,d,kind) {
+    crate(S,x,y,z,w,d,1.5);
+    const c=kind==='apple'?P.apple:kind==='pear'?P.pear:kind==='cabbage'?P.cabbage:P.carrot;
+    const step=kind==='cabbage'?1.6:1.05,r=kind==='cabbage'?.7:.42;
+    for(let xx=x+.57;xx<x+w-.35;xx+=step)for(let yy=y+.55;yy<y+d-.3;yy+=step){
+      if(kind==='carrot'){
+        S.beam([xx-.22,yy-.3,z+1.15],[xx+.25,yy+.36,z+1.7],c,.42);
+        S.beam([xx+.23,yy+.34,z+1.7],[xx+.36,yy+.56,z+2.05],P.leaf[1],.25);
+      }else fruit(S,xx,yy,z+1.10,r,c,kind);
+    }
+  }
+  function blossom(S,x,y,z,r,col) {
+    for(let k=0;k<5;k++){
+      const a=k*Math.PI*2/5,cx=x+Math.cos(a)*r*.54,cy=y+Math.sin(a)*r*.54;
+      S.poly([[cx-r*.4,cy,z],[cx,cy-r*.42,z+.14],[cx+r*.4,cy,z+.18],[cx,cy+r*.42,z+.08]],col);
+    }
+    S.box(x-r*.13,x+r*.13,y-r*.13,y+r*.13,z+.13,z+.32,P.gold,P.gold,P.paper);
+  }
+  function bouquet(S,x,y,z,scale,seed) {
+    const s=scale||1;
+    cylinder(S,x,y,z,z+2.35*s,.48*s,.68*s,P.zinc,P.zincR,P.soil,8);
+    cylinder(S,x,y,z+2.25*s,z+2.52*s,.69*s,.7*s,P.zinc,P.zincR,P.soil,8);
+    for(let k=0;k<7;k++){
+      const a=k*2.4,rr=(k? .57:0)*s,xx=x+Math.cos(a)*rr,yy=y+Math.sin(a)*rr,zz=z+(3.7+(hash(k,seed,27)%8)*.14)*s;
+      S.beam([x,y,z+2.1*s],[xx,yy,zz],P.leaf[3],.13*s);
+      for(const sign of[-1,1])S.poly([[xx,yy,zz-.8*s],[xx+sign*.62*s,yy-.18*s,zz-.35*s],[xx+sign*.38*s,yy+.18*s,zz-.22*s]],P.leaf[(k+1)%4]);
+      blossom(S,xx,yy,zz,.52*s,P.flower[(k+seed)%P.flower.length]);
+    }
+  }
+  function pottedPlant(S,x,y,z,scale,col) {
+    const s=scale||1;
+    cylinder(S,x,y,z,z+1.7*s,.43*s,.73*s,P.pot,P.potR,P.soil,8);
+    cylinder(S,x,y,z+1.43*s,z+1.85*s,.8*s,.8*s,P.pot,P.potR,P.soil,8);
+    for(let k=0;k<6;k++){
+      const a=k*Math.PI/3,xx=x+Math.cos(a)*1.0*s,yy=y+Math.sin(a)*1.0*s;
+      S.beam([x,y,z+1.7*s],[xx,yy,z+3.0*s],P.leaf[3],.15*s);
+      S.poly([[x,y,z+2*s],[xx-.25*s,yy-.18*s,z+2.7*s],[xx,yy,z+3.5*s],[xx+.3*s,yy+.15*s,z+2.9*s]],P.leaf[k%4]);
+      if(k%2===0)blossom(S,xx,yy,z+3.4*s,.52*s,col||P.flower[4]);
+    }
+  }
+  function counter(S,x,y,w,d,h) {
+    for(const xx of[x+.4,x+w-.4])for(const yy of[y+.3,y+d-.3])S.box(xx-.18,xx+.18,yy-.18,yy+.18,.3,h,P.woodR,P.woodD,P.wood);
+    S.box(x-.2,x+w+.2,y-.2,y+d+.2,h,h+.45,P.wood,P.woodR,P.woodHi);
+    for(const yy of[y,y+d-.2])S.box(x+.2,x+w-.2,yy,yy+.2,1.5,1.85,P.woodR,P.woodD,P.wood);
+  }
+  function handcart(S,x,y) {
+    // Two open spoke wheels, one axle, slatted bed and real projecting handles.
+    for(const yy of[y-.25,y+3.9]){
+      const F=S.face([x-2,yy],[x+5,yy],0,yy<y?-1:1);
+      ring(S,F,4,1.55,1.45,1.45,.28,.04,P.ironD,14);
+      for(let i=0;i<8;i++){
+        const a=i*Math.PI/4;S.beam(F.point(4,0,1.55),F.point(4+Math.cos(a)*1.25,0,1.55+Math.sin(a)*1.25),P.woodR,.17);
+      }
+      S.beam(F.point(3.65,.06,1.55),F.point(4.35,.06,1.55),P.ironHi,.3);
+    }
+    S.beam([x+2,y-.3,1.55],[x+2,y+4,1.55],P.ironD,.28);
+    crate(S,x,y,2.1,5,3.65,2.2);
+    for(const yy of[y+.55,y+3.1])S.beam([x+3.3,yy,2.3],[x+7.0,yy,3.4],P.woodR,.3);
+    produceCrate(S,x+.4,y+.4,2.35,3.8,2.6,'apple');
+  }
+
+  function market(view) {
+    const S=Scene(3,view,200,164);
+    S.flat(0,48,0,48,0,paving);
+    for(const [x0,x1,y0,y1]of[[0,48,0,.42],[0,48,47.58,48],[0,.42,0,48],[47.58,48,0,48]])S.flat(x0,x1,y0,y1,.015,P.stoneR);
+    // Fine stone channels follow the U and the open entrance, not a water texture.
+    for(const [x0,x1,y0,y1]of[[8.8,9.1,12,47],[38.9,39.2,12,47],[9,39,11.9,12.2]])S.flat(x0,x1,y0,y1,.025,P.stoneD);
+    for(const [x,y]of[[9.0,42.6],[39,42.6]]){
+      S.flat(x-.55,x+.55,y-.8,y+.8,.04,P.ironD);
+      for(let a=-.35;a<.5;a+=.3)S.flat(x+a,x+a+.1,y-.66,y+.66,.045,P.lead);
+    }
+    S.flat(2,46,2.7,9.2,.35,paving);
+    // Ground-floor shop backs flank a real 7.4-unit through-passage. The rear
+    // elevation repeats the central arch; no dark decal stands in for the void.
+    const shopBlocks=[masonry(S,2,20.32,2.7,5.5,.35,15.2,2781),masonry(S,27.68,46,2.7,5.5,.35,15.2,2782)];
+    for(let b=0;b<shopBlocks.length;b++){
+      const W=shopBlocks[b];
+      for(let i=0;i<2;i++){
+        const u=1.15+i*8.8;
+        shopDoor(W.front,u,.55,3.0,10.2,(i+b)%2===0);
+        shutter(W.front,u+3.5,.85,3.05,8.7);
+        sash(S,W.back,u+1.4,5,3.4,6.4,(i+b)%2===1);
+      }
+      band(S,b?27.68:2,b?46:20.32,2.7,5.5,.45,.65);
+    }
+    const rearFront=S.face([2,9.2],[46,9.2],0,1);
+    for(let i=0;i<5;i++)arcadeArch(S,rearFront,.72+i*8.8,7.36,10,15.45,.88,2784+i);
+    const passageBack=S.face([27.68,2.7],[20.32,2.7],0,-1);
+    arcadeArch(S,passageBack,0,7.36,10,15.45,.65,2791);
+    // Upper range: five bay rhythm, genuine sash frames, modest inscription,
+    // projecting cornice, tiny dentils and low slate hips.
+    const upper=masonry(S,2,46,2.7,9.2,15.45,31.3,2780);
+    band(S,2,46,2.7,9.2,15.45,.7);band(S,2,46,2.7,9.2,30.55,.95);
+    for(const [side,F]of Object.entries(upper)){
+      const n=side==='front'||side==='back'?5:1,step=F.length/n;
+      for(let i=0;i<n;i++)sash(S,F,(i+.5)*step-1.95,21.3,3.9,7.55,(i+(side==='back'?1:0))%3!==1);
+      for(let u=.75;u<F.length-.4;u+=2.1)F.block(u,u+.5,0,.44,29.85,30.55,P.stone,P.stoneR,P.stoneHi);
+      for(const u of[.25,F.length-.9])F.block(u,u+.65,0,.16,16.3,29.9,P.brick[1],P.brickR[1],P.stone);
+    }
+    for(const F of[upper.front,upper.back]){
+      F.block(11.2,32.8,.08,.32,16.35,20.45,P.green,P.greenD,P.greenHi);
+      F.panel(11.55,32.45,16.65,20.13,P.greenD,.37);
+      letters(F,'MARKET',(44-23*.56)/2,16.78,.56,P.paper,.43);
+      for(const u of[2.2,35.1])produceFrieze(S,F,u,17,6.7);
+    }
+    hippedRoof(S,1.6,46.4,2.3,9.6,31.65,4.25,true);
+    for(const x of[8.4,39.6])chimney(S,x,5.7,35.0);
+    for(const [x,y]of[[1.8,3.8],[46.2,8.0]])rainpipe(S,x,y,31.6);
+    canopy(S,rearFront,.2,43.8,2.62,15.25,14.35,4.35);
+    for(const u of[9,35])wallLamp(S,rearFront,u,10.9);
+
+    // Low wings have real open arcades toward the court and designed service
+    // backs. Their roofs stop at x=6.6 / 41.4, keeping the central sky visible.
+    for(const right of[false,true]){
+      const x0=right?41.8:2,x1=right?46:6.2;
+      const W=masonry(S,right?44.9:x0,right?x1:3.1,9.2,39.9,.35,15.5,right?2788:2787);
+      const court=right?S.face([41.8,39.9],[41.8,9.2],-1,0):S.face([6.2,9.2],[6.2,39.9],1,0);
+      const outside=right?W.right:W.left;
+      S.flat(x0,x1,9.2,39.9,.35,paving);
+      for(let i=0;i<4;i++){
+        const step=30.7/4,u=.72+i*step,w=step-1.44;
+        arcadeArch(S,court,u,w,9.3,15.4,.64,2794+i);
+        const yy=10.3+i*7.3;
+        if(i!==2)counter(S,right?42.7:3.8,yy,2.65,3.8,4.1);
+        if(i===0||i===3){
+          for(let k=0;k<2;k++)bouquet(S,right?43.9:5.3,yy+1+k*1.7,4.55,.52,k+i+(right?2:0));
+        }else if(i===1){
+          produceCrate(S,right?42.9:4,yy+.25,4.55,2.25,3.05,right?'pear':'apple');
+        }else{
+          crate(S,right?43.1:3.8,yy+.2,.4,2.1,2.15,2.35);
+          crate(S,right?43.1:3.8,yy+.2,2.75,2.1,2.15,2.0);
+        }
+        if(i===1)shopDoor(outside,i*7.3+1.7,.35,2.9,10,false);
+        else sash(S,outside,i*7.3+2.0,5.0,2.8,5.6,i%2===0);
+      }
+      // Actual doors terminate the wings; the entry to the court is wide open.
+      const end=masonry(S,x0,x1,39.35,39.9,.35,15.4,right?2783:2786);
+      shopDoor(end.front,.65,.35,2.7,10.1,true);
+      produceFrieze(S,end.front,.2,11.2,3.8);
+      band(S,x0,x1,9.2,39.9,15.3,.65);
+      hippedRoof(S,x0-.25,x1+.25,9.0,40.2,16.0,3.2,false);
+      canopy(S,court,.15,30.5,2.62,14.95,13.9,3.8);
+      for(const u of[7.75,23.0])wallLamp(S,court,u,10.8);
+      rainpipe(S,right?46.2:1.8,38.8,15.9);
+    }
+    // Edge objects give the market a lived-in scale without filling its court.
+    for(const [x,y,s,seed]of[[10.35,34,.85,1],[10.8,37.3,.96,3],[12.45,40.1,.72,0]])bouquet(S,x,y,.08,s,seed);
+    pottedPlant(S,10.2,43.5,.08,.85,P.flower[1]);pottedPlant(S,37.4,43.5,.08,.85,P.flower[4]);
+    handcart(S,32.0,34.2);
+    produceCrate(S,37.1,28.7,.06,2.7,2.9,'cabbage');
+    crate(S,37.0,24.9,.08,2.7,2.9,2.7);produceCrate(S,37.1,25.0,2.8,2.5,2.7,'pear');
+    // A small freestanding price board has real hinged legs and a matte slate.
+    for(const xx of[15.2,17.4]){
+      S.beam([xx,43.6,.08],[xx,42.2,5.9],P.woodR,.24);
+      S.beam([xx,40.8,.08],[xx,42.2,5.9],P.woodR,.24);
+    }
+    const price=S.face([15.0,42.45],[17.6,42.45],0,1);
+    price.panel(0,2.6,1.6,5.5,P.woodHi,0);
+    price.panel(.22,2.38,1.95,5.18,P.ink,.04);
+    for(const z of[2.7,3.7,4.6])price.panel(.55,2.04,z,z+.15,P.paper,.06);
+    for(const [x,y]of[[3,44.4],[45,44.4]])lantern(S,x,y,10.6,true);
+    return S.finish({building:278,architecture:'open-british-riverside-market-arcade',pathAxis:'y',
+      design:'original-red-brick-open-U-court',roofFreeCourt:[9,39,12,47],roofFreeCourtFraction:1050/2304});
+  }
+
+  function canvasShelter(S,x0,x1,y0,y1,z,rise,florist) {
+    const cy=(y0+y1)/2,stripe=florist?P.canvasRose:P.canvasGreen;
+    const cloth=(x,y,zz)=>{
+      const u=mod(x-x0,2.4);
+      if(u<.13)return P.canvasD;
+      return u<1.16?P.canvas:stripe;
+    };
+    S.poly([[x0,y0,z],[x1,y0,z],[x1,cy,z+rise],[x0,cy,z+rise]],cloth);
+    S.poly([[x0,cy,z+rise],[x1,cy,z+rise],[x1,y1,z],[x0,y1,z]],cloth);
+    for(const x of[x0,x1]){
+      S.poly([[x,y0,z],[x,cy,z+rise],[x,y1,z]],florist?P.canvasRose:P.canvasGreen);
+      S.beam([x,y0,z],[x,cy,z+rise],P.canvasD,.18);
+      S.beam([x,cy,z+rise],[x,y1,z],P.canvasD,.18);
+    }
+    for(const yy of[y0,y1]){
+      const F=S.face([x0,yy],[x1,yy],0,yy===y0?-1:1);
+      F.panel(0,x1-x0,z-.9,z,(x,zz)=>mod(x,2.4)<1.2?P.canvasD:stripe,.035);
+      for(let x=x0+.15;x<x1;x+=1.2)S.beam([x,yy,z-.95],[Math.min(x+1.0,x1),yy,z-.95],P.woodD,.14);
+    }
+    S.beam([x0,cy,z+rise+.05],[x1,cy,z+rise+.05],P.canvasD,.16);
+    for(const xx of[x0+.5,x1-.5])for(const yy of[y0+.5,y1-.5]){
+      S.box(xx-.15,xx+.15,yy-.15,yy+.15,.2,z+.1,P.wood,P.woodR,P.woodHi);
+      S.beam([xx,yy,z-2.1],[xx+(xx<(x0+x1)/2?.9:-.9),yy,z-.1],P.woodR,.18);
+      cylinder(S,xx,yy,.1,.65,.27,.24,P.iron,P.ironD,P.ironHi,6);
+    }
+    // A proper glazed task lantern is clamped to the front corner standard.
+    // Its panes sit above the highest canvas ridge (z+rise), rather than hiding
+    // a subpixel bulb beneath an opaque canopy. The same four-sided physical
+    // lantern used by the riverside lamps remains legible in every real view;
+    // the shared depth buffer still resolves its iron frame and shade normally.
+    const lx=x1-.5,ly=y1+.25,lampZ=z+rise+.55;
+    S.beam([lx,y1-.5,z-2.2],[lx,y1-.5,lampZ+.15],P.ironD,.25);
+    S.beam([lx,y1-.5,lampZ+.15],[lx,ly,lampZ+.15],P.iron,.26);
+    S.beam([lx,y1-.5,lampZ-1.1],[lx,ly,lampZ+.15],P.iron,.19);
+    for(const zz of[z-1.9,z-.25])S.box(lx-.27,lx+.27,y1-.76,y1-.24,zz,zz+.25,P.ironHi,P.ironD,P.ironHi);
+    lantern(S,lx,ly,lampZ,false);
+  }
+  function hangingBoard(S,x0,x1,y,z,text,florist) {
+    for(const x of[x0+.45,x1-.45])S.beam([x,y,z+4.3],[x,y,z+3.2],P.iron,.14);
+    S.box(x0,x1,y-.16,y+.16,z,z+3.35,P.green,P.greenD,P.greenHi);
+    const F=S.face([x0,y+.18],[x1,y+.18],0,1),B=S.face([x1,y-.18],[x0,y-.18],0,-1);
+    for(const face of[F,B]){
+      const unit=Math.min(.39,(x1-x0-.8)/(text.length*4-1));
+      letters(face,text,((x1-x0)-(text.length*4-1)*unit)/2,z+.17,unit,P.paper,.035);
+    }
+    if(florist)S.beam([x0+.24,y+.18,z+.35],[x0+.24,y+.18,z+2.85],P.gold,.12);
+  }
+  function flowerStall(view) {
+    const S=Scene(1,view,72,88);
+    S.flat(0,16,0,16,0,paving);
+    for(const y of[.45,15.1])S.flat(.45,15.55,y,y+.18,.018,P.stoneR);
+    // Two florist's display heights, buckets of cut stems and separate potted
+    // plants make the open sides and service gap readable from all four views.
+    counter(S,2.3,4.3,9.6,2.0,5.2);
+    counter(S,2.0,9.4,8.0,2.35,3.5);
+    for(const [x,y,z,s,seed]of[[3.0,5.2,5.65,.70,0],[5.4,5.15,5.65,.81,3],[8,5.2,5.65,.73,1],[10.5,5.2,5.65,.80,4],
+      [2.7,10.45,3.95,.72,2],[5,10.5,3.95,.76,4],[7.6,10.5,3.95,.79,0],
+      [12.7,9.4,.08,.87,3],[12.75,12.35,.08,.80,1]])bouquet(S,x,y,z,s,seed);
+    pottedPlant(S,3.0,13.5,.08,.83,P.flower[4]);
+    pottedPlant(S,5.4,13.65,.08,.70,P.flower[1]);
+    pottedPlant(S,8.0,13.45,.08,.78,P.flower[2]);
+    crate(S,1.75,1.35,.1,3.35,2.4,2.2);
+    for(const x of[2.45,3.75])pottedPlant(S,x,2.55,2.4,.55,P.flower[3]);
+    crate(S,8.9,1.45,.08,3.1,2.4,2.1);
+    // Wrapped stems are folded cream paper cones laid on the rear service shelf.
+    for(let i=0;i<3;i++){
+      const x=9.25+i*.85;
+      S.poly([[x,1.75,2.35],[x+.65,1.75,2.35],[x+.4,3.15,3.3]],P.paper);
+      S.beam([x+.4,3.0,3.3],[x+.65,3.5,3.7],P.leaf[1],.17);
+    }
+    // A zinc watering can: body, spout and open loop handle are separate solids.
+    cylinder(S,12.8,3.05,.1,2.15,.68,.72,P.zinc,P.zincR,P.zinc,8);
+    S.beam([13.3,3.1,1.2],[14.3,3.55,2.35],P.zincR,.34);
+    const handle=S.face([11.4,2.98],[14.4,2.98],0,1);
+    ring(S,handle,1.4,2.25,.86,1.13,.2,0,P.zincR,12);
+    canvasShelter(S,1.35,14.65,3.55,12.4,15.5,3.1,true);
+    hangingBoard(S,3.2,12.4,12.75,11.05,'FLORA',true);
+    return S.finish({building:279,architecture:'british-cut-flower-stall',pathAxis:'y',design:'open-rose-canvas-florist'});
+  }
+  function balanceScale(S,x,y,z) {
+    S.box(x-.65,x+.65,y-.48,y+.48,z,z+.4,P.iron,P.ironD,P.ironHi);
+    S.beam([x,y,z+.35],[x,y,z+3.8],P.iron,.25);
+    S.beam([x-1.5,y,z+3.6],[x+1.5,y,z+3.6],P.gold,.22);
+    for(const sign of[-1,1]){
+      const xx=x+sign*1.25;
+      for(const yy of[y-.5,y+.5])S.beam([xx,y,z+3.6],[xx,yy,z+1.8],P.ironHi,.11);
+      cylinder(S,xx,y,z+1.5,z+1.8,.56,.72,P.zinc,P.zincR,P.zinc,8);
+    }
+    S.beam([x,y,z+3.55],[x+.16,y,z+4.15],P.gold,.15);
+  }
+  function produceStall(view) {
+    const S=Scene(1,view,72,88);
+    S.flat(0,16,0,16,0,paving);
+    for(const y of[.45,15.1])S.flat(.45,15.55,y,y+.18,.018,P.stoneR);
+    counter(S,2.15,8.3,11.0,3.5,4.0);
+    counter(S,3.1,4.1,8.4,2.35,5.9);
+    produceCrate(S,2.4,8.65,4.45,3.1,2.65,'apple');
+    produceCrate(S,5.9,8.65,4.45,3.1,2.65,'pear');
+    produceCrate(S,9.4,8.65,4.45,3.4,2.65,'carrot');
+    produceCrate(S,3.4,4.35,6.35,4.0,1.85,'cabbage');
+    balanceScale(S,9.45,5.2,6.35);
+    // Slatted stock crates and one small barrel are useful stock, not an opaque
+    // substitute for the stall structure. Their tops have actual merchandise.
+    crate(S,1.9,1.05,.12,3.0,2.3,2.0);crate(S,1.9,1.05,2.2,3.0,2.3,2.0);
+    produceCrate(S,6.0,1.1,.12,3.1,2.3,'pear');
+    cylinder(S,12.6,3.1,.1,3.9,.87,1.03,P.wood,P.woodR,P.woodHi,10);
+    for(const z of[.65,3.20])cylinder(S,12.6,3.1,z,z+.27,1.04,1.04,P.ironD,P.iron,P.woodHi,10);
+    for(const x of[1.35,3.65]){
+      // Woven potato sack with a tied neck and restrained stitch texture.
+      cylinder(S,x,13.65,.1,2.45,.73,.93,P.canvasD,P.woodR,P.canvasD,8);
+      cylinder(S,x,13.65,2.45,3.15,.93,.38,P.canvasD,P.woodR,P.canvas,8);
+      S.beam([x-.4,13.65,3.08],[x+.4,13.65,3.08],P.woodD,.17);
+    }
+    crate(S,10.25,12.6,.1,3.7,2.65,2.15);
+    produceCrate(S,10.5,12.85,2.28,3.2,2.15,'cabbage');
+    canvasShelter(S,1.35,14.65,3.55,12.4,15.25,2.6,false);
+    hangingBoard(S,3.2,12.4,12.75,10.8,'GREENS',false);
+    return S.finish({building:280,architecture:'british-produce-stall',pathAxis:'y',design:'open-sage-canvas-greengrocer'});
+  }
+
+  function ironRail(S,a,b,z,h) {
+    const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),n=Math.max(1,Math.floor(len/1.10));
+    const tx=dx/len,ty=dy/len;
+    for(let i=0;i<=n;i++){
+      const x=a[0]+dx*i/n,y=a[1]+dy*i/n;
+      S.beam([x,y,z],[x,y,z+h],P.ironD,.18);
+      // Leaf tips are true world-space diamonds in the railing plane.
+      S.poly([[x-tx*.26,y-ty*.26,z+h-.15],[x,y,z+h+.62],[x+tx*.26,y+ty*.26,z+h-.15],[x,y,z+h-.52]],P.iron);
+    }
+    for(const zz of[z+.65,z+h-.70])S.beam([a[0],a[1],zz],[b[0],b[1],zz],P.iron,.26);
+    for(const t of[0,.5,1]){
+      const x=a[0]+dx*t,y=a[1]+dy*t;
+      S.box(x-.20,x+.20,y-.20,y+.20,z,z+h+.32,P.iron,P.ironD,P.ironHi);
+      cylinder(S,x,y,z+h+.28,z+h+.7,.29,.10,P.ironHi,P.ironD,P.ironHi,6);
+    }
+    // Restrained cast rings between the long rails, with no solid panel behind.
+    const F=S.face(a,b,-ty,tx);
+    for(let u=2.6;u<len-1.0;u+=4.4)ring(S,F,u,z+h*.49,.69,.82,.15,.04,P.ironHi,12);
+  }
+  function bench(S,x,y,length,flip) {
+    const q=flip?-1:1,lo=Math.min(x,x+q*2.1),hi=Math.max(x,x+q*2.1);
+    for(const yy of[y+.5,y+length-.5]){
+      S.beam([x+q*.15,yy,.2],[x+q*.55,yy,2.45],P.iron,.30);
+      S.beam([x+q*1.9,yy,.2],[x+q*1.55,yy,2.45],P.iron,.30);
+      S.beam([x,yy,1.1],[x-q*.22,yy,4.9],P.iron,.27);
+      S.beam([x-q*.07,yy,3.4],[x+q*1.85,yy,3.4],P.iron,.25);
+      S.beam([x+q*1.85,yy,2.45],[x+q*1.85,yy,3.4],P.iron,.22);
+    }
+    for(let i=0;i<3;i++){
+      const xx=x+q*(.25+i*.68);
+      S.box(xx-.25,xx+.25,y,y+length,2.3,2.73,P.wood,P.woodR,P.woodHi);
+    }
+    for(const z of[3.3,4.25])S.box(x-q*.2-.19,x-q*.2+.19,y,y+length,z,z+.53,P.wood,P.woodR,P.woodHi);
+    S.beam([lo+.2,y+.5,1.3],[hi-.2,y+.5,1.3],P.ironD,.22);
+  }
+  function stonePier(S,x,y,z,h) {
+    S.box(x-.55,x+.55,y-.58,y+.58,z,z+h,P.granite,P.graniteR,P.graniteHi);
+    S.box(x-.76,x+.76,y-.77,y+.77,z+h-.14,z+h+.35,P.stone,P.stoneR,P.stoneHi);
+    for(let zz=z+1.8;zz<z+h-.3;zz+=1.8)S.box(x-.56,x+.56,y-.59,y+.59,zz,zz+.10,P.graniteD,P.graniteD,P.graniteR);
+  }
+  function quayWall(S) {
+    const z0=.06,z1=3.95;
+    // Battered granite face stays entirely inside its paid dry-land cell.
+    // The lower wall is geometry above the terrain plane, never invented water.
+    S.poly([[13.65,0,z0],[13.65,16,z0],[14.10,16,z1],[14.10,0,z1]],granite(true));
+    S.poly([[16,0,z0],[15.6,0,z1],[15.6,16,z1],[16,16,z0]],granite(true));
+    S.poly([[13.65,0,z0],[14.1,0,z1],[15.6,0,z1],[16,0,z0]],granite(false));
+    S.poly([[13.65,16,z0],[16,16,z0],[15.6,16,z1],[14.1,16,z1]],granite(false));
+    for(let y=0;y<16;y+=4){
+      S.box(13.80,15.9,y+.035,Math.min(y+3.965,16),3.95,4.48,P.stone,P.stoneR,P.stoneHi);
+      S.beam([15.87,y+.18,4.47],[15.87,Math.min(y+3.8,15.85),4.47],P.stoneD,.11);
+    }
+    for(const y of[1.4,14.6]){
+      // Small recessed drain holes are matte, with dressed stone surrounds.
+      const F=S.face([16,y-1],[16,y+1],1,0);
+      F.panel(.65,1.35,.65,1.25,P.graniteD,-.12);
+    }
+  }
+  function riversideModule(theme,view) {
+    const S=Scene(1,view,72,92);
+    S.flat(0,16,0,16,0,paving);
+    for(const x of[5.05,10.55])S.flat(x,x+.22,0,16,.022,P.stoneHi);
+    // All modules preserve the ordinary native path and a 5.28-unit visual
+    // north/south walking strip. Placement logic alone rotates that path axis.
+    if(theme==='quay'){
+      quayWall(S);
+      stonePier(S,14.78,14.25,4.48,1.25);lantern(S,14.78,14.25,6.08,false);
+      // Six shallow stone treads run parallel to the boundary, as at Custom
+      // House Quay. They access the low coping, not a fictional ferry berth.
+      for(let i=0;i<6;i++)S.box(11.15,13.7,3.7,11.5-i*1.18,.02,.66*(i+1),P.granite,P.graniteR,P.stoneHi);
+      S.box(11.15,13.8,2.7,4.42,.02,3.96,P.granite,P.graniteR,P.stoneHi);
+      S.beam([10.99,11.3,2.5],[10.99,4.0,6.7],P.iron,.26);
+      for(let i=0;i<4;i++)S.beam([10.99,10.75-i*2.1,.66+i*1.18],[10.99,10.75-i*2.1,2.82+i*1.2],P.iron,.20);
+      // A compact seat and a low stone name plaque face the maintained walk.
+      bench(S,1.5,5.6,6.3,false);
+      S.box(.7,3.6,1.4,2.5,.08,1.0,P.granite,P.graniteR,P.graniteHi);
+      const F=S.face([.7,2.52],[3.6,2.52],0,1);
+      F.panel(.35,2.55,.34,.77,P.stoneR,.025);
+    }else if(theme==='rail'){
+      S.box(13.7,15.8,0,16,.06,1.55,granite(false),granite(true),P.stone);
+      for(let y=0;y<16;y+=4)S.box(13.5,15.95,y+.03,Math.min(y+3.97,16),1.5,1.97,P.stone,P.stoneR,P.stoneHi);
+      ironRail(S,[14.78,.25],[14.78,15.75],1.97,5.1);
+      stonePier(S,14.78,3.4,1.97,4.1);lantern(S,14.78,3.4,6.45,false);
+      // Drain grate and two discreet planters leave the through-path untouched.
+      for(const y of[1.9,13.9])pottedPlant(S,2.45,y,.08,.69,y<8?P.flower[2]:P.flower[4]);
+      S.flat(11.9,12.8,6.7,9.3,.025,P.ironD);
+      for(let y=6.9;y<9.1;y+=.4)S.flat(12.0,12.7,y,y+.13,.03,P.lead);
+    }else if(theme==='promenade'){
+      // Broader dressed paving, offset granite kerb, timber/cast-iron bench,
+      // freestanding lantern and a covered litter bin identify the public walk.
+      for(let y=.35;y<16;y+=3.8)for(let x=.35;x<16;x+=5.2)
+        S.flat(x,Math.min(x+4.99,15.85),y,Math.min(y+3.58,15.85),.025,(Math.floor(x/5)+Math.floor(y/4))%3===0?P.paveHi:P.pave);
+      S.box(14.3,15.8,0,16,.025,.68,P.granite,P.graniteR,P.stoneHi);
+      ironRail(S,[15.0,.45],[15.0,15.55],.7,4.15);
+      bench(S,1.65,4.5,7.7,false);
+      lantern(S,12.3,2.5,10.15,true);
+      S.box(11.6,13.2,12.7,14.5,.08,3.2,P.iron,P.ironD,P.ironHi);
+      S.box(11.4,13.4,12.5,14.7,3.17,3.6,P.iron,P.ironD,P.ironHi);
+      S.wall([11.85,14.52],[12.95,14.52],2.48,2.98,P.ink);
+      for(let z=.6;z<2.4;z+=.6)S.wall([11.78,14.52],[13.0,14.52],z,z+.1,P.ironHi);
+      pottedPlant(S,2.4,13.9,.08,.70,P.flower[1]);
+    }
+    return S.finish({theme,pathAxis:'y',minimumClearPath:5.28,design:'dry-native-riverside-walk',waterCells:0});
+  }
+  function buildAll() {
+    const buildings={278:[],279:[],280:[]},modules={};
+    for(let view=0;view<4;view++){
+      buildings[278].push(market(view));
+      buildings[279].push(flowerStall(view));
+      buildings[280].push(produceStall(view));
+      for(const theme of['quay','rail','promenade'])modules[theme+'_'+view]=riversideModule(theme,view);
+    }
+    return {buildings,modules};
+  }
+  root.BritishRiversideArchitecture012=Object.freeze({version:'GPT-012-art-r2',original:true,simulationRandomCalls:0,buildAll});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<!-- GPT-012 native riverside art END -->
 <!-- GPT-010 native museum art BEGIN: source british-museum-art010.js -->
 <script>
 /* GPT-010: original British regional natural-history museum and formal forecourt.
@@ -52937,7 +53752,58 @@ function museumAt010(x,y){
 function museumEvidence010(){const roots=[],paths=[];for(const root of tickBld||[]){const b=tiles[root]?.bld;if(b&&!b.ref&&museumKind010(b.k))roots.push(museumAt010(root%N,(root/N)|0));}for(const i of amCells502)if(museumTheme010(tiles[i]))paths.push(museumAt010(i%N,(i/N)|0));return{day,roots,paths,tourists,tourism:{...museumTourismLedger010,newContribution:museumTourismLedger010.weighted,total:tourists,currentBase:museumTourismWeight010()},civic:civicServicesSnapshot495(),mobility:mobilitySnapshot491(),art:{...window.__museumArt010}};}
 function museumSelftest010(){const details=[],add=(name,ok,actual)=>details.push({name,ok:!!ok,actual}),q=MUSEUM010[277],b={k:277,lv:1,age:9,sz:4};add('one permanent new museum identity',Object.keys(MUSEUM010).join(',')==='277'&&!BRITISH004[277]&&!HIGHSTREET005[277]&&!PUBLICLIFE007[277]&&!STREETLIFE009[277]);add('paid fixed museum catalog',TOOLS.filter(t=>t.id===q.id).length===1&&COST[q.id]===6400&&MSZ[277]===4&&toolSize458(q.id)===4&&KNAME[277]===q.nm&&KCB[277]==='D'&&MAYOR_ACTION_CATALOG470A[q.id]?.status==='manual-only');add('native public jobs, no enterprise or school alias',PUBLIC_JOBS491[277]===24&&publicJobCapacity491(b)===24&&publicJobCapacity491({...b,age:8})===0&&publicJobCapacity491({...b,ref:[0,0]})===0&&!ENTERPRISE_CORE_K489.has(277)&&enterprisePotentialJobs489(0,b)===0&&!EDUCATION_CAP491[277]&&!CIVIC_EDU_SEATS495[277]&&!SERVICE_CAP491[277]&&!LMCFG309[277]);add('museum leisure and coverage authority',LEISURE_BASE491[277]===240&&covFieldOfK(277)==='museum'&&TOOL_COV459[q.id]==='museum'&&civicFamily495(277)==='other');add('physical utility and fiscal registrations',powerLoadBase471(b)===7&&rootWaterDemandBase472(b)===4.5&&powerCriticalTier471(277)===2&&FISCAL_PUBLIC_ASSET_META515[277]?.cost===6400&&FISCAL_PUBLIC_ASSET_META515[277]?.family==='culture');for(let v=0;v<4;v++){const key='277_1_'+v,s=SPR.bld[key];add(key+' canonical authored view',s===museumArtCanonical010?.bld[key]&&s?.__museum010===1&&s.sz===4&&s.view===v&&!!s.img&&!!s.night);}for(const q of Object.values(MUSEUM_PATH010)){add(q.id+' native path cost only',TOOLS.filter(t=>t.id===q.id).length===1&&COST[q.id]===COST.footpath502&&AM_META502.footpath502.c===1);for(let v=0;v<4;v++)add(q.theme+'_'+v+' canonical path view',SPR.museum010?.[q.theme+'_'+v]===museumArtCanonical010?.modules[q.theme+'_'+v]&&!!SPR.museum010?.[q.theme+'_'+v]?.img);}add('exact sixteen assets built once',window.__museumArt010?.total===16&&window.__museumArt010.builds===1);add('bounded prior registries untouched',Object.keys(BRITISH004).length===3&&Object.keys(HIGHSTREET005).length===8&&Object.keys(RESIDENTIAL006).length===16&&Object.keys(PUBLICLIFE007).length===12&&Object.keys(STREETLIFE009).length===3);return{ok:details.every(d=>d.ok),checks:details.map(d=>d.name+(d.ok?' ✓':' ✗')),details};}
 
-function britishSpec004(k){return BRITISH004[k]||HIGHSTREET005[k]||RESIDENTIAL006[k]||PUBLICLIFE007[k]||STREETLIFE009[k]||MUSEUM010[k]||null;}
+/* GPT-012: three permanent private retail identities and three optional T502 themes.
+   Embedded in the native game IIFE. No new workers, shipping, food conversion or income engine. */
+const RIVERSIDE012=Object.freeze({
+  278:Object.freeze({k:278,id:'riversideArcade012',nm:'英式河畔拱廊市場',en:'British riverside arcade market',ic:'🏪',sz:3,cost:3200,rank:6,cat:'civic',kind:'C',jobs:18,power:3.5,water:3.5}),
+  279:Object.freeze({k:279,id:'flowerStall012',nm:'英式河畔花卉攤',en:'British riverside flower stall',ic:'💐',sz:1,cost:380,rank:3,cat:'civic',kind:'C',jobs:3,power:.5,water:.6}),
+  280:Object.freeze({k:280,id:'produceStall012',nm:'英式河畔蔬果攤',en:'British riverside produce stall',ic:'🥕',sz:1,cost:420,rank:3,cat:'civic',kind:'C',jobs:4,power:.6,water:.9})
+});
+const RIVERSIDE_TOOL012=Object.freeze(Object.fromEntries(Object.values(RIVERSIDE012).map(q=>[q.id,q])));
+const RIVERSIDE_PATH012=Object.freeze({
+  riverQuay012:Object.freeze({id:'riverQuay012',nm:'英式石砌岸沿步道',en:'British stone quay paving',ic:'🧱',sz:1,rank:4,theme:'quay'}),
+  riverRail012:Object.freeze({id:'riverRail012',nm:'英式鐵欄河畔步道',en:'British iron-railing riverside paving',ic:'🌉',sz:1,rank:4,theme:'rail'}),
+  riverPromenade012:Object.freeze({id:'riverPromenade012',nm:'英式河畔散步道',en:'British river promenade paving',ic:'🚶',sz:1,rank:4,theme:'promenade'})
+});
+let riversideArtCanonical012=null;
+function riversideKind012(k){return Object.prototype.hasOwnProperty.call(RIVERSIDE012,k);}
+function riversideBuilt012(b){return !!(b&&!b.ref&&riversideKind012(b.k)&&b.age>=9);}
+function riversideOperational012(root,b){return !!(riversideBuilt012(b)&&b.pw&&b.wa&&!powerLegacy450()&&!waterLegacy449()&&POWER_ROOT_OK471[root]===1&&WATER_ROOT_STATE472[root]>=2&&WATER_ROOT_DELIVERED472[root]>0&&britishRoad004(root)&&!b.fire&&!b.sick&&!b.death&&!b.abandoned&&!b.riot&&!b.plague&&assetAvailability493(root,'services')>.02);}
+function riversideWaterFactor012(root,b){if(!riversideOperational012(root,b))return 0;const demand=rootWaterDemandBase472(b)*waterProfile472(b)[1]*waterPolicyDemandMul472(b);return demand>0?clamp(WATER_ROOT_DELIVERED472[root]/demand,0,1):0;}
+function refreshRiversideUtilities012(){for(const root of tickBld||[]){const b=tiles[root]?.bld;if(!b||b.ref||!riversideKind012(b.k))continue;b.pw=!!(!powerLegacy450()&&POWER_ROOT_OK471[root]===1);b.wa=!!(b.pw&&!waterLegacy449()&&WATER_ROOT_STATE472[root]>=2&&WATER_ROOT_DELIVERED472[root]>0);}}
+function riversideRetailUnits012(){let n=0;for(const root of tickBld||[]){const b=tiles[root]?.bld;if(!b||b.ref||!riversideKind012(b.k)||!riversideOperational012(root,b))continue;const e=enterpriseRootInfo489(root);if(e?.k===b.k)n+=Math.max(0,e.employed||0)/JOBSC[2];}return n;}
+// Pure placement-time visual orientation. Canonical quay edge is east (x=16).
+// Preserve this turn in native optional theme metadata; moving the camera or
+// changing later terrain never rewrites a saved path or creates shore capacity.
+function riversideShoreTurn012(x,y){for(let d=1;d<=4;d++)for(const [dx,dy,turn]of[[0,1,1],[-1,0,2],[0,-1,3],[1,0,0]]){const a=x+dx*d,b=y+dy*d;if(inMap(a,b)&&tiles[idx(a,b)]?.t===0)return turn;}return 0;}
+function riversideTheme012(t){const theme=t?.amx502?.british012;return t?.am502===1&&['quay','rail','promenade'].includes(theme)?theme:null;}
+function riversideDescription012(q){if(q.theme)return '獨立付費原生陸上步道，步行成本 0.72；'+q.nm+'為可拆除的視覺主題。鐵欄不是鐵路，岸沿不是港口；無額外航運、觀光、職位或公共服務。';return q.sz+'×'+q.sz+' 固定英式零售建築，九天竣工後需真正臨路、實際供電與送達的水。'+q.jobs+' 名目私營職位，實際聘用由既有企業／景氣／通勤系統決定。購物與商業稅依實際供貨、營運與聘用結算；無額外食物轉換、觀光或市政維護費。'+(q.sz===3?'開放庭院屬於整座建築地塊，不能另鋪步道或擺攤。':'');}
+function riversideInspect012(root,b){const q=RIVERSIDE012[b.k],on=riversideOperational012(root,b),e=enterpriseRootInfo489(root),same=e?.k===b.k;return '<h3>'+q.ic+' '+q.nm+'</h3><div class="row">'+q.en+'</div><div class="row">'+(b.age<9?'施工中 '+Math.floor(b.age)+'/9 天':on?'營運基建就緒':'離線：需道路、供電與供水')+'</div><div class="row">名目私營職位 '+q.jobs+'｜有效 '+(on&&same?e.activePositions||0:0)+'｜實際聘用 '+(on&&same?e.employed||0:0)+'</div><div class="row">'+riversideDescription012(q)+'</div>';}
+function canPlaceRiverside012(q,x,y){if(window.__noRiverside012)return '英式河畔市場暫停新增';if(!toolUnlocked458(toolMeta434(q.id)))return '城市 Lv.'+q.rank+' 解鎖';const err=canPlaceMulti(x,y,q.sz,'需 '+q.sz+'×'+q.sz+' 陸地');if(err)return err;const el=T(idx(x,y)).el||0;for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++){const t=T(idx(x+dx,y+dy));if(t.tree)return '先移除樹木';if(t.crater)return '隕石坑需先剷除';if(t.am502||t.parkMeter)return '先移除既有街道設施';if(t.fly475||t.ix475)return '既有高架交通擋住';if((t.el||0)!==el)return '需同一高度的平整地基';}return null;}
+function installRiversideArt012(){
+  if(!riversideArtCanonical012){const t0=performance.now(),a=window.BritishRiversideArchitecture012.buildAll(),bld={};if(Object.keys(a.buildings).length!==3||Object.keys(a.modules).length!==12)throw Error('GPT-012 requires 12 building and 12 path sprites');for(const q of Object.values(RIVERSIDE012)){const views=a.buildings[q.k];if(views?.length!==4)throw Error('GPT-012 requires four geometric views for '+q.k);for(let v=0;v<4;v++){const s=views[v];if(!s?.img||!s?.night||s.sz!==q.sz||s.view!==v)throw Error('Invalid GPT-012 sprite '+q.k+'/'+v);bld[q.k+'_1_'+v]={...s,smoke:[],__riverside012:1,__t479:1,__t547:{k:q.k,lv:1,v,bw:q.sz,bh:q.sz}};}}for(const q of Object.values(RIVERSIDE_PATH012))for(let v=0;v<4;v++){const s=a.modules[q.theme+'_'+v];if(!s?.img||!s?.night||s.sz!==1||s.view!==v||![s.w,s.h,s.ax,s.ay].every(Number.isFinite)||s.w<=0||s.h<=0)throw Error('Invalid GPT-012 path sprite '+q.theme+'/'+v);}riversideArtCanonical012={bld,modules:a.modules};window.__riversideArt012={builds:1,buildings:12,modules:12,total:24,ms:performance.now()-t0};}
+  Object.assign(SPR.bld,riversideArtCanonical012.bld);SPR.riverside012=riversideArtCanonical012.modules;
+}
+function riversideObjects012(objs,sxOf,syOf,vis,lodFar){if(lodFar||window.__noRiversideArt012||!SPR.riverside012)return;for(const i of amCells502){const t=tiles[i],theme=riversideTheme012(t);if(!theme)continue;const x=i%N,y=(i/N)|0,sx=sxOf(x,y),sy=syOf(x,y);if(vis(sx,sy))objs.push({dep:viewDep(x,y)+.011,riversideModule012:theme,x,y,sx,sy});}}
+function riversideModuleDraw012(g,o,z,depth,night,occ){const t=tiles[idx(o.x,o.y)],s=SPR.riverside012[o.riversideModule012+'_'+(((t.amx502?.turn012||0)+viewRotEff())&3)];if(!s)return;const x=o.sx+(32-s.ax)*z,y=o.sy+(32-s.ay)*z;g.drawImage(s.img,x,y,s.w*z,s.h*z);occ(s.img,x,y,s.w*z,s.h*z);if(depth>0&&s.night)night.push({img:s.night,x,y,w:s.w*z,h:s.h*z,grid487:1,gx:o.x,gy:o.y,warm649:1});}
+// Observation-only ledger: copies the native commercial v2 after it has entered
+// income/taxC. It never calculates a second tax, changes finances, or persists.
+let riversideTaxLedger012={day:-1,total:0,rows:[]};
+function resetRiversideTax012(){riversideTaxLedger012={day:-1,total:0,rows:[]};}
+function beginRiversideTax012(){riversideTaxLedger012={day,total:0,rows:[]};}
+function recordRiversideTax012(root,tax){const b=tiles[root]?.bld;if(!b||b.ref||!riversideKind012(b.k))return;const e=enterpriseRootInfo489(root);riversideTaxLedger012.total+=tax;riversideTaxLedger012.rows.push({root,k:b.k,tax,employed:e?.k===b.k?e.employed||0:0,utilization:e?.k===b.k?e.utilization||0:0});}
+function riversideSpecs012(){return JSON.parse(JSON.stringify({buildings:Object.values(RIVERSIDE012),paths:Object.values(RIVERSIDE_PATH012).map(q=>({...q,base:'footpath502',cost:COST.footpath502}))}));}
+// Evidence only reads native authorities. No ensure/dispatch/network rebuild,
+// time advancement, worker allocation, source repair or financial assignment.
+function riversideAt012(x,y){
+  if(!inMap(x,y))return null;let root=idx(x,y),b=tiles[root]?.bld;if(b?.ref){root=idx(b.ref[0],b.ref[1]);b=tiles[root]?.bld;}const q=b&&!b.ref&&RIVERSIDE012[b.k];
+  if(q){const e=enterpriseRootInfo489(root),on=riversideOperational012(root,b),same=e?.k===b.k,refs=[];for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++)if(dx||dy){const i=idx(root%N+dx,((root/N)|0)+dy);refs.push({i,bld:tiles[i]?.bld});}return JSON.parse(JSON.stringify({root,k:b.k,id:q.id,v:b.v,age:b.age,sz:b.sz,refCells:refs,built:riversideBuilt012(b),operational:on,power:!!b.pw,water:!!b.wa,powerState:POWER_ROOT_OK471[root]||0,powerAllocation:power471.loads?.find(r=>r.root===root)||null,waterState:{code:WATER_ROOT_STATE472[root]||0,state:WATER_STATE_TEXT472[WATER_ROOT_STATE472[root]||0]},waterDelivered:WATER_ROOT_DELIVERED472[root]||0,waterDemand:rootWaterDemandBase472(b)*waterProfile472(b)[1]*waterPolicyDemandMul472(b),road:sanRoadSeeds445(root).filter(i=>!roadIncidentClosed493(i)),enterprise:same?e:null,positions:on&&same?e.activePositions||0:0,employed:on&&same?e.employed||0:0,retailUnits:on&&same?Math.max(0,e.employed||0)/JOBSC[2]:0,activity:activityCapacity491(root,b),tax:riversideTaxLedger012.day===day?riversideTaxLedger012.rows.find(r=>r.root===root&&r.k===b.k)||null:null}));}
+  const t=tiles[idx(x,y)],theme=riversideTheme012(t);return theme?{root:idx(x,y),theme,am502:t.am502,amx502:JSON.parse(JSON.stringify(t.amx502)),walkCost:(WALK_COST502[idx(x,y)]||0)*amWeatherFactor502('walk',1),baseWalkCost:.72,cost:COST.footpath502}:null;
+}
+function riversideEvidence012(){const roots=[],paths=[];for(const root of tickBld||[]){const b=tiles[root]?.bld;if(b&&!b.ref&&riversideKind012(b.k))roots.push(riversideAt012(root%N,(root/N)|0));}for(const i of amCells502)if(riversideTheme012(tiles[i]))paths.push(riversideAt012(i%N,(i/N)|0));return{day,roots,paths,retailUnits:riversideRetailUnits012(),taxLedger:JSON.parse(JSON.stringify({...riversideTaxLedger012,current:riversideTaxLedger012.day===day,authority:'native commercial tax v2, observed only'})),enterprise:enterpriseSnapshot489(),business:businessCycleSnapshot490(),mobility:mobilitySnapshot491(),art:{...window.__riversideArt012}};}
+function riversideSelftest012(){const details=[],add=(name,ok,actual)=>details.push({name,ok:!!ok,actual});add('three bounded permanent IDs',Object.keys(RIVERSIDE012).join(',')==='278,279,280');for(const q of Object.values(RIVERSIDE012)){add(q.id+' paid fixed catalog and footprint',TOOLS.filter(t=>t.id===q.id).length===1&&COST[q.id]===q.cost&&MSZ[q.k]===q.sz&&toolSize458(q.id)===q.sz&&KNAME[q.k]===q.nm&&KCB[q.k]==='C');add(q.id+' native private retail only',MAYOR_ACTION_CATALOG470A[q.id]?.status==='manual-only'&&ENTERPRISE_CORE_K489.has(q.k)&&enterpriseGroupOf489({k:q.k,lv:1})==='commercial'&&enterprisePotentialJobs489(-1,{k:q.k,lv:1})===q.jobs&&publicJobCapacity491({k:q.k,age:9,lv:1})===0&&!LMCFG309[q.k]&&!UP_MAX[q.k]);add(q.id+' physical utility loads',powerLoadBase471({k:q.k,lv:1,sz:q.sz})===q.power&&rootWaterDemandBase472({k:q.k,lv:1,sz:q.sz})===q.water);for(let v=0;v<4;v++){const key=q.k+'_1_'+v,s=SPR.bld[key];add(key+' canonical authored view',s===riversideArtCanonical012?.bld[key]&&s?.__riverside012===1&&s.sz===q.sz&&s.view===v&&!!s.img&&!!s.night);}}for(const q of Object.values(RIVERSIDE_PATH012)){add(q.id+' ordinary T502 cost and metadata',TOOLS.filter(t=>t.id===q.id).length===1&&COST[q.id]===COST.footpath502&&AM_META502.footpath502.c===1);for(let v=0;v<4;v++)add(q.theme+'_'+v+' canonical path view',SPR.riverside012?.[q.theme+'_'+v]===riversideArtCanonical012?.modules[q.theme+'_'+v]&&!!SPR.riverside012?.[q.theme+'_'+v]?.img);}add('exact 24 assets built once',window.__riversideArt012?.total===24&&window.__riversideArt012.builds===1);add('prior bounded British registries retain their sizes',Object.keys(BRITISH004).length===3&&Object.keys(HIGHSTREET005).length===8&&Object.keys(RESIDENTIAL006).length===16&&Object.keys(PUBLICLIFE007).length===12&&Object.keys(STREETLIFE009).length===3&&Object.keys(MUSEUM010).length===1);return{ok:details.every(d=>d.ok),checks:details.map(d=>d.name+(d.ok?' ✓':' ✗')),details};}
+
+function britishSpec004(k){return BRITISH004[k]||HIGHSTREET005[k]||RESIDENTIAL006[k]||PUBLICLIFE007[k]||STREETLIFE009[k]||MUSEUM010[k]||RIVERSIDE012[k]||null;}
 function highStreetBaseK005(k){return HIGHSTREET005[k]?.baseK??k;}
 function highStreetCommerce005(k){return HIGHSTREET005[k]?.role==='commerce';}
 function highStreetBuilt005(b){return !!(b&&!b.ref&&HIGHSTREET005[b.k]&&b.age>=9);}
@@ -53067,7 +53933,7 @@ function resetNightCity487(){nightInputs487=emptyNightInputs487();nightCity487=e
 function prepareNightInputs487(){
   const q=emptyNightInputs487();q.day=day;
   for(const i of tickRoad){const t=tiles[i];if(!t||!t.road)continue;const rc=clamp((t.rc||2),1,5);q.roadTiles++;q.roadWeight+=[0,.55,.78,1.04,1.36,1.78][rc];if(t.bus)q.transitNodes++;if(t.rail||t.tram)q.transitNodes+=.35;}
-  for(const i of tickBld){const b=tiles[i]&&tiles[i].bld;if(!b||b.ref||HIGHSTREET005[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]||(RESIDENTIAL006[b.k]&&!residentialBuilt006(b)))continue;const k=b.k|0,cat=kcatOf(k),sz=Math.max(1,b.sz||1),area=Math.min(9,sz*sz);
+  for(const i of tickBld){const b=tiles[i]&&tiles[i].bld;if(!b||b.ref||HIGHSTREET005[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]||RIVERSIDE012[b.k]||(RESIDENTIAL006[b.k]&&!residentialBuilt006(b)))continue;const k=b.k|0,cat=kcatOf(k),sz=Math.max(1,b.sz||1),area=Math.min(9,sz*sz);
     if(cat==='R')q.residential+=area;else if(cat==='C')q.commercial+=area;else if(cat==='I'||cat==='E')q.industrial+=area;else if(['A','S','H','D','T'].includes(cat))q.civic+=area;
     if(NIGHT_ENTERTAIN_K487.has(k))q.entertainment+=area;if(NIGHT_TRANSIT_K487.has(k))q.transitNodes+=Math.max(1,sz);if(cat==='G')q.parks+=area;
   }
@@ -53103,7 +53969,7 @@ function finalizeNightCity487(o){
   for(const d of powerDistricts450){const dr=power471&&power471.districts&&power471.districts[d.id],pool=dr&&power471.pools&&power471.pools[dr.pool],q=pool&&pool.night,rate=q&&q.demand>0?clamp(q.dispatched/q.demand,0,1):(q&&q.available>0?1:0);nightDistrictRate487[d.id]=rate;}
   let poweredRoads=0,totalRoads=0,targets=0,policeCovered=0;
   for(const i of tickRoad){const t=tiles[i];if(!t||!t.road)continue;totalRoads++;const d=POWER_DIST450&&POWER_DIST450.length===N*N?POWER_DIST450[i]:-1;if(d>=0&&d<nightDistrictRate487.length&&nightDistrictRate487[d]>.001)poweredRoads++;}
-  for(const i of tickBld){const b=tiles[i]&&tiles[i].bld;if(!b||b.ref||HIGHSTREET005[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]||(RESIDENTIAL006[b.k]&&!residentialBuilt006(b)))continue;const cat=kcatOf(b.k);if(!(cat==='R'||cat==='C'||NIGHT_ENTERTAIN_K487.has(b.k)))continue;targets++;if((COV.police&&COV.police[i]>0)||(COV.police2&&COV.police2[i]>0))policeCovered++;}
+  for(const i of tickBld){const b=tiles[i]&&tiles[i].bld;if(!b||b.ref||HIGHSTREET005[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]||RIVERSIDE012[b.k]||(RESIDENTIAL006[b.k]&&!residentialBuilt006(b)))continue;const cat=kcatOf(b.k);if(!(cat==='R'||cat==='C'||NIGHT_ENTERTAIN_K487.has(b.k)))continue;targets++;if((COV.police&&COV.police[i]>0)||(COV.police2&&COV.police2[i]>0))policeCovered++;}
   const policeCoverage=targets?policeCovered/targets:1,
         pp=clamp(+o.purchasingPower||1,.45,1.45),goods=clamp(+o.goodsSupply||1,0,1),unemp=clamp(+o.unemployment||0,0,1),dailyTransit=Math.max(0,+o.transitRidership||0),
         demand=Math.round((I.commercial*1.8+I.entertainment*3.8+I.industrial*.75+I.civic*.55+(+o.tourists||0)*.025)*(pol&&pol.nightMarket?1.25:1)*(pol&&pol.curfew?.58:1)),
@@ -53185,8 +54051,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.28'; // T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T724'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.29'; // T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T725'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -53322,7 +54188,9 @@ for(const q of Object.values(RESIDENTIAL006)){KNAME[q.k]=q.nm;KCB[q.k]=q.kind;CO
 for(const q of Object.values(PUBLICLIFE007)){KNAME[q.k]=q.nm;KCB[q.k]=q.kind;COST[q.id]=q.cost;}
 for(const q of Object.values(STREETLIFE009)){KNAME[q.k]=q.nm;KCB[q.k]=q.kind;COST[q.id]=q.cost;}
 for(const q of Object.values(MUSEUM010)){KNAME[q.k]=q.nm;KCB[q.k]=q.kind;COST[q.id]=q.cost;}
+for(const q of Object.values(RIVERSIDE012)){KNAME[q.k]=q.nm;KCB[q.k]=q.kind;COST[q.id]=q.cost;}
 const TOOLS=[
+  ...Object.values(RIVERSIDE012).map(q=>({id:q.id,cat:q.cat,ic:q.ic,nm:q.nm,pr:'$'+q.cost,unlockRank:q.rank})),
   ...Object.values(MUSEUM010).map(q=>({id:q.id,cat:q.cat,ic:q.ic,nm:q.nm,pr:'$'+q.cost,unlockRank:q.rank})),
   ...Object.values(STREETLIFE009).map(q=>({id:q.id,cat:q.cat,ic:q.ic,nm:q.nm,pr:'$'+q.cost,unlockRank:q.rank})),
   ...Object.values(PUBLICLIFE007).map(q=>({id:q.id,cat:q.cat,ic:q.ic,nm:q.nm,pr:'$'+q.cost,unlockRank:q.rank})),
@@ -53795,7 +54663,7 @@ function emptySanStat445(){return {formal:false,totalCap:0,activeCap:0,effective
 let sanStat445=emptySanStat445();
 function ensureSan445(){const n=N*N;if(SAN_DIST445&&SAN_DIST445.length===n)return;sanQ445=new Int32Array(n);SAN_DIST445=new Uint16Array(n);SAN_SRC445=new Int32Array(n);SAN_ACTIVE445=new Uint8Array(n);sanDirty445=true;}
 function isSanFacility445(k){return Object.prototype.hasOwnProperty.call(SAN_CAP445,k);}
-function isSanClient445(k){return streetLifeKind009(k)||residentialKind006(k)||highStreetCommerce005(k)||k===219||k===220||k===1||k===2||k===3||k===33||k===34||k===105||k===106||k===127;}
+function isSanClient445(k){return riversideKind012(k)||streetLifeKind009(k)||residentialKind006(k)||highStreetCommerce005(k)||k===219||k===220||k===1||k===2||k===3||k===33||k===34||k===105||k===106||k===127;}
 function sanRoadSeeds445(rootIdx){
   const out=[];if(rootIdx<0||rootIdx>=N*N)return out;const b=tiles[rootIdx]&&tiles[rootIdx].bld;if(!b||b.ref)return out;
   const rx=rootIdx%N,ry=(rootIdx/N)|0,sz=Math.max(1,b.sz||1);
@@ -55361,23 +56229,24 @@ const ENTERPRISE_CORE_K489=new Set([220,2,3,34,57,64,65,100,106,109,110,116,118,
 for(const q of Object.values(HIGHSTREET005))if(q.role==='commerce')ENTERPRISE_CORE_K489.add(q.k);
 for(const q of Object.values(RESIDENTIAL006))if(q.jobs)ENTERPRISE_CORE_K489.add(q.k);
 for(const q of Object.values(STREETLIFE009))ENTERPRISE_CORE_K489.add(q.k);
+for(const q of Object.values(RIVERSIDE012))ENTERPRISE_CORE_K489.add(q.k);
 const ENTERPRISE_WATER_HEAVY489=new Set([3,57,100,118,119,121,122,123,168,169,170,171,172,173,174]);
 function emptyEnterpriseGroup489(id){return{id,roots:0,potentialJobs:0,activePositions:0,employed:0,vacancies:0,utilization:1};}
 function emptyEnterprise489(){const groups={};for(const id of ENTERPRISE_GROUPS489)groups[id]=emptyEnterpriseGroup489(id);return{ready:false,rollback:false,day:0,grace:0,roots:0,workers:0,potentialJobs:0,legacyJobs:0,activePositions:0,publicPositions:0,totalPositions:0,enterpriseEmployed:0,enterpriseVacancies:0,publicEmployed:0,cityEmployed:0,cityVacancies:0,laborFill:1,utilization:1,rcCommercialPositions:0,rcIndustrialPositions:0,rcCommercialEmployed:0,rcIndustrialEmployed:0,groups,byType:{},status:{operating:0,constrained:0,distressed:0,suspended:0,offline:0},bottlenecks:{power:0,road:0,water:0,input:0,logistics:0,market:0,labor:0,access:0},worst:[],saveSchemaChanged:false};}
 let enterprise489=emptyEnterprise489(),enterpriseRoot489=new Map(),enterpriseGrace489=0;
 function resetEnterprise489(legacy=false){enterprise489=emptyEnterprise489();enterpriseRoot489=new Map();enterpriseGrace489=legacy?30:0;}
-function enterpriseGroupOf489(b){if(!b||b.ref)return null;if(streetLifeKind009(b.k))return'commercial';const k=residentialEnterpriseK006(highStreetBaseK005(b.k|0));if(k===220||k===2||k===34||k===65||k===106)return'commercial';if(k===3)return'industry';if([57,100,109,116,118,119,121,122,123].includes(k))return'processing';if(k===64||k===110||(k>=165&&k<=174))return'logistics';return null;}
-function enterprisePotentialJobs489(root,b){if(!b||b.ref)return 0;const k=b.k|0;if(STREETLIFE009[k])return STREETLIFE009[k].jobs;if(RESIDENTIAL006[k])return RESIDENTIAL006[k].jobs;if(highStreetCommerce005(k))return HIGHSTREET005[k].jobs;let n=0;if(k===220)n=BRITISH004[220].jobs;else if(k===2)n=(JOBSC[b.lv]||0)*(tiles[root]?.office?1.5:1);else if(k===3)n=JOBSI[b.lv]||0;else if(k===34)n=TOWER_JOBS;else if(k===106)n=MEGA_JOBS;else if(k===65)n=70;else if(k===57)n=25;else if(k===64)n=8;else if(k===100)n=14;else if(k===109)n=45;else if(k===110)n=10;else if(k===116)n=20;else if(k===118)n=14;else if(k===119)n=12;else if(k===121)n=18;else if(k===122)n=22;else if(k===123)n=16;else if(LOGISTICS_META485[k])n=LOGISTICS_META485[k].jobs||0;if(n>0&&UP_MAX[k]&&(b.lv||1)>1)n+=((b.lv||1)-1)*(UP_JOB[k]??6);return Math.max(0,n);}
-function enterpriseLegacyJobs489(root,b){const p=enterprisePotentialJobs489(root,b),k=b&&b.k|0;if(streetLifeKind009(k))return streetLifeOperational009(root,b)?p:0;if(residentialCommerce006(k))return residentialOperational006(root,b)?p:0;if(highStreetCommerce005(k))return highStreetOperational005(root,b)?p:0;if(k===220)return britishBuilt004(b)&&b.pw?p:0;if(k===2||k===3)return b&&b.pw?p:0;return p;}
+function enterpriseGroupOf489(b){if(!b||b.ref)return null;if(riversideKind012(b.k))return'commercial';if(streetLifeKind009(b.k))return'commercial';const k=residentialEnterpriseK006(highStreetBaseK005(b.k|0));if(k===220||k===2||k===34||k===65||k===106)return'commercial';if(k===3)return'industry';if([57,100,109,116,118,119,121,122,123].includes(k))return'processing';if(k===64||k===110||(k>=165&&k<=174))return'logistics';return null;}
+function enterprisePotentialJobs489(root,b){if(!b||b.ref)return 0;const k=b.k|0;if(RIVERSIDE012[k])return RIVERSIDE012[k].jobs;if(STREETLIFE009[k])return STREETLIFE009[k].jobs;if(RESIDENTIAL006[k])return RESIDENTIAL006[k].jobs;if(highStreetCommerce005(k))return HIGHSTREET005[k].jobs;let n=0;if(k===220)n=BRITISH004[220].jobs;else if(k===2)n=(JOBSC[b.lv]||0)*(tiles[root]?.office?1.5:1);else if(k===3)n=JOBSI[b.lv]||0;else if(k===34)n=TOWER_JOBS;else if(k===106)n=MEGA_JOBS;else if(k===65)n=70;else if(k===57)n=25;else if(k===64)n=8;else if(k===100)n=14;else if(k===109)n=45;else if(k===110)n=10;else if(k===116)n=20;else if(k===118)n=14;else if(k===119)n=12;else if(k===121)n=18;else if(k===122)n=22;else if(k===123)n=16;else if(LOGISTICS_META485[k])n=LOGISTICS_META485[k].jobs||0;if(n>0&&UP_MAX[k]&&(b.lv||1)>1)n+=((b.lv||1)-1)*(UP_JOB[k]??6);return Math.max(0,n);}
+function enterpriseLegacyJobs489(root,b){const p=enterprisePotentialJobs489(root,b),k=b&&b.k|0;if(riversideKind012(k))return riversideOperational012(root,b)?p:0;if(streetLifeKind009(k))return streetLifeOperational009(root,b)?p:0;if(residentialCommerce006(k))return residentialOperational006(root,b)?p:0;if(highStreetCommerce005(k))return highStreetOperational005(root,b)?p:0;if(k===220)return britishBuilt004(b)&&b.pw?p:0;if(k===2||k===3)return b&&b.pw?p:0;return p;}
 function enterpriseCommodityRate489(id){const q=economy482&&economy482.ready&&economy482.commodities?economy482.commodities[id]:null;return q?clamp(q.supplyRate,0,1):1;}
 function enterprisePowerFactor489(root,b){if(!b)return 0;if(POWER_ROOT_OK471&&POWER_ROOT_OK471.length===N*N&&POWER_ROOT_OK471[root]!==0)return POWER_ROOT_OK471[root]===1?1:0;return b.pw===false?0:1;}
-function enterpriseWaterFactor489(root,b){if(!b)return 0;if(streetLifeKind009(b.k))return streetLifeWaterFactor009(root,b);const k=residentialEnterpriseK006(highStreetBaseK005(b.k|0));if([2,34,65,106,220].includes(k))return b.wa?1:.70;if(k===3)return b.wa?1:.48;if(!ENTERPRISE_WATER_HEAVY489.has(k))return 1;const q=typeof waterRootStatus472==='function'?waterRootStatus472(root):null;if(!q)return 1;return q.code>=3?1:q.code===2?.76:q.code===1?.34:0;}
-function enterpriseRoadFactor489(root,b){if(!b)return 0;if(streetLifeKind009(b.k))return britishRoad004(root)?1:0;const k=residentialEnterpriseK006(highStreetBaseK005(b.k|0)),x=root%N,y=(root/N)|0;if(k===220)return britishRoad004(root)?1:0;if(k===2||k===3||k===34||k===65||k===106)return hasRoadNear(x,y,2,true)?1:0;return sanRoadSeeds445(root).length?1:0;}
+function enterpriseWaterFactor489(root,b){if(!b)return 0;if(riversideKind012(b.k))return riversideWaterFactor012(root,b);if(streetLifeKind009(b.k))return streetLifeWaterFactor009(root,b);const k=residentialEnterpriseK006(highStreetBaseK005(b.k|0));if([2,34,65,106,220].includes(k))return b.wa?1:.70;if(k===3)return b.wa?1:.48;if(!ENTERPRISE_WATER_HEAVY489.has(k))return 1;const q=typeof waterRootStatus472==='function'?waterRootStatus472(root):null;if(!q)return 1;return q.code>=3?1:q.code===2?.76:q.code===1?.34:0;}
+function enterpriseRoadFactor489(root,b){if(!b)return 0;if(riversideKind012(b.k))return britishRoad004(root)?1:0;if(streetLifeKind009(b.k))return britishRoad004(root)?1:0;const k=residentialEnterpriseK006(highStreetBaseK005(b.k|0)),x=root%N,y=(root/N)|0;if(k===220)return britishRoad004(root)?1:0;if(k===2||k===3||k===34||k===65||k===106)return hasRoadNear(x,y,2,true)?1:0;return sanRoadSeeds445(root).length?1:0;}
 function enterpriseOperatingCore489(i){if(i.hardOffline||i.power<=0||i.road<=0)return 0;const input=clamp(i.input,0,1),logistics=clamp(i.logistics,0,1),market=clamp(i.market,0,1),water=clamp(i.water,0,1),mix=.30*input+.28*logistics+.28*market+.14*water,bottleneck=Math.min(input,logistics,market,water);return clamp(i.power*i.road*mix*(.58+.42*bottleneck),0,1);}
 function enterpriseFactors489(root,b){
   const group=enterpriseGroupOf489(b),k=b.k|0,e=economy481&&economy481.ready?economy481:null,m=economy482&&economy482.ready?economy482:null;
   const disrupted=!!(b.fire||b.sick||b.death||b.abandoned||b.riot||b.plague),power=disrupted?0:enterprisePowerFactor489(root,b),road=enterpriseRoadFactor489(root,b),water=enterpriseWaterFactor489(root,b);
-  let input=1,logistics=1,market=1,hardOffline=(streetLifeKind009(k)&&!streetLifeOperational009(root,b))||(residentialCommerce006(k)&&!residentialOperational006(root,b))||(highStreetCommerce005(k)&&!highStreetOperational005(root,b))||disrupted||power<=0||road<=0||(k===220&&!britishBuilt004(b));
+  let input=1,logistics=1,market=1,hardOffline=(riversideKind012(k)&&!riversideOperational012(root,b))||(streetLifeKind009(k)&&!streetLifeOperational009(root,b))||(residentialCommerce006(k)&&!residentialOperational006(root,b))||(highStreetCommerce005(k)&&!highStreetOperational005(root,b))||disrupted||power<=0||road<=0||(k===220&&!britishBuilt004(b));
   const logEff=e?clamp(e.logistics.efficiency||1,.35,1.12):1,goodsRate=m?enterpriseCommodityRate489('goods'):(e?clamp(e.goods.supplyRate||1,0,1):1),supRate=enterpriseCommodityRate489('supplies'),pp=e?clamp(e.consumption.purchasingPower||1,.45,1.45):1;
   if(group==='commercial'){
     const ret=e?clamp((e.commerce.utilization||.72)/.82,0,1.20):1;input=.25+.75*goodsRate;logistics=.54+.46*logEff;market=clamp(.36+.36*pp+.28*ret,.42,1);
@@ -55406,9 +56275,9 @@ function prepareEnterprise489(nominalJobs,popNow,nominalJobsC=0,nominalJobsI=0){
   if(window.__noEnterprise489)return enterpriseRollback489(nominalJobs,popNow,nominalJobsC,nominalJobsI);
   const prevEnterpriseRoots490=enterpriseRoot489;
   const rows=[];let potential=0,legacy=0,active=0,rcC=0,rcI=0,rcCE=0,rcIE=0;
-  for(const root of tickBld){const b=tiles[root]?.bld,p=enterprisePotentialJobs489(root,b);if(p<=0)continue;const f=enterpriseFactors489(root,b),rawA=Math.min(p,Math.max(0,Math.round(p*f.base))),a=businessCycleHiringPositions490(root,p,rawA,f.hardOffline,(prevEnterpriseRoots490.get(root)?.k===b.k?prevEnterpriseRoots490.get(root):null),f.group),old=enterpriseLegacyJobs489(root,b),row={root,x:root%N,y:(root/N)|0,k:b.k,name:KNAME[b.k]||'企業',group:f.group,potentialJobs:p,legacyJobs:old,activePositions:a,employed:0,vacancies:0,laborFill:1,utilization:0,status:f.hardOffline?'offline':'operating',bottleneck:'market',factors:f};rows.push(row);potential+=p;legacy+=old;active+=a;if((b.k===2||b.k===220||highStreetCommerce005(b.k)||residentialCommerce006(b.k)||streetLifeKind009(b.k)))rcC+=a;if(b.k===3)rcI+=a;}
+  for(const root of tickBld){const b=tiles[root]?.bld,p=enterprisePotentialJobs489(root,b);if(p<=0)continue;const f=enterpriseFactors489(root,b),rawA=Math.min(p,Math.max(0,Math.round(p*f.base))),a=businessCycleHiringPositions490(root,p,rawA,f.hardOffline,(prevEnterpriseRoots490.get(root)?.k===b.k?prevEnterpriseRoots490.get(root):null),f.group),old=enterpriseLegacyJobs489(root,b),row={root,x:root%N,y:(root/N)|0,k:b.k,name:KNAME[b.k]||'企業',group:f.group,potentialJobs:p,legacyJobs:old,activePositions:a,employed:0,vacancies:0,laborFill:1,utilization:0,status:f.hardOffline?'offline':'operating',bottleneck:'market',factors:f};rows.push(row);potential+=p;legacy+=old;active+=a;if((b.k===2||b.k===220||highStreetCommerce005(b.k)||residentialCommerce006(b.k)||streetLifeKind009(b.k)||riversideKind012(b.k)))rcC+=a;if(b.k===3)rcI+=a;}
   const legacyPublicPositions495=Math.max(0,Math.round((+nominalJobs||0)-legacy)),publicPositions=publicPositionsPreview495(legacyPublicPositions495),totalPositions=Math.max(0,Math.round(publicPositions+active)),workers=Math.max(0,Math.round((+popNow||0)*.60)),laborFill=totalPositions>0?clamp(workers/totalPositions,0,1):1,groups={};for(const id of ENTERPRISE_GROUPS489)groups[id]=emptyEnterpriseGroup489(id);const byType={},status={operating:0,constrained:0,distressed:0,suspended:0,offline:0},bottlenecks={power:0,road:0,water:0,input:0,logistics:0,market:0,labor:0,access:0};let entEmployed=0,entVacancies=0,utilWeighted=0;enterpriseRoot489=new Map();
-  for(const r of rows){const accessLabor491=spatialLaborAccess491(r.root),localLabor491=Math.min(laborFill,accessLabor491);r.factors.access=+accessLabor491.toFixed(4);r.laborFill=+localLabor491.toFixed(4);r.employed=+(r.activePositions*localLabor491).toFixed(2);r.vacancies=+Math.max(0,r.activePositions-r.employed).toFixed(2);r.utilization=+(r.potentialJobs?r.employed/r.potentialJobs:0).toFixed(4);r.status=enterpriseStatus489(r.utilization,r.factors.hardOffline);/* T491：勞工填補取全城供給與前一日空間可達性之較小值 */const fp=[['power',r.factors.power],['road',r.factors.road],['water',r.factors.water],['input',r.factors.input],['logistics',r.factors.logistics],['market',r.factors.market],['labor',laborFill],['access',accessLabor491]].sort((a,b)=>a[1]-b[1]);r.bottleneck=fp[0][0];status[r.status]++;bottlenecks[r.bottleneck]++;entEmployed+=r.employed;entVacancies+=r.vacancies;utilWeighted+=r.utilization*r.potentialJobs;if((r.k===2||r.k===220||highStreetCommerce005(r.k)||residentialCommerce006(r.k)||streetLifeKind009(r.k)))rcCE+=r.employed;if(r.k===3)rcIE+=r.employed;const g=groups[r.group];g.roots++;g.potentialJobs+=r.potentialJobs;g.activePositions+=r.activePositions;g.employed+=r.employed;g.vacancies+=r.vacancies;const bt=byType[r.k]||(byType[r.k]={k:r.k,roots:0,potentialJobs:0,activePositions:0,employed:0,utilization:1});bt.roots++;bt.potentialJobs+=r.potentialJobs;bt.activePositions+=r.activePositions;bt.employed+=r.employed;enterpriseRoot489.set(r.root,r);}
+  for(const r of rows){const accessLabor491=spatialLaborAccess491(r.root),localLabor491=Math.min(laborFill,accessLabor491);r.factors.access=+accessLabor491.toFixed(4);r.laborFill=+localLabor491.toFixed(4);r.employed=+(r.activePositions*localLabor491).toFixed(2);r.vacancies=+Math.max(0,r.activePositions-r.employed).toFixed(2);r.utilization=+(r.potentialJobs?r.employed/r.potentialJobs:0).toFixed(4);r.status=enterpriseStatus489(r.utilization,r.factors.hardOffline);/* T491：勞工填補取全城供給與前一日空間可達性之較小值 */const fp=[['power',r.factors.power],['road',r.factors.road],['water',r.factors.water],['input',r.factors.input],['logistics',r.factors.logistics],['market',r.factors.market],['labor',laborFill],['access',accessLabor491]].sort((a,b)=>a[1]-b[1]);r.bottleneck=fp[0][0];status[r.status]++;bottlenecks[r.bottleneck]++;entEmployed+=r.employed;entVacancies+=r.vacancies;utilWeighted+=r.utilization*r.potentialJobs;if((r.k===2||r.k===220||highStreetCommerce005(r.k)||residentialCommerce006(r.k)||streetLifeKind009(r.k)||riversideKind012(r.k)))rcCE+=r.employed;if(r.k===3)rcIE+=r.employed;const g=groups[r.group];g.roots++;g.potentialJobs+=r.potentialJobs;g.activePositions+=r.activePositions;g.employed+=r.employed;g.vacancies+=r.vacancies;const bt=byType[r.k]||(byType[r.k]={k:r.k,roots:0,potentialJobs:0,activePositions:0,employed:0,utilization:1});bt.roots++;bt.potentialJobs+=r.potentialJobs;bt.activePositions+=r.activePositions;bt.employed+=r.employed;enterpriseRoot489.set(r.root,r);}
   for(const g of Object.values(groups))g.utilization=g.potentialJobs?+(g.employed/g.potentialJobs).toFixed(4):1;for(const q of Object.values(byType))q.utilization=q.potentialJobs?+(q.employed/q.potentialJobs).toFixed(4):1;const worst=rows.slice().sort((a,b)=>(a.utilization-b.utilization)||((b.potentialJobs-b.employed)-(a.potentialJobs-a.employed))).slice(0,8).map(r=>({root:r.root,x:r.x,y:r.y,k:r.k,name:r.name,status:r.status,bottleneck:r.bottleneck,potentialJobs:r.potentialJobs,activePositions:r.activePositions,employed:r.employed,utilization:r.utilization}));
   const publicEmployed=Math.min(publicPositions,Math.max(0,workers-entEmployed)),cityEmployed=Math.min(workers,entEmployed+publicEmployed),spatialFill491=active?clamp(entEmployed/active,0,1):1;enterprise489={ready:true,rollback:false,day,grace:enterpriseGrace489,roots:rows.length,workers,potentialJobs:Math.round(potential),legacyJobs:Math.round(legacy),activePositions:Math.round(active),publicPositions,legacyPublicPositions:legacyPublicPositions495,totalPositions,enterpriseEmployed:+entEmployed.toFixed(2),enterpriseVacancies:+entVacancies.toFixed(2),publicEmployed:+publicEmployed.toFixed(2),cityEmployed,cityVacancies:Math.max(0,totalPositions-workers),laborFill:+laborFill.toFixed(4),spatialLaborFill:+spatialFill491.toFixed(4),utilization:potential?+(utilWeighted/potential).toFixed(4):1,rcCommercialPositions:Math.round(rcC),rcIndustrialPositions:Math.round(rcI),rcCommercialEmployed:+rcCE.toFixed(2),rcIndustrialEmployed:+rcIE.toFixed(2),groups,byType,status,bottlenecks,worst,saveSchemaChanged:false};if(enterpriseGrace489>0)enterpriseGrace489--;return enterprise489;
 }
@@ -56032,7 +56901,7 @@ async function bootstrap453(){
     runVariants574();         // T574：117 個單一樣式分類的變體，必須在所有重建資產的 pass 之後
     applyT573Silhouette();    // T573：剪影光影後製，移到變體之後，新變體才吃得到（不可跑兩次）
     installBritishArt004();
-    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
+    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
     bootSet453(100,'微光小鎮準備完成','night');bootState453.ready=true;window.__bootDone453=true;await bootPaint453();   // T539：boot 完成旗標——量測工具必須等到這裡，否則會漏掉 T464…T480/T539 這串後置 pass
@@ -67447,6 +68316,7 @@ function canPlaceHighStreet005(q,x,y){
   return null;
 }
 function canPlace(toolId,x,y){
+  if(RIVERSIDE_TOOL012[toolId])return canPlaceRiverside012(RIVERSIDE_TOOL012[toolId],x,y);
   if(MUSEUM_TOOL010[toolId])return canPlaceMuseum010(MUSEUM_TOOL010[toolId],x,y);
   if(STREETLIFE_TOOL009[toolId])return canPlaceStreetLife009(STREETLIFE_TOOL009[toolId],x,y);
   if(PUBLICLIFE_TOOL007[toolId])return canPlacePublicLife007(PUBLICLIFE_TOOL007[toolId],x,y);
@@ -67718,7 +68588,7 @@ function canPlaceMulti(x,y,sz,msg){
 }
 function placeCost(toolId,x,y){
   if(diff===3)return 0; // T115：沙盒短路——建造／拆除一律免費
-  const highStreet005=HIGHSTREET_TOOL005[toolId]||RESIDENTIAL_TOOL006[toolId]||PUBLICLIFE_TOOL007[toolId]||STREETLIFE_TOOL009[toolId]||MUSEUM_TOOL010[toolId];
+  const highStreet005=HIGHSTREET_TOOL005[toolId]||RESIDENTIAL_TOOL006[toolId]||PUBLICLIFE_TOOL007[toolId]||STREETLIFE_TOOL009[toolId]||MUSEUM_TOOL010[toolId]||RIVERSIDE_TOOL012[toolId];
   if(highStreet005&&(!inMap(x,y)||!inMap(x+highStreet005.sz-1,y+highStreet005.sz-1)))return 0; // GPT-005: fiscal wrapper quotes before placement validation
   const t=T(idx(x,y));
   let c=0;
@@ -67726,6 +68596,7 @@ function placeCost(toolId,x,y){
     case 'georgianRow':case 'georgianCorner':case 'georgianEnd':case 'georgianArea':case 'victorianGabledSemi':case 'victorianBayVilla':case 'victorianGardenVilla':case 'victorianGothicVilla':case 'stoneCottagePair':case 'brickCatslideCottage':case 'courtyardCottages':case 'thatchedLongCottage':case 'workersNarrowRow':case 'workersYardTerrace':case 'workersCourt':case 'workersCornerShop':c=RESIDENTIAL_TOOL006[toolId].cost;break;
     case 'historicTownHall':case 'magistratesCourt':case 'boroughPolice':case 'edwardianFireStation':case 'technicalInstitute':case 'grammarSchool':case 'flintParishChurch':case 'nonconformistChapel':case 'cricketPavilion':case 'bowlsClub':case 'ironBandstand':case 'seasideConcertHall':c=PUBLICLIFE_TOOL007[toolId].cost;break;
     case 'coOpStores':case 'stoneBakehouse':case 'coveredMarket':case 'boardSchool':case 'cottageSurgery':case 'highStreetPost':case 'municipalBaths':case 'villageHall':c=HIGHSTREET_TOOL005[toolId].cost;break;
+    case 'riversideArcade012':case 'flowerStall012':case 'produceStall012':c=RIVERSIDE_TOOL012[toolId].cost;break;
     case 'regionalNaturalHistory010':c=MUSEUM_TOOL010[toolId].cost;break;
     case 'stationHotel009':case 'refreshmentCafe009':case 'stationNewsstand009':c=STREETLIFE_TOOL009[toolId].cost;break;
     case 'britishTerrace':case 'foxFinchPub':case 'edwardianLibrary':c=BRITISH_TOOL004[toolId].cost;break;
@@ -67875,6 +68746,10 @@ function doPlace(toolId,x,y,silent){
       for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++)delete T(idx(x+dx,y+dy)).office;
       t.bld.wa=false;markPowerDirty450();markPowerDirty471();waterDirty449=true;markWaterCycleDirty472();sanDirty445=true;mobility491Dirty=true;
       break;}
+    case 'riversideArcade012':case 'flowerStall012':case 'produceStall012':{
+      const q=RIVERSIDE_TOOL012[toolId];placePowerMulti471(x,y,q.k,q.sz,0);
+      for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++)delete T(idx(x+dx,y+dy)).office;
+      Object.assign(t.bld,{pw:false,wa:false});markPowerDirty450();markPowerDirty471();waterDirty449=true;markWaterCycleDirty472();sanDirty445=true;mobility491Dirty=true;break;}
     case 'regionalNaturalHistory010':{
       const q=MUSEUM_TOOL010[toolId];placePowerMulti471(x,y,q.k,q.sz,0);
       for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++)delete T(idx(x+dx,y+dy)).office;
@@ -69161,16 +70036,17 @@ function powerLoadBase471(b){
   if(k===1)return [0,1,1.55,2.25][lv]||1;
   if(k===2)return [0,1.25,2.15,3.7][lv]||1.25;
   if(k===3)return [0,1.6,3.1,5.2][lv]||1.6;
-  if(MUSEUM010[k])return MUSEUM010[k].power;if(STREETLIFE009[k])return STREETLIFE009[k].power;if(PUBLICLIFE007[k])return PUBLICLIFE007[k].power;if(RESIDENTIAL006[k])return RESIDENTIAL006[k].power;if(HIGHSTREET005[k])return HIGHSTREET005[k].power;if(k===219)return 2.4;if(k===220)return 2.15;if(k===221)return 3;if(k===127)return 2.4;
+  if(RIVERSIDE012[k])return RIVERSIDE012[k].power;if(MUSEUM010[k])return MUSEUM010[k].power;if(STREETLIFE009[k])return STREETLIFE009[k].power;if(PUBLICLIFE007[k])return PUBLICLIFE007[k].power;if(RESIDENTIAL006[k])return RESIDENTIAL006[k].power;if(HIGHSTREET005[k])return HIGHSTREET005[k].power;if(k===219)return 2.4;if(k===220)return 2.15;if(k===221)return 3;if(k===127)return 2.4;
   if(isPowerSource450(k)||POWER_STORAGE_META471[k]||k===148)return 0;
   const m={4:.2,6:1.2,7:1.5,8:1,9:4,10:1.6,11:1.2,12:4,13:1.6,14:1,15:.8,17:2.4,18:3,19:8,20:1.2,21:1.8,27:4,28:1.4,29:2,30:1.8,31:3,32:5,35:3,36:3,37:4,38:5,39:6,40:2,41:3,42:3,43:2.5,44:6,45:4,46:1.5,47:3,48:10,51:8,52:.8,55:7,56:7,57:7,61:4,63:3,64:5,65:12,66:2,68:2,82:6,83:10,87:4,89:2,90:3,91:4,96:2,100:4,101:6,103:3,105:12,106:14,108:5,109:10,110:6,111:6,112:4,113:14,114:18,115:8,116:14,118:7,119:6,121:9,122:13,123:10,129:10,130:5,131:4,133:2,134:3,135:18,136:14,137:16,138:20,139:12,149:4,151:3,152:2,153:10,154:1.2,155:4,156:14,157:4,158:12,159:.8,160:.5,165:9,166:11,167:7,168:6,169:3,170:8,171:9,172:5,173:12,174:18};
   return m[k]??Math.max(.5,(b.sz||1)*.8);
 }
 function powerProfile471(b){
+  if(riversideKind012(b.k))return [1.28,.84,.34];
   if(streetLifeRetail009(b.k))return [1.28,.84,.34];
   const k=publicLifeBaseK007(highStreetBaseK005(b.k));if(k===1||k===127||k===219||residentialKind006(k))return [0.68,1.36,.88];if(k===2||k===220)return [1.28,.84,.34];if(k===3||[57,64,110,116,118,121,122,123,165,166,167,168,169,170,171,172,173,174].includes(k))return [1.02,1,.82];if([17,19,21,55,114,139].includes(k))return [1.16,1.28,.48];if([10,12,13,27,28,29,48,129,130,131,135,151,152,153,154,155,156,157,158,159,160].includes(k))return [1,1,.92];return [1.02,.88,.52];
 }
-function powerCriticalTier471(k){if(museumKind010(k))return 2;if(streetLifeKind009(k))return 2;if(residentialKind006(k))return 1;k=publicLifeBaseK007(highStreetBaseK005(k));if([10,12,13,27,28,29,48,61,129,130,131,135,148,149,150,151,152,153,154,155,156,157,158].includes(k))return 0;if(k===221||k===1||k===127||k===219||[6,7,11,14,15,17,19,21,32,41,42,43,45,52,55,108,113,115,139].includes(k))return 1;if(k===220||k===2||[4,20,35,36,37,38,39,40,44,47,65,66,82,83,87,89,90,91,96,101,103,112,134,136,137].includes(k))return 2;return 3;}
+function powerCriticalTier471(k){if(riversideKind012(k))return 2;if(museumKind010(k))return 2;if(streetLifeKind009(k))return 2;if(residentialKind006(k))return 1;k=publicLifeBaseK007(highStreetBaseK005(k));if([10,12,13,27,28,29,48,61,129,130,131,135,148,149,150,151,152,153,154,155,156,157,158].includes(k))return 0;if(k===221||k===1||k===127||k===219||[6,7,11,14,15,17,19,21,32,41,42,43,45,52,55,108,113,115,139].includes(k))return 1;if(k===220||k===2||[4,20,35,36,37,38,39,40,44,47,65,66,82,83,87,89,90,91,96,101,103,112,134,136,137].includes(k))return 2;return 3;}
 function powerLoadWeight471(b,period='evening'){const base=powerLoadBase471(b);if(!base)return 0;const p=powerProfile471(b),ix=period==='day'?0:period==='night'?2:1;let v=base*p[ix];if(pol&&pol.ecoReg&&b.k!==1&&b.k!==127&&b.k!==219&&!residentialKind006(b.k))v*=.95;if(pol?.criticalReserve492&&powerCriticalTier471(b.k)>=2)v*=.96;if([129,130,151,152,153,155,156,157,158].includes(b.k))v*=clamp(.35+(+b.wu472||.45)*.85,.35,1.2);v*=nightPowerMul487(b,period);return +Math.max(.05,v).toFixed(3);}
 function powerSourceAvailability471(k,period,root){
   const ix=period==='day'?0:period==='evening'?1:2,sea=season();let a=1;
@@ -69309,17 +70185,18 @@ for(const q of Object.values(RESIDENTIAL006))WATER_LOAD472.special[q.k]=q.water;
 for(const q of Object.values(PUBLICLIFE007))WATER_LOAD472.special[q.k]=q.water;
 for(const q of Object.values(STREETLIFE009))WATER_LOAD472.special[q.k]=q.water;
 for(const q of Object.values(MUSEUM010))WATER_LOAD472.special[q.k]=q.water;
+for(const q of Object.values(RIVERSIDE012))WATER_LOAD472.special[q.k]=q.water;
 const WATER_PROFILE472={residential:[.82,1.35,.55],commercial:[1.25,.75,.25],industrial:[1.05,.95,.75],park:[1.15,.55,.12],general:[1,.95,.72]};
 const WASTEWATER_RETURN472={residential:.80,commercial:.75,industrial:.64,irrigation:.10,general:.68};
 const WATER_QUALITY472={A:.92,B:.80,C:.66,D:0};
 let WATER_ROOT_STATE472=new Uint8Array(0),WATER_ROOT_DELIVERED472=new Float32Array(0),WATER_ROOT_RECLAIMED472=new Float32Array(0),WATER_ROOT_QUALITY472=new Float32Array(0),SEWER_ROOT_OK472=new Uint8Array(0);
 const WATER_STATE_TEXT472=['Disconnected','Dry','Rationing','Low Pressure','Stable'];
 function rootWaterDemandBase472(b){if(!b||b.ref)return 0;const k=b.k,lv=b.lv||1;let v;if(k===1)v=WATER_LOAD472.residential[lv]||1;else if(k===2)v=WATER_LOAD472.commercial[lv]||1.4;else if(k===3)v=WATER_LOAD472.industrial[lv]||2.5;else v=WATER_LOAD472.special[k]??Math.max(.35,(b.sz||1)*.6);const hb=housingBand488(b);return hb?v*housingOccupancy488(hb):v;}
-function waterProfile472(b){if(streetLifeRetail009(b.k))return WATER_PROFILE472.commercial;const k=publicLifeBaseK007(highStreetBaseK005(b.k));if(k===1||k===127||k===219||residentialKind006(k))return WATER_PROFILE472.residential;if(k===2||k===220)return WATER_PROFILE472.commercial;if(k===3||[57,64,118,121,122,123,138,165,166,167,168,169,170,171,172,173,174].includes(k))return WATER_PROFILE472.industrial;if([4,112,134,159,160].includes(k))return WATER_PROFILE472.park;return WATER_PROFILE472.general;}
-function wastewaterReturn472(b){if(!b)return 0;if(streetLifeKind009(b.k))return WASTEWATER_RETURN472.commercial;const k=publicLifeBaseK007(highStreetBaseK005(b.k));if(k===1||k===127||k===219||residentialKind006(k))return WASTEWATER_RETURN472.residential;if(k===2||k===220)return WASTEWATER_RETURN472.commercial;if(k===3||[57,64,118,121,122,123,165,166,167,168,169,170,171,172,173,174].includes(k))return WASTEWATER_RETURN472.industrial;if([4,112,134].includes(k))return WASTEWATER_RETURN472.irrigation;return WASTEWATER_RETURN472.general;}
+function waterProfile472(b){if(riversideKind012(b.k))return WATER_PROFILE472.commercial;if(streetLifeRetail009(b.k))return WATER_PROFILE472.commercial;const k=publicLifeBaseK007(highStreetBaseK005(b.k));if(k===1||k===127||k===219||residentialKind006(k))return WATER_PROFILE472.residential;if(k===2||k===220)return WATER_PROFILE472.commercial;if(k===3||[57,64,118,121,122,123,138,165,166,167,168,169,170,171,172,173,174].includes(k))return WATER_PROFILE472.industrial;if([4,112,134,159,160].includes(k))return WATER_PROFILE472.park;return WATER_PROFILE472.general;}
+function wastewaterReturn472(b){if(!b)return 0;if(riversideKind012(b.k))return WASTEWATER_RETURN472.commercial;if(streetLifeKind009(b.k))return WASTEWATER_RETURN472.commercial;const k=publicLifeBaseK007(highStreetBaseK005(b.k));if(k===1||k===127||k===219||residentialKind006(k))return WASTEWATER_RETURN472.residential;if(k===2||k===220)return WASTEWATER_RETURN472.commercial;if(k===3||[57,64,118,121,122,123,165,166,167,168,169,170,171,172,173,174].includes(k))return WASTEWATER_RETURN472.industrial;if([4,112,134].includes(k))return WASTEWATER_RETURN472.irrigation;return WASTEWATER_RETURN472.general;}
 function pollutionFactor472(b){if(!b)return 0;const k=publicLifeBaseK007(highStreetBaseK005(b.k));if(k===3)return 1.65;if([121,122,123,118,57,64,170,171,173,174].includes(k))return 2.35;if([165,166,167,168,169,172].includes(k))return 1.35;if(k===2||k===220)return.70;if(k===1||k===127||k===219||residentialKind006(k))return.55;return.65;}
 function reclaimedEligible472(b){if(!b)return 0;const k=b.k;if([5,58,140,145].includes(k))return 3;if(k===3||[57,64,118,121,122,123,138,165,166,167,168,169,170,171,172,173,174].includes(k))return 2;if([4,112,134,22,53,63,87,104,120].includes(k))return 1;return 0;}
-function waterCriticalTier472(b){if(!b)return 3;if(streetLifeKind009(b.k))return 2;if(PUBLICLIFE007[b.k])return waterCriticalTier472({k:publicLifeBaseK007(b.k)});if(residentialKind006(b.k))return 1;if(HIGHSTREET005[b.k])return waterCriticalTier472({k:highStreetBaseK005(b.k)});if([10,12,13,27,28,48,61,129,130,131,135,151,152,153,154,155,156,157,158].includes(b.k))return 0;if(b.k===219||b.k===221||b.k===1||b.k===127||[6,7,11,14,15,17,19,21,32,41,42,43,45,55,108,113,114,139].includes(b.k))return 1;if(b.k===2||b.k===220)return 2;return 3;}
+function waterCriticalTier472(b){if(!b)return 3;if(riversideKind012(b.k))return 2;if(streetLifeKind009(b.k))return 2;if(PUBLICLIFE007[b.k])return waterCriticalTier472({k:publicLifeBaseK007(b.k)});if(residentialKind006(b.k))return 1;if(HIGHSTREET005[b.k])return waterCriticalTier472({k:highStreetBaseK005(b.k)});if([10,12,13,27,28,48,61,129,130,131,135,151,152,153,154,155,156,157,158].includes(b.k))return 0;if(b.k===219||b.k===221||b.k===1||b.k===127||[6,7,11,14,15,17,19,21,32,41,42,43,45,55,108,113,114,139].includes(b.k))return 1;if(b.k===2||b.k===220)return 2;return 3;}
 function waterPolicyDemandMul472(b){let m=1;if(pol?.waterConserve&&(b.k===1||b.k===2||b.k===127||b.k===219||b.k===220||highStreetCommerce005(b.k)||residentialKind006(b.k)))m*=.90;return m;}
 function buildPipeComponents472(field){const arr=new Int32Array(N*N);arr.fill(-1);const comps=[],q=new Int32Array(N*N);let cid=0;for(let i=0;i<N*N;i++){const t=tiles[i];if(!field(t)||arr[i]>=0)continue;let h=0,n=0;q[n++]=i;arr[i]=cid;let wp=0,main=0;while(h<n){const j=q[h++],tt=tiles[j];if(tt.wp)wp++;if(tt.wm472||tt.sm472)main++;const x=j%N,y=(j/N)|0;for(const[dx,dy]of POW_DIR){const nx=x+dx,ny=y+dy;if(!inMap(nx,ny))continue;const z=idx(nx,ny);if(arr[z]<0&&field(tiles[z])){arr[z]=cid;q[n++]=z;}}}comps.push({id:cid,tiles:n,wp,main});cid++;}return[arr,comps];}
 function facilityComps472(root,arr,field){const b=tiles[root]?.bld;if(!b||b.ref)return[];const x=root%N,y=(root/N)|0,sz=Math.max(1,b.sz||1),set=new Set(),add=(xx,yy)=>{if(!inMap(xx,yy))return;const j=idx(xx,yy);if(field(tiles[j])&&arr[j]>=0)set.add(arr[j]);};for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)add(x+dx,y+dy);for(let d=0;d<sz;d++){add(x+d,y-1);add(x+d,y+sz);add(x-1,y+d);add(x+sz,y+d);}return[...set];}
@@ -70167,6 +71044,7 @@ for(const q of Object.values(RESIDENTIAL006))MAYOR_MANUAL_ONLY470A.add(q.id);
 for(const q of Object.values(PUBLICLIFE007))MAYOR_MANUAL_ONLY470A.add(q.id);
 for(const q of Object.values(STREETLIFE009))MAYOR_MANUAL_ONLY470A.add(q.id);
 for(const q of Object.values(MUSEUM010))MAYOR_MANUAL_ONLY470A.add(q.id);
+for(const q of Object.values(RIVERSIDE012))MAYOR_MANUAL_ONLY470A.add(q.id);
 const MAYOR_CONTROLLER_TOOLS470A=new Set(['busrt','railrt','tramrt','metrort']);
 const MAYOR_NETWORK_TOOLS470A=new Set(['alley','road','coll','art','hwy','flyover','interchange','lvline','udline','wpipe','rdec','bus','busrt','oneway','light','busLane','rail','railrt','tram','tramrt','metrort','dock','levee','hvline','ugcable','waterMain','sewerMain']);
 const MAYOR_SPECIFIC_TOOLS470A=new Set(['refinery','steelMill','shipyard','basketballCourt','tennisCourt','playground','socialHousing','desalination','hydro','disasterCenter','shelterPark','disasterRadar','compost','recycling','wasteIncinerator','upcycle','levee','substation','pumpStation','ccgt','peaker','biomass','solarFarm','offshoreWind','smr','bess','pumpedStorage','hvSubstation','gridControl','microgrid','riverIntake','groundwater','waterTreatment','serviceReservoir','boosterStation','advancedSewage','sewerLift','reclaimedWater','detentionBasin','constructedWetland','distSubstation','switchingStation','valveStation','utilityPortal']);
@@ -71459,7 +72337,7 @@ function tick(){
   // T141：通勤場獨立衰減式移動平均（純觀察用途，供 GV.commuteLoad/commuteAt 讀取，不回饋 roadLoad 避免雙重疊加；
   // 無通勤 trip 時 commutePass 恆 0，此項恆為 0，與改動前逐位元一致）
   for(let i=0;i<N*N;i++){commuteLoad[i]=commuteLoad[i]*.85+commutePass[i]*.15;commutePass[i]=0;}
-  for(const root of tickBld){const b=tiles[root]?.bld;if(b&&!b.ref&&(HIGHSTREET005[b.k]||RESIDENTIAL006[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]))b.age++;} // GPT-005: new construction completes before its daily utilities/jobs/services
+  for(const root of tickBld){const b=tiles[root]?.bld;if(b&&!b.ref&&(HIGHSTREET005[b.k]||RESIDENTIAL006[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]||RIVERSIDE012[b.k]))b.age++;} // GPT-005: new construction completes before its daily utilities/jobs/services
   const residentialDaily006=tickBld.some(i=>residentialKind006(tiles[i]?.bld?.k));
   if(!residentialDaily006)housingMarketStep488(); // T488：以前一日經濟＋最新地價/通勤建立四市場入住率，本日所有人口讀者共用
   prepareNightInputs487(); // T487：本日建築/道路夜間活動底稿，先於 T471 調度建立公共照明與夜班負載
@@ -71475,7 +72353,7 @@ function tick(){
   }
   refreshBritishCoverage004();
   refreshHighStreetUtilities005();refreshHighStreetCoverage005();
-  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();stationUtilities008();stationDaily008();refreshStreetLifeUtilities009();refreshMuseumUtilities010();refreshMuseumCoverage010();
+  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();stationUtilities008();stationDaily008();refreshStreetLifeUtilities009();refreshMuseumUtilities010();refreshMuseumCoverage010();refreshRiversideUtilities012();
   refreshResidentialUtilities006();if(residentialDaily006)housingMarketStep488();
   // 死亡與墓園前置處理（T38）：既有死亡事件的懲罰標記與自動消退
   const deathPenalty=new Uint8Array(N*N);
@@ -71714,7 +72592,7 @@ function tick(){
   const highStreetDaily005={publicJobs:highStreetPublicJobs005(),upkeep:highStreetUpkeep005()};
   const publicLifeDaily007={publicJobs:publicLifePublicJobs007(),upkeep:publicLifeUpkeep007()};
   const museumDaily010={publicJobs:museumPublicJobs010(),upkeep:museumUpkeep010()};
-  for(const root of tickBld){const b=tiles[root]?.bld;if(b&&!b.ref&&(highStreetCommerce005(b.k)||residentialCommerce006(b.k)||streetLifeKind009(b.k)))jobsC+=enterpriseLegacyJobs489(root,b);}
+  for(const root of tickBld){const b=tiles[root]?.bld;if(b&&!b.ref&&(highStreetCommerce005(b.k)||residentialCommerce006(b.k)||streetLifeKind009(b.k)||riversideKind012(b.k)))jobsC+=enterpriseLegacyJobs489(root,b);}
   advanceTech343(inN,un,tpk342,cam342,dtc342,mgN,res466); // T343a/T466：沿用本迴圈既有六個 root 計數，零新增掃城
   pop=popN+towerPop488+megaPop488;jobs=jobsC+jobsI+schools*8+stadiums*20+clinics*4+libraries*4+posts*5+cemeteries*2+bigCemN*8+st*12+gstN*30+scN*40+fpN*25+nkN*30+hyN*12+geN*5+fhqN*20+ghN*4+whN284*8+mallN*70+wteN*12+po*10+ai*40+pa*1+tr*6+fa*3+bigFa*18+ra*2+la*8+so*2+wi*2+se*4+am*5+rc*4+fs2*8+pr*10+un*20+trC*TOWER_JOBS+mgC341*MEGA_JOBS+faN*12+ctN307*4+obN307*10+jobsLm309+mu*12+th*10+aq*14+zo*20+ap*24+ci*6+gl*16+chN*20+crtN*14+cvN*35+inN*22+wsN*8+bgN*18+mhN*28+owN*6+mnN*8+mgN*40+gh330*2+ht330*12+rs330*30+kg330*4+sn330*3+bk330*8+mk330*10+cp330*4+tv330*6+mr330*8+tp336*8+dg336*1+ir336*5+sk336*3+fw340*1+pl340*3+fp340*3+hs340*4+ch340*5+br340*14+wp340*16+vt340*4+sr340*10+cg340*1+cr342*4+hsc342*12+tpk342*45+frt342*10+upc342*12+cpk342*2+gpk465*4+gmc466*85+art466*70+adm466*120+res466*140+cam342*40+mpt342*60+cvc342*18+dtc342*20+gw346*6+fp346*14+kt346*12+ff346*4+upJob+powerJobs471()+waterJobs472()+infraJobs475();   // T472：水務就業；T265：焚化發電固定 12 就業；T239：升級服務就業加成；T39-T54 就業；T127：住宅塔人口/商業塔就業＝四格lv3總和×1.15；T138：博物館12/劇院10/水族館14/動物園20/遊樂園24/電影院6/圖書總館16 就業；T139：市政廳20/法院14/會展中心35/研究院22/氣象站8/植物園18/綜合醫院28 就業；T140：油井6/礦場8/太空研究中心40 就業
   jobs+=refineryN*18+steelMillN*22+shipyardN*16; // T364b：三座固定製造就業（不進 RCI 稅）
@@ -71802,7 +72680,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
   /* ===== T364b A 深加工鏈 END ===== */
   /* T482：T481 的 Goods 閉環升級成六商品共享 Logistics / Trade capacity。金融商品與股票市場明確不存在。 */
   gWhCap284=whCap284+goodsCapBonus485;
-  const laborNow481=laborMarket481(pop,jobs),effectiveIndUnits489=nIndG284*enterpriseTypeUtilization489(3),effectiveComUnits489=nComG284*enterpriseTypeUtilization489(2)+highStreetRetailUnits005()+residentialRetailUnits006()+streetLifeRetailUnits009(); // GPT-005: actual employed shop staff /14, the existing Lv2 commercial retail unit
+  const laborNow481=laborMarket481(pop,jobs),effectiveIndUnits489=nIndG284*enterpriseTypeUtilization489(3),effectiveComUnits489=nComG284*enterpriseTypeUtilization489(2)+highStreetRetailUnits005()+residentialRetailUnits006()+streetLifeRetailUnits009()+riversideRetailUnits012(); // GPT-005: actual employed shop staff /14, the existing Lv2 commercial retail unit
   const extFood482=externalPrice482('food',day,sea),extGoods482=externalPrice482('goods',day,sea),extFuel482=externalPrice482('fuel',day,sea),extSteel482=externalPrice482('steel',day,sea),extGas482=externalPrice482('gas',day,sea),extSup482=externalPrice482('supplies',day,sea),
         wealthNow481=wealthPower481(tickBld,pop),prevCost481=economy481.ready?economy481.prices.costOfLiving:foodPriceOf(day,sea),
         purchaseBase481=clamp(purchasingPower481(laborNow481,wealthNow481,cityHappy,prevCost481,pol?.taxR||1)*businessCycleConsumptionMul490(),.40,1.65),
@@ -72105,7 +72983,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
   for(const i of tickBld){
     const b=tiles[i].bld;
     if(!b||b.ref)continue;                  // T168：ref 格（多格建築非 root）無 age 欄位，跳過避免 NaN
-    if(!HIGHSTREET005[b.k]&&!RESIDENTIAL006[b.k]&&!PUBLICLIFE007[b.k]&&!STREETLIFE009[b.k]&&!MUSEUM010[b.k])b.age++;            // GPT-005: new roots already aged once; all legacy roots retain T168 timing
+    if(!HIGHSTREET005[b.k]&&!RESIDENTIAL006[b.k]&&!PUBLICLIFE007[b.k]&&!STREETLIFE009[b.k]&&!MUSEUM010[b.k]&&!RIVERSIDE012[b.k])b.age++;            // GPT-005: new roots already aged once; all legacy roots retain T168 timing
     /* T168 */                              // T168：所有建築（含服務/大型，原僅 k<=3）皆遞增 age——使施工鷹架能正常拆除；age++ 不消耗 R()，下方升級邏輯仍以 b.k>3 continue 僅作用 RCI，故亂數流與升級行為完全不變
     if(b.k>3)continue;
     const x=i%N,y=(i/N)|0;
@@ -72343,6 +73221,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
   }
   nightCity487=finalizeNightCity487({purchasingPower:purchasingPowerNow481,goodsSupply:supplyRate481,transitRidership,tourists,unemployment:laborNow481.unemploymentRate}); // T487：本日夜間營運 truth，供商業/財政/面板共讀
   // 經濟
+  beginRiversideTax012();
   let income=0,upkeep=0,roads=0,parks=0,plants=0,bridges=0,nI=0,taxR=0,taxC=0,taxI=0,fireStations=0,policeStations=0,hospitals=0,policeBoxes=0; // T222：派出所計數
   let stations=0,ports=0,airports=0,parkingLots=0,tramStations=0,farms=0,ranches=0,landmarks=0,solars=0,winds=0,sewages=0,ambulances2=0,recyclings=0,fireStation2s=0,prisons=0,universities=0;
   /* T409：服務可觀測性——tick 區域計數器（T387b medCured387／T145 svcSamples 先例：不進存檔、不需 newWorld/load 成對歸零＝鐵律7 免疫）。
@@ -72430,6 +73309,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
     else if(b.k===122);               // T364b 鋼鐵廠：收益走 steel 稅率乘數，禁止落入 JOBSI→NaN
     else if(b.k===123);               // T364b 造船廠：收益走鋼材消耗/港貿收益，禁止落入 JOBSI→NaN
     else if(STREETLIFE009[b.k]&&(b.k===274||!streetLifeOperational009(i,b))); // GPT-009: lodging revenue only; no unfinished/offline or industrial fallback
+    else if(RIVERSIDE012[b.k]&&!riversideOperational012(i,b)); // GPT-012: no unfinished/offline or industrial fallback
     else if(MUSEUM010[b.k]); // GPT-010: public museum has no industrial/commercial tax fallback
     else if(PUBLICLIFE007[b.k]); // GPT-007: public-only; never commercial or phantom industrial tax
     else if(HIGHSTREET005[b.k]&&(!highStreetCommerce005(b.k)||!highStreetOperational005(i,b))); // GPT-005: no public/unfinished/offline industrial fallback
@@ -72444,7 +73324,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
     else if(b.pw&&!b.fire&&!b.sick&&!b.death&&!b.abandoned&&!b.riot&&!b.plague){ // T118：暴亂中住宅停稅收；T137：瘟疫中住宅暫停繳稅（產能停擺）
       const pm=pol||{taxR:1,taxC:1,taxI:1};
       if(b.k===1||b.k===219){const we=b.we!==undefined?b.we:1;const landTaxMul=1+(LAND[i]-128)/128*.15;const v2=residentPopulation488(i,b)*.12*(pm.taxR||1)*WEALTH_TAX[we]*landTaxMul*civicMul;income+=v2;taxR+=v2;} // T124：財富分級稅收係數（貧.6/中1/富1.5）；T130：輕度地價稅收槓桿，中性地價(128)精確恆等 ×1；T139：市政廳全城稅收微增
-      else if(b.k===2||b.k===220||highStreetCommerce005(b.k)||streetLifeRetail009(b.k)){const bx=i%N,byy=(i/N)|0;const rc=getMaxRoadClass(bx,byy,1);let mult=(1+rc*.08)*(COV.bus[i]>0?1.1:1)*(COV.post[i]>0?1.15:1)*((COV.parking&&COV.parking[i]>0)?1.1:1)*((COV.bank&&COV.bank[i]>0)?1.08:1)*((COV.freight&&COV.freight[i]>0)?1.05:1);if(COV.freight&&COV.freight[i]>0)mult*=freightTaxMul;if(tourists>0)mult*=1+Math.min(.2,tourists/500)*(pm.tourPromo?1.1:1);if(pm.nightMarket)mult*=nightCity487.ready?nightCity487.commerce.taxMul:1.06;const v2=(streetLifeRetail009(b.k)?STREETLIFE009[b.k].jobs:highStreetCommerce005(b.k)?HIGHSTREET005[b.k].jobs:b.k===220?BRITISH004[220].jobs:JOBSC[b.lv])*.18*mult*(pm.taxC||1)*(pm.ecoReg?.95:1)*civicMul*goodsMul284*commerceSalesMul481*tq('A3',1.04,1)*tq('A6',1.05,1)*tq('B4b',1.05,1)*tq('C3',1.03,1)*tq('D3',1.04,1)*sq('hub',1.03,1)*enterpriseTaxFactor489(i);income+=v2;taxC+=v2;} // T489：商業稅按真實營運率結算；T364b：燃料僅放大既有貨運覆蓋商業稅；fuel=0 時原式 ×1
+      else if(b.k===2||b.k===220||highStreetCommerce005(b.k)||streetLifeRetail009(b.k)||riversideKind012(b.k)){const bx=i%N,byy=(i/N)|0;const rc=getMaxRoadClass(bx,byy,1);let mult=(1+rc*.08)*(COV.bus[i]>0?1.1:1)*(COV.post[i]>0?1.15:1)*((COV.parking&&COV.parking[i]>0)?1.1:1)*((COV.bank&&COV.bank[i]>0)?1.08:1)*((COV.freight&&COV.freight[i]>0)?1.05:1);if(COV.freight&&COV.freight[i]>0)mult*=freightTaxMul;if(tourists>0)mult*=1+Math.min(.2,tourists/500)*(pm.tourPromo?1.1:1);if(pm.nightMarket)mult*=nightCity487.ready?nightCity487.commerce.taxMul:1.06;const v2=(riversideKind012(b.k)?RIVERSIDE012[b.k].jobs:streetLifeRetail009(b.k)?STREETLIFE009[b.k].jobs:highStreetCommerce005(b.k)?HIGHSTREET005[b.k].jobs:b.k===220?BRITISH004[220].jobs:JOBSC[b.lv])*.18*mult*(pm.taxC||1)*(pm.ecoReg?.95:1)*civicMul*goodsMul284*commerceSalesMul481*tq('A3',1.04,1)*tq('A6',1.05,1)*tq('B4b',1.05,1)*tq('C3',1.03,1)*tq('D3',1.04,1)*sq('hub',1.03,1)*enterpriseTaxFactor489(i);income+=v2;taxC+=v2;if(riversideKind012(b.k))recordRiversideTax012(i,v2);} // T489：商業稅按真實營運率結算；T364b：燃料僅放大既有貨運覆蓋商業稅；fuel=0 時原式 ×1
       else if(b.k===65){const bx=i%N,byy=(i/N)|0;const rc=getMaxRoadClass(bx,byy,1);let mult=(1+rc*.08)*(COV.bus[i]>0?1.1:1)*(COV.post[i]>0?1.15:1)*((COV.parking&&COV.parking[i]>0)?1.1:1);if(tourists>0)mult*=1+Math.min(.25,tourists/400);if(pm.nightMarket)mult*=nightCity487.ready?nightCity487.commerce.taxMul:1.06;const v65=(150+(b.lv-1)*55)*mult*(pm.taxC||1)*(pm.ecoReg?.95:1)*civicMul*goodsMul284*commerceSalesMul481*enterpriseTaxFactor489(i);income+=v65;taxC+=v65;} // T489：商場稅按真實營運率；T290：大型購物中心商業稅（4×4 旗艦，基礎150+55/級，綁 T284 供貨鏈＋觀光/巴士/停車加成）；鐵律14 守衛：漏此 fall-through 工業稅 lv≥4 NaN：觀光推廣＝觀光收益子項×1.1；節能條例＝商業稅×0.95；T139：市政廳全城稅收微增
       else{const eduIndMul=b.lv===3?1+(EDU[i]/255)*.4:1;const v2=JOBSI[b.lv]*.15*(pm.taxI||1)*(pm.indSubsidy?.9:1)*civicMul*indSupplyMul*industrialMarketMul481*eduIndMul*fuelTaxMul*steelTaxMul*tq('A1',1.04,1)*tq('A4a',1.08,1)*tq('A4b',.98,1)*tq('A8',1.06,1)*sq('ind',1.06,1)*sq('green',.92,1)*enterpriseTaxFactor489(i);income+=v2;taxI+=v2;} // T489：工業稅按真實營運率；T364b：燃料/鋼材存量分別放大既有工業稅；兩者皆 0 時精確恆等
     }
@@ -73317,7 +74197,7 @@ function spawnCitizen(){ // 隨機試探找住宅（家）＋工作（商業/工
     let wx=-1,wy=-1,wk=0;
     if(age>=18&&age<65){ // 工作年齡才找工作
       for(let t2=0;t2<30;t2++){const jx=Math.floor(Math.random()*N),jy=Math.floor(Math.random()*N),jb=T(idx(jx,jy)).bld;
-        if(jb&&!jb.ref&&(jb.k===2||jb.k===3||(jb.k===220&&britishOperational004(idx(jx,jy),jb))||(highStreetCommerce005(jb.k)&&highStreetOperational005(idx(jx,jy),jb))||(residentialCommerce006(jb.k)&&residentialOperational006(idx(jx,jy),jb))||(streetLifeKind009(jb.k)&&streetLifeOperational009(idx(jx,jy),jb)))&&jb.pw){wx=jx;wy=jy;wk=(jb.k===220||highStreetCommerce005(jb.k)||residentialCommerce006(jb.k)||streetLifeKind009(jb.k))?2:jb.k;break;}}
+        if(jb&&!jb.ref&&(jb.k===2||jb.k===3||(jb.k===220&&britishOperational004(idx(jx,jy),jb))||(highStreetCommerce005(jb.k)&&highStreetOperational005(idx(jx,jy),jb))||(residentialCommerce006(jb.k)&&residentialOperational006(idx(jx,jy),jb))||(streetLifeKind009(jb.k)&&streetLifeOperational009(idx(jx,jy),jb))||(riversideKind012(jb.k)&&riversideOperational012(idx(jx,jy),jb)))&&jb.pw){wx=jx;wy=jy;wk=(jb.k===220||highStreetCommerce005(jb.k)||residentialCommerce006(jb.k)||streetLifeKind009(jb.k)||riversideKind012(jb.k))?2:jb.k;break;}}
     }
     const hasJob=wx>=0;
     const job=age<18?(age<7?'幼兒':'學生'):age>=65?'退休':(hasJob?rnJob(wk):CZ_JOB_NONE[Math.floor(Math.random()*CZ_JOB_NONE.length)]);
@@ -73335,14 +74215,14 @@ function spawnCitizen(){ // 隨機試探找住宅（家）＋工作（商業/工
 function updateCitizens(){ // tick 每日：清理無效市民＋補充至上限（人口越多市民越多，封頂 CAP）
   for(let i=citizens.length-1;i>=0;i--){const c=citizens[i];const hb=T(c.home).bld;
     if(!hb||hb.ref||(hb.k!==1&&hb.k!==219&&!residentialKind006(hb.k))||(residentialKind006(hb.k)&&!residentEligible488(c.home,hb))){citizens.splice(i,1);continue;} // 家沒了→移除
-    if(c.work>=0){const wb=T(c.work).bld;if(!wb||wb.ref||(wb.k!==2&&wb.k!==3&&wb.k!==220&&!highStreetCommerce005(wb.k)&&!residentialCommerce006(wb.k)&&!streetLifeKind009(wb.k))||(highStreetCommerce005(wb.k)&&!highStreetOperational005(c.work,wb))||(residentialCommerce006(wb.k)&&!residentialOperational006(c.work,wb))||(streetLifeKind009(wb.k)&&!streetLifeOperational009(c.work,wb))){c.work=-1;c.at=0;c.path=null;lifeLog(c,'lost','任職的店家歇業，成了待業');}} // 工作沒了→變無業、回家
+    if(c.work>=0){const wb=T(c.work).bld;if(!wb||wb.ref||(wb.k!==2&&wb.k!==3&&wb.k!==220&&!highStreetCommerce005(wb.k)&&!residentialCommerce006(wb.k)&&!streetLifeKind009(wb.k)&&!riversideKind012(wb.k))||(highStreetCommerce005(wb.k)&&!highStreetOperational005(c.work,wb))||(residentialCommerce006(wb.k)&&!residentialOperational006(c.work,wb))||(streetLifeKind009(wb.k)&&!streetLifeOperational009(c.work,wb))||(riversideKind012(wb.k)&&!riversideOperational012(c.work,wb))){c.work=-1;c.at=0;c.path=null;lifeLog(c,'lost','任職的店家歇業，成了待業');}} // 工作沒了→變無業、回家
   }
   if(day%40===0){ // T310 每40天老化一歲：階段轉換(學生→工作/工作→退休)＋82歲離世＋更新心聲
     for(let i2=citizens.length-1;i2>=0;i2--){const c=citizens[i2];if(c.departed){if(++c.departed>2)citizens.splice(i2,1);continue;}c.age++;
       if(c.age>=82){c.departedDay=day;c.departed=1;lifeLog(c,'death','以 82 歲高齡辭世');continue;}
       const ns=czStage(c.age);
       if(ns!==c.stage){c.stage=ns;c.quote=czQuote(ns);lifeLog(c,ns==='worker'?'job':ns==='student'?'school':'retire',ns==='worker'?'成年，開始工作':ns==='student'?'到了上學的年紀':'退休，離開職場');
-        if(ns==='worker'){c.job='待業';for(let t3=0;t3<20;t3++){const jx=Math.floor(Math.random()*N),jy=Math.floor(Math.random()*N),jb=T(idx(jx,jy)).bld;if(jb&&!jb.ref&&(jb.k===2||jb.k===3||(jb.k===220&&britishOperational004(idx(jx,jy),jb))||(highStreetCommerce005(jb.k)&&highStreetOperational005(idx(jx,jy),jb))||(residentialCommerce006(jb.k)&&residentialOperational006(idx(jx,jy),jb))||(streetLifeKind009(jb.k)&&streetLifeOperational009(idx(jx,jy),jb)))&&jb.pw){c.work=idx(jx,jy);c.wx=jx;c.wy=jy;c.job=rnJob((jb.k===220||highStreetCommerce005(jb.k)||residentialCommerce006(jb.k)||streetLifeKind009(jb.k))?2:jb.k);break;}}}
+        if(ns==='worker'){c.job='待業';for(let t3=0;t3<20;t3++){const jx=Math.floor(Math.random()*N),jy=Math.floor(Math.random()*N),jb=T(idx(jx,jy)).bld;if(jb&&!jb.ref&&(jb.k===2||jb.k===3||(jb.k===220&&britishOperational004(idx(jx,jy),jb))||(highStreetCommerce005(jb.k)&&highStreetOperational005(idx(jx,jy),jb))||(residentialCommerce006(jb.k)&&residentialOperational006(idx(jx,jy),jb))||(streetLifeKind009(jb.k)&&streetLifeOperational009(idx(jx,jy),jb))||(riversideKind012(jb.k)&&riversideOperational012(idx(jx,jy),jb)))&&jb.pw){c.work=idx(jx,jy);c.wx=jx;c.wy=jy;c.job=rnJob((jb.k===220||highStreetCommerce005(jb.k)||residentialCommerce006(jb.k)||streetLifeKind009(jb.k)||riversideKind012(jb.k))?2:jb.k);break;}}}
         else if(ns==='retired'){c.work=-1;c.wx=-1;c.wy=-1;c.job='退休';c.at=0;c.path=null;}
         else if(ns==='student')c.job='學生';
       }
@@ -73354,7 +74234,7 @@ function updateCitizens(){ // tick 每日：清理無效市民＋補充至上限
 /* T295b 地圖走動小人：市民白天上班（走向工作）、夜晚回家，沿道路 BFS 路徑步行；只在「通勤途中」畫於路上（在家/工作＝室內不畫）。
    全 Math.random/純幾何、每幀移動不消耗模擬 R() 流。BFS 用版本標記 czSeen 避免每次 fill（O(1) 重置）。 */
 let czSeen=null,czPrev=null,czSeenV=0;
-function nearRoad(x,y){const b=inMap(x,y)?T(idx(x,y)).bld:null;if(b&&!b.ref&&(HIGHSTREET005[b.k]||RESIDENTIAL006[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k])){const r=sanRoadSeeds445(idx(x,y)).find(j=>!roadIncidentClosed493(j));return r===undefined?null:[r%N,(r/N)|0];}if(b&&!b.ref&&BRITISH004[b.k]){const r=sanRoadSeeds445(idx(x,y))[0];return r===undefined?null:[r%N,(r/N)|0];}for(const d of DIRV){const nx=x+d[0],ny=y+d[1];if(inMap(nx,ny)&&T(idx(nx,ny)).road)return[nx,ny];}return null;}
+function nearRoad(x,y){const b=inMap(x,y)?T(idx(x,y)).bld:null;if(b&&!b.ref&&(HIGHSTREET005[b.k]||RESIDENTIAL006[b.k]||PUBLICLIFE007[b.k]||STREETLIFE009[b.k]||MUSEUM010[b.k]||RIVERSIDE012[b.k])){const r=sanRoadSeeds445(idx(x,y)).find(j=>!roadIncidentClosed493(j));return r===undefined?null:[r%N,(r/N)|0];}if(b&&!b.ref&&BRITISH004[b.k]){const r=sanRoadSeeds445(idx(x,y))[0];return r===undefined?null:[r%N,(r/N)|0];}for(const d of DIRV){const nx=x+d[0],ny=y+d[1];if(inMap(nx,ny)&&T(idx(nx,ny)).road)return[nx,ny];}return null;}
 function citizenPath(hx,hy,wx,wy){ // 沿路 BFS，回傳 [[hx,hy],路格...,[wx,wy]]（首尾為建築本身，中間沿路）或 null
   const s=nearRoad(hx,hy),e=nearRoad(wx,wy);if(!s||!e)return null;
   const si=idx(s[0],s[1]),ei=idx(e[0],e[1]);
@@ -78831,7 +79711,7 @@ function draw(dt){
     for(const q of add696)objs.push(q);window.__ring696N=add696.length;
   }else window.__ring696N=0;
   if(!window.__noTowerBridge693)tb693Push(objs,sxOf,syOf,vis); /* T693 */
-  stationObjects008(objs,sxOf,syOf,vis,lodFar);streetLifeObjects009(objs,sxOf,syOf,vis,lodFar);museumObjects010(objs,sxOf,syOf,vis,lodFar);
+  stationObjects008(objs,sxOf,syOf,vis,lodFar);streetLifeObjects009(objs,sxOf,syOf,vis,lodFar);museumObjects010(objs,sxOf,syOf,vis,lodFar);riversideObjects012(objs,sxOf,syOf,vis,lodFar);
   objs.sort((a,b2)=>a.dep-b2.dep);
   const nightSprites=[];
   if(!window.__noConstr701&&!window.__noConstr700&&window.__x13BesGen)window.__x13BesGen(); // T701：本卡開著時，T700 的 B2 收尾與細節名額跳過本卡擁有的地標
@@ -79152,6 +80032,7 @@ function draw(dt){
       continue;
     }
     if(o.museumModule010){museumModuleDraw010(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
+    if(o.riversideModule012){riversideModuleDraw012(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
     if(o.streetLifeModule009){streetLifeModuleDraw009(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
     if(o.stationModule008){stationModuleDraw008(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
     if(o.busStop&&SPR.busStop){
@@ -80904,7 +81785,7 @@ let inspectorTab461='overview' ,inspectorKey461=-1;
 function insStrip461(s){return String(s||'').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();}
 function insRows461(html){const out=[];for(const m of String(html||'').matchAll(/<div class="row"[^>]*>([\s\S]*?)<\/div>/g)){const q=insStrip461(m[1]);if(q)out.push(q);}return out;}
 function insTitle461(html,b){const m=String(html||'').match(/<h3[^>]*>([\s\S]*?)<\/h3>/);return m?insStrip461(m[1]):(KNAME[b.k]||'建築');}
-function insMetrics461(x,y,b,html){if(MUSEUM010[b.k])return museumMetrics010(idx(x,y),b);if(STREETLIFE009[b.k]){const q=STREETLIFE009[b.k],root=idx(x,y),e=enterpriseRootInfo489(root),on=streetLifeOperational009(root,b);return [{k:'有效職位',v:(on?e?.activePositions||0:0)+' / '+q.jobs,u:'私營職位'},{k:'實際聘用',v:on?e?.employed||0:0,u:'原生企業人力'},{k:q.beds?'開放床位':'維護',v:q.beds?streetLifeBedsAt009(root,b)+' / '+q.beds:'$0',u:q.beds?'原生旅宿帳':'／日'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz}];}if(britishStation008(b))return stationDescription008(STATION_TOOLS008[stationAxis008(b)?'britishStationEW008':'britishStationNS008'])+' · 工期 '+Math.min(9,b.age)+'/9 · '+(stationReady008(idx(x,y),b)?'可營運':'施工中或缺少實際供給');if(PUBLICLIFE007[b.k])return publicLifeMetrics007(x,y,b);const r006=RESIDENTIAL006[b.k];if(r006){const root=idx(x,y),active=residentialOperational006(root,b);return [{k:'居民',v:residentPopulation488(root,b)+' / '+r006.capacity,u:(r006.band==='low'?'低密度':'中密度')+'容量'},{k:'有效職位',v:Math.round(active?enterpriseActualJobs489(root,b,'positions'):0)+' / '+r006.jobs,u:'名目商業職位'},{k:'維護',v:'$0',u:'／日'},{k:'等級',v:'固定 Lv.1',u:r006.sz+'×'+r006.sz+' · '+districtName(distIdx(x,y))}];}const q=HIGHSTREET005[b.k];if(q){const root=idx(x,y),on=highStreetOperational005(root,b),nom=q.jobs,active=on?(q.role==='commerce'?enterpriseActualJobs489(root,b,'positions'):publicActivePositions495(root,b)):0,budget=q.budget?(svcBudget[q.budget]||1):1,rad=q.coverage?Math.max(1,Math.round(COVR[q.coverage]*(SVC_BUDGET_CAT[q.coverage]?(svcBudget[SVC_BUDGET_CAT[q.coverage]]||1):1))):0;return [{k:'維護',v:'$'+(highStreetBuilt005(b)?q.upkeep*budget:0),u:'／日'+(q.budget?' · 預算 ×'+budget:'')},{k:'有效職位',v:Math.round(active)+' / '+nom,u:'名目職位'},{k:'覆蓋',v:rad?(on?rad:0):'—',u:rad?'格半徑（基建就緒）':'商業營運'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz+' · '+districtName(distIdx(x,y))}];}const tx=insStrip461(html),sz=Math.max(1,b.sz||MSZ[b.k]||1),lv=b.lv||1,um=UP_MAX[b.k]||0;let m=tx.match(/維護(?:費)?\s*\$([0-9.]+)/),e=tx.match(/就業\s*([0-9]+)/),r=tx.match(/(?:服務)?半徑\s*([0-9]+)/);return[{k:'維護',v:m?'$'+m[1]:'—',u:m?'／日':'未列示'},{k:'就業',v:e?e[1]:'—',u:e?'人':'未列示'},{k:'覆蓋',v:r?r[1]:'—',u:r?'格半徑':'未列示'},{k:'等級',v:'Lv.'+lv+(um?'/'+um:''),u:sz+'×'+sz+' · '+districtName(distIdx(x,y))}];}
+function insMetrics461(x,y,b,html){if(RIVERSIDE012[b.k]){const q=RIVERSIDE012[b.k],root=idx(x,y),e=enterpriseRootInfo489(root),on=riversideOperational012(root,b)&&e?.k===b.k;return [{k:'有效職位',v:(on?e.activePositions||0:0)+' / '+q.jobs,u:'私營職位'},{k:'實際聘用',v:on?e.employed||0:0,u:'原生企業人力'},{k:'維護',v:'$0',u:'／日'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz}];}if(MUSEUM010[b.k])return museumMetrics010(idx(x,y),b);if(STREETLIFE009[b.k]){const q=STREETLIFE009[b.k],root=idx(x,y),e=enterpriseRootInfo489(root),on=streetLifeOperational009(root,b);return [{k:'有效職位',v:(on?e?.activePositions||0:0)+' / '+q.jobs,u:'私營職位'},{k:'實際聘用',v:on?e?.employed||0:0,u:'原生企業人力'},{k:q.beds?'開放床位':'維護',v:q.beds?streetLifeBedsAt009(root,b)+' / '+q.beds:'$0',u:q.beds?'原生旅宿帳':'／日'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz}];}if(britishStation008(b))return stationDescription008(STATION_TOOLS008[stationAxis008(b)?'britishStationEW008':'britishStationNS008'])+' · 工期 '+Math.min(9,b.age)+'/9 · '+(stationReady008(idx(x,y),b)?'可營運':'施工中或缺少實際供給');if(PUBLICLIFE007[b.k])return publicLifeMetrics007(x,y,b);const r006=RESIDENTIAL006[b.k];if(r006){const root=idx(x,y),active=residentialOperational006(root,b);return [{k:'居民',v:residentPopulation488(root,b)+' / '+r006.capacity,u:(r006.band==='low'?'低密度':'中密度')+'容量'},{k:'有效職位',v:Math.round(active?enterpriseActualJobs489(root,b,'positions'):0)+' / '+r006.jobs,u:'名目商業職位'},{k:'維護',v:'$0',u:'／日'},{k:'等級',v:'固定 Lv.1',u:r006.sz+'×'+r006.sz+' · '+districtName(distIdx(x,y))}];}const q=HIGHSTREET005[b.k];if(q){const root=idx(x,y),on=highStreetOperational005(root,b),nom=q.jobs,active=on?(q.role==='commerce'?enterpriseActualJobs489(root,b,'positions'):publicActivePositions495(root,b)):0,budget=q.budget?(svcBudget[q.budget]||1):1,rad=q.coverage?Math.max(1,Math.round(COVR[q.coverage]*(SVC_BUDGET_CAT[q.coverage]?(svcBudget[SVC_BUDGET_CAT[q.coverage]]||1):1))):0;return [{k:'維護',v:'$'+(highStreetBuilt005(b)?q.upkeep*budget:0),u:'／日'+(q.budget?' · 預算 ×'+budget:'')},{k:'有效職位',v:Math.round(active)+' / '+nom,u:'名目職位'},{k:'覆蓋',v:rad?(on?rad:0):'—',u:rad?'格半徑（基建就緒）':'商業營運'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz+' · '+districtName(distIdx(x,y))}];}const tx=insStrip461(html),sz=Math.max(1,b.sz||MSZ[b.k]||1),lv=b.lv||1,um=UP_MAX[b.k]||0;let m=tx.match(/維護(?:費)?\s*\$([0-9.]+)/),e=tx.match(/就業\s*([0-9]+)/),r=tx.match(/(?:服務)?半徑\s*([0-9]+)/);return[{k:'維護',v:m?'$'+m[1]:'—',u:m?'／日':'未列示'},{k:'就業',v:e?e[1]:'—',u:e?'人':'未列示'},{k:'覆蓋',v:r?r[1]:'—',u:r?'格半徑':'未列示'},{k:'等級',v:'Lv.'+lv+(um?'/'+um:''),u:sz+'×'+sz+' · '+districtName(distIdx(x,y))}];}
 function insReasonSewer461(r){return({ok:'正常','no-pipe':'缺市政管線','dead-pipe':'孤立管網','pressure':'超出處理邊界','capacity':'容量飽和'})[r]||r||'—';}
 function insHealth461(x,y,b){
   const root=idx(x,y),client=b.k<=3||b.k===127||!!britishSpec004(b.k),srcP=isPowerSource450(b.k),sanRel=isSanFacility445(b.k)||isSanClient445(b.k),emType=emergencyStationType455(b.k);computePower();
@@ -81018,6 +81899,7 @@ function inspect(x,y){
     else if(b.k===124)html=`<h3>🏀 籃球場</h3><div class="row">短距離公園覆蓋，為附近居民增添休閒</div><div class="row">就業 1｜維護費 $1/天</div>`;
     else if(b.k===125)html=`<h3>🎾 網球場</h3><div class="row">短距離公園覆蓋，夜間保有球場照明</div><div class="row">就業 1｜維護費 $1.2/天</div>`;
     else if(b.k===126)html=`<h3>🛝 兒童遊樂場</h3><div class="row">短距離公園覆蓋，提供家庭日常休閒</div><div class="row">就業 1｜維護費 $0.8/天</div>`;
+    else if(RIVERSIDE012[b.k])html=riversideInspect012(idx(x,y),b);
     else if(MUSEUM010[b.k])html=museumInspect010(idx(x,y),b);
     else if(STREETLIFE009[b.k])html=streetLifeInspect009(idx(x,y),b);
     else if(PUBLICLIFE007[b.k])html=publicLifeInspect007(idx(x,y),b);
@@ -81665,6 +82547,7 @@ function mobileBuild434(){return mobileUi435();}
 function toolMeta434(id){return TOOLS.find(t=>t.id===id)||null;}
 function toolCatName434(id){const c=TOOL_CATS.find(c=>c.id===id);return c?c.nm:id;}
 function toolHint434(t){
+  if(t&&(RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id]))return riversideDescription012(RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id]);
   if(t&&(MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id]))return museumDescription010(MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id]);
   if(t&&(STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id]))return streetLifeDescription009(STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id]);
   if(t&&STATION_TOOLS008[t.id])return stationDescription008(STATION_TOOLS008[t.id]);
@@ -81710,9 +82593,10 @@ let catalogOpen458=false,catalogMode458='all',catalogCat458='all',catalogQuery45
 function loadCatalogFavs458(){try{const v=JSON.parse(localStorage.getItem(CATALOG_FAV_KEY458)||'[]');return new Set(Array.isArray(v)?v.filter(id=>!!toolMeta434(id)):[]);}catch(_e){return new Set();}}
 let catalogFavs458=loadCatalogFavs458();
 function saveCatalogFavs458(){try{localStorage.setItem(CATALOG_FAV_KEY458,JSON.stringify([...catalogFavs458]));}catch(_e){}}
-function toolUnlocked458(t){return !!t&& !((MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id])&&window.__noMuseum010)&& !((STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id])&&window.__noStreetLife009)&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
+function toolUnlocked458(t){return !!t&& !((RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id])&&window.__noRiverside012)&& !((MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id])&&window.__noMuseum010)&& !((STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id])&&window.__noStreetLife009)&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
 function toolCost458(t){if(!t||!t.pr)return 0;const m=String(t.pr).replace(/,/g,'').match(/\$\s*([0-9.]+)/);return m?+m[1]:0;}
 function toolSize458(id){
+  const rv012=RIVERSIDE_TOOL012[typeof id==='object'?id?.id:id];if(rv012)return rv012.sz;
   const m010=MUSEUM_TOOL010[typeof id==='object'?id?.id:id];if(m010)return m010.sz;
   const sl009=STREETLIFE_TOOL009[typeof id==='object'?id?.id:id];if(sl009)return sl009.sz;
   const hs=PUBLICLIFE_TOOL007[typeof id==='object'?id?.id:id]||HIGHSTREET_TOOL005[typeof id==='object'?id?.id:id]||RESIDENTIAL_TOOL006[typeof id==='object'?id?.id:id];if(hs)return hs.sz;
@@ -82024,6 +82908,7 @@ function resetMobility491(){ensureMobilityArrays491();for(const a of Object.valu
 function publicJobCapacity491(b){if(b&&MUSEUM010[b.k])return museumBuilt010(b)?MUSEUM010[b.k].jobs:0;if(b&&PUBLICLIFE007[b.k])return publicLifeBuilt007(b)?PUBLICLIFE007[b.k].jobs:0;if(b&&HIGHSTREET005[b.k])return highStreetBuilt005(b)&&!highStreetCommerce005(b.k)?HIGHSTREET005[b.k].jobs:0;if(b?.k===221&&!britishBuilt004(b))return 0;return b&&!b.ref?(PUBLIC_JOBS491[b.k]||0)*Math.max(1,b.lv||1):0;}
 function enterprisePositions491(root,b){const q=enterpriseRootInfo489(root);if(q&&q.k===b.k)return Math.max(0,q.activePositions||0);return ENTERPRISE_CORE_K489.has(b.k)?Math.max(0,enterpriseLegacyJobs489(root,b)):0;}
 function activityCapacity491(root,b){
+  if(b&&!b.ref&&riversideKind012(b.k)){const on=riversideOperational012(root,b),e=enterpriseRootInfo489(root),ent=on&&e?.k===b.k?Math.max(0,e.activePositions||0):0,staff=on&&e?.k===b.k?Math.max(0,e.employed||0):0;return{work:ent,enterpriseJobs:ent,publicJobs:0,shopping:staff*2.15,education:0,services:0,leisure:0,parking:0};}
   if(b&&!b.ref&&streetLifeKind009(b.k)){const on=streetLifeOperational009(root,b),e=enterpriseRootInfo489(root),ent=on&&e?.k===b.k?Math.max(0,e.activePositions||0):0,staff=on&&e?.k===b.k?Math.max(0,e.employed||0):0;return{work:ent,enterpriseJobs:ent,publicJobs:0,shopping:streetLifeRetail009(b.k)?staff*2.15:0,education:0,services:0,leisure:0,parking:0};}
   if(!b||b.ref)return null;if((MUSEUM010[b.k]&&!museumOperational010(root,b))||(PUBLICLIFE007[b.k]&&!publicLifeOperational007(root,b))||(RESIDENTIAL006[b.k]&&!residentialOperational006(root,b))||(HIGHSTREET005[b.k]&&!highStreetOperational005(root,b)))return {work:0,enterpriseJobs:0,publicJobs:0,shopping:0,education:0,services:0,leisure:0,parking:0};
   const av493=assetAvailability493(root,incidentSectorForRoot493(root,b)),ent=enterprisePositions491(root,b),pub=publicActivePositions495(root,b),grp=ENTERPRISE_CORE_K489.has(b.k)?enterpriseGroupOf489(b):'';
@@ -84696,6 +85581,7 @@ for(const q of Object.values(RESIDENTIAL006))MSZ[q.k]=q.sz;
 for(const q of Object.values(PUBLICLIFE007))MSZ[q.k]=q.sz;
 for(const q of Object.values(STREETLIFE009))MSZ[q.k]=q.sz;
 for(const q of Object.values(MUSEUM010))MSZ[q.k]=q.sz;
+for(const q of Object.values(RIVERSIDE012))MSZ[q.k]=q.sz;
 /* T390：帶病 tre 救援——舊格式在 tree=10 時寫 "10" 兩字元 ⇒ tre 長度>N²、載入全段錯位（ARCH §9 實測
    seed1 67 格 v10→1365 格錯位）。以 ter 錨定 DP 重組：非草地格（ter[i]!=='2'）樹恆 0＝高密度校準錨；
    草地格 '1'+'0' 可合併為 10；合併預算 E=len-N² 必須恰用完且過全部錨。多解取最左（優先不合併）＝決定性。
@@ -84804,6 +85690,7 @@ function load(slot){
         if(PUBLICLIFE007[k])Object.assign(tiles[i].bld,{lv:1,v:0,pw:false,wa:false});
         if(STREETLIFE009[k])Object.assign(tiles[i].bld,{lv:1,v:vv&3,pw:false,wa:false});
         if(MUSEUM010[k])Object.assign(tiles[i].bld,{lv:1,v:vv&3,pw:false,wa:false});
+        if(RIVERSIDE012[k])Object.assign(tiles[i].bld,{lv:1,v:vv&3,pw:false,wa:false});
         if(HIGHSTREET005[k]){tiles[i].bld.lv=1;tiles[i].bld.v=0;tiles[i].bld.wa=false;}
         if(BRITISH004[k]){tiles[i].bld.lv=1;tiles[i].bld.v=0;tiles[i].bld.wa=false;if(k===219){tiles[i].bld.we=1;tiles[i].bld.den=3;}}
         if(k===127){tiles[i].bld.lv=1;tiles[i].bld.we=SOCIAL_HOUSING_WE;} // T364c：社宅屬性由建築型別固定恢復，不擴充存檔格式
@@ -85263,7 +86150,7 @@ bindActiveButton502();
 
 const __inspect_501=inspect;inspect=function(x,y){const r=__inspect_501(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,q=AM_BY_CODE502[t?.am502|0];if(q&&$('#infoBody')){$('#infoBody').insertAdjacentHTML('beforeend',`<div class="opsBlock457a"><div class="opsHeader457a">T502 主動運輸設施</div><div class="row">${q.ic} ${q.nm}</div>${t.amx502?.station?`<div class="row">連接車站：${escHtml(t.amx502.station)}</div>`:''}${Array.isArray(t.amx502?.stations)?`<div class="row">轉乘：${t.amx502.stations.map(escHtml).join(' ↔ ')}</div>`:''}</div>`);}return r;};
 
-function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){if(stationTheme008(tiles[i])||(!window.__noStreetLifeArt009&&cam.z>=lodFarZ648()&&streetLifeTheme009(tiles[i]))||(!window.__noMuseumArt010&&cam.z>=lodFarZ648()&&museumTheme010(tiles[i])))continue;const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
+function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){if(stationTheme008(tiles[i])||(!window.__noStreetLifeArt009&&cam.z>=lodFarZ648()&&streetLifeTheme009(tiles[i]))||(!window.__noMuseumArt010&&cam.z>=lodFarZ648()&&museumTheme010(tiles[i]))||(!window.__noRiversideArt012&&cam.z>=lodFarZ648()&&riversideTheme012(tiles[i])))continue;const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
 function britishStation008(b){return !!(b&&!b.ref&&b.k===139&&(b.v===3||b.v===4));}
 function stationTheme008(t){const q=t?.amx502?.british008;return t?.am502&&['square','entrance','bus','taxi','cycleParking','cyclePath','transfer'].includes(q)?q:null;}
 function stationAxis008(b){return b.v===4?1:0;}
@@ -85355,6 +86242,18 @@ for(const q of Object.values(MUSEUM_PATH010)){COST[q.id]=COST.footpath502;TOOLS.
 CATALOG_SECTIONS458.find(q=>q[0]==='leisure')[2].push(...Object.keys(MUSEUM_TOOL010));CATALOG_SECTIONS458.find(q=>q[0]==='transit')[2].push(...Object.keys(MUSEUM_PATH010));
 const __museumKeywords010=catalogKeywords458;catalogKeywords458=function(t){const q=MUSEUM_TOOL010[t?.id]||MUSEUM_PATH010[t?.id];return q?(__museumKeywords010(t)+' '+q.en+' 英式 英國 地方 自然史 博物館 恐龍 化石 花園 鐵門 木椅').toLowerCase():__museumKeywords010(t);};
 const __museumInspect010=inspect;inspect=function(x,y){const out=__museumInspect010(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,theme=museumTheme010(t);if(theme&&$('#infoBody'))$('#infoBody').insertAdjacentHTML('beforeend','<div class="row">'+museumDescription010(Object.values(MUSEUM_PATH010).find(q=>q.theme===theme))+'</div>');return out;};
+
+/* GPT-012 LATE NATIVE HOOKS */
+const __riversidePathCan012=canPlace;canPlace=function(id,x,y){const q=RIVERSIDE_PATH012[id];if(!q)return __riversidePathCan012(id,x,y);if(window.__noRiverside012)return '英式河畔市場暫停新增';if(!toolUnlocked458(toolMeta434(id)))return '城市 Lv.'+q.rank+' 解鎖';return __riversidePathCan012('footpath502',x,y);};
+const __riversidePathCost012=placeCost;placeCost=function(id,x,y){return __riversidePathCost012(RIVERSIDE_PATH012[id]?'footpath502':id,x,y);};
+const __riversidePathPlace012=doPlace;doPlace=function(id,x,y,silent){const q=RIVERSIDE_PATH012[id];if(!q)return __riversidePathPlace012(id,x,y,silent);const err=canPlace(id,x,y);if(err){if(!silent){toast(err,'bad');sErr();}return false;}if(!__riversidePathPlace012('footpath502',x,y,true))return false;tiles[idx(x,y)].amx502={british012:q.theme,turn012:riversideShoreTurn012(x,y)};activeMobilityMarkDirty502();if(!silent)toast(q.ic+' '+q.nm+' 完工','gold');return true;};
+const __riversideVdraw012=vdraw574;vdraw574=function(o,b){return b&&riversideKind012(b.k)?((b.v+viewRotEff())&3):__riversideVdraw012(o,b);};
+const __riversideLoad012=load;load=function(...a){resetRiversideTax012();return __riversideLoad012(...a);};
+const __riversideNew012=newWorld;newWorld=function(...a){resetRiversideTax012();return __riversideNew012(...a);};
+for(const q of Object.values(RIVERSIDE_PATH012)){COST[q.id]=COST.footpath502;TOOLS.push({id:q.id,cat:'road',ic:q.ic,nm:q.nm,pr:'$'+COST[q.id],unlockRank:q.rank});MAYOR_MANUAL_ONLY470A.add(q.id);}
+CATALOG_SECTIONS458.find(q=>q[0]==='civic')[2].push(...Object.keys(RIVERSIDE_TOOL012));CATALOG_SECTIONS458.find(q=>q[0]==='transit')[2].push(...Object.keys(RIVERSIDE_PATH012));
+const __riversideKeywords012=catalogKeywords458;catalogKeywords458=function(t){const q=RIVERSIDE_TOOL012[t?.id]||RIVERSIDE_PATH012[t?.id];return q?(__riversideKeywords012(t)+' '+q.en+' 英式 英國 河畔 河岸 拱廊 市場 花卉 蔬果 石岸 鐵欄 步道').toLowerCase():__riversideKeywords012(t);};
+const __riversideInspect012=inspect;inspect=function(x,y){const out=__riversideInspect012(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,theme=riversideTheme012(t);if(theme&&$('#infoBody'))$('#infoBody').insertAdjacentHTML('beforeend','<div class="row">'+riversideDescription012(Object.values(RIVERSIDE_PATH012).find(q=>q.theme===theme))+'</div>');return out;};
 
 const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath675=String(draw).indexOf('waterVar675(waterF')>=0&&String(draw).indexOf('__noWaterVar675?')>=0,drawPath667=String(draw).indexOf('nightWaterApply667(ctx,nightDepth)')>=0&&String(draw).indexOf('mg.fill(nwPath667)')>=0,drawPath666=String(draw).indexOf('gc.clip(wgPath666);gc.drawImage(wg666,0,0)')>=0&&String(draw).indexOf("__noWaterGrad666?'_wg0'")>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
@@ -86436,7 +87335,7 @@ function balancePrepareAuthorities510(){
   const blocks=typeof mobilityBlocks491==='function'?mobilityBlocks491():[],popNow=blocks.reduce((a,q)=>a+(+q.pop||0),0);
   if(Number.isFinite(popNow))pop=Math.round(popNow);
   let nominal=0,rcC=0,rcI=0;
-  for(const root of tickBld||[]){const b=tiles[root]?.bld;if(!b||b.ref)continue;const ent=typeof enterpriseLegacyJobs489==='function'?Math.max(0,enterpriseLegacyJobs489(root,b)||0):0,pub=typeof publicJobCapacity491==='function'?Math.max(0,publicJobCapacity491(b)||0):0;nominal+=ent+pub;if(b.k===2||b.k===220||highStreetCommerce005(b.k)||residentialCommerce006(b.k)||streetLifeKind009(b.k))rcC+=ent;if(b.k===3)rcI+=ent;}
+  for(const root of tickBld||[]){const b=tiles[root]?.bld;if(!b||b.ref)continue;const ent=typeof enterpriseLegacyJobs489==='function'?Math.max(0,enterpriseLegacyJobs489(root,b)||0):0,pub=typeof publicJobCapacity491==='function'?Math.max(0,publicJobCapacity491(b)||0):0;nominal+=ent+pub;if(b.k===2||b.k===220||highStreetCommerce005(b.k)||residentialCommerce006(b.k)||streetLifeKind009(b.k)||riversideKind012(b.k))rcC+=ent;if(b.k===3)rcI+=ent;}
   /* A loaded world can carry a stale `ready:true` T489 shell before its roots are
      rebuilt.  Rebuild whenever real enterprise-capable buildings exist but the
      authority map is empty; a genuinely firm-free city remains a valid zero. */
@@ -87660,6 +88559,7 @@ function britishGameplayProbe004(groupFilter){
 
 window.GV={
   museumSelftest010,museumSpecs010,museumAt010,museumEvidence010,
+  riversideSelftest012,riversideSpecs012,riversideAt012,riversideEvidence012,
   streetLifeSelftest009,streetLifeSpecs009,streetLifeAt009,streetLifeEvidence009,
   stationSelftest008,stationDistrictAt008,stationEvidence008,
   publicLifeSelftest007,publicLifeGameplayProbe007,publicLifeAt007,

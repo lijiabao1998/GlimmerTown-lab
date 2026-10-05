@@ -1,0 +1,205 @@
+{
+  "nativeCheckedSHA": "2b0a28621741952369bd6e49a7ab21b716fbb94d",
+  "nativeSourceSHA256": "8466b7eeaa0dccda8b12e0f53af746991d85baa5de80aedf2f1700112ae10f89",
+  "nativeRun": 37309010297,
+  "nativeSmokeRun": 37309010329,
+  "nativeArtifact": 11345465979,
+  "nativeArchiveSHA256": "3cf46bf559d536b9f1c0520948c7c4cc692ad629ef4c7e3dd9aaac91b011e2d7",
+  "nativeFingerprintSHA256": "eac45b9f2a6f63b34d918ffae393ac358c9672a795996f11eb6769e0761402a0",
+  "nativeManifestSHA256": "0214f7d1dd208ef1cce4107112473dd85224a1840771e6278eb79d7451745728",
+  "nativeFullSubsSHA256": "d1a9880a46d199e607b0381a88ace29a68d19d0752b7b229dbd6fc98b9882249",
+  "nativeFullFamiliesSHA256": "5bfd4130e951011ab660eb0790896e5cd5fb76d0374a6ffa27350db953e1c1da",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 158,
+    "leaves": 2919,
+    "dayNonEmpty": 2909,
+    "nightNonEmpty": 1571
+  },
+  "families": {
+    "bld": {
+      "leaves": 907,
+      "crc": "e053bec6",
+      "px": 30931072,
+      "op": 7530860,
+      "night": 882
+    },
+    "riverside012": {
+      "leaves": 12,
+      "crc": "16896053",
+      "px": 79488,
+      "op": 13453,
+      "night": 12
+    }
+  },
+  "subs": {
+    "bld.278_1_0": {
+      "d": "f96dbb54",
+      "op": 12865,
+      "w": 200,
+      "h": 164,
+      "n": "373d7d32"
+    },
+    "bld.278_1_1": {
+      "d": "1b8f54c7",
+      "op": 10666,
+      "w": 200,
+      "h": 164,
+      "n": "bf5b62de"
+    },
+    "bld.278_1_2": {
+      "d": "6d1829ba",
+      "op": 10667,
+      "w": 200,
+      "h": 164,
+      "n": "9e398417"
+    },
+    "bld.278_1_3": {
+      "d": "e5294aa4",
+      "op": 12865,
+      "w": 200,
+      "h": 164,
+      "n": "a50ca5f5"
+    },
+    "bld.279_1_0": {
+      "d": "9fcff8e1",
+      "op": 1472,
+      "w": 72,
+      "h": 88,
+      "n": "f684f726"
+    },
+    "bld.279_1_1": {
+      "d": "63a08b67",
+      "op": 1477,
+      "w": 72,
+      "h": 88,
+      "n": "3bfc68e6"
+    },
+    "bld.279_1_2": {
+      "d": "6462e893",
+      "op": 1458,
+      "w": 72,
+      "h": 88,
+      "n": "7ed70e3e"
+    },
+    "bld.279_1_3": {
+      "d": "3115dc4e",
+      "op": 1489,
+      "w": 72,
+      "h": 88,
+      "n": "4e35fa98"
+    },
+    "bld.280_1_0": {
+      "d": "2e580480",
+      "op": 1454,
+      "w": 72,
+      "h": 88,
+      "n": "36690a0e"
+    },
+    "bld.280_1_1": {
+      "d": "70819c22",
+      "op": 1463,
+      "w": 72,
+      "h": 88,
+      "n": "5f2d29f1"
+    },
+    "bld.280_1_2": {
+      "d": "5155f013",
+      "op": 1443,
+      "w": 72,
+      "h": 88,
+      "n": "a79d5080"
+    },
+    "bld.280_1_3": {
+      "d": "cebb9045",
+      "op": 1475,
+      "w": 72,
+      "h": 88,
+      "n": "61c6a252"
+    },
+    "riverside012.quay_0": {
+      "d": "abc8d270",
+      "op": 1084,
+      "w": 72,
+      "h": 92,
+      "n": "1d5bfe07"
+    },
+    "riverside012.rail_0": {
+      "d": "f5c1aa5a",
+      "op": 1064,
+      "w": 72,
+      "h": 92,
+      "n": "38f576dc"
+    },
+    "riverside012.promenade_0": {
+      "d": "8e379ef1",
+      "op": 1095,
+      "w": 72,
+      "h": 92,
+      "n": "914e1f44"
+    },
+    "riverside012.quay_1": {
+      "d": "5326b546",
+      "op": 1091,
+      "w": 72,
+      "h": 92,
+      "n": "df1d8fae"
+    },
+    "riverside012.rail_1": {
+      "d": "fc6b8c6d",
+      "op": 1055,
+      "w": 72,
+      "h": 92,
+      "n": "a078f80f"
+    },
+    "riverside012.promenade_1": {
+      "d": "5b98f124",
+      "op": 1078,
+      "w": 72,
+      "h": 92,
+      "n": "137ed983"
+    },
+    "riverside012.quay_2": {
+      "d": "fd5c3158",
+      "op": 1195,
+      "w": 72,
+      "h": 92,
+      "n": "51be2355"
+    },
+    "riverside012.rail_2": {
+      "d": "6fcee364",
+      "op": 1178,
+      "w": 72,
+      "h": 92,
+      "n": "62fb98ab"
+    },
+    "riverside012.promenade_2": {
+      "d": "4ff04f36",
+      "op": 1118,
+      "w": 72,
+      "h": 92,
+      "n": "6998c070"
+    },
+    "riverside012.quay_3": {
+      "d": "4125ec0b",
+      "op": 1195,
+      "w": 72,
+      "h": 92,
+      "n": "26111163"
+    },
+    "riverside012.rail_3": {
+      "d": "e519ec6c",
+      "op": 1182,
+      "w": 72,
+      "h": 92,
+      "n": "4fb8c761"
+    },
+    "riverside012.promenade_3": {
+      "d": "b4233dfe",
+      "op": 1118,
+      "w": 72,
+      "h": 92,
+      "n": "b7f6d765"
+    }
+  }
+}

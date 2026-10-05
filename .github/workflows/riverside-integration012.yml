@@ -1,0 +1,279 @@
+name: riverside-integration012
+on:
+  push:
+    branches: ['gpt/british-riverside-market-012']
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Run full riverside and unchanged historical native matrix
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: riverside-integration012-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts and immutable baseline history
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          for sha in 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+      - name: Exact-source checks and native evidence
+        run: |
+          set -o pipefail
+          node --check british-riverside-art012.js
+          node --check gameplay012.js
+          for f in riverside-*012.js; do node --check "$f"; done
+          node riverside-static-contract012.js
+          node riverside-regression-adapter012.js --static-test
+          node riverside-style-adapter012.js --static-test
+          RL012_MODE=preflight node riverside-integration-qa012.js 2>&1 | tee riverside-preflight.txt
+      - name: All tracked product and historical sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-preflight-${{ github.sha }}
+          path: |
+            riverside-evidence/preflight/
+            riverside-preflight.txt
+          if-no-files-found: error
+          retention-days: 14
+  riverside:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, construction0, construction1, construction2, construction3, weather, coldload]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts and immutable baseline history
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          for sha in 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+      - uses: actions/download-artifact@v4
+        with:
+          name: riverside-preflight-${{ github.sha }}
+          path: .riverside-preflight-download
+      - name: Exact-head independently produced fingerprint
+        run: |
+          mkdir -p riverside-evidence/preflight/guards
+          source=$(find .riverside-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" riverside-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact-source checks and native evidence
+        run: |
+          set -o pipefail
+          RL012_MODE=${{ matrix.mode }} node riverside-integration-qa012.js 2>&1 | tee riverside-${{ matrix.mode }}.txt
+      - name: All tracked product and historical sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-${{ matrix.mode }}-${{ github.sha }}
+          path: |
+            riverside-evidence/${{ matrix.mode }}/
+            riverside-${{ matrix.mode }}.txt
+          if-no-files-found: error
+          retention-days: 14
+  compatibility:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts and immutable baseline history
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          for sha in 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+      - uses: actions/download-artifact@v4
+        with:
+          name: riverside-preflight-${{ github.sha }}
+          path: .riverside-preflight-download
+      - name: Exact-head independently produced fingerprint
+        run: |
+          mkdir -p riverside-evidence/preflight/guards
+          source=$(find .riverside-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" riverside-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact-source checks and native evidence
+        run: |
+          set -o pipefail
+          mkdir -p riverside-evidence/compatibility/logs
+          for n in 1 2 3; do node smoke.js 2>&1 | tee riverside-evidence/compatibility/logs/smoke-$n.txt; done
+          node riverside-style-adapter012.test.js riverside-evidence/preflight/guards/fingerprint-native.json 2>&1 | tee riverside-evidence/compatibility/logs/style-source-data.txt
+          node riverside-style-adapter012.js 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
+          RL012_MODE=fingerprint node riverside-integration-qa012.js 2>&1 | tee riverside-evidence/compatibility/logs/strict24.txt
+          RL012_SUITE=compatibility node riverside-regression-adapter012.js 2>&1 | tee riverside-evidence/compatibility/logs/old-worlds.txt
+      - name: All tracked product and historical sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-compatibility-${{ github.sha }}
+          path: |
+            riverside-evidence/compatibility/
+            riverside-evidence/fingerprint/
+            museum-evidence/compatibility/
+          if-no-files-found: error
+          retention-days: 14
+  museum:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [preflight, gameplay, camera0, camera1, camera2, camera3, construction0, construction1, construction2, construction3, weather]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts and immutable baseline history
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          for sha in 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+      - uses: actions/download-artifact@v4
+        with:
+          name: riverside-preflight-${{ github.sha }}
+          path: .riverside-preflight-download
+      - name: Exact-head independently produced fingerprint
+        run: |
+          mkdir -p riverside-evidence/preflight/guards
+          source=$(find .riverside-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" riverside-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact-source checks and native evidence
+        run: |
+          set -o pipefail
+          RL012_SUITE=museum RL012_MODE=${{ matrix.mode }} node riverside-regression-adapter012.js 2>&1 | tee riverside-museum-${{ matrix.mode }}.txt
+      - name: All tracked product and historical sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-museum-${{ matrix.mode }}-${{ github.sha }}
+          path: |
+            riverside-evidence/historical/
+            museum-evidence/${{ matrix.mode }}/
+            riverside-museum-${{ matrix.mode }}.txt
+          if-no-files-found: error
+          retention-days: 14
+  prior:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [publiclife, station, streetlife]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts and immutable baseline history
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          for sha in 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+      - uses: actions/download-artifact@v4
+        with:
+          name: riverside-preflight-${{ github.sha }}
+          path: .riverside-preflight-download
+      - name: Exact-head independently produced fingerprint
+        run: |
+          mkdir -p riverside-evidence/preflight/guards
+          source=$(find .riverside-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" riverside-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact-source checks and native evidence
+        run: |
+          set -o pipefail
+          RL012_SUITE=${{ matrix.suite }} node riverside-regression-adapter012.js 2>&1 | tee riverside-prior-${{ matrix.suite }}.txt
+      - name: All tracked product and historical sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-prior-${{ matrix.suite }}-${{ github.sha }}
+          path: |
+            riverside-evidence/historical/
+            museum-evidence/prior-${{ matrix.suite }}/
+            publiclife-evidence/gameplay/
+            station-evidence/gameplay/
+            streetlife-evidence/gameplay/
+            riverside-prior-${{ matrix.suite }}.txt
+          if-no-files-found: error
+          retention-days: 14
+  cold-reload:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        case: [without-museum, with-museum, zero-source, disconnected, escape-disabled]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts and immutable baseline history
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          for sha in 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+      - uses: actions/download-artifact@v4
+        with:
+          name: riverside-preflight-${{ github.sha }}
+          path: .riverside-preflight-download
+      - name: Exact-head independently produced fingerprint
+        run: |
+          mkdir -p riverside-evidence/preflight/guards
+          source=$(find .riverside-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" riverside-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact-source checks and native evidence
+        run: |
+          set -o pipefail
+          RL012_SUITE=coldload COLD011_CASE=${{ matrix.case }} node riverside-regression-adapter012.js 2>&1 | tee riverside-cold-${{ matrix.case }}.txt
+      - name: All tracked product and historical sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-cold-${{ matrix.case }}-${{ github.sha }}
+          path: |
+            riverside-evidence/historical/
+            coldload-evidence011/
+            riverside-cold-${{ matrix.case }}.txt
+          if-no-files-found: error
+          retention-days: 14
