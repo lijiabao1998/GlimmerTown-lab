@@ -27,7 +27,7 @@ rep('function buildTickIndex(){\n  tickBld.length=0;','function buildTickIndex()
 rep('    if(t.bld)tickBld.push(i);','    if(t.bld){tickBld.push(i);if(britishStation008(t.bld))stationRoots008.add(i);}')
 # Native age and T418 steel acceleration remain authoritative; completion rails
 # refresh before the following service read. No day or utility flag is assigned.
-rep('  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();','  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();stationDaily008();')
+rep('  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();','  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();stationUtilities008();stationDaily008();')
 # A late native age change must also invalidate the route before the next read.
 rep('  // T124：每 30 天重判存量住宅財富級','  stationDaily008(); // GPT-008: exact native completion boundary, including T418 steel\n  // T124：每 30 天重判存量住宅財富級')
 rep('  objs.sort((a,b2)=>a.dep-b2.dep);','  stationObjects008(objs,sxOf,syOf,vis,lodFar);\n  objs.sort((a,b2)=>a.dep-b2.dep);')
