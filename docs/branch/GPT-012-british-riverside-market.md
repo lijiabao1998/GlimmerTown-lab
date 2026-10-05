@@ -37,3 +37,8 @@ New bounded balance: arcade$3200/rank6/18 nominal private jobs/3.5 power/3.5 wat
 
 
 Placement detail: all three decorative path themes store their orientation at native paid placement, facing the nearest cardinal water within four cells (distance first; tie south/west/north/east; no nearby water defaults east). Authored edge0 is east; turns1/2/3 are south/west/north. This metadata survives ordinary save/load, while later terrain/camera changes never silently mutate it. It is a visual alignment only, with no shoreline/port/navigation effects.
+
+## Native R1 findings and bounded R2 correction
+Candidate b24c80331d6bd50e6846e1f067a756d7efcbe5ef passed native smoke37306499142 and the complete2895-old+24-new leaf/family/block guard in preflight37306499175. All48 exported day/night PNG hashes and dimensions were checked against exact-head/source manifest and archive SHA2563bf836d5cc873f0a0d8910eedaa59f10df954492a6e73a8c80080837bcd57522. The initial preflight failed: all eight standalone-stall night masks had zero emitting pixels, while market/path lights were correctly contained. No gameplay fixture ran after that early failure; full downstream matrix was skipped, not passed.
+
+R2 moves the existing tiny under-canopy lamp to an actual four-sided glass lantern above the canopy on the stall's corner-post bracket, preserving physical shared-depth occlusion. No old artwork or lighting thresholds change. The new QA runner now accumulates independent failed checks (as historical suites do) and always exits1 if any failed; source/native exceptions still stop immediately. All original assertions remain, so this collects more diagnostics without accepting failures. R2 runtime, visual review and remaining32-job matrix are pending.

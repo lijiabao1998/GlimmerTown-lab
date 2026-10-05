@@ -597,12 +597,17 @@
       S.beam([xx,yy,z-2.1],[xx+(xx<(x0+x1)/2?.9:-.9),yy,z-.1],P.woodR,.18);
       cylinder(S,xx,yy,.1,.65,.27,.24,P.iron,P.ironD,P.ironHi,6);
     }
-    // One small shaded task lantern hangs off the front eave; neither canvas nor
-    // flowers/fruit emit. Its solid rim occludes the bulb in the rear views.
-    const lx=x1-1.45,ly=y1+.28;
-    S.beam([lx,ly,z],[lx,ly,z-2.2],P.ironD,.15);
-    cylinder(S,lx,ly,z-2.8,z-2.15,.28,.15,LAMP,LAMP,P.ironD,7);
-    cylinder(S,lx,ly,z-2.18,z-1.65,.62,.20,P.green,P.greenD,P.greenHi,8);
+    // A proper glazed task lantern is clamped to the front corner standard.
+    // Its panes sit above the highest canvas ridge (z+rise), rather than hiding
+    // a subpixel bulb beneath an opaque canopy. The same four-sided physical
+    // lantern used by the riverside lamps remains legible in every real view;
+    // the shared depth buffer still resolves its iron frame and shade normally.
+    const lx=x1-.5,ly=y1+.25,lampZ=z+rise+.55;
+    S.beam([lx,y1-.5,z-2.2],[lx,y1-.5,lampZ+.15],P.ironD,.25);
+    S.beam([lx,y1-.5,lampZ+.15],[lx,ly,lampZ+.15],P.iron,.26);
+    S.beam([lx,y1-.5,lampZ-1.1],[lx,ly,lampZ+.15],P.iron,.19);
+    for(const zz of[z-1.9,z-.25])S.box(lx-.27,lx+.27,y1-.76,y1-.24,zz,zz+.25,P.ironHi,P.ironD,P.ironHi);
+    lantern(S,lx,ly,lampZ,false);
   }
   function hangingBoard(S,x0,x1,y,z,text,florist) {
     for(const x of[x0+.45,x1-.45])S.beam([x,y,z+4.3],[x,y,z+3.2],P.iron,.14);
@@ -801,5 +806,5 @@
     }
     return {buildings,modules};
   }
-  root.BritishRiversideArchitecture012=Object.freeze({version:'GPT-012-art-r1',original:true,simulationRandomCalls:0,buildAll});
+  root.BritishRiversideArchitecture012=Object.freeze({version:'GPT-012-art-r2',original:true,simulationRandomCalls:0,buildAll});
 })(typeof window==='undefined'?globalThis:window);

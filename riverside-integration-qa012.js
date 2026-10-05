@@ -33,7 +33,9 @@ function check(name, ok, detail) {
  report.checks.push({ name, ok: !!ok, detail });
  if (!ok) report.failures.push(name);
  save();
- if (!ok) throw Error(name);
+ // Keep independent diagnostics running like the historical suites; every
+ // recorded failure still makes the final manifest and process fail. Native
+ // execution exceptions and source-contract failures remain immediate stops.
 }
 function progress(phase, detail = {}) {
  const row = { at: new Date().toISOString(), phase, ...detail };
@@ -589,6 +591,7 @@ function cardinalPathProbes012() {
     report.reloads = [];
     const sentinelKeys = ['glimmerville.v1.s1', 'glimmerville.v1.s1_bak', 'glimmerville.v1.s2', 'glimmerville.v1.s2_bak'];
     for (let iteration = 1; iteration <= 2; iteration++) {
+     const failuresBeforeReload = report.failures.length;
      // Save the current live state immediately before navigation. Never swap a
      // stale fixture save under visibilitychange/autosave, and never patch it.
      const saved = await ev("(()=>{GV.setSpeed(0);GV.ai(false);GV.save();return{raw:localStorage.getItem('glimmerville.v1.s3'),snapshot:window.__riversideFns012.snapshot012()};})()", 'cold reload' + iteration + ' current native save');
@@ -630,7 +633,7 @@ function cardinalPathProbes012() {
      const afterSentinels = await ev('Object.fromEntries(' + JSON.stringify(sentinelKeys) + '.map(k=>[k,localStorage.getItem(k)]))', 'verify other-slot sentinels');
      row.otherSlotsUnchanged = eq(afterSentinels, sentinels);
      check('reload' + iteration + ': other save slots and backups remain byte-identical', row.otherSlotsUnchanged);
-     row.ok = row.followingDays.length === 3 && row.otherSlotsUnchanged; save();
+     row.ok = row.followingDays.length === 3 && row.otherSlotsUnchanged && report.failures.length === failuresBeforeReload; save();
     }
     check('two real cold page reload/Continue cycles each pass three unaided ordinary days', report.reloads.length === 2 && report.reloads.every(r => r.ok), report.reloads.map(r => ({ iteration: r.iteration, inputSHA256: r.inputSHA256, inputDay: r.inputDay, days: r.followingDays.map(d => d.snapshot.day), otherSlotsUnchanged: r.otherSlotsUnchanged })));
    }
@@ -646,6 +649,7 @@ function cardinalPathProbes012() {
    return a.checkedSHA === head && a.sourceSHA256 === report.sourceSHA256 && a.bytes === b.length && a.sha256 === hash(b) && a.width === b.readUInt32BE(16) && a.height === b.readUInt32BE(20);
   }), report.artifacts.map(a => ({ path: a.path, width: a.width, height: a.height, sha256: a.sha256 })));
   report.ok = report.failures.length === 0;
+  process.exitCode = report.ok ? 0 : 1;
  } catch (error) {
   report.error = String(error.stack || error); report.ok = false; console.error(report.error); process.exitCode = 1;
  } finally {
