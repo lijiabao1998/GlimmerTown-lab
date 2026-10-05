@@ -55,9 +55,11 @@ function runRiversideWorld013(setup,seedFn,version,anchor){
   return{fixture:{seed:900721,N:q.N,paid:q.paid,terrain:q.terrain,roots:q.roots,paths:q.paths,pathPlacements:q.pathPlacements,waterCells:q.waterCells,shoreline:q.shoreline,homes:q.homes,retained:q.retained,priorStreet:q.priorStreet,priorMuseum:q.priorMuseum,stations:q.stations,oldMuseums:q.oldMuseums,placementDay:q.placementDay},checkpoints,nativeSave:raw,nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true};
  }finally{Math.random=random;}
 }
-// The native serializer has exactly one top-level gameVer:GAME_VER field.
+// The immutable native serializer writes GAME_VER at exactly root.gameVer
+// and root.region.ver. No recursive label stripping or reserialization is allowed.
 // Preserve all other raw save bytes, including key order, values and whitespace.
 const SAVE_PATH013='seed900725.nativeSave.gameVer';
+const REGION_SAVE_PATH013='seed900725.nativeSave.region.ver';
 function normalizeCompatibility013(runs,product){
  const candidate=product?.release===false&&product.phase==='candidate'&&product.version==='14.29'&&product.anchor==='T725',release=product?.release===true&&product.phase==='release'&&product.version==='14.30'&&product.anchor==='T726';
  if(!product?.ok||!product.htmlExact||!product.protectedExact||!product.fpExact||!product.logExact||!product.coldLoadFixExact||!(candidate||release))throw Error('Exact verified T725 candidate or image-approved T726 release required');
@@ -72,16 +74,18 @@ function normalizeCompatibility013(runs,product){
   }
   const river=rows.find(q=>q.seed===900725),save=JSON.parse(river.nativeSave||'null');
   if(!river.nativeSaveMetadataExact||!river.nativeLoadIdentitiesExact||!river.otherSlotsUnchanged||!save||save.v!==1||save.n!==river.fixture?.N||save.gameVer!==version||save.df!==1||save.day!==river.checkpoints[4].stats.day)throw Error('Native riverside full save and metadata evidence missing');
-  const marker='"gameVer":'+JSON.stringify(version);
+  const marker='"gameVer":'+JSON.stringify(version),regionMarker='"region":'+JSON.stringify(save.region),regionVersion='"ver":'+JSON.stringify(version);
   if((river.nativeSave.match(/"gameVer"\s*:/g)||[]).length!==1||river.nativeSave.split(marker).length!==2)throw Error('Exactly one known native top-level gameVer serialization required');
+  if(!save.region||save.region.ver!==version||!eq(Object.keys(save.region).sort(),['airports','food','ports','powerCap','stations','tourists','ver'])||(river.nativeSave.match(/"region"\s*:/g)||[]).length!==1||(river.nativeSave.match(/"ver"\s*:/g)||[]).length!==1||river.nativeSave.split(regionMarker).length!==2||regionMarker.split(regionVersion).length!==2)throw Error('Exactly the immutable native root.region.ver serialization required');
   if(label==='candidate'&&release){
-   const normalized=river.nativeSave.replace(marker,'"gameVer":"14.29"'),parsed=JSON.parse(normalized),expected={...save,gameVer:'14.29'};
-   if(!eq(parsed,expected)||normalized.replace('"gameVer":"14.29"',marker)!==river.nativeSave)throw Error('Only the exact native gameVer byte span may normalize');
-   changes.push({path:SAVE_PATH013,from:version,to:'14.29'});river.nativeSave=normalized;
+   const normalizedRegion=regionMarker.replace(regionVersion,'"ver":"14.29"');
+   const normalized=river.nativeSave.replace(marker,'"gameVer":"14.29"').replace(regionMarker,normalizedRegion),parsed=JSON.parse(normalized),expected={...save,gameVer:'14.29',region:{...save.region,ver:'14.29'}};
+   if(!eq(parsed,expected)||normalized.replace('"gameVer":"14.29"',marker).replace(normalizedRegion,regionMarker)!==river.nativeSave)throw Error('Only the exact native root.gameVer and root.region.ver byte spans may normalize');
+   changes.push({path:SAVE_PATH013,from:version,to:'14.29'},{path:REGION_SAVE_PATH013,from:version,to:'14.29'});river.nativeSave=normalized;
   }
  }
- if(JSON.stringify(runs)!==raw||changes.length!==(release?43:0))throw Error('Only42 known enterprise labels and one raw save label may normalize; raw observations stay unchanged');
- return{reference,comparison,metadataNormalization:{applied:release,paths:release?[...METADATA_PATHS013,SAVE_PATH013]:[],validatedPaths:[...METADATA_PATHS013,SAVE_PATH013],from:{version:product.version,anchor:product.anchor},to:{version:'14.29',anchor:'T725'},rawObservationsPreserved:true,sameLabelExact:candidate,normalizedFields:changes.length,changes}};
+ if(JSON.stringify(runs)!==raw||changes.length!==(release?44:0))throw Error('Only42 known enterprise labels and two exact raw save labels may normalize; raw observations stay unchanged');
+ return{reference,comparison,metadataNormalization:{applied:release,paths:release?[...METADATA_PATHS013,SAVE_PATH013,REGION_SAVE_PATH013]:[],validatedPaths:[...METADATA_PATHS013,SAVE_PATH013,REGION_SAVE_PATH013],from:{version:product.version,anchor:product.anchor},to:{version:'14.29',anchor:'T725'},rawObservationsPreserved:true,sameLabelExact:candidate,normalizedFields:changes.length,changes}};
 }
 function runtimeSourceAudit013(){
  const approved=require('./theatre-release-contract013'),source=require('child_process').execFileSync('git',['show',approved.APPROVED_SHA+':theatre-compatibility013.js'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024});
@@ -91,18 +95,19 @@ function runtimeSourceAudit013(){
  const signature="function runRiversideWorld013(setup,seedFn,version,anchor){\n if(!((version==='14.29'&&anchor==='T725')||(version==='14.30'&&anchor==='T726')))throw Error('Exact verified candidate or approved release labels required');";
  if(original.split("saved.gameVer!=='14.29'").length!==2||original.replace(start,signature).replace("saved.gameVer!=='14.29'","saved.gameVer!==version")!==runRiversideWorld013.toString())throw Error('Seventh-world runtime may change only explicit verified label gates');
  const serializer='const data={v:1,n:N,gameVer:GAME_VER,seed,money:Math.round(money),day,msIdx,';
- if(fixed.baseFile('index.html').toString().split(serializer).length!==2)throw Error('Exact old native top-level gameVer serialization source required');
- return{approvedSHA:approved.APPROVED_SHA,originalRuntimeSHA256:fixed.hash(original),currentRuntimeSHA256:fixed.hash(runRiversideWorld013.toString()),allNonLabelRuntimeBytesExact:true,nativeSaveLabelSourceExact:true};
+ const oldHTML=fixed.baseFile('index.html').toString(),regionSource='region={stations:st,ports:po,airports:ai,powerCap:computePower(),food:foodPoints,tourists,ver:GAME_VER};',regionSave='rl,rb,dk,ow,tl,pm,bln,tr,of,fl,le,ab,pol,region,';
+ if([serializer,regionSource,regionSave].some(text=>oldHTML.split(text).length!==2))throw Error('Exact immutable native gameVer and region.ver serialization source required');
+ return{approvedSHA:approved.APPROVED_SHA,originalRuntimeSHA256:fixed.hash(original),currentRuntimeSHA256:fixed.hash(runRiversideWorld013.toString()),allNonLabelRuntimeBytesExact:true,nativeSaveLabelSourceExact:true,nativeSaveLabelPaths:['root.gameVer','root.region.ver'],regionSourceSHA256:fixed.hash(regionSource),regionSaveSHA256:fixed.hash(regionSave)};
 }
 function staticNormalizationTest013(){
  const runtimeSource=runtimeSourceAudit013();
  const product=release=>({ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release,phase:release?'release':'candidate',version:release?'14.30':'14.29',anchor:release?'T726':'T725'});
- const fixture=release=>['baseline','candidate'].map(label=>{const version=release&&label==='candidate'?'14.30':'14.29',anchor=release&&label==='candidate'?'T726':'T725';return{label,result:WORLD_SEEDS013.map((seed,worldIndex)=>({seed,fixture:{N:72,paid:100},...(seed===900725?{nativeSave:JSON.stringify({v:1,n:72,gameVer:version,df:1,day:4,allFields:{retained:true}}),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),checkpoints:Array.from({length:[6,6,6,6,7,7,7][worldIndex]},(_,index)=>({stats:{day:index,money:100-index},tilesSHA256:'complete-'+index,rngState:42+index,...(worldIndex>=4?{enterprise:{version,anchor,money:100-index,other:{unchanged:true}}}:{})}))}))};});
+ const fixture=release=>['baseline','candidate'].map(label=>{const version=release&&label==='candidate'?'14.30':'14.29',anchor=release&&label==='candidate'?'T726':'T725';return{label,result:WORLD_SEEDS013.map((seed,worldIndex)=>({seed,fixture:{N:72,paid:100},...(seed===900725?{nativeSave:JSON.stringify({v:1,n:72,gameVer:version,region:{stations:0,ports:0,airports:0,powerCap:1650,food:0,tourists:79,ver:version},df:1,day:4,allFields:{retained:true}}),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),checkpoints:Array.from({length:[6,6,6,6,7,7,7][worldIndex]},(_,index)=>({stats:{day:index,money:100-index},tilesSHA256:'complete-'+index,rngState:42+index,...(worldIndex>=4?{enterprise:{version,anchor,money:100-index,other:{unchanged:true}}}:{})}))}))};});
  let cases=0;const assert=(ok,message)=>{cases++;if(!ok)throw Error('Compatibility data self-test: '+message);};
  for(const release of[false,true]){
   const runs=fixture(release),raw=JSON.stringify(runs),q=normalizeCompatibility013(runs,product(release));
-  assert(eq(q.reference,q.comparison)&&JSON.stringify(runs)===raw&&q.metadataNormalization.normalizedFields===(release?43:0),'complete equality with only exact authorized label normalization');
-  assert(eq(q.metadataNormalization.paths,release?[...METADATA_PATHS013,SAVE_PATH013]:[]),'candidate normalization must remain completely empty');
+  assert(eq(q.reference,q.comparison)&&JSON.stringify(runs)===raw&&q.metadataNormalization.normalizedFields===(release?44:0),'complete equality with only exact authorized label normalization');
+  assert(eq(q.metadataNormalization.paths,release?[...METADATA_PATHS013,SAVE_PATH013,REGION_SAVE_PATH013]:[]),'candidate normalization must remain completely empty');
   assert(eq(runs[0].result.map(w=>w.checkpoints.length),[6,6,6,6,7,7,7]),'explicit immutable historical checkpoint counts, never numeric seed ranges');
   assert(runs[0].result.slice(0,4).every(w=>w.checkpoints.every(p=>!Object.hasOwn(p,'enterprise'))),'old showcase/British/station worlds retain original observation fields');
   const rejects=(change,message)=>{const rows=fixture(release),p=product(release);change(rows,p);let rejected=false;try{normalizeCompatibility013(rows,p);}catch{rejected=true;}assert(rejected,message);};
@@ -113,7 +118,17 @@ function staticNormalizationTest013(){
   rejects(r=>{r[1].result[6].nativeSave=JSON.stringify({v:1,n:72,gameVer:'14.28',df:1,day:4});},'unapproved native save metadata rejected');
   rejects(r=>{r[1].result[6].nativeSave=r[1].result[6].nativeSave.replace('"retained":true','"retained":true,"gameVer":"14.29"');},'undeclared nested save metadata cannot normalize');
   rejects(r=>{r[1].result[6].nativeSave=r[1].result[6].nativeSave.replace('"v":1','"gameVer":"14.29","v":1');},'duplicate native save metadata rejected');
+  for(const [name,mutate]of[
+   ['missing region',v=>{delete v.region;}],['missing region version',v=>{delete v.region.ver;}],
+   ['wrong region version',v=>{v.region.ver='14.31';}],['unexpected nested ver',v=>{v.allFields.ver='14.30';}],
+   ['unexpected region key',v=>{v.region.other=true;}]
+  ])rejects(r=>{const world=r[1].result[6],save=JSON.parse(world.nativeSave);mutate(save);world.nativeSave=JSON.stringify(save);},name);
+  rejects(r=>{const world=r[1].result[6];world.nativeSave=world.nativeSave.replace('"stations":0','"ver":"14.30","stations":0');},'duplicate region ver rejected');
+  rejects(r=>{const world=r[1].result[6];world.nativeSave=world.nativeSave.replace('"v":1','"region":{},"v":1');},'duplicate root region rejected');
   for(const change of[
+   r=>{r[1].result[6].nativeSave=r[1].result[6].nativeSave.replace('"tourists":79','"tourists":80');},
+   r=>{r[1].result[6].nativeSave=r[1].result[6].nativeSave.replace('"stations":0,"ports":0','"ports":0,"stations":0');},
+   r=>{r[1].result[6].nativeSave=r[1].result[6].nativeSave.replace('"df":1','"df": 1');},
    r=>r[1].result[6].checkpoints[0].enterprise.money++,r=>{r[1].result[4].checkpoints[0].enterprise.other.unchanged=false;},
    r=>r[1].result[0].checkpoints[0].stats.money++,r=>r[1].result[1].checkpoints[0].rngState++,
    r=>{r[1].result[2].checkpoints[0].tilesSHA256+='changed';},r=>r[1].result[3].fixture.paid++,
@@ -124,6 +139,6 @@ function staticNormalizationTest013(){
    r=>{r[1].result[6].nativeSave=r[1].result[6].nativeSave.replace('"retained":true','"retained":true,"extra":1');}
   ]){const r=fixture(release);change(r);const before=JSON.stringify(r),out=normalizeCompatibility013(r,product(release));assert(!eq(out.reference,out.comparison)&&JSON.stringify(r)===before,'all non-label changes remain visible to full equality');}
  }
- return{ok:true,sourceOnly:true,gameExecuted:false,runtimeSource,cases,worlds:7,originalSixWorldsRetained:true,knownMetadataWorlds:[900721,900724,900725],declaredPaths:[...METADATA_PATHS013,SAVE_PATH013],candidateNormalizedFields:0,releaseNormalizedFields:43,completeNativeSaveCompared:true,rawObservationsPreserved:true};
+ return{ok:true,sourceOnly:true,gameExecuted:false,runtimeSource,cases,worlds:7,originalSixWorldsRetained:true,knownMetadataWorlds:[900721,900724,900725],declaredPaths:[...METADATA_PATHS013,SAVE_PATH013,REGION_SAVE_PATH013],candidateNormalizedFields:0,releaseNormalizedFields:44,completeNativeSaveCompared:true,rawObservationsPreserved:true};
 }
-module.exports={fixtureSource013,runRiversideWorld013,normalizeCompatibility013,staticNormalizationTest013,runtimeSourceAudit013,METADATA_PATHS013,SAVE_PATH013,WORLD_SEEDS013};
+module.exports={fixtureSource013,runRiversideWorld013,normalizeCompatibility013,staticNormalizationTest013,runtimeSourceAudit013,METADATA_PATHS013,SAVE_PATH013,REGION_SAVE_PATH013,WORLD_SEEDS013};

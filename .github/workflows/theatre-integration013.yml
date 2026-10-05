@@ -321,6 +321,7 @@ jobs:
         node theatre-style-adapter013.js 2>&1 | tee theatre-evidence/compatibility/logs/style.txt
         TH013_MODE=fingerprint node theatre-integration-qa013.js 2>&1 | tee theatre-evidence/compatibility/logs/strict28.txt
         TH013_SUITE=compatibility node theatre-regression-adapter013.js 2>&1 | tee theatre-evidence/compatibility/logs/old-worlds.txt
+        node theatre-compatibility013.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee theatre-evidence/compatibility/logs/complete-data-comparison.txt
     - name: All tracked product and historical source bytes unchanged
       if: always()
       run: git diff --exit-code
