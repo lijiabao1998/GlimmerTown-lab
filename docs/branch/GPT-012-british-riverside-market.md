@@ -22,3 +22,18 @@ Primary architectural reference: Historic England Leadenhall Market, https://his
 
 ## Work record
 Pre-code card. Implementation and runtime have not begun. Unfinished: authored geometry/model hooks, all runtime and pixel assertions, review screenshots and owner approval. No success or release is claimed.
+
+
+## Verified architectural sources and native-model clarification
+- Leadenhall Market, Historic England1286182: red brick/pale Portland stone, open-front shops and iron/glass shelter. City of London conservation appraisal pp28–30 records panelled timber storefronts, divided glazing, subtle fascia signs, granite setts/Yorkstone footways: https://democracy.cityoflondon.gov.uk/documents/s77241/Appendix%20A%20Leadenhall%20Market%20SPD%201%20Conservation%20Area%20document%20draft%20one.pdf
+- Greenwich entrance, Historic England1358951: two-storey/five-bay proportions, round ground arches, sash windows and horizontal name frieze. Its actual facade is stucco; our brick treatment is a deliberate hybrid, not a replica. https://historicengland.org.uk/listing/the-list/list-entry/1358951
+- Greenwich operator records1902 replacement with three glazed roofs on steel trusses: https://greenwichmarket.london/our-story/
+- Custom House Quay1419872: rusticated granite face/coping and parallel stairs; Hayle1455446: battered stone walls, coping and iron rings/posts; Greenwich railings1078922: cast iron on stone plinth, leaf tips/lamp posts. https://historicengland.org.uk/listing/the-list/list-entry/1419872 ; https://historicengland.org.uk/listing/the-list/list-entry/1455446 ; https://historicengland.org.uk/listing/the-list/list-entry/1078922
+- Borough operator confirms flowers and produce traders: https://boroughmarket.org.uk/traders/the-gated-garden/ ; https://boroughmarket.org.uk/traders/?trader-type=fruitveg
+
+The arcade's open courtyard is part of its occupied3×3 footprint; independently placeable stalls and paths go beside it, never inside its eight reference cells. T502 footpaths retain their native walking benefit but are not road frontage. All three commercial roots require actual road access. The stone-quay path is land-only visual infrastructure and never creates water, a berth or navigation service. Existing k87 farmers' market food→money/happiness, k184 festival/night effects and k240 covered-market identity remain exact; the new roots use the stricter existing private-retail path.
+
+New bounded balance: arcade$3200/rank6/18 nominal private jobs/3.5 power/3.5 water; flowers$380/rank3/3 jobs/0.5 power/0.6 water; produce$420/rank3/4 jobs/0.6 power/0.9 water. Displayed effective capacity and commercial tax are scaled by real supply, staffing and existing demand. No extra tourism, food conversion, public salary or shipping income. Numeric proportions/balances are authored game design, not historical survey measurements.
+
+
+Placement detail: all three decorative path themes store their orientation at native paid placement, facing the nearest cardinal water within four cells (distance first; tie south/west/north/east; no nearby water defaults east). Authored edge0 is east; turns1/2/3 are south/west/north. This metadata survives ordinary save/load, while later terrain/camera changes never silently mutate it. It is a visual alignment only, with no shoreline/port/navigation effects.
