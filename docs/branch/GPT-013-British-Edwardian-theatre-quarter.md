@@ -17,3 +17,17 @@ Immutable main base: 248ce802bf4f29333f242447f12b8106af2bdbf1, T725/v14.29. Dedi
 
 ## Work record
 Pre-code acceptance recorded before implementation. Remote main verified exact. Source inventory and primary architecture research underway. Unfinished: art, native integration, every runtime test and screenshot, owner image approval and all release work. No runtime result or publication claimed.
+
+## Verified identity, sources and bounded native balance
+No open PRs at entry. Native k36 theatre remains2×2/$1100/10 public jobs/leisure140/radius7; k40 cinema remains1×1/$550/6 jobs/leisure100/radius6. British k193 Royal Albert Hall and k273 seaside concert hall retain their identities. New k281 edwardianTheatre013 is3×3/$3600/rank7, public cultural16 jobs/leisure200/upkeep$10 per day, power4.5/water3.4 and native theatre radius7 gated by real completed construction, physical utilities, road and staffed capacity. No new tourism or ticket-income model. Six optional path themes retain normal paid footpath cost and0.72 walking cost; the ticket booth is visual street furniture with no separate staff/ticket trading. These numbers are game balance, not historical facts.
+
+Primary references verified before drawing:
+- Historic England, Richmond Theatre1065384: red brick/buff terracotta and ornate multi-storey frontage/arched opening. https://historicengland.org.uk/listing/the-list/list-entry/1065384
+- Historic England, Theatre Royal Windsor1319336: tall mullioned/transomed windows, cornice/swept parapet and glazed canopy. https://historicengland.org.uk/listing/the-list/list-entry/1319336
+- Theatres Trust, theatre spaces: fly tower over the stage, rear dock and stage door. https://www.theatrestrust.org.uk/discover-theatres/theatre-faqs/171-what-spaces-make-up-a-theatre
+Art is an original late-Victorian/Edwardian composite, not a reconstruction or surveyed replica.
+
+## Source-complete candidate, before native CI
+Art and native product assembled at SHA256 0f426c84072cb9878ca2cfc9bde97d2a5ae260db1b1ca2fda32de73fac52f940. Art SHA256 bae0a1bb26b40adbce6f97c9460ec1fb17f0d9213099dc90925edaf0e7b156bf. All60 count-checked integration anchors,8 source-only assembly tests and71 inline-script syntax checks passed. Independent source review caught and fixed theatre-only tree/zoning pollution/growth ownership, later conflicting footprint takeover, current-dispatch fail-closed adjacent-road lighting and late manual-only path catalog registration. Source checks do not constitute game/pixel validation.
+
+A complete44-job isolated Actions matrix is ready: own full day/night/construction/weather/gameplay/cold-reload, all previous riverside and museum modes, original publiclife/station/streetlife, seven full old-world compatibility scenarios and all five T724 cold-load controls. Protected783 old files are exact aside from bounded index and one additive smoke assertion. Strict old2919 full leaves/all1728 block records, plus28 declared new leaves and all2947 aggregate records remain mandatory. Style checks run original fp.js against unchanged T725 baseline with only explicitly declared bld,theatre013 families, no source substitution, threshold change or promoted baseline. Native runtime, screenshots and owner review remain unrun/pending at this entry.
