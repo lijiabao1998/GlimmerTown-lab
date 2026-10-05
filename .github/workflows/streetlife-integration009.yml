@@ -30,6 +30,7 @@ jobs:
           git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
           node --check british-streetlife-art009.js
           node --check streetlife-gameplay009.js
+          node --check streetlife-release-contract009.js
           for p in streetlife-*qa009.js; do node --check "$p"; done
           node streetlife-static-contract009.js
       - name: Native paid placement, nine ordinary days, actual load and physical loss/repair
@@ -99,7 +100,7 @@ jobs:
           set -o pipefail
           mkdir -p streetlife-evidence/compatibility/logs
           for n in 1 2 3; do node smoke.js 2>&1 | tee streetlife-evidence/compatibility/logs/smoke-$n.txt; done
-          node fp.js --check --expect=bld,streetLife009 2>&1 | tee streetlife-evidence/compatibility/logs/fingerprint-style.txt
+          node fp.js --check 2>&1 | tee streetlife-evidence/compatibility/logs/fingerprint-style.txt
           SL009_MODE=fingerprint node streetlife-integration-qa009.js 2>&1 | tee streetlife-evidence/compatibility/logs/strict24.txt
       - name: All old tiles, every exposed statistic, seeded RNG and native loaded worlds
         run: |

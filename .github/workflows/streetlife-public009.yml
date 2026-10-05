@@ -1,0 +1,73 @@
+name: streetlife-public009
+
+on:
+  workflow_run:
+    workflows: [pages]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: Exact full 40-character SHA already deployed by the existing Pages workflow
+        required: true
+        type: string
+      url:
+        description: Official URL from verified Pages deployment (other URLs are rejected)
+        required: true
+        default: https://lijiabao1998.github.io/GlimmerTown-lab/
+        type: string
+
+# No deployment, repository write, settings change, credential setup, or secrets.
+permissions:
+  contents: read
+
+concurrency:
+  group: streetlife-public009-${{ github.event.workflow_run.head_sha || inputs.sha }}
+  cancel-in-progress: false
+
+jobs:
+  public-origin:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPECTED_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || inputs.sha }}
+      PUBLIC_SITE_URL: ${{ inputs.url || 'https://lijiabao1998.github.io/GlimmerTown-lab/' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || inputs.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Static input and exact checkout checks
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_DEPLOY_SHA" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$EXPECTED_DEPLOY_SHA"
+          test "$PUBLIC_SITE_URL" = 'https://lijiabao1998.github.io/GlimmerTown-lab/'
+          node --check streetlife-public-qa009.js
+          git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
+          node streetlife-release-contract009.js
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact deployed bytes and actual official-origin Chrome runtime
+        run: |
+          set -euo pipefail
+          mkdir -p streetlife-evidence/public
+          node streetlife-public-qa009.js 2>&1 | tee streetlife-evidence/public/runtime.txt
+      - name: Product, baselines, harness and tracked files remain unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetlife-public-${{ env.EXPECTED_DEPLOY_SHA }}
+          path: streetlife-evidence/public/
+          if-no-files-found: warn
+          retention-days: 14

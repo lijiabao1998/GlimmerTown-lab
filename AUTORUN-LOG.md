@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T722 release entry BEGIN -->
+## r169 — T722 英式車站旅館、咖啡館、報刊亭與街道細節（原 GPT-009）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r169 | [T722](docs/T722-british-station-street-life.md) | 業主於 2026-10-05 07:23:55 UTC 看過原生素材、街景與施工圖後批准上線。k274鐵道旅館3×3、k275茶點咖啡館2×2、k276報刊亭1×1，各四個真幾何視角；三種可独立編輯T502步道細節。沿用真實付費施工、物理水電道路、原生私營人力與購物；旅館床位／收入只走既有旅宿帳。v14.26/T722產品僅變三個版本標示，指紋嚴格晉升24新葉、兩族匯總和必要統計，2855舊葉／1728 blocks／style保持。 | 批准候選3fa44a45：[full37275705611](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37275705611)13/13；[smoke37275705572](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37275705572)綠。四視角、40真施工日夜場景、實際遮擋、付費步道編輯／存載、旅館15入住／$5住宿、失供5→0→5、原35玩法組及4舊城×6檢查點全過。正式metadata候選仍須重跑全部測試與無例外fp check，不預稱通過。 | [PR14](https://github.com/lijiabao1998/GlimmerTown-lab/pull/14)的T722 squash merge，確切SHA見PR | 八張已交付並批准的原生素材／街景／施工PNG沿用，不重绘；原生證據見full CI附件 | ① 住宿入住沿用全城aggregate，不宣稱逐旅館分配住客 ② 街道細節沒有新增交通容量 ③ 四項既有巢狀atlas診斷及PWA附檔缺漏仍保留 ④ 實機／手機FPS未測 ⑤ 密集前景正常遮擋部分立面 ⑥ 不開始第三階段，不刪除或搬遷既有正式站 |
+
+<!-- T722 release entry END -->
 <!-- T721 release entry BEGIN -->
 ## r168 — T721 英式中央車站與原生轉乘設施（原 GPT-008）
 

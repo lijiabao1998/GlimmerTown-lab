@@ -12,6 +12,7 @@ if(process.env.GITHUB_ACTIONS!=='true')throw Error('GitHub Actions runtime only'
 const head=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();
 if(head!==process.env.GITHUB_SHA)throw Error('Exact-head requirement');
 const staticProof=verifyStatic009(),nativeProof=readPreflight009();
+if(!staticProof.fpExact||!staticProof.logExact||!((staticProof.release===false&&staticProof.version==='14.25'&&staticProof.anchor==='T721')||(staticProof.release===true&&staticProof.version==='14.26'&&staticProof.anchor==='T722')))throw Error('Unverified candidate/release metadata, fingerprint promotion or release log');
 const mode=process.env.SL009_PRIOR||'publiclife';
 if(!['publiclife','station'].includes(mode))throw Error('Unknown prior suite');
 const file=mode==='publiclife'?'publiclife-integration-qa.js':'station-integration-qa008.js';
@@ -36,7 +37,7 @@ const edits=[
  ["logEntries[0].includes('r167')&&logEntries[0].includes('PR12')","logEntries[0].includes('r168')&&logEntries[0].includes('PR13')"]
 ];
 const extension=[
- ["const stationRelease=require('./station-release-contract008'),stationReleaseProof=stationRelease.verifyRelease();", "const stationRelease=require('./station-release-contract008');const streetStatic=require('./streetlife-static-contract009').verifyStatic009();const streetNative=require('./streetlife-fingerprint-qa009').readPreflight009();const streetExpected=require('./streetlife-static-contract009').expectedAdditions;const stationReleaseProof={htmlExact:streetStatic.htmlExact};"],
+ ["const stationRelease=require('./station-release-contract008'),stationReleaseProof=stationRelease.verifyRelease();", "const stationRelease=require('./station-release-contract008');const streetStatic=require('./streetlife-static-contract009').verifyStatic009();const streetNative=require('./streetlife-fingerprint-qa009').readPreflight009();const streetExpected=require('./streetlife-static-contract009').expectedAdditions;const stationReleaseProof={htmlExact:streetStatic.htmlExact};const streetPriorLog009=full=>{let normalized=full;if(streetStatic.release){const entry=streetStatic.releaseLogEntry;if(!streetStatic.logExact||typeof entry!=='string'||!entry||full.split(entry).length!==2)throw Error('Expected unique source-verified T722 release entry');normalized=full.replace(entry,'');}const pinnedLog=execFileSync('git',['show',require('./streetlife-static-contract009').BASE+':AUTORUN-LOG.md'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024});if(normalized!==pinnedLog)throw Error('T722 removal does not exactly recover complete T721 log');return normalized;};"],
  ["const releaseBaseline=JSON.parse(fs.readFileSync(path.join(ROOT,'fp.json'),'utf8'));", "const releaseBaseline=streetNative.qaBaseline;"],
  [".concat(Object.keys(stationRelease.promotion.subs)).sort();", ".concat(Object.keys(stationRelease.promotion.subs),streetExpected).sort();"],
  ["all2795 prior leaves paired with exactly60 declared additions',Object.keys(fp.subs||{}).length===2855", "all2795 prior leaves paired with exactly84 declared additions',Object.keys(fp.subs||{}).length===2879"],
@@ -45,14 +46,33 @@ const extension=[
  ["promoted.stats=stationRelease.promotion.stats;Object.assign(promoted.families,stationRelease.promotion.families);Object.assign(promoted.subs,stationRelease.promotion.subs);", "promoted.stats=streetNative.qaBaseline.stats;promoted.families=streetNative.qaBaseline.families;promoted.subs=streetNative.qaBaseline.subs;"],
  ["release baseline is strictly additive promotion of60 approved full leaf records", "in-memory QA extension retains all original2855 complete records and exactly24 independently verified candidate additions"]
 ];
+const releaseExtension=[
+ [
+  "const RELEASE_VERSION='14.25',RELEASE_ANCHOR='T721';",
+  "const RELEASE_VERSION=streetStatic.version,RELEASE_ANCHOR=streetStatic.anchor;"
+ ],
+ [
+  "for(const text of [\"const GAME_VER='14.25'\",\"const GAME_ANCHOR='T721'\",'id=\"startVersion456\">v14.25 · T721'])",
+  "for(const text of [\"const GAME_VER='\"+RELEASE_VERSION+\"'\",\"const GAME_ANCHOR='\"+RELEASE_ANCHOR+\"'\",'id=\"startVersion456\">v'+RELEASE_VERSION+' · '+RELEASE_ANCHOR])"
+ ],
+ [
+  "currentLog=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8');",
+  "currentLog=streetPriorLog009(fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8'));"
+ ],
+ [
+  "authorized station product differs only in three release labels",
+  "exact source-verified GPT009 candidate or authorized T722 release"
+ ]
+];
 const stationEdits=[
- ["const {verifyRelease}=require('./station-release-contract008'),{isDeepStrictEqual:equal}=require('util');", "const streetStatic=require('./streetlife-static-contract009');const streetNative=require('./streetlife-fingerprint-qa009').readPreflight009();const verifyRelease=()=>({...streetStatic.verifyStatic009(),fpExact:true,logExact:true,releaseBaseline:streetNative.qaBaseline});const {isDeepStrictEqual:equal}=require('util');"],
+ ["const {verifyRelease}=require('./station-release-contract008'),{isDeepStrictEqual:equal}=require('util');", "const streetStatic=require('./streetlife-static-contract009');const streetNative=require('./streetlife-fingerprint-qa009').readPreflight009();const streetProduct=streetStatic.verifyStatic009();const verifyRelease=()=>({...streetProduct,releaseBaseline:streetNative.qaBaseline});const {isDeepStrictEqual:equal}=require('util');"],
  ["...Array.from({length:4},(_,st)=>Array.from({length:4},(_,v)=>'stationConstruction008.'+st+'_'+v)).flat()].sort();", "...Array.from({length:4},(_,st)=>Array.from({length:4},(_,v)=>'stationConstruction008.'+st+'_'+v)).flat(),...streetStatic.expectedAdditions].sort();"],
  ["all2807 old leaves exact and exactly48 declared additions", "all2807 old leaves exact and exactly72 declared cumulative additions"],
- ["complete promoted baseline equals every2855 native leaf and family aggregate", "complete in-memory QA extension equals every2879 native leaf and family aggregate"]
+ ["complete promoted baseline equals every2855 native leaf and family aggregate", "complete in-memory QA extension equals every2879 native leaf and family aggregate"],
+ ["check('T721 v14.25 ordinary boot',report.boot.ready&&report.boot.version==='14.25'", "check('verified '+report.release.anchor+' v'+report.release.version+' ordinary boot',report.boot.ready&&report.boot.version===report.release.version"]
 ];
 let adapted=original;
-const replacements=mode==='publiclife'?[...edits,...extension]:stationEdits;
+const replacements=mode==='publiclife'?[...edits,...extension,...releaseExtension]:stationEdits;
 const audit=[];
 for(const [from,to]of replacements){if(adapted.split(from).length!==2)throw Error('Historical gate anchor not unique: '+from);adapted=adapted.replace(from,to);audit.push({from,to});}
 const runtimeAnchor="  const wallStart=Date.now();progress('browser boot requested'";
@@ -66,7 +86,7 @@ if(mode==='station'){
 const temporary=path.join(ROOT,'.streetlife-prior-'+mode+'-runtime009.js');
 new vm.Script(adapted,{filename:temporary});
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
-const proof={checkedSHA:head,base:BASE,mode,originalExact:true,originalSHA256:hash(original),adaptedSHA256:hash(adapted),replacements:audit,preflightEvidenceSHA256:nativeProof.evidenceSHA256,strictNativeProjection:nativeProof.proof,sourceSHA256:staticProof.sourceSHA256,runtimeStatementsExact:true,contract:'Original35 gameplay groups,203 fixed physical-road neighbors,30 paid homes,21-day construction/load budget OR complete original station/rail gameplay assertions are unchanged. Only exact historical release/source/fingerprint gates extend to this statically reproduced candidate and independently verified24 additions. No tracked baseline promotion.'};
+const proof={checkedSHA:head,base:BASE,mode,originalExact:true,originalSHA256:hash(original),adaptedSHA256:hash(adapted),replacements:audit,preflightEvidenceSHA256:nativeProof.evidenceSHA256,strictNativeProjection:nativeProof.proof,sourceSHA256:staticProof.sourceSHA256,version:staticProof.version,anchor:staticProof.anchor,release:staticProof.release,releasePromotionExact:staticProof.fpExact,historicalLogExact:staticProof.logExact,runtimeStatementsExact:true,contract:'Original35 gameplay groups,203 fixed physical-road neighbors,30 paid homes,21-day construction/load budget OR complete original station/rail gameplay assertions are unchanged. Only exact historical release/source/fingerprint gates extend to this statically reproduced candidate and independently verified24 additions. T722 metadata/log and the authorized complete native baseline promotion are separately verified; original T721 records never become mutable reference data.'};
 const dest=path.join(ROOT,'streetlife-evidence/prior-'+mode+'/guards');fs.mkdirSync(dest,{recursive:true});
 fs.writeFileSync(path.join(dest,'runtime-adapter.json'),JSON.stringify(proof,null,2));
 try{
