@@ -34,3 +34,19 @@ All forms receive four actual geometric views from one deterministic opaque rast
 | Work | Tests | Review PNGs | Unfinished / limits |
 |---|---|---|---|
 | Card and architectural/native-authority audit reserved before implementation. | Native stage-two tests not run yet; T721 baseline is green and live. | Not produced yet. | Stage two is awaiting implementation,full checks and its own image approval. Existing PWA ancillary omissions/four nested atlas diagnostics remain disclosed; no new transportation simulation or physical-device certification. |
+
+## Recovery handoff — 2026-10-05
+
+The owner requested continuation on the assistant's own cloud machine after the prior executor disconnected. The prior task had reported integration and static parsing but had not published implementation or run stage-two gameplay. The remote stage-two head was verified at `3995f1cef012bc7e2e4a4bc0a1a4f1ded90ca03a` and main at `559a419270e84d7d67b883581ddef8f24302a41b`. A separate recovery branch, `gpt/british-station-street-life-recovery`, starts from that card commit and does not overwrite the original task branch. No force push, merge or deployment is authorized.
+
+Recovery baseline: T721 index SHA256 `28eea2184153adb55437958a7055047a09abcd129346607852ecd1e86860afe4`; all 67 baseline inline scripts parse statically. New implementation is being rebuilt against the existing pre-code acceptance above while awaiting any recoverable prior files. Game execution remains restricted to isolated GitHub Actions, slot3 and port8199. The local cloud checkout performs authoring and static checks only.
+
+Unfinished at recovery start: all stage-two native runtime, operational counterfactuals, old-city comparisons, pixel/fingerprint measurements and review images. Static parsing is not a gameplay pass. Stage-one release remains unchanged.
+
+### Recovery candidate R1 (preflight pending)
+
+Authored `british-streetlife-art009.js` provides the 24 declared leaves. `streetlife-gameplay009.js` reuses native private enterprises, business-cycle labor and shopping; k274 contributes staff-scaled beds to the existing hotel total and is excluded from extra commerce taxation. k275/276 use the existing commercial tax branch. Three path themes retain native T502 payment/walking and optional metadata. `integrate-streetlife009.py` applies count-checked anchors to a separate T721 input; it does not rewrite release labels, old art or protected sources.
+
+Static checks: 68 inline blocks parse; the candidate is byte-identical to rebuilding from pinned T721; 726 protected tracked files remain byte-identical; smoke keeps every prior row and adds exactly one read-only selftest. The strict24 fingerprint verifier was separately tested using synthetic data only: a lawful declared-additions record is accepted and a mutation to an old grass leaf is rejected. These are static/data checks, not runtime or pixel measurements.
+
+New exact-head CI preflight is being prepared for native paid placement, ordinary days, staffing, save/load, real power/water/road loss and paid recovery. Full prior-gameplay, old-city compatibility, four rotations, construction and partial-occlusion checks remain required. No runtime pass or review-ready image is claimed at this checkpoint.

@@ -1,0 +1,166 @@
+name: streetlife-integration009
+on:
+  push:
+    branches: ['gpt/british-station-street-life-recovery']
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Run complete native matrix and historical regressions
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: streetlife-integration009-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact pinned T721 and source-only preflight
+        run: |
+          git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
+          node --check british-streetlife-art009.js
+          node --check streetlife-gameplay009.js
+          for p in streetlife-*qa009.js; do node --check "$p"; done
+          node streetlife-static-contract009.js
+      - name: Native paid placement, nine ordinary days, actual load and physical loss/repair
+        run: |
+          set -o pipefail
+          SL009_MODE=preflight node streetlife-integration-qa009.js 2>&1 | tee streetlife-preflight.txt
+      - name: Evidence must not change any tracked product or baseline
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetlife-preflight-${{ github.sha }}
+          path: |
+            streetlife-evidence/preflight/
+            streetlife-preflight.txt
+          if-no-files-found: error
+          retention-days: 14
+  matrix:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, construction0, construction1, construction2, construction3]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - run: git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
+      - name: Exact-head native evidence shard
+        run: |
+          set -o pipefail
+          SL009_MODE=${{ matrix.mode }} node streetlife-integration-qa009.js 2>&1 | tee streetlife-${{ matrix.mode }}.txt
+      - name: Product and baseline bytes unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetlife-${{ matrix.mode }}-${{ github.sha }}
+          path: |
+            streetlife-evidence/${{ matrix.mode }}/
+            streetlife-${{ matrix.mode }}.txt
+          if-no-files-found: error
+          retention-days: 14
+  compatibility:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - run: git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
+      - name: Three smoke passes, declared families and strict24 complete records
+        run: |
+          set -o pipefail
+          mkdir -p streetlife-evidence/compatibility/logs
+          for n in 1 2 3; do node smoke.js 2>&1 | tee streetlife-evidence/compatibility/logs/smoke-$n.txt; done
+          node fp.js --check --expect=bld,streetLife009 2>&1 | tee streetlife-evidence/compatibility/logs/fingerprint-style.txt
+          SL009_MODE=fingerprint node streetlife-integration-qa009.js 2>&1 | tee streetlife-evidence/compatibility/logs/strict24.txt
+      - name: All old tiles, every exposed statistic, seeded RNG and native loaded worlds
+        run: |
+          set -o pipefail
+          node streetlife-compatibility-qa009.js 2>&1 | tee streetlife-evidence/compatibility/logs/old-worlds.txt
+      - name: Restored candidate product and protected baseline
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetlife-compatibility-${{ github.sha }}
+          path: |
+            streetlife-evidence/compatibility/
+            streetlife-evidence/fingerprint/
+          retention-days: 14
+  prior:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [publiclife, station]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T721 and original historical British baselines
+        run: |
+          git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
+          git fetch --depth=1 origin ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f
+          git fetch --depth=1 origin 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7
+      - uses: actions/download-artifact@v4
+        with:
+          name: streetlife-preflight-${{ github.sha }}
+          path: .streetlife-preflight-download
+      - name: Import only same-head independently generated native preflight proof
+        run: |
+          mkdir -p streetlife-evidence/preflight/guards
+          source=$(find .streetlife-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" streetlife-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact original assertions with strict audited CI-only gate extension
+        run: |
+          set -o pipefail
+          mkdir -p streetlife-evidence/prior-${{ matrix.suite }}/logs
+          SL009_PRIOR=${{ matrix.suite }} node streetlife-prior-regression-qa009.js 2>&1 | tee streetlife-evidence/prior-${{ matrix.suite }}/logs/native-original-runtime.txt
+      - name: All tracked source and baselines unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetlife-prior-${{ matrix.suite }}-${{ github.sha }}
+          path: |
+            streetlife-evidence/prior-${{ matrix.suite }}/
+            publiclife-evidence/gameplay/
+            station-evidence/gameplay/
+          retention-days: 14
