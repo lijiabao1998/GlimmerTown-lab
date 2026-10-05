@@ -1,0 +1,89 @@
+name: riverside-public012
+on:
+  # Parent creates and pushes this branch only after the approved T725 Pages
+  # deployment succeeds. There is no timer, automatic merge or deployment.
+  push:
+    branches: ['gpt/riverside-public012']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: riverside-public012-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  official-origin:
+    if: github.repository == 'lijiabao1998/GlimmerTown-lab' && github.ref == 'refs/heads/gpt/riverside-public012'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: observer
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Load exact approved release pins
+        id: pins
+        working-directory: observer
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs=require('fs'),p=require('./riverside-public-release012.json');
+          const c=require('./riverside-public-contract012');
+          if(!/^[0-9a-f]{40}$/.test(p.releaseSHA||'')||p.release!=='T725'||p.version!=='14.29'||
+            p.sourceSHA256!==c.RELEASE_SOURCE_SHA256||p.fingerprintSHA256!==c.RELEASE_BASELINE_SHA256||p.officialURL!==c.OFFICIAL)
+            throw Error('Final exact T725 deployment pin is required before observer launch');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'sha='+p.releaseSHA+'\n');
+          NODE
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pins.outputs.sha }}
+          path: deployed
+          persist-credentials: false
+      - name: Read successful exact main Pages deployment
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node observer/riverside-public-pages012.js
+      - name: Immutable dependencies and source-only observer checks
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          EXPECTED_RELEASE_ROOT: ${{ github.workspace }}/deployed
+        run: |
+          set -euo pipefail
+          git -C deployed fetch --depth=1 origin 2b0a28621741952369bd6e49a7ab21b716fbb94d
+          git -C deployed fetch --depth=1 origin 6583659d2e14db3b8ae92115d05432d64a0c989d
+          for file in observer/riverside-public-*012.js; do node --check "$file"; done
+          node observer/riverside-public-source-qa012.js
+          node - <<'NODE'
+          const c=require('./observer/riverside-public-contract012');
+          console.log(JSON.stringify(c.verifyRelease012(process.env.EXPECTED_RELEASE_ROOT,process.env.EXPECTED_DEPLOY_SHA)));
+          NODE
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact official HTML paid market and two true cold Continue cycles
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          EXPECTED_RELEASE_ROOT: ${{ github.workspace }}/deployed
+          PUBLIC_SITE_URL: https://lijiabao1998.github.io/GlimmerTown-lab/
+        run: |
+          set -euo pipefail
+          mkdir -p observer/riverside-evidence/public
+          node observer/riverside-public-qa012.js 2>&1 | tee observer/riverside-evidence/public/runtime.txt
+      - name: Both exact checkouts and all tracked sources stay unchanged
+        if: always()
+        run: |
+          git -C observer diff --exit-code
+          git -C deployed diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: riverside-public-${{ steps.pins.outputs.sha }}
+          path: observer/riverside-evidence/public/
+          if-no-files-found: warn
+          retention-days: 14
