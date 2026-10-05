@@ -1,0 +1,947 @@
+name: theatre-integration013
+'on':
+  push:
+    branches:
+    - gpt/british-theatre-quarter-013
+    paths-ignore:
+    - '**.md'
+    - docs/**
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: theatre-integration013-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    steps:
+    - &id001
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - &id002
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - &id003
+      name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - name: Source-only checks before native art evidence
+      run: |
+        set -o pipefail
+        node --check british-theatre-art013.js
+        node --check gameplay013.js
+        for f in theatre-*013.js; do node --check "$f"; done
+        node theatre-static-contract013.js
+        node theatre-release-contract013.test.js
+        python3 integrate-theatre013.test.py
+        node theatre-gameplay013.js --static-test
+        node theatre-regression-adapter013.js --static-test
+        node theatre-style-adapter013.js --static-test
+        node theatre-style-adapter013.test.js
+        TH013_MODE=preflight node theatre-integration-qa013.js 2>&1 | tee theatre-preflight.txt
+        node theatre-historical-bridge013.test.js theatre-evidence/preflight/guards/fingerprint-native.json
+        node theatre-release-contract013.test.js --native theatre-evidence/preflight/guards/fingerprint-native.json
+        node theatre-fingerprint-qa013.js --static-test theatre-evidence/preflight/guards/fingerprint-native.json
+        node theatre-style-adapter013.test.js theatre-evidence/preflight/guards/fingerprint-native.json
+    - uses: actions/upload-artifact@v4
+      with:
+        name: theatre-native-fingerprint-${{ github.sha }}
+        path: theatre-evidence/preflight/guards/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-preflight-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-preflight-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-preflight-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-preflight-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-preflight-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-preflight-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-preflight-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-preflight-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  theatre:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - coldload
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - &id004
+      uses: actions/download-artifact@v4
+      with:
+        name: theatre-native-fingerprint-${{ github.sha }}
+        path: .theatre-preflight-download
+    - &id005
+      name: Exact-head independently produced full fingerprint
+      run: |
+        mkdir -p theatre-evidence/preflight/guards
+        source=$(find .theatre-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" theatre-evidence/preflight/guards/fingerprint-native.json
+    - name: Exact-source checks and complete native evidence
+      run: |
+        set -o pipefail
+        TH013_MODE=${{ matrix.mode }} node theatre-integration-qa013.js 2>&1 | tee theatre-${{ matrix.mode }}.txt
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  compatibility:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - name: Exact-source checks and complete native evidence
+      run: |
+        set -o pipefail
+        mkdir -p theatre-evidence/compatibility/logs
+        for n in 1 2 3; do node smoke.js 2>&1 | tee theatre-evidence/compatibility/logs/smoke-$n.txt; done
+        node theatre-style-adapter013.test.js 2>&1 | tee theatre-evidence/compatibility/logs/style-source-data.txt
+        node theatre-style-adapter013.js 2>&1 | tee theatre-evidence/compatibility/logs/style.txt
+        TH013_MODE=fingerprint node theatre-integration-qa013.js 2>&1 | tee theatre-evidence/compatibility/logs/strict28.txt
+        TH013_SUITE=compatibility node theatre-regression-adapter013.js 2>&1 | tee theatre-evidence/compatibility/logs/old-worlds.txt
+        node theatre-compatibility013.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee theatre-evidence/compatibility/logs/complete-data-comparison.txt
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-compatibility-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-compatibility-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-compatibility-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-compatibility-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-compatibility-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-compatibility-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-compatibility-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-compatibility-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  riverside:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - preflight
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - coldload
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - name: Exact-source checks and complete native evidence
+      run: |
+        set -o pipefail
+        TH013_SUITE=riverside TH013_MODE=${{ matrix.mode }} node theatre-regression-adapter013.js 2>&1 | tee theatre-riverside-${{ matrix.mode }}.txt
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-riverside-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  museum:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - preflight
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - name: Exact-source checks and complete native evidence
+      run: |
+        set -o pipefail
+        TH013_SUITE=museum TH013_MODE=${{ matrix.mode }} node theatre-regression-adapter013.js 2>&1 | tee theatre-museum-${{ matrix.mode }}.txt
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-museum-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  prior:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+        - publiclife
+        - station
+        - streetlife
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - name: Exact-source checks and complete native evidence
+      run: |
+        set -o pipefail
+        TH013_SUITE=${{ matrix.suite }} node theatre-regression-adapter013.js 2>&1 | tee theatre-prior-${{ matrix.suite }}.txt
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-prior-${{ matrix.suite }}-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  cold-reload:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        case:
+        - without-museum
+        - with-museum
+        - zero-source
+        - disconnected
+        - escape-disabled
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - name: Exact-source checks and complete native evidence
+      run: |
+        set -o pipefail
+        TH013_SUITE=coldload TH013_MODE=${{ matrix.case }} COLD011_CASE=${{ matrix.case }} node theatre-regression-adapter013.js 2>&1 | tee theatre-cold-${{ matrix.case }}.txt
+    - name: All tracked product and historical source bytes unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.theatre-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part0/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part0-${{ github.sha }}
+        path: .theatre-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part1/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part1-${{ github.sha }}
+        path: .theatre-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part2/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part2-${{ github.sha }}
+        path: .theatre-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part3/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part3-${{ github.sha }}
+        path: .theatre-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part4/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part4-${{ github.sha }}
+        path: .theatre-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part5/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part5-${{ github.sha }}
+        path: .theatre-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part6/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part6-${{ github.sha }}
+        path: .theatre-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.theatre-packets/part7/**') != ''
+      with:
+        name: theatre-cold-${{ matrix.case }}-part7-${{ github.sha }}
+        path: .theatre-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
