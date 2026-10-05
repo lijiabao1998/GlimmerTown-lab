@@ -1,0 +1,117 @@
+name: station-integration008
+on:
+  push:
+    branches: ['gpt/british-central-station']
+    paths-ignore: ['**.md', 'docs/**']
+permissions:
+  contents: read
+concurrency:
+  group: station-integration008-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T720 source and static parsing
+        run: |
+          git fetch --depth=1 origin ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f
+          node --check british-station-art008.js
+          node --check station-gameplay008.js
+          node --check station-integration-qa008.js
+          node --check station-compatibility-qa008.js
+          node --check station-legacy-fixture008.js
+      - name: Actual paid construction, physical railway, loaded staffing and native pixels
+        run: |
+          set -o pipefail
+          ST008_MODE=preflight node station-integration-qa008.js 2>&1 | tee station-preflight.txt
+      - name: Product and protected sources unchanged by evidence collection
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js british-publiclife-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: station-preflight-${{ github.sha }}
+          path: |
+            station-evidence/preflight/
+            station-preflight.txt
+          retention-days: 14
+  matrix:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, construction]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - run: git fetch --depth=1 origin ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f
+      - name: Exact-head native evidence shard
+        run: |
+          set -o pipefail
+          ST008_MODE=${{ matrix.mode }} node station-integration-qa008.js 2>&1 | tee station-${{ matrix.mode }}.txt
+      - name: Product sources unchanged
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js british-publiclife-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: station-${{ matrix.mode }}-${{ github.sha }}
+          path: |
+            station-evidence/${{ matrix.mode }}/
+            station-${{ matrix.mode }}.txt
+          retention-days: 14
+  regression:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned T720 and prior British runtime baselines
+        run: |
+          git fetch --depth=1 origin ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f
+          git fetch --depth=1 origin 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7
+      - name: Three smoke passes and strict additive fingerprint
+        run: |
+          set -o pipefail
+          mkdir -p station-evidence/regression/logs
+          for n in 1 2 3; do node smoke.js 2>&1 | tee station-evidence/regression/logs/smoke-$n.txt; done
+          node fp.js --check --expect=bld,stationDistrict008,stationConstruction008 2>&1 | tee station-evidence/regression/logs/fingerprint.txt
+          ST008_MODE=fingerprint node station-integration-qa008.js 2>&1 | tee station-evidence/regression/logs/declared-additions.txt
+      - name: Native T720 old-city, all47 British identities and old rail compatibility
+        run: node station-compatibility-qa008.js
+      - name: All prior British genuine gameplay assertions
+        run: |
+          set -o pipefail
+          PL007_MODE=gameplay node publiclife-integration-qa.js 2>&1 | tee station-evidence/regression/logs/prior-british-gameplay.txt
+      - name: Restore product and preserve protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js british-publiclife-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: station-regression-${{ github.sha }}
+          path: |
+            station-evidence/regression/
+            station-evidence/fingerprint/manifest.json
+            publiclife-evidence/gameplay/manifest.json
+          retention-days: 14

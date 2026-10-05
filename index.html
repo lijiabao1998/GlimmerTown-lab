@@ -3910,6 +3910,75 @@ function workersCornerShop006(spec) {
 })(window);
 </script>
 <!-- GPT-006 native residential art END -->
+<!-- GPT-008 native station art BEGIN: source british-station-art008.js -->
+<script>
+/* Original British central station, GPT-008. Native 2:1 opaque pixel surfaces.
+   Four real geometric views; no imported images, font rendering, random or state. */
+(function(root){
+  'use strict';
+  const rgb=s=>parseInt(s,16),P={brick:rgb('a96350'),brickR:rgb('804b43'),mortar:rgb('805949'),stone:rgb('d7c7a8'),stoneR:rgb('aa9a80'),slate:rgb('55616c'),slateR:rgb('414b57'),iron:rgb('354649'),ironHi:rgb('718784'),glass:rgb('73999e'),glassR:rgb('536d78'),glassHi:rgb('9db9b3'),wood:rgb('4b6053'),pave:rgb('b6b2a4'),paveR:rgb('979b94'),ballast:rgb('69716c'),rail:rgb('9aa7a3'),white:rgb('e9dfc2'),gold:rgb('d2ad6b'),dark:rgb('29373b'),warm:rgb('f4cb88'),leaf:rgb('567048'),red:rgb('b95146')};
+  const mod=(a,n)=>(a%n+n)%n;
+  function scene(size,rot,w=336,h=304){
+    const ax=w/2,ay=h-2,oy=ay-size*2,dep=new Float64Array(w*h),day=new Uint32Array(w*h),night=new Uint32Array(w*h);dep.fill(-Infinity);
+    function rotate(p){const[x,y,z]=p;return rot===1?[size-y,x,z]:rot===2?[size-x,size-y,z]:rot===3?[y,size-x,z]:p;}
+    function proj(p){const q=rotate(p);return[ax+2*q[0]-2*q[1],oy+q[0]+q[1]-q[2],q[0]+q[1]+2*q[2]];}
+    function tri(a,b,c,mat,bias=0){const A=proj(a),B=proj(b),C=proj(c),det=(B[1]-C[1])*(A[0]-C[0])+(C[0]-B[0])*(A[1]-C[1]);if(Math.abs(det)<1e-9)return;const x0=Math.max(0,Math.floor(Math.min(A[0],B[0],C[0]))),x1=Math.min(w-1,Math.ceil(Math.max(A[0],B[0],C[0]))),y0=Math.max(0,Math.floor(Math.min(A[1],B[1],C[1]))),y1=Math.min(h-1,Math.ceil(Math.max(A[1],B[1],C[1])));for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const u=((B[1]-C[1])*(x+.5-C[0])+(C[0]-B[0])*(y+.5-C[1]))/det,v=((C[1]-A[1])*(x+.5-C[0])+(A[0]-C[0])*(y+.5-C[1]))/det,t=1-u-v;if(u<-.000001||v<-.000001||t<-.000001)continue;const d=A[2]*u+B[2]*v+C[2]*t+bias,k=y*w+x;if(d<dep[k]-.000001)continue;const p=a.map((q,i)=>q*u+b[i]*v+c[i]*t),color=typeof mat==='function'?mat(...p):mat;if(color===null||color===undefined)continue;dep[k]=d;day[k]=Array.isArray(color)?color[0]:color;night[k]=Array.isArray(color)?color[1]||0:0;}}
+    function poly(p,c,b=0){for(let i=1;i<p.length-1;i++)tri(p[0],p[i],p[i+1],c,b);}
+    function flat(x0,x1,y0,y1,z,c,b=0){poly([[x0,y0,z],[x1,y0,z],[x1,y1,z],[x0,y1,z]],c,b);}
+    function wall(a,b,z0,z1,c,bi=0){poly([[...a,z0],[...b,z0],[...b,z1],[...a,z1]],c,bi);}
+    function box(x0,x1,y0,y1,z0,z1,c=P.brick,r=P.brickR,top=P.stone){wall([x0,y0],[x1,y0],z0,z1,c);wall([x0,y1],[x1,y1],z0,z1,c);wall([x0,y0],[x0,y1],z0,z1,r);wall([x1,y0],[x1,y1],z0,z1,r);if(top!==null)flat(x0,x1,y0,y1,z1,top);}
+    function line(a,b,c,thick=.35){const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy);if(len<.001){box(a[0]-thick/2,a[0]+thick/2,a[1]-thick/2,a[1]+thick/2,Math.min(a[2],b[2]),Math.max(a[2],b[2]),c,c,c);return;}const nx=-dy/len*thick/2,ny=dx/len*thick/2;poly([[a[0]+nx,a[1]+ny,a[2]],[b[0]+nx,b[1]+ny,b[2]],[b[0]-nx,b[1]-ny,b[2]],[a[0]-nx,a[1]-ny,a[2]]],c,.15);}
+    function finish(meta){const canvas=n=>{const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d'),im=g.createImageData(w,h);for(let i=0;i<n.length;i++){const v=n[i];if(!v)continue;im.data[i*4]=v>>>16;im.data[i*4+1]=(v>>>8)&255;im.data[i*4+2]=v&255;im.data[i*4+3]=255;}g.putImageData(im,0,0);return c;};return{img:canvas(day),night:canvas(night),w,h,ax,ay,...meta};}
+    return{flat,wall,box,line,poly,finish};
+  }
+  const paving=(x,y)=>mod(Math.floor(x),8)===0||mod(Math.floor(y),8)===0?P.paveR:P.pave;
+  const brick=(right=false)=>(x,y,z)=>mod(Math.floor(z),3)===0||mod(Math.floor((right?y:x)+(Math.floor(z/3)%2)*3),6)===0?P.mortar:right?P.brickR:P.brick;
+  function cornice(S,x0,x1,y0,y1,z){S.box(x0-.4,x1+.4,y0-.4,y1+.4,z,z+1.4,P.stone,P.stoneR,P.white);}
+  function roof(S,x0,x1,y0,y1,z,rise){const mid=(x0+x1)/2;S.poly([[x0,y0,z],[mid,y0,z+rise],[mid,y1,z+rise],[x0,y1,z]],(x,y)=>mod(Math.floor(y),3)===0?P.iron:P.slate);S.poly([[mid,y0,z+rise],[x1,y0,z],[x1,y1,z],[mid,y1,z+rise]],(x,y)=>mod(Math.floor(y),3)===0?P.iron:P.slateR);S.poly([[x0,y1,z],[x1,y1,z],[mid,y1,z+rise]],brick());S.poly([[x0,y0,z],[x1,y0,z],[mid,y0,z+rise]],brick());S.line([mid,y0,z+rise],[mid,y1,z+rise],P.ironHi,.55);}
+  function lamp(S,x,y,z=15){S.box(x-.3,x+.3,y-.3,y+.3,0,z,P.iron,P.iron,P.iron);S.box(x-1,x+1,y-.8,y+.8,z,z+2,[P.warm,P.warm],[P.warm,P.warm],P.iron);S.box(x-1.3,x+1.3,y-1,y+1,z+2,z+2.8,P.iron,P.iron,P.iron);}
+  function bench(S,x,y){S.box(x,x+5,y,y+1,0,2,P.iron,P.iron,P.wood);S.box(x,x+5,y+.9,y+1.3,2,4,P.wood,P.wood,P.wood);}
+  function clock(S,x0,x1,y,z0,z1){S.wall([x0,y],[x1,y],z0,z1,(x,_y,z)=>{const cx=(x0+x1)/2,cz=(z0+z1)/2,r=(x1-x0)/2,d=Math.hypot(x-cx,z-cz);if(d>r)return null;if(d>r-.65)return P.gold;if(Math.abs(x-cx)<.45&&z>=cz-3&&z<cz+.8||Math.abs(z-cz+(x-cx)*.7)<.4&&x>=cx&&x<cx+2.5)return P.dark;if(mod(Math.round(Math.atan2(z-cz,x-cx)*6/Math.PI),3)===0&&d>r-1.5)return P.iron;return[P.white,P.warm];},.2);}
+  function tracks(S){for(const c of[24,56]){S.flat(c-5,c+5,0,80,.2,(x,y)=>mod(Math.floor(y),3)===0?P.wood:P.ballast);for(const d of[-2.3,2.3])S.flat(c+d-.22,c+d+.22,0,80,.55,P.rail,.1);}S.box(33,47,1,79,0,2.8,P.pave,P.paveR,P.pave);for(const x of[32.8,46.8,15.3,64.8])S.flat(x,x+.75,1,79,3,P.gold,.2);S.box(65,78,1,79,0,2.8,P.pave,P.paveR,P.pave);}
+  function vault(S,roofOn=true,maxY=56){
+    const xs=[17,21,28,38,48,58,68,74,78],zs=[27,39,48,54,57,54,48,39,27];
+    for(const y of[4,16,28,40,52,64,76]){for(const x of[17,78])S.box(x-.6,x+.6,y-.5,y+.5,3,27,P.iron,P.iron,P.iron);for(let i=0;i<xs.length-1;i++)S.line([xs[i],y,zs[i]],[xs[i+1],y,zs[i+1]],P.ironHi,.8);for(const x of[28,48,68])S.line([x,y,27],[x,y,Math.min(54,zs[x===28?2:x===48?4:6])],P.iron,.3);S.line([17,y,27],[78,y,27],P.iron,.45);}
+    for(let i=0;i<xs.length-1;i++){if(roofOn)for(let y=4;y<maxY;y+=4)S.poly([[xs[i],y,zs[i]],[xs[i+1],y,zs[i+1]],[xs[i+1],Math.min(maxY,y+4),zs[i+1]],[xs[i],Math.min(maxY,y+4),zs[i]]],(x,yy)=>mod(Math.floor(yy),4)===0?P.ironHi:(i<4?P.glass:P.glassR));S.line([xs[i],4,zs[i]],[xs[i],76,zs[i]],i===4?P.iron:P.ironHi,.45);}
+  }
+  function bookingHall(S){
+    S.box(1,15,4,72,0,28,brick(),brick(true),null);cornice(S,1,15,4,72,27);roof(S,.6,15.4,4,39,29,7);roof(S,.6,15.4,58,72,29,7);
+    // Open roof section exposes an actual ticket hall; no second-stage retail.
+    S.flat(2,14,39,58,1.5,(x,y)=>mod(Math.floor(x+y),4)<2?P.stone:P.white);
+    S.box(10,13,41,55,2,7,P.wood,P.wood,P.stone);for(const y of[42,46,50,54]){S.box(10,13,y,y+.6,7,12,P.iron,P.iron,P.iron);S.box(10,10.5,y+.5,y+2,7,11,[P.glass,P.warm],[P.glassR,P.warm],P.iron);}
+    for(const y of[11,23,35,63]){S.wall([15.05,y-2.2],[15.05,y+2.2],8,20,(_x,yy,z)=>mod(Math.floor(z),6)===0||Math.abs(yy-y)<.4?P.stone:[P.glassR,P.warm],.2);S.box(14.8,15.6,y-2.8,y+2.8,6.8,8,P.stone,P.stoneR,P.stone);}
+    for(const y of[9,21,33,45,57,69])S.box(.4,1.2,y-.5,y+.5,0,29,P.stone,P.stoneR,P.stone);
+    for(const y of[44,50,56])bench(S,3,y);
+    // Clock tower is part of the station's booking wing, not a hotel frontage.
+    S.box(2,14,65,77,0,66,brick(),brick(true),P.stone);cornice(S,2,14,65,77,28);cornice(S,2,14,65,77,47);cornice(S,2,14,65,77,65);roof(S,1.6,14.4,64.6,77.4,68,12);
+    clock(S,3.1,12.9,77.05,51,60.8);S.wall([14.05,66.2],[14.05,75.8],51,60.8,(_x,y,z)=>{const d=Math.hypot(y-71,z-55.9);return d>4.8?null:d>4.1?P.gold:Math.abs(y-71)<.35&&z>55?P.dark:[P.white,P.warm];},.2);
+    S.wall([4,77.1],[12,77.1],2,18,(x,_y,z)=>x<4.5||x>11.5||z>17?P.stone:(Math.abs(x-8)<.35?P.stone:P.dark),.1);
+    for(const x of[3,13])lamp(S,x,78.2,15);
+    S.box(4,12,77.2,78,21,24,P.wood,P.wood,P.wood);S.wall([4.2,78.05],[11.8,78.05],21.8,23.2,(x)=>mod(Math.floor(x*2),3)===0?P.white:P.wood,.15);
+  }
+  function passage(S){
+    S.box(14,79,60,64,25,27,P.stone,P.stoneR,P.pave);for(const y of[60,64]){S.line([14,y,27],[79,y,27],P.iron,.8);S.line([14,y,31],[79,y,31],P.iron,.65);for(let x=15;x<79;x+=3)S.line([x,y,27],[x,y,31],P.iron,.35);}
+    for(const x of[39,72]){for(let i=0;i<10;i++)S.box(x-2,x+2,64+i,65+i,3,25-i*2.2,P.stone,P.stoneR,P.pave);S.line([x-2.2,64,28],[x-2.2,74,6],P.iron,.5);S.line([x+2.2,64,28],[x+2.2,74,6],P.iron,.5);}
+    for(const x of[19,33,47,65,78])S.box(x-.55,x+.55,60.5,61.5,3,25,P.iron,P.iron,P.iron);
+  }
+  function station(view){const S=scene(80,view);S.flat(0,80,0,80,0,paving);tracks(S);for(const [x,y]of[[35,15],[35,35],[67,18],[67,38]])bench(S,x,y);for(const [x,y]of[[40,8],[40,48],[72,8],[72,48]])lamp(S,x,y,17);passage(S);vault(S);bookingHall(S);for(const [x,y]of[[42,23],[74,23]]){S.box(x-.35,x+.35,y-.3,y+.3,3,15,P.iron,P.iron,P.iron);S.box(x-2,x+2,y-.5,y+.5,14,18,P.wood,P.wood,P.wood);S.wall([x-1.8,y+.55],[x+1.8,y+.55],15,17,P.white,.2);}return S.finish({sz:5,view,railCenters:[24,56],railAxis:'v',roofOpenEnd:[56,80],original:true});}
+  function construction(stage,view){const S=scene(80,view);S.flat(0,80,0,80,0,(x,y)=>mod(Math.floor(x+y),7)<2?P.paveR:P.pave);if(stage>=1)tracks(S);if(stage>=2){S.box(1,15,4,72,0,stage===2?14:28,brick(),brick(true),null);S.box(2,14,65,77,0,stage===2?24:62,brick(),brick(true),null);}if(stage===3){vault(S,false);passage(S);roof(S,1,15,4,39,29,7);}for(const x of[1,15,78])for(let y=3;y<=77;y+=8){const z=stage===3?x===1?62:31:stage===2?25:8;S.line([x,y,0],[x,y,z],P.ironHi,.5);S.line([x,y,8],[x,Math.min(78,y+8),8],P.ironHi,.5);if(stage>=2)S.line([x,y,20],[x,Math.min(78,y+8),20],P.ironHi,.5);}for(const y of[1,79]){S.line([0,y,0],[80,y,0],P.wood,.8);for(let x=3;x<80;x+=7)S.box(x-.3,x+.3,y-.4,y+.4,0,4,P.wood,P.wood,P.wood);}for(const x of[4,70])lamp(S,x,76,10);S.box(4,12,4,8,0,4,P.stoneR,P.stoneR,P.stone);S.box(62,72,7,12,0,3,P.brick,P.brickR,P.brick);for(const y of[11,14,17])S.box(3,13,y,y+1,0,1.8,P.wood,P.wood,P.wood);return S.finish({sz:5,stage,view,original:true});}
+  function module(theme,view){const S=scene(16,view,72,92);if(!['bus','taxi'].includes(theme))S.flat(0,16,0,16,0,paving);
+    if(theme==='square'){for(const [x,y]of[[2,2],[12,12]]){S.box(x,x+2,y,y+2,0,1,P.stone,P.stoneR,P.stone);S.box(x+.2,x+1.8,y+.2,y+1.8,1,3,P.leaf,P.leaf,P.leaf);}bench(S,4,12);}
+    if(theme==='entrance'||theme==='transfer'){for(const x of[2,13]){S.box(x,x+1.5,4,6,0,17,P.brick,P.brickR,P.stone);lamp(S,x+.7,5,18);}S.box(2,14.5,4,6,17,19,P.stone,P.stoneR,P.white);S.box(3,13,4.2,5.8,19,21,P.wood,P.wood,P.wood);S.wall([4,6.05],[12,6.05],19.2,20.8,(x)=>mod(Math.floor(x*2),3)===0?P.white:P.wood,.2);if(theme==='transfer'){S.line([4,9,1],[12,9,1],P.gold,.8);S.line([4,9,1],[6,7,1],P.gold,.8);S.line([12,9,1],[10,11,1],P.gold,.8);}}
+    if(theme==='cycleParking'){for(const x of[2,13])for(const y of[3,13])S.box(x-.25,x+.25,y-.25,y+.25,0,11,P.iron,P.iron,P.iron);S.flat(1,14,2,14,12,P.wood);for(let y=4;y<13;y+=2){S.line([4,y,0],[4,y,3],P.ironHi,.6);S.line([4,y,3],[10,y,3],P.ironHi,.6);S.line([10,y,3],[10,y,0],P.ironHi,.6);}lamp(S,13,13,10);}
+    if(theme==='cyclePath'){S.flat(2,14,0,16,.3,P.wood);for(let y=1;y<16;y+=4)S.flat(7.6,8.3,y,y+2,.5,P.white);S.line([3,0,.5],[3,16,.5],P.white,.3);S.line([13,0,.5],[13,16,.5],P.white,.3);}
+    if(theme==='bus'||theme==='taxi'){S.flat(1,15,12,16,.3,paving);for(let x=2;x<15;x+=3)S.flat(x,x+1.5,2,8,.5,P.white);S.line([1,11,.6],[15,11,.6],P.gold,.6);for(const x of[2,13])S.box(x-.3,x+.3,13,13.6,0,11,P.iron,P.iron,P.iron);if(theme==='bus'){S.wall([2,14],[13,14],1,10,(x,_y,z)=>mod(Math.floor(x),4)===0||z>9?P.ironHi:P.glassR);S.flat(1,14,11.5,15,12,P.wood);bench(S,4,13);lamp(S,13,14,10);}else{S.box(12,13,14,15,0,13,P.iron,P.iron,P.iron);S.box(10,15,14,15,12,16,P.gold,P.stoneR,P.gold);S.wall([10.4,15.05],[14.6,15.05],13,15,(x)=>mod(Math.floor(x*2),3)===0?P.dark:P.gold,.15);}}
+    return S.finish({sz:1,theme,view,original:true});}
+  function buildAll(){const stationViews=Array.from({length:4},(_,v)=>station(v)),modules={},constructionViews={};for(const theme of['square','entrance','bus','taxi','cycleParking','cyclePath','transfer'])for(let v=0;v<4;v++)modules[theme+'_'+v]=module(theme,v);for(let stage=0;stage<4;stage++)for(let v=0;v<4;v++)constructionViews[stage+'_'+v]=construction(stage,v);return{station:stationViews,modules,construction:constructionViews};}
+  root.BritishStationArchitecture008=Object.freeze({buildAll,version:'GPT-008',original:true,simulationRandomCalls:0});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<!-- GPT-008 native station art END -->
 <!-- GPT-007 native public-life art BEGIN: source british-publiclife-art.js -->
 <script>
 /* GPT-007 British public life, UKL01–12.
@@ -51667,6 +51736,21 @@ function installPublicLifeArt007(){const t0=performance.now(),list=window.Public
 // utility overrides and no demand recalculation are performed by this accessor.
 function publicLifeAt007(x,y){if(!inMap(x,y))return null;let root=idx(x,y),b=tiles[root]?.bld;if(b?.ref){root=idx(b.ref[0],b.ref[1]);b=tiles[root]?.bld;}const q=b&&!b.ref&&PUBLICLIFE007[b.k];if(!q)return null;const staff=publicStaffRoot495.get(root),stamp=publicLifeCovRoots007.get(root);return JSON.parse(JSON.stringify({root,k:b.k,built:publicLifeBuilt007(b),operational:publicLifeOperational007(root,b),power:b.pw,water:b.wa,staff:staff?.k===b.k?staff:null,capacity:activityCapacity491(root,b),factors:publicLifeFactors007(root,b),coverage:q.coverage,coverageRadius:publicLifeCoverageRadius007(q),coverageStamp:stamp||null,emergencyReady:publicLifeEmergencyReady007(root,b)}));}
 
+/* GPT-008. Existing k139 railway authority, real rail cells, native T502 modules.
+   Embedded inside the game IIFE. No parallel OD, RNG, forced supply or staff. */
+const STATION_TOOLS008=Object.freeze({
+  britishStationNS008:{nm:'英式中央車站 · 南北軌道',base:'hsrStation',sz:5,rank:20,ic:'🚉',axis:0},
+  britishStationEW008:{nm:'英式中央車站 · 東西軌道',base:'hsrStation',sz:5,rank:20,ic:'🚉',axis:1},
+  stationSquare008:{nm:'車站石板廣場',base:'footpath502',sz:1,rank:4,ic:'🚶',theme:'square'},
+  stationEntrance008:{nm:'車站正式入口',base:'stationEntranceLarge502',sz:1,rank:8,ic:'🚪',theme:'entrance'},
+  stationBus008:{nm:'車站巴士候車與行人穿越',base:'crossing502',sz:1,rank:4,ic:'🚌',theme:'bus'},
+  stationTaxi008:{nm:'車站計程車候車路緣',base:'crossing502',sz:1,rank:4,ic:'🚕',theme:'taxi'},
+  stationCycleParking008:{nm:'車站有蓋自行車停放',base:'bikeHub502',sz:1,rank:5,ic:'🚲',theme:'cycleParking'},
+  stationCyclePath008:{nm:'車站自行車通道',base:'bikePath502',sz:1,rank:4,ic:'🚲',theme:'cyclePath'},
+  stationWalkTransfer008:{nm:'車站步行轉乘門廊',base:'walkTransfer502',sz:1,rank:8,ic:'🔁',theme:'transfer'}
+});
+const stationRoots008=new Set();
+
 function britishSpec004(k){return BRITISH004[k]||HIGHSTREET005[k]||RESIDENTIAL006[k]||PUBLICLIFE007[k]||null;}
 function highStreetBaseK005(k){return HIGHSTREET005[k]?.baseK??k;}
 function highStreetCommerce005(k){return HIGHSTREET005[k]?.role==='commerce';}
@@ -54757,7 +54841,7 @@ async function bootstrap453(){
     runVariants574();         // T574：117 個單一樣式分類的變體，必須在所有重建資產的 pass 之後
     applyT573Silhouette();    // T573：剪影光影後製，移到變體之後，新變體才吃得到（不可跑兩次）
     installBritishArt004();
-    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
+    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
     bootSet453(100,'微光小鎮準備完成','night');bootState453.ready=true;window.__bootDone453=true;await bootPaint453();   // T539：boot 完成旗標——量測工具必須等到這裡，否則會漏掉 T464…T480/T539 這串後置 pass
@@ -70094,11 +70178,12 @@ let tickRoadsN=0,tickBridgesN=0,tickCzoneN=0;
    ＝計數迴圈語義與原全圖掃描完全一致。亂數流安全：所有改寫迴圈遍歷升序索引＝與原 row-major 同集合同序，
    消耗 R() 的次數與順序逐位不變（鐵律2）。 */
 function buildTickIndex(){
+  stationRoots008.clear();
   tickBld.length=0;tickRoad.length=0;tickZone.length=0;
   tickRoadsN=0;tickBridgesN=0;tickCzoneN=0;
   for(let i=0;i<N*N;i++){
     const t=tiles[i];
-    if(t.bld)tickBld.push(i);
+    if(t.bld){tickBld.push(i);if(britishStation008(t.bld))stationRoots008.add(i);}
     if(t.road){tickRoad.push(i);tickRoadsN++;}
     if(t.bridge)tickBridgesN++;
     if(t.zone){tickZone.push(i);if(t.zone===2)tickCzoneN++;}
@@ -70181,7 +70266,7 @@ function tick(){
   }
   refreshBritishCoverage004();
   refreshHighStreetUtilities005();refreshHighStreetCoverage005();
-  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();
+  refreshPublicLifeUtilities007();refreshPublicLifeCoverage007();stationDaily008();
   refreshResidentialUtilities006();if(residentialDaily006)housingMarketStep488();
   // 死亡與墓園前置處理（T38）：既有死亡事件的懲罰標記與自動消退
   const deathPenalty=new Uint8Array(N*N);
@@ -70851,6 +70936,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
       b.age++;cap418--;steel--;constrSteelUse418++; // T418a A1：鋼真的流向工地
     }
   }
+  stationDaily008(); // GPT-008: exact native completion boundary, including T418 steel
   // T124：每 30 天重判存量住宅財富級——環境緩慢變化（新污染源/新設施覆蓋）致升降級，漸變：一次最多變一級，不驟升驟降；
   // 走 day（存讀檔本已保留，節奏自然連續不重置）、不消耗 R()，不影響既有隨機流位置與其他系統的種子化重播
   if(day%30===0){
@@ -77531,6 +77617,7 @@ function draw(dt){
     for(const q of add696)objs.push(q);window.__ring696N=add696.length;
   }else window.__ring696N=0;
   if(!window.__noTowerBridge693)tb693Push(objs,sxOf,syOf,vis); /* T693 */
+  stationObjects008(objs,sxOf,syOf,vis,lodFar);
   objs.sort((a,b2)=>a.dep-b2.dep);
   const nightSprites=[];
   if(!window.__noConstr701&&!window.__noConstr700&&window.__x13BesGen)window.__x13BesGen(); // T701：本卡開著時，T700 的 B2 收尾與細節名額跳過本卡擁有的地標
@@ -77850,7 +77937,9 @@ function draw(dt){
       if(nightDepth>0&&SPR.rdecN)nightSprites.push({img:SPR.rdecN,x:rx,y:ry,w:rs.w*z,h:rs.h*z,grid487:1,gx:o.x,gy:o.y});
       continue;
     }
+    if(o.stationModule008){stationModuleDraw008(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
     if(o.busStop&&SPR.busStop){
+      if(stationTheme008(tiles[idx(o.x,o.y)])==='bus')continue;
       const bs2=SPR.busStop,bx2=o.sx+(32-bs2.ax)*z,by2=o.sy+(32-bs2.ay)*z;
       ctx.drawImage(bs2.img,bx2,by2,bs2.w*z,bs2.h*z);
       if(nightDepth>0&&SPR.busStopN)nightSprites.push({img:SPR.busStopN,x:bx2,y:by2,w:bs2.w*z,h:bs2.h*z,grid487:1,gx:o.x,gy:o.y});
@@ -78058,6 +78147,7 @@ function draw(dt){
     }
     else if(bd.k===9){bx=sxOf(o.x+1,o.y+1)+(32-s.ax)*z;by=syOf(o.x+1,o.y+1)+(32-s.ay)*z;}
     else{bx=o.sx+(32-s.ax)*z;by=o.sy+(32-s.ay)*z;}
+    if(britishStation008(bd)&&bd.age<9){stationConstructionDraw008(ctx,bd,s,bx,by,z,nightDepth,nightSprites,occ629Push,idx(o.x,o.y));continue;}
     if(!window.__noConstr701&&!window.__noConstr700&&bd.k!==4&&window.__x12Reg&&window.__x12Reg[bd.k]){if(bd.age<9&&window.__x13BesDraw){let r13=false;try{r13=window.__x13BesDraw(ctx,{o,bd,s,bx,by,z,sxOf,syOf,visT,animOn,lodFar,lodMini,nightSprites,nightDepth,SPR,sil:silhouetteOne573,occPush:occ629Push,lotClip:(!o.block547&&!bd.ref)?(g13=>clipLotFootprint596(g13,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf)):null,gshade:hh13=>groundShade572(ctx,o.x,o.y,bd.sz||1,bd.sz||1,z,sxOf,syOf,hh13),finOv:()=>{if(!legacyOverlay606(s))return;(function(bd,drawA){
       const cl606=window.__noOvFix606?null:ovClipBegin606(s,z); // T606：本體層畫進離屏、剪進剪影再貼回（量測：舊層 37～100% 像素浮在建築外）
       const G6=cl606?cl606.g:ctx,X6=cl606?cl606.x:bx,Y6=cl606?cl606.y:by;
@@ -79597,7 +79687,7 @@ let inspectorTab461='overview' ,inspectorKey461=-1;
 function insStrip461(s){return String(s||'').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();}
 function insRows461(html){const out=[];for(const m of String(html||'').matchAll(/<div class="row"[^>]*>([\s\S]*?)<\/div>/g)){const q=insStrip461(m[1]);if(q)out.push(q);}return out;}
 function insTitle461(html,b){const m=String(html||'').match(/<h3[^>]*>([\s\S]*?)<\/h3>/);return m?insStrip461(m[1]):(KNAME[b.k]||'建築');}
-function insMetrics461(x,y,b,html){if(PUBLICLIFE007[b.k])return publicLifeMetrics007(x,y,b);const r006=RESIDENTIAL006[b.k];if(r006){const root=idx(x,y),active=residentialOperational006(root,b);return [{k:'居民',v:residentPopulation488(root,b)+' / '+r006.capacity,u:(r006.band==='low'?'低密度':'中密度')+'容量'},{k:'有效職位',v:Math.round(active?enterpriseActualJobs489(root,b,'positions'):0)+' / '+r006.jobs,u:'名目商業職位'},{k:'維護',v:'$0',u:'／日'},{k:'等級',v:'固定 Lv.1',u:r006.sz+'×'+r006.sz+' · '+districtName(distIdx(x,y))}];}const q=HIGHSTREET005[b.k];if(q){const root=idx(x,y),on=highStreetOperational005(root,b),nom=q.jobs,active=on?(q.role==='commerce'?enterpriseActualJobs489(root,b,'positions'):publicActivePositions495(root,b)):0,budget=q.budget?(svcBudget[q.budget]||1):1,rad=q.coverage?Math.max(1,Math.round(COVR[q.coverage]*(SVC_BUDGET_CAT[q.coverage]?(svcBudget[SVC_BUDGET_CAT[q.coverage]]||1):1))):0;return [{k:'維護',v:'$'+(highStreetBuilt005(b)?q.upkeep*budget:0),u:'／日'+(q.budget?' · 預算 ×'+budget:'')},{k:'有效職位',v:Math.round(active)+' / '+nom,u:'名目職位'},{k:'覆蓋',v:rad?(on?rad:0):'—',u:rad?'格半徑（基建就緒）':'商業營運'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz+' · '+districtName(distIdx(x,y))}];}const tx=insStrip461(html),sz=Math.max(1,b.sz||MSZ[b.k]||1),lv=b.lv||1,um=UP_MAX[b.k]||0;let m=tx.match(/維護(?:費)?\s*\$([0-9.]+)/),e=tx.match(/就業\s*([0-9]+)/),r=tx.match(/(?:服務)?半徑\s*([0-9]+)/);return[{k:'維護',v:m?'$'+m[1]:'—',u:m?'／日':'未列示'},{k:'就業',v:e?e[1]:'—',u:e?'人':'未列示'},{k:'覆蓋',v:r?r[1]:'—',u:r?'格半徑':'未列示'},{k:'等級',v:'Lv.'+lv+(um?'/'+um:''),u:sz+'×'+sz+' · '+districtName(distIdx(x,y))}];}
+function insMetrics461(x,y,b,html){if(britishStation008(b))return stationDescription008(STATION_TOOLS008[stationAxis008(b)?'britishStationEW008':'britishStationNS008'])+' · 工期 '+Math.min(9,b.age)+'/9 · '+(stationReady008(idx(x,y),b)?'可營運':'施工中或缺少實際供給');if(PUBLICLIFE007[b.k])return publicLifeMetrics007(x,y,b);const r006=RESIDENTIAL006[b.k];if(r006){const root=idx(x,y),active=residentialOperational006(root,b);return [{k:'居民',v:residentPopulation488(root,b)+' / '+r006.capacity,u:(r006.band==='low'?'低密度':'中密度')+'容量'},{k:'有效職位',v:Math.round(active?enterpriseActualJobs489(root,b,'positions'):0)+' / '+r006.jobs,u:'名目商業職位'},{k:'維護',v:'$0',u:'／日'},{k:'等級',v:'固定 Lv.1',u:r006.sz+'×'+r006.sz+' · '+districtName(distIdx(x,y))}];}const q=HIGHSTREET005[b.k];if(q){const root=idx(x,y),on=highStreetOperational005(root,b),nom=q.jobs,active=on?(q.role==='commerce'?enterpriseActualJobs489(root,b,'positions'):publicActivePositions495(root,b)):0,budget=q.budget?(svcBudget[q.budget]||1):1,rad=q.coverage?Math.max(1,Math.round(COVR[q.coverage]*(SVC_BUDGET_CAT[q.coverage]?(svcBudget[SVC_BUDGET_CAT[q.coverage]]||1):1))):0;return [{k:'維護',v:'$'+(highStreetBuilt005(b)?q.upkeep*budget:0),u:'／日'+(q.budget?' · 預算 ×'+budget:'')},{k:'有效職位',v:Math.round(active)+' / '+nom,u:'名目職位'},{k:'覆蓋',v:rad?(on?rad:0):'—',u:rad?'格半徑（基建就緒）':'商業營運'},{k:'等級',v:'固定 Lv.1',u:q.sz+'×'+q.sz+' · '+districtName(distIdx(x,y))}];}const tx=insStrip461(html),sz=Math.max(1,b.sz||MSZ[b.k]||1),lv=b.lv||1,um=UP_MAX[b.k]||0;let m=tx.match(/維護(?:費)?\s*\$([0-9.]+)/),e=tx.match(/就業\s*([0-9]+)/),r=tx.match(/(?:服務)?半徑\s*([0-9]+)/);return[{k:'維護',v:m?'$'+m[1]:'—',u:m?'／日':'未列示'},{k:'就業',v:e?e[1]:'—',u:e?'人':'未列示'},{k:'覆蓋',v:r?r[1]:'—',u:r?'格半徑':'未列示'},{k:'等級',v:'Lv.'+lv+(um?'/'+um:''),u:sz+'×'+sz+' · '+districtName(distIdx(x,y))}];}
 function insReasonSewer461(r){return({ok:'正常','no-pipe':'缺市政管線','dead-pipe':'孤立管網','pressure':'超出處理邊界','capacity':'容量飽和'})[r]||r||'—';}
 function insHealth461(x,y,b){
   const root=idx(x,y),client=b.k<=3||b.k===127||!!britishSpec004(b.k),srcP=isPowerSource450(b.k),sanRel=isSanFacility445(b.k)||isSanClient445(b.k),emType=emergencyStationType455(b.k);computePower();
@@ -80356,6 +80446,7 @@ function mobileBuild434(){return mobileUi435();}
 function toolMeta434(id){return TOOLS.find(t=>t.id===id)||null;}
 function toolCatName434(id){const c=TOOL_CATS.find(c=>c.id===id);return c?c.nm:id;}
 function toolHint434(t){
+  if(t&&STATION_TOOLS008[t.id])return stationDescription008(STATION_TOOLS008[t.id]);
   if(t&&PUBLICLIFE_TOOL007[t.id])return publicLifeDescription007(PUBLICLIFE_TOOL007[t.id]);
   if(t&&RESIDENTIAL_TOOL006[t.id])return residentialDescription006(RESIDENTIAL_TOOL006[t.id]);
   if(t&&HIGHSTREET_TOOL005[t.id])return highStreetDescription005(HIGHSTREET_TOOL005[t.id]);
@@ -80398,7 +80489,7 @@ let catalogOpen458=false,catalogMode458='all',catalogCat458='all',catalogQuery45
 function loadCatalogFavs458(){try{const v=JSON.parse(localStorage.getItem(CATALOG_FAV_KEY458)||'[]');return new Set(Array.isArray(v)?v.filter(id=>!!toolMeta434(id)):[]);}catch(_e){return new Set();}}
 let catalogFavs458=loadCatalogFavs458();
 function saveCatalogFavs458(){try{localStorage.setItem(CATALOG_FAV_KEY458,JSON.stringify([...catalogFavs458]));}catch(_e){}}
-function toolUnlocked458(t){return !!t&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
+function toolUnlocked458(t){return !!t&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
 function toolCost458(t){if(!t||!t.pr)return 0;const m=String(t.pr).replace(/,/g,'').match(/\$\s*([0-9.]+)/);return m?+m[1]:0;}
 function toolSize458(id){
   const hs=PUBLICLIFE_TOOL007[typeof id==='object'?id?.id:id]||HIGHSTREET_TOOL005[typeof id==='object'?id?.id:id]||RESIDENTIAL_TOOL006[typeof id==='object'?id?.id:id];if(hs)return hs.sz;
@@ -83941,7 +84032,75 @@ bindActiveButton502();
 
 const __inspect_501=inspect;inspect=function(x,y){const r=__inspect_501(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,q=AM_BY_CODE502[t?.am502|0];if(q&&$('#infoBody')){$('#infoBody').insertAdjacentHTML('beforeend',`<div class="opsBlock457a"><div class="opsHeader457a">T502 主動運輸設施</div><div class="row">${q.ic} ${q.nm}</div>${t.amx502?.station?`<div class="row">連接車站：${escHtml(t.amx502.station)}</div>`:''}${Array.isArray(t.amx502?.stations)?`<div class="row">轉乘：${t.amx502.stations.map(escHtml).join(' ↔ ')}</div>`:''}</div>`);}return r;};
 
-function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
+function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){if(stationTheme008(tiles[i]))continue;const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
+function britishStation008(b){return !!(b&&!b.ref&&b.k===139&&(b.v===3||b.v===4));}
+function stationTheme008(t){const q=t?.amx502?.british008;return t?.am502&&['square','entrance','bus','taxi','cycleParking','cyclePath','transfer'].includes(q)?q:null;}
+function stationAxis008(b){return b.v===4?1:0;}
+function stationCells008(root,b){const x=root%N,y=(root/N)|0,a=stationAxis008(b),out=[];for(const c of[1,3])for(let k=0;k<5;k++)out.push(idx(x+(a?k:c),y+(a?c:k)));return out;}
+function stationPorts008(root,b){const x=root%N,y=(root/N)|0,a=stationAxis008(b),out=[];for(const c of[1,3])for(const k of[-1,5]){const xx=x+(a?k:c),yy=y+(a?c:k);if(inMap(xx,yy))out.push(idx(xx,yy));}return out;}
+function stationReady008(root,b){return !!(britishStation008(b)&&b.age>=9&&b.pw&&b.wa&&mobilityFrontage462(root,'road').length&&!b.fire&&!b.abandoned&&assetAvailability493(root,'transport')>.02);}
+function stationIndex008(){stationRoots008.clear();for(let i=0;i<N*N;i++)if(britishStation008(tiles[i]?.bld))stationRoots008.add(i);}
+function stationRailDirty008(){markMobilityDirty462();railOpsDirty463=true;mobility491Dirty=true;activeMobilityMarkDirty502();}
+function stationDaily008(){
+  if(!stationRoots008.size)return;
+  let changed=false;
+  for(const root of stationRoots008){const b=tiles[root]?.bld;if(!britishStation008(b)){stationRoots008.delete(root);continue;}const on=b.age>=9?1:0;for(const i of stationCells008(root,b)){const t=tiles[i];if((t.rail|0)!==on){t.rail=on;t.railBridge=0;t.railMask=0;changed=true;}}}
+  if(changed){recalcAllRailMasks();stationRailDirty008();}
+}
+function stationCost008(id,x,y){const q=STATION_TOOLS008[id];if(!q)return 0;let cost=__stationCost008(q.base,x,y);if(q.theme==='bus')cost+=__stationCost008('bus',x,y);if(q.theme==='taxi'&&diff!==3)cost+=(COST.parkMeter||15)*tq('B5',.95,1)*tq('C8',.95,1)*tq('D4a',.90,1)*sq('hub',1.05,1);return cost;}
+function stationCanPlace008(id,x,y){
+  const q=STATION_TOOLS008[id];if(window.__noBritishStation008)return'英式車站暫停新增';if(!toolUnlocked458(toolMeta434(id)))return'城市 Lv.'+q.rank+' 解鎖';
+  const err=__stationCanPlace008(q.base,x,y);if(err)return err;
+  if(q.sz===5){for(let dy=0;dy<5;dy++)for(let dx=0;dx<5;dx++){const t=tiles[idx(x+dx,y+dy)];if(t.am502||t.parkMeter)return'先移除既有交通設施';}return null;}
+  const t=tiles[idx(x,y)];if(q.theme==='bus'){if(t.rdec)return'先移除道路佈置';return __stationCanPlace008('bus',x,y);}if(q.theme==='taxi'&&t.parkMeter)return'已有路邊停車設施';return null;
+}
+function stationPlace008(id,x,y,silent){
+  const q=STATION_TOOLS008[id],err=stationCanPlace008(id,x,y),cost=stationCost008(id,x,y);
+  if(err||cost>money){if(!silent){toast(err||'資金不足！','bad');sErr();}return false;}
+  const before=money,i=idx(x,y);
+  if(q.sz===5){if(!__stationPlace008('hsrStation',x,y,true))return false;const b=tiles[i].bld;b.v=3+q.axis;b.pw=false;b.wa=false;stationRoots008.add(i);markPowerDirty450();markPowerDirty471();waterDirty449=true;markWaterCycleDirty472();stationRailDirty008();}
+  else{
+    if(q.theme==='bus'&&!__stationPlace008('bus',x,y,true))return false;
+    if(!__stationPlace008(q.base,x,y,true))throw Error('GPT-008 atomic native facility placement rejected after preflight');
+    const t=tiles[i];t.amx502={...(t.amx502||{}),british008:q.theme};
+    if(q.theme==='taxi'){t.parkMeter=1;const extra=cost-(before-money);money-=extra;if(undoGroup)undoGroup.spent+=extra;}
+    stationRailDirty008();
+  }
+  if(!silent)toast(q.ic+' '+q.nm+' '+(q.sz===5?'施工開始':'完工'),'gold');updHud();return true;
+}
+const __stationCanPlace008=canPlace;canPlace=function(id,x,y){if(STATION_TOOLS008[id])return stationCanPlace008(id,x,y);return __stationCanPlace008(id,x,y);};
+const __stationCost008=placeCost;placeCost=function(id,x,y){return STATION_TOOLS008[id]?stationCost008(id,x,y):__stationCost008(id,x,y);};
+const __stationPlace008=doPlace;doPlace=function(id,x,y,silent){
+  if(STATION_TOOLS008[id])return stationPlace008(id,x,y,silent);
+  const root=id==='doze'&&inMap(x,y)?mobilityRoot462(idx(x,y)):-1,b=tiles[root]?.bld,owned=britishStation008(b)?stationCells008(root,b):null;
+  const taxi=id==='doze'&&inMap(x,y)&&stationTheme008(tiles[idx(x,y)])==='taxi';
+  const ok=__stationPlace008(id,x,y,silent);
+  if(ok&&owned&&!tiles[root]?.bld){for(const i of owned){tiles[i].rail=0;tiles[i].railBridge=0;tiles[i].railMask=0;}stationRoots008.delete(root);recalcAllRailMasks();stationRailDirty008();}
+  if(ok&&taxi){tiles[idx(x,y)].parkMeter=0;mobility491Dirty=true;}
+  return ok;
+};
+const __stationFrontage008=mobilityStationTrackFrontage462;mobilityStationTrackFrontage462=function(root,kind='rail'){root=mobilityRoot462(root);const b=tiles[root]?.bld;if(kind!=='rail'||!britishStation008(b))return __stationFrontage008(root,kind);if(!stationReady008(root,b))return[];const x=root%N,y=(root/N)|0,axis=stationAxis008(b),out=[];for(const c of[1,3]){const ports=[-1,5].map(k=>[x+(axis?k:c),y+(axis?c:k)]);if(ports.some(([xx,yy])=>inMap(xx,yy)&&tiles[idx(xx,yy)].rail)){const i=idx(x+(axis?2:c),y+(axis?c:2));if(tiles[i].rail)out.push(i);}}return out;};
+const __stationGeometry008=railGeometry463;railGeometry463=function(mode,L){const g=__stationGeometry008(mode,L);if(mode==='rail'&&g.validStops.some(r=>britishStation008(tiles[r]?.bld)&&!stationReady008(r,tiles[r].bld))){g.broken=true;g.reason='英式車站施工中，或缺少供電／供水／道路';g.path=[];g.stationPos=[];}return g;};
+const __stationName008=railStationName463;railStationName463=function(root,mode){return britishStation008(tiles[root]?.bld)?'英式中央車站 · '+(stationAxis008(tiles[root].bld)?'東西':'南北'):__stationName008(root,mode);};
+const __stationJobCapacity008=publicJobCapacity491;publicJobCapacity491=function(b){return britishStation008(b)&&b.age<9?0:__stationJobCapacity008(b);};
+const __stationActivePositions008=publicActivePositions495;publicActivePositions495=function(root,b){return britishStation008(b)&&!stationReady008(root,b)?0:__stationActivePositions008(root,b);};
+const __stationMobilityCapacity008=publicServiceCapacityForMobility495;publicServiceCapacityForMobility495=function(root,b,type){return britishStation008(b)&&!stationReady008(root,b)?0:__stationMobilityCapacity008(root,b,type);};
+const __stationVdraw008=vdraw574;vdraw574=function(o,b){return britishStation008(b)?3+((stationAxis008(b)+viewRotEff())&3):__stationVdraw008(o,b);};
+const __stationLoad008=load;load=function(...a){const ok=__stationLoad008(...a);if(ok){stationIndex008();stationDaily008();}return ok;};
+const __stationNewWorld008=newWorld;newWorld=function(...a){stationRoots008.clear();return __stationNewWorld008(...a);};
+const __stationTxnSync008=syncWorldAfterTransaction460;syncWorldAfterTransaction460=function(...a){const r=__stationTxnSync008(...a);stationIndex008();stationDaily008();return r;};
+const __stationSize008=toolSize458;toolSize458=function(id){const q=STATION_TOOLS008[typeof id==='object'?id?.id:id];return q?q.sz:__stationSize008(id);};
+for(const [id,q]of Object.entries(STATION_TOOLS008)){COST[id]=q.sz===5?COST.hsrStation:COST[q.base]+(q.theme==='bus'?COST.bus:q.theme==='taxi'?COST.parkMeter||15:0);TOOLS.push({id,cat:'road',ic:q.ic,nm:q.nm,pr:'$'+COST[id],unlockRank:q.rank});MAYOR_MANUAL_ONLY470A.add(id);}
+CATALOG_SECTIONS458.find(q=>q[0]==='transit')[2].push(...Object.keys(STATION_TOOLS008));
+function stationDescription008(q){if(q.sz===5)return'5×5 · 紅磚售票廳、鐘塔、玻璃鐵棚、月台與跨月台通道。'+(q.axis?'東西':'南北')+'兩條實體軌道；端口只在軌道兩端。沿用大型鐵路車站容量，須完成施工、供電、供水、道路，以及玩家付費車隊與路線。';return({square:'獨立石板廣場：沿用步道，步行成本0.72，可連續拼接。',entrance:'連到四格內的實際車站；沿用大型入口，出口容量420。',bus:'道路上的實際巴士站與行人穿越。客流須有玩家的路線和車隊。',taxi:'道路候車路緣、行人穿越及六格一般路邊停車供給；現有系統尚無專用計程車派遣或計程車客流。',cycleParking:'獨立有蓋自行車停放；原生容量100，須接上步行／自行車網絡。',cyclePath:'獨立自行車道；原生自行車成本0.58，步行成本0.82。',transfer:'連接五格內兩座不同的實際車站；原生步行轉乘容量360。'})[q.theme];}
+function stationDistrictAt008(x,y){if(!inMap(x,y))return null;const root=mobilityRoot462(idx(x,y)),b=tiles[root]?.bld;if(britishStation008(b))return{root,k:b.k,v:b.v,age:b.age,axis:stationAxis008(b),ready:stationReady008(root,b),power:!!b.pw,water:!!b.wa,road:mobilityFrontage462(root,'road'),owned:stationCells008(root,b),ownedRail:stationCells008(root,b).map(i=>tiles[i].rail|0),ports:stationPorts008(root,b),connectedPorts:stationReady008(root,b)?stationPorts008(root,b).filter(i=>tiles[i]?.rail):[],trackSeeds:mobilityStationTrackFrontage462(root,'rail'),frontagePolicy:'matching physical rail portals only',authority:'native k139 / T463 / T468 / T491 / T501 / T502'};const t=tiles[idx(x,y)],theme=stationTheme008(t);return theme?{theme,am502:t.am502,amx502:JSON.parse(JSON.stringify(t.amx502)),bus:!!t.bus,parkMeter:!!t.parkMeter,walkCost:amNodeCost502(idx(x,y),'walk'),bikeCost:amNodeCost502(idx(x,y),'bike'),taxiDispatch:false}:null;}
+function installStationArt008(){const t0=performance.now(),a=window.BritishStationArchitecture008.buildAll();for(const [v,s]of a.station.entries())SPR.bld['139_1_'+(v+3)]={...s,smoke:[],__britishStation008:1,__t479:1,__t547:{k:139,lv:1,v:v+3,bw:5,bh:5}};SPR.stationDistrict008=a.modules;SPR.stationConstruction008=a.construction;window.__stationArt008={ms:performance.now()-t0,builds:1,station:4,modules:Object.keys(a.modules).length,construction:Object.keys(a.construction).length};}
+function stationObjects008(objs,sxOf,syOf,vis,lodFar){if(lodFar||!SPR.stationDistrict008)return;for(const i of amCells502){const t=tiles[i],theme=stationTheme008(t);if(!theme)continue;const x=i%N,y=(i/N)|0,sx=sxOf(x,y),sy=syOf(x,y);if(vis(sx,sy))objs.push({dep:viewDep(x,y)+.009,stationModule008:theme,x,y,sx,sy});}}
+function stationModuleDraw008(g,o,z,depth,night,occ){const s=SPR.stationDistrict008[o.stationModule008+'_'+viewRotEff()];if(!s)return;const x=o.sx+(32-s.ax)*z,y=o.sy+(32-s.ay)*z;g.drawImage(s.img,x,y,s.w*z,s.h*z);occ(s.img,x,y,s.w*z,s.h*z);if(depth>0&&s.night)night.push({img:s.night,x,y,w:s.w*z,h:s.h*z,grid487:1,gx:o.x,gy:o.y,warm649:1});}
+function stationConstructionDraw008(g,b,s,x,y,z,depth,night,occ,root){const stage=b.age<2?0:b.age<4?1:b.age<7?2:3,v=(stationAxis008(b)+viewRotEff())&3,c=SPR.stationConstruction008[stage+'_'+v];g.drawImage(c.img,x,y,c.w*z,c.h*z);occ(c.img,x,y,c.w*z,c.h*z);if(depth>0&&b.pw&&c.night)night.push({img:c.night,x,y,w:c.w*z,h:c.h*z,warm649:1,gx:root%N,gy:(root/N)|0});}
+function stationSelftest008(){const details=[],add=(name,ok,actual)=>details.push({name,ok:!!ok,actual});for(let v=3;v<7;v++){const s=SPR.bld['139_1_'+v];add('original station view '+v,s?.__britishStation008&&s.img?.width===336&&s.night?.width===336,{w:s?.w,h:s?.h});}add('exact four station,28 module,16 construction assets',window.__stationArt008?.station===4&&window.__stationArt008.modules===28&&window.__stationArt008.construction===16,window.__stationArt008);add('nine independent native tools',Object.keys(STATION_TOOLS008).length===9);add('existing large-station identity retained',MSZ[139]===5&&RAIL_MODE463.rail.stationKs.includes(139));add('square walk authority',AM_META502.footpath502.c===1);add('no taxi dispatch authority invented',stationDescription008(STATION_TOOLS008.stationTaxi008).includes('尚無專用計程車'));return{ok:details.every(d=>d.ok),details};}
+function stationEvidence008(){return{day,roots:[...stationRoots008].map(root=>{const b=tiles[root]?.bld;return{...stationDistrictAt008(root%N,(root/N)|0),staff:publicStaffRoot495.has(root)?JSON.parse(JSON.stringify(publicStaffRoot495.get(root))):null,positions:publicActivePositions495(root,b)};}),art:{...window.__stationArt008},rail:railOpsSnapshot463(),operating:transitOpsSnapshot501(),active:activeMobilitySnapshot502(),civic:civicServicesSnapshot495(),mobility:mobilitySnapshot491(),bus:busRoutes.map((r,i)=>({id:i+1,stops:[...r.stops]}))};}
+
 const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath675=String(draw).indexOf('waterVar675(waterF')>=0&&String(draw).indexOf('__noWaterVar675?')>=0,drawPath667=String(draw).indexOf('nightWaterApply667(ctx,nightDepth)')>=0&&String(draw).indexOf('mg.fill(nwPath667)')>=0,drawPath666=String(draw).indexOf('gc.clip(wgPath666);gc.drawImage(wg666,0,0)')>=0&&String(draw).indexOf("__noWaterGrad666?'_wg0'")>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
 
@@ -86245,6 +86404,7 @@ function britishGameplayProbe004(groupFilter){
 }
 
 window.GV={
+  stationSelftest008,stationDistrictAt008,stationEvidence008,
   publicLifeSelftest007,publicLifeGameplayProbe007,publicLifeAt007,
   residentialSelftest006,residentialGameplayProbe006,
   highStreetSelftest005,highStreetGameplayProbe005,
