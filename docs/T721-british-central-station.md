@@ -1,0 +1,20 @@
+# T721 — British central station and native interchange (original GPT-008)
+
+Fresh release approval: the owner Sentinel_a0cfca54d6ec81919e5a6354a5c0f823 explicitly requested merge/deployment at2026-10-05 03:47:25 UTC: 「但是我感覺能上，直接上線合併吧，然後進行下一波，之後記住GPT，盡量越英式靠攏越好」. The ten delivered native images from54c60fa are approved and must not be resent. [PR13](https://github.com/lijiabao1998/GlimmerTown-lab/pull/13) targets the verified latest main ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f. Release checks, merge and deployment remain pending at this card's creation.
+
+Approved implementation HTML SHA256: da956974f0e3dc775b755449dc661f20e9b9edd8c8dc369c8785d81b3b363d73. The [original process card](branch/GPT-008-british-central-station.md) retains acceptance, architecture references and every bounded correction. Release only that first stage; stage-two hotel/café/newsstand work starts from merged main on an independent branch and requires separate image approval.
+
+## Acceptance before release bookkeeping
+
+1. Product index.html differs from approved54c60fa only in GAME_VER14.25, GAME_ANCHORT721 and startVersion456. Exact reverse normalization restores every approved byte; no art or gameplay redesign.
+2. Promote exactly48 complete native boot leaf records and the bld/stationDistrict008/stationConstruction008 family aggregates from [CI37261544977](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37261544977), artifact11324602889. Its checked head7d73af08b2b51f2f3aaa32a14f19131645fa0756 has the exact approved HTML. Verified archive SHA256676781baef11ea272ab5cf4ccae9a1db73a9f997f7301b758abcebafc01d22a7. Preserve2807 old records, all other families,1728 blocks and style; never run fingerprint write mode. Native result:155 families/2855 leaves/2845 nonempty day/1527 nonempty night; bld879 CRC012e9f06.
+3. Add one bounded r168/PR13 log insertion preserving every T720 log byte. Retain old source art and owner decisions exactly. The complete promotion pin file is independently hash-pinned in the static release contract.
+4. Historical release-specific QA gates adapt to equally strict T721 metadata, exact reviewed product and the60 cumulative T719→T721 additions. The original public-life QA file remains byte-exact, and every native runtime statement from browser boot through all35 gameplay groups and final cleanup remains identical. Preserve203 retained physical-road neighbors,30 paid native homes,21-day bound and actual loaded-day staffing.
+5. Exact-head full11-job CI, three smoke passes, plain fp.js --check, all old-city tiles/stats/RNG equality, station native staffing/service/save-load and all day/night/occlusion/construction guards must pass. No baseline mutation during tests.
+6. Recheck latest main and PR head, mark ready and squash merge with tested expected head SHA. Let the unchanged main-smoke→Pages workflow deploy; verify exact merged SHA/public HTML/gallery. Actual live-browser interaction is a separate check, not inferred from local byte equality.
+
+## Evidence and limits
+
+Approved full CI37258927965 passed11/11, smoke37258927951 passed; complete native promotion export/preflight37261544977 passed26 checks. Native loaded-day station staff15.67, delivered water5.7 and live railway riders11.7/entries23.4; all47 old British identities remain, and three old-only simulations preserve exact stats/tiles/seeded RNG. Bus removal/paid repair changed riders2.8→0→2.4. Physical track breaks disable service; real power-source removal eliminates staff and night lights; restoration recovers them. An actual paid foreground terrace blocked36 of1160 lamp candidates with1124 visible, then native undo restored all four tiles.
+
+Final release-head CI is not claimed here; PR13/Actions is authoritative. Taxi uses six-space native general parking without a separate dispatch model. Four unchanged nested legacy atlas diagnostics remain disclosed (industry165_1_0,166_1_0,174_1_0,version-anchor). CI software-rendering measurements do not certify real mobile hardware/FPS. Stage-two hotel/café/newsstand images have not yet been approved.

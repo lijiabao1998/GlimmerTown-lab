@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T721 release entry BEGIN -->
+## r168 — T721 英式中央車站與原生轉乘設施（原 GPT-008）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r168 | [T721](docs/T721-british-central-station.md) | 業主於 2026-10-05 03:47:25 UTC 批准十張原生圖片並明確要求合併上線。原創四立面紅磚車站、兩條實體軌道、月台／跨月台通道；七種可獨立放置站前設施沿用原生鐵路、公車、步行、自行車與停車機制。真實付費車隊／車廠、九日施工、水電人力、拆除撤銷及存讀檔。v14.25／T721；產品只改三處版本標示，指紋只提升48新葉、三族匯總及必要統計，全部2807舊葉／1728 blocks／style 保持。 | 批准候選54c60fa：[CI37258927965](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927965)全部11工作成功；[smoke37258927951](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927951)通過。四鏡頭日夜／40施工里程碑、35舊玩法組／203保留鄰居、三座舊城／RNG、載入城實際車站人力與正旅客量。完整原生指紋匯出與26項preflight在7d73af0／[CI37261544977](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37261544977)通過。正式metadata候選須重跑完整套、smoke三次及無例外fp check；此記錄不預稱發版重驗通過。 | [PR13](https://github.com/lijiabao1998/GlimmerTown-lab/pull/13)的T721 squash merge，確切SHA見PR | 已交付並批准的十張原生PNG沿用，不重送；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927965) | ① 計程車路邊設施採原生一般停車，沒有獨立派車／旅客模擬 ② 四项既有巢狀atlas診斷保留 ③ 真實裝置／手機FPS未測 ④ 密集前景會正常遮住部分立面 ⑤ 站前旅館／咖啡館／報刊亭在独立下一阶段，仍需其圖片批准 ⑥ 部署沿用現有流程，正式站未刪除或搬遷 |
+
+<!-- T721 release entry END -->
 <!-- T720 release entry BEGIN -->
 ## r167 — T720 十二款英國公共生活建築（原 GPT-007）
 

@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-10-05T00:55:17.132Z",
- "version": "14.24",
- "anchor": "T720",
+ "generatedAt": "2026-10-05T04:03:43.222974Z",
+ "version": "14.25",
+ "anchor": "T721",
  "stats": {
-  "families": 153,
-  "leaves": 2807,
-  "dayNonEmpty": 2797,
-  "nightNonEmpty": 1493
+  "families": 155,
+  "leaves": 2855,
+  "dayNonEmpty": 2845,
+  "nightNonEmpty": 1527
  },
  "families": {
   "grass": {
@@ -101,11 +101,11 @@
    "night": 0
   },
   "bld": {
-   "leaves": 875,
-   "crc": "97b2a95d",
-   "px": 29815424,
-   "op": 7144238,
-   "night": 850
+   "leaves": 879,
+   "crc": "012e9f06",
+   "px": 30224000,
+   "op": 7282789,
+   "night": 854
   },
   "park": {
    "leaves": 9,
@@ -1079,6 +1079,20 @@
    "px": 24192,
    "op": 5764,
    "night": 3
+  },
+  "stationDistrict008": {
+   "leaves": 28,
+   "crc": "f51abb79",
+   "px": 185472,
+   "op": 29200,
+   "night": 28
+  },
+  "stationConstruction008": {
+   "leaves": 16,
+   "crc": "b68bcfd6",
+   "px": 1634304,
+   "op": 446013,
+   "night": 16
   }
  },
  "subs": {
@@ -20730,6 +20744,342 @@
    "w": 208,
    "h": 172,
    "n": "50b39820"
+  },
+  "bld.139_1_3": {
+   "d": "30776295",
+   "op": 37083,
+   "w": 336,
+   "h": 304,
+   "n": "1283767d"
+  },
+  "bld.139_1_4": {
+   "d": "af49788c",
+   "op": 33835,
+   "w": 336,
+   "h": 304,
+   "n": "ac7a8448"
+  },
+  "bld.139_1_5": {
+   "d": "09228a1e",
+   "op": 33109,
+   "w": 336,
+   "h": 304,
+   "n": "a9963f23"
+  },
+  "bld.139_1_6": {
+   "d": "7c5e103b",
+   "op": 34524,
+   "w": 336,
+   "h": 304,
+   "n": "568b1dfd"
+  },
+  "stationConstruction008.0_0": {
+   "d": "03d2a631",
+   "op": 25961,
+   "w": 336,
+   "h": 304,
+   "n": "63e2dd3e"
+  },
+  "stationConstruction008.0_1": {
+   "d": "702b2a6c",
+   "op": 26004,
+   "w": 336,
+   "h": 304,
+   "n": "d1e0437e"
+  },
+  "stationConstruction008.0_2": {
+   "d": "80a6bbd4",
+   "op": 25961,
+   "w": 336,
+   "h": 304,
+   "n": "93772453"
+  },
+  "stationConstruction008.0_3": {
+   "d": "8a664ce4",
+   "op": 25877,
+   "w": 336,
+   "h": 304,
+   "n": "381903fe"
+  },
+  "stationConstruction008.1_0": {
+   "d": "2b09ac5d",
+   "op": 26010,
+   "w": 336,
+   "h": 304,
+   "n": "63e2dd3e"
+  },
+  "stationConstruction008.1_1": {
+   "d": "d74791dc",
+   "op": 26052,
+   "w": 336,
+   "h": 304,
+   "n": "d1e0437e"
+  },
+  "stationConstruction008.1_2": {
+   "d": "b4fb11b8",
+   "op": 26011,
+   "w": 336,
+   "h": 304,
+   "n": "93772453"
+  },
+  "stationConstruction008.1_3": {
+   "d": "61aacec0",
+   "op": 25929,
+   "w": 336,
+   "h": 304,
+   "n": "381903fe"
+  },
+  "stationConstruction008.2_0": {
+   "d": "fd91f5e5",
+   "op": 28238,
+   "w": 336,
+   "h": 304,
+   "n": "c67d2a98"
+  },
+  "stationConstruction008.2_1": {
+   "d": "c6835a9f",
+   "op": 28511,
+   "w": 336,
+   "h": 304,
+   "n": "d1e0437e"
+  },
+  "stationConstruction008.2_2": {
+   "d": "3f74233e",
+   "op": 27015,
+   "w": 336,
+   "h": 304,
+   "n": "b70b8156"
+  },
+  "stationConstruction008.2_3": {
+   "d": "9c58d2d6",
+   "op": 26647,
+   "w": 336,
+   "h": 304,
+   "n": "f130e9b7"
+  },
+  "stationConstruction008.3_0": {
+   "d": "466547fd",
+   "op": 33124,
+   "w": 336,
+   "h": 304,
+   "n": "c67d2a98"
+  },
+  "stationConstruction008.3_1": {
+   "d": "4470ccba",
+   "op": 33475,
+   "w": 336,
+   "h": 304,
+   "n": "df999ebd"
+  },
+  "stationConstruction008.3_2": {
+   "d": "13cc8566",
+   "op": 31206,
+   "w": 336,
+   "h": 304,
+   "n": "0b860ec2"
+  },
+  "stationConstruction008.3_3": {
+   "d": "d51c61fb",
+   "op": 29992,
+   "w": 336,
+   "h": 304,
+   "n": "f130e9b7"
+  },
+  "stationDistrict008.bus_0": {
+   "d": "cace2c94",
+   "op": 736,
+   "w": 72,
+   "h": 92,
+   "n": "96a0b9f7"
+  },
+  "stationDistrict008.bus_1": {
+   "d": "4c8b9422",
+   "op": 681,
+   "w": 72,
+   "h": 92,
+   "n": "a7b213ac"
+  },
+  "stationDistrict008.bus_2": {
+   "d": "c5041b2c",
+   "op": 764,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.bus_3": {
+   "d": "4764dd84",
+   "op": 769,
+   "w": 72,
+   "h": 92,
+   "n": "590bc5a2"
+  },
+  "stationDistrict008.cycleParking_0": {
+   "d": "b73fb2c8",
+   "op": 1412,
+   "w": 72,
+   "h": 92,
+   "n": "8942521f"
+  },
+  "stationDistrict008.cycleParking_1": {
+   "d": "977178a7",
+   "op": 1424,
+   "w": 72,
+   "h": 92,
+   "n": "b3bb39d2"
+  },
+  "stationDistrict008.cycleParking_2": {
+   "d": "3b84e121",
+   "op": 1388,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.cycleParking_3": {
+   "d": "62195361",
+   "op": 1389,
+   "w": 72,
+   "h": 92,
+   "n": "8129ed34"
+  },
+  "stationDistrict008.cyclePath_0": {
+   "d": "a0bcedce",
+   "op": 1036,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.cyclePath_1": {
+   "d": "793afec1",
+   "op": 1036,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.cyclePath_2": {
+   "d": "dbabc8fe",
+   "op": 1036,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.cyclePath_3": {
+   "d": "dee6bc4e",
+   "op": 1036,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.entrance_0": {
+   "d": "4133903d",
+   "op": 1347,
+   "w": 72,
+   "h": 92,
+   "n": "1e788fcd"
+  },
+  "stationDistrict008.entrance_1": {
+   "d": "2d284b8d",
+   "op": 1232,
+   "w": 72,
+   "h": 92,
+   "n": "4eaa16f1"
+  },
+  "stationDistrict008.entrance_2": {
+   "d": "0576acee",
+   "op": 1246,
+   "w": 72,
+   "h": 92,
+   "n": "6b78bd06"
+  },
+  "stationDistrict008.entrance_3": {
+   "d": "c5a654ea",
+   "op": 1355,
+   "w": 72,
+   "h": 92,
+   "n": "57c12a2f"
+  },
+  "stationDistrict008.square_0": {
+   "d": "27017574",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.square_1": {
+   "d": "ece9bbf1",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.square_2": {
+   "d": "eb239bb9",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.square_3": {
+   "d": "656d4682",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.taxi_0": {
+   "d": "dd4a05fa",
+   "op": 489,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.taxi_1": {
+   "d": "c25b0644",
+   "op": 518,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.taxi_2": {
+   "d": "1e3e3c8b",
+   "op": 518,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.taxi_3": {
+   "d": "9df38245",
+   "op": 512,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "stationDistrict008.transfer_0": {
+   "d": "0bacea0f",
+   "op": 1347,
+   "w": 72,
+   "h": 92,
+   "n": "1e788fcd"
+  },
+  "stationDistrict008.transfer_1": {
+   "d": "132b359e",
+   "op": 1232,
+   "w": 72,
+   "h": 92,
+   "n": "4eaa16f1"
+  },
+  "stationDistrict008.transfer_2": {
+   "d": "8e056f1e",
+   "op": 1246,
+   "w": 72,
+   "h": 92,
+   "n": "6b78bd06"
+  },
+  "stationDistrict008.transfer_3": {
+   "d": "8e9f4427",
+   "op": 1355,
+   "w": 72,
+   "h": 92,
+   "n": "57c12a2f"
   }
  },
  "blocks": {
