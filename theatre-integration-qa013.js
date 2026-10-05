@@ -2,6 +2,7 @@
 'use strict';
 // Browser, simulation, canvas and pixel execution ONLY in isolated Actions.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{execFileSync}=require('node:child_process'),{isDeepStrictEqual:eq}=require('node:util');
+if(process.argv.length===3&&process.argv[2]==='--static-test'){console.log(JSON.stringify(staticSeasonalWeatherTest013(),null,2));process.exit(0);}
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('GitHub Actions runtime only; no local game execution');
 const {withGame,waitFor}=require('./harness'),{seedApprovedBritishLegacy007}=require('./publiclife-legacy-fixture007');
 const {verifyStatic013,BASE}=require('./theatre-static-contract013'),{verifyFingerprint013,staticTest013}=require('./theatre-fingerprint-qa013');
@@ -17,6 +18,7 @@ const report={checkedSHA:head,workflowSHA:process.env.GITHUB_SHA,run:process.env
  'The theatre uses existing T495 public employment, T491 leisure, completed upkeep and native theater coverage. There is no ticket revenue, new tourist contribution or per-show simulation.',
  'Six amenities are individually editable native T502 walking paths with decorative metadata; ticket office and queue rail create no sales or queue simulation.',
  'True cold-load proof uses two whole Page.reload/native Continue cycles, exact live-save bytes and three following unaided ordinary days; existing T724 topology fix stays byte-identical.',
+ 'Snow/fog coverage deliberately changes seasonal weather through the existing QA hook, then advances one real ordinary day; the seasonal date jump is not ordinary elapsed gameplay.',
  'CI software-rendering costs are not real-device/mobile FPS certification. Existing PWA ancillary warnings remain disclosed; no new error allowlist is introduced.'
 ]};
 const save=()=>fs.writeFileSync(path.join(OUT,'manifest.json'),JSON.stringify(report,null,2));
@@ -28,16 +30,61 @@ function png(file,url,meta={}){
  const width=b.readUInt32BE(16),height=b.readUInt32BE(20);if(!width||!height)throw Error('Empty PNG');fs.writeFileSync(path.join(OUT,file),b);
  report.artifacts.push({...meta,path:file,bytes:b.length,width,height,sha256:hash(b),checkedSHA:head,sourceSHA256:report.sourceSHA256});save();
 }
+// Browser-only paired native render. Existing flags do not change the product.
+function seasonalWeatherScene013(kind,rotation,night){
+ const Q=window.__theatreQA013,F=window.__theatreFns013,scene=F.nativeScene013(rotation,night,[60,66],1.8);
+ GV.weather(kind==='snow'?1:0);if(kind==='fog')GV.fog(3);
+ const flag=kind==='snow'?'__noRoofSnow':'__noWx',had=Object.hasOwn(window,flag),previous=window[flag],c=document.getElementById('game'),g=c.getContext('2d'),box=scene.geometry[0].box;
+ const state=()=>({day:GV.stats().day,season:GV.season(),weather:GV.stats().weather,rainDays:GV.rainDays(),fog:GV.fog(),surface:GV.weatherAt499(58,64),time:GV.daylightDbg()});
+ const read=()=>g.getImageData(0,0,c.width,c.height).data;let result;
+ try{
+  window[flag]=false;for(let n=0;n<3;n++)GV.forceDraw();
+  const before=state(),world=Q.world(),storage=JSON.stringify(Q.storage()),identities=JSON.stringify(F.identity013()),refs=[...Q.canonical.map(([k,v])=>['bld',k,v]),...Q.canonicalPaths.map(([k,v])=>['theatre013',k,v])];
+  const on=read(),png=c.toDataURL('image/png');window[flag]=true;GV.forceDraw();const off=read(),controlPNG=c.toDataURL('image/png');window[flag]=false;GV.forceDraw();const restored=read();
+  let changed=0,theatreChanged=0,restoredDifference=0,totalDifference=0;
+  for(let i=0;i<on.length;i+=4){let d=0;for(let j=0;j<3;j++)d+=Math.abs(on[i+j]-off[i+j]);if(d>3){changed++;totalDifference+=d;const n=i/4,x=n%c.width,y=Math.floor(n/c.width);if(box&&x>=box.x&&y>=box.y&&x<box.x+box.w&&y<box.y+box.h)theatreChanged++;}if(on[i]!==restored[i]||on[i+1]!==restored[i+1]||on[i+2]!==restored[i+2]||on[i+3]!==restored[i+3])restoredDifference++;}
+  const after=state();result={kind,rotation:GV.rot(),night,flag,png,controlPNG,before,after,geometry:scene.geometry,composition:F.amenityComposition013(),roots:GV.theatreEvidence013().roots,changed,theatreChanged,totalDifference,restoredDifference,worldExact:world===Q.world(),storageExact:storage===JSON.stringify(Q.storage()),identitiesExact:identities===JSON.stringify(F.identity013()),stateExact:JSON.stringify(before)===JSON.stringify(after),canonicalExact:refs.every(([family,key,v])=>GV.art574.SPR()[family][key]===v),method:kind==='snow'?'Native winter weather1 and accumulated snow; toggle existing __noRoofSnow for same-turn roof/ice contribution inside actual theatre bounds.':'Native clear weather with zero wet/snow accumulation and GV.fog(3); toggle existing __noWx for T154 fog, not the separate dawn-only __noFog layer.'};
+ }finally{if(had)window[flag]=previous;else delete window[flag];GV.forceDraw();}
+ result.flagRestored=had?Object.hasOwn(window,flag)&&window[flag]===previous:!Object.hasOwn(window,flag);return result;
+}
+function validSeasonalWeather013(q,kind,rotation,night,expectedDay){
+ const b=q?.before,g=q?.geometry?.[0];
+ const weather=kind==='snow'?b?.season?.idx===3&&b.weather===1&&b.rainDays>=6&&b.surface?.win===true&&b.surface.sea===3&&b.surface.snow>0&&b.surface.wet===0&&b.fog===null&&q.flag==='__noRoofSnow':b?.season?.idx===0&&b.weather===0&&b.rainDays===0&&b.surface?.snow===0&&b.surface.wet===0&&b.fog?.days===3&&q.flag==='__noWx';
+ return !!(q&&q.kind===kind&&q.rotation===rotation&&q.night===night&&Number.isInteger(expectedDay)&&b?.day===expectedDay&&weather&&g?.k===281&&g.canonical&&g.within&&g.anchorError.every(v=>Math.abs(v)<1e-5)&&q.roots?.length===1&&q.roots[0].k===281&&q.composition?.allSixIndependent&&q.composition.allWithin&&q.composition.allNative&&q.changed>0&&q.theatreChanged>0&&q.restoredDifference===0&&q.worldExact&&q.storageExact&&q.identitiesExact&&q.stateExact&&q.canonicalExact&&q.flagRestored&&(night?b.time.b<.45:b.time.b>.95));
+}
+function validSeasonalInventory013(rows,artifacts){
+ const slots=['fog','snow'].flatMap(kind=>[0,1,2,3].flatMap(rotation=>[false,true].map(night=>({kind,rotation,night}))));
+ const expected=slots.flatMap(q=>{const base='images/'+q.kind+'-r'+q.rotation+'-'+(q.night?'night':'day');return[base+'.png',base+'-control.png'];}).sort(),actual=artifacts.filter(a=>/^images\/(fog|snow)-/.test(a.path)).map(a=>a.path).sort();
+ return rows.length===16&&slots.every(s=>rows.filter(q=>q.kind===s.kind&&q.rotation===s.rotation&&q.night===s.night).length===1)&&JSON.stringify(actual)===JSON.stringify(expected);
+}
+function staticSeasonalWeatherTest013(){
+ const current=fs.readFileSync(__filename,'utf8'),originalWeatherSHA256='69d872c6401836145e20eed6ad9f0ce98b0b8b5a76f8b6a3433bd711244405cb'; // Exact unchanged12-view weather core from595b7cb; no shallow-history fetch needed.
+ const start="    report.weather=[];for(const weather of[0,1,2])",end="),report.weather);",a=current.lastIndexOf(start),b=current.indexOf(end,a)+end.length;
+ if(a<0||b<end.length||crypto.createHash('sha256').update(current.slice(a,b)).digest('hex')!==originalWeatherSHA256)throw Error('Original12 weather captures/assertions changed');
+ new(require('node:vm').Script)('('+seasonalWeatherScene013.toString()+')');const rejected=[];
+ for(const kind of['fog','snow']){
+  const positive={kind,rotation:0,night:false,flag:kind==='snow'?'__noRoofSnow':'__noWx',before:{day:302,season:{idx:kind==='snow'?3:0},weather:kind==='snow'?1:0,rainDays:kind==='snow'?7:0,fog:kind==='fog'?{days:3}:null,surface:{win:kind==='snow',sea:kind==='snow'?3:0,snow:kind==='snow'?1:0,wet:0},time:{b:1}},geometry:[{k:281,canonical:true,within:true,anchorError:[0,0]}],roots:[{k:281}],composition:{allSixIndependent:true,allWithin:true,allNative:true},changed:100,theatreChanged:10,restoredDifference:0,worldExact:true,storageExact:true,identitiesExact:true,stateExact:true,canonicalExact:true,flagRestored:true};
+  if(!validSeasonalWeather013(positive,kind,0,false,302))throw Error('Synthetic seasonal positive rejected');
+  for(const[name,mutate]of[['wrong native day',q=>q.before.day--],['wrong actual season',q=>q.before.season.idx=2],['unexpected fog state',q=>q.before.fog={days:2}],['zero effect',q=>q.changed=0],['zero theatre-region effect',q=>q.theatreChanged=0],['world mutation',q=>q.worldExact=false],['save mutation',q=>q.storageExact=false],['identity change',q=>q.identitiesExact=false],['weather/time mutation',q=>q.stateExact=false],['nonrepeatable pixels',q=>q.restoredDifference=1],['unrestored flag',q=>q.flagRestored=false],['wrong weather',q=>q.before.weather=2],['wrong geometry',q=>q.geometry[0].canonical=false],['missing amenities',q=>q.composition.allNative=false],['wrong day/night',q=>q.before.time.b=.3]]){const q=structuredClone(positive);mutate(q);if(validSeasonalWeather013(q,kind,0,false,302))throw Error('Seasonal negative accepted: '+name);rejected.push(kind+': '+name);}
+ }
+ const rows=['fog','snow'].flatMap(kind=>[0,1,2,3].flatMap(rotation=>[false,true].map(night=>({kind,rotation,night})))),artifacts=rows.flatMap(q=>{const base='images/'+q.kind+'-r'+q.rotation+'-'+(q.night?'night':'day');return[{path:base+'.png'},{path:base+'-control.png'}];});
+ if(!validSeasonalInventory013(rows,artifacts))throw Error('Complete synthetic inventory rejected');
+ for(const[name,r,a]of[['missing scene',rows.slice(1),artifacts],['duplicate scene',[...rows.slice(1),rows[1]],artifacts],['missing control',rows,artifacts.slice(1)],['extra PNG',rows,[...artifacts,{path:'images/fog-extra.png'}]]]){if(validSeasonalInventory013(r,a))throw Error('Inventory negative accepted: '+name);rejected.push(name);}
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,originalTwelveWeatherChecksExact:true,originalWeatherSHA256,addedPhases:['fog','snow'],addedScenes:16,addedNativePNGs:32,rejected};
+}
+
 (async()=>{
  const watchdog=setTimeout(()=>{report.error='Theatre evidence watchdog expired';save();process.exit(124);},32*60000);watchdog.unref();
  try{
+  report.seasonalSourceTests=staticSeasonalWeatherTest013();
   report.static=verifyStatic013();delete report.static.protectedManifest;
   check('exact candidate source protected historical files and unchanged release labels',report.static.ok&&report.static.protectedExact&&report.static.coldLoadFixExact,report.static);
   report.version=report.static.version;report.anchor=report.static.anchor;report.release=report.static.release;
   const legacy=legacyFixtures013();report.legacyFixtures={sha256:legacy.sha256,parts:legacy.parts,exactHistoricalFunctionBodies:legacy.exactHistoricalFunctionBodies};
   const session=await withGame({port:8199,timeout:1860,fresh:true,preScript:"localStorage.setItem('glimmerville.v1.slot','3');localStorage.setItem('glimmerville.v1.q','2');",log:console.log},async({cdp})=>{
    const ev=async(expression,label='native observation')=>{progress('start',{label});const q=await cdp.send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(q.exceptionDetails)throw Error(q.exceptionDetails.exception?.description||q.exceptionDetails.text);progress('done',{label});return q.result.value;};
-   const register=()=>ev('window.__theatreFns013=(()=>{'+legacy.source+'\n'+functions013.map(f=>f.toString()).join('\n')+';return{'+functions013.map(f=>f.name).join(',')+'};})()','register pinned native fixture and theatre observations');
+   const weatherFunctions=[...functions013,seasonalWeatherScene013];
+   const register=()=>ev('window.__theatreFns013=(()=>{'+legacy.source+'\n'+weatherFunctions.map(f=>f.toString()).join('\n')+';return{'+weatherFunctions.map(f=>f.name).join(',')+'};})()','register pinned native fixture and theatre observations');
    const call=(name,...args)=>ev('window.__theatreFns013.'+name+'('+args.map(q=>JSON.stringify(q)).join(',')+')',name);
    const readyTheatre=r=>r.roots.length===1&&r.roots[0].k===281&&r.roots.every(q=>q.operational&&q.employed>0&&q.positions>0&&q.activity.publicJobs>0&&q.activity.leisure>0&&q.coverageStamp?.field==='theater');
    const allPriorReady=r=>r.priorStreet.roots.length===3&&r.priorStreet.roots.every(q=>q.operational&&q.employed>0)&&r.priorMuseum.roots.length===1&&r.priorMuseum.roots[0].operational&&r.priorMuseum.roots[0].employed>0&&r.priorRiverside.roots.length===3&&r.priorRiverside.roots.every(q=>q.operational&&q.employed>0&&q.activity.shopping>0);
@@ -102,6 +149,25 @@ function png(file,url,meta={}){
    if(MODE==='weather'){
     report.weather=[];for(const weather of[0,1,2])for(const rotation of[0,1,2,3]){await call('nativeScene013',rotation,false,[60,66],1.8);const q=await ev('(()=>{const actualWeather=GV.weather('+weather+');GV.forceDraw();return{actualWeather,rot:GV.rot(),png:document.getElementById("game").toDataURL("image/png"),evidence:GV.theatreEvidence013(),composition:window.__theatreFns013.amenityComposition013()};})()','actual native weather render');png('images/weather'+weather+'-r'+rotation+'.png',q.png,{kind:'actual native weather theatre and six paid amenities',weather,rotation,day:q.evidence.day});report.weather.push({weather,rotation,actualWeather:q.actualWeather,rot:q.rot,roots:q.evidence.roots,composition:q.composition});}
     check('all12 real weather and camera views preserve theatre and six native amenities',report.weather.length===12&&report.weather.every(q=>q.weather===q.actualWeather&&q.rotation===q.rot&&q.roots.length===1&&q.roots[0].k===281&&q.composition.allSixIndependent&&q.composition.allWithin&&q.composition.allNative),report.weather);
+    // Additive visual coverage: the seasonal date jump is explicit QA setup,
+    // not ordinary elapsed gameplay. Only the following step is a native day.
+    report.seasonalWeather=[];report.seasonalSetup=[];
+    for(const kind of['fog','snow']){
+     const season=kind==='snow'?3:0,weather=kind==='snow'?1:0,rainDays=kind==='snow'?6:0;
+     const setup=await ev('(()=>{const F=window.__theatreFns013,beforeDay=GV.stats().day,identity=JSON.stringify(F.identity013()),applied=GV.britishWeather004('+season+','+weather+','+rainDays+');'+(kind==='snow'?'GV.fog(1);':'')+'return{fogBeforeDay:GV.fog(),kind:'+JSON.stringify(kind)+',beforeDay,applied,day:GV.stats().day,season:GV.season(),identityExact:identity===JSON.stringify(F.identity013()),developer:GV.dev516B(),method:"Deliberate existing seasonal/weather visual-test hook; date jump is not ordinary elapsed simulation."};})()','explicit '+kind+' visual setup');
+     // Expire the previous fog naturally on this actual winter day; no raw fog assignment.
+     const following=await call('step013',1);report.seasonalSetup.push({setup,following});
+     check(kind+': visual setup preserves identities and following genuine ordinary day settles services',setup.identityExact&&setup.applied.season===season&&setup.applied.weather===weather&&setup.applied.rainDays===rainDays&&setup.day===(kind==='snow'?301:1)&&!setup.developer.sandbox&&!setup.developer.god&&following.day===setup.day+1&&readyTheatre(following)&&allPriorReady(following)&&following.roots.every(r=>r.powerState===1&&r.waterState.code>=2&&r.waterDelivered>0),{setup,following});
+     for(const rotation of[0,1,2,3])for(const night of[false,true]){
+      const q=await call('seasonalWeatherScene013',kind,rotation,night),phase=night?'night':'day',file=kind+'-r'+rotation+'-'+phase;
+      png('images/'+file+'.png',q.png,{kind:'actual native '+kind+' theatre and six amenities after explicit visual setup and one ordinary day',rotation,night,day:q.before.day,condition:q.before,geometry:q.geometry});
+      png('images/'+file+'-control.png',q.controlPNG,{kind:'same-turn native '+q.flag+' visual-only control for '+kind,rotation,night,day:q.before.day,condition:q.before});
+      delete q.png;delete q.controlPNG;report.seasonalWeather.push(q);
+      check(kind+': real native state geometry effect and unchanged world/storage r'+rotation+' '+phase,validSeasonalWeather013(q,kind,rotation,night,following.day),q);
+     }
+    }
+    check('exact16 added snow/fog day-night views plus32 primary/control PNGs; original12 retained',report.weather.length===12&&validSeasonalInventory013(report.seasonalWeather,report.artifacts),{originalWeather:report.weather.length,addedWeather:report.seasonalWeather.length,addedPNGs:report.artifacts.filter(a=>/^images\/(fog|snow)-/.test(a.path)).length});
+
    }
    report.transactions=await call('nativeTransactions013');const tx=report.transactions;check('paid reference-cell whole-footprint doze undo redo and six independent native path transactions',tx.rows.length===1&&tx.rows.every(r=>r.ok&&r.quote.ok&&r.charged===r.quote.cost&&r.charged>0&&r.gone&&r.undo&&r.restored&&r.redo&&r.regone&&r.redoPaid&&r.undoAgain&&r.final&&r.inspect.includes('英式'))&&tx.pathRows.length===6&&tx.pathRows.every(p=>p.doze&&p.removed&&p.charged>0&&p.undo&&p.exact&&p.redo&&p.regone&&p.redoPaid&&p.undoAgain&&p.final&&p.base.am502===1&&p.base.baseWalkCost===.72&&p.base.cost===p.plainCost),tx);
    check('paused native renders preserve world storage identities and canonical references',tx.renderWorldExact&&tx.renderStorageExact&&tx.identitiesExact&&tx.canonical,tx);
