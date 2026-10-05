@@ -28,6 +28,7 @@ jobs:
           node --check station-compatibility-qa008.js
           node --check station-legacy-fixture008.js
           node --check station-prior-regression008.js
+          node --check station-release-contract008.js
       - name: Actual paid construction, physical railway, loaded staffing and native pixels
         run: |
           set -o pipefail
@@ -96,7 +97,7 @@ jobs:
           set -o pipefail
           mkdir -p station-evidence/regression/logs
           for n in 1 2 3; do node smoke.js 2>&1 | tee station-evidence/regression/logs/smoke-$n.txt; done
-          node fp.js --check --expect=bld,stationDistrict008,stationConstruction008 2>&1 | tee station-evidence/regression/logs/fingerprint.txt
+          node fp.js --check 2>&1 | tee station-evidence/regression/logs/fingerprint.txt
           ST008_MODE=fingerprint node station-integration-qa008.js 2>&1 | tee station-evidence/regression/logs/declared-additions.txt
       - name: Native T720 old-city, all47 British identities and old rail compatibility
         run: node station-compatibility-qa008.js
