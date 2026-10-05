@@ -29,7 +29,7 @@ jobs:
       name: Native fonts and immutable baseline lineage
       run: |
         sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
-        for sha in 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+        for sha in 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
     - name: Source-only checks before native art evidence
       run: |
         set -o pipefail
@@ -37,6 +37,7 @@ jobs:
         node --check gameplay013.js
         for f in theatre-*013.js; do node --check "$f"; done
         node theatre-static-contract013.js
+        node theatre-release-contract013.test.js
         python3 integrate-theatre013.test.py
         node theatre-gameplay013.js --static-test
         node theatre-regression-adapter013.js --static-test
@@ -44,6 +45,9 @@ jobs:
         node theatre-style-adapter013.test.js
         TH013_MODE=preflight node theatre-integration-qa013.js 2>&1 | tee theatre-preflight.txt
         node theatre-historical-bridge013.test.js theatre-evidence/preflight/guards/fingerprint-native.json
+        node theatre-release-contract013.test.js --native theatre-evidence/preflight/guards/fingerprint-native.json
+        node theatre-fingerprint-qa013.js --static-test theatre-evidence/preflight/guards/fingerprint-native.json
+        node theatre-style-adapter013.test.js theatre-evidence/preflight/guards/fingerprint-native.json
     - uses: actions/upload-artifact@v4
       with:
         name: theatre-native-fingerprint-${{ github.sha }}

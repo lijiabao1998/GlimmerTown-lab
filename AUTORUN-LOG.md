@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T726 release entry BEGIN -->
+## r173 — T726 英式愛德華劇院街區（原 GPT-013）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r173 | [T726](docs/T726-british-edwardian-theatre-quarter.md) | 業主看過28張同head原生PNG後批准本輪上線，批准收到時間為2026-10-05 16:57 UTC。新增k281愛德華紅磚劇院3×3及六種獨立付費T502售票亭／石鋪廣場／鐵欄／長椅／花槽／英式路燈；原生16公共職位、文化休閒、物理道路水電與九日施工。v14.30/T726只改三個發布標記，嚴格晉升28新葉與必要匯總；2919舊葉及1728完整blocks、既有美術玩法與T724冷讀檔修復保持。 | 批准候選30aa0eb：[full37341815804](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37341815804)44/44及[smoke37341815847](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37341815847)全綠；四向日夜／施工／雨雪霧、物理燈光、真付費編輯、冷載兩次、五冷載控制與七舊城完整tile/stat/RNG均過。发布metadata head仍須重跑完整CI。 | [PR18](https://github.com/lijiabao1998/GlimmerTown-lab/pull/18)的T726發版準備，合併精確SHA待PR確認 | 28張精確head原生PNG已交付核准；原始CI artifacts保留完整來源／雜湊／尺寸 | ① 原有manifest/icon/sw等PWA附檔404保留 ② CI效能不是手機實機FPS ③ 正式站部署後冷載驗證尚待實測 ④ 售票亭為原生步道街具，沒有虛構票務營收 ⑤ 本紀錄不代表其他迭代已發布 |
+
+<!-- T726 release entry END -->
 <!-- T725 release entry BEGIN -->
 ## r172 — T725 英式河岸市集（原 GPT-012）
 

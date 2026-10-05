@@ -1,0 +1,233 @@
+{
+  "nativeCheckedSHA": "30aa0ebfc7080f268de26541f20da730adca1a8d",
+  "nativeSourceSHA256": "de54453d2890e705c522e8e0a5506d50adaaf68922d8897f64485a87e27366b1",
+  "nativeRun": 37341815804,
+  "nativeSmokeRun": 37341815847,
+  "nativeArtifact": 11359116864,
+  "nativeArchiveSHA256": "04b3bd01da4791e583d547912fd6fbe4cac571d4faf120d847e92cdc1bd07ab8",
+  "nativeFingerprintSHA256": "fec125ae41876eddbaf0d799fbd27658448df2b564908d2ebcf8e04fa16fb2a0",
+  "nativeManifestSHA256": "5a56866cfd77d6b6fe167bee112b60e1ee3b74fb0771389b1b4fdb44857cee0c",
+  "nativeFullSubsSHA256": "f0dc7c1fb3c8111be3597a090b8732db8234c39fa9a650f8e1880540dadb33e8",
+  "nativeFullFamiliesSHA256": "8b23c70f6db953522e8cac060f1277672838c816987070659962613edf32c1f7",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 159,
+    "leaves": 2947,
+    "dayNonEmpty": 2937,
+    "nightNonEmpty": 1583
+  },
+  "families": {
+    "bld": {
+      "leaves": 911,
+      "crc": "bd3ae7b7",
+      "px": 31172352,
+      "op": 7596789,
+      "night": 886
+    },
+    "theatre013": {
+      "leaves": 24,
+      "crc": "5d85403a",
+      "px": 158976,
+      "op": 25812,
+      "night": 24
+    }
+  },
+  "subs": {
+    "bld.281_1_0": {
+      "d": "7aff8130",
+      "op": 16872,
+      "w": 232,
+      "h": 260,
+      "n": "7dce818f"
+    },
+    "bld.281_1_1": {
+      "d": "bb7d4830",
+      "op": 16030,
+      "w": 232,
+      "h": 260,
+      "n": "93cf6b93"
+    },
+    "bld.281_1_2": {
+      "d": "40342f89",
+      "op": 16200,
+      "w": 232,
+      "h": 260,
+      "n": "c22b601e"
+    },
+    "bld.281_1_3": {
+      "d": "2ce6fc77",
+      "op": 16827,
+      "w": 232,
+      "h": 260,
+      "n": "aba94144"
+    },
+    "theatre013.ticket_0": {
+      "d": "c219feb9",
+      "op": 1310,
+      "w": 72,
+      "h": 92,
+      "n": "b71c3019"
+    },
+    "theatre013.plaza_0": {
+      "d": "267e6b86",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.rail_0": {
+      "d": "eda9b0a2",
+      "op": 1058,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.bench_0": {
+      "d": "1e38b7c0",
+      "op": 1067,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.planter_0": {
+      "d": "e4c42225",
+      "op": 1050,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.lamp_0": {
+      "d": "12297bfa",
+      "op": 1049,
+      "w": 72,
+      "h": 92,
+      "n": "e3949d5f"
+    },
+    "theatre013.ticket_1": {
+      "d": "58bb39b7",
+      "op": 1310,
+      "w": 72,
+      "h": 92,
+      "n": "cb9a6e4d"
+    },
+    "theatre013.plaza_1": {
+      "d": "3c1479a4",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.rail_1": {
+      "d": "8acc2ac3",
+      "op": 1047,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.bench_1": {
+      "d": "59941004",
+      "op": 1066,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.planter_1": {
+      "d": "8d3a999e",
+      "op": 1051,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.lamp_1": {
+      "d": "c9bd3438",
+      "op": 1054,
+      "w": 72,
+      "h": 92,
+      "n": "d48d5bad"
+    },
+    "theatre013.ticket_2": {
+      "d": "e8973c7e",
+      "op": 1086,
+      "w": 72,
+      "h": 92,
+      "n": "8033c831"
+    },
+    "theatre013.plaza_2": {
+      "d": "9b721581",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.rail_2": {
+      "d": "b3e64664",
+      "op": 1149,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.bench_2": {
+      "d": "aa2e1f70",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.planter_2": {
+      "d": "c21298c3",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.lamp_2": {
+      "d": "4ff25694",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "4c84e3e8"
+    },
+    "theatre013.ticket_3": {
+      "d": "b2e0fc8f",
+      "op": 1104,
+      "w": 72,
+      "h": 92,
+      "n": "fb04eb47"
+    },
+    "theatre013.plaza_3": {
+      "d": "1127af85",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.rail_3": {
+      "d": "8b7b1685",
+      "op": 1149,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.bench_3": {
+      "d": "e962a3cc",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.planter_3": {
+      "d": "d9e15f33",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "theatre013.lamp_3": {
+      "d": "26d1a080",
+      "op": 1046,
+      "w": 72,
+      "h": 92,
+      "n": "6e911bff"
+    }
+  }
+}

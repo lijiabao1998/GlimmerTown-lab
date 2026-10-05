@@ -78,7 +78,7 @@ function staticSeasonalWeatherTest013(){
  try{
   report.seasonalSourceTests=staticSeasonalWeatherTest013();
   report.static=verifyStatic013();delete report.static.protectedManifest;
-  check('exact candidate source protected historical files and unchanged release labels',report.static.ok&&report.static.protectedExact&&report.static.coldLoadFixExact,report.static);
+  check('exact candidate or approved release source with all protected historical files',report.static.ok&&report.static.protectedExact&&report.static.coldLoadFixExact,report.static);
   report.version=report.static.version;report.anchor=report.static.anchor;report.release=report.static.release;
   const legacy=legacyFixtures013();report.legacyFixtures={sha256:legacy.sha256,parts:legacy.parts,exactHistoricalFunctionBodies:legacy.exactHistoricalFunctionBodies};
   const session=await withGame({port:8199,timeout:1860,fresh:true,preScript:"localStorage.setItem('glimmerville.v1.slot','3');localStorage.setItem('glimmerville.v1.q','2');",log:console.log},async({cdp})=>{
@@ -90,12 +90,12 @@ function staticSeasonalWeatherTest013(){
    const allPriorReady=r=>r.priorStreet.roots.length===3&&r.priorStreet.roots.every(q=>q.operational&&q.employed>0)&&r.priorMuseum.roots.length===1&&r.priorMuseum.roots[0].operational&&r.priorMuseum.roots[0].employed>0&&r.priorRiverside.roots.length===3&&r.priorRiverside.roots.every(q=>q.operational&&q.employed>0&&q.activity.shopping>0);
    await cdp.send('Emulation.setDeviceMetricsOverride',{width:1600,height:1080,deviceScaleFactor:1,mobile:false});await register();
    report.boot=await ev('({ready:!!window.__bootDone453,version:GV.ver(),label:document.getElementById("startVersion456")?.textContent?.trim(),slot:localStorage.getItem("glimmerville.v1.slot"),batches:window.__t574,art:window.__theatreArt013})','native boot');
-   check('native candidate version anchor and disposable slot boot',report.boot.ready&&report.boot.version===report.version&&report.boot.label==='v'+report.version+' · '+report.anchor&&report.boot.slot==='3'&&!report.boot.batches.err.length,report.boot);
+   check('native verified version anchor and disposable slot boot',report.boot.ready&&report.boot.version===report.version&&report.boot.label==='v'+report.version+' · '+report.anchor&&report.boot.slot==='3'&&!report.boot.batches.err.length,report.boot);
    report.selftest=await ev('GV.theatreSelftest013()','bounded theatre catalog selftest');check('native theatre catalog utilities staffing and four-view art selftest',report.selftest.ok,report.selftest);
    const fp=await ev('GV.fp536()','complete current native fingerprint'),blocks=await ev('GV.blockFp536()','complete1728 native blocks');report.fingerprint=verifyFingerprint013(fp,blocks);
    check('strict28 additions all2919 old leaves and all1728 complete blocks exact',report.fingerprint.ok,report.fingerprint);
-   fs.writeFileSync(path.join(OUT,'guards/fingerprint-native.json'),JSON.stringify({checkedSHA:head,sourceSHA256:report.sourceSHA256,version:report.version,anchor:report.anchor,release:false,fp,blocks,proof:report.fingerprint},null,2));
-   report.fingerprintNegativeTests=staticTest013({fp,blocks});check('all13 complete-record data mutation controls reject',report.fingerprintNegativeTests.ok&&report.fingerprintNegativeTests.rejected.length===13,report.fingerprintNegativeTests);
+   fs.writeFileSync(path.join(OUT,'guards/fingerprint-native.json'),JSON.stringify({checkedSHA:head,sourceSHA256:report.sourceSHA256,version:report.version,anchor:report.anchor,release:report.release,fp,blocks,proof:report.fingerprint},null,2));
+   report.fingerprintNegativeTests=staticTest013({fp,blocks});check('all16 complete-record data mutation controls reject',report.fingerprintNegativeTests.ok&&report.fingerprintNegativeTests.rejected.length===16,report.fingerprintNegativeTests);
    if(MODE==='preflight'||MODE==='fingerprint'){
     report.assets=await call('assetAudit013');for(const a of report.assets){png('assets/'+a.key+'.png',a.png,{kind:'actual native installed canonical day sprite',key:a.key});png('assets/'+a.key+'-night.png',a.night,{kind:'actual native physical emission mask',key:a.key});delete a.png;delete a.night;}
     check('28 canonical opaque assets with contained physical night emission and exact anchors',report.assets.length===28&&report.assets.every(a=>a.opaque>0&&a.partial===0&&a.outside===0&&a.view>=0&&a.view<=3&&(a.key.startsWith('bld.')?a.w===232&&a.h===260&&a.ax===116&&a.ay===258&&a.lit>0:a.w===72&&a.h===92&&a.ax===36&&a.ay===90))&&report.assets.filter(a=>/^theatre013\.(lamp|ticket)_/.test(a.key)).every(a=>a.lit>0)&&report.assets.filter(a=>/^theatre013\.(plaza|rail|bench|planter)_/.test(a.key)).every(a=>a.lit===0),report.assets);

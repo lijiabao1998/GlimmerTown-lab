@@ -9,8 +9,8 @@ const river=require('./riverside-static-contract012'),riverFP=require('./riversi
 const {aggregate}=require('./streetlife-fingerprint-qa009'),ROOT=__dirname;
 const BASE=museum.BASE,expectedAdditions=museum.expectedAdditions;
 function currentProduct013(){
- const q=fixed.verifyStatic013();
- if(!q.ok||!q.htmlExact||!q.protectedExact||!q.fpExact||!q.logExact||!q.coldLoadFixExact||q.release!==false||q.phase!=='candidate'||q.version!=='14.29'||q.anchor!=='T725'||q.additionCount!==28)throw Error('Exact source-verified theatre candidate over deployed T725 required');
+ const q=fixed.verifyStatic013(),candidate=q.release===false&&q.phase==='candidate'&&q.version==='14.29'&&q.anchor==='T725',release=q.release===true&&q.phase==='release'&&q.version==='14.30'&&q.anchor==='T726';
+ if(!q.ok||!q.htmlExact||!q.protectedExact||!q.fpExact||!q.logExact||!q.coldLoadFixExact||!(candidate||release)||q.additionCount!==28)throw Error('Exact source-verified theatre candidate over deployed T725 required');
  return q;
 }
 function verifyStatic010(){return{...currentProduct013(),base:BASE,theatreBase:fixed.BASE,additionCount:16,riversideAdditionCount:24,theatreAdditionCount:28,expectedAdditions};}
@@ -40,7 +40,7 @@ function riversideLineage013(fp,blocks,proof,product){
  if(!eq(before.families,old.families)||!eq(before.stats,old.stats))throw Error('Complete old riverside aggregate changed');
  for(const prefix of['bld.278_1_','bld.279_1_','bld.280_1_','riverside012.quay_','riverside012.rail_','riverside012.promenade_'])if(new Set([0,1,2,3].map(v=>projected.subs[prefix+v].d)).size!==4)throw Error('Four approved riverside views must remain distinct: '+prefix);
  require('./riverside-release-contract012').verifyApprovedNative012(projected,blocks);
- return{...proof,base:river.BASE,baselineSHA256:river.BASE_FP_SHA256,oldLeaves:2895,newLeaves:24,leaves:2919,oldFamilies:157,currentFamilies:158,added:river.expectedAdditions,riversideLineageExact:true,approvedNativeRecordsExact:true,projectedOnlyDeclared28:true,projectedKeys:keys,theatreBase:fixed.BASE,theatreOldLeaves:2919,theatreNewLeaves:28,currentLeaves:2947,currentNativeFamilies:159,currentNativeProof:proof,phase:product.phase,version:product.version,anchor:product.anchor,release:false};
+ return{...proof,base:river.BASE,baselineSHA256:river.BASE_FP_SHA256,oldLeaves:2895,newLeaves:24,leaves:2919,oldFamilies:157,currentFamilies:158,added:river.expectedAdditions,riversideLineageExact:true,approvedNativeRecordsExact:true,projectedOnlyDeclared28:true,projectedKeys:keys,theatreBase:fixed.BASE,theatreOldLeaves:2919,theatreNewLeaves:28,currentLeaves:2947,currentNativeFamilies:159,currentNativeProof:proof,phase:product.phase,version:product.version,anchor:product.anchor,release:product.release};
 }
 function museumLineage013(fp,blocks,proof,product){
  const keys=[...fixed.expectedAdditions,...river.expectedAdditions].sort(),deployed=riverFP.pinnedBaseline012();
@@ -54,7 +54,7 @@ function museumLineage013(fp,blocks,proof,product){
  for(const prefix of['bld.277_1_','museum010.gate_','museum010.garden_','museum010.bench_'])if(new Set([0,1,2,3].map(v=>projected.subs[prefix+v].d)).size!==4)throw Error('Four approved museum views must remain distinct: '+prefix);
  // Also prove every approved riverside record and complete native block entry.
  const riverside=riversideLineage013(fp,blocks,proof,product);
- return{...proof,base:BASE,baselineSHA256:museumFP.PINNED_FP_SHA256,oldLeaves:2879,newLeaves:16,leaves:2895,oldFamilies:156,currentFamilies:157,added:expectedAdditions,oldStreetLife24Exact:true,museumLineageExact:true,riversideLineageExact:riverside.riversideLineageExact,projectedOnlyDeclared52:true,projectedKeys:keys,theatreBase:fixed.BASE,theatreOldLeaves:2919,theatreNewLeaves:28,riversideOldLeaves:2895,riversideNewLeaves:24,currentLeaves:2947,currentNativeFamilies:159,currentNativeProof:proof,phase:product.phase,version:product.version,anchor:product.anchor,release:false};
+ return{...proof,base:BASE,baselineSHA256:museumFP.PINNED_FP_SHA256,oldLeaves:2879,newLeaves:16,leaves:2895,oldFamilies:156,currentFamilies:157,added:expectedAdditions,oldStreetLife24Exact:true,museumLineageExact:true,riversideLineageExact:riverside.riversideLineageExact,projectedOnlyDeclared52:true,projectedKeys:keys,theatreBase:fixed.BASE,theatreOldLeaves:2919,theatreNewLeaves:28,riversideOldLeaves:2895,riversideNewLeaves:24,currentLeaves:2947,currentNativeFamilies:159,currentNativeProof:proof,phase:product.phase,version:product.version,anchor:product.anchor,release:product.release};
 }
 function verifyFingerprint010(fp,blocks){return museumLineage013(fp,blocks,native.verifyFingerprint013(fp,blocks),currentProduct013());}
 function verifyFingerprint012(fp,blocks){return riversideLineage013(fp,blocks,native.verifyFingerprint013(fp,blocks),currentProduct013());}
@@ -72,8 +72,10 @@ function historicalLog013(full){
  // Candidate release:false does NOT mean a T724 log. Its full log is exactly
  // deployed T725; recover older logs only by stripping each bounded entry and
  // proving complete-byte equality against that historical git source.
- if(full!==actual||full!==fixed.baseFile('AUTORUN-LOG.md').toString())throw Error('Complete unchanged T725 candidate log required');
+ if(full!==actual)throw Error('Complete current source log required');
  let log=full;
+ const baseline=fixed.baseFile('AUTORUN-LOG.md').toString();
+ if(log!==baseline){const release=require('./theatre-release-contract013').verifyRelease013();if(!release.logExact||log.split(release.releaseLogEntry).length!==2||log.replace(release.releaseLogEntry,'')!==baseline)throw Error('Only the exact approved T726 bounded log may precede T725');log=baseline;}
  for(const[anchor,base]of[['T725',river.BASE],['T724',require('./coldload-static-contract011').BASE],['T723',BASE],['T722',require('./streetlife-static-contract009').BASE]]){
   const re=new RegExp('<!-- '+anchor+' release entry BEGIN -->[\\s\\S]*?<!-- '+anchor+' release entry END -->\\n','g'),entries=log.match(re)||[];
   const old=execFileSync('git',['show',base+':AUTORUN-LOG.md'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024});

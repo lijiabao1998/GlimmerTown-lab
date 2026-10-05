@@ -20,12 +20,14 @@ function verifyFingerprint013(fp,blocks){
  // T725 release pins also hash every complete entries record, not just family/count.
  require('./riverside-release-contract012').verifyApprovedNative012({ok:true,subs:projected,families:before.families,stats:before.stats},blocks);
  for(const prefix of['bld.281_1_',...['ticket','plaza','rail','bench','planter','lamp'].map(t=>'theatre013.'+t+'_')])if(new Set([0,1,2,3].map(v=>fp.subs[prefix+v].d)).size!==4)throw Error('Four genuinely distinct authored views required: '+prefix);
- if(hash(fs.readFileSync(path.join(ROOT,'fp.json')))!==BASE_FP_SHA256)throw Error('Tracked fingerprint must remain byte-identical');
- return{ok:true,base:BASE,baselineSHA256:BASE_FP_SHA256,phase:'candidate',version:'14.29',anchor:'T725',release:false,oldLeaves:2919,newLeaves:28,leaves:2947,oldFamilies:158,currentFamilies:159,oldBlocks:1728,added,trackedBaselineExact:true,oldCompleteRecordsExact:true,oldFamilyCRCsExact:true,allCurrentFamilyCRCsExact:true,oldStatsExact:true,blocksExact:true,completeBlockRecordsExact:true};
+ const approved=require('./theatre-release-contract013'),pins=approved.verifyApprovedNative013(fp,blocks);
+ const html=fs.readFileSync(path.join(ROOT,'index.html'),'utf8'),release=html.includes("const GAME_VER='14.30'")?approved.verifyRelease013():null;
+ if(!release&&(hash(html)!==approved.APPROVED||hash(fs.readFileSync(path.join(ROOT,'fp.json')))!==BASE_FP_SHA256))throw Error('Exact image-approved candidate and immutable T725 fingerprint required');
+ return{ok:true,base:BASE,baselineSHA256:BASE_FP_SHA256,phase:release?'release':'candidate',version:release?.version||'14.29',anchor:release?.anchor||'T725',release:!!release,oldLeaves:2919,newLeaves:28,leaves:2947,oldFamilies:158,currentFamilies:159,oldBlocks:1728,added,trackedBaselineExact:!release,promotedNativeRecordsExact:!!release,approvedNativeRecordsExact:true,approvedSHA:pins.nativeCheckedSHA,oldCompleteRecordsExact:true,oldFamilyCRCsExact:true,allCurrentFamilyCRCsExact:true,oldStatsExact:true,blocksExact:true,completeBlockRecordsExact:true};
 }
 function readPreflight013(){
  const file=path.join(ROOT,'theatre-evidence/preflight/guards/fingerprint-native.json'),bytes=fs.readFileSync(file),q=JSON.parse(bytes),head=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),product=verifyStatic013();
- if(process.env.GITHUB_ACTIONS!=='true'||head!==process.env.GITHUB_SHA||q.checkedSHA!==head||q.sourceSHA256!==product.sourceSHA256||q.version!==product.version||q.anchor!==product.anchor||q.release!==false)throw Error('Exact-head/current-source independent native preflight required');
+ if(process.env.GITHUB_ACTIONS!=='true'||head!==process.env.GITHUB_SHA||q.checkedSHA!==head||q.sourceSHA256!==product.sourceSHA256||q.version!==product.version||q.anchor!==product.anchor||q.release!==product.release)throw Error('Exact-head/current-source independent native preflight required');
  const proof=verifyFingerprint013(q.fp,q.blocks),baseline=pinnedBaseline013(),qaBaseline={...baseline,version:product.version,anchor:product.anchor,subs:q.fp.subs,families:q.fp.families,stats:q.fp.stats};
  return{proof,product,baseline,qaBaseline,fp:q.fp,blocks:q.blocks,evidenceSHA256:hash(bytes)};
 }
@@ -36,6 +38,9 @@ function staticTest013(input){
   ['old opaque count',q=>q.fp.subs[firstOld].op++],['old day CRC',q=>q.fp.subs[firstOld].d+='bad'],['old missing leaf',q=>delete q.fp.subs[firstOld]],
   ['new missing leaf',q=>delete q.fp.subs[firstNew]],['extra undeclared leaf',q=>q.fp.subs['theatre013.extra_0']={...q.fp.subs[firstNew]}],
   ['malformed new night',q=>q.fp.subs[firstNew].n=null],['new wrong dimensions',q=>q.fp.subs[firstNew].w++],
+  ['approved new day CRC with rebuilt aggregates',q=>{q.fp.subs[firstNew].d='00000000';Object.assign(q.fp,aggregate(q.fp.subs));}],
+  ['approved new opacity with rebuilt aggregates',q=>{q.fp.subs[firstNew].op++;Object.assign(q.fp,aggregate(q.fp.subs));}],
+  ['approved new extra record field',q=>q.fp.subs[firstNew].extra=true],
   ['old family CRC',q=>q.fp.families.bld.crc+='bad'],['stats mismatch',q=>q.fp.stats.leaves++],
   ['block family mismatch',q=>q.blocks.fam+='bad'],['block count mismatch',q=>q.blocks.count--],
   ['single complete block entry changed',q=>q.blocks.entries[firstBlock]={...q.blocks.entries[firstBlock],d:'bad'}],
