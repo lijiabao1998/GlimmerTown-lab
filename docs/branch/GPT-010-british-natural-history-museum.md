@@ -12,6 +12,8 @@ Original coherent late-Victorian Romanesque massing: red-brick and pale-stone ce
 
 References: London NHM architectural language and top-lit galleries (https://www.nhm.ac.uk/discover/alfred-waterhouse-museum-building-cathedral-to-nature.html ; https://historicengland.org.uk/listing/the-list/list-entry/1080675); Oxford glass/iron daylight roof (https://www.oumnh.ox.ac.uk/learn-architecture); Tring red brick, stone details and raised porch steps (https://historicengland.org.uk/listing/the-list/list-entry/1078005). London is terracotta-faced, so this is an original regional interpretation, not a claimed red-brick replica. Formal forecourt reference: https://www.nhm.ac.uk/about-us/a-history-of-the-museum-grounds-and-wildlife-garden.html .
 
+Economics: k277 regionalNaturalHistory010, $6,400, rank9, 24 public positions, $14/day completed upkeep, leisure240, staff-scaled native tourism weight30, power7, water4.5, museum coverage radius8 only with actual staff. No school seats. Native age9 construction threshold retains existing steel acceleration.
+
 ## Acceptance criteria recorded before implementation
 1. New k277 permanent ID, paid 4×4 placement and retained root/ref footprint, ordinary nine-day construction; rank/cost/description/inspector consistent. Kill switch prevents new placement without erasing saved buildings.
 2. All four actual camera views of the built museum and day/night are native screenshots, showing complete geometry and garden, no synthetic compositing. Construction days1/5/8 and day9 completion use normal daily simulation. Screen clipping, footprint alignment, opaque emission and foreground night occlusion are measured.
@@ -22,4 +24,4 @@ References: London NHM architectural language and top-lit galleries (https://www
 7. No merge/deployment until the user approves this round's finished images. New code fixes must rerun affected full checks before that review.
 
 ## Construction record
-Pending implementation. Runtime tests: not run. Screenshots: not produced. Unfinished: all acceptance checks await exact-head isolated CI and image review. No success claimed.
+Initial implementation: authored four-view 4×4 main museum and12 native path sprites;56 count-checked integration anchors; native staffing, utility, owned coverage and single tourism contribution; preserved all740 protected T722 files. Source-only syntax and deterministic static reconstruction pass. Runtime tests: not run locally; awaiting isolated exact-head CI. Screenshots: not yet produced. Unfinished: complete runtime/pixel/compatibility matrix and user image review. No runtime success claimed.

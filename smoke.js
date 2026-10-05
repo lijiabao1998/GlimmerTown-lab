@@ -47,6 +47,7 @@ const KEEP = process.argv.includes('--keep');
       ['british004', `(window.GV && window.GV.britishSelftest004) ? window.GV.britishSelftest004() : {ok:false,checks:['API missing']}`],
       ['highStreet005', `(window.GV && window.GV.highStreetSelftest005) ? window.GV.highStreetSelftest005() : {ok:false,checks:['API missing']}`],
       ['residential006', `(window.GV && window.GV.residentialSelftest006) ? window.GV.residentialSelftest006() : {ok:false,checks:['API missing']}`],
+      ['museum010', `(window.GV && window.GV.museumSelftest010) ? window.GV.museumSelftest010() : {ok:false,checks:['API missing']}`],
       ['streetLife009', `(window.GV && window.GV.streetLifeSelftest009) ? window.GV.streetLifeSelftest009() : {ok:false,checks:['API missing']}`],
       ['station008', `(window.GV && window.GV.stationSelftest008) ? window.GV.stationSelftest008() : {ok:false,checks:['API missing']}`],
       ['publicLife007', `(window.GV && window.GV.publicLifeSelftest007) ? window.GV.publicLifeSelftest007() : {ok:false,checks:['API missing']}`],
