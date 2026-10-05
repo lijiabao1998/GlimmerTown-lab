@@ -8,7 +8,12 @@ const ROOT=__dirname,{withGame}=require('./harness');
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('Run only in authorized isolated GitHub Actions');
 const MODE=process.env.PL007_MODE||'preflight',OUT=path.join(ROOT,'publiclife-evidence',MODE);
 if(!/^(preflight|gameplay|fingerprint|camera[0-3]|weather|construction[0-2])$/.test(MODE))throw Error('Unknown public-life evidence mode '+MODE);
-const RELEASE_VERSION='14.23',RELEASE_ANCHOR='T719';
+const deepEqual=require('util').isDeepStrictEqual;
+const RELEASE_VERSION='14.24',RELEASE_ANCHOR='T720';
+const APPROVED_HTML_SHA256='2b39152638bc85f0ddf0eba479fad9d6eadc808d58eb1bea00a697d466182068';
+// Complete native boot records from verified approved-head artifact 11310930953.
+const RELEASE_PIXEL_PINS={"bld.262_1_0":{"d":"ec823daa","op":13449,"w":208,"h":196,"n":"f5d7bffc"},"bld.263_1_0":{"d":"72d03771","op":13863,"w":208,"h":196,"n":"e5a0c667"},"bld.264_1_0":{"d":"825e7a2b","op":6821,"w":136,"h":150,"n":"3359754b"},"bld.265_1_0":{"d":"edf8c37e","op":15466,"w":208,"h":210,"n":"29662fb3"},"bld.266_1_0":{"d":"d12a7b6a","op":13371,"w":208,"h":196,"n":"37966d68"},"bld.267_1_0":{"d":"21333d95","op":12825,"w":208,"h":196,"n":"f217c0eb"},"bld.268_1_0":{"d":"6e09b049","op":13385,"w":208,"h":180,"n":"d4afddb1"},"bld.269_1_0":{"d":"32d7a411","op":7453,"w":136,"h":150,"n":"e330c806"},"bld.270_1_0":{"d":"443dc4a5","op":12655,"w":208,"h":164,"n":"7e0f4b21"},"bld.271_1_0":{"d":"6f325434","op":5310,"w":136,"h":124,"n":"bf63eb08"},"bld.272_1_0":{"d":"7d1e4083","op":6157,"w":136,"h":130,"n":"96dd1511"},"bld.273_1_0":{"d":"e3f54915","op":12654,"w":208,"h":172,"n":"50b39820"}};
+const releaseBaseline=JSON.parse(fs.readFileSync(path.join(ROOT,'fp.json'),'utf8'));
 const PINNED_BASE='36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7';
 const TARGETS=[{"k":262,"sz":3,"w":208,"h":196,"ax":104,"ay":194,"family":"civic","id":"UKL01","tool":"historicTownHall","x":8,"y":14,"jobs":12,"services":120,"seats":0,"leisure":0,"role":"public"},{"k":263,"sz":3,"w":208,"h":196,"ax":104,"ay":194,"family":"civic","id":"UKL02","tool":"magistratesCourt","x":12,"y":14,"jobs":12,"services":100,"seats":0,"leisure":0,"role":"public"},{"k":264,"sz":2,"w":136,"h":150,"ax":68,"ay":148,"family":"civic","id":"UKL03","tool":"boroughPolice","x":16,"y":15,"jobs":12,"services":90,"seats":0,"leisure":0,"role":"police"},{"k":265,"sz":3,"w":208,"h":210,"ax":104,"ay":208,"family":"civic","id":"UKL04","tool":"edwardianFireStation","x":20,"y":14,"jobs":14,"services":100,"seats":0,"leisure":0,"role":"fire"},{"k":266,"sz":3,"w":208,"h":196,"ax":104,"ay":194,"family":"community","id":"UKL05","tool":"technicalInstitute","x":8,"y":21,"jobs":16,"services":0,"seats":180,"leisure":0,"role":"education"},{"k":267,"sz":3,"w":208,"h":196,"ax":104,"ay":194,"family":"community","id":"UKL06","tool":"grammarSchool","x":12,"y":21,"jobs":14,"services":0,"seats":180,"leisure":0,"role":"education"},{"k":268,"sz":3,"w":208,"h":180,"ax":104,"ay":178,"family":"community","id":"UKL07","tool":"flintParishChurch","x":16,"y":21,"jobs":6,"services":0,"seats":0,"leisure":100,"role":"faith"},{"k":269,"sz":2,"w":136,"h":150,"ax":68,"ay":148,"family":"community","id":"UKL08","tool":"nonconformistChapel","x":20,"y":22,"jobs":5,"services":0,"seats":0,"leisure":90,"role":"faith"},{"k":270,"sz":3,"w":208,"h":164,"ax":104,"ay":162,"family":"recreation","id":"UKL09","tool":"cricketPavilion","x":8,"y":28,"jobs":12,"services":0,"seats":0,"leisure":140,"role":"leisure"},{"k":271,"sz":2,"w":136,"h":124,"ax":68,"ay":122,"family":"recreation","id":"UKL10","tool":"bowlsClub","x":12,"y":29,"jobs":5,"services":0,"seats":0,"leisure":75,"role":"leisure"},{"k":272,"sz":2,"w":136,"h":130,"ax":68,"ay":128,"family":"recreation","id":"UKL11","tool":"ironBandstand","x":16,"y":29,"jobs":4,"services":0,"seats":0,"leisure":80,"role":"leisure"},{"k":273,"sz":3,"w":208,"h":172,"ax":104,"ay":170,"family":"recreation","id":"UKL12","tool":"seasideConcertHall","x":20,"y":28,"jobs":12,"services":0,"seats":0,"leisure":170,"role":"leisure"}];
 const BENCHMARKS=[{k:219,nm:'Approved Victorian terrace',sz:2,x:27,y:15},{k:238,nm:'Approved cooperative stores',sz:2,x:27,y:22},{k:246,nm:'Approved Georgian row',sz:2,x:27,y:29},{k:221,nm:'Approved Edwardian library',sz:3,x:27,y:34}];
@@ -53,6 +58,11 @@ function compareFingerprint(fp,blocks){
   check('only bld family touched',JSON.stringify(touched.sort())==='["bld"]',touched);
   check('all enumerated superblock sprites unchanged',!!baseline.blocks&&blocks?.fam===baseline.blocks.fam&&blocks?.count===baseline.blocks.count,out.blocks);
   return out;
+}
+
+function compareReleaseBaseline(fp,blocks){
+  const result={leaves:deepEqual(releaseBaseline.subs,fp.subs),families:deepEqual(releaseBaseline.families,fp.families),stats:deepEqual(releaseBaseline.stats,fp.stats),blocks:deepEqual(releaseBaseline.blocks,{fam:blocks.fam,count:blocks.count})};
+  check('strict promoted release baseline equals every complete boot leaf family count and block',Object.values(result).every(Boolean),result);return result;
 }
 
 function compareSessionFingerprint(before,after,worker){
@@ -504,9 +514,17 @@ async function cleanup(){
 function scoreStyle007(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=[Math.min(1,f.colors/L/16),Math.max(0,1-Math.min(1,f.semi/op*20)),f.leftLit/L,Math.max(0,Math.min(1,(f.buckets/L-2)/4)),Math.min(1,(f.colors/op)*100/4),.5*f.nightLeaves/L+.5*(f.nightOp>0?1-f.nightViol/f.nightOp:1),Math.min(1,f.leaves/8)];return {axes,total:+(axes.reduce((a,b)=>a+b,0)/7).toFixed(4)};}
 (async()=>{
   check('immutable public-life art source pin is resolved and exact',sha(art)==='a707f22485f0a449e19b77a3c397fc31bb2e4c4675a92910278cb2b03e9b855e');
-  const protectedPaths=['fp.json','style.json','AUTORUN-LOG.md','docs/DECISIONS.md','british-prototypes-art.js','british-high-street-art.js','british-residential-art.js'];
+  const protectedPaths=['style.json','docs/DECISIONS.md','british-prototypes-art.js','british-high-street-art.js','british-residential-art.js'];
   for(const f of protectedPaths){const old=execFileSync('git',['show',PINNED_BASE+':'+f],{cwd:ROOT,maxBuffer:8*1024*1024});check('protected '+f+' exact T719 bytes',sha(old)===sha(fs.readFileSync(path.join(ROOT,f))));}
-  for(const text of ["const GAME_VER='14.23'","const GAME_ANCHOR='T719'",'id="startVersion456">v14.23 · T719'])check('unchanged release metadata '+text,html.toString().split(text).length===2);
+  const normalizedHTML=html.toString().replace("const GAME_VER='14.24'","const GAME_VER='14.23'").replace("const GAME_ANCHOR='T720'","const GAME_ANCHOR='T719'").replace('id="startVersion456">v14.24 · T720','id="startVersion456">v14.23 · T719');
+  check('approved product changes only three exact release metadata fields',sha(normalizedHTML)===APPROVED_HTML_SHA256);
+  for(const text of ["const GAME_VER='14.24'","const GAME_ANCHOR='T720'",'id="startVersion456">v14.24 · T720'])check('exact release metadata '+text,html.toString().split(text).length===2);
+  const promoted=JSON.parse(JSON.stringify(baseline));promoted.generatedAt=releaseBaseline.generatedAt;promoted.version=RELEASE_VERSION;promoted.anchor=RELEASE_ANCHOR;promoted.stats={"families":153,"leaves":2807,"dayNonEmpty":2797,"nightNonEmpty":1493};promoted.families.bld={"leaves":875,"crc":"97b2a95d","px":29815424,"op":7144238,"night":850};
+  for(const t of TARGETS)promoted.subs['bld.'+t.k+'_1_0']=RELEASE_PIXEL_PINS['bld.'+t.k+'_1_0'];
+  check('release baseline is strictly additive promotion of twelve approved full leaf records',deepEqual(releaseBaseline,promoted)&&Number.isFinite(Date.parse(releaseBaseline.generatedAt)));
+  const priorLog=execFileSync('git',['show',PINNED_BASE+':AUTORUN-LOG.md'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024}),currentLog=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8');
+  const logEntries=currentLog.match(/<!-- T720 release entry BEGIN -->[\s\S]*?<!-- T720 release entry END -->\n/g)||[];
+  check('release log is one bounded insertion preserving every prior byte',logEntries.length===1&&currentLog.replace(logEntries[0],'')===priorLog&&logEntries[0].includes('r167')&&logEntries[0].includes('PR12'));
   const priorHighStreet=x=>x.slice(x.indexOf('<!-- GPT-005 native high-street art BEGIN'),x.indexOf('<!-- GPT-005 native high-street art END')+1);
   check('approved T718 embedded generator unchanged',priorHighStreet(baseHTML).length>50000&&priorHighStreet(baseHTML)===priorHighStreet(html.toString()));
   const priorResidential=x=>x.slice(x.indexOf('<!-- GPT-006 native residential art BEGIN'),x.indexOf('<!-- GPT-006 native residential art END')+1);
@@ -535,7 +553,7 @@ function scoreStyle007(f){const L=Math.max(1,f.leaves),op=Math.max(1,f.op),axes=
       await ev('window.__publicLifeQA007=true;window.__britishQA004=true;window.__highStreetQA005=true;window.__residentialQA006=true;1');
       bootFP=await ev('GV.fp536()','boot fingerprints',300000);
       if(MODE==='preflight'||MODE==='fingerprint'){
-        const blocks=await ev('GV.blockFp536()','all legacy block fingerprints',300000);report.fingerprint=compareFingerprint(bootFP,blocks);fs.writeFileSync(path.join(OUT,'guards','fingerprint-current.json'),JSON.stringify({checkedSHA,fp:bootFP,blocks},null,2));
+        const blocks=await ev('GV.blockFp536()','all legacy block fingerprints',300000);report.fingerprint=compareFingerprint(bootFP,blocks);report.releaseFingerprint=compareReleaseBaseline(bootFP,blocks);fs.writeFileSync(path.join(OUT,'guards','fingerprint-current.json'),JSON.stringify({checkedSHA,fp:bootFP,blocks},null,2));
         const raw=await ev('GV.style536()','all-family style score',300000),prior=JSON.parse(fs.readFileSync(path.join(ROOT,'style.json'),'utf8'));report.style={drops:[],bld:null};for(const [k,v]of Object.entries(raw.families||{})){const n=scoreStyle007(v),p=prior.families?.[k];if(p&&n.total<p.total-1e-6)report.style.drops.push({family:k,before:p.total,after:n.total});if(k==='bld')report.style.bld={before:p,after:n,raw:v};}check('all-family style ratchet including new bld',raw.ok&&report.style.drops.length===0,report.style.drops);
       }
       if(MODE==='fingerprint')return report.failures.length===0;
