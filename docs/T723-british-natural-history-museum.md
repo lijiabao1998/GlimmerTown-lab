@@ -1,0 +1,41 @@
+# T723 — British regional natural-history museum and formal forecourt (original GPT-010)
+
+## Authorization and immutable baseline
+Owner approved the proposed British natural-history museum plus forecourt garden on 2026-10-05 08:50:45 UTC: 「這個好，固定流程（全部做完，最大程度包含細節），看截圖，我說沒問題，然後上線」. Implementation and isolated branch CI are authorized. Native screenshot approval is REQUIRED before merge, release or deployment. This branch preserves release metadata and existing museums; it is not a release approval.
+
+Baseline: main d9dfe87689fa841edb8775d0f95db77d9f2deb5b, T722/v14.26. Work only in gpt/british-natural-history-museum010. No owner PC, local game runtime, credentials, force push, baseline changes or prior-registry changes. Runtime and pixel guards run solely in isolated GitHub Actions, disposable slot3 and port8199.
+
+## Prior-system audit and design
+Existing k35 is the ordinary 2×2 museum (12 public jobs, 120 leisure, +15 native tourism; no education seats). Existing k206 is the separate London Natural History Museum landmark. Neither identity or model is replaced. New permanent k277 is a distinct 4×4 British regional natural-history museum. Use the current T495 public staffing, T491 leisure/commuting, physical power/water, public upkeep and native tourism authority exactly once; no second staffing, tourism, education or visitor engine. Museum outreach is represented by native cultural leisure, not invented school qualifications/seats. Forecourt garden, gate and bench modules are independently paid T502 walking paths; decorative lawns/ironwork do not add a second park/tourism reward.
+
+Original coherent late-Victorian Romanesque massing: red-brick and pale-stone central hall/entrance with lower wings, repeated round arches, steep slate gables, deep porch and stair, glazed iron-ribbed hall roof, ammonite/nature ornament. Main building includes a small formal apron; optional paid adjoining paths provide iron gates/stone piers, lawns, benches and walking circulation. Four geometric views, physical night fixtures and opaque depth-resolved emission.
+
+References: London NHM architectural language and top-lit galleries (https://www.nhm.ac.uk/discover/alfred-waterhouse-museum-building-cathedral-to-nature.html ; https://historicengland.org.uk/listing/the-list/list-entry/1080675); Oxford glass/iron daylight roof (https://www.oumnh.ox.ac.uk/learn-architecture); Tring red brick, stone details and raised porch steps (https://historicengland.org.uk/listing/the-list/list-entry/1078005). London is terracotta-faced, so this is an original regional interpretation, not a claimed red-brick replica. Formal forecourt reference: https://www.nhm.ac.uk/about-us/a-history-of-the-museum-grounds-and-wildlife-garden.html .
+
+Economics: k277 regionalNaturalHistory010, $6,400, rank9, 24 public positions, $14/day completed upkeep, leisure240, staff-scaled native tourism weight30, power7, water4.5, museum coverage radius8 only with actual staff. No school seats. Native age9 construction threshold retains existing steel acceleration.
+
+## Acceptance criteria recorded before implementation
+1. New k277 permanent ID, paid 4×4 placement and retained root/ref footprint, ordinary nine-day construction; rank/cost/description/inspector consistent. Kill switch prevents new placement without erasing saved buildings.
+2. All four actual camera views of the built museum and day/night are native screenshots, showing complete geometry and garden, no synthetic compositing. Construction days1/5/8 and day9 completion use normal daily simulation. Screen clipping, footprint alignment, opaque emission and foreground night occlusion are measured.
+3. Physical road, allocated power and delivered water are required. Actually remove infrastructure and verify jobs/capacity/tourism stop, restore infrastructure and verify recovery. No test-fabricated staff, visitors or utility arrays. Public jobs, upkeep and tourism count once.
+4. Paid path modules retain T502 walking cost, independent placement/removal/undo and optional metadata through native save/load. Actual museum save/load retains k277, size, orientation and refs; other save slots unchanged.
+5. Confirm existing k35/k206 and prior British assets remain distinct and exact, all legacy sprite leaves/stats/seeded worlds compatible. Three smoke passes, fingerprint style/strict complete records, applicable prior suites. Protected release files and prior registries remain unchanged.
+6. Art building cache is deterministic, rendering does not mutate world/storage/RNG, isolated-CI timing is reported honestly. New source has syntax/static checks. All CI stages tied to exact commit and real artifacts with sha256/dimensions/source hash. Transfer native PNGs through Library before requesting user approval.
+7. No merge/deployment until the user approves this round's finished images. New code fixes must rerun affected full checks before that review.
+
+## Construction record
+Initial implementation: authored four-view 4×4 main museum and12 native path sprites;56 count-checked integration anchors; native staffing, utility, owned coverage and single tourism contribution; preserved all740 protected T722 files. Source-only syntax and deterministic static reconstruction pass. Runtime tests: not run locally; awaiting isolated exact-head CI. Screenshots: not yet produced. Unfinished: complete runtime/pixel/compatibility matrix and user image review. No runtime success claimed.
+
+
+R1 CI (6085306, run37289168139): native boot/smoke, resident selftest, strict16 complete fingerprint, opaque physical emission, deterministic art, canonical scene anchors, actual museum staffing and original source protections passed. Preflight failed because QA used an unused copied kill-switch name and queried a stale native tick-root index immediately after placement; that test unintentionally bought a second disconnected museum. Product museum was correctly connected, staffed and contributing native tourism. Fixed the QA flag/valid control plot/direct initial read, and added full-field289-cell coverage ownership/overlap/undo/rebuild/load checks. No product or art change. Full matrix remains pending R2; R1 is not acceptance.
+
+
+## Publication approval and T723 preparation
+
+Owner saw and received13 native screenshots and explicitly approved publication at2026-10-05 09:43:32 UTC: 「不用Zip 只要圖片就行，上線吧，然後下一波你打算做什麼」. No ZIPs are sent. PR15 covers this museum release only; the next riverside market iteration is separate and must not enter this PR.
+
+Approved head d859e7570305fbd8c7b6ae9976c5d3e6d703c81b: complete CI37290300808 passed15/15; full native artifact source SHA256 f6d935d79f7766261acfb2f76d12188dd78ab30b53d595bc0191574383b1bb46. All 70 native scene PNGs have checked commit/source SHA, file hash and dimensions.13 selected images delivered to owner; four-camera day/night and rear-glazing visual review passed. Native nine-day construction, actual24 staff, partial water62.86%, partial staffing85.98%, zero resident workforce, complete owned289-cell coverage, native load/undo, physical losses/paid repairs and old-world/RNG/full historical gameplay passed.
+
+Only three game release labels change to T723/v14.27; fp.json promotion is the exact approved native16 additions over every2,879 existing full leaf record. Historical1,728 blocks and style data stay unchanged. A release-only proof restricts the retired T722 public observer's automatic trigger to its already published T722 SHA; its manual entry and all runtime checks remain exact. The new T723 public observer verifies actual official-origin bytes and browser runtime after existing Pages deploys. No deployment settings, credentials or permissions are changed.
+
+The exact release metadata head still requires its complete CI before merge, then main smoke/Pages and public-origin verification. These later stages are pending here, not presumed passed.

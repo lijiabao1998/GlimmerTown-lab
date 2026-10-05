@@ -1,0 +1,144 @@
+{
+  "nativeCheckedSHA": "d859e7570305fbd8c7b6ae9976c5d3e6d703c81b",
+  "nativeSourceSHA256": "f6d935d79f7766261acfb2f76d12188dd78ab30b53d595bc0191574383b1bb46",
+  "nativeRun": 37290300808,
+  "nativeArtifact": 11335254964,
+  "nativeFingerprintSHA256": "02299d5d5dc07512b6d7f1847fd02a47dfde9b980a0e8b2929ceefbb0d5305ef",
+  "nativeManifestSHA256": "2c1c09149bda072d931b8a4fff8a9a0ae9fa0fcf7f0ffdc4e9bf7c18d8449e0f",
+  "stats": {
+    "families": 157,
+    "leaves": 2895,
+    "dayNonEmpty": 2885,
+    "nightNonEmpty": 1547
+  },
+  "families": {
+    "bld": {
+      "leaves": 895,
+      "crc": "7f5288c9",
+      "px": 30749184,
+      "op": 7472066,
+      "night": 870
+    },
+    "museum010": {
+      "leaves": 12,
+      "crc": "153df47e",
+      "px": 79488,
+      "op": 12782,
+      "night": 12
+    }
+  },
+  "subs": {
+    "bld.277_1_0": {
+      "d": "19bb8eec",
+      "op": 21875,
+      "w": 264,
+      "h": 232,
+      "n": "54887c2f"
+    },
+    "bld.277_1_1": {
+      "d": "c2e409ea",
+      "op": 20470,
+      "w": 264,
+      "h": 232,
+      "n": "1a35b14a"
+    },
+    "bld.277_1_2": {
+      "d": "74e65ccd",
+      "op": 20469,
+      "w": 264,
+      "h": 232,
+      "n": "84f618c7"
+    },
+    "bld.277_1_3": {
+      "d": "8c908c44",
+      "op": 21874,
+      "w": 264,
+      "h": 232,
+      "n": "68839cf7"
+    },
+    "museum010.bench_0": {
+      "d": "1da297f3",
+      "op": 1069,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.bench_1": {
+      "d": "756676b3",
+      "op": 1061,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.bench_2": {
+      "d": "a80e8227",
+      "op": 1061,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.bench_3": {
+      "d": "c51e5c88",
+      "op": 1069,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.garden_0": {
+      "d": "9d6fd05e",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.garden_1": {
+      "d": "6ba84e54",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.garden_2": {
+      "d": "541e3e28",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.garden_3": {
+      "d": "150faa38",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "museum010.gate_0": {
+      "d": "e5ea10ea",
+      "op": 1107,
+      "w": 72,
+      "h": 92,
+      "n": "3cbe7b0b"
+    },
+    "museum010.gate_1": {
+      "d": "7a0e5b11",
+      "op": 1111,
+      "w": 72,
+      "h": 92,
+      "n": "b97ece5b"
+    },
+    "museum010.gate_2": {
+      "d": "4a1042a7",
+      "op": 1106,
+      "w": 72,
+      "h": 92,
+      "n": "3cbe7b0b"
+    },
+    "museum010.gate_3": {
+      "d": "6b930cff",
+      "op": 1102,
+      "w": 72,
+      "h": 92,
+      "n": "b97ece5b"
+    }
+  }
+}
