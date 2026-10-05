@@ -27,6 +27,7 @@ jobs:
           node --check station-integration-qa008.js
           node --check station-compatibility-qa008.js
           node --check station-legacy-fixture008.js
+          node --check station-prior-regression008.js
       - name: Actual paid construction, physical railway, loaded staffing and native pixels
         run: |
           set -o pipefail
@@ -102,7 +103,7 @@ jobs:
       - name: All prior British genuine gameplay assertions
         run: |
           set -o pipefail
-          PL007_MODE=gameplay node publiclife-integration-qa.js 2>&1 | tee station-evidence/regression/logs/prior-british-gameplay.txt
+          node station-prior-regression008.js 2>&1 | tee station-evidence/regression/logs/prior-british-gameplay.txt
       - name: Restore product and preserve protected baseline
         if: always()
         run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js british-publiclife-art.js

@@ -59,6 +59,24 @@ function nativeLightProbe008(){
   const shot=(on,erase)=>{s.night=on?old:empty;window.__nightOccNoErase629=!erase;GV.forceDraw();return g.getImageData(0,0,c.width,c.height).data;};
   try{const on=shot(true,true),off=shot(false,true),uon=shot(true,false),uoff=shot(false,false);let candidates=0,blocked=0,visible=0;for(let i=0;i<on.length;i+=4){let normal=0,unmasked=0;for(let j=0;j<3;j++){normal+=Math.abs(on[i+j]-off[i+j]);unmasked+=Math.abs(uon[i+j]-uoff[i+j]);}if(unmasked>9){candidates++;if(normal<=3)blocked++;if(normal>9)visible++;}}return{candidates,blocked,visible,method:'Four same-turn native draws: canonical own night on/off and native depth erasure on/off. No utility, staff or geometry override.'};}finally{s.night=old;if(had)window.__nightOccNoErase629=flag;else delete window.__nightOccNoErase629;GV.forceDraw();}
 }
+function foregroundOcclusion008(){
+  nativeScene(0,true,2);const out={baseline:nativeLightProbe008(),trials:[],capture:null};
+  // Find an actual projected overlap along the near station boundary. Every
+  // trial uses paid native placement and restores its native undo transactions.
+  for(const [x,y]of[[55,23],[55,24],[54,25],[55,22]]){
+    const cells=[];for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)cells.push([x+dx,y+dy,JSON.stringify(GV.tile(x+dx,y+dy))]);let undos=0,selected=false;
+    try{
+      for(const [xx,yy]of cells){if(GV.tile(xx,yy).bld)throw Error('Foreground would replace a retained building');if(GV.tile(xx,yy).road){if(!GV.placeUndo('doze',xx,yy))throw Error('Native frontage road demolition rejected');undos++;}}
+      const p=GV.placePreview459('britishTerrace',x,y),money=GV.stats().money;
+      if(!p.ok||!GV.placeUndo('britishTerrace',x,y))throw Error('Native old foreground rejected '+x+','+y);undos++;
+      const before=GV.tile(x,y).bld;if(before.sz!==2)throw Error('Native foreground footprint changed');GV.testAge635(x,y,1,1,40);const after=GV.tile(x,y).bld,a={...before},b={...after};delete a.age;delete b.age;
+      const scene=nativeScene(0,true,2),light=nativeLightProbe008(),trial={x,y,cost:p.cost,charged:money-GV.stats().money,ageOnly:JSON.stringify(a)===JSON.stringify(b),k:after.k,light,transactions:undos};out.trials.push(trial);
+      if(light.blocked>out.baseline.blocked&&light.visible>0){out.foreground=trial;out.capture=scene;selected=true;}
+    }finally{while(undos>0){if(!GV.undo())throw Error('Native foreground undo failed');undos--;}if(cells.some(([xx,yy,before])=>JSON.stringify(GV.tile(xx,yy))!==before))throw Error('Foreground footprint not restored exactly');}
+    if(selected)break;
+  }
+  return out;
+}
 function physicalPowerLoss008(){
   const q=window.__stationQA008,out={before:GV.stationEvidence008(),removed:[]};
   for(let y=0;y<q.old.N;y++)for(let x=0;x<q.old.N;x++){const b=GV.tile(x,y).bld;if(b&&!b.ref&&b.k===5)out.removed.push([x,y]);}
@@ -113,9 +131,10 @@ function protectedSources(){const paths=['fp.json','style.json','AUTORUN-LOG.md'
       report.saveLoad=await call(actualSaveLoad);const s=report.saveLoad;check('actual saved loaded district, themes, ownership and ordinary following day',s.loaded&&s.same&&s.sameThemes&&s.otherSlotsUnchanged&&s.afterDay===s.day+1&&s.after.roots.every(q=>q.ready&&q.staff?.employed>0)&&s.after.rail.rail.some(l=>l.id===report.fixture.line&&l.riders>0),s);
     }
     if(mode==='camera0'){
-      await call(nativeScene,0,true,2);report.occlusionBaseline=await call(nativeLightProbe008);
-      report.foreground=await ev('(()=>{const p=GV.placePreview459("britishTerrace",56,24),beforeMoney=GV.stats().money;if(!p.ok||!GV.placeUndo("britishTerrace",56,24))throw Error("Native old foreground rejected");const before=GV.tile(56,24).bld;GV.testAge635(56,24,1,1,40);const after=GV.tile(56,24).bld,a={...before},b={...after};delete a.age;delete b.age;return{cost:p.cost,charged:beforeMoney-GV.stats().money,ageOnly:JSON.stringify(a)===JSON.stringify(b),k:after.k};})()','paid independent old foreground, age-only visual preview');
-      const p=await call(nativeScene,0,true,2);png('images/partial-occlusion-night.png',p.png,{kind:'actual native night renderer with paid existing foreground',geometry:p.geometry});report.occlusionForeground=await call(nativeLightProbe008);check('actual partial occlusion blocks station lights while other station lights remain visible',report.foreground.ageOnly&&report.foreground.cost===report.foreground.charged&&report.occlusionForeground.blocked>report.occlusionBaseline.blocked&&report.occlusionForeground.visible>0,{before:report.occlusionBaseline,after:report.occlusionForeground,foreground:report.foreground});await ev('GV.undo()','restore existing foreground transaction');
+      const q=await ev('(()=>{const nativeScene='+nativeScene.toString()+';const nativeLightProbe008='+nativeLightProbe008.toString()+';return ('+foregroundOcclusion008.toString()+')();})()','bounded paid native foreground overlap and exact undo');
+      report.occlusionBaseline=q.baseline;report.occlusionTrials=q.trials;report.foreground=q.foreground;report.occlusionForeground=q.foreground?.light;
+      if(q.capture)png('images/partial-occlusion-night.png',q.capture.png,{kind:'actual native night renderer with paid existing foreground',geometry:q.capture.geometry});
+      check('actual partial occlusion blocks station lights while other station lights remain visible',!!q.foreground&&q.trials.every(t=>t.ageOnly&&t.cost===t.charged)&&q.foreground.light.blocked>q.baseline.blocked&&q.foreground.light.visible>0,{before:q.baseline,trials:q.trials,foreground:q.foreground});
     }
     report.renderPurity=await call(pausedPurity008);check('paused native renderer preserves every tile, stats, storage and canonical references',report.renderPurity.world&&report.renderPurity.storage&&report.renderPurity.references&&report.renderPurity.builds===1,report.renderPurity);
     report.performance=await ev('(()=>{for(let i=0;i<3;i++)GV.forceDraw();const a=[];for(let i=0;i<12;i++){const t=performance.now();GV.forceDraw();a.push(performance.now()-t);}return{frames:a,mean:a.reduce((x,y)=>x+y,0)/a.length,art:window.__stationArt008};})()','native renderer cost');check('art built once and native draws remain bounded',report.performance.art.builds===1&&report.performance.art.ms<10000&&report.performance.mean<1000,report.performance);
