@@ -1,4 +1,4 @@
-# GPT-010 — British regional natural-history museum and formal forecourt
+# T723 — British regional natural-history museum and formal forecourt (original GPT-010)
 
 ## Authorization and immutable baseline
 Owner approved the proposed British natural-history museum plus forecourt garden on 2026-10-05 08:50:45 UTC: 「這個好，固定流程（全部做完，最大程度包含細節），看截圖，我說沒問題，然後上線」. Implementation and isolated branch CI are authorized. Native screenshot approval is REQUIRED before merge, release or deployment. This branch preserves release metadata and existing museums; it is not a release approval.
@@ -28,3 +28,14 @@ Initial implementation: authored four-view 4×4 main museum and12 native path sp
 
 
 R1 CI (6085306, run37289168139): native boot/smoke, resident selftest, strict16 complete fingerprint, opaque physical emission, deterministic art, canonical scene anchors, actual museum staffing and original source protections passed. Preflight failed because QA used an unused copied kill-switch name and queried a stale native tick-root index immediately after placement; that test unintentionally bought a second disconnected museum. Product museum was correctly connected, staffed and contributing native tourism. Fixed the QA flag/valid control plot/direct initial read, and added full-field289-cell coverage ownership/overlap/undo/rebuild/load checks. No product or art change. Full matrix remains pending R2; R1 is not acceptance.
+
+
+## Publication approval and T723 preparation
+
+Owner saw and received13 native screenshots and explicitly approved publication at2026-10-05 09:43:32 UTC: 「不用Zip 只要圖片就行，上線吧，然後下一波你打算做什麼」. No ZIPs are sent. PR15 covers this museum release only; the next riverside market iteration is separate and must not enter this PR.
+
+Approved head d859e7570305fbd8c7b6ae9976c5d3e6d703c81b: complete CI37290300808 passed15/15; full native artifact source SHA256 f6d935d79f7766261acfb2f76d12188dd78ab30b53d595bc0191574383b1bb46. All 70 native scene PNGs have checked commit/source SHA, file hash and dimensions.13 selected images delivered to owner; four-camera day/night and rear-glazing visual review passed. Native nine-day construction, actual24 staff, partial water62.86%, partial staffing85.98%, zero resident workforce, complete owned289-cell coverage, native load/undo, physical losses/paid repairs and old-world/RNG/full historical gameplay passed.
+
+Only three game release labels change to T723/v14.27; fp.json promotion is the exact approved native16 additions over every2,879 existing full leaf record. Historical1,728 blocks and style data stay unchanged. A release-only proof restricts the retired T722 public observer's automatic trigger to its already published T722 SHA; its manual entry and all runtime checks remain exact. The new T723 public observer verifies actual official-origin bytes and browser runtime after existing Pages deploys. No deployment settings, credentials or permissions are changed.
+
+The exact release metadata head still requires its complete CI before merge, then main smoke/Pages and public-origin verification. These later stages are pending here, not presumed passed.

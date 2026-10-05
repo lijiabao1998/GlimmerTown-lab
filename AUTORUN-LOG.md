@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T723 release entry BEGIN -->
+## r170 — T723 英式地方自然史博物館與館前花園（原 GPT-010）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r170 | [T723](docs/T723-british-natural-history-museum.md) | 業主於2026-10-05 09:43:32 UTC看過13張原生圖後批准上線。k277英式地方自然史館4×4，紅磚淺石拱窗、門廊階梯、低翼玻璃頂與花園；三種独立付費T502鐵門／花園／木椅步道。原生T495公共人力、T491休閒、物理水電路、一份依實際職員縮放的觀光帳；舊k35與k206身份不變。v14.27/T723只改三個產品版本標示，嚴格晉升16新精靈，2879舊葉與1728 blocks保持。 | 批准候選d859e757：[full37290300808](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37290300808)15/15全綠，三次smoke、全指紋、四向日夜/40施工/12天候、部分缺水/人力/零居民、真實遮擋、覆蓋與存讀/undo、舊城全tile/stat/RNG及三套歷史玩法全過。正式metadata head必須另跑完整CI，未預稱通過。 | [PR15](https://github.com/lijiabao1998/GlimmerTown-lab/pull/15)的T723 squash merge，確切SHA見PR | 13張已交付並批准的原生PNG不重畫；全部70張來源見full CI artifacts | ① 沿用原生九日施工與鋼材加速，無博物館專屬吊車動畫 ② 文化休閒不是學校席位；花園步道無重複公園加成 ③ 原有atlas/PWA診斷未擴大處理 ④ 手機實機FPS未測 ⑤ 本PR不包含下一輪河岸市集 |
+
+<!-- T723 release entry END -->
 <!-- T722 release entry BEGIN -->
 ## r169 — T722 英式車站旅館、咖啡館、報刊亭與街道細節（原 GPT-009）
 

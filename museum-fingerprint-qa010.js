@@ -27,16 +27,23 @@ function verifyFingerprint010(fp,blocks){
   if(!eq(full.families,fp.families)||!eq(full.stats,fp.stats)||full.stats.families!==157||full.stats.leaves!==2895)throw Error('Candidate aggregate/count claims disagree with independent full-record aggregation');
   if(!blocks?.ok||!eq({fam:blocks.fam,count:blocks.count},baseline.blocks))throw Error('All1728 historical block fingerprints must remain exact');
   for(const prefix of['bld.277_1_','museum010.gate_','museum010.garden_','museum010.bench_'])if(new Set([0,1,2,3].map(v=>fp.subs[prefix+v].d)).size!==4)throw Error('Museum building/module needs four distinct geometric views: '+prefix);
-  if(hash(fs.readFileSync(path.join(ROOT,'fp.json')))!==PINNED_FP_SHA256)throw Error('Candidate must retain every byte of the immutable T722 baseline');
-  return{ok:true,base:BASE,baselineSHA256:PINNED_FP_SHA256,phase:'candidate',version:'14.26',anchor:'T722',trackedBaselineExact:true,oldLeaves:2879,newLeaves:16,leaves:2895,oldFamilies:156,currentFamilies:157,oldBlocks:1728,added,oldCompleteRecordsExact:true,oldStreetLife24Exact:true,oldFamilyCRCsExact:true,allCurrentFamilyCRCsExact:true,oldStatsExact:true,blocksExact:true};
+  const trackedBytes=fs.readFileSync(path.join(ROOT,'fp.json')),tracked=JSON.parse(trackedBytes),release=tracked.version==='14.27'&&tracked.anchor==='T723';
+  // The immutable T722 projection above is unconditional. Promotion additionally
+  // matches the exact approved evidence and every freshly enumerated native leaf.
+  if(release){
+    require('./museum-release-contract010').verifyRelease010();
+    const promoted={...baseline,generatedAt:tracked.generatedAt,version:'14.27',anchor:'T723',subs:fp.subs,families:fp.families,stats:fp.stats};
+    if(!Number.isFinite(Date.parse(tracked.generatedAt))||!eq(tracked,promoted))throw Error('T723 promotion is not the exact complete native2879+16 inventory');
+  }else if(hash(trackedBytes)!==PINNED_FP_SHA256)throw Error('Candidate must retain every byte of the immutable T722 baseline');
+  return{ok:true,base:BASE,baselineSHA256:PINNED_FP_SHA256,phase:release?'release':'candidate',version:tracked.version,anchor:tracked.anchor,trackedBaselineExact:true,promotedNativeRecordsExact:release,oldLeaves:2879,newLeaves:16,leaves:2895,oldFamilies:156,currentFamilies:157,oldBlocks:1728,added,oldCompleteRecordsExact:true,oldStreetLife24Exact:true,oldFamilyCRCsExact:true,allCurrentFamilyCRCsExact:true,oldStatsExact:true,blocksExact:true};
 }
 function readPreflight010(){
   const p=path.join(ROOT,'museum-evidence/preflight/guards/fingerprint-native.json'),bytes=fs.readFileSync(p),q=JSON.parse(bytes);
   const head=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),current=fs.readFileSync(path.join(ROOT,'index.html'));
   if(process.env.GITHUB_ACTIONS!=='true'||head!==process.env.GITHUB_SHA||q.checkedSHA!==head||q.sourceSHA256!==hash(current))throw Error('Preflight native proof is not this exact workflow head and product');
-  const proof=verifyFingerprint010(q.fp,q.blocks),baseline=pinnedBaseline010();
-  if(q.version!=='14.26'||q.anchor!=='T722'||(Object.hasOwn(q,'release')&&q.release!==false))throw Error('Preflight metadata changed from the independently pinned T722 candidate');
-  // QA adapters may use this in memory only. fp.json stays byte-for-byte T722.
+  const proof=verifyFingerprint010(q.fp,q.blocks),baseline=JSON.parse(fs.readFileSync(path.join(ROOT,'fp.json')));
+  if(q.version!==proof.version||q.anchor!==proof.anchor||(Object.hasOwn(q,'release')&&q.release!==(proof.phase==='release')))throw Error('Preflight metadata differs from the independently verified candidate/release phase');
+  // QA-only in-memory extension before release; exact native promotion afterward.
   const qaBaseline={...baseline,subs:q.fp.subs,families:q.fp.families,stats:q.fp.stats};
   return{proof,qaBaseline,evidenceSHA256:hash(bytes),fp:q.fp,blocks:q.blocks};
 }

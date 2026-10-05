@@ -166,7 +166,17 @@ function runStreetWorld010(setup,seedFn){
       if(!session.ok||!session.result)throw Error(label+' browser failure: '+JSON.stringify(session.fails));
       out.runs.push({label,result:session.result});
     }
-    out.ok=JSON.stringify(out.runs[0].result)===JSON.stringify(out.runs[1].result);
+    // Keep the raw observations above. After strict source/promotion approval,
+    // normalize only these two release labels at the one known GV.t489 path.
+    // Every economic field, statistic, tile digest and RNG state stays exact.
+    const reference=out.runs[0].result,comparison=structuredClone(out.runs[1].result);
+    for(const [label,rows]of[['baseline',reference],['candidate',comparison]]){
+      const street=rows.filter(q=>q.seed===900721);if(street.length!==1||street[0].checkpoints.length!==7)throw Error('Exact street metadata observation paths missing');
+      const version=label==='candidate'?staticProof.version:'14.26',anchor=label==='candidate'?staticProof.anchor:'T722';
+      for(const q of street[0].checkpoints){if(q.enterprise?.version!==version||q.enterprise?.anchor!==anchor)throw Error('Unexpected native enterprise release metadata');if(label==='candidate'&&staticProof.release){if(version!=='14.27'||anchor!=='T723')throw Error('Only approved T723 label normalization allowed');q.enterprise.version='14.26';q.enterprise.anchor='T722';}}
+    }
+    out.metadataNormalization={applied:staticProof.release,paths:['seed900721.checkpoints[*].enterprise.version','seed900721.checkpoints[*].enterprise.anchor'],from:{version:staticProof.version,anchor:staticProof.anchor},to:{version:'14.26',anchor:'T722'},rawObservationsPreserved:true};
+    out.ok=JSON.stringify(reference)===JSON.stringify(comparison);
     if(!out.ok)throw Error('Existing-city simulation changed; compare compatibility.json');
   }catch(e){out.error=String(e.stack||e);}
   finally{

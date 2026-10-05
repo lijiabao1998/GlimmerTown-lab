@@ -99,7 +99,7 @@ jobs:
           set -o pipefail
           mkdir -p museum-evidence/compatibility/logs
           for n in 1 2 3; do node smoke.js 2>&1 | tee museum-evidence/compatibility/logs/smoke-$n.txt; done
-          node fp.js --check --expect=bld,museum010 2>&1 | tee museum-evidence/compatibility/logs/fingerprint-style.txt
+          node fp.js --check 2>&1 | tee museum-evidence/compatibility/logs/fingerprint-style.txt
           MU010_MODE=fingerprint node museum-integration-qa010.js 2>&1 | tee museum-evidence/compatibility/logs/strict16.txt
       - name: All old tiles, every exposed statistic, seeded RNG and native loaded worlds
         run: |

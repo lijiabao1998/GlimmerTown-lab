@@ -10,7 +10,7 @@ const proof=verifyStatic010(),native=readPreflight010(),file='streetlife-integra
 const edits=[
  ["const {verifyStatic009,BASE,expectedAdditions}=require('./streetlife-static-contract009');","const {verifyStatic010:verifyStatic009,BASE,expectedAdditions}=require('./museum-static-contract010');"],
  ["const {verifyFingerprint009}=require('./streetlife-fingerprint-qa009');","const {verifyFingerprint010:verifyFingerprint009}=require('./museum-fingerprint-qa010');"],
- ["report.static.ok&&report.static.protectedExact&&((report.static.release===false&&report.static.version==='14.25'&&report.static.anchor==='T721')||(report.static.release===true&&report.static.version==='14.26'&&report.static.anchor==='T722'))","report.static.ok&&report.static.protectedExact&&report.static.version==='14.26'&&report.static.anchor==='T722'"],
+ ["report.static.ok&&report.static.protectedExact&&((report.static.release===false&&report.static.version==='14.25'&&report.static.anchor==='T721')||(report.static.release===true&&report.static.version==='14.26'&&report.static.anchor==='T722'))","report.static.ok&&report.static.protectedExact"],
  ["'strict24 additions, complete old records and aggregates exact'","'strict16 museum additions over all2879 approved complete records and aggregates exact'"]
 ];
 let adapted=original;for(const[from,to]of edits){if(adapted.split(from).length!==2)throw Error('Nonunique gate anchor '+from);adapted=adapted.replace(from,to);}

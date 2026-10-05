@@ -12,14 +12,15 @@ const baseFile=p=>execFileSync('git',['show',BASE+':'+p],{cwd:ROOT,maxBuffer:32*
 function verifyStatic010(){
   const baseline=baseFile('index.html'),current=fs.readFileSync(path.join(ROOT,'index.html'));
   if(hash(baseline)!==BASE_HTML_SHA256)throw Error('Immutable T722 product byte pin changed');
+  const release=current.toString().includes("const GAME_VER='14.27'")?require('./museum-release-contract010').verifyRelease010():null;
   const oldFiles=execFileSync('git',['ls-tree','-r','-z','--name-only',BASE],{cwd:ROOT,encoding:'utf8'}).split('\0').filter(Boolean);
-  const allowed=new Set(['index.html','smoke.js']),protectedManifest={};
-  for(const p of oldFiles){if(allowed.has(p))continue;const b=baseFile(p),c=fs.readFileSync(path.join(ROOT,p));if(!b.equals(c))throw Error('Protected T722 source changed: '+p);protectedManifest[p]=hash(c);}
+  const allowed=new Set(['index.html','smoke.js',...(release?['fp.json','AUTORUN-LOG.md']:[])]),protectedManifest={};
+  for(const p of oldFiles){if(allowed.has(p))continue;const b=baseFile(p),c=fs.readFileSync(path.join(ROOT,p));const boundedPublicObserver=release&&p==='.github/workflows/streetlife-public009.yml'&&release.publicWorkflowExact&&hash(c)===release.publicWorkflowSHA256;if(!b.equals(c)&&!boundedPublicObserver)throw Error('Protected T722 source changed: '+p);protectedManifest[p]=hash(c);}
   const smoke=fs.readFileSync(path.join(ROOT,'smoke.js'),'utf8'),oldSmoke=baseFile('smoke.js').toString();
   const lines=smoke.split('\n'),added=lines.filter(l=>l.includes('museumSelftest010'));
   if(added.length!==1||lines.filter(l=>!l.includes('museumSelftest010')).join('\n')!==oldSmoke)throw Error('Smoke must retain all prior checks and add exactly one museumSelftest010 row');
   const html=current.toString(),old=baseline.toString();
-  for(const pattern of[/const GAME_VER='[^']*'/g,/const GAME_ANCHOR='[^']*'/g,/id="startVersion456">[^<]*/g])if(JSON.stringify(html.match(pattern))!==JSON.stringify(old.match(pattern)))throw Error('Unapproved release metadata changed');
+  if(!release)for(const pattern of[/const GAME_VER='[^']*'/g,/const GAME_ANCHOR='[^']*'/g,/id="startVersion456">[^<]*/g])if(JSON.stringify(html.match(pattern))!==JSON.stringify(old.match(pattern)))throw Error('Unapproved release metadata changed');
   const scripts=[...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)];
   for(let i=0;i<scripts.length;i++)new vm.Script(scripts[i][1],{filename:'index-inline-'+i+'.js'});
   const art=fs.readFileSync(path.join(ROOT,'british-museum-art010.js'),'utf8'),gameplay=fs.readFileSync(path.join(ROOT,'museum-gameplay010.js'),'utf8');
@@ -36,9 +37,10 @@ function verifyStatic010(){
     const input=path.join(tmp,'t722.html'),output=path.join(tmp,'candidate.html');fs.writeFileSync(input,baseline);
     execFileSync('python3',[path.join(ROOT,'integrate-museum010.py'),'--input',input,'--output',output],{cwd:ROOT,maxBuffer:4*1024*1024});
     if(!fs.readFileSync(input).equals(baseline))throw Error('Integrator modified its immutable T722 input');
-    if(!fs.readFileSync(output).equals(current))throw Error('Candidate differs from deterministic count-checked T722 integration');
+    const comparison=release?Buffer.from(require('./museum-release-contract010').normalizeReleaseHTML010(html)):current;
+    if(!fs.readFileSync(output).equals(comparison))throw Error('Product differs from deterministic count-checked T722 integration and approved release labels');
   }finally{fs.rmSync(tmp,{recursive:true,force:true});}
-  return{ok:true,base:BASE,htmlExact:true,protectedExact:true,release:false,version:'14.26',anchor:'T722',fpExact:true,logExact:true,baselineSHA256:BASE_HTML_SHA256,sourceSHA256:hash(current),additionCount:16,expectedAdditions,protectedManifest,integrationSHA256:hash(fs.readFileSync(path.join(ROOT,'integrate-museum010.py'))),artSHA256:hash(art),gameplaySHA256:hash(gameplay),inlineScripts:scripts.length};
+  return{ok:true,base:BASE,htmlExact:true,protectedExact:true,release:!!release,version:release?.version||'14.26',anchor:release?.anchor||'T722',fpExact:release?.fpExact??true,logExact:release?.logExact??true,releaseLogEntry:release?.releaseLogEntry||'',baselineSHA256:BASE_HTML_SHA256,sourceSHA256:hash(current),additionCount:16,expectedAdditions,protectedManifest,integrationSHA256:hash(fs.readFileSync(path.join(ROOT,'integrate-museum010.py'))),artSHA256:hash(art),gameplaySHA256:hash(gameplay),inlineScripts:scripts.length};
 }
 module.exports={BASE,BASE_HTML_SHA256,expectedAdditions,verifyStatic010};
-if(require.main===module){const q=verifyStatic010();q.protectedFiles=Object.keys(q.protectedManifest).length;delete q.protectedManifest;console.log(JSON.stringify(q,null,2));}
+if(require.main===module){const q=verifyStatic010();q.protectedFiles=Object.keys(q.protectedManifest).length;delete q.protectedManifest;delete q.releaseLogEntry;console.log(JSON.stringify(q,null,2));}
