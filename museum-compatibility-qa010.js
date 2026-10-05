@@ -111,7 +111,7 @@ function runStreetWorld010(setup,seedFn){
     if(JSON.stringify(q.roots.map(r=>r.k))!==JSON.stringify(expectedKinds)||JSON.stringify(q.paths.map(p=>p.theme))!==JSON.stringify(expectedThemes))throw Error('All T722 street identities required');
     const snap=()=>{
       const tiles=[];for(let y=0;y<q.N;y++)for(let x=0;x<q.N;x++)tiles.push(GV.tile(x,y));
-      if(tiles.some(t=>t.bld?.k===277||t.amx502?.museum010))throw Error('New museum identity leaked into old-only world');
+      if(tiles.some(t=>t.bld?.k===277||t.amx502?.british010))throw Error('New museum identity leaked into old-only world');
       const roots=q.roots.map(r=>({...r,bld:GV.tile(r.x,r.y).bld,evidence:GV.streetLifeAt009(r.x,r.y),cells:Array.from({length:r.sz*r.sz},(_,i)=>GV.tile(r.x+i%r.sz,r.y+Math.floor(i/r.sz)).bld)}));
       const paths=q.paths.map(p=>({...p,tile:GV.tile(p.x,p.y),evidence:GV.streetLifeAt009(p.x,p.y)}));
       const retained=q.retained.map(r=>({...r,bld:GV.tile(r.x,r.y).bld}));

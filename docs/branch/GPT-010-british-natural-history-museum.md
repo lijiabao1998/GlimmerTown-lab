@@ -25,3 +25,6 @@ Economics: k277 regionalNaturalHistory010, $6,400, rank9, 24 public positions, $
 
 ## Construction record
 Initial implementation: authored four-view 4×4 main museum and12 native path sprites;56 count-checked integration anchors; native staffing, utility, owned coverage and single tourism contribution; preserved all740 protected T722 files. Source-only syntax and deterministic static reconstruction pass. Runtime tests: not run locally; awaiting isolated exact-head CI. Screenshots: not yet produced. Unfinished: complete runtime/pixel/compatibility matrix and user image review. No runtime success claimed.
+
+
+R1 CI (6085306, run37289168139): native boot/smoke, resident selftest, strict16 complete fingerprint, opaque physical emission, deterministic art, canonical scene anchors, actual museum staffing and original source protections passed. Preflight failed because QA used an unused copied kill-switch name and queried a stale native tick-root index immediately after placement; that test unintentionally bought a second disconnected museum. Product museum was correctly connected, staffed and contributing native tourism. Fixed the QA flag/valid control plot/direct initial read, and added full-field289-cell coverage ownership/overlap/undo/rebuild/load checks. No product or art change. Full matrix remains pending R2; R1 is not acceptance.
