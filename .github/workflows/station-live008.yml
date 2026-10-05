@@ -1,0 +1,38 @@
+name: station-live008
+on:
+  push:
+    branches: ['gpt/british-central-station']
+    paths: ['station-live-qa008.js', '.github/workflows/station-live008.yml']
+permissions:
+  contents: read
+concurrency:
+  group: station-live008-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Static verifier parsing
+        run: node --check station-live-qa008.js
+      - name: Exact public product and native UI interactions
+        run: |
+          set -o pipefail
+          node station-live-qa008.js 2>&1 | tee station-live.txt
+      - name: Product remains unchanged
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: station-live-${{ github.sha }}
+          path: |
+            station-live-evidence/
+            station-live.txt
+          retention-days: 14
