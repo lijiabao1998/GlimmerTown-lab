@@ -17,7 +17,7 @@ function stationTheme008(t){const q=t?.amx502?.british008;return t?.am502&&['squ
 function stationAxis008(b){return b.v===4?1:0;}
 function stationCells008(root,b){const x=root%N,y=(root/N)|0,a=stationAxis008(b),out=[];for(const c of[1,3])for(let k=0;k<5;k++)out.push(idx(x+(a?k:c),y+(a?c:k)));return out;}
 function stationPorts008(root,b){const x=root%N,y=(root/N)|0,a=stationAxis008(b),out=[];for(const c of[1,3])for(const k of[-1,5]){const xx=x+(a?k:c),yy=y+(a?c:k);if(inMap(xx,yy))out.push(idx(xx,yy));}return out;}
-function stationReady008(root,b){return !!(britishStation008(b)&&b.age>=9&&b.pw&&b.wa&&mobilityFrontage462(root,'road').length&&!b.fire&&!b.abandoned&&assetAvailability493(root,'transport')>.02);}
+function stationReady008(root,b){return !!(britishStation008(b)&&b.age>=9&&b.pw&&b.wa&&mobilityFrontage462(root,'road').length&&!b.fire&&!b.abandoned&&assetAvailability493(root,incidentSectorForRoot493(root,b))>.02);}
 function stationIndex008(){stationRoots008.clear();for(let i=0;i<N*N;i++)if(britishStation008(tiles[i]?.bld))stationRoots008.add(i);}
 function stationRailDirty008(){markMobilityDirty462();railOpsDirty463=true;mobility491Dirty=true;activeMobilityMarkDirty502();}
 function stationDaily008(){

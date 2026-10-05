@@ -50,7 +50,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        mode: [gameplay, camera0, camera1, camera2, camera3, construction]
+        mode: [gameplay, camera0, camera1, camera2, camera3, construction0, construction1, construction2, construction3]
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
