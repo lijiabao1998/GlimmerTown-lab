@@ -10,7 +10,8 @@ const {aggregate}=require('./streetlife-fingerprint-qa009'),ROOT=__dirname;
 const BASE=historical.BASE,expectedAdditions=historical.expectedAdditions;
 function verifyStatic010(){
  const q=fixed.verifyStatic012();
- if(!q.ok||!q.protectedExact||!q.fpExact||!q.logExact||q.release!==false||q.phase!=='candidate'||q.version!=='14.28'||q.anchor!=='T724')throw Error('Exact T724 riverside candidate envelope required');
+ const candidate=q.release===false&&q.phase==='candidate'&&q.version==='14.28'&&q.anchor==='T724',release=q.release===true&&q.phase==='release'&&q.version==='14.29'&&q.anchor==='T725';
+ if(!q.ok||!q.protectedExact||!q.fpExact||!q.logExact||!(candidate||release))throw Error('Exact T724 candidate or authorized T725 riverside release envelope required');
  return{...q,base:BASE,riversideBase:fixed.BASE,additionCount:16,riversideAdditionCount:24,expectedAdditions};
 }
 function lineage012(fp,blocks,proof,product){
@@ -44,8 +45,14 @@ function readPreflight010(){
 }
 function priorLog012(full){
  const product=verifyStatic010(),actual=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8');
- if(!product.logExact||full!==actual||full!==fixed.baseFile('AUTORUN-LOG.md').toString())throw Error('Complete current log must be exact deployed T724');
+ if(!product.logExact||full!==actual)throw Error('Complete current log must be source-verified');
  let log=full;
+ if(product.release){
+  const entry=product.releaseLogEntry,entries=log.match(/<!-- T725 release entry BEGIN -->[\s\S]*?<!-- T725 release entry END -->\n/g)||[];
+  if(typeof entry!=='string'||!entry||entries.length!==1||entries[0]!==entry||log.split(entry).length!==2)throw Error('Exactly one source-verified bounded T725 release entry required');
+  log=log.replace(entry,'');
+ }
+ if(log!==fixed.baseFile('AUTORUN-LOG.md').toString())throw Error('Complete T725 envelope must recover exact deployed T724 log');
  for(const [anchor,base]of[['T724',require('./coldload-static-contract011').BASE],['T723',BASE],['T722',require('./streetlife-static-contract009').BASE]]){
   const re=new RegExp('<!-- '+anchor+' release entry BEGIN -->[\\s\\S]*?<!-- '+anchor+' release entry END -->\\n','g'),entries=log.match(re)||[];
   const old=execFileSync('git',['show',base+':AUTORUN-LOG.md'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024});

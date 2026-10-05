@@ -39,4 +39,54 @@ function runMuseumWorld012(setup,seedFn){
   return{fixture:{seed:900721,N:q.N,paid:q.paid,terrain:q.terrain,roots:q.roots,paths:q.paths,oldMuseums:q.oldMuseums,retained:q.retained,placementDay:q.placementDay},checkpoints,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true};
  }finally{Math.random=random;}
 }
-module.exports={fixtureSource012,runMuseumWorld012};
+// Source/data-only normalization. Raw baseline and candidate observations are
+// never mutated; exactly two exposed enterprise labels in each of the two
+// historical seven-checkpoint worlds may change on the approved T725 release.
+const WORLD_SEEDS012=Object.freeze([5162026,5162027,7006719,800721,900721,900724]);
+const METADATA_PATHS012=Object.freeze([900721,900724].flatMap(seed=>['version','anchor'].map(field=>'seed'+seed+'.checkpoints[*].enterprise.'+field)));
+function normalizeCompatibility012(runs,product){
+ const candidate=product?.release===false&&product.phase==='candidate'&&product.version==='14.28'&&product.anchor==='T724',release=product?.release===true&&product.phase==='release'&&product.version==='14.29'&&product.anchor==='T725';
+ if(!product?.ok||!product.htmlExact||!product.protectedExact||!product.fpExact||!product.logExact||!(candidate||release))throw Error('Exact source-verified T724 candidate or T725 release required for metadata normalization');
+ if(!Array.isArray(runs)||runs.length!==2||runs[0].label!=='baseline'||runs[1].label!=='candidate')throw Error('Exactly ordered baseline/candidate raw observations required');
+ const raw=JSON.stringify(runs),reference=runs[0].result,comparison=structuredClone(runs[1].result),changes=[];
+ for(const [label,rows]of[['baseline',reference],['candidate',comparison]]){
+  if(!Array.isArray(rows)||JSON.stringify(rows.map(q=>q.seed))!==JSON.stringify(WORLD_SEEDS012)||rows.some(q=>!Array.isArray(q.checkpoints)||q.checkpoints.length!==(q.seed===900721||q.seed===900724?7:6)))throw Error('Exactly six complete historical compatibility worlds required');
+  const version=label==='candidate'?product.version:'14.28',anchor=label==='candidate'?product.anchor:'T724';
+  for(const seed of[900721,900724]){
+   const world=rows.find(q=>q.seed===seed);
+   for(const [index,q]of world.checkpoints.entries()){
+    if(!q.enterprise||!Object.hasOwn(q.enterprise,'version')||!Object.hasOwn(q.enterprise,'anchor')||q.enterprise.version!==version||q.enterprise.anchor!==anchor)throw Error('Unexpected native enterprise metadata at seed'+seed+'.checkpoints['+index+']');
+    if(label==='candidate'&&release)for(const [field,value]of[['version','14.28'],['anchor','T724']]){changes.push({path:'seed'+seed+'.checkpoints['+index+'].enterprise.'+field,from:q.enterprise[field],to:value});q.enterprise[field]=value;}
+   }
+  }
+ }
+ if(JSON.stringify(runs)!==raw||changes.length!==(release?28:0))throw Error('Only28 declared label fields may normalize; raw observations must remain unchanged');
+ return{reference,comparison,metadataNormalization:{applied:release,paths:release?[...METADATA_PATHS012]:[],from:{version:product.version,anchor:product.anchor},to:{version:'14.28',anchor:'T724'},rawObservationsPreserved:true,sameLabelExact:candidate,normalizedFields:changes.length,changes}};
+}
+function staticNormalizationTest012(){
+ const product=release=>({ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,release,phase:release?'release':'candidate',version:release?'14.29':'14.28',anchor:release?'T725':'T724'});
+ const fixture=release=>['baseline','candidate'].map(label=>({label,result:WORLD_SEEDS012.map(seed=>({seed,fixture:{paid:100},checkpoints:Array.from({length:seed===900721||seed===900724?7:6},(_,index)=>({stats:{day:index,money:100-index},tilesSHA256:'complete-tile-digest-'+index,rngState:42+index,...(seed===900721||seed===900724?{enterprise:{version:release&&label==='candidate'?'14.29':'14.28',anchor:release&&label==='candidate'?'T725':'T724',money:100-index,other:{unchanged:true}}}:{})}))}))}));
+ let cases=0;const assert=(ok,message)=>{cases++;if(!ok)throw Error('Metadata normalization data self-test: '+message);};
+ for(const release of[false,true]){const runs=fixture(release),raw=JSON.stringify(runs),q=normalizeCompatibility012(runs,product(release));assert(JSON.stringify(q.reference)===JSON.stringify(q.comparison),'valid exact label-only comparison');assert(JSON.stringify(runs)===raw&&q.metadataNormalization.normalizedFields===(release?28:0),'raw observations retained');}
+ const rejects=(change,message)=>{const runs=fixture(true),proof=product(true);change(runs,proof);let rejected=false;try{normalizeCompatibility012(runs,proof);}catch{rejected=true;}assert(rejected,message);};
+ rejects((runs,p)=>{p.version='14.30';},'future version rejected');
+ rejects((runs,p)=>{p.phase='candidate';},'mixed release phase rejected');
+ rejects((runs,p)=>{p.fpExact=false;},'unverified promotion rejected');
+ rejects(runs=>{runs[0].result[4].checkpoints[0].enterprise.anchor='T723';},'baseline metadata mismatch rejected');
+ rejects(runs=>{runs[1].result[5].checkpoints[6].enterprise.version='14.28';},'candidate museum metadata mismatch rejected');
+ rejects(runs=>{delete runs[1].result[4].checkpoints[0].enterprise.anchor;},'missing known label path rejected');
+ rejects(runs=>{runs[1].result.pop();},'missing sixth world rejected');
+ rejects(runs=>{runs[1].result[5].seed=900721;},'duplicate metadata world rejected');
+ rejects(runs=>{runs[1].result[4].checkpoints.pop();},'missing checkpoint rejected');
+ for(const change of[
+  runs=>{runs[1].result[5].checkpoints[0].enterprise.money++;},
+  runs=>{runs[1].result[4].checkpoints[0].enterprise.other.unchanged=false;},
+  runs=>{runs[1].result[0].checkpoints[0].stats.money++;},
+  runs=>{runs[1].result[1].checkpoints[0].rngState++;},
+  runs=>{runs[1].result[2].checkpoints[0].tilesSHA256+='changed';},
+  runs=>{runs[1].result[3].fixture.paid++;},
+  runs=>{runs[1].result[0].checkpoints[0].enterprise={version:'14.29',anchor:'T725'};}
+ ]){const runs=fixture(true);change(runs);const raw=JSON.stringify(runs),q=normalizeCompatibility012(runs,product(true));assert(JSON.stringify(q.reference)!==JSON.stringify(q.comparison)&&JSON.stringify(runs)===raw,'non-label change remains visible to complete JSON equality');}
+ return{ok:true,sourceOnly:true,gameExecuted:false,cases,worlds:6,knownMetadataWorlds:[900721,900724],declaredPaths:[...METADATA_PATHS012],releaseNormalizedFields:28,rawObservationsPreserved:true};
+}
+module.exports={fixtureSource012,runMuseumWorld012,normalizeCompatibility012,staticNormalizationTest012,METADATA_PATHS012};

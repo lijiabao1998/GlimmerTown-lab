@@ -1,4 +1,4 @@
-# GPT-012 — British riverside market quarter
+# T725 — British riverside market quarter (original GPT-012)
 
 ## Pre-code scope and authorization
 Owner approved the proposed brick arcade market, glass canopy, flowers/produce, stone quay, iron railings and riverside walk on 2026-10-05 09:44:09 UTC, under the standing complete-detail → full tests → real screenshots → owner image approval → release flow. Parent confirmed T724 release/cold-load verification complete at 11:32 UTC. This round authorizes independent branch implementation, commits and required CI, NOT merge or deployment before image approval.
@@ -47,3 +47,12 @@ R2 moves the existing tiny under-canopy lamp to an actual four-sided glass lante
 Candidate5ab899b189b688fd3568aec3a414b0bada1a3631 passed all32 integration jobs in https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37307650319 and separate smoke37307650225. Preflight32 checks, gameplay26 and true whole-page cold-load43 all passed. SHA-verified native cold records preserve the exact current save on two Continue cycles; each advances three ordinary days with17/3/4 real retail staff, population/power/water/shopping and positive original commercial-tax receipts. All five T724 cold controls, full museum day/night/construction/weather matrix, earlier public-life/station/street-life gameplay and six complete old-world tile/stat/RNG comparisons passed. The stalled zero-light defect is fixed; no old art, baseline bytes or thresholds changed.
 
 Viewing the real quarter screenshots identified a presentation-only layout improvement: bring the two independently paid stalls closer to the arcade (x62 and64,y50 instead of64 and67) and purchase two more ordinary promenade tiles at59/60,y53, closing an isolated original water pocket in front of the court. This changes only the disposable QA fixture, from34 to36 paid path modules, not product bytes, building art/balance or a player's town. R3 repeats the complete exact-head gates and captures the better-connected living quarter before review; its results are pending at this entry. Product SHA256 remains8466b7eeaa0dccda8b12e0f53af746991d85baa5de80aedf2f1700112ae10f89. Owner image approval and any release/merge/deployment remain ungranted.
+
+
+## Publication approval and T725 preparation
+
+Owner reviewed all24 same-head native images and approved this round's publication at2026-10-05 12:35:18 UTC. PR17 is limited to this approved riverside market release; the proposed later theatre round is not authorized or included.
+
+Candidate2b0a28621741952369bd6e49a7ab21b716fbb94d passed all32 jobs in https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37309010297 and smoke37309010329. Artifact11345465979 SHA2563cf46bf559d536b9f1c0520948c7c4cc692ad629ef4c7e3dd9aaac91b011e2d7 and its native-fingerprint file eac45b9f2a6f63b34d918ffae393ac358c9672a795996f11eb6769e0761402a0 pin the accepted artwork. All24 additions are complete original native records; all2895 prior leaves/1728 blocks and baseline metadata remain preserved.
+
+T725/v14.29 updates only three release labels in the approved product and promotes those24 leaves plus independently rebuilt aggregates. No artwork, gameplay balance, save schema, style threshold, or T724 cold-load patch changes. The original acceptance/history is preserved in this renamed card; r172 records the release. Exact release-head full CI, PR17 merge, main smoke/Pages and official-site paid gameplay plus actual cold-load verification remain required before completion. Known PWA404 diagnostics remain separated from genuine functional results.

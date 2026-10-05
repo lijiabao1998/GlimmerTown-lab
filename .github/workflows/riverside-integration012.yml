@@ -121,7 +121,11 @@ jobs:
           set -o pipefail
           mkdir -p riverside-evidence/compatibility/logs
           for n in 1 2 3; do node smoke.js 2>&1 | tee riverside-evidence/compatibility/logs/smoke-$n.txt; done
-          node fp.js --check --expect=bld,riverside012 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
+          if grep -q "const GAME_VER='14.29'" index.html; then
+            node fp.js --check 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
+          else
+            node fp.js --check --expect=bld,riverside012 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
+          fi
           RL012_MODE=fingerprint node riverside-integration-qa012.js 2>&1 | tee riverside-evidence/compatibility/logs/strict24.txt
           RL012_SUITE=compatibility node riverside-regression-adapter012.js 2>&1 | tee riverside-evidence/compatibility/logs/old-worlds.txt
       - name: All tracked product and historical sources unchanged

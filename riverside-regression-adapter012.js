@@ -19,7 +19,7 @@ function buildAdapter012(suite){
  let adapted=original,compatibilityAdded='';const audit=[];
  const replace=(from,to,count=1)=>{if(adapted.split(from).length-1!==count)throw Error('Historical gate anchor count mismatch: '+from);adapted=adapted.split(from).join(to);audit.push({from,to,count});};
  if(suite==='publiclife'||suite==='station'){
-  replace("!((staticProof.release===false&&staticProof.version==='14.26'&&staticProof.anchor==='T722')||(staticProof.release===true&&staticProof.version==='14.27'&&staticProof.anchor==='T723'))", "!(staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.28'&&staticProof.anchor==='T724'&&nativeProof.proof.museumLineageExact&&nativeProof.proof.projectedOnlyDeclared24&&nativeProof.proof.riversideOldLeaves===2895&&nativeProof.proof.riversideNewLeaves===24&&nativeProof.proof.currentLeaves===2919)");
+  replace("!((staticProof.release===false&&staticProof.version==='14.26'&&staticProof.anchor==='T722')||(staticProof.release===true&&staticProof.version==='14.27'&&staticProof.anchor==='T723'))", "!(((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.28'&&staticProof.anchor==='T724')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.version==='14.29'&&staticProof.anchor==='T725'))&&nativeProof.proof.museumLineageExact&&nativeProof.proof.projectedOnlyDeclared24&&nativeProof.proof.riversideOldLeaves===2895&&nativeProof.proof.riversideNewLeaves===24&&nativeProof.proof.currentLeaves===2919)");
   // Decode only the one generated replacement containing the historical log
   // helper. The original nested suite anchors remain unchanged.
   const matches=adapted.split('\n').filter(l=>l.includes('const streetPriorLog009=full=>{'));if(matches.length!==1)throw Error('Unique historical bounded-log adapter required');
@@ -37,18 +37,22 @@ function buildAdapter012(suite){
  if(suite==='compatibility'){
   replace("const ROOT=__dirname,BASE='d9dfe87689fa841edb8775d0f95db77d9f2deb5b';","const ROOT=__dirname,BASE='"+fixed.BASE+"';");
   replace("const HASH='b00099c4837038812278ee5e3f86528416731e24904559e60befb575b315934f';","const HASH='"+fixed.BASE_HTML_SHA256+"';");
-  replace("const version=label==='candidate'?staticProof.version:'14.26',anchor=label==='candidate'?staticProof.anchor:'T722';", "const version=label==='candidate'?staticProof.version:'14.28',anchor=label==='candidate'?staticProof.anchor:'T724';");
-  replace("if(label==='candidate'&&staticProof.release){if(version!=='14.27'||anchor!=='T723')throw Error('Only approved T723 label normalization allowed');q.enterprise.version='14.26';q.enterprise.anchor='T722';}", "if(version!=='14.28'||anchor!=='T724'||staticProof.release!==false)throw Error('Both compatibility products must retain exact T724 labels; normalization is forbidden');");
-  replace("out.metadataNormalization={applied:staticProof.release,paths:['seed900721.checkpoints[*].enterprise.version','seed900721.checkpoints[*].enterprise.anchor'],from:{version:staticProof.version,anchor:staticProof.anchor},to:{version:'14.26',anchor:'T722'},rawObservationsPreserved:true};", "out.metadataNormalization={applied:false,paths:[],from:{version:staticProof.version,anchor:staticProof.anchor},to:{version:'14.28',anchor:'T724'},rawObservationsPreserved:true,sameLabelExact:true};");
+  // The original five worlds stay verbatim. Replace only the historical
+  // metadata comparison block, adding the one known museum enterprise path.
+  const metadataStart="    const reference=out.runs[0].result,comparison=structuredClone(out.runs[1].result);",metadataEnd="    out.ok=JSON.stringify(reference)===JSON.stringify(comparison);";
+  if(original.split(metadataStart).length!==2||original.split(metadataEnd).length!==2)throw Error('Unique historical metadata-only comparison boundaries required');
+  const metadataBlock=original.slice(original.indexOf(metadataStart),original.indexOf(metadataEnd));
+  replace(metadataBlock,"    const {reference,comparison,metadataNormalization}=require('./riverside-museum-compat012').normalizeCompatibility012(out.runs,staticProof);\n    out.metadataNormalization=metadataNormalization;\n");
   // Add a sixth comparison world. The five original runtime worlds, functions,
   // checkpoint data and final complete JSON equality remain byte-identical.
   const before="        if(cdp.errors.length){out.consoleErrors={label,errors:cdp.errors};throw Error(label+' console or uncaught errors: '+JSON.stringify(cdp.errors));}return arr;";
-  const extra="        const museumCompat=require('./riverside-museum-compat012');\n        const museum=await cdp.evalJs('(()=>{'+museumCompat.fixtureSource012()+';return ('+museumCompat.runMuseumWorld012.toString()+')(setupMuseum010,('+seedApprovedBritishLegacy007.toString()+'));})()');\n        if(museum.checkpoints.length!==7||!museum.nativeLoadIdentitiesExact||!museum.otherSlotsUnchanged||museum.checkpoints.some(q=>q.difficulty!==1||q.roots.length!==1||q.roots[0].k!==277||q.paths.length!==3||q.retained.length!==47||q.enterprise.version!=='14.28'||q.enterprise.anchor!=='T724'))throw Error('Complete same-label T724 museum comparison checkpoints missing');\n        arr.push({seed:900724,kind:'Immutable paid T724 museum and all old street/station/British identities; complete stats, tiles, RNG, native load and following day',fixture:museum.fixture,nativeLoadIdentitiesExact:museum.nativeLoadIdentitiesExact,otherSlotsUnchanged:museum.otherSlotsUnchanged,checkpoints:museum.checkpoints.map(({tiles,...q})=>({...q,tilesSHA256:hash(JSON.stringify(tiles))}))});\n";
+  const extra="        const museumCompat=require('./riverside-museum-compat012');\n        const museum=await cdp.evalJs('(()=>{'+museumCompat.fixtureSource012()+';return ('+museumCompat.runMuseumWorld012.toString()+')(setupMuseum010,('+seedApprovedBritishLegacy007.toString()+'));})()');\n        if(museum.checkpoints.length!==7||!museum.nativeLoadIdentitiesExact||!museum.otherSlotsUnchanged||museum.checkpoints.some(q=>q.difficulty!==1||q.roots.length!==1||q.roots[0].k!==277||q.paths.length!==3||q.retained.length!==47||q.enterprise.version!==(label==='candidate'?staticProof.version:'14.28')||q.enterprise.anchor!==(label==='candidate'?staticProof.anchor:'T724')))throw Error('Complete source-verified T724 museum comparison checkpoints missing');\n        arr.push({seed:900724,kind:'Immutable paid T724 museum and all old street/station/British identities; complete stats, tiles, RNG, native load and following day',fixture:museum.fixture,nativeLoadIdentitiesExact:museum.nativeLoadIdentitiesExact,otherSlotsUnchanged:museum.otherSlotsUnchanged,checkpoints:museum.checkpoints.map(({tiles,...q})=>({...q,tilesSHA256:hash(JSON.stringify(tiles))}))});\n";
   compatibilityAdded=extra;replace(before,extra+before);
  }
  if(suite==='coldload'){
   replace("const {verifyStatic011}=require('./coldload-static-contract011');", "const {verifyStatic012:verifyStatic011}=require('./riverside-static-contract012');");
   replace("const {verifyFingerprint011}=require('./coldload-fingerprint-qa011');", "const {verifyFingerprint012:verifyFingerprint011}=require('./riverside-fingerprint-qa012');");
+  replace("check('candidate retains T723 or formally released T724 labels',(version==='14.27'&&anchor==='T723')||(version==='14.28'&&anchor==='T724'),{version,anchor});", "check('exact T724 candidate or authorized T725 riverside release labels',version===report.static.version&&anchor===report.static.anchor&&((report.static.release===false&&report.static.phase==='candidate'&&version==='14.28'&&anchor==='T724')||(report.static.release===true&&report.static.phase==='release'&&version==='14.29'&&anchor==='T725')),{version,anchor});");
   replace("check('all 2895 approved leaves,157 families and1728 blocks stay exact',report.fingerprint.ok===true&&fp.stats.leaves===2895&&fp.stats.families===157&&blocks.count===1728,report.fingerprint);", "check('all2895 approved leaves and1728 blocks exact plus precisely24 riverside leaves in158 families',report.fingerprint.ok===true&&report.fingerprint.oldLeaves===2895&&report.fingerprint.newLeaves===24&&fp.stats.leaves===2919&&fp.stats.families===158&&blocks.count===1728,report.fingerprint);");
  }
  if(suite!=='coldload')for(const[i,from]of['./museum-static-contract010','./museum-fingerprint-qa010'].entries()){
@@ -59,6 +63,7 @@ function buildAdapter012(suite){
  if(suite==='museum')exactRange012(original,adapted,'function nativeScene010(');
  if(suite==='compatibility'){
   exactRange012(original,adapted,'const originalRng=','(async()=>');
+  exactRange012(original,adapted,'    out.ok=JSON.stringify(reference)===JSON.stringify(comparison);');
   exactRange012(original,adapted.replace(compatibilityAdded,''),"    for(const [label,bytes]of[['baseline',old],['candidate',current]]){","        if(cdp.errors.length)");
  }
  if(suite==='streetlife')exactRange012(original,adapted,"const start='function setupStreet009('");
@@ -67,7 +72,7 @@ function buildAdapter012(suite){
   exactRange012(original,adapted,'  for(const caseName of CASES){');
  }
  new vm.Script(adapted,{filename:'.riverside-'+suite+'-runtime012.js'});
- return{file,original,adapted,audit,proof:{suite,baseline:fixed.BASE,originalSHA256:fixed.hash(original),adaptedSHA256:fixed.hash(adapted),originalExact:true,runtimeFunctionsExact:true,gameplayAssertionsExact:true,gateOnly:suite!=='compatibility',additionalFullMuseumCompatibility:suite==='compatibility',coldloadCaseBodiesExact:suite==='coldload'}};
+ return{file,original,adapted,audit,proof:{suite,baseline:fixed.BASE,originalSHA256:fixed.hash(original),adaptedSHA256:fixed.hash(adapted),originalExact:true,runtimeFunctionsExact:true,gameplayAssertionsExact:true,gateOnly:suite!=='compatibility',additionalFullMuseumCompatibility:suite==='compatibility',boundedMetadataNormalizationPaths:suite==='compatibility'?require('./riverside-museum-compat012').METADATA_PATHS012:[],coldloadCaseBodiesExact:suite==='coldload'}};
 }
 function nestedStatic012(suite,q){
  if(suite==='publiclife'||suite==='station'){
@@ -87,8 +92,8 @@ function nestedStatic012(suite,q){
 }
 function staticTest012(){
  const results=[];for(const suite of Object.keys(FILES)){const q=buildAdapter012(suite);results.push({...q.proof,...nestedStatic012(suite,q),transformations:q.audit.length});}
- const museum=require('./riverside-museum-compat012');new vm.Script(museum.fixtureSource012());new vm.Script('('+museum.runMuseumWorld012.toString()+')');
- return{ok:true,sourceOnly:true,gameExecuted:false,museumModes:MUSEUM_MODES,coldloadCases:COLD_CASES,results};
+ const museum=require('./riverside-museum-compat012');new vm.Script(museum.fixtureSource012());new vm.Script('('+museum.runMuseumWorld012.toString()+')');const metadataNormalization=museum.staticNormalizationTest012();
+ return{ok:true,sourceOnly:true,gameExecuted:false,metadataNormalization,museumModes:MUSEUM_MODES,coldloadCases:COLD_CASES,results};
 }
 function run012(){
  if(process.env.GITHUB_ACTIONS!=='true')throw Error('Runtime adapters run only in authorized isolated GitHub Actions');

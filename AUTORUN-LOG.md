@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T725 release entry BEGIN -->
+## r172 — T725 英式河岸市集（原 GPT-012）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r172 | [T725](docs/T725-british-riverside-market.md) | 業主於2026-10-05 12:35:18 UTC看過24張原生圖片後批准本輪上線。新增k278紅磚開放拱廊市場、k279花攤、k280蔬果攤與三種T502河岸步道，原生私營人力/購物/商業稅、九日施工、物理道路水電。v14.29/T725三處發布標記與严格24葉增量基準。T724冷讀檔修復及全部既有美術保留。 | 候選2b0a286：[full37309010297](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37309010297)32/32及smoke37309010329全綠；四向日夜/施工/遮擋、斷路水電與零人力、兩次真冷載各3日、五冷載控制、舊玩法與六舊城全tile/stat/RNG皆過。發布metadata head仍須重跑完整CI。 | [PR17](https://github.com/lijiabao1998/GlimmerTown-lab/pull/17)的T725 squash merge，精確SHA見PR | 24張同head原生PNG已交付並核准；完整source/hash/dim與原始CI artifacts保留 | ① 原有manifest/icon/sw等PWA附檔404保留，未稱零診斷 ② CI效能不是手機實機FPS ③ 正式站部署後驗證尚待實測 ④ 不含未批准的下一輪劇院 |
+
+<!-- T725 release entry END -->
 <!-- T724 release entry BEGIN -->
 ## r171 — T724 冷讀檔電網快取重建（原 GPT-011）
 
