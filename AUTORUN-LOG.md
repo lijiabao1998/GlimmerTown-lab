@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T724 release entry BEGIN -->
+## r171 — T724 冷讀檔電網快取重建（原 GPT-011）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r171 | [T724](docs/T724-cold-load-power-rebuild.md) | 業主於2026-10-05 11:08:46 UTC批准此修復PR、發版測試、合併部署與正式站核對。唯一產品修正：成功讀檔的財政與觀測快照之後標記電網拓撲需重建，交下一次原生computePower依實際道路/電源重建；不偽造水電人力、不改存檔格式。v14.28/T724三個版本標示，fp.json及全部核准美術不變。 | 候選939324e：[full37299836912](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37299836912)20/20與smoke全綠；有館/無館各兩次真冷讀檔、無源/斷路/停用修復負對照、完整原博物館與歷史玩法、三次smoke、全精靈/blocks與舊城tile/stat/RNG均過。正式metadata head仍須再跑完整CI，未預稱通過。 | [PR16](https://github.com/lijiabao1998/GlimmerTown-lab/pull/16)的T724 squash merge，精確SHA見PR | 沿用已批准13張原生圖；本次10個真冷load首日樣張及原始manifest见CI artifacts | ① 原有manifest/icon/sw等PWA附檔404保留，未稱零診斷 ② CI效能不是手機實機FPS ③ 正式站後驗仍須實測 ④ 不含後續河岸市集 |
+
+<!-- T724 release entry END -->
 <!-- T723 release entry BEGIN -->
 ## r170 — T723 英式地方自然史博物館與館前花園（原 GPT-010）
 
