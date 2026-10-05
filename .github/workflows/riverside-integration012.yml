@@ -35,6 +35,7 @@ jobs:
           for f in riverside-*012.js; do node --check "$f"; done
           node riverside-static-contract012.js
           node riverside-regression-adapter012.js --static-test
+          node riverside-style-adapter012.js --static-test
           RL012_MODE=preflight node riverside-integration-qa012.js 2>&1 | tee riverside-preflight.txt
       - name: All tracked product and historical sources unchanged
         if: always()
@@ -121,11 +122,8 @@ jobs:
           set -o pipefail
           mkdir -p riverside-evidence/compatibility/logs
           for n in 1 2 3; do node smoke.js 2>&1 | tee riverside-evidence/compatibility/logs/smoke-$n.txt; done
-          if grep -q "const GAME_VER='14.29'" index.html; then
-            node fp.js --check 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
-          else
-            node fp.js --check --expect=bld,riverside012 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
-          fi
+          node riverside-style-adapter012.test.js riverside-evidence/preflight/guards/fingerprint-native.json 2>&1 | tee riverside-evidence/compatibility/logs/style-source-data.txt
+          node riverside-style-adapter012.js 2>&1 | tee riverside-evidence/compatibility/logs/style.txt
           RL012_MODE=fingerprint node riverside-integration-qa012.js 2>&1 | tee riverside-evidence/compatibility/logs/strict24.txt
           RL012_SUITE=compatibility node riverside-regression-adapter012.js 2>&1 | tee riverside-evidence/compatibility/logs/old-worlds.txt
       - name: All tracked product and historical sources unchanged

@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+'use strict';
+// Static/source and JSON-data tests only. Never require harness or run a game.
+const fs = require('node:fs'), vm = require('node:vm'), assert = require('node:assert/strict');
+const adapter = require('./riverside-style-adapter012');
+const { buildStyleAdapter012, staticTest012 } = adapter;
+const q = buildStyleAdapter012(), source = staticTest012();
+assert.deepEqual(adapter.ARGS, ['--check', '--expect=bld,riverside012']);
+assert.equal(q.adapted.replace(adapter.ADAPTED_PATH, adapter.ORIGINAL_PATH), q.original);
+assert.equal(q.proof.substitutions.length, 1);
+// Exercise the exact original ratchet loop as pure data logic, preserving its
+// original tolerance and family declaration rule. These scores are synthetic.
+const start = '      const expSet = new Set(EXPECT);';
+const end = "      log('');";
+const a = q.original.indexOf(start), b = q.original.indexOf(end, a);
+assert(a >= 0 && b > a);
+const ratchet = q.original.slice(a, b);
+assert.equal(q.adapted.slice(q.adapted.indexOf(start), q.adapted.indexOf(end, q.adapted.indexOf(start))), ratchet);
+function drops(expect, totals, previous) {
+ const context = { EXPECT: expect, famNames: Object.keys(totals), curStyle: Object.fromEntries(Object.entries(totals).map(([k, total]) => [k, { total }])), prevStyle: { families: Object.fromEntries(Object.entries(previous).map(([k, total]) => [k, { total }])) } };
+ new vm.Script(ratchet + '\nglobalThis.result = drops;').runInNewContext(context);
+ return Array.from(context.result);
+}
+const prior = { bld: 0.9653, grass: 0.8 };
+assert.deepEqual(drops(['bld', 'riverside012'], { bld: 0.9651, grass: 0.8, riverside012: 0.5 }, prior), []);
+assert.equal(drops([], { bld: 0.9651, grass: 0.8 }, prior).length, 1);
+assert.equal(drops(['bld', 'riverside012'], { bld: 0.9651, grass: 0.79 }, prior).length, 1);
+assert.equal(drops(['bld', 'riverside012'], { bld: 0.9651, grass: 0.799998 }, prior).length, 1);
+assert.equal(drops(['bld', 'riverside012'], { bld: 0.9651, grass: 0.7999995 }, prior).length, 0);
+const result = { ok: true, gameExecuted: false, sourceNegatives: source.rejected, exactOriginalRatchetCases: 5,
+ sourceOnly: true, nativeEvidenceJSONTested: false };
+// Optional independently downloaded original CI data tests the required full
+// approval check without impersonating Actions or invoking native execution.
+if (process.argv[2]) {
+ const native = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+ const { verifyFingerprint012 } = require('./riverside-fingerprint-qa012');
+ const { expectedAdditions } = require('./riverside-static-contract012');
+ const oldKey = Object.keys(native.fp.subs).find(k => !expectedAdditions.includes(k));
+ const newKey = expectedAdditions[0], blockKey = Object.keys(native.blocks.entries)[0];
+ const proof = verifyFingerprint012(native.fp, native.blocks);
+ assert.equal(proof.approvedNativeRecordsExact, true);
+ assert.equal(proof.promotedNativeRecordsExact, true);
+ assert.equal(proof.completeBlockRecordsExact, true);
+ const rejected = [];
+ const cases = [
+  ['old leaf full-record mutation', d => { d.fp.subs[oldKey].op++; }],
+  ['old leaf deleted', d => { delete d.fp.subs[oldKey]; }],
+  ['extra declared-family leaf', d => { d.fp.subs['bld.unapproved_extra'] = structuredClone(d.fp.subs[newKey]); }],
+  ['new approved leaf mutation', d => { d.fp.subs[newKey].d = '00000000'; }],
+  ['family CRC mutation', d => { d.fp.families.grass.crc = '00000000'; }],
+  ['complete stats mutation', d => { d.fp.stats.leaves++; }],
+  ['block family mutation', d => { d.blocks.fam = '00000000'; }],
+  ['block count mutation', d => { d.blocks.count--; }],
+  ['complete block record mutation', d => { d.blocks.entries[blockKey] = { unapproved: true }; }]
+ ];
+ for (const [name, mutate] of cases) {
+  const data = structuredClone(native); mutate(data);
+  assert.throws(() => verifyFingerprint012(data.fp, data.blocks), undefined, name);
+  rejected.push(name);
+ }
+ result.nativeEvidenceJSONTested = true;
+ result.strictNativeDataProof = proof;
+ result.nativeDataNegatives = rejected;
+}
+console.log(JSON.stringify(result, null, 2));
