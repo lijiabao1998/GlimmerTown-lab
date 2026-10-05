@@ -58,11 +58,10 @@ function paidRoadCold010(){
   let ready;for(let n=1;n<=24;n++){ready=await day('fixture-day-'+n);if(n>=9&&ready.street.roots.length===3&&ready.street.roots.every(q=>q.operational&&q.employed>0))break;}
   assert('fixture truly operational before save comparisons',ready.street.roots.length===3&&ready.street.roots.every(q=>q.operational&&q.employed>0)&&ready.stats.pop>0,ready);
   await ev('GV.save()');const raw=await ev("localStorage.getItem('glimmerville.v1.s3')");assert('native original slot3 save exists',typeof raw==='string'&&raw.length>1000);report.originalSave={sha256:hash(raw),bytes:Buffer.byteLength(raw),day:ready.stats.day,rootIdentity:await ev('window.__cold010.saveIdentityCold010()')};
-  await snap('before-warm-GV-load');assert('warm native GV.load succeeds',await ev('GV.load()'));
-  await snap('warm-immediate');await raf('warm-first-RAF');await raf('warm-second-RAF');report.warmFirstDay=await day('warm-first-ordinary-day');
-  // Restore exactly the original bytes produced by native GV.save, so warm and
-  // cold paths consume the same save even if the native autosave timer fired.
-  await ev("localStorage.setItem('glimmerville.v1.s3',"+JSON.stringify(raw)+")");assert('cold input is the same exact native save bytes',await ev("localStorage.getItem('glimmerville.v1.s3')")===raw);
+  // Cold path first: the currently paused world is exactly the just-saved
+  // native state, so visibilitychange/autosave cannot replace it with a later
+  // warm-control day during Page.reload. Preserve the full byte comparison.
+  assert('cold input is the same exact native save bytes',await ev("localStorage.getItem('glimmerville.v1.s3')")===raw);
   await cdp.send('Page.reload',{ignoreCache:true});assert('actual cold page returns to fully baked menu',await waitFor(cdp,"!!window.__bootDone453&&!!window.GV&&getComputedStyle(document.getElementById('start')).display!=='none'",180000));
   report.beforeContinue=await ev("({version:GV.ver(),slot:localStorage.getItem('glimmerville.v1.slot'),saved:localStorage.getItem('glimmerville.v1.s3'),continueVisible:getComputedStyle(document.getElementById('bContinue')).display!=='none',reach:window.__t444Power||null,districtCache:window.__t450Power||null})");assert('before Continue original save bytes and target version persist',report.beforeContinue.saved===raw&&report.beforeContinue.version===target.version&&report.beforeContinue.slot==='3'&&report.beforeContinue.continueVisible);report.beforeContinue.savedSHA256=hash(report.beforeContinue.saved);delete report.beforeContinue.saved;
   await register();report.coldImmediate=await ev("(()=>{document.getElementById('bContinue').click();GV.setSpeed(0);GV.ai(false);return window.__cold010.passiveCold010('cold-Continue-immediate');})()");report.snapshots.push(report.coldImmediate);assert('cold Continue keeps exact native root identities and day',JSON.stringify(await ev('window.__cold010.saveIdentityCold010()'))===JSON.stringify(report.originalSave.rootIdentity)&&report.coldImmediate.stats.day===report.originalSave.day);
@@ -70,8 +69,19 @@ function paidRoadCold010(){
   report.coldFirstDay=await day('cold-first-ordinary-day');report.coldSecondDay=await day('cold-second-ordinary-day');report.coldThirdDay=await day('cold-third-ordinary-day');await shot('cold-third-day.png','unassisted cold load after three ordinary days');
   report.intervention=await ev('window.__cold010.paidRoadCold010()');assert('separate recovery intervention is a paid ordinary road placement',report.intervention.exact&&report.intervention.charged>0,report.intervention);await snap('paid-road-immediate');
   report.recovery=[];for(let n=1;n<=3;n++)report.recovery.push(await day('paid-road-recovery-day-'+n));await shot('paid-road-recovery.png','separate native paid-road recovery intervention');
+  // Warm control runs only after the untouched cold observations and separate
+  // recovery intervention. Restore the same original native bytes and load
+  // them synchronously in one evaluation; no subsequent navigation can trigger
+  // visibilitychange autosave of the recovery world over that input.
+  await snap('before-warm-GV-load');
+  report.warmInput=await ev("(()=>{localStorage.setItem('glimmerville.v1.s3',"+JSON.stringify(raw)+");const input=localStorage.getItem('glimmerville.v1.s3');const loaded=GV.load();GV.setSpeed(0);GV.ai(false);return{input,loaded};})()");
+  assert('warm control consumes the exact original native save bytes',report.warmInput.input===raw&&report.warmInput.loaded);
+  report.warmInput.savedSHA256=hash(report.warmInput.input);delete report.warmInput.input;
+  const warmImmediate=await snap('warm-immediate');
+  assert('warm load keeps exact original root identities and day',JSON.stringify(await ev('window.__cold010.saveIdentityCold010()'))===JSON.stringify(report.originalSave.rootIdentity)&&warmImmediate.stats.day===report.originalSave.day);
+  await raf('warm-first-RAF');await raf('warm-second-RAF');report.warmFirstDay=await day('warm-first-ordinary-day');
   const functional=q=>!!q&&q.stats.pop>0&&q.stats.poweredBld>0&&q.street.roots.length===3&&q.street.roots.every(r=>r.operational&&r.employed>0);
-  report.findings={warmFirstDayFunctional:functional(report.warmFirstDay),coldFirstDayFunctional:functional(report.coldFirstDay),coldThirdDayFunctional:functional(report.coldThirdDay),paidRoadRecoveryFunctional:report.recovery.some(functional),coldPhysicalRoadsWithEmptyDistrictCache:report.coldFirstDay.physical.poweredRoads>0&&report.coldFirstDay.powerDistrictCache?.districts===0,strictlySameNativeSave:report.beforeContinue.savedSHA256===report.originalSave.sha256,doesNotCertifyColdLoadSuccess:true};
+  report.findings={warmFirstDayFunctional:functional(report.warmFirstDay),coldFirstDayFunctional:functional(report.coldFirstDay),coldThirdDayFunctional:functional(report.coldThirdDay),paidRoadRecoveryFunctional:report.recovery.some(functional),coldPhysicalRoadsWithEmptyDistrictCache:report.coldFirstDay.physical.poweredRoads>0&&report.coldFirstDay.powerDistrictCache?.districts===0,strictlySameNativeSave:report.beforeContinue.savedSHA256===report.originalSave.sha256&&report.warmInput.savedSHA256===report.originalSave.sha256,doesNotCertifyColdLoadSuccess:true};
   report.consoleErrors=cdp.errors;assert('no browser game exceptions',cdp.errors.length===0,cdp.errors);return true;
  });report.session={ok:session.ok,fails:session.fails,seconds:session.seconds};assert('diagnostic session completed',session.ok,report.session);assert('target product bytes untouched',hash(fs.readFileSync(path.join(TARGET,'index.html')))===target.sourceSHA256);report.diagnosticComplete=true;report.ok=true;
  }catch(e){report.error=String(e.stack||e);report.diagnosticComplete=false;report.ok=false;process.exitCode=1;}finally{clearTimeout(watchdog);report.finishedAt=new Date().toISOString();save();console.log(JSON.stringify({diagnosticComplete:report.diagnosticComplete,targetSHA,findings:report.findings,error:report.error}));}})();
