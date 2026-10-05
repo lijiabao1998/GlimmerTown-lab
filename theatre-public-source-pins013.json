@@ -1,0 +1,162 @@
+{
+  "approvedSHA": "30aa0ebfc7080f268de26541f20da730adca1a8d",
+  "approvedSourceSHA256": "de54453d2890e705c522e8e0a5506d50adaaf68922d8897f64485a87e27366b1",
+  "approvedFingerprintSHA256": "fec125ae41876eddbaf0d799fbd27658448df2b564908d2ebcf8e04fa16fb2a0",
+  "dependencies": {
+    "harness.js": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
+    "publiclife-legacy-fixture007.js": "f91a1c2b7e79eb635937910535191b842b4f6782cec51e2569a73b04323c6e11",
+    "streetlife-integration-qa009.js": "6585359c7af48ee68d09f20720d778b12ddf3da687190cc755bd7d34447e1b05",
+    "museum-integration-qa010.js": "3937eaf0f1f8008c9bea5e7b5d88c105665cae8fb5020cb15fa7ec5bf73b6d23",
+    "riverside-integration-qa012.js": "647556df21023f8c06cdfd9ee191e79b3a2cadc536b4913e723bb77802a89469",
+    "theatre-gameplay013.js": "c94bc3c0b1f58329a1583b2a2acda0cf08d877b8ae5c875af3350e1bf298881e",
+    "streetlife-fingerprint-qa009.js": "1633521961a1021edbb2af1a1d4851da4045e1b7bedec0add044c498672bead3"
+  },
+  "ranges": [
+    [
+      "streetlife-integration-qa009.js",
+      "function setupStreet009(",
+      "function snapshot009(",
+      "11cebcd7a47343bbe1f0f29d6fe78da92b863973fd157c21ede31626fc2b777f"
+    ],
+    [
+      "museum-integration-qa010.js",
+      "function setupMuseum010(",
+      "function assets010(",
+      "37c0be326c5763933e2835accedb9e2fad4403a1167b986bd40bea5dbfca0eb6"
+    ],
+    [
+      "riverside-integration-qa012.js",
+      "function bindObservation012(",
+      "function assetAudit012(",
+      "5124b592037c69719b643c418d04ea32db553a43511420525ef8622b4827ab06"
+    ],
+    [
+      "theatre-gameplay013.js",
+      "function bindObservation013(",
+      "function assetAudit013(",
+      "55b766487e24dd81c7f1799b03fa3dfe563beda5a92ec423bd173e5d2da6aba7"
+    ],
+    [
+      "theatre-gameplay013.js",
+      "function nativeScene013(",
+      "function nativeLight013(",
+      "879845d645a07d6bbeb54f0ab2c0078eae90d34c3fdaca7a73ba44ce38bc1d7c"
+    ],
+    [
+      "theatre-gameplay013.js",
+      "function amenityComposition013(",
+      "function amenityRenderWitness013(",
+      "71def3883f94ea78c083c6d091d42a217e1a4eeb70d8decd185e4c15ac1e84b2"
+    ]
+  ],
+  "nativeFullSubsSHA256": "f0dc7c1fb3c8111be3597a090b8732db8234c39fa9a650f8e1880540dadb33e8",
+  "nativeFullFamiliesSHA256": "8b23c70f6db953522e8cac060f1277672838c816987070659962613edf32c1f7",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 159,
+    "leaves": 2947,
+    "dayNonEmpty": 2937,
+    "nightNonEmpty": 1583
+  },
+  "expectedReleaseSourceSHA256": "d08e96bc49a86f58a6671153c5b58da76022294e3efe1c10af5a6c3b9d9a565e",
+  "inheritedClassifierSHA256": "af456b1c0f02170abdcccbe4c46846173e2dba7d2d27e97847293e7fb95a6e30",
+  "catalog": {
+    "buildings": [
+      {
+        "k": 281,
+        "id": "edwardianTheatre013",
+        "nm": "英式愛德華時代劇院",
+        "en": "British Edwardian theatre",
+        "ic": "🎭",
+        "sz": 3,
+        "cost": 3600,
+        "rank": 7,
+        "cat": "culture",
+        "kind": "A",
+        "jobs": 16,
+        "upkeep": 10,
+        "leisure": 200,
+        "power": 4.5,
+        "water": 3.4,
+        "coverage": "theater"
+      }
+    ],
+    "paths": [
+      {
+        "id": "theatreTicket013",
+        "nm": "英式售票亭步道",
+        "en": "British ticket kiosk paving",
+        "ic": "🎟️",
+        "sz": 1,
+        "rank": 4,
+        "theme": "ticket",
+        "base": "footpath502",
+        "cost": 12
+      },
+      {
+        "id": "theatrePlaza013",
+        "nm": "英式劇院前廣場步道",
+        "en": "British theatre plaza paving",
+        "ic": "◈",
+        "sz": 1,
+        "rank": 4,
+        "theme": "plaza",
+        "base": "footpath502",
+        "cost": 12
+      },
+      {
+        "id": "theatreRail013",
+        "nm": "英式劇院鐵欄步道",
+        "en": "British theatre iron-railing paving",
+        "ic": "🚧",
+        "sz": 1,
+        "rank": 4,
+        "theme": "rail",
+        "base": "footpath502",
+        "cost": 12
+      },
+      {
+        "id": "theatreBench013",
+        "nm": "英式劇院木椅步道",
+        "en": "British theatre wooden bench paving",
+        "ic": "🪑",
+        "sz": 1,
+        "rank": 4,
+        "theme": "bench",
+        "base": "footpath502",
+        "cost": 12
+      },
+      {
+        "id": "theatrePlanter013",
+        "nm": "英式劇院花槽步道",
+        "en": "British theatre planter paving",
+        "ic": "🌷",
+        "sz": 1,
+        "rank": 4,
+        "theme": "planter",
+        "base": "footpath502",
+        "cost": 12
+      },
+      {
+        "id": "theatreLamp013",
+        "nm": "英式劇院街燈步道",
+        "en": "British theatre lamp paving",
+        "ic": "💡",
+        "sz": 1,
+        "rank": 4,
+        "theme": "lamp",
+        "base": "footpath502",
+        "cost": 12
+      }
+    ],
+    "authority": {
+      "staff": "T495",
+      "leisure": "T491",
+      "coverage": "native theater",
+      "construction": "T168 / T418 / T700",
+      "ticketRevenue": 0,
+      "tourism": 0
+    }
+  },
+  "expectedReleaseBaselineSHA256": "e6c272866c19a00f0986bf7abfc231454499e1d23eee0cb813f6099f11a7b3fb"
+}

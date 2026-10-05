@@ -1,0 +1,147 @@
+name: theatre-public013
+on:
+  # Parent pushes only after exact T726 Pages publication is confirmed.
+  push:
+    branches: ['gpt/theatre-public013']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: theatre-public013-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  official-origin:
+    if: github.repository == 'lijiabao1998/GlimmerTown-lab' && github.ref == 'refs/heads/gpt/theatre-public013'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: observer
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Load exact approved main deployment receipt
+        id: pins
+        working-directory: observer
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs=require('fs'),p=require('./theatre-public-release013.json');
+          require('./theatre-public-contract013').verifyPins013(p);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'sha='+p.releaseSHA+'\nhtml='+p.sourceSHA256+'\n');
+          NODE
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pins.outputs.sha }}
+          path: deployed
+          persist-credentials: false
+      - name: Read successful exact main Pages deployment
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node observer/theatre-public-pages013.js
+      - name: Source-only observer tests and immutable release provenance
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          EXPECTED_RELEASE_HTML_SHA256: ${{ steps.pins.outputs.html }}
+          EXPECTED_RELEASE_ROOT: ${{ github.workspace }}/deployed
+        run: |
+          set -euo pipefail
+          git -C deployed fetch --depth=1 origin 30aa0ebfc7080f268de26541f20da730adca1a8d
+          git -C deployed fetch --depth=1 origin 248ce802bf4f29333f242447f12b8106af2bdbf1
+          for file in observer/theatre-public-*013.js; do node --check "$file"; done
+          node observer/theatre-public-source-qa013.js
+          node - <<'NODE'
+          const c=require('./observer/theatre-public-contract013');
+          console.log(JSON.stringify(c.verifyRelease013(process.env.EXPECTED_RELEASE_ROOT,process.env.EXPECTED_DEPLOY_SHA,process.env.EXPECTED_RELEASE_HTML_SHA256)));
+          NODE
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Official HTML paid theatre and two true cold Continue cycles
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          EXPECTED_RELEASE_HTML_SHA256: ${{ steps.pins.outputs.html }}
+          EXPECTED_RELEASE_ROOT: ${{ github.workspace }}/deployed
+          PUBLIC_SITE_URL: https://lijiabao1998.github.io/GlimmerTown-lab/
+        run: |
+          set -euo pipefail
+          mkdir -p observer/theatre-evidence/public
+          node observer/theatre-public-qa013.js 2>&1 | tee observer/theatre-evidence/public/runtime.txt
+      - name: Both exact checkouts and all tracked source bytes stay unchanged
+        if: always()
+        run: |
+          git -C observer diff --exit-code
+          git -C deployed diff --exit-code
+      - name: Preserve every report and lossless screenshot in <=28MiB parts
+        if: always()
+        run: python3 observer/theatre-public-package013.py
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part0/**') != ''
+        with:
+          name: theatre-public-part0-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part0/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part1/**') != ''
+        with:
+          name: theatre-public-part1-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part1/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part2/**') != ''
+        with:
+          name: theatre-public-part2-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part2/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part3/**') != ''
+        with:
+          name: theatre-public-part3-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part3/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part4/**') != ''
+        with:
+          name: theatre-public-part4-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part4/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part5/**') != ''
+        with:
+          name: theatre-public-part5-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part5/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part6/**') != ''
+        with:
+          name: theatre-public-part6-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part6/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.theatre-public-packets/part7/**') != ''
+        with:
+          name: theatre-public-part7-${{ steps.pins.outputs.sha }}
+          path: observer/.theatre-public-packets/part7/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
