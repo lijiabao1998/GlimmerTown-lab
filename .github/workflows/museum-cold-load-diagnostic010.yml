@@ -1,0 +1,62 @@
+name: museum-cold-load-diagnostic010
+on:
+  push:
+    branches: [gpt/museum-cold-load-diagnostic010]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: museum-cold-load-diagnostic010-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  immutable-cold-load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - release: T722
+            target: d9dfe87689fa841edb8775d0f95db77d9f2deb5b
+          - release: T723
+            target: 759394f8bd48dbe77fb21e8604015e2d1ca56d21
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: observer
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: target
+          ref: ${{ matrix.target }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Static runner and immutable checkout
+        run: |
+          set -euo pipefail
+          test "$(git -C observer rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git -C target rev-parse HEAD)" = '${{ matrix.target }}'
+          node --check observer/museum-cold-load-diagnostic010.js
+      - name: Native fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Diagnostic-only warm and actual cold loads
+        env:
+          COLD010_TARGET: ${{ github.workspace }}/target
+          COLD010_TARGET_SHA: ${{ matrix.target }}
+          COLD010_OUT: ${{ github.workspace }}/evidence/${{ matrix.release }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$COLD010_OUT"
+          node observer/museum-cold-load-diagnostic010.js 2>&1 | tee "$COLD010_OUT/runtime.txt"
+      - name: Neither immutable product nor observer changed
+        if: always()
+        run: git -C target diff --exit-code && git -C observer diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cold-load-${{ matrix.release }}-${{ matrix.target }}
+          path: evidence/${{ matrix.release }}/
+          if-no-files-found: warn
+          retention-days: 14
