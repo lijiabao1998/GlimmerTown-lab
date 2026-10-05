@@ -1,0 +1,181 @@
+# GPT-007 isolated branch evidence; no credentials, writes, secrets or deployment.
+name: publiclife-integration
+on:
+  push:
+    branches: ['gpt/british-public-life']
+    paths-ignore: ['**.md', 'docs/**']
+permissions:
+  contents: read
+concurrency:
+  group: publiclife-integration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    if: github.ref == 'refs/heads/gpt/british-public-life'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Source and baseline contract
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7
+          node --check publiclife-integration-qa.js
+          node --check british-publiclife-art.js
+          node --check publiclife-gameplay-probe007.js
+          node --check publiclife-selftest007.js
+          node --check publiclife-compatibility-qa.js
+          node --check publiclife-legacy-fixture007.js
+          node --check publiclife-regression-manifest007.js
+          mkdir -p publiclife-evidence/preflight/logs
+          git rev-parse HEAD > publiclife-evidence/preflight/checked-sha.txt
+          sha256sum index.html british-publiclife-art.js publiclife-integration-qa.js fp.json style.json > publiclife-evidence/preflight/source-sha256.txt
+      - name: Actual loaded staffed town preflight, canonical pixels and catalog
+        run: |
+          set -o pipefail
+          PL007_MODE=preflight node publiclife-integration-qa.js 2>&1 | tee publiclife-evidence/preflight/logs/preflight.txt
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-preflight-${{ github.sha }}
+          path: publiclife-evidence/preflight/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Readable preflight evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-preflight-metadata-${{ github.sha }}
+          path: |
+            publiclife-evidence/preflight/manifest.json
+            publiclife-evidence/preflight/checked-sha.txt
+            publiclife-evidence/preflight/source-sha256.txt
+            publiclife-evidence/preflight/guards/
+            publiclife-evidence/preflight/logs/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Native preflight review images
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-preflight-review-${{ github.sha }}
+          path: |
+            publiclife-evidence/preflight/full/*-street-*.png
+            publiclife-evidence/preflight/full/town-*.png
+            publiclife-evidence/preflight/crops/
+            publiclife-evidence/preflight/assets/
+          retention-days: 14
+          if-no-files-found: warn
+  matrix:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, weather, construction0, construction1, construction2]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned deployed T719 source
+        run: git fetch --depth=1 origin 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7
+      - name: Exact source evidence shard
+        run: |
+          set -o pipefail
+          mkdir -p publiclife-evidence/${{ matrix.mode }}/logs
+          PL007_MODE=${{ matrix.mode }} node publiclife-integration-qa.js 2>&1 | tee publiclife-evidence/${{ matrix.mode }}/logs/run.txt
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-${{ matrix.mode }}-${{ github.sha }}
+          path: publiclife-evidence/${{ matrix.mode }}/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Readable shard evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-${{ matrix.mode }}-metadata-${{ github.sha }}
+          path: |
+            publiclife-evidence/${{ matrix.mode }}/manifest.json
+            publiclife-evidence/${{ matrix.mode }}/logs/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Native camera review crops at zoom2
+        uses: actions/upload-artifact@v4
+        if: always() && startsWith(matrix.mode, 'camera')
+        with:
+          name: publiclife-${{ matrix.mode }}-review-${{ github.sha }}
+          path: publiclife-evidence/${{ matrix.mode }}/crops/*-z2-*.png
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Native weather and construction review crops
+        uses: actions/upload-artifact@v4
+        if: always() && (matrix.mode == 'weather' || startsWith(matrix.mode, 'construction'))
+        with:
+          name: publiclife-${{ matrix.mode }}-review-${{ github.sha }}
+          path: publiclife-evidence/${{ matrix.mode }}/crops/
+          retention-days: 14
+          if-no-files-found: warn
+  regression:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Existing repository font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Pinned deployed T719 source
+        run: git fetch --depth=1 origin 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7
+      - name: Three smoke passes, strict promoted fingerprint and declared12 old-city regression
+        run: |
+          set -uo pipefail
+          set +e
+          mkdir -p publiclife-evidence/regression/logs
+          status=0
+          run_check() {
+            name="$1"; shift
+            "$@" 2>&1 | tee "publiclife-evidence/regression/logs/$name.txt"
+            codes=("${PIPESTATUS[@]}")
+            printf '%s\n' "${codes[0]}" > "publiclife-evidence/regression/logs/$name.exit"
+            printf '%s\n' "${codes[1]}" > "publiclife-evidence/regression/logs/$name.tee.exit"
+            if [ "${codes[0]}" -ne 0 ] || [ "${codes[1]}" -ne 0 ]; then status=1; fi
+          }
+          for n in 1 2 3; do run_check "smoke-$n" node smoke.js; done
+          run_check fingerprint node fp.js --check
+          run_check declared-twelve env PL007_MODE=fingerprint node publiclife-integration-qa.js
+          if [ -d publiclife-evidence/fingerprint ]; then cp -a publiclife-evidence/fingerprint publiclife-evidence/regression/declared-twelve; else status=1; fi
+          run_check compatibility node publiclife-compatibility-qa.js
+          QA_STATUS="$status" node publiclife-regression-manifest007.js
+          code=$?; if [ "$code" -ne 0 ]; then status=1; fi
+          exit "$status"
+      - name: Never rewrite source or protected baseline
+        if: always()
+        run: git diff --exit-code -- index.html fp.json style.json AUTORUN-LOG.md docs/DECISIONS.md british-prototypes-art.js british-high-street-art.js british-residential-art.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: publiclife-regression-${{ github.sha }}
+          path: publiclife-evidence/regression/
+          retention-days: 14
+          if-no-files-found: warn

@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T720 release entry BEGIN -->
+## r167 — T720 十二款英國公共生活建築（原 GPT-007）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r167 | [T720](docs/T720-british-public-life.md) | 業主於 2026-10-05 00:42:55 UTC 確認十張圖片並授權本輪 PR、合併及驗證上線。k262–273 市政、警消、學校、教會與休閒共十二款；沿用原生人力、真實道路水電、九日施工、拆除撤銷及存讀檔。v14.24／T720；產品只改三處版本標示，指紋只提升十二新葉、bld 匯總及必要統計，全部舊葉／blocks／style 保持。 | 批准候選 7f527c6：[CI37221431440](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37221431440) 十一工作成功；35 玩法組、192 視角、48 天氣、120 施工、3 真正前景遮擋；存讀城原生警消人力、全部固定舊鄰居、三次 smoke、十二新增指紋及三座舊城／RNG 對照。正式 metadata 候選須重跑完整套與無例外 fp check；本記錄不預稱發版重驗通過。 | [PR12](https://github.com/lijiabao1998/GlimmerTown-lab/pull/12) 的 T720 squash merge，確切 SHA 見 PR | 十張已交付並批准的原生 PNG 沿用；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37221431440) | ① 四鏡頭固定繪製立面 ② 施工及積雪沿用現有系統 ③ 真實裝置／手機 FPS 未測 ④ 四項既有巢狀 atlas 診斷保留，不稱全部巢狀審核綠 ⑤ 密集前景仍可正常遮住部分立面 ⑥ 沒有新存檔格式或經濟規則 ⑦ PR7 未用，正式站未刪除或搬遷 |
+
+<!-- T720 release entry END -->
 <!-- T719 release entry BEGIN -->
 ## r166 — T719 十六款英式住宅街區（原 GPT-006）
 
