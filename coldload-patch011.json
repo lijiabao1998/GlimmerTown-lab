@@ -1,0 +1,9 @@
+{
+  "base": "759394f8bd48dbe77fb21e8604015e2d1ca56d21",
+  "baseHTMLSHA256": "66fff895f7805b6d7945ba737f9d5414af6e911295c48d7509334678976f4921",
+  "candidateSHA256": "4ee1c8a047da0663845dc850ded7e46889e9fa968b2b852b95e03be68dc9beaf",
+  "from": "const __load515=load;load=function(slot){const ok=__load515(slot);if(ok){fiscal515.lastDay=-1;fiscalStep515(false,false);try{observatoryStep514(true);}catch(_e){}}return ok;};",
+  "fromSHA256": "c477bf54f1d4224266da6ec30f1c985a864abdab5ae84ec8b3074e286103f021",
+  "to": "// GPT-011: post-load snapshots may prime an empty district cache before physical reach. The next normal computePower must rebuild it; no supply, staff, save or RNG state is fabricated.\nconst __load515=load;load=function(slot){const ok=__load515(slot);if(ok){fiscal515.lastDay=-1;fiscalStep515(false,false);try{observatoryStep514(true);}catch(_e){}if(!window.__noColdLoadPower011)markPowerDirty450();}return ok;};",
+  "toSHA256": "0a85c97e85c9b48da29eabb2412d031e75047303d67ff26c6b3a899a3a5191a4"
+}

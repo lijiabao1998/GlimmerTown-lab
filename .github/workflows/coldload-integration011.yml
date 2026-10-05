@@ -1,0 +1,229 @@
+name: coldload-integration011
+on:
+  push:
+    branches: ['gpt/cold-load-power011']
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Run complete native matrix and historical regressions
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: coldload-integration011-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact pinned T722 and source-only preflight
+        run: |
+          git fetch --depth=1 origin 759394f8bd48dbe77fb21e8604015e2d1ca56d21
+          git fetch --depth=1 origin d9dfe87689fa841edb8775d0f95db77d9f2deb5b
+          node --check coldload-native-qa011.js
+          node --check coldload-regression-adapter011.js
+          for p in coldload-*011.js; do node --check "$p"; done
+          node coldload-static-contract011.js
+          node coldload-public-source-qa011.js
+      - name: Native paid placement, nine ordinary days, actual load and physical loss/repair
+        run: |
+          set -o pipefail
+          CL011_SUITE=museum CL011_MODE=preflight node coldload-regression-adapter011.js 2>&1 | tee museum-preflight.txt
+      - name: Evidence must not change any tracked product or baseline
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coldload-preflight-${{ github.sha }}
+          path: |
+            coldload-evidence/
+            museum-evidence/preflight/
+            museum-preflight.txt
+          if-no-files-found: error
+          retention-days: 14
+  matrix:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, construction0, construction1, construction2, construction3, weather]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - run: |
+          git fetch --depth=1 origin 759394f8bd48dbe77fb21e8604015e2d1ca56d21
+          git fetch --depth=1 origin d9dfe87689fa841edb8775d0f95db77d9f2deb5b
+      - name: Exact-head native evidence shard
+        run: |
+          set -o pipefail
+          CL011_SUITE=museum CL011_MODE=${{ matrix.mode }} node coldload-regression-adapter011.js 2>&1 | tee museum-${{ matrix.mode }}.txt
+      - name: Product and baseline bytes unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coldload-${{ matrix.mode }}-${{ github.sha }}
+          path: |
+            coldload-evidence/
+            museum-evidence/${{ matrix.mode }}/
+            museum-${{ matrix.mode }}.txt
+          if-no-files-found: error
+          retention-days: 14
+  compatibility:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - run: |
+          git fetch --depth=1 origin 759394f8bd48dbe77fb21e8604015e2d1ca56d21
+          git fetch --depth=1 origin d9dfe87689fa841edb8775d0f95db77d9f2deb5b
+      - name: Three smoke passes, declared families and strict16 complete records
+        run: |
+          set -o pipefail
+          mkdir -p museum-evidence/compatibility/logs
+          for n in 1 2 3; do node smoke.js 2>&1 | tee museum-evidence/compatibility/logs/smoke-$n.txt; done
+          node fp.js --check 2>&1 | tee museum-evidence/compatibility/logs/fingerprint-style.txt
+          CL011_SUITE=museum CL011_MODE=fingerprint node coldload-regression-adapter011.js 2>&1 | tee museum-evidence/compatibility/logs/strict16.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: coldload-preflight-${{ github.sha }}
+          path: .museum-preflight-download
+      - name: Import same-head independently produced full native fingerprint
+        run: |
+          mkdir -p museum-evidence/preflight/guards
+          source=$(find .museum-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" museum-evidence/preflight/guards/fingerprint-native.json
+      - name: All old tiles, every exposed statistic, seeded RNG and native loaded worlds
+        run: |
+          set -o pipefail
+          CL011_SUITE=compatibility node coldload-regression-adapter011.js 2>&1 | tee museum-evidence/compatibility/logs/old-worlds.txt
+      - name: Restored candidate product and protected baseline
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coldload-compatibility-${{ github.sha }}
+          path: |
+            coldload-evidence/
+            museum-evidence/compatibility/
+            museum-evidence/fingerprint/
+          retention-days: 14
+  prior:
+    needs: preflight
+    if: contains(github.event.head_commit.message, '[full]') || inputs.full == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [publiclife, station, streetlife]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact baseline history
+        run: |
+          git fetch --depth=1 origin 759394f8bd48dbe77fb21e8604015e2d1ca56d21
+          git fetch --depth=1 origin d9dfe87689fa841edb8775d0f95db77d9f2deb5b
+          git fetch --depth=1 origin 559a419270e84d7d67b883581ddef8f24302a41b
+          git fetch --depth=1 origin ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f
+          git fetch --depth=1 origin 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7
+      - uses: actions/download-artifact@v4
+        with:
+          name: coldload-preflight-${{ github.sha }}
+          path: .museum-preflight-download
+      - name: Import same-head independently produced full native fingerprint
+        run: |
+          mkdir -p museum-evidence/preflight/guards
+          source=$(find .museum-preflight-download -path '*/guards/fingerprint-native.json' -type f)
+          test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+          cp "$source" museum-evidence/preflight/guards/fingerprint-native.json
+      - name: Exact old gameplay with strictly audited metadata gates
+        run: |
+          set -o pipefail
+          mkdir -p museum-evidence/prior-${{ matrix.suite }}/logs
+          if [ '${{ matrix.suite }}' = streetlife ]; then
+            CL011_SUITE=streetlife node coldload-regression-adapter011.js 2>&1 | tee museum-evidence/prior-streetlife/logs/native.txt
+          else
+            CL011_SUITE=${{ matrix.suite }} node coldload-regression-adapter011.js 2>&1 | tee museum-evidence/prior-${{ matrix.suite }}/logs/native.txt
+          fi
+      - name: Product and all protected sources unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coldload-prior-${{ matrix.suite }}-${{ github.sha }}
+          path: |
+            coldload-evidence/
+            museum-evidence/prior-${{ matrix.suite }}/
+            publiclife-evidence/gameplay/
+            station-evidence/gameplay/
+            streetlife-evidence/gameplay/
+          retention-days: 14
+
+  cold-reload:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    strategy:
+      fail-fast: false
+      matrix:
+        case: [without-museum, with-museum, zero-source, disconnected, escape-disabled]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact deployed baseline for immutable source and pixel checks
+        run: |
+          git fetch --depth=1 origin 759394f8bd48dbe77fb21e8604015e2d1ca56d21
+          git fetch --depth=1 origin d9dfe87689fa841edb8775d0f95db77d9f2deb5b
+      - name: Actual document reload and unaided native operation
+        run: |
+          set -o pipefail
+          COLD011_CASE=${{ matrix.case }} node coldload-native-qa011.js 2>&1 | tee coldload-${{ matrix.case }}.txt
+      - name: Source and complete old baseline unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coldload-native-${{ matrix.case }}-${{ github.sha }}
+          path: |
+            coldload-evidence011/
+            coldload-${{ matrix.case }}.txt
+          if-no-files-found: error
+          retention-days: 14

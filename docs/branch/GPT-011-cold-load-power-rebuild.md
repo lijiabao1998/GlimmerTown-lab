@@ -23,3 +23,11 @@ The first paired diagnostic37295865430 failed a QA input guard: Page.reload's na
 
 ## Work record
 Implementation not started. Unfinished: corrected causal paired runtime, minimal repair selection, complete candidate/release CI and final public verification. No success is claimed for the unresolved cold-load path.
+
+
+## Causal evidence and selected minimal repair
+Paired immutable runtime run37296616989 (observer3a58dc2095c93fecd2d16faaa270a3ad7856e1e1) completed on T722 and T723. Both show441 physically powered roads but zero cached districts and powered buildings through three unassisted cold-load days; native paid road placement restores one district and97 powered buildings. Warm controls are healthy; both paths use identical original native save bytes. This establishes the cache invalidation cause, rather than inferring it only from old source.
+
+Selected repair is one successful-load postcondition: after both fiscal and observatory restore snapshots finish, mark the distribution topology dirty. The next normal computePower rebuilds it from real physical reach. It does not eagerly alter loaded tiles, dispatch electricity, invent people or modify saves. Existing metro provenance reset afterward does not access power. A bounded __noColdLoadPower011 escape switch permits a negative control; default is repaired. All approved art and release identifiers remain unchanged in this candidate.
+
+Source-only exact-hunk/static checks are pending alongside dedicated real cold-reload, negative-source/disconnection, repeated-load and full historical matrix runtime. No runtime repair success claimed yet.
