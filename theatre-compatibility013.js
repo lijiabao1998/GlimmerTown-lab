@@ -58,7 +58,7 @@ function normalizeCompatibility013(runs,product){
  if(!Array.isArray(runs)||runs.length!==2||runs[0].label!=='baseline'||runs[1].label!=='candidate')throw Error('Exactly ordered baseline/candidate raw observations required');
  const raw=JSON.stringify(runs),reference=runs[0].result,comparison=structuredClone(runs[1].result);
  for(const rows of[reference,comparison]){
-  if(!Array.isArray(rows)||!eq(rows.map(q=>q.seed),WORLD_SEEDS013)||rows.some(q=>!Array.isArray(q.checkpoints)||q.checkpoints.length!==(q.seed>=900721?7:6)))throw Error('Exactly seven complete historical comparison worlds required');
+  if(!Array.isArray(rows)||!eq(rows.map(q=>q.seed),WORLD_SEEDS013)||rows.some(q=>!Array.isArray(q.checkpoints)||q.checkpoints.length!==([900721,900724,900725].includes(q.seed)?7:6)))throw Error('Exactly seven complete historical comparison worlds required');
   for(const seed of[900721,900724,900725])for(const[index,q]of rows.find(q=>q.seed===seed).checkpoints.entries()){
    if(!q.enterprise||!Object.hasOwn(q.enterprise,'version')||!Object.hasOwn(q.enterprise,'anchor')||q.enterprise.version!=='14.29'||q.enterprise.anchor!=='T725')throw Error('Unexpected native enterprise metadata at seed'+seed+'.checkpoints['+index+']');
   }
@@ -70,13 +70,16 @@ function normalizeCompatibility013(runs,product){
 }
 function staticNormalizationTest013(){
  const product={ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release:false,phase:'candidate',version:'14.29',anchor:'T725'};
- const fixture=()=>['baseline','candidate'].map(label=>({label,result:WORLD_SEEDS013.map(seed=>({seed,fixture:{N:72,paid:100},...(seed===900725?{nativeSave:JSON.stringify({v:1,n:72,gameVer:'14.29',df:1,day:4,allFields:{retained:true}}),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),checkpoints:Array.from({length:seed>=900721?7:6},(_,index)=>({stats:{day:index,money:100-index},tilesSHA256:'complete-'+index,rngState:42+index,...(seed>=900721?{enterprise:{version:'14.29',anchor:'T725',money:100-index,other:{unchanged:true}}}:{})}))}))}));
+ const fixture=()=>['baseline','candidate'].map(label=>({label,result:WORLD_SEEDS013.map((seed,worldIndex)=>({seed,fixture:{N:72,paid:100},...(seed===900725?{nativeSave:JSON.stringify({v:1,n:72,gameVer:'14.29',df:1,day:4,allFields:{retained:true}}),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),checkpoints:Array.from({length:[6,6,6,6,7,7,7][worldIndex]},(_,index)=>({stats:{day:index,money:100-index},tilesSHA256:'complete-'+index,rngState:42+index,...(worldIndex>=4?{enterprise:{version:'14.29',anchor:'T725',money:100-index,other:{unchanged:true}}}:{})}))}))}));
  let cases=0;const assert=(ok,message)=>{cases++;if(!ok)throw Error('Compatibility data self-test: '+message);};
  const runs=fixture(),raw=JSON.stringify(runs),q=normalizeCompatibility013(runs,product);
  assert(eq(q.reference,q.comparison)&&JSON.stringify(runs)===raw&&q.metadataNormalization.normalizedFields===0,'same-label full equality without normalization');
+ assert(eq(runs[0].result.map(w=>w.checkpoints.length),[6,6,6,6,7,7,7]),'explicit immutable historical checkpoint counts, never numeric seed ranges');
+ assert(runs[0].result.slice(0,4).every(w=>w.checkpoints.every(p=>!Object.hasOwn(p,'enterprise'))),'old showcase/British/station worlds retain original observation fields');
  const rejects=(change,message)=>{const rows=fixture(),p={...product};change(rows,p);let rejected=false;try{normalizeCompatibility013(rows,p);}catch{rejected=true;}assert(rejected,message);};
  rejects((r,p)=>{p.release=true;},'unauthorized release rejected');rejects((r,p)=>{p.phase='release';},'release phase rejected');rejects((r,p)=>{p.version='14.30';},'future version rejected');rejects((r,p)=>{p.fpExact=false;},'unverified baseline rejected');rejects((r,p)=>{p.coldLoadFixExact=false;},'unverified cold fix rejected');
  for(const seed of[900721,900724,900725])for(const label of[0,1])for(const field of['version','anchor'])rejects(r=>{r[label].result.find(w=>w.seed===seed).checkpoints[6].enterprise[field]='bad';},'every old/new world metadata assertion retained');
+ for(const i of[0,1,2,3])rejects(r=>{r[1].result[i].checkpoints.push(structuredClone(r[1].result[i].checkpoints[5]));},'original six-checkpoint world cannot silently expand to seven');
  rejects(r=>r[1].result.pop(),'seventh world required');rejects(r=>{r[1].result[6].seed=900724;},'duplicate world rejected');rejects(r=>r[1].result[5].checkpoints.pop(),'all old checkpoints retained');rejects(r=>{delete r[1].result[4].checkpoints[0].enterprise.anchor;},'missing old metadata rejected');
  rejects(r=>{r[1].result[6].nativeSave=JSON.stringify({v:1,n:72,gameVer:'14.28',df:1,day:4});},'native save metadata cannot normalize');
  for(const change of[

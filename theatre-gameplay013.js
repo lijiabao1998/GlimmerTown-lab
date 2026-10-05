@@ -39,14 +39,17 @@ function setupTheatre013(seedFn){
   const spec=specs.paths.find(p=>p.theme===theme);if(!spec)throw Error('Missing independent native amenity '+theme);const p={...spec,x,y};Q.place(p.id,x,y);Q.paths.push(p);Q.pathPlacements.push(p);
   const at=GV.theatreAt013(x,y);if(at?.theme!==theme||at.am502!==1||at.baseWalkCost!==.72||at.amx502.british013!==theme||at.amx502.turn013!==0)throw Error('Native paid amenity and persistent theme required');
  }
- for(const [x,y]of[[57,68],[57,67],[58,67],[59,67],[60,67],[58,68],[60,68],[61,68],[62,68]])Q.place('footpath502',x,y);
+ for(const [x,y]of[[57,68],[57,67],[58,67],[59,67],[60,67],[58,68],[60,68],[61,68],[62,68],[61,67],[62,67],[59,69]])Q.place('footpath502',x,y);
  Q.canonical=Q.roots.flatMap(r=>[0,1,2,3].map(v=>[r.k+'_1_'+v,GV.art574.SPR().bld[r.k+'_1_'+v]]));
  // No age, workers, power, water, capacity, treasury, or ticket values assigned.
  return{N:Q.N,roots:Q.roots,paths:Q.paths,pathPlacements:Q.pathPlacements,paid:Q.paid,terrain:Q.terrain,homes:Q.homes,retained:Q.retained,priorStreet:Q.priorStreet,priorMuseum:Q.priorMuseum,priorRiverside:Q.priorRiverside,stations:Q.stations,oldMuseums:Q.oldMuseums,initial:snapshot013(),difficulty:GV.diff(),developer:GV.dev516B(),placementDay:GV.stats().day,recipe:{...recipe,roots:Q.roots,paths:Q.paths,pathPlacements:Q.pathPlacements}};
 }
+// Observe newly paid path cells directly, like building roots. The native
+// amCells502 index is intentionally lazy until the next ordinary tick; do not
+// rebuild it merely to make an initial fixture observation.
 function snapshot013(){
  const Q=window.__theatreQA013;
- return{...GV.theatreEvidence013(),roots:Q.roots.map(r=>GV.theatreAt013(r.x,r.y)),stats:GV.stats(),slot:localStorage.getItem('glimmerville.v1.slot'),retained:Q.retained.map(r=>({...r,bld:GV.tile(r.x,r.y).bld,cells:Array.from({length:r.sz*r.sz},(_,n)=>GV.tile(r.x+n%r.sz,r.y+Math.floor(n/r.sz)).bld)})),priorStreet:GV.streetLifeEvidence009(),priorMuseum:GV.museumEvidence010(),priorRiverside:GV.riversideEvidence012(),stations:Q.stations.map(p=>GV.stationDistrictAt008(...p)),oldMuseums:Q.oldMuseums.map(r=>({...r,bld:GV.tile(r.x,r.y).bld})),difficulty:GV.diff(),developer:GV.dev516B(),coldFixDisabled:!!window.__noColdLoadPower011,districtCache:window.__t450Power?JSON.parse(JSON.stringify(window.__t450Power)):null,shoreline:Q.shoreline.map(p=>({...p,land:GV.tile(p.x,p.y).t,water:GV.tile(p.x,p.y+1).t})),identity:identity013()};
+ return{...GV.theatreEvidence013(),roots:Q.roots.map(r=>GV.theatreAt013(r.x,r.y)),paths:Q.paths.map(p=>GV.theatreAt013(p.x,p.y)),stats:GV.stats(),slot:localStorage.getItem('glimmerville.v1.slot'),retained:Q.retained.map(r=>({...r,bld:GV.tile(r.x,r.y).bld,cells:Array.from({length:r.sz*r.sz},(_,n)=>GV.tile(r.x+n%r.sz,r.y+Math.floor(n/r.sz)).bld)})),priorStreet:GV.streetLifeEvidence009(),priorMuseum:GV.museumEvidence010(),priorRiverside:GV.riversideEvidence012(),stations:Q.stations.map(p=>GV.stationDistrictAt008(...p)),oldMuseums:Q.oldMuseums.map(r=>({...r,bld:GV.tile(r.x,r.y).bld})),difficulty:GV.diff(),developer:GV.dev516B(),coldFixDisabled:!!window.__noColdLoadPower011,districtCache:window.__t450Power?JSON.parse(JSON.stringify(window.__t450Power)):null,shoreline:Q.shoreline.map(p=>({...p,land:GV.tile(p.x,p.y).t,water:GV.tile(p.x,p.y+1).t})),identity:identity013()};
 }
 function step013(n=1){
  const Q=window.__theatreQA013;
@@ -317,5 +320,35 @@ function cardinalPathProbes013(){
 }
 
 const functions013=[bindObservation013,setupTheatre013,identity013,snapshot013,step013,assetAudit013,artPurity013,nativeScene013,nativeLight013,scalingWitness013,physicalLoss013,zeroStaff013,nativeSaveLoad013,nativeTransactions013,nativePathEdits013,rejectedPlacements013,nativeOcclusion013,coverage013,constraints013,amenityComposition013,amenityRenderWitness013,nativeAmenityLight013,protectedAmenityTransactions013,cardinalPathProbes013];
-module.exports={legacyFixtures013,functions013};
-if(require.main===module){if(process.argv.length!==3||process.argv[2]!=='--static-test')throw Error('Use the Actions integration runner; this module only supports source-only --static-test');const fixtures=legacyFixtures013();for(const f of functions013)new vm.Script('('+f.toString()+')');console.log(JSON.stringify({ok:true,sourceOnly:true,gameExecuted:false,functions:functions013.map(f=>f.name),legacy:{sha256:fixtures.sha256,parts:fixtures.parts,exactHistoricalFunctionBodies:true}},null,2));}
+function staticObservationTest013(){
+ // Execute only this read-only QA function against synthetic plain data. There
+ // is no browser, product script, engine, canvas, clock or native simulation.
+ const themes=['ticket','plaza','rail','bench','planter','lamp'];
+ const paths=themes.map((theme,n)=>({theme,x:57+n,y:69}));
+ const roots=[{k:281,x:58,y:64,sz:3}];
+ const qa={N:72,roots,paths,retained:[],stations:[],oldMuseums:[],shoreline:[]};
+ const source=snapshot013.toString(),cases=[];
+ const run=(text,indexed)=>{
+  const reads=[],payload={paths:structuredClone(indexed),roots:[],day:1};
+  const context={window:{__theatreQA013:qa},localStorage:{getItem:()=> '3'},identity013:()=>({buildings:[],paths:[],terrain:[]}),GV:{
+   theatreEvidence013:()=>structuredClone(payload),
+   theatreAt013:(x,y)=>{reads.push([x,y]);const p=paths.find(p=>p.x===x&&p.y===y);return p?{root:y*72+x,theme:p.theme,am502:1,amx502:{british013:p.theme,turn013:0},baseWalkCost:.72,lighting:{ready:false,source:null,district:-1,service:0}}:{k:281,x,y,age:0,built:false,operational:false};},
+   stats:()=>({day:1,money:123456}),streetLifeEvidence009:()=>({roots:[]}),museumEvidence010:()=>({roots:[]}),riversideEvidence012:()=>({roots:[]}),diff:()=>1,dev516B:()=>({sandbox:false,god:false})
+  }};
+  const before=JSON.stringify({qa,payload});
+  const result=new vm.Script('('+text+')()', {filename:'theatre013-synthetic-observation.js'}).runInNewContext(context);
+  return{result,reads,inputsUnchanged:before===JSON.stringify({qa,payload})};
+ };
+ for(const [name,indexed]of[['empty lazy index',[]],['stale unrelated index',[{theme:'unrelated',root:0}]]]){
+  const q=run(source,indexed);
+  if(q.result.paths.length!==6||JSON.stringify(q.result.paths.map(p=>p.theme))!==JSON.stringify(themes)||!q.result.paths.every(p=>p.am502===1&&p.baseWalkCost===.72&&!p.lighting.ready&&p.lighting.source===null&&p.lighting.service===0)||q.result.roots[0].age!==0||q.reads.length!==7||!q.inputsUnchanged)throw Error('Direct newly paid cell observation regression: '+name);
+  cases.push({name,observedPaths:q.result.paths.length,directCellReads:q.reads.length,inputsUnchanged:q.inputsUnchanged});
+ }
+ const direct='paths:Q.paths.map(p=>GV.theatreAt013(p.x,p.y)),';
+ if(source.split(direct).length!==2)throw Error('Unique direct path observation required');
+ const old=run(source.replace(direct,''),[]);
+ if(old.result.paths.length===6)throw Error('Negative stale-index observation must be rejected');
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticQADataOnly:true,cases,staleIndexOnlyObservationRejected:true};
+}
+module.exports={legacyFixtures013,functions013,staticObservationTest013};
+if(require.main===module){if(process.argv.length!==3||process.argv[2]!=='--static-test')throw Error('Use the Actions integration runner; this module only supports source-only --static-test');const fixtures=legacyFixtures013();for(const f of functions013)new vm.Script('('+f.toString()+')');console.log(JSON.stringify({ok:true,sourceOnly:true,gameExecuted:false,functions:functions013.map(f=>f.name),observationRegression:staticObservationTest013(),legacy:{sha256:fixtures.sha256,parts:fixtures.parts,exactHistoricalFunctionBodies:true}},null,2));}
