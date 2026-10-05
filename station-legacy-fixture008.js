@@ -12,6 +12,7 @@ function seedApprovedLegacyStation008(seed=800720){
   place('hsrStation',50,20,5);place('hsrStation',50,42,5);place('railYard',57,27,3);
   for(const y of[19,41])for(let x=50;x<=55;x++)place('rail',x,y);for(let y=20;y<41;y++)place('rail',55,y);
   const line=GV.railNew463('rail');GV.railAddStop463('rail',line,50,20);GV.railAddStop463('rail',line,50,42);for(let i=0;i<2;i++)if(!GV.railFleet463('rail',line,1))throw Error('Old paid fleet');
+  for(let x=49;x<=56;x++){place('road',x,18);place('wpipe',x,18);}for(let y=19;y<=35;y++){place('road',56,y);place('wpipe',56,y);}for(let x=56;x<=60;x++)place('rail',x,41);for(let y=27;y<41;y++)place('rail',60,y);
   q.legacyTransport={line,paid};GV.rebuildCov();GV.testRebake592();return q;
 }
 module.exports={seedApprovedLegacyStation008};
