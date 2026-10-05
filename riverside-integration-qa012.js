@@ -96,7 +96,7 @@ function setupRiverside012(seedFn) {
  Q.place('plant', 55, 51); Q.place('water', 55, 53);
  Q.place('plant', 65, 48); Q.place('water', 67, 48);
  const specs = GV.riversideSpecs012();
- for (const [k, x, y] of [[278, 58, 50], [279, 64, 50], [280, 67, 50]]) {
+ for (const [k, x, y] of [[278, 58, 50], [279, 62, 50], [280, 64, 50]]) {
   const s = specs.buildings.find(q => q.k === k), r = { ...s, x, y };
   if (!s) throw Error('Missing bounded market identity ' + k);
   Q.place(r.id, x, y, r.sz);
@@ -125,7 +125,7 @@ function setupRiverside012(seedFn) {
  };
  for (let x = 57; x <= 69; x++) path('promenade', x, 54, x === 62);
  for (let x = 57; x <= 69; x++) path(x % 3 === 0 ? 'rail' : 'quay', x, 55, x === 58 || x === 60);
- for (const x of [58, 63, 64, 65, 66, 67, 68, 69]) path('promenade', x, 53);
+ for (const x of [58, 59, 60, 63, 64, 65, 66, 67, 68, 69]) path('promenade', x, 53);
  for (const p of Q.pathPlacements.filter(p => p.y === 55)) {
   const water = GV.tile(p.x, p.y + 1), tile = GV.tile(p.x, p.y);
   if (water.t !== 0 || tile.t === 0) throw Error('Quay must be on true land/water boundary');
@@ -537,7 +537,7 @@ function cardinalPathProbes012() {
     for (const night of [false, true]) {
      const scene = await call('nativeScene012', rotation, night, [62, 53], 1.5), water = await call('waterComposition012');
      png('images/riverside-quarter-r' + rotation + '-' + (night ? 'night' : 'day') + '.png', scene.png, { kind: 'actual native coherent market quarter and water frontage', rotation, night, day: scene.day, geometry: scene.geometry, water });
-     check('wide market quarter has all three complete shops and actual visible water camera' + rotation + ' ' + night, scene.geometry.every(g => g.canonical && g.within) && water.water === 70 && water.visibleWater >= 50 && water.shoreline.every(p => p.land !== 0 && p.water === 0) && water.themes.length === 34 && water.themes.every(p => p.at?.theme === p.theme), { geometry: scene.geometry, water });
+     check('wide market quarter has all three complete shops and actual visible water camera' + rotation + ' ' + night, scene.geometry.every(g => g.canonical && g.within) && water.water === 70 && water.visibleWater >= 50 && water.shoreline.every(p => p.land !== 0 && p.water === 0) && water.themes.length === 36 && water.themes.every(p => p.at?.theme === p.theme), { geometry: scene.geometry, water });
      const town = await call('nativeScene012', rotation, night, [48, 38], .85);
      png('images/mixed-town-r' + rotation + '-' + (night ? 'night' : 'day') + '.png', town.png, { kind: 'actual native retained British mixed town and new riverside quarter', rotation, night, day: town.day });
     }
