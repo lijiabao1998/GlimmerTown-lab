@@ -22,7 +22,7 @@ function buildAdapter016(suite){
   rep('all3059 old complete leaves and1728 blocks unchanged plus exactly32 streetscape additions','all3091 old complete leaves and1728 blocks unchanged plus exactly24 garden-life additions');
  }
  if(suite==='publiclife'||suite==='station'){
-  rep("((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.31'&&staticProof.anchor==='T727')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.version==='14.32'&&staticProof.anchor==='T728'))","(staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.publicationApproved===false&&staticProof.version==='14.32'&&staticProof.anchor==='T728')");
+  rep("((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.31'&&staticProof.anchor==='T727')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.version==='14.32'&&staticProof.anchor==='T728'))","((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.publicationApproved===false&&staticProof.version==='14.32'&&staticProof.anchor==='T728')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.publicationApproved===true&&staticProof.version==='14.33'&&staticProof.anchor==='T729'))");
   rep('nativeProof.proof.projectedOnlyDeclared196','nativeProof.proof.projectedOnlyDeclared220');rep('nativeProof.proof.currentLeaves===3091','nativeProof.proof.currentLeaves===3115');
   rep("...require('./streetscape-static-contract015').expectedAdditions]","...require('./streetscape-static-contract015').expectedAdditions,...require('./gardenlife-static-contract016').expectedAdditions]",2);
   rep("all2795 prior leaves paired with exactly296 declared additions',Object.keys(fp.subs||{}).length===3091","all2795 prior leaves paired with exactly320 declared additions',Object.keys(fp.subs||{}).length===3115");
@@ -34,7 +34,7 @@ function buildAdapter016(suite){
  if(suite==='coldload'){
   rep("const {verifyStatic015:verifyStatic011}=require('./streetscape-static-contract015');","const {verifyStatic016:verifyStatic011}=require('./gardenlife-static-contract016');");
   rep("const {verifyFingerprint015:verifyFingerprint011}=require('./streetscape-fingerprint015');","const {verifyFingerprint016:verifyFingerprint011}=require('./gardenlife-fingerprint016');");
-  rep("((report.static.release===false&&report.static.phase==='candidate'&&version==='14.31'&&anchor==='T727')||(report.static.release===true&&report.static.phase==='release'&&version==='14.32'&&anchor==='T728'))","(report.static.release===false&&report.static.phase==='candidate'&&report.static.publicationApproved===false&&version==='14.32'&&anchor==='T728')");
+  rep("((report.static.release===false&&report.static.phase==='candidate'&&version==='14.31'&&anchor==='T727')||(report.static.release===true&&report.static.phase==='release'&&version==='14.32'&&anchor==='T728'))","((report.static.release===false&&report.static.phase==='candidate'&&report.static.publicationApproved===false&&version==='14.32'&&anchor==='T728')||(report.static.release===true&&report.static.phase==='release'&&report.static.publicationApproved===true&&version==='14.33'&&anchor==='T729'))");
   rep("all3059 approved leaves and1728 complete blocks exact plus precisely32 streetscape leaves in161 families',report.fingerprint.ok===true&&report.fingerprint.oldLeaves===3059&&report.fingerprint.newLeaves===32&&fp.stats.leaves===3091&&fp.stats.families===161","all3091 approved leaves and1728 complete blocks exact plus precisely24 garden-life leaves in162 families',report.fingerprint.ok===true&&report.fingerprint.oldLeaves===3091&&report.fingerprint.newLeaves===24&&fp.stats.leaves===3115&&fp.stats.families===162");
  }
  if(suite==='compatibility'){
@@ -46,7 +46,7 @@ function buildAdapter016(suite){
   const m=adapted.split("label==='candidate'?staticProof.anchor:'T727'").length-1;rep("label==='candidate'?staticProof.anchor:'T727'","label==='candidate'?staticProof.anchor:'T728'",m);
  }
  let recovered=adapted;for(const q of [...edits].reverse()){if(recovered.split(q.to).length-1!==q.count)throw Error('Non-unique reverse016 gate');recovered=recovered.split(q.to).join(q.from);}if(recovered!==previous.adapted)throw Error('Unlisted runtime adapter edit');new vm.Script(adapted,{filename:'.gardenlife-'+suite+'-runtime016.js'});
- return{adapted,previous,edits,proof:{suite,base:fixed.BASE,previousSourceSHA256:fixed.hash(previous.adapted),adaptedSourceSHA256:fixed.hash(adapted),sourceReversalExact:true,actualGameAPIUnmodified:true,previousProof:previous.proof,unapprovedCurrentCandidate:true}};
+ return{adapted,previous,edits,proof:{suite,base:fixed.BASE,previousSourceSHA256:fixed.hash(previous.adapted),adaptedSourceSHA256:fixed.hash(adapted),sourceReversalExact:true,actualGameAPIUnmodified:true,previousProof:previous.proof,currentCandidateOrReleaseProofRequired:true}};
 }
 function staticTest016(){const rows=SUITES.map(suite=>{const q=buildAdapter016(suite);return{...q.proof,edits:q.edits,nested:['streetscape','complexes'].includes(suite)?{}:require('./complexes-regression-adapter014').nestedStatic014(suite,{...q.previous.previous,adapted:q.adapted})};});return{ok:true,sourceOnly:true,gameExecuted:false,rows,normalizer:require('./gardenlife-compatibility016').buildNormalizer016().proof};}
 function run016(){
@@ -55,7 +55,7 @@ function run016(){
  // This mandatory current-head3115 proof always runs before an old runtime.
  const native=require('./gardenlife-fingerprint016').readPreflight016(),q=buildAdapter016(suite);
  const out=path.join(ROOT,'gardenlife-evidence','legacy',suite,mode+(suite==='complexes'?'-'+group:''));fs.mkdirSync(out,{recursive:true});
- fs.writeFileSync(path.join(out,'adapter.json'),JSON.stringify({...q.proof,checkedSHA:head,sourceSHA256:product.sourceSHA256,version:product.version,anchor:product.anchor,phase:product.phase,release:product.release,publicationApproved:false,strictNativeProof:native.proof,preflightEvidenceSHA256:native.evidenceSHA256,edits:q.edits},null,2));
+ fs.writeFileSync(path.join(out,'adapter.json'),JSON.stringify({...q.proof,checkedSHA:head,sourceSHA256:product.sourceSHA256,version:product.version,anchor:product.anchor,phase:product.phase,release:product.release,publicationApproved:product.publicationApproved,strictNativeProof:native.proof,preflightEvidenceSHA256:native.evidenceSHA256,edits:q.edits},null,2));
  const temp=path.join(ROOT,'.gardenlife-'+suite+'-runtime016.js');let created=false;try{fs.writeFileSync(temp,q.adapted,{flag:'wx'});created=true;const r=spawnSync(process.execPath,[temp],{cwd:ROOT,env:{...process.env,SC015_MODE:mode,CX014_MODE:mode,CX014_GROUP:group,MU010_MODE:mode,MU010_PRIOR:suite,RL012_MODE:mode,TH013_MODE:mode,...(suite==='coldload'?{COLD011_CASE:mode}:{})},stdio:'inherit',timeout:47*60*1000});if(r.error)throw r.error;if(r.status!==0)process.exitCode=r.status??1;}finally{if(created)fs.rmSync(temp,{force:true});}
 }
 module.exports={buildAdapter016,staticTest016,SUITES};

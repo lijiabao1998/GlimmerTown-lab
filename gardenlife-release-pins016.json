@@ -1,0 +1,199 @@
+{
+  "nativeCheckedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+  "nativeSourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe",
+  "nativeRun": 37457485794,
+  "nativeLegacyRun": 37457485853,
+  "nativeSmokeRun": 37457485811,
+  "nativeArtifact": 11409936117,
+  "nativeArchiveSHA256": "354b0a531452872987280d1c869b93245cfdc7aac9a621c96dc9fe2e8bea1d33",
+  "nativeFingerprintSHA256": "ddffc5f31ed9ee1f8ab41acdc9a3d979876f4ebf9f5225bb7da4e0ee9fd257e1",
+  "nativeManifestSHA256": "73137bbbb455a071b3de2bc228c6b29d9ba90bc08e5bfde28c6cbdf17106febd",
+  "nativeFullSubsSHA256": "03fc830f2566909b5b6154a930850df7d693acba524ea721cd7013267cdb5719",
+  "nativeFullFamiliesSHA256": "04ab472fd1124e29ec0a2f64bd42aef3fee3085eadf997a5300db5e9e285aea0",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 162,
+    "leaves": 3115,
+    "dayNonEmpty": 3105,
+    "nightNonEmpty": 1703
+  },
+  "families": {
+    "gardenLife016": {
+      "leaves": 24,
+      "crc": "4389b871",
+      "px": 158976,
+      "op": 25612,
+      "night": 24
+    }
+  },
+  "subs": {
+    "gardenLife016.pumpCourt_0": {
+      "d": "548ec673",
+      "op": 1072,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pumpCourt_1": {
+      "d": "461c471a",
+      "op": 1067,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pumpCourt_2": {
+      "d": "6bfd6fcd",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pumpCourt_3": {
+      "d": "4da2d6ac",
+      "op": 1034,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.birdbathCourt_0": {
+      "d": "56d45f6b",
+      "op": 1063,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.birdbathCourt_1": {
+      "d": "c0103b58",
+      "op": 1062,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.birdbathCourt_2": {
+      "d": "7b7cf84f",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.birdbathCourt_3": {
+      "d": "aa42303b",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pottingBench_0": {
+      "d": "3b4b9067",
+      "op": 1141,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pottingBench_1": {
+      "d": "abdc1a62",
+      "op": 1143,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pottingBench_2": {
+      "d": "bba2f4fc",
+      "op": 1027,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.pottingBench_3": {
+      "d": "9b75e79f",
+      "op": 1036,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.croquetCorner_0": {
+      "d": "c028fa1d",
+      "op": 1082,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.croquetCorner_1": {
+      "d": "000bc7b3",
+      "op": 1089,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.croquetCorner_2": {
+      "d": "c6388a25",
+      "op": 1029,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.croquetCorner_3": {
+      "d": "404f9963",
+      "op": 1037,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.chessCourt_0": {
+      "d": "f6199192",
+      "op": 1065,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.chessCourt_1": {
+      "d": "e7250190",
+      "op": 1065,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.chessCourt_2": {
+      "d": "d5787b21",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.chessCourt_3": {
+      "d": "46f84942",
+      "op": 1026,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.orchardPress_0": {
+      "d": "409f93a3",
+      "op": 1180,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.orchardPress_1": {
+      "d": "395b0997",
+      "op": 1175,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.orchardPress_2": {
+      "d": "c38a69c6",
+      "op": 1050,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "gardenLife016.orchardPress_3": {
+      "d": "d2dd8022",
+      "op": 1073,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-# GPT-016 — British garden-life details
+# T729 — British garden-life details (original GPT-016)
 
 ## Authority and immutable starting point
 
@@ -60,3 +60,16 @@ R2 headc3e8dd88ff7189232332c441a3fb68a2a0c4064d native run37455016543 passed12/1
 The sole R2 failure was another QA fixture declaration, not a product mutation: all54 emitted conflict rows were blocked with unchanged tile/money, and the real paid escape test passed positive previews, disabled previews, undo and exact restoration. The60-row assertion correctly failed because the inherited name footcycle502 is not a native tool and its preview was null. R3 uses the actual native AM_META502 bikePath502 entry, rejects any absent preview instead of skipping it, and requires exactly60 rows. New source/data catalog controls reject the unsupported alias, missing and duplicate tools. The60-case requirement is not lowered. Failed artifact11409447211 (ZIPebb368503f5ceffae854517f146891d3d3dcf7af40fc6eb797d516431cd0d5bb), all51 files/48 PNGs, and successful occlusion artifact11409216881 (ZIP5757605425afcb5c6800281b794b939504dd512d214bcae147ae872f1bfaa6e5), all60 files/57 PNGs, are verified and retained.
 
 For review legibility R3 additionally captures actual native3x camera close views of each three-theme group in all four angles and day/night, alongside the existing2x context shots. No crops, montage or image edits are used. Product HTML, original art and gameplay remain byte-identical to R1/R2. Full exact R3-head tests and original image provenance are still required before this round's approval request.
+
+
+## Publication approval and T729 preparation
+
+The owner approved the ten original GPT-016 images and release in direct reply to the image, PR, merge and publication request: 「非常漂亮，上線下一波」. Approval reached this release task at 2026-10-06 12:31 UTC (release-task receipt). The approved candidate is 562dcdac6b0f221f803e5288152805e5dfd1f367 on gpt/british-garden-life-016, with product SHA256 a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe.
+
+All 118 candidate jobs passed: native 13/13 in run37457485794, retained legacy 104/104 in run37457485853, and branch smoke in run37457485811. Three sequential smoke executions, the original style ratchet, full old save/world/RNG comparisons, two actual reload/Continue cycles, all 60 occupied-cell conflicts, four cameras, weather, ordinary construction days and real paid occlusion controls passed. The true foreground control again measured 684 blocked and 1744 visible pump pixels, with exact restoration after paid doze and native undo.
+
+Ten unchanged 1600×1080 PNGs from this exact head were checked for archive, payload, head, source and image hashes and dimensions, visually reviewed, delivered and approved. They show the two three-item groups by day and night, all four directions, winter, the sixth normal construction day and a second cold Continue followed by three normal days. Native source geometry and gameplay remain exactly as approved. All six additions are non-emissive decorative path appearances; they provide no new water, production, sport or gameplay service.
+
+Fresh main remains bcd77d5e959ed801d920766cbc9dc010cce19f58; T729 / v14.33 / r176 is free. This preparation changes exactly three product release labels. The baseline promotion appends only the 24 approved complete native gardenLife016 leaf records and their one family aggregate; all 3091 prior leaves, 161 prior families and 1728 complete blocks remain exact. The original acceptance card and failed attempts above are retained verbatim apart from this card title. Full exact release-head testing, PR, merge, Pages and formal public-site verification remain required after this preparation; candidate success is not a deployment claim.
+
+Retained limitations: R1 and R2 QA fixture failures are documented above. R2 retained theatre camera2 passed 24/25 checks but its unchanged 1000ms timing guard failed at 1004.29ms; R1 measured 513.63ms and the approved R3 passed all 25 checks at 953.47ms, with identical product bytes and unchanged thresholds. All three records remain available; these CI timings are not real-device FPS. The preceding T728 formal observer had 94 functional/provenance passes but a failed strict raw-console gate: 21 known PWA 404 responses and seven URL-less script 404 entries still unclassified, with no runtime exceptions or transport failures. No PWA, network or security fix or console suppression is included here. A following art wave still needs its own images and release approval.

@@ -72,13 +72,13 @@ function run014() {
  fs.mkdirSync(out, { recursive: true });
  fs.writeFileSync(snapshot, q.baseline);
  if (fixed.hash(fs.readFileSync(snapshot)) !== fixed.BASE_FP_SHA256) throw Error('Written immutable comparison snapshot differs');
- const audit = { ...q.proof, checkedSHA: head, sourceSHA256: native.product.sourceSHA256, publicationApproved: false,
+ const audit = { ...q.proof, checkedSHA: head, sourceSHA256: native.product.sourceSHA256, publicationApproved: native.product.publicationApproved,
   version: native.product.version, anchor: native.product.anchor, phase: native.product.phase,
-  strictUnapprovedCurrentNativeProof: native.proof, preflightEvidenceSHA256: native.evidenceSHA256,
+  strictCurrentNativeProof: native.proof, preflightEvidenceSHA256: native.evidenceSHA256,
   originalGateStatus: 'pending' };
  const save = () => fs.writeFileSync(path.join(out, 'style-adapter.json'), JSON.stringify(audit, null, 2));
  save();
- console.log('[GardenLife016 style] Original ratchet with retained declared-art families plus gardenLife016 only. Sole source edit is FP_PATH using pinned T726 bytes. Strict current3115/162/1728 proof passed first; current art remains unapproved.');
+ console.log('[GardenLife016 style] Original ratchet with retained declared-art families plus gardenLife016 only. Sole source edit is FP_PATH using pinned T726 bytes. Strict current3115/162/1728 proof passed first; publication approval is recorded by the exact product envelope.');
  let result, created = false;
  try {
   fs.writeFileSync(temp, q.adapted, { flag: 'wx' });

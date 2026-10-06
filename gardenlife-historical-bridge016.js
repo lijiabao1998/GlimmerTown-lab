@@ -1,7 +1,7 @@
 'use strict';
 // GPT-016: prove3115 current records first, project only24 declared new leaves,
 // then32 streetscape +112 complex leaves. Old data-control bodies are retained.
-// Current source is a candidate, never passed off as an image-approved release.
+// Current product has its own strict candidate/release proof before any old lineage.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),{execFileSync}=require('node:child_process'),{isDeepStrictEqual:eq}=require('node:util');
 const fixed=require('./complexes-static-contract014'),native=require('./gardenlife-fingerprint016');
 const previous=require('./theatre-historical-bridge013'),theatre=require('./theatre-static-contract013');
@@ -9,7 +9,7 @@ const theatreFP=require('./theatre-fingerprint-qa013'),approved=require('./theat
 const ROOT=__dirname,BASE=previous.BASE,RIVERSIDE_BASE=previous.RIVERSIDE_BASE,THEATRE_BASE=theatre.BASE,expectedAdditions=previous.expectedAdditions;
 function currentProduct014(){
  const q=require('./gardenlife-static-contract016').verifyStatic016();
- if(['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'].some(k=>q[k]!==true)||q.release!==false||q.phase!=='candidate'||q.publicationApproved!==false||q.version!=='14.32'||q.anchor!=='T728'||q.additionCount!==24)throw Error('Current independently verified unapproved GPT-016 candidate required');
+ if(['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'].some(k=>q[k]!==true)||!((q.release===false&&q.phase==='candidate'&&q.publicationApproved===false&&q.version==='14.32'&&q.anchor==='T728')||(q.release===true&&q.phase==='release'&&q.publicationApproved===true&&q.version==='14.33'&&q.anchor==='T729'))||q.additionCount!==24)throw Error('Current independently verified GPT-016 candidate or approved T729 release required');
  return q;
 }
 // Only source contracts advance; the original32-asset selftests retain their old themes.
@@ -81,10 +81,10 @@ function nativeReleaseControls013(input){
 function historicalLog014(full){
  const actual=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8'),baseline=fixed.baseFile('AUTORUN-LOG.md').toString();
  if(full!==actual)throw Error('Complete current historical log required');
- currentProduct014();
- const exact=require('./gardenlife-static-contract016').baseFile('AUTORUN-LOG.md').toString();
- if(full!==exact)throw Error('Current candidate log must equal the complete frozen T728 log');
+ const current=currentProduct014(),exact=require('./gardenlife-static-contract016').baseFile('AUTORUN-LOG.md').toString();
  let log=full;
+ if(current.release){const entry=current.releaseLogEntry;if(!entry||log.split(entry).length!==2)throw Error('One exact verified T729 release-log entry required');log=log.replace(entry,'');}
+ if(log!==exact)throw Error('Historical T728 log must recover exactly after only the verified T729 envelope');
  for(const [anchor,contract]of[['T728',require('./streetscape-static-contract015')],['T727',fixed]]){
   const old=contract.baseFile('AUTORUN-LOG.md').toString(),re=new RegExp('<!-- '+anchor+' release entry BEGIN -->[\\s\\S]*?<!-- '+anchor+' release entry END -->\\n','g'),entries=log.match(re)||[];
   if(entries.length!==1||log.replace(entries[0],'')!==old)throw Error('Exact historical '+anchor+' log envelope required');log=old;

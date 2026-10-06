@@ -5,6 +5,8 @@ const fs = require('node:fs'), vm = require('node:vm'), assert = require('node:a
 const adapter = require('./gardenlife-style016');
 const { buildStyleAdapter014, staticTest014 } = adapter;
 const q = buildStyleAdapter014(), source = staticTest014();
+const auditSource=fs.readFileSync(require('node:path').join(__dirname,'gardenlife-style016.js'),'utf8');assert(auditSource.includes('publicationApproved: native.product.publicationApproved'));assert(auditSource.includes('strictCurrentNativeProof: native.proof'));assert(!auditSource.includes('current art remains unapproved'));
+
 assert.deepEqual(adapter.ARGS, ['--check', '--expect=bld,complexes014,streetscape015,gardenLife016']);
 assert.equal(q.adapted.replace(adapter.ADAPTED_PATH, adapter.ORIGINAL_PATH), q.original);
 assert.equal(q.proof.substitutions.length, 1);

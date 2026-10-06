@@ -34,6 +34,8 @@ jobs:
       run: |
         set -euo pipefail
         node gardenlife-static-contract016.js
+
+        node gardenlife-release-contract016.test.js
         node gardenlife-compatibility016.js --static-test
         node gardenlife-legacy016.js --static-test
         node gardenlife-integration-qa016.js --static-test
@@ -78,6 +80,7 @@ jobs:
       run: |
         set -euo pipefail
         GL016_MODE=preflight node gardenlife-integration-qa016.js 2>&1 | tee gardenlife-full-preflight.txt
+        node gardenlife-release-contract016.test.js --native gardenlife-evidence/preflight/fingerprint-native.json
         node gardenlife-legacy016.test.js gardenlife-evidence/preflight/fingerprint-native.json
         node gardenlife-style016.test.js gardenlife-evidence/preflight/fingerprint-native.json
         GL016_SUITE=streetscape GL016_MODE=preflight node gardenlife-legacy016.js 2>&1 | tee gardenlife-retained-legacy015-preflight.txt

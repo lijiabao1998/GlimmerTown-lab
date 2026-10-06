@@ -24,6 +24,8 @@ jobs:
 
         node gardenlife-static-contract016.js
 
+        node gardenlife-release-contract016.test.js
+
         node gardenlife-legacy016.js --static-test
 
         node gardenlife-integration-qa016.js --static-test
@@ -39,6 +41,8 @@ jobs:
       run: 'set -o pipefail
 
         GL016_MODE=preflight node gardenlife-integration-qa016.js 2>&1 | tee gardenlife-preflight.txt
+
+        node gardenlife-release-contract016.test.js --native gardenlife-evidence/preflight/fingerprint-native.json
 
         '
     - uses: actions/upload-artifact@v4

@@ -14,7 +14,7 @@ def validate(q):
   runs='\n'.join(s.get('run','') for s in j['steps']);assert 'node gardenlife-integration-qa016.js' in runs and 'GL016_MODE=' in runs and 'streetscape-integration-qa015.js' not in runs and 'git diff --exit-code' in runs
   checkout=[s for s in j['steps'] if s.get('uses')=='actions/checkout@v4'];assert len(checkout)==1 and checkout[0]['with']=={'fetch-depth':0,'persist-credentials':False}
   assert all(not s.get('continue-on-error',False) for s in j['steps'])
-  if name=='preflight':assert 'node gardenlife-static-contract016.js' in runs and 'node gardenlife-integration-qa016.js --static-test' in runs
+  if name=='preflight':assert 'node gardenlife-static-contract016.js' in runs and 'node gardenlife-integration-qa016.js --static-test' in runs and 'node gardenlife-release-contract016.test.js' in runs and 'node gardenlife-release-contract016.test.js --native gardenlife-evidence/preflight/fingerprint-native.json' in runs
   else:
    assert 'python3 gardenlife-package016.py' in runs
    uploads=[s for s in j['steps'] if s.get('uses')=='actions/upload-artifact@v4'];assert len(uploads)==8

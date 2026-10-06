@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
-// Retains every original42 raw-save mutation case; both sides14.32/T728.
-// Candidate permits no metadata or native-save normalization. Raw bytes stay exact.
+// Retains every original42 raw-save mutation case. Candidate normalization is zero;
+// approved T729 release permits only66 exact reversible T728 comparison spans.
 const fs=require('node:fs'),assert=require('node:assert/strict'),{isDeepStrictEqual:eq}=require('node:util'),{execFileSync}=require('node:child_process');
 const fixed=require('./gardenlife-static-contract016'),compat=require('./gardenlife-compatibility016');
 function test014(input,bytes){

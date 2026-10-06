@@ -34,7 +34,7 @@ def validate(q):
   for n,s in enumerate(uploads):assert s['with']['path']=='.gardenlife-packets/part'+str(n)+'/' and s['if'].startswith('always()') and s['with']['if-no-files-found']=='error'
   assert 'git diff --exit-code' in runs(v) and 'python3 gardenlife-package016.py'in runs(v)
  pre=runs(j['preflight'])
- for marker in ['node gardenlife-static-contract016.js','node gardenlife-compatibility016.js --static-test','node gardenlife-legacy016.js --static-test','node gardenlife-integration-qa016.js --static-test','node gardenlife-style016.test.js','python3 gardenlife-workflow016.test.py','bcd77d5e959ed801d920766cbc9dc010cce19f58','node streetscape-release-contract015.test.js','node streetscape-integration-qa015.js --static-test']:
+ for marker in ['node gardenlife-release-contract016.test.js','node gardenlife-release-contract016.test.js --native gardenlife-evidence/preflight/fingerprint-native.json','node gardenlife-static-contract016.js','node gardenlife-compatibility016.js --static-test','node gardenlife-legacy016.js --static-test','node gardenlife-integration-qa016.js --static-test','node gardenlife-style016.test.js','python3 gardenlife-workflow016.test.py','bcd77d5e959ed801d920766cbc9dc010cce19f58','node streetscape-release-contract015.test.js','node streetscape-integration-qa015.js --static-test']:
   assert marker in pre
  # Keep the whole unchanged014 frozen-source test block, not only selected checks.
  assert old['jobs']['preflight']['steps'][4]['run'] in pre
