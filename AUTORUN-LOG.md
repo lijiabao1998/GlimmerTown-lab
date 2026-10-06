@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T728 release entry BEGIN -->
+## r175 — T728 英式路燈、店招與庭院細節（原 GPT-015）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r175 | [T728](docs/T728-british-streetscape.md) | 2026-10-06 09:35 UTC 收到本輪8張原生圖、PR、合併與上線批准。8種獨立付費 T502 路燈／店招／花器／庭院、32個原創四向素材；僅兩種實體燈面發光。v14.32/T728只改3個產品發布標籤，严格32葉增量晉升。 | 批准候選7c358552922460c09a8a90fc536490233b97279d：[native13/13](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964454)、[legacy91/91](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964669)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964649)全綠；正式release head仍須完整重驗。 | gpt/british-streetscape-015；[PR20](https://github.com/lijiabao1998/GlimmerTown-lab/pull/20)，合併SHA待完成後記於PR | 8張同head原生1600×1080 PNG已核SHA／來源／尺寸，業主已批准；日夜／反向／冬景／實際周邊建造／冷Continue | ① R1兩項QA場景失敗及兩次無遮擋試探如實保留 ② 現有manifest/icon/sw404及2筆無URL script404未全分類，不擴修 ③ CI效能不是手機FPS ④ 步道瞬間完成，不虛稱9日施工 ⑤ 本準備紀錄不代表正式CI／Pages／live已完成，亦非下一波發布批准 |
+
+<!-- T728 release entry END -->
 <!-- T727 release entry BEGIN -->
 ## r174 — T727 英式學院、鄉間莊園、公共浴場與消防總部（原 GPT-014）
 

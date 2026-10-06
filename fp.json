@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-10-06T04:36:34.436Z",
- "version": "14.31",
- "anchor": "T727",
+ "generatedAt": "2026-10-06T09:39:40.468Z",
+ "version": "14.32",
+ "anchor": "T728",
  "stats": {
-  "families": 160,
-  "leaves": 3059,
-  "dayNonEmpty": 3049,
-  "nightNonEmpty": 1695
+  "families": 161,
+  "leaves": 3091,
+  "dayNonEmpty": 3081,
+  "nightNonEmpty": 1703
  },
  "families": {
   "grass": {
@@ -1128,6 +1128,13 @@
    "px": 423936,
    "op": 67878,
    "night": 64
+  },
+  "streetscape015": {
+   "leaves": 32,
+   "crc": "6dd3d9bd",
+   "px": 211968,
+   "op": 36167,
+   "night": 32
   }
  },
  "subs": {
@@ -22543,6 +22550,230 @@
    "w": 72,
    "h": 92,
    "n": "bfc48612"
+  },
+  "streetscape015.heritageLantern_0": {
+   "d": "6d1f4927",
+   "op": 1168,
+   "w": 72,
+   "h": 92,
+   "n": "c4d0ec8f"
+  },
+  "streetscape015.heritageLantern_1": {
+   "d": "e96e746c",
+   "op": 1156,
+   "w": 72,
+   "h": 92,
+   "n": "446aa08b"
+  },
+  "streetscape015.heritageLantern_2": {
+   "d": "5c661432",
+   "op": 1130,
+   "w": 72,
+   "h": 92,
+   "n": "620ea587"
+  },
+  "streetscape015.heritageLantern_3": {
+   "d": "6b592a00",
+   "op": 1146,
+   "w": 72,
+   "h": 92,
+   "n": "cfbf1732"
+  },
+  "streetscape015.basketLamp_0": {
+   "d": "a94a0b5a",
+   "op": 1164,
+   "w": 72,
+   "h": 92,
+   "n": "61166457"
+  },
+  "streetscape015.basketLamp_1": {
+   "d": "49906ec8",
+   "op": 1170,
+   "w": 72,
+   "h": 92,
+   "n": "9a3c8aef"
+  },
+  "streetscape015.basketLamp_2": {
+   "d": "33c47282",
+   "op": 1092,
+   "w": 72,
+   "h": 92,
+   "n": "647e6054"
+  },
+  "streetscape015.basketLamp_3": {
+   "d": "d273e8f0",
+   "op": 1117,
+   "w": 72,
+   "h": 92,
+   "n": "0daa9451"
+  },
+  "streetscape015.teaTradeSign_0": {
+   "d": "b2e46aa8",
+   "op": 1279,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.teaTradeSign_1": {
+   "d": "d089eee6",
+   "op": 1292,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.teaTradeSign_2": {
+   "d": "bf821c22",
+   "op": 1163,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.teaTradeSign_3": {
+   "d": "c7f3da55",
+   "op": 1207,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.bookTradeSign_0": {
+   "d": "e8d46d61",
+   "op": 1286,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.bookTradeSign_1": {
+   "d": "8feb7adf",
+   "op": 1286,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.bookTradeSign_2": {
+   "d": "ed8befa6",
+   "op": 1159,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.bookTradeSign_3": {
+   "d": "8f645b0d",
+   "op": 1195,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.ironUrn_0": {
+   "d": "02fc66b8",
+   "op": 1062,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.ironUrn_1": {
+   "d": "1b8d626a",
+   "op": 1061,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.ironUrn_2": {
+   "d": "1331707c",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.ironUrn_3": {
+   "d": "077c6d00",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.roseTrellis_0": {
+   "d": "c18df2f5",
+   "op": 1163,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.roseTrellis_1": {
+   "d": "196fdd56",
+   "op": 1173,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.roseTrellis_2": {
+   "d": "f1f232ce",
+   "op": 1072,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.roseTrellis_3": {
+   "d": "5f94158d",
+   "op": 1059,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.sundialCourt_0": {
+   "d": "e413f817",
+   "op": 1040,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.sundialCourt_1": {
+   "d": "4e3d0b2d",
+   "op": 1040,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.sundialCourt_2": {
+   "d": "0bf00da8",
+   "op": 1028,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.sundialCourt_3": {
+   "d": "fecf2a10",
+   "op": 1028,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.wicketCourt_0": {
+   "d": "76ea7e2e",
+   "op": 1054,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.wicketCourt_1": {
+   "d": "b8386d50",
+   "op": 1072,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.wicketCourt_2": {
+   "d": "a3094fb7",
+   "op": 1123,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "streetscape015.wicketCourt_3": {
+   "d": "afe43db7",
+   "op": 1134,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
   }
  },
  "blocks": {
