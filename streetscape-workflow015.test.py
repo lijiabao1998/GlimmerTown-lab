@@ -34,6 +34,8 @@ def validate(q):
   uploads=[s for s in v['steps'] if s.get('uses')=='actions/upload-artifact@v4' and 'part' in s['with']['name']];assert len(uploads)==8
   for n,s in enumerate(uploads):assert s['with']['path']=='.streetscape-packets/part'+str(n)+'/' and s['if'].startswith('always()') and s['with']['if-no-files-found']=='error'
   runs='\n'.join(s.get('run','') for s in v['steps']);assert 'git diff --exit-code' in runs and 'python3 streetscape-package015.py' in runs
+ preflight_runs='\n'.join(s.get('run','') for s in j['preflight']['steps'])
+ for marker in ['node streetscape-release-contract015.test.js','node streetscape-release-contract015.test.js --native streetscape-evidence/preflight/fingerprint-native.json','node streetscape-compatibility015.js --static-test']:assert marker in preflight_runs
  runs='\n'.join(s.get('run','') for s in j['compatibility']['steps'])
  for marker in ['for n in 1 2 3','node streetscape-style015.js','SC015_SUITE=complexes SC015_MODE=fingerprint','SC015_SUITE=compatibility SC015_MODE=gameplay','node streetscape-compatibility015.test.js']:assert marker in runs
  return True

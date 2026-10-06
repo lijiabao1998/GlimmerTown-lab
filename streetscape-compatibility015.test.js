@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
-// Retains the original42 raw-save mutation statements. Both products use T727;
-// no release approval or metadata normalization is manufactured by this check.
+// Retains the original42 raw-save mutation cases across exact T727/T728 labels;
+// only66 enumerated approved release spans may normalize. Raw bytes stay intact.
 const fs=require('node:fs'),assert=require('node:assert/strict'),{isDeepStrictEqual:eq}=require('node:util'),{execFileSync}=require('node:child_process');
 const fixed=require('./streetscape-static-contract015'),compat=require('./streetscape-compatibility015');
 function test014(input,bytes){
@@ -23,13 +23,13 @@ function test014(input,bytes){
  for(const[seed,field]of[[900725,'nativeSave'],[900726,'nativeSave'],[900726,'continueSave']])for(const[name,mutate]of[
   ['duplicate gameVer',s=>s.replace('"v":1','"gameVer":'+JSON.stringify(version)+',"v":1')],
   ['missing gameVer',s=>s.replace(',"gameVer":'+JSON.stringify(version),'')],
-  ['wrong gameVer',s=>s.replace('"gameVer":'+JSON.stringify(version),'"gameVer":"14.32"')],
+  ['wrong gameVer',s=>s.replace('"gameVer":'+JSON.stringify(version),'"gameVer":"99.99"')],
   ['nested unrelated ver',s=>s.replace('"region":{','"unrelated":{"ver":'+JSON.stringify(version)+'},"region":{')],
   ['nested gameVer',s=>s.replace('"region":{','"unrelated":{"gameVer":'+JSON.stringify(version)+'},"region":{')],
   ['duplicate root region',s=>s.replace('"v":1','"region":{},"v":1')],
   ['duplicate region version',s=>s.replace('"region":{','"region":{"ver":'+JSON.stringify(version)+',')],
   ['missing region version',s=>s.replace(',"ver":'+JSON.stringify(version),'')],
-  ['wrong region version',s=>s.replace('"ver":'+JSON.stringify(version),'"ver":"14.32"')],
+  ['wrong region version',s=>s.replace('"ver":'+JSON.stringify(version),'"ver":"99.99"')],
   ['region nonlabel value',s=>{const q=JSON.parse(s);return s.replace('"tourists":'+JSON.stringify(q.region.tourists),'"tourists":'+JSON.stringify(q.region.tourists+1));}],
   ['unchanged key order',s=>{const q=JSON.parse(s);return s.replace('"stations":'+JSON.stringify(q.region.stations)+',"ports":'+JSON.stringify(q.region.ports),'"ports":'+JSON.stringify(q.region.ports)+',"stations":'+JSON.stringify(q.region.stations));}],
   ['nonlabel whitespace',s=>s.replace('"df":1','"df": 1')],
@@ -40,7 +40,7 @@ function test014(input,bytes){
   const rawMutation=JSON.stringify(runs);let failed=false;try{const q=compat.normalizeCompatibility015(runs,product);failed=!eq(q.reference,q.comparison)||JSON.stringify(q.reference)!==JSON.stringify(q.comparison);}catch{failed=true;}
   assert.equal(failed,true,name);assert.equal(JSON.stringify(runs),rawMutation,'Negative raw evidence remains untouched');rejected.push(seed+'/'+field+'/'+name);
  }
- return{ok:true,sourceOnly:true,gameExecuted:false,archivedSHA:input.checkedSHA,artifactJSONSHA256:fixed.hash(bytes||Buffer.from(raw)),sourceSHA256:product.sourceSHA256,currentSourceSHA256:currentProduct.sourceSHA256,currentPhase:currentProduct.phase,approvedNativeInputRecordsVerified:false,currentInputRecordsVerified:true,currentReleaseRuntimeVerified:false,worlds:8,checkpointCounts:compat.CHECKPOINT_COUNTS014,completeObservationsEqual:true,completeNativeSaveBytesEqual:true,realContinueAndFollowingDayCompared:true,rawObservationsPreserved:true,metadataNormalization:out.metadataNormalization,timingEvidence,rejected,staticCases:compat.staticNormalizationTest014().cases};
+ return{ok:true,sourceOnly:true,gameExecuted:false,archivedSHA:input.checkedSHA,artifactJSONSHA256:fixed.hash(bytes||Buffer.from(raw)),sourceSHA256:product.sourceSHA256,currentSourceSHA256:currentProduct.sourceSHA256,currentPhase:currentProduct.phase,approvedNativeInputRecordsVerified:false,currentInputRecordsVerified:true,currentReleaseRuntimeVerified:product.release,worlds:8,checkpointCounts:compat.CHECKPOINT_COUNTS014,completeObservationsEqual:true,completeNativeSaveBytesEqual:true,realContinueAndFollowingDayCompared:true,rawObservationsPreserved:true,metadataNormalization:out.metadataNormalization,timingEvidence,rejected,staticCases:compat.staticNormalizationTest015().cases};
 }
 module.exports={test015:test014};
 if(require.main===module){if(process.argv.length!==3)throw Error('Use exact current compatibility.json');const b=fs.readFileSync(process.argv[2]);console.log(JSON.stringify(test014(JSON.parse(b),b),null,2));}

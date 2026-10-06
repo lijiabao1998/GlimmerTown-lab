@@ -9,7 +9,7 @@ const theatreFP=require('./theatre-fingerprint-qa013'),approved=require('./theat
 const ROOT=__dirname,BASE=previous.BASE,RIVERSIDE_BASE=previous.RIVERSIDE_BASE,THEATRE_BASE=theatre.BASE,expectedAdditions=previous.expectedAdditions;
 function currentProduct014(){
  const q=require('./streetscape-static-contract015').verifyStatic015();
- if(!q.ok||!q.htmlExact||!q.protectedExact||!q.fpExact||!q.logExact||!q.coldLoadFixExact||q.release!==false||q.phase!=='candidate'||q.version!=='14.31'||q.anchor!=='T727'||q.additionCount!==32)throw Error('Current independently verified unreleased GPT-015 candidate required');
+ if(!q.ok||!q.htmlExact||!q.protectedExact||!q.fpExact||!q.logExact||!q.coldLoadFixExact||!((q.release===false&&q.phase==='candidate'&&q.version==='14.31'&&q.anchor==='T727')||(q.release===true&&q.phase==='release'&&q.version==='14.32'&&q.anchor==='T728'))||q.additionCount!==32)throw Error('Current independently verified GPT-015 candidate or approved T728 release required');
  return q;
 }
 function verifyStatic010(){return{...currentProduct014(),base:BASE,complexesBase:fixed.BASE,additionCount:16,theatreAdditionCount:28,riversideAdditionCount:24,complexesAdditionCount:112,expectedAdditions};}
@@ -78,8 +78,8 @@ function nativeReleaseControls013(input){
 function historicalLog014(full){
  const actual=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8'),baseline=fixed.baseFile('AUTORUN-LOG.md').toString();
  if(full!==actual)throw Error('Complete current historical log required');
- let log=full;
- if(actual!==baseline){const known=require('./streetscape-static-contract015').baseFile('AUTORUN-LOG.md').toString(),entries=log.match(/<!-- T727 release entry BEGIN -->[\s\S]*?<!-- T727 release entry END -->\n/g)||[];if(actual!==known||entries.length!==1||log.replace(entries[0],'')!==baseline)throw Error('Exact unchanged T727 log and its one-entry historical envelope required');log=baseline;}
+ let log=full;const current=currentProduct014();if(current.release){const entry=current.releaseLogEntry;if(!entry||log.split(entry).length!==2)throw Error('One bounded T728 release log entry required');log=log.replace(entry,'');}
+ if(log!==baseline){const known=require('./streetscape-static-contract015').baseFile('AUTORUN-LOG.md').toString(),entries=log.match(/<!-- T727 release entry BEGIN -->[\s\S]*?<!-- T727 release entry END -->\n/g)||[];if(log!==known||entries.length!==1||log.replace(entries[0],'')!==baseline)throw Error('Exact unchanged T727 log and its one-entry historical envelope required');log=baseline;}
  if(log!==baseline)throw Error('Complete immutable deployed T726 log required');
  for(const[anchor,base]of[['T726',theatre.BASE],['T725',require('./riverside-static-contract012').BASE],['T724',require('./coldload-static-contract011').BASE],['T723',BASE],['T722',require('./streetlife-static-contract009').BASE]]){
   const re=new RegExp('<!-- '+anchor+' release entry BEGIN -->[\\s\\S]*?<!-- '+anchor+' release entry END -->\\n','g'),entries=log.match(re)||[];

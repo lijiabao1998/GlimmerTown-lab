@@ -18,7 +18,7 @@ function buildAdapter015(suite){
   rep('all2947 old complete leaves and1728 blocks unchanged plus exactly112 new','all3059 old complete leaves and1728 blocks unchanged plus exactly32 streetscape additions');
  }
  if(suite==='publiclife'||suite==='station'){
-  rep("((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.30'&&staticProof.anchor==='T726')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.version==='14.31'&&staticProof.anchor==='T727'))","(staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.31'&&staticProof.anchor==='T727')");
+  rep("((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.30'&&staticProof.anchor==='T726')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.version==='14.31'&&staticProof.anchor==='T727'))","((staticProof.release===false&&staticProof.phase==='candidate'&&staticProof.version==='14.31'&&staticProof.anchor==='T727')||(staticProof.release===true&&staticProof.phase==='release'&&staticProof.version==='14.32'&&staticProof.anchor==='T728'))");
   rep('nativeProof.proof.projectedOnlyDeclared164','nativeProof.proof.projectedOnlyDeclared196');rep('nativeProof.proof.currentLeaves===3059','nativeProof.proof.currentLeaves===3091');
   rep("...require('./complexes-static-contract014').expectedAdditions]","...require('./complexes-static-contract014').expectedAdditions,...require('./streetscape-static-contract015').expectedAdditions]",2);
   rep("all2795 prior leaves paired with exactly264 declared additions',Object.keys(fp.subs||{}).length===3059","all2795 prior leaves paired with exactly296 declared additions',Object.keys(fp.subs||{}).length===3091");
@@ -30,10 +30,12 @@ function buildAdapter015(suite){
  if(suite==='coldload'){
   rep("const {verifyStatic014:verifyStatic011}=require('./complexes-static-contract014');","const {verifyStatic015:verifyStatic011}=require('./streetscape-static-contract015');");
   rep("const {verifyFingerprint014:verifyFingerprint011}=require('./complexes-fingerprint-qa014');","const {verifyFingerprint015:verifyFingerprint011}=require('./streetscape-fingerprint015');");
-  rep("((report.static.release===false&&report.static.phase==='candidate'&&version==='14.30'&&anchor==='T726')||(report.static.release===true&&report.static.phase==='release'&&version==='14.31'&&anchor==='T727'))","(report.static.release===false&&report.static.phase==='candidate'&&version==='14.31'&&anchor==='T727')");
+  rep("((report.static.release===false&&report.static.phase==='candidate'&&version==='14.30'&&anchor==='T726')||(report.static.release===true&&report.static.phase==='release'&&version==='14.31'&&anchor==='T727'))","((report.static.release===false&&report.static.phase==='candidate'&&version==='14.31'&&anchor==='T727')||(report.static.release===true&&report.static.phase==='release'&&version==='14.32'&&anchor==='T728'))");
   rep("all2947 approved leaves and1728 complete blocks exact plus precisely112 complex leaves in160 families',report.fingerprint.ok===true&&report.fingerprint.oldLeaves===2947&&report.fingerprint.newLeaves===112&&fp.stats.leaves===3059&&fp.stats.families===160","all3059 approved leaves and1728 complete blocks exact plus precisely32 streetscape leaves in161 families',report.fingerprint.ok===true&&report.fingerprint.oldLeaves===3059&&report.fingerprint.newLeaves===32&&fp.stats.leaves===3091&&fp.stats.families===161");
  }
  if(suite==='compatibility'){
+  rep("require('./complexes-compatibility014').riversideRuntimeSource014()","require('./streetscape-compatibility015').riversideRuntimeSource015()");
+  rep("const theatreCompat=require('./complexes-compatibility014');","const theatreCompat=require('./streetscape-compatibility015');");
   const old=require('./complexes-static-contract014');rep("const ROOT=__dirname,BASE='"+old.BASE+"';","const ROOT=__dirname,BASE='"+fixed.BASE+"';");rep("const HASH='"+old.BASE_HTML_SHA256+"';","const HASH='"+fixed.BASE_HTML_SHA256+"';");
   rep("require('./complexes-compatibility014').normalizeCompatibility014(out.runs,staticProof)","require('./streetscape-compatibility015').normalizeCompatibility015(out.runs,staticProof)");
   const n=adapted.split("label==='candidate'?staticProof.version:'14.30'").length-1;rep("label==='candidate'?staticProof.version:'14.30'","label==='candidate'?staticProof.version:'14.31'",n);

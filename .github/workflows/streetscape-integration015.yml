@@ -24,6 +24,10 @@ jobs:
 
         node streetscape-static-contract015.js
 
+        node streetscape-release-contract015.test.js
+
+        node streetscape-compatibility015.js --static-test
+
         node streetscape-legacy015.js --static-test
 
         node streetscape-integration-qa015.js --static-test

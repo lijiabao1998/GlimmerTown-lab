@@ -38,6 +38,10 @@ jobs:
 
         node streetscape-static-contract015.js
 
+        node streetscape-release-contract015.test.js
+
+        node streetscape-compatibility015.js --static-test
+
         node streetscape-legacy015.js --static-test
 
         node streetscape-integration-qa015.js --static-test
@@ -91,6 +95,8 @@ jobs:
         SC015_MODE=preflight node streetscape-integration-qa015.js 2>&1 | tee streetscape-full-preflight.txt
 
         node streetscape-legacy015.test.js streetscape-evidence/preflight/fingerprint-native.json
+
+        node streetscape-release-contract015.test.js --native streetscape-evidence/preflight/fingerprint-native.json
 
         node streetscape-style015.test.js streetscape-evidence/preflight/fingerprint-native.json
 
