@@ -24,7 +24,7 @@ def verify(data):
  # A folded YAML scalar can silently turn the next `node` invocation into
  # arguments to `node` or output filenames for `tee`.
  preflight_lines=[line.strip() for step in jobs['preflight']['steps'] for line in step.get('run','').splitlines()]
- for command in ['node complexes-regression-adapter014.js --static-test','node complexes-regression-adapter014.test.js','node complexes-fixture014.test.js']:
+ for command in ['node complexes-regression-adapter014.js --static-test','node complexes-regression-adapter014.test.js','node complexes-fixture014.test.js','node complexes-release-contract014.test.js','node complexes-release-contract014.test.js --native complexes-evidence/preflight/guards/fingerprint-native.json']:
   assert preflight_lines.count(command)==1,'Missing standalone source gate: '+command
  compatibility_lines=[line.strip() for step in jobs['legacy-compatibility']['steps'] for line in step.get('run','').splitlines()]
  comparison='node complexes-compatibility014.test.js museum-evidence/compatibility/guards/compatibility.json'
@@ -71,6 +71,8 @@ def alter_run(data,job,old,new):
    step['run']=step['run'].replace(old,new);changed+=1
  assert changed==1,'Negative control must change one actual parsed command'
 semantic_mutations=[
+ ('missing bounded release metadata gate','preflight','node complexes-release-contract014.test.js\n','printf skipped-release-metadata\n'),
+ ('missing approved native release gate','preflight','node complexes-release-contract014.test.js --native complexes-evidence/preflight/guards/fingerprint-native.json','printf skipped-approved-native-release'),
  ('folded preflight node argument','preflight','node complexes-regression-adapter014.js --static-test\nnode complexes-regression-adapter014.test.js','node complexes-regression-adapter014.js --static-test node complexes-regression-adapter014.test.js'),
  ('folded compatibility tee overwrite','legacy-compatibility','tee complexes-legacy-compatibility.txt\nnode complexes-compatibility014.test.js','tee complexes-legacy-compatibility.txt node complexes-compatibility014.test.js'),
  ('missing eight-world comparison','legacy-compatibility','node complexes-compatibility014.test.js museum-evidence/compatibility/guards/compatibility.json','printf skipped-eight-world-comparison'),

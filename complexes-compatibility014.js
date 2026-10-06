@@ -1,6 +1,7 @@
 'use strict';
 // The eight historical worlds retain every old assertion. Only the new eighth
-// world is added here. Current014 has the same T726 labels: ZERO normalization.
+// world is added here. Candidate T726 labels require ZERO normalization; only
+// the verified approved T727 envelope permits the declared release label spans.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),{isDeepStrictEqual:eq}=require('node:util');
 const fixed=require('./complexes-static-contract014'),ROOT=__dirname;
 const previous=require('./theatre-compatibility013');
@@ -28,7 +29,7 @@ function snapshotTheatreWorld014(q){
  return{stats:GV.stats(),tiles,rngState,difficulty:GV.diff(),developer:GV.dev516B(),roots,paths,retained,water,shoreline,identity:identity013(),nativeCivic:GV.theatreEvidence013().civic,nativeMobility:GV.theatreEvidence013().mobility,priorStreet:q.priorStreet.map(r=>GV.streetLifeAt009(r.x,r.y)),priorMuseum:q.priorMuseum.map(r=>GV.museumAt010(r.x,r.y)),priorRiverside:q.priorRiverside.map(r=>GV.riversideAt012(r.x,r.y)),retailUnits:GV.riversideEvidence012().retailUnits,taxLedger:GV.riversideEvidence012().taxLedger,stations:q.stations.map(p=>GV.stationDistrictAt008(...p)),hotel:GV.hotel330(),enterprise:GV.t489()};
 }
 function runTheatreWorld014(setup,seedFn,version,anchor){
- if(version!=='14.30'||anchor!=='T726')throw Error('Exact source-verified T726 candidate labels required');
+ if(!((version==='14.30'&&anchor==='T726')||(version==='14.31'&&anchor==='T727')))throw Error('Exact source-verified T726 candidate or approved T727 release labels required');
  const random=Math.random;let m=123456789;Math.random=()=>{m=(Math.imul(m,1664525)+1013904223)>>>0;return m/4294967296;};
  try{
   const placed=setup(seedFn),q=placed.recipe;GV.setSpeed(0);GV.ai(false);GV.weather(0);
@@ -156,51 +157,116 @@ function validateNativeSave014(raw,version,N,day,label){
  return true;
 }
 function normalizeCompatibility014(runs,product){
- if(!product?.ok||!product.htmlExact||!product.protectedExact||!product.fpExact||!product.logExact||!product.coldLoadFixExact||product.release!==false||product.phase!=='candidate'||product.version!=='14.30'||product.anchor!=='T726')throw Error('Exact verified T726 candidate required; future release needs a separately approved exact envelope');
+ const candidate=product?.release===false&&product.phase==='candidate'&&product.version==='14.30'&&product.anchor==='T726',release=product?.release===true&&product.phase==='release'&&product.version==='14.31'&&product.anchor==='T727';
+ if(['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'].some(field=>product?.[field]!==true)||!(candidate||release))throw Error('Exact verified T726 candidate or image-approved T727 release required');
  if(!Array.isArray(runs)||runs.length!==2||runs[0].label!=='baseline'||runs[1].label!=='candidate')throw Error('Exactly ordered baseline/candidate raw observations required');
- const raw=JSON.stringify(runs),reference=runs[0].result,comparison=structuredClone(runs[1].result);
- for(const rows of[reference,comparison]){
+ const raw=JSON.stringify(runs),reference=runs[0].result,comparison=structuredClone(runs[1].result),changes=[];
+ for(const[label,rows]of[['baseline',reference],['candidate',comparison]]){
   if(!Array.isArray(rows)||!eq(rows.map(q=>q.seed),WORLD_SEEDS014)||rows.some((q,i)=>!Array.isArray(q.checkpoints)||q.checkpoints.length!==CHECKPOINT_COUNTS014[i]))throw Error('Exactly eight complete ordered historical worlds/checkpoints required');
-  for(const seed of[900721,900724,900725,900726])for(const[index,q]of rows.find(q=>q.seed===seed).checkpoints.entries())if(!q.enterprise||!Object.hasOwn(q.enterprise,'version')||!Object.hasOwn(q.enterprise,'anchor')||q.enterprise.version!=='14.30'||q.enterprise.anchor!=='T726')throw Error('Unexpected native enterprise metadata at seed'+seed+'.checkpoints['+index+']');
+  const version=label==='candidate'?product.version:'14.30',anchor=label==='candidate'?product.anchor:'T726';
+  for(const seed of[900721,900724,900725,900726])for(const[index,q]of rows.find(q=>q.seed===seed).checkpoints.entries()){
+   if(!q.enterprise||!Object.hasOwn(q.enterprise,'version')||!Object.hasOwn(q.enterprise,'anchor')||q.enterprise.version!==version||q.enterprise.anchor!==anchor)throw Error('Unexpected native enterprise metadata at seed'+seed+'.checkpoints['+index+']');
+   if(label==='candidate'&&release)for(const[field,value]of[['version','14.30'],['anchor','T726']]){changes.push({path:'seed'+seed+'.checkpoints['+index+'].enterprise.'+field,from:q.enterprise[field],to:value});q.enterprise[field]=value;}
+  }
   for(const seed of[900725,900726]){
    const world=rows.find(q=>q.seed===seed);if(!world.nativeSaveMetadataExact||!world.nativeLoadIdentitiesExact||!world.otherSlotsUnchanged)throw Error('Complete native save/load/other-slot evidence required');
-   validateNativeSave014(world.nativeSave,'14.30',world.fixture?.N,world.checkpoints[4].stats.day,'seed'+seed+'.nativeSave');
+   validateNativeSave014(world.nativeSave,version,world.fixture?.N,world.checkpoints[4].stats.day,'seed'+seed+'.nativeSave');
    if(seed===900726){
     validateTimingShape014(world,true);
     if(!world.nativeContinueIdentitiesExact||!world.continueSaveBytesExact||!world.actualPageReload||!world.reloadedSourceExact||!world.followingContinueDay||world.checkpoints[7].continued!==true||world.checkpoints[8].followingContinuedDay!==true||world.checkpoints[7].stats.day!==world.checkpoints[6].stats.day||world.checkpoints[8].stats.day!==world.checkpoints[7].stats.day+1)throw Error('Actual whole-page native Continue and unaided following day required');
-    validateNativeSave014(world.continueSave,'14.30',world.fixture?.N,world.checkpoints[6].stats.day,'seed900726.continueSave');
+    validateNativeSave014(world.continueSave,version,world.fixture?.N,world.checkpoints[6].stats.day,'seed900726.continueSave');
+   }
+   if(label==='candidate'&&release)for(const field of seed===900726?['nativeSave','continueSave']:['nativeSave']){
+    // Validation above proves unique root.gameVer and root.region.ver spans.
+    // Change only those two string values, retaining every other native byte.
+    const original=world[field],save=JSON.parse(original),marker='"gameVer":'+JSON.stringify(version),regionMarker='"region":'+JSON.stringify(save.region),regionVersion='"ver":'+JSON.stringify(version);
+    const normalizedRegion=regionMarker.replace(regionVersion,'"ver":"14.30"');
+    const normalized=original.replace(marker,'"gameVer":"14.30"').replace(regionMarker,normalizedRegion),expected={...save,gameVer:'14.30',region:{...save.region,ver:'14.30'}};
+    if(!eq(JSON.parse(normalized),expected)||normalized.replace('"gameVer":"14.30"',marker).replace(normalizedRegion,regionMarker)!==original)throw Error('Only the exact native root.gameVer and root.region.ver byte spans may normalize');
+    for(const suffix of['gameVer','region.ver'])changes.push({path:'seed'+seed+'.'+field+'.'+suffix,from:version,to:'14.30'});
+    world[field]=normalized;
    }
   }
  }
- if(JSON.stringify(runs)!==raw)throw Error('Raw compatibility observations must remain unchanged');
- return{reference,comparison,metadataNormalization:{applied:false,paths:[],validatedPaths:[...METADATA_PATHS014,...SAVE_PATHS014],from:{version:'14.30',anchor:'T726'},to:{version:'14.30',anchor:'T726'},rawObservationsPreserved:true,sameLabelExact:true,normalizedFields:0,changes:[]}};
+ if(JSON.stringify(runs)!==raw||changes.length!==(release?66:0))throw Error('Only60 known enterprise labels and six exact raw save labels may normalize; raw observations stay unchanged');
+ return{reference,comparison,metadataNormalization:{applied:release,paths:release?[...METADATA_PATHS014,...SAVE_PATHS014]:[],validatedPaths:[...METADATA_PATHS014,...SAVE_PATHS014],from:{version:product.version,anchor:product.anchor},to:{version:'14.30',anchor:'T726'},rawObservationsPreserved:true,sameLabelExact:candidate,normalizedFields:changes.length,changes}};
 }
 function runtimeSourceAudit014(){
  const oldFiles=['theatre-compatibility013.js','theatre-gameplay013.js','theatre-regression-adapter013.js','theatre-historical-bridge013.js'];
  const sources=oldFiles.map(file=>{const actual=fs.readFileSync(path.join(ROOT,file)),old=fixed.baseFile(file);if(!actual.equals(old))throw Error('Historical runtime source changed: '+file);return{file,sha256:fixed.hash(actual),exact:true};});
  const old=previous.runtimeSourceAudit013();fixtureSource014();for(const f of[snapshotTheatreWorld014,runTheatreWorld014,continueTheatreWorld014])new vm.Script('('+f.toString()+')');
- return{sources,previousRuntimeProof:old,allSevenPriorWorldFunctionsExact:true,eighthFixtureSourceSHA256:fixed.hash(fixtureSource014()),nativeSaveLabelPaths:['root.gameVer','root.region.ver'],noSaveReserialization:true,noGetterRepair:true};
+ // Exact sections were read from this approved source before pinning. Literal
+ // hashes survive a squash release without requiring its candidate git object.
+ const approvedSHA='509e3b0ebbeefc2c92efb24fef4abbeaf6bdfc85',approvedSourceSHA256='ff862ee86a37cab8a8f63386144e784c2cccbb16f8b0cdfa797156a569200284';
+ const approvedRuntimeSHA256='6a68d2afb37dc1da473daab15f61158541c676a2f860341c9799747fe0362998',approvedUnchangedSourceSHA256='b6ac3ce28c7df69d001159388df92eb6381811ae096ce6086229c5505ac4586c';
+ const before="if(version!=='14.30'||anchor!=='T726')throw Error('Exact source-verified T726 candidate labels required');",after="if(!((version==='14.30'&&anchor==='T726')||(version==='14.31'&&anchor==='T727')))throw Error('Exact source-verified T726 candidate or approved T727 release labels required');";
+ const runtime=runTheatreWorld014.toString(),original=runtime.replace(after,before);
+ if(runtime.split(after).length!==2||fixed.hash(original)!==approvedRuntimeSHA256)throw Error('Approved eighth-world runtime may change only the exact version/anchor gate');
+ const unchanged=[snapshotTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,timingProducer014,validateTimingShape014,separateTheatreTiming014,validateTimingEvidence014,staticTimingTest014,validateNativeSave014];
+ if(fixed.hash(unchanged.map(f=>f.toString()).join('\n'))!==approvedUnchangedSourceSHA256)throw Error('Approved eighth-world observation, Continue, native save validation, and18-path raw timing receipts must remain exact');
+ return{sources,previousRuntimeProof:old,allSevenPriorWorldFunctionsExact:true,eighthFixtureSourceSHA256:fixed.hash(fixtureSource014()),approvedSHA,approvedSourceSHA256,approvedUnchangedSourceSHA256,originalRuntimeSHA256:fixed.hash(original),currentRuntimeSHA256:fixed.hash(runtime),allNonLabelRuntimeBytesExact:true,rawTimingReceiptSourceExact:true,nativeSaveLabelPaths:['root.gameVer','root.region.ver'],noSaveReserialization:true,noGetterRepair:true};
 }
-function normalizationFixture014(){
- const save=day=>JSON.stringify({v:1,n:72,gameVer:'14.30',region:{stations:0,ports:0,airports:0,powerCap:1650,food:0,tourists:79,ver:'14.30'},df:1,day,allFields:{retained:true}});
- return['baseline','candidate'].map(label=>({label,result:WORLD_SEEDS014.map((seed,i)=>({seed,fixture:{N:72,paid:100},...(i>=6?{nativeSave:save(4),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),...(i===7?{continueSave:save(6),nativeContinueIdentitiesExact:true,continueSaveBytesExact:true,actualPageReload:true,reloadedSourceExact:true,followingContinueDay:true}:{}),checkpoints:Array.from({length:CHECKPOINT_COUNTS014[i]},(_,n)=>({stats:{day:i===7&&n>=7?n-1:n,money:100-n,poweredBld:5},tilesSHA256:'complete-'+n,rngState:42+n,...(i===7?{offset:TIMING_OFFSETS014[n],nativeMobility:{totalTrips:100,performance:TIMING_CHECKPOINTS014.includes(n)?{runs:TIMING_RUNS014[n]}:{runs:0,lastMs:0,avgMs:0,maxMs:0}}}:{}),...(i>=4?{enterprise:{version:'14.30',anchor:'T726',money:100-n,other:{unchanged:true}}}:{}),...(i===7&&n===7?{continued:true}:{}),...(i===7&&n===8?{followingContinuedDay:true}:{})}))}))}));
+function normalizationFixture014(release=false){
+ const save=(day,version)=>JSON.stringify({v:1,n:72,gameVer:version,region:{stations:0,ports:0,airports:0,powerCap:1650,food:0,tourists:79,ver:version},df:1,day,allFields:{retained:true}});
+ return['baseline','candidate'].map(label=>{const version=release&&label==='candidate'?'14.31':'14.30',anchor=release&&label==='candidate'?'T727':'T726';return{label,result:WORLD_SEEDS014.map((seed,i)=>({seed,fixture:{N:72,paid:100},...(i>=6?{nativeSave:save(4,version),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),...(i===7?{continueSave:save(6,version),nativeContinueIdentitiesExact:true,continueSaveBytesExact:true,actualPageReload:true,reloadedSourceExact:true,followingContinueDay:true}:{}),checkpoints:Array.from({length:CHECKPOINT_COUNTS014[i]},(_,n)=>({stats:{day:i===7&&n>=7?n-1:n,money:100-n,poweredBld:5},tilesSHA256:'complete-'+n,rngState:42+n,...(i===7?{offset:TIMING_OFFSETS014[n],nativeMobility:{totalTrips:100,performance:TIMING_CHECKPOINTS014.includes(n)?{runs:TIMING_RUNS014[n]}:{runs:0,lastMs:0,avgMs:0,maxMs:0}}}:{}),...(i>=4?{enterprise:{version,anchor,money:100-n,other:{unchanged:true}}}:{}),...(i===7&&n===7?{continued:true}:{}),...(i===7&&n===8?{followingContinuedDay:true}:{})}))}))};});
 }
 function staticNormalizationTest014(){
  const runtimeSource=runtimeSourceAudit014(),oldControls=previous.staticNormalizationTest013(),wallClockControls=staticTimingTest014();
- const product={ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release:false,phase:'candidate',version:'14.30',anchor:'T726'},negatives=[];
- const input=normalizationFixture014(),raw=JSON.stringify(input),positive=normalizeCompatibility014(input,product);
- if(!eq(positive.reference,positive.comparison)||JSON.stringify(positive.reference)!==JSON.stringify(positive.comparison)||JSON.stringify(input)!==raw||positive.metadataNormalization.normalizedFields!==0||positive.metadataNormalization.paths.length!==0)throw Error('Exact complete same-label candidate data required');
- const reject=(name,mutate)=>{const runs=normalizationFixture014(),p={...product};mutate(runs,p);const before=JSON.stringify(runs);let error='';try{const q=normalizeCompatibility014(runs,p);if(!eq(q.reference,q.comparison)||JSON.stringify(q.reference)!==JSON.stringify(q.comparison))error='full comparison rejects mutation';}catch(e){error=e.message;}if(!error||JSON.stringify(runs)!==before)throw Error('Compatibility negative accepted or observations mutated: '+name);negatives.push({name,error});};
- for(const field of['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'])reject('unverified '+field,(_,p)=>p[field]=false);
- for(const[field,value]of[['release',true],['phase','release'],['version','14.31'],['anchor','T727']])reject('future/unapproved '+field,(_,p)=>p[field]=value);
- reject('reordered comparison',r=>r.reverse());reject('missing eighth world',r=>r[1].result.pop());reject('duplicate world',r=>r[1].result[7].seed=900725);reject('extra old checkpoint',r=>r[1].result[0].checkpoints.push({}));
- for(const seed of[900721,900724,900725,900726])for(const side of[0,1])for(const field of['version','anchor'])reject('wrong enterprise '+seed+'/'+side+'/'+field,r=>r[side].result.find(w=>w.seed===seed).checkpoints.at(-1).enterprise[field]='bad');
- for(const[seed,field]of[[900725,'nativeSave'],[900726,'nativeSave'],[900726,'continueSave']])for(const[name,mutate]of[
-  ['duplicate gameVer',s=>s.replace('"v":1','"gameVer":"14.30","v":1')],['nested gameVer',s=>s.replace('"retained":true','"retained":true,"gameVer":"14.30"')],['duplicate region',s=>s.replace('"v":1','"region":{},"v":1')],['duplicate region ver',s=>s.replace('"stations":0','"ver":"14.30","stations":0')],['nested unrelated ver',s=>s.replace('"retained":true','"retained":true,"nested":{"ver":"14.30"}')],['wrong ver',s=>s.replace('"ver":"14.30"','"ver":"14.31"')],['nonlabel data',s=>s.replace('"tourists":79','"tourists":80')],['key order',s=>s.replace('"stations":0,"ports":0','"ports":0,"stations":0')],['whitespace',s=>s.replace('"df":1','"df": 1')],['unrelated string label',s=>s.replace('"retained":true','"retained":true,"unrelated":"14.31"')],['missing field',s=>s.replace(',"ver":"14.30"','')],['extra field',s=>s.replace('"retained":true','"retained":true,"extra":1')]
- ])reject(seed+'/'+field+'/'+name,r=>{const w=r[1].result.find(w=>w.seed===seed),old=w[field];w[field]=mutate(old);if(old===w[field])throw Error('Negative fixture did not mutate');});
- for(let i=0;i<8;i++)for(const field of['money','rngState','tilesSHA256'])reject('world'+i+' full '+field,r=>{const q=r[1].result[i].checkpoints[0];if(field==='money')q.stats.money++;else q[field]+='changed';});
- for(const flag of['nativeContinueIdentitiesExact','continueSaveBytesExact','actualPageReload','reloadedSourceExact','followingContinueDay','otherSlotsUnchanged'])reject('missing '+flag,r=>r[1].result[7][flag]=false);
- reject('no following continued day',r=>r[1].result[7].checkpoints[8].stats.day--);
- return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,worlds:8,originalSevenWorldsRetained:true,oldControls,wallClockControls,runtimeSource,checkpointCounts:CHECKPOINT_COUNTS014,declaredPaths:[...METADATA_PATHS014,...SAVE_PATHS014],candidateNormalizedFields:0,futureReleaseRejected:true,completeNativeSaveCompared:true,actualContinueCompared:true,rawObservationsPreserved:true,cases:1+negatives.length,negatives};
+ const product=release=>({ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release,phase:release?'release':'candidate',version:release?'14.31':'14.30',anchor:release?'T727':'T726'}),negatives=[],positives=[];
+ const saves=[[900725,'nativeSave'],[900726,'nativeSave'],[900726,'continueSave']];
+ for(const release of[false,true]){
+  const mode=release?'release':'candidate',input=normalizationFixture014(release),raw=JSON.stringify(input),positive=normalizeCompatibility014(input,product(release)),metadata=positive.metadataNormalization;
+  const expectedPaths=[...METADATA_PATHS014,...SAVE_PATHS014],expectedChanges=[];
+  for(const seed of[900721,900724,900725,900726])for(let index=0;index<(seed===900726?9:7);index++)for(const[field,from,to]of[['version','14.31','14.30'],['anchor','T727','T726']])expectedChanges.push({path:'seed'+seed+'.checkpoints['+index+'].enterprise.'+field,from,to});
+  for(const path of SAVE_PATHS014)expectedChanges.push({path,from:'14.31',to:'14.30'});
+  if(!eq(positive.reference,positive.comparison)||JSON.stringify(positive.reference)!==JSON.stringify(positive.comparison)||JSON.stringify(input)!==raw||metadata.normalizedFields!==(release?66:0)||metadata.applied!==release||metadata.sameLabelExact===release||!eq(metadata.paths,release?expectedPaths:[])||!eq(metadata.validatedPaths,expectedPaths)||!eq(metadata.changes,release?expectedChanges:[]))throw Error('Only the exact complete approved label normalization is allowed: '+mode);
+  positives.push(mode+' exact full worlds and label receipt');
+  const preserved=normalizationFixture014(release);
+  for(const row of preserved)for(const[seed,field]of saves){const w=row.result.find(w=>w.seed===seed);w[field]=w[field].replace('"df":1','"df": 1').replace('"retained":true','"retained":true,"labels":["14.31","T727","14.30","T726"],"rawNumber":1e2,"rawUnicode":"\\u0061"');}
+  const preservedRaw=JSON.stringify(preserved),retained=normalizeCompatibility014(preserved,product(release));
+  if(JSON.stringify(preserved)!==preservedRaw||JSON.stringify(retained.reference)!==JSON.stringify(retained.comparison)||saves.some(([seed,field])=>!retained.comparison.find(w=>w.seed===seed)[field].includes('"rawNumber":1e2,"rawUnicode":"\\u0061"')))throw Error('All unrelated raw bytes and label-like strings must survive: '+mode);
+  positives.push(mode+' raw whitespace, numeric spelling, escapes and unrelated labels retained');
+  const reject=(name,mutate)=>{const runs=normalizationFixture014(release),p=product(release);mutate(runs,p);const before=JSON.stringify(runs);let error='';try{const q=normalizeCompatibility014(runs,p);if(!eq(q.reference,q.comparison)||JSON.stringify(q.reference)!==JSON.stringify(q.comparison))error='full comparison rejects mutation';}catch(e){error=e.message;}if(!error||JSON.stringify(runs)!==before)throw Error('Compatibility negative accepted or observations mutated: '+mode+'/'+name);negatives.push({name:mode+'/'+name,error});};
+  for(const field of['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'])for(const value of[false,undefined,1,'true',null])reject('unverified '+field+'/'+String(value),(_,p)=>p[field]=value);
+  for(const[field,value]of[['release',!release],['release','true'],['phase',release?'candidate':'release'],['version',release?'14.30':'14.31'],['anchor',release?'T726':'T727'],['version','14.32'],['anchor','T728']])reject('mixed or unapproved '+field+'/'+value,(_,p)=>p[field]=value);
+  reject('missing proof fields',(_,p)=>{for(const field of Object.keys(p))delete p[field];});
+  reject('reordered comparison',r=>r.reverse());reject('extra comparison',r=>r.push(structuredClone(r[1])));reject('wrong comparison label',r=>r[1].label='release');
+  for(const side of[0,1]){
+   reject('missing eighth world/'+side,r=>r[side].result.pop());reject('duplicate world/'+side,r=>r[side].result[7].seed=900725);reject('reordered worlds/'+side,r=>r[side].result.reverse());
+   for(let i=0;i<8;i++){
+    reject('extra checkpoint/'+side+'/'+i,r=>r[side].result[i].checkpoints.push({}));reject('missing checkpoint/'+side+'/'+i,r=>r[side].result[i].checkpoints.pop());
+   }
+   for(const seed of[900721,900724,900725,900726])for(let index=0;index<(seed===900726?9:7);index++)for(const field of['version','anchor'])reject('wrong enterprise '+seed+'/'+side+'/'+index+'/'+field,r=>r[side].result.find(w=>w.seed===seed).checkpoints[index].enterprise[field]='bad');
+   const version=release&&side===1?'14.31':'14.30';
+   for(const[seed,field]of saves)for(const[name,mutate]of[
+    ['duplicate gameVer',s=>s.replace('"v":1','"gameVer":'+JSON.stringify(version)+',"v":1')],['nested gameVer',s=>s.replace('"retained":true','"retained":true,"gameVer":'+JSON.stringify(version))],['wrong gameVer',s=>s.replace('"gameVer":'+JSON.stringify(version),'"gameVer":"14.32"')],['missing gameVer',s=>s.replace(',"gameVer":'+JSON.stringify(version),'')],
+    ['duplicate region',s=>s.replace('"v":1','"region":{},"v":1')],['duplicate region ver',s=>s.replace('"stations":0','"ver":'+JSON.stringify(version)+',"stations":0')],['nested unrelated ver',s=>s.replace('"retained":true','"retained":true,"nested":{"ver":'+JSON.stringify(version)+'}')],['wrong region ver',s=>s.replace('"ver":'+JSON.stringify(version),'"ver":"14.32"')],['missing region ver',s=>s.replace(',"ver":'+JSON.stringify(version),'')],['extra region key',s=>s.replace('"stations":0','"unexpected":true,"stations":0')],
+    ['nonlabel data',s=>s.replace('"tourists":79','"tourists":80')],['key order',s=>s.replace('"stations":0,"ports":0','"ports":0,"stations":0')],['whitespace',s=>s.replace('"df":1','"df": 1')],['trailing whitespace',s=>s+' '],['numeric spelling',s=>s.replace('"tourists":79','"tourists":7.9e1')],['unrelated string label',s=>s.replace('"retained":true','"retained":true,"unrelated":"14.31"')],['extra field',s=>s.replace('"retained":true','"retained":true,"extra":1')],['existing nonlabel boolean',s=>s.replace('"retained":true','"retained":false')],['wrong day',s=>s.replace('"day":'+JSON.parse(s).day,'"day":99')],['wrong grid',s=>s.replace('"n":72','"n":71')],['wrong difficulty',s=>s.replace('"df":1','"df":0')],['wrong schema',s=>s.replace('"v":1','"v":2')]
+   ])reject(seed+'/'+field+'/'+side+'/'+name,r=>{const w=r[side].result.find(w=>w.seed===seed),old=w[field];w[field]=mutate(old);if(old===w[field])throw Error('Negative fixture did not mutate');});
+   for(const[seed,field]of saves)for(const path of['gameVer','region.ver'])reject('mixed known label '+seed+'/'+field+'/'+side+'/'+path,r=>{const w=r[side].result.find(w=>w.seed===seed),key=path==='gameVer'?'gameVer':'ver';w[field]=w[field].replace(JSON.stringify(key)+':'+JSON.stringify(version),JSON.stringify(key)+':'+JSON.stringify(version==='14.31'?'14.30':'14.31'));});
+  }
+  for(let i=0;i<8;i++){
+   for(let index=0;index<CHECKPOINT_COUNTS014[i];index++)for(const field of['money','rngState','tilesSHA256'])reject('world'+i+' checkpoint'+index+' full '+field,r=>{const q=r[1].result[i].checkpoints[index];if(field==='money')q.stats.money++;else q[field]+='changed';});
+   reject('world'+i+' paid fixture',r=>r[1].result[i].fixture.paid++);
+   reject('world'+i+' undeclared label',r=>r[1].result[i].unapprovedVersion='14.31');
+  }
+  for(const seed of[900721,900724,900725,900726])for(const field of['money','other'])reject('nonlabel enterprise '+seed+'/'+field,r=>{const q=r[1].result.find(w=>w.seed===seed).checkpoints[0].enterprise;if(field==='money')q.money++;else q.other.unchanged=false;});
+  for(const seed of[900725,900726])for(const flag of['nativeSaveMetadataExact','nativeLoadIdentitiesExact','otherSlotsUnchanged'])reject('missing '+seed+'/'+flag,r=>r[1].result.find(w=>w.seed===seed)[flag]=false);
+  for(const flag of['nativeContinueIdentitiesExact','continueSaveBytesExact','actualPageReload','reloadedSourceExact','followingContinueDay'])reject('missing '+flag,r=>r[1].result[7][flag]=false);
+  for(let index=0;index<9;index++)reject('simulation execution counter/'+index,r=>r[1].result[7].checkpoints[index].nativeMobility.performance.runs++);
+  reject('no following continued day',r=>r[1].result[7].checkpoints[8].stats.day--);
+  reject('undeclared timing field',r=>r[1].result[7].checkpoints[1].nativeMobility.performance.lastMs=12);
+  reject('unrelated timing object',r=>r[1].result[7].checkpoints[1].other={lastMs:12});
+ }
+ // Real raw timing receipts retain their release labels before normalization.
+ const releaseRuns=normalizationFixture014(true),receipt={runs:releaseRuns,theatreTimingEvidence014:[]};
+ for(const[side,row]of releaseRuns.entries()){
+  const raw=row.result[7];for(const index of TIMING_CHECKPOINTS014)for(const field of TIMING_FIELDS014)raw.checkpoints[index].nativeMobility.performance[field]=10+index+side;
+  const split=separateTheatreTiming014(raw);receipt.theatreTimingEvidence014.push({label:row.label,...split.evidence});row.result[7]=split.world;
+ }
+ const receiptRaw=JSON.stringify(receipt),timing=validateTimingEvidence014(receipt),normalized=normalizeCompatibility014(receipt.runs,product(true));
+ if(JSON.stringify(normalized.reference)!==JSON.stringify(normalized.comparison)||JSON.stringify(receipt)!==receiptRaw||timing.separatedPerWorld!==18||receipt.theatreTimingEvidence014[1].rawWorld.checkpoints[0].enterprise.version!=='14.31')throw Error('Approved release must preserve complete original18-path timing receipts and all raw labels');
+ positives.push('release exact18-path raw timing receipts retained');
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,worlds:8,originalSevenWorldsRetained:true,oldControls,wallClockControls,runtimeSource,checkpointCounts:CHECKPOINT_COUNTS014,declaredPaths:[...METADATA_PATHS014,...SAVE_PATHS014],candidateNormalizedFields:0,releaseNormalizedFields:66,releaseEnterpriseFields:60,releaseRawSaveFields:6,futureReleaseRejected:true,completeNativeSaveCompared:true,actualContinueCompared:true,rawObservationsPreserved:true,cases:positives.length+negatives.length,positiveCases:positives.length,negativeCases:negatives.length,positives,negatives};
 }
 module.exports={fixtureSource014,snapshotTheatreWorld014,runTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,normalizeCompatibility014,validateNativeSave014,runtimeSourceAudit014,staticNormalizationTest014,normalizationFixture014,timingProducer014,separateTheatreTiming014,validateTimingEvidence014,validateTimingShape014,staticTimingTest014,TIMING_CHECKPOINTS014,TIMING_FIELDS014,WORLD_SEEDS014,CHECKPOINT_COUNTS014,METADATA_PATHS014,SAVE_PATHS014};

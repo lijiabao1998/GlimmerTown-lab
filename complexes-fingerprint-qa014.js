@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 // Every old complete record and all block entries remain immutable. New art
-// declarations do not exempt any old leaf; no approved-new-art claim before review.
+// declarations never exempt old leaves; release additionally pins every new record.
 const fs=require('node:fs'),path=require('node:path'),{isDeepStrictEqual:eq}=require('node:util'),{execFileSync}=require('node:child_process');
 const fixed=require('./complexes-static-contract014'),{ROOT,BASE,BASE_FP_SHA256,expectedAdditions,MAINS,BUILDINGS,THEMES,baseFile,hash}=fixed;
 const {aggregate}=require('./streetlife-fingerprint-qa009');
@@ -21,8 +21,11 @@ function verifyFingerprint014(fp,blocks){
  if(!blocks?.ok||!eq({fam:blocks.fam,count:blocks.count},baseline.blocks))throw Error('All1728 old native block family records must match');
  const approved=require('./theatre-release-contract013').verifyApprovedNative013({ok:true,subs:projected,families:before.families,stats:before.stats},blocks);
  for(const prefix of[...BUILDINGS.map(k=>'bld.'+k+'_1_'),...THEMES.map(t=>'complexes014.'+t+'_')])if(new Set([0,1,2,3].map(v=>fp.subs[prefix+v].d)).size!==4)throw Error('Four actual distinct authored geometric views required: '+prefix);
- if(hash(fs.readFileSync(path.join(ROOT,'fp.json')))!==BASE_FP_SHA256)throw Error('Tracked T726 fingerprint baseline was changed');
- return{ok:true,base:BASE,baselineSHA256:BASE_FP_SHA256,phase:'candidate',version:'14.30',anchor:'T726',release:false,oldLeaves:2947,newLeaves:112,leaves:3059,oldFamilies:159,currentFamilies:160,oldBlocks:1728,added,trackedBaselineExact:true,oldApprovedNativeSHA:approved.nativeCheckedSHA,oldCompleteRecordsExact:true,oldFamilyCRCsExact:true,allCurrentFamilyCRCsExact:true,oldStatsExact:true,blocksExact:true,completeBlockRecordsExact:true,newArtAwaitingOwnerImageApproval:true};
+ const tracked=fs.readFileSync(path.join(ROOT,'fp.json')),isCandidate=hash(tracked)===BASE_FP_SHA256;
+ const release=isCandidate?null:require('./complexes-release-contract014').verifyRelease014();
+ if(release)require('./complexes-release-contract014').verifyApprovedNative014(fp,blocks);
+ if(release&&!eq({subs:fp.subs,families:fp.families,stats:fp.stats},{subs:release.releaseBaseline.subs,families:release.releaseBaseline.families,stats:release.releaseBaseline.stats}))throw Error('Current native records must exactly equal the promoted release baseline');
+ return{ok:true,base:BASE,baselineSHA256:BASE_FP_SHA256,phase:release?'release':'candidate',version:release?.version||'14.30',anchor:release?.anchor||'T726',release:!!release,oldLeaves:2947,newLeaves:112,leaves:3059,oldFamilies:159,currentFamilies:160,oldBlocks:1728,added,trackedBaselineExact:true,oldApprovedNativeSHA:approved.nativeCheckedSHA,oldCompleteRecordsExact:true,oldFamilyCRCsExact:true,allCurrentFamilyCRCsExact:true,oldStatsExact:true,blocksExact:true,completeBlockRecordsExact:true,newArtAwaitingOwnerImageApproval:!release,approvedNativeRecordsExact:!!release,approvedSHA:release?.approvedSHA||null};
 }
 function readPreflight014(){
  const file=path.join(ROOT,'complexes-evidence/preflight/guards/fingerprint-native.json'),bytes=fs.readFileSync(file),q=JSON.parse(bytes),head=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),product=fixed.verifyStatic014();

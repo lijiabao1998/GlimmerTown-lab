@@ -8,7 +8,7 @@ const theatreFP=require('./theatre-fingerprint-qa013'),approved=require('./theat
 const ROOT=__dirname,BASE=previous.BASE,RIVERSIDE_BASE=previous.RIVERSIDE_BASE,THEATRE_BASE=theatre.BASE,expectedAdditions=previous.expectedAdditions;
 function currentProduct014(){
  const q=fixed.verifyStatic014();
- if(!q.ok||!q.htmlExact||!q.protectedExact||!q.fpExact||!q.logExact||!q.coldLoadFixExact||q.release!==false||q.phase!=='candidate'||q.version!=='14.30'||q.anchor!=='T726'||q.additionCount!==112)throw Error('Exact source-verified T726 candidate with112 declared additions required');
+ if(!q.ok||!q.htmlExact||!q.protectedExact||!q.fpExact||!q.logExact||!q.coldLoadFixExact||!((q.release===false&&q.phase==='candidate'&&q.version==='14.30'&&q.anchor==='T726')||(q.release===true&&q.phase==='release'&&q.version==='14.31'&&q.anchor==='T727'))||q.additionCount!==112)throw Error('Exact source-verified T726 candidate or approved T727 release with112 declared additions required');
  return q;
 }
 function verifyStatic010(){return{...currentProduct014(),base:BASE,complexesBase:fixed.BASE,additionCount:16,theatreAdditionCount:28,riversideAdditionCount:24,complexesAdditionCount:112,expectedAdditions};}
@@ -79,8 +79,10 @@ function nativeReleaseControls013(input){
 }
 function historicalLog014(full){
  const actual=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8'),baseline=fixed.baseFile('AUTORUN-LOG.md').toString();
- if(full!==actual||actual!==baseline)throw Error('Complete immutable deployed T726 log required');
+ if(full!==actual)throw Error('Complete current historical log required');
  let log=full;
+ if(actual!==baseline){const release=require('./complexes-release-contract014').verifyRelease014();if(!release.logExact||!release.releaseLogEntry||log.split(release.releaseLogEntry).length!==2)throw Error('Exact one-entry T727 release log envelope required');log=log.replace(release.releaseLogEntry,'');}
+ if(log!==baseline)throw Error('Complete immutable deployed T726 log required');
  for(const[anchor,base]of[['T726',theatre.BASE],['T725',require('./riverside-static-contract012').BASE],['T724',require('./coldload-static-contract011').BASE],['T723',BASE],['T722',require('./streetlife-static-contract009').BASE]]){
   const re=new RegExp('<!-- '+anchor+' release entry BEGIN -->[\\s\\S]*?<!-- '+anchor+' release entry END -->\\n','g'),entries=log.match(re)||[];
   const old=execFileSync('git',['show',base+':AUTORUN-LOG.md'],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024});

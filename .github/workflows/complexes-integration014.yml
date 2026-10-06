@@ -33,6 +33,7 @@ jobs:
         node --check gameplay014.js
         for f in british-*-art014.js complexes-*014.js; do node --check "$f"; done
         node complexes-static-contract014.js
+        node complexes-release-contract014.test.js
         python3 integrate-complexes014.test.py
         node complexes-gameplay014.js --static-test
         node complexes-fixture014.test.js
@@ -45,6 +46,7 @@ jobs:
         node complexes-style-adapter014.test.js
         CX014_MODE=preflight node complexes-integration-qa014.js 2>&1 | tee complexes-preflight.txt
         node complexes-fingerprint-qa014.js --static-test complexes-evidence/preflight/guards/fingerprint-native.json
+        node complexes-release-contract014.test.js --native complexes-evidence/preflight/guards/fingerprint-native.json
         node complexes-historical-bridge014.test.js complexes-evidence/preflight/guards/fingerprint-native.json
         node complexes-style-adapter014.test.js complexes-evidence/preflight/guards/fingerprint-native.json
     - uses: actions/upload-artifact@v4

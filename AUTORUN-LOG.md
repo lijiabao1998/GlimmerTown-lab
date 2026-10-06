@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T727 release entry BEGIN -->
+## r174 — T727 英式學院、鄉間莊園、公共浴場與消防總部（原 GPT-014）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r174 | [T727](docs/T727-four-british-complexes.md) | 業主於2026-10-06 04:33 UTC收訖本輪8張原生圖並批准上線。四組主體k282–293共12棟、16種獨立付費步道／庭院、112個四向素材；真9日施工、道路水電人力、教育休閒服務、原生住戶與真消防車。v14.31/T727僅三處產品發布標籤與嚴格112葉增量晉升；保留T724冷載修復。 | 批准候選509e3b0ebbeefc2c92efb24fef4abbeaf6bdfc85：[完整90/90](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526348)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526296)全綠；四向日夜施工雨／暴雨／冬雪／霧、實際遮擋、失供復供、人力住戶帳、真消防出勤、兩次冷Continue各3日與8座舊城均過。正式release head仍須完整重驗。 | gpt/british-four-complexes-014；PR與合併精確SHA待成功後記錄 | 16張同一head原生PNG已核hash／尺寸；首8张日夜圖業主已批准，餘8張為反向／混合城／天候／施工，不重繪不拼圖 | ① R1–R4驗證場景／腳本失敗歷程與原始證據保留 ② CI效能不是手機實機FPS ③ 原有PWA與console診斷保留，不稱零警告 ④ 宿舍是一般原生住戶，馬廄是原生休閒，無虛構門票收益 ⑤ 正式release CI／PR／合併／Pages／live核對尚待完成，不代表其他迭代發布 |
+
+<!-- T727 release entry END -->
 <!-- T726 release entry BEGIN -->
 ## r173 — T726 英式愛德華劇院街區（原 GPT-013）
 

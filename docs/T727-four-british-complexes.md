@@ -1,4 +1,4 @@
-# GPT-014 — Four detailed British civic and country ensembles
+# T727 — Four British complexes (original GPT-014)
 
 Pre-implementation acceptance card, 2026-10-05 UTC. Branch: `gpt/british-four-complexes-014`.
 
@@ -95,3 +95,16 @@ Not yet complete: successful whole matrix, final same-head image delivery, owner
 Original with/control images and the unchanged native projection explain the failed witness: k191 is behind the manor in views 1/2 and beside its recessed lit structure in front view 0. Moving the same second candidate one tile east translates it by (46.4,23.2) pixels at the existing 1.45 zoom and places actual opaque tower pixels over a few observed manor light pixels, with greater foreground depth. This source/image analysis is only a placement prediction, not a substitute for the runtime pixel guard.
 
 R5 changes only that k191 plot from relative (1,4) to (2,4). Its four cells are this round's two plain paths at (20,68)/(21,68) and manorParterre/manorPond at (20,69)/(21,69); no old building, road, pipe or theme is touched. The k219 attempt, all other groups, the maximum two candidates/four views, exact payment/restoration and native partial-light requirements remain unchanged. New source-data negative controls reject the old k191 position, moving another group, crossing either road and overlapping the main building. All product bytes remain unchanged, and final screenshots still await one complete passing 90-job run.
+
+
+## Publication approval and T727 preparation
+
+The owner reviewed the eight original R5 day/night screenshots for the college, manor, baths and fire headquarters and explicitly approved this round's publication. Approval was received during 2026-10-06 04:33 UTC; no exact second is inferred. The owner subsequently confirmed publication again after the draft-PR action was cancelled. The approved branch is `gpt/british-four-complexes-014`, log round r174, release T727 / v14.31. This authorization covers only GlimmerTown-lab round014.
+
+Approved candidate: `509e3b0ebbeefc2c92efb24fef4abbeaf6bdfc85`, product SHA256 `6d649ebd41d257d45d842a2893f46a178a7e0d25e00b255eb33d3985ba64cb66`. [R5 complete integration](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526348) passed all 90 jobs and [smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526296) passed. The final manor witness used the same paid k191 moved one tile east: 6 native light pixels were blocked, 405 remained visible, and the demolition control blocked zero. Both candidates' payment, nine real days, surface restoration, full save bytes, historical identities and following-day operation passed. All previous unsuccessful attempts remain documented above with their original evidence.
+
+Sixteen original 1600×1080 PNGs were verified at this exact head and saved individually for delivery: eight primary day/night images; four reverse views; one mixed-city view; winter snow; a storm night; and actual construction day four. None was cropped, redrawn, composited or repainted. The approved native preflight artifact 11389575453 has archive SHA256 `06b6fe20a6ef44600f4367219bebe825e69797cfd2a52d4514dd8716f6917e72`. All 227 preflight files and all 241 historical-compatibility files were hash verified; independent source/data replay rejected 18 fingerprint and 30 full-save mutations.
+
+The release product differs by exactly three labels: GAME_VER, GAME_ANCHOR and the start-menu version. Its SHA256 is `3a2b5c8f4c1a9fa59a080d9ae7e9ea4dca36a35dc00cd17b9723141f6dedaa0f`; reversing those labels must reproduce the approved product exactly. The strict baseline adds only the 112 approved complete records, bringing it to 3,059 leaves and 160 families while preserving all 2,947 previous records and all 1,728 complete blocks. No art, native simulation, save format, thresholds or T724 invalidation code changed for publication.
+
+Not yet completed at preparation time: the release-metadata head's complete CI, successful PR creation, merge, Pages deployment and actual public-site verification. Prior 90-job candidate success is not substituted for those steps. Existing PWA/console diagnostics remain disclosed; neither CI timings nor a threshold pass establishes device FPS. Residences use general native mid-band households, stables use native visitor leisure, and no private tuition, horse economy or fabricated admission revenue was added. Paused Continue recovers power on the following ordinary game day; instant recovery is not claimed.

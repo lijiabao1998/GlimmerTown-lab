@@ -4,7 +4,7 @@
 // synthetic112 records only; it never claims new native pixel evidence.
 const fs=require('node:fs'),assert=require('node:assert/strict'),path=require('node:path'),{execFileSync}=require('node:child_process');
 const fixed=require('./complexes-static-contract014'),native=require('./complexes-fingerprint-qa014'),bridge=require('./complexes-historical-bridge014');
-function test014(input,{synthetic=false}={}){
+function test014(input,{synthetic=false,approvedNative=false}={}){
  const untouched=JSON.stringify(input);let fp=structuredClone(input.fp),blocks=structuredClone(input.blocks);
  if(synthetic){
   require('./theatre-release-contract013').verifyApprovedNative013(fp,blocks);
@@ -16,11 +16,12 @@ function test014(input,{synthetic=false}={}){
   Object.assign(fp,native.aggregate(fp.subs));
  }
  assert.equal(Object.keys(fp.subs).length,3059);
+ if(synthetic&&approvedNative)throw Error('Synthetic records cannot claim image-approved native provenance');
  const product=synthetic?{ok:true,version:'14.30',anchor:'T726',release:false,phase:'candidate',syntheticDataOnly:true}:bridge.currentProduct014();
  if(!synthetic){
   const head=execFileSync('git',['rev-parse','HEAD'],{cwd:__dirname,encoding:'utf8'}).trim();
-  assert.equal(input.checkedSHA,head,'Native evidence must belong to the exact candidate head');assert.equal(input.sourceSHA256,product.sourceSHA256,'Native evidence must belong to the exact source');
-  assert.equal(input.version,product.version);assert.equal(input.anchor,product.anchor);assert.equal(input.release,product.release);
+  if(approvedNative){const release=require('./complexes-release-contract014');assert.equal(input.checkedSHA,release.APPROVED_SHA);assert.equal(input.sourceSHA256,release.APPROVED);assert.equal(input.version,'14.30');assert.equal(input.anchor,'T726');assert.equal(input.release,false);release.verifyApprovedNative014(input.fp,input.blocks);}
+  else{assert.equal(input.checkedSHA,head,'Native evidence must belong to the exact current head');assert.equal(input.sourceSHA256,product.sourceSHA256,'Native evidence must belong to the exact source');assert.equal(input.version,product.version);assert.equal(input.anchor,product.anchor);assert.equal(input.release,product.release);}
   if(process.env.GITHUB_ACTIONS==='true')assert.equal(head,process.env.GITHUB_SHA,'Exact Actions workflow head required');
  }
  const proof=native.verifyFingerprint014(fp,blocks),theatre=bridge.theatreLineage014(fp,blocks),river=bridge.riversideLineage014(fp,blocks,product),museum=bridge.museumLineage014(fp,blocks,product),projected=bridge.project014(fp,blocks);
@@ -50,7 +51,7 @@ function test014(input,{synthetic=false}={}){
  assert.equal(old,execFileSync('git',['show',target+':AUTORUN-LOG.md'],{cwd:__dirname,encoding:'utf8',maxBuffer:8*1024*1024}));
  for(const[name,value]of[['non-entry log append',log+'\n'],['missing bounded T726 label',log.replace('<!-- T726 release entry BEGIN -->','<!-- altered BEGIN -->')],['duplicate bounded T726 label',log+'<!-- T726 release entry BEGIN -->\n<!-- T726 release entry END -->\n']]){assert.throws(()=>bridge.historicalLog014(value),undefined,name);rejected.push(name);}
  assert.equal(JSON.stringify(input),untouched,'Input native evidence must stay unchanged');
- return{ok:true,sourceOnly:true,gameExecuted:false,syntheticNewRecords:synthetic,candidatePixelsGenerated:false,notCandidatePixelEvidence:synthetic,inputEvidenceUnchanged:true,inputCheckedSHA:input.checkedSHA||null,inputSourceSHA256:input.sourceSHA256||null,currentInputRecordsVerified:!synthetic,currentLeaves:3059,currentFamilies:160,completeOldRecordsCompared:2947,completeOldBlocksCompared:1728,projections:{theatre:{old:2919,added:28,removed:112},riverside:{old:2895,added:24,removed:140},museum:{old:2879,added:16,removed:164}},original16,originalNative10,current18,currentLogExact:true,boundedLogRecovery:['T726','T725','T724','T723','T722'],additionalNegativeCases:rejected.length,rejected};
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticNewRecords:synthetic,candidatePixelsGenerated:false,notCandidatePixelEvidence:synthetic,inputEvidenceUnchanged:true,inputCheckedSHA:input.checkedSHA||null,inputSourceSHA256:input.sourceSHA256||null,currentInputRecordsVerified:!synthetic&&!approvedNative,approvedNativeInputRecordsVerified:approvedNative,currentLeaves:3059,currentFamilies:160,completeOldRecordsCompared:2947,completeOldBlocksCompared:1728,projections:{theatre:{old:2919,added:28,removed:112},riverside:{old:2895,added:24,removed:140},museum:{old:2879,added:16,removed:164}},original16,originalNative10,current18,currentLogExact:true,boundedLogRecovery:[...(product.release?['T727']:[]),'T726','T725','T724','T723','T722'],additionalNegativeCases:rejected.length,rejected};
 }
 module.exports={test014};
-if(require.main===module){const synthetic=process.argv[2]==='--synthetic',file=process.argv[synthetic?3:2];if(!file||process.argv.length!==(synthetic?4:3))throw Error('Use node complexes-historical-bridge014.test.js [--synthetic] <fingerprint.json>');console.log(JSON.stringify(test014(JSON.parse(fs.readFileSync(file)),{synthetic}),null,2));}
+if(require.main===module){const synthetic=process.argv[2]==='--synthetic',approvedNative=process.argv[2]==='--approved-native',flag=synthetic||approvedNative,file=process.argv[flag?3:2];if(!file||process.argv.length!==(flag?4:3))throw Error('Use node complexes-historical-bridge014.test.js [--synthetic|--approved-native] <fingerprint.json>');console.log(JSON.stringify(test014(JSON.parse(fs.readFileSync(file)),{synthetic,approvedNative}),null,2));}

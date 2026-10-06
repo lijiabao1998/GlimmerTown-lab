@@ -39,7 +39,8 @@ if (process.argv[2]) {
  const newKey = expectedAdditions[0], blockKey = Object.keys(native.blocks.entries)[0];
  const proof = verifyFingerprint014(native.fp, native.blocks);
  assert.equal(proof.oldCompleteRecordsExact, true);
- assert.equal(proof.newArtAwaitingOwnerImageApproval, true);
+ assert.equal(proof.newArtAwaitingOwnerImageApproval, !proof.release);
+ if(proof.release)assert.equal(proof.approvedNativeRecordsExact,true);
  assert.equal(proof.completeBlockRecordsExact, true);
  const rejected = [];
  const cases = [
