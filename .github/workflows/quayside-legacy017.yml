@@ -31,6 +31,8 @@ jobs:
 
         node quayside-static-contract017.js
 
+        node quayside-release-contract017.test.js
+
         node quayside-compatibility017.js --static-test
 
         node quayside-legacy017.js --static-test
@@ -47,25 +49,22 @@ jobs:
 
         '
     - name: All unchanged016 and earlier source controls in frozen approved worktrees
-      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/quayside-t729-controls-XXXXXX)\"\ngit worktree\
-        \ add --detach \"$baseline\" c7f0ab6e6d2c37651fd13802049b8079c5f5d37b\n(\n cd \"$baseline\"\n\
-        \ node gardenlife-static-contract016.js\n node gardenlife-release-contract016.test.js\n node gardenlife-compatibility016.js\
-        \ --static-test\n node gardenlife-legacy016.js --static-test\n node gardenlife-integration-qa016.js\
-        \ --static-test\n node gardenlife-gameplay016.test.js\n node gardenlife-style016.test.js\n python3\
-        \ gardenlife-workflow016.test.py\n python3 gardenlife-native-workflow016.test.py\n)\nset -euo\
-        \ pipefail\nbaseline=\"$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)\"\ngit worktree add --detach\
-        \ \"$baseline\" bcd77d5e959ed801d920766cbc9dc010cce19f58\n(\n cd \"$baseline\"\n node streetscape-static-contract015.js\n\
-        \ node streetscape-release-contract015.test.js\n node streetscape-compatibility015.js --static-test\n\
-        \ node streetscape-legacy015.js --static-test\n node streetscape-integration-qa015.js --static-test\n\
-        \ node streetscape-style015.test.js\n python3 streetscape-workflow015.test.py\n)\nset -euo pipefail\n\
-        baseline=\"$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)\"\ngit worktree add --detach \"\
-        $baseline\" 6d137b6be31a7f07867b8ebb181fb8ed3727b049\ncd \"$baseline\"\nnode complexes-static-contract014.js\n\
+      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/quayside-t729-controls-XXXXXX)\"\ngit worktree add --detach \"\
+        $baseline\" c7f0ab6e6d2c37651fd13802049b8079c5f5d37b\n(\n cd \"$baseline\"\n node gardenlife-static-contract016.js\n\
+        \ node gardenlife-release-contract016.test.js\n node gardenlife-compatibility016.js --static-test\n node gardenlife-legacy016.js\
+        \ --static-test\n node gardenlife-integration-qa016.js --static-test\n node gardenlife-gameplay016.test.js\n node\
+        \ gardenlife-style016.test.js\n python3 gardenlife-workflow016.test.py\n python3 gardenlife-native-workflow016.test.py\n\
+        )\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)\"\ngit worktree add --detach \"\
+        $baseline\" bcd77d5e959ed801d920766cbc9dc010cce19f58\n(\n cd \"$baseline\"\n node streetscape-static-contract015.js\n\
+        \ node streetscape-release-contract015.test.js\n node streetscape-compatibility015.js --static-test\n node streetscape-legacy015.js\
+        \ --static-test\n node streetscape-integration-qa015.js --static-test\n node streetscape-style015.test.js\n python3\
+        \ streetscape-workflow015.test.py\n)\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)\"\
+        \ngit worktree add --detach \"$baseline\" 6d137b6be31a7f07867b8ebb181fb8ed3727b049\ncd \"$baseline\"\nnode complexes-static-contract014.js\n\
         node complexes-release-contract014.test.js\npython3 integrate-complexes014.test.py\nnode complexes-gameplay014.js\
-        \ --static-test\nnode complexes-fixture014.test.js\nnode complexes-integration-qa014.js --static-test\n\
-        python3 complexes-workflow014.test.py\nnode complexes-regression-adapter014.js --static-test\n\
-        node complexes-regression-adapter014.test.js\nnode complexes-regression-adapter014.js --historical-source-tests\n\
-        node complexes-style-adapter014.js --static-test\nnode complexes-style-adapter014.test.js\nnode\
-        \ complexes-compatibility014.test.js --static-test\n"
+        \ --static-test\nnode complexes-fixture014.test.js\nnode complexes-integration-qa014.js --static-test\npython3 complexes-workflow014.test.py\n\
+        node complexes-regression-adapter014.js --static-test\nnode complexes-regression-adapter014.test.js\nnode complexes-regression-adapter014.js\
+        \ --historical-source-tests\nnode complexes-style-adapter014.js --static-test\nnode complexes-style-adapter014.test.js\n\
+        node complexes-compatibility014.test.js --static-test\n"
     - name: Strict full3139 current preflight before retained016 legacy preflight
       run: 'set -euo pipefail
 
@@ -76,6 +75,9 @@ jobs:
         node quayside-style017.test.js quayside-evidence/preflight/fingerprint-native.json
 
         QS017_SUITE=streetscape QS017_MODE=preflight node quayside-legacy017.js 2>&1 | tee quayside-retained-legacy016-preflight.txt
+
+
+        node quayside-release-contract017.test.js --native quayside-evidence/preflight/fingerprint-native.json
 
         '
     - uses: actions/upload-artifact@v4
@@ -526,9 +528,8 @@ jobs:
     - name: Every original015 and earlier selected runtime and assertion
       run: 'set -o pipefail
 
-        QS017_SUITE=${{ matrix.suite }} QS017_MODE=${{ matrix.mode }} QS017_GROUP=${{ matrix.group }}
-        node quayside-legacy017.js 2>&1 | tee quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{
-        matrix.group }}.txt
+        QS017_SUITE=${{ matrix.suite }} QS017_MODE=${{ matrix.mode }} QS017_GROUP=${{ matrix.group }} node quayside-legacy017.js
+        2>&1 | tee quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}.txt
 
         '
     - name: Every tracked product and historical source remains exact
@@ -540,8 +541,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part0/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
         path: .quayside-packets/part0/
         if-no-files-found: error
         retention-days: 14
@@ -549,8 +549,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part1/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
         path: .quayside-packets/part1/
         if-no-files-found: error
         retention-days: 14
@@ -558,8 +557,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part2/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
         path: .quayside-packets/part2/
         if-no-files-found: error
         retention-days: 14
@@ -567,8 +565,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part3/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
         path: .quayside-packets/part3/
         if-no-files-found: error
         retention-days: 14
@@ -576,8 +573,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part4/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
         path: .quayside-packets/part4/
         if-no-files-found: error
         retention-days: 14
@@ -585,8 +581,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part5/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
         path: .quayside-packets/part5/
         if-no-files-found: error
         retention-days: 14
@@ -594,8 +589,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part6/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
         path: .quayside-packets/part6/
         if-no-files-found: error
         retention-days: 14
@@ -603,8 +597,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always() && hashFiles('.quayside-packets/part7/**') != ''
       with:
-        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha
-          }}
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
         path: .quayside-packets/part7/
         if-no-files-found: error
         retention-days: 14
@@ -634,8 +627,7 @@ jobs:
 
         mkdir -p quayside-evidence/compatibility/logs
 
-        for n in 1 2 3; do node smoke.js 2>&1 | tee quayside-evidence/compatibility/logs/smoke-$n.txt;
-        done
+        for n in 1 2 3; do node smoke.js 2>&1 | tee quayside-evidence/compatibility/logs/smoke-$n.txt; done
 
         node quayside-style017.js 2>&1 | tee quayside-evidence/compatibility/logs/style.txt
 
@@ -643,8 +635,7 @@ jobs:
 
         QS017_SUITE=compatibility QS017_MODE=gameplay node quayside-legacy017.js 2>&1 | tee quayside-legacy-compatibility.txt
 
-        node quayside-compatibility017.test.js museum-evidence/compatibility/guards/compatibility.json
-        2>&1 | tee quayside-compatibility-data.txt
+        node quayside-compatibility017.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee quayside-compatibility-data.txt
 
         '
     - name: Every tracked product and historical source remains exact

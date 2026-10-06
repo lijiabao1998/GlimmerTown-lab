@@ -15,10 +15,10 @@ function test014(input,bytes){
  const out=compat.normalizeCompatibility017(input.runs,product);
  assert.deepEqual(out.reference,out.comparison,'Every complete historical observation must remain equal');
  assert.equal(JSON.stringify(out.reference),JSON.stringify(out.comparison),'Complete JSON equality includes raw native save bytes and key ordering');
- assert.equal(JSON.stringify(input),raw,'Original raw evidence remains untouched');assert.equal(out.metadataNormalization.normalizedFields,0);assert.deepEqual(out.metadataNormalization.paths,[]);
- assert.equal(product.release,false);assert.equal(product.publicationApproved,false);assert.equal(out.metadataNormalization.applied,false);assert.equal(out.metadataNormalization.sameLabelExact,true);
+ assert.equal(JSON.stringify(input),raw,'Original raw evidence remains untouched');assert.equal(out.metadataNormalization.normalizedFields,product.release?66:0);assert.deepEqual(out.metadataNormalization.paths,product.release?[...compat.METADATA_PATHS014,...compat.SAVE_PATHS014]:[]);
+ assert.equal(product.publicationApproved,product.release);assert.equal(out.metadataNormalization.applied,product.release);assert.equal(out.metadataNormalization.sameLabelExact,!product.release);
  assert.deepEqual(out.metadataNormalization.validatedPaths,[...compat.METADATA_PATHS014,...compat.SAVE_PATHS014]);
- assert.equal(new Set(out.metadataNormalization.changes.map(q=>q.path)).size,0);
+ assert.equal(new Set(out.metadataNormalization.changes.map(q=>q.path)).size,product.release?14:0);
  const rejected=[];
  for(const[seed,field]of[[900725,'nativeSave'],[900726,'nativeSave'],[900726,'continueSave']])for(const[name,mutate]of[
   ['duplicate gameVer',s=>s.replace('"v":1','"gameVer":'+JSON.stringify(version)+',"v":1')],

@@ -1,0 +1,199 @@
+{
+  "nativeCheckedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+  "nativeSourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234",
+  "nativeRun": 37533544152,
+  "nativeLegacyRun": 37533544092,
+  "nativeSmokeRun": 37533543992,
+  "nativeArtifact": 11445575211,
+  "nativeArchiveSHA256": "e61e42c6752a74c1bfbb12a4d4570b7c56e921543d19ed095e348dfa99983d62",
+  "nativeFingerprintSHA256": "726a9d8393b5a849a45503474751d331da9dea71147b5b438dcb5ff330e1c08c",
+  "nativeManifestSHA256": "1c019ad38f164ed0192d2c5bcee046acbbd0f7cefea87247909a3f4e32824a32",
+  "nativeFullSubsSHA256": "ec86fa5fc2956d9d90484b83a43d20d1b3f629d1b6a5fd89a8a48c7df353459e",
+  "nativeFullFamiliesSHA256": "859499baa64235d56a27bc0d7c8f86a4dd6c4ca7051e0d80115e8a4009b7b513",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 163,
+    "leaves": 3139,
+    "dayNonEmpty": 3129,
+    "nightNonEmpty": 1703
+  },
+  "families": {
+    "quayside017": {
+      "leaves": 24,
+      "crc": "16a47d3c",
+      "px": 158976,
+      "op": 25591,
+      "night": 24
+    }
+  },
+  "subs": {
+    "quayside017.mooringBitts_0": {
+      "d": "5b59fe21",
+      "op": 1049,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.mooringBitts_1": {
+      "d": "497e44e5",
+      "op": 1050,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.mooringBitts_2": {
+      "d": "a8b91048",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.mooringBitts_3": {
+      "d": "cf908d5c",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.quayCapstan_0": {
+      "d": "e31a97dd",
+      "op": 1067,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.quayCapstan_1": {
+      "d": "f3bc1f2f",
+      "op": 1067,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.quayCapstan_2": {
+      "d": "646c319a",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.quayCapstan_3": {
+      "d": "39b7f1c8",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.lifebuoyStand_0": {
+      "d": "308be257",
+      "op": 1164,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.lifebuoyStand_1": {
+      "d": "71e917c6",
+      "op": 1168,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.lifebuoyStand_2": {
+      "d": "86308805",
+      "op": 1038,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.lifebuoyStand_3": {
+      "d": "ee5752d1",
+      "op": 1052,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.anchorDisplay_0": {
+      "d": "11f18913",
+      "op": 1071,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.anchorDisplay_1": {
+      "d": "890f958e",
+      "op": 1072,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.anchorDisplay_2": {
+      "d": "a043930d",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.anchorDisplay_3": {
+      "d": "6bcfd5d2",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.withyPots_0": {
+      "d": "4ac7863a",
+      "op": 1030,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.withyPots_1": {
+      "d": "0a499aea",
+      "op": 1031,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.withyPots_2": {
+      "d": "d2fa8cbe",
+      "op": 1025,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.withyPots_3": {
+      "d": "696cf724",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.netDryingRack_0": {
+      "d": "61e76adc",
+      "op": 1202,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.netDryingRack_1": {
+      "d": "c2006534",
+      "op": 1195,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.netDryingRack_2": {
+      "d": "a88dec9b",
+      "op": 1071,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "quayside017.netDryingRack_3": {
+      "d": "ec2f6e82",
+      "op": 1071,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    }
+  }
+}

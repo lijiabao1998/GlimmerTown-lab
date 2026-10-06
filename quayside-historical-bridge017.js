@@ -9,7 +9,7 @@ const theatreFP=require('./theatre-fingerprint-qa013'),approved=require('./theat
 const ROOT=__dirname,BASE=previous.BASE,RIVERSIDE_BASE=previous.RIVERSIDE_BASE,THEATRE_BASE=theatre.BASE,expectedAdditions=previous.expectedAdditions;
 function currentProduct014(){
  const q=require('./quayside-static-contract017').verifyStatic017();
- if(['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'].some(k=>q[k]!==true)||!(q.release===false&&q.phase==='candidate'&&q.publicationApproved===false&&q.version==='14.33'&&q.anchor==='T729')||q.additionCount!==24)throw Error('Current independently verified GPT-017 candidate required; no future release approved');
+ if(['ok','htmlExact','protectedExact','fpExact','logExact','coldLoadFixExact'].some(k=>q[k]!==true)||!((q.release===false&&q.phase==='candidate'&&q.publicationApproved===false&&q.version==='14.33'&&q.anchor==='T729')||(q.release===true&&q.phase==='release'&&q.publicationApproved===true&&q.version==='14.34'&&q.anchor==='T730'))||q.additionCount!==24)throw Error('Current independently verified GPT-017 candidate or approved T730 release required');
  return q;
 }
 // Only source contracts advance; the original32-asset selftests retain their old themes.
@@ -82,8 +82,10 @@ function nativeReleaseControls013(input){
 function historicalLog014(full){
  const actual=fs.readFileSync(path.join(ROOT,'AUTORUN-LOG.md'),'utf8'),baseline=fixed.baseFile('AUTORUN-LOG.md').toString();
  if(full!==actual)throw Error('Complete current historical log required');
- currentProduct014();const exact=require('./quayside-static-contract017').baseFile('AUTORUN-LOG.md').toString();
- let log=full;if(log!==exact)throw Error('Candidate must retain byte-exact approved T729 log');
+ const product=currentProduct014(),exact=require('./quayside-static-contract017').baseFile('AUTORUN-LOG.md').toString();
+ let log=full;
+ if(product.release){const entry=product.releaseLogEntry;if(!entry||log.split(entry).length!==2)throw Error('One exact verified T730 log entry required');log=log.replace(entry,'');}
+ if(log!==exact)throw Error('Historical T729 log must recover byte-exact after only the approved T730 entry');
  for(const [anchor,contract]of[['T729',require('./gardenlife-static-contract016')],['T728',require('./streetscape-static-contract015')],['T727',fixed]]){
   const old=contract.baseFile('AUTORUN-LOG.md').toString(),re=new RegExp('<!-- '+anchor+' release entry BEGIN -->[\\s\\S]*?<!-- '+anchor+' release entry END -->\\n','g'),entries=log.match(re)||[];
   if(entries.length!==1||log.replace(entries[0],'')!==old)throw Error('Exact historical '+anchor+' log envelope required');log=old;

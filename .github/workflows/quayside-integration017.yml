@@ -17,12 +17,13 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends
-        fonts-wqy-zenhei
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
     - name: Complete source-only and mutation checks
       run: 'set -euo pipefail
 
         node quayside-static-contract017.js
+
+        node quayside-release-contract017.test.js
 
         node quayside-legacy017.js --static-test
 
@@ -39,6 +40,9 @@ jobs:
       run: 'set -o pipefail
 
         QS017_MODE=preflight node quayside-integration-qa017.js 2>&1 | tee quayside-preflight.txt
+
+
+        node quayside-release-contract017.test.js --native quayside-evidence/preflight/fingerprint-native.json
 
         '
     - uses: actions/upload-artifact@v4
@@ -84,13 +88,11 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends
-        fonts-wqy-zenhei
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
     - name: Native paid garden details and full visual scenes
       run: 'set -o pipefail
 
-        QS017_MODE=${{ matrix.mode }} node quayside-integration-qa017.js 2>&1 |
-        tee quayside-${{ matrix.mode }}.txt
+        QS017_MODE=${{ matrix.mode }} node quayside-integration-qa017.js 2>&1 | tee quayside-${{ matrix.mode }}.txt
 
         '
     - name: Retain every raw report and lossless counterfactual PNG in bounded packets
