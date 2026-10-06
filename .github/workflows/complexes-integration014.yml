@@ -1,0 +1,1870 @@
+name: complexes-integration014
+'on':
+  push:
+    branches:
+    - gpt/british-four-complexes-014
+    paths-ignore:
+    - '**.md'
+    - docs/**
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: complexes-integration014-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - name: Complete source-only gates followed by native112-art preflight
+      run: |
+        set -o pipefail
+        node --check gameplay014.js
+        for f in british-*-art014.js complexes-*014.js; do node --check "$f"; done
+        node complexes-static-contract014.js
+        node complexes-release-contract014.test.js
+        python3 integrate-complexes014.test.py
+        node complexes-gameplay014.js --static-test
+        node complexes-fixture014.test.js
+        node complexes-integration-qa014.js --static-test
+        python3 complexes-workflow014.test.py
+        node complexes-regression-adapter014.js --static-test
+        node complexes-regression-adapter014.test.js
+        node complexes-regression-adapter014.js --historical-source-tests
+        node complexes-style-adapter014.js --static-test
+        node complexes-style-adapter014.test.js
+        CX014_MODE=preflight node complexes-integration-qa014.js 2>&1 | tee complexes-preflight.txt
+        node complexes-fingerprint-qa014.js --static-test complexes-evidence/preflight/guards/fingerprint-native.json
+        node complexes-release-contract014.test.js --native complexes-evidence/preflight/guards/fingerprint-native.json
+        node complexes-historical-bridge014.test.js complexes-evidence/preflight/guards/fingerprint-native.json
+        node complexes-style-adapter014.test.js complexes-evidence/preflight/guards/fingerprint-native.json
+    - uses: actions/upload-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: complexes-evidence/preflight/guards/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-preflight-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-preflight-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-preflight-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-preflight-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-preflight-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-preflight-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-preflight-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-preflight-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  gameplay:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - gameplay
+        group: &id001
+        - college
+        - manor
+        - baths
+        - fire
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Native independent complexes evidence
+      run: |
+        set -o pipefail
+        CX014_MODE=${{ matrix.mode }} CX014_GROUP=${{ matrix.group }} node complexes-integration-qa014.js 2>&1 | tee complexes-${{ matrix.mode }}-${{ matrix.group }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  camera:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        group: *id001
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Native independent complexes evidence
+      run: |
+        set -o pipefail
+        CX014_MODE=${{ matrix.mode }} CX014_GROUP=${{ matrix.group }} node complexes-integration-qa014.js 2>&1 | tee complexes-${{ matrix.mode }}-${{ matrix.group }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  construction:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        group: *id001
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Native independent complexes evidence
+      run: |
+        set -o pipefail
+        CX014_MODE=${{ matrix.mode }} CX014_GROUP=${{ matrix.group }} node complexes-integration-qa014.js 2>&1 | tee complexes-${{ matrix.mode }}-${{ matrix.group }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  weather:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - weather-wet
+        - weather-winter
+        group: *id001
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Native independent complexes evidence
+      run: |
+        set -o pipefail
+        CX014_MODE=${{ matrix.mode }} CX014_GROUP=${{ matrix.group }} node complexes-integration-qa014.js 2>&1 | tee complexes-${{ matrix.mode }}-${{ matrix.group }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  coldload:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - coldload
+        group:
+        - college
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Native independent complexes evidence
+      run: |
+        set -o pipefail
+        CX014_MODE=${{ matrix.mode }} CX014_GROUP=${{ matrix.group }} node complexes-integration-qa014.js 2>&1 | tee complexes-${{ matrix.mode }}-${{ matrix.group }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-preflight:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        node theatre-gameplay013.js --static-test
+        node theatre-integration-qa013.js --static-test
+        python3 integrate-theatre013.test.py
+        CX014_SUITE=theatre CX014_MODE=preflight node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-preflight.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-preflight-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-preflight-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-preflight-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-preflight-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-preflight-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-preflight-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-preflight-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-preflight-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-theatre:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - coldload
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        CX014_SUITE=theatre CX014_MODE=${{ matrix.mode }} node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-theatre-${{ matrix.mode }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-theatre-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-compatibility:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        mkdir -p complexes-evidence/compatibility/logs
+        for n in 1 2 3; do node smoke.js 2>&1 | tee complexes-evidence/compatibility/logs/smoke-$n.txt; done
+        node complexes-style-adapter014.js 2>&1 | tee complexes-evidence/compatibility/logs/style.txt
+        CX014_MODE=fingerprint node complexes-integration-qa014.js 2>&1 | tee complexes-evidence/compatibility/logs/strict112.txt
+        CX014_SUITE=compatibility CX014_MODE=gameplay node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-compatibility.txt
+        node complexes-compatibility014.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee complexes-compatibility-data.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-compatibility-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-riverside:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - preflight
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - coldload
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        CX014_SUITE=riverside CX014_MODE=${{ matrix.mode }} node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-riverside-${{ matrix.mode }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-riverside-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-museum:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - preflight
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        CX014_SUITE=museum CX014_MODE=${{ matrix.mode }} node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-museum-${{ matrix.mode }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-museum-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-prior:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+        - publiclife
+        - station
+        - streetlife
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        CX014_SUITE=${{ matrix.suite }} CX014_MODE=gameplay node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-prior-${{ matrix.suite }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-prior-${{ matrix.suite }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy-cold-reload:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        case:
+        - without-museum
+        - with-museum
+        - zero-source
+        - disconnected
+        - escape-disabled
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native fonts and immutable baseline lineage
+      run: |
+        sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+        for sha in 10bc4115f119498b4cc5836695348982b85fa9d1 30aa0ebfc7080f268de26541f20da730adca1a8d 248ce802bf4f29333f242447f12b8106af2bdbf1 6583659d2e14db3b8ae92115d05432d64a0c989d 759394f8bd48dbe77fb21e8604015e2d1ca56d21 d9dfe87689fa841edb8775d0f95db77d9f2deb5b 559a419270e84d7d67b883581ddef8f24302a41b ed49bab0b73bacfe8c7d6f6a8ca13491b01c9f5f 36632c0e98c3e9daf7a1fa7adfe03a866cb4fbb7; do git fetch --depth=1 origin "$sha"; done
+    - uses: actions/download-artifact@v4
+      with:
+        name: complexes-native-fingerprint-${{ github.sha }}
+        path: .complexes-preflight-download
+    - name: Verify exact-head current independent preflight input
+      run: |
+        mkdir -p complexes-evidence/preflight/guards
+        source=$(find .complexes-preflight-download -name fingerprint-native.json -type f)
+        test "$(printf '%s\n' "$source" | wc -l)" -eq 1
+        cp "$source" complexes-evidence/preflight/guards/fingerprint-native.json
+    - name: Complete unchanged historical coverage through strict014 adapter
+      run: |
+        set -o pipefail
+        CX014_SUITE=coldload CX014_MODE=${{ matrix.case }} COLD011_CASE=${{ matrix.case }} node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-cold-reload-${{ matrix.case }}.txt
+    - name: Every tracked product and historical source byte unchanged
+      if: always()
+      run: git diff --exit-code
+    - name: Package every report and lossless PNG in independently downloadable <=28MiB parts
+      if: always()
+      run: |
+        python3 - <<'PYCODE'
+        import pathlib, hashlib, json, os, gzip, subprocess
+        root=pathlib.Path('.').resolve(); out=root/'.complexes-packets'; out.mkdir()
+        limit=28*1024*1024
+        source_hash=hashlib.sha256((root/'index.html').read_bytes()).hexdigest()
+        head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+        assert head==os.environ['GITHUB_SHA']
+        files=[]
+        for name in ('complexes-evidence','theatre-evidence','riverside-evidence','museum-evidence','publiclife-evidence','station-evidence','streetlife-evidence','coldload-evidence011'):
+         p=root/name
+         if p.exists(): files.extend(x for x in p.rglob('*') if x.is_file())
+        files.extend(root.glob('theatre-*.txt'));files.extend(root.glob('complexes-*.txt'))
+        if (root/'shots').exists(): files.extend((root/'shots').glob('smoke-*.png'))
+        files=sorted(set(files))
+        assert files, 'No evidence files to package'
+        packets=[]
+        for file in files:
+         rel=file.relative_to(root).as_posix(); data=file.read_bytes(); encoded=data; target=rel; compression='none'
+         if len(encoded)>limit-65536:
+          assert file.suffix in ('.json','.txt','.log'), 'Individual lossless screenshot exceeds safe artifact bound'
+          encoded=gzip.compress(data,compresslevel=9,mtime=0); target+='.gz'; compression='gzip'
+         assert len(encoded)<=limit-65536, 'An individual evidence payload exceeds the bound'
+         n=next((n for n,q in enumerate(packets) if q['payloadBytes']+len(encoded)<=limit-65536),len(packets))
+         if n==len(packets):
+          assert n<8, 'Evidence exceeds eight bounded artifacts; split the job without dropping evidence'
+          packets.append({'checkedSHA':head,'sourceSHA256':source_hash,'run':os.environ['GITHUB_RUN_ID'],'part':n,'payloadBytes':0,'files':[]})
+         q=packets[n]; dest=out/('part'+str(n))/target;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(encoded)
+         q['payloadBytes']+=len(encoded);q['files'].append({'originalPath':rel,'payloadPath':target,'compression':compression,'originalBytes':len(data),'payloadBytes':len(encoded),'sha256':hashlib.sha256(data).hexdigest(),'payloadSHA256':hashlib.sha256(encoded).hexdigest()})
+        for n,q in enumerate(packets):
+         q['packetCount']=len(packets); q['completeFileCount']=len(files)
+         dest=out/('part'+str(n));(dest/'packet-index.json').write_text(json.dumps(q,indent=2)+'\n')
+         size=sum(f.stat().st_size for f in dest.rglob('*') if f.is_file());assert size<=limit
+         print(json.dumps({'part':n,'files':len(q['files']),'rawBytes':size,'maximumRawBytes':limit,'checkedSHA':head,'sourceSHA256':source_hash}))
+        PYCODE
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part0/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part0-${{ github.sha }}
+        path: .complexes-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part1/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part1-${{ github.sha }}
+        path: .complexes-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part2/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part2-${{ github.sha }}
+        path: .complexes-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part3/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part3-${{ github.sha }}
+        path: .complexes-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part4/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part4-${{ github.sha }}
+        path: .complexes-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part5/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part5-${{ github.sha }}
+        path: .complexes-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part6/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part6-${{ github.sha }}
+        path: .complexes-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.complexes-packets/part7/**') != ''
+      with:
+        name: complexes-legacy-cold-reload-${{ matrix.case }}-part7-${{ github.sha }}
+        path: .complexes-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9

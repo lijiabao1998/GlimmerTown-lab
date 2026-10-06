@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-10-05T17:02:39Z",
- "version": "14.30",
- "anchor": "T726",
+ "generatedAt": "2026-10-06T04:36:34.436Z",
+ "version": "14.31",
+ "anchor": "T727",
  "stats": {
-  "families": 159,
-  "leaves": 2947,
-  "dayNonEmpty": 2937,
-  "nightNonEmpty": 1583
+  "families": 160,
+  "leaves": 3059,
+  "dayNonEmpty": 3049,
+  "nightNonEmpty": 1695
  },
  "families": {
   "grass": {
@@ -101,11 +101,11 @@
    "night": 0
   },
   "bld": {
-   "leaves": 911,
-   "crc": "bd3ae7b7",
-   "px": 31172352,
-   "op": 7596789,
-   "night": 886
+   "leaves": 959,
+   "crc": "352c9978",
+   "px": 33732352,
+   "op": 8074980,
+   "night": 934
   },
   "park": {
    "leaves": 9,
@@ -1121,6 +1121,13 @@
    "px": 158976,
    "op": 25812,
    "night": 24
+  },
+  "complexes014": {
+   "leaves": 64,
+   "crc": "e96c553d",
+   "px": 423936,
+   "op": 67878,
+   "night": 64
   }
  },
  "subs": {
@@ -21752,6 +21759,790 @@
    "w": 72,
    "h": 92,
    "n": "6e911bff"
+  },
+  "bld.282_1_0": {
+   "d": "dc590fdd",
+   "op": 20866,
+   "w": 304,
+   "h": 320,
+   "n": "77f503e8"
+  },
+  "bld.282_1_1": {
+   "d": "3654943b",
+   "op": 20880,
+   "w": 304,
+   "h": 320,
+   "n": "1a0e0500"
+  },
+  "bld.282_1_2": {
+   "d": "d18cafc6",
+   "op": 21229,
+   "w": 304,
+   "h": 320,
+   "n": "931c6117"
+  },
+  "bld.282_1_3": {
+   "d": "6cb0c5ba",
+   "op": 21182,
+   "w": 304,
+   "h": 320,
+   "n": "766a847d"
+  },
+  "bld.283_1_0": {
+   "d": "e8a22c6c",
+   "op": 6035,
+   "w": 160,
+   "h": 196,
+   "n": "de510710"
+  },
+  "bld.283_1_1": {
+   "d": "849dce89",
+   "op": 5785,
+   "w": 160,
+   "h": 196,
+   "n": "a9a8610f"
+  },
+  "bld.283_1_2": {
+   "d": "b0152677",
+   "op": 5789,
+   "w": 160,
+   "h": 196,
+   "n": "2a1653ae"
+  },
+  "bld.283_1_3": {
+   "d": "83a70434",
+   "op": 6031,
+   "w": 160,
+   "h": 196,
+   "n": "e761490a"
+  },
+  "bld.284_1_0": {
+   "d": "13d4977c",
+   "op": 5907,
+   "w": 160,
+   "h": 196,
+   "n": "268b80fa"
+  },
+  "bld.284_1_1": {
+   "d": "895239f8",
+   "op": 5573,
+   "w": 160,
+   "h": 196,
+   "n": "271b90f3"
+  },
+  "bld.284_1_2": {
+   "d": "b4a0922b",
+   "op": 5573,
+   "w": 160,
+   "h": 196,
+   "n": "219ef371"
+  },
+  "bld.284_1_3": {
+   "d": "73868b5c",
+   "op": 5907,
+   "w": 160,
+   "h": 196,
+   "n": "3af08ae9"
+  },
+  "bld.285_1_0": {
+   "d": "288c1aa8",
+   "op": 18499,
+   "w": 304,
+   "h": 320,
+   "n": "a7a447ef"
+  },
+  "bld.285_1_1": {
+   "d": "a3c1af8e",
+   "op": 17038,
+   "w": 304,
+   "h": 320,
+   "n": "f7dc605e"
+  },
+  "bld.285_1_2": {
+   "d": "db141e8e",
+   "op": 17031,
+   "w": 304,
+   "h": 320,
+   "n": "a4c2c1ed"
+  },
+  "bld.285_1_3": {
+   "d": "428d1bcc",
+   "op": 18492,
+   "w": 304,
+   "h": 320,
+   "n": "0e976c7c"
+  },
+  "bld.286_1_0": {
+   "d": "1151461c",
+   "op": 4635,
+   "w": 160,
+   "h": 196,
+   "n": "72c23528"
+  },
+  "bld.286_1_1": {
+   "d": "c1358fe6",
+   "op": 4657,
+   "w": 160,
+   "h": 196,
+   "n": "1194159e"
+  },
+  "bld.286_1_2": {
+   "d": "d3139857",
+   "op": 4661,
+   "w": 160,
+   "h": 196,
+   "n": "5e4fe8c9"
+  },
+  "bld.286_1_3": {
+   "d": "7baa9220",
+   "op": 4635,
+   "w": 160,
+   "h": 196,
+   "n": "4386b12f"
+  },
+  "bld.287_1_0": {
+   "d": "ab4d8609",
+   "op": 5227,
+   "w": 160,
+   "h": 196,
+   "n": "19810f61"
+  },
+  "bld.287_1_1": {
+   "d": "437d7af9",
+   "op": 4788,
+   "w": 160,
+   "h": 196,
+   "n": "5c75dcd4"
+  },
+  "bld.287_1_2": {
+   "d": "468fddb8",
+   "op": 4788,
+   "w": 160,
+   "h": 196,
+   "n": "4839ea44"
+  },
+  "bld.287_1_3": {
+   "d": "0d347019",
+   "op": 5226,
+   "w": 160,
+   "h": 196,
+   "n": "e15ee24d"
+  },
+  "bld.288_1_0": {
+   "d": "166ccb21",
+   "op": 19613,
+   "w": 304,
+   "h": 320,
+   "n": "d9f007bd"
+  },
+  "bld.288_1_1": {
+   "d": "578557d4",
+   "op": 18167,
+   "w": 304,
+   "h": 320,
+   "n": "8cb2d017"
+  },
+  "bld.288_1_2": {
+   "d": "fddf8cce",
+   "op": 18009,
+   "w": 304,
+   "h": 320,
+   "n": "447273ba"
+  },
+  "bld.288_1_3": {
+   "d": "d807e03c",
+   "op": 19483,
+   "w": 304,
+   "h": 320,
+   "n": "269d1b98"
+  },
+  "bld.289_1_0": {
+   "d": "3e7c939d",
+   "op": 5769,
+   "w": 160,
+   "h": 196,
+   "n": "fcdfee87"
+  },
+  "bld.289_1_1": {
+   "d": "2c906be6",
+   "op": 5245,
+   "w": 160,
+   "h": 196,
+   "n": "20f1fca2"
+  },
+  "bld.289_1_2": {
+   "d": "48659aa2",
+   "op": 5193,
+   "w": 160,
+   "h": 196,
+   "n": "72bdcfe9"
+  },
+  "bld.289_1_3": {
+   "d": "f095399c",
+   "op": 5721,
+   "w": 160,
+   "h": 196,
+   "n": "c1625407"
+  },
+  "bld.290_1_0": {
+   "d": "2d35bbd2",
+   "op": 5412,
+   "w": 160,
+   "h": 196,
+   "n": "215fae67"
+  },
+  "bld.290_1_1": {
+   "d": "168c0e3c",
+   "op": 4609,
+   "w": 160,
+   "h": 196,
+   "n": "fc283112"
+  },
+  "bld.290_1_2": {
+   "d": "437090fb",
+   "op": 4661,
+   "w": 160,
+   "h": 196,
+   "n": "4e59bd5d"
+  },
+  "bld.290_1_3": {
+   "d": "0dc7864f",
+   "op": 5271,
+   "w": 160,
+   "h": 196,
+   "n": "6d6a58cc"
+  },
+  "bld.291_1_0": {
+   "d": "7c804371",
+   "op": 19993,
+   "w": 304,
+   "h": 320,
+   "n": "2a25a2e7"
+  },
+  "bld.291_1_1": {
+   "d": "8a24d3bd",
+   "op": 17785,
+   "w": 304,
+   "h": 320,
+   "n": "e945b14e"
+  },
+  "bld.291_1_2": {
+   "d": "e71b132a",
+   "op": 18868,
+   "w": 304,
+   "h": 320,
+   "n": "25b2abb2"
+  },
+  "bld.291_1_3": {
+   "d": "7d28c0ac",
+   "op": 22032,
+   "w": 304,
+   "h": 320,
+   "n": "00dfc08f"
+  },
+  "bld.292_1_0": {
+   "d": "175fe87f",
+   "op": 5233,
+   "w": 160,
+   "h": 196,
+   "n": "8688bc4a"
+  },
+  "bld.292_1_1": {
+   "d": "6e6e384d",
+   "op": 4684,
+   "w": 160,
+   "h": 196,
+   "n": "580c0ced"
+  },
+  "bld.292_1_2": {
+   "d": "bdf06c1b",
+   "op": 4607,
+   "w": 160,
+   "h": 196,
+   "n": "bf5e6dab"
+  },
+  "bld.292_1_3": {
+   "d": "6019a3a0",
+   "op": 5168,
+   "w": 160,
+   "h": 196,
+   "n": "fa429af9"
+  },
+  "bld.293_1_0": {
+   "d": "27ff6a6e",
+   "op": 6114,
+   "w": 160,
+   "h": 196,
+   "n": "ae1faa1b"
+  },
+  "bld.293_1_1": {
+   "d": "75ee507b",
+   "op": 5334,
+   "w": 160,
+   "h": 196,
+   "n": "75cb9368"
+  },
+  "bld.293_1_2": {
+   "d": "3221f4ec",
+   "op": 5149,
+   "w": 160,
+   "h": 196,
+   "n": "3de06b9d"
+  },
+  "bld.293_1_3": {
+   "d": "532ba17b",
+   "op": 5637,
+   "w": 160,
+   "h": 196,
+   "n": "17c25ca3"
+  },
+  "complexes014.collegeGate_0": {
+   "d": "90e2c787",
+   "op": 1090,
+   "w": 72,
+   "h": 92,
+   "n": "b2d32eec"
+  },
+  "complexes014.collegeCloister_0": {
+   "d": "a3ec3308",
+   "op": 1141,
+   "w": 72,
+   "h": 92,
+   "n": "0ecd2bbb"
+  },
+  "complexes014.collegeLibraryWalk_0": {
+   "d": "2d580141",
+   "op": 1093,
+   "w": 72,
+   "h": 92,
+   "n": "11a2bf8a"
+  },
+  "complexes014.collegeGarden_0": {
+   "d": "2ec36b5d",
+   "op": 1018,
+   "w": 72,
+   "h": 92,
+   "n": "96855ebe"
+  },
+  "complexes014.manorGate_0": {
+   "d": "c30fdcda",
+   "op": 1088,
+   "w": 72,
+   "h": 92,
+   "n": "c91150fd"
+  },
+  "complexes014.manorTerrace_0": {
+   "d": "d48222af",
+   "op": 1063,
+   "w": 72,
+   "h": 92,
+   "n": "d4a5f88b"
+  },
+  "complexes014.manorParterre_0": {
+   "d": "f8ac5e36",
+   "op": 1028,
+   "w": 72,
+   "h": 92,
+   "n": "bd626b36"
+  },
+  "complexes014.manorPond_0": {
+   "d": "52690b7c",
+   "op": 1010,
+   "w": 72,
+   "h": 92,
+   "n": "70d7db3b"
+  },
+  "complexes014.collegeGate_1": {
+   "d": "194db687",
+   "op": 1074,
+   "w": 72,
+   "h": 92,
+   "n": "e74d2459"
+  },
+  "complexes014.collegeCloister_1": {
+   "d": "1d7f3522",
+   "op": 1140,
+   "w": 72,
+   "h": 92,
+   "n": "e1793285"
+  },
+  "complexes014.collegeLibraryWalk_1": {
+   "d": "ca0b09ae",
+   "op": 1067,
+   "w": 72,
+   "h": 92,
+   "n": "358d56ec"
+  },
+  "complexes014.collegeGarden_1": {
+   "d": "7b6f7af8",
+   "op": 1010,
+   "w": 72,
+   "h": 92,
+   "n": "25ec1e54"
+  },
+  "complexes014.manorGate_1": {
+   "d": "41ede101",
+   "op": 1070,
+   "w": 72,
+   "h": 92,
+   "n": "1e425496"
+  },
+  "complexes014.manorTerrace_1": {
+   "d": "b252d6f6",
+   "op": 1064,
+   "w": 72,
+   "h": 92,
+   "n": "19e83ab8"
+  },
+  "complexes014.manorParterre_1": {
+   "d": "c4b0da9d",
+   "op": 1040,
+   "w": 72,
+   "h": 92,
+   "n": "cddb855b"
+  },
+  "complexes014.manorPond_1": {
+   "d": "d1ba4197",
+   "op": 1011,
+   "w": 72,
+   "h": 92,
+   "n": "10c03bc4"
+  },
+  "complexes014.collegeGate_2": {
+   "d": "c241bfcc",
+   "op": 1046,
+   "w": 72,
+   "h": 92,
+   "n": "2884c614"
+  },
+  "complexes014.collegeCloister_2": {
+   "d": "0039fdd9",
+   "op": 1285,
+   "w": 72,
+   "h": 92,
+   "n": "7d1ec55d"
+  },
+  "complexes014.collegeLibraryWalk_2": {
+   "d": "82671560",
+   "op": 1014,
+   "w": 72,
+   "h": 92,
+   "n": "366b85da"
+  },
+  "complexes014.collegeGarden_2": {
+   "d": "e28337b1",
+   "op": 993,
+   "w": 72,
+   "h": 92,
+   "n": "585cedb2"
+  },
+  "complexes014.manorGate_2": {
+   "d": "1cbc75a8",
+   "op": 1091,
+   "w": 72,
+   "h": 92,
+   "n": "e0b480d8"
+  },
+  "complexes014.manorTerrace_2": {
+   "d": "5f3d34c5",
+   "op": 1057,
+   "w": 72,
+   "h": 92,
+   "n": "9b155fd2"
+  },
+  "complexes014.manorParterre_2": {
+   "d": "a8efcc02",
+   "op": 1008,
+   "w": 72,
+   "h": 92,
+   "n": "6abfe316"
+  },
+  "complexes014.manorPond_2": {
+   "d": "9bfb2a1b",
+   "op": 992,
+   "w": 72,
+   "h": 92,
+   "n": "c28d2bb0"
+  },
+  "complexes014.collegeGate_3": {
+   "d": "0ac03aa7",
+   "op": 1069,
+   "w": 72,
+   "h": 92,
+   "n": "695fb22f"
+  },
+  "complexes014.collegeCloister_3": {
+   "d": "2398f8cd",
+   "op": 1304,
+   "w": 72,
+   "h": 92,
+   "n": "0453e434"
+  },
+  "complexes014.collegeLibraryWalk_3": {
+   "d": "6bbca211",
+   "op": 1050,
+   "w": 72,
+   "h": 92,
+   "n": "0d4cfe4a"
+  },
+  "complexes014.collegeGarden_3": {
+   "d": "0746f6db",
+   "op": 1011,
+   "w": 72,
+   "h": 92,
+   "n": "66b6ded9"
+  },
+  "complexes014.manorGate_3": {
+   "d": "36ba0bb8",
+   "op": 1101,
+   "w": 72,
+   "h": 92,
+   "n": "853d3e97"
+  },
+  "complexes014.manorTerrace_3": {
+   "d": "f750046c",
+   "op": 1080,
+   "w": 72,
+   "h": 92,
+   "n": "16fa019a"
+  },
+  "complexes014.manorParterre_3": {
+   "d": "f63a29cc",
+   "op": 1019,
+   "w": 72,
+   "h": 92,
+   "n": "4a9b1dc6"
+  },
+  "complexes014.manorPond_3": {
+   "d": "8d93c88d",
+   "op": 1015,
+   "w": 72,
+   "h": 92,
+   "n": "e09472a4"
+  },
+  "complexes014.bathsPromenade_0": {
+   "d": "663d6271",
+   "op": 1077,
+   "w": 72,
+   "h": 92,
+   "n": "6ae77688"
+  },
+  "complexes014.bathsFountain_0": {
+   "d": "753ff738",
+   "op": 1043,
+   "w": 72,
+   "h": 92,
+   "n": "47199dbc"
+  },
+  "complexes014.bathsTowelGarden_0": {
+   "d": "c507fd33",
+   "op": 1042,
+   "w": 72,
+   "h": 92,
+   "n": "ed9aee26"
+  },
+  "complexes014.bathsLaundryWalk_0": {
+   "d": "f8552a13",
+   "op": 1063,
+   "w": 72,
+   "h": 92,
+   "n": "60c24f76"
+  },
+  "complexes014.fireApron_0": {
+   "d": "d9bb7255",
+   "op": 1045,
+   "w": 72,
+   "h": 92,
+   "n": "9253db75"
+  },
+  "complexes014.fireHoseWalk_0": {
+   "d": "ca64b769",
+   "op": 1064,
+   "w": 72,
+   "h": 92,
+   "n": "ac367d61"
+  },
+  "complexes014.fireMemorialGarden_0": {
+   "d": "6f5a67d8",
+   "op": 1077,
+   "w": 72,
+   "h": 92,
+   "n": "3f6241f4"
+  },
+  "complexes014.fireBrigadeWalk_0": {
+   "d": "0514618d",
+   "op": 1057,
+   "w": 72,
+   "h": 92,
+   "n": "03744baf"
+  },
+  "complexes014.bathsPromenade_1": {
+   "d": "5b646e85",
+   "op": 1059,
+   "w": 72,
+   "h": 92,
+   "n": "3a3754c2"
+  },
+  "complexes014.bathsFountain_1": {
+   "d": "294c582f",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "a1b7caba"
+  },
+  "complexes014.bathsTowelGarden_1": {
+   "d": "34f768f9",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "967dd6c0"
+  },
+  "complexes014.bathsLaundryWalk_1": {
+   "d": "00d3e21f",
+   "op": 1044,
+   "w": 72,
+   "h": 92,
+   "n": "aa92d43f"
+  },
+  "complexes014.fireApron_1": {
+   "d": "090b12d5",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "cbfbf913"
+  },
+  "complexes014.fireHoseWalk_1": {
+   "d": "702c3aaa",
+   "op": 1046,
+   "w": 72,
+   "h": 92,
+   "n": "2fe08266"
+  },
+  "complexes014.fireMemorialGarden_1": {
+   "d": "6851733e",
+   "op": 1058,
+   "w": 72,
+   "h": 92,
+   "n": "413d5f46"
+  },
+  "complexes014.fireBrigadeWalk_1": {
+   "d": "2c601916",
+   "op": 1045,
+   "w": 72,
+   "h": 92,
+   "n": "179d0674"
+  },
+  "complexes014.bathsPromenade_2": {
+   "d": "dfc30fd3",
+   "op": 1072,
+   "w": 72,
+   "h": 92,
+   "n": "7283351b"
+  },
+  "complexes014.bathsFountain_2": {
+   "d": "197fe36b",
+   "op": 1070,
+   "w": 72,
+   "h": 92,
+   "n": "a9b7f322"
+  },
+  "complexes014.bathsTowelGarden_2": {
+   "d": "dd4eb189",
+   "op": 1068,
+   "w": 72,
+   "h": 92,
+   "n": "f39e2376"
+  },
+  "complexes014.bathsLaundryWalk_2": {
+   "d": "8ca7b79c",
+   "op": 1048,
+   "w": 72,
+   "h": 92,
+   "n": "1df3785a"
+  },
+  "complexes014.fireApron_2": {
+   "d": "c62e138b",
+   "op": 1047,
+   "w": 72,
+   "h": 92,
+   "n": "cd3e6af1"
+  },
+  "complexes014.fireHoseWalk_2": {
+   "d": "29e1553d",
+   "op": 1045,
+   "w": 72,
+   "h": 92,
+   "n": "1aa5a356"
+  },
+  "complexes014.fireMemorialGarden_2": {
+   "d": "98769064",
+   "op": 1044,
+   "w": 72,
+   "h": 92,
+   "n": "45102410"
+  },
+  "complexes014.fireBrigadeWalk_2": {
+   "d": "bbd56db6",
+   "op": 1088,
+   "w": 72,
+   "h": 92,
+   "n": "ad7ac0ba"
+  },
+  "complexes014.bathsPromenade_3": {
+   "d": "93ec4d39",
+   "op": 1074,
+   "w": 72,
+   "h": 92,
+   "n": "673a521f"
+  },
+  "complexes014.bathsFountain_3": {
+   "d": "cab4bdc3",
+   "op": 1069,
+   "w": 72,
+   "h": 92,
+   "n": "dcc60afd"
+  },
+  "complexes014.bathsTowelGarden_3": {
+   "d": "7c778b13",
+   "op": 1068,
+   "w": 72,
+   "h": 92,
+   "n": "89e6ab9e"
+  },
+  "complexes014.bathsLaundryWalk_3": {
+   "d": "70c18e67",
+   "op": 1047,
+   "w": 72,
+   "h": 92,
+   "n": "2d240b29"
+  },
+  "complexes014.fireApron_3": {
+   "d": "c38b924c",
+   "op": 1047,
+   "w": 72,
+   "h": 92,
+   "n": "673a521f"
+  },
+  "complexes014.fireHoseWalk_3": {
+   "d": "be550c7c",
+   "op": 1045,
+   "w": 72,
+   "h": 92,
+   "n": "c1f27940"
+  },
+  "complexes014.fireMemorialGarden_3": {
+   "d": "526279ec",
+   "op": 1050,
+   "w": 72,
+   "h": 92,
+   "n": "15be93ae"
+  },
+  "complexes014.fireBrigadeWalk_3": {
+   "d": "d7e83b9f",
+   "op": 1062,
+   "w": 72,
+   "h": 92,
+   "n": "bfc48612"
   }
  },
  "blocks": {
