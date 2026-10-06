@@ -1,0 +1,152 @@
+name: gardenlife-public016
+on:
+  # Parent pushes only after exact T729 Pages publication is confirmed.
+  push:
+    branches: ['gpt/gardenlife-public016']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: gardenlife-public016-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  official-origin:
+    if: github.repository == 'lijiabao1998/GlimmerTown-lab' && github.ref == 'refs/heads/gpt/gardenlife-public016'
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: observer
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Load exact approved main deployment receipt
+        id: pins
+        working-directory: observer
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs=require('fs'),p=require('./gardenlife-public-release016.json');
+          require('./gardenlife-public-contract016').verifyPins013(p);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'sha='+p.releaseSHA+'\nhtml='+p.sourceSHA256+'\n');
+          NODE
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pins.outputs.sha }}
+          path: deployed
+          persist-credentials: false
+      - name: Read successful exact main Pages deployment
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node observer/gardenlife-public-pages016.js
+      - name: Source-only observer tests and immutable release provenance
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          EXPECTED_RELEASE_HTML_SHA256: ${{ steps.pins.outputs.html }}
+          EXPECTED_RELEASE_ROOT: ${{ github.workspace }}/deployed
+        run: |
+          set -euo pipefail
+          git -C deployed fetch --depth=1 origin 562dcdac6b0f221f803e5288152805e5dfd1f367
+          git -C deployed fetch --depth=1 origin bcd77d5e959ed801d920766cbc9dc010cce19f58
+          for file in observer/gardenlife-public-*016.js; do node --check "$file"; done
+          node observer/console-source-observer-qa015.js
+          git -C deployed fetch --depth=1 origin "$(node -p "require('./observer/gardenlife-public-release016.json').releaseCandidateSHA")"
+          node observer/gardenlife-public-source-qa016.js
+          python3 observer/gardenlife-public-package016.test.py
+          node - <<'NODE'
+          const c=require('./observer/gardenlife-public-contract016');
+          console.log(JSON.stringify(c.verifyRelease013(process.env.EXPECTED_RELEASE_ROOT,process.env.EXPECTED_DEPLOY_SHA,process.env.EXPECTED_RELEASE_HTML_SHA256)));
+          NODE
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Official HTML old-city plus eight old and six garden paid themes and eight native cold Continue cycles
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ steps.pins.outputs.sha }}
+          EXPECTED_RELEASE_HTML_SHA256: ${{ steps.pins.outputs.html }}
+          EXPECTED_RELEASE_ROOT: ${{ github.workspace }}/deployed
+          CHROME_PATH: /usr/bin/google-chrome
+          PUBLIC_SITE_URL: https://lijiabao1998.github.io/GlimmerTown-lab/
+        run: |
+          set -euo pipefail
+          test -x /usr/bin/google-chrome
+          mkdir -p observer/gardenlife-evidence/public
+          node observer/gardenlife-public-qa016.js 2>&1 | tee observer/gardenlife-evidence/public/runtime.txt
+      - name: Both exact checkouts and all tracked source bytes stay unchanged
+        if: always()
+        run: |
+          git -C observer diff --exit-code
+          git -C deployed diff --exit-code
+      - name: Preserve every report and lossless screenshot in <=28MiB parts
+        if: always()
+        run: python3 observer/gardenlife-public-package016.py
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part0/**') != ''
+        with:
+          name: gardenlife-public-part0-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part0/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part1/**') != ''
+        with:
+          name: gardenlife-public-part1-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part1/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part2/**') != ''
+        with:
+          name: gardenlife-public-part2-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part2/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part3/**') != ''
+        with:
+          name: gardenlife-public-part3-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part3/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part4/**') != ''
+        with:
+          name: gardenlife-public-part4-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part4/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part5/**') != ''
+        with:
+          name: gardenlife-public-part5-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part5/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part6/**') != ''
+        with:
+          name: gardenlife-public-part6-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part6/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('observer/.gardenlife-public-packets/part7/**') != ''
+        with:
+          name: gardenlife-public-part7-${{ steps.pins.outputs.sha }}
+          path: observer/.gardenlife-public-packets/part7/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9

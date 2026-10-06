@@ -1,0 +1,2466 @@
+{
+  "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+  "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe",
+  "base": "bcd77d5e959ed801d920766cbc9dc010cce19f58",
+  "mode": "preflight",
+  "run": "37457485794",
+  "checks": [
+    {
+      "name": "declared additive source only, all prior protected source exact",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "base": "bcd77d5e959ed801d920766cbc9dc010cce19f58",
+        "version": "14.32",
+        "anchor": "T728",
+        "release": false,
+        "phase": "candidate",
+        "publicationApproved": false,
+        "htmlExact": true,
+        "protectedExact": true,
+        "fpExact": true,
+        "logExact": true,
+        "coldLoadFixExact": true,
+        "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe",
+        "baselineSHA256": "7d20033d3d50091849717d25820220951401b553123fe1fa588cdd63c2bb9609",
+        "inlineScripts": 74,
+        "additionCount": 24,
+        "expectedAdditions": [
+          "gardenLife016.birdbathCourt_0",
+          "gardenLife016.birdbathCourt_1",
+          "gardenLife016.birdbathCourt_2",
+          "gardenLife016.birdbathCourt_3",
+          "gardenLife016.chessCourt_0",
+          "gardenLife016.chessCourt_1",
+          "gardenLife016.chessCourt_2",
+          "gardenLife016.chessCourt_3",
+          "gardenLife016.croquetCorner_0",
+          "gardenLife016.croquetCorner_1",
+          "gardenLife016.croquetCorner_2",
+          "gardenLife016.croquetCorner_3",
+          "gardenLife016.orchardPress_0",
+          "gardenLife016.orchardPress_1",
+          "gardenLife016.orchardPress_2",
+          "gardenLife016.orchardPress_3",
+          "gardenLife016.pottingBench_0",
+          "gardenLife016.pottingBench_1",
+          "gardenLife016.pottingBench_2",
+          "gardenLife016.pottingBench_3",
+          "gardenLife016.pumpCourt_0",
+          "gardenLife016.pumpCourt_1",
+          "gardenLife016.pumpCourt_2",
+          "gardenLife016.pumpCourt_3"
+        ],
+        "artSHA256": "d5d59cea658b7a09766123ba579b163c7f32ba1c7260fd1a06728cda25f3e29a",
+        "gameplaySHA256": "f7e0c9127ccec94416e6a62efd2dc9ab1ca3e6bb533f1181d0ba978426645599",
+        "integrationSHA256": "6544caed9e6e5698eb49428efe1945aa97b5f8754a06812bfc36907d5c59547c"
+      }
+    },
+    {
+      "name": "boot has exact source-verified labels and isolated slot",
+      "ok": true,
+      "detail": {
+        "ready": true,
+        "version": "14.32",
+        "label": "v14.32 · T728",
+        "slot": "3",
+        "batches": {
+          "batches": 74,
+          "ok": 74,
+          "err": [],
+          "ms": {
+            "b01": 46,
+            "b02": 82,
+            "b03": 87,
+            "b04": 51,
+            "b05": 153,
+            "b06": 82,
+            "b07": 386,
+            "b08": 88,
+            "b09": 94,
+            "b10": 105,
+            "b11": 86,
+            "infra_a1": 31,
+            "infra_a2": 131,
+            "infra_b1": 76,
+            "infra_b2": 200,
+            "infra_c1": 107,
+            "infra_c2": 517,
+            "civic_d1": 38,
+            "civic_d2": 40,
+            "civic_d3": 100,
+            "bay_a": 2,
+            "logi_a": 448,
+            "logi_b": 552,
+            "logi_c": 102,
+            "logi_d": 240,
+            "logi_e": 124,
+            "trans_a": 450,
+            "trans_b": 3,
+            "trans_c": 24,
+            "trans_d": 2,
+            "wave614_pre": 0,
+            "civ_a": 32,
+            "civ_b": 120,
+            "civ_c": 2,
+            "civ_d": 2,
+            "civ_e": 3,
+            "civ_f": 43,
+            "civ_g": 98,
+            "civ_h": 2,
+            "cul_a": 2,
+            "cul_b": 1,
+            "cul_c": 3,
+            "cul_d": 2,
+            "cul_e": 2,
+            "cul_f": 2,
+            "fix709": 0,
+            "fix714": 2,
+            "fix712": 2,
+            "fix710": 2,
+            "fix713": 3,
+            "fix711": 2,
+            "fix715": 2,
+            "bay_a_late": 95,
+            "trans_b_late": 129,
+            "trans_d_late": 37,
+            "civ_c_late": 47,
+            "civ_d_late": 219,
+            "civ_e_late": 85,
+            "civ_h_late": 88,
+            "cul_a_late": 92,
+            "cul_b_late": 42,
+            "cul_c_late": 279,
+            "cul_d_late": 320,
+            "cul_e_late": 454,
+            "cul_f_late": 64,
+            "fix709_late": 4,
+            "fix714_late": 218,
+            "fix712_late": 60,
+            "fix710_late": 439,
+            "fix713_late": 162,
+            "fix711_late": 299,
+            "fix715_late": 538
+          }
+        }
+      }
+    },
+    {
+      "name": "six optional paid themes and24 canonical views registered once",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "checks": [
+          "exact six optional garden themes with no building identities ✓",
+          "pumpCourt016 native paid manual-only walking theme ✓",
+          "pumpCourt_0 canonical complete geometric view ✓",
+          "pumpCourt_1 canonical complete geometric view ✓",
+          "pumpCourt_2 canonical complete geometric view ✓",
+          "pumpCourt_3 canonical complete geometric view ✓",
+          "birdbathCourt016 native paid manual-only walking theme ✓",
+          "birdbathCourt_0 canonical complete geometric view ✓",
+          "birdbathCourt_1 canonical complete geometric view ✓",
+          "birdbathCourt_2 canonical complete geometric view ✓",
+          "birdbathCourt_3 canonical complete geometric view ✓",
+          "pottingBench016 native paid manual-only walking theme ✓",
+          "pottingBench_0 canonical complete geometric view ✓",
+          "pottingBench_1 canonical complete geometric view ✓",
+          "pottingBench_2 canonical complete geometric view ✓",
+          "pottingBench_3 canonical complete geometric view ✓",
+          "croquetCorner016 native paid manual-only walking theme ✓",
+          "croquetCorner_0 canonical complete geometric view ✓",
+          "croquetCorner_1 canonical complete geometric view ✓",
+          "croquetCorner_2 canonical complete geometric view ✓",
+          "croquetCorner_3 canonical complete geometric view ✓",
+          "chessCourt016 native paid manual-only walking theme ✓",
+          "chessCourt_0 canonical complete geometric view ✓",
+          "chessCourt_1 canonical complete geometric view ✓",
+          "chessCourt_2 canonical complete geometric view ✓",
+          "chessCourt_3 canonical complete geometric view ✓",
+          "orchardPress016 native paid manual-only walking theme ✓",
+          "orchardPress_0 canonical complete geometric view ✓",
+          "orchardPress_1 canonical complete geometric view ✓",
+          "orchardPress_2 canonical complete geometric view ✓",
+          "orchardPress_3 canonical complete geometric view ✓",
+          "all six garden themes are strictly non-emissive ✓",
+          "exact24 original assets built once ✓",
+          "all existing complex and street registries retained ✓"
+        ],
+        "details": [
+          {
+            "name": "exact six optional garden themes with no building identities",
+            "ok": true
+          },
+          {
+            "name": "pumpCourt016 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "pumpCourt_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pumpCourt_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pumpCourt_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pumpCourt_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "birdbathCourt016 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "birdbathCourt_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "birdbathCourt_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "birdbathCourt_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "birdbathCourt_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pottingBench016 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "pottingBench_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pottingBench_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pottingBench_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "pottingBench_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "croquetCorner016 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "croquetCorner_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "croquetCorner_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "croquetCorner_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "croquetCorner_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "chessCourt016 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "chessCourt_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "chessCourt_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "chessCourt_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "chessCourt_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "orchardPress016 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "orchardPress_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "orchardPress_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "orchardPress_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "orchardPress_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "all six garden themes are strictly non-emissive",
+            "ok": true
+          },
+          {
+            "name": "exact24 original assets built once",
+            "ok": true
+          },
+          {
+            "name": "all existing complex and street registries retained",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "all3091 prior leaves161 families1728 blocks exact and only24 declared additions",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "base": "bcd77d5e959ed801d920766cbc9dc010cce19f58",
+        "version": "14.32",
+        "anchor": "T728",
+        "phase": "candidate",
+        "release": false,
+        "publicationApproved": false,
+        "oldLeaves": 3091,
+        "newLeaves": 24,
+        "leaves": 3115,
+        "oldFamilies": 161,
+        "currentFamilies": 162,
+        "oldBlocks": 1728,
+        "oldCompleteRecordsExact": true,
+        "oldFamilyCRCsExact": true,
+        "completeBlockRecordsExact": true,
+        "blocksExact": true,
+        "allCurrentFamilyCRCsExact": true,
+        "added": [
+          "gardenLife016.birdbathCourt_0",
+          "gardenLife016.birdbathCourt_1",
+          "gardenLife016.birdbathCourt_2",
+          "gardenLife016.birdbathCourt_3",
+          "gardenLife016.chessCourt_0",
+          "gardenLife016.chessCourt_1",
+          "gardenLife016.chessCourt_2",
+          "gardenLife016.chessCourt_3",
+          "gardenLife016.croquetCorner_0",
+          "gardenLife016.croquetCorner_1",
+          "gardenLife016.croquetCorner_2",
+          "gardenLife016.croquetCorner_3",
+          "gardenLife016.orchardPress_0",
+          "gardenLife016.orchardPress_1",
+          "gardenLife016.orchardPress_2",
+          "gardenLife016.orchardPress_3",
+          "gardenLife016.pottingBench_0",
+          "gardenLife016.pottingBench_1",
+          "gardenLife016.pottingBench_2",
+          "gardenLife016.pottingBench_3",
+          "gardenLife016.pumpCourt_0",
+          "gardenLife016.pumpCourt_1",
+          "gardenLife016.pumpCourt_2",
+          "gardenLife016.pumpCourt_3"
+        ],
+        "approvedOldNativeSHA": "7c358552922460c09a8a90fc536490233b97279d",
+        "newArtAwaitingOwnerImageApproval": true,
+        "approvedNativeRecordsExact": false,
+        "allNewLeavesNonEmissive": true
+      }
+    },
+    {
+      "name": "all24 assets opaque unclipped and strictly non-emissive",
+      "ok": true,
+      "detail": [
+        {
+          "key": "pumpCourt_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "pumpCourt",
+          "opaque": 1072,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 53,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pumpCourt_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "pumpCourt",
+          "opaque": 1067,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 56,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pumpCourt_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "pumpCourt",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pumpCourt_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "pumpCourt",
+          "opaque": 1034,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "birdbathCourt_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "birdbathCourt",
+          "opaque": 1063,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 56,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "birdbathCourt_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "birdbathCourt",
+          "opaque": 1062,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "birdbathCourt_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "birdbathCourt",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "birdbathCourt_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "birdbathCourt",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pottingBench_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "pottingBench",
+          "opaque": 1141,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 52,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pottingBench_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "pottingBench",
+          "opaque": 1143,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 53,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pottingBench_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "pottingBench",
+          "opaque": 1027,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "pottingBench_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "pottingBench",
+          "opaque": 1036,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "croquetCorner_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "croquetCorner",
+          "opaque": 1082,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 53,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "croquetCorner_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "croquetCorner",
+          "opaque": 1089,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 55,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "croquetCorner_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "croquetCorner",
+          "opaque": 1029,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "croquetCorner_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "croquetCorner",
+          "opaque": 1037,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "chessCourt_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "chessCourt",
+          "opaque": 1065,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "chessCourt_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "chessCourt",
+          "opaque": 1065,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "chessCourt_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "chessCourt",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "chessCourt_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "chessCourt",
+          "opaque": 1026,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "orchardPress_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "orchardPress",
+          "opaque": 1180,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 49,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "orchardPress_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "orchardPress",
+          "opaque": 1175,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 51,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "orchardPress_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "orchardPress",
+          "opaque": 1050,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "orchardPress_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "orchardPress",
+          "opaque": 1073,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        }
+      ]
+    },
+    {
+      "name": "no uncaught game errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "selected exact-head native evidence completed",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "fails": [],
+        "seconds": 41.683
+      }
+    }
+  ],
+  "failures": [],
+  "artifacts": [
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pumpCourt_0",
+      "path": "assets/pumpCourt_0.png",
+      "sha256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18",
+      "bytes": 1841,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pumpCourt_0",
+      "path": "assets/pumpCourt_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pumpCourt_1",
+      "path": "assets/pumpCourt_1.png",
+      "sha256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56",
+      "bytes": 1846,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pumpCourt_1",
+      "path": "assets/pumpCourt_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pumpCourt_2",
+      "path": "assets/pumpCourt_2.png",
+      "sha256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748",
+      "bytes": 1824,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pumpCourt_2",
+      "path": "assets/pumpCourt_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pumpCourt_3",
+      "path": "assets/pumpCourt_3.png",
+      "sha256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751",
+      "bytes": 1820,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pumpCourt_3",
+      "path": "assets/pumpCourt_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "birdbathCourt_0",
+      "path": "assets/birdbathCourt_0.png",
+      "sha256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452",
+      "bytes": 1830,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "birdbathCourt_0",
+      "path": "assets/birdbathCourt_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "birdbathCourt_1",
+      "path": "assets/birdbathCourt_1.png",
+      "sha256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81",
+      "bytes": 1778,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "birdbathCourt_1",
+      "path": "assets/birdbathCourt_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "birdbathCourt_2",
+      "path": "assets/birdbathCourt_2.png",
+      "sha256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8",
+      "bytes": 1756,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "birdbathCourt_2",
+      "path": "assets/birdbathCourt_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "birdbathCourt_3",
+      "path": "assets/birdbathCourt_3.png",
+      "sha256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742",
+      "bytes": 1772,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "birdbathCourt_3",
+      "path": "assets/birdbathCourt_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pottingBench_0",
+      "path": "assets/pottingBench_0.png",
+      "sha256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29",
+      "bytes": 1971,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pottingBench_0",
+      "path": "assets/pottingBench_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pottingBench_1",
+      "path": "assets/pottingBench_1.png",
+      "sha256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909",
+      "bytes": 1962,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pottingBench_1",
+      "path": "assets/pottingBench_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pottingBench_2",
+      "path": "assets/pottingBench_2.png",
+      "sha256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79",
+      "bytes": 1894,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pottingBench_2",
+      "path": "assets/pottingBench_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "pottingBench_3",
+      "path": "assets/pottingBench_3.png",
+      "sha256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1",
+      "bytes": 1905,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "pottingBench_3",
+      "path": "assets/pottingBench_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "croquetCorner_0",
+      "path": "assets/croquetCorner_0.png",
+      "sha256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53",
+      "bytes": 2078,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "croquetCorner_0",
+      "path": "assets/croquetCorner_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "croquetCorner_1",
+      "path": "assets/croquetCorner_1.png",
+      "sha256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0",
+      "bytes": 2101,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "croquetCorner_1",
+      "path": "assets/croquetCorner_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "croquetCorner_2",
+      "path": "assets/croquetCorner_2.png",
+      "sha256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1",
+      "bytes": 2001,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "croquetCorner_2",
+      "path": "assets/croquetCorner_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "croquetCorner_3",
+      "path": "assets/croquetCorner_3.png",
+      "sha256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630",
+      "bytes": 1979,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "croquetCorner_3",
+      "path": "assets/croquetCorner_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "chessCourt_0",
+      "path": "assets/chessCourt_0.png",
+      "sha256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f",
+      "bytes": 1802,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "chessCourt_0",
+      "path": "assets/chessCourt_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "chessCourt_1",
+      "path": "assets/chessCourt_1.png",
+      "sha256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc",
+      "bytes": 1840,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "chessCourt_1",
+      "path": "assets/chessCourt_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "chessCourt_2",
+      "path": "assets/chessCourt_2.png",
+      "sha256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23",
+      "bytes": 1796,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "chessCourt_2",
+      "path": "assets/chessCourt_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "chessCourt_3",
+      "path": "assets/chessCourt_3.png",
+      "sha256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5",
+      "bytes": 1765,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "chessCourt_3",
+      "path": "assets/chessCourt_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "orchardPress_0",
+      "path": "assets/orchardPress_0.png",
+      "sha256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29",
+      "bytes": 2040,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "orchardPress_0",
+      "path": "assets/orchardPress_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "orchardPress_1",
+      "path": "assets/orchardPress_1.png",
+      "sha256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5",
+      "bytes": 2061,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "orchardPress_1",
+      "path": "assets/orchardPress_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "orchardPress_2",
+      "path": "assets/orchardPress_2.png",
+      "sha256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464",
+      "bytes": 1944,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "orchardPress_2",
+      "path": "assets/orchardPress_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "orchardPress_3",
+      "path": "assets/orchardPress_3.png",
+      "sha256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa",
+      "bytes": 1998,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "orchardPress_3",
+      "path": "assets/orchardPress_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe"
+    }
+  ],
+  "limits": [
+    "Chrome/game/simulation/pixels only in isolated CI; disposable slot3 and8199.",
+    "The six new items are instant native footpaths, not new buildings or services.",
+    "Construction images show real ordinary-day old buildings beside the new path details.",
+    "Weather screenshots use explicit native visual-season setup and are not ordinary-day simulation proof.",
+    "CI draw timings are not real-device FPS. Existing PWA console diagnostics are separately retained."
+  ],
+  "static": {
+    "ok": true,
+    "base": "bcd77d5e959ed801d920766cbc9dc010cce19f58",
+    "version": "14.32",
+    "anchor": "T728",
+    "release": false,
+    "phase": "candidate",
+    "publicationApproved": false,
+    "htmlExact": true,
+    "protectedExact": true,
+    "fpExact": true,
+    "logExact": true,
+    "coldLoadFixExact": true,
+    "sourceSHA256": "a719a11c7bcd61d10a9975e0b3ff4c1a760778b3e158acf5806ac33fcb674abe",
+    "baselineSHA256": "7d20033d3d50091849717d25820220951401b553123fe1fa588cdd63c2bb9609",
+    "inlineScripts": 74,
+    "additionCount": 24,
+    "expectedAdditions": [
+      "gardenLife016.birdbathCourt_0",
+      "gardenLife016.birdbathCourt_1",
+      "gardenLife016.birdbathCourt_2",
+      "gardenLife016.birdbathCourt_3",
+      "gardenLife016.chessCourt_0",
+      "gardenLife016.chessCourt_1",
+      "gardenLife016.chessCourt_2",
+      "gardenLife016.chessCourt_3",
+      "gardenLife016.croquetCorner_0",
+      "gardenLife016.croquetCorner_1",
+      "gardenLife016.croquetCorner_2",
+      "gardenLife016.croquetCorner_3",
+      "gardenLife016.orchardPress_0",
+      "gardenLife016.orchardPress_1",
+      "gardenLife016.orchardPress_2",
+      "gardenLife016.orchardPress_3",
+      "gardenLife016.pottingBench_0",
+      "gardenLife016.pottingBench_1",
+      "gardenLife016.pottingBench_2",
+      "gardenLife016.pottingBench_3",
+      "gardenLife016.pumpCourt_0",
+      "gardenLife016.pumpCourt_1",
+      "gardenLife016.pumpCourt_2",
+      "gardenLife016.pumpCourt_3"
+    ],
+    "artSHA256": "d5d59cea658b7a09766123ba579b163c7f32ba1c7260fd1a06728cda25f3e29a",
+    "gameplaySHA256": "f7e0c9127ccec94416e6a62efd2dc9ab1ca3e6bb533f1181d0ba978426645599",
+    "integrationSHA256": "6544caed9e6e5698eb49428efe1945aa97b5f8754a06812bfc36907d5c59547c"
+  },
+  "sourceTests": {
+    "ok": true,
+    "sourceOnly": true,
+    "gameExecuted": false,
+    "rejected": [
+      "missing view",
+      "duplicate view",
+      "clipped edge",
+      "transparent surface",
+      "floating emission",
+      "invented glow",
+      "invented lamp",
+      "empty sprite",
+      "wrong anchor",
+      "blocked path",
+      "wrong clear strip",
+      "prior identity root",
+      "prior identity x",
+      "prior identity y",
+      "prior identity theme",
+      "prior identity am502",
+      "prior identity baseWalkCost",
+      "prior identity cost",
+      "prior identity turn015"
+    ]
+  },
+  "fingerprint": {
+    "ok": true,
+    "base": "bcd77d5e959ed801d920766cbc9dc010cce19f58",
+    "version": "14.32",
+    "anchor": "T728",
+    "phase": "candidate",
+    "release": false,
+    "publicationApproved": false,
+    "oldLeaves": 3091,
+    "newLeaves": 24,
+    "leaves": 3115,
+    "oldFamilies": 161,
+    "currentFamilies": 162,
+    "oldBlocks": 1728,
+    "oldCompleteRecordsExact": true,
+    "oldFamilyCRCsExact": true,
+    "completeBlockRecordsExact": true,
+    "blocksExact": true,
+    "allCurrentFamilyCRCsExact": true,
+    "added": [
+      "gardenLife016.birdbathCourt_0",
+      "gardenLife016.birdbathCourt_1",
+      "gardenLife016.birdbathCourt_2",
+      "gardenLife016.birdbathCourt_3",
+      "gardenLife016.chessCourt_0",
+      "gardenLife016.chessCourt_1",
+      "gardenLife016.chessCourt_2",
+      "gardenLife016.chessCourt_3",
+      "gardenLife016.croquetCorner_0",
+      "gardenLife016.croquetCorner_1",
+      "gardenLife016.croquetCorner_2",
+      "gardenLife016.croquetCorner_3",
+      "gardenLife016.orchardPress_0",
+      "gardenLife016.orchardPress_1",
+      "gardenLife016.orchardPress_2",
+      "gardenLife016.orchardPress_3",
+      "gardenLife016.pottingBench_0",
+      "gardenLife016.pottingBench_1",
+      "gardenLife016.pottingBench_2",
+      "gardenLife016.pottingBench_3",
+      "gardenLife016.pumpCourt_0",
+      "gardenLife016.pumpCourt_1",
+      "gardenLife016.pumpCourt_2",
+      "gardenLife016.pumpCourt_3"
+    ],
+    "approvedOldNativeSHA": "7c358552922460c09a8a90fc536490233b97279d",
+    "newArtAwaitingOwnerImageApproval": true,
+    "approvedNativeRecordsExact": false,
+    "allNewLeavesNonEmissive": true
+  },
+  "negatives": {
+    "ok": true,
+    "sourceOnly": true,
+    "gameExecuted": false,
+    "positive": {
+      "ok": true,
+      "base": "bcd77d5e959ed801d920766cbc9dc010cce19f58",
+      "version": "14.32",
+      "anchor": "T728",
+      "phase": "candidate",
+      "release": false,
+      "publicationApproved": false,
+      "oldLeaves": 3091,
+      "newLeaves": 24,
+      "leaves": 3115,
+      "oldFamilies": 161,
+      "currentFamilies": 162,
+      "oldBlocks": 1728,
+      "oldCompleteRecordsExact": true,
+      "oldFamilyCRCsExact": true,
+      "completeBlockRecordsExact": true,
+      "blocksExact": true,
+      "allCurrentFamilyCRCsExact": true,
+      "added": [
+        "gardenLife016.birdbathCourt_0",
+        "gardenLife016.birdbathCourt_1",
+        "gardenLife016.birdbathCourt_2",
+        "gardenLife016.birdbathCourt_3",
+        "gardenLife016.chessCourt_0",
+        "gardenLife016.chessCourt_1",
+        "gardenLife016.chessCourt_2",
+        "gardenLife016.chessCourt_3",
+        "gardenLife016.croquetCorner_0",
+        "gardenLife016.croquetCorner_1",
+        "gardenLife016.croquetCorner_2",
+        "gardenLife016.croquetCorner_3",
+        "gardenLife016.orchardPress_0",
+        "gardenLife016.orchardPress_1",
+        "gardenLife016.orchardPress_2",
+        "gardenLife016.orchardPress_3",
+        "gardenLife016.pottingBench_0",
+        "gardenLife016.pottingBench_1",
+        "gardenLife016.pottingBench_2",
+        "gardenLife016.pottingBench_3",
+        "gardenLife016.pumpCourt_0",
+        "gardenLife016.pumpCourt_1",
+        "gardenLife016.pumpCourt_2",
+        "gardenLife016.pumpCourt_3"
+      ],
+      "approvedOldNativeSHA": "7c358552922460c09a8a90fc536490233b97279d",
+      "newArtAwaitingOwnerImageApproval": true,
+      "approvedNativeRecordsExact": false,
+      "allNewLeavesNonEmissive": true
+    },
+    "rejected": [
+      {
+        "name": "old day CRC with recomputed aggregates",
+        "error": "Prior complete leaf changed: grass#0"
+      },
+      {
+        "name": "old opacity",
+        "error": "Prior complete leaf changed: grass#0"
+      },
+      {
+        "name": "old record field",
+        "error": "Prior complete leaf changed: grass#0"
+      },
+      {
+        "name": "missing old leaf",
+        "error": "Exactly24 declared garden-life additions required"
+      },
+      {
+        "name": "missing new leaf",
+        "error": "Exactly24 declared garden-life additions required"
+      },
+      {
+        "name": "undeclared new leaf",
+        "error": "Exactly24 declared garden-life additions required"
+      },
+      {
+        "name": "new dimensions",
+        "error": "Complete opaque non-emissive dimensioned24 records required: gardenLife016.birdbathCourt_0"
+      },
+      {
+        "name": "new empty",
+        "error": "Complete opaque non-emissive dimensioned24 records required: gardenLife016.birdbathCourt_0"
+      },
+      {
+        "name": "new missing night",
+        "error": "Complete opaque non-emissive dimensioned24 records required: gardenLife016.birdbathCourt_0"
+      },
+      {
+        "name": "new duplicate view with aggregates",
+        "error": "Four authored distinct views required for pumpCourt"
+      },
+      {
+        "name": "new aggregate not recomputed",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "old family changed",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "invented aggregate",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "block count",
+        "error": "Pinned complete block aggregate mismatch"
+      },
+      {
+        "name": "block CRC",
+        "error": "Pinned complete block aggregate mismatch"
+      },
+      {
+        "name": "block record",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "missing block",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "new record field",
+        "error": "Complete opaque non-emissive dimensioned24 records required: gardenLife016.birdbathCourt_0"
+      },
+      {
+        "name": "new emission with rebuilt aggregate",
+        "error": "Complete opaque non-emissive dimensioned24 records required: gardenLife016.birdbathCourt_0"
+      },
+      {
+        "name": "extra block field",
+        "error": "All1728 complete block records must pass before historical projection"
+      }
+    ]
+  },
+  "assets": [
+    {
+      "key": "pumpCourt_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "pumpCourt",
+      "opaque": 1072,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 53,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pumpCourt_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "pumpCourt",
+      "opaque": 1067,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 56,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pumpCourt_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "pumpCourt",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pumpCourt_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "pumpCourt",
+      "opaque": 1034,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "birdbathCourt_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "birdbathCourt",
+      "opaque": 1063,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 56,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "birdbathCourt_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "birdbathCourt",
+      "opaque": 1062,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "birdbathCourt_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "birdbathCourt",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "birdbathCourt_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "birdbathCourt",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pottingBench_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "pottingBench",
+      "opaque": 1141,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 52,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pottingBench_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "pottingBench",
+      "opaque": 1143,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 53,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pottingBench_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "pottingBench",
+      "opaque": 1027,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "pottingBench_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "pottingBench",
+      "opaque": 1036,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "croquetCorner_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "croquetCorner",
+      "opaque": 1082,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 53,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "croquetCorner_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "croquetCorner",
+      "opaque": 1089,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 55,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "croquetCorner_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "croquetCorner",
+      "opaque": 1029,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "croquetCorner_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "croquetCorner",
+      "opaque": 1037,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "chessCourt_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "chessCourt",
+      "opaque": 1065,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "chessCourt_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "chessCourt",
+      "opaque": 1065,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "chessCourt_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "chessCourt",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "chessCourt_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "chessCourt",
+      "opaque": 1026,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "orchardPress_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "orchardPress",
+      "opaque": 1180,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 49,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "orchardPress_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "orchardPress",
+      "opaque": 1175,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 51,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "orchardPress_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "orchardPress",
+      "opaque": 1050,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "orchardPress_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "orchardPress",
+      "opaque": 1073,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    }
+  ],
+  "knownPWALogs": [
+    "PWA 附屬檔 404: http://127.0.0.1:8199/manifest.json",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/index.html",
+    "PWA 附屬檔 404: A bad HTTP response code (404) was received when fetching th",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/manifest.json",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/index.html",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/icon.svg"
+  ],
+  "session": {
+    "ok": true,
+    "fails": [],
+    "seconds": 41.683
+  },
+  "ok": true
+}
