@@ -1,0 +1,710 @@
+name: quayside-legacy017
+'on':
+  push:
+    branches:
+    - gpt/british-quayside-details-017
+    paths-ignore:
+    - '**.md'
+    - docs/**
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: quayside-legacy017-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - name: Complete candidate-only source and adapter controls
+      run: 'set -euo pipefail
+
+        node quayside-static-contract017.js
+
+        node quayside-release-contract017.test.js
+
+        node quayside-compatibility017.js --static-test
+
+        node quayside-legacy017.js --static-test
+
+        node quayside-integration-qa017.js --static-test
+
+        node quayside-gameplay017.test.js
+
+        node quayside-style017.test.js
+
+        for f in *017.js; do node --check "$f"; done
+
+        python3 quayside-workflow017.test.py
+
+        '
+    - name: All unchanged016 and earlier source controls in frozen approved worktrees
+      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/quayside-t729-controls-XXXXXX)\"\ngit worktree add --detach \"\
+        $baseline\" c7f0ab6e6d2c37651fd13802049b8079c5f5d37b\n(\n cd \"$baseline\"\n node gardenlife-static-contract016.js\n\
+        \ node gardenlife-release-contract016.test.js\n node gardenlife-compatibility016.js --static-test\n node gardenlife-legacy016.js\
+        \ --static-test\n node gardenlife-integration-qa016.js --static-test\n node gardenlife-gameplay016.test.js\n node\
+        \ gardenlife-style016.test.js\n python3 gardenlife-workflow016.test.py\n python3 gardenlife-native-workflow016.test.py\n\
+        )\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)\"\ngit worktree add --detach \"\
+        $baseline\" bcd77d5e959ed801d920766cbc9dc010cce19f58\n(\n cd \"$baseline\"\n node streetscape-static-contract015.js\n\
+        \ node streetscape-release-contract015.test.js\n node streetscape-compatibility015.js --static-test\n node streetscape-legacy015.js\
+        \ --static-test\n node streetscape-integration-qa015.js --static-test\n node streetscape-style015.test.js\n python3\
+        \ streetscape-workflow015.test.py\n)\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)\"\
+        \ngit worktree add --detach \"$baseline\" 6d137b6be31a7f07867b8ebb181fb8ed3727b049\ncd \"$baseline\"\nnode complexes-static-contract014.js\n\
+        node complexes-release-contract014.test.js\npython3 integrate-complexes014.test.py\nnode complexes-gameplay014.js\
+        \ --static-test\nnode complexes-fixture014.test.js\nnode complexes-integration-qa014.js --static-test\npython3 complexes-workflow014.test.py\n\
+        node complexes-regression-adapter014.js --static-test\nnode complexes-regression-adapter014.test.js\nnode complexes-regression-adapter014.js\
+        \ --historical-source-tests\nnode complexes-style-adapter014.js --static-test\nnode complexes-style-adapter014.test.js\n\
+        node complexes-compatibility014.test.js --static-test\n"
+    - name: Strict full3139 current preflight before retained016 legacy preflight
+      run: 'set -euo pipefail
+
+        QS017_MODE=preflight node quayside-integration-qa017.js 2>&1 | tee quayside-full-preflight.txt
+
+        node quayside-legacy017.test.js quayside-evidence/preflight/fingerprint-native.json
+
+        node quayside-style017.test.js quayside-evidence/preflight/fingerprint-native.json
+
+        QS017_SUITE=streetscape QS017_MODE=preflight node quayside-legacy017.js 2>&1 | tee quayside-retained-legacy016-preflight.txt
+
+
+        node quayside-release-contract017.test.js --native quayside-evidence/preflight/fingerprint-native.json
+
+        '
+    - uses: actions/upload-artifact@v4
+      with:
+        name: quayside-full-native-fingerprint-${{ github.sha }}
+        path: quayside-evidence/preflight/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 quayside-package017.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part0/**') != ''
+      with:
+        name: quayside-full-preflight-part0-${{ github.sha }}
+        path: .quayside-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part1/**') != ''
+      with:
+        name: quayside-full-preflight-part1-${{ github.sha }}
+        path: .quayside-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part2/**') != ''
+      with:
+        name: quayside-full-preflight-part2-${{ github.sha }}
+        path: .quayside-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part3/**') != ''
+      with:
+        name: quayside-full-preflight-part3-${{ github.sha }}
+        path: .quayside-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part4/**') != ''
+      with:
+        name: quayside-full-preflight-part4-${{ github.sha }}
+        path: .quayside-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part5/**') != ''
+      with:
+        name: quayside-full-preflight-part5-${{ github.sha }}
+        path: .quayside-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part6/**') != ''
+      with:
+        name: quayside-full-preflight-part6-${{ github.sha }}
+        path: .quayside-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part7/**') != ''
+      with:
+        name: quayside-full-preflight-part7-${{ github.sha }}
+        path: .quayside-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - suite: gardenlife
+          mode: preflight
+          group: none
+        - suite: gardenlife
+          mode: gameplay
+          group: none
+        - suite: gardenlife
+          mode: camera0
+          group: none
+        - suite: gardenlife
+          mode: camera1
+          group: none
+        - suite: gardenlife
+          mode: camera2
+          group: none
+        - suite: gardenlife
+          mode: camera3
+          group: none
+        - suite: gardenlife
+          mode: construction0
+          group: none
+        - suite: gardenlife
+          mode: construction1
+          group: none
+        - suite: gardenlife
+          mode: construction2
+          group: none
+        - suite: gardenlife
+          mode: construction3
+          group: none
+        - suite: gardenlife
+          mode: weather
+          group: none
+        - suite: gardenlife
+          mode: coldload
+          group: none
+        - suite: gardenlife
+          mode: occlusion
+          group: none
+        - suite: streetscape
+          mode: preflight
+          group: none
+        - suite: streetscape
+          mode: gameplay
+          group: none
+        - suite: streetscape
+          mode: camera0
+          group: none
+        - suite: streetscape
+          mode: camera1
+          group: none
+        - suite: streetscape
+          mode: camera2
+          group: none
+        - suite: streetscape
+          mode: camera3
+          group: none
+        - suite: streetscape
+          mode: construction0
+          group: none
+        - suite: streetscape
+          mode: construction1
+          group: none
+        - suite: streetscape
+          mode: construction2
+          group: none
+        - suite: streetscape
+          mode: construction3
+          group: none
+        - suite: streetscape
+          mode: weather
+          group: none
+        - suite: streetscape
+          mode: coldload
+          group: none
+        - suite: streetscape
+          mode: occlusion
+          group: none
+        - suite: complexes
+          mode: preflight
+          group: college
+        - suite: complexes
+          mode: gameplay
+          group: college
+        - suite: complexes
+          mode: gameplay
+          group: manor
+        - suite: complexes
+          mode: gameplay
+          group: baths
+        - suite: complexes
+          mode: gameplay
+          group: fire
+        - suite: complexes
+          mode: camera0
+          group: college
+        - suite: complexes
+          mode: camera0
+          group: manor
+        - suite: complexes
+          mode: camera0
+          group: baths
+        - suite: complexes
+          mode: camera0
+          group: fire
+        - suite: complexes
+          mode: camera1
+          group: college
+        - suite: complexes
+          mode: camera1
+          group: manor
+        - suite: complexes
+          mode: camera1
+          group: baths
+        - suite: complexes
+          mode: camera1
+          group: fire
+        - suite: complexes
+          mode: camera2
+          group: college
+        - suite: complexes
+          mode: camera2
+          group: manor
+        - suite: complexes
+          mode: camera2
+          group: baths
+        - suite: complexes
+          mode: camera2
+          group: fire
+        - suite: complexes
+          mode: camera3
+          group: college
+        - suite: complexes
+          mode: camera3
+          group: manor
+        - suite: complexes
+          mode: camera3
+          group: baths
+        - suite: complexes
+          mode: camera3
+          group: fire
+        - suite: complexes
+          mode: construction0
+          group: college
+        - suite: complexes
+          mode: construction0
+          group: manor
+        - suite: complexes
+          mode: construction0
+          group: baths
+        - suite: complexes
+          mode: construction0
+          group: fire
+        - suite: complexes
+          mode: construction1
+          group: college
+        - suite: complexes
+          mode: construction1
+          group: manor
+        - suite: complexes
+          mode: construction1
+          group: baths
+        - suite: complexes
+          mode: construction1
+          group: fire
+        - suite: complexes
+          mode: construction2
+          group: college
+        - suite: complexes
+          mode: construction2
+          group: manor
+        - suite: complexes
+          mode: construction2
+          group: baths
+        - suite: complexes
+          mode: construction2
+          group: fire
+        - suite: complexes
+          mode: construction3
+          group: college
+        - suite: complexes
+          mode: construction3
+          group: manor
+        - suite: complexes
+          mode: construction3
+          group: baths
+        - suite: complexes
+          mode: construction3
+          group: fire
+        - suite: complexes
+          mode: weather-wet
+          group: college
+        - suite: complexes
+          mode: weather-wet
+          group: manor
+        - suite: complexes
+          mode: weather-wet
+          group: baths
+        - suite: complexes
+          mode: weather-wet
+          group: fire
+        - suite: complexes
+          mode: weather-winter
+          group: college
+        - suite: complexes
+          mode: weather-winter
+          group: manor
+        - suite: complexes
+          mode: weather-winter
+          group: baths
+        - suite: complexes
+          mode: weather-winter
+          group: fire
+        - suite: complexes
+          mode: coldload
+          group: college
+        - suite: theatre
+          mode: preflight
+          group: none
+        - suite: theatre
+          mode: gameplay
+          group: none
+        - suite: theatre
+          mode: camera0
+          group: none
+        - suite: theatre
+          mode: camera1
+          group: none
+        - suite: theatre
+          mode: camera2
+          group: none
+        - suite: theatre
+          mode: camera3
+          group: none
+        - suite: theatre
+          mode: construction0
+          group: none
+        - suite: theatre
+          mode: construction1
+          group: none
+        - suite: theatre
+          mode: construction2
+          group: none
+        - suite: theatre
+          mode: construction3
+          group: none
+        - suite: theatre
+          mode: weather
+          group: none
+        - suite: theatre
+          mode: coldload
+          group: none
+        - suite: riverside
+          mode: preflight
+          group: none
+        - suite: riverside
+          mode: gameplay
+          group: none
+        - suite: riverside
+          mode: camera0
+          group: none
+        - suite: riverside
+          mode: camera1
+          group: none
+        - suite: riverside
+          mode: camera2
+          group: none
+        - suite: riverside
+          mode: camera3
+          group: none
+        - suite: riverside
+          mode: construction0
+          group: none
+        - suite: riverside
+          mode: construction1
+          group: none
+        - suite: riverside
+          mode: construction2
+          group: none
+        - suite: riverside
+          mode: construction3
+          group: none
+        - suite: riverside
+          mode: weather
+          group: none
+        - suite: riverside
+          mode: coldload
+          group: none
+        - suite: museum
+          mode: preflight
+          group: none
+        - suite: museum
+          mode: gameplay
+          group: none
+        - suite: museum
+          mode: camera0
+          group: none
+        - suite: museum
+          mode: camera1
+          group: none
+        - suite: museum
+          mode: camera2
+          group: none
+        - suite: museum
+          mode: camera3
+          group: none
+        - suite: museum
+          mode: construction0
+          group: none
+        - suite: museum
+          mode: construction1
+          group: none
+        - suite: museum
+          mode: construction2
+          group: none
+        - suite: museum
+          mode: construction3
+          group: none
+        - suite: museum
+          mode: weather
+          group: none
+        - suite: publiclife
+          mode: gameplay
+          group: none
+        - suite: station
+          mode: gameplay
+          group: none
+        - suite: streetlife
+          mode: gameplay
+          group: none
+        - suite: coldload
+          mode: without-museum
+          group: none
+        - suite: coldload
+          mode: with-museum
+          group: none
+        - suite: coldload
+          mode: zero-source
+          group: none
+        - suite: coldload
+          mode: disconnected
+          group: none
+        - suite: coldload
+          mode: escape-disabled
+          group: none
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - uses: actions/download-artifact@v4
+      with:
+        name: quayside-full-native-fingerprint-${{ github.sha }}
+        path: quayside-evidence/preflight
+    - name: Independent exact-head preflight input
+      run: node -e "const p=require('./quayside-fingerprint017').readPreflight017(); console.log(JSON.stringify(p.proof));"
+    - name: Every original015 and earlier selected runtime and assertion
+      run: 'set -o pipefail
+
+        QS017_SUITE=${{ matrix.suite }} QS017_MODE=${{ matrix.mode }} QS017_GROUP=${{ matrix.group }} node quayside-legacy017.js
+        2>&1 | tee quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}.txt
+
+        '
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 quayside-package017.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part0/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .quayside-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part1/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .quayside-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part2/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .quayside-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part3/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .quayside-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part4/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .quayside-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part5/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .quayside-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part6/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .quayside-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part7/**') != ''
+      with:
+        name: quayside-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .quayside-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  compatibility:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - uses: actions/download-artifact@v4
+      with:
+        name: quayside-full-native-fingerprint-${{ github.sha }}
+        path: quayside-evidence/preflight
+    - name: Independent exact-head preflight input
+      run: node -e "const p=require('./quayside-fingerprint017').readPreflight017(); console.log(JSON.stringify(p.proof));"
+    - name: Three smokes, retained exact style guard, complete original eight-world comparison
+      run: 'set -euo pipefail
+
+        mkdir -p quayside-evidence/compatibility/logs
+
+        for n in 1 2 3; do node smoke.js 2>&1 | tee quayside-evidence/compatibility/logs/smoke-$n.txt; done
+
+        node quayside-style017.js 2>&1 | tee quayside-evidence/compatibility/logs/style.txt
+
+        QS017_SUITE=complexes QS017_MODE=fingerprint node quayside-legacy017.js 2>&1 | tee quayside-evidence/compatibility/logs/strict-native.txt
+
+        QS017_SUITE=compatibility QS017_MODE=gameplay node quayside-legacy017.js 2>&1 | tee quayside-legacy-compatibility.txt
+
+        node quayside-compatibility017.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee quayside-compatibility-data.txt
+
+        '
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 quayside-package017.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part0/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part0-${{ github.sha }}
+        path: .quayside-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part1/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part1-${{ github.sha }}
+        path: .quayside-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part2/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part2-${{ github.sha }}
+        path: .quayside-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part3/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part3-${{ github.sha }}
+        path: .quayside-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part4/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part4-${{ github.sha }}
+        path: .quayside-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part5/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part5-${{ github.sha }}
+        path: .quayside-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part6/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part6-${{ github.sha }}
+        path: .quayside-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part7/**') != ''
+      with:
+        name: quayside-legacy-compatibility-part7-${{ github.sha }}
+        path: .quayside-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9

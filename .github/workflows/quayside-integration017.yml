@@ -1,0 +1,178 @@
+name: quayside-integration017
+permissions:
+  contents: read
+concurrency:
+  group: quayside-integration017-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - name: Complete source-only and mutation checks
+      run: 'set -euo pipefail
+
+        node quayside-static-contract017.js
+
+        node quayside-release-contract017.test.js
+
+        node quayside-legacy017.js --static-test
+
+        node quayside-integration-qa017.js --static-test
+
+        node quayside-gameplay017.test.js
+
+        python3 quayside-native-workflow017.test.py
+
+        for f in *017.js; do node --check "$f"; done
+
+        '
+    - name: Exact-head native24 preflight
+      run: 'set -o pipefail
+
+        QS017_MODE=preflight node quayside-integration-qa017.js 2>&1 | tee quayside-preflight.txt
+
+
+        node quayside-release-contract017.test.js --native quayside-evidence/preflight/fingerprint-native.json
+
+        '
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: quayside-preflight-${{ github.sha }}
+        path: 'quayside-evidence/preflight/
+
+          quayside-preflight.txt
+
+          '
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code
+  native:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - coldload
+        - occlusion
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - name: Native paid garden details and full visual scenes
+      run: 'set -o pipefail
+
+        QS017_MODE=${{ matrix.mode }} node quayside-integration-qa017.js 2>&1 | tee quayside-${{ matrix.mode }}.txt
+
+        '
+    - name: Retain every raw report and lossless counterfactual PNG in bounded packets
+      if: always()
+      run: python3 quayside-package017.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part0/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .quayside-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part1/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .quayside-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part2/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .quayside-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part3/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .quayside-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part4/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .quayside-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part5/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .quayside-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part6/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .quayside-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.quayside-packets/part7/**') != ''
+      with:
+        name: quayside-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .quayside-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code
+'on':
+  push:
+    branches:
+    - gpt/british-quayside-details-017
+    paths-ignore:
+    - '**.md'
+    - docs/**
+    - console-source-observer*.js
+    - streetscape-console-diagnostic015.js
+    - .github/workflows/streetscape-console015.yml
+  workflow_dispatch: null

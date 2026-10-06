@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T730 release entry BEGIN -->
+## r177 — T730 英式港埠配景（原 GPT-017）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r177 | [T730](docs/T730-british-quayside-details.md) | 2026-10-06 22:00 UTC (release-task receipt) 收到十張原圖核對與上線批准。繫船樁、絞盤、救生圈架、錨座、柳條漁籠、曬網架，六種獨立付費步道配景，24 個四向原生素材，皆不自行發光。v14.34 / T730 只改三個產品發布標籤並嚴格增量晉升24葉。 | 已批准候選8ceebc081dff3f44f31279e5ddab4d60f25933c6，native13：[37533544152](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533544152)、legacy117：[37533544092](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533544092)、smoke：[37533543992](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533543992)，全部首次通過；release head 仍須完整驗證。 | gpt/british-quayside-details-017；PR與合併SHA完成後記於PR。 | 十張1600×1080真實原圖已核對；日夜、四向、冬景、施工第6天、冷啟動續檔。 | ① 舊PWA404及無URL script404未全分類，診斷原始負面證據保留 ② CI耗時不等於手機FPS ③ 即時裝飾步道不虛稱建築施工或新增服務 ④ 本準備不代表發布CI／Pages／live驗證完成 ⑤ 下一輪圖片仍須核對。 |
+
+<!-- T730 release entry END -->
 <!-- T729 release entry BEGIN -->
 ## r176 — T729 英式花園生活配景（原 GPT-016）
 
