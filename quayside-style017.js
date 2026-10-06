@@ -78,7 +78,7 @@ function run014() {
   originalGateStatus: 'pending' };
  const save = () => fs.writeFileSync(path.join(out, 'style-adapter.json'), JSON.stringify(audit, null, 2));
  save();
- console.log('[Quayside017 style] Original ratchet with retained declared-art families plus quayside017 only. Sole source edit is FP_PATH using pinned T726 bytes. Strict current3139/163/1728 proof passed first; candidate publication remains unapproved.');
+ console.log('[Quayside017 style] Original ratchet with retained declared-art families plus quayside017 only. Sole source edit is FP_PATH using pinned T726 bytes. Strict current3139/163/1728 proof passed first; current product phase and publication approval were independently verified.');
  let result, created = false;
  try {
   fs.writeFileSync(temp, q.adapted, { flag: 'wx' });
