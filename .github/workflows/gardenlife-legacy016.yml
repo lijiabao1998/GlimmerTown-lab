@@ -37,6 +37,8 @@ jobs:
         node gardenlife-compatibility016.js --static-test
         node gardenlife-legacy016.js --static-test
         node gardenlife-integration-qa016.js --static-test
+
+        node gardenlife-gameplay016.test.js
         node gardenlife-style016.test.js
         for f in *016.js; do node --check "$f"; done
         python3 gardenlife-workflow016.test.py

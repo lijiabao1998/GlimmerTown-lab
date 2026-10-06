@@ -1,6 +1,14 @@
 'use strict';
 // Functions are serialized into disposable Actions Chrome only. Node imports
 // this module for source inspection without executing any game/renderer code.
+// Observe the eight declared old theme coordinates directly. The native
+// aggregate amCells list is lazily rebuilt and can still be empty immediately
+// after paused paid placement; this getter must never repair or advance it.
+function gardenLifePriorPaths016(){
+ const rows=window.__streetscapeQA015?.paths;
+ if(!Array.isArray(rows)||rows.length!==8||new Set(rows.map(p=>p.x+','+p.y)).size!==8||new Set(rows.map(p=>p.theme)).size!==8)throw Error('Eight distinct declared prior streetscape coordinates required');
+ return rows.map(p=>{const at=GV.streetscapeAt015(p.x,p.y);if(!at||at.x!==p.x||at.y!==p.y||at.theme!==p.theme||at.am502!==1||at.amx502?.british015!==p.theme||at.amx502?.turn015!==p.turn)throw Error('Direct native prior streetscape identity changed at '+p.x+','+p.y);return at;});
+}
 function setupGardenLife016(){
  const F=window.__complexFns014,Q=window.__complexQA014,specs=GV.gardenLifeSpecs016().paths,old=F.identity014();
  const positions=[[30,68],[31,68],[32,68],[42,68],[43,68],[44,68]],payments=[],paths=[];
@@ -14,12 +22,12 @@ function setupGardenLife016(){
   if(!ok||charged!==quote.cost||!after||after.theme!==q.theme||after.am502!==1)throw Error('Genuine paid theme transaction required');
   paths.push({...q,x,y,turn:after.amx502.turn016});payments.push({id:q.id,x,y,before,quote,plain,charged,after,exact:charged===quote.cost});
  }
- const scene={paths,payments,placementDay:GV.stats().day,priorStreetscape:GV.streetscapeEvidence015().paths};window.__gardenLifeQA016=scene;
+ const scene={paths,payments,placementDay:GV.stats().day,priorStreetscape:gardenLifePriorPaths016()};window.__gardenLifeQA016=scene;
  scene.canonical=Object.entries(GV.art574.SPR().gardenLife016);scene.oldIdentities=old;
- return{paths,payments,oldBuildingIdentityExact:JSON.stringify(old.buildings)===JSON.stringify(F.identity014().buildings),priorThemesExact:old.paths.filter(p=>p.amx502).every(p=>JSON.stringify(F.identity014().paths.find(z=>z.i===p.i))===JSON.stringify(p)),priorStreetscapeCount:GV.streetscapeEvidence015().paths.length,placementDay:scene.placementDay};
+ return{paths,payments,oldBuildingIdentityExact:JSON.stringify(old.buildings)===JSON.stringify(F.identity014().buildings),priorThemesExact:old.paths.filter(p=>p.amx502).every(p=>JSON.stringify(F.identity014().paths.find(z=>z.i===p.i))===JSON.stringify(p)),priorStreetscapeCount:gardenLifePriorPaths016().length,placementDay:scene.placementDay};
 }
 function bindGardenLife016(recipe){window.__gardenLifeQA016={...recipe,canonical:Object.entries(GV.art574.SPR().gardenLife016)};return true;}
-function gardenLifeState016(){const Q=window.__gardenLifeQA016;return{day:GV.stats().day,stats:GV.stats(),identity:window.__complexFns014.identity014(),paths:Q.paths.map(p=>GV.gardenLifeAt016(p.x,p.y)),old:window.__complexFns014.snapshot014(),priorStreetscape:GV.streetscapeEvidence015().paths,slot:localStorage.getItem('glimmerville.v1.slot'),otherSlots:Object.fromEntries(Object.keys(localStorage).filter(k=>/^glimmerville\.v1\.s[12](?:$|[._])/.test(k)).sort().map(k=>[k,localStorage.getItem(k)]))};}
+function gardenLifeState016(){const Q=window.__gardenLifeQA016;return{day:GV.stats().day,stats:GV.stats(),identity:window.__complexFns014.identity014(),paths:Q.paths.map(p=>GV.gardenLifeAt016(p.x,p.y)),old:window.__complexFns014.snapshot014(),priorStreetscape:gardenLifePriorPaths016(),slot:localStorage.getItem('glimmerville.v1.slot'),otherSlots:Object.fromEntries(Object.keys(localStorage).filter(k=>/^glimmerville\.v1\.s[12](?:$|[._])/.test(k)).sort().map(k=>[k,localStorage.getItem(k)]))};}
 function assetAudit016(){return Object.entries(GV.art574.SPR().gardenLife016).map(([key,s])=>{
  const day=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data,night=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;
  let opaque=0,partial=0,lit=0,outside=0,edge=0,minX=s.w,maxX=-1,minY=s.h,maxY=-1;
@@ -101,5 +109,5 @@ function gardenLifeOcclusion016(){
  }finally{const loaded=GV.load(),restored=gardenLifeState016(),saveBytesExact=localStorage.getItem('glimmerville.v1.s3')===raw;F.step014(1);const following=gardenLifeState016(),after=C.storage(),allowed=k=>k==='glimmerville.v1.slot'||/^glimmerville\.v1\.s3(?:_|$)/.test(k)||k.includes('.viewRot');out.restoration={loaded,identityExact:JSON.stringify(restored.identity)===JSON.stringify(before.identity),saveBytesExact,followingDay:following.day,fromDay:restored.day,allSixThemes:following.paths.length===6&&following.paths.every((p,i)=>p?.theme===G.paths[i].theme&&p.amx502.turn016===G.paths[i].turn),allPriorEightThemes:restored.priorStreetscape.length===8&&JSON.stringify(restored.priorStreetscape.map(p=>p.amx502))===JSON.stringify(before.priorStreetscape.map(p=>p.amx502)),otherSlotsExact:[...new Set([...Object.keys(storage),...Object.keys(after)])].filter(k=>!allowed(k)).every(k=>storage[k]===after[k])};}
  return out;
 }
-const functions016=[setupGardenLife016,bindGardenLife016,gardenLifeState016,assetAudit016,gardenLifePurity016,gardenLifeTransactions016,gardenLifeEdits016,gardenLifeConstraints016,gardenLifeScene016,gardenLifeContribution016,gardenLifeOcclusion016];
+const functions016=[gardenLifePriorPaths016,setupGardenLife016,bindGardenLife016,gardenLifeState016,assetAudit016,gardenLifePurity016,gardenLifeTransactions016,gardenLifeEdits016,gardenLifeConstraints016,gardenLifeScene016,gardenLifeContribution016,gardenLifeOcclusion016];
 module.exports={functions016};
