@@ -1,0 +1,76 @@
+name: streetscape-integration015
+on:
+  push:
+    branches: [gpt/british-streetscape-015]
+    paths-ignore: ['**.md', 'docs/**', 'console-source-observer*.js', 'streetscape-console-diagnostic015.js', '.github/workflows/streetscape-console015.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: streetscape-integration015-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Complete source-only and mutation checks
+        run: |
+          set -euo pipefail
+          node streetscape-static-contract015.js
+          node streetscape-legacy015.js --static-test
+          node streetscape-integration-qa015.js --static-test
+          for f in *015.js; do node --check "$f"; done
+      - name: Exact-head native32 preflight
+        run: |
+          set -o pipefail
+          SC015_MODE=preflight node streetscape-integration-qa015.js 2>&1 | tee streetscape-preflight.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetscape-preflight-${{ github.sha }}
+          path: |
+            streetscape-evidence/preflight/
+            streetscape-preflight.txt
+          if-no-files-found: error
+          retention-days: 14
+      - name: Every tracked source retained
+        if: always()
+        run: git diff --exit-code
+  native:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [gameplay, camera0, camera1, camera2, camera3, construction0, construction1, construction2, construction3, weather, coldload, occlusion]
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Native font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Native paid placements and full visual scenes
+        run: |
+          set -o pipefail
+          SC015_MODE=${{ matrix.mode }} node streetscape-integration-qa015.js 2>&1 | tee streetscape-${{ matrix.mode }}.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetscape-${{ matrix.mode }}-${{ github.sha }}
+          path: |
+            streetscape-evidence/${{ matrix.mode }}/
+            streetscape-${{ matrix.mode }}.txt
+          if-no-files-found: error
+          retention-days: 14
+      - name: Every tracked source retained
+        if: always()
+        run: git diff --exit-code
