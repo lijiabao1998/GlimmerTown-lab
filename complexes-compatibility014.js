@@ -9,6 +9,55 @@ const WORLD_SEEDS014=Object.freeze([...previous.WORLD_SEEDS013,900726]);
 const CHECKPOINT_COUNTS014=Object.freeze([6,6,6,6,7,7,7,9]);
 const METADATA_PATHS014=Object.freeze([900721,900724,900725,900726].flatMap(seed=>['version','anchor'].map(field=>'seed'+seed+'.checkpoints[*].enterprise.'+field)));
 const SAVE_PATHS014=Object.freeze(['seed900725.nativeSave','seed900726.nativeSave','seed900726.continueSave'].flatMap(p=>[p+'.gameVer',p+'.region.ver']));
+const RIVERSIDE_GATE014=Object.freeze({
+ before:"if(!((version==='14.29'&&anchor==='T725')||(version==='14.30'&&anchor==='T726')))throw Error('Exact verified candidate or approved release labels required');",
+ after:"if(!((version==='14.30'&&anchor==='T726')||(version==='14.31'&&anchor==='T727')))throw Error('Exact source-verified T726 baseline or approved T727 release labels required');",
+ originalFunctionSHA256:'756b186cb80e09a0e5922d311c80813965e1c5f3f7d53694013f87e82dfaa519',
+ originalFileSHA256:'3d493363666d8b7ca2caaeb41500395a9ec486e86635929b7eb52148d022659c'
+});
+function adaptRiversideRuntime014(original){
+ const {before,after,originalFunctionSHA256}=RIVERSIDE_GATE014;
+ if(typeof original!=='string'||fixed.hash(original)!==originalFunctionSHA256||original.split(before).length!==2)throw Error('Exact immutable seventh-world function and unique original label gate required');
+ const source=original.replace(before,after);
+ if(source.split(after).length!==2||source.replace(after,before)!==original)throw Error('Only one reversible seventh-world version/anchor gate replacement is allowed');
+ new vm.Script('('+source+')');return source;
+}
+// Return source only. The original historical file and every observation,
+// simulation, RNG, save/load and storage assertion remain byte-for-byte exact.
+function riversideRuntimeSource014(){
+ const file='theatre-compatibility013.js',actual=fs.readFileSync(path.join(ROOT,file)),baseline=fixed.baseFile(file),original=previous.runRiversideWorld013.toString();
+ if(!actual.equals(baseline)||fixed.hash(actual)!==RIVERSIDE_GATE014.originalFileSHA256||actual.toString().split(original).length!==2)throw Error('Complete tracked pre014 riverside runtime source must remain immutable and contain its unique original function');
+ return adaptRiversideRuntime014(original);
+}
+function riversideRuntimeAudit014(){
+ const source=riversideRuntimeSource014(),original=source.replace(RIVERSIDE_GATE014.after,RIVERSIDE_GATE014.before);
+ return{ok:true,sourceOnly:true,gameExecuted:false,base:fixed.BASE,file:'theatre-compatibility013.js',originalFileSHA256:RIVERSIDE_GATE014.originalFileSHA256,originalFunctionSHA256:fixed.hash(original),adaptedFunctionSHA256:fixed.hash(source),originalLabels:[{version:'14.29',anchor:'T725'},{version:'14.30',anchor:'T726'}],adaptedLabels:[{version:'14.30',anchor:'T726'},{version:'14.31',anchor:'T727'}],exactReplacedGuards:1,originalFileUnchanged:true,originalFunctionUnique:true,allNonLabelRuntimeBytesExact:true,reverseExact:true,syntaxParsed:true};
+}
+function staticRiversideRuntimeTest014(){
+ const source=riversideRuntimeSource014(),original=previous.runRiversideWorld013.toString(),proof=riversideRuntimeAudit014(),gate=text=>text.split('\n')[1].trim(),checks=[];
+ if(gate(original)!==RIVERSIDE_GATE014.before||gate(source)!==RIVERSIDE_GATE014.after)throw Error('Only the known leading label predicate may be evaluated by source/data tests');
+ // Evaluate isolated label predicates only; never instantiate a game function.
+ const predicates=[original,source].map(text=>new vm.Script('(function(version,anchor){'+gate(text)+';return true;})').runInNewContext());
+ for(const[side,predicate]of predicates.entries())for(const version of['14.29','14.30','14.31','14.32',undefined,null,14.31])for(const anchor of['T725','T726','T727','T728',undefined,null]){
+  const expected=side===0?(version==='14.29'&&anchor==='T725')||(version==='14.30'&&anchor==='T726'):(version==='14.30'&&anchor==='T726')||(version==='14.31'&&anchor==='T727');
+  let accepted=false;try{accepted=predicate(version,anchor)===true;}catch{}
+  if(accepted!==expected)throw Error('Seventh-world source label gate accepted or rejected the wrong exact pair');
+  checks.push({source:side===0?'original':'adapted',version:String(version),anchor:String(anchor),accepted});
+ }
+ const rejected=[],reject=(name,text)=>{let failed=false;try{adaptRiversideRuntime014(text);}catch{failed=true;}if(!failed)throw Error('Seventh-world nonlabel mutation accepted: '+name);rejected.push(name);};
+ for(const[name,from,to]of[
+  ['simulation day stepping','GV.step(days)','GV.step(days+1)'],['native save execution','GV.save();','GV.save();GV.save();'],['RNG restoration','Math.random=random','Math.random=()=>0'],['native save version assertion','saved.gameVer!==version','false'],['other-slot assertion','storage[k]!==after[k]','false'],['full tile observation','tiles,rngState,difficulty','tiles:[],rngState,difficulty'],['native load checkpoint',"offset:'native-load'","offset:'changed-load'"]
+ ]){
+  if(original.split(from).length!==2||source.split(from).length!==2)throw Error('Source mutation fixture must target exactly one original statement: '+name);
+  reject('original '+name,original.replace(from,to));
+  reject('adapted nonlabel bytes cannot reverse: '+name,source.replace(from,to).replace(RIVERSIDE_GATE014.after,RIVERSIDE_GATE014.before));
+ }
+ reject('missing original gate',original.replace(RIVERSIDE_GATE014.before,''));
+ reject('duplicate original gate',original.replace(RIVERSIDE_GATE014.before,RIVERSIDE_GATE014.before+'\n '+RIVERSIDE_GATE014.before));
+ reject('undeclared original label',original.replace("version==='14.29'","version==='14.28'"));
+ reject('trailing nonlabel bytes',original+'\n');
+ return{...proof,syntheticDataOnly:true,isolatedLabelPredicateOnly:true,gameFunctionExecuted:false,cases:checks.length+rejected.length,labelCases:checks.length,negativeSourceCases:rejected.length,originalRejectsT727:true,adaptedAcceptsExactT726AndT727:true,mixedOldFutureLabelsRejected:true,checks,rejected};
+}
 function fixtureSource014(){
  const source=fs.readFileSync(path.join(ROOT,'theatre-gameplay013.js'),'utf8');
  if(source!==fixed.baseFile('theatre-gameplay013.js').toString())throw Error('Immutable complete theatre paid fixtures required');
@@ -204,14 +253,14 @@ function runtimeSourceAudit014(){
  if(runtime.split(after).length!==2||fixed.hash(original)!==approvedRuntimeSHA256)throw Error('Approved eighth-world runtime may change only the exact version/anchor gate');
  const unchanged=[snapshotTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,timingProducer014,validateTimingShape014,separateTheatreTiming014,validateTimingEvidence014,staticTimingTest014,validateNativeSave014];
  if(fixed.hash(unchanged.map(f=>f.toString()).join('\n'))!==approvedUnchangedSourceSHA256)throw Error('Approved eighth-world observation, Continue, native save validation, and18-path raw timing receipts must remain exact');
- return{sources,previousRuntimeProof:old,allSevenPriorWorldFunctionsExact:true,eighthFixtureSourceSHA256:fixed.hash(fixtureSource014()),approvedSHA,approvedSourceSHA256,approvedUnchangedSourceSHA256,originalRuntimeSHA256:fixed.hash(original),currentRuntimeSHA256:fixed.hash(runtime),allNonLabelRuntimeBytesExact:true,rawTimingReceiptSourceExact:true,nativeSaveLabelPaths:['root.gameVer','root.region.ver'],noSaveReserialization:true,noGetterRepair:true};
+ return{sources,previousRuntimeProof:old,riversideRuntime:riversideRuntimeAudit014(),immutableOriginalSevenWorldSourcesExact:true,allSevenPriorWorldNonLabelBytesExact:true,seventhWorldLabelGateAdapted:true,eighthFixtureSourceSHA256:fixed.hash(fixtureSource014()),approvedSHA,approvedSourceSHA256,approvedUnchangedSourceSHA256,originalRuntimeSHA256:fixed.hash(original),currentRuntimeSHA256:fixed.hash(runtime),allNonLabelRuntimeBytesExact:true,rawTimingReceiptSourceExact:true,nativeSaveLabelPaths:['root.gameVer','root.region.ver'],noSaveReserialization:true,noGetterRepair:true};
 }
 function normalizationFixture014(release=false){
  const save=(day,version)=>JSON.stringify({v:1,n:72,gameVer:version,region:{stations:0,ports:0,airports:0,powerCap:1650,food:0,tourists:79,ver:version},df:1,day,allFields:{retained:true}});
  return['baseline','candidate'].map(label=>{const version=release&&label==='candidate'?'14.31':'14.30',anchor=release&&label==='candidate'?'T727':'T726';return{label,result:WORLD_SEEDS014.map((seed,i)=>({seed,fixture:{N:72,paid:100},...(i>=6?{nativeSave:save(4,version),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),...(i===7?{continueSave:save(6,version),nativeContinueIdentitiesExact:true,continueSaveBytesExact:true,actualPageReload:true,reloadedSourceExact:true,followingContinueDay:true}:{}),checkpoints:Array.from({length:CHECKPOINT_COUNTS014[i]},(_,n)=>({stats:{day:i===7&&n>=7?n-1:n,money:100-n,poweredBld:5},tilesSHA256:'complete-'+n,rngState:42+n,...(i===7?{offset:TIMING_OFFSETS014[n],nativeMobility:{totalTrips:100,performance:TIMING_CHECKPOINTS014.includes(n)?{runs:TIMING_RUNS014[n]}:{runs:0,lastMs:0,avgMs:0,maxMs:0}}}:{}),...(i>=4?{enterprise:{version,anchor,money:100-n,other:{unchanged:true}}}:{}),...(i===7&&n===7?{continued:true}:{}),...(i===7&&n===8?{followingContinuedDay:true}:{})}))}))};});
 }
 function staticNormalizationTest014(){
- const runtimeSource=runtimeSourceAudit014(),oldControls=previous.staticNormalizationTest013(),wallClockControls=staticTimingTest014();
+ const runtimeSource=runtimeSourceAudit014(),oldControls=previous.staticNormalizationTest013(),wallClockControls=staticTimingTest014(),riversideRuntimeControls=staticRiversideRuntimeTest014();
  const product=release=>({ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release,phase:release?'release':'candidate',version:release?'14.31':'14.30',anchor:release?'T727':'T726'}),negatives=[],positives=[];
  const saves=[[900725,'nativeSave'],[900726,'nativeSave'],[900726,'continueSave']];
  for(const release of[false,true]){
@@ -267,6 +316,6 @@ function staticNormalizationTest014(){
  const receiptRaw=JSON.stringify(receipt),timing=validateTimingEvidence014(receipt),normalized=normalizeCompatibility014(receipt.runs,product(true));
  if(JSON.stringify(normalized.reference)!==JSON.stringify(normalized.comparison)||JSON.stringify(receipt)!==receiptRaw||timing.separatedPerWorld!==18||receipt.theatreTimingEvidence014[1].rawWorld.checkpoints[0].enterprise.version!=='14.31')throw Error('Approved release must preserve complete original18-path timing receipts and all raw labels');
  positives.push('release exact18-path raw timing receipts retained');
- return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,worlds:8,originalSevenWorldsRetained:true,oldControls,wallClockControls,runtimeSource,checkpointCounts:CHECKPOINT_COUNTS014,declaredPaths:[...METADATA_PATHS014,...SAVE_PATHS014],candidateNormalizedFields:0,releaseNormalizedFields:66,releaseEnterpriseFields:60,releaseRawSaveFields:6,futureReleaseRejected:true,completeNativeSaveCompared:true,actualContinueCompared:true,rawObservationsPreserved:true,cases:positives.length+negatives.length,positiveCases:positives.length,negativeCases:negatives.length,positives,negatives};
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,worlds:8,originalSevenWorldsRetained:true,oldControls,wallClockControls,riversideRuntimeControls,runtimeSource,checkpointCounts:CHECKPOINT_COUNTS014,declaredPaths:[...METADATA_PATHS014,...SAVE_PATHS014],candidateNormalizedFields:0,releaseNormalizedFields:66,releaseEnterpriseFields:60,releaseRawSaveFields:6,futureReleaseRejected:true,completeNativeSaveCompared:true,actualContinueCompared:true,rawObservationsPreserved:true,cases:positives.length+negatives.length,positiveCases:positives.length,negativeCases:negatives.length,positives,negatives};
 }
-module.exports={fixtureSource014,snapshotTheatreWorld014,runTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,normalizeCompatibility014,validateNativeSave014,runtimeSourceAudit014,staticNormalizationTest014,normalizationFixture014,timingProducer014,separateTheatreTiming014,validateTimingEvidence014,validateTimingShape014,staticTimingTest014,TIMING_CHECKPOINTS014,TIMING_FIELDS014,WORLD_SEEDS014,CHECKPOINT_COUNTS014,METADATA_PATHS014,SAVE_PATHS014};
+module.exports={fixtureSource014,snapshotTheatreWorld014,runTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,riversideRuntimeSource014,riversideRuntimeAudit014,staticRiversideRuntimeTest014,normalizeCompatibility014,validateNativeSave014,runtimeSourceAudit014,staticNormalizationTest014,normalizationFixture014,timingProducer014,separateTheatreTiming014,validateTimingEvidence014,validateTimingShape014,staticTimingTest014,TIMING_CHECKPOINTS014,TIMING_FIELDS014,WORLD_SEEDS014,CHECKPOINT_COUNTS014,METADATA_PATHS014,SAVE_PATHS014};

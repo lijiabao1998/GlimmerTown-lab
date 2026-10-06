@@ -16,6 +16,13 @@ function test014(){
    assert.equal(q.audit.length,1);assert.equal(q.adapted.split("report.performance.mean<1000").length,2);assert.equal(q.adapted.split("report.purity.ms<20000").length,2);
    assert.equal(q.adapted.split("report.fingerprintNegativeTests.rejected.length===16").length,2);
   }
+  if(suite==='compatibility'){
+   const expression="require('./complexes-compatibility014').riversideRuntimeSource014()";
+   assert.equal(q.adapted.split(expression).length,2);assert.equal(q.adapted.includes('riversideCompat.runRiversideWorld013.toString()'),false);
+   assert.equal(q.audit.filter(e=>e.from==='riversideCompat.runRiversideWorld013.toString()'&&e.to===expression&&e.count===1).length,1);
+   const src=require('./complexes-compatibility014').riversideRuntimeSource014();new vm.Script('('+src+')');
+   assert.deepEqual(q.proof.historicalRiversideLabelGuardOnly,require('./complexes-compatibility014').riversideRuntimeAudit014());
+  }
   // The exact reversible audit must reject one omitted, duplicated, or mutated
   // replacement. This is data logic, never execution of the generated runner.
   const recover=adapted=>{let text=adapted;for(const edit of [...q.audit].reverse()){if(text.split(edit.to).length-1!==edit.count)throw Error('Nonunique reverse anchor');text=text.split(edit.to).join(edit.from);}if(text!==prior)throw Error('Unlisted source edit');};
