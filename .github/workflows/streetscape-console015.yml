@@ -1,0 +1,43 @@
+name: streetscape-console015
+on:
+  push:
+    branches: [gpt/british-streetscape-015]
+    paths:
+      - console-source-observer015.js
+      - console-source-observer-qa015.js
+      - streetscape-console-diagnostic015.js
+      - .github/workflows/streetscape-console015.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: streetscape-console015-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  observe-unchanged-official-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native font and pure-data observer negatives
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+          node --check streetscape-console-diagnostic015.js
+          node console-source-observer-qa015.js
+      - name: Exact-source Chrome resource and console capture
+        run: node streetscape-console-diagnostic015.js
+      - name: No tracked product was modified
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: streetscape-console015-${{ github.sha }}
+          path: streetscape-evidence/console/
+          if-no-files-found: error
+          retention-days: 14
