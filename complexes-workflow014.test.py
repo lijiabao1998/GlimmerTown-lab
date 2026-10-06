@@ -20,6 +20,20 @@ def verify(data):
  for key,suite in [('legacy-prior','${{ matrix.suite }}'),('legacy-compatibility','compatibility')]:
   commands='\n'.join(step.get('run','') for step in jobs[key]['steps'])
   assert 'CX014_SUITE='+suite+' CX014_MODE=gameplay node complexes-regression-adapter014.js' in commands,'Historical gameplay-only suite misrouted: '+key
+ # Validate parsed shell command boundaries, not merely strings in YAML.
+ # A folded YAML scalar can silently turn the next `node` invocation into
+ # arguments to `node` or output filenames for `tee`.
+ preflight_lines=[line.strip() for step in jobs['preflight']['steps'] for line in step.get('run','').splitlines()]
+ for command in ['node complexes-regression-adapter014.js --static-test','node complexes-regression-adapter014.test.js','node complexes-fixture014.test.js']:
+  assert preflight_lines.count(command)==1,'Missing standalone source gate: '+command
+ compatibility_lines=[line.strip() for step in jobs['legacy-compatibility']['steps'] for line in step.get('run','').splitlines()]
+ comparison='node complexes-compatibility014.test.js museum-evidence/compatibility/guards/compatibility.json'
+ assert sum(bool(re.fullmatch(re.escape(comparison)+r'(?: 2>&1 \| tee [^\s|;]+\.txt)?',line)) for line in compatibility_lines)==1,'Eight-world data comparison must execute as its own shell command'
+ for key,job in jobs.items():
+  for step in job['steps']:
+   for line in step.get('run','').splitlines():
+    for tee in re.finditer(r'(?:^|\|)\s*tee\s+([^|;\n]+)',line):
+     assert not re.search(r'(?:^|\s)(?:node|python3)(?:\s|$)|\.(?:js|py|json)(?:\s|$)',tee.group(1)),'tee must not receive a following command or overwrite source/data: '+key
  for key in ['gameplay','camera','construction','weather']:
   assert jobs[key]['strategy']['matrix']['group']==['college','manor','baths','fire']
  assert jobs['camera']['strategy']['matrix']['mode']==['camera0','camera1','camera2','camera3']
@@ -49,6 +63,24 @@ for job in ['legacy-prior','legacy-compatibility']:
  try:verify(q)
  except (AssertionError,KeyError):negatives.append('misroute '+job)
  else:raise AssertionError('Historical mode mutation accepted '+job)
+def alter_run(data,job,old,new):
+ changed=0
+ for step in data['jobs'][job]['steps']:
+  if old in step.get('run',''):
+   assert step['run'].count(old)==1
+   step['run']=step['run'].replace(old,new);changed+=1
+ assert changed==1,'Negative control must change one actual parsed command'
+semantic_mutations=[
+ ('folded preflight node argument','preflight','node complexes-regression-adapter014.js --static-test\nnode complexes-regression-adapter014.test.js','node complexes-regression-adapter014.js --static-test node complexes-regression-adapter014.test.js'),
+ ('folded compatibility tee overwrite','legacy-compatibility','tee complexes-legacy-compatibility.txt\nnode complexes-compatibility014.test.js','tee complexes-legacy-compatibility.txt node complexes-compatibility014.test.js'),
+ ('missing eight-world comparison','legacy-compatibility','node complexes-compatibility014.test.js museum-evidence/compatibility/guards/compatibility.json','printf skipped-eight-world-comparison'),
+ ('tee writes source file','legacy-compatibility','tee complexes-legacy-compatibility.txt','tee complexes-legacy-compatibility.txt complexes-compatibility014.test.js')
+]
+for name,job,old_command,new_command in semantic_mutations:
+ q=copy.deepcopy(current);alter_run(q,job,old_command,new_command)
+ try:verify(q)
+ except (AssertionError,KeyError):negatives.append(name)
+ else:raise AssertionError('Parsed command mutation accepted '+name)
 # Source pins on actual cold navigation and untouched numerical performance cap.
 s=(ROOT/'complexes-integration-qa014.js').read_text()
 assert "iteration <= 2"in s and "day <= 3"in s and "cdp.send('Page.reload', { ignoreCache: true })"in s and "document.getElementById('bContinue')"in s

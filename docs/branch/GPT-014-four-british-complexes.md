@@ -59,3 +59,13 @@ Only original real-game PNG screenshots, individually deliverable; no redraw, co
 - Tests: not yet run. Native mapping and exact numerical balance pending source inventory.
 - Screenshots: not yet generated.
 - Not yet completed: implementation, all runtime CI, verified images, owner image approval, release. No part is reported as passed before its receipt exists.
+
+### 2026-10-06: assembled candidate and first isolated native evidence
+
+The bounded catalog is implemented: twelve independent buildings (four 4×4 mains and eight 2×2 supports), sixteen independently paid walking themes and 112 authored four-view assets. Native authorities are registered for education, housing, leisure, generic washhouse service, utilities, staffing, fire response and accounting. The exact numerical catalog is in `complex-specs014.json`; general mid-band households are not represented as restricted student or firefighter tenancy.
+
+The first complete candidate was pushed as `02b673a44ed466c164a398b16295bb9bbc1b847d`, product SHA256 `6d649ebd41d257d45d842a2893f46a178a7e0d25e00b255eb33d3985ba64cb66`. [Smoke run 37400948350](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37400948350) passed. [Integration run 37400948412](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37400948412) passed the new native preflight, including all 2,947 old complete records and 1,728 complete blocks, exact 112 additions, original masks/anchors, and 224 original day/mask PNGs. Preflight packet SHA256: `02882f617a0c5c2bce186b971de762555fa289175281d37c5368c53dc8b650e2`; all 227 contained evidence files were hash-verified.
+
+The full integration run did not pass. Confirmed harness defects: the new northern corridor touched the retained theatre utility at (55,63); four old gameplay-only suites were incorrectly invoked in preflight mode; two YAML-folded shell boundaries joined separate commands. The corrections preserve the utility and all old identities, keep strict mode validation, and restore separate shell commands. A new source-only plan audit checks 116 historical roots/1,164 occupied cells against 370 new actions and rejects four deliberate collision cases. Native brigade drill timing and standalone fingerprint provenance checks were also tightened without changing the product or test thresholds.
+
+Not yet complete: successful whole 90-job run, operated-city screenshots, owner image review/approval, release. Native preflight and smoke success do not establish full gameplay, weather, cold-Continue or performance success. The branch remains an unreleased T726-labeled review candidate; main and the official site are unchanged.
