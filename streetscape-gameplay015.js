@@ -48,7 +48,8 @@ function streetscapeEdits015(){
  }
  GV.save();const before=streetscapeState015(),had=Object.hasOwn(window,'__noStreetscape015'),flag=window.__noStreetscape015;window.__noStreetscape015=true;let loaded,after;
  try{loaded=GV.load();after=streetscapeState015();}finally{if(had)window.__noStreetscape015=flag;else delete window.__noStreetscape015;}
- return{rows,disabledLoad:loaded&&JSON.stringify(before.identity)===JSON.stringify(after.identity),otherSlotsExact:JSON.stringify(before.otherSlots)===JSON.stringify(after.otherSlots)};
+ const disabledLoad=loaded&&JSON.stringify(before.identity)===JSON.stringify(after.identity),immediateLighting=after.paths.map(p=>p?.lighting),fromDay=GV.stats().day;window.__complexFns014.step014(1);const following=streetscapeState015();
+ return{rows,disabledLoad,immediateLighting,fromDay,followingDay:following.day,followingLighting:following.paths.map(p=>p?.lighting),otherSlotsExact:JSON.stringify(before.otherSlots)===JSON.stringify(following.otherSlots)};
 }
 function streetscapeConstraints015(){
  const Q=window.__streetscapeQA015,rows=[];
@@ -59,7 +60,7 @@ function streetscapeConstraints015(){
 function streetscapeScene015(rotation,night,group='both',zoom=1.75){
  const Q=window.__streetscapeQA015,focus=group==='college'?[9.5,66.6]:group==='manor'?[21,66.6]:[15,66.5];
  GV.setRot(rotation);GV.setZoom(zoom);GV.lookAt(...focus);GV.setVisT(GV.art574.cycle574()*(night?.9:.5));GV.weather(0);GV.forceDraw();
- const c=document.getElementById('game'),cam=GV.camera436(),paths=Q.paths.map(p=>{const s=GV.art574.SPR().streetscape015[p.theme+'_'+((p.turn+rotation)&3)],v=GV.w2v(p.x,p.y),x=Math.round(c.width/2-cam.x*zoom)+(v[0]-v[1])*32*zoom+(32-s.ax)*zoom,y=Math.round(c.height/2-cam.y*zoom)+(v[0]+v[1])*16*zoom+(32-s.ay)*zoom;return{...p,view:(p.turn+rotation)&3,canonical:s===Q.canonical.find(([k])=>k===p.theme+'_'+((p.turn+rotation)&3))?.[1],box:{x,y,w:s.w*zoom,h:s.h*zoom},within:x>=0&&y>=0&&x+s.w*zoom<=c.width&&y+s.h*zoom<=c.height,lighting:GV.streetscapeAt015(p.x,p.y).lighting};});
+ const c=document.getElementById('game'),cam=GV.camera436(),paths=Q.paths.map(p=>{const current=GV.streetscapeAt015(p.x,p.y);if(!current)return{...p,temporarilyAbsent:true};const s=GV.art574.SPR().streetscape015[p.theme+'_'+((p.turn+rotation)&3)],v=GV.w2v(p.x,p.y),x=Math.round(c.width/2-cam.x*zoom)+(v[0]-v[1])*32*zoom+(32-s.ax)*zoom,y=Math.round(c.height/2-cam.y*zoom)+(v[0]+v[1])*16*zoom+(32-s.ay)*zoom;return{...p,view:(p.turn+rotation)&3,canonical:s===Q.canonical.find(([k])=>k===p.theme+'_'+((p.turn+rotation)&3))?.[1],box:{x,y,w:s.w*zoom,h:s.h*zoom},within:x>=0&&y>=0&&x+s.w*zoom<=c.width&&y+s.h*zoom<=c.height,lighting:GV.streetscapeAt015(p.x,p.y).lighting};});
  return{png:c.toDataURL('image/png'),rotation:GV.rot(),night,time:GV.daylightDbg(),day:GV.stats().day,group,paths,width:c.width,height:c.height};
 }
 function streetscapeLight015(theme){
@@ -86,7 +87,42 @@ function streetscapeOcclusion015(){
   }
   if(selected)break;
  }
+ if(!selected)return streetscapePaidForeground015({probes,trials,shots,selected});
  return{probes,trials,shots,selected,allFramesRetained:true,method:'Genuine paid mature neighboring building doze, one ordinary day, native undo and one ordinary day; lamp road supply stays real; no terrain, age, utility or saved-state assignments.'};
 }
-const functions015=[setupStreetscape015,bindStreetscape015,streetscapeState015,assetAudit015,streetscapePurity015,streetscapeTransactions015,streetscapeEdits015,streetscapeConstraints015,streetscapeScene015,streetscapeLight015,streetscapeOcclusion015];
+function streetscapePaidForeground015(prior){
+ const Q=window.__streetscapeQA015,C=window.__complexQA014,F=window.__complexFns014,plans=[{x:7,y:68,target:'heritageLantern'},{x:8,y:68,target:'basketLamp'}],before=streetscapeState015(),storage=C.storage();
+ GV.save();const raw=localStorage.getItem('glimmerville.v1.s3');if(!raw)throw Error('Complete native original fixture save required');
+ const out={...prior,foregrounds:[],allFramesRetained:true,selected:null,method:'Two bounded real paid native k191 plots on the test city own path forecourt; nine ordinary construction days; paid doze, ordinary dispatch day, native undo and ordinary dispatch day. Full original native save is restored.'};
+ try{
+  for(const plan of plans){
+   const cells=[];for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
+    const x=plan.x+dx,y=plan.y+dy,t=GV.tile(x,y),theme=GV.streetscapeAt015(x,y),old=GV.complexAt014(x,y);
+    if(t.bld||t.road||t.rail||t.tram||t.am502!==1||(!theme&&!old&&t.amx502))throw Error('Foreground plot must be exactly the declared four plain/new/complex path cells');
+    const id=theme?GV.streetscapeSpecs015().paths.find(q=>q.theme===theme.theme).id:old?.theme?GV.complexSpecs014().paths.find(q=>q.theme===old.theme).id:'footpath502';cells.push({x,y,id,tile:t});
+   }
+   const cleared=cells.map(p=>C.pay('doze',p.x,p.y)),payment=C.place('westminster',plan.x,plan.y,2),initial=GV.tile(plan.x,plan.y).bld,from=GV.stats().day,days=[];
+   if(initial?.k!==191||initial.age!==0||initial.sz!==2)throw Error('Actual paid native age0 k191 foreground required');
+   for(let n=0;n<9;n++){F.step014(1);days.push({day:GV.stats().day,age:GV.tile(plan.x,plan.y).bld.age});}
+   const fixture={...plan,k:191,cleared,payment,initial,from,days,matured:GV.tile(plan.x,plan.y).bld};out.foregrounds.push(fixture);
+   for(const rotation of[0,1,2,3]){
+    streetscapeScene015(rotation,true,'college',2);const withLight=streetscapeLight015(plan.target),withPNG=document.getElementById('game').toDataURL('image/png'),quote=GV.placePreview459('doze',plan.x+1,plan.y+1),money=GV.devMoney516B(),day=GV.stats().day,removed=GV.placeUndo('doze',plan.x+1,plan.y+1),charged=money-GV.devMoney516B();
+    if(!removed)throw Error('Actual reference-cell foreground doze required');F.step014(1);streetscapeScene015(rotation,true,'college',2);const control=streetscapeLight015(plan.target),controlPNG=document.getElementById('game').toDataURL('image/png'),undo=GV.undo();if(!undo)throw Error('Restore actual foreground with native undo');
+    F.step014(1);streetscapeScene015(rotation,true,'college',2);const restored=streetscapeLight015(plan.target),restoredPNG=document.getElementById('game').toDataURL('image/png'),b=GV.tile(plan.x,plan.y).bld;
+    const q={theme:plan.target,rotation,foreground:{id:'westminster',k:191,x:plan.x,y:plan.y,sz:2},day,nextDay:GV.stats().day,quote,removed,charged,undo,identityRestored:b?.k===191&&b.age>=9&&cells.slice(1).every(p=>JSON.stringify(GV.tile(p.x,p.y).bld?.ref)===JSON.stringify([plan.x,plan.y])),before:withLight,control,restored};
+    q.partial=withLight.candidates>0&&withLight.visible>0&&withLight.blocked>0&&control.candidates>0&&control.blocked<withLight.blocked&&control.visible>withLight.visible&&restored.blocked>0&&restored.visible>0&&[withLight,control,restored].every(q=>q.light.ready&&q.light.service>.03&&q.worldExact&&q.storageExact);
+    out.trials.push(q);for(const[phase,png]of[['with',withPNG],['control',controlPNG],['restored',restoredPNG]])out.shots.push({theme:plan.target,rotation,foreground:191,trial:out.trials.length,phase,png});
+    if(q.partial&&q.identityRestored&&charged===quote.cost&&charged>0&&q.nextDay===day+2){out.selected=q;break;}
+   }
+   fixture.cleanup=C.pay('doze',plan.x,plan.y);fixture.pathRestoration=cells.map(p=>C.pay(p.id,p.x,p.y));fixture.pathsExact=cells.every(p=>JSON.stringify(GV.tile(p.x,p.y).amx502)===JSON.stringify(p.tile.amx502)&&GV.tile(p.x,p.y).am502===p.tile.am502&&!GV.tile(p.x,p.y).bld);
+   if(!fixture.pathsExact)throw Error('Ordinary paid path restoration must preserve metadata');
+   if(out.selected)break;
+  }
+ }finally{
+  const loaded=GV.load(),restored=streetscapeState015(),saveBytesExact=localStorage.getItem('glimmerville.v1.s3')===raw;F.step014(1);const following=streetscapeState015(),after=C.storage(),allowed=k=>k==='glimmerville.v1.slot'||/^glimmerville\.v1\.s3(?:_|$)/.test(k)||k.includes('.viewRot');
+  out.restoration={loaded,identityExact:JSON.stringify(restored.identity)===JSON.stringify(before.identity),saveBytesExact,followingDay:following.day,fromDay:restored.day,allEightThemes:following.paths.length===8&&following.paths.every((p,i)=>p?.theme===Q.paths[i].theme&&p.amx502.turn015===Q.paths[i].turn),otherSlotsExact:[...new Set([...Object.keys(storage),...Object.keys(after)])].filter(k=>!allowed(k)).every(k=>storage[k]===after[k])};
+ }
+ return out;
+}
+const functions015=[setupStreetscape015,bindStreetscape015,streetscapeState015,assetAudit015,streetscapePurity015,streetscapeTransactions015,streetscapeEdits015,streetscapeConstraints015,streetscapeScene015,streetscapeLight015,streetscapeOcclusion015,streetscapePaidForeground015];
 module.exports={functions015};
