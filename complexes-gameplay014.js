@@ -265,9 +265,12 @@ function nativeOcclusion014(){
  return{...second,previousAttempts:[{selected:first.selected,foregroundFixture:first.foregroundFixture,restoration:first.restoration,payments:first.payments}],occlusionShots:[...(first.occlusionShots||[]),...(second.occlusionShots||[])]};
 }
 function paidForegroundOcclusion014(trials,foreground={id:'britishTerrace',k:219}){
- const Q=window.__complexQA014,root=Q.roots.find(r=>r.group===Q.group&&r.sz===4),x=root.x+1,y=root.y+4,sz=2;
+ const Q=window.__complexQA014,root=Q.roots.find(r=>r.group===Q.group&&r.sz===4),x=root.x+(foreground.k===191?2:1),y=root.y+4,sz=2;
  if(!(foreground.id==='britishTerrace'&&foreground.k===219||Q.group==='manor'&&foreground.id==='westminster'&&foreground.k===191))throw Error('Only two declared native foreground candidates are allowed');
  const identity=identity014(),storage=Q.storage(),start=Q.paid.length,original=[],occlusionShots=[];
+ // R4 native pixels show the manor clock tower needs one tile east: at
+ // r0 / z1.45 that is +46.4px,+23.2px, with strictly nearer native depth.
+ // Only k191 moves; its plot remains two own plain + two own themed paths.
  // This dedicated counterfactual occupies only four paid014 forecourt paths.
  // No retained building, utility, road, old theme, or native mask is moved.
  for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
