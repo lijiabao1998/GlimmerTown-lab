@@ -94,7 +94,12 @@ function amenityComposition014(){
 }
 
 function amenityRenderWitness014(){
- const Q=window.__complexQA014,world=Q.world(),storage=JSON.stringify(Q.storage()),spriteRefs=Q.canonicalPaths.slice(),before=GV.complexEvidence014(),rows=[];
+ const Q=window.__complexQA014,paths=Q.paths.filter(p=>p.group===Q.group);
+ if(paths.length!==4)throw Error('Four independent district themes required');
+ // Explicit visual setup precedes the immutable comparison. It changes the
+ // weather setting; the measured renders/paid undo must not change the world.
+ nativeScene014(0,false,Q.group,2,[paths[0].x,paths[0].y]);
+ const world=Q.world(),storage=JSON.stringify(Q.storage()),spriteRefs=Q.canonicalPaths.slice(),before=GV.complexEvidence014(),rows=[];
  const canvas=document.getElementById('game'),g=canvas.getContext('2d'),pixels=()=>g.getImageData(0,0,canvas.width,canvas.height).data;
  for(const p of Q.paths.filter(p=>p.group===Q.group)){nativeScene014(0,false,Q.group,2,[p.x,p.y]);const on=pixels(),tile=GV.tile(p.x,p.y),money=GV.devMoney516B(),quote=GV.placePreview459('doze',p.x,p.y),removed=GV.placeUndo('doze',p.x,p.y),paid=money-GV.devMoney516B();GV.forceDraw();const off=pixels();let changed=0;for(let n=0;n<on.length;n+=4)if(on[n]!==off[n]||on[n+1]!==off[n+1]||on[n+2]!==off[n+2])changed++;const undo=GV.undo(),restored=JSON.stringify(tile)===JSON.stringify(GV.tile(p.x,p.y))&&GV.devMoney516B()===money;rows.push({theme:p.theme,removed,paid,quote,changed,undo,restored});}
  return{rows,before,after:GV.complexEvidence014(),worldExact:world===Q.world(),storageExact:storage===JSON.stringify(Q.storage()),canonicalExact:spriteRefs.every(([k,s])=>GV.art574.SPR().complexes014[k]===s)};
@@ -252,7 +257,44 @@ function nativeOcclusion014(){
   row.partial=row.restored&&row.sameTurn&&row.sameIdentity&&restored.age>=9&&withLight.candidates>0&&withLight.visible>0&&withLight.blocked>withoutLight.blocked;trials.push(row);
   if(row.partial)return{trials,selected:row,capture:withScene,control};
  }
- return{trials,selected:null};
+ return paidForegroundOcclusion014(trials);
+}
+function paidForegroundOcclusion014(trials){
+ const Q=window.__complexQA014,root=Q.roots.find(r=>r.group===Q.group&&r.sz===4),x=root.x+1,y=root.y+4,sz=2;
+ const identity=identity014(),storage=Q.storage(),start=Q.paid.length,original=[];
+ // This dedicated counterfactual occupies only four paid014 forecourt paths.
+ // No retained building, utility, road, old theme, or native mask is moved.
+ for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
+  const xx=x+dx,yy=y+dy,t=GV.tile(xx,yy),theme=Q.paths.find(p=>p.x===xx&&p.y===yy);
+  if(t.bld||t.road||t.rail||t.tram||t.am502!==1||(dy===0?!!t.amx502?.british014:!theme||t.amx502?.british014!==theme.theme))throw Error('Foreground plot must contain only this round own two plain and two themed paths');
+  original.push({x:xx,y:yy,id:theme?theme.id:'footpath502',theme:theme?.theme||null,tile:t});
+ }
+ GV.save();const raw=localStorage.getItem('glimmerville.v1.s3');if(!raw)throw Error('Native temporary-scene save required');
+ let fixture,selected=null,capture=null,control=null,restoration;
+ try{
+  const cleared=original.map(p=>Q.pay('doze',p.x,p.y)),payment=Q.place('britishTerrace',x,y,sz),initial=GV.tile(x,y).bld,from=GV.stats().day,days=[];
+  if(initial?.k!==219||initial.sz!==2||initial.age!==0)throw Error('Foreground must be a genuinely paid native age0 k219');
+  for(let n=0;n<9;n++){step014(1);days.push({day:GV.stats().day,age:GV.tile(x,y).bld?.age});}
+  const matured=GV.tile(x,y).bld;fixture={kind:'paid-adjacent-native-foreground',target:root.k,x,y,sz,cleared,payment,initial,from,to:GV.stats().day,days,matured,originalPaths:original.map(p=>({x:p.x,y:p.y,id:p.id,theme:p.theme}))};
+  for(const rotation of[0,1,2,3]){
+   const withScene=nativeScene014(rotation,true,Q.group),withLight=nativeLight014(root.k),before=GV.complexAt014(root.x,root.y),money=GV.devMoney516B(),quote=GV.placePreview459('doze',x+1,y+1),removed=GV.placeUndo('doze',x+1,y+1),charged=money-GV.devMoney516B();
+   if(!removed)throw Error('Actual matured foreground reference-cell demolition required');
+   const withoutScene=nativeScene014(rotation,true,Q.group),withoutLight=nativeLight014(root.k),after=GV.complexAt014(root.x,root.y),gone=original.every(p=>!GV.tile(p.x,p.y).bld),undo=GV.undo(),fore=GV.tile(x,y).bld;
+   const row={kind:fixture.kind,rotation,target:root.k,foreground:219,quote,removed,charged,gone,undo,restored:undo&&fore?.k===219&&fore.age===matured.age&&GV.devMoney516B()===money,sameTurn:withScene.day===withoutScene.day&&JSON.stringify(withScene.time)===JSON.stringify(withoutScene.time),sameIdentity:before.root===after.root&&before.age===after.age&&before.k===after.k&&JSON.stringify(before.refCells)===JSON.stringify(after.refCells),targetOperational:before.operational&&after.operational,withLight,withoutLight};
+   row.partial=row.restored&&row.sameTurn&&row.sameIdentity&&row.targetOperational&&gone&&matured.age>=9&&charged===quote.cost&&charged>0&&withLight.candidates>0&&withoutLight.candidates>0&&withLight.visible>0&&withLight.blocked>withoutLight.blocked;
+   trials.push(row);if(row.partial){selected=row;capture=withScene;control=withoutScene;break;}
+  }
+  // Demonstrate ordinary paid restoration before loading the exact original
+  // city; this keeps the construction/charge records independently reviewable.
+  fixture.cleanup=Q.pay('doze',x,y);fixture.pathRestoration=original.map(p=>Q.pay(p.id,p.x,p.y));
+  fixture.themesRestored=original.every(p=>{const t=GV.tile(p.x,p.y);return!t.bld&&t.am502===p.tile.am502&&JSON.stringify(t.amx502)===JSON.stringify(p.tile.amx502);});
+ }finally{
+  const loaded=GV.load();if(!loaded)throw Error('Restore complete native pre-counterfactual city failed');
+  const restoredIdentity=JSON.stringify(identity)===JSON.stringify(identity014()),saveBytesExact=localStorage.getItem('glimmerville.v1.s3')===raw,from=GV.stats().day,following=step014(1),capacity=scalingWitness014(),after=Q.storage(),allowed=k=>k==='glimmerville.v1.slot'||/^glimmerville\.v1\.s3(?:_|$)/.test(k)||k.includes('.viewRot');
+  const stable=a=>a.map(({age,...row})=>row),pathsExactAfterDay=JSON.stringify(identity.paths)===JSON.stringify(following.identity.paths),buildingIdentitiesAfterDay=JSON.stringify(stable(identity.buildings))===JSON.stringify(stable(following.identity.buildings));
+  restoration={loaded,restoredIdentity,saveBytesExact,pathsExactAfterDay,buildingIdentitiesAfterDay,from,following,capacity,otherSlotsUnchanged:[...new Set([...Object.keys(storage),...Object.keys(after)])].filter(k=>!allowed(k)).every(k=>storage[k]===after[k])};
+ }
+ return{trials,selected,capture,control,foregroundFixture:fixture,restoration,payments:Q.paid.slice(start)};
 }
 function rejectedPlacements014(){
  const Q=window.__complexQA014,rows=[],x=1,y=64;Q.prepare(x,y,4);
@@ -322,7 +364,7 @@ function fireDrill014(){
  const restoredIdentity=JSON.stringify(identity)===JSON.stringify(identity014());step014(1);
  return{rows,restoredIdentity,recovered:scalingWitness014(),method:'Native physical routes, actual dispatcher and vehicles, exact source demolition cancellation and paid undo recovery. Existing T534 target fixture explicitly isolated; never used during cold proof.'};
 }
-const functions014=[bindObservation014,setupComplexes014,identity014,snapshot014,step014,assetAudit014,artPurity014,nativeScene014,nativeLight014,scalingWitness014,physicalLoss014,nativeSaveLoad014,nativeTransactions014,nativePathEdits014,rejectedPlacements014,nativeOcclusion014,coverage014,constraints014,amenityComposition014,amenityRenderWitness014,nativeAmenityLight014,protectedAmenityTransactions014,cardinalPathProbes014,isolatedPathLighting014,fireDrill014];
+const functions014=[bindObservation014,setupComplexes014,identity014,snapshot014,step014,assetAudit014,artPurity014,nativeScene014,nativeLight014,scalingWitness014,physicalLoss014,nativeSaveLoad014,nativeTransactions014,nativePathEdits014,rejectedPlacements014,nativeOcclusion014,paidForegroundOcclusion014,coverage014,constraints014,amenityComposition014,amenityRenderWitness014,nativeAmenityLight014,protectedAmenityTransactions014,cardinalPathProbes014,isolatedPathLighting014,fireDrill014];
 function validConstruction014(days,placementDay){
  return days.length===10&&days.every((d,n)=>d.day===placementDay+n&&d.roots.length===12&&new Set(d.roots.map(r=>r.k)).size===12&&d.roots.every(r=>r.k>=282&&r.k<=293&&r.age===n&&(n===9?r.built:!r.built&&!r.operational&&r.positions===0&&r.employed===0&&r.activity.work===0&&r.activity.education===0&&r.activity.leisure===0&&r.activity.services===0&&!r.coverageStamp&&r.upkeep===0&&(!r.housing||r.housing.population===0))));
 }
@@ -332,6 +374,36 @@ function validReady014(q){
 function validFiscal014(f,day,jobs,upkeep){
  const near=(a,b)=>Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<1e-6;
  return !!(f&&f.day===day&&f.difficulty===1&&f.complexPublicJobs===jobs&&near(f.complexUpkeep,upkeep)&&f.upkeep>=upkeep&&near(f.afterMoney-f.beforeMoney,f.income-f.upkeep)&&near(f.postedNet,f.income-f.upkeep)&&near(f.rawFin?.net,f.postedNet));
+}
+function validPaidForeground014(q){
+ const f=q?.foregroundFixture,r=q?.restoration,s=q?.selected;
+ return !!(s?.partial&&s.removed&&s.gone&&s.undo&&s.restored&&s.sameTurn&&s.sameIdentity&&s.targetOperational&&s.charged===s.quote.cost&&s.charged>0&&s.withLight.candidates>0&&s.withoutLight.candidates>0&&s.withLight.visible>0&&s.withLight.blocked>s.withoutLight.blocked&&f?.kind==='paid-adjacent-native-foreground'&&s.kind===f.kind&&f.initial?.k===219&&f.initial.age===0&&f.payment?.exact&&f.payment.charged>0&&f.cleared?.length===4&&f.cleared.every(p=>p.exact&&p.charged>0)&&f.days?.length===9&&f.days.every((d,n)=>d.day===f.from+n+1&&d.age===n+1)&&f.to===f.from+9&&f.matured?.age===9&&f.cleanup?.exact&&f.cleanup.charged>0&&f.pathRestoration?.length===4&&f.pathRestoration.every(p=>p.exact&&p.charged>0)&&f.themesRestored&&q.payments?.length>=10&&q.payments.every(p=>p.exact&&p.charged>0)&&r?.loaded&&r.restoredIdentity&&r.saveBytesExact&&r.pathsExactAfterDay&&r.buildingIdentitiesAfterDay&&r.otherSlotsUnchanged&&r.following?.day===r.from+1&&r.following.paths?.length===16&&r.following.paths.every(p=>p?.am502===1)&&validReady014(r.following)&&r.capacity?.exact&&r.capacity.positive);
+}
+function staticPaidForegroundTest014(){
+ const paid={exact:true,charged:1},q={selected:{partial:true,kind:'paid-adjacent-native-foreground',removed:true,gone:true,undo:true,restored:true,sameTurn:true,sameIdentity:true,targetOperational:true,charged:2,quote:{cost:2},withLight:{candidates:100,blocked:20,visible:80},withoutLight:{candidates:100,blocked:0,visible:100}},foregroundFixture:{kind:'paid-adjacent-native-foreground',initial:{k:219,age:0},payment:paid,cleared:Array(4).fill(paid),from:10,to:19,days:Array.from({length:9},(_,n)=>({day:11+n,age:n+1})),matured:{age:9},cleanup:paid,pathRestoration:Array(4).fill(paid),themesRestored:true},payments:Array(10).fill(paid),restoration:{loaded:true,restoredIdentity:true,saveBytesExact:true,pathsExactAfterDay:true,buildingIdentitiesAfterDay:true,otherSlotsUnchanged:true,from:10,following:{day:11,paths:Array.from({length:16},()=>({am502:1})),roots:Array.from({length:12},(_,n)=>({k:282+n,age:10,built:true,operational:true,powerState:1,waterState:{code:4},waterDelivered:1,road:[1],role:'service',positions:1,employed:1,activity:{publicJobs:1}}))},capacity:{exact:true,positive:true}}};
+ if(!validPaidForeground014(q))throw Error('Synthetic paid foreground positive rejected');const rejected=[];
+ for(const[name,mutate]of[['no partial light',x=>x.selected.partial=false],['no blocked pixel increase',x=>x.selected.withLight.blocked=0],['fully blocked target',x=>x.selected.withLight.visible=0],['absent control emission',x=>x.selected.withoutLight.candidates=0],['unpaid reference demolition',x=>x.selected.charged=0],['different comparison time',x=>x.selected.sameTurn=false],['changed target identity',x=>x.selected.sameIdentity=false],['foreground not restored',x=>x.selected.restored=false],['fake initial age',x=>x.foregroundFixture.initial.age=9],['skipped native day',x=>x.foregroundFixture.days[4].day++],['accelerated age',x=>x.foregroundFixture.days[4].age++],['unpaid foreground',x=>x.foregroundFixture.payment={exact:false,charged:0}],['missing restored theme',x=>x.foregroundFixture.themesRestored=false],['wrong save identity',x=>x.restoration.restoredIdentity=false],['changed save bytes',x=>x.restoration.saveBytesExact=false],['path changes following day',x=>x.restoration.pathsExactAfterDay=false],['building identity changes following day',x=>x.restoration.buildingIdentitiesAfterDay=false],['other slot changed',x=>x.restoration.otherSlotsUnchanged=false],['missing following day',x=>x.restoration.following.day--],['lost restored root',x=>x.restoration.following.roots.pop()],['lost restored path',x=>x.restoration.following.paths.pop()]]){const v=structuredClone(q);mutate(v);if(validPaidForeground014(v))throw Error('Foreground negative accepted '+name);rejected.push(name);}
+ const source=paidForegroundOcclusion014.toString();if(/\b(?:testAge|innovationSetQA|ensure|recompute|refresh|dispatch)[A-Za-z0-9_]*\s*\(|\.age\s*=(?!=)|\.pw\s*=|\.wa\s*=|\.night\s*=/.test(source))throw Error('Foreground counterfactual cannot fabricate age/supply/masks or repair getters');
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,rejected,nineActualDaysRequired:true,completeSaveAndPathRestorationRequired:true};
+}
+function staticAmenitySetupTest014(){
+ // Synthetic JSON/byte arrays only. No game, browser, actual canvas, native
+ // placement implementation or simulation is loaded/executed by this test.
+ const source=amenityRenderWitness014.toString(),setup='nativeScene014(0,false,Q.group,2,[paths[0].x,paths[0].y]);';
+ if(source.split(setup).length!==2||source.indexOf(setup)>source.indexOf('world=Q.world()'))throw Error('Visual setup must precede immutable world baseline');
+ const run=text=>{
+  let weather=1,money=100,removed=null;const events=[],paths=['a','b','c','d'].map((theme,x)=>({theme,x,y:1,group:'fire'})),sprite={},tiles=Object.fromEntries(paths.map(p=>[p.x,{am502:1,amx502:{british014:p.theme}}]));
+  const Q={group:'fire',paths,canonicalPaths:[['example',sprite]],world:()=>{events.push('world:'+weather);return JSON.stringify({weather,tiles});},storage:()=>({slot:'3'})};
+  const context={window:{__complexQA014:Q},nativeScene014:()=>{events.push('visual-setup');weather=0;},document:{getElementById:()=>({width:1,height:1,getContext:()=>({getImageData:()=>({data:removed===null?[255,255,255,255]:[0,0,0,255]})})})},GV:{
+   complexEvidence014:()=>({weather}),tile:x=>structuredClone(tiles[x]),devMoney516B:()=>money,placePreview459:()=>({cost:2,ok:true}),placeUndo:(id,x)=>{assertFixture(id==='doze'&&removed===null);removed={x,tile:tiles[x]};tiles[x]={};money-=2;return true;},forceDraw:()=>{},undo:()=>{tiles[removed.x]=removed.tile;removed=null;money+=2;return true;},art574:{SPR:()=>({complexes014:{example:sprite}})}
+  }};
+  function assertFixture(ok){if(!ok)throw Error('Synthetic fixture misuse');}
+  const result=new vm.Script('('+text+')()').runInNewContext(context);return{result,events};
+ };
+ const positive=run(source);if(!positive.result.worldExact||!positive.result.storageExact||!positive.result.canonicalExact||positive.result.rows.length!==4||!positive.result.rows.every(r=>r.changed>0&&r.restored&&r.undo&&r.paid===2)||positive.events[0]!=='visual-setup')throw Error('Prepared synthetic rain-to-clear witness must remain exact');
+ const old=source.replace(setup,'').replace('const canvas=',setup+'\n const canvas='),negative=run(old);
+ if(negative.result.worldExact||negative.result.before.weather!==1||negative.result.after.weather!==0)throw Error('Pre-setup world capture regression must fail exact comparison');
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticBytesOnly:true,visualSetupBeforeBaseline:true,rainToClearWorldMismatchRejected:true,pixelsStorageCanonicalAssertionsRetained:true};
 }
 function staticObservationTest014(){
  const themes=['collegeGate','collegeCloister','collegeLibraryWalk','collegeGarden','manorGate','manorTerrace','manorParterre','manorPond','bathsPromenade','bathsFountain','bathsTowelGarden','bathsLaundryWalk','fireApron','fireHoseWalk','fireMemorialGarden','fireBrigadeWalk'];
@@ -345,7 +417,7 @@ function staticObservationTest014(){
  const rejected=[];for(const[name,mutate]of[['missing root',q=>q[4].roots.pop()],['duplicate ID',q=>q[3].roots[11].k=282],['skipped day',q=>q[3].day++],['fake mature age',q=>q[1].roots[0].age=9],['early housing',q=>q[2].roots[2].housing.population=1],['early education',q=>q[2].roots[0].activity.education=1],['early public jobs',q=>q[2].roots[0].positions=1],['early upkeep',q=>q[2].roots[0].upkeep=1],['early coverage',q=>q[2].roots[0].coverageStamp={radius:1}],['missing completion',q=>q[9].roots[0].built=false]]){const q=structuredClone(days);mutate(q);if(validConstruction014(q,1))throw Error('Construction negative accepted '+name);rejected.push(name);}
  const fiscal={day:10,difficulty:1,complexPublicJobs:145,complexUpkeep:88,beforeMoney:1000,afterMoney:1010,income:110,upkeep:100,postedNet:10,rawFin:{net:10}};if(!validFiscal014(fiscal,10,145,88))throw Error('Synthetic native fiscal positive rejected');const fiscalNegatives=[];for(const[name,mutate]of[['double jobs',q=>q.complexPublicJobs*=2],['missing own upkeep',q=>q.complexUpkeep=0],['unposted treasury',q=>q.afterMoney=q.beforeMoney],['wrong ledger',q=>q.rawFin.net++],['invented revenue',q=>q.income++],['wrong day',q=>q.day--],['sandbox accounting',q=>q.difficulty=3]]){const q=structuredClone(fiscal);mutate(q);if(validFiscal014(q,10,145,88))throw Error('Fiscal negative accepted '+name);fiscalNegatives.push(name);}
  const observation=[snapshot014,step014,scalingWitness014].map(f=>f.toString()).join('\n');if(/\b(?:ensure|rebuild|refresh|prepare|dispatch|testAge|innovationSetQA|setDay)[A-Za-z0-9_]*\s*\(/.test(observation))throw Error('Measured observers or ordinary days must never repair native state');
- return{ok:true,sourceOnly:true,gameExecuted:false,syntheticQADataOnly:true,directCellReads:28,staleIndexRejected:true,constructionNegativeControls:rejected,fiscalNegativeControls:fiscalNegatives,measuredObserversContainNoRepair:true};
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticQADataOnly:true,directCellReads:28,staleIndexRejected:true,constructionNegativeControls:rejected,fiscalNegativeControls:fiscalNegatives,amenitySetupOrder:staticAmenitySetupTest014(),paidForegroundControls:staticPaidForegroundTest014(),measuredObserversContainNoRepair:true};
 }
-module.exports={legacyFixtures014,functions014,validConstruction014,validReady014,validFiscal014,staticObservationTest014};
+module.exports={legacyFixtures014,functions014,validConstruction014,validReady014,validFiscal014,validPaidForeground014,staticObservationTest014};
 if(require.main===module){if(process.argv.length!==3||process.argv[2]!=='--static-test')throw Error('Use Actions runner; source-only --static-test supported');for(const f of functions014)new vm.Script('('+f.toString()+')');console.log(JSON.stringify(staticObservationTest014(),null,2));}

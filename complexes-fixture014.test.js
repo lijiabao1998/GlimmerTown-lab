@@ -65,13 +65,21 @@ function audit(text){
  for(const p of Q.paths)assert(additions.get(key(p.x,p.y+1))?.some(a=>a.kind==='road'),'Real road-adjacent theme');
  // Verify each root has actual frontage and every new road/pipe is connected
  // to the retained road grid; no hypothetical path counts as a vehicle road.
+ for(const r of Q.roots.filter(r=>r.sz===4)){
+  const fore={x:r.x+1,y:r.y+4},cells=[];for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
+   const k=key(fore.x+dx,fore.y+dy),prior=old.get(k)||[],owned=additions.get(k)||[];
+   assert.equal(prior.length,0,'Temporary foreground must never occupy old identity');assert.equal(owned.length,1,'One owned surface per foreground cell');assert.equal(owned[0].kind,'path');
+   assert.equal(owned[0].id==='footpath502',dy===0,'Only two own plain and two own themed paths may be temporarily replaced');cells.push(k);
+  }
+  assert.equal(cells.length,4);
+ }
  const roads=new Set([...old].filter(([,v])=>v.some(q=>q.kind==='road')).map(([k])=>k));for(const[k,v]of additions)if(v.some(q=>q.kind==='road'))roads.add(k);
  for(const r of Q.roots){let frontage=0;for(let dy=-1;dy<=r.sz;dy++)for(let dx=-1;dx<=r.sz;dx++)if((dx===-1||dx===r.sz)&&(dy>=0&&dy<r.sz)||(dy===-1||dy===r.sz)&&(dx>=0&&dx<r.sz))frontage+=roads.has(key(r.x+dx,r.y+dy))?1:0;assert(frontage>0,'Independent native root frontage '+r.k);}
  const reached=new Set(['5,58']),queue=[[5,58]];for(let n=0;n<queue.length;n++){const[x,y]=queue[n];for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const k=key(x+dx,y+dy);if(roads.has(k)&&!reached.has(k)){reached.add(k);queue.push([x+dx,y+dy]);}}}
  for(const a of actions.filter(a=>a.kind==='road'||a.kind==='pipe'))assert(reached.has(key(a.x,a.y)),'New carrier disconnected '+key(a.x,a.y));
  assert(reached.has('56,70'),'Native southern link must still reach retained theatre');
  for(const p of[{x:46,y:62},{x:1,y:64,sz:4},{x:68,y:67}])for(let dy=0;dy<(p.sz||1);dy++)for(let dx=0;dx<(p.sz||1);dx++){assert(!(old.get(key(p.x+dx,p.y+dy))||[]).some(a=>!['pipe'].includes(a.kind)),'Existing identity on QA probe');assert(!(additions.get(key(p.x+dx,p.y+dy))||[]).some(a=>!['pipe'].includes(a.kind)),'New identity on QA probe');}
- return{actions:actions.length,newRoots:Q.roots.length,newThemes:Q.paths.length,newFootprintCells:actions.filter(a=>a.kind==='building').reduce((n,a)=>n+a.sz*a.sz,0),newRoadCells:actions.filter(a=>a.kind==='road').length,allNewCarriersConnected:true,oldPlant5563Retained:old.get('55,63').some(a=>a.id==='plant')&&!additions.has('55,63'),fireDrillTarget:[46,62]};
+ return{actions:actions.length,newRoots:Q.roots.length,newThemes:Q.paths.length,newFootprintCells:actions.filter(a=>a.kind==='building').reduce((n,a)=>n+a.sz*a.sz,0),newRoadCells:actions.filter(a=>a.kind==='road').length,allNewCarriersConnected:true,allFourTemporaryForegroundsUseOnlyOwnPaths:true,oldPlant5563Retained:old.get('55,63').some(a=>a.id==='plant')&&!additions.has('55,63'),fireDrillTarget:[46,62]};
 }
 const result=audit(coordinateSource),negativeControls=[];
 for(const[name,text]of[['R1 old plant collision',coordinateSource.replace('x<=(y===63?54:55)','x<=55')],['new supporting building overlaps main',coordinateSource.replace('x:i===0?x:x+5','x:i===0?x:x+2')],['path overlaps new main',coordinateSource.replace('x:x+i,y:69','x:x+i,y:67')],['road overlaps new main',coordinateSource.replace('[x+4,x+7]','[x+3,x+7]')]]){assert.notEqual(text,coordinateSource);assert.throws(()=>audit(text),undefined,name);negativeControls.push(name);}

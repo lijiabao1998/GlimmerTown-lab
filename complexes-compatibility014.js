@@ -79,6 +79,74 @@ async function runCompleteTheatreWorld014(cdp,seedFn,version,anchor){
  const {storageBeforeContinue,cosmeticState,...out}=result;out.checkpoints.push(...resumed.checkpoints);
  return{...out,nativeContinueIdentitiesExact:resumed.nativeContinueIdentitiesExact,continueSaveBytesExact:resumed.continueSaveBytesExact,actualPageReload:true,reloadedSourceExact:true,followingContinueDay:true,otherSlotsUnchanged:true};
 }
+// T491 wall-clock durations are diagnostic measurements, not world state.
+// Exactly six active checkpoints expose three timing fields each. Preserve the
+// complete raw eighth world and a reversible18-path witness outside comparison.
+const TIMING_CHECKPOINTS014=Object.freeze([1,2,3,4,6,8]);
+const TIMING_FIELDS014=Object.freeze(['lastMs','avgMs','maxMs']);
+const TIMING_OFFSETS014=Object.freeze([0,1,5,9,20,'native-load',21,'native-continue',22]);
+const TIMING_RUNS014=Object.freeze([0,1,5,9,20,0,1,0,1]);
+function timingProducer014(){
+ const snippets=[
+  "function perfNow490(){return typeof performance!=='undefined'&&performance&&typeof performance.now==='function'?performance.now():Date.now();}",
+  'const perfStart491=perfNow490();',
+  'const elapsed491=Math.max(0,perfNow490()-perfStart491);mobilityPerf491.runs++;mobilityPerf491.lastMs=+elapsed491.toFixed(3);mobilityPerf491.avgMs=+(mobilityPerf491.avgMs+(elapsed491-mobilityPerf491.avgMs)/Math.min(120,mobilityPerf491.runs)).toFixed(3);mobilityPerf491.maxMs=+Math.max(mobilityPerf491.maxMs,elapsed491).toFixed(3);',
+  'odMeta:JSON.parse(JSON.stringify(mobilityODMeta491)),performance:{...mobilityPerf491},policies:{completeStreets:!!pol?.completeStreets,parkingManagement:!!pol?.parkingManagement},saveSchemaChanged:false}',
+  'function mobilitySnapshot491(){return JSON.parse(JSON.stringify(mobility491));}'
+ ];
+ const old=fixed.baseFile('index.html').toString(),current=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+ for(const text of snippets)if(old.split(text).length!==2||current.split(text).length!==2)throw Error('Exact immutable native T491 clock producer required');
+ return{base:fixed.BASE,sourceSHA256:fixed.hash(snippets.join('\n')),snippets:snippets.map(text=>({sha256:fixed.hash(text),bytes:Buffer.byteLength(text)})),clock:'Native performance.now(), with original Date.now() fallback',producerExact:true};
+}
+function validateTimingShape014(world,separated){
+ if(world?.seed!==900726||!Array.isArray(world.checkpoints)||world.checkpoints.length!==9||!eq(world.checkpoints.map(q=>q.offset),TIMING_OFFSETS014))throw Error('Exactly nine declared theatre checkpoints required for clock evidence');
+ for(const [index,q]of world.checkpoints.entries()){
+  const perf=q.nativeMobility?.performance,active=TIMING_CHECKPOINTS014.includes(index),keys=separated&&active?['runs']:['runs',...TIMING_FIELDS014];
+  if(!perf||Array.isArray(perf)||!eq(Object.keys(perf),keys)||perf.runs!==TIMING_RUNS014[index])throw Error('Exact native mobility counter and timing field inventory required at checkpoint'+index);
+  for(const field of TIMING_FIELDS014)if(!(separated&&active)&&(typeof perf[field]!=='number'||!Number.isFinite(perf[field])||perf[field]<0||(!active&&perf[field]!==0)))throw Error('Finite nonnegative native timing, with unchanged zero-work clocks required');
+ }
+ return true;
+}
+function separateTheatreTiming014(rawWorld){
+ validateTimingShape014(rawWorld,false);const before=JSON.stringify(rawWorld),world=structuredClone(rawWorld),paths=[];
+ for(const index of TIMING_CHECKPOINTS014)for(const field of TIMING_FIELDS014){
+  const path='seed900726.checkpoints['+index+'].nativeMobility.performance.'+field,value=world.checkpoints[index].nativeMobility.performance[field];paths.push({path,checkpoint:index,field,value});delete world.checkpoints[index].nativeMobility.performance[field];
+ }
+ validateTimingShape014(world,true);const restored=structuredClone(world);
+ for(const {checkpoint,field,value}of paths)restored.checkpoints[checkpoint].nativeMobility.performance[field]=value;
+ if(paths.length!==18||JSON.stringify(restored)!==before||JSON.stringify(rawWorld)!==before)throw Error('Only18 declared wall-clock paths may separate, with complete raw round-trip equality');
+ return{world,evidence:{seed:900726,rawWorld:structuredClone(rawWorld),paths,rawWorldSHA256:fixed.hash(before),comparisonWorldSHA256:fixed.hash(JSON.stringify(world)),producer:timingProducer014(),separatedFields:18,exactActiveCheckpoints:[...TIMING_CHECKPOINTS014],allSimulationFieldsRetained:true,rawRoundTripExact:true,normalizationApplied:false,performanceThresholdsChanged:false}};
+}
+function validateTimingEvidence014(input){
+ const before=JSON.stringify(input),records=input?.theatreTimingEvidence014;
+ if(!Array.isArray(records)||records.length!==2||!eq(records.map(r=>r.label),['baseline','candidate']))throw Error('Exactly ordered baseline/candidate raw clock receipts required');
+ if(!Array.isArray(input.runs)||input.runs.length!==2||!eq(input.runs.map(r=>r.label),['baseline','candidate']))throw Error('Exact raw timing comparison pairing required');
+ for(const[index,record]of records.entries()){
+  const {label,...evidence}=record,actual=separateTheatreTiming014(evidence.rawWorld),rows=input.runs[index].result;
+  if(!eq(evidence,actual.evidence)||JSON.stringify(evidence)!==JSON.stringify(actual.evidence)||!Array.isArray(rows)||rows.filter(w=>w.seed===900726).length!==1||JSON.stringify(rows.find(w=>w.seed===900726))!==JSON.stringify(actual.world))throw Error('Raw clock values, exact18 paths, complete raw hash and deterministic world must match');
+ }
+ if(JSON.stringify(input)!==before)throw Error('Raw clock evidence must never mutate');
+ return{ok:true,worlds:2,separatedPerWorld:18,activeCheckpoints:[...TIMING_CHECKPOINTS014],rawWorldsRetained:true,rawRoundTripExact:true,producer:timingProducer014(),allSimulationFieldsRetained:true,performanceThresholdsChanged:false};
+}
+function staticTimingTest014(){
+ const product={ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release:false,phase:'candidate',version:'14.30',anchor:'T726'};
+ const raw=normalizationFixture014()[0].result[7];
+ for(const index of TIMING_CHECKPOINTS014)Object.assign(raw.checkpoints[index].nativeMobility.performance,{lastMs:10+index,avgMs:9+index,maxMs:20+index});
+ const source=JSON.stringify(raw),split=separateTheatreTiming014(raw),candidate=structuredClone(raw);for(const index of TIMING_CHECKPOINTS014)for(const field of TIMING_FIELDS014)candidate.checkpoints[index].nativeMobility.performance[field]+=3;
+ const other=separateTheatreTiming014(candidate);if(JSON.stringify(split.world)!==JSON.stringify(other.world)||JSON.stringify(raw)!==source)throw Error('Only actual clock durations may differ');
+ const receipt={runs:normalizationFixture014(),theatreTimingEvidence014:[{label:'baseline',...split.evidence},{label:'candidate',...other.evidence}]};receipt.runs[0].result[7]=split.world;receipt.runs[1].result[7]=other.world;validateTimingEvidence014(receipt);
+ const rejected=[];const reject=(name,mutate)=>{const q=structuredClone(raw);mutate(q);let failed=false;try{const projected=separateTheatreTiming014(q);failed=JSON.stringify(projected.world)!==JSON.stringify(split.world);}catch{failed=true;}if(!failed)throw Error('Clock separation hid mutation: '+name);rejected.push(name);};
+ for(const index of TIMING_CHECKPOINTS014)for(const field of TIMING_FIELDS014){reject('missing '+index+'/'+field,q=>delete q.checkpoints[index].nativeMobility.performance[field]);for(const value of[-1,NaN,Infinity,'12',null])reject('invalid '+index+'/'+field+'/'+String(value),q=>q.checkpoints[index].nativeMobility.performance[field]=value);}
+ for(const index of[0,5,7])reject('undeclared inactive clock '+index,q=>q.checkpoints[index].nativeMobility.performance.lastMs=1);
+ for(const index of[0,1,2,3,4,5,6,7,8])reject('simulation execution counter '+index,q=>q.checkpoints[index].nativeMobility.performance.runs++);
+ for(const[name,mutate]of[
+  ['missing checkpoint',q=>q.checkpoints.pop()],['duplicate checkpoint',q=>q.checkpoints[8]=structuredClone(q.checkpoints[6])],['extra timing field',q=>q.checkpoints[1].nativeMobility.performance.otherMs=1],['nested timing object',q=>q.checkpoints[1].nativeMobility.performance.nested={lastMs:12}],
+  ['income changes',q=>q.checkpoints[1].stats.money++],['power changes',q=>q.checkpoints[1].stats.poweredBld++],['RNG changes',q=>q.checkpoints[1].rngState++],['complete tile changes',q=>q.checkpoints[1].tilesSHA256+='changed'],['mobility changes',q=>q.checkpoints[1].nativeMobility.totalTrips++],['unrelated clock-like field',q=>q.checkpoints[1].unrelated={lastMs:12}],['root save bytes',q=>q.nativeSave+=' '],['Continue save bytes',q=>q.continueSave+=' ']
+ ])reject(name,mutate);
+ for(const[name,mutate]of[['missing clock receipt',q=>q.theatreTimingEvidence014.pop()],['extra receipt',q=>q.theatreTimingEvidence014.push(q.theatreTimingEvidence014[0])],['wrong receipt label',q=>q.theatreTimingEvidence014[1].label='baseline'],['missing recorded path',q=>q.theatreTimingEvidence014[1].paths.pop()],['extra recorded path',q=>q.theatreTimingEvidence014[1].paths.push(q.theatreTimingEvidence014[1].paths[0])],['wrong recorded value',q=>q.theatreTimingEvidence014[1].paths[0].value++],['wrong source pin',q=>q.theatreTimingEvidence014[1].producer.sourceSHA256='0'.repeat(64)],['raw world tampering',q=>q.theatreTimingEvidence014[1].rawWorld.checkpoints[1].stats.money++]]){const q=structuredClone(receipt);mutate(q);let failed=false;try{validateTimingEvidence014(q);}catch{failed=true;}if(!failed)throw Error('Invalid clock receipt accepted: '+name);rejected.push(name);}
+ const normalized=normalizeCompatibility014(receipt.runs,product);if(JSON.stringify(normalized.reference)!==JSON.stringify(normalized.comparison))throw Error('Clock-only deterministic world comparison should pass');
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,source:timingProducer014(),exactSeparatedPaths:18,activeCheckpoints:[...TIMING_CHECKPOINTS014],allSimulationFieldsRetained:true,rawWorldsRetained:true,performanceThresholdsChanged:false,negativeCases:rejected.length,rejected};
+}
 function validateNativeSave014(raw,version,N,day,label){
  const save=JSON.parse(raw||'null');
  if(typeof raw!=='string'||!save||save.v!==1||save.n!==N||save.df!==1||save.day!==day||save.gameVer!==version)throw Error('Complete exact native save metadata required: '+label);
@@ -98,6 +166,7 @@ function normalizeCompatibility014(runs,product){
    const world=rows.find(q=>q.seed===seed);if(!world.nativeSaveMetadataExact||!world.nativeLoadIdentitiesExact||!world.otherSlotsUnchanged)throw Error('Complete native save/load/other-slot evidence required');
    validateNativeSave014(world.nativeSave,'14.30',world.fixture?.N,world.checkpoints[4].stats.day,'seed'+seed+'.nativeSave');
    if(seed===900726){
+    validateTimingShape014(world,true);
     if(!world.nativeContinueIdentitiesExact||!world.continueSaveBytesExact||!world.actualPageReload||!world.reloadedSourceExact||!world.followingContinueDay||world.checkpoints[7].continued!==true||world.checkpoints[8].followingContinuedDay!==true||world.checkpoints[7].stats.day!==world.checkpoints[6].stats.day||world.checkpoints[8].stats.day!==world.checkpoints[7].stats.day+1)throw Error('Actual whole-page native Continue and unaided following day required');
     validateNativeSave014(world.continueSave,'14.30',world.fixture?.N,world.checkpoints[6].stats.day,'seed900726.continueSave');
    }
@@ -114,10 +183,10 @@ function runtimeSourceAudit014(){
 }
 function normalizationFixture014(){
  const save=day=>JSON.stringify({v:1,n:72,gameVer:'14.30',region:{stations:0,ports:0,airports:0,powerCap:1650,food:0,tourists:79,ver:'14.30'},df:1,day,allFields:{retained:true}});
- return['baseline','candidate'].map(label=>({label,result:WORLD_SEEDS014.map((seed,i)=>({seed,fixture:{N:72,paid:100},...(i>=6?{nativeSave:save(4),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),...(i===7?{continueSave:save(6),nativeContinueIdentitiesExact:true,continueSaveBytesExact:true,actualPageReload:true,reloadedSourceExact:true,followingContinueDay:true}:{}),checkpoints:Array.from({length:CHECKPOINT_COUNTS014[i]},(_,n)=>({stats:{day:i===7&&n>=7?n-1:n,money:100-n},tilesSHA256:'complete-'+n,rngState:42+n,...(i>=4?{enterprise:{version:'14.30',anchor:'T726',money:100-n,other:{unchanged:true}}}:{}),...(i===7&&n===7?{continued:true}:{}),...(i===7&&n===8?{followingContinuedDay:true}:{})}))}))}));
+ return['baseline','candidate'].map(label=>({label,result:WORLD_SEEDS014.map((seed,i)=>({seed,fixture:{N:72,paid:100},...(i>=6?{nativeSave:save(4),nativeSaveMetadataExact:true,nativeLoadIdentitiesExact:true,otherSlotsUnchanged:true}:{}),...(i===7?{continueSave:save(6),nativeContinueIdentitiesExact:true,continueSaveBytesExact:true,actualPageReload:true,reloadedSourceExact:true,followingContinueDay:true}:{}),checkpoints:Array.from({length:CHECKPOINT_COUNTS014[i]},(_,n)=>({stats:{day:i===7&&n>=7?n-1:n,money:100-n,poweredBld:5},tilesSHA256:'complete-'+n,rngState:42+n,...(i===7?{offset:TIMING_OFFSETS014[n],nativeMobility:{totalTrips:100,performance:TIMING_CHECKPOINTS014.includes(n)?{runs:TIMING_RUNS014[n]}:{runs:0,lastMs:0,avgMs:0,maxMs:0}}}:{}),...(i>=4?{enterprise:{version:'14.30',anchor:'T726',money:100-n,other:{unchanged:true}}}:{}),...(i===7&&n===7?{continued:true}:{}),...(i===7&&n===8?{followingContinuedDay:true}:{})}))}))}));
 }
 function staticNormalizationTest014(){
- const runtimeSource=runtimeSourceAudit014(),oldControls=previous.staticNormalizationTest013();
+ const runtimeSource=runtimeSourceAudit014(),oldControls=previous.staticNormalizationTest013(),wallClockControls=staticTimingTest014();
  const product={ok:true,htmlExact:true,protectedExact:true,fpExact:true,logExact:true,coldLoadFixExact:true,release:false,phase:'candidate',version:'14.30',anchor:'T726'},negatives=[];
  const input=normalizationFixture014(),raw=JSON.stringify(input),positive=normalizeCompatibility014(input,product);
  if(!eq(positive.reference,positive.comparison)||JSON.stringify(positive.reference)!==JSON.stringify(positive.comparison)||JSON.stringify(input)!==raw||positive.metadataNormalization.normalizedFields!==0||positive.metadataNormalization.paths.length!==0)throw Error('Exact complete same-label candidate data required');
@@ -132,6 +201,6 @@ function staticNormalizationTest014(){
  for(let i=0;i<8;i++)for(const field of['money','rngState','tilesSHA256'])reject('world'+i+' full '+field,r=>{const q=r[1].result[i].checkpoints[0];if(field==='money')q.stats.money++;else q[field]+='changed';});
  for(const flag of['nativeContinueIdentitiesExact','continueSaveBytesExact','actualPageReload','reloadedSourceExact','followingContinueDay','otherSlotsUnchanged'])reject('missing '+flag,r=>r[1].result[7][flag]=false);
  reject('no following continued day',r=>r[1].result[7].checkpoints[8].stats.day--);
- return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,worlds:8,originalSevenWorldsRetained:true,oldControls,runtimeSource,checkpointCounts:CHECKPOINT_COUNTS014,declaredPaths:[...METADATA_PATHS014,...SAVE_PATHS014],candidateNormalizedFields:0,futureReleaseRejected:true,completeNativeSaveCompared:true,actualContinueCompared:true,rawObservationsPreserved:true,cases:1+negatives.length,negatives};
+ return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,worlds:8,originalSevenWorldsRetained:true,oldControls,wallClockControls,runtimeSource,checkpointCounts:CHECKPOINT_COUNTS014,declaredPaths:[...METADATA_PATHS014,...SAVE_PATHS014],candidateNormalizedFields:0,futureReleaseRejected:true,completeNativeSaveCompared:true,actualContinueCompared:true,rawObservationsPreserved:true,cases:1+negatives.length,negatives};
 }
-module.exports={fixtureSource014,snapshotTheatreWorld014,runTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,normalizeCompatibility014,validateNativeSave014,runtimeSourceAudit014,staticNormalizationTest014,normalizationFixture014,WORLD_SEEDS014,CHECKPOINT_COUNTS014,METADATA_PATHS014,SAVE_PATHS014};
+module.exports={fixtureSource014,snapshotTheatreWorld014,runTheatreWorld014,continueTheatreWorld014,runCompleteTheatreWorld014,normalizeCompatibility014,validateNativeSave014,runtimeSourceAudit014,staticNormalizationTest014,normalizationFixture014,timingProducer014,separateTheatreTiming014,validateTimingEvidence014,validateTimingShape014,staticTimingTest014,TIMING_CHECKPOINTS014,TIMING_FIELDS014,WORLD_SEEDS014,CHECKPOINT_COUNTS014,METADATA_PATHS014,SAVE_PATHS014};
