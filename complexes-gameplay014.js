@@ -257,11 +257,17 @@ function nativeOcclusion014(){
   row.partial=row.restored&&row.sameTurn&&row.sameIdentity&&restored.age>=9&&withLight.candidates>0&&withLight.visible>0&&withLight.blocked>withoutLight.blocked;trials.push(row);
   if(row.partial)return{trials,selected:row,capture:withScene,control};
  }
- return paidForegroundOcclusion014(trials);
+ const first=paidForegroundOcclusion014(trials);
+ if(Q.group!=='manor'||first.selected)return first;
+ // The deep manor forecourt needs one bounded taller native fallback. Preserve
+ // the failed terrace evidence and both complete native restoration receipts.
+ const second=paidForegroundOcclusion014(first.trials,{id:'westminster',k:191});
+ return{...second,previousAttempts:[{selected:first.selected,foregroundFixture:first.foregroundFixture,restoration:first.restoration,payments:first.payments}],occlusionShots:[...(first.occlusionShots||[]),...(second.occlusionShots||[])]};
 }
-function paidForegroundOcclusion014(trials){
+function paidForegroundOcclusion014(trials,foreground={id:'britishTerrace',k:219}){
  const Q=window.__complexQA014,root=Q.roots.find(r=>r.group===Q.group&&r.sz===4),x=root.x+1,y=root.y+4,sz=2;
- const identity=identity014(),storage=Q.storage(),start=Q.paid.length,original=[];
+ if(!(foreground.id==='britishTerrace'&&foreground.k===219||Q.group==='manor'&&foreground.id==='westminster'&&foreground.k===191))throw Error('Only two declared native foreground candidates are allowed');
+ const identity=identity014(),storage=Q.storage(),start=Q.paid.length,original=[],occlusionShots=[];
  // This dedicated counterfactual occupies only four paid014 forecourt paths.
  // No retained building, utility, road, old theme, or native mask is moved.
  for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++){
@@ -272,16 +278,17 @@ function paidForegroundOcclusion014(trials){
  GV.save();const raw=localStorage.getItem('glimmerville.v1.s3');if(!raw)throw Error('Native temporary-scene save required');
  let fixture,selected=null,capture=null,control=null,restoration;
  try{
-  const cleared=original.map(p=>Q.pay('doze',p.x,p.y)),payment=Q.place('britishTerrace',x,y,sz),initial=GV.tile(x,y).bld,from=GV.stats().day,days=[];
-  if(initial?.k!==219||initial.sz!==2||initial.age!==0)throw Error('Foreground must be a genuinely paid native age0 k219');
+  const cleared=original.map(p=>Q.pay('doze',p.x,p.y)),payment=Q.place(foreground.id,x,y,sz),initial=GV.tile(x,y).bld,from=GV.stats().day,days=[];
+  if(initial?.k!==foreground.k||initial.sz!==2||initial.age!==0)throw Error('Foreground must be the declared genuinely paid native age0 building');
   for(let n=0;n<9;n++){step014(1);days.push({day:GV.stats().day,age:GV.tile(x,y).bld?.age});}
-  const matured=GV.tile(x,y).bld;fixture={kind:'paid-adjacent-native-foreground',target:root.k,x,y,sz,cleared,payment,initial,from,to:GV.stats().day,days,matured,originalPaths:original.map(p=>({x:p.x,y:p.y,id:p.id,theme:p.theme}))};
+  const matured=GV.tile(x,y).bld;fixture={kind:'paid-adjacent-native-foreground',target:root.k,foregroundK:foreground.k,foregroundId:foreground.id,x,y,sz,cleared,payment,initial,from,to:GV.stats().day,days,matured,originalPaths:original.map(p=>({x:p.x,y:p.y,id:p.id,theme:p.theme}))};
   for(const rotation of[0,1,2,3]){
    const withScene=nativeScene014(rotation,true,Q.group),withLight=nativeLight014(root.k),before=GV.complexAt014(root.x,root.y),money=GV.devMoney516B(),quote=GV.placePreview459('doze',x+1,y+1),removed=GV.placeUndo('doze',x+1,y+1),charged=money-GV.devMoney516B();
    if(!removed)throw Error('Actual matured foreground reference-cell demolition required');
    const withoutScene=nativeScene014(rotation,true,Q.group),withoutLight=nativeLight014(root.k),after=GV.complexAt014(root.x,root.y),gone=original.every(p=>!GV.tile(p.x,p.y).bld),undo=GV.undo(),fore=GV.tile(x,y).bld;
-   const row={kind:fixture.kind,rotation,target:root.k,foreground:219,quote,removed,charged,gone,undo,restored:undo&&fore?.k===219&&fore.age===matured.age&&GV.devMoney516B()===money,sameTurn:withScene.day===withoutScene.day&&JSON.stringify(withScene.time)===JSON.stringify(withoutScene.time),sameIdentity:before.root===after.root&&before.age===after.age&&before.k===after.k&&JSON.stringify(before.refCells)===JSON.stringify(after.refCells),targetOperational:before.operational&&after.operational,withLight,withoutLight};
+   const row={kind:fixture.kind,rotation,target:root.k,foreground:foreground.k,quote,removed,charged,gone,undo,restored:undo&&fore?.k===foreground.k&&fore.age===matured.age&&GV.devMoney516B()===money,sameTurn:withScene.day===withoutScene.day&&JSON.stringify(withScene.time)===JSON.stringify(withoutScene.time),sameIdentity:before.root===after.root&&before.age===after.age&&before.k===after.k&&JSON.stringify(before.refCells)===JSON.stringify(after.refCells),targetOperational:before.operational&&after.operational,withLight,withoutLight};
    row.partial=row.restored&&row.sameTurn&&row.sameIdentity&&row.targetOperational&&gone&&matured.age>=9&&charged===quote.cost&&charged>0&&withLight.candidates>0&&withoutLight.candidates>0&&withLight.visible>0&&withLight.blocked>withoutLight.blocked;
+   if(Q.group==='manor')for(const[phase,scene]of[['with',withScene],['control',withoutScene]])occlusionShots.push({foreground:foreground.k,target:root.k,rotation,phase,day:scene.day,age:matured.age,png:scene.png,partial:row.partial});
    trials.push(row);if(row.partial){selected=row;capture=withScene;control=withoutScene;break;}
   }
   // Demonstrate ordinary paid restoration before loading the exact original
@@ -294,7 +301,7 @@ function paidForegroundOcclusion014(trials){
   const stable=a=>a.map(({age,...row})=>row),pathsExactAfterDay=JSON.stringify(identity.paths)===JSON.stringify(following.identity.paths),buildingIdentitiesAfterDay=JSON.stringify(stable(identity.buildings))===JSON.stringify(stable(following.identity.buildings));
   restoration={loaded,restoredIdentity,saveBytesExact,pathsExactAfterDay,buildingIdentitiesAfterDay,from,following,capacity,otherSlotsUnchanged:[...new Set([...Object.keys(storage),...Object.keys(after)])].filter(k=>!allowed(k)).every(k=>storage[k]===after[k])};
  }
- return{trials,selected,capture,control,foregroundFixture:fixture,restoration,payments:Q.paid.slice(start)};
+ return{trials,selected,capture,control,foregroundFixture:fixture,restoration,payments:Q.paid.slice(start),occlusionShots};
 }
 function rejectedPlacements014(){
  const Q=window.__complexQA014,rows=[],x=1,y=64;Q.prepare(x,y,4);
@@ -375,14 +382,21 @@ function validFiscal014(f,day,jobs,upkeep){
  const near=(a,b)=>Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<1e-6;
  return !!(f&&f.day===day&&f.difficulty===1&&f.complexPublicJobs===jobs&&near(f.complexUpkeep,upkeep)&&f.upkeep>=upkeep&&near(f.afterMoney-f.beforeMoney,f.income-f.upkeep)&&near(f.postedNet,f.income-f.upkeep)&&near(f.rawFin?.net,f.postedNet));
 }
+function validForegroundProtocol014(q){
+ const f=q?.foregroundFixture,r=q?.restoration,declared=f?.foregroundK===219&&f.foregroundId==='britishTerrace'||f?.target===285&&f.foregroundK===191&&f.foregroundId==='westminster';
+ return !!(declared&&f?.kind==='paid-adjacent-native-foreground'&&f.initial?.k===f.foregroundK&&f.initial.age===0&&f.payment?.id===f.foregroundId&&f.payment.exact&&f.payment.charged>0&&f.cleared?.length===4&&f.cleared.every(p=>p.exact&&p.charged>0)&&f.days?.length===9&&f.days.every((d,n)=>d.day===f.from+n+1&&d.age===n+1)&&f.to===f.from+9&&f.matured?.age===9&&f.cleanup?.exact&&f.cleanup.charged>0&&f.pathRestoration?.length===4&&f.pathRestoration.every(p=>p.exact&&p.charged>0)&&f.themesRestored&&q.payments?.length>=10&&q.payments.every(p=>p.exact&&p.charged>0)&&r?.loaded&&r.restoredIdentity&&r.saveBytesExact&&r.pathsExactAfterDay&&r.buildingIdentitiesAfterDay&&r.otherSlotsUnchanged&&r.following?.day===r.from+1&&r.following.paths?.length===16&&r.following.paths.every(p=>p?.am502===1)&&validReady014(r.following)&&r.capacity?.exact&&r.capacity.positive);
+}
 function validPaidForeground014(q){
- const f=q?.foregroundFixture,r=q?.restoration,s=q?.selected;
- return !!(s?.partial&&s.removed&&s.gone&&s.undo&&s.restored&&s.sameTurn&&s.sameIdentity&&s.targetOperational&&s.charged===s.quote.cost&&s.charged>0&&s.withLight.candidates>0&&s.withoutLight.candidates>0&&s.withLight.visible>0&&s.withLight.blocked>s.withoutLight.blocked&&f?.kind==='paid-adjacent-native-foreground'&&s.kind===f.kind&&f.initial?.k===219&&f.initial.age===0&&f.payment?.exact&&f.payment.charged>0&&f.cleared?.length===4&&f.cleared.every(p=>p.exact&&p.charged>0)&&f.days?.length===9&&f.days.every((d,n)=>d.day===f.from+n+1&&d.age===n+1)&&f.to===f.from+9&&f.matured?.age===9&&f.cleanup?.exact&&f.cleanup.charged>0&&f.pathRestoration?.length===4&&f.pathRestoration.every(p=>p.exact&&p.charged>0)&&f.themesRestored&&q.payments?.length>=10&&q.payments.every(p=>p.exact&&p.charged>0)&&r?.loaded&&r.restoredIdentity&&r.saveBytesExact&&r.pathsExactAfterDay&&r.buildingIdentitiesAfterDay&&r.otherSlotsUnchanged&&r.following?.day===r.from+1&&r.following.paths?.length===16&&r.following.paths.every(p=>p?.am502===1)&&validReady014(r.following)&&r.capacity?.exact&&r.capacity.positive);
+ const f=q?.foregroundFixture,s=q?.selected,previous=q?.previousAttempts||[];
+ return !!(s?.partial&&s.kind===f?.kind&&s.foreground===f.foregroundK&&s.removed&&s.gone&&s.undo&&s.restored&&s.sameTurn&&s.sameIdentity&&s.targetOperational&&s.charged===s.quote.cost&&s.charged>0&&s.withLight.candidates>0&&s.withoutLight.candidates>0&&s.withLight.visible>0&&s.withLight.blocked>s.withoutLight.blocked&&validForegroundProtocol014(q)&&(f.foregroundK===191?previous.length===1&&previous[0].selected===null&&previous[0].foregroundFixture?.foregroundK===219&&previous[0].foregroundFixture?.target===285&&validForegroundProtocol014(previous[0]):previous.length===0));
 }
 function staticPaidForegroundTest014(){
- const paid={exact:true,charged:1},q={selected:{partial:true,kind:'paid-adjacent-native-foreground',removed:true,gone:true,undo:true,restored:true,sameTurn:true,sameIdentity:true,targetOperational:true,charged:2,quote:{cost:2},withLight:{candidates:100,blocked:20,visible:80},withoutLight:{candidates:100,blocked:0,visible:100}},foregroundFixture:{kind:'paid-adjacent-native-foreground',initial:{k:219,age:0},payment:paid,cleared:Array(4).fill(paid),from:10,to:19,days:Array.from({length:9},(_,n)=>({day:11+n,age:n+1})),matured:{age:9},cleanup:paid,pathRestoration:Array(4).fill(paid),themesRestored:true},payments:Array(10).fill(paid),restoration:{loaded:true,restoredIdentity:true,saveBytesExact:true,pathsExactAfterDay:true,buildingIdentitiesAfterDay:true,otherSlotsUnchanged:true,from:10,following:{day:11,paths:Array.from({length:16},()=>({am502:1})),roots:Array.from({length:12},(_,n)=>({k:282+n,age:10,built:true,operational:true,powerState:1,waterState:{code:4},waterDelivered:1,road:[1],role:'service',positions:1,employed:1,activity:{publicJobs:1}}))},capacity:{exact:true,positive:true}}};
+ const paid={exact:true,charged:1},q={selected:{partial:true,kind:'paid-adjacent-native-foreground',foreground:219,removed:true,gone:true,undo:true,restored:true,sameTurn:true,sameIdentity:true,targetOperational:true,charged:2,quote:{cost:2},withLight:{candidates:100,blocked:20,visible:80},withoutLight:{candidates:100,blocked:0,visible:100}},foregroundFixture:{kind:'paid-adjacent-native-foreground',target:282,foregroundK:219,foregroundId:'britishTerrace',initial:{k:219,age:0},payment:{...paid,id:'britishTerrace'},cleared:Array(4).fill(paid),from:10,to:19,days:Array.from({length:9},(_,n)=>({day:11+n,age:n+1})),matured:{age:9},cleanup:paid,pathRestoration:Array(4).fill(paid),themesRestored:true},payments:Array(10).fill(paid),restoration:{loaded:true,restoredIdentity:true,saveBytesExact:true,pathsExactAfterDay:true,buildingIdentitiesAfterDay:true,otherSlotsUnchanged:true,from:10,following:{day:11,paths:Array.from({length:16},()=>({am502:1})),roots:Array.from({length:12},(_,n)=>({k:282+n,age:10,built:true,operational:true,powerState:1,waterState:{code:4},waterDelivered:1,road:[1],role:'service',positions:1,employed:1,activity:{publicJobs:1}}))},capacity:{exact:true,positive:true}}};
  if(!validPaidForeground014(q))throw Error('Synthetic paid foreground positive rejected');const rejected=[];
  for(const[name,mutate]of[['no partial light',x=>x.selected.partial=false],['no blocked pixel increase',x=>x.selected.withLight.blocked=0],['fully blocked target',x=>x.selected.withLight.visible=0],['absent control emission',x=>x.selected.withoutLight.candidates=0],['unpaid reference demolition',x=>x.selected.charged=0],['different comparison time',x=>x.selected.sameTurn=false],['changed target identity',x=>x.selected.sameIdentity=false],['foreground not restored',x=>x.selected.restored=false],['fake initial age',x=>x.foregroundFixture.initial.age=9],['skipped native day',x=>x.foregroundFixture.days[4].day++],['accelerated age',x=>x.foregroundFixture.days[4].age++],['unpaid foreground',x=>x.foregroundFixture.payment={exact:false,charged:0}],['missing restored theme',x=>x.foregroundFixture.themesRestored=false],['wrong save identity',x=>x.restoration.restoredIdentity=false],['changed save bytes',x=>x.restoration.saveBytesExact=false],['path changes following day',x=>x.restoration.pathsExactAfterDay=false],['building identity changes following day',x=>x.restoration.buildingIdentitiesAfterDay=false],['other slot changed',x=>x.restoration.otherSlotsUnchanged=false],['missing following day',x=>x.restoration.following.day--],['lost restored root',x=>x.restoration.following.roots.pop()],['lost restored path',x=>x.restoration.following.paths.pop()]]){const v=structuredClone(q);mutate(v);if(validPaidForeground014(v))throw Error('Foreground negative accepted '+name);rejected.push(name);}
+ const fallback=structuredClone(q),first=structuredClone(q);first.selected=null;first.foregroundFixture.target=285;fallback.previousAttempts=[first];Object.assign(fallback.foregroundFixture,{target:285,foregroundK:191,foregroundId:'westminster',initial:{k:191,age:0},payment:{...paid,id:'westminster'}});fallback.selected.foreground=191;
+ if(!validPaidForeground014(fallback))throw Error('Bounded native manor fallback positive rejected');
+ for(const[name,mutate]of[['unbounded third candidate',x=>x.previousAttempts.push(structuredClone(x.previousAttempts[0]))],['discarded first restoration',x=>x.previousAttempts[0].restoration.restoredIdentity=false],['missing first attempt',x=>x.previousAttempts=[]],['wrong fallback group',x=>x.foregroundFixture.target=282],['undeclared old tool',x=>x.foregroundFixture.foregroundId='fake']]){const x=structuredClone(fallback);mutate(x);if(validPaidForeground014(x))throw Error('Bounded fallback negative accepted '+name);rejected.push(name);}
  const source=paidForegroundOcclusion014.toString();if(/\b(?:testAge|innovationSetQA|ensure|recompute|refresh|dispatch)[A-Za-z0-9_]*\s*\(|\.age\s*=(?!=)|\.pw\s*=|\.wa\s*=|\.night\s*=/.test(source))throw Error('Foreground counterfactual cannot fabricate age/supply/masks or repair getters');
  return{ok:true,sourceOnly:true,gameExecuted:false,syntheticDataOnly:true,rejected,nineActualDaysRequired:true,completeSaveAndPathRestorationRequired:true};
 }
