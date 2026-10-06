@@ -1,0 +1,174 @@
+name: gardenlife-integration016
+permissions:
+  contents: read
+concurrency:
+  group: gardenlife-integration016-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends
+        fonts-wqy-zenhei
+    - name: Complete source-only and mutation checks
+      run: 'set -euo pipefail
+
+        node gardenlife-static-contract016.js
+
+        node gardenlife-legacy016.js --static-test
+
+        node gardenlife-integration-qa016.js --static-test
+
+        python3 gardenlife-native-workflow016.test.py
+
+        for f in *016.js; do node --check "$f"; done
+
+        '
+    - name: Exact-head native24 preflight
+      run: 'set -o pipefail
+
+        GL016_MODE=preflight node gardenlife-integration-qa016.js 2>&1 | tee gardenlife-preflight.txt
+
+        '
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: gardenlife-preflight-${{ github.sha }}
+        path: 'gardenlife-evidence/preflight/
+
+          gardenlife-preflight.txt
+
+          '
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code
+  native:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - gameplay
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - coldload
+        - occlusion
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends
+        fonts-wqy-zenhei
+    - name: Native paid garden details and full visual scenes
+      run: 'set -o pipefail
+
+        GL016_MODE=${{ matrix.mode }} node gardenlife-integration-qa016.js 2>&1 |
+        tee gardenlife-${{ matrix.mode }}.txt
+
+        '
+    - name: Retain every raw report and lossless counterfactual PNG in bounded packets
+      if: always()
+      run: python3 gardenlife-package016.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part0/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .gardenlife-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part1/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .gardenlife-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part2/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .gardenlife-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part3/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .gardenlife-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part4/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .gardenlife-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part5/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .gardenlife-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part6/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .gardenlife-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part7/**') != ''
+      with:
+        name: gardenlife-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .gardenlife-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code
+'on':
+  push:
+    branches:
+    - gpt/british-garden-life-016
+    paths-ignore:
+    - '**.md'
+    - docs/**
+    - console-source-observer*.js
+    - streetscape-console-diagnostic015.js
+    - .github/workflows/streetscape-console015.yml
+  workflow_dispatch: null
