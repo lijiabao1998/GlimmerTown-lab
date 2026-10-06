@@ -142,7 +142,8 @@ function setupComplexes014(seedFn,group){
  const existing=identity014();Q.beforeNewIdentities=existing;
  // Native roads/pipes attach the new southern precincts to the retained city.
  for(let y=59;y<=70;y++)Q.corridor(5,y);
- for(const y of[63,70])for(let x=6;x<=55;x++)Q.corridor(x,y);
+ // Keep the inherited theatre plant at55,63; the southern link reaches56,70.
+ for(const y of[63,70])for(let x=6;x<=(y===63?54:55);x++)Q.corridor(x,y);
  const specs=GV.complexSpecs014();
  for(const [n,g]of['college','manor','baths','fire'].entries()){
   const x=6+12*n,d={group:g,x,y:64,focus:[x+3,66]};Q.districts.push(d);
@@ -296,7 +297,7 @@ function fireDrill014(){
  const Q=window.__complexQA014,rows=[],identity=identity014();GV.save();
  for(const k of[291,292]){
   if(!GV.load())throw Error('Native drill baseline load failed');
-  const source=Q.roots.find(r=>r.k===k),target={x:50,y:67};Q.prepare(target.x,target.y);
+  const source=Q.roots.find(r=>r.k===k),target={x:46,y:62};Q.prepare(target.x,target.y);
   // Existing T534 legacy incident-target fixture only. It does not create any
   // new014 building, paid workforce, capacity, utility, or revenue evidence.
   const fixture=GV.testInjectResident534(target.x,target.y);if(!fixture)throw Error('Existing native incident-target fixture failed');

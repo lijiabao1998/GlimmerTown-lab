@@ -17,6 +17,9 @@ def verify(data):
   j=jobs['legacy-'+key]
   assert j.get('strategy',{}).get('matrix',{})==prior.get('strategy',{}).get('matrix',{}),'Original historical matrix changed'
   assert 'node complexes-regression-adapter014.js'in '\n'.join(s.get('run','')for s in j['steps'])
+ for key,suite in [('legacy-prior','${{ matrix.suite }}'),('legacy-compatibility','compatibility')]:
+  commands='\n'.join(step.get('run','') for step in jobs[key]['steps'])
+  assert 'CX014_SUITE='+suite+' CX014_MODE=gameplay node complexes-regression-adapter014.js' in commands,'Historical gameplay-only suite misrouted: '+key
  for key in ['gameplay','camera','construction','weather']:
   assert jobs[key]['strategy']['matrix']['group']==['college','manor','baths','fire']
  assert jobs['camera']['strategy']['matrix']['mode']==['camera0','camera1','camera2','camera3']
@@ -39,6 +42,13 @@ for name,mutate in [('drop historical weather',lambda q:q['jobs']['legacy-theatr
  try:verify(q)
  except (AssertionError,KeyError):negatives.append(name)
  else:raise AssertionError('Workflow negative accepted '+name)
+for job in ['legacy-prior','legacy-compatibility']:
+ q=copy.deepcopy(current)
+ for step in q['jobs'][job]['steps']:
+  if 'run' in step:step['run']=step['run'].replace('CX014_MODE=gameplay','CX014_MODE=preflight')
+ try:verify(q)
+ except (AssertionError,KeyError):negatives.append('misroute '+job)
+ else:raise AssertionError('Historical mode mutation accepted '+job)
 # Source pins on actual cold navigation and untouched numerical performance cap.
 s=(ROOT/'complexes-integration-qa014.js').read_text()
 assert "iteration <= 2"in s and "day <= 3"in s and "cdp.send('Page.reload', { ignoreCache: true })"in s and "document.getElementById('bContinue')"in s

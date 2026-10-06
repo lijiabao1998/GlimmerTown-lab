@@ -45,6 +45,8 @@ jobs:
 
         node complexes-gameplay014.js --static-test
 
+        node complexes-fixture014.test.js
+
         node complexes-integration-qa014.js --static-test
 
         python3 complexes-workflow014.test.py
@@ -1164,7 +1166,7 @@ jobs:
 
         CX014_MODE=fingerprint node complexes-integration-qa014.js 2>&1 | tee complexes-evidence/compatibility/logs/strict112.txt
 
-        CX014_SUITE=compatibility CX014_MODE=preflight node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-compatibility.txt
+        CX014_SUITE=compatibility CX014_MODE=gameplay node complexes-regression-adapter014.js 2>&1 | tee complexes-legacy-compatibility.txt
         node complexes-compatibility014.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee complexes-compatibility-data.txt
 
         '
@@ -1586,7 +1588,7 @@ jobs:
     - name: Complete unchanged historical coverage through strict014 adapter
       run: 'set -o pipefail
 
-        CX014_SUITE=${{ matrix.suite }} CX014_MODE=preflight node complexes-regression-adapter014.js 2>&1 | tee
+        CX014_SUITE=${{ matrix.suite }} CX014_MODE=gameplay node complexes-regression-adapter014.js 2>&1 | tee
         complexes-legacy-prior-${{ matrix.suite }}.txt
 
         '

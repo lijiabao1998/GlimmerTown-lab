@@ -17,6 +17,12 @@ function test014(input,{synthetic=false}={}){
  }
  assert.equal(Object.keys(fp.subs).length,3059);
  const product=synthetic?{ok:true,version:'14.30',anchor:'T726',release:false,phase:'candidate',syntheticDataOnly:true}:bridge.currentProduct014();
+ if(!synthetic){
+  const head=execFileSync('git',['rev-parse','HEAD'],{cwd:__dirname,encoding:'utf8'}).trim();
+  assert.equal(input.checkedSHA,head,'Native evidence must belong to the exact candidate head');assert.equal(input.sourceSHA256,product.sourceSHA256,'Native evidence must belong to the exact source');
+  assert.equal(input.version,product.version);assert.equal(input.anchor,product.anchor);assert.equal(input.release,product.release);
+  if(process.env.GITHUB_ACTIONS==='true')assert.equal(head,process.env.GITHUB_SHA,'Exact Actions workflow head required');
+ }
  const proof=native.verifyFingerprint014(fp,blocks),theatre=bridge.theatreLineage014(fp,blocks),river=bridge.riversideLineage014(fp,blocks,product),museum=bridge.museumLineage014(fp,blocks,product),projected=bridge.project014(fp,blocks);
  assert.equal(proof.oldLeaves,2947);assert.equal(proof.newLeaves,112);assert.equal(proof.leaves,3059);assert.equal(proof.currentFamilies,160);
  for(const[q,leaves,oldLeaves,newLeaves,removed]of[[theatre,2947,2919,28,112],[river,2919,2895,24,140],[museum,2895,2879,16,164]]){
