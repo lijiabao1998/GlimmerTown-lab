@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T729 release entry BEGIN -->
+## r176 — T729 英式花園生活配景（原 GPT-016）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r176 | [T729](docs/T729-british-garden-life.md) | 2026-10-06 12:31 UTC (release-task receipt) 收到本輪十張圖片與上線批准。六款獨立付費庭院步道配景，24 個原創四向素材；全部不自行發光。v14.33 / T729 僅改三個產品發布標籤，嚴格增量晉升 24 葉。 | 批准候選 562dcdac6b0f221f803e5288152805e5dfd1f367：[native 13/13](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485794)、[legacy 104/104](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485853)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485811) 全綠；正式 release head 仍須完整重驗。 | gpt/british-garden-life-016；PR 與合併 SHA 待完成後記於 PR。 | 十張同 head 的原始 1600×1080 PNG，日夜、四向、冬景、實際周邊施工與冷 Continue；業主已批准。 | ① R1/R2 QA 場景錯誤、R2 原始耗時門檻失敗及未遮擋試探均保留 ② 現有 PWA 404 與無 URL script 404 未全分類，未擴修 ③ CI 耗時不等於手機 FPS ④ 配景為即時步道外觀，不虛稱九日施工或新增服務 ⑤ 本準備紀錄不代表正式 CI、Pages、live 已完成，亦非下一波發布批准。 |
+
+<!-- T729 release entry END -->
 <!-- T728 release entry BEGIN -->
 ## r175 — T728 英式路燈、店招與庭院細節（原 GPT-015）
 

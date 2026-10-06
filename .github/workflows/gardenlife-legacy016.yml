@@ -1,0 +1,661 @@
+name: gardenlife-legacy016
+'on':
+  push:
+    branches:
+    - gpt/british-garden-life-016
+    paths-ignore:
+    - '**.md'
+    - docs/**
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: gardenlife-legacy016-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    steps:
+    - &id001
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - &id002
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - &id003
+      name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends
+        fonts-wqy-zenhei
+    - name: Complete current source and adapter controls
+      run: |
+        set -euo pipefail
+        node gardenlife-static-contract016.js
+
+        node gardenlife-release-contract016.test.js
+        node gardenlife-compatibility016.js --static-test
+        node gardenlife-legacy016.js --static-test
+        node gardenlife-integration-qa016.js --static-test
+
+        node gardenlife-gameplay016.test.js
+        node gardenlife-style016.test.js
+        for f in *016.js; do node --check "$f"; done
+        python3 gardenlife-workflow016.test.py
+    - name: Unchanged015 and earlier source controls in frozen approved worktrees
+      run: |
+        set -euo pipefail
+        baseline="$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)"
+        git worktree add --detach "$baseline" bcd77d5e959ed801d920766cbc9dc010cce19f58
+        (
+         cd "$baseline"
+         node streetscape-static-contract015.js
+         node streetscape-release-contract015.test.js
+         node streetscape-compatibility015.js --static-test
+         node streetscape-legacy015.js --static-test
+         node streetscape-integration-qa015.js --static-test
+         node streetscape-style015.test.js
+         python3 streetscape-workflow015.test.py
+        )
+        set -euo pipefail
+        baseline="$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)"
+        git worktree add --detach "$baseline" 6d137b6be31a7f07867b8ebb181fb8ed3727b049
+        cd "$baseline"
+        node complexes-static-contract014.js
+        node complexes-release-contract014.test.js
+        python3 integrate-complexes014.test.py
+        node complexes-gameplay014.js --static-test
+        node complexes-fixture014.test.js
+        node complexes-integration-qa014.js --static-test
+        python3 complexes-workflow014.test.py
+        node complexes-regression-adapter014.js --static-test
+        node complexes-regression-adapter014.test.js
+        node complexes-regression-adapter014.js --historical-source-tests
+        node complexes-style-adapter014.js --static-test
+        node complexes-style-adapter014.test.js
+        node complexes-compatibility014.test.js --static-test
+    - name: Strict full3115 current preflight before original015 legacy preflight
+      run: |
+        set -euo pipefail
+        GL016_MODE=preflight node gardenlife-integration-qa016.js 2>&1 | tee gardenlife-full-preflight.txt
+        node gardenlife-release-contract016.test.js --native gardenlife-evidence/preflight/fingerprint-native.json
+        node gardenlife-legacy016.test.js gardenlife-evidence/preflight/fingerprint-native.json
+        node gardenlife-style016.test.js gardenlife-evidence/preflight/fingerprint-native.json
+        GL016_SUITE=streetscape GL016_MODE=preflight node gardenlife-legacy016.js 2>&1 | tee gardenlife-retained-legacy015-preflight.txt
+    - uses: actions/upload-artifact@v4
+      with:
+        name: gardenlife-full-native-fingerprint-${{ github.sha }}
+        path: gardenlife-evidence/preflight/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 gardenlife-package016.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part0/**') != ''
+      with:
+        name: gardenlife-full-preflight-part0-${{ github.sha }}
+        path: .gardenlife-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part1/**') != ''
+      with:
+        name: gardenlife-full-preflight-part1-${{ github.sha }}
+        path: .gardenlife-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part2/**') != ''
+      with:
+        name: gardenlife-full-preflight-part2-${{ github.sha }}
+        path: .gardenlife-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part3/**') != ''
+      with:
+        name: gardenlife-full-preflight-part3-${{ github.sha }}
+        path: .gardenlife-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part4/**') != ''
+      with:
+        name: gardenlife-full-preflight-part4-${{ github.sha }}
+        path: .gardenlife-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part5/**') != ''
+      with:
+        name: gardenlife-full-preflight-part5-${{ github.sha }}
+        path: .gardenlife-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part6/**') != ''
+      with:
+        name: gardenlife-full-preflight-part6-${{ github.sha }}
+        path: .gardenlife-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part7/**') != ''
+      with:
+        name: gardenlife-full-preflight-part7-${{ github.sha }}
+        path: .gardenlife-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - suite: streetscape
+          mode: preflight
+          group: none
+        - suite: streetscape
+          mode: gameplay
+          group: none
+        - suite: streetscape
+          mode: camera0
+          group: none
+        - suite: streetscape
+          mode: camera1
+          group: none
+        - suite: streetscape
+          mode: camera2
+          group: none
+        - suite: streetscape
+          mode: camera3
+          group: none
+        - suite: streetscape
+          mode: construction0
+          group: none
+        - suite: streetscape
+          mode: construction1
+          group: none
+        - suite: streetscape
+          mode: construction2
+          group: none
+        - suite: streetscape
+          mode: construction3
+          group: none
+        - suite: streetscape
+          mode: weather
+          group: none
+        - suite: streetscape
+          mode: coldload
+          group: none
+        - suite: streetscape
+          mode: occlusion
+          group: none
+        - suite: complexes
+          mode: preflight
+          group: college
+        - suite: complexes
+          mode: gameplay
+          group: college
+        - suite: complexes
+          mode: gameplay
+          group: manor
+        - suite: complexes
+          mode: gameplay
+          group: baths
+        - suite: complexes
+          mode: gameplay
+          group: fire
+        - suite: complexes
+          mode: camera0
+          group: college
+        - suite: complexes
+          mode: camera0
+          group: manor
+        - suite: complexes
+          mode: camera0
+          group: baths
+        - suite: complexes
+          mode: camera0
+          group: fire
+        - suite: complexes
+          mode: camera1
+          group: college
+        - suite: complexes
+          mode: camera1
+          group: manor
+        - suite: complexes
+          mode: camera1
+          group: baths
+        - suite: complexes
+          mode: camera1
+          group: fire
+        - suite: complexes
+          mode: camera2
+          group: college
+        - suite: complexes
+          mode: camera2
+          group: manor
+        - suite: complexes
+          mode: camera2
+          group: baths
+        - suite: complexes
+          mode: camera2
+          group: fire
+        - suite: complexes
+          mode: camera3
+          group: college
+        - suite: complexes
+          mode: camera3
+          group: manor
+        - suite: complexes
+          mode: camera3
+          group: baths
+        - suite: complexes
+          mode: camera3
+          group: fire
+        - suite: complexes
+          mode: construction0
+          group: college
+        - suite: complexes
+          mode: construction0
+          group: manor
+        - suite: complexes
+          mode: construction0
+          group: baths
+        - suite: complexes
+          mode: construction0
+          group: fire
+        - suite: complexes
+          mode: construction1
+          group: college
+        - suite: complexes
+          mode: construction1
+          group: manor
+        - suite: complexes
+          mode: construction1
+          group: baths
+        - suite: complexes
+          mode: construction1
+          group: fire
+        - suite: complexes
+          mode: construction2
+          group: college
+        - suite: complexes
+          mode: construction2
+          group: manor
+        - suite: complexes
+          mode: construction2
+          group: baths
+        - suite: complexes
+          mode: construction2
+          group: fire
+        - suite: complexes
+          mode: construction3
+          group: college
+        - suite: complexes
+          mode: construction3
+          group: manor
+        - suite: complexes
+          mode: construction3
+          group: baths
+        - suite: complexes
+          mode: construction3
+          group: fire
+        - suite: complexes
+          mode: weather-wet
+          group: college
+        - suite: complexes
+          mode: weather-wet
+          group: manor
+        - suite: complexes
+          mode: weather-wet
+          group: baths
+        - suite: complexes
+          mode: weather-wet
+          group: fire
+        - suite: complexes
+          mode: weather-winter
+          group: college
+        - suite: complexes
+          mode: weather-winter
+          group: manor
+        - suite: complexes
+          mode: weather-winter
+          group: baths
+        - suite: complexes
+          mode: weather-winter
+          group: fire
+        - suite: complexes
+          mode: coldload
+          group: college
+        - suite: theatre
+          mode: preflight
+          group: none
+        - suite: theatre
+          mode: gameplay
+          group: none
+        - suite: theatre
+          mode: camera0
+          group: none
+        - suite: theatre
+          mode: camera1
+          group: none
+        - suite: theatre
+          mode: camera2
+          group: none
+        - suite: theatre
+          mode: camera3
+          group: none
+        - suite: theatre
+          mode: construction0
+          group: none
+        - suite: theatre
+          mode: construction1
+          group: none
+        - suite: theatre
+          mode: construction2
+          group: none
+        - suite: theatre
+          mode: construction3
+          group: none
+        - suite: theatre
+          mode: weather
+          group: none
+        - suite: theatre
+          mode: coldload
+          group: none
+        - suite: riverside
+          mode: preflight
+          group: none
+        - suite: riverside
+          mode: gameplay
+          group: none
+        - suite: riverside
+          mode: camera0
+          group: none
+        - suite: riverside
+          mode: camera1
+          group: none
+        - suite: riverside
+          mode: camera2
+          group: none
+        - suite: riverside
+          mode: camera3
+          group: none
+        - suite: riverside
+          mode: construction0
+          group: none
+        - suite: riverside
+          mode: construction1
+          group: none
+        - suite: riverside
+          mode: construction2
+          group: none
+        - suite: riverside
+          mode: construction3
+          group: none
+        - suite: riverside
+          mode: weather
+          group: none
+        - suite: riverside
+          mode: coldload
+          group: none
+        - suite: museum
+          mode: preflight
+          group: none
+        - suite: museum
+          mode: gameplay
+          group: none
+        - suite: museum
+          mode: camera0
+          group: none
+        - suite: museum
+          mode: camera1
+          group: none
+        - suite: museum
+          mode: camera2
+          group: none
+        - suite: museum
+          mode: camera3
+          group: none
+        - suite: museum
+          mode: construction0
+          group: none
+        - suite: museum
+          mode: construction1
+          group: none
+        - suite: museum
+          mode: construction2
+          group: none
+        - suite: museum
+          mode: construction3
+          group: none
+        - suite: museum
+          mode: weather
+          group: none
+        - suite: publiclife
+          mode: gameplay
+          group: none
+        - suite: station
+          mode: gameplay
+          group: none
+        - suite: streetlife
+          mode: gameplay
+          group: none
+        - suite: coldload
+          mode: without-museum
+          group: none
+        - suite: coldload
+          mode: with-museum
+          group: none
+        - suite: coldload
+          mode: zero-source
+          group: none
+        - suite: coldload
+          mode: disconnected
+          group: none
+        - suite: coldload
+          mode: escape-disabled
+          group: none
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - &id004
+      uses: actions/download-artifact@v4
+      with:
+        name: gardenlife-full-native-fingerprint-${{ github.sha }}
+        path: gardenlife-evidence/preflight
+    - &id005
+      name: Independent exact-head preflight input
+      run: node -e "const p=require('./gardenlife-fingerprint016').readPreflight016();
+        console.log(JSON.stringify(p.proof));"
+    - name: Every original015 and earlier selected runtime and assertion
+      run: |
+        set -o pipefail
+        GL016_SUITE=${{ matrix.suite }} GL016_MODE=${{ matrix.mode }} GL016_GROUP=${{ matrix.group }} node gardenlife-legacy016.js 2>&1 | tee gardenlife-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}.txt
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 gardenlife-package016.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part0/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part0-${{ github.sha }}
+        path: .gardenlife-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part1/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part1-${{ github.sha }}
+        path: .gardenlife-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part2/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part2-${{ github.sha }}
+        path: .gardenlife-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part3/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part3-${{ github.sha }}
+        path: .gardenlife-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part4/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part4-${{ github.sha }}
+        path: .gardenlife-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part5/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part5-${{ github.sha }}
+        path: .gardenlife-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part6/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part6-${{ github.sha }}
+        path: .gardenlife-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part7/**') != ''
+      with:
+        name: streetscape-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group
+          }}-part7-${{ github.sha }}
+        path: .gardenlife-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  compatibility:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - *id001
+    - *id002
+    - *id003
+    - *id004
+    - *id005
+    - name: Three smokes, retained exact style guard, complete original eight-world
+        comparison
+      run: |
+        set -euo pipefail
+        mkdir -p gardenlife-evidence/compatibility/logs
+        for n in 1 2 3; do node smoke.js 2>&1 | tee gardenlife-evidence/compatibility/logs/smoke-$n.txt; done
+        node gardenlife-style016.js 2>&1 | tee gardenlife-evidence/compatibility/logs/style.txt
+        GL016_SUITE=complexes GL016_MODE=fingerprint node gardenlife-legacy016.js 2>&1 | tee gardenlife-evidence/compatibility/logs/strict-native.txt
+        GL016_SUITE=compatibility GL016_MODE=gameplay node gardenlife-legacy016.js 2>&1 | tee gardenlife-legacy-compatibility.txt
+        node gardenlife-compatibility016.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee gardenlife-compatibility-data.txt
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 gardenlife-package016.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part0/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part0-${{ github.sha }}
+        path: .gardenlife-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part1/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part1-${{ github.sha }}
+        path: .gardenlife-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part2/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part2-${{ github.sha }}
+        path: .gardenlife-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part3/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part3-${{ github.sha }}
+        path: .gardenlife-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part4/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part4-${{ github.sha }}
+        path: .gardenlife-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part5/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part5-${{ github.sha }}
+        path: .gardenlife-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part6/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part6-${{ github.sha }}
+        path: .gardenlife-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.gardenlife-packets/part7/**') != ''
+      with:
+        name: streetscape-legacy-compatibility-part7-${{ github.sha }}
+        path: .gardenlife-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
