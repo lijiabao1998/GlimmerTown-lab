@@ -7222,6 +7222,537 @@ function workersCornerShop006(spec) {
 
 </script>
 <!-- GPT-018 owner-requested native map-edge repair END -->
+<!-- GPT-019 original waterfront quarter BEGIN -->
+<script>
+/* GPT-019: original, code-native waterfront cultural-quarter path kit.
+ * Eight dry-land modules, four complete world-geometry views each. No copied
+ * hall/furniture pixels, image input, font, RNG, storage or simulation state.
+ * Only the unchanged Scene/C/cylinder raster infrastructure is shared.
+ *
+ * One cell is 16 world units; all leaves are 72x92, ax36/ay90, sz1. Surfaces
+ * remain within that cell. A 5.4-unit walking cross joins all open edges;
+ * the timber shelter spans it above 12.8 units of clear headroom.
+ * The arrival and promenade leaves have no above-ground obstacles at all.
+ * One physical harbour lantern is the sole emitter. Its actual opaque glass
+ * panes share the day/night depth buffer, so neither hidden panes nor empty
+ * space can emit. All other leaves have completely transparent night masks.
+ *
+ * Canonical inventory is exactly 8x4=32. Private, identity-keyed ground/raised
+ * layers reproduce each canonical image using the same geometric depth owner.
+ * These layers never become atlas leaves. Connection trim remains a private
+ * renderer concern; paving/clearance metadata describes the common crossing.
+ * Source and geometry mathematics may be checked locally. Actual painting,
+ * pixel checks, screenshots and game execution belong to isolated Actions.
+ */
+(function (root) {
+  'use strict';
+  const H=root.BritishComplexPrimitives014;
+  if(!H)throw new Error('BritishComplexPrimitives014 must load before waterfront-quarter art');
+  const {Scene,C,cylinder}=H;
+  const THEMES=Object.freeze(['arrivalCourt','brickPromenade','quayEdgeWalk','quayCorner',
+    'heritageDisplay','watersideBench','harbourLantern','timberShelter']);
+  const T=Object.freeze({
+    flag:C('beb9a7'),flagHi:C('cdc6b2'),flagR:C('afa997'),joint:C('999e92'),
+    limestone:C('c7c1a9'),limestoneHi:C('e0d5b8'),limestoneR:C('9eaa9b'),
+    granite:C('9faa9f'),graniteHi:C('c4c9b8'),graniteR:C('788b81'),
+    brick:C('ad7059'),brickHi:C('bf8568'),brickR:C('955e4c'),mortar:C('907d68'),
+    oak:C('a78b5f'),oakHi:C('cab080'),oakR:C('7e684b'),oakEnd:C('987951'),
+    iron:C('35564c'),ironHi:C('688273'),ironR:C('29443e'),ironEdge:C('8e9e86'),
+    slate:C('566b73'),slateHi:C('6f8389'),slateR:C('405a64'),slateJoint:C('344c56'),
+    brass:C('b29b64'),brassHi:C('d2bd82'),brassR:C('89784f'),
+    enamel:C('dfd5b9'),enamelR:C('b4b499'),map:C('6b8a8a'),mapR:C('4b6e73'),
+    soil:C('675d49'),leaf:C('658058'),leafHi:C('8a9e6b'),leafR:C('486c50'),
+    flower:C('d1bb84'),glass:C('cabb8a'),glassR:C('9d9e80'),glassHi:C('e4d6a1'),
+    warm:C('f4cb88'),warmR:C('dcb276'),warmHi:C('ffe1a3')
+  });
+  const FEATURES=Object.freeze({
+    arrivalCourt:Object.freeze(['open-limestone-entry-court','flush-brick-threshold',
+      'inlaid-harbour-compass','paired-flush-granite-corners','unobstructed-crossing']),
+    brickPromenade:Object.freeze(['continuous-red-brick-walking-spine','staggered-brick-courses',
+      'limestone-guide-bands','flush-side-drain','unobstructed-crossing']),
+    quayEdgeWalk:Object.freeze(['continuous-granite-shore-coping','low-open-iron-rail',
+      'bolted-rail-shoes','stone-side-bay','open-inland-walking-strip']),
+    quayCorner:Object.freeze(['chamfered-lookout-corner','returned-low-iron-railing',
+      'corner-stone-rest-ledge','flush-direction-inlay','clear-central-turning-square']),
+    heritageDisplay:Object.freeze(['low-sloping-interpretation-table','original-inlaid-harbour-map',
+      'paired-braced-iron-supports','bolted-enamel-frame','small-side-object-plinth']),
+    watersideBench:Object.freeze(['slatted-oak-seat-and-back','curved-iron-armrests',
+      'braced-iron-feet','low-brick-herb-planter','restrained-contained-planting']),
+    harbourLantern:Object.freeze(['single-visible-day-lantern','fluted-cast-iron-column',
+      'four-opaque-physical-glass-panes','pyramidal-metal-cap','bolted-granite-base']),
+    timberShelter:Object.freeze(['open-one-bay-timber-pavilion','four-braced-side-posts',
+      'individually-jointed-slate-roof','open-centre-with-headroom','side-rest-bench',
+      'physical-gutter-and-downpipe'])
+  });
+  const freezeRect=r=>Object.freeze(r);
+  const obstructionSets={
+    arrivalCourt:[],brickPromenade:[],
+    quayEdgeWalk:[[.38,2.35,0,16]],
+    quayCorner:[[.38,2.35,0,16],[2.35,4.92,.38,2.35],[2.12,4.94,2.30,4.85]],
+    heritageDisplay:[[.88,4.99,.71,5.04],[1.21,4.79,12.31,15.08]],
+    watersideBench:[[.79,4.99,.77,4.98],[.72,4.99,11.76,15.48]],
+    harbourLantern:[[1.02,4.68,1.02,4.78]],
+    timberShelter:[[.39,1.81,2.79,4.21],[14.19,15.61,2.79,4.21],
+      [.39,1.81,11.79,13.21],[14.19,15.61,11.79,13.21],[1.50,5.25,11.07,14.92]]
+  };
+  const CLEARANCE=Object.freeze(Object.fromEntries(THEMES.map(theme=>[theme,Object.freeze({
+    coordinateSpace:'unrotated-local-16',
+    corridor:Object.freeze({x0:5.3,x1:10.7,y0:0,y1:16,minimumWidth:5.4,
+      minimumHeadroom:theme==='timberShelter'?12.8:null}),
+    centre:freezeRect([5.3,10.7,5.3,10.7]),
+    openEdges:Object.freeze(theme==='quayEdgeWalk'||theme==='quayCorner'?[0,1,2]:[0,1,2,3]),
+    pathSegments:Object.freeze([freezeRect([5.3,10.7,0,16]),
+      freezeRect([theme==='quayEdgeWalk'||theme==='quayCorner'?5.3:0,16,5.3,10.7])]),
+    obstacleRects:Object.freeze(obstructionSets[theme].map(freezeRect)),
+    overhead:theme==='timberShelter'?Object.freeze({rect:freezeRect([.40,15.60,2.25,14.95]),
+      lowestSurface:12.8}):null
+  })])));
+  const metadata=Object.freeze({
+    family:'waterfrontQuarter019',canonicalLeafCount:32,tileWorldSize:16,
+    geometry:Object.freeze({w:72,h:92,ax:36,ay:90,sz:1}),
+    toolIds:Object.freeze(THEMES.map(theme=>theme+'019')),
+    palette:T,walkClearance:CLEARANCE,
+    paving:Object.freeze({coordinateSpace:'unrotated-local-16',surfaceHeight:0,
+      centre:freezeRect([5.3,10.7,5.3,10.7]),spine:freezeRect([4.94,11.06,0,16]),
+      connectorHalfWidth:2.7,centreRole:'red-brick-continuous-connection',
+      borderRole:'flush-limestone-guide-band',shoulderRole:'warm-flagstone',
+      centreColor:T.brick,borderColor:T.limestoneHi,shoulderColor:T.flag,
+      jointColor:T.mortar,guideWidth:.30,minimumWalkingWidth:5.4,
+      portOrder:Object.freeze(['north','east','south','west']),portDirections:Object.freeze([0,1,2,3])}),
+    physicalLampCounts:Object.freeze(Object.fromEntries(THEMES.map(t=>[t,t==='harbourLantern'?1:0]))),
+    lightPolicy:'harbourLantern-only-opaque-physical-panes-shared-depth',
+    viewPolicy:'independent-complete-world-geometry-raster-per-view',
+    privateLayers:Object.freeze({storage:'WeakMap-keyed-by-canonical-sprite',
+      ground:'full-opaque-paving-and-flush-detail',raised:'canonical-day-depth-owned-furniture',
+      raisedNight:'canonical-emission-depth-owned-furniture',groundMaxHeight:.10})
+  });
+
+  const layerCache=new WeakMap();
+  const GROUND_OWNER=0x010101,RAISED_OWNER=0x020202;
+  function raisedLayer(source,owners,w,h) {
+    const result=document.createElement('canvas');result.width=w;result.height=h;
+    const context=result.getContext('2d'),pixels=context.createImageData(w,h);
+    const original=source.getContext('2d').getImageData(0,0,w,h).data;
+    for(let i=0;i<original.length;i+=4){
+      if(owners[i]!==2||owners[i+3]!==255)continue;
+      pixels.data[i]=original[i];pixels.data[i+1]=original[i+1];
+      pixels.data[i+2]=original[i+2];pixels.data[i+3]=original[i+3];
+    }
+    context.putImageData(pixels,0,0);return result;
+  }
+  function layeredScene(view) {
+    const full=Scene(1,view,72,92),ground=Scene(1,view,72,92),owner=Scene(1,view,72,92);
+    function draw(method,args,maxZ,colorSlots) {
+      const isGround=maxZ<=.10,mark=isGround?GROUND_OWNER:RAISED_OWNER,owned=args.slice();
+      // Every material authored here is opaque. Preserve omitted top faces,
+      // original bias and exact point order in the second geometric channel.
+      for(const i of colorSlots)owned[i]=args[i]===null?null:mark;
+      full[method](...args);owner[method](...owned);
+      if(isGround)ground[method](...args);
+    }
+    return {
+      poly(points,color,bias){draw('poly',[points,color,bias],Math.max(...points.map(p=>p[2])),[1]);},
+      flat(x0,x1,y0,y1,z,color,bias){draw('flat',[x0,x1,y0,y1,z,color,bias],z,[5]);},
+      wall(a,b,z0,z1,color,bias){draw('wall',[a,b,z0,z1,color,bias],Math.max(z0,z1),[4]);},
+      box(x0,x1,y0,y1,z0,z1,front,side,top){
+        draw('box',[x0,x1,y0,y1,z0,z1,front,side,top],Math.max(z0,z1),[6,7,8]);
+      },
+      beam(a,b,color,width){
+        draw('beam',[a,b,color,width],Math.max(a[2],b[2])+(width===undefined?.35:width)/2,[2]);
+      },
+      finish(meta){
+        const sprite=full.finish(meta),floor=ground.finish(),ownership=owner.finish();
+        const owners=ownership.img.getContext('2d').getImageData(0,0,72,92).data;
+        // Raised layers copy canonical pixels only where raised geometry owns
+        // the full depth buffer. A ground-only draw plus these opaque pixels
+        // therefore equals canonical painting, including low fixture bases.
+        layerCache.set(sprite,Object.freeze({ground:floor.img,
+          raised:raisedLayer(sprite.img,owners,72,92),
+          raisedNight:raisedLayer(sprite.night,owners,72,92)}));
+        return sprite;
+      }
+    };
+  }
+  function layersFor(sprite) {
+    return layerCache.get(sprite)||null;
+  }
+
+  const mod=(v,n)=>((v%n)+n)%n;
+  function flags(x,y) {
+    const row=Math.floor(y/4),u=x+(row%2)*2;
+    if(mod(y,4)<.14||mod(u,4)<.13)return T.joint;
+    const course=mod(Math.floor(u/4)+row*2,7);
+    return course===0?T.flagHi:course===4?T.flagR:T.flag;
+  }
+  function redBricks(x,y) {
+    // A sixteen-unit repeat lets the next paid tile continue the same courses.
+    const row=Math.floor(y),u=x+(row%2);
+    if(mod(y,1)<.11||mod(u,2)<.10)return T.mortar;
+    const course=mod(Math.floor(u/2)+row*3,8);
+    return course===1?T.brickHi:course===6?T.brickR:T.brick;
+  }
+  function masonry(front) {
+    return (x,y,z)=>{
+      const u=front?x:y,row=Math.floor(z/.85);
+      if(mod(z,.85)<.10||mod(u+(row%2),2)<.10)return T.mortar;
+      return front?T.brick:T.brickR;
+    };
+  }
+  function quarterPaving(S,arrival) {
+    S.flat(0,16,0,16,0,flags);
+    if(!arrival){
+      S.flat(4.94,11.06,0,16,.009,redBricks);
+      S.flat(4.61,4.91,0,16,.012,T.limestoneHi);
+      S.flat(11.09,11.39,0,16,.012,T.limestoneHi);
+    }
+    // Recessed joints are colour on the flush stone, never little raised walls.
+    for(const x of[.14,15.12])for(let j=0;j<8;j++)
+      S.flat(x,x+.72,j*2+.10,j*2+1.90,.012,j%3===1?T.graniteHi:T.granite);
+  }
+  function plinth(S,x0,x1,y0,y1,h) {
+    S.box(x0,x1,y0,y1,.02,h,T.granite,T.graniteR,T.graniteHi);
+    S.box(x0+.13,x1-.13,y0+.13,y1-.13,h,h+.12,T.limestone,T.graniteR,T.limestoneHi);
+  }
+  function turn(S,x,y,z0,z1,r0,r1,front,side,top,n) {
+    cylinder(S,x,y,z0,z1,r0,r1,front,side,top,n||10);
+  }
+  function bolt(S,x,y,z) {
+    turn(S,x,y,z,z+.16,.13,.13,T.ironEdge,T.ironR,T.ironHi,6);
+  }
+  function strip(S,points,color,width) {
+    for(let i=1;i<points.length;i++)S.beam(points[i-1],points[i],color,width);
+  }
+  function compassInlay(S,x,y,r,z) {
+    const centre=[x,y,z],directions=[[0,-1],[1,0],[0,1],[-1,0]];
+    for(let i=0;i<directions.length;i++){
+      const [dx,dy]=directions[i],tip=[x+dx*r,y+dy*r,z];
+      S.poly([centre,tip,[x-dy*r*.24,y+dx*r*.24,z]],i===0?T.brassHi:T.graniteHi);
+      S.poly([centre,[x+dy*r*.24,y-dx*r*.24,z],tip],i===0?T.brassR:T.graniteR);
+    }
+  }
+  function flushGrate(S,x0,x1,y0,y1) {
+    S.flat(x0,x1,y0,y1,.02,T.ironR);
+    for(let y=y0+.14;y<y1-.09;y+=.44)S.flat(x0+.12,x1-.12,y,y+.17,.027,T.ironHi);
+    S.flat(x0+.09,x0+.19,y0+.10,y1-.10,.03,T.ironEdge);
+  }
+  function arrivalCourt(S) {
+    // The entry reads as a broad court; the whole threshold is traversable.
+    S.flat(.93,15.07,1.03,2.48,.025,redBricks);
+    for(const y of[.72,2.57])S.flat(.76,15.24,y,y+.25,.030,T.limestoneHi);
+    for(const [x,y]of[[2.12,11.45],[12.03,4.55]]){
+      S.flat(x,x+1.90,y,y+2.13,.026,T.graniteR);
+      S.flat(x+.18,x+1.72,y+.18,y+1.95,.03,T.graniteHi);
+      S.flat(x+.53,x+1.36,y+.53,y+1.61,.034,T.flagR);
+    }
+    compassInlay(S,8,9.17,2.18,.025);
+    S.flat(7.82,8.18,5.75,6.38,.03,T.brass);
+    flushGrate(S,12.33,14.66,12.08,13.91);
+  }
+  function brickPromenade(S) {
+    // Small flush heraldic bands distinguish the spine from the open court.
+    for(const y of[.32,15.40])S.flat(4.97,11.03,y,y+.21,.025,T.brickR);
+    for(const y of[3.90,11.90]){
+      S.flat(3.88,4.38,y,y+.20,.023,T.brass);
+      S.flat(11.62,12.12,y,y+.20,.023,T.brass);
+    }
+    flushGrate(S,12.55,14.76,2.32,5.63);
+    S.flat(1.35,3.26,12.82,14.39,.025,T.granite);
+    S.flat(1.54,3.07,13.02,14.20,.03,T.flagHi);
+  }
+  function railPost(S,x,y,h) {
+    S.box(x-.33,x+.33,y-.33,y+.33,.53,.87,T.iron,T.ironR,T.ironHi);
+    bolt(S,x-.24,y-.24,.88);bolt(S,x+.24,y+.24,.88);
+    S.box(x-.18,x+.18,y-.18,y+.18,.87,h,T.iron,T.ironR,T.ironHi);
+    S.box(x-.26,x+.26,y-.26,y+.26,h,h+.23,T.ironHi,T.ironR,T.ironEdge);
+    turn(S,x,y,h+.23,h+.61,.24,.10,T.ironHi,T.ironR,T.ironEdge,8);
+  }
+  function railSegment(S,a,b) {
+    S.beam([a[0],a[1],5.43],[b[0],b[1],5.43],T.ironHi,.34);
+    S.beam([a[0],a[1],2.13],[b[0],b[1],2.13],T.iron,.22);
+    const length=Math.hypot(b[0]-a[0],b[1]-a[1]),count=Math.max(1,Math.round(length/1.35));
+    for(let i=1;i<count;i++){
+      const x=a[0]+(b[0]-a[0])*i/count,y=a[1]+(b[1]-a[1])*i/count;
+      S.beam([x,y,2.15],[x,y,5.40],T.iron,.16);
+    }
+  }
+  function straightCoping(S) {
+    S.box(.40,2.30,0,16,.017,.41,T.granite,T.graniteR,T.graniteHi);
+    for(let i=0;i<8;i++)S.box(.39,2.32,i*2+.05,i*2+1.94,.41,.54,
+      T.granite,T.graniteR,i%3===1?T.limestoneHi:T.graniteHi);
+  }
+  function quayEdgeWalk(S) {
+    straightCoping(S);
+    const ys=[.66,5.54,10.42,15.30];
+    for(const y of ys)railPost(S,1.29,y,5.61);
+    for(let i=1;i<ys.length;i++)railSegment(S,[1.29,ys[i-1]],[1.29,ys[i]]);
+    for(const y of[3.15,12.78]){
+      S.flat(2.69,4.12,y-.49,y+.49,.028,T.limestoneHi);
+      S.flat(2.88,3.93,y-.29,y+.29,.032,T.granite);
+    }
+    flushGrate(S,12.91,14.66,11.51,14.25);
+  }
+  function quayCorner(S) {
+    straightCoping(S);
+    // A short returned rail shapes a lookout without closing the through path.
+    S.box(2.30,4.90,.40,2.30,.017,.41,T.granite,T.graniteR,T.graniteHi);
+    S.box(2.30,4.92,.39,2.32,.41,.54,T.granite,T.graniteR,T.graniteHi);
+    const points=[[4.60,1.29],[3.52,1.29],[1.29,3.52],[1.29,9.37],[1.29,15.30]];
+    for(const [x,y]of[points[0],points[2],points[3],points[4]])railPost(S,x,y,5.61);
+    for(let i=1;i<points.length;i++)railSegment(S,points[i-1],points[i]);
+    // Solid triangular rest ledge follows the chamfer and stays in the bay.
+    S.poly([[2.17,4.70,.02],[4.79,2.33,.02],[4.79,4.70,.02]],T.graniteR);
+    S.wall([2.17,4.70],[4.79,4.70],.02,1.43,T.granite);
+    S.wall([4.79,2.33],[4.79,4.70],.02,1.43,T.graniteR);
+    S.wall([2.17,4.70],[4.79,2.33],.02,1.43,T.granite);
+    S.poly([[2.17,4.70,1.43],[4.79,2.33,1.43],[4.79,4.70,1.43]],T.limestoneHi);
+    compassInlay(S,13.05,11.39,1.41,.032);
+    S.flat(11.84,14.53,13.55,13.78,.03,T.brass);
+  }
+  function interpretationTop(x,y) {
+    // Original abstract harbour plan, encoded as material on the sloping panel.
+    // These are cartographic strokes and blocks, not a font or copied hall plan.
+    const u=(x-1.32)/3.18,v=(y-1.20)/3.15;
+    if(u<.05||u>.95||v<.035||v>.965)return T.brass;
+    if(v<.115&&u>.13&&u<.76)return T.mapR;
+    if(u<.30&&v>.19&&v<.70)return T.map;
+    if(u>.30&&u<.38&&v>.19&&v<.81)return T.limestoneHi;
+    if(v>.64&&v<.72&&u>.31&&u<.86)return T.map;
+    if(u>.48&&u<.76&&((v>.23&&v<.37)||(v>.43&&v<.56)))return T.brick;
+    if(u>.47&&u<.84&&v>.82&&v<.855)return T.mapR;
+    if(u>.47&&u<.73&&v>.895&&v<.922)return T.graniteR;
+    return T.enamel;
+  }
+  function heritageDisplay(S) {
+    const top=x=>5.82-(x-1.07)*.47;
+    for(const y of[1.49,4.16]){
+      plinth(S,1.26,4.71,y-.51,y+.51,.24);
+      S.box(2.46,2.87,y-.26,y+.26,.36,4.95,T.iron,T.ironR,T.ironHi);
+      S.beam([1.66,y,.38],[2.57,y,2.50],T.iron,.27);
+      S.beam([4.26,y,.38],[2.77,y,3.21],T.ironHi,.28);
+      S.beam([1.15,y,top(1.15)-.12],[4.73,y,top(4.73)-.12],T.iron,.26);
+    }
+    S.poly([[1.07,.93,top(1.07)],[4.82,.93,top(4.82)],
+      [4.82,4.77,top(4.82)],[1.07,4.77,top(1.07)]],T.iron);
+    S.poly([[1.32,1.20,top(1.32)+.015],[4.50,1.20,top(4.50)+.015],
+      [4.50,4.35,top(4.50)+.015],[1.32,4.35,top(1.32)+.015]],interpretationTop);
+    for(const y of[.93,4.77])S.beam([1.04,y,top(1.04)],[4.84,y,top(4.84)],T.ironHi,.27);
+    for(const x of[1.04,4.84])S.beam([x,.93,top(x)],[x,4.77,top(x)],T.ironHi,.24);
+    S.beam([2.66,1.49,4.85],[2.66,4.16,4.85],T.iron,.27);
+    for(const x of[1.22,4.64])for(const y of[1.09,4.58])
+      turn(S,x,y,top(x)+.025,top(x)+.12,.10,.10,T.brass,T.brassR,T.brassHi,6);
+    // A small carved dock-stone sample has its own low, unlit interpretation pad.
+    plinth(S,1.26,4.75,12.35,15.03,.44);
+    S.box(1.91,3.91,12.91,14.46,.56,1.89,T.granite,T.graniteR,T.graniteHi);
+    S.flat(2.17,3.65,13.16,14.21,1.91,T.limestoneHi);
+    S.flat(2.83,2.97,13.16,14.21,1.925,T.graniteR);
+    S.flat(3.04,3.65,13.75,13.89,1.93,T.graniteR);
+    S.flat(3.93,4.45,12.76,14.60,.577,T.brass);
+  }
+  function bench(S,x0,y0,y1) {
+    for(const y of[y0+.61,y1-.61]){
+      S.box(x0+.10,x0+.68,y-.29,y+.29,.02,.26,T.iron,T.ironR,T.ironHi);
+      S.box(x0+2.88,x0+3.46,y-.29,y+.29,.02,.26,T.iron,T.ironR,T.ironHi);
+      S.beam([x0+.40,y,.26],[x0+.67,y,2.55],T.iron,.34);
+      S.beam([x0+3.16,y,.26],[x0+2.91,y,2.55],T.iron,.34);
+      S.beam([x0+.59,y,2.39],[x0+3.06,y,2.39],T.ironHi,.34);
+      S.beam([x0+.45,y,1.34],[x0+3.17,y,1.34],T.iron,.20);
+      S.beam([x0+.50,y,2.41],[x0+.18,y,5.83],T.iron,.28);
+      strip(S,[[x0+.35,y,4.66],[x0+1.16,y,4.54],[x0+2.60,y,4.33],
+        [x0+3.17,y,3.83],[x0+3.12,y,2.74]],T.ironHi,.26);
+    }
+    for(let i=0;i<4;i++){
+      const x=x0+.23+i*.79;
+      S.box(x,x+.65,y0,y1,2.55,2.90,T.oak,T.oakR,i%3===1?T.oakHi:T.oak);
+      S.flat(x+.13,x+.22,y0+.15,y1-.15,2.915,T.oakEnd);
+    }
+    for(const z of[3.48,4.34,5.20]){
+      const x=x0+.40-(z-3.48)*.085;
+      S.box(x-.19,x+.19,y0+.06,y1-.06,z,z+.63,T.oak,T.oakR,T.oakHi);
+      S.wall([x+.20,y0+.21],[x+.20,y1-.21],z+.14,z+.24,T.oakEnd,.015);
+    }
+  }
+  function leaf(S,a,b,width,front) {
+    const dx=b[0]-a[0],dy=b[1]-a[1],n=Math.hypot(dx,dy)||1;
+    const m=[(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2];
+    S.poly([a,[m[0]-dy/n*width,m[1]+dx/n*width,m[2]+.13],b],front);
+    S.poly([a,b,[m[0]+dy/n*width,m[1]-dx/n*width,m[2]-.10]],T.leafR);
+  }
+  function herb(S,x,y,z,h,phase) {
+    S.beam([x,y,z],[x+.10,y-.08,z+h],T.leafR,.12);
+    for(let i=0;i<4;i++){
+      const angle=phase+i*2.2,zz=z+.20+i*h*.19;
+      leaf(S,[x,y,zz],[x+Math.cos(angle)*.69,y+Math.sin(angle)*.72,zz+.68],.22,
+        i%2?T.leaf:T.leafHi);
+    }
+    turn(S,x+.10,y-.08,z+h-.08,z+h+.08,.14,.16,T.flower,T.leafR,T.flower,6);
+  }
+  function watersideBench(S) {
+    bench(S,1.13,1.07,4.69);
+    S.box(.87,4.83,12.01,15.21,.02,1.64,masonry(true),masonry(false),T.soil);
+    for(const x of[.85,4.37])S.box(x,x+.47,11.99,15.23,1.64,1.87,
+      T.limestone,T.limestoneR,T.limestoneHi);
+    for(const y of[11.99,14.76])S.box(.85,4.85,y,y+.47,1.64,1.87,
+      T.limestone,T.limestoneR,T.limestoneHi);
+    S.flat(1.36,4.34,12.49,14.74,1.67,T.soil);
+    for(const [x,y,h,p]of[[2.02,13.12,1.87,.2],[3.32,13.02,2.18,1.4],
+      [2.21,14.10,1.68,2.8],[3.58,14.09,1.90,4.3]])herb(S,x,y,1.68,h,p);
+    S.flat(12.68,14.19,4.10,4.35,.027,T.brass);
+  }
+  function harbourLantern(S) {
+    const x=2.85,y=2.90;
+    plinth(S,1.07,4.63,1.07,4.73,.43);
+    S.box(1.89,3.81,1.94,3.86,.55,.91,T.iron,T.ironR,T.ironHi);
+    for(const dx of[-.70,.70])for(const dy of[-.70,.70])bolt(S,x+dx,y+dy,.92);
+    turn(S,x,y,.91,2.05,.71,.47,T.iron,T.ironR,T.ironHi,12);
+    turn(S,x,y,2.05,3.07,.47,.34,T.iron,T.ironR,T.ironHi,12);
+    turn(S,x,y,3.07,18.65,.34,.25,T.iron,T.ironR,T.ironHi,12);
+    for(const z of[3.08,4.01,17.41,18.59])turn(S,x,y,z,z+.27,.45,.45,T.ironHi,T.ironR,T.ironHi,12);
+    for(let i=0;i<6;i++){
+      const a=i*Math.PI/3;
+      S.beam([x+Math.cos(a)*.35,y+Math.sin(a)*.35,4.39],
+        [x+Math.cos(a)*.28,y+Math.sin(a)*.28,16.76],i%2?T.ironHi:T.ironR,.09);
+    }
+    turn(S,x,y,18.86,19.63,.43,.91,T.iron,T.ironR,T.ironHi,10);
+    S.box(x-1.09,x+1.09,y-1.09,y+1.09,19.63,20.03,T.iron,T.ironR,T.ironHi);
+    const z0=20.03,z1=23.79,r0=.79,r1=1.06;
+    const glassPairs=[[T.glass,T.warm],[T.glassR,T.warmR],[T.glassHi,T.warmHi],[T.glass,T.warm]];
+    const corners=[[-1,-1],[1,-1],[1,1],[-1,1]];
+    for(let i=0;i<4;i++){
+      const a=corners[i],b=corners[(i+1)%4];
+      // The pane itself is the day surface and emission source. There is no
+      // hidden light box, sprite dilation, halo or separate additive drawing.
+      S.poly([[x+a[0]*r0,y+a[1]*r0,z0],[x+b[0]*r0,y+b[1]*r0,z0],
+        [x+b[0]*r1,y+b[1]*r1,z1],[x+a[0]*r1,y+a[1]*r1,z1]],glassPairs[i]);
+      S.beam([x+a[0]*r0,y+a[1]*r0,z0],[x+a[0]*r1,y+a[1]*r1,z1],T.iron,.18);
+      S.beam([x+a[0]*r1,y+a[1]*r1,z1],[x+b[0]*r1,y+b[1]*r1,z1],T.ironHi,.21);
+    }
+    S.box(x-1.22,x+1.22,y-1.22,y+1.22,23.80,24.15,T.ironHi,T.ironR,T.iron);
+    for(let i=0;i<4;i++){
+      const a=corners[i],b=corners[(i+1)%4];
+      S.poly([[x+a[0]*1.24,y+a[1]*1.24,24.16],
+        [x+b[0]*1.24,y+b[1]*1.24,24.16],[x,y,25.80]],i%2?T.iron:T.ironHi);
+    }
+    turn(S,x,y,25.80,26.34,.28,.18,T.ironHi,T.ironR,T.ironEdge,8);
+    turn(S,x,y,26.34,26.94,.18,.035,T.ironHi,T.ironR,T.ironEdge,8);
+    S.flat(12.65,14.45,3.16,4.71,.027,T.granite);
+    compassInlay(S,13.55,3.94,.61,.033);
+  }
+  function roofSlate(right) {
+    return (x,y,z)=>{
+      const row=Math.floor((z-14.40)*1.12),v=y+(row%2)*.86;
+      if(mod((z-14.40)*1.12,1)<.12||mod(v,1.72)<.11)return T.slateJoint;
+      return mod(Math.floor(v/1.72)+row,9)===2?T.slateHi:right?T.slateR:T.slate;
+    };
+  }
+  function timberShelter(S) {
+    const xs=[1.10,14.90],ys=[3.50,12.50];
+    for(const x of xs)for(const y of ys){
+      plinth(S,x-.62,x+.62,y-.62,y+.62,.33);
+      S.box(x-.38,x+.38,y-.38,y+.38,.45,13.82,T.oak,T.oakR,T.oakHi);
+      S.box(x-.45,x+.45,y-.45,y+.45,.48,1.05,T.iron,T.ironR,T.ironHi);
+      const sx=x<8?1:-1,sy=y<8?1:-1;
+      S.beam([x,y,9.94],[x+sx*2.12,y,13.36],T.oakHi,.49);
+      S.beam([x,y,10.70],[x,y+sy*1.77,13.35],T.oak,.46);
+      S.wall([x+.39,y-.18],[x+.39,y+.18],11.56,11.79,T.oakEnd,.02);
+    }
+    for(const y of ys)S.box(.47,15.53,y-.40,y+.40,13.22,14.41,T.oak,T.oakR,T.oakHi);
+    for(const x of xs)S.box(x-.43,x+.43,2.86,13.14,13.17,14.41,T.oak,T.oakR,T.oakHi);
+    for(const y of[3.01,12.99]){
+      S.beam([1.17,y,14.53],[8,y,18.80],T.oakHi,.46);
+      S.beam([8,y,18.80],[14.83,y,14.53],T.oak,.46);
+      S.beam([8,y,13.86],[8,y,18.78],T.oak,.34);
+      S.beam([5.20,y,13.88],[8,y,16.61],T.oakR,.33);
+      S.beam([10.80,y,13.88],[8,y,16.61],T.oak,.33);
+    }
+    // The floor corridor is open; the roof is a genuinely depth-ordered solid.
+    const x0=.61,x1=15.39,y0=2.31,y1=14.89,eave=14.41,ridge=19.01;
+    S.poly([[x0,y0,eave],[x0,y1,eave],[8,y1,ridge],[8,y0,ridge]],roofSlate(false));
+    S.poly([[8,y0,ridge],[8,y1,ridge],[x1,y1,eave],[x1,y0,eave]],roofSlate(true));
+    for(const y of[y0,y1]){
+      S.beam([x0,y,eave],[8,y,ridge],T.oakHi,.31);
+      S.beam([8,y,ridge],[x1,y,eave],T.oak,.31);
+    }
+    S.beam([8,y0-.04,ridge+.07],[8,y1+.04,ridge+.07],T.slateHi,.40);
+    for(const x of[x0,x1]){
+      S.beam([x,y0,eave-.08],[x,y1,eave-.08],T.iron,.29);
+      S.beam([x,y0,eave-.34],[x,y1,eave-.34],T.ironHi,.21);
+    }
+    // Small rear downpipe attaches to a post, with no runoff or water effect.
+    strip(S,[[.77,12.72,14.08],[1.34,12.72,13.71],[1.48,12.72,1.21],
+      [1.18,12.72,.44]],T.iron,.24);
+    for(const z of[2.21,7.62,12.81])S.box(1.32,1.65,12.50,12.94,z,z+.20,T.ironHi,T.iron,T.ironHi);
+    bench(S,1.75,11.17,14.82);
+  }
+
+  const builders=Object.freeze({arrivalCourt,brickPromenade,quayEdgeWalk,quayCorner,
+    heritageDisplay,watersideBench,harbourLantern,timberShelter});
+  function moduleSprite(theme,view) {
+    const S=layeredScene(view),hasLamp=theme==='harbourLantern';
+    quarterPaving(S,theme==='arrivalCourt');builders[theme](S);
+    return S.finish({family:'waterfrontQuarter019',theme,toolId:theme+'019',
+      design:'british-waterfront-quarter-'+theme,pathAxis:'y',minimumClearPath:5.4,
+      clearWalkStrip:Object.freeze([5.3,10.7]),walkClearance:CLEARANCE[theme],
+      features:FEATURES[theme],pavingRole:theme==='arrivalCourt'?'open-arrival-court':'connected-brick-spine',
+      pavingCentre:metadata.paving.centre,pavingBorderRole:metadata.paving.borderRole,
+      physicalLampCount:hasLamp?1:0,
+      lightPolicy:hasLamp?'physical-glazing-only-shared-depth':'non-emissive'});
+  }
+  function buildAll() {
+    const modules={};
+    for(const theme of THEMES)for(let view=0;view<4;view++)
+      modules[theme+'_'+view]=moduleSprite(theme,view);
+    return {modules};
+  }
+  root.BritishWaterfrontQuarter019=Object.freeze({buildAll,THEMES,metadata,layersFor});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script>
+/* GPT-019 pure geometry and validation. No canvas, clock, storage or simulation. */
+(function(root){
+ 'use strict';
+ const THEMES=Object.freeze(['arrivalCourt','brickPromenade','quayEdgeWalk','quayCorner','heritageDisplay','watersideBench','harbourLantern','timberShelter']);
+ const FLAT=Object.freeze(['arrivalCourt','brickPromenade']);
+ const DIRS=Object.freeze([[0,-1],[1,0],[0,1],[-1,0]].map(Object.freeze));
+ const mod=(n,d)=>((n%d)+d)%d;
+ function metadata(raw){if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).sort().join(',')!=='british019,turn019'||!THEMES.includes(raw.british019)||!Number.isInteger(raw.turn019)||raw.turn019<0||raw.turn019>3)return null;return{theme:raw.british019,turn:raw.turn019};}
+ function rotateMask(mask,turn){if(!Number.isInteger(mask)||mask<0||mask>15||!Number.isInteger(turn))throw Error('Bounded mask and integer direction required');turn=mod(turn,4);return((mask<<turn)|(mask>>(4-turn)))&15;}
+ function hash(a,b=0){let n=Math.imul((a|0)^Math.imul(b|0,374761393),668265263);n=Math.imul(n^(n>>>13),1274126177);return(n^(n>>>16))>>>0;}
+ function graph(cells,size){
+  if(!Array.isArray(cells)||!Number.isInteger(size)||size<2||size>256||cells.length>size*size)throw Error('Bounded native path inventory required');
+  const nodes=new Map(),seen=new Set();for(const r of cells){if(!r||!Number.isInteger(r.i)||r.i<0||r.i>=size*size||seen.has(r.i)||!Number.isInteger(r.open)||r.open<0||r.open>15)throw Error('Unique bounded path rows required');seen.add(r.i);if(r.passable!==true)continue;nodes.set(r.i,{i:r.i,x:r.i%size,y:Math.floor(r.i/size),flat:r.flat===true,theme:THEMES.includes(r.theme)?r.theme:null,elevation:Number.isFinite(r.elevation)?r.elevation:0,open:r.open,neighbors:[],visual:[],mask:0});}
+  for(const n of nodes.values())for(let d=0;d<4;d++){const x=n.x+DIRS[d][0],y=n.y+DIRS[d][1];if(x<0||y<0||x>=size||y>=size)continue;const q=nodes.get(y*size+x);if(!q)continue;n.neighbors.push(q.i);const joined=n.elevation===q.elevation&&!!((n.open&(1<<d))&&(q.open&(1<<mod(d+2,4))));if(joined)n.mask|=1<<d;if(n.flat&&q.flat&&joined)n.visual.push(q.i);}
+  return{size,nodes};
+ }
+ function entrance(hall,g){
+  if(!hall||!Number.isInteger(hall.x)||!Number.isInteger(hall.y)||hall.sz!==2||!Number.isInteger(hall.turn)||hall.turn<0||hall.turn>3||hall.x<0||hall.y<0||hall.x+2>g.size||hall.y+2>g.size)return{front:null,connected:[],reason:'invalid-hall'};
+  const x=hall.x,y=hall.y,d=mod(2+hall.turn,4),edges=[[[x,y-1],[x+1,y-1]],[[x+2,y],[x+2,y+1]],[[x+1,y+2],[x,y+2]],[[x-1,y+1],[x-1,y]]];
+  const connected=edges[d].filter(([a,b])=>a>=0&&b>=0&&a<g.size&&b<g.size).map(([a,b])=>g.nodes.get(b*g.size+a)).filter(n=>n?.flat&&n.visual.length&&n.elevation===(Number.isFinite(hall.elevation)?hall.elevation:0)).map(n=>n.i);
+  return{front:d,connected,reason:connected.length?'connected':'front-path-missing'};
+ }
+ function routes(hall,g,{maxVisited=128,maxDepth=12,maxRoutes=4}={}){
+  if(!Number.isInteger(maxVisited)||maxVisited<1||maxVisited>256||!Number.isInteger(maxDepth)||maxDepth<1||maxDepth>24||!Number.isInteger(maxRoutes)||maxRoutes<0||maxRoutes>8)throw Error('Bounded visual route limits required');
+  const entry=entrance(hall,g),queue=[],prev=new Map(),dist=new Map();for(const i of entry.connected.slice(0,maxVisited)){queue.push(i);prev.set(i,null);dist.set(i,0);}
+  for(let at=0;at<queue.length&&at<maxVisited;at++){const i=queue[at],d=dist.get(i);if(d>=maxDepth)continue;for(const j of g.nodes.get(i).visual){if(dist.has(j)||queue.length>=maxVisited)continue;prev.set(j,i);dist.set(j,d+1);queue.push(j);}}
+  const score=i=>{const n=g.nodes.get(i),near=n.neighbors.map(j=>g.nodes.get(j)).filter(q=>q.theme&&!q.flat);return near.length?100+near.reduce((s,q)=>s+(q.theme==='heritageDisplay'?8:q.theme==='watersideBench'?6:3),0):0;};
+  const candidates=queue.filter(i=>dist.get(i)>=2).sort((a,b)=>score(b)-score(a)||dist.get(b)-dist.get(a)||(hash(a,hall.y*g.size+hall.x)-hash(b,hall.y*g.size+hall.x))||a-b),out=[];
+  for(const i of maxRoutes?candidates:[]){const path=[];for(let q=i;q!==null;q=prev.get(q))path.push(q);path.reverse();if(out.some(p=>p.at(-1)===i))continue;out.push(path);if(out.length>=maxRoutes)break;}
+  return{entry,visited:queue.length,paths:maxRoutes?out:[],truncated:queue.length===maxVisited};
+ }
+ function position(path,g,time,seed=0){
+  if(!Array.isArray(path)||path.length<2||path.some((i,n)=>!g.nodes.get(i)?.flat||(n&&!g.nodes.get(path[n-1]).visual.includes(i)))||!Number.isFinite(time)||!Number.isInteger(seed))return null;
+  const length=path.length-1,pause=2,period=length*2+pause*2,t=mod(time*.42+(hash(seed)/4294967296)*period,period);let distance,state;
+  if(t<length){distance=t;state='walking';}else if(t<length+pause){distance=length;state='looking';}else if(t<length*2+pause){distance=length*2+pause-t;state='walking';}else{distance=0;state='waiting';}
+  const a=Math.min(length,Math.floor(distance)),b=Math.min(length,a+1),u=distance-a,A=g.nodes.get(path[a]),B=g.nodes.get(path[b]);
+  return{x:A.x+(B.x-A.x)*u,y:A.y+(B.y-A.y)*u,from:A.i,to:B.i,fraction:u,state};
+ }
+ function activity({built,operational,employed,leisure,night=false,wet=false,winter=false,zoom=1,disabled=false}){if(disabled||built!==true||operational!==true||!Number.isFinite(employed)||employed<=0||!Number.isFinite(leisure)||leisure<=0||!Number.isFinite(zoom)||zoom<1)return 0;return night?(wet||winter?0:1):(wet||winter?1:4);}
+ const api=Object.freeze({THEMES,FLAT,DIRS,metadata,rotateMask,hash,graph,entrance,routes,position,activity});
+ if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.WaterfrontQuarterLogic019=api;
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<!-- GPT-019 original waterfront quarter END -->
 <!-- GPT-013 native theatre art BEGIN: source british-theatre-art013.js -->
 <script>
 /* GPT-013: original British Edwardian theatre quarter, four true geometric views.
@@ -58407,6 +58938,100 @@ function waterfrontSelftest018(){
   return{ok:details.every(q=>q.ok),checks:details.map(q=>q.name+(q.ok?' ✓':' ✗')),details};
 }
 
+/* GPT-019: one native paid waterfront path collection. Visual activity reads
+ * existing services and native walking topology; no new economy or actors. */
+const QUARTER_ROWS019=Object.freeze([
+ ['arrivalCourt','水岸展館入口廣場','Open heritage arrival court','🧭','入口 廣場 石鋪',false],
+ ['brickPromenade','水岸紅磚主步道','Connected red-brick promenade','🧱','步道 紅磚 連接',false],
+ ['quayEdgeWalk','水岸護欄步道','Quayside coping and railing','🌊','岸邊 護欄 步道',false],
+ ['quayCorner','水岸轉角眺望台','Quayside corner lookout','🔭','轉角 眺望 護岸',false],
+ ['heritageDisplay','海事解說台步道','Maritime interpretation court','🗺️','海事 解說 地圖',false],
+ ['watersideBench','水岸長椅花台','Waterside bench and planting bay','🪑','長椅 休息 花台',false],
+ ['harbourLantern','水岸港燈步道','Powered harbour lantern path','🏮','港燈 路燈 夜間',true],
+ ['timberShelter','水岸木構涼亭','Open timber waterfront shelter','⛱️','木構 涼亭 遮雨',false]
+].map(Object.freeze));
+const QUARTER_PATH019=Object.freeze(Object.fromEntries(QUARTER_ROWS019.map(([theme,nm,en,ic,keywords,lit])=>[theme+'019',Object.freeze({id:theme+'019',theme,nm,en,ic,keywords,lit,sz:1,rank:4})])));
+const QUARTER_THEME019=Object.freeze(Object.fromEntries(Object.values(QUARTER_PATH019).map(q=>[q.theme,q])));
+const QUARTER_COLLECTION019=Object.freeze([...Object.keys(WATERFRONT_TOOL018),...Object.keys(QUARTER_PATH019),...Object.keys(QUAYSIDE_PATH017)]);
+let quarterArtCanonical019=null,quarterGraphCache019=null;
+const quarterFloorCache019=new Map(),quarterRouteCache019=new Map();
+const quarterStats019={graphBuilds:0,floorBuilds:0,routeBuilds:0,visitors:0,floors:0,raised:0};
+function quarterMeta019(t){return t?.am502===1?window.WaterfrontQuarterLogic019.metadata(t.amx502):null;}
+function quarterTheme019(t){return quarterMeta019(t)?.theme||null;}
+function quarterDescription019(q){return q.nm+'是獨立付費的陸上步道，沿用正常步行及原生造價。與相鄰水岸構件連接鋪面，岸邊構件優先朝相鄰水面，其餘朝附近道路保存方向；'+(q.lit?'實體港燈只使用一格相鄰道路的原生供電。':'本構件不發光。')+'附近訪客僅呈現展館營運狀態，沒有新增遊客經濟、收入或服務容量。';}
+function quarterTurn019(theme,x,y){if(theme==='quayEdgeWalk'||theme==='quayCorner')for(let d=0;d<4;d++){const [dx,dy]=window.WaterfrontQuarterLogic019.DIRS[d],xx=x+dx,yy=y+dy;if(inMap(xx,yy)&&tiles[idx(xx,yy)]?.t===0)return(d+1)&3;}return complexRoadTurn014(x,y);}
+function quarterConflict019(id,x,y){
+ if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
+ const cells=[];if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));else{const size=Math.max(1,toolSize458(id)||1);for(let dy=0;dy<size;dy++)for(let dx=0;dx<size;dx++)cells.push([x+dx,y+dy]);}
+ for(const [xx,yy]of cells)if(inMap(xx,yy)&&quarterTheme019(tiles[idx(xx,yy)]))return '先拆除水岸街區步道';return null;
+}
+function installQuarterArt019(){
+ if(!quarterArtCanonical019){const start=performance.now(),a=window.BritishWaterfrontQuarter019.buildAll(),expected=Object.keys(QUARTER_THEME019).flatMap(t=>[0,1,2,3].map(v=>t+'_'+v));
+  if(Object.keys(a.modules||{}).sort().join(',')!==expected.sort().join(','))throw Error('GPT-019 requires exactly32 original quarter views');
+  for(const theme of Object.keys(QUARTER_THEME019))for(let view=0;view<4;view++){const s=a.modules[theme+'_'+view],p=window.BritishWaterfrontQuarter019.layersFor(s);if(!s?.img||!s?.night||s.sz!==1||s.view!==view||s.w!==72||s.h!==92||s.ax!==36||s.ay!==90||!p?.ground||!p?.raised||!p?.raisedNight||s.physicalLampCount!==(theme==='harbourLantern'?1:0))throw Error('Invalid quarter geometry/layers '+theme+'/'+view);}
+  quarterArtCanonical019=a.modules;quarterFloorCache019.clear();window.__quarterArt019={builds:1,total:32,ms:performance.now()-start};
+ }
+ SPR.waterfrontQuarter019=quarterArtCanonical019;
+}
+function quarterGraph019(){
+ // A renderer never repairs native caches. A dirty/load frame is intentionally
+ // silent; normal T502 maintenance supplies the next valid topology.
+ if(amDirty502||!tiles||WALK_COST502.length!==N*N)return null;
+ const old=quarterGraphCache019;if(old&&old.tiles===tiles&&old.version===amVersion502&&old.cells===amCells502)return old.graph;
+ const rows=[];for(const i of amCells502){const t=tiles[i],m=quarterMeta019(t),native=!!(t&&!t.bld&&!t.tree&&!t.ruin&&!t.crater&&(t.t===1||t.t===2)&&WALK_COST502[i]>0),plain=!t.amx502&&(t.am502===1||t.am502===4),open=m?window.BritishWaterfrontQuarter019.metadata.walkClearance[m.theme].openEdges.reduce((a,d)=>a|(1<<d),0):15;
+  rows.push({i,elevation:t.el||0,passable:native,flat:!!(m?window.WaterfrontQuarterLogic019.FLAT.includes(m.theme):plain),theme:m?.theme||null,open:window.WaterfrontQuarterLogic019.rotateMask(open,m?.turn||0)});
+ }
+ const graph=window.WaterfrontQuarterLogic019.graph(rows,N);quarterGraphCache019={tiles,version:amVersion502,cells:amCells502,graph};quarterRouteCache019.clear();quarterStats019.graphBuilds++;return graph;
+}
+function quarterRoutes019(root,b,g){
+ const key=root+':'+(b.v||0),cached=quarterRouteCache019.get(key);if(cached)return cached;
+ const q=window.WaterfrontQuarterLogic019.routes({x:root%N,y:(root/N)|0,sz:b.sz,turn:b.v||0,elevation:tiles[root].el||0},g);
+ if(quarterRouteCache019.size>=64)quarterRouteCache019.delete(quarterRouteCache019.keys().next().value);quarterRouteCache019.set(key,q);quarterStats019.routeBuilds++;return q;
+}
+function quarterGround019(sprite,mask){
+ const layers=window.BritishWaterfrontQuarter019.layersFor(sprite);if(!layers)return sprite.img;
+ if(window.__noWaterfrontConnections019||!mask)return layers.ground;
+ const key=sprite.theme+':'+sprite.view+':'+mask,cached=quarterFloorCache019.get(key);if(cached){quarterFloorCache019.delete(key);quarterFloorCache019.set(key,cached);return cached;}
+ const H=window.BritishComplexPrimitives014,P=window.BritishWaterfrontQuarter019.metadata.palette,S=H.Scene(1,sprite.view,72,92),rects=[[5.3,10.7,0,5.3],[10.7,16,5.3,10.7],[5.3,10.7,10.7,16],[0,5.3,5.3,10.7]];
+ const bricks=(x,y)=>{const row=Math.floor(y),u=x+(row%2),mod=(n,d)=>(n%d+d)%d;return mod(y,1)<.11||mod(u,2)<.10?P.mortar:P.brick;};
+ for(let d=0;d<4;d++)if(mask&(1<<d)){const r=rects[d];S.flat(...r,.055,bricks);if(d%2===0){S.flat(r[0]-.30,r[0],r[2],r[3],.058,P.limestoneHi);S.flat(r[1],r[1]+.30,r[2],r[3],.058,P.limestoneHi);}else{S.flat(r[0],r[1],r[2]-.30,r[2],.058,P.limestoneHi);S.flat(r[0],r[1],r[3],r[3]+.30,.058,P.limestoneHi);}}
+ const trim=S.finish(),floor=document.createElement('canvas');floor.width=72;floor.height=92;const c=floor.getContext('2d');c.drawImage(layers.ground,0,0);c.drawImage(trim.img,0,0);
+ // At most128 private surfaces (<3.4MiB RGBA), no new SPR leaf or per-frame
+ // rebuild. Source layers remain immutable, and LRU eviction drops ownership.
+ if(quarterFloorCache019.size>=128)quarterFloorCache019.delete(quarterFloorCache019.keys().next().value);quarterFloorCache019.set(key,floor);quarterStats019.floorBuilds++;return floor;
+}
+function quarterActivity019(root,b,z=cam.z){
+ const built=complexBuilt014(b),operational=complexOperational014(root,b),live=publicStaffRoot495.get(root),employed=live?.k===b.k?live.employed||0:0,leisure=COMPLEX014[b.k].leisure*complexCapacityFactor014(root,b);
+ return window.WaterfrontQuarterLogic019.activity({built,operational,employed,leisure,night:daylight().b<.62,wet:weather>=1,winter:season()===3,zoom:z,disabled:!!(window.__noWaterfrontVisitors019||window.__noWaterfrontQuarterArt019||window.__noActiveMobility502)});
+}
+function quarterObjects019(objs,sxOf,syOf,vis,lodFar){
+ quarterStats019.visitors=0;quarterStats019.floors=0;quarterStats019.raised=0;if(lodFar||window.__noWaterfrontQuarterArt019||!SPR.waterfrontQuarter019)return;
+ const z=cam.z,g=quarterGraph019();
+ // Floors precede all objects, preserving pedestrian feet and adjacent props.
+ // Raised pixels alone join the unchanged native object-depth sort.
+ for(const i of amCells502){const t=tiles[i],m=quarterMeta019(t);if(!m)continue;const x=i%N,y=(i/N)|0,sx=sxOf(x,y),sy=syOf(x,y);if(!vis(sx,sy))continue;const s=SPR.waterfrontQuarter019[m.theme+'_'+((m.turn+viewRotEff())&3)],mask=window.WaterfrontQuarterLogic019.rotateMask(g?.nodes.get(i)?.mask||0,-m.turn),floor=quarterGround019(s,mask);ctx.drawImage(floor,sx+(32-s.ax)*z,sy+(32-s.ay)*z,s.w*z,s.h*z);quarterStats019.floors++;objs.push({dep:viewDep(x,y)+.019,quarterModule019:m.theme,x,y,sx,sy});}
+ if(!g||window.__noWaterfrontVisitors019||window.__noActiveMobility502||z<1)return;
+ for(const root of tickBld||[]){const b=tiles[root]?.bld;if(!waterfrontAppearance018(b))continue;const x=root%N,y=(root/N)|0;if(!vis(sxOf(x,y),syOf(x,y)))continue;const count=quarterActivity019(root,b,z);if(!count)continue;const routes=quarterRoutes019(root,b,g).paths;if(!routes.length)continue;
+  for(let n=0;n<count&&quarterStats019.visitors<24;n++){const seed=window.WaterfrontQuarterLogic019.hash(root,n),p=window.WaterfrontQuarterLogic019.position(routes[n%routes.length],g,visT,seed);if(!p)continue;const sx=sxOf(p.x,p.y)+32*z,sy=syOf(p.x,p.y)+16*z;if(!vis(sx,sy))continue;objs.push({dep:viewDep(p.x,p.y)+.025,quarterVisitor019:{root,seed,state:p.state,ptype:seed%3},sx,sy});quarterStats019.visitors++;}
+  if(quarterStats019.visitors>=24)break;
+ }
+}
+function quarterModuleDraw019(g,o,z,depth,night,occ){
+ const m=quarterMeta019(tiles[idx(o.x,o.y)]);if(!m)return;const s=SPR.waterfrontQuarter019[m.theme+'_'+((m.turn+viewRotEff())&3)],p=window.BritishWaterfrontQuarter019.layersFor(s);if(!p)return;const x=o.sx+(32-s.ax)*z,y=o.sy+(32-s.ay)*z;g.drawImage(p.raised,x,y,s.w*z,s.h*z);occ(p.raised,x,y,s.w*z,s.h*z);quarterStats019.raised++;
+ if(depth>0&&m.theme==='harbourLantern'){const light=complexPathLight014(o.x,o.y);if(light.source&&light.service>.03)night.push({img:p.raisedNight,x,y,w:s.w*z,h:s.h*z,grid487:1,gx:light.source.x,gy:light.source.y,warm649:1});}
+}
+function quarterVisitorDraw019(g,o,z,occ){const v=o.quarterVisitor019,fr=v.state==='walking'?(Math.floor(visT*3+v.seed%17)%2):0,s=SPR.ped[v.ptype]?.[fr];if(!s)return;g.drawImage(s.img,o.sx-s.ax*z,o.sy-s.ay*z,s.w*z,s.h*z);occ(s.img,o.sx-s.ax*z,o.sy-s.ay*z,s.w*z,s.h*z);}
+function quarterConnection019(id,x,y){
+ const g=quarterGraph019();if(!g||!inMap(x,y))return{ready:false,text:'步道連接更新中'};
+ if(waterfrontTool018(id)){const e=window.WaterfrontQuarterLogic019.entrance({x,y,sz:2,turn:complexRoadTurn014(x,y),elevation:tiles[idx(x,y)].el||0},g);return{ready:true,front:e.front,cells:e.connected,text:['北','東','南','西'][e.front]+'側入口 · '+(e.connected.length?'已連步道':'尚未連步道')};}
+ const q=QUARTER_PATH019[id];if(!q)return null;const count=window.WaterfrontQuarterLogic019.DIRS.reduce((a,[dx,dy])=>a+(inMap(x+dx,y+dy)&&g.nodes.has(idx(x+dx,y+dy))?1:0),0);return{ready:true,neighbors:count,text:count?'相鄰 '+count+' 格步道':'獨立步道 · 可繼續銜接'};
+}
+function quarterEntrancePreview019(sxOf,syOf,z,id,x,y){if(window.__noWaterfrontQuarterPreview019||!waterfrontTool018(id))return;const c=quarterConnection019(id,x,y);if(!c?.ready)return;const d=c.front,edges=[[[x,y-1],[x+1,y-1]],[[x+2,y],[x+2,y+1]],[[x+1,y+2],[x,y+2]],[[x-1,y+1],[x-1,y]]];ctx.save();for(const [a,b]of edges[d])if(inMap(a,b))drawTileOutline459(sxOf(a,b),syOf(a,b),z,c.cells.includes(idx(a,b))?'#b4dda3':'#e9c178',false);ctx.restore();}
+function quarterAt019(x,y){if(!inMap(x,y))return null;const i=idx(x,y),m=quarterMeta019(tiles[i]);if(!m)return null;return{root:i,x,y,theme:m.theme,turn:m.turn,am502:tiles[i].am502,amx502:{...tiles[i].amx502},walkCost:WALK_COST502[i]||0,cost:COST.footpath502,lighting:complexPathLight014(x,y)};}
+function quarterSpecs019(){return{paths:Object.values(QUARTER_PATH019).map(q=>({...q,base:'footpath502',cost:COST.footpath502})),collection:[...QUARTER_COLLECTION019],authority:{walking:'native T502',visualActivity:'service-informed decoration only',extraJobs:0,extraRevenue:0,extraServices:0,save:'existing sparse amx502 metadata'},bounds:{floorCache:128,routeCache:64,visitors:24,visitedPerHall:128,routeDepth:12}};}
+function quarterEvidence019(){const g=quarterGraph019(),paths=[],halls=[];for(const i of amCells502){const m=quarterAt019(i%N,(i/N)|0);if(m)paths.push(m);}for(const root of tickBld||[]){const b=tiles[root]?.bld;if(!waterfrontAppearance018(b))continue;const r=g?quarterRoutes019(root,b,g):null;halls.push({root,theme:waterfrontAppearance018(b),age:b.age,activity:quarterActivity019(root,b),entry:r?.entry||null,paths:r?.paths||[],visited:r?.visited||0,positions:(r?.paths||[]).map((p,n)=>window.WaterfrontQuarterLogic019.position(p,g,visT,window.WaterfrontQuarterLogic019.hash(root,n)))});}return{day,paths,halls,art:{...window.__quarterArt019},cache:{...quarterStats019,floors:quarterFloorCache019.size,routes:quarterRouteCache019.size,topologyReady:!!g},visualOnly:true};}
+function quarterSelftest019(){const details=[],add=(name,ok)=>details.push({name,ok:!!ok});add('exact eight manual paid1x1 themes',Object.keys(QUARTER_PATH019).length===8);for(const q of Object.values(QUARTER_PATH019)){add(q.id+' original native paid manual-only tool',TOOLS.filter(t=>t.id===q.id).length===1&&COST[q.id]===COST.footpath502&&MAYOR_ACTION_CATALOG470A[q.id]?.status==='manual-only');for(let v=0;v<4;v++){const s=SPR.waterfrontQuarter019?.[q.theme+'_'+v];add(q.id+' view'+v+' canonical identity and private layers',s===quarterArtCanonical019?.[q.theme+'_'+v]&&!!window.BritishWaterfrontQuarter019.layersFor(s)&&s?.physicalLampCount===(q.lit?1:0));}}add('32 assets built once',window.__quarterArt019?.total===32&&window.__quarterArt019?.builds===1);add('private caches bounded',quarterFloorCache019.size<=128&&quarterRouteCache019.size<=64);add('focused16-piece collection preserves existing halls and quayside',QUARTER_COLLECTION019.length===16&&QUARTER_COLLECTION019.every(id=>TOOLS.some(t=>t.id===id)));return{ok:details.every(q=>q.ok),checks:details.map(q=>q.name+(q.ok?' ✓':' ✗')),details};}
+
 function britishSpec004(k){return BRITISH004[k]||HIGHSTREET005[k]||RESIDENTIAL006[k]||PUBLICLIFE007[k]||STREETLIFE009[k]||MUSEUM010[k]||RIVERSIDE012[k]||THEATRE013[k]||COMPLEX014[k]||null;}
 function highStreetBaseK005(k){return HIGHSTREET005[k]?.baseK??k;}
 function highStreetCommerce005(k){return HIGHSTREET005[k]?.role==='commerce';}
@@ -61509,7 +62134,7 @@ async function bootstrap453(){
     runVariants574();         // T574：117 個單一樣式分類的變體，必須在所有重建資產的 pass 之後
     applyT573Silhouette();    // T573：剪影光影後製，移到變體之後，新變體才吃得到（不可跑兩次）
     installBritishArt004();
-    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012();installTheatreArt013();installComplexArt014();installStreetscapeArt015();installGardenLifeArt016();installQuaysideArt017();installWaterfrontArt018(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
+    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012();installTheatreArt013();installComplexArt014();installStreetscapeArt015();installGardenLifeArt016();installQuaysideArt017();installWaterfrontArt018();installQuarterArt019(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
     bootSet453(100,'微光小鎮準備完成','night');bootState453.ready=true;window.__bootDone453=true;await bootPaint453();   // T539：boot 完成旗標——量測工具必須等到這裡，否則會漏掉 T464…T480/T539 這串後置 pass
@@ -84346,7 +84971,7 @@ function draw(dt){
     for(const q of add696)objs.push(q);window.__ring696N=add696.length;
   }else window.__ring696N=0;
   if(!window.__noTowerBridge693)tb693Push(objs,sxOf,syOf,vis); /* T693 */
-  stationObjects008(objs,sxOf,syOf,vis,lodFar);streetLifeObjects009(objs,sxOf,syOf,vis,lodFar);museumObjects010(objs,sxOf,syOf,vis,lodFar);riversideObjects012(objs,sxOf,syOf,vis,lodFar);theatreObjects013(objs,sxOf,syOf,vis,lodFar);complexObjects014(objs,sxOf,syOf,vis,lodFar);streetscapeObjects015(objs,sxOf,syOf,vis,lodFar);gardenLifeObjects016(objs,sxOf,syOf,vis,lodFar);quaysideObjects017(objs,sxOf,syOf,vis,lodFar);
+  stationObjects008(objs,sxOf,syOf,vis,lodFar);streetLifeObjects009(objs,sxOf,syOf,vis,lodFar);museumObjects010(objs,sxOf,syOf,vis,lodFar);riversideObjects012(objs,sxOf,syOf,vis,lodFar);theatreObjects013(objs,sxOf,syOf,vis,lodFar);complexObjects014(objs,sxOf,syOf,vis,lodFar);streetscapeObjects015(objs,sxOf,syOf,vis,lodFar);gardenLifeObjects016(objs,sxOf,syOf,vis,lodFar);quaysideObjects017(objs,sxOf,syOf,vis,lodFar);quarterObjects019(objs,sxOf,syOf,vis,lodFar);
   objs.sort((a,b2)=>a.dep-b2.dep);
   const nightSprites=[];
   if(!window.__noConstr701&&!window.__noConstr700&&window.__x13BesGen)window.__x13BesGen(); // T701：本卡開著時，T700 的 B2 收尾與細節名額跳過本卡擁有的地標
@@ -84667,6 +85292,8 @@ function draw(dt){
       continue;
     }
     if(o.museumModule010){museumModuleDraw010(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
+    if(o.quarterModule019){quarterModuleDraw019(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
+    if(o.quarterVisitor019){quarterVisitorDraw019(ctx,o,z,occ629Push);continue;}
     if(o.quaysideModule017){quaysideModuleDraw017(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
     if(o.gardenLifeModule016){gardenLifeModuleDraw016(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
     if(o.streetscapeModule015){streetscapeModuleDraw015(ctx,o,z,nightDepth,nightSprites,occ629Push);continue;}
@@ -85978,7 +86605,7 @@ function drawCursor(sxOf,syOf,z){
   $('#dragcost').style.display='none';
   if(hover.x<0){hidePlacementHud459();return;}
   const st=placementStatus459(tool,hover.x,hover.y);if(!st){hidePlacementHud459();return;}
-  drawCoveragePreview459(sxOf,syOf,z,hover.x,hover.y);drawResourceHints459(sxOf,syOf,z,hover.x,hover.y);
+  drawCoveragePreview459(sxOf,syOf,z,hover.x,hover.y);drawResourceHints459(sxOf,syOf,z,hover.x,hover.y);quarterEntrancePreview019(sxOf,syOf,z,tool,hover.x,hover.y);
   if(st.sz>1)drawPlacementFootprint459(sxOf,syOf,z,tool,hover.x,hover.y,st);
   else{const sx=sxOf(hover.x,hover.y),sy=syOf(hover.x,hover.y);if(st.err)ctx.drawImage(SPR.cursorBad,sx,sy,64*z,32*z);else if(st.poor){ctx.globalAlpha=.55;ctx.drawImage(SPR.cursor,sx,sy,64*z,32*z);ctx.globalAlpha=1;drawTileOutline459(sx,sy,z,'#f0ad4e',false);}else ctx.drawImage(SPR.cursor,sx,sy,64*z,32*z);}
   setPlacementHud459(st.kind,st.tm.nm,(st.sz>1?st.sz+'×'+st.sz+' · ':'')+st.sub,st.costText,st.tm.ic);
@@ -87192,6 +87819,7 @@ function mobileBuild434(){return mobileUi435();}
 function toolMeta434(id){return TOOLS.find(t=>t.id===id)||null;}
 function toolCatName434(id){const c=TOOL_CATS.find(c=>c.id===id);return c?c.nm:id;}
 function toolHint434(t){
+  if(t&&QUARTER_PATH019[t.id])return quarterDescription019(QUARTER_PATH019[t.id]);
   if(t&&waterfrontTool018(t.id))return waterfrontDescription018(waterfrontTool018(t.id));
   if(t&&QUAYSIDE_PATH017[t.id])return quaysideDescription017(QUAYSIDE_PATH017[t.id]);
   if(t&&GARDENLIFE_PATH016[t.id])return gardenLifeDescription016(GARDENLIFE_PATH016[t.id]);
@@ -87244,7 +87872,7 @@ let catalogOpen458=false,catalogMode458='all',catalogCat458='all',catalogQuery45
 function loadCatalogFavs458(){try{const v=JSON.parse(localStorage.getItem(CATALOG_FAV_KEY458)||'[]');return new Set(Array.isArray(v)?v.filter(id=>!!toolMeta434(id)):[]);}catch(_e){return new Set();}}
 let catalogFavs458=loadCatalogFavs458();
 function saveCatalogFavs458(){try{localStorage.setItem(CATALOG_FAV_KEY458,JSON.stringify([...catalogFavs458]));}catch(_e){}}
-function toolUnlocked458(t){return !!t&& !(waterfrontTool018(t.id)&&(window.__noWaterfront018||window.__noComplex014))&& !(QUAYSIDE_PATH017[t.id]&&window.__noQuayside017)&& !(GARDENLIFE_PATH016[t.id]&&window.__noGardenLife016)&& !(STREETSCAPE_PATH015[t.id]&&window.__noStreetscape015)&& !((COMPLEX_TOOL014[t.id]||COMPLEX_PATH014[t.id])&&window.__noComplex014)&& !((THEATRE_TOOL013[t.id]||THEATRE_PATH013[t.id])&&window.__noTheatre013)&& !((RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id])&&window.__noRiverside012)&& !((MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id])&&window.__noMuseum010)&& !((STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id])&&window.__noStreetLife009)&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
+function toolUnlocked458(t){return !!t&& !(QUARTER_PATH019[t.id]&&window.__noWaterfrontQuarter019)&& !(waterfrontTool018(t.id)&&(window.__noWaterfront018||window.__noComplex014))&& !(QUAYSIDE_PATH017[t.id]&&window.__noQuayside017)&& !(GARDENLIFE_PATH016[t.id]&&window.__noGardenLife016)&& !(STREETSCAPE_PATH015[t.id]&&window.__noStreetscape015)&& !((COMPLEX_TOOL014[t.id]||COMPLEX_PATH014[t.id])&&window.__noComplex014)&& !((THEATRE_TOOL013[t.id]||THEATRE_PATH013[t.id])&&window.__noTheatre013)&& !((RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id])&&window.__noRiverside012)&& !((MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id])&&window.__noMuseum010)&& !((STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id])&&window.__noStreetLife009)&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
 function toolCost458(t){if(!t||!t.pr)return 0;const m=String(t.pr).replace(/,/g,'').match(/\$\s*([0-9.]+)/);return m?+m[1]:0;}
 function toolSize458(id){
   const cx014=COMPLEX_TOOL014[typeof id==='object'?id?.id:id];if(cx014)return cx014.sz;
@@ -90818,7 +91446,7 @@ bindActiveButton502();
 
 const __inspect_501=inspect;inspect=function(x,y){const r=__inspect_501(x,y),t=inMap(x,y)?tiles[idx(x,y)]:null,q=AM_BY_CODE502[t?.am502|0];if(q&&$('#infoBody')){$('#infoBody').insertAdjacentHTML('beforeend',`<div class="opsBlock457a"><div class="opsHeader457a">T502 主動運輸設施</div><div class="row">${q.ic} ${q.nm}</div>${t.amx502?.station?`<div class="row">連接車站：${escHtml(t.amx502.station)}</div>`:''}${Array.isArray(t.amx502?.stations)?`<div class="row">轉乘：${t.amx502.stations.map(escHtml).join(' ↔ ')}</div>`:''}</div>`);}return r;};
 
-function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){if(stationTheme008(tiles[i])||(!window.__noStreetLifeArt009&&cam.z>=lodFarZ648()&&streetLifeTheme009(tiles[i]))||(!window.__noMuseumArt010&&cam.z>=lodFarZ648()&&museumTheme010(tiles[i]))||(!window.__noRiversideArt012&&cam.z>=lodFarZ648()&&riversideTheme012(tiles[i]))||(!window.__noTheatreArt013&&cam.z>=lodFarZ648()&&theatreTheme013(tiles[i]))||(!window.__noComplexArt014&&cam.z>=lodFarZ648()&&complexTheme014(tiles[i]))||(!window.__noStreetscapeArt015&&cam.z>=lodFarZ648()&&streetscapeTheme015(tiles[i]))||(!window.__noGardenLifeArt016&&cam.z>=lodFarZ648()&&gardenLifeTheme016(tiles[i]))||(!window.__noQuaysideArt017&&cam.z>=lodFarZ648()&&quaysideTheme017(tiles[i])))continue;const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
+function drawActiveMobilityOverlay502(){if(window.__noActiveMobility502||!running||cam.z<.55)return;ensureActiveMobility502();const z=cam.z;ctx.save();ctx.lineCap='round';for(const i of amCells502){if(stationTheme008(tiles[i])||(!window.__noStreetLifeArt009&&cam.z>=lodFarZ648()&&streetLifeTheme009(tiles[i]))||(!window.__noMuseumArt010&&cam.z>=lodFarZ648()&&museumTheme010(tiles[i]))||(!window.__noRiversideArt012&&cam.z>=lodFarZ648()&&riversideTheme012(tiles[i]))||(!window.__noTheatreArt013&&cam.z>=lodFarZ648()&&theatreTheme013(tiles[i]))||(!window.__noComplexArt014&&cam.z>=lodFarZ648()&&complexTheme014(tiles[i]))||(!window.__noStreetscapeArt015&&cam.z>=lodFarZ648()&&streetscapeTheme015(tiles[i]))||(!window.__noGardenLifeArt016&&cam.z>=lodFarZ648()&&gardenLifeTheme016(tiles[i]))||(!window.__noQuaysideArt017&&cam.z>=lodFarZ648()&&quaysideTheme017(tiles[i]))||(!window.__noWaterfrontQuarterArt019&&cam.z>=lodFarZ648()&&quarterTheme019(tiles[i])))continue;const x=i%N,y=(i/N)|0,sx=_sx413(x,y),sy=_sy413(x,y);if(sx<-90||sy<-90||sx>W+90||sy>H+90)continue;const c=tiles[i].am502|0,q=AM_BY_CODE502[c],cx=sx+32*z,cy=sy+16*z;ctx.globalAlpha=clamp(detailAlpha432(z),.45,1);if(c===1||c===3){ctx.strokeStyle=c===1?'#d8cfaa':'#54c88a';ctx.lineWidth=Math.max(1,(c===1?3:4)*z);ctx.beginPath();ctx.moveTo(cx-13*z,cy);ctx.lineTo(cx+13*z,cy);ctx.stroke();if(c===3){ctx.strokeStyle='#dff7e8';ctx.lineWidth=Math.max(1,z);ctx.setLineDash([3*z,3*z]);ctx.beginPath();ctx.moveTo(cx-11*z,cy);ctx.lineTo(cx+11*z,cy);ctx.stroke();ctx.setLineDash([]);}}else if(c===2){ctx.strokeStyle='#45d08a';ctx.lineWidth=Math.max(1,2*z);ctx.beginPath();ctx.moveTo(cx-16*z,cy+5*z);ctx.lineTo(cx+16*z,cy+5*z);ctx.stroke();}else if(c===4){ctx.strokeStyle='#f4f2df';ctx.lineWidth=Math.max(1,1.4*z);for(let k=-3;k<=3;k+=2){ctx.beginPath();ctx.moveTo(cx+k*3*z,cy-5*z);ctx.lineTo(cx+k*3*z,cy+5*z);ctx.stroke();}}else if(c===5||c===6){ctx.strokeStyle=c===5?'#f0bb65':'#70a9d8';ctx.lineWidth=Math.max(1,3*z);ctx.beginPath();ctx.moveTo(cx-15*z,cy);ctx.quadraticCurveTo(cx,cy-(c===5?10:-3)*z,cx+15*z,cy);ctx.stroke();}else{ctx.fillStyle=c===7?'#4dc98a':c===8?'#38ad78':c===9||c===10?'#e4f1ff':c===11?'#78a8d8':'#d8b45f';ctx.beginPath();ctx.arc(cx,cy-5*z,Math.max(2,(c===8||c===10||c===11?5:3)*z),0,Math.PI*2);ctx.fill();ctx.fillStyle='#132034';ctx.font=`${Math.max(7,8*z)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c===7||c===8?'P':c===9||c===10?'↗':c===11?'R':'↔',cx,cy-5*z);}}ctx.restore();}
 function britishStation008(b){return !!(b&&!b.ref&&b.k===139&&(b.v===3||b.v===4));}
 function stationTheme008(t){const q=t?.amx502?.british008;return t?.am502&&['square','entrance','bus','taxi','cycleParking','cyclePath','transfer'].includes(q)?q:null;}
 function stationAxis008(b){return b.v===4?1:0;}
@@ -91059,6 +91687,19 @@ const __waterfrontInspect018=complexInspect014;complexInspect014=function(root,b
   return original.replace('<h3>'+base.ic+' '+base.nm+'</h3><div class="row">'+base.en+'</div>','<h3>'+q.ic+' '+q.nm+'</h3><div class="row">'+q.en+'</div>')
     .replace('<div class="row">'+complexDescription014(base)+'</div>','<div class="row">'+waterfrontDescription018(q)+'</div>');
 };
+
+/* GPT-019 LATE NATIVE HOOKS */
+const __quarterCan019=canPlace;canPlace=function(id,x,y){const owned=quarterConflict019(id,x,y);if(owned)return owned;const q=QUARTER_PATH019[id];if(!q)return __quarterCan019(id,x,y);if(window.__noWaterfrontQuarter019)return '水岸街區暫停新增';if(!toolUnlocked458(toolMeta434(id)))return '城市 Lv.'+q.rank+' 解鎖';const err=__quarterCan019('footpath502',x,y);if(err)return err;const t=tiles[idx(x,y)];if(t.tree)return '先移除樹木';if(t.zone||t.office)return '先取消既有分區';if(t.lv475||t.hv471||t.fly475||t.ix475)return '既有架空基礎設施擋住';if(t.deco||t.rdec||t.parkMeter||t.bus||t.dock||t.levee)return '先移除既有地面設施或裝飾';return null;};
+const __quarterCost019=placeCost;placeCost=function(id,x,y){return __quarterCost019(QUARTER_PATH019[id]?'footpath502':id,x,y);};
+const __quarterPlace019=doPlace;doPlace=function(id,x,y,silent){const q=QUARTER_PATH019[id];if(!q)return __quarterPlace019(id,x,y,silent);const err=canPlace(id,x,y);if(err){if(!silent){toast(err,'bad');sErr();}return false;}if(!__quarterPlace019('footpath502',x,y,true))return false;tiles[idx(x,y)].amx502={british019:q.theme,turn019:quarterTurn019(q.theme,x,y)};activeMobilityMarkDirty502();if(!silent)toast(q.ic+' '+q.nm+' 完工','gold');return true;};
+for(const q of Object.values(QUARTER_PATH019)){COST[q.id]=COST.footpath502;const t={id:q.id,cat:'road',ic:q.ic,nm:q.nm,pr:'$'+COST[q.id],unlockRank:q.rank};TOOLS.push(t);MAYOR_MANUAL_ONLY470A.add(q.id);MAYOR_ACTION_CATALOG470A[q.id]={id:q.id,nm:q.nm,cat:mayorToolCategory470(q.id),toolCat:t.cat,k:0,size:1,status:'manual-only',decision:'manual-only'};}
+CATALOG_SECTIONS458.find(q=>q[0]==='transit')[2].push(...Object.keys(QUARTER_PATH019));
+const __quarterKeywords019=catalogKeywords458;catalogKeywords458=function(t){const q=QUARTER_PATH019[t?.id],all=QUARTER_COLLECTION019.includes(t?.id)?' 水岸街區 waterfront quarter ':'';return (__quarterKeywords019(t)+all+(q?q.en+' '+q.keywords:'')).toLowerCase();};
+const __quarterInspect019=inspect;inspect=function(x,y){const out=__quarterInspect019(x,y),m=inMap(x,y)?quarterMeta019(tiles[idx(x,y)]):null;if(m&&$('#infoBody'))$('#infoBody').insertAdjacentHTML('beforeend','<div class="row">'+quarterDescription019(QUARTER_THEME019[m.theme])+'</div>');return out;};
+const __quarterCatalogList019=catalogToolList458;catalogToolList458=function(){if(catalogCat458!=='waterfront019')return __quarterCatalogList019();const q=catalogQuery458.trim().toLowerCase();return QUARTER_COLLECTION019.map(toolMeta434).filter(t=>t&&(!q||catalogKeywords458(t).includes(q)));};
+const __quarterCatalogCats019=renderCatalogCats458;renderCatalogCats458=function(){__quarterCatalogCats019();const host=$('#catalogCats458');if(!host)return;const b=document.createElement('button');b.textContent='🌊 水岸街區';b.dataset.quarterCollection019='1';b.style.minHeight='44px';b.classList.toggle('on',catalogCat458==='waterfront019');b.onclick=()=>{catalogCat458='waterfront019';catalogMode458='all';catalogQuery458='';catalogDetailId458='';const search=$('#catalogSearch458');if(search)search.value='';renderBuildCatalog458();};host.appendChild(b);};
+const __quarterCatalogRender019=renderBuildCatalog458;renderBuildCatalog458=function(){__quarterCatalogRender019();if(catalogCat458!=='waterfront019')return;const host=$('#catalogResults458');if(host)host.insertAdjacentHTML('afterbegin','<div class="catalogEmpty458" data-quarter-guide019>先建展館，再用入口廣場與紅磚步道連向岸邊；長椅、解說台與木亭放在步道旁。每件獨立購買，金額依原生施工報價。訪客是展館營運的視覺呈現。</div>');};
+const __quarterPlacement019=placementStatus459;placementStatus459=function(id,x,y){const s=__quarterPlacement019(id,x,y);if(s&&!s.err&&!s.poor&&(QUARTER_PATH019[id]||waterfrontTool018(id))){const c=quarterConnection019(id,x,y);if(c)s.sub+=' · '+c.text;}return s;};
 
 const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath675=String(draw).indexOf('waterVar675(waterF')>=0&&String(draw).indexOf('__noWaterVar675?')>=0,drawPath667=String(draw).indexOf('nightWaterApply667(ctx,nightDepth)')>=0&&String(draw).indexOf('mg.fill(nwPath667)')>=0,drawPath666=String(draw).indexOf('gc.clip(wgPath666);gc.drawImage(wg666,0,0)')>=0&&String(draw).indexOf("__noWaterGrad666?'_wg0'")>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
@@ -93364,6 +94005,7 @@ function britishGameplayProbe004(groupFilter){
 
 window.GV={
   museumSelftest010,museumSpecs010,museumAt010,museumEvidence010,
+  quarterSelftest019,quarterSpecs019,quarterAt019,quarterEvidence019,quarterConnection019,
   waterfrontSelftest018,waterfrontSpecs018,waterfrontAt018,waterfrontEvidence018,
   quaysideSelftest017,quaysideSpecs017,quaysideAt017,quaysideEvidence017,
   gardenLifeSelftest016,gardenLifeSpecs016,gardenLifeAt016,gardenLifeEvidence016,
