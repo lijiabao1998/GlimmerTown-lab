@@ -47,6 +47,8 @@ jobs:
 
         node waterfront-compatibility018.test.js --static-test
 
+        node waterfront-session-fingerprint018.test.js
+
         '
     - name: Every unchanged T730 and older source control in frozen approved worktrees
       run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/waterfront-t730-controls-XXXXXX)\"\ngit worktree add --detach \"\
