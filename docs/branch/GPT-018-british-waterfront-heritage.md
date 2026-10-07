@@ -82,3 +82,16 @@ Source/data checks pass: all twelve generated historical adapters parse, all 42 
 A source-only test caught a missing dependency binding in its original-projection negative harness and an invalid-CRC mutation that failed in the fixture builder before reaching the validator. Both harness issues were corrected and those controls rerun successfully; neither changed product behavior. Large evidence packets now use streaming lossless compression, retaining original byte hashes and all failure artifacts while avoiding the preceding cloud-memory pressure.
 
 Not completed: the new full workflow and heritage lifecycle modes have not yet run. Real paid construction, services, cold Continue, weather, occlusion and owner-review scene images remain pending. This push grants no merge, release, deployment or art approval. Main remains T730 / v14.34.
+
+
+### First complete runtime attempt and QA ledger correction, 2026-10-07 01:27 UTC
+
+QA candidate `1bdb2389d3a38636977c3766fdd340e406290c4b` passed current initial native preflight `37556046790` and smoke `37556046818`. Full workflow [37556046870](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37556046870) passed strict full preflight, every frozen historical source stage, and the complete original eight-world compatibility/style/three-smoke job. The retained legacy matrix is still running; this is not a full-pass claim.
+
+All fourteen new lifecycle modes stopped at a shared incorrect QA assumption: the unmodified outer fiscal wrapper correctly records the selected catalog tool alias, not the underlying court alias. Actual three-root native k287 placement, native prices, full footprints, undo/redo, rank3/4, insufficient funds, policy discounts and all216 obstruction/edge rejection inputs passed in the retained raw evidence. The test incorrectly demanded `manorStableCourt014` in every capital row. Product behavior and appearance code are unchanged.
+
+The corrected pure predicate requires exactly one native six-field ledger row with the chosen tool alias, k287, exact coordinates/day and rounded native quote. Both original failed manifests pass corrected data validation without changing their bytes: gameplay SHA256 `65a81388ee941cfc97218960f9aab1a175d9b3f520b251132a3d8654be3d90b3`, catalog SHA256 `7cbfd5ed9150a953472972174744d2ce5e1df58d648f69d4de68a3a3ac29b16d`. Added37 negative ledger/provenance mutations; all94 lifecycle source/JSON controls pass.
+
+Future full runs now place the unchanged128-mode historical matrix and compatibility job after the fourteen new lifecycle modes, so a shared new fixture failure is found before scheduling all historical jobs again. Every job remains required for complete final-head acceptance, all raw failures remain retained, and workflow controls reject bypassing the native gate.
+
+Not completed: the corrected native lifecycle must run afresh; construction, real services, cold Continue, weather, occlusion and final owner-review images remain pending. No owner approval, release or merge is implied by archived-data validation.

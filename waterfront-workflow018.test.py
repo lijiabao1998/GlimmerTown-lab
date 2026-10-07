@@ -18,7 +18,7 @@ def validate(q):
  assert j['legacy']['strategy']['matrix']['include']==expected and j['legacy']['strategy']['fail-fast']is False
  assert j['native']['strategy']['matrix']['mode']==native and j['native']['strategy']['fail-fast']is False
  for name in ['legacy','compatibility','native']:
-  assert j[name]['needs']=='preflight'
+  assert j[name]['needs']==('preflight'if name=='native'else['preflight','native'])
   downloads=[s for s in j[name]['steps']if s.get('uses')=='actions/download-artifact@v4'];assert len(downloads)==1
   assert downloads[0]['with']=={'name':'waterfront-full-native-fingerprint-${{ github.sha }}','path':'waterfront-evidence/preflight'}
  for name,job in j.items():
@@ -38,7 +38,7 @@ def validate(q):
  assert'WF018_MODE=${{ matrix.mode }} node waterfront-integration-qa018.js'in runs(j['native'])
  return True
 validate(current);rejected=[]
-for name,mutate in [('drop historical mode',lambda q:q['jobs']['legacy']['strategy']['matrix']['include'].pop()),('drop native mode',lambda q:q['jobs']['native']['strategy']['matrix']['mode'].pop()),('duplicate old mode',lambda q:q['jobs']['legacy']['strategy']['matrix']['include'].append(expected[0])),('main branch trigger',lambda q:q['on']['push']['branches'].append('main')),('write permission',lambda q:q['permissions'].update(contents='write')),('missing native dependency',lambda q:q['jobs']['native'].pop('needs')),('drop raw artifact',lambda q:q['jobs']['native']['steps'].pop(-2)),('ignored failure',lambda q:q['jobs']['native']['steps'][3].update({'continue-on-error':True})),('remove frozen controls',lambda q:q['jobs']['preflight']['steps'].__setitem__(4,{'run':'node waterfront-source-qa018.js'}))]:
+for name,mutate in [('drop historical mode',lambda q:q['jobs']['legacy']['strategy']['matrix']['include'].pop()),('drop native mode',lambda q:q['jobs']['native']['strategy']['matrix']['mode'].pop()),('duplicate old mode',lambda q:q['jobs']['legacy']['strategy']['matrix']['include'].append(expected[0])),('main branch trigger',lambda q:q['on']['push']['branches'].append('main')),('write permission',lambda q:q['permissions'].update(contents='write')),('missing native dependency',lambda q:q['jobs']['native'].pop('needs')),('legacy bypasses native acceptance',lambda q:q['jobs']['legacy'].__setitem__('needs','preflight')),('drop raw artifact',lambda q:q['jobs']['native']['steps'].pop(-2)),('ignored failure',lambda q:q['jobs']['native']['steps'][3].update({'continue-on-error':True})),('remove frozen controls',lambda q:q['jobs']['preflight']['steps'].__setitem__(4,{'run':'node waterfront-source-qa018.js'}))]:
  q=copy.deepcopy(current);mutate(q)
  try:validate(q)
  except(AssertionError,KeyError,ValueError):rejected.append(name)

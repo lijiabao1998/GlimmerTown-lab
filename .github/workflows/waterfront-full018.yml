@@ -160,7 +160,9 @@ jobs:
         retention-days: 14
         compression-level: 9
   legacy:
-    needs: preflight
+    needs:
+    - preflight
+    - native
     runs-on: ubuntu-latest
     timeout-minutes: 55
     strategy:
@@ -645,7 +647,9 @@ jobs:
         retention-days: 14
         compression-level: 9
   compatibility:
-    needs: preflight
+    needs:
+    - preflight
+    - native
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:

@@ -15,6 +15,13 @@ function bindWaterfront018(recipe){
  window.__waterfrontQA018={...recipe,canonical:Object.entries(GV.art574.SPR().waterfront018),nativeCanonical:[0,1,2,3].map(v=>['287_1_'+v,GV.art574.SPR().bld['287_1_'+v]])};
  const Q=window.__waterfrontQA018;Q.ink=Q.canonical.map(([key,s])=>({key,day:s.img.toDataURL(),night:s.night.toDataURL()}));return true;
 }
+// Native fiscal515 is the outermost paid-placement wrapper and records the
+// selected public catalog tool, even when its inner placement delegates to k287.
+// This predicate is shared verbatim with Node's source/JSON acceptance checks.
+function waterfrontCapital018(id,quote,capital,day){
+ if(!['lifeboatHeritageHall018','canalTollhouseExhibit018','manorStableCourt014'].includes(id)||!quote||quote.tool!==id||!Number.isInteger(day)||day<0||!Array.isArray(capital)||capital.length!==1)return false;
+ const c=capital[0];return !!c&&Object.keys(c).sort().join(',')==='cost,d,k,tool,x,y'&&c.tool===id&&c.k===287&&c.x===quote.x&&c.y===quote.y&&Number.isInteger(c.x)&&Number.isInteger(c.y)&&c.x>=0&&c.x<71&&c.y>=0&&c.y<71&&c.d===day&&Number.isFinite(quote.cost)&&quote.cost>0&&c.cost===Math.round(quote.cost);
+}
 function setupWaterfront018(){
  if(localStorage.getItem('glimmerville.v1.slot')!=='3')throw Error('Disposable slot 3 only');
  const C=window.__complexQA014,before=waterfrontIdentity018(),prior=waterfrontPriorPaths018(),specs=GV.waterfrontSpecs018().appearances,rows=[...specs,{id:'manorStableCourt014',theme:null,nm:'英式莊園馬廄庭院',k:287,sz:2}],roots=[],payments=[];
@@ -24,7 +31,7 @@ function setupWaterfront018(){
   const ok=GV.placeUndo(r.id,r.x,r.y),charged=money-GV.devMoney516B(),after=waterfrontCells018(r),b=after[0].bld,capital=GV.fiscal515().capitalLedger;
   if(!ok||charged!==quote.cost||charged<=0||b?.k!==287||b.sz!==2||b.age!==0||(b.waterfront018||null)!==r.theme||!after.slice(1).every(t=>t.bld?.k===287&&JSON.stringify(t.bld.ref)===JSON.stringify([r.x,r.y])&&!Object.hasOwn(t.bld,'waterfront018')))throw Error('Actual paid native root and reference cells required');
   const undo=GV.undo(),undoExact=JSON.stringify(waterfrontCells018(r))===JSON.stringify(site)&&GV.devMoney516B()===money,redo=GV.redo(),redoExact=JSON.stringify(waterfrontCells018(r))===JSON.stringify(after)&&money-GV.devMoney516B()===charged;
-  roots.push({...r,v:b.v,root:r.y*72+r.x});payments.push({id:r.id,quote,base,charged,ok,capital:capital.slice(ledger),capitalExact:capital.length===ledger+1&&capital.at(-1).k===287&&capital.at(-1).tool==='manorStableCourt014'&&capital.at(-1).cost===Math.round(quote.cost),undo,undoExact,redo,redoExact});
+  roots.push({...r,v:b.v,root:r.y*72+r.x});payments.push({id:r.id,quote,base,charged,ok,capital:capital.slice(ledger),capitalExact:waterfrontCapital018(r.id,quote,capital.slice(ledger),GV.stats().day),undo,undoExact,redo,redoExact});
  }
  const after=waterfrontIdentity018(),recipe={roots,payments,placementDay:GV.stats().day};bindWaterfront018(recipe);
  return{...recipe,prior,oldIdentitiesExact:before.buildings.every(b=>JSON.stringify(after.buildings.find(q=>q.i===b.i))===JSON.stringify(b))&&JSON.stringify(before.paths)===JSON.stringify(after.paths),initial:waterfrontState018()};
@@ -65,7 +72,7 @@ function waterfrontCatalog018(){
   for(let cell=0;cell<4;cell++)for(const[label,channel,value]of blockers){const d=JSON.parse(JSON.stringify(base)),i=(site.y+Math.floor(cell/2))*72+site.x+cell%2;if(channel)d[channel]=d[channel].slice(0,i)+value+d[channel].slice(i+1);else if(label==='occupied')d.bl.push([i,4,1,0,0]);else{d.am502=d.am502||{v:1,c:[]};d.am502.c.push([i,1]);}load(d);for(const id of ids)rows.push({...attempt(id,label),cell,index:i});}
   load(base);for(const id of ids)for(const[x,y]of[[-1,64],[71,64],[1,-1],[1,71]]){const before=Q.world(),money=GV.devMoney516B(),ledger=JSON.stringify(GV.fiscal515().capitalLedger),preview=GV.placePreview459(id,x,y),placed=GV.placeUndo(id,x,y);rows.push({id,label:'map-edge',x,y,preview,placed,worldExact:before===Q.world(),moneyExact:money===GV.devMoney516B(),ledgerExact:ledger===JSON.stringify(GV.fiscal515().capitalLedger)});}
  }finally{localStorage.setItem('glimmerville.v1.s3',raw);if(!GV.load())throw Error('Catalog restores original native save');}
- return{rank,quotes,poor,rows,inputMethod:'Only explicitly declared disposable native save inputs change rank, cash, technology and one blocker; production placement, quote, capital ledger and undo remain unmodified.',restoredRaw:localStorage.getItem('glimmerville.v1.s3')===raw};
+ return{placementDay:base.day,rank,quotes,poor,rows,inputMethod:'Only explicitly declared disposable native save inputs change rank, cash, technology and one blocker; production placement, quote, capital ledger and undo remain unmodified.',restoredRaw:localStorage.getItem('glimmerville.v1.s3')===raw};
 }
 function waterfrontMalformed018(){
  const Q=window.__waterfrontQA018,before=waterfrontState018();GV.save();const raw=localStorage.getItem('glimmerville.v1.s3'),base=JSON.parse(raw),first=Q.roots[0].root,other=window.__complexQA014.roots.find(r=>r.k===286),cases=[['absent',undefined],['null',null],['empty',[]],['object',{}],['string','lifeboatHall'],['unknown',[[first,'future']]],['prototype',[[first,'constructor']]],['duplicate',[[first,'lifeboatHall'],[first,'canalTollhouse']]],['reference',[[first+1,'lifeboatHall']]],['wrong-root',[[other.y*72+other.x,'lifeboatHall']]],['negative-index',[[-1,'lifeboatHall']]],['fractional-index',[[first+.5,'lifeboatHall']]],['out-of-range',[[72*72,'lifeboatHall']]],['short-row',[[first]]],['long-row',[[first,'lifeboatHall',1]]],['null-row',[null]],['late-invalid',[[first,'lifeboatHall'],[Q.roots[1].root,'future']]]],rows=[];
@@ -107,5 +114,5 @@ function waterfrontOcclusion018(){
   }}finally{if(!GV.load())throw Error('Occlusion original save restore failed');const restored=waterfrontState018(),following=waterfrontStep018();out.restoration={identityExact:JSON.stringify(restored.identity)===JSON.stringify(before.identity),rawExact:localStorage.getItem('glimmerville.v1.s3')===raw,day:restored.day,followingDay:following.day,prior:following.prior,roots:following.roots,otherSlotsExact:JSON.stringify(following.otherSlots)===JSON.stringify(before.otherSlots)};}
  return out;
 }
-const functions018=[waterfrontPriorPaths018,waterfrontIdentity018,waterfrontCells018,bindWaterfront018,setupWaterfront018,waterfrontState018,waterfrontStep018,waterfrontCapacity018,waterfrontAssets018,waterfrontCanonical018,waterfrontPurity018,waterfrontTransactions018,waterfrontDecodeInput018,waterfrontCatalog018,waterfrontMalformed018,waterfrontScene018,waterfrontFallback018,waterfrontContribution018,waterfrontOcclusion018];
-module.exports={functions018};
+const functions018=[waterfrontPriorPaths018,waterfrontIdentity018,waterfrontCells018,bindWaterfront018,waterfrontCapital018,setupWaterfront018,waterfrontState018,waterfrontStep018,waterfrontCapacity018,waterfrontAssets018,waterfrontCanonical018,waterfrontPurity018,waterfrontTransactions018,waterfrontDecodeInput018,waterfrontCatalog018,waterfrontMalformed018,waterfrontScene018,waterfrontFallback018,waterfrontContribution018,waterfrontOcclusion018];
+module.exports={functions018,waterfrontCapital018};
