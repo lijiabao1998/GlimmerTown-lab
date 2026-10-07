@@ -16,3 +16,12 @@ q=copy.deepcopy(full['jobs']['quarter']);q['strategy']['matrix']['mode']=['mobil
 assert short['on']['push']['branches']==['gpt/waterfront-quarter019-mobile-qa'] and full['on']['push']['branches']==['gpt/waterfront-cultural-quarter-019']
 assert short['permissions']=={'contents':'read'} and short['concurrency']['cancel-in-progress']is False
 print(json.dumps({'ok':True,'sourceOnly':True,'gameExecuted':False,'full156Unchanged':True,'independentMobileQA':True,'shortReusesExactPreflightAndMobile':True,'samePinnedFontPackage':True,'fontAttempts':2,'fontCommandTimeoutSeconds':90,'fontStepTimeoutMinutes':7,'failuresRemainFatal':True}))
+
+assert full['concurrency']=={'group':'waterfront-quarter019-${{ github.ref }}','cancel-in-progress':"${{ github.ref == 'refs/heads/gpt/waterfront-cultural-quarter-019' }}"}
+# Explicitly enumerate the sole affected key. No other project is in this
+# repository scope; Pages, short QA and all other ref keys remain distinct.
+ref='refs/heads/gpt/waterfront-cultural-quarter-019';key='waterfront-quarter019-'+ref
+for other in ['refs/heads/main','refs/heads/gpt/waterfront-quarter019-mobile-qa','refs/heads/gpt/british-waterfront-heritage-018','refs/tags/T731']:
+ assert other!=ref and 'waterfront-quarter019-'+other!=key
+assert short['concurrency']['group']!='waterfront-quarter019-${{ github.ref }}'
+print(json.dumps({'ok':True,'sourceOnly':True,'cancelOnlySuperseded019Candidate':True,'mainExcluded':True,'otherBranchGroupsExcluded':True,'qaGroupExcluded':True,'full156RequiredForNewHead':True}))

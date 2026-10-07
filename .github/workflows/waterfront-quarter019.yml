@@ -11,7 +11,7 @@ permissions:
   contents: read
 concurrency:
   group: waterfront-quarter019-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.ref == 'refs/heads/gpt/waterfront-cultural-quarter-019' }}
 jobs:
   preflight:
     runs-on: ubuntu-latest

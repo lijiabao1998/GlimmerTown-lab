@@ -9,7 +9,8 @@ new_modes=['planning','lifecycle',*[f'camera{n}'for n in range(4)],'coldload','m
 def commands(job):return '\n'.join(s.get('run','')for s in job['steps'])
 def validate(q):
  assert q['name']=='waterfront-quarter019'
- assert q['permissions']=={'contents':'read'} and q['concurrency']['cancel-in-progress']is False
+ assert q['permissions']=={'contents':'read'}
+ assert q['concurrency']=={'group':'waterfront-quarter019-${{ github.ref }}','cancel-in-progress':"${{ github.ref == 'refs/heads/gpt/waterfront-cultural-quarter-019' }}"}
  assert q['on']['push']['branches']==['gpt/waterfront-cultural-quarter-019']
  j=q['jobs'];assert set(j)=={'preflight','legacy','native','compatibility','quarter'}
  assert j['legacy']['strategy']==old['jobs']['legacy']['strategy']
@@ -39,7 +40,7 @@ def validate(q):
  for text in ['for n in 1 2 3','node smoke.js','node waterfront-quarter-style019.js','WF019_SUITE=complexes WF019_MODE=fingerprint','WF019_SUITE=compatibility WF019_MODE=gameplay','node waterfront-quarter-compatibility019.js museum-evidence/compatibility/guards/compatibility.json']:assert text in c
  return True
 validate(current);rejected=[]
-for name,change in [('drop retained runtime',lambda q:q['jobs']['legacy']['strategy']['matrix']['include'].pop()),('drop old native mode',lambda q:q['jobs']['native']['strategy']['matrix']['mode'].pop()),('drop new mode',lambda q:q['jobs']['quarter']['strategy']['matrix']['mode'].pop()),('duplicate new mode',lambda q:q['jobs']['quarter']['strategy']['matrix']['mode'].append('mobile')),('grant write',lambda q:q['permissions'].update(contents='write')),('enable main',lambda q:q['on']['push']['branches'].append('main')),('skip exact-head preflight',lambda q:q['jobs']['native'].pop('needs')),('mask failure',lambda q:q['jobs']['quarter']['steps'][3].update({'continue-on-error':True})),('drop historical source controls',lambda q:q['jobs']['preflight']['steps'].__setitem__(4,{'run':'true'})),('drop full3179 input',lambda q:q['jobs']['preflight']['steps'].__setitem__(5,{'run':'node waterfront-quarter-retained-controls019.js'})),('drop artifact',lambda q:q['jobs']['quarter']['steps'].pop(-2))]:
+for name,change in [('cancel arbitrary branches',lambda q:q['concurrency'].update({'cancel-in-progress':True})),('cross-branch cancellation group',lambda q:q['concurrency'].update(group='waterfront-quarter019')),('other-workflow cancellation group',lambda q:q['concurrency'].update(group='pages')),('cancel main',lambda q:q['concurrency'].update({'cancel-in-progress':"${{ github.ref == 'refs/heads/main' }}"})),('drop retained runtime',lambda q:q['jobs']['legacy']['strategy']['matrix']['include'].pop()),('drop old native mode',lambda q:q['jobs']['native']['strategy']['matrix']['mode'].pop()),('drop new mode',lambda q:q['jobs']['quarter']['strategy']['matrix']['mode'].pop()),('duplicate new mode',lambda q:q['jobs']['quarter']['strategy']['matrix']['mode'].append('mobile')),('grant write',lambda q:q['permissions'].update(contents='write')),('enable main',lambda q:q['on']['push']['branches'].append('main')),('skip exact-head preflight',lambda q:q['jobs']['native'].pop('needs')),('mask failure',lambda q:q['jobs']['quarter']['steps'][3].update({'continue-on-error':True})),('drop historical source controls',lambda q:q['jobs']['preflight']['steps'].__setitem__(4,{'run':'true'})),('drop full3179 input',lambda q:q['jobs']['preflight']['steps'].__setitem__(5,{'run':'node waterfront-quarter-retained-controls019.js'})),('drop artifact',lambda q:q['jobs']['quarter']['steps'].pop(-2))]:
  q=copy.deepcopy(current);change(q)
  try:validate(q)
  except(AssertionError,KeyError,ValueError):rejected.append(name)
