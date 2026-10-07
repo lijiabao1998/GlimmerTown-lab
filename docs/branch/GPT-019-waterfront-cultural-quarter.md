@@ -76,3 +76,11 @@ Source/data checks passed before the first native candidate: eleven reversible i
 The new packager includes the previously demonstrated large-index fix: it budgets actual index bytes and publishes validated packets atomically. A303-file data regression including a118,090-byte index passed. No report-only T731 rerun was started.
 
 Not yet achieved: the first actual native render, original32-view PNGs, complete156 runtime result, native phone interaction result, complete district image review and owner approval. These remain pending Actions; all visual claims await their actual evidence. Main and release labels stay T731.
+
+## First native result and fixture correction
+
+Candidate `7cf90998357660516c113c2200329f20c5fb5fdf`, Actions `37635823126`, passed native preflight:32 new sprites/64 original PNGs, zero clipped/partial pixels, exact ground-plus-raised reconstruction, deterministic zero-RNG rebuilds; all3147 old records,164 families and1728 complete blocks remained exact. Separate smoke passed.
+
+All eight new district modes then failed the same explicit shoreline-direction gate. Actual paid placement retained turn2 at(59,61) and(60,61), because the next cells(60,61)/(61,61) were still water at those purchase times. Later real reclamation changed that neighboring terrain. The correction prepares the whole intended shore strip with the same original paid land/leveling tools before buying the rail pieces. The original turn3 assertion is retained; product source and sprite bytes remain unchanged.
+
+Source inspection also identified a separate observer bug before later lifecycle gates ran: the default scene helper called the legacy season/weather fixture, which assigns simulation day. Ordinary scenes now use only the normal weather control, and camera comparisons precede explicitly labeled rain/winter fixtures. Synthetic callback tests demonstrate that ordinary screenshots preserve day27 and reproduce the observed placement-time water-direction failure before full shore preparation. These are fixture corrections, not native gameplay or acceptance-threshold changes. The first failures remain linked above; a fresh complete156 run is required for the corrected candidate.

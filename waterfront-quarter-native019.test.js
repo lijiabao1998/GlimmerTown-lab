@@ -20,3 +20,17 @@ assert.equal(points.length,64);assert.equal(new Set(points.map(p=>p.x+','+p.y)).
 const rows=points.map(p=>({i:p.y*72+p.x,theme:p.theme,flat:L.FLAT.includes(p.theme),passable:true,open:p.y===61?11:15}));for(const x of[59,60,65,66])rows.push({i:53*72+x,flat:true,passable:true,open:15});const graph=L.graph(rows,72);for(const x of[59,65]){const r=L.routes({x,y:51,sz:2,turn:0},graph);assert.equal(r.entry.connected.length,2);assert.equal(r.paths.length,4);for(const p of r.paths)assert(p.length<=13);}
 const disconnected=L.graph(rows.filter(p=>![54*72+59,54*72+60].includes(p.i)),72);assert.equal(L.routes({x:59,y:51,sz:2,turn:0},disconnected).paths.length,0);assert(L.routes({x:65,y:51,sz:2,turn:0},disconnected).paths.length>0);
 console.log(JSON.stringify({ok:true,sourceOnly:true,gameOrPainterExecuted:false,functions: functions019.length,capitalPositive:positives,capitalNegative:negatives,layoutCells:64,connectedHalls:2,newRuntimeModes:8}));
+// Regression for the actual first CI failure: fixed saved shore direction is
+// chosen at purchase time, so all intended land must exist before the first rail.
+assert(native.indexOf('for(let x=58;x<=70;x++)P.prepare(x,61);')<native.indexOf("for(let x=58;x<=69;x++)put(x===58"));
+const turn=game.match(/function quarterTurn019\([^\n]+/)[0];
+const shoreCells=Array.from({length:72*72},()=>({t:2}));for(let x=57;x<=70;x++)shoreCells[62*72+x]={t:0};
+const evaluateTurn=(x,y)=>new vm.Script('('+turn+')("quayEdgeWalk",'+x+','+y+')').runInNewContext({window:{WaterfrontQuarterLogic019:L},tiles:shoreCells,idx:(x,y)=>y*72+x,inMap:(x,y)=>x>=0&&y>=0&&x<72&&y<72,complexRoadTurn014:()=>0});
+shoreCells[61*72+60]={t:0};assert.equal(evaluateTurn(59,61),2);shoreCells[61*72+60]={t:2};for(let x=58;x<=69;x++)assert.equal(evaluateTurn(x,61),3);
+// The normal scene helper must never invoke the legacy weather setter: that
+// setter changes day. Exercise only synthetic data callbacks, never a canvas.
+const scene=functions019.find(f=>f.name==='quarterSceneNative019'),events=[];let syntheticDay=27;
+const GV={setRot:v=>{},setZoom:v=>{},lookAt:()=>{},setVisT:()=>{},art574:{cycle574:()=>100},britishWeather004:(s,w,r)=>{events.push('weather-fixture');syntheticDay=[1,101,201,301][s];},weather:()=>events.push('normal-weather'),forceDraw:()=>events.push('draw-stub'),camera436:()=>({x:0,y:0,z:1}),stats:()=>({day:syntheticDay}),rot:()=>0,season:()=>({idx:0}),quarterEvidence019:()=>({}),complexAt014:()=>({})};
+const context={GV,window:{__quarterQA019:{focus:[0,0],paths:[],roots:[]}},document:{getElementById:()=>({width:1600,height:1080,toDataURL:()=> 'synthetic-image-not-rendered'})}};
+const ordinary=new vm.Script('('+scene.toString()+')(0,false,1.25,null)').runInNewContext(context);assert.equal(ordinary.day,27);assert(!events.includes('weather-fixture'));assert(events.includes('draw-stub'));
+console.log(JSON.stringify({firstCiShoreOrderRegression:true,ordinarySceneClockRegression:true,syntheticCallbacksOnly:true}));
