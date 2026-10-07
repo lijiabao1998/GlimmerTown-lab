@@ -106,3 +106,29 @@ All four untouched failed manifests show the same isolated difference: the origi
 The correction is QA-only. It reuses the exact original `legacyWorkerProof` function from the unchanged public-life suite, checking full installed RGBA bytes against two independently built canvases from that pinned native source, zero RNG calls, exact worker metadata and CRC, full independent family/stat aggregation, and observer purity for world, storage, atlas and canonical references. All existing boot-time leaf/family/block records still require complete deep equality. Unknown additions, altered prior records, malformed worker proofs and absent-worker concealment fail. The existing final canonical PNG/hash gate is retained. No product, geometry, gameplay, release label, baseline or prior source changed.
 
 Seventy-five new source/data negative controls and all94 earlier lifecycle/ledger negatives pass. All four original failed archives pass only the narrowly labeled data comparison, with their bytes unchanged; those archive checks explicitly do not claim a fresh native RGBA run. The complete exact-head workflow must run again for the corrected guard. New images and publication remain unapproved.
+
+
+## Owner-directed repair addendum: rotated map boundary
+
+### Acceptance written before repair implementation, 2026-10-07 03:03 UTC
+
+The owner approved the architectural review images, then explicitly requested correction of the sawtooth exposed-soil edge visible in image10 before publication (2026-10-07 02:58 UTC). Release preparation is paused. No version, release card, `fp.json`, main or deployment change has been made. The original two heritage building appearances are not reopened for redesign; the additional visible repair will receive its own same-view before/after review.
+
+The last fully tested pre-repair candidate is `52924698c88ec2f9cafe37828b8d966a6f962488`: full144 jobs and PR23 smoke passed. Its sole first-attempt historical theatre-camera2 timing failure remains recorded; the unchanged-head diagnostic retry measured960.633ms under the original1000ms guard. Those results do not constitute acceptance of this newly requested boundary repair.
+
+### Bounded repair scope
+
+Diagnose the visible external-map soil-face teeth in the actual rotated native scene, including whether they already occur in the immutable T730 renderer. Fix only the relevant native map-boundary geometry/depth/culling decision. Do not flatten or alter saved terrain, globally recolour/restyle the map, remove the soil cross-section, hide the edge with a visual overlay, change camera framing to conceal the defect, alter any building art, or postprocess review images. Terrain height variation, corners and all four camera rotations must remain meaningful. If source investigation establishes another mechanism, record that evidence and its bounded correction before editing that mechanism.
+
+Any renderer correction must have a reversible source assembly and a named runtime escape valve restoring the previous native behavior for diagnosis. The old behavior must remain accessible only as that diagnostic fallback; it is not a replacement for fixing the requested view. Product saves, world tiles, RNG, simulation, utility/staff/cost accounting and all3147 canonical boot assets must remain unchanged.
+
+### Executable repair acceptance
+
+1. Pin the pre-repair product and exact relevant renderer source. Record a code-level explanation of the discontinuity, with comparison to T730 source and existing native evidence; do not infer causality from the screenshot alone.
+2. Capture fresh, unmodified native Chrome PNGs before and after at the exact image10 camera (rotation1, zoom1.6, focus66.5/65), same saved world, daylight and viewport1600×1080. Also capture close day/night comparisons without cropping/resizing. Before/after generation may use the diagnostic escape valve but must not change terrain, world, storage, geometry carriers or the compositor to manufacture the result.
+3. Add measurable continuity/depth/visibility assertions for the implicated boundary, all four rotations, corners and both flat and genuinely varied-height boundaries. Reject the former incorrect case and injected wrong-axis/culling/height changes. Preserve legitimate cliffs; a solid-colour cover or hidden boundary must fail.
+4. Verify both real Page.reload/Continue cycles plus the original three unaided ordinary days. The new view must retain all heritage/native building identities, dimensions, directions, ages, services and canonical PNG hashes, with unchanged complete saves and unaffected old terrain/blocks. Boundary drawing may not mutate the world or depend on RNG.
+5. Retain the complete144-job suite, all original historical timing/style/raw-save assertions and the strict existing lazy-worker full-RGBA guard, adding explicit boundary-repair modes and source/data negatives. All game/painter/pixel/browser execution remains in isolated GitHub Actions. Preserve every failed attempt and artifact; no threshold relaxation or state repair in cold-load acceptance.
+6. Present the same-camera original before/after PNGs for this new visible correction. Resume release only after that comparison is confirmed and complete exact-final-head checks pass. Main remains T730/v14.34 until the normal release process completes.
+
+Current repair state: diagnosis and acceptance only. Renderer implementation, fresh before/after runtime evidence and new-comparison approval have not started. The original heritage art is unchanged.
