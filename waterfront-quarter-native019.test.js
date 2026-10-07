@@ -1,5 +1,7 @@
 'use strict';
 require('./waterfront-quarter-lamp019.test');
+require('./waterfront-quarter-catalog019.test');
+require('./waterfront-quarter-session019.test');
 // Inert source and synthetic transaction/geometry data only, never a game/painter.
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),{functions019,quarterCapitalNative019}=require('./waterfront-quarter-native019'),L=require('./waterfront-quarter-logic019');
 for(const f of functions019)new vm.Script('('+f.toString()+')');let positives=0,negatives=0;
