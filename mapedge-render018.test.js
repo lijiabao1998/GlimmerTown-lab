@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-// Source and draw-call arithmetic only. No game, painter, canvas, pixels or browser.
+// Source, synthetic byte arrays and call mocks only. No game, painter, canvas or browser.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const vm=require('node:vm'),crypto=require('node:crypto'),{execFileSync}=require('node:child_process');
 const render=require('./mapedge-render018');
@@ -50,53 +50,84 @@ function sourceProof018(){
 }
 function helperSourceGuard018(source){
   const code=source.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\/\/[^\n]*/g,'');
-  assert.doesNotMatch(code,/\b(?:Math|rand|random|R|localStorage|sessionStorage|document|fetch|XMLHttpRequest|WebSocket|eval|Function|require)\b/,'helper has no RNG, storage, canvas creation, network, dynamic code or dependencies');
+  assert.doesNotMatch(code,/\b(?:Math|rand|random|R|localStorage|sessionStorage|fetch|XMLHttpRequest|WebSocket|eval|Function|require|SPR|Path2D|Map|Set)\b/,'no RNG, storage, network, registration, clipping, strong-key cache or dependencies');
+  assert.equal((code.match(/new WeakMap\(\)/g)||[]).length,1,'exactly one weak canonical-identity cache');
+  const cold=sourceBetween(code,'  function mapEdgeHalves018','  function mapEdgeMask018');
+  const warm=cold.slice(0,cold.indexOf('    if(sprite.width'));
+  assert.doesNotMatch(warm,/\bnew\b|\[|\{\s*\w+\s*:/,'warm cache hit allocates nothing');
+  assert.doesNotMatch(code.replace(cold,''),/document|ImageData|Uint8ClampedArray/,'native data/canvas allocation occurs only in cache builder');
+  assert.equal((cold.match(/document\.createElement\('canvas'\)/g)||[]).length,1);
+  assert.doesNotMatch(cold.replace("document.createElement('canvas')",''),/document\./,'no DOM registration');
+  assert.doesNotMatch(cold,/sprite\s*\[[^\]]+\]\s*=|sprite\.\w+\s*=|source\.data\s*\[[^\]]+\]\s*=|source\.data\.fill/,'canonical source and readback stay immutable');
+  assert.match(cold,/mapEdgeCopies018\.set\(sprite,halves\)/,'only canonical identity keys');
   const hot=sourceBetween(code,'  function mapEdgeMask018','  function selftest018');
-  assert.equal((hot.match(/new Path2D\(\)/g)||[]).length,1,'one private clipping path; no persistent cache');
-  assert.doesNotMatch(hot.replace('new Path2D()',''),/\bnew\b|\[|\{\s*\w+\s*:|\b(?:Array|Object)\s*\./,'no other per-draw object, array or constructor');
-  assert.doesNotMatch(hot,/ctx\.(?!(?:drawImage|save|clip|restore)\b)|sprite\./,'only draw and balanced clipping; no current path, transform or sprite mutation');
+  assert.doesNotMatch(hot.replace('[mask-1]',''),/\bnew\b|\[|\{\s*\w+\s*:|\b(?:Array|Object)\s*\./,'hot draw allocates no objects, arrays or constructors');
+  assert.doesNotMatch(hot,/ctx\.(?!drawImage\b)|sprite\./,'destination context receives only drawImage');
   const draws=[...hot.matchAll(/ctx\.drawImage\(([^;]+)\);/g)].map(match=>match[1]);
-  assert.deepEqual(draws,['sprite,sx,sy,64*z,56*z','sprite,sx,sy,64*z,56*z'],'every draw retains the original full-sprite transform');
-  assert.match(hot,/finally\s*\{\s*ctx\.restore\(\);\s*\}/,'state restoration is unconditional after save');
+  assert.deepEqual(draws,['sprite,sx,sy,64*z,56*z','mapEdgeHalves018(sprite)[mask-1],sx,sy,64*z,56*z'],'original five-argument transform for original and copies');
   return true;
 }
-// Pure call/state doubles, deliberately without any rasterization or canvas.
-const pathData018=new WeakMap();let pathAllocations018=0;
-class MockPath2D018{
-  constructor(){pathAllocations018++;pathData018.set(this,[]);}
-  rect(...args){pathData018.get(this).push(args);}
-}
-function isolatedAPI018(source,browser,Path2D=MockPath2D018){
-  const sandbox=browser?{window:{},Path2D}:{module:{exports:{}},Path2D};
-  for(const key of['document','localStorage','sessionStorage','fetch','XMLHttpRequest','WebSocket'])Object.defineProperty(sandbox,key,{get(){throw Error('forbidden helper dependency: '+key);}});
+// Synthetic byte arrays and call-only doubles. No canvas, game, painter,
+// browser, image decoder or rasterization is executed by these tests.
+const environments018=new WeakMap();
+function isolatedAPI018(source,browser,options={}){
+  const stats={maps:0,gets:0,sets:0,reads:0,creates:0,contexts:0,arrays:0,images:0,puts:0};
+  const data=new WeakMap(),readBuffers=[],created=[],failure=Error('injected copy failure');
+  let failAt=options.failAt||null;
+  function fail(name){if(failAt===name)throw failure;}
+  class CacheWeakMap extends WeakMap{
+    constructor(){super();stats.maps++;}
+    get(key){stats.gets++;return super.get(key);}
+    set(key,value){stats.sets++;fail('cache');assert.equal(value.length,2,'cache publishes exactly two completed copies');for(const image of value){assert.ok(data.get(image)?.written,'cache never publishes partial copy');assert.ok(!Object.values(image).includes(key),'copy has no source backreference');}return super.set(key,value);}
+  }
+  class CopyBytes extends Uint8ClampedArray{constructor(source){stats.arrays++;fail('array');super(source);}}
+  class FakeImageData{constructor(bytes,width,height){stats.images++;fail('image');assert.ok(bytes instanceof Uint8ClampedArray);assert.equal(width,64);assert.equal(height,56);assert.equal(bytes.length,width*height*4);this.data=bytes;this.width=width;this.height=height;}}
+  const document={createElement(tag){
+    stats.creates++;fail('create');assert.equal(tag,'canvas');
+    const image={width:0,height:0,getContext(type){stats.contexts++;fail('copy-context');assert.equal(type,'2d');if(failAt==='copy-context-null')return null;
+      return new Proxy({putImageData(value,x,y){
+        stats.puts++;fail('put');if(failAt==='second-put'&&stats.puts===2)throw failure;
+        assert.equal(arguments.length,3);assert.ok(value instanceof FakeImageData);assert.equal(x,0);assert.equal(y,0);assert.equal(image.width,64);assert.equal(image.height,56);
+        data.set(image,{bytes:new Uint8ClampedArray(value.data),written:true,kind:'copy'});
+      }},{get(target,key){assert.ok(Object.hasOwn(target,key),'unexpected copy-context action '+String(key));return target[key];},set(){throw Error('unexpected copy-context state change');}});
+    }};created.push(image);data.set(image,{written:false,kind:'copy'});return image;
+  }};
+  const sandbox=browser?{window:{}}:{module:{exports:{}}};
+  Object.assign(sandbox,{WeakMap:CacheWeakMap,Uint8ClampedArray:CopyBytes,ImageData:FakeImageData});
+  Object.defineProperty(sandbox,'document',{get(){fail('document');return document;}});
+  for(const key of['localStorage','sessionStorage','fetch','XMLHttpRequest','WebSocket','Path2D'])Object.defineProperty(sandbox,key,{get(){throw Error('forbidden helper dependency: '+key);}});
   vm.runInNewContext(source,sandbox,{timeout:1000,filename:'mapedge-render018.js'});
-  return browser?sandbox.window.MapEdgeRepair018:sandbox.module.exports;
+  const api=browser?sandbox.window.MapEdgeRepair018:sandbox.module.exports;
+  function makeSprite(seed=7,width=64,height=56){
+    const bytes=new Uint8ClampedArray(64*56*4);
+    for(let y=0;y<56;y++)for(let x=0;x<64;x++){
+      const i=(y*64+x)*4;bytes[i]=(x*7+y+seed)%255+1;bytes[i+1]=(y*13+x+seed)%255+1;bytes[i+2]=(x+y*3+seed)%255+1;bytes[i+3]=(x*3+y*5+seed)%256;
+    }
+    const sprite=Object.freeze({width,height,getContext(type){
+      fail('source-context');assert.equal(type,'2d');if(failAt==='source-context-null')return null;
+      return new Proxy({getImageData(x,y,w,h){
+        stats.reads++;fail('read');assert.deepEqual([x,y,w,h],[0,0,64,56]);
+        const result={width:64,height:56,data:new Uint8ClampedArray(bytes)};
+        if(failAt==='bad-width')result.width=63;if(failAt==='bad-height')result.height=55;if(failAt==='bad-data')result.data=new Uint8ClampedArray(10);
+        readBuffers.push({result,expected:new Uint8ClampedArray(result.data)});return result;
+      }},{get(target,key){assert.ok(Object.hasOwn(target,key),'canonical context is read-only: '+String(key));return target[key];},set(){throw Error('canonical state mutation');}});
+    }});
+    data.set(sprite,{bytes,kind:'canonical'});return sprite;
+  }
+  const env={stats,data,readBuffers,created,failure,makeSprite,setFailure(value){failAt=value;},snapshot(){return{...stats};}};
+  env.defaultSprite=makeSprite();environments018.set(api,env);return api;
 }
-function context018(failAt){
-  const calls=[],events=[],drawStates=[],stack=[];
-  const currentPath=Object.freeze(['unrelated caller path']);
-  const initial=Object.freeze({clips:Object.freeze([Object.freeze([-10000,-10000,20000,20000])]),transform:Object.freeze([1.25,.125,-.25,2,13.25,-27.5]),alpha:.63,composite:'source-over',smoothing:false,currentPath});
-  const failure=Error('injected '+failAt);let state=initial;
-  function hit(name){events.push(name);if(failAt===name)throw failure;}
-  const methods={
-    save(){assert.equal(this,ctx);hit('save');stack.push(state);},
-    clip(clip){
-      assert.equal(this,ctx);assert.equal(arguments.length,1,'clip only the private path');
-      const rects=pathData018.get(clip);assert.ok(rects,'clip receives an independent Path2D');
-      assert.equal(rects.length,1,'exactly one outward rectangle per path');
-      assert.equal(rects[0].length,4);state={...state,clips:[...state.clips,rects[0].slice()]};hit('clip');
-    },
-    drawImage(...args){assert.equal(this,ctx);calls.push(args);drawStates.push(state);hit('drawImage');},
-    restore(){assert.equal(this,ctx);hit('restore');assert.ok(stack.length,'no over-restoration');state=stack.pop();}
-  };
-  const ctx=new Proxy(methods,{get(target,key){assert.ok(Object.hasOwn(methods,key),'forbidden context access: '+String(key));return target[key];},set(){throw Error('canvas state mutation');}});
-  return{ctx,calls,events,drawStates,failure,assertRestored(){assert.equal(state,initial,'caller state restored exactly');assert.equal(stack.length,0,'balanced save/restore');assert.equal(state.currentPath,currentPath,'caller path preserved');}};
+function context018(failDraw=false){
+  const calls=[],events=[],failure=Error('injected draw failure');
+  const methods={drawImage(...args){assert.equal(this,ctx);events.push('drawImage');calls.push(args);if(failDraw)throw failure;}};
+  const ctx=new Proxy(methods,{get(target,key){assert.ok(Object.hasOwn(target,key),'destination path/state/transform mutation: '+String(key));return target[key];},set(){throw Error('destination state mutation');}});
+  return{ctx,calls,events,failure};
 }
 function record018(api,vx,vy,n,sx,sy,z,legacy=false,sprite){
-  if(arguments.length<9)sprite=new Proxy(Object.freeze({canonicalCliff:true}),{get(){throw Error('sprite property read');}});
-  const q=context018(),allocations=pathAllocations018;
-  const mask=api.drawMapEdge018(q.ctx,sprite,vx,vy,n,sx,sy,z,legacy);q.assertRestored();
-  return{mask,calls:q.calls,events:q.events,drawStates:q.drawStates,allocations:pathAllocations018-allocations,sprite};
+  const env=environments018.get(api);if(arguments.length<9)sprite=env.defaultSprite;
+  const q=context018(),before=env.snapshot();
+  const mask=api.drawMapEdge018(q.ctx,sprite,vx,vy,n,sx,sy,z,legacy);
+  return{mask,calls:q.calls,events:q.events,before,after:env.snapshot(),sprite,env};
 }
 // This independent test mapping is not evaluated from the game's w2v source.
 function rotate018(x,y,n,r){return r===0?[x,y]:r===1?[n-1-y,x]:r===2?[n-1-x,n-1-y]:[y,n-1-x];}
@@ -108,17 +139,17 @@ function worldMask018(x,y,n,r){
 }
 function assertCall018(q,expected,sx,sy,z,legacy=false){
   assert.equal(q.mask,expected);
-  if(!expected||!q.sprite){assert.deepEqual(q.calls,[]);assert.deepEqual(q.events,[]);assert.equal(q.allocations,0);return;}
-  assert.equal(q.calls.length,1,'each boundary tile has exactly one native draw');
-  assert.deepEqual(q.calls[0],[q.sprite,sx,sy,64*z,56*z],'full source and original destination remain exact');
-  const state=q.drawStates[0];assert.deepEqual(state.transform,[1.25,.125,-.25,2,13.25,-27.5]);
-  assert.equal(state.alpha,.63);assert.equal(state.composite,'source-over');assert.equal(state.smoothing,false);
-  assert.deepEqual(state.currentPath,['unrelated caller path']);
-  assert.deepEqual(state.clips[0],[-10000,-10000,20000,20000],'existing clip retained');
-  if(legacy||expected===3){assert.deepEqual(q.events,['drawImage']);assert.equal(q.allocations,0);assert.equal(state.clips.length,1);return;}
-  assert.deepEqual(q.events,['save','clip','drawImage','restore']);assert.equal(q.allocations,1);
-  assert.equal(state.clips.length,2,'outward half intersects the existing clip');
-  assert.deepEqual(state.clips[1],[expected===1?sx:sx+32*z,sy,32*z,56*z]);
+  if(!expected||!q.sprite){assert.deepEqual(q.calls,[]);assert.deepEqual(q.events,[]);assert.deepEqual(q.after,q.before,'no allocation/cache access for absent draws');return;}
+  assert.equal(q.calls.length,1);assert.equal(q.calls[0].length,5);
+  assert.deepEqual(q.calls[0].slice(1),[sx,sy,64*z,56*z],'full-size original destination exact');
+  assert.deepEqual(q.events,['drawImage'],'no destination context mutation');
+  if(legacy||expected===3){assert.equal(q.calls[0][0],q.sprite);assert.deepEqual(q.after,q.before,'legacy/corner never access cache');return;}
+  const image=q.calls[0][0];assert.notEqual(image,q.sprite);assert.equal(image.width,64);assert.equal(image.height,56);
+  assert.equal(q.env.data.get(image)?.kind,'copy');
+  assert.equal(q.after.gets-q.before.gets,1);
+  const cold=q.after.reads!==q.before.reads;
+  for(const[key,count]of Object.entries({reads:1,creates:2,contexts:2,arrays:2,images:2,puts:2,sets:1}))assert.equal(q.after[key]-q.before[key],cold?count:0,'lazy pair/warm allocation budget: '+key);
+  assert.equal(q.after.maps,q.before.maps);
 }
 function drawControls018(api,exhaustive=true){
   let cases=0;
@@ -131,9 +162,9 @@ function drawControls018(api,exhaustive=true){
     }
   }
   // Missing atlas is the exact old no-draw path; no sprite properties are read.
-  for(const sprite of[null,undefined,false])for(const legacy of[false,true]){
-    const q=record018(api,71,71,72,10,20,1,legacy,sprite);
-    assertCall018(q,3,10,20,1,legacy);cases++;
+  for(const sprite of[null,undefined,false])for(const legacy of[false,true])for(const[vx,vy,mask]of[[20,20,0],[20,71,1],[71,20,2],[71,71,3]]){
+    const q=record018(api,vx,vy,72,10,20,1,legacy,sprite);
+    assertCall018(q,mask,10,20,1,legacy);cases++;
   }
   // Preserve every supplied anchor, including arbitrary height offsets. This is
   // draw-call invariance, not a claim that native varied-height pixels were run.
@@ -144,8 +175,8 @@ function drawControls018(api,exhaustive=true){
 }
 function sourcePointIncluded018(q,px,py){
   const call=q.calls[0];if(!call||px<0||px>=64||py<0||py>=56)return false;
-  const[,sx,sy,w,h]=call,x=sx+px*w/64,y=sy+py*h/56;
-  return q.drawStates[0].clips.every(([cx,cy,cw,ch])=>x>=cx&&x<cx+cw&&y>=cy&&y<cy+ch);
+  const bytes=q.env.data.get(call[0]).bytes,i=(Math.floor(py)*64+Math.floor(px))*4;
+  return bytes[i]!==0||bytes[i+1]!==0||bytes[i+2]!==0||bytes[i+3]!==0;
 }
 function geometryProof018(api){
   const n=72,A={x:71,y:65},B={x:71,y:66};
@@ -180,66 +211,74 @@ function geometryProof018(api){
   return{rotation:1,A,B,viewA:av,viewB:bv,sourceA:[16,14],sourceB:[48,30],sourceArithmeticOnly:true,proofs};
 }
 function samplingProof018(api){
-  // The failed native frame used this real destination anchor. At .75 zoom,
-  // these centers land on exact integer source ties. Assert call identity, not
-  // a made-up nearest-neighbor rule or a claim that this test reads pixels.
-  const sx=1520,sy=216,z=.75,sprite=Object.freeze({canonicalCliff:true});
+  const sx=1520,sy=216,z=.75,sprite=environments018.get(api).defaultSprite;
   const old=record018(api,71,40,72,sx,sy,z,true,sprite),fixed=record018(api,71,40,72,sx,sy,z,false,sprite);
-  assert.deepEqual(fixed.calls,old.calls,'full transform at the actual failed anchor is bit-identical');
-  assert.deepEqual(fixed.drawStates[0].clips[1],[1544,216,24,42]);
+  assert.deepEqual(fixed.calls[0].slice(1),old.calls[0].slice(1),'actual failed anchor retains original transform');
   const ties=[];
-  for(let x=1545;x<=1566;x+=3){
-    const sourceX=(x+.5-sx)*64/(64*z);ties.push(sourceX);
-    assert.ok(sourcePointIncluded018(fixed,sourceX,40),'retained tie lies in the outward half');
-  }
+  for(let x=1545;x<=1566;x+=3){const sourceX=(x+.5-sx)*64/(64*z);ties.push(sourceX);assert.ok(sourcePointIncluded018(fixed,sourceX,40));}
   assert.deepEqual(ties,[34,38,42,46,50,54,58,62]);
   for(const z of[.75,1,1.6,2])for(const[sx,sy]of[[1520,216],[-50.75,100.125],[13.1,-77.3]])for(const[vx,vy]of[[20,71],[71,20],[71,71]]){
     const fixed=record018(api,vx,vy,72,sx,sy,z,false,sprite),old=record018(api,vx,vy,72,sx,sy,z,true,sprite);
-    assert.deepEqual(fixed.calls,old.calls,'clipping never changes source-to-destination draw arguments');
+    assert.deepEqual(fixed.calls[0].slice(1),old.calls[0].slice(1));
   }
   return{sourceArithmeticOnly:true,failedAnchor:[sx,sy],zoom:z,retainedIntegerSourceTies:ties,originalFullTransformExact:true};
 }
-function stateControls018(source,api){
+function copyControls018(source){
+  const api=isolatedAPI018(source,false),env=environments018.get(api),sprite=env.defaultSprite,canonical=new Uint8ClampedArray(env.data.get(sprite).bytes);
+  assert.equal(env.stats.maps,1);for(const key of['reads','creates','arrays','images','puts','sets','gets'])assert.equal(env.stats[key],0,'import is inert: '+key);
+  const originalKeys=Object.keys(sprite),left=record018(api,20,71,72,1520,216,.75),right=record018(api,71,20,72,1520,216,.75);
+  assertCall018(left,1,1520,216,.75);assertCall018(right,2,1520,216,.75);
+  const copies=[left.calls[0][0],right.calls[0][0]];assert.notEqual(copies[0],copies[1]);
+  let byteChecks=0;
+  for(let side=1;side<=2;side++){
+    const bytes=env.data.get(copies[side-1]).bytes;
+    for(let y=0;y<56;y++)for(let x=0;x<64;x++)for(let channel=0;channel<4;channel++){
+      const i=(y*64+x)*4+channel,keep=side===1?x<32:x>=32;assert.equal(bytes[i],keep?canonical[i]:0,'exact synthetic RGBA at side/x/y/channel '+[side,x,y,channel]);byteChecks++;
+    }
+  }
+  assert.deepEqual(env.data.get(sprite).bytes,canonical);assert.deepEqual(Object.keys(sprite),originalKeys,'no source registration/properties');
+  for(const {result,expected}of env.readBuffers)assert.deepEqual(result.data,expected,'readback bytes never mutated');
+  const warmed=env.snapshot();
+  for(let i=0;i<1000;i++)for(const[vx,vy,index]of[[20,71,0],[71,20,1]]){
+    const q=record018(api,vx,vy,72,i/3,-i/7,.75+(i%4));assert.equal(q.calls[0][0],copies[index],'same copy reused across frames, anchors and zooms');
+  }
+  for(const key of['maps','reads','creates','contexts','arrays','images','puts','sets'])assert.equal(env.stats[key],warmed[key],'no warm allocations/readback: '+key);
+  const replacement=env.makeSprite(113),replacementBytes=new Uint8ClampedArray(env.data.get(replacement).bytes);
+  const newLeft=record018(api,20,71,72,1,2,1,false,replacement),newRight=record018(api,71,20,72,1,2,1,false,replacement);
+  assert.notEqual(newLeft.calls[0][0],copies[0]);assert.notEqual(newRight.calls[0][0],copies[1]);assert.equal(env.stats.reads,2);assert.equal(env.stats.creates,4);
+  for(let side=1;side<=2;side++){
+    const bytes=env.data.get((side===1?newLeft:newRight).calls[0][0]).bytes;
+    for(let y=0;y<56;y++)for(let x=0;x<64;x++)for(let channel=0;channel<4;channel++){const i=(y*64+x)*4+channel;assert.equal(bytes[i],(side===1?x<32:x>=32)?replacementBytes[i]:0);byteChecks++;}
+  }
+  assert.equal(record018(api,20,71,72,1,2,1).calls[0][0],copies[0],'separate live canonical identities retain their own pair');
+  assert.deepEqual(env.data.get(sprite).bytes,canonical);assert.deepEqual(env.data.get(replacement).bytes,replacementBytes);
+  return{syntheticByteChecks:byteChecks,canonicalReadbackImmutable:true,warmDraws:2000,warmAllocations:0,weakIdentityCache:true,recreatedCanonicalRebuilds:true,copiesPerCanonical:2,copyBackingBytesPerCanonical:64*56*4*2};
+}
+function stateControls018(source){
   let cases=0;
-  for(const[vx,vy]of[[20,71],[71,20]])for(const failure of['save','clip','drawImage']){
-    const q=context018(failure);
-    assert.throws(()=>api.drawMapEdge018(q.ctx,'sentinel',vx,vy,72,1520,216,.75,false),error=>error===q.failure);
-    assert.deepEqual(q.events,failure==='save'?['save']:failure==='clip'?['save','clip','restore']:['save','clip','drawImage','restore']);
-    assert.equal(q.calls.length,failure==='drawImage'?1:0);q.assertRestored();cases++;
+  for(const failAt of['document','source-context','source-context-null','read','bad-width','bad-height','bad-data','create','copy-context','copy-context-null','array','image','put','second-put','cache']){
+    const api=isolatedAPI018(source,false,{failAt}),env=environments018.get(api),q=context018();
+    assert.throws(()=>api.drawMapEdge018(q.ctx,env.defaultSprite,20,71,72,1,2,.75,false));assert.deepEqual(q.calls,[],'failed copy must not draw fallback');
+    if(['source-context','source-context-null','read','bad-width','bad-height','bad-data'].includes(failAt))assert.equal(env.stats.creates,0,'reject invalid/unreadable canonical data before allocation');
+    env.setFailure(null);
+    const recovered=record018(api,20,71,72,1,2,.75),right=record018(api,71,20,72,1,2,.75);assertCall018(recovered,1,1,2,.75);assertCall018(right,2,1,2,.75);
+    assert.equal(env.data.get(recovered.calls[0][0]).written,true);cases++;
   }
-  // Fail before save if constructing the private path fails. Do not consume a
-  // caller-owned save frame or draw an unclipped fallback when clipping fails.
-  for(const failAt of['constructor','rect']){
-    const failure=Error('injected path '+failAt),q=context018();
-    class BrokenPath{constructor(){if(failAt==='constructor')throw failure;}rect(){throw failure;}}
-    const broken=isolatedAPI018(source,false,BrokenPath);
-    assert.throws(()=>broken.drawMapEdge018(q.ctx,'sentinel',20,71,72,1,2,.75,false),error=>error===failure);
-    assert.deepEqual(q.events,[]);q.assertRestored();cases++;
+  const api=isolatedAPI018(source,false),env=environments018.get(api);
+  for(const[width,height]of[[63,56],[64,55],[0,0],[128,112]]){
+    const before=env.snapshot(),q=context018();assert.throws(()=>api.drawMapEdge018(q.ctx,env.makeSprite(7,width,height),20,71,72,1,2,1,false));assert.equal(q.calls.length,0);assert.equal(env.stats.reads,before.reads);assert.equal(env.stats.creates,before.creates);cases++;
   }
-  // A browser supports Path2D already; Node import/selftest and all bypass
-  // paths must stay usable without a Path2D implementation or clipping methods.
-  const noPath=isolatedAPI018(source,false,null);assert.equal(noPath.selftest018().ok,true);
-  for(const[vx,vy,sprite,legacy]of[[20,20,'s',false],[20,71,null,false],[71,20,undefined,false],[71,71,'s',false],[20,71,'s',true],[71,20,'s',true]]){
-    const q=record018(noPath,vx,vy,72,1,2,.75,legacy,sprite);
-    assertCall018(q,noPath.mapEdgeMask018(vx,vy,72),1,2,.75,legacy);cases++;
+  const noDocument=isolatedAPI018(source,false,{failAt:'document'}),noEnv=environments018.get(noDocument);assert.equal(noDocument.selftest018().ok,true);
+  const poison=new Proxy({},{get(){throw Error('legacy/corner must not inspect sprite');}});
+  for(const[vx,vy,sprite,legacy]of[[20,20,poison,false],[20,71,null,false],[71,20,undefined,false],[71,71,false,false],[71,71,poison,false],[20,71,poison,true],[71,20,poison,true]]){
+    const q=record018(noDocument,vx,vy,72,1,2,.75,legacy,sprite);assertCall018(q,noDocument.mapEdgeMask018(vx,vy,72),1,2,.75,legacy);cases++;
   }
-  const missing=context018();assert.throws(()=>noPath.drawMapEdge018(missing.ctx,'s',20,71,72,1,2,.75,false));
-  assert.deepEqual(missing.events,[]);missing.assertRestored();cases++;
-  for(const[vx,vy,legacy]of[[71,71,false],[20,71,true],[71,20,true]]){
-    const q=context018('drawImage');
-    assert.throws(()=>api.drawMapEdge018(q.ctx,'s',vx,vy,72,1,2,.75,legacy),error=>error===q.failure);
-    assert.deepEqual(q.events,['drawImage']);q.assertRestored();cases++;
+  assert.equal(noEnv.stats.creates,0);assert.equal(noEnv.stats.gets,0);
+  for(const[vx,vy,legacy]of[[20,71,false],[71,20,false],[71,71,false],[20,71,true]]){
+    const q=context018(true);assert.throws(()=>api.drawMapEdge018(q.ctx,env.defaultSprite,vx,vy,72,1,2,.75,legacy),error=>error===q.failure);assert.deepEqual(q.events,['drawImage']);cases++;
   }
-  const restore=context018('restore');
-  assert.throws(()=>api.drawMapEdge018(restore.ctx,'s',20,71,72,1,2,.75,false),error=>error===restore.failure);
-  assert.deepEqual(restore.events,['save','clip','drawImage','restore'],'restoration failures propagate without retry');cases++;
-  // Reusing one context across alternating clips must not leak a previous half.
-  const repeated=context018();
-  for(const[vx,vy,legacy]of[[20,71,false],[71,20,false],[71,71,false],[20,20,false],[20,71,true],[71,20,false]]){
-    api.drawMapEdge018(repeated.ctx,'s',vx,vy,72,1520,216,.75,legacy);repeated.assertRestored();cases++;
-  }
-  assert.equal(repeated.drawStates.filter(state=>state.clips.length===2).length,3);
-  return{cases,currentPathAndTransformUntouched:true,existingClipRetained:true,exceptionRestoration:true,noUnclippedFallback:true};
+  const before=env.snapshot();record018(api,20,71,72,1,2,.75);assert.equal(env.stats.creates,before.creates,'draw error leaves valid completed cache reusable');
+  return{cases,destinationContextDrawOnly:true,errorsPropagate:true,noUnmaskedFallback:true,failedBuildRetryable:true,noPartialCache:true};
 }
 function mutationControls018(source){
   const mutations=[
@@ -249,27 +288,40 @@ function mutationControls018(source){
     ['hide corner','if(!sprite||!mask)','if(!sprite||!mask||mask===3)'],
     ['old full wrong half','legacyDisabledFlag||mask===3','true'],
     ['resample cropped source','sprite,sx,sy,64*z,56*z','sprite,0,0,32,56,sx,sy,32*z,56*z'],
-    ['shift original anchor','sprite,sx,sy,64*z,56*z','sprite,sx+1,sy,64*z,56*z'],
-    ['reverse clip half','mask===1?sx:sx+32*z','mask===2?sx:sx+32*z'],
-    ['shift right clip','sx+32*z,sy','sx,sy'],
-    ['shift clip height','32*z,sy','32*z,sy-1'],
-    ['change clip height','32*z,56*z','32*z,55*z'],
-    ['expose both halves','32*z,56*z','64*z,56*z'],
-    ['crop legitimate wall','32*z,56*z','31*z,56*z'],
-    ['remove clip','ctx.clip(clip);',''],
-    ['reuse current path','ctx.clip(clip);','ctx.clip();'],
-    ['destroy current path','ctx.clip(clip);','ctx.beginPath();ctx.clip(clip);'],
-    ['change caller transform','ctx.clip(clip);','ctx.setTransform(1,0,0,1,0,0);ctx.clip(clip);'],
-    ['clip after draw','ctx.clip(clip);\n        ctx.drawImage(sprite,sx,sy,64*z,56*z);','ctx.drawImage(sprite,sx,sy,64*z,56*z);\n        ctx.clip(clip);'],
-    ['omit save','ctx.save();',''],
-    ['omit restore','finally{ctx.restore();}','finally{}'],
-    ['restore twice','finally{ctx.restore();}','finally{ctx.restore();ctx.restore();}'],
-    ['restore only on success','ctx.drawImage(sprite,sx,sy,64*z,56*z);\n      }finally{ctx.restore();}','ctx.drawImage(sprite,sx,sy,64*z,56*z);ctx.restore();\n      }finally{}'],
-    ['swallow draw failure','}finally{ctx.restore();}','}catch(ignored){}finally{ctx.restore();}'],
+    ['shift copied anchor','[mask-1],sx,sy','[mask-1],sx+1,sy'],
+    ['shrink copied transform','[mask-1],sx,sy,64*z','[mask-1],sx,sy,32*z'],
+    ['wrong copy index','[mask-1]','[2-mask]'],
+    ['reverse retained half','side===1?x>=32:x<32','side===1?x<32:x>=32'],
+    ['retain unwanted column','side===1?x>=32:x<32','side===1?x>32:x<31'],
+    ['erase retained column','side===1?x>=32:x<32','side===1?x>=31:x<33'],
+    ['change retained colors','new Uint8ClampedArray(source.data)','new Uint8ClampedArray(source.data).fill(9)'],
+    ['alias source readback','new Uint8ClampedArray(source.data)','source.data'],
+    ['zero alpha only','bytes.fill(0,(y*64+x)*4,(y*64+x)*4+4)','bytes.fill(0,(y*64+x)*4+3,(y*64+x)*4+4)'],
+    ['leave last row','y<56;y++','y<55;y++'],
+    ['leave last column','x<64;x++','x<63;x++'],
+    ['crop copy width','image.width=64','image.width=32'],
+    ['crop copy height','image.height=56','image.height=55'],
+    ['shift readback','getImageData(0,0,64,56)','getImageData(1,0,64,56)'],
+    ['crop readback','getImageData(0,0,64,56)','getImageData(0,0,32,56)'],
+    ['shift copied bytes','),0,0);','),1,0);'],
+    ['wrong image width','new ImageData(bytes,64,56)','new ImageData(bytes,32,56)'],
+    ['skip copy upload','context.putImageData(new ImageData(bytes,64,56),0,0);',''],
+    ['strong source cache','new WeakMap()','new Map()'],
+    ['no cache reuse','if(halves)return halves;',''],
+    ['no cache publication','mapEdgeCopies018.set(sprite,halves);',''],
+    ['key cache by copy','mapEdgeCopies018.set(sprite,halves)','mapEdgeCopies018.set(halves[0],halves)'],
+    ['single incomplete copy','side<=2;side++','side<=1;side++'],
+    ['three copies','side<=2;side++','side<=3;side++'],
+    ['remove width validation','sprite.width!==64||sprite.height!==56','sprite.height!==56'],
+    ['remove height validation','sprite.width!==64||sprite.height!==56','sprite.width!==64'],
+    ['remove byte validation','||source.data.length!==64*56*4',''],
     ['paint interior','if(!sprite||!mask)','if(!sprite)'],
     ['lose old fallback','legacyDisabledFlag||mask===3','mask===3'],
     ['incorrectly enable fallback','legacyDisabledFlag||mask===3','!legacyDisabledFlag||mask===3'],
     ['add terrain overlay','if(!sprite||!mask)return mask;','if(!sprite||!mask)return mask;ctx.fillRect(sx,sy,64*z,56*z);'],
+    ['mutate current path','if(!sprite||!mask)return mask;','if(!sprite||!mask)return mask;ctx.beginPath();'],
+    ['mutate current transform','if(!sprite||!mask)return mask;','if(!sprite||!mask)return mask;ctx.setTransform(1,0,0,1,0,0);'],
+    ['register copy','halves.push(image);','halves.push(image);SPR.cliffLeft=image;'],
     ['introduce RNG','const mask=mapEdgeMask018(vx,vy,n);','const mask=mapEdgeMask018(vx,vy,n);Math.random();'],
     ['introduce storage','const mask=mapEdgeMask018(vx,vy,n);',"const mask=mapEdgeMask018(vx,vy,n);localStorage.setItem('tile','0');"],
     ['introduce network','const mask=mapEdgeMask018(vx,vy,n);',"const mask=mapEdgeMask018(vx,vy,n);fetch('/terrain');"],
@@ -279,7 +331,7 @@ function mutationControls018(source){
   for(const[name,from,to]of mutations){
     assert.ok(source.includes(from),'mutation target exists: '+name);
     const mutant=source.replace(from,to);
-    assert.throws(()=>{helperSourceGuard018(mutant);const api=isolatedAPI018(mutant,false);drawControls018(api,false);geometryProof018(api);samplingProof018(api);stateControls018(mutant,api);},undefined,'must reject '+name);
+    assert.throws(()=>{helperSourceGuard018(mutant);const api=isolatedAPI018(mutant,false);drawControls018(api,false);geometryProof018(api);samplingProof018(api);copyControls018(mutant);stateControls018(mutant);},undefined,'must reject '+name);
     rejected.push(name);
   }
   return rejected;
@@ -289,11 +341,11 @@ function staticTest018(){
   const sourceProof=sourceProof018();helperSourceGuard018(source);
   assert.deepEqual(Object.keys(render).sort(),['drawMapEdge018','mapEdgeMask018','selftest018']);assert.ok(Object.isFrozen(render));
   assert.deepEqual(render.selftest018(),{ok:true,cases:7,canvasExecuted:false});
-  const api=isolatedAPI018(source,false),cases=drawControls018(api),geometry=geometryProof018(api),sampling=samplingProof018(api),state=stateControls018(source,api);
+  const api=isolatedAPI018(source,false),cases=drawControls018(api),geometry=geometryProof018(api),sampling=samplingProof018(api),copy=copyControls018(source),state=stateControls018(source);
   let browserCases=0;
-  for(const browser of[false,true]){const api=isolatedAPI018(source,browser);assert.ok(Object.isFrozen(api));assert.equal(api.selftest018().ok,true);browserCases+=drawControls018(api,false);geometryProof018(api);samplingProof018(api);stateControls018(source,api);}
+  for(const browser of[false,true]){const api=isolatedAPI018(source,browser);assert.ok(Object.isFrozen(api));assert.equal(api.selftest018().ok,true);browserCases+=drawControls018(api,false);geometryProof018(api);samplingProof018(api);stateControls018(source);}
   const rejected=mutationControls018(source);
-  return{ok:true,sourceOnly:true,gameExecuted:false,painterExecuted:false,canvasExecuted:false,pixelsExecuted:false,helperSHA256:hash(source),cases,browserAndNodeExportCases:browserCases,sourceProof,geometry,sampling,state,rejected};
+  return{ok:true,sourceOnly:true,gameExecuted:false,painterExecuted:false,canvasExecuted:false,pixelsExecuted:false,helperSHA256:hash(source),cases,browserAndNodeExportCases:browserCases,sourceProof,geometry,sampling,copy,state,rejected};
 }
-module.exports={staticTest018,sourceProof018,helperSourceGuard018,drawControls018,geometryProof018,samplingProof018,stateControls018,mutationControls018,PINS};
+module.exports={staticTest018,sourceProof018,helperSourceGuard018,drawControls018,geometryProof018,samplingProof018,copyControls018,stateControls018,mutationControls018,PINS};
 if(require.main===module){if(process.argv.length>3||process.argv.length===3&&process.argv[2]!=='--static-test')throw Error('Use --static-test or no arguments; source/draw-call tests only');console.log(JSON.stringify(staticTest018(),null,2));}
