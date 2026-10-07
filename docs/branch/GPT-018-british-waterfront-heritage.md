@@ -63,3 +63,9 @@ The separate public-source recorder also reported `Network.setAttachDebugStack` 
 | Stage | Result | Evidence | Not completed / failed |
 |---|---|---|---|
 | Pre-code card | Scope and acceptance written against fresh T730 main | This first card-only commit | New art, implementation, all runtime tests and owner review images are not yet started |
+
+### Initial candidate source, 2026-10-07 00:39 UTC
+
+The published pre-code card is commit `75568284a3266a6d6cb5a8346dcc5b7fd2e54b1a`. Two original geometric models and their four views each are now written, with the separate eight-leaf family, bounded native appearance adapters and conditional sparse save channel. Fifty synthetic source/data checks pass, including malformed/duplicate/wrong-root save rejection, unknown catalog values, native-field preservation and art fallback. Reversible source assembly passes; all 904 previously protected files remain exact, and every old smoke row is retained with one additional selftest.
+
+Only initial native Chrome/fingerprint/pixel preflight is being prepared. The complete 131-job legacy retention, new paid lifecycle tests, real screenshot review and owner image approval are **not yet complete**. No new game, painter, canvas or pixel runtime has run locally. The source work caught and excluded inherited object-property names from the new alias lookup before its first push. These source checks do not claim the new art has rendered successfully.
