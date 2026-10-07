@@ -1,0 +1,24 @@
+{
+  "source": "Parent release status update, 2026-10-06T22:36:53Z",
+  "candidateSHA": "56c97f32bedca583770faaef456fe00d41557c5f",
+  "candidateTree": "c0affde5774e16b542cdbc93fde6a7212578bd15",
+  "sourceSHA256": "f43910b13ff2d0d341e36ebed9b1332439286bb97e39fab3e5d2fedf103e7a99",
+  "passed": [
+    "all13 native release jobs",
+    "smoke",
+    "all48 canonical PNG bytes equal approved8ceebc",
+    "full3139 leaves163 families1728 blocks"
+  ],
+  "failed": {
+    "suite": "legacy preflight",
+    "location": "quayside-style017.test.js:45",
+    "reason": "leftover candidate-only false phase assertion"
+  },
+  "next": "Parent prepares QA-only correction preserving the original ratchet and all nine native negative cases; complete131 jobs rerun required. Final candidate and main/Pages receipts pending.",
+  "nextAttempt": {
+    "head": "2fd88bc03f14da20944468021cca552ef9524cd0",
+    "status": "existing full R2 CI running; product and QA checkout frozen",
+    "productAndFingerprintUnchanged": true,
+    "finalReleaseIdentityStillPending": true
+  }
+}
