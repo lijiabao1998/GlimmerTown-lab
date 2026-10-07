@@ -1,4 +1,4 @@
-# GPT-018 — British waterfront heritage appearances
+# T731 — British waterfront heritage appearances (original GPT-018)
 
 ## Acceptance card written before implementation
 
@@ -190,3 +190,16 @@ The selected product keeps canonical SPR.cliff immutable and draws two private64
 Source-only verification passed166,152 draw cases,784 export contexts,57,344 synthetic RGBA byte checks,2,000 allocation-free warm draws,30 error/bypass cases and44 renderer mutations. Native observer controls passed165,888 mocked projections,96 negative controls and54 failed-pair retention checks. The first-creation cache probe now runs inside the RNG guard. The independent oracle copies retained texels into blank source-sized canvases and retains direct original-full-pixel comparisons; both failed crop and clip cases remain explicit native negative probes. Independent source review found no runtime blocker.
 
 Integrated product SHA256ed6f3d3a0ed2df05fe705d36004e0eaf4560bf9b025da2616112272e9150b5b9, renderer SHA25680e94d4593ab92a428badba202a1e71b87367fa5f47c64666172fddc0dbe6d31. Publishing this final candidate has not completed. Its original148-job regression, fresh unmodified product screenshots, owner confirmation and release checks remain pending. Main remains unchanged.
+
+
+## Publication approval and T731 preparation
+
+Approval cutoff: **2026-10-07 08:30 UTC (conservative post-approval cutoff)**. This is a conservative date guard, not the exact timestamp of the owner's reply. After the original ten architecture images had been approved, the owner reviewed the six final native repair images (day before/after, night before/after, close before/after) and replied: “沒問題，按照流程上線吧”. That reply authorizes this round's publication after the required release checks. It does not approve a future visual round.
+
+The approved candidate is `f2123f682b893828e8c306e1f5609603a8e8fd08` on `gpt/british-waterfront-heritage-018`, tree `b70323369ecd8d2b185fd9136344e07defc2475b`, product SHA256 `ed6f3d3a0ed2df05fe705d36004e0eaf4560bf9b025da2616112272e9150b5b9`. Complete native regression [37590211280](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37590211280), attempt 1, completed successfully at 2026-10-07 08:24:14 UTC: all 148 unique required jobs passed (preflight, original 14 lifecycle modes, four map-edge modes, original 128 historical jobs, compatibility). No skipped, cancelled or failed job is counted as a pass. The earlier failed crop and clip runs remain recorded above, along with the diagnostic's limited status.
+
+The release envelope is **T731 / v14.35 / r178** over authoritative T730 main `1400301238f7a46ab6d3c489422a48f9f90cac9d`. It changes only the three product release labels, promotes exactly the eight native `waterfront018` leaves and one family, preserves all 3139 old leaves, 163 old families and 1728 complete blocks, and retains the card's complete acceptance and failure history. The promoted complete inventory is 3147 leaves / 164 families / 3137 non-empty day records / 1711 non-empty night records. Native provenance and every full-record hash are pinned in `waterfront-release-pins018.json`; source/data rejection tests cover this envelope without executing the game locally.
+
+Product geometry, artwork, cliff-copy logic, placement, lifecycle and simulation remain exactly the approved candidate after reversing those three labels. Native fingerprint artifact `11468816627` from the successful run has archive SHA256 `33c9cba4deff293a3b3113cdc2eb4a53ef09adee21ab034bb1de22a7192c4e33`; its actual `fingerprint-native.json` SHA256 is `bae09ad52e99ef9c53c3c02d76f364704b1d668defc9ed353afbfc1de6a74c44`. These are accepted historical native results, not a claim that the new release head has already passed.
+
+Remaining at preparation: exact release-head complete regression and smoke, PR/merge checks, Pages deployment and direct live-product verification. CI durations do not measure phone FPS. Existing known PWA/404 diagnostics remain preserved; this envelope does not expand their scope. Publication and deployment must be reported from their actual completed results, and the next round's images still need owner approval.

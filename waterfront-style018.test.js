@@ -45,7 +45,7 @@ if (process.argv[2]) {
  const product=require('./waterfront-static-contract018').verifyStatic018();
  assert.equal(proof.release,product.release);assert.equal(proof.publicationApproved,product.publicationApproved);assert.equal(proof.approvedNativeRecordsExact,product.release);
  assert.equal(proof.phase,product.phase);assert.equal(proof.version,product.version);assert.equal(proof.anchor,product.anchor);
- assert.equal(proof.approvedCurrentNativeSHA,product.release?require('./quayside-release-contract017').APPROVED_SHA:null);
+ assert.equal(proof.approvedCurrentNativeSHA,product.release?require('./waterfront-release-contract018').APPROVED_SHA:null);
  assert.equal(proof.completeBlockRecordsExact, true);
  const rejected = [];
  const cases = [

@@ -31,6 +31,8 @@ jobs:
 
         node waterfront-static-contract018.js
 
+        node waterfront-release-contract018.test.js
+
         node waterfront-source-qa018.js
 
         node waterfront-compatibility018.js --static-test
@@ -79,6 +81,8 @@ jobs:
       run: 'set -euo pipefail
 
         node waterfront-preflight018.js 2>&1 | tee waterfront-full-preflight.txt
+
+        node waterfront-release-contract018.test.js --native waterfront-evidence/preflight/fingerprint-native.json
 
         node waterfront-legacy018.test.js waterfront-evidence/preflight/fingerprint-native.json
 

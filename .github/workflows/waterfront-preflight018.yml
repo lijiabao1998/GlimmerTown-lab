@@ -25,6 +25,7 @@ jobs:
         run: |
           set -euo pipefail
           node waterfront-static-contract018.js
+          node waterfront-release-contract018.test.js
           node waterfront-source-qa018.js
           for file in *018.js; do node --check "$file"; done
       - name: Native font
@@ -33,6 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           node waterfront-preflight018.js 2>&1 | tee waterfront-preflight018.log
+          node waterfront-release-contract018.test.js --native waterfront-evidence/preflight/fingerprint-native.json
       - name: Tracked source stays unchanged
         if: always()
         run: git diff --exit-code

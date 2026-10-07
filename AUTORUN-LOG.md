@@ -13,6 +13,14 @@
 
 ---
 
+<!-- T731 release entry BEGIN -->
+## r178 — T731 英式水岸歷史建築與外緣土層修復（原 GPT-018）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r178 | [T731](docs/T731-british-waterfront-heritage.md) | 2026-10-07 08:30 UTC (conservative post-approval cutoff)；此為批准後保守日期門檻，非業主回覆的精確時間。原十張建築圖已確認，六張最終修復原圖再獲「沒問題，按照流程上線吧」批准。兩種2×2英式水岸建築外觀、八個四向素材；完整尺寸私有崖面副本保留原取樣與向外土層。v14.35 / T731 僅改三個產品發布標籤，嚴格增量晉升八葉一族。 | 批准候選f2123f682b893828e8c306e1f5609603a8e8fd08：[37590211280](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37590211280) attempt 1，148個唯一必要job全綠（preflight＋原14生命週期＋4外緣＋128歷史＋compatibility），2026-10-07 08:24:14 UTC完成；正式release head仍須完整重驗。 | gpt/british-waterfront-heritage-018；PR與合併SHA完成後記於PR。 | 六張1600×1080正式未改原圖：日間、夜間、近景各前／後；原十張建築圖確認保留。 | ① 前兩次crop／clip完整回歸失敗及原始證據逐字保留 ② 診斷圖不冒充產品批准 ③ CI耗時不等於手機FPS ④ 既有PWA／404診斷未擴修 ⑤ 本準備不代表正式CI、合併、Pages或live已完成 ⑥ 下一輪圖片仍須確認。 |
+
+<!-- T731 release entry END -->
 <!-- T730 release entry BEGIN -->
 ## r177 — T730 英式港埠配景（原 GPT-017）
 
