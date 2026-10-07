@@ -1,0 +1,1986 @@
+{
+  "sourceOnly": true,
+  "formalRun": "37527939741",
+  "formalRunURL": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37527939741",
+  "checkedSHA": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+  "observerSHA": "dcba011e1ba968f0de362d27bee538cc415a3ad9",
+  "sourceSHA256": "e00128d491f81d37cd68c4afe6661bf7ff500ac9d6d8d697657f5b3a8a1edff5",
+  "verifiedSummarySHA256": "99f2b4feeef70508486fa9d77ab9497f2caa258a76441a6cdf94e104f5d3877e",
+  "checks": [
+    {
+      "name": "authorized T729/v14.33 release is exactly the approved streetscape product plus three release labels",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "before-browser: public HTML is the exact deployed checkout bytes",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "public navigation accepted without TLS bypass",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "public main menu booted",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "initial-navigation: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "live version, anchor, native boot and isolated slot 3",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "native public menu creates a normal 72x72 city",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "one exact native theatre catalog and six distinct paid native walking themes exist",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "live 3115 native leaves exactly match promoted T729, preserving 3091 old records and 1728 blocks",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "public-origin normal city actually buys age-zero theatre six native amenities and physical roads power water",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "nine real ordinary construction days gate theatre jobs leisure coverage and upkeep until age nine",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "actual public theatre has native road allocated power delivered water public staff cultural leisure and all preserved footprints",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "all six native themed paths retain exact independent metadata and all old real water frontage",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "native official day and night views show complete canonical theatre and six independently owned amenities",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: CURRENT native slot-3 save is operational and unmodified before navigation",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: actual official Page.reload boots the native menu",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "cold reload 1: exact current native save bytes survive the exact T729 menu and old fixture memory is gone",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: native Continue preserves every root ref age view theme water cell and other-slot byte",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: paused frame 1 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: paused frame 2 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: FIRST unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: 2 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 1: 3 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: CURRENT native slot-3 save is operational and unmodified before navigation",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: actual official Page.reload boots the native menu",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "cold reload 2: exact current native save bytes survive the exact T729 menu and old fixture memory is gone",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: native Continue preserves every root ref age view theme water cell and other-slot byte",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: paused frame 1 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: paused frame 2 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: FIRST unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: 2 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "cold reload 2: 3 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "both independent public cold reloads passed their very first ordinary day",
+      "ok": true,
+      "scope": "functional"
+    },
+    {
+      "name": "all 12 permanent buildings and 16 independent path registrations exactly match approved source",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "normal public city genuinely buys all 12 age-zero roots and 16 paid themes with real utilities",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "all 12 new roots require nine genuine ordinary construction days before any service or income",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "all four complexes attain exact native power water jobs education leisure services housing and fire readiness",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "all four actual official day and night views retain three complete canonical independently owned buildings",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: exact current native save contains all 12 operating roots and 16 themes",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: actual official Page.reload boots native menu",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: exact native save bytes survive T729 menu and previous fixture memory is gone",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: paused native Continue preserves all identities themes water and other save slots",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: paused frame 1 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: paused frame 2 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: FIRST unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: 2 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 1: 3 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: exact current native save contains all 12 operating roots and 16 themes",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: actual official Page.reload boots native menu",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: exact native save bytes survive T729 menu and previous fixture memory is gone",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: paused native Continue preserves all identities themes water and other save slots",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: paused frame 1 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: paused frame 2 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: FIRST unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: 2 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "complex cold 2: 3 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "both four-complex cold reloads pass their first and all three unaided ordinary days",
+      "ok": true,
+      "scope": "complexes"
+    },
+    {
+      "name": "all eight independently paid native themes exactly match approved source catalog",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "all eight official tools enforce native city-level-four lock",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "all eight actual paid T502 themes preserve old native roots and prior themed paths",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "all retained ensemble roots beside new paths require nine real construction days",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "old native city and all eight new paths achieve actual utility staff housing fire and physical-road lamp service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "each paid path survives exact native demolition undo redo and restoration",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "all eight genuine paid theme edits persist through native save load and ordinary day",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "occupied native themes reject conflicts without tile or money mutation",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "four actual official day and night scenes contain all eight original canonical details",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "both physical lamp masks use actual supplied adjacent road with unchanged world and storage",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: current native save contains old city and all eight paid themes",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: actual official reload boots native menu",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: exact complete save bytes and T729 menu survive with fixture memory absent",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: paused Continue preserves all roots refs ages directions themes water and other slots",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: paused frame 1 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: paused frame 2 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: FIRST unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: 2 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 1: 3 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: current native save contains old city and all eight paid themes",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: actual official reload boots native menu",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: exact complete save bytes and T729 menu survive with fixture memory absent",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: paused Continue preserves all roots refs ages directions themes water and other slots",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: paused frame 1 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: paused frame 2 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: FIRST unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: 2 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "streetscape cold 2: 3 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "both eight-theme cold Continue cycles pass their first and all three unaided days",
+      "ok": true,
+      "scope": "streetscape"
+    },
+    {
+      "name": "all six paid garden themes exactly match the approved non-emissive source catalog",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "all six garden tools enforce native city-level-four lock",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "six actual paid garden paths preserve every old native root and all eight genuinely paid streetscape themes",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "all twenty-four installed garden views and all twenty-four empty night surfaces match exact approved native PNG bytes",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "all twelve retained ensemble roots beside garden paths require nine real construction days",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "old native city and all six garden plus eight streetscape themes retain genuine native utility staffing housing fire and road service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "each paid garden path survives exact native demolition undo redo and restoration",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "six genuine paid garden theme edits retain direction through native save load ordinary day and disabled-placement load",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden ownership rejects every declared conflict and escape control restores exact paid native path",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "all six canonical garden themes render in four genuine camera directions and day/night without changing any canonical PNG byte",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "complete 3115 leaves 162 families 1728 blocks remain exact and six garden themes stay strictly non-emissive",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: native save contains old city and all six garden plus eight old paid themes",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: actual official reload boots native menu",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: exact complete native save bytes survive T729 menu with all fixture memory absent",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: immediate paused Continue preserves every old root ref age all fourteen directions themes water and other slots",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: paused frame 1 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: paused frame 2 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: FIRST unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: 2 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 1: 3 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: native save contains old city and all six garden plus eight old paid themes",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: actual official reload boots native menu",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: exact complete native save bytes survive T729 menu with all fixture memory absent",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: immediate paused Continue preserves every old root ref age all fourteen directions themes water and other slots",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: paused frame 1 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: paused frame 2 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: FIRST unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: 2 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "garden cold 2: 3 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "both six-garden plus eight-streetscape cold Continue cycles pass their first and all three unaided days",
+      "ok": true,
+      "scope": "garden"
+    },
+    {
+      "name": "after-browser: public HTML is the exact deployed checkout bytes",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "all exact official document source and native save gates completed",
+      "ok": true,
+      "scope": "provenance"
+    },
+    {
+      "name": "strict raw console is clean with no known or unknown errors warnings or network failures",
+      "ok": false,
+      "scope": "diagnostics"
+    }
+  ],
+  "failures": [
+    "strict raw console is clean with no known or unknown errors warnings or network failures"
+  ],
+  "ok": false,
+  "browserDiagnosticSummary": {
+    "observed": true,
+    "rawBrowserErrorCount": 54,
+    "rawRuntimeErrorCount": 0,
+    "knownPWA404ResponseCount": 27,
+    "knownPWAErrorCount": 45,
+    "unclassifiedRawBrowserErrorCount": 9,
+    "unknownErrorCount": 9,
+    "networkFailureCount": 0,
+    "warningCount": 40391,
+    "rawConsoleClean": false,
+    "strictErrorGatePassed": false,
+    "unknownErrors": [
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ "
+    ],
+    "networkFailures": [],
+    "classificationPolicy": "Inherited exact PWA resource URL plus independently matching numeric HTTP 404 only. URL-less script errors remain unknown. Known logs and warnings remain raw and cannot satisfy the strict clean gate."
+  },
+  "consoleSourceCounts": {
+    "browserErrors": 54,
+    "attributedByExplicitURLOrRequestId": 45,
+    "unattributedBrowserErrors": 9,
+    "serviceWorkerErrors": 0,
+    "explicitRegistrationWarnings": 9,
+    "warnings": 40391
+  },
+  "officialDocuments": 9,
+  "coldContinueCycles": 8,
+  "retainedEvidenceRoot": "garden016-results/official",
+  "evidenceRecords": [
+    {
+      "originalPath": "gardenlife-evidence/public/console-source-attribution.json",
+      "storagePath": "gardenlife-evidence/public/console-source-attribution.json.gz",
+      "compression": "gzip",
+      "originalSHA256": "32a6efe5d2ce12b9d13f4ac245dd666b52367a0e851222a6c4cd15752a4c56e5",
+      "originalBytes": 89218280,
+      "storedBytes": 1143854,
+      "storedSHA256": "06477444a7e405dd29fdfec9f042e18919881eb511502a02c158ee885d0b1bc3"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/fingerprint-native.json",
+      "storagePath": "gardenlife-evidence/public/fingerprint-native.json",
+      "compression": "none",
+      "originalSHA256": "6b28fae81cce4cc37431a8a784fbe83e4431a50ab35bb1cc5d6c5e954a4e8b51",
+      "originalBytes": 586393,
+      "storedBytes": 586393,
+      "storedSHA256": "6b28fae81cce4cc37431a8a784fbe83e4431a50ab35bb1cc5d6c5e954a4e8b51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_0.png",
+      "compression": "none",
+      "originalSHA256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452",
+      "originalBytes": 1830,
+      "storedBytes": 1830,
+      "storedSHA256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_1.png",
+      "compression": "none",
+      "originalSHA256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81",
+      "originalBytes": 1778,
+      "storedBytes": 1778,
+      "storedSHA256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_2.png",
+      "compression": "none",
+      "originalSHA256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8",
+      "originalBytes": 1756,
+      "storedBytes": 1756,
+      "storedSHA256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/birdbathCourt_3.png",
+      "compression": "none",
+      "originalSHA256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742",
+      "originalBytes": 1772,
+      "storedBytes": 1772,
+      "storedSHA256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_0.png",
+      "compression": "none",
+      "originalSHA256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f",
+      "originalBytes": 1802,
+      "storedBytes": 1802,
+      "storedSHA256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_1.png",
+      "compression": "none",
+      "originalSHA256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc",
+      "originalBytes": 1840,
+      "storedBytes": 1840,
+      "storedSHA256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_2.png",
+      "compression": "none",
+      "originalSHA256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23",
+      "originalBytes": 1796,
+      "storedBytes": 1796,
+      "storedSHA256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/chessCourt_3.png",
+      "compression": "none",
+      "originalSHA256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5",
+      "originalBytes": 1765,
+      "storedBytes": 1765,
+      "storedSHA256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_0.png",
+      "compression": "none",
+      "originalSHA256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53",
+      "originalBytes": 2078,
+      "storedBytes": 2078,
+      "storedSHA256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_1.png",
+      "compression": "none",
+      "originalSHA256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0",
+      "originalBytes": 2101,
+      "storedBytes": 2101,
+      "storedSHA256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_2.png",
+      "compression": "none",
+      "originalSHA256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1",
+      "originalBytes": 2001,
+      "storedBytes": 2001,
+      "storedSHA256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/croquetCorner_3.png",
+      "compression": "none",
+      "originalSHA256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630",
+      "originalBytes": 1979,
+      "storedBytes": 1979,
+      "storedSHA256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_0.png",
+      "compression": "none",
+      "originalSHA256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29",
+      "originalBytes": 2040,
+      "storedBytes": 2040,
+      "storedSHA256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_1.png",
+      "compression": "none",
+      "originalSHA256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5",
+      "originalBytes": 2061,
+      "storedBytes": 2061,
+      "storedSHA256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_2.png",
+      "compression": "none",
+      "originalSHA256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464",
+      "originalBytes": 1944,
+      "storedBytes": 1944,
+      "storedSHA256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/orchardPress_3.png",
+      "compression": "none",
+      "originalSHA256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa",
+      "originalBytes": 1998,
+      "storedBytes": 1998,
+      "storedSHA256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_0.png",
+      "compression": "none",
+      "originalSHA256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29",
+      "originalBytes": 1971,
+      "storedBytes": 1971,
+      "storedSHA256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_1.png",
+      "compression": "none",
+      "originalSHA256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909",
+      "originalBytes": 1962,
+      "storedBytes": 1962,
+      "storedSHA256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_2.png",
+      "compression": "none",
+      "originalSHA256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79",
+      "originalBytes": 1894,
+      "storedBytes": 1894,
+      "storedSHA256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pottingBench_3.png",
+      "compression": "none",
+      "originalSHA256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1",
+      "originalBytes": 1905,
+      "storedBytes": 1905,
+      "storedSHA256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_0.png",
+      "compression": "none",
+      "originalSHA256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18",
+      "originalBytes": 1841,
+      "storedBytes": 1841,
+      "storedSHA256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_1.png",
+      "compression": "none",
+      "originalSHA256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56",
+      "originalBytes": 1846,
+      "storedBytes": 1846,
+      "storedSHA256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_2.png",
+      "compression": "none",
+      "originalSHA256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748",
+      "originalBytes": 1824,
+      "storedBytes": 1824,
+      "storedSHA256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-after-four-views/assets/pumpCourt_3.png",
+      "compression": "none",
+      "originalSHA256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751",
+      "originalBytes": 1820,
+      "storedBytes": 1820,
+      "storedSHA256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_0.png",
+      "compression": "none",
+      "originalSHA256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452",
+      "originalBytes": 1830,
+      "storedBytes": 1830,
+      "storedSHA256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_1.png",
+      "compression": "none",
+      "originalSHA256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81",
+      "originalBytes": 1778,
+      "storedBytes": 1778,
+      "storedSHA256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_2.png",
+      "compression": "none",
+      "originalSHA256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8",
+      "originalBytes": 1756,
+      "storedBytes": 1756,
+      "storedSHA256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/birdbathCourt_3.png",
+      "compression": "none",
+      "originalSHA256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742",
+      "originalBytes": 1772,
+      "storedBytes": 1772,
+      "storedSHA256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_0.png",
+      "compression": "none",
+      "originalSHA256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f",
+      "originalBytes": 1802,
+      "storedBytes": 1802,
+      "storedSHA256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_1.png",
+      "compression": "none",
+      "originalSHA256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc",
+      "originalBytes": 1840,
+      "storedBytes": 1840,
+      "storedSHA256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_2.png",
+      "compression": "none",
+      "originalSHA256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23",
+      "originalBytes": 1796,
+      "storedBytes": 1796,
+      "storedSHA256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/chessCourt_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/chessCourt_3.png",
+      "compression": "none",
+      "originalSHA256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5",
+      "originalBytes": 1765,
+      "storedBytes": 1765,
+      "storedSHA256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_0.png",
+      "compression": "none",
+      "originalSHA256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53",
+      "originalBytes": 2078,
+      "storedBytes": 2078,
+      "storedSHA256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_1.png",
+      "compression": "none",
+      "originalSHA256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0",
+      "originalBytes": 2101,
+      "storedBytes": 2101,
+      "storedSHA256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_2.png",
+      "compression": "none",
+      "originalSHA256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1",
+      "originalBytes": 2001,
+      "storedBytes": 2001,
+      "storedSHA256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/croquetCorner_3.png",
+      "compression": "none",
+      "originalSHA256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630",
+      "originalBytes": 1979,
+      "storedBytes": 1979,
+      "storedSHA256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_0.png",
+      "compression": "none",
+      "originalSHA256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29",
+      "originalBytes": 2040,
+      "storedBytes": 2040,
+      "storedSHA256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_1.png",
+      "compression": "none",
+      "originalSHA256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5",
+      "originalBytes": 2061,
+      "storedBytes": 2061,
+      "storedSHA256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_2.png",
+      "compression": "none",
+      "originalSHA256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464",
+      "originalBytes": 1944,
+      "storedBytes": 1944,
+      "storedSHA256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/orchardPress_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/orchardPress_3.png",
+      "compression": "none",
+      "originalSHA256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa",
+      "originalBytes": 1998,
+      "storedBytes": 1998,
+      "storedSHA256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_0.png",
+      "compression": "none",
+      "originalSHA256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29",
+      "originalBytes": 1971,
+      "storedBytes": 1971,
+      "storedSHA256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_1.png",
+      "compression": "none",
+      "originalSHA256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909",
+      "originalBytes": 1962,
+      "storedBytes": 1962,
+      "storedSHA256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_2.png",
+      "compression": "none",
+      "originalSHA256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79",
+      "originalBytes": 1894,
+      "storedBytes": 1894,
+      "storedSHA256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pottingBench_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pottingBench_3.png",
+      "compression": "none",
+      "originalSHA256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1",
+      "originalBytes": 1905,
+      "storedBytes": 1905,
+      "storedSHA256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_0-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_0-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_0.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_0.png",
+      "compression": "none",
+      "originalSHA256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18",
+      "originalBytes": 1841,
+      "storedBytes": 1841,
+      "storedSHA256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_1-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_1-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_1.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_1.png",
+      "compression": "none",
+      "originalSHA256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56",
+      "originalBytes": 1846,
+      "storedBytes": 1846,
+      "storedSHA256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_2-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_2-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_2.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_2.png",
+      "compression": "none",
+      "originalSHA256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748",
+      "originalBytes": 1824,
+      "storedBytes": 1824,
+      "storedSHA256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_3-night.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_3-night.png",
+      "compression": "none",
+      "originalSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "originalBytes": 416,
+      "storedBytes": 416,
+      "storedSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_3.png",
+      "storagePath": "gardenlife-evidence/public/garden-before/assets/pumpCourt_3.png",
+      "compression": "none",
+      "originalSHA256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751",
+      "originalBytes": 1820,
+      "storedBytes": 1820,
+      "storedSHA256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/manifest.json",
+      "storagePath": "gardenlife-evidence/public/manifest.json.gz",
+      "compression": "gzip",
+      "originalSHA256": "e724a0062b12600b350c16fa851c7d01581ae783910367e79250090113117f01",
+      "originalBytes": 345856346,
+      "storedBytes": 9028937,
+      "storedSHA256": "c94b428b62dc484a9ba941d697dc1a8c2e28ad58208f7885fe7efce86ed5a2e3"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/pages-proof.json",
+      "storagePath": "gardenlife-evidence/public/pages-proof.json",
+      "compression": "none",
+      "originalSHA256": "1e583829e70d9849aa38694b55f247e998be1248d31fe56d3b4cce1bf18b6f5c",
+      "originalBytes": 751,
+      "storedBytes": 751,
+      "storedSHA256": "1e583829e70d9849aa38694b55f247e998be1248d31fe56d3b4cce1bf18b6f5c"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-baths-day.png",
+      "storagePath": "gardenlife-evidence/public/public-baths-day.png",
+      "compression": "none",
+      "originalSHA256": "1b9e8150cafc2a3652d0fe7c0ad5a257bd7cc23ec1663e53b5c5e94ec56cebd1",
+      "originalBytes": 912026,
+      "storedBytes": 912026,
+      "storedSHA256": "1b9e8150cafc2a3652d0fe7c0ad5a257bd7cc23ec1663e53b5c5e94ec56cebd1"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-baths-night.png",
+      "storagePath": "gardenlife-evidence/public/public-baths-night.png",
+      "compression": "none",
+      "originalSHA256": "f63c275c8d9b8599979aeb36b754874a6c230ebe09dacc0a0703067767c17e1d",
+      "originalBytes": 974887,
+      "storedBytes": 974887,
+      "storedSHA256": "f63c275c8d9b8599979aeb36b754874a6c230ebe09dacc0a0703067767c17e1d"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-cold-reload-verified.png",
+      "storagePath": "gardenlife-evidence/public/public-cold-reload-verified.png",
+      "compression": "none",
+      "originalSHA256": "a2f5a7d78ae7a85e79782a29bc429daaa4ae6c75934109e6967dff28d56b1f14",
+      "originalBytes": 835812,
+      "storedBytes": 835812,
+      "storedSHA256": "a2f5a7d78ae7a85e79782a29bc429daaa4ae6c75934109e6967dff28d56b1f14"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-college-day.png",
+      "storagePath": "gardenlife-evidence/public/public-college-day.png",
+      "compression": "none",
+      "originalSHA256": "fc7f9becac291d10c03c78f6d21a972bcb7c8e21d3a11fefa70af0d92b5df795",
+      "originalBytes": 779204,
+      "storedBytes": 779204,
+      "storedSHA256": "fc7f9becac291d10c03c78f6d21a972bcb7c8e21d3a11fefa70af0d92b5df795"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-college-night.png",
+      "storagePath": "gardenlife-evidence/public/public-college-night.png",
+      "compression": "none",
+      "originalSHA256": "3eddc8e2fdcd7682e57ea4532c49ce7f7afcce4785f071079ee9dda18f6936a5",
+      "originalBytes": 821019,
+      "storedBytes": 821019,
+      "storedSHA256": "3eddc8e2fdcd7682e57ea4532c49ce7f7afcce4785f071079ee9dda18f6936a5"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-complexes-cold-reload-verified.png",
+      "storagePath": "gardenlife-evidence/public/public-complexes-cold-reload-verified.png",
+      "compression": "none",
+      "originalSHA256": "6817bae2e31bf1d197bd4d30c78af39eeb8212f6cf293c3aee5e4563ac35bd83",
+      "originalBytes": 955312,
+      "storedBytes": 955312,
+      "storedSHA256": "6817bae2e31bf1d197bd4d30c78af39eeb8212f6cf293c3aee5e4563ac35bd83"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-fire-day.png",
+      "storagePath": "gardenlife-evidence/public/public-fire-day.png",
+      "compression": "none",
+      "originalSHA256": "55241a4535569bb7fb6f624e8e11dc6035cb421f846cdf7b44085cd26c65bcf8",
+      "originalBytes": 905880,
+      "storedBytes": 905880,
+      "storedSHA256": "55241a4535569bb7fb6f624e8e11dc6035cb421f846cdf7b44085cd26c65bcf8"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-fire-night.png",
+      "storagePath": "gardenlife-evidence/public/public-fire-night.png",
+      "compression": "none",
+      "originalSHA256": "ce76a28dd423bdc67515ff3657edcb685ffab69edaa9170b5c934549bb44aa65",
+      "originalBytes": 944234,
+      "storedBytes": 944234,
+      "storedSHA256": "ce76a28dd423bdc67515ff3657edcb685ffab69edaa9170b5c934549bb44aa65"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view0-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view0-day.png",
+      "compression": "none",
+      "originalSHA256": "3667bea93997913fa6e48172ed162ed3c8ce6ba803c806fd976733a81ebbd1a4",
+      "originalBytes": 644371,
+      "storedBytes": 644371,
+      "storedSHA256": "3667bea93997913fa6e48172ed162ed3c8ce6ba803c806fd976733a81ebbd1a4"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view0-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view0-night.png",
+      "compression": "none",
+      "originalSHA256": "6e3ae5c49f69ec25c6dc36b0e5d0b9496d62ac4bdbbc334e7dd742ffe5758e52",
+      "originalBytes": 757801,
+      "storedBytes": 757801,
+      "storedSHA256": "6e3ae5c49f69ec25c6dc36b0e5d0b9496d62ac4bdbbc334e7dd742ffe5758e52"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view1-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view1-day.png",
+      "compression": "none",
+      "originalSHA256": "381d82ddc5fa467b0c8a5b908b8a284d8a8a502fbf2d8b8b67a0da6bd8882d23",
+      "originalBytes": 614948,
+      "storedBytes": 614948,
+      "storedSHA256": "381d82ddc5fa467b0c8a5b908b8a284d8a8a502fbf2d8b8b67a0da6bd8882d23"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view1-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view1-night.png",
+      "compression": "none",
+      "originalSHA256": "848ff6be58b2e26fda7c36b47e1cd78ecf427dbb3ef63602886205bed055ae4b",
+      "originalBytes": 730766,
+      "storedBytes": 730766,
+      "storedSHA256": "848ff6be58b2e26fda7c36b47e1cd78ecf427dbb3ef63602886205bed055ae4b"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view2-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view2-day.png",
+      "compression": "none",
+      "originalSHA256": "959df5948063b9434d39fdc1886be5870a57131aea6b2aacf04dd587baee689d",
+      "originalBytes": 642519,
+      "storedBytes": 642519,
+      "storedSHA256": "959df5948063b9434d39fdc1886be5870a57131aea6b2aacf04dd587baee689d"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view2-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view2-night.png",
+      "compression": "none",
+      "originalSHA256": "97c5d892b7e31a53dda9be2245cbdbdf4fe2a45e024ffd590ba0bf7515d2e44b",
+      "originalBytes": 748783,
+      "storedBytes": 748783,
+      "storedSHA256": "97c5d892b7e31a53dda9be2245cbdbdf4fe2a45e024ffd590ba0bf7515d2e44b"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view3-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view3-day.png",
+      "compression": "none",
+      "originalSHA256": "f3c3ebd34e8530b95097968b55cad21a2ba3840d3d9bc685111a577d756729ef",
+      "originalBytes": 616456,
+      "storedBytes": 616456,
+      "storedSHA256": "f3c3ebd34e8530b95097968b55cad21a2ba3840d3d9bc685111a577d756729ef"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-baths-view3-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-baths-view3-night.png",
+      "compression": "none",
+      "originalSHA256": "36033e5326a44b198122ef3f143bf327662765edf78ac3769fdd92d20ecafc4d",
+      "originalBytes": 722533,
+      "storedBytes": 722533,
+      "storedSHA256": "36033e5326a44b198122ef3f143bf327662765edf78ac3769fdd92d20ecafc4d"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-cold-reload-verified.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-cold-reload-verified.png",
+      "compression": "none",
+      "originalSHA256": "27cf520fe58b5c3e5be9c79589e7c5ae742e5788fec67496752f31f6c7b954ed",
+      "originalBytes": 1089623,
+      "storedBytes": 1089623,
+      "storedSHA256": "27cf520fe58b5c3e5be9c79589e7c5ae742e5788fec67496752f31f6c7b954ed"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view0-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view0-day.png",
+      "compression": "none",
+      "originalSHA256": "1b14f364742ccc35738d16c5c1c62a9176e0843cc93bc9c7ce8f090e6a18c728",
+      "originalBytes": 657232,
+      "storedBytes": 657232,
+      "storedSHA256": "1b14f364742ccc35738d16c5c1c62a9176e0843cc93bc9c7ce8f090e6a18c728"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view0-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view0-night.png",
+      "compression": "none",
+      "originalSHA256": "35584e48cdc1b2b9d423617f4cc4512bffa300d389518ce7311fe8d84eca04b7",
+      "originalBytes": 751884,
+      "storedBytes": 751884,
+      "storedSHA256": "35584e48cdc1b2b9d423617f4cc4512bffa300d389518ce7311fe8d84eca04b7"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view1-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view1-day.png",
+      "compression": "none",
+      "originalSHA256": "9f6bfed120288569520487092c6a473c97da4567d070916b7fbb82167e3e98fe",
+      "originalBytes": 646313,
+      "storedBytes": 646313,
+      "storedSHA256": "9f6bfed120288569520487092c6a473c97da4567d070916b7fbb82167e3e98fe"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view1-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view1-night.png",
+      "compression": "none",
+      "originalSHA256": "ae9067e2abebc47d581676f96f60a0cc2017c4f6b2c6a13cfd88553cb0f15918",
+      "originalBytes": 732970,
+      "storedBytes": 732970,
+      "storedSHA256": "ae9067e2abebc47d581676f96f60a0cc2017c4f6b2c6a13cfd88553cb0f15918"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view2-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view2-day.png",
+      "compression": "none",
+      "originalSHA256": "b658365074c70d6a32a400657f115fee4c662c65e47f446e207a26094c297bbb",
+      "originalBytes": 667998,
+      "storedBytes": 667998,
+      "storedSHA256": "b658365074c70d6a32a400657f115fee4c662c65e47f446e207a26094c297bbb"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view2-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view2-night.png",
+      "compression": "none",
+      "originalSHA256": "93948a957b09678edf4a99fb256196f8181a074bc673edc073fa92801f392196",
+      "originalBytes": 742119,
+      "storedBytes": 742119,
+      "storedSHA256": "93948a957b09678edf4a99fb256196f8181a074bc673edc073fa92801f392196"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-menu.png",
+      "storagePath": "gardenlife-evidence/public/public-menu.png",
+      "compression": "none",
+      "originalSHA256": "bf365e97cb029d691a21eb6973dda67b4a182c791f803eb8ad34a494c4cd8755",
+      "originalBytes": 104554,
+      "storedBytes": 104554,
+      "storedSHA256": "bf365e97cb029d691a21eb6973dda67b4a182c791f803eb8ad34a494c4cd8755"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/runtime.txt",
+      "storagePath": "gardenlife-evidence/public/runtime.txt",
+      "compression": "none",
+      "originalSHA256": "99d4ef39d450960aa0944370c9eec2bb4046fa5d30ffdc7019b8f915d5d425ca",
+      "originalBytes": 27350,
+      "storedBytes": 27350,
+      "storedSHA256": "99d4ef39d450960aa0944370c9eec2bb4046fa5d30ffdc7019b8f915d5d425ca"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/summary.json",
+      "storagePath": "gardenlife-evidence/public/summary.json",
+      "compression": "none",
+      "originalSHA256": "dc514c5cb976a41b1c5f545a66f14a1fff3f0a9c4424c770d678f918e6206dc0",
+      "originalBytes": 20699,
+      "storedBytes": 20699,
+      "storedSHA256": "dc514c5cb976a41b1c5f545a66f14a1fff3f0a9c4424c770d678f918e6206dc0"
+    },
+    {
+      "originalPath": "gardenlife-public-approved-assets016.json",
+      "storagePath": "gardenlife-public-approved-assets016.json",
+      "compression": "none",
+      "originalSHA256": "73137bbbb455a071b3de2bc228c6b29d9ba90bc08e5bfde28c6cbdf17106febd",
+      "originalBytes": 69681,
+      "storedBytes": 69681,
+      "storedSHA256": "73137bbbb455a071b3de2bc228c6b29d9ba90bc08e5bfde28c6cbdf17106febd"
+    },
+    {
+      "originalPath": "gardenlife-public-release016.json",
+      "storagePath": "gardenlife-public-release016.json",
+      "compression": "none",
+      "originalSHA256": "1b09b7a6173a647ecd79836bfc885ea5b6dbf71deccf214ddeb49fcf53643a9e",
+      "originalBytes": 785,
+      "storedBytes": 785,
+      "storedSHA256": "1b09b7a6173a647ecd79836bfc885ea5b6dbf71deccf214ddeb49fcf53643a9e"
+    },
+    {
+      "originalPath": "gardenlife-public-release016.template.json",
+      "storagePath": "gardenlife-public-release016.template.json",
+      "compression": "none",
+      "originalSHA256": "69a058d9085edccb102d295dff0c7f4a965e954808b9711612ef18c99576fffe",
+      "originalBytes": 751,
+      "storedBytes": 751,
+      "storedSHA256": "69a058d9085edccb102d295dff0c7f4a965e954808b9711612ef18c99576fffe"
+    },
+    {
+      "originalPath": "gardenlife-public-source-pins016.json",
+      "storagePath": "gardenlife-public-source-pins016.json",
+      "compression": "none",
+      "originalSHA256": "1e034bd31c2db59362a5ef4c1524d1bc6a38acc42a0c01c11a4f2f7f64c4745a",
+      "originalBytes": 20478,
+      "storedBytes": 20478,
+      "storedSHA256": "1e034bd31c2db59362a5ef4c1524d1bc6a38acc42a0c01c11a4f2f7f64c4745a"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view3-day.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view3-day.png",
+      "compression": "none",
+      "originalSHA256": "890056147d286638ced16825f6286571c4bf9bf68f11322c5a005a8e9b75e02f",
+      "originalBytes": 632874,
+      "storedBytes": 632874,
+      "storedSHA256": "890056147d286638ced16825f6286571c4bf9bf68f11322c5a005a8e9b75e02f"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-garden-fire-view3-night.png",
+      "storagePath": "gardenlife-evidence/public/public-garden-fire-view3-night.png",
+      "compression": "none",
+      "originalSHA256": "4aa98bd4110e3c0b7ebf0c7348acc8bf59d5b55f27d7155b589696689c118daf",
+      "originalBytes": 701785,
+      "storedBytes": 701785,
+      "storedSHA256": "4aa98bd4110e3c0b7ebf0c7348acc8bf59d5b55f27d7155b589696689c118daf"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-manor-day.png",
+      "storagePath": "gardenlife-evidence/public/public-manor-day.png",
+      "compression": "none",
+      "originalSHA256": "9ca2682e9ba381fc1be72bf36d84f0d7b3df4164333c1c6c52949aead3d70631",
+      "originalBytes": 903150,
+      "storedBytes": 903150,
+      "storedSHA256": "9ca2682e9ba381fc1be72bf36d84f0d7b3df4164333c1c6c52949aead3d70631"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-manor-night.png",
+      "storagePath": "gardenlife-evidence/public/public-manor-night.png",
+      "compression": "none",
+      "originalSHA256": "0f1965886246d4250ea70dbe68f967331ec7966359c7c96045baa7ff9818df22",
+      "originalBytes": 970058,
+      "storedBytes": 970058,
+      "storedSHA256": "0f1965886246d4250ea70dbe68f967331ec7966359c7c96045baa7ff9818df22"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-streetscape-cold-reload-verified.png",
+      "storagePath": "gardenlife-evidence/public/public-streetscape-cold-reload-verified.png",
+      "compression": "none",
+      "originalSHA256": "dd4ffd2599ef79fc938d2cecec97199c2c2fff7e481190ff59c772f971f86389",
+      "originalBytes": 574548,
+      "storedBytes": 574548,
+      "storedSHA256": "dd4ffd2599ef79fc938d2cecec97199c2c2fff7e481190ff59c772f971f86389"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-streetscape-college-day.png",
+      "storagePath": "gardenlife-evidence/public/public-streetscape-college-day.png",
+      "compression": "none",
+      "originalSHA256": "f55f15d98d041e618bdf16dd5c3cdebb690d20667b67bb163e2d15c30766b3b9",
+      "originalBytes": 592961,
+      "storedBytes": 592961,
+      "storedSHA256": "f55f15d98d041e618bdf16dd5c3cdebb690d20667b67bb163e2d15c30766b3b9"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-streetscape-college-night.png",
+      "storagePath": "gardenlife-evidence/public/public-streetscape-college-night.png",
+      "compression": "none",
+      "originalSHA256": "3958852e8b4557e43f0f274ffcc4107c94723f027de353c5af1da12134c4bc00",
+      "originalBytes": 639701,
+      "storedBytes": 639701,
+      "storedSHA256": "3958852e8b4557e43f0f274ffcc4107c94723f027de353c5af1da12134c4bc00"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-streetscape-manor-day.png",
+      "storagePath": "gardenlife-evidence/public/public-streetscape-manor-day.png",
+      "compression": "none",
+      "originalSHA256": "ab4e85cc41bcbb15d2b1b0caa1c9aebacc2ae825500ce4e217c01aaf2b017d93",
+      "originalBytes": 651354,
+      "storedBytes": 651354,
+      "storedSHA256": "ab4e85cc41bcbb15d2b1b0caa1c9aebacc2ae825500ce4e217c01aaf2b017d93"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-streetscape-manor-night.png",
+      "storagePath": "gardenlife-evidence/public/public-streetscape-manor-night.png",
+      "compression": "none",
+      "originalSHA256": "fc7312157490a64fc058fa41ba32fc856a34b832b13d707ffe8fd2e34dadc3f1",
+      "originalBytes": 798002,
+      "storedBytes": 798002,
+      "storedSHA256": "fc7312157490a64fc058fa41ba32fc856a34b832b13d707ffe8fd2e34dadc3f1"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-theatre-construction.png",
+      "storagePath": "gardenlife-evidence/public/public-theatre-construction.png",
+      "compression": "none",
+      "originalSHA256": "c26fe57e0623592a8e048b635de2766bcc01bbe65a127a0d0173aed273aa7960",
+      "originalBytes": 716739,
+      "storedBytes": 716739,
+      "storedSHA256": "c26fe57e0623592a8e048b635de2766bcc01bbe65a127a0d0173aed273aa7960"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-theatre-day.png",
+      "storagePath": "gardenlife-evidence/public/public-theatre-day.png",
+      "compression": "none",
+      "originalSHA256": "2b424cd7e39f00ebdc1e66c31d3ab104d4dac2eefabf0b493ed8d0d09f655aef",
+      "originalBytes": 745822,
+      "storedBytes": 745822,
+      "storedSHA256": "2b424cd7e39f00ebdc1e66c31d3ab104d4dac2eefabf0b493ed8d0d09f655aef"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/public-theatre-night.png",
+      "storagePath": "gardenlife-evidence/public/public-theatre-night.png",
+      "compression": "none",
+      "originalSHA256": "4efc6b607ec6986da5895aec2adcb194e7e56ec98889b0edb9d6e5a2e14d500e",
+      "originalBytes": 717214,
+      "storedBytes": 717214,
+      "storedSHA256": "4efc6b607ec6986da5895aec2adcb194e7e56ec98889b0edb9d6e5a2e14d500e"
+    },
+    {
+      "originalPath": "gardenlife-evidence/public/raw-console.json",
+      "storagePath": "gardenlife-evidence/public/raw-console.json.gz",
+      "compression": "gzip",
+      "originalSHA256": "565d04a42872737e83a37fc467c8d1b920c1968d5221bd07e77cc606cc00ff51",
+      "originalBytes": 73630649,
+      "storedBytes": 716719,
+      "storedSHA256": "7fa3b8e306038399d5a6c0384979c53310343ad8d5db1146a670cecb7f51b83e"
+    },
+    {
+      "originalPath": "gardenlife-public-approved-native016.json",
+      "storagePath": "gardenlife-public-approved-native016.json",
+      "compression": "none",
+      "originalSHA256": "ddffc5f31ed9ee1f8ab41acdc9a3d979876f4ebf9f5225bb7da4e0ee9fd257e1",
+      "originalBytes": 586441,
+      "storedBytes": 586441,
+      "storedSHA256": "ddffc5f31ed9ee1f8ab41acdc9a3d979876f4ebf9f5225bb7da4e0ee9fd257e1"
+    }
+  ],
+  "storagePolicy": "Original files remain untouched at their original locations. Each gzip is verified by streaming decompression and original SHA256/byte count; no uncompressed duplicate created."
+}

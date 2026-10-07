@@ -1,0 +1,939 @@
+{
+  "checkedSHA": "f2123f682b893828e8c306e1f5609603a8e8fd08",
+  "sourceSHA256": "ed6f3d3a0ed2df05fe705d36004e0eaf4560bf9b025da2616112272e9150b5b9",
+  "base": "1400301238f7a46ab6d3c489422a48f9f90cac9d",
+  "run": "37590211280",
+  "checks": [
+    {
+      "name": "exact declared additive source with all prior files retained",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "base": "1400301238f7a46ab6d3c489422a48f9f90cac9d",
+        "version": "14.34",
+        "anchor": "T730",
+        "release": false,
+        "phase": "candidate",
+        "publicationApproved": false,
+        "htmlExact": true,
+        "protectedExact": true,
+        "fpExact": true,
+        "logExact": true,
+        "coldLoadFixExact": true,
+        "sourceSHA256": "ed6f3d3a0ed2df05fe705d36004e0eaf4560bf9b025da2616112272e9150b5b9",
+        "baselineSHA256": "f43910b13ff2d0d341e36ebed9b1332439286bb97e39fab3e5d2fedf103e7a99",
+        "inlineScripts": 77,
+        "additionCount": 8,
+        "expectedAdditions": [
+          "waterfront018.canalTollhouse_0",
+          "waterfront018.canalTollhouse_1",
+          "waterfront018.canalTollhouse_2",
+          "waterfront018.canalTollhouse_3",
+          "waterfront018.lifeboatHall_0",
+          "waterfront018.lifeboatHall_1",
+          "waterfront018.lifeboatHall_2",
+          "waterfront018.lifeboatHall_3"
+        ],
+        "cardCommit": "75568284a3266a6d6cb5a8346dcc5b7fd2e54b1a",
+        "originalCardSHA256": "85b0e7e9de86bdf0f6e825b5d47ab3501719d8a9ec1172c2ba38f16ef8b9d705",
+        "artSHA256": "e9a4359eb41c651389263fb6dd704f519b41298074bfbf87c288fdb96af47cc4",
+        "gameplaySHA256": "236fd9973db4aa68e9482cf8c4f666eb85907b0278481c7c89611ca32e033c76",
+        "repairCardCommit": "d33d5a5a19b44c19e55f6f24d59196581c00fdbc",
+        "approvedHeritageHead": "52924698c88ec2f9cafe37828b8d966a6f962488",
+        "approvedHeritageSourceExact": true,
+        "mapEdgeRepairReviewPending": true,
+        "mapEdgeHelperSHA256": "80e94d4593ab92a428badba202a1e71b87367fa5f47c64666172fddc0dbe6d31",
+        "integrationSHA256": "5a97d2110af5818ca4dc3183f6742695e1cb969cadd14a8ed84f9589870f7b20"
+      }
+    },
+    {
+      "name": "two native aliases and eight authored assets boot correctly",
+      "ok": true,
+      "detail": {
+        "version": "14.34",
+        "slot": "3",
+        "self": {
+          "ok": true,
+          "checks": [
+            "exact two optional appearances over the original visitor court ✓",
+            "lifeboatHeritageHall018 exact native catalog and manual-only placement ✓",
+            "lifeboatHall_0 original complete view ✓",
+            "lifeboatHall_1 original complete view ✓",
+            "lifeboatHall_2 original complete view ✓",
+            "lifeboatHall_3 original complete view ✓",
+            "canalTollhouseExhibit018 exact native catalog and manual-only placement ✓",
+            "canalTollhouse_0 original complete view ✓",
+            "canalTollhouse_1 original complete view ✓",
+            "canalTollhouse_2 original complete view ✓",
+            "canalTollhouse_3 original complete view ✓",
+            "original k287 canonical atlas remains unchanged ✓",
+            "eight independent assets built once ✓",
+            "all twenty previous optional path details retained ✓",
+            "original map-edge sprite selects only outward faces ✓"
+          ],
+          "details": [
+            {
+              "name": "exact two optional appearances over the original visitor court",
+              "ok": true
+            },
+            {
+              "name": "lifeboatHeritageHall018 exact native catalog and manual-only placement",
+              "ok": true
+            },
+            {
+              "name": "lifeboatHall_0 original complete view",
+              "ok": true
+            },
+            {
+              "name": "lifeboatHall_1 original complete view",
+              "ok": true
+            },
+            {
+              "name": "lifeboatHall_2 original complete view",
+              "ok": true
+            },
+            {
+              "name": "lifeboatHall_3 original complete view",
+              "ok": true
+            },
+            {
+              "name": "canalTollhouseExhibit018 exact native catalog and manual-only placement",
+              "ok": true
+            },
+            {
+              "name": "canalTollhouse_0 original complete view",
+              "ok": true
+            },
+            {
+              "name": "canalTollhouse_1 original complete view",
+              "ok": true
+            },
+            {
+              "name": "canalTollhouse_2 original complete view",
+              "ok": true
+            },
+            {
+              "name": "canalTollhouse_3 original complete view",
+              "ok": true
+            },
+            {
+              "name": "original k287 canonical atlas remains unchanged",
+              "ok": true
+            },
+            {
+              "name": "eight independent assets built once",
+              "ok": true
+            },
+            {
+              "name": "all twenty previous optional path details retained",
+              "ok": true
+            },
+            {
+              "name": "original map-edge sprite selects only outward faces",
+              "ok": true
+            }
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "3139 prior leaves and1728 complete blocks exact with only eight additions",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "base": "1400301238f7a46ab6d3c489422a48f9f90cac9d",
+        "version": "14.34",
+        "anchor": "T730",
+        "phase": "candidate",
+        "release": false,
+        "publicationApproved": false,
+        "approvedNativeRecordsExact": false,
+        "approvedCurrentNativeSHA": null,
+        "blocksExact": true,
+        "allCurrentFamilyCRCsExact": true,
+        "approvedHeritagePixelsExact": true,
+        "approvedHeritageHead": "52924698c88ec2f9cafe37828b8d966a6f962488",
+        "mapEdgeRepairReviewPending": true,
+        "oldLeaves": 3139,
+        "newLeaves": 8,
+        "leaves": 3147,
+        "oldFamilies": 163,
+        "currentFamilies": 164,
+        "oldBlocks": 1728,
+        "oldCompleteRecordsExact": true,
+        "oldFamilyCRCsExact": true,
+        "completeBlockRecordsExact": true,
+        "added": [
+          "waterfront018.canalTollhouse_0",
+          "waterfront018.canalTollhouse_1",
+          "waterfront018.canalTollhouse_2",
+          "waterfront018.canalTollhouse_3",
+          "waterfront018.lifeboatHall_0",
+          "waterfront018.lifeboatHall_1",
+          "waterfront018.lifeboatHall_2",
+          "waterfront018.lifeboatHall_3"
+        ],
+        "newArtAwaitingOwnerImageApproval": true,
+        "currentCandidateApproval": false
+      }
+    },
+    {
+      "name": "eight complete opaque unclipped views with emission only on native surfaces",
+      "ok": true,
+      "detail": [
+        {
+          "key": "lifeboatHall_0",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 0,
+          "appearance": "lifeboatHall",
+          "features": [
+            "broad-slate-gable",
+            "coursed-rubble-and-brick-arches",
+            "radial-glazed-oculus",
+            "double-timber-exhibit-doors",
+            "strutted-side-shelter",
+            "infilled-side-annex",
+            "projecting-rear-casement",
+            "roof-ridge-and-gutters",
+            "visitor-court",
+            "supported-window-and-lantern-emission"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5470,
+          "partial": 0,
+          "lit": 31,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 114,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "lifeboatHall_1",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 1,
+          "appearance": "lifeboatHall",
+          "features": [
+            "broad-slate-gable",
+            "coursed-rubble-and-brick-arches",
+            "radial-glazed-oculus",
+            "double-timber-exhibit-doors",
+            "strutted-side-shelter",
+            "infilled-side-annex",
+            "projecting-rear-casement",
+            "roof-ridge-and-gutters",
+            "visitor-court",
+            "supported-window-and-lantern-emission"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5228,
+          "partial": 0,
+          "lit": 16,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 117,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "lifeboatHall_2",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 2,
+          "appearance": "lifeboatHall",
+          "features": [
+            "broad-slate-gable",
+            "coursed-rubble-and-brick-arches",
+            "radial-glazed-oculus",
+            "double-timber-exhibit-doors",
+            "strutted-side-shelter",
+            "infilled-side-annex",
+            "projecting-rear-casement",
+            "roof-ridge-and-gutters",
+            "visitor-court",
+            "supported-window-and-lantern-emission"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5172,
+          "partial": 0,
+          "lit": 59,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 119,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "lifeboatHall_3",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 3,
+          "appearance": "lifeboatHall",
+          "features": [
+            "broad-slate-gable",
+            "coursed-rubble-and-brick-arches",
+            "radial-glazed-oculus",
+            "double-timber-exhibit-doors",
+            "strutted-side-shelter",
+            "infilled-side-annex",
+            "projecting-rear-casement",
+            "roof-ridge-and-gutters",
+            "visitor-court",
+            "supported-window-and-lantern-emission"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5422,
+          "partial": 0,
+          "lit": 108,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 116,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "canalTollhouse_0",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 0,
+          "appearance": "canalTollhouse",
+          "features": [
+            "two-storey-octagonal-masonry",
+            "eight-real-angled-faces",
+            "eight-sided-hipped-slate-roof",
+            "arched-recesses-and-glazing-bars",
+            "front-visitor-door",
+            "distinct-rear-service-door",
+            "waist-and-eaves-courses",
+            "rear-chimney-stack",
+            "stone-entrance-steps",
+            "small-railed-visitor-court"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5826,
+          "partial": 0,
+          "lit": 284,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 96,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "canalTollhouse_1",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 1,
+          "appearance": "canalTollhouse",
+          "features": [
+            "two-storey-octagonal-masonry",
+            "eight-real-angled-faces",
+            "eight-sided-hipped-slate-roof",
+            "arched-recesses-and-glazing-bars",
+            "front-visitor-door",
+            "distinct-rear-service-door",
+            "waist-and-eaves-courses",
+            "rear-chimney-stack",
+            "stone-entrance-steps",
+            "small-railed-visitor-court"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5628,
+          "partial": 0,
+          "lit": 179,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 109,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "canalTollhouse_2",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 2,
+          "appearance": "canalTollhouse",
+          "features": [
+            "two-storey-octagonal-masonry",
+            "eight-real-angled-faces",
+            "eight-sided-hipped-slate-roof",
+            "arched-recesses-and-glazing-bars",
+            "front-visitor-door",
+            "distinct-rear-service-door",
+            "waist-and-eaves-courses",
+            "rear-chimney-stack",
+            "stone-entrance-steps",
+            "small-railed-visitor-court"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5605,
+          "partial": 0,
+          "lit": 182,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 109,
+            "maxY": 192
+          }
+        },
+        {
+          "key": "canalTollhouse_3",
+          "w": 160,
+          "h": 196,
+          "ax": 80,
+          "ay": 194,
+          "view": 3,
+          "appearance": "canalTollhouse",
+          "features": [
+            "two-storey-octagonal-masonry",
+            "eight-real-angled-faces",
+            "eight-sided-hipped-slate-roof",
+            "arched-recesses-and-glazing-bars",
+            "front-visitor-door",
+            "distinct-rear-service-door",
+            "waist-and-eaves-courses",
+            "rear-chimney-stack",
+            "stone-entrance-steps",
+            "small-railed-visitor-court"
+          ],
+          "physicalLampCount": 2,
+          "opaque": 5780,
+          "partial": 0,
+          "lit": 273,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 17,
+            "maxX": 142,
+            "minY": 104,
+            "maxY": 192
+          }
+        }
+      ]
+    },
+    {
+      "name": "no new or uncaught runtime errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "initial native preflight completed",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "fails": [],
+        "seconds": 56.506
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "assets/lifeboatHall_0.png",
+      "sha256": "0fa74c921ed149bbf3f10f11ce34d39b9ce363caa819a641ba86465a48dcca3e",
+      "bytes": 6478,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_0-night.png",
+      "sha256": "8e02be7c45b09e2b16093cda7cf750cb577d3beb76dd51eab995facbf1724810",
+      "bytes": 1559,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_1.png",
+      "sha256": "e9b44c82fa319aa7bbea1872e5bd964c3900d6cca7055d7b51e66d11fea2cbe1",
+      "bytes": 6024,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_1-night.png",
+      "sha256": "232bb941b225288142ef1ed6cbe43dd621278696bc6f4a00e01c3c152fca1cdc",
+      "bytes": 1490,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_2.png",
+      "sha256": "19b0f27bb9f8852c2d603384897652524c290ee9513b6022d8d45481b05cf390",
+      "bytes": 6799,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_2-night.png",
+      "sha256": "3d510f150d91095ab3249988baa9c1f86284d4a3736ad162c07cca67b4b03044",
+      "bytes": 1613,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_3.png",
+      "sha256": "9482897e8e820c0e072acf008e1f22cfe80aeeb4bc65d98a8dd8e0b616979a33",
+      "bytes": 6712,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/lifeboatHall_3-night.png",
+      "sha256": "9503bd83739fd15e99efc30f4778e5d2e10ac60f74073711470c2eed8186e85b",
+      "bytes": 1707,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_0.png",
+      "sha256": "0629ab33316face44570d7e8f8dccd0d5f6a70a7a52fe7469ce06a5516c8ffe5",
+      "bytes": 6517,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_0-night.png",
+      "sha256": "ed3734b62696ba9d6856ef2048dcdcafabc329e7c7f0c1b77632fa0683284050",
+      "bytes": 1832,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_1.png",
+      "sha256": "f3d1eddbcd101cb47e565fd14dd66efe9531afe8b433e7330572d324e66e11eb",
+      "bytes": 6146,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_1-night.png",
+      "sha256": "d9068f1161d14ba23d3acdad77ca2577c7c1c4fab7eb6dddab875ed462552663",
+      "bytes": 1726,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_2.png",
+      "sha256": "e147a2cc49765bbcaceecafcd6ae1fb64b3b3e1cde0a1f66af1cd50882dcdffa",
+      "bytes": 6305,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_2-night.png",
+      "sha256": "7c2cc8f96470cb4449a2f3485a6df8e5c3b1c60cde165926719b5798c3f67314",
+      "bytes": 1686,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_3.png",
+      "sha256": "9fda2aefc6e1101029e5c3f7593bc25d941eaba0e1a1e81b0fb1db2d0e8f881b",
+      "bytes": 6381,
+      "width": 160,
+      "height": 196
+    },
+    {
+      "path": "assets/canalTollhouse_3-night.png",
+      "sha256": "5dae085d4dc20e4ab9ccda3620525a0439f383a4341f6aea08b333d4e0578c89",
+      "bytes": 1774,
+      "width": 160,
+      "height": 196
+    }
+  ],
+  "ok": true,
+  "limits": [
+    "Initial native preflight only; not complete legacy/runtime acceptance or owner image approval."
+  ],
+  "source": {
+    "ok": true,
+    "base": "1400301238f7a46ab6d3c489422a48f9f90cac9d",
+    "version": "14.34",
+    "anchor": "T730",
+    "release": false,
+    "phase": "candidate",
+    "publicationApproved": false,
+    "htmlExact": true,
+    "protectedExact": true,
+    "fpExact": true,
+    "logExact": true,
+    "coldLoadFixExact": true,
+    "sourceSHA256": "ed6f3d3a0ed2df05fe705d36004e0eaf4560bf9b025da2616112272e9150b5b9",
+    "baselineSHA256": "f43910b13ff2d0d341e36ebed9b1332439286bb97e39fab3e5d2fedf103e7a99",
+    "inlineScripts": 77,
+    "additionCount": 8,
+    "expectedAdditions": [
+      "waterfront018.canalTollhouse_0",
+      "waterfront018.canalTollhouse_1",
+      "waterfront018.canalTollhouse_2",
+      "waterfront018.canalTollhouse_3",
+      "waterfront018.lifeboatHall_0",
+      "waterfront018.lifeboatHall_1",
+      "waterfront018.lifeboatHall_2",
+      "waterfront018.lifeboatHall_3"
+    ],
+    "cardCommit": "75568284a3266a6d6cb5a8346dcc5b7fd2e54b1a",
+    "originalCardSHA256": "85b0e7e9de86bdf0f6e825b5d47ab3501719d8a9ec1172c2ba38f16ef8b9d705",
+    "artSHA256": "e9a4359eb41c651389263fb6dd704f519b41298074bfbf87c288fdb96af47cc4",
+    "gameplaySHA256": "236fd9973db4aa68e9482cf8c4f666eb85907b0278481c7c89611ca32e033c76",
+    "repairCardCommit": "d33d5a5a19b44c19e55f6f24d59196581c00fdbc",
+    "approvedHeritageHead": "52924698c88ec2f9cafe37828b8d966a6f962488",
+    "approvedHeritageSourceExact": true,
+    "mapEdgeRepairReviewPending": true,
+    "mapEdgeHelperSHA256": "80e94d4593ab92a428badba202a1e71b87367fa5f47c64666172fddc0dbe6d31",
+    "integrationSHA256": "5a97d2110af5818ca4dc3183f6742695e1cb969cadd14a8ed84f9589870f7b20"
+  },
+  "fingerprint": {
+    "ok": true,
+    "base": "1400301238f7a46ab6d3c489422a48f9f90cac9d",
+    "version": "14.34",
+    "anchor": "T730",
+    "phase": "candidate",
+    "release": false,
+    "publicationApproved": false,
+    "approvedNativeRecordsExact": false,
+    "approvedCurrentNativeSHA": null,
+    "blocksExact": true,
+    "allCurrentFamilyCRCsExact": true,
+    "approvedHeritagePixelsExact": true,
+    "approvedHeritageHead": "52924698c88ec2f9cafe37828b8d966a6f962488",
+    "mapEdgeRepairReviewPending": true,
+    "oldLeaves": 3139,
+    "newLeaves": 8,
+    "leaves": 3147,
+    "oldFamilies": 163,
+    "currentFamilies": 164,
+    "oldBlocks": 1728,
+    "oldCompleteRecordsExact": true,
+    "oldFamilyCRCsExact": true,
+    "completeBlockRecordsExact": true,
+    "added": [
+      "waterfront018.canalTollhouse_0",
+      "waterfront018.canalTollhouse_1",
+      "waterfront018.canalTollhouse_2",
+      "waterfront018.canalTollhouse_3",
+      "waterfront018.lifeboatHall_0",
+      "waterfront018.lifeboatHall_1",
+      "waterfront018.lifeboatHall_2",
+      "waterfront018.lifeboatHall_3"
+    ],
+    "newArtAwaitingOwnerImageApproval": true,
+    "currentCandidateApproval": false
+  },
+  "assets": [
+    {
+      "key": "lifeboatHall_0",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 0,
+      "appearance": "lifeboatHall",
+      "features": [
+        "broad-slate-gable",
+        "coursed-rubble-and-brick-arches",
+        "radial-glazed-oculus",
+        "double-timber-exhibit-doors",
+        "strutted-side-shelter",
+        "infilled-side-annex",
+        "projecting-rear-casement",
+        "roof-ridge-and-gutters",
+        "visitor-court",
+        "supported-window-and-lantern-emission"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5470,
+      "partial": 0,
+      "lit": 31,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 114,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "lifeboatHall_1",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 1,
+      "appearance": "lifeboatHall",
+      "features": [
+        "broad-slate-gable",
+        "coursed-rubble-and-brick-arches",
+        "radial-glazed-oculus",
+        "double-timber-exhibit-doors",
+        "strutted-side-shelter",
+        "infilled-side-annex",
+        "projecting-rear-casement",
+        "roof-ridge-and-gutters",
+        "visitor-court",
+        "supported-window-and-lantern-emission"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5228,
+      "partial": 0,
+      "lit": 16,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 117,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "lifeboatHall_2",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 2,
+      "appearance": "lifeboatHall",
+      "features": [
+        "broad-slate-gable",
+        "coursed-rubble-and-brick-arches",
+        "radial-glazed-oculus",
+        "double-timber-exhibit-doors",
+        "strutted-side-shelter",
+        "infilled-side-annex",
+        "projecting-rear-casement",
+        "roof-ridge-and-gutters",
+        "visitor-court",
+        "supported-window-and-lantern-emission"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5172,
+      "partial": 0,
+      "lit": 59,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 119,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "lifeboatHall_3",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 3,
+      "appearance": "lifeboatHall",
+      "features": [
+        "broad-slate-gable",
+        "coursed-rubble-and-brick-arches",
+        "radial-glazed-oculus",
+        "double-timber-exhibit-doors",
+        "strutted-side-shelter",
+        "infilled-side-annex",
+        "projecting-rear-casement",
+        "roof-ridge-and-gutters",
+        "visitor-court",
+        "supported-window-and-lantern-emission"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5422,
+      "partial": 0,
+      "lit": 108,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 116,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "canalTollhouse_0",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 0,
+      "appearance": "canalTollhouse",
+      "features": [
+        "two-storey-octagonal-masonry",
+        "eight-real-angled-faces",
+        "eight-sided-hipped-slate-roof",
+        "arched-recesses-and-glazing-bars",
+        "front-visitor-door",
+        "distinct-rear-service-door",
+        "waist-and-eaves-courses",
+        "rear-chimney-stack",
+        "stone-entrance-steps",
+        "small-railed-visitor-court"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5826,
+      "partial": 0,
+      "lit": 284,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 96,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "canalTollhouse_1",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 1,
+      "appearance": "canalTollhouse",
+      "features": [
+        "two-storey-octagonal-masonry",
+        "eight-real-angled-faces",
+        "eight-sided-hipped-slate-roof",
+        "arched-recesses-and-glazing-bars",
+        "front-visitor-door",
+        "distinct-rear-service-door",
+        "waist-and-eaves-courses",
+        "rear-chimney-stack",
+        "stone-entrance-steps",
+        "small-railed-visitor-court"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5628,
+      "partial": 0,
+      "lit": 179,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 109,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "canalTollhouse_2",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 2,
+      "appearance": "canalTollhouse",
+      "features": [
+        "two-storey-octagonal-masonry",
+        "eight-real-angled-faces",
+        "eight-sided-hipped-slate-roof",
+        "arched-recesses-and-glazing-bars",
+        "front-visitor-door",
+        "distinct-rear-service-door",
+        "waist-and-eaves-courses",
+        "rear-chimney-stack",
+        "stone-entrance-steps",
+        "small-railed-visitor-court"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5605,
+      "partial": 0,
+      "lit": 182,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 109,
+        "maxY": 192
+      }
+    },
+    {
+      "key": "canalTollhouse_3",
+      "w": 160,
+      "h": 196,
+      "ax": 80,
+      "ay": 194,
+      "view": 3,
+      "appearance": "canalTollhouse",
+      "features": [
+        "two-storey-octagonal-masonry",
+        "eight-real-angled-faces",
+        "eight-sided-hipped-slate-roof",
+        "arched-recesses-and-glazing-bars",
+        "front-visitor-door",
+        "distinct-rear-service-door",
+        "waist-and-eaves-courses",
+        "rear-chimney-stack",
+        "stone-entrance-steps",
+        "small-railed-visitor-court"
+      ],
+      "physicalLampCount": 2,
+      "opaque": 5780,
+      "partial": 0,
+      "lit": 273,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 17,
+        "maxX": 142,
+        "minY": 104,
+        "maxY": 192
+      }
+    }
+  ],
+  "knownPWALogs": [
+    "PWA 附屬檔 404: http://127.0.0.1:8199/manifest.json",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/index.html",
+    "PWA 附屬檔 404: A bad HTTP response code (404) was received when fetching th",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/manifest.json",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/index.html",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/icon.svg"
+  ],
+  "consoleErrors": [],
+  "session": {
+    "ok": true,
+    "fails": [],
+    "seconds": 56.506
+  }
+}

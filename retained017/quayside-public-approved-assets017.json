@@ -1,0 +1,2507 @@
+{
+  "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+  "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234",
+  "base": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+  "mode": "preflight",
+  "run": "37533544152",
+  "checks": [
+    {
+      "name": "declared additive source only, all prior protected source exact",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "base": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+        "version": "14.33",
+        "anchor": "T729",
+        "release": false,
+        "phase": "candidate",
+        "publicationApproved": false,
+        "htmlExact": true,
+        "protectedExact": true,
+        "fpExact": true,
+        "logExact": true,
+        "coldLoadFixExact": true,
+        "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234",
+        "baselineSHA256": "e00128d491f81d37cd68c4afe6661bf7ff500ac9d6d8d697657f5b3a8a1edff5",
+        "inlineScripts": 75,
+        "additionCount": 24,
+        "expectedAdditions": [
+          "quayside017.anchorDisplay_0",
+          "quayside017.anchorDisplay_1",
+          "quayside017.anchorDisplay_2",
+          "quayside017.anchorDisplay_3",
+          "quayside017.lifebuoyStand_0",
+          "quayside017.lifebuoyStand_1",
+          "quayside017.lifebuoyStand_2",
+          "quayside017.lifebuoyStand_3",
+          "quayside017.mooringBitts_0",
+          "quayside017.mooringBitts_1",
+          "quayside017.mooringBitts_2",
+          "quayside017.mooringBitts_3",
+          "quayside017.netDryingRack_0",
+          "quayside017.netDryingRack_1",
+          "quayside017.netDryingRack_2",
+          "quayside017.netDryingRack_3",
+          "quayside017.quayCapstan_0",
+          "quayside017.quayCapstan_1",
+          "quayside017.quayCapstan_2",
+          "quayside017.quayCapstan_3",
+          "quayside017.withyPots_0",
+          "quayside017.withyPots_1",
+          "quayside017.withyPots_2",
+          "quayside017.withyPots_3"
+        ],
+        "artSHA256": "46dcb9df59f3b599eb794e22237c68116ae2d98db46716fb1da3e974e6e627d9",
+        "gameplaySHA256": "eda175902be89ff3838828a04e3249dea338ab01fa14190721f841c5f9bacce4",
+        "integrationSHA256": "f687b669495304bd91fc7c5ff5ec9a1100f0a22237337ce6719695db6848f3df"
+      }
+    },
+    {
+      "name": "boot has exact source-verified labels and isolated slot",
+      "ok": true,
+      "detail": {
+        "ready": true,
+        "version": "14.33",
+        "label": "v14.33 · T729",
+        "slot": "3",
+        "batches": {
+          "batches": 74,
+          "ok": 74,
+          "err": [],
+          "ms": {
+            "b01": 46,
+            "b02": 132,
+            "b03": 120,
+            "b04": 95,
+            "b05": 312,
+            "b06": 129,
+            "b07": 766,
+            "b08": 152,
+            "b09": 156,
+            "b10": 247,
+            "b11": 105,
+            "infra_a1": 49,
+            "infra_a2": 274,
+            "infra_b1": 142,
+            "infra_b2": 307,
+            "infra_c1": 244,
+            "infra_c2": 1047,
+            "civic_d1": 79,
+            "civic_d2": 74,
+            "civic_d3": 138,
+            "bay_a": 3,
+            "logi_a": 931,
+            "logi_b": 1043,
+            "logi_c": 196,
+            "logi_d": 658,
+            "logi_e": 321,
+            "trans_a": 901,
+            "trans_b": 4,
+            "trans_c": 34,
+            "trans_d": 2,
+            "wave614_pre": 0,
+            "civ_a": 64,
+            "civ_b": 149,
+            "civ_c": 3,
+            "civ_d": 3,
+            "civ_e": 4,
+            "civ_f": 92,
+            "civ_g": 195,
+            "civ_h": 4,
+            "cul_a": 4,
+            "cul_b": 3,
+            "cul_c": 4,
+            "cul_d": 4,
+            "cul_e": 4,
+            "cul_f": 3,
+            "fix709": 0,
+            "fix714": 3,
+            "fix712": 2,
+            "fix710": 2,
+            "fix713": 6,
+            "fix711": 4,
+            "fix715": 4,
+            "bay_a_late": 175,
+            "trans_b_late": 215,
+            "trans_d_late": 73,
+            "civ_c_late": 123,
+            "civ_d_late": 378,
+            "civ_e_late": 120,
+            "civ_h_late": 193,
+            "cul_a_late": 126,
+            "cul_b_late": 79,
+            "cul_c_late": 541,
+            "cul_d_late": 528,
+            "cul_e_late": 691,
+            "cul_f_late": 98,
+            "fix709_late": 5,
+            "fix714_late": 215,
+            "fix712_late": 85,
+            "fix710_late": 520,
+            "fix713_late": 245,
+            "fix711_late": 430,
+            "fix715_late": 907
+          }
+        }
+      }
+    },
+    {
+      "name": "six optional paid themes and24 canonical views registered once",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "checks": [
+          "exact six optional quayside themes with no building identities ✓",
+          "mooringBitts017 native paid manual-only walking theme ✓",
+          "mooringBitts_0 canonical complete geometric view ✓",
+          "mooringBitts_1 canonical complete geometric view ✓",
+          "mooringBitts_2 canonical complete geometric view ✓",
+          "mooringBitts_3 canonical complete geometric view ✓",
+          "quayCapstan017 native paid manual-only walking theme ✓",
+          "quayCapstan_0 canonical complete geometric view ✓",
+          "quayCapstan_1 canonical complete geometric view ✓",
+          "quayCapstan_2 canonical complete geometric view ✓",
+          "quayCapstan_3 canonical complete geometric view ✓",
+          "lifebuoyStand017 native paid manual-only walking theme ✓",
+          "lifebuoyStand_0 canonical complete geometric view ✓",
+          "lifebuoyStand_1 canonical complete geometric view ✓",
+          "lifebuoyStand_2 canonical complete geometric view ✓",
+          "lifebuoyStand_3 canonical complete geometric view ✓",
+          "anchorDisplay017 native paid manual-only walking theme ✓",
+          "anchorDisplay_0 canonical complete geometric view ✓",
+          "anchorDisplay_1 canonical complete geometric view ✓",
+          "anchorDisplay_2 canonical complete geometric view ✓",
+          "anchorDisplay_3 canonical complete geometric view ✓",
+          "withyPots017 native paid manual-only walking theme ✓",
+          "withyPots_0 canonical complete geometric view ✓",
+          "withyPots_1 canonical complete geometric view ✓",
+          "withyPots_2 canonical complete geometric view ✓",
+          "withyPots_3 canonical complete geometric view ✓",
+          "netDryingRack017 native paid manual-only walking theme ✓",
+          "netDryingRack_0 canonical complete geometric view ✓",
+          "netDryingRack_1 canonical complete geometric view ✓",
+          "netDryingRack_2 canonical complete geometric view ✓",
+          "netDryingRack_3 canonical complete geometric view ✓",
+          "all six quayside themes are strictly non-emissive ✓",
+          "exact24 original assets built once ✓",
+          "all existing complex and street registries retained ✓"
+        ],
+        "details": [
+          {
+            "name": "exact six optional quayside themes with no building identities",
+            "ok": true
+          },
+          {
+            "name": "mooringBitts017 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "mooringBitts_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "mooringBitts_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "mooringBitts_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "mooringBitts_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "quayCapstan017 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "quayCapstan_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "quayCapstan_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "quayCapstan_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "quayCapstan_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "lifebuoyStand017 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "lifebuoyStand_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "lifebuoyStand_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "lifebuoyStand_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "lifebuoyStand_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "anchorDisplay017 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "anchorDisplay_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "anchorDisplay_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "anchorDisplay_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "anchorDisplay_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "withyPots017 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "withyPots_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "withyPots_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "withyPots_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "withyPots_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "netDryingRack017 native paid manual-only walking theme",
+            "ok": true
+          },
+          {
+            "name": "netDryingRack_0 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "netDryingRack_1 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "netDryingRack_2 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "netDryingRack_3 canonical complete geometric view",
+            "ok": true
+          },
+          {
+            "name": "all six quayside themes are strictly non-emissive",
+            "ok": true
+          },
+          {
+            "name": "exact24 original assets built once",
+            "ok": true
+          },
+          {
+            "name": "all existing complex and street registries retained",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "all3115 prior leaves162 families1728 blocks exact and only24 declared additions",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "base": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+        "version": "14.33",
+        "anchor": "T729",
+        "phase": "candidate",
+        "release": false,
+        "publicationApproved": false,
+        "oldLeaves": 3115,
+        "newLeaves": 24,
+        "leaves": 3139,
+        "oldFamilies": 162,
+        "currentFamilies": 163,
+        "oldBlocks": 1728,
+        "oldCompleteRecordsExact": true,
+        "oldFamilyCRCsExact": true,
+        "completeBlockRecordsExact": true,
+        "blocksExact": true,
+        "allCurrentFamilyCRCsExact": true,
+        "added": [
+          "quayside017.anchorDisplay_0",
+          "quayside017.anchorDisplay_1",
+          "quayside017.anchorDisplay_2",
+          "quayside017.anchorDisplay_3",
+          "quayside017.lifebuoyStand_0",
+          "quayside017.lifebuoyStand_1",
+          "quayside017.lifebuoyStand_2",
+          "quayside017.lifebuoyStand_3",
+          "quayside017.mooringBitts_0",
+          "quayside017.mooringBitts_1",
+          "quayside017.mooringBitts_2",
+          "quayside017.mooringBitts_3",
+          "quayside017.netDryingRack_0",
+          "quayside017.netDryingRack_1",
+          "quayside017.netDryingRack_2",
+          "quayside017.netDryingRack_3",
+          "quayside017.quayCapstan_0",
+          "quayside017.quayCapstan_1",
+          "quayside017.quayCapstan_2",
+          "quayside017.quayCapstan_3",
+          "quayside017.withyPots_0",
+          "quayside017.withyPots_1",
+          "quayside017.withyPots_2",
+          "quayside017.withyPots_3"
+        ],
+        "approvedOldNativeSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+        "newArtAwaitingOwnerImageApproval": true,
+        "approvedNativeRecordsExact": false,
+        "approvedCurrentNativeSHA": null,
+        "allNewLeavesNonEmissive": true
+      }
+    },
+    {
+      "name": "all24 assets opaque unclipped and strictly non-emissive",
+      "ok": true,
+      "detail": [
+        {
+          "key": "mooringBitts_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "mooringBitts",
+          "opaque": 1049,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 57,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "mooringBitts_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "mooringBitts",
+          "opaque": 1050,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "mooringBitts_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "mooringBitts",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "mooringBitts_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "mooringBitts",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "quayCapstan_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "quayCapstan",
+          "opaque": 1067,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 57,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "quayCapstan_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "quayCapstan",
+          "opaque": 1067,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "quayCapstan_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "quayCapstan",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "quayCapstan_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "quayCapstan",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "lifebuoyStand_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "lifebuoyStand",
+          "opaque": 1164,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 50,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "lifebuoyStand_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "lifebuoyStand",
+          "opaque": 1168,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 51,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "lifebuoyStand_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "lifebuoyStand",
+          "opaque": 1038,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "lifebuoyStand_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "lifebuoyStand",
+          "opaque": 1052,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "anchorDisplay_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "anchorDisplay",
+          "opaque": 1071,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 54,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "anchorDisplay_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "anchorDisplay",
+          "opaque": 1072,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 54,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "anchorDisplay_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "anchorDisplay",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "anchorDisplay_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "anchorDisplay",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "withyPots_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "withyPots",
+          "opaque": 1030,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "withyPots_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "withyPots",
+          "opaque": 1031,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "withyPots_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "withyPots",
+          "opaque": 1025,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "withyPots_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "withyPots",
+          "opaque": 1024,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "netDryingRack_0",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 0,
+          "theme": "netDryingRack",
+          "opaque": 1202,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 48,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "netDryingRack_1",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 1,
+          "theme": "netDryingRack",
+          "opaque": 1195,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 49,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "netDryingRack_2",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 2,
+          "theme": "netDryingRack",
+          "opaque": 1071,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        },
+        {
+          "key": "netDryingRack_3",
+          "w": 72,
+          "h": 92,
+          "ax": 36,
+          "ay": 90,
+          "view": 3,
+          "theme": "netDryingRack",
+          "opaque": 1071,
+          "partial": 0,
+          "lit": 0,
+          "outside": 0,
+          "edge": 0,
+          "bounds": {
+            "minX": 5,
+            "maxX": 66,
+            "minY": 58,
+            "maxY": 89
+          },
+          "clearWalkStrip": [
+            5.3,
+            10.7
+          ],
+          "minimumClearPath": 5.4,
+          "physicalLampCount": 0
+        }
+      ]
+    },
+    {
+      "name": "no uncaught game errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "selected exact-head native evidence completed",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "fails": [],
+        "seconds": 50.782
+      }
+    }
+  ],
+  "failures": [],
+  "artifacts": [
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "mooringBitts_0",
+      "path": "assets/mooringBitts_0.png",
+      "sha256": "94f51c4711fa302eb5d3b53ba2d2abaced16ec4b30811a0df905e33f3b81d63b",
+      "bytes": 1773,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "mooringBitts_0",
+      "path": "assets/mooringBitts_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "mooringBitts_1",
+      "path": "assets/mooringBitts_1.png",
+      "sha256": "cde838d082e2fc2393c8f2323362870b715ffcbe8b0c851a4ace3384a6343f87",
+      "bytes": 1784,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "mooringBitts_1",
+      "path": "assets/mooringBitts_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "mooringBitts_2",
+      "path": "assets/mooringBitts_2.png",
+      "sha256": "c114f075431d9f697f71fff7901f63185947c9b488a5a9b49679be441de1f1f5",
+      "bytes": 1783,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "mooringBitts_2",
+      "path": "assets/mooringBitts_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "mooringBitts_3",
+      "path": "assets/mooringBitts_3.png",
+      "sha256": "534ab9f532db267bffb4aef46b1751c3c89b8aaca3214079523749073e5ab556",
+      "bytes": 1751,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "mooringBitts_3",
+      "path": "assets/mooringBitts_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "quayCapstan_0",
+      "path": "assets/quayCapstan_0.png",
+      "sha256": "193a932da645e0eec28876db7877f56e62fd6426d28717d8c0fe34fa6566489f",
+      "bytes": 1891,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "quayCapstan_0",
+      "path": "assets/quayCapstan_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "quayCapstan_1",
+      "path": "assets/quayCapstan_1.png",
+      "sha256": "a88a26c952897a173b4ce02590323f47dffc5af0b438d9c4288451674e25a298",
+      "bytes": 1865,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "quayCapstan_1",
+      "path": "assets/quayCapstan_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "quayCapstan_2",
+      "path": "assets/quayCapstan_2.png",
+      "sha256": "21c954d67242a6f787836ac2d43469632f45d5fe1ec9080ec1faea50beec10c0",
+      "bytes": 1823,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "quayCapstan_2",
+      "path": "assets/quayCapstan_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "quayCapstan_3",
+      "path": "assets/quayCapstan_3.png",
+      "sha256": "108db5494582c401b73e2d68fa700851bfa600ae05641f181759f00ffd192f2d",
+      "bytes": 1803,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "quayCapstan_3",
+      "path": "assets/quayCapstan_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "lifebuoyStand_0",
+      "path": "assets/lifebuoyStand_0.png",
+      "sha256": "07309443794d7d72b5ecb55fd603eca243052500a7c1a0502f64465e7dfef6b0",
+      "bytes": 2055,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "lifebuoyStand_0",
+      "path": "assets/lifebuoyStand_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "lifebuoyStand_1",
+      "path": "assets/lifebuoyStand_1.png",
+      "sha256": "71c425804c5d5ce945c44bae109be23ff2e28030f81668ce4ff813ec64bd5d26",
+      "bytes": 2033,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "lifebuoyStand_1",
+      "path": "assets/lifebuoyStand_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "lifebuoyStand_2",
+      "path": "assets/lifebuoyStand_2.png",
+      "sha256": "af49bb0ccc508c08cd5c1c94fdb9fe6c4e0ee25228497ed7096f61d251a3e8f6",
+      "bytes": 1875,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "lifebuoyStand_2",
+      "path": "assets/lifebuoyStand_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "lifebuoyStand_3",
+      "path": "assets/lifebuoyStand_3.png",
+      "sha256": "7693affbfb421be921fad06ec66229cff3df33849d64121095a1016a966cf914",
+      "bytes": 1846,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "lifebuoyStand_3",
+      "path": "assets/lifebuoyStand_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "anchorDisplay_0",
+      "path": "assets/anchorDisplay_0.png",
+      "sha256": "2e067eb08075c1e070b220732d0bb0a5c5898d253d1bbf014491475dba90f20d",
+      "bytes": 1797,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "anchorDisplay_0",
+      "path": "assets/anchorDisplay_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "anchorDisplay_1",
+      "path": "assets/anchorDisplay_1.png",
+      "sha256": "d7320929303f95ab065ed882b42246c099514be602d6859faf9aa9826f0a0f41",
+      "bytes": 1830,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "anchorDisplay_1",
+      "path": "assets/anchorDisplay_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "anchorDisplay_2",
+      "path": "assets/anchorDisplay_2.png",
+      "sha256": "8a6111a9b520506e3af0250f19a60d9fd030380b5d6266c48565e3184a1c6b4d",
+      "bytes": 1824,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "anchorDisplay_2",
+      "path": "assets/anchorDisplay_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "anchorDisplay_3",
+      "path": "assets/anchorDisplay_3.png",
+      "sha256": "74ceaf092d74b204357746c7c6b45fd0ce23dda14bcae4f76482cd6966ca6824",
+      "bytes": 1781,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "anchorDisplay_3",
+      "path": "assets/anchorDisplay_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "withyPots_0",
+      "path": "assets/withyPots_0.png",
+      "sha256": "6f12b82fe3005a99210273065e610197aea747d4c476f36539153a7bd696c712",
+      "bytes": 1806,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "withyPots_0",
+      "path": "assets/withyPots_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "withyPots_1",
+      "path": "assets/withyPots_1.png",
+      "sha256": "4bdc6529769d25c96ded4e726ecaaa3fd26899e4f93c7abe39be10647a395d07",
+      "bytes": 1753,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "withyPots_1",
+      "path": "assets/withyPots_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "withyPots_2",
+      "path": "assets/withyPots_2.png",
+      "sha256": "a2760ef49f602267645342a371dba5d5850d7c57f623a29ff64047474d2cd21f",
+      "bytes": 1743,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "withyPots_2",
+      "path": "assets/withyPots_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "withyPots_3",
+      "path": "assets/withyPots_3.png",
+      "sha256": "bb7b8609ec315072fd4014255a336f0e58ccaed04062ca0645d5efa49ac7c012",
+      "bytes": 1735,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "withyPots_3",
+      "path": "assets/withyPots_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "netDryingRack_0",
+      "path": "assets/netDryingRack_0.png",
+      "sha256": "241ef15864e2476f110d42662d041789a2a0ea779394ae4a2ca810527bc3b087",
+      "bytes": 2171,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "netDryingRack_0",
+      "path": "assets/netDryingRack_0-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "netDryingRack_1",
+      "path": "assets/netDryingRack_1.png",
+      "sha256": "3e40c290619d00a224c612c99721ec1447b28bf27ffc8359b7624ad7b779391c",
+      "bytes": 2137,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "netDryingRack_1",
+      "path": "assets/netDryingRack_1-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "netDryingRack_2",
+      "path": "assets/netDryingRack_2.png",
+      "sha256": "179dc01604808914b16ef10271aaa82ac251c97f848ba59d3745c6135f457c5c",
+      "bytes": 2000,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "netDryingRack_2",
+      "path": "assets/netDryingRack_2-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered installed canonical native sprite",
+      "key": "netDryingRack_3",
+      "path": "assets/netDryingRack_3.png",
+      "sha256": "7ab8499e7b53526cd46a8a786db6413297b3a39e5f83a0aaf434016bb74c9dc5",
+      "bytes": 1952,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    },
+    {
+      "kind": "unaltered native physical emission",
+      "key": "netDryingRack_3",
+      "path": "assets/netDryingRack_3-night.png",
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "bytes": 416,
+      "width": 72,
+      "height": 92,
+      "checkedSHA": "8ceebc081dff3f44f31279e5ddab4d60f25933c6",
+      "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234"
+    }
+  ],
+  "limits": [
+    "Chrome/game/simulation/pixels only in isolated CI; disposable slot3 and8199.",
+    "The six new items are instant native footpaths, not new buildings or services.",
+    "Construction images show real ordinary-day old buildings beside the new path details.",
+    "Weather screenshots use explicit native visual-season setup and are not ordinary-day simulation proof.",
+    "CI draw timings are not real-device FPS. Existing PWA console diagnostics are separately retained."
+  ],
+  "static": {
+    "ok": true,
+    "base": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+    "version": "14.33",
+    "anchor": "T729",
+    "release": false,
+    "phase": "candidate",
+    "publicationApproved": false,
+    "htmlExact": true,
+    "protectedExact": true,
+    "fpExact": true,
+    "logExact": true,
+    "coldLoadFixExact": true,
+    "sourceSHA256": "a968e394f5c651a7c0c997a3c381ed90ad82f0b563ce40c167797f2c349b0234",
+    "baselineSHA256": "e00128d491f81d37cd68c4afe6661bf7ff500ac9d6d8d697657f5b3a8a1edff5",
+    "inlineScripts": 75,
+    "additionCount": 24,
+    "expectedAdditions": [
+      "quayside017.anchorDisplay_0",
+      "quayside017.anchorDisplay_1",
+      "quayside017.anchorDisplay_2",
+      "quayside017.anchorDisplay_3",
+      "quayside017.lifebuoyStand_0",
+      "quayside017.lifebuoyStand_1",
+      "quayside017.lifebuoyStand_2",
+      "quayside017.lifebuoyStand_3",
+      "quayside017.mooringBitts_0",
+      "quayside017.mooringBitts_1",
+      "quayside017.mooringBitts_2",
+      "quayside017.mooringBitts_3",
+      "quayside017.netDryingRack_0",
+      "quayside017.netDryingRack_1",
+      "quayside017.netDryingRack_2",
+      "quayside017.netDryingRack_3",
+      "quayside017.quayCapstan_0",
+      "quayside017.quayCapstan_1",
+      "quayside017.quayCapstan_2",
+      "quayside017.quayCapstan_3",
+      "quayside017.withyPots_0",
+      "quayside017.withyPots_1",
+      "quayside017.withyPots_2",
+      "quayside017.withyPots_3"
+    ],
+    "artSHA256": "46dcb9df59f3b599eb794e22237c68116ae2d98db46716fb1da3e974e6e627d9",
+    "gameplaySHA256": "eda175902be89ff3838828a04e3249dea338ab01fa14190721f841c5f9bacce4",
+    "integrationSHA256": "f687b669495304bd91fc7c5ff5ec9a1100f0a22237337ce6719695db6848f3df"
+  },
+  "sourceTests": {
+    "ok": true,
+    "sourceOnly": true,
+    "gameExecuted": false,
+    "rejected": [
+      "missing view",
+      "duplicate view",
+      "clipped edge",
+      "transparent surface",
+      "floating emission",
+      "invented glow",
+      "invented lamp",
+      "empty sprite",
+      "wrong anchor",
+      "blocked path",
+      "wrong clear strip",
+      "prior identity family",
+      "prior identity root",
+      "prior identity x",
+      "prior identity y",
+      "prior identity theme",
+      "prior identity am502",
+      "prior identity baseWalkCost",
+      "prior identity cost",
+      "prior identity turn015",
+      "prior identity turn016"
+    ]
+  },
+  "fingerprint": {
+    "ok": true,
+    "base": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+    "version": "14.33",
+    "anchor": "T729",
+    "phase": "candidate",
+    "release": false,
+    "publicationApproved": false,
+    "oldLeaves": 3115,
+    "newLeaves": 24,
+    "leaves": 3139,
+    "oldFamilies": 162,
+    "currentFamilies": 163,
+    "oldBlocks": 1728,
+    "oldCompleteRecordsExact": true,
+    "oldFamilyCRCsExact": true,
+    "completeBlockRecordsExact": true,
+    "blocksExact": true,
+    "allCurrentFamilyCRCsExact": true,
+    "added": [
+      "quayside017.anchorDisplay_0",
+      "quayside017.anchorDisplay_1",
+      "quayside017.anchorDisplay_2",
+      "quayside017.anchorDisplay_3",
+      "quayside017.lifebuoyStand_0",
+      "quayside017.lifebuoyStand_1",
+      "quayside017.lifebuoyStand_2",
+      "quayside017.lifebuoyStand_3",
+      "quayside017.mooringBitts_0",
+      "quayside017.mooringBitts_1",
+      "quayside017.mooringBitts_2",
+      "quayside017.mooringBitts_3",
+      "quayside017.netDryingRack_0",
+      "quayside017.netDryingRack_1",
+      "quayside017.netDryingRack_2",
+      "quayside017.netDryingRack_3",
+      "quayside017.quayCapstan_0",
+      "quayside017.quayCapstan_1",
+      "quayside017.quayCapstan_2",
+      "quayside017.quayCapstan_3",
+      "quayside017.withyPots_0",
+      "quayside017.withyPots_1",
+      "quayside017.withyPots_2",
+      "quayside017.withyPots_3"
+    ],
+    "approvedOldNativeSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+    "newArtAwaitingOwnerImageApproval": true,
+    "approvedNativeRecordsExact": false,
+    "approvedCurrentNativeSHA": null,
+    "allNewLeavesNonEmissive": true
+  },
+  "negatives": {
+    "ok": true,
+    "sourceOnly": true,
+    "gameExecuted": false,
+    "positive": {
+      "ok": true,
+      "base": "c7f0ab6e6d2c37651fd13802049b8079c5f5d37b",
+      "version": "14.33",
+      "anchor": "T729",
+      "phase": "candidate",
+      "release": false,
+      "publicationApproved": false,
+      "oldLeaves": 3115,
+      "newLeaves": 24,
+      "leaves": 3139,
+      "oldFamilies": 162,
+      "currentFamilies": 163,
+      "oldBlocks": 1728,
+      "oldCompleteRecordsExact": true,
+      "oldFamilyCRCsExact": true,
+      "completeBlockRecordsExact": true,
+      "blocksExact": true,
+      "allCurrentFamilyCRCsExact": true,
+      "added": [
+        "quayside017.anchorDisplay_0",
+        "quayside017.anchorDisplay_1",
+        "quayside017.anchorDisplay_2",
+        "quayside017.anchorDisplay_3",
+        "quayside017.lifebuoyStand_0",
+        "quayside017.lifebuoyStand_1",
+        "quayside017.lifebuoyStand_2",
+        "quayside017.lifebuoyStand_3",
+        "quayside017.mooringBitts_0",
+        "quayside017.mooringBitts_1",
+        "quayside017.mooringBitts_2",
+        "quayside017.mooringBitts_3",
+        "quayside017.netDryingRack_0",
+        "quayside017.netDryingRack_1",
+        "quayside017.netDryingRack_2",
+        "quayside017.netDryingRack_3",
+        "quayside017.quayCapstan_0",
+        "quayside017.quayCapstan_1",
+        "quayside017.quayCapstan_2",
+        "quayside017.quayCapstan_3",
+        "quayside017.withyPots_0",
+        "quayside017.withyPots_1",
+        "quayside017.withyPots_2",
+        "quayside017.withyPots_3"
+      ],
+      "approvedOldNativeSHA": "562dcdac6b0f221f803e5288152805e5dfd1f367",
+      "newArtAwaitingOwnerImageApproval": true,
+      "approvedNativeRecordsExact": false,
+      "approvedCurrentNativeSHA": null,
+      "allNewLeavesNonEmissive": true
+    },
+    "rejected": [
+      {
+        "name": "old day CRC with recomputed aggregates",
+        "error": "Prior complete leaf changed: grass#0"
+      },
+      {
+        "name": "old opacity",
+        "error": "Prior complete leaf changed: grass#0"
+      },
+      {
+        "name": "old record field",
+        "error": "Prior complete leaf changed: grass#0"
+      },
+      {
+        "name": "missing old leaf",
+        "error": "Exactly24 declared quayside additions required"
+      },
+      {
+        "name": "missing new leaf",
+        "error": "Exactly24 declared quayside additions required"
+      },
+      {
+        "name": "undeclared new leaf",
+        "error": "Exactly24 declared quayside additions required"
+      },
+      {
+        "name": "new dimensions",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "new empty",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "new missing night",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "new duplicate view with aggregates",
+        "error": "Four authored distinct views required for mooringBitts"
+      },
+      {
+        "name": "new aggregate not recomputed",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "old family changed",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "invented aggregate",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "block count",
+        "error": "Pinned complete block aggregate mismatch"
+      },
+      {
+        "name": "block CRC",
+        "error": "Pinned complete block aggregate mismatch"
+      },
+      {
+        "name": "block record",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "missing block",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "new record field",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "new emission with rebuilt aggregate",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "extra block field",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "false fingerprint status",
+        "error": "Complete native full fingerprint required"
+      },
+      {
+        "name": "extra fingerprint field",
+        "error": "Complete native full fingerprint required"
+      },
+      {
+        "name": "fractional opacity",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "excess opacity",
+        "error": "Complete opaque non-emissive dimensioned24 records required: quayside017.anchorDisplay_0"
+      },
+      {
+        "name": "false block status",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "extra block top field",
+        "error": "All1728 complete block records must pass before historical projection"
+      },
+      {
+        "name": "missing new family",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "extra new family field",
+        "error": "Current independent aggregation mismatch"
+      },
+      {
+        "name": "extra stats field",
+        "error": "Current independent aggregation mismatch"
+      }
+    ]
+  },
+  "assets": [
+    {
+      "key": "mooringBitts_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "mooringBitts",
+      "opaque": 1049,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 57,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "mooringBitts_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "mooringBitts",
+      "opaque": 1050,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "mooringBitts_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "mooringBitts",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "mooringBitts_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "mooringBitts",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "quayCapstan_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "quayCapstan",
+      "opaque": 1067,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 57,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "quayCapstan_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "quayCapstan",
+      "opaque": 1067,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "quayCapstan_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "quayCapstan",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "quayCapstan_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "quayCapstan",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "lifebuoyStand_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "lifebuoyStand",
+      "opaque": 1164,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 50,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "lifebuoyStand_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "lifebuoyStand",
+      "opaque": 1168,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 51,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "lifebuoyStand_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "lifebuoyStand",
+      "opaque": 1038,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "lifebuoyStand_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "lifebuoyStand",
+      "opaque": 1052,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "anchorDisplay_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "anchorDisplay",
+      "opaque": 1071,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 54,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "anchorDisplay_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "anchorDisplay",
+      "opaque": 1072,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 54,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "anchorDisplay_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "anchorDisplay",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "anchorDisplay_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "anchorDisplay",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "withyPots_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "withyPots",
+      "opaque": 1030,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "withyPots_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "withyPots",
+      "opaque": 1031,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "withyPots_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "withyPots",
+      "opaque": 1025,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "withyPots_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "withyPots",
+      "opaque": 1024,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "netDryingRack_0",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 0,
+      "theme": "netDryingRack",
+      "opaque": 1202,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 48,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "netDryingRack_1",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 1,
+      "theme": "netDryingRack",
+      "opaque": 1195,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 49,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "netDryingRack_2",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 2,
+      "theme": "netDryingRack",
+      "opaque": 1071,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    },
+    {
+      "key": "netDryingRack_3",
+      "w": 72,
+      "h": 92,
+      "ax": 36,
+      "ay": 90,
+      "view": 3,
+      "theme": "netDryingRack",
+      "opaque": 1071,
+      "partial": 0,
+      "lit": 0,
+      "outside": 0,
+      "edge": 0,
+      "bounds": {
+        "minX": 5,
+        "maxX": 66,
+        "minY": 58,
+        "maxY": 89
+      },
+      "clearWalkStrip": [
+        5.3,
+        10.7
+      ],
+      "minimumClearPath": 5.4,
+      "physicalLampCount": 0
+    }
+  ],
+  "knownPWALogs": [
+    "PWA 附屬檔 404: http://127.0.0.1:8199/manifest.json",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/index.html",
+    "PWA 附屬檔 404: A bad HTTP response code (404) was received when fetching th",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/manifest.json",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/index.html",
+    "PWA 附屬檔 404: http://127.0.0.1:8199/icon.svg"
+  ],
+  "session": {
+    "ok": true,
+    "fails": [],
+    "seconds": 50.782
+  },
+  "ok": true
+}

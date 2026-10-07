@@ -1,0 +1,4045 @@
+{
+  "checkedSHA": "1400301238f7a46ab6d3c489422a48f9f90cac9d",
+  "observerSHA": "90995b6dc75f46878ebe4181294811ffcfb0aebd",
+  "sourceSHA256": "f43910b13ff2d0d341e36ebed9b1332439286bb97e39fab3e5d2fedf103e7a99",
+  "run": "37549893272",
+  "ok": false,
+  "checks": [
+    {
+      "name": "authorized T730/v14.34 release is exactly the approved streetscape product plus three release labels",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "39e279ebae01f3e2f40fa200b9830d556ddcdc1a5a22efc47cb6bc8d2e3a067e"
+    },
+    {
+      "name": "before-browser: public HTML is the exact deployed checkout bytes",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "0767e70a615b8710842e32b0658f21ec564afd3b9de206a2e83d47d85af96b86"
+    },
+    {
+      "name": "public navigation accepted without TLS bypass",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "9fef285af1a311cbd9cddc51e36987498505888cffb647b4d3304ea0790442cf"
+    },
+    {
+      "name": "public main menu booted",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "initial-navigation: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "f1eb0229f6a7d9a3e31d35c1eec8aed5cc85f58938380e75f2c39f5edcaa92ed"
+    },
+    {
+      "name": "live version, anchor, native boot and isolated slot 3",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "6315b50974d7da255ced1b48f88c33bbebeb8a48ac3dbe62760c248a08776d9c"
+    },
+    {
+      "name": "native public menu creates a normal 72x72 city",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "one exact native theatre catalog and six distinct paid native walking themes exist",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "848e880b2122c4516fd727e2dc3b5c39aa30740eb4af9c345b89acb9aa66b90b"
+    },
+    {
+      "name": "live 3139 native leaves exactly match promoted T730, preserving 3115 old records and 1728 blocks",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "4e21a02e94a7b3743c98c88a1c4d9bdce55298ac6b8bd5325721a8ff859bb3b6"
+    },
+    {
+      "name": "public-origin normal city actually buys age-zero theatre six native amenities and physical roads power water",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "d549f5d2b031d5b7d4944e66d7530ca2c551995efae72e94fe48517fcd26f795"
+    },
+    {
+      "name": "nine real ordinary construction days gate theatre jobs leisure coverage and upkeep until age nine",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "65fde357e3656bb7dc59bee9e8fe6567fafe57ca2a25a1d364363be22e3cf98e"
+    },
+    {
+      "name": "actual public theatre has native road allocated power delivered water public staff cultural leisure and all preserved footprints",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "d259d97245b62bc3c0dcb72dc75b5dc8a06d72cc8f1675441472dc325eae9b03"
+    },
+    {
+      "name": "all six native themed paths retain exact independent metadata and all old real water frontage",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "7ce72b7aeaa6a730ab9cee2d5517ebe00651be1e7a094d7b40d6797194843656"
+    },
+    {
+      "name": "native official day and night views show complete canonical theatre and six independently owned amenities",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "dbabd1eddf9216028bb3169520bdbb6886e7d1adce5da6c13aa344e40ba668e1"
+    },
+    {
+      "name": "cold reload 1: CURRENT native slot-3 save is operational and unmodified before navigation",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "4a0cb10b8fa26b3fbebdeb6ae5ab03d64d994df6dbe3195f490c8c1ea0aea87d"
+    },
+    {
+      "name": "cold reload 1: actual official Page.reload boots the native menu",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "e295bc557819d09820bfc215c23a53335b7f6468820a96db8667186015695206"
+    },
+    {
+      "name": "cold reload 1: exact current native save bytes survive the exact T730 menu and old fixture memory is gone",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "c790ebfc5af2f7f4ceec88c05b0b5b7b81832aa24622b41a53ee911faf021659"
+    },
+    {
+      "name": "cold reload 1: native Continue preserves every root ref age view theme water cell and other-slot byte",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "d8d90e6f77af3966c3870c2acc251f78233c61507c8013e18f798f42c4bf9768"
+    },
+    {
+      "name": "cold reload 1: paused frame 1 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "4dba84704fd781ff3d126f7eccf6453ce5173b310c21d58d39b83c1da3398c10"
+    },
+    {
+      "name": "cold reload 1: paused frame 2 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "6069f9ba1b082741baf4d393489d2a4bcbad33aae1f93b5a0ce008de17030f11"
+    },
+    {
+      "name": "cold reload 1: FIRST unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "cc6f1cc592be7f48ed23491461de2d9567fa6a3e89e17e309a96ceba31f2ef38"
+    },
+    {
+      "name": "cold reload 1: 2 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "f87a55f0bfbe61f1780863d3fd1074873895d86b6018b2b69c1665ac256c13ff"
+    },
+    {
+      "name": "cold reload 1: 3 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "1ecec3e221bcbbd73b278b63ad647218e5997410a653a1c7c2fb05878e84b8bc"
+    },
+    {
+      "name": "cold reload 2: CURRENT native slot-3 save is operational and unmodified before navigation",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "29ccdca97d210d7566c7f037046487a78cf054c5baf82c9fcc82e86d90b58529"
+    },
+    {
+      "name": "cold reload 2: actual official Page.reload boots the native menu",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "5919f7415ad9a158a740b949acd23e70e8995dab7566b2fd70fefb966a2520e7"
+    },
+    {
+      "name": "cold reload 2: exact current native save bytes survive the exact T730 menu and old fixture memory is gone",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "649cfc311397001ac9d0777023e6b45a1dc32e819fe358e62f9d47be5ae1ac3e"
+    },
+    {
+      "name": "cold reload 2: native Continue preserves every root ref age view theme water cell and other-slot byte",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "ffcb78dc34bb3c645134436ded61460e10d2e2bf2f576463fdf161367cd40167"
+    },
+    {
+      "name": "cold reload 2: paused frame 1 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "f6a78dafa927fc4fa361ba7d2920fda744eac4d2247e730040ef1d2a6be74195"
+    },
+    {
+      "name": "cold reload 2: paused frame 2 retains the exact saved day identities paths water and other slots",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "176da639f2fa9704a98e4b4b65b2f94809a0c5b0cd182ee5f4ba44be797bbb74"
+    },
+    {
+      "name": "cold reload 2: FIRST unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "8347bfd45772b4d7623af79140b8b544ad38837231fbbb1d29cbf57e6d6ce7f8"
+    },
+    {
+      "name": "cold reload 2: 2 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "ee8ad53dcd6febd20ce4e142363d3bedb651fe060511ac984942e7f733e4a6dd"
+    },
+    {
+      "name": "cold reload 2: 3 unaided ordinary day retains road power water public staff cultural leisure and every theme",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "364d19aa1c775b3f0d7d0b3dbcaa015f3fcea041a7de06dc16daaaffd61a8120"
+    },
+    {
+      "name": "both independent public cold reloads passed their very first ordinary day",
+      "ok": true,
+      "scope": "functional",
+      "originalDetailSHA256": "cadab5e928c815678c01b5957714e2f77006b4c609df3fbbce4a2d16aab29b9b"
+    },
+    {
+      "name": "all 12 permanent buildings and 16 independent path registrations exactly match approved source",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "27b0d853dd7fd6935bab8d11312a5cda937b65c47f4f77e1d51c4d3890668ebb"
+    },
+    {
+      "name": "normal public city genuinely buys all 12 age-zero roots and 16 paid themes with real utilities",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "e082f4d6f12e94311857352cc3826d8ccfcaa6af0a987384c573689942b204ff"
+    },
+    {
+      "name": "all 12 new roots require nine genuine ordinary construction days before any service or income",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "dc8de4da584f8372560cfbe2f94f3f9ecb159947aa4eef259a1654878d5c6fe2"
+    },
+    {
+      "name": "all four complexes attain exact native power water jobs education leisure services housing and fire readiness",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "d48e0a5767593734408f6b8367228a07c94d025a49414dea95d608a1e2d7794c"
+    },
+    {
+      "name": "all four actual official day and night views retain three complete canonical independently owned buildings",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "6b311643d45b9e137983642ebeab72251adb3319e2bbfef2093dad891ec76fca"
+    },
+    {
+      "name": "complex cold 1: exact current native save contains all 12 operating roots and 16 themes",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "09436ba2797dd5a91eed9cdbc72c7a84a35ef5e8533abc2657ba826388e05ef9"
+    },
+    {
+      "name": "complex cold 1: actual official Page.reload boots native menu",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "complex-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "8fa91732d68358692fd0ea17450daea1dec508a7f8a060cfe6aacc5eedad5761"
+    },
+    {
+      "name": "complex cold 1: exact native save bytes survive T730 menu and previous fixture memory is gone",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "82a6cb8180b3564f18ceafedefb396846467d76e9f30f33839e7848735548f2f"
+    },
+    {
+      "name": "complex cold 1: paused native Continue preserves all identities themes water and other save slots",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "b969a31ad9b0b841232c6624ec51eac88c31dd9b51cbf11531a74e24c81e1f1e"
+    },
+    {
+      "name": "complex cold 1: paused frame 1 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "546047ead3c644714a6833f03d9b1426bf02feea2e9a54f86b7120cddbf64b85"
+    },
+    {
+      "name": "complex cold 1: paused frame 2 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "404662e95982a0a99a7b6751c76faff180582833df578a5ee74ccfb0f7d36734"
+    },
+    {
+      "name": "complex cold 1: FIRST unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "e9c17fd415b74e5ce9358abffbe87110d62c0e85fcb8b897b194c332c3be2699"
+    },
+    {
+      "name": "complex cold 1: 2 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "d203484d876c3f602e9305762330fffbbf17f97853843910815270ed84c021bf"
+    },
+    {
+      "name": "complex cold 1: 3 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "eacb9b0781ad1b409bb68a53a27c6c343537b1ce75cbc957bb01c35baf043531"
+    },
+    {
+      "name": "complex cold 2: exact current native save contains all 12 operating roots and 16 themes",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "b2705c96531c338a3ee1f9816964289db94ae81f0e6a7664d55891b0c6547324"
+    },
+    {
+      "name": "complex cold 2: actual official Page.reload boots native menu",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "complex-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "f9dc659bbb6e5c4a15375289e19fdeac2fdb39559c6253a5e7e8f296093fff45"
+    },
+    {
+      "name": "complex cold 2: exact native save bytes survive T730 menu and previous fixture memory is gone",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "d46d79b8f9fd20089681e218b185d30c4723d0c82f697a562200d96439e43407"
+    },
+    {
+      "name": "complex cold 2: paused native Continue preserves all identities themes water and other save slots",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "fd241b2f20f1d4386e34753fc175333904f755ac0f42a17e6e13f883f81b2b51"
+    },
+    {
+      "name": "complex cold 2: paused frame 1 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "19473691f7753dacce83ca328b5bcfb02a998b6f9d94380d1020ab5ddb5883f7"
+    },
+    {
+      "name": "complex cold 2: paused frame 2 retains exact saved day identities paths water and slots",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "7864105152e2051536686e46cb22e078dddc36bcee9ecaab90c41e566f292e81"
+    },
+    {
+      "name": "complex cold 2: FIRST unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "984e5de52a3405a877b6212fbf73b38385684b6271abd199ee2f3e59ba968587"
+    },
+    {
+      "name": "complex cold 2: 2 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "54d04b5888eb6a45904816876e659870294427d520bba7d4aa24bbc97ad4ecc8"
+    },
+    {
+      "name": "complex cold 2: 3 unaided ordinary day preserves all native services and exact ownership",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "7dd78d9934503f252a09d2b1b622fa1951f90242ab6b2c2d333402bb986e6d26"
+    },
+    {
+      "name": "both four-complex cold reloads pass their first and all three unaided ordinary days",
+      "ok": true,
+      "scope": "complexes",
+      "originalDetailSHA256": "ee5d97ff90fd6e4b1280db52aa442b60e232793e92015263b83cd22ef832fd65"
+    },
+    {
+      "name": "all eight independently paid native themes exactly match approved source catalog",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "f08a08f673ab81933ab27abf97f9989c4367fc33646490a83eb3441876489135"
+    },
+    {
+      "name": "all eight official tools enforce native city-level-four lock",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "7009e936a3de0b3ce7702c6a7c6897d532bdca1f41c93a02c4560145c31627db"
+    },
+    {
+      "name": "all eight actual paid T502 themes preserve old native roots and prior themed paths",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "01eba80d4e0244bf0bcd44c245523c692b5b3b799a99ccafa408c8a7280ed382"
+    },
+    {
+      "name": "all retained ensemble roots beside new paths require nine real construction days",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "df10b4895f38dbd075a54b522069ec04aa1bde3cb09d607ecc8b88d267466b31"
+    },
+    {
+      "name": "old native city and all eight new paths achieve actual utility staff housing fire and physical-road lamp service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "7f8d5cdd597073a1f3de8152e2e01159007a8f641200e6f4fff499935670b75b"
+    },
+    {
+      "name": "each paid path survives exact native demolition undo redo and restoration",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "4fe8fbd5683715430544ceefa483633dc44b03834fabe20a088fca8adaecd881"
+    },
+    {
+      "name": "all eight genuine paid theme edits persist through native save load and ordinary day",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "2ccfcdc157711c934405ece354d1c3d02c6a0c2be03266232ba962da6b6c3c83"
+    },
+    {
+      "name": "occupied native themes reject conflicts without tile or money mutation",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "dfa9c218e45f05093a637a6baef7ed3f366573386866b3f74e8d1e5d5499ad9d"
+    },
+    {
+      "name": "four actual official day and night scenes contain all eight original canonical details",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "042b452a0da42ec7505ece8e2e5ffbc56c25a9e4ef282cff3c3d4f93021a2d01"
+    },
+    {
+      "name": "both physical lamp masks use actual supplied adjacent road with unchanged world and storage",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "e97bf004a47f56fbc64497bc007dacfe098e328994d565946e10a039c5d41785"
+    },
+    {
+      "name": "streetscape cold 1: current native save contains old city and all eight paid themes",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "3247001e9320eb5f7a8b343b844752e06d00ed19f96e887ccc21eecdd5234b09"
+    },
+    {
+      "name": "streetscape cold 1: actual official reload boots native menu",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "streetscape-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "63a02ecb83ee75dacf80f173c315dbbb8d17c7dac72cd84fd5a59ab933da182a"
+    },
+    {
+      "name": "streetscape cold 1: exact complete save bytes and T730 menu survive with fixture memory absent",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "85951bd6b9a5a947535f7cd6d3f03a72bcee197f0b3c7e02e26bc95c410fff0f"
+    },
+    {
+      "name": "streetscape cold 1: paused Continue preserves all roots refs ages directions themes water and other slots",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "7a334318555bdae19269f0d521d95098492480bcfda07eb43024b22063e19864"
+    },
+    {
+      "name": "streetscape cold 1: paused frame 1 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "f32f40f73116a4ca07cfd270c821d88bdd6db9f3f2a16a7ef0ca7fc62ac158ec"
+    },
+    {
+      "name": "streetscape cold 1: paused frame 2 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "7e30851153444553f10dbc873d93cb9b701219e49970c9ba50d80754b4e83b2a"
+    },
+    {
+      "name": "streetscape cold 1: FIRST unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "34223afc76b21f13da6ec4aefe49ece1e144ab61b672f0aa5d67e48168d36d41"
+    },
+    {
+      "name": "streetscape cold 1: 2 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "ad7dc6533cb57c0b2f30d4302634c9819f63c222995bad2a04456ea34d022e0d"
+    },
+    {
+      "name": "streetscape cold 1: 3 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "d73546d78fbe24d8a80801e83d5bef182d85e7356c557a0953780b465fc1b662"
+    },
+    {
+      "name": "streetscape cold 2: current native save contains old city and all eight paid themes",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "a34dd874e41b0bc0722ff0e5d2bf7fb2a46701488a768de0755563a42580793e"
+    },
+    {
+      "name": "streetscape cold 2: actual official reload boots native menu",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "streetscape-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "a53f23113b65642ee39affeb3952a4796880b827f37cfd982f9162cade9ceba6"
+    },
+    {
+      "name": "streetscape cold 2: exact complete save bytes and T730 menu survive with fixture memory absent",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "57ab8ca9862feca15f72c44426a2517e0f1c55b9f1d8b13bacbec2c2e591f7c1"
+    },
+    {
+      "name": "streetscape cold 2: paused Continue preserves all roots refs ages directions themes water and other slots",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "a075a4a19da5d007a2cdf2a742c4d588d83e3738b885e4c40eb2a6eed1af6f64"
+    },
+    {
+      "name": "streetscape cold 2: paused frame 1 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "0a621dacd528637344ebf70ec87ab9e80955e2d589664d34d5132de1fbc7cde9"
+    },
+    {
+      "name": "streetscape cold 2: paused frame 2 retains saved day exact ownership and other slots",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "bc391616c266a1a36fd31789c4c96db05bd8e7f907b36b28bde04f74b6f54749"
+    },
+    {
+      "name": "streetscape cold 2: FIRST unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "a2c01ff904ba0d1a588cd9c836f9e37a1979c6b89976aeb60a29be75a0f69b3d"
+    },
+    {
+      "name": "streetscape cold 2: 2 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "6483d7ac8497adb81a82d06c52be4768e88ada5ae01a19682b15bc4df1268a16"
+    },
+    {
+      "name": "streetscape cold 2: 3 unaided ordinary day retains every theme and real native service",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "4db6aac6cf871f1b115349fc07f3f400aa06b27011f850a977a74535f5215a4c"
+    },
+    {
+      "name": "both eight-theme cold Continue cycles pass their first and all three unaided days",
+      "ok": true,
+      "scope": "streetscape",
+      "originalDetailSHA256": "a00f8d0640599e582912932be99077bc708f066b3d0b133721cceb65b84a3fda"
+    },
+    {
+      "name": "all six paid garden themes exactly match the approved non-emissive source catalog",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "f5f2037ae68aa90fcd15dc8b01050e9c61e77afe7958635757828b589a8bb4d0"
+    },
+    {
+      "name": "all six garden tools enforce native city-level-four lock",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "0316f38e911e2f5b4a565f239d6fa5e4c8bbad3188c15598feafa2389888d087"
+    },
+    {
+      "name": "six actual paid garden paths preserve every old native root and all eight genuinely paid streetscape themes",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "7e75d698951d5456ecfdd749ba042e283dbc3c83f9902de3c71776fb003c29d6"
+    },
+    {
+      "name": "all twenty-four installed garden views and all twenty-four empty night surfaces match exact approved native PNG bytes",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "288161d89fe1b593b01ffe9cee2e7e086f11d0e0e40918b225ebef19d4183cb9"
+    },
+    {
+      "name": "all twelve retained ensemble roots beside garden paths require nine real construction days",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "452429929e99cfbdf4d89c5c93070216cac08bdb0aec28713ca30ec4157d8cfd"
+    },
+    {
+      "name": "old native city and all six garden plus eight streetscape themes retain genuine native utility staffing housing fire and road service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "578e1c842c87ce062eaee1cf565613ce97d0642c234937147935a99ee6b2d549"
+    },
+    {
+      "name": "each paid garden path survives exact native demolition undo redo and restoration",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "3e963e1a141bd8c3a48802826fc08db53cc168726d0e89c60aa4a07a008dc36f"
+    },
+    {
+      "name": "six genuine paid garden theme edits retain direction through native save load ordinary day and disabled-placement load",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "8626e4590876418bf37f0691ff8f3c10f2b144d74110c7314e8dc1942e802d8b"
+    },
+    {
+      "name": "garden ownership rejects every declared conflict and escape control restores exact paid native path",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "68b49f802f457498b59622572eabb970be93913a340eccf2f7d0b5efc35c0823"
+    },
+    {
+      "name": "all six canonical garden themes render in four genuine camera directions and day/night without changing any canonical PNG byte",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "2be0ca4f09061b25391e77a8b44c287d6c55acb31c47ef2bdd013866f47d71fd"
+    },
+    {
+      "name": "complete 3115 leaves 162 families 1728 blocks remain exact and six garden themes stay strictly non-emissive",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "d8ed2462129c65c319a3f4100b9c9b5e6999258b7817f46a042ee49e4cd98263"
+    },
+    {
+      "name": "garden cold 1: native save contains old city and all six garden plus eight old paid themes",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "e657440ac4939ff63bd1b40f25c348c950e8f17ce9585b5799deb5dae80feda3"
+    },
+    {
+      "name": "garden cold 1: actual official reload boots native menu",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "garden-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "6744b682c72c82ce7e861b49b573ba6f225f055d3974053132280e5a76f56e5e"
+    },
+    {
+      "name": "garden cold 1: exact complete native save bytes survive T730 menu with all fixture memory absent",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "34d47cdeccf04d622660416b62a69997b08e0065fd0daa35202313b76ba68565"
+    },
+    {
+      "name": "garden cold 1: immediate paused Continue preserves every old root ref age all fourteen directions themes water and other slots",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "6c7e599dfd56a4a1f39dce9edb0ea4e92057293ff68a3ddc085e2b094a81604c"
+    },
+    {
+      "name": "garden cold 1: paused frame 1 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "363106723cd8262b503da652a940f98ec7cd49ec21dafe87107276b84cba256b"
+    },
+    {
+      "name": "garden cold 1: paused frame 2 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "de4238b6b5545a9edb8ddc608830628cc454a1d912b987ae24e3ad8b5a688ec9"
+    },
+    {
+      "name": "garden cold 1: FIRST unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "114dd641e47c91c9028c0c9b98816c6bd765ec85cefccff9ba0ceed8bf33ca10"
+    },
+    {
+      "name": "garden cold 1: 2 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "0c55611ab8727221fe8e42e48f63115592f092833aafb999b023830f532bad65"
+    },
+    {
+      "name": "garden cold 1: 3 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "5fbbe8bc3e82242a5e3dfa7ddc9e208ab1505bef58cc79b32bdd071d7ba56bdf"
+    },
+    {
+      "name": "garden cold 2: native save contains old city and all six garden plus eight old paid themes",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "b6007edfa99ea2edeab7be0f080bfbdf2e35327c01ff9bcc5691fa27a477782f"
+    },
+    {
+      "name": "garden cold 2: actual official reload boots native menu",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "garden-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "cce7ec8fa896002df1ab406adef50148df9438a97468ea40b62c29810d0d7fcb"
+    },
+    {
+      "name": "garden cold 2: exact complete native save bytes survive T730 menu with all fixture memory absent",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "8603ac433504ae5cea80eb4482aff89ddcd6e4eed3b655ba54ce134aa2a7f33c"
+    },
+    {
+      "name": "garden cold 2: immediate paused Continue preserves every old root ref age all fourteen directions themes water and other slots",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "0195ba4ae6972fa95c6c6830a3207a76b8dda6732e216e59b47cfde63574cc45"
+    },
+    {
+      "name": "garden cold 2: paused frame 1 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "1b38821c8114ac4563b8f104fa87a7579358753607e9ce235af40016bccbb065"
+    },
+    {
+      "name": "garden cold 2: paused frame 2 retains saved day exact ownership and all fourteen directions",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "e9552bd035ebc3334a5f9942409d47ad7684e03acfda78fdded42f7ee2250ff5"
+    },
+    {
+      "name": "garden cold 2: FIRST unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "6b866cf304ad0b69be15eac21fa1606177df2ec802bf9fe9b95e6c34807b4241"
+    },
+    {
+      "name": "garden cold 2: 2 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "f126e58dfb1716b68f28ef72abad2e7191793d27907e43edb223d3884464a6e2"
+    },
+    {
+      "name": "garden cold 2: 3 unaided ordinary day retains all fourteen themes and real native service",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "a57c97573e4c0742256607aebdcdf9e18e79627d6da25ea7061c8aebbb167e34"
+    },
+    {
+      "name": "both six-garden plus eight-streetscape cold Continue cycles pass their first and all three unaided days",
+      "ok": true,
+      "scope": "garden",
+      "originalDetailSHA256": "8d22937e30ed77ce987d59c9f4fe2b5b7724607bf2fc6d94be6ea8d5605c6730"
+    },
+    {
+      "name": "all six paid quayside themes exactly match the approved non-emissive source catalog",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "98242e5c918d176cfc98b59f5845ee833185bd46695c2d6fc111abe64834fdcf"
+    },
+    {
+      "name": "all six quayside tools enforce native city-level-four lock",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "15158708f6923d572eefee384bdf8693e7dcff37d5dff145316de51ee12a8fec"
+    },
+    {
+      "name": "six actual paid quayside paths preserve every old native root and all eight genuinely paid streetscape themes",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "808ae02d3052ba7f8d02073a10ecd3419fdc97e555233a7c5fc7704343cf6daa"
+    },
+    {
+      "name": "all twenty-four installed quayside views and all twenty-four empty night surfaces match exact approved native PNG bytes",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "58484184638b0c33571f68ccc74fc2fa592ef72aa2a1e4810fcfc9ce0b3309cb"
+    },
+    {
+      "name": "all twelve retained ensemble roots beside quayside paths require nine real construction days",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "07e7e4e2c99ac550b243a4508f6da00600d32b7e3e5aaf3dea07e4fffd63c7b1"
+    },
+    {
+      "name": "old native city and all six quayside plus fourteen retained themes retain genuine native utility staffing housing fire and road service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "b2d31458ed0411b88615c19c6fa01a7c2601678f2fe9ce593ab3ae1da4d89533"
+    },
+    {
+      "name": "each paid quayside path survives exact native demolition undo redo and restoration",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "3e61442ef9a561e5c8be1fd93c5776c30f752637601c5ba9cbea987ee6a138da"
+    },
+    {
+      "name": "six genuine paid quayside theme edits retain direction through native save load ordinary day and disabled-placement load",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "5d10649f987df258f210405c44a5b14d8b3a6f13881b59e8868a46bb336d4d34"
+    },
+    {
+      "name": "quayside ownership rejects every declared conflict and escape control restores exact paid native path",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "a2c3b46ed7038f40c767d1c69dbca66bc77b7b2a74ed39f3b1ff2f8a8b1a2434"
+    },
+    {
+      "name": "all six canonical quayside themes render in four genuine camera directions and day/night without changing any canonical PNG byte",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "aa7d2b7b4ad160afe9360ad65546fbbc3e86ebfcca02c3d2d1f951e2ecb51c8c"
+    },
+    {
+      "name": "complete 3139 leaves 163 families 1728 blocks remain exact and six quayside themes stay strictly non-emissive",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "5f4405419722930ecbaf35ca4c83c5f3331f84676fc5f4ef0eff491b826a705d"
+    },
+    {
+      "name": "quayside cold 1: native save contains old city and all six quayside plus fourteen old paid themes",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "adbf829e50cd78fa848232703c5da6b1fae014c52b5e3d1048e44d4540636ef7"
+    },
+    {
+      "name": "quayside cold 1: actual official reload boots native menu",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "quayside-cold-page-reload-1: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "8be4c18459020a49d1cffb3bcf3eab84495694982df4441c44e558621ee60735"
+    },
+    {
+      "name": "quayside cold 1: exact complete native save bytes survive T730 menu with all fixture memory absent",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "545d10ea6f1f6af8a55ce2e8826c2b26278c919de3207d14dfd1dba3da028cee"
+    },
+    {
+      "name": "quayside cold 1: immediate paused Continue preserves every old root ref age all twenty directions themes water and other slots",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "59474cef784c8a72174a51460581417c80b565fb95ebebf3b3067a554270fe5a"
+    },
+    {
+      "name": "quayside cold 1: paused frame 1 retains saved day exact ownership and all twenty directions",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "1c2ab6049280df73d1c1d6d45326a7708e0cad89f71b73bed69d72f340d26ba9"
+    },
+    {
+      "name": "quayside cold 1: paused frame 2 retains saved day exact ownership and all twenty directions",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "6cad44dfcdccd7115d4397375dfdabafcb8968c7f0c3adce0d25401a863a076d"
+    },
+    {
+      "name": "quayside cold 1: FIRST unaided ordinary day retains all twenty themes and real native service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "d4a87b1a4f0136b2f60a54adf36049dc2531f9d53c72d18f3f3db20645537249"
+    },
+    {
+      "name": "quayside cold 1: 2 unaided ordinary day retains all twenty themes and real native service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "c13903c747f95d4a1a1567e96a6314f26233e4f35619f53575f5b872731c1091"
+    },
+    {
+      "name": "quayside cold 1: 3 unaided ordinary day retains all twenty themes and real native service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "d39fe8d9a9282c2f92ff69847286388c09c5d094258a0b65d5dc7cf0ccb2b303"
+    },
+    {
+      "name": "quayside cold 2: native save contains old city and all six quayside plus fourteen old paid themes",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "131729b6e00ba72fe9948090a870bb2e8403feddd8f1f4d015877a5d4aab1ac9"
+    },
+    {
+      "name": "quayside cold 2: actual official reload boots native menu",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "name": "quayside-cold-page-reload-2: Chrome truly navigated the exact official public HTML",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "1834f0944389e7a6816077cb21130105c204e5330823b2e088b4a63b197f28c6"
+    },
+    {
+      "name": "quayside cold 2: exact complete native save bytes survive T730 menu with all fixture memory absent",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "7c680c83886bec724e24c478c064f6611083a23bd3f3d2a3f8b5ae796cf166b2"
+    },
+    {
+      "name": "quayside cold 2: immediate paused Continue preserves every old root ref age all twenty directions themes water and other slots",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "f530b5450e264b67c57ed34a34832487d004da2d04c01d2ddf00c732364d2674"
+    },
+    {
+      "name": "quayside cold 2: paused frame 1 retains saved day exact ownership and all twenty directions",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "a3acc27a4b0febbdcc95fa87ef04983e4dfc5d807c8ee2e7cc56b114cd397144"
+    },
+    {
+      "name": "quayside cold 2: paused frame 2 retains saved day exact ownership and all twenty directions",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "38e8fc4d3d2bb04ce09ffee2c5421c659fa8583a6eee7aa9d77a049db1bcf4a1"
+    },
+    {
+      "name": "quayside cold 2: FIRST unaided ordinary day retains all twenty themes and real native service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "0fe05703c353b8584c1da7c4fb1cba2f6d098dfb5826bf0da5bf7cee71d9cb9d"
+    },
+    {
+      "name": "quayside cold 2: 2 unaided ordinary day retains all twenty themes and real native service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "6e972294a1a5f4ebaddb87ad544bcde19f8205aadafc6a8e604b27fe0bd4ca53"
+    },
+    {
+      "name": "quayside cold 2: 3 unaided ordinary day retains all twenty themes and real native service",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "a5af6f6807571973d68cc56b040272e54cdbba45897af0cb53db6ccd3dd44825"
+    },
+    {
+      "name": "both six-quayside plus fourteen-retained-theme cold Continue cycles pass their first and all three unaided days",
+      "ok": true,
+      "scope": "quayside",
+      "originalDetailSHA256": "f917cfd882d2a98fd99288d3a80978be8fc582d23891ed045552712b9044cb88"
+    },
+    {
+      "name": "after-browser: public HTML is the exact deployed checkout bytes",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "a28dd4941ed4160f6d3e5b614fcdc8595b1dd0e4cf814f50491021591b7de741"
+    },
+    {
+      "name": "all exact official document source and native save gates completed",
+      "ok": true,
+      "scope": "provenance",
+      "originalDetailSHA256": "90dfe8801595723b200b97b8637284763ac0da11910908693f4a0c558c847940"
+    },
+    {
+      "name": "strict raw console is clean with no known or unknown errors warnings or network failures",
+      "ok": false,
+      "scope": "diagnostics",
+      "originalDetailSHA256": "360055d0dc7a666155f2bb6f48ea28e728fd3be1b345e1a6ab8e8ba9391135dd"
+    }
+  ],
+  "browserDiagnosticSummary": {
+    "observed": true,
+    "rawBrowserErrorCount": 66,
+    "rawRuntimeErrorCount": 0,
+    "knownPWA404ResponseCount": 33,
+    "knownPWAErrorCount": 55,
+    "unclassifiedRawBrowserErrorCount": 11,
+    "unknownErrorCount": 11,
+    "networkFailureCount": 0,
+    "warningCount": 53819,
+    "rawConsoleClean": false,
+    "strictErrorGatePassed": false,
+    "unknownErrors": [
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ ",
+      "Browser log: A bad HTTP response code (404) was received when fetching the script. @ "
+    ],
+    "networkFailures": [],
+    "classificationPolicy": "Inherited exact PWA resource URL plus independently matching numeric HTTP 404 only. URL-less script errors remain unknown. Known logs and warnings remain raw and cannot satisfy the strict clean gate."
+  },
+  "provenanceSummary": {
+    "passed": true,
+    "expectedChecks": 11,
+    "checksExecuted": 11,
+    "checksPassed": 11,
+    "checksFailed": 0,
+    "documentsObserved": 11,
+    "expectedDocuments": 11
+  },
+  "functionalSummary": {
+    "status": "passed",
+    "passed": true,
+    "expectedChecks": 26,
+    "checksExecuted": 26,
+    "checksPassed": 26,
+    "checksFailed": 0,
+    "failedChecks": [],
+    "constructionDaysObserved": 9,
+    "coldReloads": [
+      {
+        "cycle": 1,
+        "currentSaveSHA256": "3786614fe2220b543797e99cdba32a7966bd876abea732b4e65fded301c2cd4d",
+        "currentSaveBytes": 66423,
+        "savedNativeDay": 10,
+        "expectedOrdinaryDays": 3,
+        "ordinaryDaysObserved": 3,
+        "ordinaryDaysPassed": 3,
+        "firstOrdinaryDay": "passed",
+        "observedNativeDays": [
+          11,
+          12,
+          13
+        ]
+      },
+      {
+        "cycle": 2,
+        "currentSaveSHA256": "707c148ca090121ea995c6420a18d99c31db6e9df9845bffb988552068c3b15c",
+        "currentSaveBytes": 54809,
+        "savedNativeDay": 13,
+        "expectedOrdinaryDays": 3,
+        "ordinaryDaysObserved": 3,
+        "ordinaryDaysPassed": 3,
+        "firstOrdinaryDay": "passed",
+        "observedNativeDays": [
+          14,
+          15,
+          16
+        ]
+      }
+    ]
+  },
+  "complexSummary": {
+    "passed": true,
+    "expectedChecks": 26,
+    "checksExecuted": 26,
+    "checksPassed": 26,
+    "failedChecks": [],
+    "constructionDaysObserved": 9,
+    "coldReloads": [
+      {
+        "cycle": 1,
+        "save": {
+          "bytes": 74694,
+          "sha256": "5ad498c75677de9c803d8374b60343ad382b1ed7d4b15649bf5be2a80d5c7f59",
+          "version": "14.34",
+          "schema": 1,
+          "day": 10,
+          "money": 99835899
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      },
+      {
+        "cycle": 2,
+        "save": {
+          "bytes": 62487,
+          "sha256": "82238b410ea988bc18576aa6cb6d4e02ca7755ce5974b86b0bbc560d7580335c",
+          "version": "14.34",
+          "schema": 1,
+          "day": 13,
+          "money": 99834833
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      }
+    ]
+  },
+  "streetscapeSummary": {
+    "passed": true,
+    "expectedChecks": 31,
+    "checksExecuted": 31,
+    "checksPassed": 31,
+    "failedChecks": [],
+    "constructionDaysObserved": 9,
+    "coldReloads": [
+      {
+        "cycle": 1,
+        "save": {
+          "bytes": 67012,
+          "sha256": "c64194344b7c5244b74a6b64da5c001f2db542bd0e748b333aa8efe307215dce",
+          "version": "14.34",
+          "schema": 1,
+          "day": 19,
+          "money": 99832273
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      },
+      {
+        "cycle": 2,
+        "save": {
+          "bytes": 84994,
+          "sha256": "cca204fb7e17e2143d26ae3b865305fd02be68093466aeb38722fd74bf9057cb",
+          "version": "14.34",
+          "schema": 1,
+          "day": 22,
+          "money": 99831180
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      }
+    ]
+  },
+  "gardenSummary": {
+    "passed": true,
+    "expectedChecks": 32,
+    "checksExecuted": 32,
+    "checksPassed": 32,
+    "failedChecks": [],
+    "constructionDaysObserved": 9,
+    "coldReloads": [
+      {
+        "cycle": 1,
+        "save": {
+          "bytes": 69332,
+          "sha256": "260cac0ffc830c6b8fde3a679883cb8249342300596cfb55b977a669ff4a8f5b",
+          "version": "14.34",
+          "schema": 1,
+          "day": 17,
+          "money": 99832968
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      },
+      {
+        "cycle": 2,
+        "save": {
+          "bytes": 78397,
+          "sha256": "be695a6b2c3e032a0da8f743a15119424b0253adc923991b4d315406f997d259",
+          "version": "14.34",
+          "schema": 1,
+          "day": 20,
+          "money": 99831884
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      }
+    ]
+  },
+  "quaysideSummary": {
+    "passed": true,
+    "expectedChecks": 32,
+    "checksExecuted": 32,
+    "checksPassed": 32,
+    "failedChecks": [],
+    "constructionDaysObserved": 9,
+    "coldReloads": [
+      {
+        "cycle": 1,
+        "save": {
+          "bytes": 71102,
+          "sha256": "4aca0e1cc7d028b6a0fcd6d56f5fb3692333ac6589e61553c72fd8d125336850",
+          "version": "14.34",
+          "schema": 1,
+          "day": 17,
+          "money": 99832788
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      },
+      {
+        "cycle": 2,
+        "save": {
+          "bytes": 79990,
+          "sha256": "5a53bb19dfe3a0d47ca1cd0f97062de6c71e5aaf1d929de452acd0a861715851",
+          "version": "14.34",
+          "schema": 1,
+          "day": 20,
+          "money": 99831704
+        },
+        "daysObserved": 3,
+        "firstOrdinaryDay": "passed"
+      }
+    ]
+  },
+  "finishedAt": "2026-10-07T00:15:27.640Z",
+  "formalRun": "37549893272",
+  "runURL": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37549893272",
+  "officialDocuments": 11,
+  "coldContinueCycles": 10,
+  "evidenceRecords": [
+    {
+      "originalPath": "quayside-evidence/public/console-source-attribution.json",
+      "payloadPath": "quayside-evidence/public/console-source-attribution.json.gz",
+      "compression": "gzip",
+      "originalBytes": 116685719,
+      "payloadBytes": 1474212,
+      "sha256": "47324e6b7da576589240aed6a5d4f7eebb15d69d25b5c7866df27eb70e666470",
+      "payloadSHA256": "432739a1968cdc18a618210e264b228b0a25aba6d5aab60db031ee987929623e"
+    },
+    {
+      "originalPath": "quayside-evidence/public/fingerprint-native.json",
+      "payloadPath": "quayside-evidence/public/fingerprint-native.json",
+      "compression": "none",
+      "originalBytes": 590093,
+      "payloadBytes": 590093,
+      "sha256": "81e486533bf7f386ea96826dc77b7d0ced84f740ab646114f5b7595fbb7e28cf",
+      "payloadSHA256": "81e486533bf7f386ea96826dc77b7d0ced84f740ab646114f5b7595fbb7e28cf"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_0.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_0.png",
+      "compression": "none",
+      "originalBytes": 1830,
+      "payloadBytes": 1830,
+      "sha256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452",
+      "payloadSHA256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_1.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_1.png",
+      "compression": "none",
+      "originalBytes": 1778,
+      "payloadBytes": 1778,
+      "sha256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81",
+      "payloadSHA256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_2.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_2.png",
+      "compression": "none",
+      "originalBytes": 1756,
+      "payloadBytes": 1756,
+      "sha256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8",
+      "payloadSHA256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_3.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/birdbathCourt_3.png",
+      "compression": "none",
+      "originalBytes": 1772,
+      "payloadBytes": 1772,
+      "sha256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742",
+      "payloadSHA256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_0.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_0.png",
+      "compression": "none",
+      "originalBytes": 1802,
+      "payloadBytes": 1802,
+      "sha256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f",
+      "payloadSHA256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_1.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_1.png",
+      "compression": "none",
+      "originalBytes": 1840,
+      "payloadBytes": 1840,
+      "sha256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc",
+      "payloadSHA256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_2.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_2.png",
+      "compression": "none",
+      "originalBytes": 1796,
+      "payloadBytes": 1796,
+      "sha256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23",
+      "payloadSHA256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_3.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/chessCourt_3.png",
+      "compression": "none",
+      "originalBytes": 1765,
+      "payloadBytes": 1765,
+      "sha256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5",
+      "payloadSHA256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_0.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_0.png",
+      "compression": "none",
+      "originalBytes": 2078,
+      "payloadBytes": 2078,
+      "sha256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53",
+      "payloadSHA256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_1.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_1.png",
+      "compression": "none",
+      "originalBytes": 2101,
+      "payloadBytes": 2101,
+      "sha256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0",
+      "payloadSHA256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_2.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_2.png",
+      "compression": "none",
+      "originalBytes": 2001,
+      "payloadBytes": 2001,
+      "sha256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1",
+      "payloadSHA256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_3.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/croquetCorner_3.png",
+      "compression": "none",
+      "originalBytes": 1979,
+      "payloadBytes": 1979,
+      "sha256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630",
+      "payloadSHA256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_0.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_0.png",
+      "compression": "none",
+      "originalBytes": 2040,
+      "payloadBytes": 2040,
+      "sha256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29",
+      "payloadSHA256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_1.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_1.png",
+      "compression": "none",
+      "originalBytes": 2061,
+      "payloadBytes": 2061,
+      "sha256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5",
+      "payloadSHA256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_2.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_2.png",
+      "compression": "none",
+      "originalBytes": 1944,
+      "payloadBytes": 1944,
+      "sha256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464",
+      "payloadSHA256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_3.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/orchardPress_3.png",
+      "compression": "none",
+      "originalBytes": 1998,
+      "payloadBytes": 1998,
+      "sha256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa",
+      "payloadSHA256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_0.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_0.png",
+      "compression": "none",
+      "originalBytes": 1971,
+      "payloadBytes": 1971,
+      "sha256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29",
+      "payloadSHA256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_1.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_1.png",
+      "compression": "none",
+      "originalBytes": 1962,
+      "payloadBytes": 1962,
+      "sha256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909",
+      "payloadSHA256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_2.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_2.png",
+      "compression": "none",
+      "originalBytes": 1894,
+      "payloadBytes": 1894,
+      "sha256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79",
+      "payloadSHA256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_3.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pottingBench_3.png",
+      "compression": "none",
+      "originalBytes": 1905,
+      "payloadBytes": 1905,
+      "sha256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1",
+      "payloadSHA256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_0.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_0.png",
+      "compression": "none",
+      "originalBytes": 1841,
+      "payloadBytes": 1841,
+      "sha256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18",
+      "payloadSHA256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_1.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_1.png",
+      "compression": "none",
+      "originalBytes": 1846,
+      "payloadBytes": 1846,
+      "sha256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56",
+      "payloadSHA256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_2.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_2.png",
+      "compression": "none",
+      "originalBytes": 1824,
+      "payloadBytes": 1824,
+      "sha256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748",
+      "payloadSHA256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_3.png",
+      "payloadPath": "quayside-evidence/public/garden-after-four-views/assets/pumpCourt_3.png",
+      "compression": "none",
+      "originalBytes": 1820,
+      "payloadBytes": 1820,
+      "sha256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751",
+      "payloadSHA256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_0.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_0.png",
+      "compression": "none",
+      "originalBytes": 1830,
+      "payloadBytes": 1830,
+      "sha256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452",
+      "payloadSHA256": "7e1d4a7b7ee303dd7e0745c0af1e2051cdf4fa4149067080b2c691ff63525452"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_1.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_1.png",
+      "compression": "none",
+      "originalBytes": 1778,
+      "payloadBytes": 1778,
+      "sha256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81",
+      "payloadSHA256": "aaaddb4e6174bd7ae8425009d37c0aae6678ee5d8ec196395f06bebbcc90ae81"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_2.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_2.png",
+      "compression": "none",
+      "originalBytes": 1756,
+      "payloadBytes": 1756,
+      "sha256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8",
+      "payloadSHA256": "62c929d59146cf4d3ee113f9c88c36538c285d1a8c03012cc9c5444bd602dca8"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_3.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/birdbathCourt_3.png",
+      "compression": "none",
+      "originalBytes": 1772,
+      "payloadBytes": 1772,
+      "sha256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742",
+      "payloadSHA256": "7cef9c86ab27993417006cec39738c547172b4e5fdae44a4ba5b72b2f29df742"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_0.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_0.png",
+      "compression": "none",
+      "originalBytes": 1802,
+      "payloadBytes": 1802,
+      "sha256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f",
+      "payloadSHA256": "d335afa98aeca23388614d87af78b6ba7fd43512ecd57fa63d48832faf33339f"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_1.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_1.png",
+      "compression": "none",
+      "originalBytes": 1840,
+      "payloadBytes": 1840,
+      "sha256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc",
+      "payloadSHA256": "a9f3255bdcfe3bb5b55c56a677e8ed93b6f2610c8fec6751e3a7b3bdcfecfadc"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_2.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_2.png",
+      "compression": "none",
+      "originalBytes": 1796,
+      "payloadBytes": 1796,
+      "sha256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23",
+      "payloadSHA256": "64850195e76f9f8b851eff22503a56975b57a92b4aa0d218e99a7887ffe8eb23"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/chessCourt_3.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/chessCourt_3.png",
+      "compression": "none",
+      "originalBytes": 1765,
+      "payloadBytes": 1765,
+      "sha256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5",
+      "payloadSHA256": "bea3fbe8606c7a003102b7524b3bb7040c5caf43885a254b0876761bee04b1e5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_0.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_0.png",
+      "compression": "none",
+      "originalBytes": 2078,
+      "payloadBytes": 2078,
+      "sha256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53",
+      "payloadSHA256": "f024f3f14d820e13666ca8eb0d4f43df9b54f5445b12026a492ef7117a673f53"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_1.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_1.png",
+      "compression": "none",
+      "originalBytes": 2101,
+      "payloadBytes": 2101,
+      "sha256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0",
+      "payloadSHA256": "5edcba4b18ef2e4c2ee98fc409a5a03828cd36dfa86dc8c35c88e81fdd0971a0"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_2.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_2.png",
+      "compression": "none",
+      "originalBytes": 2001,
+      "payloadBytes": 2001,
+      "sha256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1",
+      "payloadSHA256": "126bd0392744125004a4a74a6c031478daa688ddcc92ed6cba8ccd004d02aab1"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/croquetCorner_3.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/croquetCorner_3.png",
+      "compression": "none",
+      "originalBytes": 1979,
+      "payloadBytes": 1979,
+      "sha256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630",
+      "payloadSHA256": "bdc21327c4cb064d785eb9bb22a3b42004b2ee75bb0d2f9d17e41de17fe79630"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_0.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_0.png",
+      "compression": "none",
+      "originalBytes": 2040,
+      "payloadBytes": 2040,
+      "sha256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29",
+      "payloadSHA256": "96eeba2e04b9384393d56ba1491b3410b892c5fb12e4bb244a80430d31e82b29"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_1.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_1.png",
+      "compression": "none",
+      "originalBytes": 2061,
+      "payloadBytes": 2061,
+      "sha256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5",
+      "payloadSHA256": "0667a5d40facabaa772d84663d73d8b13c80f3c9d16df524af5e3e39560977d5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_2.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_2.png",
+      "compression": "none",
+      "originalBytes": 1944,
+      "payloadBytes": 1944,
+      "sha256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464",
+      "payloadSHA256": "630916055f70cd4ec5c4aa000f87d586debf48d3bd2b7428f53885589fa45464"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/orchardPress_3.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/orchardPress_3.png",
+      "compression": "none",
+      "originalBytes": 1998,
+      "payloadBytes": 1998,
+      "sha256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa",
+      "payloadSHA256": "d575974e329bd4697803b58a004bd2bbc95c82b6b4540342359384a1f6df95aa"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_0.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_0.png",
+      "compression": "none",
+      "originalBytes": 1971,
+      "payloadBytes": 1971,
+      "sha256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29",
+      "payloadSHA256": "b5a0d60078b9d8d5d72c5d050496a0325ce3485427d32630df2d4af8e1a27e29"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_1.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_1.png",
+      "compression": "none",
+      "originalBytes": 1962,
+      "payloadBytes": 1962,
+      "sha256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909",
+      "payloadSHA256": "2422a8725c3aa9f429feb770fd204fa8faf31ca760f2a81213330d0a8605b909"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_2.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_2.png",
+      "compression": "none",
+      "originalBytes": 1894,
+      "payloadBytes": 1894,
+      "sha256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79",
+      "payloadSHA256": "211ad3eb031f16aee78142ffe9e5263012cc06666f44850f507a5f21837c6d79"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pottingBench_3.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pottingBench_3.png",
+      "compression": "none",
+      "originalBytes": 1905,
+      "payloadBytes": 1905,
+      "sha256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1",
+      "payloadSHA256": "6a75b36428527450f0403645e5043f2903d4a478d0d25b6ae4ddf0c4b453fba1"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_0-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_0.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_0.png",
+      "compression": "none",
+      "originalBytes": 1841,
+      "payloadBytes": 1841,
+      "sha256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18",
+      "payloadSHA256": "376a9e0f1554478018cdcadf8c53eadedf305132fa4345baa4fc2a7af9bd5a18"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_1-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_1.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_1.png",
+      "compression": "none",
+      "originalBytes": 1846,
+      "payloadBytes": 1846,
+      "sha256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56",
+      "payloadSHA256": "aec0a48109be3b52cec3613dd6fc2dd1983bfb265a534ceae164561506309f56"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_2-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_2.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_2.png",
+      "compression": "none",
+      "originalBytes": 1824,
+      "payloadBytes": 1824,
+      "sha256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748",
+      "payloadSHA256": "6e336c9dc6adef5a2d1886abd71363adc36a20e97a914ad00013ab0ed347a748"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_3-night.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/garden-before/assets/pumpCourt_3.png",
+      "payloadPath": "quayside-evidence/public/garden-before/assets/pumpCourt_3.png",
+      "compression": "none",
+      "originalBytes": 1820,
+      "payloadBytes": 1820,
+      "sha256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751",
+      "payloadSHA256": "05ed049f147927fcc36de53e7b770f16a88eeffc357a85906973b175b4f3f751"
+    },
+    {
+      "originalPath": "quayside-evidence/public/manifest.json",
+      "payloadPath": "quayside-evidence/public/manifest.json.gz",
+      "compression": "gzip",
+      "originalBytes": 446153928,
+      "payloadBytes": 11618385,
+      "sha256": "fd8a183c2655b245396ac03b5ac0f98a692adb68dbe82098733cf2b816305db4",
+      "payloadSHA256": "83d13650460ae51f705b7489d5519d45e545a895540d67c5566fd2ce241fe111"
+    },
+    {
+      "originalPath": "quayside-evidence/public/pages-proof.json",
+      "payloadPath": "quayside-evidence/public/pages-proof.json",
+      "compression": "none",
+      "originalBytes": 738,
+      "payloadBytes": 738,
+      "sha256": "6c02994ad66792f5624ac4ca644def619380611c23f33f505ea1e0bcb2883900",
+      "payloadSHA256": "6c02994ad66792f5624ac4ca644def619380611c23f33f505ea1e0bcb2883900"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-baths-day.png",
+      "payloadPath": "quayside-evidence/public/public-baths-day.png",
+      "compression": "none",
+      "originalBytes": 911736,
+      "payloadBytes": 911736,
+      "sha256": "5fdb2742fe90b2fca406803a06015edd31291d7908616990ff3f8e19209ed603",
+      "payloadSHA256": "5fdb2742fe90b2fca406803a06015edd31291d7908616990ff3f8e19209ed603"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-baths-night.png",
+      "payloadPath": "quayside-evidence/public/public-baths-night.png",
+      "compression": "none",
+      "originalBytes": 974994,
+      "payloadBytes": 974994,
+      "sha256": "bde08260b064475db2a96cbb7099c73b2bfd1d8dde09827a1b0e28641ddafe95",
+      "payloadSHA256": "bde08260b064475db2a96cbb7099c73b2bfd1d8dde09827a1b0e28641ddafe95"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-cold-reload-verified.png",
+      "payloadPath": "quayside-evidence/public/public-cold-reload-verified.png",
+      "compression": "none",
+      "originalBytes": 832103,
+      "payloadBytes": 832103,
+      "sha256": "3068c19e91fd8a7609f63abab9f3ab7eaf13360182373021a13e392044713154",
+      "payloadSHA256": "3068c19e91fd8a7609f63abab9f3ab7eaf13360182373021a13e392044713154"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-college-day.png",
+      "payloadPath": "quayside-evidence/public/public-college-day.png",
+      "compression": "none",
+      "originalBytes": 779002,
+      "payloadBytes": 779002,
+      "sha256": "bb3c10b73c35af079ba6a09826cb9355f559834397f6f3847691f42822a7a416",
+      "payloadSHA256": "bb3c10b73c35af079ba6a09826cb9355f559834397f6f3847691f42822a7a416"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-college-night.png",
+      "payloadPath": "quayside-evidence/public/public-college-night.png",
+      "compression": "none",
+      "originalBytes": 803019,
+      "payloadBytes": 803019,
+      "sha256": "b6f4f7327782cec0ae38fb1133eb66fdc4df14360265e4cd206ddc80966c522b",
+      "payloadSHA256": "b6f4f7327782cec0ae38fb1133eb66fdc4df14360265e4cd206ddc80966c522b"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-complexes-cold-reload-verified.png",
+      "payloadPath": "quayside-evidence/public/public-complexes-cold-reload-verified.png",
+      "compression": "none",
+      "originalBytes": 952050,
+      "payloadBytes": 952050,
+      "sha256": "e62d415a09abf58ce214e7d6a09d2847daf4c123441ed9662f0353c932d63a27",
+      "payloadSHA256": "e62d415a09abf58ce214e7d6a09d2847daf4c123441ed9662f0353c932d63a27"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-fire-day.png",
+      "payloadPath": "quayside-evidence/public/public-fire-day.png",
+      "compression": "none",
+      "originalBytes": 905865,
+      "payloadBytes": 905865,
+      "sha256": "3ab7c01bb127e8cf090d1238d2466f0b6fd2a879f992059132cf7431b4aa6e55",
+      "payloadSHA256": "3ab7c01bb127e8cf090d1238d2466f0b6fd2a879f992059132cf7431b4aa6e55"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-fire-night.png",
+      "payloadPath": "quayside-evidence/public/public-fire-night.png",
+      "compression": "none",
+      "originalBytes": 944431,
+      "payloadBytes": 944431,
+      "sha256": "9cdcfa933e6c8a95d2d71dd9eca05cd16074e82ed3a4f60f75c04be3e69a0351",
+      "payloadSHA256": "9cdcfa933e6c8a95d2d71dd9eca05cd16074e82ed3a4f60f75c04be3e69a0351"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view0-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view0-day.png",
+      "compression": "none",
+      "originalBytes": 646076,
+      "payloadBytes": 646076,
+      "sha256": "ed05bf86b9b678a38c764e71134c54e661bccc6626aab627ea244ab66b09aed1",
+      "payloadSHA256": "ed05bf86b9b678a38c764e71134c54e661bccc6626aab627ea244ab66b09aed1"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view0-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view0-night.png",
+      "compression": "none",
+      "originalBytes": 748078,
+      "payloadBytes": 748078,
+      "sha256": "8344971a9a23f0878b2e6cff6d34db331cbf874043a037bc85f44f9e43f06e2a",
+      "payloadSHA256": "8344971a9a23f0878b2e6cff6d34db331cbf874043a037bc85f44f9e43f06e2a"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view1-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view1-day.png",
+      "compression": "none",
+      "originalBytes": 614662,
+      "payloadBytes": 614662,
+      "sha256": "5d37a5a783a7bdca5c3f0277a7a6b93a259ecb3f7de1d8b155ee5828bbb45866",
+      "payloadSHA256": "5d37a5a783a7bdca5c3f0277a7a6b93a259ecb3f7de1d8b155ee5828bbb45866"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view1-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view1-night.png",
+      "compression": "none",
+      "originalBytes": 730590,
+      "payloadBytes": 730590,
+      "sha256": "68a778c053682b5a3f5988576e8aac6e73f7e76613931bd49a5e722ae8d46e39",
+      "payloadSHA256": "68a778c053682b5a3f5988576e8aac6e73f7e76613931bd49a5e722ae8d46e39"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view2-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view2-day.png",
+      "compression": "none",
+      "originalBytes": 641826,
+      "payloadBytes": 641826,
+      "sha256": "5e394472272fec862aeda7953bc3c04d1f16d5a8ae2d3e872039c32955e333ac",
+      "payloadSHA256": "5e394472272fec862aeda7953bc3c04d1f16d5a8ae2d3e872039c32955e333ac"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view2-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view2-night.png",
+      "compression": "none",
+      "originalBytes": 748399,
+      "payloadBytes": 748399,
+      "sha256": "9cd4427591f861fb546c8757e679b76b3c67c7a119a356aa4bc834a068a843e2",
+      "payloadSHA256": "9cd4427591f861fb546c8757e679b76b3c67c7a119a356aa4bc834a068a843e2"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view3-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view3-day.png",
+      "compression": "none",
+      "originalBytes": 616212,
+      "payloadBytes": 616212,
+      "sha256": "e5007c2306efc5cfe7a47b588aac5fa1ddb4fa37e518bfd60c5ab0674980fbb8",
+      "payloadSHA256": "e5007c2306efc5cfe7a47b588aac5fa1ddb4fa37e518bfd60c5ab0674980fbb8"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-baths-view3-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-baths-view3-night.png",
+      "compression": "none",
+      "originalBytes": 722342,
+      "payloadBytes": 722342,
+      "sha256": "879318acb598ab29c28706e892d62f2fbe9c9aaa6a76a3ea7a341cea41798113",
+      "payloadSHA256": "879318acb598ab29c28706e892d62f2fbe9c9aaa6a76a3ea7a341cea41798113"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-cold-reload-verified.png",
+      "payloadPath": "quayside-evidence/public/public-garden-cold-reload-verified.png",
+      "compression": "none",
+      "originalBytes": 1090356,
+      "payloadBytes": 1090356,
+      "sha256": "5f2db44543fe177bd30e41d558650c1cac5a248419649795a3c13934052b0edd",
+      "payloadSHA256": "5f2db44543fe177bd30e41d558650c1cac5a248419649795a3c13934052b0edd"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view0-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view0-day.png",
+      "compression": "none",
+      "originalBytes": 656128,
+      "payloadBytes": 656128,
+      "sha256": "a12673cf7e5310e36ed1abb03d49a76ad1d89bb4c1917129a2c64a2ac06b4885",
+      "payloadSHA256": "a12673cf7e5310e36ed1abb03d49a76ad1d89bb4c1917129a2c64a2ac06b4885"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view0-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view0-night.png",
+      "compression": "none",
+      "originalBytes": 751200,
+      "payloadBytes": 751200,
+      "sha256": "dcec1bf2412c71e50f6db90cafc60f33f026b021656f45d4b88531d12acf0b0c",
+      "payloadSHA256": "dcec1bf2412c71e50f6db90cafc60f33f026b021656f45d4b88531d12acf0b0c"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-menu.png",
+      "payloadPath": "quayside-evidence/public/public-menu.png",
+      "compression": "none",
+      "originalBytes": 105666,
+      "payloadBytes": 105666,
+      "sha256": "698531371359810206dd67766dae561c5b9f137f5e9334996a72b3eee7872535",
+      "payloadSHA256": "698531371359810206dd67766dae561c5b9f137f5e9334996a72b3eee7872535"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_0.png",
+      "compression": "none",
+      "originalBytes": 1797,
+      "payloadBytes": 1797,
+      "sha256": "2e067eb08075c1e070b220732d0bb0a5c5898d253d1bbf014491475dba90f20d",
+      "payloadSHA256": "2e067eb08075c1e070b220732d0bb0a5c5898d253d1bbf014491475dba90f20d"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_1.png",
+      "compression": "none",
+      "originalBytes": 1830,
+      "payloadBytes": 1830,
+      "sha256": "d7320929303f95ab065ed882b42246c099514be602d6859faf9aa9826f0a0f41",
+      "payloadSHA256": "d7320929303f95ab065ed882b42246c099514be602d6859faf9aa9826f0a0f41"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_2.png",
+      "compression": "none",
+      "originalBytes": 1824,
+      "payloadBytes": 1824,
+      "sha256": "8a6111a9b520506e3af0250f19a60d9fd030380b5d6266c48565e3184a1c6b4d",
+      "payloadSHA256": "8a6111a9b520506e3af0250f19a60d9fd030380b5d6266c48565e3184a1c6b4d"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/anchorDisplay_3.png",
+      "compression": "none",
+      "originalBytes": 1781,
+      "payloadBytes": 1781,
+      "sha256": "74ceaf092d74b204357746c7c6b45fd0ce23dda14bcae4f76482cd6966ca6824",
+      "payloadSHA256": "74ceaf092d74b204357746c7c6b45fd0ce23dda14bcae4f76482cd6966ca6824"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_0.png",
+      "compression": "none",
+      "originalBytes": 2055,
+      "payloadBytes": 2055,
+      "sha256": "07309443794d7d72b5ecb55fd603eca243052500a7c1a0502f64465e7dfef6b0",
+      "payloadSHA256": "07309443794d7d72b5ecb55fd603eca243052500a7c1a0502f64465e7dfef6b0"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_1.png",
+      "compression": "none",
+      "originalBytes": 2033,
+      "payloadBytes": 2033,
+      "sha256": "71c425804c5d5ce945c44bae109be23ff2e28030f81668ce4ff813ec64bd5d26",
+      "payloadSHA256": "71c425804c5d5ce945c44bae109be23ff2e28030f81668ce4ff813ec64bd5d26"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_2.png",
+      "compression": "none",
+      "originalBytes": 1875,
+      "payloadBytes": 1875,
+      "sha256": "af49bb0ccc508c08cd5c1c94fdb9fe6c4e0ee25228497ed7096f61d251a3e8f6",
+      "payloadSHA256": "af49bb0ccc508c08cd5c1c94fdb9fe6c4e0ee25228497ed7096f61d251a3e8f6"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/lifebuoyStand_3.png",
+      "compression": "none",
+      "originalBytes": 1846,
+      "payloadBytes": 1846,
+      "sha256": "7693affbfb421be921fad06ec66229cff3df33849d64121095a1016a966cf914",
+      "payloadSHA256": "7693affbfb421be921fad06ec66229cff3df33849d64121095a1016a966cf914"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_0.png",
+      "compression": "none",
+      "originalBytes": 1773,
+      "payloadBytes": 1773,
+      "sha256": "94f51c4711fa302eb5d3b53ba2d2abaced16ec4b30811a0df905e33f3b81d63b",
+      "payloadSHA256": "94f51c4711fa302eb5d3b53ba2d2abaced16ec4b30811a0df905e33f3b81d63b"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_1.png",
+      "compression": "none",
+      "originalBytes": 1784,
+      "payloadBytes": 1784,
+      "sha256": "cde838d082e2fc2393c8f2323362870b715ffcbe8b0c851a4ace3384a6343f87",
+      "payloadSHA256": "cde838d082e2fc2393c8f2323362870b715ffcbe8b0c851a4ace3384a6343f87"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_2.png",
+      "compression": "none",
+      "originalBytes": 1783,
+      "payloadBytes": 1783,
+      "sha256": "c114f075431d9f697f71fff7901f63185947c9b488a5a9b49679be441de1f1f5",
+      "payloadSHA256": "c114f075431d9f697f71fff7901f63185947c9b488a5a9b49679be441de1f1f5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/mooringBitts_3.png",
+      "compression": "none",
+      "originalBytes": 1751,
+      "payloadBytes": 1751,
+      "sha256": "534ab9f532db267bffb4aef46b1751c3c89b8aaca3214079523749073e5ab556",
+      "payloadSHA256": "534ab9f532db267bffb4aef46b1751c3c89b8aaca3214079523749073e5ab556"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_0.png",
+      "compression": "none",
+      "originalBytes": 2171,
+      "payloadBytes": 2171,
+      "sha256": "241ef15864e2476f110d42662d041789a2a0ea779394ae4a2ca810527bc3b087",
+      "payloadSHA256": "241ef15864e2476f110d42662d041789a2a0ea779394ae4a2ca810527bc3b087"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_1.png",
+      "compression": "none",
+      "originalBytes": 2137,
+      "payloadBytes": 2137,
+      "sha256": "3e40c290619d00a224c612c99721ec1447b28bf27ffc8359b7624ad7b779391c",
+      "payloadSHA256": "3e40c290619d00a224c612c99721ec1447b28bf27ffc8359b7624ad7b779391c"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_2.png",
+      "compression": "none",
+      "originalBytes": 2000,
+      "payloadBytes": 2000,
+      "sha256": "179dc01604808914b16ef10271aaa82ac251c97f848ba59d3745c6135f457c5c",
+      "payloadSHA256": "179dc01604808914b16ef10271aaa82ac251c97f848ba59d3745c6135f457c5c"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/netDryingRack_3.png",
+      "compression": "none",
+      "originalBytes": 1952,
+      "payloadBytes": 1952,
+      "sha256": "7ab8499e7b53526cd46a8a786db6413297b3a39e5f83a0aaf434016bb74c9dc5",
+      "payloadSHA256": "7ab8499e7b53526cd46a8a786db6413297b3a39e5f83a0aaf434016bb74c9dc5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_0.png",
+      "compression": "none",
+      "originalBytes": 1891,
+      "payloadBytes": 1891,
+      "sha256": "193a932da645e0eec28876db7877f56e62fd6426d28717d8c0fe34fa6566489f",
+      "payloadSHA256": "193a932da645e0eec28876db7877f56e62fd6426d28717d8c0fe34fa6566489f"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_1.png",
+      "compression": "none",
+      "originalBytes": 1865,
+      "payloadBytes": 1865,
+      "sha256": "a88a26c952897a173b4ce02590323f47dffc5af0b438d9c4288451674e25a298",
+      "payloadSHA256": "a88a26c952897a173b4ce02590323f47dffc5af0b438d9c4288451674e25a298"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_2.png",
+      "compression": "none",
+      "originalBytes": 1823,
+      "payloadBytes": 1823,
+      "sha256": "21c954d67242a6f787836ac2d43469632f45d5fe1ec9080ec1faea50beec10c0",
+      "payloadSHA256": "21c954d67242a6f787836ac2d43469632f45d5fe1ec9080ec1faea50beec10c0"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/quayCapstan_3.png",
+      "compression": "none",
+      "originalBytes": 1803,
+      "payloadBytes": 1803,
+      "sha256": "108db5494582c401b73e2d68fa700851bfa600ae05641f181759f00ffd192f2d",
+      "payloadSHA256": "108db5494582c401b73e2d68fa700851bfa600ae05641f181759f00ffd192f2d"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_0.png",
+      "compression": "none",
+      "originalBytes": 1806,
+      "payloadBytes": 1806,
+      "sha256": "6f12b82fe3005a99210273065e610197aea747d4c476f36539153a7bd696c712",
+      "payloadSHA256": "6f12b82fe3005a99210273065e610197aea747d4c476f36539153a7bd696c712"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_1.png",
+      "compression": "none",
+      "originalBytes": 1753,
+      "payloadBytes": 1753,
+      "sha256": "4bdc6529769d25c96ded4e726ecaaa3fd26899e4f93c7abe39be10647a395d07",
+      "payloadSHA256": "4bdc6529769d25c96ded4e726ecaaa3fd26899e4f93c7abe39be10647a395d07"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_2.png",
+      "compression": "none",
+      "originalBytes": 1743,
+      "payloadBytes": 1743,
+      "sha256": "a2760ef49f602267645342a371dba5d5850d7c57f623a29ff64047474d2cd21f",
+      "payloadSHA256": "a2760ef49f602267645342a371dba5d5850d7c57f623a29ff64047474d2cd21f"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-after-four-views/assets/withyPots_3.png",
+      "compression": "none",
+      "originalBytes": 1735,
+      "payloadBytes": 1735,
+      "sha256": "bb7b8609ec315072fd4014255a336f0e58ccaed04062ca0645d5efa49ac7c012",
+      "payloadSHA256": "bb7b8609ec315072fd4014255a336f0e58ccaed04062ca0645d5efa49ac7c012"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_0.png",
+      "compression": "none",
+      "originalBytes": 1797,
+      "payloadBytes": 1797,
+      "sha256": "2e067eb08075c1e070b220732d0bb0a5c5898d253d1bbf014491475dba90f20d",
+      "payloadSHA256": "2e067eb08075c1e070b220732d0bb0a5c5898d253d1bbf014491475dba90f20d"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_1.png",
+      "compression": "none",
+      "originalBytes": 1830,
+      "payloadBytes": 1830,
+      "sha256": "d7320929303f95ab065ed882b42246c099514be602d6859faf9aa9826f0a0f41",
+      "payloadSHA256": "d7320929303f95ab065ed882b42246c099514be602d6859faf9aa9826f0a0f41"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_2.png",
+      "compression": "none",
+      "originalBytes": 1824,
+      "payloadBytes": 1824,
+      "sha256": "8a6111a9b520506e3af0250f19a60d9fd030380b5d6266c48565e3184a1c6b4d",
+      "payloadSHA256": "8a6111a9b520506e3af0250f19a60d9fd030380b5d6266c48565e3184a1c6b4d"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/anchorDisplay_3.png",
+      "compression": "none",
+      "originalBytes": 1781,
+      "payloadBytes": 1781,
+      "sha256": "74ceaf092d74b204357746c7c6b45fd0ce23dda14bcae4f76482cd6966ca6824",
+      "payloadSHA256": "74ceaf092d74b204357746c7c6b45fd0ce23dda14bcae4f76482cd6966ca6824"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_0.png",
+      "compression": "none",
+      "originalBytes": 2055,
+      "payloadBytes": 2055,
+      "sha256": "07309443794d7d72b5ecb55fd603eca243052500a7c1a0502f64465e7dfef6b0",
+      "payloadSHA256": "07309443794d7d72b5ecb55fd603eca243052500a7c1a0502f64465e7dfef6b0"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_1.png",
+      "compression": "none",
+      "originalBytes": 2033,
+      "payloadBytes": 2033,
+      "sha256": "71c425804c5d5ce945c44bae109be23ff2e28030f81668ce4ff813ec64bd5d26",
+      "payloadSHA256": "71c425804c5d5ce945c44bae109be23ff2e28030f81668ce4ff813ec64bd5d26"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_2.png",
+      "compression": "none",
+      "originalBytes": 1875,
+      "payloadBytes": 1875,
+      "sha256": "af49bb0ccc508c08cd5c1c94fdb9fe6c4e0ee25228497ed7096f61d251a3e8f6",
+      "payloadSHA256": "af49bb0ccc508c08cd5c1c94fdb9fe6c4e0ee25228497ed7096f61d251a3e8f6"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/lifebuoyStand_3.png",
+      "compression": "none",
+      "originalBytes": 1846,
+      "payloadBytes": 1846,
+      "sha256": "7693affbfb421be921fad06ec66229cff3df33849d64121095a1016a966cf914",
+      "payloadSHA256": "7693affbfb421be921fad06ec66229cff3df33849d64121095a1016a966cf914"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_0.png",
+      "compression": "none",
+      "originalBytes": 1773,
+      "payloadBytes": 1773,
+      "sha256": "94f51c4711fa302eb5d3b53ba2d2abaced16ec4b30811a0df905e33f3b81d63b",
+      "payloadSHA256": "94f51c4711fa302eb5d3b53ba2d2abaced16ec4b30811a0df905e33f3b81d63b"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_1.png",
+      "compression": "none",
+      "originalBytes": 1784,
+      "payloadBytes": 1784,
+      "sha256": "cde838d082e2fc2393c8f2323362870b715ffcbe8b0c851a4ace3384a6343f87",
+      "payloadSHA256": "cde838d082e2fc2393c8f2323362870b715ffcbe8b0c851a4ace3384a6343f87"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_2.png",
+      "compression": "none",
+      "originalBytes": 1783,
+      "payloadBytes": 1783,
+      "sha256": "c114f075431d9f697f71fff7901f63185947c9b488a5a9b49679be441de1f1f5",
+      "payloadSHA256": "c114f075431d9f697f71fff7901f63185947c9b488a5a9b49679be441de1f1f5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/mooringBitts_3.png",
+      "compression": "none",
+      "originalBytes": 1751,
+      "payloadBytes": 1751,
+      "sha256": "534ab9f532db267bffb4aef46b1751c3c89b8aaca3214079523749073e5ab556",
+      "payloadSHA256": "534ab9f532db267bffb4aef46b1751c3c89b8aaca3214079523749073e5ab556"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_0.png",
+      "compression": "none",
+      "originalBytes": 2171,
+      "payloadBytes": 2171,
+      "sha256": "241ef15864e2476f110d42662d041789a2a0ea779394ae4a2ca810527bc3b087",
+      "payloadSHA256": "241ef15864e2476f110d42662d041789a2a0ea779394ae4a2ca810527bc3b087"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_1.png",
+      "compression": "none",
+      "originalBytes": 2137,
+      "payloadBytes": 2137,
+      "sha256": "3e40c290619d00a224c612c99721ec1447b28bf27ffc8359b7624ad7b779391c",
+      "payloadSHA256": "3e40c290619d00a224c612c99721ec1447b28bf27ffc8359b7624ad7b779391c"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_2.png",
+      "compression": "none",
+      "originalBytes": 2000,
+      "payloadBytes": 2000,
+      "sha256": "179dc01604808914b16ef10271aaa82ac251c97f848ba59d3745c6135f457c5c",
+      "payloadSHA256": "179dc01604808914b16ef10271aaa82ac251c97f848ba59d3745c6135f457c5c"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/netDryingRack_3.png",
+      "compression": "none",
+      "originalBytes": 1952,
+      "payloadBytes": 1952,
+      "sha256": "7ab8499e7b53526cd46a8a786db6413297b3a39e5f83a0aaf434016bb74c9dc5",
+      "payloadSHA256": "7ab8499e7b53526cd46a8a786db6413297b3a39e5f83a0aaf434016bb74c9dc5"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_0.png",
+      "compression": "none",
+      "originalBytes": 1891,
+      "payloadBytes": 1891,
+      "sha256": "193a932da645e0eec28876db7877f56e62fd6426d28717d8c0fe34fa6566489f",
+      "payloadSHA256": "193a932da645e0eec28876db7877f56e62fd6426d28717d8c0fe34fa6566489f"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_1.png",
+      "compression": "none",
+      "originalBytes": 1865,
+      "payloadBytes": 1865,
+      "sha256": "a88a26c952897a173b4ce02590323f47dffc5af0b438d9c4288451674e25a298",
+      "payloadSHA256": "a88a26c952897a173b4ce02590323f47dffc5af0b438d9c4288451674e25a298"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_2.png",
+      "compression": "none",
+      "originalBytes": 1823,
+      "payloadBytes": 1823,
+      "sha256": "21c954d67242a6f787836ac2d43469632f45d5fe1ec9080ec1faea50beec10c0",
+      "payloadSHA256": "21c954d67242a6f787836ac2d43469632f45d5fe1ec9080ec1faea50beec10c0"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/quayCapstan_3.png",
+      "compression": "none",
+      "originalBytes": 1803,
+      "payloadBytes": 1803,
+      "sha256": "108db5494582c401b73e2d68fa700851bfa600ae05641f181759f00ffd192f2d",
+      "payloadSHA256": "108db5494582c401b73e2d68fa700851bfa600ae05641f181759f00ffd192f2d"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_0-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_0-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_0.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_0.png",
+      "compression": "none",
+      "originalBytes": 1806,
+      "payloadBytes": 1806,
+      "sha256": "6f12b82fe3005a99210273065e610197aea747d4c476f36539153a7bd696c712",
+      "payloadSHA256": "6f12b82fe3005a99210273065e610197aea747d4c476f36539153a7bd696c712"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_1-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_1-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_1.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_1.png",
+      "compression": "none",
+      "originalBytes": 1753,
+      "payloadBytes": 1753,
+      "sha256": "4bdc6529769d25c96ded4e726ecaaa3fd26899e4f93c7abe39be10647a395d07",
+      "payloadSHA256": "4bdc6529769d25c96ded4e726ecaaa3fd26899e4f93c7abe39be10647a395d07"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_2-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_2-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_2.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_2.png",
+      "compression": "none",
+      "originalBytes": 1743,
+      "payloadBytes": 1743,
+      "sha256": "a2760ef49f602267645342a371dba5d5850d7c57f623a29ff64047474d2cd21f",
+      "payloadSHA256": "a2760ef49f602267645342a371dba5d5850d7c57f623a29ff64047474d2cd21f"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_3-night.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_3-night.png",
+      "compression": "none",
+      "originalBytes": 416,
+      "payloadBytes": 416,
+      "sha256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51",
+      "payloadSHA256": "b9817817ad4f9c5bfb8183f0badb6ea9e28ff35373d38a49b9bfbb2249076c51"
+    },
+    {
+      "width": 72,
+      "height": 92,
+      "originalPath": "quayside-evidence/public/quayside-before/assets/withyPots_3.png",
+      "payloadPath": "quayside-evidence/public/quayside-before/assets/withyPots_3.png",
+      "compression": "none",
+      "originalBytes": 1735,
+      "payloadBytes": 1735,
+      "sha256": "bb7b8609ec315072fd4014255a336f0e58ccaed04062ca0645d5efa49ac7c012",
+      "payloadSHA256": "bb7b8609ec315072fd4014255a336f0e58ccaed04062ca0645d5efa49ac7c012"
+    },
+    {
+      "originalPath": "quayside-evidence/public/runtime.txt",
+      "payloadPath": "quayside-evidence/public/runtime.txt",
+      "compression": "none",
+      "originalBytes": 31479,
+      "payloadBytes": 31479,
+      "sha256": "78ea56b7142a5fec62faf31738f78cf470d6923a7040e028a153ded5c3bd3e79",
+      "payloadSHA256": "78ea56b7142a5fec62faf31738f78cf470d6923a7040e028a153ded5c3bd3e79"
+    },
+    {
+      "originalPath": "quayside-evidence/public/summary.json",
+      "payloadPath": "quayside-evidence/public/summary.json",
+      "compression": "none",
+      "originalBytes": 21967,
+      "payloadBytes": 21967,
+      "sha256": "07e3290871290e30ae76f46620f160edb4c3bcdf3571666971565d69da6dd98f",
+      "payloadSHA256": "07e3290871290e30ae76f46620f160edb4c3bcdf3571666971565d69da6dd98f"
+    },
+    {
+      "originalPath": "quayside-public-adapter017.json",
+      "payloadPath": "quayside-public-adapter017.json",
+      "compression": "none",
+      "originalBytes": 590,
+      "payloadBytes": 590,
+      "sha256": "7da78a5e5a173de142acf82e217d199b99924c2446cec70c2a77265795f47dda",
+      "payloadSHA256": "7da78a5e5a173de142acf82e217d199b99924c2446cec70c2a77265795f47dda"
+    },
+    {
+      "originalPath": "quayside-public-approved-assets017.json",
+      "payloadPath": "quayside-public-approved-assets017.json",
+      "compression": "none",
+      "originalBytes": 70959,
+      "payloadBytes": 70959,
+      "sha256": "1c019ad38f164ed0192d2c5bcee046acbbd0f7cefea87247909a3f4e32824a32",
+      "payloadSHA256": "1c019ad38f164ed0192d2c5bcee046acbbd0f7cefea87247909a3f4e32824a32"
+    },
+    {
+      "originalPath": "quayside-public-history017.json",
+      "payloadPath": "quayside-public-history017.json",
+      "compression": "none",
+      "originalBytes": 1050,
+      "payloadBytes": 1050,
+      "sha256": "74bff3af39bc5bbae01bbde973ef90cde4182792111bc2e11e4b580908014af8",
+      "payloadSHA256": "74bff3af39bc5bbae01bbde973ef90cde4182792111bc2e11e4b580908014af8"
+    },
+    {
+      "originalPath": "quayside-public-pages-confirmation017.json",
+      "payloadPath": "quayside-public-pages-confirmation017.json",
+      "compression": "none",
+      "originalBytes": 595,
+      "payloadBytes": 595,
+      "sha256": "34babfa08e44d554ccb3aa864d1d0983332e908f03f5fa9706ed12e6c13f1ca1",
+      "payloadSHA256": "34babfa08e44d554ccb3aa864d1d0983332e908f03f5fa9706ed12e6c13f1ca1"
+    },
+    {
+      "originalPath": "quayside-public-release017.json",
+      "payloadPath": "quayside-public-release017.json",
+      "compression": "none",
+      "originalBytes": 801,
+      "payloadBytes": 801,
+      "sha256": "dd437eb47e548926cc5b1f538079397140da046095397f06b15310ac5eb7bac8",
+      "payloadSHA256": "dd437eb47e548926cc5b1f538079397140da046095397f06b15310ac5eb7bac8"
+    },
+    {
+      "originalPath": "quayside-public-release017.template.json",
+      "payloadPath": "quayside-public-release017.template.json",
+      "compression": "none",
+      "originalBytes": 802,
+      "payloadBytes": 802,
+      "sha256": "a33a060030cf9379490790ae0642244eb5cb5d920a145eea328d8ced9c2e23be",
+      "payloadSHA256": "a33a060030cf9379490790ae0642244eb5cb5d920a145eea328d8ced9c2e23be"
+    },
+    {
+      "originalPath": "quayside-public-source-pins017.json",
+      "payloadPath": "quayside-public-source-pins017.json",
+      "compression": "none",
+      "originalBytes": 24630,
+      "payloadBytes": 24630,
+      "sha256": "440ea3b6c78ff6ba88da21461b76e902e7ba2ea903ef5deb33a8f4bcf9089251",
+      "payloadSHA256": "440ea3b6c78ff6ba88da21461b76e902e7ba2ea903ef5deb33a8f4bcf9089251"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view1-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view1-day.png",
+      "compression": "none",
+      "originalBytes": 645681,
+      "payloadBytes": 645681,
+      "sha256": "069709d9374aebe1243059aa8a261b7861193d164afc784dac7d32bc6b39ff79",
+      "payloadSHA256": "069709d9374aebe1243059aa8a261b7861193d164afc784dac7d32bc6b39ff79"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view1-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view1-night.png",
+      "compression": "none",
+      "originalBytes": 732565,
+      "payloadBytes": 732565,
+      "sha256": "e03954ef9e694bbfd876b276bc99907657756e927639b70bfb16582e273d6aff",
+      "payloadSHA256": "e03954ef9e694bbfd876b276bc99907657756e927639b70bfb16582e273d6aff"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view2-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view2-day.png",
+      "compression": "none",
+      "originalBytes": 667214,
+      "payloadBytes": 667214,
+      "sha256": "d9b827e6ae12406f4fe8a55e2c1d3aadc897c81611669297b87c38aad550ad23",
+      "payloadSHA256": "d9b827e6ae12406f4fe8a55e2c1d3aadc897c81611669297b87c38aad550ad23"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view2-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view2-night.png",
+      "compression": "none",
+      "originalBytes": 741494,
+      "payloadBytes": 741494,
+      "sha256": "2660567f024ae2093c0b64871037db1f17919d76ac6029ede701fd3722a74c10",
+      "payloadSHA256": "2660567f024ae2093c0b64871037db1f17919d76ac6029ede701fd3722a74c10"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view3-day.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view3-day.png",
+      "compression": "none",
+      "originalBytes": 632520,
+      "payloadBytes": 632520,
+      "sha256": "e1786b81923270385dfe2002e7b901cbcbba76c04adf567ddcd6bd70e3a9f6ee",
+      "payloadSHA256": "e1786b81923270385dfe2002e7b901cbcbba76c04adf567ddcd6bd70e3a9f6ee"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-garden-fire-view3-night.png",
+      "payloadPath": "quayside-evidence/public/public-garden-fire-view3-night.png",
+      "compression": "none",
+      "originalBytes": 701501,
+      "payloadBytes": 701501,
+      "sha256": "f6cfebe17db63e9090bca2bcf2adb6b4fc0d2f61b22e1cc7733d186887c66eb9",
+      "payloadSHA256": "f6cfebe17db63e9090bca2bcf2adb6b4fc0d2f61b22e1cc7733d186887c66eb9"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-manor-day.png",
+      "payloadPath": "quayside-evidence/public/public-manor-day.png",
+      "compression": "none",
+      "originalBytes": 902933,
+      "payloadBytes": 902933,
+      "sha256": "3bd22f3d0886c26bd1cf3f75a88b51d814c9b42a6c55ee61135cc3b84244bf5c",
+      "payloadSHA256": "3bd22f3d0886c26bd1cf3f75a88b51d814c9b42a6c55ee61135cc3b84244bf5c"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-manor-night.png",
+      "payloadPath": "quayside-evidence/public/public-manor-night.png",
+      "compression": "none",
+      "originalBytes": 970025,
+      "payloadBytes": 970025,
+      "sha256": "d863d8fba55eb07c3fc006c7a2e056ffecaf3b26478bd052d83d12e4fb7b83ed",
+      "payloadSHA256": "d863d8fba55eb07c3fc006c7a2e056ffecaf3b26478bd052d83d12e4fb7b83ed"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view0-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view0-day.png",
+      "compression": "none",
+      "originalBytes": 656988,
+      "payloadBytes": 656988,
+      "sha256": "8fe7b42894cbe05476878ec5b8642f33f9e7934325ac0cf2afd840d26db66932",
+      "payloadSHA256": "8fe7b42894cbe05476878ec5b8642f33f9e7934325ac0cf2afd840d26db66932"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view0-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view0-night.png",
+      "compression": "none",
+      "originalBytes": 764732,
+      "payloadBytes": 764732,
+      "sha256": "902666709eded734966549d915aecb83bbcd8007c1b21ec1a45d0e2c04d3ace7",
+      "payloadSHA256": "902666709eded734966549d915aecb83bbcd8007c1b21ec1a45d0e2c04d3ace7"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view1-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view1-day.png",
+      "compression": "none",
+      "originalBytes": 623359,
+      "payloadBytes": 623359,
+      "sha256": "52eb19b074c0a6bb2e87b0e0040f0404b8a1c8ef2d659d99d193e6d9c75b3b9b",
+      "payloadSHA256": "52eb19b074c0a6bb2e87b0e0040f0404b8a1c8ef2d659d99d193e6d9c75b3b9b"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view1-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view1-night.png",
+      "compression": "none",
+      "originalBytes": 745697,
+      "payloadBytes": 745697,
+      "sha256": "c4cb5892a1384e67aa8456dd97b1a33cf46de868e8988eb2ecba256a5f74df9c",
+      "payloadSHA256": "c4cb5892a1384e67aa8456dd97b1a33cf46de868e8988eb2ecba256a5f74df9c"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view2-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view2-day.png",
+      "compression": "none",
+      "originalBytes": 652398,
+      "payloadBytes": 652398,
+      "sha256": "7095e8d478f0bd8ad1bcd39e3dee3cec1f637043ab30329162ec8884ae98e210",
+      "payloadSHA256": "7095e8d478f0bd8ad1bcd39e3dee3cec1f637043ab30329162ec8884ae98e210"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view2-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view2-night.png",
+      "compression": "none",
+      "originalBytes": 752561,
+      "payloadBytes": 752561,
+      "sha256": "d7c9edc58d1f1c9748fa3c8b16b9d9945909a88dd182799d5b8255262e0dbe6a",
+      "payloadSHA256": "d7c9edc58d1f1c9748fa3c8b16b9d9945909a88dd182799d5b8255262e0dbe6a"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view3-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view3-day.png",
+      "compression": "none",
+      "originalBytes": 615024,
+      "payloadBytes": 615024,
+      "sha256": "6b70bc487e71c27416806f31f4a081b8be2a979a79e2d7afe5fb61ea8d884dcd",
+      "payloadSHA256": "6b70bc487e71c27416806f31f4a081b8be2a979a79e2d7afe5fb61ea8d884dcd"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-baths-view3-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-baths-view3-night.png",
+      "compression": "none",
+      "originalBytes": 734740,
+      "payloadBytes": 734740,
+      "sha256": "383032247859e2e3c43308354a0f80b53d00e9d3cedf2839c765c928993d52d8",
+      "payloadSHA256": "383032247859e2e3c43308354a0f80b53d00e9d3cedf2839c765c928993d52d8"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-cold-reload-verified.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-cold-reload-verified.png",
+      "compression": "none",
+      "originalBytes": 1061955,
+      "payloadBytes": 1061955,
+      "sha256": "4bc0c97d073b79314d2c5c71d257e42619349e2684c03946dd70b6a916377edb",
+      "payloadSHA256": "4bc0c97d073b79314d2c5c71d257e42619349e2684c03946dd70b6a916377edb"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view0-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view0-day.png",
+      "compression": "none",
+      "originalBytes": 637384,
+      "payloadBytes": 637384,
+      "sha256": "fdc597cf1f20665862be5e27aef8981ab6cfd500f8072165fe686ca8637b567c",
+      "payloadSHA256": "fdc597cf1f20665862be5e27aef8981ab6cfd500f8072165fe686ca8637b567c"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view0-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view0-night.png",
+      "compression": "none",
+      "originalBytes": 733838,
+      "payloadBytes": 733838,
+      "sha256": "95550a37ab57fb2081097f48c6afcc438bd7f53c5c4382ec960ad944022cd301",
+      "payloadSHA256": "95550a37ab57fb2081097f48c6afcc438bd7f53c5c4382ec960ad944022cd301"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view1-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view1-day.png",
+      "compression": "none",
+      "originalBytes": 626981,
+      "payloadBytes": 626981,
+      "sha256": "adae662d72bbf08b4294be8a3d280da71da40fed21aa734cf0f2455ffa3eec85",
+      "payloadSHA256": "adae662d72bbf08b4294be8a3d280da71da40fed21aa734cf0f2455ffa3eec85"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view1-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view1-night.png",
+      "compression": "none",
+      "originalBytes": 719759,
+      "payloadBytes": 719759,
+      "sha256": "09001123564e9483ebc43f14e5831e1fa0dbf9649e962f568499a4307473d2f0",
+      "payloadSHA256": "09001123564e9483ebc43f14e5831e1fa0dbf9649e962f568499a4307473d2f0"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view2-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view2-day.png",
+      "compression": "none",
+      "originalBytes": 647002,
+      "payloadBytes": 647002,
+      "sha256": "5ed288ff5c37eb08c3319cadaaff993b4e297db91b0a62029cab41b6d53e22d0",
+      "payloadSHA256": "5ed288ff5c37eb08c3319cadaaff993b4e297db91b0a62029cab41b6d53e22d0"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view2-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view2-night.png",
+      "compression": "none",
+      "originalBytes": 724703,
+      "payloadBytes": 724703,
+      "sha256": "6800cc5bb5c3a9023ae64524ddc3b7aa71f3c7ed35f28aff4c671be147406ea1",
+      "payloadSHA256": "6800cc5bb5c3a9023ae64524ddc3b7aa71f3c7ed35f28aff4c671be147406ea1"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view3-day.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view3-day.png",
+      "compression": "none",
+      "originalBytes": 621666,
+      "payloadBytes": 621666,
+      "sha256": "ab0e187e2fe7385f0bb7e01af1684910ee7e1eb45fa9debb704c87e32a4714a1",
+      "payloadSHA256": "ab0e187e2fe7385f0bb7e01af1684910ee7e1eb45fa9debb704c87e32a4714a1"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-quayside-fire-view3-night.png",
+      "payloadPath": "quayside-evidence/public/public-quayside-fire-view3-night.png",
+      "compression": "none",
+      "originalBytes": 697347,
+      "payloadBytes": 697347,
+      "sha256": "fff1b51105febb6b5edd3f158ed47a21fc606ef9740a83a9d34e5a56745d8de1",
+      "payloadSHA256": "fff1b51105febb6b5edd3f158ed47a21fc606ef9740a83a9d34e5a56745d8de1"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-streetscape-cold-reload-verified.png",
+      "payloadPath": "quayside-evidence/public/public-streetscape-cold-reload-verified.png",
+      "compression": "none",
+      "originalBytes": 576051,
+      "payloadBytes": 576051,
+      "sha256": "c70f1e5bccbaa66aec4a84342ed7d8b43ec0dcf28bbe2835f5e7c6f460c1b1f5",
+      "payloadSHA256": "c70f1e5bccbaa66aec4a84342ed7d8b43ec0dcf28bbe2835f5e7c6f460c1b1f5"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-streetscape-college-day.png",
+      "payloadPath": "quayside-evidence/public/public-streetscape-college-day.png",
+      "compression": "none",
+      "originalBytes": 591368,
+      "payloadBytes": 591368,
+      "sha256": "5da223d4029cabacb078da289e68ac4dfc5a6ab8aa54b757039fdd6adf7c1e88",
+      "payloadSHA256": "5da223d4029cabacb078da289e68ac4dfc5a6ab8aa54b757039fdd6adf7c1e88"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-streetscape-college-night.png",
+      "payloadPath": "quayside-evidence/public/public-streetscape-college-night.png",
+      "compression": "none",
+      "originalBytes": 639743,
+      "payloadBytes": 639743,
+      "sha256": "600b796195077ef385f9cd5720383e46c22f16ddc31844634003ae753802b500",
+      "payloadSHA256": "600b796195077ef385f9cd5720383e46c22f16ddc31844634003ae753802b500"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-streetscape-manor-day.png",
+      "payloadPath": "quayside-evidence/public/public-streetscape-manor-day.png",
+      "compression": "none",
+      "originalBytes": 651710,
+      "payloadBytes": 651710,
+      "sha256": "e0142206c120c53c35b9302ec5ce2883bdbde05f8701da3d93bcc40be6206859",
+      "payloadSHA256": "e0142206c120c53c35b9302ec5ce2883bdbde05f8701da3d93bcc40be6206859"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-streetscape-manor-night.png",
+      "payloadPath": "quayside-evidence/public/public-streetscape-manor-night.png",
+      "compression": "none",
+      "originalBytes": 798253,
+      "payloadBytes": 798253,
+      "sha256": "34b0e2823011fe1054ad1f78e98b3c0a732046d1fbb2cfce692157bdb3e4048e",
+      "payloadSHA256": "34b0e2823011fe1054ad1f78e98b3c0a732046d1fbb2cfce692157bdb3e4048e"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-theatre-construction.png",
+      "payloadPath": "quayside-evidence/public/public-theatre-construction.png",
+      "compression": "none",
+      "originalBytes": 722173,
+      "payloadBytes": 722173,
+      "sha256": "7250a4ef6d7acc7948e75201a1920ed8ea2d936d5ec972ebdcdb113c5edb1280",
+      "payloadSHA256": "7250a4ef6d7acc7948e75201a1920ed8ea2d936d5ec972ebdcdb113c5edb1280"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-theatre-day.png",
+      "payloadPath": "quayside-evidence/public/public-theatre-day.png",
+      "compression": "none",
+      "originalBytes": 745556,
+      "payloadBytes": 745556,
+      "sha256": "c6d26b8508ea124ff1b44099bcaf01f931d3a234d28d4147930c8fa52737dc2e",
+      "payloadSHA256": "c6d26b8508ea124ff1b44099bcaf01f931d3a234d28d4147930c8fa52737dc2e"
+    },
+    {
+      "width": 1600,
+      "height": 1080,
+      "originalPath": "quayside-evidence/public/public-theatre-night.png",
+      "payloadPath": "quayside-evidence/public/public-theatre-night.png",
+      "compression": "none",
+      "originalBytes": 717286,
+      "payloadBytes": 717286,
+      "sha256": "5ae4119adba9f26c449f5892d14fad03ab5053858c2b6d91cc61463f951f9357",
+      "payloadSHA256": "5ae4119adba9f26c449f5892d14fad03ab5053858c2b6d91cc61463f951f9357"
+    },
+    {
+      "originalPath": "quayside-evidence/public/raw-console.json",
+      "payloadPath": "quayside-evidence/public/raw-console.json.gz",
+      "compression": "gzip",
+      "originalBytes": 96131662,
+      "payloadBytes": 926958,
+      "sha256": "4e822b2a2a99362ee7b4f8a306b5f266432bc90a0690ffa9f2f0c98f40dab52f",
+      "payloadSHA256": "eb238d1af1ab1a79490c7a9990d94b52a1e5e7378ef25343bc8347b34e8ccbf5"
+    },
+    {
+      "originalPath": "quayside-public-approved-native017.json",
+      "payloadPath": "quayside-public-approved-native017.json",
+      "compression": "none",
+      "originalBytes": 590179,
+      "payloadBytes": 590179,
+      "sha256": "726a9d8393b5a849a45503474751d331da9dea71147b5b438dcb5ff330e1c08c",
+      "payloadSHA256": "726a9d8393b5a849a45503474751d331da9dea71147b5b438dcb5ff330e1c08c"
+    },
+    {
+      "originalPath": "quayside-public-prior-formal017.json",
+      "payloadPath": "quayside-public-prior-formal017.json",
+      "compression": "none",
+      "originalBytes": 90434,
+      "payloadBytes": 90434,
+      "sha256": "04ba40d7c8ae6860e707ca288470465e830a5e65a677a1ee16c31b62a1653d9f",
+      "payloadSHA256": "04ba40d7c8ae6860e707ca288470465e830a5e65a677a1ee16c31b62a1653d9f"
+    }
+  ],
+  "archives": [
+    {
+      "file": "t730-public-part0.zip",
+      "sha256": "a2ee64a1b23a250db8660f72122ee30bcdeb37c22bd48ac7aeadf059fa8c9c42",
+      "bytes": 26796581
+    },
+    {
+      "file": "t730-public-part1.zip",
+      "sha256": "22ed53b1679deebab064217eba7071ee6ed90bf6a961dcee40215fc8b566d221",
+      "bytes": 24010914
+    }
+  ],
+  "detailRetention": "All original detail and raw diagnostics remain losslessly in the verified original GitHub artifact archives. This source history retains gate names/outcomes/scopes, canonical detail hashes, every evidence record, and original archive identities; it does not replace the original evidence."
+}
