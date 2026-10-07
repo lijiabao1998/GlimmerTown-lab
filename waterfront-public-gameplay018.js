@@ -3,6 +3,7 @@
 const fs=require('node:fs'),path=require('node:path'),{isDeepStrictEqual:equal}=require('node:util');
 const {hash,complexFixtureSource014,pins018,verifyCanonicalAsset018}=require('./waterfront-public-contract018');
 const {passiveWaterfrontState018,validHeritageState018,sameHeritageIdentity018}=require('./waterfront-public-new018');
+const capitalObserver=require('./waterfront-public-capital018');
 const {passiveStreetscapeState015}=require('./waterfront-public-streetscape018'),{passiveGardenState016}=require('./waterfront-public-garden018'),{passiveQuaysideState017}=require('./waterfront-public-quayside018');
 async function observeWaterfront018(ctx){
  const {ROOT,OUT,cdp,report,check:parentCheck,documentResponses,documentProof,menuReady,screenshot013,registerComplexPassive,recipe,save,sourceObserver}=ctx;
@@ -10,7 +11,8 @@ async function observeWaterfront018(ctx){
  const V=require(path.join(ROOT,'waterfront-lifecycle-contract018.js')),old=require(path.join(ROOT,'complexes-gameplay014.js')),session=require(path.join(ROOT,'waterfront-session-fingerprint018.js')),edge=require(path.join(ROOT,'mapedge-native-qa018.js')),renderer=require(path.join(ROOT,'mapedge-render018.js'));
  const {seedApprovedBritishLegacy007}=require(path.join(ROOT,'publiclife-legacy-fixture007.js'));
  const modules=[['__streetscapeFns015','streetscape-gameplay015.js','functions015'],['__gardenLifeFns016','gardenlife-gameplay016.js','functions016'],['__quaysideFns017','quayside-gameplay017.js','functions017'],['__waterfrontFns018','waterfront-gameplay018.js','functions018'],['__mapedgeFns018','mapedge-native-qa018.js','functions018']];
- const register=async()=>{let s='window.__complexFns014=(()=>{'+complexFixtureSource014(ROOT)+';return{bindObservation014,setupComplexes014,identity014,snapshot014,step014,nativeScene014};})();';for(const[key,file,exported]of modules){const functions=require(path.join(ROOT,file))[exported];s+='window.'+key+'=(()=>{'+functions.map(f=>f.toString()).join('\n')+';return{'+functions.map(f=>f.name).join(',')+'};})();';}return cdp.evalJs(s+'true');};
+ const placementAdapter=capitalObserver.buildPlacement018(ROOT);report.waterfrontCapitalAdapter=placementAdapter.proof;
+ const register=async()=>{let s='window.__complexFns014=(()=>{'+complexFixtureSource014(ROOT)+';return{bindObservation014,setupComplexes014,identity014,snapshot014,step014,nativeScene014};})();';for(const[key,file,exported]of modules){const functions=require(path.join(ROOT,file))[exported];s+='window.'+key+'=(()=>{'+(file==='waterfront-gameplay018.js'?capitalObserver.waterfrontPublicCapitalDelta018.toString()+'\n':'')+functions.map(f=>file==='waterfront-gameplay018.js'&&f.name==='setupWaterfront018'?placementAdapter.adapted:f.toString()).join('\n')+';return{'+functions.map(f=>f.name).join(',')+'};})();';}return cdp.evalJs(s+'true');};
  const call=(name,...args)=>cdp.evalJs('window.__waterfrontFns018.'+name+'('+args.map(a=>JSON.stringify(a)).join(',')+')');
  const boot=await cdp.evalJs('({specs:GV.waterfrontSpecs018(),self:GV.waterfrontSelftest018(),version:GV.ver(),errors:window.__t574.err})');
  check('official heritage catalog installs exactly two manual native aliases and eight approved views',boot.version==='14.35'&&boot.self.ok&&boot.errors.length===0&&boot.specs.appearances.length===2&&equal(boot.specs.appearances.map(r=>r.id),V.IDS.slice(0,2)),boot);

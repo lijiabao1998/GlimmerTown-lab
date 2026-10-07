@@ -63,6 +63,7 @@ jobs:
           node observer/console-source-observer-qa015.js
           git -C deployed fetch --depth=1 origin "$(node -p "require('./observer/waterfront-public-release018.json').releaseCandidateSHA")"
           node observer/waterfront-public-source-qa018.js
+          node observer/waterfront-public-capital018.test.js
           node observer/waterfront-public-lifecycle018.test.js
           node observer/waterfront-public-history-tests018.js
           python3 observer/waterfront-public-package018.test.py
