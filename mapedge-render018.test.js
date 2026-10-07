@@ -52,22 +52,51 @@ function helperSourceGuard018(source){
   const code=source.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\/\/[^\n]*/g,'');
   assert.doesNotMatch(code,/\b(?:Math|rand|random|R|localStorage|sessionStorage|document|fetch|XMLHttpRequest|WebSocket|eval|Function|require)\b/,'helper has no RNG, storage, canvas creation, network, dynamic code or dependencies');
   const hot=sourceBetween(code,'  function mapEdgeMask018','  function selftest018');
-  assert.doesNotMatch(hot,/\bnew\b|\[|\{\s*\w+\s*:|\b(?:Array|Object)\s*\./,'hot path allocates no object, array or constructor');
-  assert.doesNotMatch(hot,/ctx\.(?!drawImage\b)|sprite\./,'only native drawImage; no context or sprite mutation');
+  assert.equal((hot.match(/new Path2D\(\)/g)||[]).length,1,'one private clipping path; no persistent cache');
+  assert.doesNotMatch(hot.replace('new Path2D()',''),/\bnew\b|\[|\{\s*\w+\s*:|\b(?:Array|Object)\s*\./,'no other per-draw object, array or constructor');
+  assert.doesNotMatch(hot,/ctx\.(?!(?:drawImage|save|clip|restore)\b)|sprite\./,'only draw and balanced clipping; no current path, transform or sprite mutation');
+  const draws=[...hot.matchAll(/ctx\.drawImage\(([^;]+)\);/g)].map(match=>match[1]);
+  assert.deepEqual(draws,['sprite,sx,sy,64*z,56*z','sprite,sx,sy,64*z,56*z'],'every draw retains the original full-sprite transform');
+  assert.match(hot,/finally\s*\{\s*ctx\.restore\(\);\s*\}/,'state restoration is unconditional after save');
   return true;
 }
-function isolatedAPI018(source,browser){
-  const sandbox=browser?{window:{}}:{module:{exports:{}}};
+// Pure call/state doubles, deliberately without any rasterization or canvas.
+const pathData018=new WeakMap();let pathAllocations018=0;
+class MockPath2D018{
+  constructor(){pathAllocations018++;pathData018.set(this,[]);}
+  rect(...args){pathData018.get(this).push(args);}
+}
+function isolatedAPI018(source,browser,Path2D=MockPath2D018){
+  const sandbox=browser?{window:{},Path2D}:{module:{exports:{}},Path2D};
   for(const key of['document','localStorage','sessionStorage','fetch','XMLHttpRequest','WebSocket'])Object.defineProperty(sandbox,key,{get(){throw Error('forbidden helper dependency: '+key);}});
   vm.runInNewContext(source,sandbox,{timeout:1000,filename:'mapedge-render018.js'});
   return browser?sandbox.window.MapEdgeRepair018:sandbox.module.exports;
 }
+function context018(failAt){
+  const calls=[],events=[],drawStates=[],stack=[];
+  const currentPath=Object.freeze(['unrelated caller path']);
+  const initial=Object.freeze({clips:Object.freeze([Object.freeze([-10000,-10000,20000,20000])]),transform:Object.freeze([1.25,.125,-.25,2,13.25,-27.5]),alpha:.63,composite:'source-over',smoothing:false,currentPath});
+  const failure=Error('injected '+failAt);let state=initial;
+  function hit(name){events.push(name);if(failAt===name)throw failure;}
+  const methods={
+    save(){assert.equal(this,ctx);hit('save');stack.push(state);},
+    clip(clip){
+      assert.equal(this,ctx);assert.equal(arguments.length,1,'clip only the private path');
+      const rects=pathData018.get(clip);assert.ok(rects,'clip receives an independent Path2D');
+      assert.equal(rects.length,1,'exactly one outward rectangle per path');
+      assert.equal(rects[0].length,4);state={...state,clips:[...state.clips,rects[0].slice()]};hit('clip');
+    },
+    drawImage(...args){assert.equal(this,ctx);calls.push(args);drawStates.push(state);hit('drawImage');},
+    restore(){assert.equal(this,ctx);hit('restore');assert.ok(stack.length,'no over-restoration');state=stack.pop();}
+  };
+  const ctx=new Proxy(methods,{get(target,key){assert.ok(Object.hasOwn(methods,key),'forbidden context access: '+String(key));return target[key];},set(){throw Error('canvas state mutation');}});
+  return{ctx,calls,events,drawStates,failure,assertRestored(){assert.equal(state,initial,'caller state restored exactly');assert.equal(stack.length,0,'balanced save/restore');assert.equal(state.currentPath,currentPath,'caller path preserved');}};
+}
 function record018(api,vx,vy,n,sx,sy,z,legacy=false,sprite){
-  if(arguments.length<10)sprite=Object.freeze({canonicalCliff:true});
-  const calls=[];
-  const ctx=new Proxy({drawImage(...args){assert.equal(this,ctx);calls.push(args);}},{get(target,key){assert.equal(key,'drawImage','no canvas methods or state changes');return target[key];},set(){throw Error('canvas state mutation');}});
-  const mask=api.drawMapEdge018(ctx,sprite,vx,vy,n,sx,sy,z,legacy);
-  return{mask,calls,sprite};
+  if(arguments.length<9)sprite=new Proxy(Object.freeze({canonicalCliff:true}),{get(){throw Error('sprite property read');}});
+  const q=context018(),allocations=pathAllocations018;
+  const mask=api.drawMapEdge018(q.ctx,sprite,vx,vy,n,sx,sy,z,legacy);q.assertRestored();
+  return{mask,calls:q.calls,events:q.events,drawStates:q.drawStates,allocations:pathAllocations018-allocations,sprite};
 }
 // This independent test mapping is not evaluated from the game's w2v source.
 function rotate018(x,y,n,r){return r===0?[x,y]:r===1?[n-1-y,x]:r===2?[n-1-x,n-1-y]:[y,n-1-x];}
@@ -79,15 +108,17 @@ function worldMask018(x,y,n,r){
 }
 function assertCall018(q,expected,sx,sy,z,legacy=false){
   assert.equal(q.mask,expected);
-  if(!expected||!q.sprite){assert.deepEqual(q.calls,[]);return;}
+  if(!expected||!q.sprite){assert.deepEqual(q.calls,[]);assert.deepEqual(q.events,[]);assert.equal(q.allocations,0);return;}
   assert.equal(q.calls.length,1,'each boundary tile has exactly one native draw');
-  if(legacy||expected===3){assert.deepEqual(q.calls[0],[q.sprite,sx,sy,64*z,56*z]);return;}
-  const left=expected===1;
-  assert.deepEqual(q.calls[0],[q.sprite,left?0:32,0,32,56,left?sx:sx+32*z,sy,32*z,56*z]);
-  const[,sourceX,sourceY,sourceW,sourceH,destX,destY,destW,destH]=q.calls[0];
-  assert.ok(sourceX>=0&&sourceY===0&&sourceX+sourceW<=64&&sourceY+sourceH===56);
-  assert.equal(destX,sx+sourceX*z);assert.equal(destY,sy+sourceY*z);
-  assert.equal(destW,sourceW*z);assert.equal(destH,sourceH*z);
+  assert.deepEqual(q.calls[0],[q.sprite,sx,sy,64*z,56*z],'full source and original destination remain exact');
+  const state=q.drawStates[0];assert.deepEqual(state.transform,[1.25,.125,-.25,2,13.25,-27.5]);
+  assert.equal(state.alpha,.63);assert.equal(state.composite,'source-over');assert.equal(state.smoothing,false);
+  assert.deepEqual(state.currentPath,['unrelated caller path']);
+  assert.deepEqual(state.clips[0],[-10000,-10000,20000,20000],'existing clip retained');
+  if(legacy||expected===3){assert.deepEqual(q.events,['drawImage']);assert.equal(q.allocations,0);assert.equal(state.clips.length,1);return;}
+  assert.deepEqual(q.events,['save','clip','drawImage','restore']);assert.equal(q.allocations,1);
+  assert.equal(state.clips.length,2,'outward half intersects the existing clip');
+  assert.deepEqual(state.clips[1],[expected===1?sx:sx+32*z,sy,32*z,56*z]);
 }
 function drawControls018(api,exhaustive=true){
   let cases=0;
@@ -111,9 +142,10 @@ function drawControls018(api,exhaustive=true){
   }
   return cases;
 }
-function sourcePointIncluded018(call,px,py){
-  if(!call)return false;
-  return call.length===5?px>=0&&px<64&&py>=0&&py<56:px>=call[1]&&px<call[1]+call[3]&&py>=call[2]&&py<call[2]+call[4];
+function sourcePointIncluded018(q,px,py){
+  const call=q.calls[0];if(!call||px<0||px>=64||py<0||py>=56)return false;
+  const[,sx,sy,w,h]=call,x=sx+px*w/64,y=sy+py*h/56;
+  return q.drawStates[0].clips.every(([cx,cy,cw,ch])=>x>=cx&&x<cx+cw&&y>=cy&&y<cy+ch);
 }
 function geometryProof018(api){
   const n=72,A={x:71,y:65},B={x:71,y:66};
@@ -129,12 +161,12 @@ function geometryProof018(api){
     assert.ok(Math.abs((ax+16*z)-(bx+48*z))<1e-9);
     assert.ok(Math.abs((ay+14*z)-(by+30*z))<1e-9);
     const old=record018(api,...bv,n,bx,by,z,true),fixed=record018(api,...bv,n,bx,by,z,false);
-    assert.ok(sourcePointIncluded018(old.calls[0],48,30),'old wrong face covers implicated point');
-    assert.ok(!sourcePointIncluded018(fixed.calls[0],48,30),'repaired face excludes implicated point');
-    assert.ok(sourcePointIncluded018(fixed.calls[0],16,30),'legitimate left outer-wall sample remains');
+    assert.ok(sourcePointIncluded018(old,48,30),'old wrong face covers implicated point');
+    assert.ok(!sourcePointIncluded018(fixed,48,30),'repaired face excludes implicated point');
+    assert.ok(sourcePointIncluded018(fixed,16,30),'legitimate left outer-wall sample remains');
     const right=record018(api,71,5,n,bx,by,z),corner=record018(api,71,71,n,bx,by,z);
-    assert.ok(sourcePointIncluded018(right.calls[0],48,30),'legitimate right outer-wall sample remains');
-    for(const point of[[16,30],[48,30],[31,40],[32,40]])assert.ok(sourcePointIncluded018(corner.calls[0],...point),'corner retains both complete native halves');
+    assert.ok(sourcePointIncluded018(right,48,30),'legitimate right outer-wall sample remains');
+    for(const point of[[16,30],[48,30],[31,40],[32,40]])assert.ok(sourcePointIncluded018(corner,...point),'corner retains both complete native halves');
     proofs.push({zoom:z,oldIncludesWrongFace:true,fixedExcludesWrongFace:true,outwardWallsAndCornerRetained:true});
   }
   // Continuous projected outward boundary: the neighboring half-face intervals
@@ -147,6 +179,68 @@ function geometryProof018(api){
   }
   return{rotation:1,A,B,viewA:av,viewB:bv,sourceA:[16,14],sourceB:[48,30],sourceArithmeticOnly:true,proofs};
 }
+function samplingProof018(api){
+  // The failed native frame used this real destination anchor. At .75 zoom,
+  // these centers land on exact integer source ties. Assert call identity, not
+  // a made-up nearest-neighbor rule or a claim that this test reads pixels.
+  const sx=1520,sy=216,z=.75,sprite=Object.freeze({canonicalCliff:true});
+  const old=record018(api,71,40,72,sx,sy,z,true,sprite),fixed=record018(api,71,40,72,sx,sy,z,false,sprite);
+  assert.deepEqual(fixed.calls,old.calls,'full transform at the actual failed anchor is bit-identical');
+  assert.deepEqual(fixed.drawStates[0].clips[1],[1544,216,24,42]);
+  const ties=[];
+  for(let x=1545;x<=1566;x+=3){
+    const sourceX=(x+.5-sx)*64/(64*z);ties.push(sourceX);
+    assert.ok(sourcePointIncluded018(fixed,sourceX,40),'retained tie lies in the outward half');
+  }
+  assert.deepEqual(ties,[34,38,42,46,50,54,58,62]);
+  for(const z of[.75,1,1.6,2])for(const[sx,sy]of[[1520,216],[-50.75,100.125],[13.1,-77.3]])for(const[vx,vy]of[[20,71],[71,20],[71,71]]){
+    const fixed=record018(api,vx,vy,72,sx,sy,z,false,sprite),old=record018(api,vx,vy,72,sx,sy,z,true,sprite);
+    assert.deepEqual(fixed.calls,old.calls,'clipping never changes source-to-destination draw arguments');
+  }
+  return{sourceArithmeticOnly:true,failedAnchor:[sx,sy],zoom:z,retainedIntegerSourceTies:ties,originalFullTransformExact:true};
+}
+function stateControls018(source,api){
+  let cases=0;
+  for(const[vx,vy]of[[20,71],[71,20]])for(const failure of['save','clip','drawImage']){
+    const q=context018(failure);
+    assert.throws(()=>api.drawMapEdge018(q.ctx,'sentinel',vx,vy,72,1520,216,.75,false),error=>error===q.failure);
+    assert.deepEqual(q.events,failure==='save'?['save']:failure==='clip'?['save','clip','restore']:['save','clip','drawImage','restore']);
+    assert.equal(q.calls.length,failure==='drawImage'?1:0);q.assertRestored();cases++;
+  }
+  // Fail before save if constructing the private path fails. Do not consume a
+  // caller-owned save frame or draw an unclipped fallback when clipping fails.
+  for(const failAt of['constructor','rect']){
+    const failure=Error('injected path '+failAt),q=context018();
+    class BrokenPath{constructor(){if(failAt==='constructor')throw failure;}rect(){throw failure;}}
+    const broken=isolatedAPI018(source,false,BrokenPath);
+    assert.throws(()=>broken.drawMapEdge018(q.ctx,'sentinel',20,71,72,1,2,.75,false),error=>error===failure);
+    assert.deepEqual(q.events,[]);q.assertRestored();cases++;
+  }
+  // A browser supports Path2D already; Node import/selftest and all bypass
+  // paths must stay usable without a Path2D implementation or clipping methods.
+  const noPath=isolatedAPI018(source,false,null);assert.equal(noPath.selftest018().ok,true);
+  for(const[vx,vy,sprite,legacy]of[[20,20,'s',false],[20,71,null,false],[71,20,undefined,false],[71,71,'s',false],[20,71,'s',true],[71,20,'s',true]]){
+    const q=record018(noPath,vx,vy,72,1,2,.75,legacy,sprite);
+    assertCall018(q,noPath.mapEdgeMask018(vx,vy,72),1,2,.75,legacy);cases++;
+  }
+  const missing=context018();assert.throws(()=>noPath.drawMapEdge018(missing.ctx,'s',20,71,72,1,2,.75,false));
+  assert.deepEqual(missing.events,[]);missing.assertRestored();cases++;
+  for(const[vx,vy,legacy]of[[71,71,false],[20,71,true],[71,20,true]]){
+    const q=context018('drawImage');
+    assert.throws(()=>api.drawMapEdge018(q.ctx,'s',vx,vy,72,1,2,.75,legacy),error=>error===q.failure);
+    assert.deepEqual(q.events,['drawImage']);q.assertRestored();cases++;
+  }
+  const restore=context018('restore');
+  assert.throws(()=>api.drawMapEdge018(restore.ctx,'s',20,71,72,1,2,.75,false),error=>error===restore.failure);
+  assert.deepEqual(restore.events,['save','clip','drawImage','restore'],'restoration failures propagate without retry');cases++;
+  // Reusing one context across alternating clips must not leak a previous half.
+  const repeated=context018();
+  for(const[vx,vy,legacy]of[[20,71,false],[71,20,false],[71,71,false],[20,20,false],[20,71,true],[71,20,false]]){
+    api.drawMapEdge018(repeated.ctx,'s',vx,vy,72,1520,216,.75,legacy);repeated.assertRestored();cases++;
+  }
+  assert.equal(repeated.drawStates.filter(state=>state.clips.length===2).length,3);
+  return{cases,currentPathAndTransformUntouched:true,existingClipRetained:true,exceptionRestoration:true,noUnclippedFallback:true};
+}
 function mutationControls018(source){
   const mutations=[
     ['wrong view axis','(vy===n-1?1:0)|(vx===n-1?2:0)','(vx===n-1?1:0)|(vy===n-1?2:0)'],
@@ -154,13 +248,24 @@ function mutationControls018(source){
     ['hide right wall','(vx===n-1?2:0)','0'],
     ['hide corner','if(!sprite||!mask)','if(!sprite||!mask||mask===3)'],
     ['old full wrong half','legacyDisabledFlag||mask===3','true'],
-    ['wrong left source half','sprite,0,0,32,56,sx','sprite,32,0,32,56,sx'],
-    ['wrong right source half','sprite,32,0,32,56,sx+32*z','sprite,0,0,32,56,sx+32*z'],
-    ['shift right anchor','sx+32*z,sy','sx,sy'],
-    ['shift height','32*z,sy','32*z,sy-1'],
-    ['change wall height','32*z,56*z','32*z,55*z'],
-    ['stretch source half','32,56,sx,sy,32*z','32,56,sx,sy,64*z'],
-    ['change source bounds','sprite,0,0,32,56','sprite,0,0,33,56'],
+    ['resample cropped source','sprite,sx,sy,64*z,56*z','sprite,0,0,32,56,sx,sy,32*z,56*z'],
+    ['shift original anchor','sprite,sx,sy,64*z,56*z','sprite,sx+1,sy,64*z,56*z'],
+    ['reverse clip half','mask===1?sx:sx+32*z','mask===2?sx:sx+32*z'],
+    ['shift right clip','sx+32*z,sy','sx,sy'],
+    ['shift clip height','32*z,sy','32*z,sy-1'],
+    ['change clip height','32*z,56*z','32*z,55*z'],
+    ['expose both halves','32*z,56*z','64*z,56*z'],
+    ['crop legitimate wall','32*z,56*z','31*z,56*z'],
+    ['remove clip','ctx.clip(clip);',''],
+    ['reuse current path','ctx.clip(clip);','ctx.clip();'],
+    ['destroy current path','ctx.clip(clip);','ctx.beginPath();ctx.clip(clip);'],
+    ['change caller transform','ctx.clip(clip);','ctx.setTransform(1,0,0,1,0,0);ctx.clip(clip);'],
+    ['clip after draw','ctx.clip(clip);\n        ctx.drawImage(sprite,sx,sy,64*z,56*z);','ctx.drawImage(sprite,sx,sy,64*z,56*z);\n        ctx.clip(clip);'],
+    ['omit save','ctx.save();',''],
+    ['omit restore','finally{ctx.restore();}','finally{}'],
+    ['restore twice','finally{ctx.restore();}','finally{ctx.restore();ctx.restore();}'],
+    ['restore only on success','ctx.drawImage(sprite,sx,sy,64*z,56*z);\n      }finally{ctx.restore();}','ctx.drawImage(sprite,sx,sy,64*z,56*z);ctx.restore();\n      }finally{}'],
+    ['swallow draw failure','}finally{ctx.restore();}','}catch(ignored){}finally{ctx.restore();}'],
     ['paint interior','if(!sprite||!mask)','if(!sprite)'],
     ['lose old fallback','legacyDisabledFlag||mask===3','mask===3'],
     ['incorrectly enable fallback','legacyDisabledFlag||mask===3','!legacyDisabledFlag||mask===3'],
@@ -174,7 +279,7 @@ function mutationControls018(source){
   for(const[name,from,to]of mutations){
     assert.ok(source.includes(from),'mutation target exists: '+name);
     const mutant=source.replace(from,to);
-    assert.throws(()=>{helperSourceGuard018(mutant);const api=isolatedAPI018(mutant,false);drawControls018(api,false);geometryProof018(api);},undefined,'must reject '+name);
+    assert.throws(()=>{helperSourceGuard018(mutant);const api=isolatedAPI018(mutant,false);drawControls018(api,false);geometryProof018(api);samplingProof018(api);stateControls018(mutant,api);},undefined,'must reject '+name);
     rejected.push(name);
   }
   return rejected;
@@ -184,11 +289,11 @@ function staticTest018(){
   const sourceProof=sourceProof018();helperSourceGuard018(source);
   assert.deepEqual(Object.keys(render).sort(),['drawMapEdge018','mapEdgeMask018','selftest018']);assert.ok(Object.isFrozen(render));
   assert.deepEqual(render.selftest018(),{ok:true,cases:7,canvasExecuted:false});
-  const cases=drawControls018(render),geometry=geometryProof018(render);
+  const api=isolatedAPI018(source,false),cases=drawControls018(api),geometry=geometryProof018(api),sampling=samplingProof018(api),state=stateControls018(source,api);
   let browserCases=0;
-  for(const browser of[false,true]){const api=isolatedAPI018(source,browser);assert.ok(Object.isFrozen(api));assert.equal(api.selftest018().ok,true);browserCases+=drawControls018(api,false);geometryProof018(api);}
+  for(const browser of[false,true]){const api=isolatedAPI018(source,browser);assert.ok(Object.isFrozen(api));assert.equal(api.selftest018().ok,true);browserCases+=drawControls018(api,false);geometryProof018(api);samplingProof018(api);stateControls018(source,api);}
   const rejected=mutationControls018(source);
-  return{ok:true,sourceOnly:true,gameExecuted:false,painterExecuted:false,canvasExecuted:false,pixelsExecuted:false,helperSHA256:hash(source),cases,browserAndNodeExportCases:browserCases,sourceProof,geometry,rejected};
+  return{ok:true,sourceOnly:true,gameExecuted:false,painterExecuted:false,canvasExecuted:false,pixelsExecuted:false,helperSHA256:hash(source),cases,browserAndNodeExportCases:browserCases,sourceProof,geometry,sampling,state,rejected};
 }
-module.exports={staticTest018,sourceProof018,helperSourceGuard018,drawControls018,geometryProof018,mutationControls018,PINS};
+module.exports={staticTest018,sourceProof018,helperSourceGuard018,drawControls018,geometryProof018,samplingProof018,stateControls018,mutationControls018,PINS};
 if(require.main===module){if(process.argv.length>3||process.argv.length===3&&process.argv[2]!=='--static-test')throw Error('Use --static-test or no arguments; source/draw-call tests only');console.log(JSON.stringify(staticTest018(),null,2));}

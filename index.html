@@ -7168,7 +7168,7 @@ function workersCornerShop006(spec) {
 /* GPT-018: retain only the outward half of the existing 64 x 56 cliff.
    The caller supplies native view coordinates and the unchanged screen anchor.
    mask 1 = view-y boundary / left half; 2 = view-x / right half; 3 = both.
-   No new pixels, sprite generation, terrain edits, or per-call allocation. */
+   No new pixels, sprite generation or terrain edits. */
 (function(root){
   'use strict';
   function mapEdgeMask018(vx,vy,n){
@@ -7177,11 +7177,21 @@ function workersCornerShop006(spec) {
   function drawMapEdge018(ctx,sprite,vx,vy,n,sx,sy,z,legacyDisabledFlag){
     const mask=mapEdgeMask018(vx,vy,n);
     if(!sprite||!mask)return mask;
-    // Keep the original native call exactly for the diagnostic fallback and
-    // the front corner. Cropping changes neither the anchor nor the scale.
+    // Keep the original full-sprite sampling transform, including fractional
+    // zoom rounding. A cropped source rectangle can resample retained pixels.
     if(legacyDisabledFlag||mask===3)ctx.drawImage(sprite,sx,sy,64*z,56*z);
-    else if(mask===1)ctx.drawImage(sprite,0,0,32,56,sx,sy,32*z,56*z);
-    else ctx.drawImage(sprite,32,0,32,56,sx+32*z,sy,32*z,56*z);
+    else{
+      // save/restore does not save the current path. A private Path2D leaves
+      // that path and the transform untouched, at the cost of one temporary
+      // path per clipped edge. Interior, corner and legacy draws allocate none.
+      const clip=new Path2D();
+      clip.rect(mask===1?sx:sx+32*z,sy,32*z,56*z);
+      ctx.save();
+      try{
+        ctx.clip(clip);
+        ctx.drawImage(sprite,sx,sy,64*z,56*z);
+      }finally{ctx.restore();}
+    }
     return mask;
   }
   function selftest018(){
