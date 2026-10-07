@@ -25,7 +25,21 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      timeout-minutes: 7
+      run: |
+        set -euo pipefail
+        for attempt in 1 2; do
+          if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 update -qq &&
+             sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then
+            test "$(dpkg-query -W -f='${Version}' fonts-wqy-zenhei)" = '0.9.45-8'
+            test -z "$(dpkg --verify fonts-wqy-zenhei)"
+            sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc
+            exit 0
+          fi
+          if [ "$attempt" -lt 2 ]; then sleep 5; fi
+        done
+        echo 'Native font setup failed after two bounded attempts' >&2
+        exit 1
     - name: All original018 source controls on immutable approved T731, then current019 adapters
       run: |
         set -euo pipefail
@@ -56,6 +70,7 @@ jobs:
         node waterfront-quarter-compatibility019.js --static-test
         node waterfront-quarter-adapters019.test.js
         python3 waterfront-quarter-workflow019.test.py
+        python3 waterfront-quarter-mobile-workflow019.test.py
         python3 waterfront-quarter-package019.test.py
         for f in *019.js; do node --check "$f"; done
     - name: Every unchanged T730 and older source control in frozen approved worktrees
@@ -605,7 +620,21 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      timeout-minutes: 7
+      run: |
+        set -euo pipefail
+        for attempt in 1 2; do
+          if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 update -qq &&
+             sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then
+            test "$(dpkg-query -W -f='${Version}' fonts-wqy-zenhei)" = '0.9.45-8'
+            test -z "$(dpkg --verify fonts-wqy-zenhei)"
+            sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc
+            exit 0
+          fi
+          if [ "$attempt" -lt 2 ]; then sleep 5; fi
+        done
+        echo 'Native font setup failed after two bounded attempts' >&2
+        exit 1
     - uses: actions/download-artifact@v4
       with:
         name: waterfront-quarter019-native-fingerprint-${{ github.sha }}
@@ -709,7 +738,21 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      timeout-minutes: 7
+      run: |
+        set -euo pipefail
+        for attempt in 1 2; do
+          if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 update -qq &&
+             sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then
+            test "$(dpkg-query -W -f='${Version}' fonts-wqy-zenhei)" = '0.9.45-8'
+            test -z "$(dpkg --verify fonts-wqy-zenhei)"
+            sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc
+            exit 0
+          fi
+          if [ "$attempt" -lt 2 ]; then sleep 5; fi
+        done
+        echo 'Native font setup failed after two bounded attempts' >&2
+        exit 1
     - uses: actions/download-artifact@v4
       with:
         name: waterfront-quarter019-native-fingerprint-${{ github.sha }}
@@ -830,7 +873,21 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      timeout-minutes: 7
+      run: |
+        set -euo pipefail
+        for attempt in 1 2; do
+          if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 update -qq &&
+             sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then
+            test "$(dpkg-query -W -f='${Version}' fonts-wqy-zenhei)" = '0.9.45-8'
+            test -z "$(dpkg --verify fonts-wqy-zenhei)"
+            sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc
+            exit 0
+          fi
+          if [ "$attempt" -lt 2 ]; then sleep 5; fi
+        done
+        echo 'Native font setup failed after two bounded attempts' >&2
+        exit 1
     - uses: actions/download-artifact@v4
       with:
         name: waterfront-quarter019-native-fingerprint-${{ github.sha }}
@@ -934,7 +991,21 @@ jobs:
       with:
         node-version: 22
     - name: Native font
-      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      timeout-minutes: 7
+      run: |
+        set -euo pipefail
+        for attempt in 1 2; do
+          if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 update -qq &&
+             sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then
+            test "$(dpkg-query -W -f='${Version}' fonts-wqy-zenhei)" = '0.9.45-8'
+            test -z "$(dpkg --verify fonts-wqy-zenhei)"
+            sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc
+            exit 0
+          fi
+          if [ "$attempt" -lt 2 ]; then sleep 5; fi
+        done
+        echo 'Native font setup failed after two bounded attempts' >&2
+        exit 1
     - uses: actions/download-artifact@v4
       with:
         name: waterfront-quarter019-native-fingerprint-${{ github.sha }}

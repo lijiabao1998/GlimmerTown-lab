@@ -33,3 +33,15 @@ const evaluate=(selector,scroll)=>new vm.Script('('+quarterBoxUI019.toString()+'
 assert(!evaluate('.target',null).visible);assert.equal(yOffset,0);const reveal=evaluate('.target','#catalogResults458');assert(reveal.fullyVisible&&reveal.tappable);assert.equal(yOffset,250);assert.equal(xOffset,0);assert.equal(sheet.scrollTop,0);assert.equal(sheet.scrollLeft,0);assert.throws(()=>evaluate('.target','.catalogSheet458'),/Undesignated/);
 doc.elementFromPoint=()=>({});assert(!evaluate('.target',null).tappable);
 console.log(JSON.stringify({ok:true,sourceOnly:true,gameOrPainterExecuted:false,catalogEntryOnlyReset:true,escapeRestoresLegacyLayout:true,hallObjectSizeNormalization:true,rejectedGeometryMutations:rejected,ancestorClipAndHitTest:true,designatedScrollerOnly:true}));
+
+// Broken legacy UI teardown must not require its deliberately clipped close
+// target. Corrected acceptance retains full hit-tested touch requirements.
+const legacySection=runner.split('// Actual negative control:')[1].split("await ev('window.__noWaterfrontCatalogFit019=false')")[0];
+assert(legacySection.includes("const legacyClose=await box('#catalogClose458')"));
+assert(legacySection.includes("Input.dispatchKeyEvent"));assert(legacySection.includes("key:'Escape'"));assert(!legacySection.includes("touchTarget('#catalogClose458')"));
+const correctedSection=runner.split("await ev('window.__noWaterfrontCatalogFit019=false')")[1];
+assert(correctedSection.includes("touchTarget('#catalogClose458')"));assert(correctedSection.includes('corrected-reopen-after-close'));
+assert(!correctedSection.includes('Input.dispatchKeyEvent'));assert(!/\.scrollIntoView\s*\(/.test(correctedSection));
+assert(correctedSection.includes('actual category reset swipe reaches its start without buying'));
+assert(!/scrollLeft\s*=(?!=)|scrollTop\s*=(?!=)/.test(correctedSection));
+console.log(JSON.stringify({ok:true,sourceOnly:true,legacyCleanupNativeEscapeOnly:true,correctedAcceptanceStillStrictTouch:true,categoryResetActualTouch:true}));
