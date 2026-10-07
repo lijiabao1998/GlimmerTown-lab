@@ -7,7 +7,7 @@ old=yaml.safe_load((root/'.github/workflows/quayside-legacy017.yml').read_text()
 oldnative=yaml.safe_load((root/'.github/workflows/quayside-integration017.yml').read_text())
 current=yaml.safe_load((root/'.github/workflows/waterfront-full018.yml').read_text())
 expected=[{'suite':'quayside','mode':mode,'group':'none'}for mode in ['preflight',*oldnative['jobs']['native']['strategy']['matrix']['mode']]]+old['jobs']['legacy']['strategy']['matrix']['include']
-native=['catalog','gameplay','coldload','malformed',*[f'camera{n}'for n in range(4)],*[f'construction{n}'for n in range(4)],'weather','occlusion']
+native=['catalog','gameplay','coldload','malformed',*[f'camera{n}'for n in range(4)],*[f'construction{n}'for n in range(4)],'weather','occlusion',*[f'mapedge{n}'for n in range(4)]]
 assert len(expected)==128 and len({tuple(v.values())for v in expected})==128
 def runs(job):return'\n'.join(s.get('run','')for s in job['steps'])
 def validate(q):
@@ -30,7 +30,7 @@ def validate(q):
   commands=runs(job);assert'git diff --exit-code'in commands and'python3 waterfront-package018.py'in commands
   for forbidden in ['git push','gh pr','gh workflow','npm publish','fp.js --update','git commit']:assert forbidden not in commands
  pre=runs(j['preflight']);assert old['jobs']['preflight']['steps'][4]['run']in pre
- for text in ['1400301238f7a46ab6d3c489422a48f9f90cac9d','node quayside-release-contract017.test.js','node quayside-legacy017.js --static-test','node waterfront-preflight018.js','node waterfront-legacy018.test.js','node waterfront-historical-bridge018.test.js','node waterfront-style018.test.js','node waterfront-integration-qa018.js --static-test','node waterfront-compatibility018.test.js --static-test','node waterfront-session-fingerprint018.test.js','python3 waterfront-workflow018.test.py']:assert text in pre
+ for text in ['1400301238f7a46ab6d3c489422a48f9f90cac9d','node quayside-release-contract017.test.js','node quayside-legacy017.js --static-test','node waterfront-preflight018.js','node waterfront-legacy018.test.js','node waterfront-historical-bridge018.test.js','node waterfront-style018.test.js','node waterfront-integration-qa018.js --static-test','node waterfront-compatibility018.test.js --static-test','node waterfront-session-fingerprint018.test.js','node mapedge-render018.test.js --static-test','node mapedge-native-qa018.test.js','python3 waterfront-workflow018.test.py']:assert text in pre
  assert pre.index('node waterfront-preflight018.js')<pre.index('node waterfront-legacy018.test.js')<pre.index('WF018_SUITE=streetscape')
  compatibility=runs(j['compatibility'])
  for text in ['for n in 1 2 3','node waterfront-style018.js','WF018_SUITE=complexes WF018_MODE=fingerprint','WF018_SUITE=compatibility WF018_MODE=gameplay','node waterfront-compatibility018.test.js museum-evidence/compatibility/guards/compatibility.json']:assert text in compatibility
@@ -43,4 +43,4 @@ for name,mutate in [('drop historical mode',lambda q:q['jobs']['legacy']['strate
  try:validate(q)
  except(AssertionError,KeyError,ValueError):rejected.append(name)
  else:raise AssertionError('Invalid workflow accepted: '+name)
-print(json.dumps({'ok':True,'sourceOnly':True,'gameExecuted':False,'retainedMatrixModes':128,'newNativeModes':14,'fullWorkflowJobs':144,'priorSourceBlocksExact':True,'rejected':rejected}))
+print(json.dumps({'ok':True,'sourceOnly':True,'gameExecuted':False,'retainedMatrixModes':128,'newNativeModes':18,'preservedHeritageModes':14,'boundaryModes':4,'fullWorkflowJobs':148,'priorSourceBlocksExact':True,'rejected':rejected}))

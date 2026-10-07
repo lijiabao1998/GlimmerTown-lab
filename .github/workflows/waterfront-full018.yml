@@ -49,6 +49,10 @@ jobs:
 
         node waterfront-session-fingerprint018.test.js
 
+        node mapedge-render018.test.js --static-test
+
+        node mapedge-native-qa018.test.js
+
         '
     - name: Every unchanged T730 and older source control in frozen approved worktrees
       run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/waterfront-t730-controls-XXXXXX)\"\ngit worktree add --detach \"\
@@ -778,6 +782,10 @@ jobs:
         - construction3
         - weather
         - occlusion
+        - mapedge0
+        - mapedge1
+        - mapedge2
+        - mapedge3
     steps:
     - uses: actions/checkout@v4
       with:

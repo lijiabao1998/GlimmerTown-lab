@@ -70,6 +70,7 @@ function waterfrontSelftest018(){
   add('original k287 canonical atlas remains unchanged',Array.from({length:4},(_,v)=>SPR.bld['287_1_'+v]===complexArtCanonical014?.bld['287_1_'+v]).every(Boolean));
   add('eight independent assets built once',window.__waterfrontArt018?.total===8&&window.__waterfrontArt018?.builds===1);
   add('all twenty previous optional path details retained',Object.keys(STREETSCAPE_PATH015).length===8&&Object.keys(GARDENLIFE_PATH016).length===6&&Object.keys(QUAYSIDE_PATH017).length===6);
+  add('original map-edge sprite selects only outward faces',window.MapEdgeRepair018?.selftest018().ok===true);
   return{ok:details.every(q=>q.ok),checks:details.map(q=>q.name+(q.ok?' ✓':' ✗')),details};
 }
 /* GPT-018 LATE NATIVE HOOKS */

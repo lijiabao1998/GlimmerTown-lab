@@ -14,7 +14,9 @@ def rep(old,new,count=1):
  s=s.replace(old,new);audit.append({'from':old,'to':new,'count':count})
 early,late=(P/'gameplay018.js').read_text().split('/* GPT-018 LATE NATIVE HOOKS */',1)
 art=(P/'british-waterfront-heritage-art018.js').read_text()
+edge=(P/'mapedge-render018.js').read_text()
 rep('<!-- GPT-017 native quayside art END -->','<!-- GPT-017 native quayside art END -->\n<!-- GPT-018 native waterfront art BEGIN: source british-waterfront-heritage-art018.js -->\n<script>\n'+art+'\n</script>\n<!-- GPT-018 native waterfront art END -->')
+rep('<!-- GPT-018 native waterfront art END -->','<!-- GPT-018 native waterfront art END -->\n<!-- GPT-018 owner-requested native map-edge repair BEGIN -->\n<script>\n'+edge+'\n</script>\n<!-- GPT-018 owner-requested native map-edge repair END -->')
 rep('function britishSpec004(k){',early+'\nfunction britishSpec004(k){')
 rep('const drawPath643=(src=>','/* GPT-018 LATE NATIVE HOOKS */'+late+'\nconst drawPath643=(src=>')
 rep('installQuaysideArt017(); // GPT-004','installQuaysideArt017();installWaterfrontArt018(); // GPT-004')
@@ -24,6 +26,8 @@ rep('    if(!(VARK574.has(bd.k)&&vdraw574(o,bd)!==0))s=metroIndustrySprite516A(b
 rep('    if(fuel>0)data.fuel364=fuel;','    {const w018=waterfrontSave018();if(w018)data.waterfront018=w018;}\n    if(fuel>0)data.fuel364=fuel;')
 rep('    if(d.cm)for(let i=0;i<N*N;i++){','    waterfrontLoad018(d.waterfront018);\n    if(d.cm)for(let i=0;i<N*N;i++){')
 rep('  quaysideSelftest017,quaysideSpecs017,quaysideAt017,quaysideEvidence017,','  waterfrontSelftest018,waterfrontSpecs018,waterfrontAt018,waterfrontEvidence018,\n  quaysideSelftest017,quaysideSpecs017,quaysideAt017,quaysideEvidence017,')
+rep("gc.drawImage(SPR.cliff,sx,sy,64*z,56*z); // T388", "window.MapEdgeRepair018.drawMapEdge018(gc,SPR.cliff,vp388[0],vp388[1],N,sx,sy,z,!!window.__noMapEdgeFix018); // GPT-018 owner-requested outward map-edge faces; T388")
+rep("+(window.__noWaterGrad666?'_wg0':''); // T648", "+(window.__noWaterGrad666?'_wg0':'')+(window.__noMapEdgeFix018?'_me018old':''); // T648")
 reverse=s
 for e in reversed(audit):
  if reverse.count(e['to'])!=e['count']:raise SystemExit('Non-unique reverse integration')
