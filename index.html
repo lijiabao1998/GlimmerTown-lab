@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.34 · T730</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.35 · T731</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -6923,6 +6923,305 @@ function workersCornerShop006(spec) {
 
 </script>
 <!-- GPT-017 native quayside art END -->
+<!-- GPT-018 native waterfront art BEGIN: source british-waterfront-heritage-art018.js -->
+<script>
+/* GPT-018: original British waterfront heritage visitor buildings.
+ * Two fictional composites, four complete geometric views each.
+ * Architectural vocabulary: Historic England entries 1269089 and 1232421.
+ * All surfaces share the existing native depth buffer. No bitmap imports,
+ * screen-space glow, font rendering, simulation RNG, storage or network.
+ * Raster execution and visual acceptance belong to isolated GitHub Actions.
+ */
+(function(root){
+  'use strict';
+  const H=root.BritishComplexPrimitives014;
+  if(!H)throw Error('BritishComplexPrimitives014 must load before waterfront art');
+  const {Scene,P,C,mod,hash,GLOW,paving,slate,brick,ring,sash,rainpipe,wallLamp,
+    timberDoor,pottedPlant,bench,ironRail}=H;
+  const themes=Object.freeze(['lifeboatHall','canalTollhouse']);
+  const FEATURES=Object.freeze({
+    lifeboatHall:Object.freeze(['broad-slate-gable','coursed-rubble-and-brick-arches',
+      'radial-glazed-oculus','double-timber-exhibit-doors','strutted-side-shelter',
+      'infilled-side-annex','projecting-rear-casement','roof-ridge-and-gutters',
+      'visitor-court','supported-window-and-lantern-emission']),
+    canalTollhouse:Object.freeze(['two-storey-octagonal-masonry','eight-real-angled-faces',
+      'eight-sided-hipped-slate-roof','arched-recesses-and-glazing-bars',
+      'front-visitor-door','distinct-rear-service-door','waist-and-eaves-courses',
+      'rear-chimney-stack','stone-entrance-steps','small-railed-visitor-court'])
+  });
+  const RUBBLE=[C('a8a38e'),C('b9b099'),C('948f7e'),C('c4b79c')];
+  const RUBBLE_R=[C('858878'),C('969784'),C('767c70'),C('a0a18b')];
+  const IVORY=C('ded7c3'),IVORY_R=C('bfc1ad'),IVORY_HI=C('ece5d2');
+  const BLUE=C('435c65'),BLUE_D=C('314b55'),BLUE_HI=C('67808a');
+  function foundation(S){
+    S.box(.3,31.7,.3,31.7,0,.65,P.stoneD,P.stoneD,paving);
+    for(const y of[.45,31.35])S.flat(.45,31.55,y,y+.19,.67,P.stoneR);
+    for(const x of[.45,31.35])S.flat(x,x+.19,.45,31.55,.67,P.stoneR);
+  }
+  function rubble(right){
+    return(x,y,z)=>{
+      const u=right?y:x,row=Math.floor(z/1.8),offset=(row&1)*1.8;
+      const joint=mod(u+offset,3.6),edge=.14+.045*(hash(row,0,1801)%3);
+      if(mod(z,1.8)<.15||joint<edge)return right?C('697767'):C('8b8e7b');
+      const n=hash(Math.floor((u+offset)/3.6),row,18018);
+      return(right?RUBBLE_R:RUBBLE)[n%17===0?3:n%7===0?2:n%5===0?1:0];
+    };
+  }
+  // An oriented face prism is safe on the tollhouse's diagonal walls too.
+  // The older axis-aligned face.block helper is intentionally not used there.
+  function faceBlock(S,F,u0,u1,d0,d1,z0,z1,front,side,top){
+    const a=F.point(u0,d0,z0),b=F.point(u1,d0,z0),c=F.point(u1,d1,z0),d=F.point(u0,d1,z0);
+    const lift=p=>[p[0],p[1],z1],A=lift(a),B=lift(b),D=lift(d),E=lift(c);
+    S.poly([d,c,E,D],front);S.poly([a,b,B,A],side);
+    S.poly([a,d,D,A],side);S.poly([b,c,E,B],side);S.poly([A,B,E,D],top);
+  }
+  function arch(S,F,u,z,w,h,material,d){
+    const radius=w/2,spring=z+h-radius,mid=u+radius;
+    const points=[F.point(u,d,z),F.point(u+w,d,z),F.point(u+w,d,spring)];
+    for(let k=1;k<=20;k++){const a=k*Math.PI/20;points.push(F.point(mid+Math.cos(a)*radius,d,spring+Math.sin(a)*radius));}
+    S.poly(points,material,.035);
+  }
+  function archStones(S,F,u,z,w,h,red){
+    const r=w/2,spring=z+h-r,mid=u+r;
+    for(let k=0;k<13;k++){
+      const a=k*Math.PI/13+.018,b=(k+1)*Math.PI/13-.018;
+      S.poly([F.point(mid+Math.cos(a)*(r+.55),.33,spring+Math.sin(a)*(r+.55)),
+        F.point(mid+Math.cos(b)*(r+.55),.33,spring+Math.sin(b)*(r+.55)),
+        F.point(mid+Math.cos(b)*r,.33,spring+Math.sin(b)*r),
+        F.point(mid+Math.cos(a)*r,.33,spring+Math.sin(a)*r)],red?P.brick[k%3]:k%3?IVORY:IVORY_HI,.05);
+    }
+    for(const uu of[u-.53,u+w])faceBlock(S,F,uu,uu+.53,.015,.38,z,z+h-r,red?P.brick[0]:IVORY,P.stoneR,P.stoneHi);
+    faceBlock(S,F,mid-.34,mid+.34,.03,.52,z+h-.18,z+h+.78,P.stoneHi,P.stoneR,IVORY_HI);
+  }
+  function archedGlazing(S,F,u,z,w,h,lit,red){
+    arch(S,F,u-.35,z-.13,w+.7,h+.42,P.stoneD,.05);
+    const A=F.point(u,0,z),B=F.point(u+1,0,z),tx=B[0]-A[0],ty=B[1]-A[1],spring=h-w/2;
+    arch(S,F,u,z,w,h,(x,y,zz)=>{
+      const xx=(x-A[0])*tx+(y-A[1])*ty,yy=zz-z;
+      if(xx<.2||xx>w-.2||yy<.25)return P.frame;
+      if(Math.abs(xx-w/2)<.13||Math.abs(yy-spring)<.17||Math.abs(yy-h*.42)<.14)return P.frame;
+      if(yy>spring&&mod(Math.atan2(yy-spring,xx-w/2)*(w/2),1.75)<.11)return P.frameR;
+      return lit?(xx<w/2?GLOW[0]:GLOW[2]):xx<w/2?P.glass:P.glassR;
+    },.14);
+    archStones(S,F,u,z,w,h,red);
+    faceBlock(S,F,u-.6,u+w+.6,.02,.66,z-.62,z-.15,P.stone,P.stoneR,P.stoneHi);
+  }
+  function brickQuoin(S,F,u,height){
+    for(let z=.65;z<height;z+=1.65)faceBlock(S,F,u,u+(Math.floor(z/1.65)%2?1.35:.95),.02,.17,z,Math.min(z+1.46,height),P.brick[0],P.brickR[0],P.brick[1]);
+  }
+  function timberExhibitDoors(S,F,u,z,w,h){
+    arch(S,F,u-.55,z,w+1.1,h+.48,P.brickR[0],.04);
+    arch(S,F,u,z,w,h,(x,y,zz)=>{
+      const A=F.point(u,0,z),B=F.point(u+1,0,z),xx=(x-A[0])*(B[0]-A[0])+(y-A[1])*(B[1]-A[1]);
+      const yy=zz-z;
+      if(Math.abs(xx-w/2)<.18||mod(xx,.85)<.09)return BLUE_D;
+      if(yy>h-1.1)return BLUE_D;
+      if(Math.abs(yy-2.6)<.13||Math.abs(yy-h*.57)<.14)return P.ironD;
+      if(Math.abs(xx-w/2)<.65&&yy>h*.4&&yy<h*.49)return P.gold;
+      return hash(Math.floor(xx/.85),0,1819)%5===0?BLUE_HI:BLUE;
+    },.19);
+    archStones(S,F,u,z,w,h,true);
+    faceBlock(S,F,u-.65,u+w+.65,.02,.82,z-.1,z+.14,P.stone,P.stoneR,P.stoneHi);
+  }
+  function oculus(S,F,u,z,r){
+    const points=[];for(let k=0;k<28;k++){const a=k*Math.PI*2/28;points.push(F.point(u+Math.cos(a)*r,.13,z+Math.sin(a)*r));}
+    S.poly(points,GLOW[2],.035);ring(S,F,u,z,r+.45,r+.45,.42,.22,P.brick[0],20);
+    ring(S,F,u,z,r,r,.16,.27,P.frame,20);
+    for(const a of[0,Math.PI/2])S.beam(F.point(u-Math.cos(a)*r,.3,z-Math.sin(a)*r),F.point(u+Math.cos(a)*r,.3,z+Math.sin(a)*r),P.frame,.18);
+    faceBlock(S,F,u-.35,u+.35,.05,.48,z+r+.2,z+r+.76,P.stoneHi,P.stoneR,P.stoneHi);
+  }
+  function shelter(S){
+    for(const y of[6,14,22]){
+      S.box(29.0,29.65,y-.34,y+.34,.65,14.6,P.wood,P.woodR,P.woodHi);
+      S.box(28.82,29.82,y-.53,y+.53,.65,1.35,P.stone,P.stoneR,P.stoneHi);
+      S.beam([29.3,y,10.9],[26.9,y,15.1],P.woodR,.38);
+      if(y<22)S.beam([29.3,y,11.3],[29.3,y+2.5,14.5],P.woodR,.34);
+      if(y>6)S.beam([29.3,y,11.3],[29.3,y-2.5,14.5],P.woodR,.34);
+    }
+    S.beam([29.3,4.4,14.6],[29.3,24.6,14.6],P.woodD,.5);
+    S.poly([[24,4,19.3],[30.2,4,14.7],[30.2,25,14.7],[24,25,19.3]],slate(true));
+    for(const y of[4,25])S.beam([24,y,19.3],[30.2,y,14.7],P.frameR,.33);
+    S.beam([30.2,4,14.55],[30.2,25,14.55],P.ironD,.3);
+    bench(S,26.25,10,5.5,false);
+  }
+  function lifeboatHall(view){
+    const S=Scene(2,view,160,196);foundation(S);
+    S.box(6,24,4,25,.65,22,rubble(false),rubble(true),RUBBLE[0]);
+    const front=S.face([6,25],[24,25],0,1),back=S.face([24,4],[6,4],0,-1),left=S.face([6,4],[6,25],-1,0),right=S.face([24,25],[24,4],1,0);
+    for(const F of[front,back,left,right]){brickQuoin(S,F,0,21.9);brickQuoin(S,F,F.length-1.35,21.9);}
+    timberExhibitDoors(S,front,3.9,.8,10.2,15.8);
+    for(const u of[3.1,13.4])archedGlazing(S,right,u,7.4,3.9,8.4,true,true);
+    for(const u of[4.0,14.3])archedGlazing(S,left,u,8.1,3.5,7.8,true,true);
+    H.gableRoof(S,5.45,24.55,3.5,25.55,22.25,12,false,null,rubble(false));
+    for(const y of[3.5,25.55]){
+      S.beam([5.35,y,22.25],[15,y,34.4],P.frameR,.42);
+      S.beam([15,y,34.4],[24.65,y,22.25],P.frameR,.42);
+    }
+    const gable=S.face([5.45,25.55],[24.55,25.55],0,1);
+    oculus(S,gable,9.55,26.6,2.35);
+    shelter(S);
+    // Infilled service outshut, physically attached to the left wall.
+    S.box(2.05,6.05,6,18,.65,13.8,rubble(false),rubble(true),RUBBLE[0]);
+    S.poly([[1.65,5.7,13.9],[6.3,5.7,18.6],[6.3,18.3,18.6],[1.65,18.3,13.9]],slate(false));
+    const annex=S.face([2.05,6],[2.05,18],-1,0);sash(S,annex,3.2,5.5,4.9,6.4,true);
+    const annexFront=S.face([2.05,18],[6.05,18],0,1);timberDoor(annexFront,.65,.75,2.5,8.7,false);
+    // Projecting rear casement and visible supporting corbels.
+    S.box(12.2,18.1,2.05,4.02,6.1,11.7,P.woodR,P.woodD,P.slate);
+    const rearBay=S.face([18.1,2.05],[12.2,2.05],0,-1);sash(S,rearBay,.58,6.6,4.72,4.45,true);
+    for(const x of[12.8,17.5])S.beam([x,3.94,3.8],[x,2.2,6.3],P.woodR,.35);
+    timberDoor(back,1.3,.8,3.2,10.3,false);
+    for(const x of[6.12,23.85])rainpipe(S,x,25.05,21.8);
+    rainpipe(S,29.93,4.7,14.5);
+    wallLamp(S,front,2.4,13.2);wallLamp(S,front,15.6,13.2);
+    // Worn approach, a drain and two modest visitor pots.
+    S.flat(9.3,20.7,25.6,31.1,.7,(x,y)=>mod(y,2.3)<.15?P.stoneR:P.paveHi);
+    for(let x=8.5;x<22;x+=.8)S.flat(x,x+.4,26.4,26.78,.73,P.ironD);
+    pottedPlant(S,4.1,26.7,.7,.78,P.flower[2]);pottedPlant(S,27.6,28.45,.7,.72,P.flower[1]);
+    bench(S,3.0,20.8,4.4,false);
+    return S.finish({id:'lifeboatHall',family:'waterfront018',appearance:'lifeboatHall',
+      features:[...FEATURES.lifeboatHall],physicalLampCount:2,smoke:[],nativeBaseK:287});
+  }
+  function octagon(cx,cy,r,z){return Array.from({length:8},(_,i)=>{const a=(i+.5)*Math.PI/4;return[cx+Math.cos(a)*r,cy+Math.sin(a)*r,z];});}
+  function octagonalBand(S,cx,cy,r,z,h,c,side){
+    const a=octagon(cx,cy,r,z),b=octagon(cx,cy,r,z+h);
+    for(let i=0;i<8;i++)S.poly([a[i],a[(i+1)%8],b[(i+1)%8],b[i]],i<4?c:side);
+    S.poly(b,c);
+  }
+  function tollWindow(S,F,index){
+    const w=4.75,u=(F.length-w)/2;
+    archedGlazing(S,F,u,23.1,w,9.0,index!==5,false);
+    if(index!==1&&index!==5){
+      if(index===0||index===3||index===6)archedGlazing(S,F,u+.3,6.0,w-.6,8.7,true,false);
+      else{
+        arch(S,F,u,3.65,w,11.4,P.stoneR,.04);
+        arch(S,F,u+.24,3.9,w-.48,10.95,IVORY_R,.13);
+        faceBlock(S,F,u+.6,u+w-.6,.15,.3,5,9.8,BLUE_D,P.ironD,BLUE);
+        for(const z of[6.0,7.2,8.4])F.panel(u+.9,u+w-.9,z,z+.2,P.woodHi,.34);
+      }
+    }
+  }
+  function canalTollhouse(view){
+    const S=Scene(2,view,160,196);foundation(S);
+    const cx=16,cy=14.9,r=10.7,z0=.75,z1=37.2,ring0=octagon(cx,cy,r,z0),ring1=octagon(cx,cy,r,z1),faces=[];
+    for(let i=0;i<8;i++){
+      const a=ring0[i],b=ring0[(i+1)%8],dx=b[0]-a[0],dy=b[1]-a[1],length=Math.hypot(dx,dy),right=i>=3&&i<=6;
+      const F=S.face(a,b,dy/length,-dx/length);faces.push(F);
+      S.poly([a,b,ring1[(i+1)%8],ring1[i]],(x,y,z)=>{
+        const u=(x-a[0])*dx/length+(y-a[1])*dy/length,row=Math.floor(z/1.55);
+        if(mod(z,1.55)<.095||mod(u+(row&1)*1.5,3)<.075)return right?C('a8ae9e'):C('cbc5b2');
+        return right?IVORY_R:hash(Math.floor(u/3),row,1881)%19===0?IVORY_HI:IVORY;
+      });
+      tollWindow(S,F,i);
+      for(const u of[.12,F.length-.53])faceBlock(S,F,u,u+.4,.01,.24,2.8,36.3,right?P.stoneR:IVORY_HI,P.stoneD,P.stone);
+    }
+    octagonalBand(S,cx,cy,r+.28,.7,1.55,P.stone,P.stoneR);
+    octagonalBand(S,cx,cy,r+.18,18.1,.9,P.stone,P.stoneR);
+    octagonalBand(S,cx,cy,r+.36,36.2,.65,P.stoneD,P.stoneR);
+    octagonalBand(S,cx,cy,r+.7,36.85,.73,IVORY_HI,P.stoneR);
+    const door=faces[1],back=faces[5],w=4.85,u=(door.length-w)/2;
+    arch(S,door,u-.35,1.05,w+.7,14.5,P.stoneD,.08);
+    arch(S,door,u,1.2,w,13.7,(x,y,z)=>{
+      const A=door.point(u,0,0),B=door.point(u+1,0,0),xx=(x-A[0])*(B[0]-A[0])+(y-A[1])*(B[1]-A[1]);
+      if(z>10.5)return Math.abs(xx-w/2)<.13||Math.abs(z-11.1)<.17?P.frame:GLOW[2];
+      if(Math.abs(xx-w/2)<.16||mod(xx,1.2)<.10||Math.abs(z-4)<.14||Math.abs(z-7.6)<.14)return BLUE_D;
+      if(Math.abs(xx-w/2)<.45&&z>6&&z<6.7)return P.gold;
+      return BLUE;
+    },.18);archStones(S,door,u,1.2,w,13.7,false);
+    const bu=(back.length-2.9)/2;faceBlock(S,back,bu-.3,bu+3.2,.02,.3,.8,12.4,P.stone,P.stoneR,P.stoneHi);
+    back.panel(bu,bu+2.9,.9,11.9,(x,z)=>mod(x,.65)<.1?P.woodD:z>9.1?P.glassR:P.woodR,.34);
+    for(let n=0;n<3;n++)faceBlock(S,door,u-.7,u+w+.7,.15+n*.67,.95+n*.67,.66,1.2-n*.15,P.stone,P.stoneR,P.stoneHi);
+    const roof0=octagon(cx,cy,r+1.05,38),roof1=octagon(cx,cy,1.45,51);
+    for(let i=0;i<8;i++){
+      S.poly([roof0[i],roof0[(i+1)%8],roof1[(i+1)%8],roof1[i]],slate(i>=3&&i<=6));
+      S.beam(roof0[i],roof1[i],P.slateHi,.17);
+      S.beam(roof0[i],roof0[(i+1)%8],P.ironD,.27);
+    }
+    S.poly(roof1,P.lead);S.beam([cx,cy,51],[cx,cy,53.2],P.ironD,.32);
+    H.cylinder(S,cx,cy,52.5,53.6,.36,.1,P.iron,P.ironD,P.ironHi,8);
+    // A rear stack and rainwater fittings make the back genuinely distinct.
+    S.box(11.0,13.15,8.1,10.6,37.5,52.2,brick(false,1828),brick(true,1828),P.stoneHi);
+    S.box(10.7,13.45,7.85,10.85,51.7,52.5,P.stone,P.stoneR,P.stoneHi);
+    for(const x of[11.6,12.65])H.cylinder(S,x,9.3,52.4,54.6,.36,.31,P.pot,P.potR,P.ink,8);
+    const rp=faces[3].point(.65,.43,0);rainpipe(S,rp[0],rp[1],36.4);
+    wallLamp(S,door,.6,13.4);wallLamp(S,back,back.length-.72,10.9);
+    S.flat(11.3,20.7,25.5,31.1,.7,(x,y)=>mod(y,2.1)<.14?P.stoneR:P.paveHi);
+    ironRail(S,[2.1,25.1],[2.1,30.0],.68,3.0);
+    ironRail(S,[2.1,30.0],[9.5,30.0],.68,3.0);
+    ironRail(S,[22.4,30.0],[29.9,30.0],.68,3.0);
+    ironRail(S,[29.9,30.0],[29.9,24.4],.68,3.0);
+    bench(S,4.1,22.8,5.0,false);pottedPlant(S,26.7,27.45,.7,.78,P.flower[4]);
+    return S.finish({id:'canalTollhouse',family:'waterfront018',appearance:'canalTollhouse',
+      features:[...FEATURES.canalTollhouse],physicalLampCount:2,smoke:[],nativeBaseK:287});
+  }
+  function buildAll(){
+    const result={};
+    for(const theme of themes)for(let view=0;view<4;view++)result[theme+'_'+view]=(theme==='lifeboatHall'?lifeboatHall:canalTollhouse)(view);
+    return result;
+  }
+  root.BritishWaterfrontHeritage018=Object.freeze({themes,buildAll});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<!-- GPT-018 native waterfront art END -->
+<!-- GPT-018 owner-requested native map-edge repair BEGIN -->
+<script>
+/* GPT-018: retain only the outward half of the existing 64 x 56 cliff.
+   The caller supplies native view coordinates and the unchanged screen anchor.
+   mask 1 = view-y boundary / left half; 2 = view-x / right half; 3 = both.
+   Retained RGBA is copied unchanged; no repainting or terrain edits. */
+(function(root){
+  'use strict';
+  // Weak keys release both unregistered copies when a replaced canonical atlas
+  // is no longer live. Values never refer back to the canonical sprite.
+  const mapEdgeCopies018=new WeakMap();
+  function mapEdgeHalves018(sprite){
+    let halves=mapEdgeCopies018.get(sprite);
+    if(halves)return halves;
+    if(sprite.width!==64||sprite.height!==56)throw Error('GPT-018 cliff must be 64 x 56');
+    const sourceContext=sprite.getContext('2d');
+    if(!sourceContext)throw Error('GPT-018 cliff context unavailable');
+    const source=sourceContext.getImageData(0,0,64,56);
+    if(source.width!==64||source.height!==56||source.data.length!==64*56*4)throw Error('GPT-018 cliff RGBA dimensions');
+    halves=[];
+    for(let side=1;side<=2;side++){
+      const image=document.createElement('canvas');image.width=64;image.height=56;
+      const context=image.getContext('2d');
+      if(!context)throw Error('GPT-018 copy context unavailable');
+      const bytes=new Uint8ClampedArray(source.data);
+      for(let y=0;y<56;y++)for(let x=0;x<64;x++)if(side===1?x>=32:x<32)bytes.fill(0,(y*64+x)*4,(y*64+x)*4+4);
+      context.putImageData(new ImageData(bytes,64,56),0,0);
+      halves.push(image);
+    }
+    // Publish only a complete pair. A failed read/copy leaves no partial cache.
+    mapEdgeCopies018.set(sprite,halves);
+    return halves;
+  }
+  function mapEdgeMask018(vx,vy,n){
+    return (vy===n-1?1:0)|(vx===n-1?2:0);
+  }
+  function drawMapEdge018(ctx,sprite,vx,vy,n,sx,sy,z,legacyDisabledFlag){
+    const mask=mapEdgeMask018(vx,vy,n);
+    if(!sprite||!mask)return mask;
+    // Preserve full-size sampling without clip-induced resampling. Only the
+    // unwanted half of each cached 64 x 56 source has transparent RGBA.
+    if(legacyDisabledFlag||mask===3)ctx.drawImage(sprite,sx,sy,64*z,56*z);
+    else ctx.drawImage(mapEdgeHalves018(sprite)[mask-1],sx,sy,64*z,56*z);
+    return mask;
+  }
+  function selftest018(){
+    if(mapEdgeMask018(0,0,72)!==0||mapEdgeMask018(10,71,72)!==1||
+       mapEdgeMask018(71,10,72)!==2||mapEdgeMask018(71,71,72)!==3||
+       mapEdgeMask018(71,0,72)!==2||mapEdgeMask018(0,71,72)!==1||
+       mapEdgeMask018(0,0,1)!==3)throw Error('GPT-018 outward map-edge mask');
+    return{ok:true,cases:7,canvasExecuted:false};
+  }
+  const api=Object.freeze({mapEdgeMask018,drawMapEdge018,selftest018});
+  if(typeof module==='object'&&module.exports)module.exports=api;
+  if(root)root.MapEdgeRepair018=api;
+})(typeof window==='object'?window:null);
+
+</script>
+<!-- GPT-018 owner-requested native map-edge repair END -->
 <!-- GPT-013 native theatre art BEGIN: source british-theatre-art013.js -->
 <script>
 /* GPT-013: original British Edwardian theatre quarter, four true geometric views.
@@ -58032,6 +58331,82 @@ function quaysideSelftest017(){
   return{ok:details.every(q=>q.ok),checks:details.map(q=>q.name+(q.ok?' ✓':' ✗')),details};
 }
 
+/* GPT-018: two optional heritage appearances for the existing native k287 court.
+ * Native placement, costs, services, staffing, construction and simulation remain
+ * authoritative. Only tagged instances receive the new sprite and visitor label.
+ */
+const WATERFRONT_BASE018='manorStableCourt014';
+const WATERFRONT_TOOL018=Object.freeze({
+  lifeboatHeritageHall018:Object.freeze({id:'lifeboatHeritageHall018',theme:'lifeboatHall',nm:'英式海難救援史展館',en:'British lifeboat heritage hall',ic:'🏛️',keywords:'水岸 海事 海難 救生艇 文物 展館',rank:4,sz:2,k:287}),
+  canalTollhouseExhibit018:Object.freeze({id:'canalTollhouseExhibit018',theme:'canalTollhouse',nm:'英式運河收費亭展館',en:'British canal tollhouse exhibit',ic:'🏛️',keywords:'水岸 運河 八角 收費亭 文物 展館',rank:4,sz:2,k:287})
+});
+const WATERFRONT_THEME018=Object.freeze(Object.fromEntries(Object.values(WATERFRONT_TOOL018).map(q=>[q.theme,q])));
+let waterfrontArtCanonical018=null;
+function waterfrontTool018(id){return typeof id==='string'&&Object.prototype.hasOwnProperty.call(WATERFRONT_TOOL018,id)?WATERFRONT_TOOL018[id]:null;}
+function waterfrontAppearance018(b){return b&&!b.ref&&b.k===287&&typeof b.waterfront018==='string'&&Object.prototype.hasOwnProperty.call(WATERFRONT_THEME018,b.waterfront018)?b.waterfront018:null;}
+function waterfrontDescription018(q){return q.theme==='lifeboatHall'?'以舊救生艇屋為題的海事文物參觀展館。需要道路、供電、供水、設備及實際職員才能提供休閒；展示海難救援歷史，不執行救援或船舶運輸。':'以八角運河收費亭為題的文物參觀展館。需要道路、供電、供水、設備及實際職員才能提供休閒；展示運河歷史，不收通行費、不操作船閘或船舶。';}
+function installWaterfrontArt018(){
+  if(!waterfrontArtCanonical018){
+    const start=performance.now(),art=window.BritishWaterfrontHeritage018.buildAll(),expected=Object.keys(WATERFRONT_THEME018).flatMap(t=>[0,1,2,3].map(v=>t+'_'+v));
+    if(Object.keys(art).sort().join(',')!==[...expected].sort().join(','))throw Error('GPT-018 requires exactly eight authored heritage views');
+    const sprites={};
+    for(const theme of Object.keys(WATERFRONT_THEME018))for(let view=0;view<4;view++){
+      const key=theme+'_'+view,s=art[key];
+      if(!s?.img||!s?.night||s.sz!==2||s.view!==view||s.w!==160||s.h!==196||s.ax!==80||s.ay!==194||s.family!=='waterfront018'||s.appearance!==theme||s.nativeBaseK!==287||s.physicalLampCount!==2)throw Error('Invalid original waterfront geometry '+key);
+      sprites[key]={...s,smoke:[],__waterfront018:1,__t479:1,__t547:{k:287,lv:1,v:view,bw:2,bh:2}};
+    }
+    waterfrontArtCanonical018=sprites;window.__waterfrontArt018={builds:1,total:8,ms:performance.now()-start};
+  }
+  SPR.waterfront018=waterfrontArtCanonical018;
+}
+function waterfrontSprite018(b,fallback){
+  const theme=waterfrontAppearance018(b);
+  if(!theme||window.__noWaterfrontArt018)return fallback;
+  return SPR.waterfront018?.[theme+'_'+(((b.v||0)+viewRotEff())&3)]||fallback;
+}
+function waterfrontSave018(){
+  const rows=[];
+  for(let i=0;i<tiles.length;i++){const theme=waterfrontAppearance018(tiles[i]?.bld);if(theme)rows.push([i,theme]);}
+  return rows.length?rows:null;
+}
+function waterfrontLoad018(raw){
+  if(raw===undefined||raw===null)return{ok:true,count:0};
+  if(!Array.isArray(raw)||raw.length>tiles.length)return{ok:false,count:0};
+  const seen=new Set();
+  for(const row of raw){
+    if(!Array.isArray(row)||row.length!==2||!Number.isInteger(row[0])||row[0]<0||row[0]>=tiles.length||seen.has(row[0])||typeof row[1]!=='string'||!Object.prototype.hasOwnProperty.call(WATERFRONT_THEME018,row[1]))return{ok:false,count:0};
+    const b=tiles[row[0]]?.bld;
+    if(!b||b.ref||b.k!==287||b.sz!==2)return{ok:false,count:0};
+    seen.add(row[0]);
+  }
+  for(const [i,theme]of raw)tiles[i].bld.waterfront018=theme;
+  return{ok:true,count:raw.length};
+}
+function waterfrontSpecs018(){
+  const q=COMPLEX014[287];
+  return JSON.parse(JSON.stringify({appearances:Object.values(WATERFRONT_TOOL018).map(t=>({...t,base:WATERFRONT_BASE018,cost:q.cost,jobs:q.jobs,leisure:q.leisure,upkeep:q.upkeep,power:q.power,water:q.water})),authority:{placement:'existing native k287',construction:'native nine-day construction',staff:'T495',leisure:'T491',save:'optional sparse appearance tag only',extraIncome:0,extraServices:0,newBuildingIDs:0}}));
+}
+function waterfrontAt018(x,y){
+  if(!inMap(x,y))return null;let root=idx(x,y),b=tiles[root]?.bld;
+  if(b?.ref){root=idx(b.ref[0],b.ref[1]);b=tiles[root]?.bld;}
+  const theme=waterfrontAppearance018(b);if(!theme)return null;
+  return{root,x:root%N,y:(root/N)|0,k:b.k,theme,v:b.v,age:b.age,sz:b.sz,appearance:b.waterfront018,native:complexAt014(root%N,(root/N)|0)};
+}
+function waterfrontEvidence018(){const roots=[];for(const i of tickBld||[]){const q=waterfrontAt018(i%N,(i/N)|0);if(q)roots.push(q);}return{day,roots,art:{...window.__waterfrontArt018},savedAppearances:waterfrontSave018()};}
+function waterfrontSelftest018(){
+  const details=[],add=(name,ok)=>details.push({name,ok:!!ok}),base=COMPLEX014[287];
+  add('exact two optional appearances over the original visitor court',Object.keys(WATERFRONT_TOOL018).length===2&&Object.keys(COMPLEX014).join(',')==='282,283,284,285,286,287,288,289,290,291,292,293'&&base.id===WATERFRONT_BASE018&&base.sz===2&&base.cost===1250&&base.jobs===5&&base.leisure===70&&base.upkeep===3&&base.power===1.2&&base.water===1.8);
+  for(const q of Object.values(WATERFRONT_TOOL018)){
+    add(q.id+' exact native catalog and manual-only placement',TOOLS.filter(t=>t.id===q.id).length===1&&COST[q.id]===COST[WATERFRONT_BASE018]&&toolSize458(q.id)===2&&MAYOR_ACTION_CATALOG470A[q.id]?.status==='manual-only'&&MAYOR_ACTION_CATALOG470A[q.id]?.k===287);
+    for(let view=0;view<4;view++){const s=SPR.waterfront018?.[q.theme+'_'+view];add(q.theme+'_'+view+' original complete view',s===waterfrontArtCanonical018?.[q.theme+'_'+view]&&s?.__waterfront018===1&&s.sz===2&&s.view===view&&s.w===160&&s.h===196&&s.ax===80&&s.ay===194&&!!s.img&&!!s.night&&s.physicalLampCount===2);}
+  }
+  add('original k287 canonical atlas remains unchanged',Array.from({length:4},(_,v)=>SPR.bld['287_1_'+v]===complexArtCanonical014?.bld['287_1_'+v]).every(Boolean));
+  add('eight independent assets built once',window.__waterfrontArt018?.total===8&&window.__waterfrontArt018?.builds===1);
+  add('all twenty previous optional path details retained',Object.keys(STREETSCAPE_PATH015).length===8&&Object.keys(GARDENLIFE_PATH016).length===6&&Object.keys(QUAYSIDE_PATH017).length===6);
+  add('original map-edge sprite selects only outward faces',window.MapEdgeRepair018?.selftest018().ok===true);
+  return{ok:details.every(q=>q.ok),checks:details.map(q=>q.name+(q.ok?' ✓':' ✗')),details};
+}
+
 function britishSpec004(k){return BRITISH004[k]||HIGHSTREET005[k]||RESIDENTIAL006[k]||PUBLICLIFE007[k]||STREETLIFE009[k]||MUSEUM010[k]||RIVERSIDE012[k]||THEATRE013[k]||COMPLEX014[k]||null;}
 function highStreetBaseK005(k){return HIGHSTREET005[k]?.baseK??k;}
 function highStreetCommerce005(k){return HIGHSTREET005[k]?.role==='commerce';}
@@ -58280,8 +58655,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.34'; // T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T730'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.35'; // T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T731'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -61134,7 +61509,7 @@ async function bootstrap453(){
     runVariants574();         // T574：117 個單一樣式分類的變體，必須在所有重建資產的 pass 之後
     applyT573Silhouette();    // T573：剪影光影後製，移到變體之後，新變體才吃得到（不可跑兩次）
     installBritishArt004();
-    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012();installTheatreArt013();installComplexArt014();installStreetscapeArt015();installGardenLifeArt016();installQuaysideArt017(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
+    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012();installTheatreArt013();installComplexArt014();installStreetscapeArt015();installGardenLifeArt016();installQuaysideArt017();installWaterfrontArt018(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
     bootSet453(100,'微光小鎮準備完成','night');bootState453.ready=true;window.__bootDone453=true;await bootPaint453();   // T539：boot 完成旗標——量測工具必須等到這裡，否則會漏掉 T464…T480/T539 這串後置 pass
@@ -83267,7 +83642,7 @@ function draw(dt){
   const sea=season();                                // T136：本幀四季索引（0春1夏2秋3冬；一次計算，draw 內零新配置），春季 sea===0 時下方各選鍵分支與改動前完全相同分支
   let rdecGlow=[];                                   // 路飾夜燈暫存，併入 nightSprites（T20）；T96 快取命中時改自快取複製
   // ---- 地面層 ----（T96：離屏快取；相機/水面幀/季節/日期/畫布尺寸皆未變時直接重貼快取畫布，省去整張地圖逐格重繪）
-  const gKey=ox+'_'+oy+'_'+z+'_'+waterF+'_'+(win?1:0)+'_'+day+'_'+W+'_'+H+'_r'+viewRotEff()+'_wx499_'+weatherSignature499()+(window.__noCliff646?'_c0':'')+(window.__noLod648?'_l1':'')+(window.__noWaterVar675?'_wv0':'')+(window.__noGrassGrid651?'_g0':'')+(window.__noBayBankGLM1?'_bb0':'')+(window.__noWaterGrad666?'_wg0':''); // T648 省略門檻切換要重烘；T651 格線閥門切換要重烘 // T499：材質回應需隨既有天氣狀態重烘；純 presentation key；T646 崖沿閥門切換要重烘
+  const gKey=ox+'_'+oy+'_'+z+'_'+waterF+'_'+(win?1:0)+'_'+day+'_'+W+'_'+H+'_r'+viewRotEff()+'_wx499_'+weatherSignature499()+(window.__noCliff646?'_c0':'')+(window.__noLod648?'_l1':'')+(window.__noWaterVar675?'_wv0':'')+(window.__noGrassGrid651?'_g0':'')+(window.__noBayBankGLM1?'_bb0':'')+(window.__noWaterGrad666?'_wg0':'')+(window.__noMapEdgeFix018?'_me018old':''); // T648 省略門檻切換要重烘；T651 格線閥門切換要重烘 // T499：材質回應需隨既有天氣狀態重烘；純 presentation key；T646 崖沿閥門切換要重烘
   if(zoomAnim&&groundCache&&groundCache.width===W&&groundCache.height===H){ // T108：縮放動畫中「快取縮放重貼」——沿用既有快取原圖按比例縮放貼回，允許暫時模糊；落檔（zoomAnim 清空）後才走下方正常路徑重建，恢復銳利
     const s=z/groundCacheZ,amx=zoomAnim.mx,amy=zoomAnim.my;
     ctx.drawImage(groundCache,0,0,W,H,amx-amx*s,amy-amy*s,W*s,H*s);
@@ -83302,7 +83677,7 @@ function draw(dt){
       const t=T(idx(x,y));
       if(nwPath667&&t.t===0){nwPath667.moveTo(sx+32*z,sy);nwPath667.lineTo(sx+64*z,sy+16*z);nwPath667.lineTo(sx+32*z,sy+32*z);nwPath667.lineTo(sx,sy+16*z);nwPath667.closePath();NW667.tiles++;} // T667：所有縮放都收（遠景也要壓暗）
       const rm=rotMask(t.mask),rwm=rotMask(t.wm),rem=rotMask(t.em||0),rrm=rotMask(t.railMask||0),rtm=rotMask(t.tramMask||0); // T367
-      const vp388=w2v(x,y);if(SPR.cliff&&(vp388[0]===N-1||vp388[1]===N-1))gc.drawImage(SPR.cliff,sx,sy,64*z,56*z); // T388：外緣懸崖改 view 空間判邊（rot=2 崖畫遠端近端裸空的病灶）；r=0 時 w2v=identity 布林逐位恆等
+      const vp388=w2v(x,y);if(SPR.cliff&&(vp388[0]===N-1||vp388[1]===N-1))window.MapEdgeRepair018.drawMapEdge018(gc,SPR.cliff,vp388[0],vp388[1],N,sx,sy,z,!!window.__noMapEdgeFix018); // GPT-018 owner-requested outward map-edge faces; T388：外緣懸崖改 view 空間判邊（rot=2 崖畫遠端近端裸空的病灶）；r=0 時 w2v=identity 布林逐位恆等
       if(lodFar){ // T107：z<1 地面退化為實色菱形（略去 speck 細沙紋理），沿用同一菱形頂點密拼、不留縫
         gc.fillStyle= t.t===0?'#3671b6' : t.t===1?(win?'#e4e2d8':'#d9c689') : (win?'#e8eef2':sea===1?'#8fce5e':sea===2?'#b8935a':(t.el?'#8aba58':'#74b258')); // T136：LOD 遠景實色地面依季，春季（sea===0）與改動前同一分支表達式
         gc.beginPath();gc.moveTo(sx+32*z,sy-.5);gc.lineTo(sx+64*z+.5,sy+16*z);gc.lineTo(sx+32*z,sy+32*z+.5);gc.lineTo(sx-.5,sy+16*z);gc.closePath();gc.fill();
@@ -84487,6 +84862,7 @@ function draw(dt){
     else if(bd.k===1&&bd.lv===3&&bd.den>=4&&!metroRciVisible516A())s=wealthSpr('1_3_4',bd.we); // 高密度 Lv3 住宅（T30）；T125：財富色變，缺鍵回退中產
     else if(bd.k===1)s=wealthSpr(bd.k+'_'+bd.lv+'_'+bd.v,bd.we)||SPR.bld[bd.k+'_'+bd.lv+'_0']; // T125：住宅財富色變；變體鍵兜底同 FIX-D
     else s=SPR.bld[bd.k+'_'+bd.lv+'_'+vdraw574(o,bd)]||SPR.bld[bd.k+'_'+bd.lv+'_'+bd.v]||SPR.bld[bd.k+'_'+bd.lv+'_0']||SPR.bld[bd.k+'_1_'+bd.v]||SPR.bld[bd.k+'_1_0']; // 變體鍵兜底：舊檔 v 無對應 sprite 時退回 _0（FIX-D）；T239：服務升級 lv>1 無對應圖時退回 lv1（升級不改外觀、僅疊等級星）
+    s=waterfrontSprite018(bd,s);
     if(!(VARK574.has(bd.k)&&vdraw574(o,bd)!==0))s=metroIndustrySprite516A(bd,s); // T516A canonical industrial art for real placed assets；T574：選到變體時放行
     if(o.block547&&(o.block547.w>1||o.block547.h>1)){const d622=blockDims622(o.block547.w,o.block547.h,viewRotEff());s=getBlockSprite547(bd.k,bd.lv||1,d622[0],d622[1],bd.v||0);} // T622：奇數旋轉時畫面佔地是 高×寬
     else if(!window.__noUkCottage596&&bd.k===1&&!(bd.sz>=2))s=getBlockSprite547(1,bd.lv||1,1,1,bd.v||0);
@@ -86816,6 +87192,7 @@ function mobileBuild434(){return mobileUi435();}
 function toolMeta434(id){return TOOLS.find(t=>t.id===id)||null;}
 function toolCatName434(id){const c=TOOL_CATS.find(c=>c.id===id);return c?c.nm:id;}
 function toolHint434(t){
+  if(t&&waterfrontTool018(t.id))return waterfrontDescription018(waterfrontTool018(t.id));
   if(t&&QUAYSIDE_PATH017[t.id])return quaysideDescription017(QUAYSIDE_PATH017[t.id]);
   if(t&&GARDENLIFE_PATH016[t.id])return gardenLifeDescription016(GARDENLIFE_PATH016[t.id]);
   if(t&&STREETSCAPE_PATH015[t.id])return streetscapeDescription015(STREETSCAPE_PATH015[t.id]);
@@ -86867,7 +87244,7 @@ let catalogOpen458=false,catalogMode458='all',catalogCat458='all',catalogQuery45
 function loadCatalogFavs458(){try{const v=JSON.parse(localStorage.getItem(CATALOG_FAV_KEY458)||'[]');return new Set(Array.isArray(v)?v.filter(id=>!!toolMeta434(id)):[]);}catch(_e){return new Set();}}
 let catalogFavs458=loadCatalogFavs458();
 function saveCatalogFavs458(){try{localStorage.setItem(CATALOG_FAV_KEY458,JSON.stringify([...catalogFavs458]));}catch(_e){}}
-function toolUnlocked458(t){return !!t&& !(QUAYSIDE_PATH017[t.id]&&window.__noQuayside017)&& !(GARDENLIFE_PATH016[t.id]&&window.__noGardenLife016)&& !(STREETSCAPE_PATH015[t.id]&&window.__noStreetscape015)&& !((COMPLEX_TOOL014[t.id]||COMPLEX_PATH014[t.id])&&window.__noComplex014)&& !((THEATRE_TOOL013[t.id]||THEATRE_PATH013[t.id])&&window.__noTheatre013)&& !((RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id])&&window.__noRiverside012)&& !((MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id])&&window.__noMuseum010)&& !((STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id])&&window.__noStreetLife009)&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
+function toolUnlocked458(t){return !!t&& !(waterfrontTool018(t.id)&&(window.__noWaterfront018||window.__noComplex014))&& !(QUAYSIDE_PATH017[t.id]&&window.__noQuayside017)&& !(GARDENLIFE_PATH016[t.id]&&window.__noGardenLife016)&& !(STREETSCAPE_PATH015[t.id]&&window.__noStreetscape015)&& !((COMPLEX_TOOL014[t.id]||COMPLEX_PATH014[t.id])&&window.__noComplex014)&& !((THEATRE_TOOL013[t.id]||THEATRE_PATH013[t.id])&&window.__noTheatre013)&& !((RIVERSIDE_TOOL012[t.id]||RIVERSIDE_PATH012[t.id])&&window.__noRiverside012)&& !((MUSEUM_TOOL010[t.id]||MUSEUM_PATH010[t.id])&&window.__noMuseum010)&& !((STREETLIFE_TOOL009[t.id]||STREETLIFE_PATH009[t.id])&&window.__noStreetLife009)&&!(STATION_TOOLS008[t.id]&&window.__noBritishStation008)&&!(PUBLICLIFE_TOOL007[t.id]&&window.__noPublicLife007)&&!(RESIDENTIAL_TOOL006[t.id]&&window.__noResidential006)&&!(HIGHSTREET_TOOL005[t.id]&&window.__noHighStreet005)&&((typeof devUnlockAll516B==='function'&&devUnlockAll516B())||!t.unlockRank||rankIdx+1>=t.unlockRank);}
 function toolCost458(t){if(!t||!t.pr)return 0;const m=String(t.pr).replace(/,/g,'').match(/\$\s*([0-9.]+)/);return m?+m[1]:0;}
 function toolSize458(id){
   const cx014=COMPLEX_TOOL014[typeof id==='object'?id?.id:id];if(cx014)return cx014.sz;
@@ -89796,6 +90173,7 @@ function save(){
       sup:supplies, // T140：資源供應品全域存量（可選欄位，舊檔缺欄位容錯為 0）
       aim:aiMode?1:0,aiR,gds:goods,sb:{...svcBudget},cev:cityEvent?{i:cityEvent.i,d:cityEvent.daysLeft}:0,mln:metroLines.map(L=>({n:L.nodes,t:L.trains,u:L.underground?1:0,g:metroGradeMode467B(L),r:(L.routeModes467B||[]).slice(),fp:metroFarePolicy467B(L),sp:metroServicePolicy467B(L),gs:(L.grades467B||[]).join(''),su:Object.entries(L.stationUpgrades467B||{}).filter(q=>q[1]>0)})),sf:{...svcFleet}, // T304：服務車隊 // T302：地鐵線（nodes+列車+地下旗標，幾何 load 重建） // T299：城市事件（可選欄位） // T294：服務預算（可選欄位，舊檔缺＝全 1.0） // T284：工業品庫存（可選欄位） // T260：AI 市長開關＋擴張半徑（可選欄位，舊檔缺＝關/6）
       rdep:rdepArr.length?rdepArr:null}; // T140：資源耗損（稀疏可選欄位，僅存已開採格；缺欄位＝未耗損。RESOURCE 本身不存，由 seed 經 genResource() 重建）
+    {const w018=waterfrontSave018();if(w018)data.waterfront018=w018;}
     if(fuel>0)data.fuel364=fuel; // T364b：零庫存不加欄位，既有城市存檔 bytes 不變
     if(shipCount>0)data.shipCount=shipCount; // T418：船數僅非零落盤；shipProgress 同（T364b 慣例）
     if(shipProgress>0)data.shipProgress=shipProgress;
@@ -89985,6 +90363,7 @@ function load(slot){
         if(k===127){tiles[i].bld.lv=1;tiles[i].bld.we=SOCIAL_HOUSING_WE;} // T364c：社宅屬性由建築型別固定恢復，不擴充存檔格式
       }
     }
+    waterfrontLoad018(d.waterfront018);
     if(d.cm)for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&b.k<=3&&+d.cm[i])b.crime=1;} // 犯罪標記（T32，舊檔無 cm 則無犯罪）
     if(d.sk)for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&b.k===1&&+d.sk[i])b.sick=1;} // 生病標記（T33，舊檔無 sk 則無生病）
     if(d.dt)for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&b.k===1&&+d.dt[i])b.death=1;} // 死亡標記（T38，舊檔無 dt 則無死亡）
@@ -90650,6 +91029,36 @@ for(const q of Object.values(QUAYSIDE_PATH017)){
 CATALOG_SECTIONS458.find(q=>q[0]==='transit')[2].push(...Object.keys(QUAYSIDE_PATH017));
 const __quaysideKeywords017=catalogKeywords458;catalogKeywords458=function(t){const q=QUAYSIDE_PATH017[t?.id];return q?(__quaysideKeywords017(t)+' '+q.en+' 英式 英國 '+q.keywords).toLowerCase():__quaysideKeywords017(t);};
 const __quaysideInspect017=inspect;inspect=function(x,y){const out=__quaysideInspect017(x,y),theme=inMap(x,y)?quaysideTheme017(tiles[idx(x,y)]):null;if(theme&&$('#infoBody'))$('#infoBody').insertAdjacentHTML('beforeend','<div class="row">'+quaysideDescription017(QUAYSIDE_THEME017[theme])+'</div>');return out;};
+
+/* GPT-018 LATE NATIVE HOOKS */
+const __waterfrontSize018=toolSize458;toolSize458=function(id){return waterfrontTool018(id)?__waterfrontSize018(WATERFRONT_BASE018):__waterfrontSize018(id);};
+const __waterfrontCoverage018=placementCoverage459;placementCoverage459=function(id){return __waterfrontCoverage018(waterfrontTool018(id)?WATERFRONT_BASE018:id);};
+const __waterfrontCan018=canPlace;canPlace=function(id,x,y){
+  const q=waterfrontTool018(id);if(!q)return __waterfrontCan018(id,x,y);
+  if(window.__noWaterfront018)return '英式水岸文物展館暫停新增';
+  if(!toolUnlocked458(toolMeta434(id)))return '城市 Lv.'+q.rank+' 解鎖';
+  return __waterfrontCan018(WATERFRONT_BASE018,x,y);
+};
+const __waterfrontCost018=placeCost;placeCost=function(id,x,y){return __waterfrontCost018(waterfrontTool018(id)?WATERFRONT_BASE018:id,x,y);};
+const __waterfrontPlace018=doPlace;doPlace=function(id,x,y,silent){
+  const q=waterfrontTool018(id);if(!q)return __waterfrontPlace018(id,x,y,silent);
+  const err=canPlace(id,x,y);if(err){if(!silent){toast(err,'bad');sErr();}return false;}
+  if(!__waterfrontPlace018(WATERFRONT_BASE018,x,y,true))return false;
+  const b=tiles[idx(x,y)].bld;b.waterfront018=q.theme;b.v=complexRoadTurn014(x,y);
+  if(!silent)toast(q.ic+' '+q.nm+' 開始施工','gold');return true;
+};
+for(const q of Object.values(WATERFRONT_TOOL018)){
+  COST[q.id]=COST[WATERFRONT_BASE018];const t={id:q.id,cat:'culture',ic:q.ic,nm:q.nm,pr:'$'+COST[q.id],unlockRank:q.rank};
+  TOOLS.push(t);MAYOR_MANUAL_ONLY470A.add(q.id);MAYOR_ACTION_CATALOG470A[q.id]={id:q.id,nm:q.nm,cat:mayorToolCategory470(q.id),toolCat:t.cat,k:287,size:2,status:'manual-only',decision:'manual-only'};
+}
+CATALOG_SECTIONS458.find(q=>q[0]==='leisure')[2].push(...Object.keys(WATERFRONT_TOOL018));
+const __waterfrontKeywords018=catalogKeywords458;catalogKeywords458=function(t){const q=waterfrontTool018(t?.id);return q?(__waterfrontKeywords018(t)+' '+q.en+' 英式 英國 '+q.keywords).toLowerCase():__waterfrontKeywords018(t);};
+const __waterfrontInspect018=complexInspect014;complexInspect014=function(root,b){
+  const original=__waterfrontInspect018(root,b),theme=waterfrontAppearance018(b);if(!theme)return original;
+  const q=WATERFRONT_THEME018[theme],base=COMPLEX014[287];
+  return original.replace('<h3>'+base.ic+' '+base.nm+'</h3><div class="row">'+base.en+'</div>','<h3>'+q.ic+' '+q.nm+'</h3><div class="row">'+q.en+'</div>')
+    .replace('<div class="row">'+complexDescription014(base)+'</div>','<div class="row">'+waterfrontDescription018(q)+'</div>');
+};
 
 const drawPath643=(src=>src.indexOf('sbNightOn643()')>=0&&src.indexOf('clip643=cl')>=0)(String(draw)),drawPath644=String(draw).indexOf('warnGlowPush644(nightSprites')>=0,drawPath647=String(draw).indexOf('constrSize647(o,bd)')>=0,drawPath648=String(draw).indexOf('lodFar=z<lodFarZ648()')>=0,drawPath649=String(draw).indexOf('nsp.warm649?winImg649')>=0&&String(draw).indexOf('warm649:1')>=0,drawPath651=String(draw).indexOf('base=grassSoft651(base)')>=0&&String(draw).indexOf('__noGrassGrid651?')>=0,drawPath675=String(draw).indexOf('waterVar675(waterF')>=0&&String(draw).indexOf('__noWaterVar675?')>=0,drawPath667=String(draw).indexOf('nightWaterApply667(ctx,nightDepth)')>=0&&String(draw).indexOf('mg.fill(nwPath667)')>=0,drawPath666=String(draw).indexOf('gc.clip(wgPath666);gc.drawImage(wg666,0,0)')>=0&&String(draw).indexOf("__noWaterGrad666?'_wg0'")>=0,drawPath652=String(draw).indexOf('groveTree652(t.tree,o.x,o.y)')>=0||String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPath655=String(draw).indexOf('terrainTree655(t.tree,o.x,o.y)')>=0,drawPathDSK1=String(draw).indexOf('SPR.treeWBareSnow')>=0; // T655：成林改經由地形分類呼叫 // DSK-001：冬季禿枝分流 // T643 自檢用：draw 在下一行起被 T501／T502 包起來，String(draw) 之後只看得到外殼，在這裡先記
 const __draw_501=draw;draw=function(dt){__draw_501(dt);drawActiveMobilityOverlay502();};
@@ -92955,6 +93364,7 @@ function britishGameplayProbe004(groupFilter){
 
 window.GV={
   museumSelftest010,museumSpecs010,museumAt010,museumEvidence010,
+  waterfrontSelftest018,waterfrontSpecs018,waterfrontAt018,waterfrontEvidence018,
   quaysideSelftest017,quaysideSpecs017,quaysideAt017,quaysideEvidence017,
   gardenLifeSelftest016,gardenLifeSpecs016,gardenLifeAt016,gardenLifeEvidence016,
   streetscapeSelftest015,streetscapeSpecs015,streetscapeAt015,streetscapeEvidence015,

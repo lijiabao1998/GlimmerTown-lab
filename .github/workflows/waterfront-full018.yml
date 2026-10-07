@@ -1,0 +1,882 @@
+name: waterfront-full018
+'on':
+  push:
+    branches:
+    - gpt/british-waterfront-heritage-018
+    paths-ignore:
+    - '**.md'
+    - docs/**
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: waterfront-full018-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - name: Current source and original-assertion adapters
+      run: 'set -euo pipefail
+
+        node waterfront-static-contract018.js
+
+        node waterfront-release-contract018.test.js
+
+        node waterfront-source-qa018.js
+
+        node waterfront-compatibility018.js --static-test
+
+        node waterfront-legacy018.js --static-test
+
+        node waterfront-style018.test.js
+
+        for f in *018.js; do node --check "$f"; done
+
+        python3 waterfront-workflow018.test.py
+
+        node waterfront-integration-qa018.js --static-test
+
+        node waterfront-compatibility018.test.js --static-test
+
+        node waterfront-session-fingerprint018.test.js
+
+        node mapedge-render018.test.js --static-test
+
+        node mapedge-native-qa018.test.js
+
+        '
+    - name: Every unchanged T730 and older source control in frozen approved worktrees
+      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/waterfront-t730-controls-XXXXXX)\"\ngit worktree add --detach \"\
+        $baseline\" 1400301238f7a46ab6d3c489422a48f9f90cac9d\n(\n cd \"$baseline\"\n node quayside-static-contract017.js\n\
+        \ node quayside-release-contract017.test.js\n node quayside-compatibility017.js --static-test\n node quayside-legacy017.js\
+        \ --static-test\n node quayside-integration-qa017.js --static-test\n node quayside-gameplay017.test.js\n node quayside-style017.test.js\n\
+        \ python3 quayside-workflow017.test.py\n python3 quayside-native-workflow017.test.py\n)\nset -euo pipefail\nbaseline=\"\
+        $(mktemp -d /tmp/quayside-t729-controls-XXXXXX)\"\ngit worktree add --detach \"$baseline\" c7f0ab6e6d2c37651fd13802049b8079c5f5d37b\n\
+        (\n cd \"$baseline\"\n node gardenlife-static-contract016.js\n node gardenlife-release-contract016.test.js\n node\
+        \ gardenlife-compatibility016.js --static-test\n node gardenlife-legacy016.js --static-test\n node gardenlife-integration-qa016.js\
+        \ --static-test\n node gardenlife-gameplay016.test.js\n node gardenlife-style016.test.js\n python3 gardenlife-workflow016.test.py\n\
+        \ python3 gardenlife-native-workflow016.test.py\n)\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)\"\
+        \ngit worktree add --detach \"$baseline\" bcd77d5e959ed801d920766cbc9dc010cce19f58\n(\n cd \"$baseline\"\n node streetscape-static-contract015.js\n\
+        \ node streetscape-release-contract015.test.js\n node streetscape-compatibility015.js --static-test\n node streetscape-legacy015.js\
+        \ --static-test\n node streetscape-integration-qa015.js --static-test\n node streetscape-style015.test.js\n python3\
+        \ streetscape-workflow015.test.py\n)\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)\"\
+        \ngit worktree add --detach \"$baseline\" 6d137b6be31a7f07867b8ebb181fb8ed3727b049\ncd \"$baseline\"\nnode complexes-static-contract014.js\n\
+        node complexes-release-contract014.test.js\npython3 integrate-complexes014.test.py\nnode complexes-gameplay014.js\
+        \ --static-test\nnode complexes-fixture014.test.js\nnode complexes-integration-qa014.js --static-test\npython3 complexes-workflow014.test.py\n\
+        node complexes-regression-adapter014.js --static-test\nnode complexes-regression-adapter014.test.js\nnode complexes-regression-adapter014.js\
+        \ --historical-source-tests\nnode complexes-style-adapter014.js --static-test\nnode complexes-style-adapter014.test.js\n\
+        node complexes-compatibility014.test.js --static-test\n"
+    - name: Strict current3147 native preflight and original full-record mutation guards
+      run: 'set -euo pipefail
+
+        node waterfront-preflight018.js 2>&1 | tee waterfront-full-preflight.txt
+
+        node waterfront-release-contract018.test.js --native waterfront-evidence/preflight/fingerprint-native.json
+
+        node waterfront-legacy018.test.js waterfront-evidence/preflight/fingerprint-native.json
+
+        node waterfront-style018.test.js waterfront-evidence/preflight/fingerprint-native.json
+
+        WF018_SUITE=streetscape WF018_MODE=preflight node waterfront-legacy018.js 2>&1 | tee waterfront-retained-legacy-preflight.txt
+
+        node waterfront-historical-bridge018.test.js waterfront-evidence/preflight/fingerprint-native.json
+
+        '
+    - uses: actions/upload-artifact@v4
+      with:
+        name: waterfront-full-native-fingerprint-${{ github.sha }}
+        path: waterfront-evidence/preflight/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 waterfront-package018.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part0/**') != ''
+      with:
+        name: waterfront-full-preflight-part0-${{ github.sha }}
+        path: .waterfront-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part1/**') != ''
+      with:
+        name: waterfront-full-preflight-part1-${{ github.sha }}
+        path: .waterfront-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part2/**') != ''
+      with:
+        name: waterfront-full-preflight-part2-${{ github.sha }}
+        path: .waterfront-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part3/**') != ''
+      with:
+        name: waterfront-full-preflight-part3-${{ github.sha }}
+        path: .waterfront-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part4/**') != ''
+      with:
+        name: waterfront-full-preflight-part4-${{ github.sha }}
+        path: .waterfront-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part5/**') != ''
+      with:
+        name: waterfront-full-preflight-part5-${{ github.sha }}
+        path: .waterfront-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part6/**') != ''
+      with:
+        name: waterfront-full-preflight-part6-${{ github.sha }}
+        path: .waterfront-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part7/**') != ''
+      with:
+        name: waterfront-full-preflight-part7-${{ github.sha }}
+        path: .waterfront-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  legacy:
+    needs:
+    - preflight
+    - native
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - suite: quayside
+          mode: preflight
+          group: none
+        - suite: quayside
+          mode: gameplay
+          group: none
+        - suite: quayside
+          mode: camera0
+          group: none
+        - suite: quayside
+          mode: camera1
+          group: none
+        - suite: quayside
+          mode: camera2
+          group: none
+        - suite: quayside
+          mode: camera3
+          group: none
+        - suite: quayside
+          mode: construction0
+          group: none
+        - suite: quayside
+          mode: construction1
+          group: none
+        - suite: quayside
+          mode: construction2
+          group: none
+        - suite: quayside
+          mode: construction3
+          group: none
+        - suite: quayside
+          mode: weather
+          group: none
+        - suite: quayside
+          mode: coldload
+          group: none
+        - suite: quayside
+          mode: occlusion
+          group: none
+        - suite: gardenlife
+          mode: preflight
+          group: none
+        - suite: gardenlife
+          mode: gameplay
+          group: none
+        - suite: gardenlife
+          mode: camera0
+          group: none
+        - suite: gardenlife
+          mode: camera1
+          group: none
+        - suite: gardenlife
+          mode: camera2
+          group: none
+        - suite: gardenlife
+          mode: camera3
+          group: none
+        - suite: gardenlife
+          mode: construction0
+          group: none
+        - suite: gardenlife
+          mode: construction1
+          group: none
+        - suite: gardenlife
+          mode: construction2
+          group: none
+        - suite: gardenlife
+          mode: construction3
+          group: none
+        - suite: gardenlife
+          mode: weather
+          group: none
+        - suite: gardenlife
+          mode: coldload
+          group: none
+        - suite: gardenlife
+          mode: occlusion
+          group: none
+        - suite: streetscape
+          mode: preflight
+          group: none
+        - suite: streetscape
+          mode: gameplay
+          group: none
+        - suite: streetscape
+          mode: camera0
+          group: none
+        - suite: streetscape
+          mode: camera1
+          group: none
+        - suite: streetscape
+          mode: camera2
+          group: none
+        - suite: streetscape
+          mode: camera3
+          group: none
+        - suite: streetscape
+          mode: construction0
+          group: none
+        - suite: streetscape
+          mode: construction1
+          group: none
+        - suite: streetscape
+          mode: construction2
+          group: none
+        - suite: streetscape
+          mode: construction3
+          group: none
+        - suite: streetscape
+          mode: weather
+          group: none
+        - suite: streetscape
+          mode: coldload
+          group: none
+        - suite: streetscape
+          mode: occlusion
+          group: none
+        - suite: complexes
+          mode: preflight
+          group: college
+        - suite: complexes
+          mode: gameplay
+          group: college
+        - suite: complexes
+          mode: gameplay
+          group: manor
+        - suite: complexes
+          mode: gameplay
+          group: baths
+        - suite: complexes
+          mode: gameplay
+          group: fire
+        - suite: complexes
+          mode: camera0
+          group: college
+        - suite: complexes
+          mode: camera0
+          group: manor
+        - suite: complexes
+          mode: camera0
+          group: baths
+        - suite: complexes
+          mode: camera0
+          group: fire
+        - suite: complexes
+          mode: camera1
+          group: college
+        - suite: complexes
+          mode: camera1
+          group: manor
+        - suite: complexes
+          mode: camera1
+          group: baths
+        - suite: complexes
+          mode: camera1
+          group: fire
+        - suite: complexes
+          mode: camera2
+          group: college
+        - suite: complexes
+          mode: camera2
+          group: manor
+        - suite: complexes
+          mode: camera2
+          group: baths
+        - suite: complexes
+          mode: camera2
+          group: fire
+        - suite: complexes
+          mode: camera3
+          group: college
+        - suite: complexes
+          mode: camera3
+          group: manor
+        - suite: complexes
+          mode: camera3
+          group: baths
+        - suite: complexes
+          mode: camera3
+          group: fire
+        - suite: complexes
+          mode: construction0
+          group: college
+        - suite: complexes
+          mode: construction0
+          group: manor
+        - suite: complexes
+          mode: construction0
+          group: baths
+        - suite: complexes
+          mode: construction0
+          group: fire
+        - suite: complexes
+          mode: construction1
+          group: college
+        - suite: complexes
+          mode: construction1
+          group: manor
+        - suite: complexes
+          mode: construction1
+          group: baths
+        - suite: complexes
+          mode: construction1
+          group: fire
+        - suite: complexes
+          mode: construction2
+          group: college
+        - suite: complexes
+          mode: construction2
+          group: manor
+        - suite: complexes
+          mode: construction2
+          group: baths
+        - suite: complexes
+          mode: construction2
+          group: fire
+        - suite: complexes
+          mode: construction3
+          group: college
+        - suite: complexes
+          mode: construction3
+          group: manor
+        - suite: complexes
+          mode: construction3
+          group: baths
+        - suite: complexes
+          mode: construction3
+          group: fire
+        - suite: complexes
+          mode: weather-wet
+          group: college
+        - suite: complexes
+          mode: weather-wet
+          group: manor
+        - suite: complexes
+          mode: weather-wet
+          group: baths
+        - suite: complexes
+          mode: weather-wet
+          group: fire
+        - suite: complexes
+          mode: weather-winter
+          group: college
+        - suite: complexes
+          mode: weather-winter
+          group: manor
+        - suite: complexes
+          mode: weather-winter
+          group: baths
+        - suite: complexes
+          mode: weather-winter
+          group: fire
+        - suite: complexes
+          mode: coldload
+          group: college
+        - suite: theatre
+          mode: preflight
+          group: none
+        - suite: theatre
+          mode: gameplay
+          group: none
+        - suite: theatre
+          mode: camera0
+          group: none
+        - suite: theatre
+          mode: camera1
+          group: none
+        - suite: theatre
+          mode: camera2
+          group: none
+        - suite: theatre
+          mode: camera3
+          group: none
+        - suite: theatre
+          mode: construction0
+          group: none
+        - suite: theatre
+          mode: construction1
+          group: none
+        - suite: theatre
+          mode: construction2
+          group: none
+        - suite: theatre
+          mode: construction3
+          group: none
+        - suite: theatre
+          mode: weather
+          group: none
+        - suite: theatre
+          mode: coldload
+          group: none
+        - suite: riverside
+          mode: preflight
+          group: none
+        - suite: riverside
+          mode: gameplay
+          group: none
+        - suite: riverside
+          mode: camera0
+          group: none
+        - suite: riverside
+          mode: camera1
+          group: none
+        - suite: riverside
+          mode: camera2
+          group: none
+        - suite: riverside
+          mode: camera3
+          group: none
+        - suite: riverside
+          mode: construction0
+          group: none
+        - suite: riverside
+          mode: construction1
+          group: none
+        - suite: riverside
+          mode: construction2
+          group: none
+        - suite: riverside
+          mode: construction3
+          group: none
+        - suite: riverside
+          mode: weather
+          group: none
+        - suite: riverside
+          mode: coldload
+          group: none
+        - suite: museum
+          mode: preflight
+          group: none
+        - suite: museum
+          mode: gameplay
+          group: none
+        - suite: museum
+          mode: camera0
+          group: none
+        - suite: museum
+          mode: camera1
+          group: none
+        - suite: museum
+          mode: camera2
+          group: none
+        - suite: museum
+          mode: camera3
+          group: none
+        - suite: museum
+          mode: construction0
+          group: none
+        - suite: museum
+          mode: construction1
+          group: none
+        - suite: museum
+          mode: construction2
+          group: none
+        - suite: museum
+          mode: construction3
+          group: none
+        - suite: museum
+          mode: weather
+          group: none
+        - suite: publiclife
+          mode: gameplay
+          group: none
+        - suite: station
+          mode: gameplay
+          group: none
+        - suite: streetlife
+          mode: gameplay
+          group: none
+        - suite: coldload
+          mode: without-museum
+          group: none
+        - suite: coldload
+          mode: with-museum
+          group: none
+        - suite: coldload
+          mode: zero-source
+          group: none
+        - suite: coldload
+          mode: disconnected
+          group: none
+        - suite: coldload
+          mode: escape-disabled
+          group: none
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - uses: actions/download-artifact@v4
+      with:
+        name: waterfront-full-native-fingerprint-${{ github.sha }}
+        path: waterfront-evidence/preflight
+    - name: Independent exact-head preflight input
+      run: node -e "const p=require('./waterfront-fingerprint018').readPreflight018(); console.log(JSON.stringify(p.proof));"
+    - name: Every original015 and earlier selected runtime and assertion
+      run: 'set -o pipefail
+
+        WF018_SUITE=${{ matrix.suite }} WF018_MODE=${{ matrix.mode }} WF018_GROUP=${{ matrix.group }} node waterfront-legacy018.js
+        2>&1 | tee waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}.txt
+
+        '
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 waterfront-package018.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part0/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part0-${{ github.sha }}
+        path: .waterfront-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part1/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part1-${{ github.sha }}
+        path: .waterfront-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part2/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part2-${{ github.sha }}
+        path: .waterfront-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part3/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part3-${{ github.sha }}
+        path: .waterfront-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part4/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part4-${{ github.sha }}
+        path: .waterfront-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part5/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part5-${{ github.sha }}
+        path: .waterfront-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part6/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part6-${{ github.sha }}
+        path: .waterfront-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part7/**') != ''
+      with:
+        name: waterfront-legacy-${{ matrix.suite }}-${{ matrix.mode }}-${{ matrix.group }}-part7-${{ github.sha }}
+        path: .waterfront-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  compatibility:
+    needs:
+    - preflight
+    - native
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - uses: actions/download-artifact@v4
+      with:
+        name: waterfront-full-native-fingerprint-${{ github.sha }}
+        path: waterfront-evidence/preflight
+    - name: Independent exact-head preflight input
+      run: node -e "const p=require('./waterfront-fingerprint018').readPreflight018(); console.log(JSON.stringify(p.proof));"
+    - name: Three smokes, retained exact style guard, complete original eight-world comparison
+      run: 'set -euo pipefail
+
+        mkdir -p waterfront-evidence/compatibility/logs
+
+        for n in 1 2 3; do node smoke.js 2>&1 | tee waterfront-evidence/compatibility/logs/smoke-$n.txt; done
+
+        node waterfront-style018.js 2>&1 | tee waterfront-evidence/compatibility/logs/style.txt
+
+        WF018_SUITE=complexes WF018_MODE=fingerprint node waterfront-legacy018.js 2>&1 | tee waterfront-evidence/compatibility/logs/strict-native.txt
+
+        WF018_SUITE=compatibility WF018_MODE=gameplay node waterfront-legacy018.js 2>&1 | tee waterfront-legacy-compatibility.txt
+
+        node waterfront-compatibility018.test.js museum-evidence/compatibility/guards/compatibility.json 2>&1 | tee quayside-compatibility-data.txt
+
+        '
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 waterfront-package018.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part0/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part0-${{ github.sha }}
+        path: .waterfront-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part1/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part1-${{ github.sha }}
+        path: .waterfront-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part2/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part2-${{ github.sha }}
+        path: .waterfront-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part3/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part3-${{ github.sha }}
+        path: .waterfront-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part4/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part4-${{ github.sha }}
+        path: .waterfront-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part5/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part5-${{ github.sha }}
+        path: .waterfront-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part6/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part6-${{ github.sha }}
+        path: .waterfront-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part7/**') != ''
+      with:
+        name: waterfront-legacy-compatibility-part7-${{ github.sha }}
+        path: .waterfront-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  native:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - catalog
+        - gameplay
+        - coldload
+        - malformed
+        - camera0
+        - camera1
+        - camera2
+        - camera3
+        - construction0
+        - construction1
+        - construction2
+        - construction3
+        - weather
+        - occlusion
+        - mapedge0
+        - mapedge1
+        - mapedge2
+        - mapedge3
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - uses: actions/download-artifact@v4
+      with:
+        name: waterfront-full-native-fingerprint-${{ github.sha }}
+        path: waterfront-evidence/preflight
+    - name: Native paid garden details and full visual scenes
+      run: 'set -o pipefail
+
+        WF018_MODE=${{ matrix.mode }} node waterfront-integration-qa018.js 2>&1 | tee waterfront-${{ matrix.mode }}.txt
+
+        '
+    - name: Retain every raw report and lossless counterfactual PNG in bounded packets
+      if: always()
+      run: python3 waterfront-package018.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part0/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .waterfront-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part1/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .waterfront-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part2/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .waterfront-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part3/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .waterfront-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part4/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .waterfront-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part5/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .waterfront-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part6/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .waterfront-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part7/**') != ''
+      with:
+        name: waterfront-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .waterfront-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code

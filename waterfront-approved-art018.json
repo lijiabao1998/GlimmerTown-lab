@@ -1,0 +1,113 @@
+{
+  "approvedArchitectureHead": "52924698c88ec2f9cafe37828b8d966a6f962488",
+  "approvedArchitectureSourceSHA256": "17d0f0cfce8742eddbe4b138489ad9851c36d31dc2426835949b30fbc656e939",
+  "evidenceArtifactID": 11456249980,
+  "nativePreflightSHA256": "b8208f98b187eddf82fc20aeed9dd3067e195f434bde2862f956f5d8be7565bc",
+  "subs": {
+    "waterfront018.lifeboatHall_0": {
+      "d": "5b7c9ffc",
+      "op": 5470,
+      "w": 160,
+      "h": 196,
+      "n": "771b2b29"
+    },
+    "waterfront018.lifeboatHall_1": {
+      "d": "510bf1fb",
+      "op": 5228,
+      "w": 160,
+      "h": 196,
+      "n": "89807b41"
+    },
+    "waterfront018.lifeboatHall_2": {
+      "d": "049a1bcf",
+      "op": 5172,
+      "w": 160,
+      "h": 196,
+      "n": "4da723fa"
+    },
+    "waterfront018.lifeboatHall_3": {
+      "d": "50e1a3cc",
+      "op": 5422,
+      "w": 160,
+      "h": 196,
+      "n": "8112867c"
+    },
+    "waterfront018.canalTollhouse_0": {
+      "d": "c42533f8",
+      "op": 5826,
+      "w": 160,
+      "h": 196,
+      "n": "4e17d6a1"
+    },
+    "waterfront018.canalTollhouse_1": {
+      "d": "d159450b",
+      "op": 5628,
+      "w": 160,
+      "h": 196,
+      "n": "00ec6e2b"
+    },
+    "waterfront018.canalTollhouse_2": {
+      "d": "d57ab9e6",
+      "op": 5605,
+      "w": 160,
+      "h": 196,
+      "n": "1e011e96"
+    },
+    "waterfront018.canalTollhouse_3": {
+      "d": "ca76f5ae",
+      "op": 5780,
+      "w": 160,
+      "h": 196,
+      "n": "f40af826"
+    }
+  },
+  "family": {
+    "leaves": 8,
+    "crc": "0f7a4353",
+    "px": 250880,
+    "op": 44131,
+    "night": 8
+  },
+  "nativePngs": [
+    {
+      "key": "lifeboatHall_0",
+      "day": "0fa74c921ed149bbf3f10f11ce34d39b9ce363caa819a641ba86465a48dcca3e",
+      "night": "8e02be7c45b09e2b16093cda7cf750cb577d3beb76dd51eab995facbf1724810"
+    },
+    {
+      "key": "lifeboatHall_1",
+      "day": "e9b44c82fa319aa7bbea1872e5bd964c3900d6cca7055d7b51e66d11fea2cbe1",
+      "night": "232bb941b225288142ef1ed6cbe43dd621278696bc6f4a00e01c3c152fca1cdc"
+    },
+    {
+      "key": "lifeboatHall_2",
+      "day": "19b0f27bb9f8852c2d603384897652524c290ee9513b6022d8d45481b05cf390",
+      "night": "3d510f150d91095ab3249988baa9c1f86284d4a3736ad162c07cca67b4b03044"
+    },
+    {
+      "key": "lifeboatHall_3",
+      "day": "9482897e8e820c0e072acf008e1f22cfe80aeeb4bc65d98a8dd8e0b616979a33",
+      "night": "9503bd83739fd15e99efc30f4778e5d2e10ac60f74073711470c2eed8186e85b"
+    },
+    {
+      "key": "canalTollhouse_0",
+      "day": "0629ab33316face44570d7e8f8dccd0d5f6a70a7a52fe7469ce06a5516c8ffe5",
+      "night": "ed3734b62696ba9d6856ef2048dcdcafabc329e7c7f0c1b77632fa0683284050"
+    },
+    {
+      "key": "canalTollhouse_1",
+      "day": "f3d1eddbcd101cb47e565fd14dd66efe9531afe8b433e7330572d324e66e11eb",
+      "night": "d9068f1161d14ba23d3acdad77ca2577c7c1c4fab7eb6dddab875ed462552663"
+    },
+    {
+      "key": "canalTollhouse_2",
+      "day": "e147a2cc49765bbcaceecafcd6ae1fb64b3b3e1cde0a1f66af1cd50882dcdffa",
+      "night": "7c2cc8f96470cb4449a2f3485a6df8e5c3b1c60cde165926719b5798c3f67314"
+    },
+    {
+      "key": "canalTollhouse_3",
+      "day": "9fda2aefc6e1101029e5c3f7593bc25d941eaba0e1a1e81b0fb1db2d0e8f881b",
+      "night": "5dae085d4dc20e4ab9ccda3620525a0439f383a4341f6aea08b333d4e0578c89"
+    }
+  ]
+}

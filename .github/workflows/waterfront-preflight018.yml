@@ -1,0 +1,50 @@
+name: waterfront-preflight018
+on:
+  push:
+    branches: ['gpt/british-waterfront-heritage-018']
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: waterfront-preflight018-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  native-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Exact additive source and synthetic save controls
+        run: |
+          set -euo pipefail
+          node waterfront-static-contract018.js
+          node waterfront-release-contract018.test.js
+          node waterfront-source-qa018.js
+          for file in *018.js; do node --check "$file"; done
+      - name: Native font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Native Chrome pixels and complete preserved fingerprints
+        run: |
+          set -euo pipefail
+          node waterfront-preflight018.js 2>&1 | tee waterfront-preflight018.log
+          node waterfront-release-contract018.test.js --native waterfront-evidence/preflight/fingerprint-native.json
+      - name: Tracked source stays unchanged
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: waterfront-initial-preflight-${{ github.sha }}
+          path: |
+            waterfront-evidence/preflight/
+            waterfront-preflight018.log
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 9

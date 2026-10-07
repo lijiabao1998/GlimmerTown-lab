@@ -1,0 +1,90 @@
+{
+  "nativeCheckedSHA": "f2123f682b893828e8c306e1f5609603a8e8fd08",
+  "nativeSourceSHA256": "ed6f3d3a0ed2df05fe705d36004e0eaf4560bf9b025da2616112272e9150b5b9",
+  "nativeRun": 37590211280,
+  "nativeRunAttempt": 1,
+  "nativeJobCount": 148,
+  "nativeCompletedAt": "2026-10-07T08:24:14Z",
+  "nativeArtifact": 11468816627,
+  "nativeArchiveSHA256": "33c9cba4deff293a3b3113cdc2eb4a53ef09adee21ab034bb1de22a7192c4e33",
+  "nativeFingerprintSHA256": "bae09ad52e99ef9c53c3c02d76f364704b1d668defc9ed353afbfc1de6a74c44",
+  "nativePreflightArtifact": 11468243745,
+  "nativePreflightArchiveSHA256": "2cc00008cb2d1c3e7815a03700fa1fd4716ecb0bbec9a4dc6f487c48e640ac7a",
+  "nativeManifestSHA256": "0645e0630cfe1552ae8f08c4804adda28887481deba93fa2922d3c233b99196f",
+  "nativeFullSubsSHA256": "58d955f88808323d0bb80bb934398a659ab77ca2e2b7470c9a38952909e6e754",
+  "nativeFullFamiliesSHA256": "4528f22f76a9f2cf44f41849a6d3b387dbb03a25925ec806669b304567168616",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 164,
+    "leaves": 3147,
+    "dayNonEmpty": 3137,
+    "nightNonEmpty": 1711
+  },
+  "families": {
+    "waterfront018": {
+      "leaves": 8,
+      "crc": "0f7a4353",
+      "px": 250880,
+      "op": 44131,
+      "night": 8
+    }
+  },
+  "subs": {
+    "waterfront018.lifeboatHall_0": {
+      "d": "5b7c9ffc",
+      "op": 5470,
+      "w": 160,
+      "h": 196,
+      "n": "771b2b29"
+    },
+    "waterfront018.lifeboatHall_1": {
+      "d": "510bf1fb",
+      "op": 5228,
+      "w": 160,
+      "h": 196,
+      "n": "89807b41"
+    },
+    "waterfront018.lifeboatHall_2": {
+      "d": "049a1bcf",
+      "op": 5172,
+      "w": 160,
+      "h": 196,
+      "n": "4da723fa"
+    },
+    "waterfront018.lifeboatHall_3": {
+      "d": "50e1a3cc",
+      "op": 5422,
+      "w": 160,
+      "h": 196,
+      "n": "8112867c"
+    },
+    "waterfront018.canalTollhouse_0": {
+      "d": "c42533f8",
+      "op": 5826,
+      "w": 160,
+      "h": 196,
+      "n": "4e17d6a1"
+    },
+    "waterfront018.canalTollhouse_1": {
+      "d": "d159450b",
+      "op": 5628,
+      "w": 160,
+      "h": 196,
+      "n": "00ec6e2b"
+    },
+    "waterfront018.canalTollhouse_2": {
+      "d": "d57ab9e6",
+      "op": 5605,
+      "w": 160,
+      "h": 196,
+      "n": "1e011e96"
+    },
+    "waterfront018.canalTollhouse_3": {
+      "d": "ca76f5ae",
+      "op": 5780,
+      "w": 160,
+      "h": 196,
+      "n": "f40af826"
+    }
+  }
+}

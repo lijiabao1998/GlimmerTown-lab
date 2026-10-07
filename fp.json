@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-10-06T22:03:10Z",
- "version": "14.34",
- "anchor": "T730",
+ "generatedAt": "2026-10-07T08:33:00.000Z",
+ "version": "14.35",
+ "anchor": "T731",
  "stats": {
-  "families": 163,
-  "leaves": 3139,
-  "dayNonEmpty": 3129,
-  "nightNonEmpty": 1703
+  "families": 164,
+  "leaves": 3147,
+  "dayNonEmpty": 3137,
+  "nightNonEmpty": 1711
  },
  "families": {
   "grass": {
@@ -1149,6 +1149,13 @@
    "px": 158976,
    "op": 25591,
    "night": 24
+  },
+  "waterfront018": {
+   "leaves": 8,
+   "crc": "0f7a4353",
+   "px": 250880,
+   "op": 44131,
+   "night": 8
   }
  },
  "subs": {
@@ -23124,6 +23131,62 @@
    "w": 72,
    "h": 92,
    "n": "ec6dca95"
+  },
+  "waterfront018.lifeboatHall_0": {
+   "d": "5b7c9ffc",
+   "op": 5470,
+   "w": 160,
+   "h": 196,
+   "n": "771b2b29"
+  },
+  "waterfront018.lifeboatHall_1": {
+   "d": "510bf1fb",
+   "op": 5228,
+   "w": 160,
+   "h": 196,
+   "n": "89807b41"
+  },
+  "waterfront018.lifeboatHall_2": {
+   "d": "049a1bcf",
+   "op": 5172,
+   "w": 160,
+   "h": 196,
+   "n": "4da723fa"
+  },
+  "waterfront018.lifeboatHall_3": {
+   "d": "50e1a3cc",
+   "op": 5422,
+   "w": 160,
+   "h": 196,
+   "n": "8112867c"
+  },
+  "waterfront018.canalTollhouse_0": {
+   "d": "c42533f8",
+   "op": 5826,
+   "w": 160,
+   "h": 196,
+   "n": "4e17d6a1"
+  },
+  "waterfront018.canalTollhouse_1": {
+   "d": "d159450b",
+   "op": 5628,
+   "w": 160,
+   "h": 196,
+   "n": "00ec6e2b"
+  },
+  "waterfront018.canalTollhouse_2": {
+   "d": "d57ab9e6",
+   "op": 5605,
+   "w": 160,
+   "h": 196,
+   "n": "1e011e96"
+  },
+  "waterfront018.canalTollhouse_3": {
+   "d": "ca76f5ae",
+   "op": 5780,
+   "w": 160,
+   "h": 196,
+   "n": "f40af826"
   }
  },
  "blocks": {
