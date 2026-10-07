@@ -1,4 +1,5 @@
 'use strict';
+require('./waterfront-quarter-lamp019.test');
 // Inert source and synthetic transaction/geometry data only, never a game/painter.
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),{functions019,quarterCapitalNative019}=require('./waterfront-quarter-native019'),L=require('./waterfront-quarter-logic019');
 for(const f of functions019)new vm.Script('('+f.toString()+')');let positives=0,negatives=0;
@@ -34,3 +35,29 @@ const GV={setRot:v=>{},setZoom:v=>{},lookAt:()=>{},setVisT:()=>{},art574:{cycle5
 const context={GV,window:{__quarterQA019:{focus:[0,0],paths:[],roots:[]}},document:{getElementById:()=>({width:1600,height:1080,toDataURL:()=> 'synthetic-image-not-rendered'})}};
 const ordinary=new vm.Script('('+scene.toString()+')(0,false,1.25,null)').runInNewContext(context);assert.equal(ordinary.day,27);assert(!events.includes('weather-fixture'));assert(events.includes('draw-stub'));
 console.log(JSON.stringify({firstCiShoreOrderRegression:true,ordinarySceneClockRegression:true,syntheticCallbacksOnly:true}));
+// The second planning CI failure kept every purchase/undo/ledger fact true.
+// Only the reverse subtraction differed: quote 9.746999999999998 versus raw
+// 100000 - 99990.253 = 9.747000000003027. Check the native debit direction
+// exactly, retaining the raw difference rather than rounding it or adding epsilon.
+const purchaseCheck=runner.split('\n').find(line=>line.includes("check('sixteen actual discounted/base purchases"));assert(purchaseCheck);
+const purchaseGate=cat=>{let result;new vm.Script(purchaseCheck).runInNewContext({cat,check:(name,ok)=>{result=ok;}});return result;};
+const catalog=functions019.find(f=>f.name==='quarterCatalogNative019');
+function syntheticCatalog(mutation={}){
+ const ids=['arrivalCourt','brickPromenade','quayEdgeWalk','quayCorner','heritageDisplay','watersideBench','harbourLantern','timberShelter'].map(id=>id+'019'),slot='glimmerville.v1.s3';
+ const initial={rk:3,money:100000,tech343:{done:[]}};for(const field of['ter','rd','rl','tr','tre','zn','lvl475','hvl471','fly475','ix475','rn','ctr','pm','dc','of'])initial[field]=(field==='ter'?'2':'0').repeat(72*72);
+ let state=structuredClone(initial),tile={t:2,el:0},ledger=[{d:1,tool:'park',cost:60}],snapshot;
+ const storage=new Map([[slot,JSON.stringify(initial)]]),localStorage={getItem:key=>storage.get(key),setItem:(key,value)=>storage.set(key,value)};
+ const cost=()=>state.tech343.done.length?9.746999999999998:12;
+ const GV={save:()=>storage.set(slot,JSON.stringify(state)),load:()=>{state=JSON.parse(storage.get(slot));tile={t:2,el:0};ledger=[{d:1,tool:'park',cost:60}];return true;},setSpeed:()=>{},ai:()=>{},rank:()=>({lv:state.rk+1}),devUnlocked516B:()=>state.rk>=3,quarterSpecs019:()=>({paths:ids.map(id=>({id}))}),devMoney516B:()=>state.money,tile:()=>structuredClone(tile),fiscal515:()=>({capitalLedger:structuredClone(ledger)}),
+  placePreview459:(id,x,y)=>({ok:true,cost:cost(),affordable:state.money>=cost()}),
+  placeUndo:(id,x,y)=>{if(state.money<cost())return false;snapshot={money:state.money,tile:structuredClone(tile)};state.money-=cost();state.money+=mutation.debitError||0;tile={...tile,am502:1,amx502:{british019:id.slice(0,-3),turn019:0}};return true;},
+  undo:()=>{if(!snapshot)return false;state.money=snapshot.money+(mutation.undoCashError||0);tile=structuredClone(snapshot.tile);if(mutation.undoTileError)tile.extra=(tile.extra||0)+1;if(mutation.ledgerError)ledger.push({d:2,tool:'footpath502',cost:12});return !mutation.undoFailure;}};
+ const window={__streetQA009:{prepare:()=>{}},__quarterQA019:{world:()=>JSON.stringify({state,tile,ledger})}};
+ return new vm.Script('('+catalog.toString()+')()').runInNewContext({GV,window,localStorage,waterfrontDecodeInput018:JSON.parse});
+}
+const syntheticPurchases=syntheticCatalog();assert(purchaseGate(syntheticPurchases));assert.equal(syntheticPurchases.quotes.length,16);
+for(const row of syntheticPurchases.quotes){assert.equal(row.moneyBefore,100000);assert.equal(row.moneyAfter,row.moneyBefore-row.preview.cost);assert.equal(row.charged,row.moneyBefore-row.moneyAfter);if(row.discounted){assert.equal(row.preview.cost,9.746999999999998);assert.equal(row.charged,9.747000000003027);assert.notEqual(row.charged,row.preview.cost);}}
+let rejectedPurchases=0;for(const mutation of[{debitError:1e-10},{debitError:-1e-10},{debitError:.01},{undoCashError:1e-10},{undoTileError:true},{ledgerError:true},{undoFailure:true}]){assert(!purchaseGate(syntheticCatalog(mutation)),JSON.stringify(mutation));rejectedPurchases++;}
+for(const change of[p=>p.preview.ok=false,p=>p.native.ok=false,p=>p.placed=false,p=>p.native.cost++,p=>p.charged++,p=>p.moneyAfter++,p=>p.moneyBefore++]){const bad=structuredClone(syntheticPurchases);change(bad.quotes[8]);assert(!purchaseGate(bad));rejectedPurchases++;}
+const short=structuredClone(syntheticPurchases);short.quotes.pop();assert(!purchaseGate(short));rejectedPurchases++;
+console.log(JSON.stringify({exactNativeDebitRegression:true,syntheticPurchases:16,rejectedPurchases,syntheticCallbacksOnly:true}));
