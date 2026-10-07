@@ -1,0 +1,270 @@
+name: waterfront-sampling-diagnostic018
+'on':
+  push:
+    branches:
+    - gpt/waterfront-edge-diagnostic-018
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: waterfront-sampling-diagnostic018-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - name: Audit the diagnostic-only reversible source adapter
+      run: node mapedge-sampling-diagnostic018.js --static-test
+    - name: Current source and original-assertion adapters
+      run: 'set -euo pipefail
+
+        node waterfront-static-contract018.js
+
+        node waterfront-source-qa018.js
+
+        node waterfront-compatibility018.js --static-test
+
+        node waterfront-legacy018.js --static-test
+
+        node waterfront-style018.test.js
+
+        for f in *018.js; do node --check "$f"; done
+
+        python3 waterfront-workflow018.test.py
+
+        node waterfront-integration-qa018.js --static-test
+
+        node waterfront-compatibility018.test.js --static-test
+
+        node waterfront-session-fingerprint018.test.js
+
+        node mapedge-render018.test.js --static-test
+
+        node mapedge-native-qa018.test.js
+
+        '
+    - name: Every unchanged T730 and older source control in frozen approved worktrees
+      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/waterfront-t730-controls-XXXXXX)\"\ngit worktree add\
+        \ --detach \"$baseline\" 1400301238f7a46ab6d3c489422a48f9f90cac9d\n(\n cd \"$baseline\"\n node quayside-static-contract017.js\n\
+        \ node quayside-release-contract017.test.js\n node quayside-compatibility017.js --static-test\n node quayside-legacy017.js\
+        \ --static-test\n node quayside-integration-qa017.js --static-test\n node quayside-gameplay017.test.js\n\
+        \ node quayside-style017.test.js\n python3 quayside-workflow017.test.py\n python3 quayside-native-workflow017.test.py\n\
+        )\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/quayside-t729-controls-XXXXXX)\"\ngit worktree add --detach\
+        \ \"$baseline\" c7f0ab6e6d2c37651fd13802049b8079c5f5d37b\n(\n cd \"$baseline\"\n node gardenlife-static-contract016.js\n\
+        \ node gardenlife-release-contract016.test.js\n node gardenlife-compatibility016.js --static-test\n node\
+        \ gardenlife-legacy016.js --static-test\n node gardenlife-integration-qa016.js --static-test\n node gardenlife-gameplay016.test.js\n\
+        \ node gardenlife-style016.test.js\n python3 gardenlife-workflow016.test.py\n python3 gardenlife-native-workflow016.test.py\n\
+        )\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)\"\ngit worktree add --detach\
+        \ \"$baseline\" bcd77d5e959ed801d920766cbc9dc010cce19f58\n(\n cd \"$baseline\"\n node streetscape-static-contract015.js\n\
+        \ node streetscape-release-contract015.test.js\n node streetscape-compatibility015.js --static-test\n node\
+        \ streetscape-legacy015.js --static-test\n node streetscape-integration-qa015.js --static-test\n node streetscape-style015.test.js\n\
+        \ python3 streetscape-workflow015.test.py\n)\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)\"\
+        \ngit worktree add --detach \"$baseline\" 6d137b6be31a7f07867b8ebb181fb8ed3727b049\ncd \"$baseline\"\nnode\
+        \ complexes-static-contract014.js\nnode complexes-release-contract014.test.js\npython3 integrate-complexes014.test.py\n\
+        node complexes-gameplay014.js --static-test\nnode complexes-fixture014.test.js\nnode complexes-integration-qa014.js\
+        \ --static-test\npython3 complexes-workflow014.test.py\nnode complexes-regression-adapter014.js --static-test\n\
+        node complexes-regression-adapter014.test.js\nnode complexes-regression-adapter014.js --historical-source-tests\n\
+        node complexes-style-adapter014.js --static-test\nnode complexes-style-adapter014.test.js\nnode complexes-compatibility014.test.js\
+        \ --static-test\n"
+    - name: Strict current3147 native preflight and original full-record mutation guards
+      run: 'set -euo pipefail
+
+        node waterfront-preflight018.js 2>&1 | tee waterfront-full-preflight.txt
+
+        node waterfront-legacy018.test.js waterfront-evidence/preflight/fingerprint-native.json
+
+        node waterfront-style018.test.js waterfront-evidence/preflight/fingerprint-native.json
+
+        WF018_SUITE=streetscape WF018_MODE=preflight node waterfront-legacy018.js 2>&1 | tee waterfront-retained-legacy-preflight.txt
+
+        node waterfront-historical-bridge018.test.js waterfront-evidence/preflight/fingerprint-native.json
+
+        '
+    - uses: actions/upload-artifact@v4
+      with:
+        name: waterfront-diagnostic-native-fingerprint-${{ github.sha }}
+        path: waterfront-evidence/preflight/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 waterfront-package018.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part0/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part0-${{ github.sha }}
+        path: .waterfront-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part1/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part1-${{ github.sha }}
+        path: .waterfront-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part2/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part2-${{ github.sha }}
+        path: .waterfront-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part3/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part3-${{ github.sha }}
+        path: .waterfront-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part4/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part4-${{ github.sha }}
+        path: .waterfront-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part5/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part5-${{ github.sha }}
+        path: .waterfront-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part6/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part6-${{ github.sha }}
+        path: .waterfront-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part7/**') != ''
+      with:
+        name: waterfront-diagnostic-preflight-part7-${{ github.sha }}
+        path: .waterfront-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  diagnostic:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+    - uses: actions/download-artifact@v4
+      with:
+        name: waterfront-diagnostic-native-fingerprint-${{ github.sha }}
+        path: waterfront-evidence/preflight
+    - name: Measure both explicitly temporary proposals after original real cold Continue
+      run: 'set -o pipefail
+
+        WF018_MODE=mapedge${{ matrix.rotation }} node mapedge-sampling-diagnostic018.js 2>&1 | tee waterfront-sampling-diagnostic018.txt
+
+        '
+    - name: Retain every raw report and lossless counterfactual PNG in bounded packets
+      if: always()
+      run: python3 waterfront-package018.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part0/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part0-${{ github.sha }}
+        path: .waterfront-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part1/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part1-${{ github.sha }}
+        path: .waterfront-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part2/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part2-${{ github.sha }}
+        path: .waterfront-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part3/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part3-${{ github.sha }}
+        path: .waterfront-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part4/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part4-${{ github.sha }}
+        path: .waterfront-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part5/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part5-${{ github.sha }}
+        path: .waterfront-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part6/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part6-${{ github.sha }}
+        path: .waterfront-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-packets/part7/**') != ''
+      with:
+        name: waterfront-sampling-diagnostic-r${{ matrix.rotation }}-part7-${{ github.sha }}
+        path: .waterfront-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code
+    strategy:
+      fail-fast: false
+      matrix:
+        rotation:
+        - 0
+        - 1
+        - 2
+        - 3
