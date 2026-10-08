@@ -1,0 +1,250 @@
+name: waterfront-quarter019-mobile-qa
+'on':
+  push:
+    branches:
+    - gpt/waterfront-quarter019-mobile-qa
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: waterfront-quarter019-mobile-qa-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 48
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      timeout-minutes: 7
+      run: "set -euo pipefail\nfor attempt in 1 2; do\n  if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20\
+        \ -o Acquire::https::Timeout=20 update -qq &&\n     sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20\
+        \ -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then\n    test \"$(dpkg-query -W -f='${Version}'\
+        \ fonts-wqy-zenhei)\" = '0.9.45-8'\n    test -z \"$(dpkg --verify fonts-wqy-zenhei)\"\n    sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc\n\
+        \    exit 0\n  fi\n  if [ \"$attempt\" -lt 2 ]; then sleep 5; fi\ndone\necho 'Native font setup failed after two bounded attempts' >&2\n\
+        exit 1\n"
+    - name: All original018 source controls on immutable approved T731, then current019 adapters
+      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/quarter-t731-controls-XXXXXX)\"\ngit worktree add --detach \"$baseline\" b101348278b71f133b5f4347bc6e63237c9942a1\n\
+        (\n cd \"$baseline\"\nset -euo pipefail\nnode waterfront-static-contract018.js\nnode waterfront-release-contract018.test.js\nnode waterfront-source-qa018.js\n\
+        node waterfront-compatibility018.js --static-test\nnode waterfront-legacy018.js --static-test\nnode waterfront-style018.test.js\nfor f\
+        \ in *018.js; do node --check \"$f\"; done\npython3 waterfront-workflow018.test.py\nnode waterfront-integration-qa018.js --static-test\n\
+        node waterfront-compatibility018.test.js --static-test\nnode waterfront-session-fingerprint018.test.js\nnode mapedge-render018.test.js\
+        \ --static-test\nnode mapedge-native-qa018.test.js\n\n)\nnode waterfront-quarter-contract019.js\nnode waterfront-quarter-release019.test.js\nnode waterfront-quarter-logic019.test.js\n\
+        node waterfront-quarter-native019.test.js\nnode waterfront-quarter-legacy019.js --static-test\nnode waterfront-quarter-compatibility019.js\
+        \ --static-test\nnode waterfront-quarter-adapters019.test.js\npython3 waterfront-quarter-workflow019.test.py\npython3 waterfront-quarter-mobile-workflow019.test.py\n\
+        python3 waterfront-quarter-package019.test.py\nfor f in *019.js; do node --check \"$f\"; done\n"
+    - name: Every unchanged T730 and older source control in frozen approved worktrees
+      run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/waterfront-t730-controls-XXXXXX)\"\ngit worktree add --detach \"$baseline\" 1400301238f7a46ab6d3c489422a48f9f90cac9d\n\
+        (\n cd \"$baseline\"\n node quayside-static-contract017.js\n node quayside-release-contract017.test.js\n node quayside-compatibility017.js\
+        \ --static-test\n node quayside-legacy017.js --static-test\n node quayside-integration-qa017.js --static-test\n node quayside-gameplay017.test.js\n\
+        \ node quayside-style017.test.js\n python3 quayside-workflow017.test.py\n python3 quayside-native-workflow017.test.py\n)\nset -euo pipefail\n\
+        baseline=\"$(mktemp -d /tmp/quayside-t729-controls-XXXXXX)\"\ngit worktree add --detach \"$baseline\" c7f0ab6e6d2c37651fd13802049b8079c5f5d37b\n\
+        (\n cd \"$baseline\"\n node gardenlife-static-contract016.js\n node gardenlife-release-contract016.test.js\n node gardenlife-compatibility016.js\
+        \ --static-test\n node gardenlife-legacy016.js --static-test\n node gardenlife-integration-qa016.js --static-test\n node gardenlife-gameplay016.test.js\n\
+        \ node gardenlife-style016.test.js\n python3 gardenlife-workflow016.test.py\n python3 gardenlife-native-workflow016.test.py\n)\nset -euo\
+        \ pipefail\nbaseline=\"$(mktemp -d /tmp/gardenlife-t728-controls-XXXXXX)\"\ngit worktree add --detach \"$baseline\" bcd77d5e959ed801d920766cbc9dc010cce19f58\n\
+        (\n cd \"$baseline\"\n node streetscape-static-contract015.js\n node streetscape-release-contract015.test.js\n node streetscape-compatibility015.js\
+        \ --static-test\n node streetscape-legacy015.js --static-test\n node streetscape-integration-qa015.js --static-test\n node streetscape-style015.test.js\n\
+        \ python3 streetscape-workflow015.test.py\n)\nset -euo pipefail\nbaseline=\"$(mktemp -d /tmp/streetscape-t727-controls-XXXXXX)\"\ngit\
+        \ worktree add --detach \"$baseline\" 6d137b6be31a7f07867b8ebb181fb8ed3727b049\ncd \"$baseline\"\nnode complexes-static-contract014.js\n\
+        node complexes-release-contract014.test.js\npython3 integrate-complexes014.test.py\nnode complexes-gameplay014.js --static-test\nnode\
+        \ complexes-fixture014.test.js\nnode complexes-integration-qa014.js --static-test\npython3 complexes-workflow014.test.py\nnode complexes-regression-adapter014.js\
+        \ --static-test\nnode complexes-regression-adapter014.test.js\nnode complexes-regression-adapter014.js --historical-source-tests\nnode\
+        \ complexes-style-adapter014.js --static-test\nnode complexes-style-adapter014.test.js\nnode complexes-compatibility014.test.js --static-test\n"
+    - name: Independent current3179 native preflight before every historical projection
+      run: 'set -euo pipefail
+
+        node waterfront-quarter-preflight019.js 2>&1 | tee waterfront-quarter-preflight019.txt
+
+        node waterfront-quarter-retained-controls019.js waterfront-quarter-evidence/preflight/fingerprint-native.json 2>&1 | tee waterfront-quarter-retained-controls019.txt
+
+        WF019_SUITE=streetscape WF019_MODE=preflight node waterfront-quarter-legacy019.js 2>&1 | tee waterfront-quarter-retained-preflight019.txt
+
+        '
+    - uses: actions/upload-artifact@v4
+      with:
+        name: waterfront-quarter019-native-fingerprint-${{ github.sha }}
+        path: waterfront-quarter-evidence/preflight/fingerprint-native.json
+        if-no-files-found: error
+        retention-days: 14
+    - name: Every tracked product and historical source remains exact
+      if: always()
+      run: git diff --exit-code
+    - name: Retain every raw report and lossless PNG in bounded packets
+      if: always()
+      run: python3 waterfront-quarter-package019.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part0/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part0-${{ github.sha }}
+        path: .waterfront-quarter-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part1/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part1-${{ github.sha }}
+        path: .waterfront-quarter-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part2/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part2-${{ github.sha }}
+        path: .waterfront-quarter-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part3/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part3-${{ github.sha }}
+        path: .waterfront-quarter-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part4/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part4-${{ github.sha }}
+        path: .waterfront-quarter-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part5/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part5-${{ github.sha }}
+        path: .waterfront-quarter-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part6/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part6-${{ github.sha }}
+        path: .waterfront-quarter-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part7/**') != ''
+      with:
+        name: quarter019-waterfront-full-preflight-part7-${{ github.sha }}
+        path: .waterfront-quarter-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+  quarter:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - mobile
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Native font
+      timeout-minutes: 7
+      run: "set -euo pipefail\nfor attempt in 1 2; do\n  if sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20\
+        \ -o Acquire::https::Timeout=20 update -qq &&\n     sudo timeout --kill-after=5s 90s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=20\
+        \ -o Acquire::https::Timeout=20 install -y -qq --no-install-recommends fonts-wqy-zenhei=0.9.45-8; then\n    test \"$(dpkg-query -W -f='${Version}'\
+        \ fonts-wqy-zenhei)\" = '0.9.45-8'\n    test -z \"$(dpkg --verify fonts-wqy-zenhei)\"\n    sha256sum /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc\n\
+        \    exit 0\n  fi\n  if [ \"$attempt\" -lt 2 ]; then sleep 5; fi\ndone\necho 'Native font setup failed after two bounded attempts' >&2\n\
+        exit 1\n"
+    - uses: actions/download-artifact@v4
+      with:
+        name: waterfront-quarter019-native-fingerprint-${{ github.sha }}
+        path: waterfront-quarter-evidence/preflight
+    - name: Complete paid waterfront district native acceptance
+      run: 'set -o pipefail
+
+        WF019_MODE=${{ matrix.mode }} node probe-waterfront-quarter019.js 2>&1 | tee waterfront-quarter-${{ matrix.mode }}019.txt
+
+        '
+    - name: Retain every raw report and lossless counterfactual PNG in bounded packets
+      if: always()
+      run: python3 waterfront-quarter-package019.py
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part0/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part0-${{ github.sha }}
+        path: .waterfront-quarter-packets/part0/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part1/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part1-${{ github.sha }}
+        path: .waterfront-quarter-packets/part1/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part2/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part2-${{ github.sha }}
+        path: .waterfront-quarter-packets/part2/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part3/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part3-${{ github.sha }}
+        path: .waterfront-quarter-packets/part3/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part4/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part4-${{ github.sha }}
+        path: .waterfront-quarter-packets/part4/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part5/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part5-${{ github.sha }}
+        path: .waterfront-quarter-packets/part5/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part6/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part6-${{ github.sha }}
+        path: .waterfront-quarter-packets/part6/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - uses: actions/upload-artifact@v4
+      if: always() && hashFiles('.waterfront-quarter-packets/part7/**') != ''
+      with:
+        name: quarter019-district-${{ matrix.mode }}-part7-${{ github.sha }}
+        path: .waterfront-quarter-packets/part7/
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 9
+    - name: Every tracked source retained
+      if: always()
+      run: git diff --exit-code

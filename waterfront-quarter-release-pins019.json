@@ -1,0 +1,625 @@
+{
+  "nativeCheckedSHA": "63c0950064d01ac99d3eef1a78d392b249c5605d",
+  "nativeSourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2",
+  "candidateTree": "f9c38b4375163da8061f65c9b1409c2a063a7330",
+  "base": "b101348278b71f133b5f4347bc6e63237c9942a1",
+  "nativeRun": 37667551413,
+  "nativeRunAttempt": 4,
+  "nativeJobCount": 156,
+  "nativeCompletedAt": "2026-10-07T19:43:51Z",
+  "nativePreflightArtifact": 11504685020,
+  "nativeArchiveSHA256": "6a240cdc563cfebcc0bc47708fad3bb826a09eddcd5e49e6294f09673677600a",
+  "nativeFingerprintSHA256": "b123239f6f4acea8aac74d7e8e6e9b41326444c1134dba8e1f8ceb0e29217653",
+  "nativeManifestSHA256": "b7d89061c381d9e34965119c967217071eded5bc7a84a76e5755726fc0990efe",
+  "nativeFullSubsSHA256": "799e0ed3b86d859ef8a571b768d9b5adef46a0469a90fd5b6cb13bcb9d5b09db",
+  "nativeFullFamiliesSHA256": "9428be3a51ee7e73c8ac71a962ba79eba80d5ae0898e59d97bf8d98229d8a78d",
+  "nativeBlocksSHA256": "ea71890f5996efcb689c19e1ff78259f165068d1e1496705c476be3892a72cd6",
+  "stats": {
+    "families": 165,
+    "leaves": 3179,
+    "dayNonEmpty": 3169,
+    "nightNonEmpty": 1715
+  },
+  "families": {
+    "waterfrontQuarter019": {
+      "leaves": 32,
+      "crc": "1e601faa",
+      "px": 211968,
+      "op": 36073,
+      "night": 32
+    }
+  },
+  "subs": {
+    "waterfrontQuarter019.arrivalCourt_0": {
+      "d": "c9222d1a",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.arrivalCourt_1": {
+      "d": "36257dfe",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.arrivalCourt_2": {
+      "d": "1f1ba003",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.arrivalCourt_3": {
+      "d": "8125af08",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.brickPromenade_0": {
+      "d": "10cec000",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.brickPromenade_1": {
+      "d": "cf328600",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.brickPromenade_2": {
+      "d": "b87ca3ce",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.brickPromenade_3": {
+      "d": "58231e55",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayEdgeWalk_0": {
+      "d": "02b95cab",
+      "op": 1089,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayEdgeWalk_1": {
+      "d": "eead4a2b",
+      "op": 1091,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayEdgeWalk_2": {
+      "d": "bf034229",
+      "op": 1039,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayEdgeWalk_3": {
+      "d": "b5402805",
+      "op": 1039,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayCorner_0": {
+      "d": "a3fbba83",
+      "op": 1087,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayCorner_1": {
+      "d": "f3c982c3",
+      "op": 1078,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayCorner_2": {
+      "d": "e56b7169",
+      "op": 1038,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.quayCorner_3": {
+      "d": "b2301933",
+      "op": 1037,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.heritageDisplay_0": {
+      "d": "edd2a766",
+      "op": 1075,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.heritageDisplay_1": {
+      "d": "cf0fd388",
+      "op": 1058,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.heritageDisplay_2": {
+      "d": "8a78c5ba",
+      "op": 1024,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.heritageDisplay_3": {
+      "d": "71c92090",
+      "op": 1046,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.watersideBench_0": {
+      "d": "9b0a076c",
+      "op": 1059,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.watersideBench_1": {
+      "d": "b2208546",
+      "op": 1054,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.watersideBench_2": {
+      "d": "8e274d34",
+      "op": 1028,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.watersideBench_3": {
+      "d": "5331e64c",
+      "op": 1037,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.harbourLantern_0": {
+      "d": "885fc290",
+      "op": 1109,
+      "w": 72,
+      "h": 92,
+      "n": "073fecee"
+    },
+    "waterfrontQuarter019.harbourLantern_1": {
+      "d": "11ff38bb",
+      "op": 1097,
+      "w": 72,
+      "h": 92,
+      "n": "55b83dc4"
+    },
+    "waterfrontQuarter019.harbourLantern_2": {
+      "d": "32f2297a",
+      "op": 1028,
+      "w": 72,
+      "h": 92,
+      "n": "55213531"
+    },
+    "waterfrontQuarter019.harbourLantern_3": {
+      "d": "320c8930",
+      "op": 1097,
+      "w": 72,
+      "h": 92,
+      "n": "4b106601"
+    },
+    "waterfrontQuarter019.timberShelter_0": {
+      "d": "1afb365d",
+      "op": 1641,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.timberShelter_1": {
+      "d": "98373e1e",
+      "op": 1695,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.timberShelter_2": {
+      "d": "973a05a1",
+      "op": 1703,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    },
+    "waterfrontQuarter019.timberShelter_3": {
+      "d": "4da0828e",
+      "op": 1632,
+      "w": 72,
+      "h": 92,
+      "n": "ec6dca95"
+    }
+  },
+  "releaseAdapterFiles": {
+    ".github/workflows/waterfront-quarter019-mobile-qa.yml": "c8a18dd040106af8739da505acc2c6e03ee0da46a7fa1bd75c574b89170ba2fd",
+    ".github/workflows/waterfront-quarter019.yml": "7feba76124027058132ba653377d925a2c09e5a7280d0504d1040579d70b571b",
+    "british-waterfront-quarter-art019.js": "c4ab4cbb49b9046c4156d221320018541fdffdbbf1483caa951ce2a32911619a",
+    "gameplay019.js": "f45cafbdc188820f6b7bff2ac78cd6d6c54c778576d1501a804e138b60e41da4",
+    "integrate-waterfront-quarter019.py": "a81b4daf6e54cbad51ee8847f89fb9405ac7f8470ddef301c888cbda15554fa7",
+    "probe-waterfront-quarter019.js": "2ff89447a2b7c258435251ed49e7bd90e9e1a7c2f58a8db1f46e4aba2c0e3136",
+    "smoke.js": "1d07429c075de3d5ba0aac17f0146b2d8327fb2e823efa3b1d9303c184aca082",
+    "waterfront-quarter-adapters019.test.js": "6fe8e6eaaa27ee8339b84e116110840ada18532568060b5695d11a95d83be851",
+    "waterfront-quarter-catalog-qa019.js": "3247d9f037f9427faea6ea0402a37ef4182078d4a0add41e046b4dd0f6ca15ae",
+    "waterfront-quarter-catalog019.test.js": "c2b782638453d0510c0de2f02a3804711c2d5fa9f9edc47aee983b6d427c6d3c",
+    "waterfront-quarter-compatibility019.js": "72cb960586d9a9e1fc487d0d4a6f641cd46bfe4bff6533c0f55e46823447d364",
+    "waterfront-quarter-contract019.js": "6b9a4ecfabc3e38cae66370d39103aa68da96116996cb3dee56bb18f57e04203",
+    "waterfront-quarter-fingerprint019.js": "02869664a4db5941d649dc7ea114f259f05a457d2883198e6b7b6372d538260b",
+    "waterfront-quarter-historical019.js": "6dd469caac27e79736105eb516a92b1afe040135faa51341a3a96216e7b50f42",
+    "waterfront-quarter-lamp019.test.js": "4053d150c727814c3d001707281df62b7cc59516db240d20da3f8e264f7cdee5",
+    "waterfront-quarter-legacy019.js": "6b820d356243b0bc2b2acd4bddaffe135bc58fb00781418f657c45e263686e9c",
+    "waterfront-quarter-logic019.js": "1b44f53619220251c5527d5a6607990c6a308920bb38c564df32c2e4a0740050",
+    "waterfront-quarter-logic019.test.js": "20505b9e1b0b0ca6167263034a471cdbf2e644967da36ee970b159801d44e1cd",
+    "waterfront-quarter-mobile-workflow019.test.py": "7bfabe6a0645d0741b0c20305771ec0b92d9c97fcba88155f8386659b12f4f8b",
+    "waterfront-quarter-native019.js": "744f9daef9076f0ffa2f21943e372fe779ba6abb60075711fdee4de08e75d5ea",
+    "waterfront-quarter-native019.test.js": "381d8ac681ae53d22c542623dff87185ee1b8178082ec5decb1f1d3ad49d7b22",
+    "waterfront-quarter-package019.py": "267f40dca1915f23c2e6fb1041177f9d3664729589e14f79a34e0d77da514c0e",
+    "waterfront-quarter-package019.test.py": "c46d0d8271120ba9914cd7304d8aad0f1cbb05ef31ded70788451ed6811f8898",
+    "waterfront-quarter-preflight019.js": "a49e81b06a2e5df032c3c21f153b8d7c9c831286abb8d13b0c5cffa43fdc9d97",
+    "waterfront-quarter-projection019.js": "2ed43a79a903f1d9329d42f04bbddc799c0f4ae70e7ec991930beeb5cde7a599",
+    "waterfront-quarter-retained-controls019.js": "dad1809bd22255fb4fa23c5e5cba5aac98f3afd49477b4abed8a08bae0217bbe",
+    "waterfront-quarter-session019.js": "dbc9bec3fedbfea470fb6cf3e29ca2a7e32d5ec1424bb4dcbc3af734f4d4a9ff",
+    "waterfront-quarter-session019.test.js": "519bccdf27056f19f3f9fbe60ece8a320d1eabcadb2f131b81ca4cd5c48cff06",
+    "waterfront-quarter-source-adapter019.js": "dcae47523b5f7ad15b9a705a68f74903833c33135968021ea7bb6dc6b8040948",
+    "waterfront-quarter-style019.js": "6ce385a6c29c0accb950daebc3f166fa9353becc6eea725555472ad624e2c7a8",
+    "waterfront-quarter-workflow019.test.py": "32ffe401e28215e90eb7872d515e45ae46871e2a6462445540981096f44c0cb4",
+    "waterfront-release-contract018.js": "db22ee131e89491d8163fb384f83b11b43eb3a291608d7c5cec13c49f7c68744",
+    "waterfront-release-pins018.json": "1d7858099d3758289ed57b1c03121a84076b904ff84420a92fe0e7c95cafa6a6",
+    "waterfront-session-fingerprint018.js": "afa7c9ae585d30535bf31536c83cc5cc24a97f63155307353371aea9cdae89be",
+    "waterfront-quarter-release019.test.js": "34b38d0e01ee72274eb38483d38d6e1aea10d40a322f4f468ec73de1ca68aa1c"
+  },
+  "ownerApproval": {
+    "ownerApproved": true,
+    "candidate": "63c0950064d01ac99d3eef1a78d392b249c5605d",
+    "productSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2",
+    "imagesSHA256": "92e1da81ab942f1062f53dcf0a06a8ea65900b11d470b00c300921cabceda888",
+    "messageId": "Sentinel_bc32e56fda748191b28a54ff5d59cc50",
+    "exactOwnerText": "town lab 3d都沒問題，上線然後下一波",
+    "approvedAt": "2026-10-07T21:05:24.161482+00:00",
+    "confirmationPromptMessageId": "Sentinel_9cf6c13f547481918f7fc968dc28fa53",
+    "scope": "The10 desktop originals and2 mobile catalog originals named by the confirmation prompt; explicit publication of Lab019. Prior approval and final clarification retained by parent.",
+    "verifiedAuthenticatedOwner": true
+  },
+  "reviewedImages": {
+    "schema": "owner-reviewed12-mixed-capture/v1",
+    "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2",
+    "files": [
+      {
+        "capturedArtifact": 11501056321,
+        "originalPath": "waterfront-quarter-evidence/camera0/images/r0-day.png",
+        "role": "district-r0-day",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r0-day.png",
+        "sha256": "8e1464fd374876025024b6e5079ed8450489edf3b8a4bbf61c6b198d81b1b7f0",
+        "bytes": 1521022,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11501056321,
+        "originalPath": "waterfront-quarter-evidence/camera0/images/r0-night.png",
+        "role": "district-r0-night",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r0-night.png",
+        "sha256": "e0d2da009dc6b743f418d2ed73bb3ae5ca53cbff532662f21b0626f83cdc4ecc",
+        "bytes": 1509893,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11500711575,
+        "originalPath": "waterfront-quarter-evidence/camera1/images/r1-day.png",
+        "role": "district-r1-day",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r1-day.png",
+        "sha256": "f7acb211a93a461ea96d7c05f92fae58117ace79e5bc5d9a205e808fccc2542f",
+        "bytes": 1475389,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11500711575,
+        "originalPath": "waterfront-quarter-evidence/camera1/images/r1-night.png",
+        "role": "district-r1-night",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r1-night.png",
+        "sha256": "c50c6bd9408b6b2959d3470963127ba54a726549fce362e409a483503bbcaf3c",
+        "bytes": 1431421,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11500319327,
+        "originalPath": "waterfront-quarter-evidence/camera2/images/r2-day.png",
+        "role": "district-r2-day",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r2-day.png",
+        "sha256": "e2cd41bf1326433fe40803f160d01b74df593273a687af1cc7778b80a53f8ef4",
+        "bytes": 1401191,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11500319327,
+        "originalPath": "waterfront-quarter-evidence/camera2/images/r2-night.png",
+        "role": "district-r2-night",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r2-night.png",
+        "sha256": "b149c56f2aeb9f703de768a95ccec31d028ce8d64b2d9263120af17522697284",
+        "bytes": 1382324,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11500518433,
+        "originalPath": "waterfront-quarter-evidence/camera3/images/r3-day.png",
+        "role": "district-r3-day",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r3-day.png",
+        "sha256": "d961116cb007555d975cc18688e760890eacd3d7e3157168655feee7da2b31a9",
+        "bytes": 1431801,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11500518433,
+        "originalPath": "waterfront-quarter-evidence/camera3/images/r3-night.png",
+        "role": "district-r3-night",
+        "path": "waterfront-quarter-evidence/reviewed/images/district-r3-night.png",
+        "sha256": "00fd5f6b789a6bf2af1a2ba4e47376a7a4bb0e26b7255d09120b0e7336e1b754",
+        "bytes": 1393671,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11501056321,
+        "originalPath": "waterfront-quarter-evidence/camera0/images/same-paid-world-art-disabled-control.png",
+        "role": "comparison-before",
+        "path": "waterfront-quarter-evidence/reviewed/images/comparison-before.png",
+        "sha256": "ad1772bba4e545ee1ad3666d4e35d31ec43a117f7ee8ef4301075e7e25c8f861",
+        "bytes": 1547642,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11501056321,
+        "originalPath": "waterfront-quarter-evidence/camera0/images/same-paid-world-quarter-enabled.png",
+        "role": "comparison-after",
+        "path": "waterfront-quarter-evidence/reviewed/images/comparison-after.png",
+        "sha256": "8e1464fd374876025024b6e5079ed8450489edf3b8a4bbf61c6b198d81b1b7f0",
+        "bytes": 1521022,
+        "width": 1600,
+        "height": 1080,
+        "capturedHead": "f9d5597d8d760c84776c6d1557dfd64e3288f0b8",
+        "capturedRun": 37655400102,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11502710676,
+        "originalPath": "waterfront-quarter-evidence/mobile/images/phone-390-collection.png",
+        "role": "mobile-catalog-portrait",
+        "path": "waterfront-quarter-evidence/reviewed/images/mobile-catalog-portrait.png",
+        "sha256": "767bc8f613ef612ac4e1e6819e4783405e116a02669e3379a8226a288c6b4d76",
+        "bytes": 111148,
+        "width": 390,
+        "height": 844,
+        "capturedHead": "04b4d1bf263ef4c678d4b5fb5ee8bd4921998283",
+        "capturedRun": 37664169124,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      },
+      {
+        "capturedArtifact": 11502710676,
+        "originalPath": "waterfront-quarter-evidence/mobile/images/phone-844-collection.png",
+        "role": "mobile-catalog-landscape",
+        "path": "waterfront-quarter-evidence/reviewed/images/mobile-catalog-landscape.png",
+        "sha256": "b40466a961f2ca059575148ef1b57746d3c5a1c296bb2cb83da0644865745e7e",
+        "bytes": 66591,
+        "width": 844,
+        "height": 390,
+        "capturedHead": "04b4d1bf263ef4c678d4b5fb5ee8bd4921998283",
+        "capturedRun": 37664169124,
+        "capturedAttempt": 1,
+        "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2"
+      }
+    ],
+    "currentEvidenceComparison": {
+      "checkedSHA": "63c0950064d01ac99d3eef1a78d392b249c5605d",
+      "sourceSHA256": "dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2",
+      "run": 37667551413,
+      "attempt": 4,
+      "allProductBytesSame": true,
+      "allReviewPNGBytesSame": false,
+      "files": [
+        {
+          "role": "district-r0-day",
+          "reviewedSHA256": "8e1464fd374876025024b6e5079ed8450489edf3b8a4bbf61c6b198d81b1b7f0",
+          "currentSHA256": "8e1464fd374876025024b6e5079ed8450489edf3b8a4bbf61c6b198d81b1b7f0",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "district-r0-night",
+          "reviewedSHA256": "e0d2da009dc6b743f418d2ed73bb3ae5ca53cbff532662f21b0626f83cdc4ecc",
+          "currentSHA256": "e0d2da009dc6b743f418d2ed73bb3ae5ca53cbff532662f21b0626f83cdc4ecc",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "district-r1-day",
+          "reviewedSHA256": "f7acb211a93a461ea96d7c05f92fae58117ace79e5bc5d9a205e808fccc2542f",
+          "currentSHA256": "f7acb211a93a461ea96d7c05f92fae58117ace79e5bc5d9a205e808fccc2542f",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "district-r1-night",
+          "reviewedSHA256": "c50c6bd9408b6b2959d3470963127ba54a726549fce362e409a483503bbcaf3c",
+          "currentSHA256": "c50c6bd9408b6b2959d3470963127ba54a726549fce362e409a483503bbcaf3c",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "district-r2-day",
+          "reviewedSHA256": "e2cd41bf1326433fe40803f160d01b74df593273a687af1cc7778b80a53f8ef4",
+          "currentSHA256": "e2cd41bf1326433fe40803f160d01b74df593273a687af1cc7778b80a53f8ef4",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "district-r2-night",
+          "reviewedSHA256": "b149c56f2aeb9f703de768a95ccec31d028ce8d64b2d9263120af17522697284",
+          "currentSHA256": "fbd6d3b97adc7e8a8a2df4a5bb5b3797a6dfbfa8b2db405c4a18acdc13860500",
+          "sameBytes": false,
+          "changedPixels": 66,
+          "maxChannelDelta": 46,
+          "bounds": [
+            3,
+            6,
+            1448,
+            88
+          ]
+        },
+        {
+          "role": "district-r3-day",
+          "reviewedSHA256": "d961116cb007555d975cc18688e760890eacd3d7e3157168655feee7da2b31a9",
+          "currentSHA256": "d961116cb007555d975cc18688e760890eacd3d7e3157168655feee7da2b31a9",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "district-r3-night",
+          "reviewedSHA256": "00fd5f6b789a6bf2af1a2ba4e47376a7a4bb0e26b7255d09120b0e7336e1b754",
+          "currentSHA256": "00fd5f6b789a6bf2af1a2ba4e47376a7a4bb0e26b7255d09120b0e7336e1b754",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "comparison-before",
+          "reviewedSHA256": "ad1772bba4e545ee1ad3666d4e35d31ec43a117f7ee8ef4301075e7e25c8f861",
+          "currentSHA256": "ad1772bba4e545ee1ad3666d4e35d31ec43a117f7ee8ef4301075e7e25c8f861",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "comparison-after",
+          "reviewedSHA256": "8e1464fd374876025024b6e5079ed8450489edf3b8a4bbf61c6b198d81b1b7f0",
+          "currentSHA256": "8e1464fd374876025024b6e5079ed8450489edf3b8a4bbf61c6b198d81b1b7f0",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        },
+        {
+          "role": "mobile-catalog-portrait",
+          "reviewedSHA256": "767bc8f613ef612ac4e1e6819e4783405e116a02669e3379a8226a288c6b4d76",
+          "currentSHA256": "48ee0a9ded78440b4228cbea4f064d75d758d00d59051a7cc1333c63dc8f9608",
+          "sameBytes": false,
+          "changedPixels": 1454,
+          "maxChannelDelta": 2,
+          "bounds": [
+            93,
+            620,
+            297,
+            728
+          ]
+        },
+        {
+          "role": "mobile-catalog-landscape",
+          "reviewedSHA256": "b40466a961f2ca059575148ef1b57746d3c5a1c296bb2cb83da0644865745e7e",
+          "currentSHA256": "b40466a961f2ca059575148ef1b57746d3c5a1c296bb2cb83da0644865745e7e",
+          "sameBytes": true,
+          "changedPixels": 0,
+          "maxChannelDelta": 0,
+          "bounds": null
+        }
+      ]
+    },
+    "disclosure": "Twelve original owner-reviewed PNGs: f9 desktop and04b4 mobile catalog, with identical approved product bytes. Current63 is separate evidence. One desktop night differs by66 sky/star pixels; portrait backdrop differs by at most2 RGB levels. No phone-district image is claimed reviewed."
+  },
+  "mainRecheck": {
+    "repository": "lijiabao1998/GlimmerTown-lab",
+    "ref": "refs/heads/main",
+    "sha": "b101348278b71f133b5f4347bc6e63237c9942a1",
+    "version": "14.35",
+    "anchor": "T731",
+    "round": "r178",
+    "nextCardUnused": true,
+    "checkedAt": "2026-10-07T21:22:33.363Z",
+    "proposedRelease": {
+      "version": "14.36",
+      "anchor": "T732",
+      "round": "r179"
+    }
+  }
+}

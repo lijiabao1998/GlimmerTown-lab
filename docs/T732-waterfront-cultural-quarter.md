@@ -1,0 +1,151 @@
+# T732 — Waterfront cultural quarter (original GPT-019)
+
+## Acceptance card written before implementation
+
+Started 2026-10-07 UTC from authoritative main `b101348278b71f133b5f4347bc6e63237c9942a1` (T731 / v14.35 / r178), tree `27d5dd2675cc552d5741ac1bdbe5531ff107b7f4`. Product SHA256 `74d5616c283a561bd9655a6788e48308941e5d009be4200b0642d05b1285a68c`. Branch `gpt/waterfront-cultural-quarter-019`; no release T number is reserved. Publish this card before implementation.
+
+The owner requested a larger iteration: plan the heritage buildings, plaza, walking routes, street details and people activity as one coherent waterfront district, then present the complete result together. Cloud engineering, candidate pushes, CI and draft PR work are authorized; the new visual package still requires owner approval before release. Work only in GlimmerTown-lab and the assistant's cloud. All actual game/browser/painter execution remains in isolated Actions, disposable slot 3.
+
+T731 is released. Its full release acceptance passed148/148; actual official-origin functional/provenance checks passed235/235, with13 exact documents,12 Continue cycles,36 boundary pairs and335 native PNGs verified. Large final report serialization/packaging failed after those passes. At the owner's direction, a report-only rerun is not a completion condition. Existing strict console diagnostics remain separately red (39 PWA404 responses,13 unclassified404 errors,67360 warnings in that run; zero runtime exceptions/transport failures). No test threshold was waived. GPT019 will retain concise counts, necessary failures and original images instead of duplicating enormous world snapshots.
+
+## Verified starting point and scope
+
+- `gameplay018.js` exposes two optional k287 appearances. The original5 jobs/70 leisure/$3 daily upkeep, road/power/water/staff requirements, nine-day construction and sparse appearance save tags remain authoritative. Both original building silhouettes, surfaces and sixteen canonical day/emission PNG bytes must stay unchanged.
+- `gameplay014.js` and `gameplay015.js` through `gameplay017.js` already provide paid1x1 path themes, native inspection, neighboring-road light authority and saved placement direction. The six existing quayside props are retained and composed into the district.
+- Native T502 in `index.html` provides real walking-network nodes at base cost0.72, $12 base path construction with native modifiers, `am502`/`amx502` save data, and `amVersion502` invalidation. Use that authority; do not create an alternative movement/economy network.
+- Native T295 `citizenPath`/`updateCitizensMove` samples home/work commutes along roads. It does not provide individual museum visits on these paths. T522 crowd rendering is a deterministic visual layer. Any new visitors below are explicitly service-informed visual activity, not new simulated tourists, ticket revenue, demand or transport.
+- Actual T731 official day/night frames show the two halls as separate objects on broad paved approaches. The existing017 modules select individual direction sprites without a coherent district paving/edge arrangement. A connected entrance-to-plaza-to-waterfront composition is the target. Phone-specific failures are not yet claimed; baseline touch/viewport behavior must be measured before fixes.
+
+## One complete player-buildable package
+
+Deliver a coherent approximately12x10-tile demonstration district using actual player purchases, not pre-stamped world tiles. Players can build the same elements around their existing halls or in a new site. The new collection groups the existing two halls, eight new path components and six existing quayside details in one discoverable workflow. Each construction remains an explicit native paid action with the original undo/redo behavior; no unverified global batch-transaction semantics are introduced.
+
+Eight new manual-only1x1 T502 themes, each with four authored views, have distinct roles:
+
+| Theme | Role in the district |
+|---|---|
+| `arrivalCourt019` | Open entrance court, clear threshold and shared stone paving; keep the walking center unobstructed. |
+| `brickPromenade019` | Main red-brick/stone walking spine with aligned neighboring junctions and turns. |
+| `quayEdgeWalk019` | Linear waterside coping/low railing, leaving the native land path open. |
+| `quayCorner019` | Terminal/corner lookout joining the edge walk to the plaza, with a clear turning space. |
+| `heritageDisplay019` | Low maritime interpretation board/display court using original small structures, without rebuilding or copying either hall's pixels. |
+| `watersideBench019` | Resting bay with bench and restrained planting set beside the through-route. |
+| `harbourLantern019` | A visible day lamp and warm physical emission driven only by the existing adjacent-road power authority. |
+| `timberShelter019` | One-bay timber/slate shelter with a walkable center and properly ordered roof/pole occlusion. |
+
+All eight keep native base path cost/modifiers, rank4 behavior consistent with the preceding optional district themes, and native walk cost0.72. They add no jobs, capacity, income, service, fishing, rescue, toll or vessel mechanics. Native obstruction rules plus the established protective theme rules reject occupied buildings, trees, zoning, other amenities, conflicting infrastructure and water; no silent clearing or replacement. Each piece is independently inspectable and removable. Underground utilities remain governed by native compatibility.
+
+Use one consistent stone/red-brick/slate/timber palette and physically grounded street furniture. Adjacent new pieces must form continuous paving and sensible junctions rather than eight isolated display tiles. New adjacency rendering must use bounded private caches and explicit native topology invalidation; no per-frame atlas rebuild, global terrain reorder, old-sprite repaint or uncontrolled family expansion. The planned canonical addition is32 views in one new family; if that inventory changes, document and test the exact declaration before its candidate is published.
+
+## Activity, lighting and interaction
+
+1. Associate nearby tagged heritage halls with connected native walking nodes. Decorative visitors may walk, pause at an interpretation point or look toward the water only on validated land-path segments. Avoid blocked cells, walls, water, railings and unconnected components. This is a visual presentation of existing operational/leisure state, not a new individual trip simulation.
+2. Read native completion, road/power/water and actual staffing/leisure state. No visitors at unfinished/offline halls; activity contracts with night/rain/winter and is culled at far zoom. Use deterministic geometry/time and existing pedestrian assets where suitable. Consume zero simulation RNG, mutate no fiscal/demand/dispatch/household/save state and add no persistent actor state. Existing citizen agents and canonical sprites stay untouched.
+3. Lamp emission requires a physical lamp in day art and the existing adjacent powered-road signal. Power loss removes new emission; furniture without a lamp emits nothing. Day/night/weather/four-direction scenes must preserve building and foreground occlusion.
+4. Add a focused waterfront collection/entry workflow and an optional placement-time entrance/connection preview. Show genuine native price, obstruction and connection status. Clear UI wording distinguishes visual visitors from native leisure capacity. Existing tools and generic catalogs retain their behavior.
+5. Verify the collection, selection, placement, pan/pinch, rotation, cancel, inspect and undo on desktop plus390x844 and844x390 phone viewports. A new entry must not become an accidental purchase while panning or opening/closing its panel. Do not claim real-device performance from emulation.
+6. The two halls retain native nine-day construction; paths retain native instant completion. Present real construction-day scenes and keep visitors/lighting consistent with those actual states. Do not invent a new construction schedule.
+
+## Acceptance before implementation
+
+- Preserve every old complete3147 leaf record,164 family record,1728 block record, original building PNG and prior product source except the explicitly declared reversible integration points. Keep T731 labels, `fp.json`, historical logs and decisions unchanged on the candidate branch.
+- New assets: exactly declared themes/views, opaque unclipped geometry, correct placement/camera orientation and anchor, visible day fixtures before emission, stable canonical identity, deterministic rebuilds, no render/asset RNG and no state/storage changes. Test disconnected/straight/elbow/T/cross arrangements and both shoreline orientations. Reused original assets remain byte/identity exact.
+- Native purchases: all eight aliases, actual discounted quotes/debits, rank and poverty rejection, edge/footprint/obstruction cases, exact stored metadata, protected overlap, underground compatibility, demolition and full tile/cash undo/redo. Do not fabricate money, availability or paid placements in acceptance scenes.
+- Walking/activity: compare native network costs/reachability before/after placement and demolition; invalidate correctly after undo/redo/load. Verify actual completion/power/water/staff loss and recovery, no visual visits off valid paths, no simulated economic changes, stable paused state and bounded draw/cache cost. Preserve the full original capital-window assertions when observing native building purchases.
+- Save/load: old untagged saves unchanged; new data uses the existing sparse native path metadata channel with strict theme/direction validation and harmless fallback for unknown/malformed data. Real native save/load and cold Continue preserve all roots/references, directions, trees, paths, water, other slots and first/three ordinary days. Temporary visitor/cache state reconstructs without repairing native service/topology.
+- Visual scenes: one complete genuinely purchased district, before/after composition, day/night, all four rotations, native construction days0/3/6/9, rain/winter, foreground occlusion, far/near zoom, disconnected/without-power controls, phone portrait/landscape and reload/Continue. Original screenshots remain unedited and tied to the tested head/source.
+- Retain all148 previous checks and their original assertion bodies/thresholds. Integrate eight new runtime modes (planning, lifecycle, camera0..3, coldload, mobile) into one combined workflow sharing preflight/evidence setup, rather than repeatedly running separate148-job rounds for isolated small changes. Final expected matrix is156 jobs unless a justified source-pinned equivalent is established before publication. Every failure remains visible; no timing/console gate is reclassified to force green.
+- Keep reports compact: pass/fail counts, exact version/head/source, bounded necessary failed-case details and unmodified PNGs. Avoid repeated full-world snapshots in every check. Complete required tests still run; reporting size is not a substitute for validation.
+
+## Implementation sequence and release gate
+
+Publish this card alone. Then implement connected paving and district art; service-informed visitor geometry/occlusion; focused catalog and measured mobile corrections; finally integrate source/data negatives, all retained runtime assertions and the complete review scene. Internal stages may be developed separately, but present the district as one visual package.
+
+The owner reviews this new package once complete. Only after that approval and all exact-final-head tests pass may release labels/fingerprint promotion, PR readiness, merge and Pages occur. Main remains T731 until then. Never merge a test-only public observer branch.
+
+Not yet achieved: GPT019 product, native runtime, mobile behavior, actual district PNGs and new package image approval are all pending. No new usability defect or performance improvement has yet been demonstrated on a phone. T731's existing strict PWA/console issue and same-origin storage risks are recorded separately, not silently incorporated into this district-art scope.
+
+## First candidate implementation, 2026-10-07 UTC
+
+Implemented the eight32-view path kit, private ground/raised layers, bounded128-surface connection cache, sixteen-item native catalog collection and entrance connection preview. Visual visitors read native completion, utility, actual staff and leisure state, and walk only clear flat quarter paving or plain native paths/crossings at the same elevation. Routes are bounded128 nodes/12 edges/four paths per hall, with at most24 rendered people and64 cached hall routes. No new saved actors or simulation RNG/economic writes are introduced.
+
+Shore placement refinement: the two railing/lookout themes first face an adjacent real water cell; absent water, they retain the existing nearest-road orientation rule. Other themes keep that road rule. This makes the closed railing side face the water while the land-side path remains open. The demonstration is approximately12x11 tiles with two original halls,64 new paid path pieces,6 original quayside details,4 real crossings and a56-cell paid canal. The extra row provides genuine road frontage and crossings between the halls and plaza; no fake pedestrian-only road service is asserted.
+
+Source/data checks passed before the first native candidate: eleven reversible integration anchors,79 parsed inline scripts,938 unchanged complete prior files, one additive smoke row, fourteen pure geometry groups, ten exact native-capital-window positive cases and88 negative cases, and distinct64-cell layout with both entrances connected. Retained-source adapters preserve the original148-job matrices and assertion bodies; the combined workflow has156 jobs. Original224 compatibility cases and42 raw-save negatives passed without normalization. Original fingerprint/style negatives and additional declared32-record mutation controls also passed using clearly labeled synthetic new records over verified T731 native data. This does not establish new pixels.
+
+The new packager includes the previously demonstrated large-index fix: it budgets actual index bytes and publishes validated packets atomically. A303-file data regression including a118,090-byte index passed. No report-only T731 rerun was started.
+
+Not yet achieved: the first actual native render, original32-view PNGs, complete156 runtime result, native phone interaction result, complete district image review and owner approval. These remain pending Actions; all visual claims await their actual evidence. Main and release labels stay T731.
+
+## First native result and fixture correction
+
+Candidate `7cf90998357660516c113c2200329f20c5fb5fdf`, Actions `37635823126`, passed native preflight:32 new sprites/64 original PNGs, zero clipped/partial pixels, exact ground-plus-raised reconstruction, deterministic zero-RNG rebuilds; all3147 old records,164 families and1728 complete blocks remained exact. Separate smoke passed.
+
+All eight new district modes then failed the same explicit shoreline-direction gate. Actual paid placement retained turn2 at(59,61) and(60,61), because the next cells(60,61)/(61,61) were still water at those purchase times. Later real reclamation changed that neighboring terrain. The correction prepares the whole intended shore strip with the same original paid land/leveling tools before buying the rail pieces. The original turn3 assertion is retained; product source and sprite bytes remain unchanged.
+
+Source inspection also identified a separate observer bug before later lifecycle gates ran: the default scene helper called the legacy season/weather fixture, which assigns simulation day. Ordinary scenes now use only the normal weather control, and camera comparisons precede explicitly labeled rain/winter fixtures. Synthetic callback tests demonstrate that ordinary screenshots preserve day27 and reproduce the observed placement-time water-direction failure before full shore preparation. These are fixture corrections, not native gameplay or acceptance-threshold changes. The first failures remain linked above; a fresh complete156 run is required for the corrected candidate.
+
+## Second native attempt and observer correction
+
+The first full candidate run finished with all original148 jobs successful and all eight new modes failing the shore fixture. Corrected candidate `3fe2b96197aa3bf775c1ab00194eb978b220284c` passed smoke and preflight with the same product SHA256 `27c8777374796ed80939b2b7eba4695509b052f7c9415d6e14e24e90ab413224`; all64 new preflight PNGs remained byte-identical. Its first Actions `37641619682` attempt ended after preflight with GitHub's run-level `Internal server error`, correlation `b8a77804-9358-4706-896c-bc0f08824c63`, before native matrices existed. Failed-jobs retry returned `This workflow run cannot be retried` because there was no failed job. One official retry of the sole preflight root and its dependent jobs created attempt2 on the same SHA and the complete156-job DAG.
+
+Attempt2 passed the actual shore, native paid placement, nine ordinary construction days, utilities, staffing, entrance routes, two cold Continue cycles and both phone viewport interaction modes. Four camera modes and the lifecycle power test failed the lamp observer; planning failed the discounted debit observer. These six failures remain part of the history; the retained jobs were still executing when these corrections were prepared.
+
+The native T649 compositor draws a warm-tinted WeakMap-cached canvas. The first lamp observer recognized only the original image identity and missed that actual screen submission. It now matches full RGBA and dimensions against an observer-only reference using T649's original tint operations, observes only positively weighted screen draws, forwards unchanged draw arguments, and restores the wrapper in finally. It requires all three actual lamp submissions, no observer errors, and zero submissions after real power loss. Product rendering and its private caches are unchanged. Synthetic callback controls reject altered RGB/alpha, wrong composite operation, zero alpha and cache-construction calls; exception cleanup is verified without running a painter locally.
+
+All sixteen actual planning purchases, original fiscal ledger checks, tile/cash undo and quoted alias/native prices were correct. Only reverse subtraction failed exact floating equality: quote9.746999999999998 versus `100000 - remainingCash`9.747000000003027. The observer now records both real balances and asserts `moneyAfter === moneyBefore - quotedCost`, exactly matching the unchanged native debit operation. No epsilon, rounding, economy change or relaxed ledger/undo guard was introduced; raw charged differences remain recorded. Sixteen synthetic purchase rows and fifteen wrong-debit/undo/ledger controls passed. A fresh complete156 run is still required, and new district image approval remains pending.
+
+## Actual phone-image review and bounded catalog correction
+
+Attempt2 ultimately finished149/156 successful. The additional old theatre camera2 failure was its unchanged mean-draw-time gate:1027.64ms against `<1000ms`; the same product/source and original test passed at960.53ms in the first run. Preserve both twelve-frame records and keep the original threshold. No timing failure is reclassified as success.
+
+Actual mobile artifacts passed42 functional checks and two cold-load cycles passed36, with exact-head/source/file hashes verified. Manual inspection nevertheless found clipped left-side portrait title/cards and a partially scrolled-away landscape collection notice. The original page-width-only observer did not cover internal grid overflow. Source confirms the T731 catalog CSS and its unstyled category-wrapper grid child were unchanged. The old observer's `scrollIntoView(center,center)` could scroll hidden sheet ancestors; the reused result scroll offset also survived collection entry.
+
+The new local candidate adds a catalog-scoped single `minmax(0,1fr)` column and bounded direct grid children, preserves category/result scrolling, and resets only the result scroll position when entering the waterfront collection. Ordinary search/favorite rerenders retain user scroll. `__noWaterfrontCatalogFit019` restores the old layout/reset behavior for actual labelled Actions controls. A separate narrow object-ID normalization corrects the two existing hall card labels from1x1 to their actual2x2 native footprint; no placement size or gameplay changes.
+
+The strengthened mobile mode retains all previous interactions and adds actual legacy390-to844 control screenshots, header/search/close/category/card bounds, ancestor clipping and elementFromPoint hit tests, native category swipe, all16 reachable cards, complete notice text visibility at entry, and2x2/1x1 label checks. Corrected acceptance never uses scrollIntoView or scrolls hidden sheet ancestors; only the designated result scroller may reveal a card. Fifteen deliberately invalid geometry cases and mock controls for entry-only reset, unchanged unrelated tool arguments and hit targeting passed locally. Actual corrected layout and touch results remain unrun until the next Actions candidate. This mobile product change is separate from the already restored observer-only commit `7cc300a6e6a4c04885d8d7331e9b8313fa938206`; its full156 run and owner image approval remain required.
+
+## Restoring the existing strict native session proof
+
+The actual `7cc300a6` run `37649297892` verified the repaired lamp and debit observers: all four camera modes, planning, cold-load and mobile modes passed; lifecycle passed actual road/power/water/staff loss and recovery, then failed its final boot-versus-session fingerprint equality. That failed observer did not preserve final records, so the failure is not retroactively declared harmless or passed.
+
+Source diagnosis found that019 omitted the existing018 session contract for T700's lazy `worker12` canvas, which is first installed during real construction drawing and survives native load. T731 already verifies that sole addition using immutable original worker/proof source, two independent full-RGBA reference canvases, exact metadata, zero RNG and observer purity. The next candidate restores that unchanged verifier after strict current-head3179-record validation. Every existing leaf and family, including all32 new leaves, must first equal independent preflight exactly; all1728 complete blocks remain deep-equal. Only the pinned original worker survives the explicit32-leaf historical projection and must satisfy the original018 verifier. The observer adaptation changes only the fixture world/storage binding through one counted reversible anchor. Unknown additions or any old/new leaf, aggregate, block or proof mutation still fail.
+
+Before any worker proof or validation can throw, the observer now saves actual final fingerprint/block records, their hashes and bounded added/removed/changed data. Successful reports retain the complete strict proof and differences without repeated full snapshots. Native data controls are appended to the existing verified-preflight controls, without adding jobs or dropping any old assertions. These source/data checks do not establish the failing run's exact delta; the next actual lifecycle must produce and pass the full native proof. Product SHA256 remains `dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2` from the separate phone catalog correction; no art or simulation change was introduced by this session-proof repair.
+
+## Fourth candidate native session result and mobile negative-control cleanup
+
+On exact candidate `f9d5597d8d760c84776c6d1557dfd64e3288f0b8`, Actions `37655400102`, lifecycle completed all29 checks. Its retained native final delta is now explicit: zero changed/removed prior leaves or families, all1728 blocks exact, and solely original `worker12` added (boot3179/165 to final3180/166). The unchanged legacy verifier accepted two independent full-RGBA references, exact worker source/metadata/aggregates, zero RNG, and complete world/storage/atlas observer purity. Planning, all four camera modes and cold-load also passed on this head; these partial results do not certify the complete156 workflow.
+
+The mobile job failed during cleanup of the explicitly labelled old-layout negative control, before corrected-phone acceptance began. Reproducing the old observer's card scroll restored the overflowing sheet to scrollLeft0, leaving its close button at x408.48–444.48 outside the390px viewport. The strict touch helper correctly refused that invisible target. The failed native report and original screenshot remain intact. Only negative-control teardown now records that close-target geometry and sends Escape through the existing native close handler, with closed-state/cash checks. Corrected phone acceptance does not use this keyboard fallback, hidden-ancestor scroll assignment or scrollIntoView; it retains strict geometry/hit tests and explicitly taps Close then reopens, checking unchanged cash/district identity and bounded layout. To prevent the negative control's category position from contaminating the forward-swipe check, corrected acceptance returns the designated category strip to its start with actual touch swipes before testing the forward touch gesture.
+
+Product SHA256 remains `dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2`; no product, art, economy, old assertion or numerical threshold changed for this observer correction. Source-only inert controls passed, but actual corrected mobile touch/layout and complete final-head156 CI still require the next native run. The new district/mobile image package remains unapproved; T731/main is unchanged.
+
+
+## Bounded native-font setup and isolated mobile fixture QA
+
+The fourth run also exposed repeated long waits in its unchanged `apt-get update` font setup (for example gardenlife construction2 began that step at17:49:59UTC). The next workflow keeps the same observed `fonts-wqy-zenhei` package version0.9.45-8 and verifies its installed package contents, emitting the TTC SHA256 into the job log. Each apt command has a90-second hard timeout plus5-second kill grace, bounded network waits/retries, at most two attempts, and a7-minute step cap. Failure remains fatal. There is no fallback font, skipped test or continue-on-error.
+
+An isolated `gpt/waterfront-quarter019-mobile-qa` branch/workflow reuses the exact new-head native preflight and the whole mobile job with only that matrix entry selected. It exercises negative-control dismissal, strict corrected Close/reopen, category swipes, collection layout/hit testing and all original phone gameplay checks before starting another full round. This short QA never replaces the original156 acceptance: the production candidate workflow retains all148 prior jobs plus eight district modes, the same source-pinned old assertions and thresholds, and cannot deploy or merge. Current f9 full CI is allowed to finish without rerunning it or moving its branch underneath it.
+
+
+## Narrow native concurrency recovery after successful mobile QA
+
+Isolated candidate `04b4d1bf263ef4c678d4b5fb5ee8bd4921998283`, short Actions `37664169124`, passed exact-head preflight and all63 mobile checks on both390x844 and844x390; smoke `37664168964` also passed. The two corrected original catalog screenshots show the bounded header, complete visual-only notice and truthful2x2 hall labels. Its desktop `district-day.png` is byte-identical to f9. The bounded font setup installed the same0.9.45-8 package in16 seconds and recorded TTC SHA256 `79c18ebe7b811951e8311bad7103ebeae8c337ed9988ea69e8a78a66cfe029b9`. These short-run results remain scoped to that exact head; they do not certify a complete156 run on a later commit.
+
+At18:26UTC the old f9 full run had150 successful jobs, the preserved mobile negative-control failure, and five jobs still blocked before gameplay in the old unbounded font setup. Instead of waiting for each55-minute job limit, the replacement uses GitHub's documented same-repository/same-group supersession behavior: https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency . The existing group stays `waterfront-quarter019-${{ github.ref }}`, and cancellation is conditional on exactly `refs/heads/gpt/waterfront-cultural-quarter-019`. Main, tags, other candidate branches, short QA and other workflow prefixes do not match. No run is hidden or retroactively passed. This uses ordinary workflow configuration, not an unavailable cancellation endpoint or an access-denial workaround.
+
+The source guard now verifies the exact group and sole-branch condition, with negative controls rejecting unconditional cancellation, main cancellation and cross-branch/cross-workflow groups. All148 historical jobs plus eight quarter modes remain mandatory on the replacement exact SHA. Product and images are unchanged; image approval, complete final-head results and all release gates remain required. This supersedes the earlier wait-for-old-run plan only for the narrowly identified019 candidate group.
+
+
+## Publication approval and T732 preparation
+
+<!-- T732 release entry BEGIN -->
+## r179 — T732 Waterfront cultural quarter (original GPT-019)
+
+- Version: v14.36; candidate: 63c0950064d01ac99d3eef1a78d392b249c5605d; product SHA256: dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2
+- Owner image approval: Sentinel_bc32e56fda748191b28a54ff5d59cc50, 2026-10-07T21:05:24.161482+00:00; image packet SHA256: 92e1da81ab942f1062f53dcf0a06a8ea65900b11d470b00c300921cabceda888
+- Candidate full156: https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37667551413, attempt 4, completed 2026-10-07T19:43:51Z
+- Exactly32 leaves/1 family promoted; original3147 leaves/164 families/1728 blocks retained.
+- Not completed: release-head full156, three smokes, pixel/style guards, merge and deployment verification remain pending. No physical-device FPS claim.
+<!-- T732 release entry END -->

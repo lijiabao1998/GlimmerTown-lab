@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+'use strict';
+// Source/synthetic controls only. No harness, game, painter or browser execution.
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),fixed=require('./waterfront-quarter-contract019'),legacy=require('./waterfront-quarter-legacy019'),projection=require('./waterfront-quarter-projection019'),style=require('./waterfront-quarter-style019');
+const result=legacy.staticTest019();assert.equal(result.rows.length,13);assert.equal(result.rows.every(q=>q.sourceReversalExact&&q.gameAPIUnmodified&&q.oldNumericAssertionThresholdsExact&&q.oldBrowserFunctionsExact),true);
+for(const row of result.rows){assert.equal(row.currentReleaseApproved,false);assert.equal(row.independentFull3179BeforeProjection,true);for(const edit of row.observationAndProvenance.edits){assert(!/GV\.fp536\s*=|SPR\s*=|cdp\.(?:evalJs|send)\s*=/.test(edit.to));if(edit.to.includes('projectObservation019('))assert(edit.from.startsWith('await '));}}
+for(const mode of['publiclife','station','streetlife']){const source=legacy.source019({publiclife:'publiclife-integration-qa.js',station:'station-integration-qa008.js',streetlife:'streetlife-integration-qa009.js'}[mode]),q=legacy.adaptNested019(source,mode);assert(q.proof.reverseExact);new vm.Script(q.adapted);assert(q.adapted.includes('projectObservation019('));}
+const source=legacy.source019('waterfront-integration-qa018.js'),q=legacy.buildAdapter019('waterfront');
+// The old lifecycle assertions retain the exact comparisons and original day,
+// fiscal, utility, occlusion, Continue, timing and console thresholds.
+const oldChecks=source.split('\n').filter(l=>/\bcheck\(/.test(l));for(const line of oldChecks){if(line.includes('const fp=await ev'))continue;assert(q.adapted.includes(line),'Old lifecycle assertion changed: '+line.slice(0,100));}
+const ratchetSource=legacy.source019('fp.js'),start='      const expSet = new Set(EXPECT);',end="      log('');",ratchet=ratchetSource.slice(ratchetSource.indexOf(start),ratchetSource.indexOf(end,ratchetSource.indexOf(start))),guard=style.buildStyleAdapter019();assert(guard.adapted.includes(ratchet));assert.deepEqual(style.ARGS,require('./waterfront-style018').ARGS);assert.equal(guard.proof.projection.edits.length,1);assert.equal(guard.proof.oldStyleScoresUnmodified,true);
+const data=projection.buildHistoricalFingerprint019();assert.equal(data.proof.oldNumericAssertionsExact,true);assert.equal(data.proof.oldReleaseSourceApprovalUsed,false);assert.equal(data.proof.edits.length,2);
+assert.throws(()=>legacy.buildAdapter019('extra'));assert.throws(()=>legacy.adaptNested019('no native fingerprint','publiclife'));assert.throws(()=>projection.projectObservation019({ok:true,subs:{bad:{}},families:{},stats:{}},{preflight:{fp:{},blocks:{}},record:false}));
+const bridge=require('./waterfront-quarter-historical019').buildBridge019();assert.equal(bridge.proof.reverseExact,true);assert.equal(bridge.proof.currentPublicationApproved,false);assert.equal(bridge.proof.currentLeaves,3179);assert.equal(bridge.proof.historicalLeaves,3147);
+console.log(JSON.stringify({ok:true,sourceOnly:true,gameExecuted:false,retainedSuites:13,original018LifecycleChecks:oldChecks.length,oldRatchetAndArgumentsExact:true,current3179Historical3147Explicit:true,currentSourceApprovalFrom019Only:true}));
