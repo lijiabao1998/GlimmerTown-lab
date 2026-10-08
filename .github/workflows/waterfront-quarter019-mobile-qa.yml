@@ -35,7 +35,7 @@ jobs:
         node waterfront-compatibility018.js --static-test\nnode waterfront-legacy018.js --static-test\nnode waterfront-style018.test.js\nfor f\
         \ in *018.js; do node --check \"$f\"; done\npython3 waterfront-workflow018.test.py\nnode waterfront-integration-qa018.js --static-test\n\
         node waterfront-compatibility018.test.js --static-test\nnode waterfront-session-fingerprint018.test.js\nnode mapedge-render018.test.js\
-        \ --static-test\nnode mapedge-native-qa018.test.js\n\n)\nnode waterfront-quarter-contract019.js\nnode waterfront-quarter-logic019.test.js\n\
+        \ --static-test\nnode mapedge-native-qa018.test.js\n\n)\nnode waterfront-quarter-contract019.js\nnode waterfront-quarter-release019.test.js\nnode waterfront-quarter-logic019.test.js\n\
         node waterfront-quarter-native019.test.js\nnode waterfront-quarter-legacy019.js --static-test\nnode waterfront-quarter-compatibility019.js\
         \ --static-test\nnode waterfront-quarter-adapters019.test.js\npython3 waterfront-quarter-workflow019.test.py\npython3 waterfront-quarter-mobile-workflow019.test.py\n\
         python3 waterfront-quarter-package019.test.py\nfor f in *019.js; do node --check \"$f\"; done\n"

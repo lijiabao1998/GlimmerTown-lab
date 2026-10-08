@@ -1,4 +1,4 @@
-# GPT-019 — Waterfront cultural quarter
+# T732 — Waterfront cultural quarter (original GPT-019)
 
 ## Acceptance card written before implementation
 
@@ -136,3 +136,16 @@ Isolated candidate `04b4d1bf263ef4c678d4b5fb5ee8bd4921998283`, short Actions `37
 At18:26UTC the old f9 full run had150 successful jobs, the preserved mobile negative-control failure, and five jobs still blocked before gameplay in the old unbounded font setup. Instead of waiting for each55-minute job limit, the replacement uses GitHub's documented same-repository/same-group supersession behavior: https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency . The existing group stays `waterfront-quarter019-${{ github.ref }}`, and cancellation is conditional on exactly `refs/heads/gpt/waterfront-cultural-quarter-019`. Main, tags, other candidate branches, short QA and other workflow prefixes do not match. No run is hidden or retroactively passed. This uses ordinary workflow configuration, not an unavailable cancellation endpoint or an access-denial workaround.
 
 The source guard now verifies the exact group and sole-branch condition, with negative controls rejecting unconditional cancellation, main cancellation and cross-branch/cross-workflow groups. All148 historical jobs plus eight quarter modes remain mandatory on the replacement exact SHA. Product and images are unchanged; image approval, complete final-head results and all release gates remain required. This supersedes the earlier wait-for-old-run plan only for the narrowly identified019 candidate group.
+
+
+## Publication approval and T732 preparation
+
+<!-- T732 release entry BEGIN -->
+## r179 — T732 Waterfront cultural quarter (original GPT-019)
+
+- Version: v14.36; candidate: 63c0950064d01ac99d3eef1a78d392b249c5605d; product SHA256: dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2
+- Owner image approval: Sentinel_bc32e56fda748191b28a54ff5d59cc50, 2026-10-07T21:05:24.161482+00:00; image packet SHA256: 92e1da81ab942f1062f53dcf0a06a8ea65900b11d470b00c300921cabceda888
+- Candidate full156: https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37667551413, attempt 4, completed 2026-10-07T19:43:51Z
+- Exactly32 leaves/1 family promoted; original3147 leaves/164 families/1728 blocks retained.
+- Not completed: release-head full156, three smokes, pixel/style guards, merge and deployment verification remain pending. No physical-device FPS claim.
+<!-- T732 release entry END -->

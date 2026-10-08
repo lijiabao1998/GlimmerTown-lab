@@ -11,7 +11,7 @@ function projectObservation019(fp,{allowWorker=false,preflight=readFull019(),rec
  const proof=current.verifyFingerprint019(full,preflight.blocks);if(!eq(full,preflight.fp))throw Error('Every full3179 record must equal independent native preflight before projection');
  const projected=current.projectRecords019(full);if(worker!==undefined){projected.subs.worker12=worker;Object.assign(projected,aggregate(projected.subs));}
  if(JSON.stringify(fp)!==raw)throw Error('Projection mutated native input');
- if(record){const out=path.join(__dirname,'waterfront-quarter-evidence','retained');fs.mkdirSync(out,{recursive:true});fs.appendFileSync(path.join(out,'projection-audit.jsonl'),JSON.stringify({checkedSHA:preflight.checkedSHA,sourceSHA256:preflight.sourceSHA256,fullSHA256:fixed.hash(raw),preflightEvidenceSHA256:preflight.evidenceSHA256,fullLeaves:Object.keys(fp.subs).length,projectedLeaves:Object.keys(projected.subs).length,removed:[...fixed.expectedAdditions],onlyDeclared32Removed:true,independentFull3179Verified:true,workerRetained:worker!==undefined,inputUnchanged:true,currentPublicationApproved:false})+'\n');}
+ if(record){const out=path.join(__dirname,'waterfront-quarter-evidence','retained');fs.mkdirSync(out,{recursive:true});fs.appendFileSync(path.join(out,'projection-audit.jsonl'),JSON.stringify({checkedSHA:preflight.checkedSHA,sourceSHA256:preflight.sourceSHA256,fullSHA256:fixed.hash(raw),preflightEvidenceSHA256:preflight.evidenceSHA256,fullLeaves:Object.keys(fp.subs).length,projectedLeaves:Object.keys(projected.subs).length,removed:[...fixed.expectedAdditions],onlyDeclared32Removed:true,independentFull3179Verified:true,workerRetained:worker!==undefined,inputUnchanged:true,currentPublicationApproved:preflight.product?.publicationApproved===true})+'\n');}
  return projected;
 }
 // Retain the old018 fingerprint assertions exactly. Only the obsolete current
@@ -19,8 +19,8 @@ function projectObservation019(fp,{allowWorker=false,preflight=readFull019(),rec
 function buildHistoricalFingerprint019(){
  const source=fs.readFileSync(path.join(__dirname,'waterfront-fingerprint018.js'),'utf8');if(source!==fixed.baseFile('waterfront-fingerprint018.js').toString())throw Error('Original018 fingerprint source changed');
  const from=source.slice(source.indexOf(" const release=fs.readFileSync"),source.indexOf('\n return{ok:true,base:fixed.BASE',source.indexOf(" const release=fs.readFileSync")));
- const to=" const release=false,releaseProof=null;require('./waterfront-release-contract018').verifyApprovedNative018(fp,blocks);";
- const edits=[[from,to],["version:release?'14.35':'14.34',anchor:release?'T731':'T730'","version:'14.35',anchor:'T731'"]];
+ const to=" const product019=require('./waterfront-quarter-contract019').verifyStatic019(),release=product019.release,releaseProof=release?{approvedSHA:require('./waterfront-release-contract018').APPROVED_SHA}:null;require('./waterfront-release-contract018').verifyApprovedNative018(fp,blocks);";
+ const edits=[[from,to],["version:release?'14.35':'14.34',anchor:release?'T731':'T730'","version:product019.version,anchor:product019.anchor"]];
  let adapted=source;for(const[a,b]of edits){if(!a||adapted.split(a).length!==2)throw Error('Unique018 fingerprint provenance span required');adapted=adapted.replace(a,b);}
  let restored=adapted;for(const[a,b]of[...edits].reverse())restored=restored.replace(b,a);if(restored!==source)throw Error('Fingerprint assertion source changed');
  const holder={exports:{}};new vm.Script('(function(require,module,exports,__dirname){'+adapted.replace(/^#![^\n]*\n/,'')+'\n})').runInThisContext()(require,holder,holder.exports,__dirname);

@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-10-07T08:33:00.000Z",
- "version": "14.35",
- "anchor": "T731",
+ "generatedAt": "2026-10-07T21:22:33.363Z",
+ "version": "14.36",
+ "anchor": "T732",
  "stats": {
-  "families": 164,
-  "leaves": 3147,
-  "dayNonEmpty": 3137,
-  "nightNonEmpty": 1711
+  "families": 165,
+  "leaves": 3179,
+  "dayNonEmpty": 3169,
+  "nightNonEmpty": 1715
  },
  "families": {
   "grass": {
@@ -1156,6 +1156,13 @@
    "px": 250880,
    "op": 44131,
    "night": 8
+  },
+  "waterfrontQuarter019": {
+   "leaves": 32,
+   "crc": "1e601faa",
+   "px": 211968,
+   "op": 36073,
+   "night": 32
   }
  },
  "subs": {
@@ -23187,6 +23194,230 @@
    "w": 160,
    "h": 196,
    "n": "f40af826"
+  },
+  "waterfrontQuarter019.arrivalCourt_0": {
+   "d": "c9222d1a",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.arrivalCourt_1": {
+   "d": "36257dfe",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.arrivalCourt_2": {
+   "d": "1f1ba003",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.arrivalCourt_3": {
+   "d": "8125af08",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.brickPromenade_0": {
+   "d": "10cec000",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.brickPromenade_1": {
+   "d": "cf328600",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.brickPromenade_2": {
+   "d": "b87ca3ce",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.brickPromenade_3": {
+   "d": "58231e55",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayEdgeWalk_0": {
+   "d": "02b95cab",
+   "op": 1089,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayEdgeWalk_1": {
+   "d": "eead4a2b",
+   "op": 1091,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayEdgeWalk_2": {
+   "d": "bf034229",
+   "op": 1039,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayEdgeWalk_3": {
+   "d": "b5402805",
+   "op": 1039,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayCorner_0": {
+   "d": "a3fbba83",
+   "op": 1087,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayCorner_1": {
+   "d": "f3c982c3",
+   "op": 1078,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayCorner_2": {
+   "d": "e56b7169",
+   "op": 1038,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.quayCorner_3": {
+   "d": "b2301933",
+   "op": 1037,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.heritageDisplay_0": {
+   "d": "edd2a766",
+   "op": 1075,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.heritageDisplay_1": {
+   "d": "cf0fd388",
+   "op": 1058,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.heritageDisplay_2": {
+   "d": "8a78c5ba",
+   "op": 1024,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.heritageDisplay_3": {
+   "d": "71c92090",
+   "op": 1046,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.watersideBench_0": {
+   "d": "9b0a076c",
+   "op": 1059,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.watersideBench_1": {
+   "d": "b2208546",
+   "op": 1054,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.watersideBench_2": {
+   "d": "8e274d34",
+   "op": 1028,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.watersideBench_3": {
+   "d": "5331e64c",
+   "op": 1037,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.harbourLantern_0": {
+   "d": "885fc290",
+   "op": 1109,
+   "w": 72,
+   "h": 92,
+   "n": "073fecee"
+  },
+  "waterfrontQuarter019.harbourLantern_1": {
+   "d": "11ff38bb",
+   "op": 1097,
+   "w": 72,
+   "h": 92,
+   "n": "55b83dc4"
+  },
+  "waterfrontQuarter019.harbourLantern_2": {
+   "d": "32f2297a",
+   "op": 1028,
+   "w": 72,
+   "h": 92,
+   "n": "55213531"
+  },
+  "waterfrontQuarter019.harbourLantern_3": {
+   "d": "320c8930",
+   "op": 1097,
+   "w": 72,
+   "h": 92,
+   "n": "4b106601"
+  },
+  "waterfrontQuarter019.timberShelter_0": {
+   "d": "1afb365d",
+   "op": 1641,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.timberShelter_1": {
+   "d": "98373e1e",
+   "op": 1695,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.timberShelter_2": {
+   "d": "973a05a1",
+   "op": 1703,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
+  },
+  "waterfrontQuarter019.timberShelter_3": {
+   "d": "4da0828e",
+   "op": 1632,
+   "w": 72,
+   "h": 92,
+   "n": "ec6dca95"
   }
  },
  "blocks": {

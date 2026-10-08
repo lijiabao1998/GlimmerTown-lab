@@ -3,6 +3,7 @@ name: waterfront-quarter019
   push:
     branches:
     - gpt/waterfront-cultural-quarter-019
+    - main
     paths-ignore:
     - '**.md'
     - docs/**
@@ -64,6 +65,7 @@ jobs:
 
         )
         node waterfront-quarter-contract019.js
+        node waterfront-quarter-release019.test.js
         node waterfront-quarter-logic019.test.js
         node waterfront-quarter-native019.test.js
         node waterfront-quarter-legacy019.js --static-test

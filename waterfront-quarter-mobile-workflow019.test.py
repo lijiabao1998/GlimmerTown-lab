@@ -13,7 +13,7 @@ for w in [full,short]:
   assert run.rstrip().endswith('exit 1') and 'Acquire::http::Timeout=20' in run and 'Acquire::https::Timeout=20' in run
 assert set(short['jobs'])=={'preflight','quarter'} and short['jobs']['preflight']==full['jobs']['preflight']
 q=copy.deepcopy(full['jobs']['quarter']);q['strategy']['matrix']['mode']=['mobile'];assert q==short['jobs']['quarter']
-assert short['on']['push']['branches']==['gpt/waterfront-quarter019-mobile-qa'] and full['on']['push']['branches']==['gpt/waterfront-cultural-quarter-019']
+assert short['on']['push']['branches']==['gpt/waterfront-quarter019-mobile-qa'] and full['on']['push']['branches']==['gpt/waterfront-cultural-quarter-019','main']
 assert short['permissions']=={'contents':'read'} and short['concurrency']['cancel-in-progress']is False
 print(json.dumps({'ok':True,'sourceOnly':True,'gameExecuted':False,'full156Unchanged':True,'independentMobileQA':True,'shortReusesExactPreflightAndMobile':True,'samePinnedFontPackage':True,'fontAttempts':2,'fontCommandTimeoutSeconds':90,'fontStepTimeoutMinutes':7,'failuresRemainFatal':True}))
 
