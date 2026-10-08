@@ -2,7 +2,7 @@
 // Source/data only. Generated after real native evidence and owner image approval.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{execFileSync}=require('node:child_process'),{isDeepStrictEqual:eq}=require('node:util');
 const ROOT=__dirname,BASE='b101348278b71f133b5f4347bc6e63237c9942a1',APPROVED_SHA='63c0950064d01ac99d3eef1a78d392b249c5605d',APPROVED='dc9af63ebd586b478d27b4340541c3fbbe6b6d52ce58d70530aba073008cbab2';
-const PIN_HASH='8f59bfc4c8f810a479be29a2973436069db25605c5686af8b5e4dffbe6dacf1c',BASE_FP_HASH='5de170419589af6d8972b40b087f3465ae2eaafd0e69d576ad24a28f1b759941',CARD_HASH='4fa5dd77fdba34465bffb6457ef2f8aa2401660a7902a79b3c804376fb77084a';
+const PIN_HASH='fdd4fee577b44074ae24213b20b631e82b8470974eabc9d5d5020367d42dd38d',BASE_FP_HASH='5de170419589af6d8972b40b087f3465ae2eaafd0e69d576ad24a28f1b759941',CARD_HASH='4fa5dd77fdba34465bffb6457ef2f8aa2401660a7902a79b3c804376fb77084a';
 const hash=x=>crypto.createHash('sha256').update(x).digest('hex'),canonical=x=>JSON.stringify(x,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);
 const baseFile=p=>execFileSync('git',['show',BASE+':'+p],{cwd:ROOT,maxBuffer:32*1024*1024});
 const labels=[["const GAME_VER='14.36'","const GAME_VER='14.35'"],["const GAME_ANCHOR='T732'","const GAME_ANCHOR='T731'"],['id="startVersion456">v14.36 · T732','id="startVersion456">v14.35 · T731']];
