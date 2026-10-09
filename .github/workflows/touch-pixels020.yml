@@ -1,0 +1,60 @@
+name: touch-pixels020
+on:
+  push:
+    branches: ['gpt/touch-cancellation-020']
+  pull_request:
+    paths: ['index.html', 'probe-touch-pixels020.js', 'touch-pixels020.capture.cjs', '.github/workflows/touch-pixels020.yml']
+permissions:
+  contents: read
+concurrency:
+  group: touch-pixels020-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-parity:
+    if: github.event_name == 'push' || github.head_ref == 'gpt/touch-cancellation-020'
+    name: Full native pixels versus pinned main and approved art
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      strict_green: ${{ steps.audit.outputs.strict_green }}
+      inherited_failure: ${{ steps.audit.outputs.inherited_failure }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Existing native font dependency
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Observe unchanged strict checks and compare every native record
+        id: audit
+        run: node probe-touch-pixels020.js
+      - name: Verify no product or baseline file was changed
+        if: always()
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: touch-pixel-evidence020-${{ github.sha }}
+          path: touch-pixel-evidence020/
+          if-no-files-found: error
+          retention-days: 14
+  stored-fingerprint:
+    name: Unmodified stored fp and style gate
+    needs: native-parity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preserve the actual strict check outcome
+        env:
+          STRICT_GREEN: ${{ needs.native-parity.outputs.strict_green }}
+          INHERITED_FAILURE: ${{ needs.native-parity.outputs.inherited_failure }}
+        run: |
+          if [ "$STRICT_GREEN" = "true" ]; then
+            echo 'Both unchanged fp.js --check invocations passed.'
+          else
+            echo "Stored fp/style check remains red. Inherited on pinned main: $INHERITED_FAILURE"
+            echo 'No baseline update, whitelist, art declaration or failure suppression was applied.'
+            exit 1
+          fi

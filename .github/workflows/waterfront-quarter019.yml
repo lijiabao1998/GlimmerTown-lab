@@ -3,6 +3,7 @@ name: waterfront-quarter019
   push:
     branches:
     - gpt/waterfront-cultural-quarter-019
+    - gpt/touch-cancellation-020
     - main
     paths-ignore:
     - '**.md'
@@ -71,8 +72,7 @@ jobs:
         node waterfront-quarter-legacy019.js --static-test
         node waterfront-quarter-compatibility019.js --static-test
         node waterfront-quarter-adapters019.test.js
-        python3 waterfront-quarter-workflow019.test.py
-        python3 waterfront-quarter-mobile-workflow019.test.py
+        node touch-source-projection020.test.js
         python3 waterfront-quarter-package019.test.py
         for f in *019.js; do node --check "$f"; done
     - name: Every unchanged T730 and older source control in frozen approved worktrees

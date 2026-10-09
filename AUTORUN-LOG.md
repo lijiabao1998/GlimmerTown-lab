@@ -13,6 +13,17 @@
 
 ---
 
+<!-- T733 release entry BEGIN -->
+## r180 — T733 Interrupted touch gestures (original GPT-020)
+
+- Version: v14.37 / T733. PR #25: https://github.com/lijiabao1998/GlimmerTown-lab/pull/25
+- Owner approved this repair, merge and normal automatic deployment on 2026-10-09 at 13:33:34 UTC, preserving the inherited building-style discrepancy without changing baselines.
+- Cancels pending tap, road, rectangle and route actions; stale terminal events are idempotent; applied paint stays undoable. Reviewed input implementation blob: 97917dc93167735ea75862182857135fff20cfa8. Release changes exactly three labels beyond those reviewed game bytes.
+- Earlier smoke evidence: three green runs at ebd069d and two each at f71fdb1 and b660f394. Native pixel equality at b660f394: all 3,179 sprites, 165 families and 1,728 blocks unchanged, run 37940504511. Raw stored style check remains 96.5% expected versus 96.3% actual on both original and repaired code.
+- Failure history: initial synthetic-input vibration warnings corrected without filtering; b660 full suite passed source controls but its added Page.getResourceContent probe failed because the no-store document was not cached. This is repaired through pre-navigation response observation, not waived.
+- Not completed: exact T733 full release suite, three smokes, pixel/style evidence, merge and deployed-byte verification remain pending. Earlier-head results are not claimed as T733 results. Physical-device testing remains unrun. No artwork or fp/style baseline changes.
+<!-- T733 release entry END -->
+
 <!-- T732 release entry BEGIN -->
 ## r179 — T732 Waterfront cultural quarter (original GPT-019)
 
