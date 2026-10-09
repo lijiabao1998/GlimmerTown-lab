@@ -22,5 +22,9 @@ Per AGENTS §5, browser game execution, smoke and pixel guards run through CI. T
 - Second-touch transition closes existing paint as an undoable transaction instead of discarding its history or issuing a partial refund. Normal first-finger-up pinch settling is intentionally unchanged; later cancellation clears tap history.
 - Independent review: no blocking findings. Isolated input suite passes 41/41 against the patch; original baseline fails 30/41, as expected. The suite extracts actual input, rectangle and Undo/Redo functions rather than a reimplementation.
 - All 79 inline scripts and both test scripts pass syntax parsing. Browser matrix is wired into the existing smoke.js route and targets 390×844 / 360×800.
-- Runtime diff: 28 inserted / 7 removed lines; no art or save schema changes. Source blob before: 3dc0323bf1f26cc73b75cb2054f4d5f3b36d1789; after: 97917dc93167735ea75862182857135fff20cfa8.
+- Runtime diff: 25 inserted / 5 removed lines; no art or save schema changes. Source blob before: 3dc0323bf1f26cc73b75cb2054f4d5f3b36d1789; after: 97917dc93167735ea75862182857135fff20cfa8.
 - Not done: CI browser results pending. Physical-device touch behavior and pixel/fingerprint guards have not been run in this cloud workspace, per repository restrictions. No merge/deployment performed.
+
+- Browser fixture review caught that a valid road cell can be water, where the resulting bridge cannot hold a bus stop. Route positive-control fixtures now explicitly require land; this was a test-only fix before claiming runtime results.
+
+- First CI (head 1f41d5c, run 37934998114) passed 53 browser assertions at each phone size and all legacy selftests, then correctly failed the strict console check on six vibration warnings: synthetic long-holds had no trusted user activation. The test setup now uses a real CDP click and asserts user activation; no error filter or runtime logic was weakened.

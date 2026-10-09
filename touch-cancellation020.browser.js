@@ -6,6 +6,12 @@ async function runTouchCancellation020(cdp) {
   for (const [width, height] of [[390,844], [360,800]]) {
     await cdp.send('Emulation.setDeviceMetricsOverride', {width,height,deviceScaleFactor:1,mobile:true});
     await cdp.send('Emulation.setTouchEmulationEnabled', {enabled:true,maxTouchPoints:5});
+    // A real trusted input grants sticky user activation for navigator.vibrate
+    // during long-hold cases. Do not hide/whitelist console permission errors.
+    await cdp.evalJs(`GV.selectTool434('pan')`);
+    await cdp.send('Input.dispatchMouseEvent', {type:'mousePressed',x:width/2,y:height/2,button:'left',clickCount:1});
+    await cdp.send('Input.dispatchMouseEvent', {type:'mouseReleased',x:width/2,y:height/2,button:'left',clickCount:1});
+    if (!await cdp.evalJs('navigator.userActivation.hasBeenActive')) throw new Error('Trusted CI activation missing');
     const report = await cdp.evalJs(`(${browserCases020.toString()})(${width},${height})`);
     reports.push(report);
     if (!report.ok) throw new Error(JSON.stringify(report));
@@ -24,8 +30,9 @@ async function browserCases020(width, height) {
   GV.setSpeed(0);GV.ai(false);GV.setRot(0);GV.setZoom(1);
   await wait(100); // allow the real resize listener to update canvas dimensions
   // Work on valid fixture cells from this disposable smoke world.
-  const find=(tool)=>{
+  const find=(tool,landOnly=false)=>{
     for(let y=4;y<n-4;y++)for(let x=4;x<n-4;x++){
+      if(landOnly&&!([1,2].includes(GV.tile(x,y).t)))continue;
       if(GV.canPlaceTool(tool,x,y))continue;
       if(tool==='road'&&[0,1,2].some(dx=>GV.canPlaceTool(tool,x+dx,y)))continue;
       return [x,y];
@@ -107,8 +114,9 @@ async function browserCases020(width, height) {
     // Route selection must not fire on cancellation. A real bus stop makes the
     // positive assertion meaningful rather than clicking an empty map square.
     {
-      const at=find('road');
+      const at=find('road',true);
       check('route road fixture placed',GV.placeUndo('road',...at));
+      check('bus fixture accepts stop',!GV.canPlaceTool('bus',...at));
       check('bus fixture placed',GV.placeUndo('bus',...at));
       const p=select('busrt',at),id=++nextId,before=JSON.stringify(GV.busRoutes());
       event('pointerdown',id,p);event('pointercancel',id,p);stale(id,p);
