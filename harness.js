@@ -211,6 +211,7 @@ async function withGame(opt, fn) {
     await cdp.send('Page.enable');
     out.cdp = cdp;
     if (o.preScript) { try { await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: o.preScript }); } catch (e) {} }
+    if (o.beforeNavigate) await o.beforeNavigate({ cdp, ws }); // GPT-020: optional read-only response observer
     await cdp.send('Page.navigate', { url: `http://127.0.0.1:${PORT}/index.html` });
     const menuReady = await waitFor(cdp, `(() => {
       const b = document.getElementById('boot453'), s = document.getElementById('start');
@@ -256,3 +257,4 @@ async function withGame(opt, fn) {
 }
 
 module.exports = { ROOT, sleep, startServer, cdpConnect, pageWsUrl, launchChrome, cleanProfiles, waitFor, withGame, findChrome };
+

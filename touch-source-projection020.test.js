@@ -8,6 +8,35 @@ const current=Object.fromEntries(q.PATHS.map(file=>[file,fs.readFileSync(path.jo
 const copy=x=>Object.fromEntries(Object.entries(x).map(([k,v])=>[k,Buffer.from(v)])),rejected=[];
 function no(name,fn){assert.throws(fn,undefined,name);rejected.push(name);}
 assert(q.verifyEnvelope020(current).ok);
+const oldCard=isolated?fs.readFileSync('/tmp/lab020-reviewed-card.md'):execFileSync('git',['show',q.REVIEWED_COMMIT+':'+q.OLD_CARD],{cwd:__dirname,maxBuffer:1024*1024});
+const releaseFiles={...current,[q.RELEASE_CARD]:fs.readFileSync(path.join(__dirname,q.RELEASE_CARD))};
+assert(q.verifyBookkeeping020(releaseFiles,old('AUTORUN-LOG.md'),oldCard).exactThreeLabelReversal);
+for(const [name,change]of [
+ ['missing label',x=>x['index.html']=Buffer.from(x['index.html'].toString().replace("const GAME_VER='14.37'","const GAME_VER='14.36'"))],
+ ['duplicate label',x=>x['index.html']=Buffer.concat([x['index.html'],Buffer.from("const GAME_ANCHOR='T733'")])],
+ ['stale visible label',x=>x['index.html']=Buffer.from(x['index.html'].toString().replace('v14.37 · T733','v14.36 · T732'))],
+ ['fourth product change',x=>x['index.html']=Buffer.concat([x['index.html'],Buffer.from(' ')])],
+ ['missing log entry',x=>x['AUTORUN-LOG.md']=old('AUTORUN-LOG.md')],
+ ['duplicate log entry',x=>x['AUTORUN-LOG.md']=Buffer.concat([x['AUTORUN-LOG.md'],Buffer.from(q.RELEASE_LOG_ENTRY)])],
+ ['edited historical log',x=>x['AUTORUN-LOG.md']=Buffer.concat([x['AUTORUN-LOG.md'],Buffer.from(' ')])],
+ ['missing moved card',x=>delete x[q.RELEASE_CARD]],
+ ['damaged card history',x=>x[q.RELEASE_CARD]=Buffer.from(x[q.RELEASE_CARD].toString().replace('Acceptance criteria','Changed criteria'))],
+ ['extra card append',x=>x[q.RELEASE_CARD]=Buffer.concat([x[q.RELEASE_CARD],Buffer.from(' ')])],
+ ['branch card not moved',x=>x[q.OLD_CARD]=oldCard]
+ ])no('release bookkeeping '+name,()=>{const x=copy(releaseFiles);change(x);q.verifyBookkeeping020(x,old('AUTORUN-LOG.md'),oldCard);});
+no('changed prior card provenance',()=>q.verifyBookkeeping020(releaseFiles,old('AUTORUN-LOG.md'),Buffer.concat([oldCard,Buffer.from(' ')])));
+no('changed prior log provenance',()=>q.verifyBookkeeping020(releaseFiles,Buffer.concat([old('AUTORUN-LOG.md'),Buffer.from(' ')]),oldCard));
+// Every changed legacy browser/normalizer byte is solely an explicit label map.
+for(const name of ['waterfront-quarter-compatibility019.js','waterfront-quarter-legacy019.js']){
+ const expected=old(name).toString().replace(/14\.3[67]|T73[23]/g,x=>({'14.36':'14.37','14.37':'14.38','T732':'T733','T733':'T734'}[x]));
+ assert.equal(current[name].toString(),expected,'All non-label adapter bytes remain exact: '+name);
+}
+const hook="    if (o.beforeNavigate) await o.beforeNavigate({ cdp, ws }); // GPT-020: optional read-only response observer\n";
+assert.equal(current['harness.js'].toString().split(hook).length,2);assert.equal(current['harness.js'].toString().replace(hook,''),old('harness.js').toString(),'Original server, navigation, boot and error collection remain byte-exact');
+const pair=current['waterfront-quarter-compatibility019.js'].toString().match(/\bRUNTIME_PAIR019="([^"]+)"/)[1];
+const accepts=new (require('node:vm').Script)('(function(version,anchor){return '+pair+';})').runInNewContext();
+for(const version of ['14.35','14.36','14.37','14.38',14.37,'14.37 ',null])for(const anchor of ['T731','T732','T733','T734',733,'T733 ',null])assert.equal(accepts(version,anchor),(version==='14.35'&&anchor==='T731')||(version==='14.37'&&anchor==='T733'),'Exact historical/current pairs only; stale, mismatched, future and malformed pairs reject');
+execFileSync(process.execPath,[path.join(__dirname,'touch-document-observer020.test.js')],{cwd:__dirname,stdio:'inherit'});
 for(const file of q.PATHS){
  const before=old(file),after=current[file],d=q.DECLARATIONS[file];assert.equal(q.hash(before),d.baseline);assert.equal(q.hash(after),d.candidate);
  assert(q.projectSource020(file,after,old).equals(before));assert(q.projectSource020(file,before,()=>{throw Error('Unnecessary read');}).equals(before));
@@ -24,10 +53,10 @@ const html=current['index.html'].toString();
 for(const token of ['if(pointers.has(e.pointerId))return;','closeUndo();\n    const ps=','if(!p)return;','if(!pointers.has(e.pointerId))return;','clearTimeout(longPressT);longPressT=null;stopEdgePan436();','releasePointerCapture020(e.pointerId);','function cancelPointer020(e)','lostpointercapture']){
  assert(html.includes(token),token);no('changed touch region '+token,()=>q.projectSource020('index.html',Buffer.from(html.replace(token,token+' ')),old));
 }
-for(const [name,mutant]of [['extra old handler',html+"\ncvs.addEventListener('pointercancel',endPointer);"],['duplicated abort',html+html.slice(html.indexOf('function cancelPointer020(e)'),html.indexOf("cvs.addEventListener('pointerup',endPointer);"))],['changed version',html.replace("const GAME_VER='14.36'","const GAME_VER='14.37'")]])no(name,()=>q.projectSource020('index.html',Buffer.from(mutant),old));
+for(const [name,mutant]of [['extra old handler',html+"\ncvs.addEventListener('pointercancel',endPointer);"],['duplicated abort',html+html.slice(html.indexOf('function cancelPointer020(e)'),html.indexOf("cvs.addEventListener('pointerup',endPointer);"))],['changed version',html.replace("const GAME_VER='14.37'","const GAME_VER='14.38'")]])no(name,()=>q.projectSource020('index.html',Buffer.from(mutant),old));
 // Synthetic tree records exercise every tracked-file guard without executing game code.
 const files=copy(current),baseline=Object.fromEntries(q.PATHS.map(f=>[f,q.blob(old(f))]));
-for(const f of ['fp.json','style.json','waterfront-quarter-release-pins019.json','AUTORUN-LOG.md','docs/T732-waterfront-cultural-quarter.md']){files[f]=Buffer.from('protected '+f);baseline[f]=q.blob(files[f]);}
+for(const f of ['fp.json','style.json','waterfront-quarter-release-pins019.json','AUTORUN-LOG.md','docs/T732-waterfront-cultural-quarter.md']){if(q.PATHS.includes(f))continue;files[f]=Buffer.from('protected '+f);baseline[f]=q.blob(files[f]);}
 for(const f of q.ADDED)files[f]=fs.readFileSync(path.join(__dirname,f));
 const head=Object.fromEntries(Object.entries(files).map(([f,b])=>[f,q.blob(b)]));assert(q.verifyTree020(files,baseline,head).ok);
 for(const file of Object.keys(files))no('working mutation '+file,()=>q.verifyTree020({...files,[file]:Buffer.concat([files[file],Buffer.from('!')])},baseline,head));

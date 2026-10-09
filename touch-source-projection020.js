@@ -8,7 +8,7 @@ const blob=b=>crypto.createHash('sha1').update(Buffer.from('blob '+b.length+'\0'
 const DECLARATIONS=Object.freeze({
  "index.html": {
   "baseline": "2b27364ea5f4e10fb9c8b5c182711c5c5ff00210a183fe26bca67e2688e5709c",
-  "candidate": "36568ade4b1ce2e6f8d59497a5a1ba99b9b16a99c18173a89a1689032006abce"
+  "candidate": "c0e6e167c67d78b16d0ce97eb33662b7f5005b573fbeb9793ee25083fc628689"
  },
  "smoke.js": {
   "baseline": "1d07429c075de3d5ba0aac17f0146b2d8327fb2e823efa3b1d9303c184aca082",
@@ -16,15 +16,15 @@ const DECLARATIONS=Object.freeze({
  },
  "waterfront-quarter-contract019.js": {
   "baseline": "6b9a4ecfabc3e38cae66370d39103aa68da96116996cb3dee56bb18f57e04203",
-  "candidate": "5c7d1ff88a3425055ae4d974238a163f09cb0ab56d908ee5de68af721016df47"
+  "candidate": "deba72c2921c6e2e0740c7c7ccd3488b254192b792b561654fe2f35a037ba0fa"
  },
  "waterfront-quarter-release-contract019.js": {
   "baseline": "df1ddd0c61dba2c6f88f1a0a7079a7282825d16e7106d14493e7750cb2b8d66d",
-  "candidate": "11ab81e68219fb7773dc09a985b3969c84efd77170f99a1d5236672a042913d5"
+  "candidate": "db83bc26d2d5ca73285d56df8465cb8552eb731b09be1a3a0ffc1d52b92965f3"
  },
  "waterfront-quarter-preflight019.js": {
   "baseline": "a49e81b06a2e5df032c3c21f153b8d7c9c831286abb8d13b0c5cffa43fdc9d97",
-  "candidate": "2df53b146ac3e699942c1c5294a573e5c6035e752207d93306e59e4e989e1256"
+  "candidate": "b7f76a0e26a7b3747cf4384bc1924b57f271d218efdd1c513af5fcbd319ec761"
  },
  ".github/workflows/waterfront-quarter019.yml": {
   "baseline": "7feba76124027058132ba653377d925a2c09e5a7280d0504d1040579d70b571b",
@@ -33,12 +33,56 @@ const DECLARATIONS=Object.freeze({
  ".github/workflows/waterfront-quarter019-mobile-qa.yml": {
   "baseline": "c8a18dd040106af8739da505acc2c6e03ee0da46a7fa1bd75c574b89170ba2fd",
   "candidate": "ee029e515800be9155e9f0f9d1d8c974535744ae25e4652b7fd2358af03203e0"
+ },
+ "AUTORUN-LOG.md": {
+  "baseline": "153c9ff08abeead40c7c826841eee74a82ef015a4d2142254eb89b042e496433",
+  "candidate": "742a489d370171e89b1a813a2c5b383eeee312ea580e1b1952495d6eed50db2f"
+ },
+ "harness.js": {
+  "baseline": "c2918a04108b733d29f98f3fd0664c351e4c4148e01e8d0b2d4f3829ec81a28e",
+  "candidate": "7d8041ad8e1181a6bd663ced2fd9cc6006660137e58d7111fe4ee1895cc4aa9d"
+ },
+ "waterfront-quarter-compatibility019.js": {
+  "baseline": "72cb960586d9a9e1fc487d0d4a6f641cd46bfe4bff6533c0f55e46823447d364",
+  "candidate": "3dba52668a201f9e33bf628857d4b5472da7069add24fbac17416119537d7038"
+ },
+ "waterfront-quarter-legacy019.js": {
+  "baseline": "6b820d356243b0bc2b2acd4bddaffe135bc58fb00781418f657c45e263686e9c",
+  "candidate": "af12f53b79350c9d1badf9e0d088088a61e20f0ca3bc35737e15a50c45adc418"
+ },
+ "waterfront-quarter-historical019.js": {
+  "baseline": "6dd469caac27e79736105eb516a92b1afe040135faa51341a3a96216e7b50f42",
+  "candidate": "489fc8b8d17f775db95c2c758ce6a12f1f6b77f9783cc56a9535a28f23d19619"
+ },
+ "waterfront-quarter-retained-controls019.js": {
+  "baseline": "dad1809bd22255fb4fa23c5e5cba5aac98f3afd49477b4abed8a08bae0217bbe",
+  "candidate": "b34e08aaade97fe6c10b0ad5d7ec712bb4ab00e09344701ad4e8a41a81f6265b"
  }
 });
 const PATHS=Object.freeze(Object.keys(DECLARATIONS));
-const ADDED=Object.freeze(['.github/workflows/touch-pixels020.yml','docs/branch/GPT-020-touch-cancellation.md','probe-touch-pixels020.js','touch-cancellation020.browser.js','touch-cancellation020.test.js','touch-pixels020.capture.cjs','touch-source-projection020.js','touch-source-projection020.test.js']);
+const ADDED=Object.freeze(['.github/workflows/touch-pixels020.yml','docs/T733-touch-cancellation.md','probe-touch-pixels020.js','touch-cancellation020.browser.js','touch-cancellation020.test.js','touch-pixels020.capture.cjs','touch-source-projection020.js','touch-source-projection020.test.js','touch-document-observer020.js','touch-document-observer020.test.js']);
 const git=args=>execFileSync('git',args,{cwd:ROOT,maxBuffer:64*1024*1024});
 const historical=file=>git(['show',BASE+':'+file]);
+const REVIEWED_INPUT='36568ade4b1ce2e6f8d59497a5a1ba99b9b16a99c18173a89a1689032006abce';
+const REVIEWED_COMMIT='b660f394fca3a8fd9aec71f1cf68459898408f1f';
+const OLD_CARD='docs/branch/GPT-020-touch-cancellation.md',RELEASE_CARD='docs/T733-touch-cancellation.md';
+const RELEASE_LOG_ENTRY="<!-- T733 release entry BEGIN -->\n## r180 — T733 Interrupted touch gestures (original GPT-020)\n\n- Version: v14.37 / T733. PR #25: https://github.com/lijiabao1998/GlimmerTown-lab/pull/25\n- Owner approved this repair, merge and normal automatic deployment on 2026-10-09 at 13:33:34 UTC, preserving the inherited building-style discrepancy without changing baselines.\n- Cancels pending tap, road, rectangle and route actions; stale terminal events are idempotent; applied paint stays undoable. Reviewed input implementation blob: 97917dc93167735ea75862182857135fff20cfa8. Release changes exactly three labels beyond those reviewed game bytes.\n- Earlier smoke evidence: three green runs at ebd069d and two each at f71fdb1 and b660f394. Native pixel equality at b660f394: all 3,179 sprites, 165 families and 1,728 blocks unchanged, run 37940504511. Raw stored style check remains 96.5% expected versus 96.3% actual on both original and repaired code.\n- Failure history: initial synthetic-input vibration warnings corrected without filtering; b660 full suite passed source controls but its added Page.getResourceContent probe failed because the no-store document was not cached. This is repaired through pre-navigation response observation, not waived.\n- Not completed: exact T733 full release suite, three smokes, pixel/style evidence, merge and deployed-byte verification remain pending. Earlier-head results are not claimed as T733 results. Physical-device testing remains unrun. No artwork or fp/style baseline changes.\n<!-- T733 release entry END -->\n\n";
+const CARD_APPEND="\n\n## T733 publication bookkeeping\n\n<!-- T733 release entry BEGIN -->\n## r180 — T733 Interrupted touch gestures (original GPT-020)\n\n- Version: v14.37 / T733. PR #25: https://github.com/lijiabao1998/GlimmerTown-lab/pull/25\n- Owner approved this repair, merge and normal automatic deployment on 2026-10-09 at 13:33:34 UTC, preserving the inherited building-style discrepancy without changing baselines.\n- Cancels pending tap, road, rectangle and route actions; stale terminal events are idempotent; applied paint stays undoable. Reviewed input implementation blob: 97917dc93167735ea75862182857135fff20cfa8. Release changes exactly three labels beyond those reviewed game bytes.\n- Earlier smoke evidence: three green runs at ebd069d and two each at f71fdb1 and b660f394. Native pixel equality at b660f394: all 3,179 sprites, 165 families and 1,728 blocks unchanged, run 37940504511. Raw stored style check remains 96.5% expected versus 96.3% actual on both original and repaired code.\n- Failure history: initial synthetic-input vibration warnings corrected without filtering; b660 full suite passed source controls but its added Page.getResourceContent probe failed because the no-store document was not cached. This is repaired through pre-navigation response observation, not waived.\n- Not completed: exact T733 full release suite, three smokes, pixel/style evidence, merge and deployed-byte verification remain pending. Earlier-head results are not claimed as T733 results. Physical-device testing remains unrun. No artwork or fp/style baseline changes.\n<!-- T733 release entry END -->\n\n";
+const REVIEWED_CARD_SHA='40dd823c3833c3b4f9bf23242f9dda57bc276fb70a9b53943e9b599ca4d7c99c';
+function verifyBookkeeping020(files,oldLog,oldCard){
+ let html=Buffer.from(files['index.html']).toString();
+ for(const[from,to]of [["const GAME_VER='14.37'","const GAME_VER='14.36'"],["const GAME_ANCHOR='T733'","const GAME_ANCHOR='T732'"],['id="startVersion456">v14.37 · T733','id="startVersion456">v14.36 · T732']]){
+  if(html.split(from).length!==2)throw Error('Exactly three unique T733 labels required');html=html.replace(from,to);
+ }
+ if(hash(html)!==REVIEWED_INPUT)throw Error('Gameplay or artwork changed beyond three release labels');
+ const log=Buffer.from(files['AUTORUN-LOG.md']).toString();
+ if(hash(oldLog)!==DECLARATIONS['AUTORUN-LOG.md'].baseline||log.split(RELEASE_LOG_ENTRY).length!==2||log.replace(RELEASE_LOG_ENTRY,'')!==Buffer.from(oldLog).toString())throw Error('One exact T733 log insertion required');
+ const original=Buffer.from(oldCard).toString();
+ if(hash(oldCard)!==REVIEWED_CARD_SHA||Object.hasOwn(files,OLD_CARD))throw Error('Original GPT-020 history or card move changed');
+ const expected=original.replace('# GPT-020 — Abort interrupted pointer gestures','# T733 — Abort interrupted pointer gestures (original GPT-020)')+CARD_APPEND;
+ if(Buffer.from(files[RELEASE_CARD]||'').toString()!==expected)throw Error('Exact card move and bounded release append required');
+ return {version:'14.37',anchor:'T733',round:'r180',sourceReleaseApproval:{pullRequest:25,approvedAt:'2026-10-09T13:33:34Z'},exactThreeLabelReversal:true,reviewedInputSHA256:REVIEWED_INPUT,reviewedCommit:REVIEWED_COMMIT,card:RELEASE_CARD,logEntryExact:true,artworkApprovalInheritedFromT732:true,fpAndStyleBaselinesUnchanged:true};
+}
 function projectSource020(file,bytes,readHistorical=historical){
  const d=DECLARATIONS[file];if(!d)throw Error('Undeclared historical projection: '+file);
  const raw=Buffer.from(bytes),actual=hash(raw);
@@ -74,10 +118,12 @@ function verifyCheckout020(readCurrent){
  const baseline=tree(BASE),head=tree('HEAD'),files=Object.fromEntries(Object.keys(head).map(file=>[file,readCurrent(file)]));
  const proof=verifyTree020(files,baseline,head),sha=git(['rev-parse','HEAD']).toString().trim();
  if(process.env.GITHUB_SHA&&sha!==process.env.GITHUB_SHA)throw Error('Exact workflow HEAD required');
- return {...proof,checkedSHA:sha,trackedFiles:Object.keys(head).length,allBaselineFilesProtected:true};
+ let duplicate=false;try{readCurrent(OLD_CARD);duplicate=true;}catch(error){if(error.code!=='ENOENT')throw error;}if(duplicate)throw Error('Moved GPT-020 branch card still exists');
+ const release=verifyBookkeeping020(files,historical('AUTORUN-LOG.md'),git(['show',REVIEWED_COMMIT+':'+OLD_CARD]));
+ return {...proof,checkedSHA:sha,trackedFiles:Object.keys(head).length,allBaselineFilesProtected:true,release};
 }
 function verifyEvidence020(evidence,head,source){
  if(!evidence||evidence.checkedSHA!==head||evidence.sourceSHA256!==source||evidence.loadedDocument020?.sha256!==source||evidence.loadedDocument020?.actualCandidateBytes!==true)throw Error('Stale or historical runtime evidence');
  return true;
 }
-module.exports={BASE,PATHS,ADDED,DECLARATIONS,hash,blob,projectSource020,verifySuccessorPin020,verifyEnvelope020,verifyTree020,verifyCheckout020,verifyEvidence020};
+module.exports={BASE,PATHS,ADDED,DECLARATIONS,REVIEWED_COMMIT,OLD_CARD,RELEASE_CARD,RELEASE_LOG_ENTRY,hash,blob,projectSource020,verifySuccessorPin020,verifyEnvelope020,verifyTree020,verifyCheckout020,verifyEvidence020,verifyBookkeeping020};
