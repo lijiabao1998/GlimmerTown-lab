@@ -34,6 +34,7 @@ async function browserCases020(width, height) {
     for(let y=4;y<n-4;y++)for(let x=4;x<n-4;x++){
       if(landOnly&&!([1,2].includes(GV.tile(x,y).t)))continue;
       if(GV.canPlaceTool(tool,x,y))continue;
+      if(tool==='zr'&&GV.tile(x,y).zone===1&&!GV.tile(x,y).tree)continue; // require a real positive-control change
       if(tool==='road'&&[0,1,2].some(dx=>GV.canPlaceTool(tool,x+dx,y)))continue;
       return [x,y];
     }
