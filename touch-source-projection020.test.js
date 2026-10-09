@@ -32,7 +32,10 @@ for(const name of ['waterfront-quarter-compatibility019.js','waterfront-quarter-
  assert.equal(current[name].toString(),expected,'All non-label adapter bytes remain exact: '+name);
 }
 const hook="    if (o.beforeNavigate) await o.beforeNavigate({ cdp, ws }); // GPT-020: optional read-only response observer\n";
-assert.equal(current['harness.js'].toString().split(hook).length,2);assert.equal(current['harness.js'].toString().replace(hook,''),old('harness.js').toString(),'Original server, navigation, boot and error collection remain byte-exact');
+const unchangedHarness=fs.readFileSync(path.join(__dirname,'harness.js'));assert(unchangedHarness.equals(old('harness.js')),'Real harness remains immutable for every historical audit');
+const preflightHarness=require('./touch-preflight-harness020'),built=preflightHarness.buildPreflightHarness020(unchangedHarness);
+assert.equal(built.adapted.split(hook).length,2);assert.equal(built.adapted.replace(hook,''),unchangedHarness.toString());assert.equal(built.exports.ROOT,__dirname);assert(built.proof.serverBootAndErrorCollectorUnchanged);
+for(const [name,source]of [['trailing newline',Buffer.concat([unchangedHarness,Buffer.from('\n')])],['missing navigation',Buffer.from(unchangedHarness.toString().replace('Page.navigate','Page.wrong'))],['changed console collector',Buffer.from(unchangedHarness.toString().replace('Runtime.exceptionThrown','Runtime.changed'))],['changed server source',Buffer.from(unchangedHarness.toString().replace("'cache-control': 'no-store'","'cache-control': 'public'"))]])no('preflight copied harness '+name,()=>preflightHarness.buildPreflightHarness020(source));
 const pair=current['waterfront-quarter-compatibility019.js'].toString().match(/\bRUNTIME_PAIR019="([^"]+)"/)[1];
 const accepts=new (require('node:vm').Script)('(function(version,anchor){return '+pair+';})').runInNewContext();
 for(const version of ['14.35','14.36','14.37','14.38',14.37,'14.37 ',null])for(const anchor of ['T731','T732','T733','T734',733,'T733 ',null])assert.equal(accepts(version,anchor),(version==='14.35'&&anchor==='T731')||(version==='14.37'&&anchor==='T733'),'Exact historical/current pairs only; stale, mismatched, future and malformed pairs reject');

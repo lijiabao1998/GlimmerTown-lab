@@ -35,7 +35,7 @@ assert.equal(blob(baseline),BASE_BLOB);assert.equal(blob(candidate),CANDIDATE_BL
 const head=git('rev-parse','HEAD').toString().trim();assert.equal(head,process.env.GITHUB_SHA,'Exact workflow checkout required');
 const protectedFiles=['fp.js','fp.json','style.json','harness.js'];
 const protectedBefore=Object.fromEntries(protectedFiles.map(file=>[file,hash(fs.readFileSync(path.join(ROOT,file)))]));
-for(const file of protectedFiles){const expected=hash(git('show',BASE+':'+file));if(file==='harness.js')assert(require('./touch-source-projection020').verifySuccessorPin020(file,fs.readFileSync(path.join(ROOT,file)),expected),'Exact one-hook harness successor');else assert.equal(protectedBefore[file],expected,file+' must remain exact T732');}
+for(const file of protectedFiles)assert.equal(protectedBefore[file],hash(git('show',BASE+':'+file)),file+' must remain exact T732');
 const report={checkedSHA:head,base:BASE,baseBlob:BASE_BLOB,candidateBlob:CANDIDATE_BLOB,protectedBefore,observations:{},checks:[],ok:false};
 const save=()=>fs.writeFileSync(path.join(OUT,'report.json'),JSON.stringify(report,null,2)+'\n');
 const check=(name,ok,detail)=>{report.checks.push({name,ok:!!ok,detail});save();console.log((ok?'PASS ':'FAIL ')+name+(detail?' '+JSON.stringify(detail):''));assert.ok(ok,name);};

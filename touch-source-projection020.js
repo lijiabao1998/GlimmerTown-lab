@@ -18,7 +18,7 @@ const DECLARATIONS=Object.freeze({
  },
  "waterfront-quarter-contract019.js": {
   "baseline": "6b9a4ecfabc3e38cae66370d39103aa68da96116996cb3dee56bb18f57e04203",
-  "candidate": "deba72c2921c6e2e0740c7c7ccd3488b254192b792b561654fe2f35a037ba0fa",
+  "candidate": "c7635ef73dae63e2e9bfb1b14ad9d081f77885ff59d6364c7c808c18f9e2d532",
   "baselineBlob": "758c5f61ff9b1d43cb1cde2fcb365fdbb7de8158"
  },
  "waterfront-quarter-release-contract019.js": {
@@ -28,7 +28,7 @@ const DECLARATIONS=Object.freeze({
  },
  "waterfront-quarter-preflight019.js": {
   "baseline": "a49e81b06a2e5df032c3c21f153b8d7c9c831286abb8d13b0c5cffa43fdc9d97",
-  "candidate": "b7f76a0e26a7b3747cf4384bc1924b57f271d218efdd1c513af5fcbd319ec761",
+  "candidate": "dd1b970745b52f54e16902994b4b08236f0dc8a84e90acc8ec788fc06e08307a",
   "baselineBlob": "ea2320730596664b0f2920f12abd674c409360f1"
  },
  ".github/workflows/waterfront-quarter019.yml": {
@@ -45,11 +45,6 @@ const DECLARATIONS=Object.freeze({
   "baseline": "153c9ff08abeead40c7c826841eee74a82ef015a4d2142254eb89b042e496433",
   "candidate": "742a489d370171e89b1a813a2c5b383eeee312ea580e1b1952495d6eed50db2f",
   "baselineBlob": "b2279970aab601c94e13cf47ee7dc0f8cbc7ff62"
- },
- "harness.js": {
-  "baseline": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
-  "candidate": "50fffccd80496fb79091f56caadc23283392540c70fcf2cd4822e7e7f5a8919e",
-  "baselineBlob": "e036a12ab44f4735316febaa0f077f15728fe036"
  },
  "waterfront-quarter-compatibility019.js": {
   "baseline": "72cb960586d9a9e1fc487d0d4a6f641cd46bfe4bff6533c0f55e46823447d364",
@@ -73,7 +68,7 @@ const DECLARATIONS=Object.freeze({
  }
 });
 const PATHS=Object.freeze(Object.keys(DECLARATIONS));
-const ADDED=Object.freeze(['.github/workflows/touch-pixels020.yml','docs/T733-touch-cancellation.md','probe-touch-pixels020.js','touch-cancellation020.browser.js','touch-cancellation020.test.js','touch-pixels020.capture.cjs','touch-source-projection020.js','touch-source-projection020.test.js','touch-document-observer020.js','touch-document-observer020.test.js']);
+const ADDED=Object.freeze(['.github/workflows/touch-pixels020.yml','docs/T733-touch-cancellation.md','probe-touch-pixels020.js','touch-cancellation020.browser.js','touch-cancellation020.test.js','touch-pixels020.capture.cjs','touch-source-projection020.js','touch-source-projection020.test.js','touch-document-observer020.js','touch-document-observer020.test.js','touch-preflight-harness020.js']);
 const git=args=>execFileSync('git',args,{cwd:ROOT,maxBuffer:64*1024*1024});
 const historical=file=>git(['show',BASE+':'+file]);
 const REVIEWED_INPUT='36568ade4b1ce2e6f8d59497a5a1ba99b9b16a99c18173a89a1689032006abce';
