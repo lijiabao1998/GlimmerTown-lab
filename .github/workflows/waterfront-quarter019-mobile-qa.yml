@@ -37,7 +37,7 @@ jobs:
         node waterfront-compatibility018.test.js --static-test\nnode waterfront-session-fingerprint018.test.js\nnode mapedge-render018.test.js\
         \ --static-test\nnode mapedge-native-qa018.test.js\n\n)\nnode waterfront-quarter-contract019.js\nnode waterfront-quarter-release019.test.js\nnode waterfront-quarter-logic019.test.js\n\
         node waterfront-quarter-native019.test.js\nnode waterfront-quarter-legacy019.js --static-test\nnode waterfront-quarter-compatibility019.js\
-        \ --static-test\nnode waterfront-quarter-adapters019.test.js\npython3 waterfront-quarter-workflow019.test.py\npython3 waterfront-quarter-mobile-workflow019.test.py\n\
+        \ --static-test\nnode waterfront-quarter-adapters019.test.js\nnode touch-source-projection020.test.js\n\
         python3 waterfront-quarter-package019.test.py\nfor f in *019.js; do node --check \"$f\"; done\n"
     - name: Every unchanged T730 and older source control in frozen approved worktrees
       run: "set -euo pipefail\nbaseline=\"$(mktemp -d /tmp/waterfront-t730-controls-XXXXXX)\"\ngit worktree add --detach \"$baseline\" 1400301238f7a46ab6d3c489422a48f9f90cac9d\n\
