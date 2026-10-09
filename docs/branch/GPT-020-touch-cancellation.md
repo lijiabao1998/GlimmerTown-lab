@@ -28,3 +28,11 @@ Per AGENTS §5, browser game execution, smoke and pixel guards run through CI. T
 - Browser fixture review caught that a valid road cell can be water, where the resulting bridge cannot hold a bus stop. Route positive-control fixtures now explicitly require land; this was a test-only fix before claiming runtime results.
 
 - First CI (head 1f41d5c, run 37934998114) passed 53 browser assertions at each phone size and all legacy selftests, then correctly failed the strict console check on six vibration warnings: synthetic long-holds had no trusted user activation. The test setup now uses a real CDP click and asserts user activation; no error filter or runtime logic was weakened.
+
+## Additional merge-readiness verification (2026-10-09)
+
+- Owner asked whether Lab is ready to merge. No merge has been authorized by this question.
+- The candidate already has three successful smoke executions. The remaining `fp.js --check`/pixel gate is being evaluated in CI, using the unchanged T732 command on both pinned main and the identical candidate runtime.
+- The additional probe captures existing harness results without replacing assertions, compares complete sprite/style/block records, and runs the existing T732 owner-approved native-pixel verifier. It never writes `fp.json` or `style.json`.
+- The raw stored-baseline check remains a distinct CI gate: if both main and candidate inherit a failure, the failure is preserved and reported rather than treated as green. No art baseline is blessed.
+- New workflow is contents-read-only, persists no credentials, and is restricted to this PR branch. Comparison static tests pass (one positive and nine mutation negatives); native results are pending.
