@@ -29,6 +29,7 @@ const KEEP = process.argv.includes('--keep');
   console.log('');
   console.log('=== 微光小鎮 煙霧測試 ===');
   const fails = [];
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'touch-cancellation020.test.js')], {stdio:'inherit'});
 
   const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
     log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙' +
@@ -213,6 +214,12 @@ const KEEP = process.argv.includes('--keep');
       log('   正午快採 ' + (pr.n / Math.max(.001, pr.dt)).toFixed(1) + ' fps（' + pr.n + ' 幀/' + pr.dt.toFixed(1) + 's；對照基線見 perf.json day_noon）');
     } catch (e) { log('   幀率快採失敗（不影響判定）: ' + e.message); }
 
+    log('4f GPT-020 mobile pointer cancellation …');
+    try {
+      const reports = await require('./touch-cancellation020.browser.js').runTouchCancellation020(cdp);
+      for (const r of reports) log('   ' + r.width + '×' + r.height + ' OK（' + r.checks.length + ' 項）');
+    } catch (e) { fails.push('GPT-020 pointer cancellation: ' + e.message); }
+
     log('5 錯誤檢查 …');
     if (cdp.errors.length) {
       fails.push('console 有 ' + cdp.errors.length + ' 筆錯誤');
@@ -242,3 +249,4 @@ const KEEP = process.argv.includes('--keep');
   console.log('');
   process.exit(0);
 })();
+

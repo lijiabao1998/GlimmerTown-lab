@@ -86753,16 +86753,16 @@ function commitRoadDraft436(){
   for(const [x,y] of list){const m0=money;paintTo(x,y);if(money!==m0)any=true;}closeUndo();paintLast=null;return any;
 }
 cvs.addEventListener('pointerdown',e=>{
+  if(pointers.has(e.pointerId))return; // GPT-020：重複 down 不得覆蓋現有手勢
   try{cvs.setPointerCapture(e.pointerId);}catch(err){}
   pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
   initAudio();
   if(pointers.size===2){
-    // 進入雙指：取消畫線/框選，改為縮放平移；單指剛誤放的一格退款撤銷
+    // GPT-020：雙指取消待提交預覽；已施工部分保留為可復原交易，不丟棄或局部退款。
     rect.on=false;paintLast=null;downInfo=null;
     clearTimeout(longPressT);touchBuild436=null;roadDraft436=null;stopEdgePan436();
-    if(firstPaint&&performance.now()-firstPaint.t<400&&firstPaint.spent>0)undoPlace(firstPaint);
     firstPaint=null;
-    undoGroup=null;
+    closeUndo();
     const ps=[...pointers.values()];
     const pd0=Math.hypot(ps[0].x-ps[1].x,ps[0].y-ps[1].y),pcx0=(ps[0].x+ps[1].x)/2,pcy0=(ps[0].y+ps[1].y)/2;
     pinchBase={d0:pd0,cx0:pcx0,cy0:pcy0,z0:cam.z,cx:pcx0,cy:pcy0,downT:performance.now(),moved:false}; // T108：捏合改連續累積（z0/d0 為起點基準，隨手勢比例連續換算 cam.z，取代舊版門檻跳檔）；cx/cy 追蹤最新中心供放開時就近落檔／雙指雙擊判定
@@ -86829,6 +86829,7 @@ cvs.addEventListener('pointermove',e=>{
   if(p){p.x=e.clientX;p.y=e.clientY;}
   const[x,y]=toTile(e.clientX,e.clientY);
   hover.x=inMap(x,y)?x:-1;hover.y=inMap(x,y)?y:-1;
+  if(!p)return; // GPT-020：懸停仍更新，但舊／未追蹤 pointer 不得驅動新手勢
   if(pointers.size===2&&pinchBase){
     const ps=[...pointers.values()];
     const d=Math.hypot(ps[0].x-ps[1].x,ps[0].y-ps[1].y);
@@ -86868,6 +86869,7 @@ cvs.addEventListener('pointermove',e=>{
   if(paintLast&&pointers.size===1&&!panBase&&!['plant','water','police','hospital','clinic','library','post','cemetery','stad','fire','school','dump','wasteIncinerator','bus'].includes(tool))paintTo(x,y); // T265：2×2 焚化廠只允許點放；單體建築一律點放，僅道路/水管/路飾可拖（FIX-A 擴充；公車站沿用 T26 點放）
 });
 function endPointer(e){
+  if(!pointers.has(e.pointerId))return; // 重複 up／capture loss 不再提交
   const hadTwo=pointers.size===2; // T108：雙指手勢放開判定需在刪除前記錄
   const tb=touchBuild436&&touchBuild436.id===e.pointerId?touchBuild436:null;
   pointers.delete(e.pointerId);
@@ -86883,7 +86885,7 @@ function endPointer(e){
   }
   if(pointers.size<2)pinchBase=null;
   if(pointers.size===0){
-    clearTimeout(longPressT);stopEdgePan436();
+    clearTimeout(longPressT);longPressT=null;stopEdgePan436();
     if(rect.on){commitRect();rect.on=false;}
     if(tb){
       if(tb.line&&roadDraft436&&roadDraft436.active)commitRoadDraft436();
@@ -86901,9 +86903,27 @@ function endPointer(e){
     panBase=null;paintLast=null;downInfo=null;firstPaint=null;touchBuild436=null;roadDraft436=null;
     $('#dragcost').style.display='none';drawMini();wakeUi440();
   }
+  releasePointerCapture020(e.pointerId); // 先移除追蹤／收束狀態，再容許同步 lostpointercapture
+}
+function releasePointerCapture020(id){
+  try{if(cvs.hasPointerCapture(id))cvs.releasePointerCapture(id);}catch(err){}
+}
+function cancelPointer020(e){
+  if(!pointers.has(e.pointerId))return;
+  const ids=[...pointers.keys()];
+  // 中斷任一手指即放棄整個手勢；剩餘手指的 move/up 不得變成 tap 或施工。
+  pointers.clear();
+  clearTimeout(longPressT);longPressT=null;stopEdgePan436();
+  rect.on=false;panBase=null;pinchBase=null;paintLast=null;downInfo=null;firstPaint=null;
+  touchBuild436=null;roadDraft436=null;lastTapT=0;twoTapT=0;
+  // 已畫下的部分保留且仍可 Undo；待提交的 tap／道路／框選絕不在取消時落地。
+  closeUndo();
+  for(const id of ids)releasePointerCapture020(id);
+  $('#dragcost').style.display='none';drawMini();wakeUi440();
 }
 cvs.addEventListener('pointerup',endPointer);
-cvs.addEventListener('pointercancel',endPointer);
+cvs.addEventListener('pointercancel',cancelPointer020);
+cvs.addEventListener('lostpointercapture',cancelPointer020);
 cvs.addEventListener('contextmenu',e=>e.preventDefault());
 cvs.addEventListener('wheel',e=>{
   e.preventDefault();
