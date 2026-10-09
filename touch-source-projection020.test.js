@@ -38,7 +38,7 @@ const accepts=new (require('node:vm').Script)('(function(version,anchor){return 
 for(const version of ['14.35','14.36','14.37','14.38',14.37,'14.37 ',null])for(const anchor of ['T731','T732','T733','T734',733,'T733 ',null])assert.equal(accepts(version,anchor),(version==='14.35'&&anchor==='T731')||(version==='14.37'&&anchor==='T733'),'Exact historical/current pairs only; stale, mismatched, future and malformed pairs reject');
 execFileSync(process.execPath,[path.join(__dirname,'touch-document-observer020.test.js')],{cwd:__dirname,stdio:'inherit'});
 for(const file of q.PATHS){
- const before=old(file),after=current[file],d=q.DECLARATIONS[file];assert.equal(q.hash(before),d.baseline);assert.equal(q.hash(after),d.candidate);
+ const before=old(file),after=current[file],d=q.DECLARATIONS[file];assert.equal(q.hash(before),d.baseline);assert.equal(q.blob(before),d.baselineBlob);assert.equal(q.hash(after),d.candidate);
  assert(q.projectSource020(file,after,old).equals(before));assert(q.projectSource020(file,before,()=>{throw Error('Unnecessary read');}).equals(before));
  assert(q.verifySuccessorPin020(file,after,d.baseline));assert(q.verifySuccessorPin020(file,before,d.baseline));
  no('altered caller bytes '+file,()=>q.projectSource020(file,Buffer.concat([after,Buffer.from(' ')]),old));

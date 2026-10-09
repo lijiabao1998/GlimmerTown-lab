@@ -8,55 +8,68 @@ const blob=b=>crypto.createHash('sha1').update(Buffer.from('blob '+b.length+'\0'
 const DECLARATIONS=Object.freeze({
  "index.html": {
   "baseline": "2b27364ea5f4e10fb9c8b5c182711c5c5ff00210a183fe26bca67e2688e5709c",
-  "candidate": "c0e6e167c67d78b16d0ce97eb33662b7f5005b573fbeb9793ee25083fc628689"
+  "candidate": "c0e6e167c67d78b16d0ce97eb33662b7f5005b573fbeb9793ee25083fc628689",
+  "baselineBlob": "3dc0323bf1f26cc73b75cb2054f4d5f3b36d1789"
  },
  "smoke.js": {
   "baseline": "1d07429c075de3d5ba0aac17f0146b2d8327fb2e823efa3b1d9303c184aca082",
-  "candidate": "9191f9fc319bba59e4db2ea5f0e9a97ddcc7974a9f349efa1153f97a78c5f7f1"
+  "candidate": "9191f9fc319bba59e4db2ea5f0e9a97ddcc7974a9f349efa1153f97a78c5f7f1",
+  "baselineBlob": "08d8339becb0b0c9589106343817d89920054db9"
  },
  "waterfront-quarter-contract019.js": {
   "baseline": "6b9a4ecfabc3e38cae66370d39103aa68da96116996cb3dee56bb18f57e04203",
-  "candidate": "deba72c2921c6e2e0740c7c7ccd3488b254192b792b561654fe2f35a037ba0fa"
+  "candidate": "deba72c2921c6e2e0740c7c7ccd3488b254192b792b561654fe2f35a037ba0fa",
+  "baselineBlob": "758c5f61ff9b1d43cb1cde2fcb365fdbb7de8158"
  },
  "waterfront-quarter-release-contract019.js": {
   "baseline": "df1ddd0c61dba2c6f88f1a0a7079a7282825d16e7106d14493e7750cb2b8d66d",
-  "candidate": "db83bc26d2d5ca73285d56df8465cb8552eb731b09be1a3a0ffc1d52b92965f3"
+  "candidate": "db83bc26d2d5ca73285d56df8465cb8552eb731b09be1a3a0ffc1d52b92965f3",
+  "baselineBlob": "03c685727c4c6bfcffc6e61f900ee124a127632a"
  },
  "waterfront-quarter-preflight019.js": {
   "baseline": "a49e81b06a2e5df032c3c21f153b8d7c9c831286abb8d13b0c5cffa43fdc9d97",
-  "candidate": "b7f76a0e26a7b3747cf4384bc1924b57f271d218efdd1c513af5fcbd319ec761"
+  "candidate": "b7f76a0e26a7b3747cf4384bc1924b57f271d218efdd1c513af5fcbd319ec761",
+  "baselineBlob": "ea2320730596664b0f2920f12abd674c409360f1"
  },
  ".github/workflows/waterfront-quarter019.yml": {
   "baseline": "7feba76124027058132ba653377d925a2c09e5a7280d0504d1040579d70b571b",
-  "candidate": "97f0e6a82182bc1cc123664846ae6f4a589707392a114a58d9046f8450959432"
+  "candidate": "97f0e6a82182bc1cc123664846ae6f4a589707392a114a58d9046f8450959432",
+  "baselineBlob": "ec4e09f7a98965508d5a89f1dcaf17fc781062c0"
  },
  ".github/workflows/waterfront-quarter019-mobile-qa.yml": {
   "baseline": "c8a18dd040106af8739da505acc2c6e03ee0da46a7fa1bd75c574b89170ba2fd",
-  "candidate": "ee029e515800be9155e9f0f9d1d8c974535744ae25e4652b7fd2358af03203e0"
+  "candidate": "ee029e515800be9155e9f0f9d1d8c974535744ae25e4652b7fd2358af03203e0",
+  "baselineBlob": "2fb6249d9b0706446959e01c0e200314a74982f4"
  },
  "AUTORUN-LOG.md": {
   "baseline": "153c9ff08abeead40c7c826841eee74a82ef015a4d2142254eb89b042e496433",
-  "candidate": "742a489d370171e89b1a813a2c5b383eeee312ea580e1b1952495d6eed50db2f"
+  "candidate": "742a489d370171e89b1a813a2c5b383eeee312ea580e1b1952495d6eed50db2f",
+  "baselineBlob": "b2279970aab601c94e13cf47ee7dc0f8cbc7ff62"
  },
  "harness.js": {
-  "baseline": "c2918a04108b733d29f98f3fd0664c351e4c4148e01e8d0b2d4f3829ec81a28e",
-  "candidate": "7d8041ad8e1181a6bd663ced2fd9cc6006660137e58d7111fe4ee1895cc4aa9d"
+  "baseline": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
+  "candidate": "50fffccd80496fb79091f56caadc23283392540c70fcf2cd4822e7e7f5a8919e",
+  "baselineBlob": "e036a12ab44f4735316febaa0f077f15728fe036"
  },
  "waterfront-quarter-compatibility019.js": {
   "baseline": "72cb960586d9a9e1fc487d0d4a6f641cd46bfe4bff6533c0f55e46823447d364",
-  "candidate": "3dba52668a201f9e33bf628857d4b5472da7069add24fbac17416119537d7038"
+  "candidate": "3dba52668a201f9e33bf628857d4b5472da7069add24fbac17416119537d7038",
+  "baselineBlob": "2a80eac59bca76de8ab38df0d1f75de76ab06342"
  },
  "waterfront-quarter-legacy019.js": {
   "baseline": "6b820d356243b0bc2b2acd4bddaffe135bc58fb00781418f657c45e263686e9c",
-  "candidate": "af12f53b79350c9d1badf9e0d088088a61e20f0ca3bc35737e15a50c45adc418"
+  "candidate": "af12f53b79350c9d1badf9e0d088088a61e20f0ca3bc35737e15a50c45adc418",
+  "baselineBlob": "4f249035ccb9906d88de5ae632e5b18f79625af3"
  },
  "waterfront-quarter-historical019.js": {
   "baseline": "6dd469caac27e79736105eb516a92b1afe040135faa51341a3a96216e7b50f42",
-  "candidate": "489fc8b8d17f775db95c2c758ce6a12f1f6b77f9783cc56a9535a28f23d19619"
+  "candidate": "489fc8b8d17f775db95c2c758ce6a12f1f6b77f9783cc56a9535a28f23d19619",
+  "baselineBlob": "4ac273ad7ecddea06c492d544e67d4ead12198c4"
  },
  "waterfront-quarter-retained-controls019.js": {
   "baseline": "dad1809bd22255fb4fa23c5e5cba5aac98f3afd49477b4abed8a08bae0217bbe",
-  "candidate": "b34e08aaade97fe6c10b0ad5d7ec712bb4ab00e09344701ad4e8a41a81f6265b"
+  "candidate": "b34e08aaade97fe6c10b0ad5d7ec712bb4ab00e09344701ad4e8a41a81f6265b",
+  "baselineBlob": "2eaa2db6a06c12c47aac788d141a3f23928bd803"
  }
 });
 const PATHS=Object.freeze(Object.keys(DECLARATIONS));
@@ -86,10 +99,10 @@ function verifyBookkeeping020(files,oldLog,oldCard){
 function projectSource020(file,bytes,readHistorical=historical){
  const d=DECLARATIONS[file];if(!d)throw Error('Undeclared historical projection: '+file);
  const raw=Buffer.from(bytes),actual=hash(raw);
- if(actual===d.baseline)return raw;
+ if(actual===d.baseline){if(blob(raw)!==d.baselineBlob)throw Error('Immutable baseline blob mismatch: '+file);return raw;}
  if(actual!==d.candidate)throw Error('Unexpected successor source bytes: '+file);
  const old=Buffer.from(readHistorical(file));
- if(hash(old)!==d.baseline)throw Error('Historical source identity mismatch: '+file);
+ if(hash(old)!==d.baseline||blob(old)!==d.baselineBlob)throw Error('Historical source identity mismatch: '+file);
  return old;
 }
 function verifySuccessorPin020(file,bytes,expected){

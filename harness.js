@@ -257,4 +257,3 @@ async function withGame(opt, fn) {
 }
 
 module.exports = { ROOT, sleep, startServer, cdpConnect, pageWsUrl, launchChrome, cleanProfiles, waitFor, withGame, findChrome };
-
