@@ -4,7 +4,7 @@ name: waterfront-quarter019
     branches:
     - gpt/waterfront-cultural-quarter-019
     - gpt/touch-cancellation-020
-    - main
+    # T734：拿掉 main。合約只認 v14.37 發版內容或 T731 標籤，下一次改版本號的 main 推送必紅（Codex PR #24 P1）；main 的把關由 smoke 負責
     paths-ignore:
     - '**.md'
     - docs/**

@@ -1,18 +1,18 @@
 {
- "generatedAt": "2026-10-01T00:11:46.548Z",
- "version": "14.19",
- "anchor": "T715",
- "version_fp": "14.19",
+ "generatedAt": "2026-10-10T08:30:50.124Z",
+ "version": "14.37",
+ "anchor": "T733",
+ "version_fp": "14.37",
  "averages": {
-  "palette": 0.5568057885087924,
-  "hardEdge": 0.8463760976495195,
-  "lightDir": 0.6639876348487087,
-  "shade": 0.6116097672811228,
-  "density": 0.7502415198242155,
-  "nightRule": 0.5972941881092032,
-  "variants": 0.5522875816993464
+  "palette": 0.5816810421295092,
+  "hardEdge": 0.8576194228865206,
+  "lightDir": 0.6525983827911551,
+  "shade": 0.639802217106565,
+  "density": 0.7194474956649005,
+  "nightRule": 0.6070253256885839,
+  "variants": 0.5848484848484848
  },
- "grand": 0.6541,
+ "grand": 0.6633,
  "families": {
   "grass": {
    "leaves": 4,
@@ -353,30 +353,30 @@
    "total": 0.3854
   },
   "bld": {
-   "leaves": 836,
-   "op": 6798281,
+   "leaves": 959,
+   "op": 8074980,
    "raw": {
-    "leaves": 836,
-    "px": 28779672,
-    "op": 6798281,
+    "leaves": 959,
+    "px": 33732352,
+    "op": 8074980,
     "semi": 25072,
-    "colors": 852701,
-    "buckets": 12527,
-    "leftLit": 710,
-    "nightLeaves": 806,
-    "nightOp": 405169,
+    "colors": 858654,
+    "buckets": 13900,
+    "leftLit": 786,
+    "nightLeaves": 929,
+    "nightOp": 446943,
     "nightViol": 289
    },
    "axes": {
     "palette": 1,
-    "hardEdge": 0.9262401774801601,
-    "lightDir": 0.8492822966507177,
+    "hardEdge": 0.9379020133795997,
+    "lightDir": 0.8196037539103233,
     "shade": 1,
     "density": 1,
-    "nightRule": 0.9817007749651776,
+    "nightRule": 0.9840353995400808,
     "variants": 1
    },
-   "total": 0.9653
+   "total": 0.9631
   },
   "park": {
    "leaves": 9,
@@ -3991,6 +3991,318 @@
     "variants": 0.375
    },
    "total": 0.8631
+  },
+  "stationDistrict008": {
+   "leaves": 28,
+   "op": 29200,
+   "raw": {
+    "leaves": 28,
+    "px": 185472,
+    "op": 29200,
+    "semi": 0,
+    "colors": 211,
+    "buckets": 167,
+    "leftLit": 16,
+    "nightLeaves": 14,
+    "nightOp": 122,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 0.47098214285714285,
+    "hardEdge": 1,
+    "lightDir": 0.5714285714285714,
+    "shade": 0.9910714285714286,
+    "density": 0.18065068493150685,
+    "nightRule": 0.75,
+    "variants": 1
+   },
+   "total": 0.7092
+  },
+  "stationConstruction008": {
+   "leaves": 16,
+   "op": 446013,
+   "raw": {
+    "leaves": 16,
+    "px": 1634304,
+    "op": 446013,
+    "semi": 0,
+    "colors": 208,
+    "buckets": 136,
+    "leftLit": 8,
+    "nightLeaves": 16,
+    "nightOp": 291,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 0.8125,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 1,
+    "density": 0.011658852993074193,
+    "nightRule": 1,
+    "variants": 1
+   },
+   "total": 0.7606
+  },
+  "streetLife009": {
+   "leaves": 12,
+   "op": 12515,
+   "raw": {
+    "leaves": 12,
+    "px": 79488,
+    "op": 12515,
+    "semi": 0,
+    "colors": 114,
+    "buckets": 86,
+    "leftLit": 6,
+    "nightLeaves": 0,
+    "nightOp": 0,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 0.59375,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 1,
+    "density": 0.2277267279264882,
+    "nightRule": 0.5,
+    "variants": 1
+   },
+   "total": 0.6888
+  },
+  "museum010": {
+   "leaves": 12,
+   "op": 12782,
+   "raw": {
+    "leaves": 12,
+    "px": 79488,
+    "op": 12782,
+    "semi": 0,
+    "colors": 187,
+    "buckets": 120,
+    "leftLit": 7,
+    "nightLeaves": 4,
+    "nightOp": 32,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 0.9739583333333334,
+    "hardEdge": 1,
+    "lightDir": 0.5833333333333334,
+    "shade": 1,
+    "density": 0.3657487091222031,
+    "nightRule": 0.6666666666666666,
+    "variants": 1
+   },
+   "total": 0.7985
+  },
+  "riverside012": {
+   "leaves": 12,
+   "op": 13453,
+   "raw": {
+    "leaves": 12,
+    "px": 79488,
+    "op": 13453,
+    "semi": 0,
+    "colors": 239,
+    "buckets": 122,
+    "leftLit": 6,
+    "nightLeaves": 12,
+    "nightOp": 58,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 1,
+    "density": 0.44413885378725937,
+    "nightRule": 1,
+    "variants": 1
+   },
+   "total": 0.8492
+  },
+  "theatre013": {
+   "leaves": 24,
+   "op": 25812,
+   "raw": {
+    "leaves": 24,
+    "px": 158976,
+    "op": 25812,
+    "semi": 0,
+    "colors": 359,
+    "buckets": 199,
+    "leftLit": 11,
+    "nightLeaves": 8,
+    "nightOp": 91,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 0.9348958333333334,
+    "hardEdge": 1,
+    "lightDir": 0.4583333333333333,
+    "shade": 1,
+    "density": 0.34770649310398266,
+    "nightRule": 0.6666666666666666,
+    "variants": 1
+   },
+   "total": 0.7725
+  },
+  "complexes014": {
+   "leaves": 64,
+   "op": 67878,
+   "raw": {
+    "leaves": 64,
+    "px": 423936,
+    "op": 67878,
+    "semi": 0,
+    "colors": 1308,
+    "buckets": 656,
+    "leftLit": 33,
+    "nightLeaves": 64,
+    "nightOp": 289,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.515625,
+    "shade": 1,
+    "density": 0.48174666313091136,
+    "nightRule": 1,
+    "variants": 1
+   },
+   "total": 0.8568
+  },
+  "streetscape015": {
+   "leaves": 32,
+   "op": 36167,
+   "raw": {
+    "leaves": 32,
+    "px": 211968,
+    "op": 36167,
+    "semi": 0,
+    "colors": 624,
+    "buckets": 333,
+    "leftLit": 16,
+    "nightLeaves": 8,
+    "nightOp": 109,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 1,
+    "density": 0.43133243011585143,
+    "nightRule": 0.625,
+    "variants": 1
+   },
+   "total": 0.7938
+  },
+  "gardenLife016": {
+   "leaves": 24,
+   "op": 25612,
+   "raw": {
+    "leaves": 24,
+    "px": 158976,
+    "op": 25612,
+    "semi": 0,
+    "colors": 461,
+    "buckets": 242,
+    "leftLit": 11,
+    "nightLeaves": 0,
+    "nightOp": 0,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.4583333333333333,
+    "shade": 1,
+    "density": 0.44998438232078714,
+    "nightRule": 0.5,
+    "variants": 1
+   },
+   "total": 0.7726
+  },
+  "quayside017": {
+   "leaves": 24,
+   "op": 25591,
+   "raw": {
+    "leaves": 24,
+    "px": 158976,
+    "op": 25591,
+    "semi": 0,
+    "colors": 395,
+    "buckets": 195,
+    "leftLit": 12,
+    "nightLeaves": 0,
+    "nightOp": 0,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 1,
+    "density": 0.3858778476808253,
+    "nightRule": 0.5,
+    "variants": 1
+   },
+   "total": 0.7694
+  },
+  "waterfront018": {
+   "leaves": 8,
+   "op": 44131,
+   "raw": {
+    "leaves": 8,
+    "px": 250880,
+    "op": 44131,
+    "semi": 0,
+    "colors": 367,
+    "buckets": 94,
+    "leftLit": 4,
+    "nightLeaves": 8,
+    "nightOp": 1132,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.5,
+    "shade": 1,
+    "density": 0.20790374113435003,
+    "nightRule": 1,
+    "variants": 1
+   },
+   "total": 0.8154
+  },
+  "waterfrontQuarter019": {
+   "leaves": 32,
+   "op": 36073,
+   "raw": {
+    "leaves": 32,
+    "px": 211968,
+    "op": 36073,
+    "semi": 0,
+    "colors": 559,
+    "buckets": 312,
+    "leftLit": 17,
+    "nightLeaves": 4,
+    "nightOp": 79,
+    "nightViol": 0
+   },
+   "axes": {
+    "palette": 1,
+    "hardEdge": 1,
+    "lightDir": 0.53125,
+    "shade": 1,
+    "density": 0.3874088653563607,
+    "nightRule": 0.5625,
+    "variants": 1
+   },
+   "total": 0.783
   }
  }
 }

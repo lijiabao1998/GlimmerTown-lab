@@ -13,6 +13,8 @@
  *   node fp.js --expect=a,b,c  宣告本輪應該變動的家族；指紋差必須恰好等於這份清單，否則紅
  *   node fp.js --record-env=a.b,c.d  T631：把列出的、目前確實與基線不同的葉子，登記成「本平台環境差」（只改 fp.json 的 envLeaves）
  *   node fp.js --pre="<JS>"    T631：測試用，進城前先執行一段 JS（守衛測試故意改壞東西）
+ *   node fp.js --accept-style=a,b  T734：寫入模式專用。業主同意重寫風格基線時，允許列出的家族總分下降並照常寫 style.json；
+ *                              每個被接受的下降都印出前後總分與七軸。列了卻沒下降＝紅；跟 --check 並用＝紅；不影響葉子差與超街區判定。
  *
  * T631：fp.json 的葉子是業主 Windows 本機烘的；雲端 Linux 有幾葉因字型繪製永遠不同。envLeaves 登記「這個平台上這幾葉的
  * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
@@ -32,6 +34,7 @@ const CHECK = process.argv.includes('--check');
 const INVENTORY = process.argv.includes('--inventory');
 const EXPECT = arg('expect', '').split(',').map(s => s.trim()).filter(Boolean);
 const RECORD_ENV = arg('record-env', '').split(',').map(s => s.trim()).filter(Boolean);   // T631
+const ACCEPT_STYLE = arg('accept-style', '').split(',').map(s => s.trim()).filter(Boolean);   // T734
 const PRE = arg('pre', '');                                                                  // T631：測試用
 const PLATFORM = process.platform;
 
@@ -106,6 +109,7 @@ function diffFp(base, cur) {
   const log = (...a) => console.log('  ' + a.join(' '));
   console.log('');
   console.log('=== 微光小鎮 指紋台 ===');
+  if (ACCEPT_STYLE.length && CHECK) { console.log('X --accept-style 會改寫 style.json，只能用在寫入模式，不能跟 --check 並用'); process.exit(1); }   // T734
 
   const NOSILL = process.argv.includes('--nosill');   // 嚴謹 A/B：關掉 T539 窗台重建基線，再開著跑 --expect
   const NOLEFT = process.argv.includes('--noleft');   // T541：關掉左受光＋夜暈，對同一份代碼做開/關比較
@@ -251,15 +255,29 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
 
     if (prevStyle && prevStyle.families) {
       const expSet = new Set(EXPECT);
-      const drops = [];
+      const accSet = new Set(ACCEPT_STYLE);   // T734
+      const drops = [], accepted = [];
       for (const k of famNames) {
         const pv = prevStyle.families[k];
         if (!pv) continue;                       // 新家族不算退步
         if (expSet.has(k)) continue;             // 本輪宣告的家族允許變動
         const d = curStyle[k].total - pv.total;
-        if (d < -1e-6) drops.push(k + ' ' + (pv.total * 100).toFixed(1) + '% → ' + (curStyle[k].total * 100).toFixed(1) + '%');
+        if (d < -1e-6) (accSet.has(k) ? accepted : drops).push(k + ' ' + (pv.total * 100).toFixed(1) + '% → ' + (curStyle[k].total * 100).toFixed(1) + '%');
       }
       log('');
+      if (ACCEPT_STYLE.length) {   // T734：列出的家族必須真的下降，並把七軸前後留在紀錄裡
+        const notDropped = ACCEPT_STYLE.filter(k => !accepted.some(a => a.startsWith(k + ' ')));
+        if (notDropped.length) { console.log('X --accept-style 列了但沒有下降（或不存在）：' + notDropped.join(', ')); process.exit(1); }
+        log('接受風格基線下降（--accept-style，業主同意後才用）：');
+        for (const k of ACCEPT_STYLE) {
+          const pv = prevStyle.families[k], cv = curStyle[k];
+          log('   - ' + k + ' 總分 ' + (pv.total * 100).toFixed(2) + '% → ' + (cv.total * 100).toFixed(2) + '%，葉子 ' + (pv.leaves ?? '?') + ' → ' + cv.leaves);
+          for (const a of Object.keys(cv.axes)) {
+            const b0 = pv.axes ? pv.axes[a] : undefined, b1 = cv.axes[a];
+            if (b0 === undefined || Math.abs(b1 - b0) > 1e-6) log('       ' + a.padEnd(10) + (b0 === undefined ? '?' : (b0 * 100).toFixed(2) + '%') + ' → ' + (b1 * 100).toFixed(2) + '%');
+          }
+        }
+      }
       if (drops.length) {
         log('X 棘輪破裂（非本輪宣告家族分數下降）：');
         drops.slice(0, 12).forEach(d => log('   - ' + d));

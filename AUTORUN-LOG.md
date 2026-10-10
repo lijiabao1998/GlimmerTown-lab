@@ -13,6 +13,12 @@
 
 ---
 
+## r181 — T734 紅燈 CI 收拾①：waterfront-quarter019 不在 main 觸發；風格基線重寫
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r181 | [T734](docs/T734-ci-red-cleanup.md) | ① `waterfront-quarter019` 的 push 觸發拿掉 main（合約只認 v14.37，下一次改版本號的 main 推送必紅）② `fp.js` 新增 `--accept-style=<家族>`：寫入模式專用，業主同意後允許列出的家族降分並重寫 `style.json`，下降前後七軸留紀錄 ③ 用它重寫風格基線（業主 2026-10-10 同意）：bld 96.53%→96.31%，掉在受光方向 84.93%→81.96%。原樣 `fp.js --check` 從 T725 起的紅燈轉綠。產品與版本號不動 | ✅ 綠 3/3（59.2–61.1s）；修前 `fp.js --check` 紅、修後綠；負面測試 3/3 如預期紅；`fp.json` 葉子與超街區逐項相同 | `pending` | 無（不改畫面） | ① bld 受光方向掉近 3 點，沒查是哪幾張新圖、沒修 ② GPT 舊 style 合約（8 支）在新基線上重跑會不相符，只影響 gpt 分支 ③ quarter019 手動觸發在 main 上仍會紅 ④ touch-pixels020 沒在 main 重跑 ⑤ 效能沒上實機 |
+
 <!-- T733 release entry BEGIN -->
 ## r180 — T733 Interrupted touch gestures (original GPT-020)
 
