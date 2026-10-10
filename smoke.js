@@ -168,6 +168,7 @@ const KEEP = process.argv.includes('--keep');
       ['ukBatchSelftest703', `(window.GV && window.GV.ukBatchSelftest703) ? window.GV.ukBatchSelftest703() : {ok:false,checks:['API 不存在']}`],
       ['ukBatchSelftest704', `(window.GV && window.GV.ukBatchSelftest704) ? window.GV.ukBatchSelftest704() : {ok:false,checks:['API 不存在']}`],
       ['campus715', `(window.GV && window.GV.campusSelftest715) ? window.GV.campusSelftest715() : {ok:false,checks:['API 不存在']}`],
+      ['fastPx735', `(window.GV && window.GV.fastPxSelftest735) ? window.GV.fastPxSelftest735() : {ok:false,checks:['API 不存在']}`],
       ['renew711', `(window.GV && window.GV.renewSelftest711) ? window.GV.renewSelftest711() : {ok:false,checks:['API 不存在']}`],
       ['legacyA713', `(window.GV && window.GV.legacyASelftest713) ? window.GV.legacyASelftest713() : {ok:false,checks:['API 不存在']}`],
       ['plants710', `(window.GV && window.GV.plantsSelftest710) ? window.GV.plantsSelftest710() : {ok:false,checks:['API 不存在']}`],

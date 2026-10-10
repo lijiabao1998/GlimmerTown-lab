@@ -1200,7 +1200,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.37 · T733</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.38 · T735</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -27476,7 +27476,7 @@ W13.__x13BesSelfCheck=()=>{const out=[];for(const k in REG){const M=REG[k],T=16*
     // 黃色三角警告牌
     const warn=(g,x,y)=>{x=Math.round(x);y=Math.round(y);R(g,x,y,1,1,'#f0c840');R(g,x-1,y+1,3,1,'#f0c840');R(g,x-2,y+2,5,1,'#e0b030');R(g,x,y+1,1,2,'#2b2b2b');};
     // 圖層：獨立描邊後疊到 g（讓前後物件之間也有外框）
-    const stamp=(g,fn)=>{const[lc,lg]=A.cv(W,H);fn(lg);K.hard(lc);A.outlineSprite(lc,28,34,42);g.drawImage(lc,0,0);};
+    const stamp=(g,fn)=>{const[lc,lg]=A.cv(W,H);fn(lg);K.hardOutline(lc,28,34,42);g.drawImage(lc,0,0);};
     // 草地、鋪面
     const grassDia=(g,seed,col='#6f9152')=>{fp(g,[P(0,0),P(SZ,0),P(SZ,SZ),P(0,SZ)],col);
       for(let i=0;i<Math.round(46*SZ*SZ);i++){const p=P(hsh(seed,i,5)*SZ,hsh(seed,i,6)*SZ,0);R(g,p[0],p[1],1,1,hsh(seed,i,7)<.5?'#62864a':'#83a562');}};
@@ -28230,7 +28230,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=()=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;
         while(k<items.length){const it=items[k];const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
       };
@@ -29052,7 +29052,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=()=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;
         while(k<items.length){const it=items[k];const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
       };
@@ -29932,7 +29932,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
             g.save();g.globalAlpha=.26;g.globalCompositeOperation='source-atop';g.drawImage(tc,0,0);g.restore();}
           if(fence)K.backFence(g);
           items.sort((a,b)=>a.d-b.d||a.i-b.i);
-          for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
             g.drawImage(sc,0,0);ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
         }};
       return S;};
@@ -30547,7 +30547,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=()=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;
         while(k<items.length){const it=items[k];const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
       };
@@ -31357,7 +31357,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;
         while(k<items.length){const it=items[k];const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h,z] 方盒／['c',u,v,r,h,z] 圓柱
@@ -32214,7 +32214,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
           const[tc,tx]=A.cv(W,H);tx.fillStyle='#18212b';tx.fillRect(0,0,W,H);tx.globalCompositeOperation='destination-in';tx.drawImage(mc,0,0);
           g.save();g.globalAlpha=.28;g.globalCompositeOperation='source-atop';g.drawImage(tc,0,0);g.restore();}
         items.sort((a,b)=>a.d-b.d||a.i-b.i);
-        for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+        for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
       }};};
   const sprite=(draw)=>{const[c,g]=A.cv(W,H),[nc,ng]=A.cv(W,H);const Sc=scene();draw(g,ng,Sc);Sc.run(g,ng);
@@ -32705,7 +32705,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;
         while(k<items.length){const it=items[k];const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
       };
@@ -33202,7 +33202,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
             const[tc,tx]=A.cv(W,H);tx.fillStyle='#18212b';tx.fillRect(0,0,W,H);tx.globalCompositeOperation='destination-in';tx.drawImage(mc,0,0);
             g.save();g.globalAlpha=.3;g.globalCompositeOperation='source-atop';g.drawImage(tc,0,0);g.restore();}
           items.sort((a,b)=>a.d-b.d||a.i-b.i);
-          for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
             g.drawImage(sc,0,0);ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
         }};
       return api;};
@@ -33837,7 +33837,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
     const scene=(g,ng)=>{const items=[];
       const run=()=>{items.sort((p,q)=>p.d-q.d||p.i-q.i);const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         for(const it of items){
-          if(it.ol){sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);it.fn(sx,lx);K.hard(sc);A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol){sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);it.fn(sx,lx);K.hardOutline(sc,28,34,42);g.drawImage(sc,0,0);
             ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
           else it.fn(g,ng);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
@@ -34466,7 +34466,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z] 方盒（z＝離地高）／['p',u,v,h] 細桿
@@ -35233,7 +35233,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h,z] 方盒／['c',u,v,r,h,z] 圓柱
@@ -36096,7 +36096,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run,sh:[]};};   // sh：車輛落影（build 在場景前畫到地面）
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z] 方盒／['p',u,v,h] 細桿
@@ -36692,7 +36692,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（影子落向右）：['b',u0,v0,du,dv,h] 方盒／['c',u,v,r,h] 立式圓柱／['s',u,v,r,zc] 架高球
@@ -37570,7 +37570,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
 
@@ -38514,7 +38514,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]
@@ -40404,7 +40404,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]
@@ -41622,7 +41622,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
           const[tc,tx]=A.cv(W,H);tx.fillStyle='#18212b';tx.fillRect(0,0,W,H);tx.globalCompositeOperation='destination-in';tx.drawImage(mc,0,0);
           g.save();g.globalAlpha=.28;g.globalCompositeOperation='source-atop';g.drawImage(tc,0,0);g.restore();}
         items.sort((a,b)=>a.d-b.d||a.i-b.i);
-        for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+        for(const it of items){const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);it.fn(sx,lx);if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}
       }};};
   // 南兩斜邊以外一律清掉（外框、落影溢出保險）
@@ -42290,7 +42290,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h,z] 方盒／['c',u,v,r,h,z] 圓柱／['p',u,v,h] 細桿
@@ -42987,7 +42987,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h]／['c',u,v,r,h]
@@ -43663,7 +43663,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h]／['c',u,v,r,h]
@@ -44525,7 +44525,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h]／['c',u,v,r,h]
@@ -46244,7 +46244,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子落向右）：['b',u0,v0,du,dv,h,z] 方盒／['p',u,v,h] 細桿
@@ -46949,7 +46949,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
@@ -47729,7 +47729,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}
           g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
@@ -48615,7 +48615,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]／['c',cu,cv,r,h]
@@ -49278,7 +49278,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]／['c',cu,cv,r,h]／['poly',uvPts]
@@ -50236,7 +50236,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]／['c',u,v,r,z0,z1]（直立圓柱）／['d',u,v,r,h,z0]（穹頂）
@@ -51295,7 +51295,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           if(DBG){const dd=sx.getImageData(0,0,W,H).data,HW=32*SZ,TY=TOPY;let nb=0;for(let y=TY+HW/2;y<H;y++)for(let x=0;x<W;x++){if(!dd[(y*W+x)*4+3])continue;const r=TY+HW-1-y;if(r<0||x<AX-2*(r+1)||x>AX+2*(r+1)-1)nb++;}
             if(nb)DBG.push('item d='+it.d.toFixed(2)+' ol='+it.ol+' n='+nb);}
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
@@ -52148,7 +52148,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]／['c',cu,cv,r,h]／['e',x,y,rx,ry]／['poly',uvPts]
@@ -55050,7 +55050,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]／['c',cu,cv,r,h]／['e',x,y,rx,ry]／['poly',uvPts]
@@ -56395,7 +56395,7 @@ return {gate:[.30,.50],post:(g2)=>{const p=P(.95,.62,0);warn(g2,p[0],p[1]-7);con
       const run=(g,ng)=>{items.sort((a,b)=>a.d-b.d||a.i-b.i);let k=0;const[sc,sx]=A.cv(W,H),[lc,lx]=A.cv(W,H);
         while(k<items.length){const it=items[k];sx.clearRect(0,0,W,H);lx.clearRect(0,0,W,H);
           if(it.ol){it.fn(sx,lx);k++;}else{while(k<items.length&&!items[k].ol){items[k].fn(sx,lx);k++;}}
-          K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);
+          if(it.ol&&K.hardOutline)/*T735*/K.hardOutline(sc,28,34,42);else{K.hard(sc);if(it.ol)A.outlineSprite(sc,28,34,42);}g.drawImage(sc,0,0);
           ng.globalCompositeOperation='destination-out';ng.drawImage(sc,0,0);ng.globalCompositeOperation='source-over';ng.drawImage(lc,0,0);}};
       return{o:(d,fn)=>items.push({d,ol:1,fn,i:items.length}),t:(d,fn)=>items.push({d,ol:0,fn,i:items.length}),run};};
     // 落影（光從左 ⇒ 影子向右）：['b',u0,v0,du,dv,h,z]／['p',u,v,h]／['c',cu,cv,r,h]／['e',x,y,rx,ry]／['poly',uvPts]
@@ -59280,8 +59280,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.37'; // T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T733'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.38'; // T735 效能②：開機兩個共用熱點加速（outlineSprite、makeIso575().hard，像素不變）。前：T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T735'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -61926,7 +61926,8 @@ function windows(g,ng,cx,by,hw,h,rand,litP,opts){
   }
 }
 // 輪廓線後處理：透明像素貼著實體 → 描 1px 深色邊
-function outlineSprite(c,r,gc,b){
+// T735：開機熱點（取樣自身 4.4 s＋閉包 0.9 s）。先把原始透明度（>40）做成遮罩再查，結果逐位元與舊寫法相同；舊寫法留給逃生閥 __noFastPx735 與自檢比對
+function outlineSpriteOld735(c,r,gc,b){
   const g=c.getContext('2d');
   const w=c.width,h=c.height;
   const im=g.getImageData(0,0,w,h),a=im.data;
@@ -61937,6 +61938,18 @@ function outlineSprite(c,r,gc,b){
     if(a[i+3]<=40&&(solid(x+1,y)||solid(x-1,y)||solid(x,y+1)||solid(x,y-1)))marks.push(i);
   }
   for(const i of marks){a[i]=r;a[i+1]=gc;a[i+2]=b;a[i+3]=255;}
+  g.putImageData(im,0,0);
+}
+function outlineSprite(c,r,gc,b){
+  if(window.__noFastPx735)return outlineSpriteOld735(c,r,gc,b);
+  const g=c.getContext('2d');
+  const w=c.width,h=c.height;
+  const im=g.getImageData(0,0,w,h),a=im.data,n=w*h,m=new Uint8Array(n);
+  for(let p=0,i=3;p<n;p++,i+=4)if(a[i]>40)m[p]=1;
+  for(let y=0,p=0;y<h;y++)for(let x=0;x<w;x++,p++){
+    if(m[p])continue;
+    if((x+1<w&&m[p+1])||(x>0&&m[p-1])||(y+1<h&&m[p+w])||(y>0&&m[p-w])){const i=p*4;a[i]=r;a[i+1]=gc;a[i+2]=b;a[i+3]=255;}
+  }
   g.putImageData(im,0,0);
 }
 function shade(hex,amt){
@@ -72411,10 +72424,16 @@ function makeIso575(W,H,AX,AY,SZ){
   const frontFence=(g,gate=[.08,.26])=>{fence(g,[SZ-E,E],[SZ-E,SZ-E]);fence(g,[E,SZ-E],[SZ-E,SZ-E],gate);
     const s=P(SZ*.8,SZ-E,0);px(g,[s[0]-2,s[1]-6],'#f2f2f2',5,4);px(g,[s[0]-1,s[1]-5],'#c0392b',3,2);};
   // ---- 硬邊化（本作像素鐵律）：多邊形抗鋸齒半透明邊 → 二值化 ----
-  const hard=c=>{const x=c.getContext('2d'),d=x.getImageData(0,0,W,H);for(let i=3;i<d.data.length;i+=4)d.data[i]=d.data[i]>=110?255:0;x.putImageData(d,0,0);};
-  const finish=(c,g,sc,nc,opt={})=>{hard(sc);outlineSprite(sc,28,34,42);g.drawImage(sc,0,0);if(opt.fence!==false)frontFence(g,opt.gate);return{img:c,night:nc,ax:AX,ay:AY,w:W,h:H,smoke:opt.smoke||[],__t575:1};};
+  const hard=c=>{const x=c.getContext('2d'),d=x.getImageData(0,0,W,H);if(window.__noFastPx735){for(let i=3;i<d.data.length;i+=4)d.data[i]=d.data[i]>=110?255:0;}else{const a=d.data;for(let i=3,n=a.length;i<n;i+=4)a[i]=a[i]>=110?255:0;}x.putImageData(d,0,0);};   // T735：data 只取一次（開機熱點，取樣自身 3.6 s）；逃生閥 __noFastPx735 走舊迴圈
+  // T735：硬邊化＋描邊合成一次讀寫（開機有 5,117 次是同一張畫布先 hard 再 outlineSprite）。hard 只留 0／255 兩種透明度：255 的像素經 putImageData／getImageData 來回不失真，0 的像素寫回後顏色歸零——這一步在陣列裡照做，所以結果與分兩次逐位元相同。畫布不是 W×H 或逃生閥開著就照舊分兩次
+  const hardOutline=(c,r,gc,b)=>{if(window.__noFastPx735||c.width!==W||c.height!==H){hard(c);outlineSprite(c,r,gc,b);return;}
+    const x=c.getContext('2d'),d=x.getImageData(0,0,W,H),a=d.data,n=W*H,m=new Uint8Array(n);
+    for(let p=0,i=3;p<n;p++,i+=4){if(a[i]>=110){a[i]=255;m[p]=1;}else{a[i]=0;a[i-3]=0;a[i-2]=0;a[i-1]=0;}}
+    for(let y=0,p=0;y<H;y++)for(let q=0;q<W;q++,p++){if(m[p])continue;if((q+1<W&&m[p+1])||(q>0&&m[p-1])||(y+1<H&&m[p+W])||(y>0&&m[p-W])){const i=p*4;a[i]=r;a[i+1]=gc;a[i+2]=b;a[i+3]=255;}}
+    x.putImageData(d,0,0);};
+  const finish=(c,g,sc,nc,opt={})=>{hardOutline(sc,28,34,42);g.drawImage(sc,0,0);if(opt.fence!==false)frontFence(g,opt.gate);return{img:c,night:nc,ax:AX,ay:AY,w:W,h:H,smoke:opt.smoke||[],__t575:1};};
   const canvases=()=>{const[c,g]=cv(W,H),[nc,ng]=cv(W,H),[sc,sg]=cv(W,H);return{c,g,nc,ng,sc,sg};};
-  return {W,H,AX,AY,SZ,TOPY,P,hsh,poly,line,px,box,cabinet,container,pcs,transformer,gantry,building,pole,firewall,panelRow,hydrant,ground,pad,road,fence,E,backFence,frontFence,hard,finish,canvases};
+  return {W,H,AX,AY,SZ,TOPY,P,hsh,poly,line,px,box,cabinet,container,pcs,transformer,gantry,building,pole,firewall,panelRow,hydrant,ground,pad,road,fence,E,backFence,frontFence,hard,hardOutline,finish,canvases};
 }
 function applyT575Bess(){
   if(window.__noBess575||!SPR||!SPR.bld)return;
@@ -101257,6 +101276,26 @@ function renewSelftest711(){ // T711 煙霧自檢（太陽能園區 v3/v4、離�
   if(nb)add('連成一體：'+nb+' 張沒有浮空的獨立塊'+T(stray),stray.length===0);
   return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
 }
+function fastPxSelftest735(){ // T735 煙霧自檢：outlineSprite、makeIso575().hard、hardOutline 的快寫法和舊寫法，在合成小圖上逐位元相同
+  const checks=[],add=(k,ok)=>checks.push([k,!!ok]);
+  const mkImg=(w,h,seed)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');const im=g.createImageData(w,h),d=im.data;let s=seed>>>0;const R=()=>(s=(Math.imul(s,1664525)+1013904223)>>>0)>>>24;
+    for(let i=0;i<d.length;i+=4){const k=R();const al=k<90?0:k<120?(R()&63):k<150?(R()|128):255;d[i]=R();d[i+1]=R();d[i+2]=R();d[i+3]=al;}g.putImageData(im,0,0);return c;};
+  const clone=c=>{const d=document.createElement('canvas');d.width=c.width;d.height=c.height;d.getContext('2d').drawImage(c,0,0);return d;};
+  const same=(a,b)=>{const x=a.getContext('2d').getImageData(0,0,a.width,a.height).data,y=b.getContext('2d').getImageData(0,0,b.width,b.height).data;if(x.length!==y.length)return false;for(let i=0;i<x.length;i++)if(x[i]!==y[i])return false;return true;};
+  const prev=window.__noFastPx735;let okO=true,okH=true,okHO=true,changed=0;
+  try{
+    for(const [w,h,seed] of [[1,1,7],[2,3,11],[37,23,735],[64,40,5162026],[13,1,99]]){
+      const src=mkImg(w,h,seed),A1=clone(src),A2=clone(src);
+      window.__noFastPx735=true;outlineSprite(A1,28,34,42);window.__noFastPx735=false;outlineSprite(A2,28,34,42);
+      if(!same(A1,A2))okO=false;if(!same(A1,src))changed++;
+      const K=makeIso575(w,h,0,h,1),B1=clone(src),B2=clone(src);
+      window.__noFastPx735=true;K.hard(B1);window.__noFastPx735=false;K.hard(B2);if(!same(B1,B2))okH=false;
+      const C1=clone(src),C2=clone(src);window.__noFastPx735=true;K.hardOutline(C1,28,34,42);window.__noFastPx735=false;K.hardOutline(C2,28,34,42);if(!same(C1,C2))okHO=false;
+    }
+  }catch(e){add('執行錯誤：'+e.message,false);}finally{window.__noFastPx735=prev;}
+  add('outlineSprite 快寫法＝舊寫法（5 張合成圖逐位元）',okO);add('makeIso575().hard 快寫法＝舊寫法（5 張合成圖逐位元）',okH);add('makeIso575().hardOutline 合成一次＝分兩次 hard＋outlineSprite（5 張合成圖逐位元）',okHO);add('合成圖確實被描邊改動（'+changed+'／5，排除空比對）',changed>=3);
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗'))};
+}
 function campusSelftest715(){ // T715 煙霧自檢（園區路網、重工業煙囪、實心夜圖、車廠軌道）：宣告的精靈都在、尺寸錨點照宣告、實心像素不貼畫布邊、不出地面菱形、夜光只在白天有像素處且夠多（逐像素比對在 probe715.js）
   const checks=[],add=(k,ok)=>checks.push([k,!!ok]);const B=GV.art574.SPR().bld;
   if(window.__noCampus715){add('閥門 __noCampus715 開：走舊畫法（本自檢只驗新圖，略過）',true);return {ok:true,checks:checks.map(q=>q[0]+' ✓')};}
@@ -102309,7 +102348,7 @@ function panelLiveSelftest599(){
   return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))};
 }
 Object.assign(window.GV,{cultureSelftest615,civicSelftest614,artReplaced614,waveBatches614,partSelftest633,part633:()=>part633,buildPart633,seedElSelftest634,elStale634,blockConstrSelftest635,farmerSelftest637,farmerPt637,variantNightSelftest638,anchorSelftest636,anchorPts636:{flagPt636,radarPt636,warnPt636,topPt636,opaqueNear636},testAge635:(x,y,w,h,a)=>{const old=[];for(let dy=0;dy<h;dy++)for(let dx=0;dx<w;dx++){const t=inMap(x+dx,y+dy)?tiles[idx(x+dx,y+dy)]:null;old.push(t&&t.bld?t.bld.age:null);if(t&&t.bld&&a!=null)t.bld.age=a;}return old;}, // T635：測試出口——設定一塊地的工期（a=null 只讀），回傳原值
-ukBatchSelftest707,ukBatchSelftest706,ukBatchSelftest705,ukBatchSelftest708,greenhouseSelftest702,ukBatchSelftest703,ukBatchSelftest704,auditGeoSelftest709,legacyBSelftest714,civicV0Selftest712,plantsSelftest710,legacyASelftest713,renewSelftest711,campusSelftest715,partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,tbPowerSelftest698,nightPowerTest698,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,facadeWxSelftest699,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
+ukBatchSelftest707,ukBatchSelftest706,ukBatchSelftest705,ukBatchSelftest708,greenhouseSelftest702,ukBatchSelftest703,ukBatchSelftest704,auditGeoSelftest709,legacyBSelftest714,civicV0Selftest712,plantsSelftest710,legacyASelftest713,renewSelftest711,campusSelftest715,fastPxSelftest735,partViewSelftest632,fxLive632:()=>fxParts,fxOff632,isoW2Vt632:isoW2V,ownNightSelftest630,nightOccSelftest629,nightCompose629,vkeySelftest628,leashSelftest613,facadeSmokeSelftest613,transportSelftest612,artWaveCheck612,logisticsSelftest611,ranchPumpSelftest610,bayFarmSelftest609,industrialRoofSelftest608,storyBubbleSelftest607,overlayAudit606,wallDetailSelftest606,overlaySelftest596,ukStyleSelftest596,roadPixelSelftest596,treeSelftest596,hudRealtimeSelftest598,hudLoopTick598,panelLiveSelftest599,panelLiveTick599,drawNearZoom599,workshopSelftest600,isoBlit600,speciesSelftest601,moreBldSelftest602,blockMax602,terraceRowSelftest603,finishArtSelftest604,stampAtlas604,bayFlavorSelftest605,mapScanSelftest617,nightDepthSelftest619,nightTint619,stripPaveSelftest621,rotSwapSelftest622,fillSelftest639,duskFadeSelftest640,zzzSelftest641,dawnFadeSelftest642,sbNightSelftest643,warnGlowSelftest644,massWinSelftest645,cliffSelftest646,blockConstrSelftest647,lodSelftest648,warmWinSelftest649,dockSelftest650,grassGridSelftest651,groveSelftest652,groveMixGROK1,groveMixSelftestGROK1,groveTree652,occWinSelftest653,waterGradSelftest666,waterGradTex666,WG666,ornDomSelftest676,groveDom676,waterVarSelftest675,waterVar675,bareColorSelftest668,bareTrunkSelftest669,bareTwigSelftest674,indVarietySelftest670,nightWaterSelftest667,NW667,terrainTreeSelftest655,terrainClass655,terrainTree655,TERRAIN_SP655,treeSeasonSelftestDSK1,terrainListWinterDSK1,terrainTreeOldDSK1,TERRAIN_SP_WINTER_DSK1,DSK1_SUB,dsk1BareListDSK1,cathedralSelftestDSK2,keepSelftestDSK3,cornerPubNearSelftestDSK12,tearoomSelftestDSK10,tearoomNearSelftestDSK14,chippySelftestDSK9,chippyNearSelftestDSK13,georgeInnNearSelftestDSK8,albertHallNearSelftestDSK7,bookshopSelftestDSK15,batterseaSelftestDSK4,ukLandmarkSelftest677,battersea2xSelftest678,towerBridgeSelftest693,tbPowerSelftest698,nightPowerTest698,cornerPubSelftestDSK11,georgeInnSelftestDSK6,albertHallSelftestDSK5,keepPolishSelftest679,keepNightDialSelftest694,nearUKSelftest695,ringDepthSelftest696,centerDepSelftest697,facadeWxSelftest699,detailPermit432,drawNearZoomBatterseaDSK1,drawNearZoomCathedralDSK1,drawNearZoomKeepDSK1,nearLandmark695,nearDialCover695,nzNightPush695,nzOps695,nzStatic695,nzHands695,nzClockKey695,nzGate695,rainDays695:v=>{if(v!=null)rainDays=+v;return rainDays;},treeSelftest654,roadMarkSelftest623,spokeEnd623,roadEdgePt623,massOrderSelftest624,exInFront624,makeBlockSprite547,arche568,neonAnchorSelftest625,neonRects625,smokeViewSelftest626,smokeViewSrc626});
 Object.assign(window.GV,{life533Selftest:()=>{const checks=[];
   const fake={name:'測試'};
   for(let i=0;i<LIFE_LOG_CAP+5;i++)lifeLog(fake,'birth','event '+i);
