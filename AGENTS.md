@@ -1,5 +1,7 @@
 # 微光小鎮·實驗線 — 給所有 AI 寫入者的規則
 
+> **必讀（業主 2026-10-10 定）**：不管迭代玩法還是美術，都不准迭代壞。開工前讀 [`docs/迭代不改壞標準.md`](docs/迭代不改壞標準.md)，收工前逐條對它第 8 節的自檢清單。它和本檔衝突時以較嚴的為準。 *(Mandatory: read `docs/迭代不改壞標準.md` — the owner's "never iterate it into breakage" standard for gameplay and art — before every card, and tick its section-8 checklist before opening a PR.)*
+
 > **English summary.** This is the *lab line* repo (`lijiabao1998/GlimmerTown-lab`). Only **Claude** and **Codex** push to `main`.
 > **Grok**, **GLM**, **Kimi** and **DeepSeek** work on `grok/<topic>`, `glm/<topic>`, `kimi/<topic>`, `dsk/<topic>` branches: push only your own branch (with an explicit refspec, `git push origin dsk/x:dsk/x`), open a PR to `main`, never push to `main` and never merge your own PR.
 > **GPT (ChatGPT)** can write the repo but cannot run the game's local tests: it works on `gpt/<topic>` branches like the others; CI runs the smoke test on every push, and the merging writer runs the pixel guards.
