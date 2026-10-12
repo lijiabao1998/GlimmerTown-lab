@@ -1,0 +1,1716 @@
+{
+  "checkedAtUTC": "2026-10-12T10:10:52.566Z",
+  "method": "Static original spec inventory only; build functions not invoked; no game/browser/render validation",
+  "forms": 36,
+  "groups": {
+    "retail": [
+      "S",
+      "M",
+      "L"
+    ],
+    "hotel": [
+      "S",
+      "M",
+      "L"
+    ],
+    "dining": [
+      "S",
+      "M",
+      "L"
+    ],
+    "market": [
+      "S",
+      "M",
+      "L"
+    ],
+    "office": [
+      "S",
+      "M",
+      "L"
+    ],
+    "crafts": [
+      "S",
+      "M",
+      "L"
+    ],
+    "lightfactory": [
+      "S",
+      "M",
+      "L"
+    ],
+    "farm": [
+      "S",
+      "M",
+      "L"
+    ],
+    "ranch": [
+      "S",
+      "M",
+      "L"
+    ],
+    "warehouse": [
+      "S",
+      "M",
+      "L"
+    ],
+    "passengerstation": [
+      "S",
+      "M",
+      "L"
+    ],
+    "freightstation": [
+      "S",
+      "M",
+      "L"
+    ]
+  },
+  "specs": [
+    {
+      "id": "UKU021-S",
+      "nm": "鄰里街角商店",
+      "sz": 1,
+      "w": 80,
+      "h": 116,
+      "k": 276,
+      "tool": "stationNewsstand009",
+      "floors": 2,
+      "plan": "single-shop-with-side-catslide",
+      "roof": "one-gable-and-low-lean-to",
+      "entry": "front-shop-door",
+      "yard": "rear-stock-court",
+      "masses": [
+        [
+          0.9,
+          12.1,
+          3.6,
+          13.9,
+          0,
+          24
+        ],
+        [
+          12.4,
+          15,
+          4,
+          10.8,
+          0,
+          8
+        ]
+      ],
+      "source": "british-use-scales-art021.js",
+      "group": "retail",
+      "scale": "S"
+    },
+    {
+      "id": "UKU021-M",
+      "nm": "高街合作商舖",
+      "sz": 2,
+      "w": 160,
+      "h": 194,
+      "k": 238,
+      "tool": "coOpStores",
+      "floors": 3,
+      "plan": "L-shaped-two-street-frontages",
+      "roof": "two-perpendicular-ridges",
+      "entry": "two-independent-shop-entrances",
+      "yard": "open-delivery-court",
+      "masses": [
+        [
+          1.8,
+          29.5,
+          1.8,
+          10.8,
+          0,
+          39.5
+        ],
+        [
+          20.4,
+          29.5,
+          10.8,
+          28.2,
+          0,
+          39.5
+        ]
+      ],
+      "source": "british-use-scales-art021.js",
+      "group": "retail",
+      "scale": "M"
+    },
+    {
+      "id": "UKU021-L",
+      "nm": "愛德華式中庭百貨",
+      "sz": 3,
+      "w": 232,
+      "h": 240,
+      "k": 240,
+      "tool": "coveredMarket",
+      "floors": 4,
+      "plan": "four-ranges-and-real-open-courtyard",
+      "roof": "separate-front-side-and-rear-ridges",
+      "entry": "open-arched-passage",
+      "yard": "rear-loading-wing",
+      "masses": [
+        [
+          2,
+          20.2,
+          35,
+          45.6,
+          0,
+          52
+        ],
+        [
+          26.8,
+          46,
+          35,
+          45.6,
+          0,
+          52
+        ],
+        [
+          20.2,
+          26.8,
+          35,
+          45.6,
+          14.4,
+          52
+        ],
+        [
+          2,
+          14,
+          8.5,
+          35,
+          0,
+          37
+        ],
+        [
+          34,
+          46,
+          8.5,
+          35,
+          0,
+          37
+        ],
+        [
+          14,
+          34,
+          5,
+          15,
+          0,
+          27
+        ]
+      ],
+      "source": "british-use-scales-art021.js",
+      "group": "retail",
+      "scale": "L"
+    },
+    {
+      "id": "UKH021-S",
+      "nm": "磚砌巷口客舍",
+      "group": "hotel",
+      "scale": "S",
+      "sz": 1,
+      "w": 80,
+      "h": 116,
+      "k": 81,
+      "tool": "guesthouse",
+      "floors": 2,
+      "plan": "narrow-house-with-side-entry-and-low-laundry",
+      "roof": "steep-cross-gable-and-rear-lean-to",
+      "entry": "side-guest-door-with-front-steps",
+      "yard": "separate-rear-laundry-court",
+      "masses": [
+        [
+          1.35,
+          11.45,
+          4.1,
+          13.7,
+          0.2,
+          25.5
+        ],
+        [
+          10.5,
+          14.1,
+          1.6,
+          5.8,
+          0.2,
+          7.1
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKH021-M",
+      "nm": "石基院落驛館",
+      "group": "hotel",
+      "scale": "M",
+      "sz": 2,
+      "w": 160,
+      "h": 202,
+      "k": 82,
+      "tool": "hotel",
+      "floors": 3,
+      "plan": "three-ranges-around-open-U-court",
+      "roof": "three-perpendicular-slate-gables",
+      "entry": "court-facing-hall-and-independent-guest-door",
+      "yard": "open-coaching-court-and-low-laundry-range",
+      "masses": [
+        [
+          1.8,
+          29.8,
+          2.1,
+          10.5,
+          0.2,
+          36.1
+        ],
+        [
+          1.8,
+          9.3,
+          10.5,
+          26.2,
+          0.2,
+          34.2
+        ],
+        [
+          21.6,
+          29.8,
+          10.5,
+          28.2,
+          0.2,
+          36.1
+        ],
+        [
+          1.8,
+          9.3,
+          26.2,
+          30.2,
+          0.2,
+          7.8
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKH021-L",
+      "nm": "城鎮孟莎頂鐵道旅館",
+      "group": "hotel",
+      "scale": "L",
+      "sz": 3,
+      "w": 232,
+      "h": 252,
+      "k": 274,
+      "tool": "stationHotel009",
+      "floors": 4,
+      "plan": "asymmetric-H-ranges-with-open-service-court",
+      "roof": "mansard-front-and-tall-wing-plus-low-gabled-range",
+      "entry": "stone-porte-cochere-and-separate-service-entrance",
+      "yard": "rear-delivery-court-and-one-storey-service-wing",
+      "masses": [
+        [
+          3,
+          44.3,
+          32,
+          43.8,
+          0.2,
+          49.2
+        ],
+        [
+          3,
+          13.1,
+          8.1,
+          32,
+          0.2,
+          37.6
+        ],
+        [
+          31.1,
+          44.3,
+          17.5,
+          32,
+          0.2,
+          49.2
+        ],
+        [
+          13.1,
+          31.1,
+          4.2,
+          11.5,
+          0.2,
+          12.1
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKD021-S",
+      "nm": "山牆茶點屋",
+      "group": "dining",
+      "scale": "S",
+      "sz": 1,
+      "w": 80,
+      "h": 102,
+      "k": 196,
+      "tool": "tearoom",
+      "floors": 1,
+      "plan": "one-room-hall-with-attic-and-rear-scullery",
+      "roof": "steep-front-gable-and-low-scullery-shed",
+      "entry": "single-front-door-with-separate-scullery-door",
+      "yard": "side-delivery-strip-and-rear-wood-court",
+      "functionalNote": "Native tourism landmark; no private dining/table/recipe mechanism.",
+      "masses": [
+        [
+          1.35,
+          12.85,
+          4,
+          13.45,
+          0.2,
+          12.65
+        ],
+        [
+          1.5,
+          4.9,
+          1.5,
+          4,
+          0.2,
+          6
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKD021-M",
+      "nm": "庭院轉角餐室",
+      "group": "dining",
+      "scale": "M",
+      "sz": 2,
+      "w": 160,
+      "h": 178,
+      "k": 275,
+      "tool": "refreshmentCafe009",
+      "floors": 2,
+      "plan": "two-storey-L-restaurant-with-detached-scullery",
+      "roof": "cross-ridges-and-low-kitchen-hip",
+      "entry": "court-dining-door-and-second-frontage-door",
+      "yard": "open-preparation-court-and-separate-loading-back",
+      "masses": [
+        [
+          1.6,
+          28.6,
+          1.8,
+          11,
+          0.2,
+          25.5
+        ],
+        [
+          19.7,
+          28.6,
+          11,
+          28.4,
+          0.2,
+          25.5
+        ],
+        [
+          2.2,
+          8.7,
+          16,
+          25,
+          0.2,
+          8.9
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKD021-L",
+      "nm": "穿堂院落客棧餐館",
+      "group": "dining",
+      "scale": "L",
+      "sz": 2,
+      "w": 160,
+      "h": 204,
+      "k": 220,
+      "tool": "foxFinchPub",
+      "floors": 3,
+      "plan": "three-storey-front-with-real-passage-and-two-service-ranges",
+      "roof": "long-main-gable-perpendicular-wing-and-low-hip",
+      "entry": "open-coaching-passage-with-independent-pub-door",
+      "yard": "enclosed-kitchen-delivery-court",
+      "functionalNote": "Larger architectural mass on native 2x2 pub footprint; no 3x3 dining carrier or added beds.",
+      "masses": [
+        [
+          1.5,
+          17.3,
+          18.7,
+          29.7,
+          0.2,
+          36.3
+        ],
+        [
+          22.4,
+          29.5,
+          18.7,
+          29.7,
+          0.2,
+          36.3
+        ],
+        [
+          17.3,
+          22.4,
+          18.7,
+          29.7,
+          11.5,
+          36.3
+        ],
+        [
+          1.5,
+          11,
+          3,
+          18.7,
+          0.2,
+          23.5
+        ],
+        [
+          15,
+          29.5,
+          2,
+          9.6,
+          0.2,
+          11.8
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKM021-S",
+      "nm": "石砌單廳農貿市場",
+      "group": "market",
+      "scale": "S",
+      "sz": 2,
+      "w": 160,
+      "h": 150,
+      "k": 87,
+      "tool": "market",
+      "floors": 1,
+      "plan": "single-stone-hall-and-low-receiving-annex",
+      "roof": "single-long-gable-with-side-shed",
+      "entry": "two-ended-hall-doors",
+      "yard": "side-receiving-strip-and-front-forecourt",
+      "functionalNote": "Native agricultural-market coverage; not the private-retail market mechanism.",
+      "masses": [
+        [
+          3,
+          25.5,
+          7,
+          25,
+          0.2,
+          18.5
+        ],
+        [
+          25.5,
+          29.4,
+          10,
+          20,
+          0.2,
+          6.7
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKM021-M",
+      "nm": "雙跨玻璃室內市場",
+      "group": "market",
+      "scale": "M",
+      "sz": 3,
+      "w": 232,
+      "h": 212,
+      "k": 240,
+      "tool": "coveredMarket",
+      "floors": 1,
+      "plan": "two-separate-glazed-halls-and-low-crosswise-headhouse",
+      "roof": "two-parallel-unequal-glass-ridges-with-low-front-hip",
+      "entry": "central-headhouse-door-and-rear-loading-door",
+      "yard": "clear-central-delivery-spine-and-rear-loading-court",
+      "functionalNote": "Alternative art for k240; mutually exclusive with retail UKU021-L on the same carrier.",
+      "masses": [
+        [
+          2.3,
+          20.9,
+          7,
+          35.5,
+          0.2,
+          20.4
+        ],
+        [
+          25.9,
+          44.5,
+          11,
+          35.5,
+          0.2,
+          24.5
+        ],
+        [
+          2.3,
+          44.5,
+          35.5,
+          44.2,
+          0.2,
+          13
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKM021-L",
+      "nm": "四翼環院拱廊市場",
+      "group": "market",
+      "scale": "L",
+      "sz": 3,
+      "w": 232,
+      "h": 226,
+      "k": 278,
+      "tool": "riversideArcade012",
+      "floors": 2,
+      "plan": "closed-quadrangle-with-open-sky-and-true-arcade-voids",
+      "roof": "front-mansard-low-side-hips-and-rear-gable",
+      "entry": "front-through-arch-and-independent-rear-loading-door",
+      "yard": "real-open-court-with-clear-centre-and-perimeter-stalls",
+      "masses": [
+        [
+          2,
+          21.2,
+          35.5,
+          44.5,
+          0.2,
+          32.5
+        ],
+        [
+          26.8,
+          46,
+          35.5,
+          44.5,
+          0.2,
+          32.5
+        ],
+        [
+          21.2,
+          26.8,
+          35.5,
+          44.5,
+          12.2,
+          32.5
+        ],
+        [
+          2,
+          10,
+          10.5,
+          35.5,
+          0.2,
+          15.2
+        ],
+        [
+          38,
+          46,
+          10.5,
+          35.5,
+          0.2,
+          15.2
+        ],
+        [
+          10,
+          38,
+          2,
+          10.5,
+          0.2,
+          16.5
+        ]
+      ],
+      "source": "british-use-scales-hospitality021.js"
+    },
+    {
+      "id": "UKO021-S",
+      "nm": "街屋事務所",
+      "group": "office",
+      "scale": "S",
+      "sz": 1,
+      "bw": 1,
+      "bh": 1,
+      "w": 80,
+      "h": 116,
+      "k": 2,
+      "lv": 1,
+      "tool": "office",
+      "floors": 2,
+      "plan": "narrow-street-office-with-side-archive",
+      "roof": "short-gable-and-low-archive-shed",
+      "entry": "central-office-door",
+      "yard": "small-rear-document-delivery-yard",
+      "masses": [
+        [
+          1.3,
+          12.3,
+          3.3,
+          13.7,
+          0.2,
+          25.2
+        ],
+        [
+          12.5,
+          14.7,
+          4.1,
+          9.4,
+          0.2,
+          7.4
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKO021-M",
+      "nm": "轉角事務大樓",
+      "group": "office",
+      "scale": "M",
+      "sz": 2,
+      "bw": 2,
+      "bh": 2,
+      "w": 160,
+      "h": 184,
+      "k": 2,
+      "lv": 1,
+      "tool": "office",
+      "floors": 3,
+      "plan": "L-range-with-true-diagonal-corner-entrance",
+      "roof": "perpendicular-ridges-and-cut-corner-hip",
+      "entry": "diagonal-corner-lobby-and-rear-staff-door",
+      "yard": "open-inner-service-court",
+      "masses": [
+        [
+          1.8,
+          25.4,
+          19.6,
+          29.4,
+          0.2,
+          37.5
+        ],
+        [
+          25.4,
+          29.4,
+          19.6,
+          25.4,
+          0.2,
+          37.5
+        ],
+        [
+          1.8,
+          10.7,
+          2.8,
+          19.6,
+          0.2,
+          37.5
+        ]
+      ],
+      "polygons": [
+        [
+          [
+            25.4,
+            25.4
+          ],
+          [
+            29.4,
+            25.4
+          ],
+          [
+            25.4,
+            29.4
+          ]
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKO021-L",
+      "nm": "城鎮辦公院",
+      "group": "office",
+      "scale": "L",
+      "sz": 3,
+      "bw": 3,
+      "bh": 3,
+      "w": 232,
+      "h": 244,
+      "k": 2,
+      "lv": 2,
+      "tool": "office",
+      "floors": 4,
+      "plan": "two-four-storey-ranges-and-low-archive-around-open-court",
+      "roof": "two-hipped-ranges-and-low-shed-annex",
+      "entry": "two-street-lobbies-with-separate-service-drive",
+      "yard": "court-and-clear-right-hand-delivery-lane",
+      "masses": [
+        [
+          2.3,
+          45.4,
+          33.8,
+          44.8,
+          0.2,
+          49.5
+        ],
+        [
+          2.3,
+          13.2,
+          6.2,
+          33.8,
+          0.2,
+          49.5
+        ],
+        [
+          13.2,
+          37.6,
+          5.2,
+          14.8,
+          0.2,
+          13.2
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKC021-S",
+      "nm": "材料棚小工坊",
+      "group": "crafts",
+      "scale": "S",
+      "sz": 1,
+      "bw": 1,
+      "bh": 1,
+      "w": 80,
+      "h": 108,
+      "k": 3,
+      "lv": 1,
+      "tool": "zi",
+      "floors": 1,
+      "plan": "single-workroom-with-side-material-lean-to",
+      "roof": "one-gable-with-physical-rooflights-and-low-shed",
+      "entry": "separate-worker-and-wide-material-doors",
+      "yard": "rear-timber-rack",
+      "masses": [
+        [
+          1.2,
+          10.9,
+          3.3,
+          13.6,
+          0.2,
+          16.1
+        ],
+        [
+          11.1,
+          14.7,
+          4.4,
+          10.7,
+          0.2,
+          7.8
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKC021-M",
+      "nm": "橫向雙翼工坊",
+      "group": "crafts",
+      "scale": "M",
+      "sz": 2,
+      "bw": 2,
+      "bh": 1,
+      "w": 160,
+      "h": 162,
+      "k": 3,
+      "lv": 1,
+      "tool": "zi",
+      "floors": 2,
+      "plan": "rectangular-L-workhall-and-two-storey-office",
+      "roof": "long-low-gable-and-cross-ridge-office",
+      "entry": "court-facing-material-door-and-street-worker-lobby",
+      "yard": "front-working-court-and-covered-timber-rack",
+      "masses": [
+        [
+          1.6,
+          20.2,
+          9.4,
+          16,
+          0.2,
+          17
+        ],
+        [
+          20.2,
+          29.7,
+          9.4,
+          22.6,
+          0.2,
+          26.1
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKC021-L",
+      "nm": "穿堂搬運工坊院",
+      "group": "crafts",
+      "scale": "L",
+      "sz": 2,
+      "bw": 2,
+      "bh": 2,
+      "w": 160,
+      "h": 182,
+      "k": 3,
+      "lv": 1,
+      "tool": "zi",
+      "floors": 2,
+      "plan": "three-workshop-ranges-and-real-ground-level-cart-passage",
+      "roof": "three-separate-gables-at-two-heights",
+      "entry": "open-cart-passage-and-independent-worker-door",
+      "yard": "open-central-material-handling-court",
+      "masses": [
+        [
+          1.6,
+          17.5,
+          22.2,
+          29.5,
+          0.2,
+          26
+        ],
+        [
+          22.1,
+          29.9,
+          22.2,
+          29.5,
+          0.2,
+          26
+        ],
+        [
+          17.5,
+          22.1,
+          22.2,
+          29.5,
+          11.5,
+          26
+        ],
+        [
+          1.6,
+          10.1,
+          3.7,
+          22.2,
+          0.2,
+          13.5
+        ],
+        [
+          10.1,
+          29.9,
+          3.7,
+          10.2,
+          0.2,
+          13.5
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKI021-S",
+      "nm": "高窗單廳輕工廠",
+      "group": "lightfactory",
+      "scale": "S",
+      "sz": 1,
+      "bw": 1,
+      "bh": 1,
+      "w": 80,
+      "h": 116,
+      "k": 3,
+      "lv": 2,
+      "tool": "zi",
+      "floors": 1,
+      "plan": "one-tall-industrial-hall-and-short-loading-apron",
+      "roof": "steep-end-gable-with-short-front-loading-canopy",
+      "entry": "separate-worker-and-wide-goods-doors",
+      "yard": "rear-drum-storage-and-front-loading-face",
+      "masses": [
+        [
+          1.3,
+          14.5,
+          3.2,
+          13.5,
+          0.2,
+          18.8
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKI021-M",
+      "nm": "雙鋸齒採光輕工廠",
+      "group": "lightfactory",
+      "scale": "M",
+      "sz": 2,
+      "bw": 2,
+      "bh": 1,
+      "w": 160,
+      "h": 166,
+      "k": 3,
+      "lv": 2,
+      "tool": "zi",
+      "floors": 2,
+      "plan": "rectangular-long-production-hall-with-office-end-wing",
+      "roof": "two-asymmetric-north-glazed-sawtooth-bays-and-office-hip",
+      "entry": "separate-production-loading-face-and-office-lobby",
+      "yard": "short-goods-apron-and-side-service-entry",
+      "masses": [
+        [
+          1.5,
+          22,
+          9.4,
+          21,
+          0.2,
+          14.7
+        ],
+        [
+          22,
+          29.9,
+          15,
+          22.6,
+          0.2,
+          26
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKI021-L",
+      "nm": "多層磚廠卸貨院",
+      "group": "lightfactory",
+      "scale": "L",
+      "sz": 2,
+      "bw": 2,
+      "bh": 2,
+      "w": 160,
+      "h": 200,
+      "k": 3,
+      "lv": 2,
+      "tool": "zi",
+      "floors": 3,
+      "plan": "three-storey-production-range-with-low-boiler-and-dispatch-wings",
+      "roof": "high-long-gable-low-boiler-hip-and-dispatch-gable",
+      "entry": "street-worker-lobby-and-court-facing-goods-doors",
+      "yard": "open-right-hand-delivery-court-with-physical-boiler-stack",
+      "masses": [
+        [
+          1.8,
+          15.5,
+          3.8,
+          29.4,
+          0.2,
+          37
+        ],
+        [
+          15.5,
+          25.9,
+          3.8,
+          11.2,
+          0.2,
+          13.4
+        ],
+        [
+          15.5,
+          30.2,
+          22,
+          29.4,
+          0.2,
+          14.8
+        ]
+      ],
+      "source": "british-use-scales-workplaces021.js"
+    },
+    {
+      "id": "UKF021-S",
+      "nm": "側院田間農場",
+      "group": "farm",
+      "scale": "S",
+      "sz": 2,
+      "w": 144,
+      "h": 138,
+      "k": 22,
+      "tool": "farm",
+      "floors": 2,
+      "plan": "side-house-and-independent-raised-granary-with-crop-strip",
+      "roof": "house-long-gable-and-short-granary-ridge",
+      "entry": "house-door-and-field-gate-separated",
+      "yard": "side-gravel-lane-and-granary-loading-court",
+      "masses": [
+        [
+          2.1,
+          11.2,
+          5.1,
+          15.2,
+          0.15,
+          18.5
+        ],
+        [
+          2.4,
+          11.2,
+          20.1,
+          28.8,
+          0.8,
+          10.3
+        ]
+      ],
+      "source": "british-use-scales-agriculture021.js"
+    },
+    {
+      "id": "UKF021-M",
+      "nm": "雙跨栽培溫室",
+      "group": "farm",
+      "scale": "M",
+      "sz": 2,
+      "w": 144,
+      "h": 144,
+      "k": 63,
+      "tool": "greenhouse",
+      "floors": 1,
+      "plan": "two-different-glass-spans-with-brick-headhouse-and-side-potting-room",
+      "roof": "two-glazed-ridges-and-low-slate-service-roofs",
+      "entry": "headhouse-public-door-and-separate-potting-door",
+      "yard": "side-potting-delivery-strip",
+      "masses": [
+        [
+          4.8,
+          13,
+          4.4,
+          25.1,
+          1.6,
+          7.8
+        ],
+        [
+          13.6,
+          22.4,
+          4.4,
+          25.1,
+          1.6,
+          8.4
+        ],
+        [
+          2,
+          28.4,
+          25.6,
+          30.2,
+          0.15,
+          8.6
+        ],
+        [
+          24.2,
+          29.5,
+          7.5,
+          22.5,
+          0.15,
+          6.8
+        ]
+      ],
+      "source": "british-use-scales-agriculture021.js"
+    },
+    {
+      "id": "UKF021-L",
+      "nm": "雙糧院大型農莊",
+      "group": "farm",
+      "scale": "L",
+      "sz": 5,
+      "w": 336,
+      "h": 242,
+      "k": 53,
+      "tool": "largeFarm",
+      "floors": 2,
+      "plan": "stone-house-and-three-low-barn-ranges-with-two-separate-grain-courts",
+      "roof": "three-independent-threshing-and-store-ridges",
+      "entry": "central-field-gate-and-east-service-gate",
+      "yard": "two-grain-courts-linked-by-an-open-service-lane",
+      "masses": [
+        [
+          4,
+          18,
+          7,
+          27,
+          0.15,
+          24
+        ],
+        [
+          22,
+          65,
+          5,
+          16,
+          0.15,
+          16.8
+        ],
+        [
+          19.4,
+          44,
+          29.5,
+          40,
+          0.15,
+          14.5
+        ],
+        [
+          43.5,
+          53,
+          16.5,
+          37,
+          0.15,
+          14.2
+        ]
+      ],
+      "source": "british-use-scales-agriculture021.js"
+    },
+    {
+      "id": "UKR021-S",
+      "nm": "小牛舍與開牧地",
+      "group": "ranch",
+      "scale": "S",
+      "sz": 2,
+      "w": 144,
+      "h": 126,
+      "k": 23,
+      "tool": "ranch",
+      "lv": 1,
+      "floors": 1,
+      "plan": "one-side-cattle-house-and-a-large-open-grazing-enclosure",
+      "roof": "single-long-ridge-and-a-low-feed-catslide",
+      "entry": "barn-door-and-pasture-gate-separated",
+      "yard": "short-feed-apron-outside-the-barn",
+      "masses": [
+        [
+          2.2,
+          8.8,
+          4,
+          21,
+          0.15,
+          9.6
+        ],
+        [
+          2.4,
+          7.1,
+          23.5,
+          28.7,
+          0.15,
+          4.7
+        ]
+      ],
+      "source": "british-use-scales-agriculture021.js"
+    },
+    {
+      "id": "UKR021-M",
+      "nm": "雙翼糧樓畜舍",
+      "group": "ranch",
+      "scale": "M",
+      "sz": 2,
+      "w": 144,
+      "h": 150,
+      "k": 23,
+      "tool": "ranch",
+      "lv": 2,
+      "floors": 2,
+      "plan": "tall-west-feed-loft-and-low-north-cattle-range-with-open-working-court",
+      "roof": "unequal-perpendicular-gables",
+      "entry": "feed-loading-door-and-cattle-gate-separated",
+      "yard": "central-feed-court-and-two-grazing-strips",
+      "masses": [
+        [
+          2.4,
+          10.4,
+          3,
+          15.2,
+          0.15,
+          19.5
+        ],
+        [
+          10.8,
+          28.5,
+          3,
+          10.2,
+          0.15,
+          10.2
+        ]
+      ],
+      "source": "british-use-scales-agriculture021.js"
+    },
+    {
+      "id": "UKR021-L",
+      "nm": "環院覆廄農莊",
+      "group": "ranch",
+      "scale": "L",
+      "sz": 2,
+      "w": 144,
+      "h": 160,
+      "k": 23,
+      "tool": "ranch",
+      "lv": 3,
+      "floors": 2,
+      "plan": "three-unequal-ranges-around-a-real-open-cattle-yard",
+      "roof": "north-gable-west-hip-and-east-feed-loft-gable",
+      "entry": "open-south-yard-mouth-and-separate-east-loading-door",
+      "yard": "open-U-court-with-a-covered-west-stable-veranda",
+      "masses": [
+        [
+          2,
+          29.3,
+          2,
+          8.8,
+          0.15,
+          10.5
+        ],
+        [
+          2,
+          8.5,
+          9.3,
+          27.5,
+          0.15,
+          11.2
+        ],
+        [
+          21.8,
+          29.3,
+          9.3,
+          28.5,
+          0.15,
+          22.5
+        ]
+      ],
+      "source": "british-use-scales-agriculture021.js"
+    },
+    {
+      "id": "UKW021-S",
+      "nm": "石砌單跨貨棧",
+      "group": "warehouse",
+      "scale": "S",
+      "sz": 2,
+      "w": 160,
+      "h": 180,
+      "k": 64,
+      "tool": "warehouse",
+      "floors": 1,
+      "plan": "single-stone-span-and-low-side-store",
+      "roof": "long-stone-gable-and-side-catslide",
+      "entry": "front-raised-loading-door-and-side-staff-door",
+      "yard": "open-front-unloading-apron-and-rear-service-strip",
+      "masses": [
+        [
+          3,
+          24.3,
+          7.1,
+          23.8,
+          0,
+          19.2
+        ],
+        [
+          24.8,
+          29.6,
+          14.1,
+          23.2,
+          0,
+          10.3
+        ]
+      ],
+      "functionLimit": "Native k64 warehouse only; geometry does not add stock, goods or throughput.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKW021-M",
+      "nm": "三層起重磚貨棧",
+      "group": "warehouse",
+      "scale": "M",
+      "sz": 3,
+      "w": 232,
+      "h": 218,
+      "k": 167,
+      "tool": "distributionCenter",
+      "floors": 3,
+      "plan": "tall-west-range-and-low-north-return-plus-gate-office",
+      "roof": "long-tall-gable-and-perpendicular-low-gable",
+      "entry": "separate-front-hoist-loading-and-east-court-staff-entry",
+      "yard": "real-open-eastern-delivery-court",
+      "masses": [
+        [
+          3,
+          22,
+          5,
+          38,
+          0,
+          35.5
+        ],
+        [
+          22,
+          43,
+          5,
+          16,
+          0,
+          24.2
+        ],
+        [
+          37,
+          44,
+          35,
+          44,
+          0,
+          13.3
+        ]
+      ],
+      "functionLimit": "Native k167 road distribution; shared carrier with freight M, installed by group only.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKW021-L",
+      "nm": "錯列雙倉理貨院",
+      "group": "warehouse",
+      "scale": "L",
+      "sz": 4,
+      "w": 296,
+      "h": 232,
+      "k": 165,
+      "tool": "containerLogistics",
+      "floors": 2,
+      "plan": "offset-parallel-brick-warehouses-and-detached-front-office",
+      "roof": "two-unequal-long-gables-and-office-hip",
+      "entry": "two-goods-frontages-and-independent-office-door",
+      "yard": "unobstructed-central-through-lane-and-two-loading-courts",
+      "masses": [
+        [
+          3,
+          23,
+          9,
+          53,
+          0,
+          24
+        ],
+        [
+          39,
+          61,
+          3,
+          40,
+          0,
+          17.6
+        ],
+        [
+          39,
+          60,
+          43,
+          59,
+          0,
+          27
+        ]
+      ],
+      "functionLimit": "British masonry art on native k165 containerLogistics; retains its existing logistics values.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKP021-S",
+      "nm": "鄉村單月台站房",
+      "group": "passengerstation",
+      "scale": "S",
+      "sz": 1,
+      "w": 80,
+      "h": 108,
+      "k": 17,
+      "tool": "station",
+      "floors": 1,
+      "plan": "compact-booking-room-and-detached-coal-store",
+      "roof": "short-gable-and-single-front-platform-canopy",
+      "entry": "separate-street-and-platform-doors",
+      "yard": "small-rear-staff-yard-with-coal-store",
+      "masses": [
+        [
+          1.5,
+          11.2,
+          3.3,
+          10.5,
+          0,
+          14.5
+        ],
+        [
+          11.8,
+          14.5,
+          3.1,
+          7.7,
+          0,
+          7.9
+        ]
+      ],
+      "functionLimit": "Native k17 is 1x1, not 2x2. Rail service still needs the native adjacent network.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKP021-M",
+      "nm": "鎮站雙月台長站房",
+      "group": "passengerstation",
+      "scale": "M",
+      "sz": 3,
+      "w": 232,
+      "h": 206,
+      "k": 55,
+      "tool": "grandStation",
+      "floors": 2,
+      "plan": "long-west-booking-range-and-two-separated-platform-canopies",
+      "roof": "high-station-gable-and-two-low-iron-ridges",
+      "entry": "street-end-booking-hall-and-side-platform-access",
+      "yard": "separate-front-concourse-and-small-eastern-service-bay",
+      "masses": [
+        [
+          3,
+          19,
+          7,
+          39,
+          0,
+          27.2
+        ],
+        [
+          36,
+          44,
+          33,
+          42,
+          0,
+          11.5
+        ]
+      ],
+      "functionLimit": "Native k55 3x3 railway station. Painted internal track positions do not add or repair native topology.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKP021-L",
+      "nm": "雙廳雙跨城市客站",
+      "group": "passengerstation",
+      "scale": "L",
+      "sz": 5,
+      "w": 360,
+      "h": 286,
+      "k": 139,
+      "tool": "hsrStation",
+      "floors": 2,
+      "plan": "separated-west-and-central-booking-halls-two-narrow-glass-sheds-and-east-service-range",
+      "roof": "two-independent-glass-vaults-and-separate-hipped-halls",
+      "entry": "two-street-halls-and-upper-platform-gallery",
+      "yard": "front-walking-court-and-independent-eastern-service-bay",
+      "masses": [
+        [
+          3,
+          16,
+          41,
+          76,
+          0,
+          28.4
+        ],
+        [
+          33,
+          47,
+          63,
+          76,
+          0,
+          28.4
+        ],
+        [
+          35,
+          45,
+          65,
+          74,
+          28.4,
+          52
+        ],
+        [
+          65,
+          76,
+          7,
+          25,
+          0,
+          17.3
+        ]
+      ],
+      "functionLimit": "Native 5x5 k139 only. When used with approved 008 variants, preserve their actual x24/x56 owned corridors and all native port/construction authorities.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKT021-S",
+      "nm": "穿廊單跨鐵道貨棚",
+      "group": "freightstation",
+      "scale": "S",
+      "sz": 2,
+      "w": 160,
+      "h": 174,
+      "k": 110,
+      "tool": "freight",
+      "floors": 1,
+      "plan": "genuinely-open-through-shed-and-small-east-goods-office",
+      "roof": "one-long-gable-and-low-offset-office-hip",
+      "entry": "open-end-rail-arches-and-separated-side-goods-door",
+      "yard": "eastern-unloading-apron-and-small-office-court",
+      "masses": [
+        [
+          3,
+          7.4,
+          4,
+          27.4,
+          0,
+          18.8
+        ],
+        [
+          17.6,
+          22,
+          4,
+          27.4,
+          0,
+          18.8
+        ],
+        [
+          7.4,
+          17.6,
+          4,
+          4.9,
+          11.4,
+          18.8
+        ],
+        [
+          7.4,
+          17.6,
+          26.5,
+          27.4,
+          11.4,
+          18.8
+        ],
+        [
+          23.5,
+          29.9,
+          17.4,
+          28.3,
+          0,
+          11.2
+        ]
+      ],
+      "functionLimit": "Native k110 freight only. Painted through-track is visual geometry, not a new railway connection or train schedule.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKT021-M",
+      "nm": "橫樓公路配送貨院",
+      "group": "freightstation",
+      "scale": "M",
+      "sz": 3,
+      "w": 232,
+      "h": 206,
+      "k": 167,
+      "tool": "distributionCenter",
+      "floors": 2,
+      "plan": "two-storey-front-cross-range-low-west-shed-and-detached-canopy",
+      "roof": "long-front-hip-low-west-gable-and-open-loading-canopy",
+      "entry": "front-staff-entrance-and-rear-goods-doors",
+      "yard": "large-open-central-road-delivery-court-with-east-gate",
+      "masses": [
+        [
+          3,
+          42,
+          30,
+          44,
+          0,
+          25.8
+        ],
+        [
+          3,
+          15,
+          4,
+          30,
+          0,
+          15.2
+        ]
+      ],
+      "functionLimit": "Native k167 ROAD distribution, not a railway freight station. Shared carrier with warehouse M, installed by group only.",
+      "source": "british-use-scales-infrastructure021.js"
+    },
+    {
+      "id": "UKT021-L",
+      "nm": "錯列雙貨棚門吊院",
+      "group": "freightstation",
+      "scale": "L",
+      "sz": 4,
+      "w": 296,
+      "h": 240,
+      "k": 166,
+      "tool": "intermodalHub",
+      "floors": 3,
+      "plan": "two-offset-open-rail-goods-sheds-central-gantry-court-and-west-control-range",
+      "roof": "two-separated-slate-gables-and-hipped-control-room",
+      "entry": "two-through-rail-arches-road-gate-and-separate-control-door",
+      "yard": "separated-central-loading-yard-and-clear-painted-rail-corridors",
+      "masses": [
+        [
+          3.7,
+          11.9,
+          5,
+          27,
+          0,
+          18.6
+        ],
+        [
+          22.1,
+          28.4,
+          5,
+          27,
+          0,
+          18.6
+        ],
+        [
+          11.9,
+          22.1,
+          5,
+          5.9,
+          11.4,
+          18.6
+        ],
+        [
+          11.9,
+          22.1,
+          26.1,
+          27,
+          11.4,
+          18.6
+        ],
+        [
+          36,
+          41.9,
+          34,
+          57,
+          0,
+          17.5
+        ],
+        [
+          52.1,
+          59,
+          34,
+          57,
+          0,
+          17.5
+        ],
+        [
+          41.9,
+          52.1,
+          34,
+          34.9,
+          11.4,
+          17.5
+        ],
+        [
+          41.9,
+          52.1,
+          56.1,
+          57,
+          11.4,
+          17.5
+        ],
+        [
+          3.5,
+          11.6,
+          39,
+          55,
+          0,
+          41.5
+        ]
+      ],
+      "functionLimit": "Native k166 intermodalHub conditions remain. As disclosed in T611, painted rails do not connect adjacent true rail tiles; no new dispatch or throughput.",
+      "source": "british-use-scales-infrastructure021.js"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "fragment_file": "/workspace/recovery-gpt021/unverified/kit021-workplaces-tail.fragment.txt",
+  "source_agent": "/root/art_workplaces",
+  "source_original_file": "/workspace/GlimmerTown-lab/british-use-scales-kit021.js",
+  "source_read_command": "tail -17 british-use-scales-kit021.js && sed -n '222,246p' british-complex-primitives014.js && git status --short --branch",
+  "source_scope": "Only the first 17 lines of that retained tool output; subsequent primitive code and git status excluded",
+  "source_stage": "After root notified addition of project and smoke608 during workplace candidate development on 2026-10-11",
+  "bytes": 1841,
+  "line_count": 17,
+  "sha256": "c98d515fad8aff0cf685decb898c3d8fe4ad9d181acaf61825833177c2a27ef2",
+  "encoding": "UTF-8",
+  "final_LF": true,
+  "CR_bytes": 0,
+  "complete_kit_source": false,
+  "missing": "File prefix, create header, project definition, chimneyHeads declaration and any later original patches or final complete source",
+  "approved_geometry_validation": false,
+  "full_target_sha256": "5db827a1d93c4650d647cab0d7307970510d0a6fcd9fc86ed6960b29b7520696",
+  "warning": "Exact retained fragment only. This fragment cannot establish full-file byte identity or validated final geometry. No inferred code or early-source reconstruction included."
+}

@@ -1,0 +1,17 @@
+      F.block(u-.35,u,0,.42,.3,h+.4,P.stone,P.stoneR,P.stoneHi);F.block(u+w,u+w+.35,0,.42,.3,h+.4,P.stone,P.stoneR,P.stoneHi);
+      F.block(u-.35,u+w+.35,0,.5,h,h+.55,P.stone,P.stoneR,P.stoneHi);F.panel(u+w*.48,u+w*.52,1,h-.5,P.ironD,.25);
+    }
+    function chimney(x,y,z,pots){walls(x-.58,x+.58,y-.66,y+.66,z-1.5,z+3,2131);S.box(x-.8,x+.8,y-.8,y+.8,z+2.7,z+3.2,P.stone,P.stoneR,P.stoneHi);
+      for(let p=0;p<(pots||2);p++)K.cylinder(S,x+(p-((pots||2)-1)/2)*.62,y,z+3.2,z+5.6,.23,.30,C('bc805c'),C('905c44'),P.ink,8);chimneyHeads.push(project(x,y,z+5.6));}
+    function crates(x,y,count){for(let a=0;a<count;a++){const xx=x+a*1.4;S.box(xx,xx+1.12,y,y+1.25,.15,1.7,P.woodHi,P.woodR,P.woodHi);S.beam([xx,y+1.26,.6],[xx+1.1,y+1.26,1.35],P.woodD,.16);}}
+    function fence(x0,y0,x1,y1,h){const len=Math.hypot(x1-x0,y1-y0),steps=Math.max(1,Math.ceil(len/3));h=h||3;
+      for(let a=0;a<=steps;a++){const x=x0+(x1-x0)*a/steps,y=y0+(y1-y0)*a/steps;S.box(x-.12,x+.12,y-.12,y+.12,0,h,P.wood,P.woodR,P.woodHi);}
+      for(const z of[h*.35,h*.78])S.beam([x0,y0,z],[x1,y1,z],P.wood,.25);}
+    function canopy(x0,x1,y0,y1,z){for(const x of[x0+.3,x1-.3])for(const y of[y0+.3,y1-.3])S.box(x-.12,x+.12,y-.12,y+.12,0,z,P.iron,P.ironD,P.ironHi);ShedCanopy();
+      function ShedCanopy(){S.poly([[x0,y0,z+.8],[x1,y0,z+.8],[x1,y1,z],[x0,y1,z]],P.canopy);}}
+    function lamps(F,u,z){K.wallLamp(S,F,u,z||8.5);}
+    function finish(extra){return S.finish({...spec,view,candidate:true,__useScales021:1,lightPolicy:'solid-glazing-and-fixtures-only',smoke:[],smoke608:chimneyHeads.map(p=>p.slice()),...extra});}
+    return {S,K,P,C,extent,dark,project,walls,course,gable,hip,shed,mansard,windows,door,loading,chimney,crates,fence,canopy,lamps,finish};
+  }
+  root.BritishUseScalesKit021=Object.freeze({create});
+})(typeof window==='undefined'?globalThis:window);
