@@ -1,0 +1,3753 @@
+{
+  "kind": "Rebuilt kit CPU native-raster guard; no game screenshots or integration claim",
+  "sourceSHA256": "7ccbe0a54ed00b8dca173725922937346170343c9f9edca66bc2dc2055fc9efd",
+  "checks": [
+    {
+      "name": "kit-project-known-native-vectors",
+      "ok": true
+    },
+    {
+      "name": "kit-view-bounds",
+      "ok": true
+    },
+    {
+      "name": "kit-chimney-real-head-and-copy",
+      "ok": true
+    },
+    {
+      "name": "kit-project-fault-target-is-first-red",
+      "ok": true
+    },
+    {
+      "name": "original-source-art",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKU021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "original-source-hospitality",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKH021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKD021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKM021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "original-source-workplaces",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKO021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKC021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKI021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "original-source-agriculture",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKF021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKR021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "original-source-infrastructure",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKW021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKP021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-S-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-S-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-S-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-S-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-M-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-M-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-M-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-M-view3",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-L-view0",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-L-view1",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-L-view2",
+      "ok": true
+    },
+    {
+      "name": "native-raster-UKT021-L-view3",
+      "ok": true
+    },
+    {
+      "name": "36-unique-forms-144-native-rasters",
+      "ok": true
+    }
+  ],
+  "assets": [
+    {
+      "id": "UKU021-S",
+      "view": 0,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "7ef1a5fbbf985ccd35e214c8833565b4f245851153cdbb6db2343fad5898b4b7",
+      "nightSHA256": "5b45ee95ca403ef3c2d65256cd56aac46529ab14969101b9ef33b9035afa839d",
+      "occupied": 1953,
+      "lit": 204,
+      "bounds": [
+        11,
+        55,
+        68,
+        112
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-S",
+      "view": 1,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "2034c7a3a26b716595045432f0386fc36790f03c2cc19fd539b213c26f046055",
+      "nightSHA256": "ecec2268a3444e45ba8008ddb3b311e8438ced3429bc9340d8ccddc43a41121f",
+      "occupied": 1987,
+      "lit": 76,
+      "bounds": [
+        11,
+        59,
+        68,
+        112
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-S",
+      "view": 2,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "b9c72177037303849dc53f0206b7eb0b070665bbd563d266861fdb82493b3a90",
+      "nightSHA256": "b7efb93fb9baced62b9c5575a3f3844aad98ccfdf448bb389365b5e5b7a777de",
+      "occupied": 1888,
+      "lit": 37,
+      "bounds": [
+        11,
+        63,
+        68,
+        112
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-S",
+      "view": 3,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "f148586ae97819ba6018a5d3957dec6828972058b508263ca34ee1e9ad88f5f1",
+      "nightSHA256": "345861efa6d57f6db91cba67f17d854ea8a2579070162096923cab0f9171d8db",
+      "occupied": 1804,
+      "lit": 153,
+      "bounds": [
+        11,
+        65,
+        68,
+        112
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-M",
+      "view": 0,
+      "w": 160,
+      "h": 194,
+      "daySHA256": "a1dff20d8eb4e7a873951dc53aef4d1c83d3f2d51804c8f351316d0b0b6893ca",
+      "nightSHA256": "d29892e4f1f632a52b1e648958c5a1f1739151f1171f5e357dde8e5b75806c68",
+      "occupied": 6816,
+      "lit": 526,
+      "bounds": [
+        19,
+        83,
+        140,
+        190
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-M",
+      "view": 1,
+      "w": 160,
+      "h": 194,
+      "daySHA256": "d0087f86a8024dcbb746ef0520aed924e1f41c0d6c65d2f03c7d9d3a039cfb2b",
+      "nightSHA256": "e87068ecd52b3c165863c7576425883acdc6ce1088dc4420e291bfb586232742",
+      "occupied": 6722,
+      "lit": 585,
+      "bounds": [
+        19,
+        103,
+        140,
+        190
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-M",
+      "view": 2,
+      "w": 160,
+      "h": 194,
+      "daySHA256": "d2eb209c60a10af7976fa1c7e89dd60b2a1f4518b2bf3735adbfa00d53f772f3",
+      "nightSHA256": "841686f079e2d3c955d39a7174c482e34fe3ab997061de24599c816c738e0b6b",
+      "occupied": 6624,
+      "lit": 564,
+      "bounds": [
+        19,
+        90,
+        140,
+        190
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-M",
+      "view": 3,
+      "w": 160,
+      "h": 194,
+      "daySHA256": "f8a9d7eee3f8246946592a8090f5fb9ae0d22114c261ffd5717f69493cf7722d",
+      "nightSHA256": "1b27160257205da062c2796019f24bf3161d05f515a625bfec148935e5e8bb1c",
+      "occupied": 8094,
+      "lit": 752,
+      "bounds": [
+        19,
+        89,
+        140,
+        190
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-L",
+      "view": 0,
+      "w": 232,
+      "h": 240,
+      "daySHA256": "d51d097d88a7bbd136419f8884b998ee779428c96901a70dd5f5a9693575b8fb",
+      "nightSHA256": "219a44aabd6ba3b38e8a46de14fbd6b0fdb1f3da2a7c812a8f6eb406f9b53234",
+      "occupied": 14311,
+      "lit": 1512,
+      "bounds": [
+        23,
+        112,
+        208,
+        236
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-L",
+      "view": 1,
+      "w": 232,
+      "h": 240,
+      "daySHA256": "8c60d7ec97a80d7f312c6b62f45a96889834db58129faf8b62e12ba9bcd963f6",
+      "nightSHA256": "f90fd9e8b2318cb65a21c072244765811c8955ea03a73211874dfa6e75aa4e54",
+      "occupied": 16411,
+      "lit": 1184,
+      "bounds": [
+        23,
+        89,
+        208,
+        236
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-L",
+      "view": 2,
+      "w": 232,
+      "h": 240,
+      "daySHA256": "6420c1a61ccd94c2354080080dc999e810660bff1b26686bbfa3f23cd08dc443",
+      "nightSHA256": "ae25d75902dd1f4cc47a69acd4a41b2797b553fa8ba81bef53a58939939948a3",
+      "occupied": 16399,
+      "lit": 1190,
+      "bounds": [
+        23,
+        89,
+        208,
+        236
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKU021-L",
+      "view": 3,
+      "w": 232,
+      "h": 240,
+      "daySHA256": "06a1d93ca87bd6a0c2e27c76e6b9bc128226ad279172219bdd92489eab30ec6b",
+      "nightSHA256": "e3f5b1c822889f281ee08b3809a3b9066d11b5613fc4171d3f58207746548a77",
+      "occupied": 14253,
+      "lit": 1515,
+      "bounds": [
+        23,
+        109,
+        208,
+        236
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKH021-S",
+      "view": 0,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "f82b0634c95fe35f2c552ed199fc0c6c7f5032a6e146e17dee4aea49a8beb68c",
+      "nightSHA256": "73be3ac258a0a0428d1b958a52d00100bf66c8158e5ebb5565adec0e4fa8cf8b",
+      "occupied": 1966,
+      "lit": 74,
+      "bounds": [
+        12,
+        55,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          30.9,
+          55.650000000000006
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-S",
+      "view": 1,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "ecc0546892b5e3a47991332ffc1dc1cfcc1cda134717802c8c2e468f388a06ef",
+      "nightSHA256": "43c802ea18c885f46cb79ec8bc33d3211810e034fe8272b9a3aff28df3e41023",
+      "occupied": 1935,
+      "lit": 53,
+      "bounds": [
+        12,
+        56,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          50.300000000000004,
+          56.25
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-S",
+      "view": 2,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "372a2248a4dadfee2699b6e576f7c5055cbba4ea9d89b8bf953f500265caa3b2",
+      "nightSHA256": "5d224afcf58935f9c26f6cd9d37a9a89eed79e4ab80e03aeba58c98b08c5dec6",
+      "occupied": 1859,
+      "lit": 52,
+      "bounds": [
+        12,
+        61,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          49.1,
+          65.94999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-S",
+      "view": 3,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "b7724417e661a783003a4a38d3aae623bdf84a3d37cb1eafe98be68de5621c21",
+      "nightSHA256": "67ab23bc1516a7fad00c56d10dc2616e08f8f707335804372be5e9a647ae5f0d",
+      "occupied": 1705,
+      "lit": 66,
+      "bounds": [
+        12,
+        62,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          29.7,
+          65.35
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-M",
+      "view": 0,
+      "w": 160,
+      "h": 202,
+      "daySHA256": "d8d6161e46bc2687c70409c22580a36ac868f705e19b4ca281b887a5e9aaf9e7",
+      "nightSHA256": "cadcc823e9be9e5fbd925ca73b1a332aad265a0b766df03a24deb4adb617b0c4",
+      "occupied": 7505,
+      "lit": 381,
+      "bounds": [
+        20,
+        97,
+        139,
+        197
+      ],
+      "smoke608": [
+        [
+          77.6,
+          97.99999999999999
+        ],
+        [
+          90.6,
+          133.3
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-M",
+      "view": 1,
+      "w": 160,
+      "h": 202,
+      "daySHA256": "8015d2a95d2fe7dc76d15a27f5ab0af1fd5849c72207afaa65d5782636f17403",
+      "nightSHA256": "76e95ffa6b7312eb2522096787efaa0d8b5d0c3953fbbbe3177417e688096b8d",
+      "occupied": 7041,
+      "lit": 353,
+      "bounds": [
+        20,
+        106,
+        139,
+        197
+      ],
+      "smoke608": [
+        [
+          121.6,
+          117.60000000000001
+        ],
+        [
+          52.2,
+          124.69999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-M",
+      "view": 2,
+      "w": 160,
+      "h": 202,
+      "daySHA256": "36d3f2cd0d7fa3c5bace6146f81a6621622326c38d639d51006891df578aae98",
+      "nightSHA256": "5316996b4c26ee7328d1303b3c3853ca05259ae6af64a6efc101d87f9800c540",
+      "occupied": 7005,
+      "lit": 395,
+      "bounds": [
+        20,
+        103,
+        139,
+        197
+      ],
+      "smoke608": [
+        [
+          82.4,
+          139.60000000000002
+        ],
+        [
+          69.4,
+          105.5
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-M",
+      "view": 3,
+      "w": 160,
+      "h": 202,
+      "daySHA256": "d18409b4cf3dc86dd935c645e1d4611e8292731749c5d74416c1d651a55c617a",
+      "nightSHA256": "5f9e1b1b29f6f6777fed05e563e7094af0ad8aebe9bbbb3aaa6db245ee905eb9",
+      "occupied": 7637,
+      "lit": 338,
+      "bounds": [
+        20,
+        100,
+        139,
+        197
+      ],
+      "smoke608": [
+        [
+          38.400000000000006,
+          119.99999999999999
+        ],
+        [
+          107.8,
+          114.10000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-L",
+      "view": 0,
+      "w": 232,
+      "h": 252,
+      "daySHA256": "2255f5f564428d58b8cefcc9720f448609139088ae43c6643585b49e357a63c4",
+      "nightSHA256": "4a85e07d52d36c169b89a6feaf1749fb7aa5ff3280ea81a5c76ad15f8efa1c5d",
+      "occupied": 12961,
+      "lit": 699,
+      "bounds": [
+        24,
+        125,
+        207,
+        247
+      ],
+      "smoke608": [
+        [
+          53.8,
+          131
+        ],
+        [
+          145,
+          148.7
+        ],
+        [
+          101.80000000000001,
+          126.9
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-L",
+      "view": 1,
+      "w": 232,
+      "h": 252,
+      "daySHA256": "b366a3615eb43dcc8288f5e2d1b05fc236c5a35c031146b2c6c13d13c8e97112",
+      "nightSHA256": "b0aace27d694928769b32d82f748f247a847c371da1482c55a7ca6936fb814e7",
+      "occupied": 15462,
+      "lit": 608,
+      "bounds": [
+        24,
+        106,
+        207,
+        247
+      ],
+      "smoke608": [
+        [
+          129.4,
+          106.60000000000001
+        ],
+        [
+          94.19999999999999,
+          152.3
+        ],
+        [
+          166.2,
+          144.9
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-L",
+      "view": 2,
+      "w": 232,
+      "h": 252,
+      "daySHA256": "38bfd7e07a2847acbc2f15256732e577457f7c538cc582a4f6ea388744b21d6e",
+      "nightSHA256": "45583100c9c87e60013430abe81c9bf9150370410d4e4093eda1391851d89e2b",
+      "occupied": 15206,
+      "lit": 695,
+      "bounds": [
+        24,
+        109,
+        207,
+        247
+      ],
+      "smoke608": [
+        [
+          178.20000000000002,
+          144.39999999999998
+        ],
+        [
+          87,
+          126.90000000000002
+        ],
+        [
+          130.2,
+          177.1
+        ]
+      ]
+    },
+    {
+      "id": "UKH021-L",
+      "view": 3,
+      "w": 232,
+      "h": 252,
+      "daySHA256": "8ed86bc4a48451223d097c378a0d0d998d18b5492e706f95e39d575f55b4f399",
+      "nightSHA256": "ffec8c2fcaf48f008e94fae1735f615b8710e15810c46e05c7ee2290f01a8378",
+      "occupied": 13035,
+      "lit": 748,
+      "bounds": [
+        24,
+        121,
+        207,
+        247
+      ],
+      "smoke608": [
+        [
+          102.60000000000001,
+          168.8
+        ],
+        [
+          137.8,
+          123.3
+        ],
+        [
+          65.8,
+          159.1
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-S",
+      "view": 0,
+      "w": 80,
+      "h": 102,
+      "daySHA256": "ffdf6db8a744182ca14be76d3d6016d81e858ed51e934e8334e4f67f4c0b5d29",
+      "nightSHA256": "9423a7536f8be0c6b2f00ae704cbcd8756afe0edc1fb6e4de71b36257538b8fd",
+      "occupied": 1373,
+      "lit": 71,
+      "bounds": [
+        12,
+        55,
+        67,
+        97
+      ],
+      "smoke608": [
+        [
+          35.6,
+          55.3
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-S",
+      "view": 1,
+      "w": 80,
+      "h": 102,
+      "daySHA256": "6c0888c6df4e0ec15c8450f25b85fa688f258fd1c28dfa95eb544ea087ee777d",
+      "nightSHA256": "a0f5a1f23dfd222d2c23c255cba02bbf680da335af53e004b5c34d3dc1c34fc1",
+      "occupied": 1448,
+      "lit": 54,
+      "bounds": [
+        12,
+        57,
+        67,
+        97
+      ],
+      "smoke608": [
+        [
+          48.4,
+          57.3
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-S",
+      "view": 2,
+      "w": 80,
+      "h": 102,
+      "daySHA256": "9e95885d8569b2677ae05114ae8d48c96af11f11c617d0dc1504c88995131768",
+      "nightSHA256": "a5bbedf2bbdc725f62ed4dd579eaa3631853a073d158ebe6b4f6c01b54fe1d04",
+      "occupied": 1337,
+      "lit": 56,
+      "bounds": [
+        12,
+        59,
+        67,
+        97
+      ],
+      "smoke608": [
+        [
+          44.4,
+          63.7
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-S",
+      "view": 3,
+      "w": 80,
+      "h": 102,
+      "daySHA256": "a3e2190aad9f147633fe8436ffc4d67c9f877a1aaef0963236396ed267e352c8",
+      "nightSHA256": "dc64e9d74ee7dbce7b2685e17722c827a9b30b623575ae9ed1ea29a41a17355d",
+      "occupied": 1297,
+      "lit": 92,
+      "bounds": [
+        12,
+        61,
+        67,
+        97
+      ],
+      "smoke608": [
+        [
+          31.6,
+          61.7
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-M",
+      "view": 0,
+      "w": 160,
+      "h": 178,
+      "daySHA256": "3341902492a227417db4c7d3eb66d2a8346bedc7e8f029fd1fb8168c978e82e0",
+      "nightSHA256": "c5d2494187e40c81b93f91da64e22543913cb153276c2081ef5bce82ca109bbd",
+      "occupied": 5806,
+      "lit": 218,
+      "bounds": [
+        20,
+        85,
+        139,
+        173
+      ],
+      "smoke608": [
+        [
+          77.2,
+          85.6
+        ],
+        [
+          85.19999999999999,
+          121
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-M",
+      "view": 1,
+      "w": 160,
+      "h": 178,
+      "daySHA256": "fd8eff0dec3956c8a93cfd2840be47c9c5a81cd9f050a4bd03b13840557dc5ce",
+      "nightSHA256": "148ee4ba029d06777ee9f8e9aa082c866ddc6f999db49032ced4d76bb93d2776",
+      "occupied": 5412,
+      "lit": 294,
+      "bounds": [
+        20,
+        104,
+        139,
+        173
+      ],
+      "smoke608": [
+        [
+          121.19999999999999,
+          104.79999999999998
+        ],
+        [
+          49.99999999999999,
+          108.6
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-M",
+      "view": 2,
+      "w": 160,
+      "h": 178,
+      "daySHA256": "c1a490f6ffe50107c0762822c0907597e90684a451c3a62cdb3d91ace65a3183",
+      "nightSHA256": "00d9cfcbb24a035888be47a9495362c1752ea60c9faef969ccd837857ddcb97e",
+      "occupied": 5451,
+      "lit": 260,
+      "bounds": [
+        20,
+        90,
+        139,
+        173
+      ],
+      "smoke608": [
+        [
+          82.8,
+          126.79999999999998
+        ],
+        [
+          74.80000000000001,
+          91
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-M",
+      "view": 3,
+      "w": 160,
+      "h": 178,
+      "daySHA256": "6f643ceb06f3fe3618438899c59e5a1855828a6686da3aaf187e5e4255c1e6d6",
+      "nightSHA256": "a4ba0334937432d6a7e7ee8cd75e27d3e07b506536b985c0aa6e0c6e9c6618a4",
+      "occupied": 6343,
+      "lit": 289,
+      "bounds": [
+        20,
+        89,
+        139,
+        173
+      ],
+      "smoke608": [
+        [
+          38.8,
+          107.6
+        ],
+        [
+          110,
+          103.39999999999998
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-L",
+      "view": 0,
+      "w": 160,
+      "h": 204,
+      "daySHA256": "fc68085cf0b68262d67ec01533d8ce89a315dda099303f86ce1bc2f4372a1b41",
+      "nightSHA256": "620e445036ac84a6d5b97b042a10a5e984f37a60a4a5d80e2e93abf5415036a4",
+      "occupied": 6279,
+      "lit": 283,
+      "bounds": [
+        20,
+        117,
+        139,
+        199
+      ],
+      "smoke608": [
+        [
+          43.8,
+          118.1
+        ],
+        [
+          75.60000000000001,
+          117.39999999999999
+        ],
+        [
+          123.39999999999999,
+          149.6
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-L",
+      "view": 1,
+      "w": 160,
+      "h": 204,
+      "daySHA256": "14f0711f5de0c36373b2c5cc217fd1af810a8600d5220b0474effbd10792b24c",
+      "nightSHA256": "8fbb3dd738c08831c2aa9141a484d966ed9e53ef7dbcd5db87f86d33b0320778",
+      "occupied": 7316,
+      "lit": 342,
+      "bounds": [
+        20,
+        101,
+        139,
+        199
+      ],
+      "smoke608": [
+        [
+          83.8,
+          101.9
+        ],
+        [
+          114.8,
+          132.59999999999997
+        ],
+        [
+          78.99999999999999,
+          170.79999999999998
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-L",
+      "view": 2,
+      "w": 160,
+      "h": 204,
+      "daySHA256": "cf17433d6d3c013c82635fb7a1a2cc2abeb5686b601dee1b15d2a1bf8326cc9c",
+      "nightSHA256": "7f6f7d17216607820dcad6de7956d413f3df4a998c6da5881daed8a57966e475",
+      "occupied": 6739,
+      "lit": 361,
+      "bounds": [
+        20,
+        103,
+        139,
+        199
+      ],
+      "smoke608": [
+        [
+          116.2,
+          121.9
+        ],
+        [
+          84.39999999999999,
+          152.2
+        ],
+        [
+          36.599999999999994,
+          148.6
+        ]
+      ]
+    },
+    {
+      "id": "UKD021-L",
+      "view": 3,
+      "w": 160,
+      "h": 204,
+      "daySHA256": "d2541e881e85b6ff606f92c11352ae10507f2e7329c6201a659d46af5f0df08c",
+      "nightSHA256": "3b0a550ebfe6831ce3f2a6bc5c0b9a098e2488583f00399312bc439c57333345",
+      "occupied": 6090,
+      "lit": 312,
+      "bounds": [
+        20,
+        119,
+        139,
+        199
+      ],
+      "smoke608": [
+        [
+          76.19999999999999,
+          138.1
+        ],
+        [
+          45.199999999999996,
+          137
+        ],
+        [
+          81,
+          127.4
+        ]
+      ]
+    },
+    {
+      "id": "UKM021-S",
+      "view": 0,
+      "w": 160,
+      "h": 150,
+      "daySHA256": "db954992d279a829fb8518816b8a9339ad7e5887544e27f5f056ceddb179b012",
+      "nightSHA256": "076fd66d14c8c84332a2536dd962feca78532ec056f53bc9c24c31f22a062bb6",
+      "occupied": 4816,
+      "lit": 176,
+      "bounds": [
+        20,
+        74,
+        139,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-S",
+      "view": 1,
+      "w": 160,
+      "h": 150,
+      "daySHA256": "b1ed29e2f489ea809e59db5bd85b1de219592270e7e4becb5b346849b52209d1",
+      "nightSHA256": "e650553266aacd60ccf9ce1351375db1ad4ecff656c56943f92aba77762636e7",
+      "occupied": 4816,
+      "lit": 149,
+      "bounds": [
+        20,
+        74,
+        139,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-S",
+      "view": 2,
+      "w": 160,
+      "h": 150,
+      "daySHA256": "2644cdd73b160daf6dd9fa2f0a982051fb09e26d8ac6eed815a537d9d92dd583",
+      "nightSHA256": "af3e87706ac67960f6751b3fce7cbe4528c7f5c766ef696671cac0df381bd652",
+      "occupied": 4540,
+      "lit": 212,
+      "bounds": [
+        20,
+        78,
+        139,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-S",
+      "view": 3,
+      "w": 160,
+      "h": 150,
+      "daySHA256": "cfaeb0c0787f516b9d419ac18cb99c78332fda37b212570678ea8b5c9da30d11",
+      "nightSHA256": "70368f08e714d60b0c3492d26dbe92c0aab9299206007bb3567b7dd23ca0565d",
+      "occupied": 4531,
+      "lit": 181,
+      "bounds": [
+        20,
+        78,
+        139,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-M",
+      "view": 0,
+      "w": 232,
+      "h": 212,
+      "daySHA256": "7bd9f573a4ff0f2af1e6d4e6bf2e3bc185f8c707a244f04e1d9a1c7ff42e2ca5",
+      "nightSHA256": "59d99aada70e5635c760488ac854e5f15b08415509d7972a569eae929d48f049",
+      "occupied": 10932,
+      "lit": 533,
+      "bounds": [
+        24,
+        102,
+        207,
+        207
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-M",
+      "view": 1,
+      "w": 232,
+      "h": 212,
+      "daySHA256": "23e272ca3bac360b5b261b8b465395871fccf485dae6252cbef32f71c73a96d2",
+      "nightSHA256": "8432b737b0460755ba627d8b8e44563123051e58952abec5992e658ec31e2dd5",
+      "occupied": 10669,
+      "lit": 498,
+      "bounds": [
+        24,
+        106,
+        207,
+        207
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-M",
+      "view": 2,
+      "w": 232,
+      "h": 212,
+      "daySHA256": "1331b199d588e3b297b3ab2f64e6d07af0f963a6dba1de34bdf9d8e9d00d9d0e",
+      "nightSHA256": "537a61760473192035fdffbf0abd9f00007abd437617b452993923eebfb1f652",
+      "occupied": 10656,
+      "lit": 605,
+      "bounds": [
+        24,
+        103,
+        207,
+        207
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-M",
+      "view": 3,
+      "w": 232,
+      "h": 212,
+      "daySHA256": "a766441de9b0aeef626a1e66ebe91893e79ad61a84d399e26ab107f28c739be6",
+      "nightSHA256": "e4d78da4a27a0d3edf0f130d1bfb46567276e4ef9a49d1434a8f8566d8dddb25",
+      "occupied": 10959,
+      "lit": 566,
+      "bounds": [
+        24,
+        101,
+        207,
+        207
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKM021-L",
+      "view": 0,
+      "w": 232,
+      "h": 226,
+      "daySHA256": "42fbc9bff64d53eaed4130ab5e564fd06fa8ed74154362497e79c365b0621d7c",
+      "nightSHA256": "2656910b963afa261196d313c55c420572b0f52332bfa2473bfa5c4567e320db",
+      "occupied": 11274,
+      "lit": 550,
+      "bounds": [
+        24,
+        119,
+        207,
+        221
+      ],
+      "smoke608": [
+        [
+          130,
+          119.79999999999998
+        ]
+      ]
+    },
+    {
+      "id": "UKM021-L",
+      "view": 1,
+      "w": 232,
+      "h": 226,
+      "daySHA256": "c856e01db5f65ab6a729748a027a5527f9fb990a602edec0356a0804b4eb8a57",
+      "nightSHA256": "bac29606878f405f6352a1e38583e02a297d3ce6bd7ff364cc303226d33ca94a",
+      "occupied": 12787,
+      "lit": 462,
+      "bounds": [
+        24,
+        97,
+        207,
+        221
+      ],
+      "smoke608": [
+        [
+          173.60000000000002,
+          155.6
+        ]
+      ]
+    },
+    {
+      "id": "UKM021-L",
+      "view": 2,
+      "w": 232,
+      "h": 226,
+      "daySHA256": "c0109549a70e408ac5a0565b795c2fe6fa0e6df7722ce11d4c6668b316a48fae",
+      "nightSHA256": "88302a5a0f853cb65d0e95a007886c78c2f8fafe16a03457e40162e11480eb8c",
+      "occupied": 12790,
+      "lit": 451,
+      "bounds": [
+        24,
+        97,
+        207,
+        221
+      ],
+      "smoke608": [
+        [
+          102.00000000000001,
+          177.4
+        ]
+      ]
+    },
+    {
+      "id": "UKM021-L",
+      "view": 3,
+      "w": 232,
+      "h": 226,
+      "daySHA256": "3e5625b98948b45477a6439e7f39c869c71aff9a9fc52c9881e009764288a4a3",
+      "nightSHA256": "8401efc8267eaf52ddad8a5ccaa6457d86f8b56bc63a8f430ac66986e491bc82",
+      "occupied": 11272,
+      "lit": 535,
+      "bounds": [
+        24,
+        121,
+        207,
+        221
+      ],
+      "smoke608": [
+        [
+          58.39999999999999,
+          141.6
+        ]
+      ]
+    },
+    {
+      "id": "UKO021-S",
+      "view": 0,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "db0fe6203ae78e71a1e07bc673f07dd49d5a27ac32d571994aff14616c8f4c96",
+      "nightSHA256": "8f38fc59769d967474bce8283db7e49abc908b29e1ad2abac950c0a91ed5b9a1",
+      "occupied": 1915,
+      "lit": 121,
+      "bounds": [
+        12,
+        57,
+        67,
+        111
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-S",
+      "view": 1,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "98dee9edf34eaf907cb59d847eed9f35fe5bc6558af2300bdd7ec426e65f2cbe",
+      "nightSHA256": "0551f4c151b316f0a7e08407258946ed9ecdeea7ab632c141626626aa264424f",
+      "occupied": 1945,
+      "lit": 114,
+      "bounds": [
+        12,
+        56,
+        67,
+        111
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-S",
+      "view": 2,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "938b0763981c05bfcba11a5ff8c0e8972e9f461f3b49f55086ce72c8576edbcd",
+      "nightSHA256": "78db2ae2424ac43c62dcb5c5780595c9712a9e23c9c14e5ad246f171ad95f67d",
+      "occupied": 1870,
+      "lit": 134,
+      "bounds": [
+        12,
+        62,
+        67,
+        111
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-S",
+      "view": 3,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "f3ecbc8fc7716ee9f59009dc32795b7bb8191b4e124b5d1835ea2e73f701f74e",
+      "nightSHA256": "e94a44ef0e8a15171c5a7174f9cdee5cafa5f53b364114be0de58407fdcef4c6",
+      "occupied": 1795,
+      "lit": 160,
+      "bounds": [
+        12,
+        63,
+        67,
+        111
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-M",
+      "view": 0,
+      "w": 160,
+      "h": 184,
+      "daySHA256": "9aac267cf52f44782d2cbed3ad31d1364b2eccb1c37fc1e49c8ec84cc8d7d753",
+      "nightSHA256": "1ca8cf75a16a9fb8bca7330da7738ade8c53294ad886245640429ecac8661e7c",
+      "occupied": 6463,
+      "lit": 533,
+      "bounds": [
+        20,
+        81,
+        139,
+        179
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-M",
+      "view": 1,
+      "w": 160,
+      "h": 184,
+      "daySHA256": "4b3edcd287a14798c32cc807b77c330da0097018aa11ce47cba181b63575c807",
+      "nightSHA256": "7be35d6ac1c888dc9a2b2aec4eab6084f873f3c27d5a1ad0cf01dba881e3beb7",
+      "occupied": 7537,
+      "lit": 569,
+      "bounds": [
+        20,
+        81,
+        139,
+        179
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-M",
+      "view": 2,
+      "w": 160,
+      "h": 184,
+      "daySHA256": "dfa6165483faa256cf10e3b71c25841449d511b1eb8db89854ce62d0ee00b281",
+      "nightSHA256": "2ac900dd2d47ade15024cf5a5fa279d3f41579f474c5bce231db3c1a20e30700",
+      "occupied": 6329,
+      "lit": 552,
+      "bounds": [
+        20,
+        86,
+        139,
+        179
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-M",
+      "view": 3,
+      "w": 160,
+      "h": 184,
+      "daySHA256": "cc44ffc92bff1f106114b2ff39ca0ae3a310a614ec87928bd2e428c1f6893456",
+      "nightSHA256": "078c0b06f9788a59d8899c1df672472e669db15aa487c8b61b6760871cf254b7",
+      "occupied": 6144,
+      "lit": 691,
+      "bounds": [
+        20,
+        101,
+        139,
+        179
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-L",
+      "view": 0,
+      "w": 232,
+      "h": 244,
+      "daySHA256": "692bbc87ff8b9879033af712122c5193ee2ff5ecca8b6380b3f5d94316cdbf76",
+      "nightSHA256": "58b878f172984da24a512fe0b155945dfb295589a92e7ba8dc150a3189ab2c94",
+      "occupied": 13621,
+      "lit": 1247,
+      "bounds": [
+        24,
+        102,
+        207,
+        239
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-L",
+      "view": 1,
+      "w": 232,
+      "h": 244,
+      "daySHA256": "3de1dc91c40286636a643583be55b8c7ccbbd376c01d7fe44cc86bf4c0055f73",
+      "nightSHA256": "542f2a44c4b6736aa855c06bac1ee876a6197b1c191b336a68a5fc5fcf5d739e",
+      "occupied": 16262,
+      "lit": 1436,
+      "bounds": [
+        24,
+        101,
+        207,
+        239
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-L",
+      "view": 2,
+      "w": 232,
+      "h": 244,
+      "daySHA256": "bb65aa195087dfcc6b8caeda8a58dc4988c04571657602343ac1d0987e0a482e",
+      "nightSHA256": "34742909225f8ce382c5d87df757d319a9e6d6c9d9e083ed1dad3d05bfe83c6b",
+      "occupied": 13605,
+      "lit": 1044,
+      "bounds": [
+        24,
+        101,
+        207,
+        239
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKO021-L",
+      "view": 3,
+      "w": 232,
+      "h": 244,
+      "daySHA256": "64b5fd1a8dc220c27b25d12d1c77108971989eb21850fa254b25b5f652ffa483",
+      "nightSHA256": "cd8a49b777ce9d70547a3b5f17b9fe9fc31f924ddcb61afa9dbab4c192b74942",
+      "occupied": 12577,
+      "lit": 1184,
+      "bounds": [
+        24,
+        132,
+        207,
+        239
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKC021-S",
+      "view": 0,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "2d92f585dd2091eb78a24c4407eedcef843d1d3d576869366867d2a9f79fd1d5",
+      "nightSHA256": "10d60107a94a9a9bc57b8ef003d75b4e81fd5a43f3bf539e7a0274fb265474d4",
+      "occupied": 1497,
+      "lit": 55,
+      "bounds": [
+        12,
+        60,
+        67,
+        103
+      ],
+      "smoke608": [
+        [
+          27.4,
+          60.5
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-S",
+      "view": 1,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "b87288422da72549091e4e721fbf7e78da9a99fd87b94479536e35c27d2f8ac7",
+      "nightSHA256": "42fcf3962010fae799302f3ff810ff9607231969160aa8ce7da5f2a7be9baa9f",
+      "occupied": 1527,
+      "lit": 83,
+      "bounds": [
+        12,
+        57,
+        67,
+        103
+      ],
+      "smoke608": [
+        [
+          46.6,
+          57.5
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-S",
+      "view": 2,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "fcef1b0cc3ead57a133706c77ec35eda89f05bbd1fc615c3e6389af005cb1a7f",
+      "nightSHA256": "a48da8c003b0b4d8bda7c8a8715bf2a959aeb22627943c6457979476c848f151",
+      "occupied": 1400,
+      "lit": 89,
+      "bounds": [
+        12,
+        64,
+        67,
+        103
+      ],
+      "smoke608": [
+        [
+          52.599999999999994,
+          67.1
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-S",
+      "view": 3,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "6724361a089c89fb4037e4ead75cb965a5986914e12e8b7ad4e1b66b0c50ba94",
+      "nightSHA256": "8e92e926f3857ae851ad6ef358fc44965a7991ca48ac64dcc81118388d02ac10",
+      "occupied": 1337,
+      "lit": 76,
+      "bounds": [
+        12,
+        65,
+        67,
+        103
+      ],
+      "smoke608": [
+        [
+          33.4,
+          70.1
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-M",
+      "view": 0,
+      "w": 160,
+      "h": 162,
+      "daySHA256": "073c9f1940cfcde1a07c37961ef5676fedd2d39b32153b4c9cde7aac290e9e08",
+      "nightSHA256": "628960888379ef186b521160ccd0eb5bfbff9110b2402ad44983e841997591ff",
+      "occupied": 3285,
+      "lit": 208,
+      "bounds": [
+        36,
+        88,
+        123,
+        149
+      ],
+      "smoke608": [
+        [
+          106.2,
+          96.10000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-M",
+      "view": 1,
+      "w": 160,
+      "h": 162,
+      "daySHA256": "bbc827bd718a4801ab55aa428e574b6940f02bb164d96a507fe39be99fa1e3ec",
+      "nightSHA256": "f2ecaa1f3e476dda60191d20cdd6de41002a5e6566840f305b4ed11418afa382",
+      "occupied": 3082,
+      "lit": 300,
+      "bounds": [
+        36,
+        94,
+        123,
+        149
+      ],
+      "smoke608": [
+        [
+          70.2,
+          104.3
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-M",
+      "view": 2,
+      "w": 160,
+      "h": 162,
+      "daySHA256": "fda267fc996631a9c2c230108e8e0ed75533f81ed5084c40bac4edfcbbc2b525",
+      "nightSHA256": "77dd25270798d0676e4ae6727a1221207a86b10aeee430caf2243153f91a0e6a",
+      "occupied": 3064,
+      "lit": 226,
+      "bounds": [
+        36,
+        80,
+        123,
+        149
+      ],
+      "smoke608": [
+        [
+          53.8,
+          86.3
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-M",
+      "view": 3,
+      "w": 160,
+      "h": 162,
+      "daySHA256": "e5893c3551749e617d624b57159036835938309dd4c692ef4a46c29792c7dd40",
+      "nightSHA256": "23458524a30dda7322e9e372900542e324a0745258ed7781529ea9a1fdb1d1c9",
+      "occupied": 3604,
+      "lit": 185,
+      "bounds": [
+        36,
+        77,
+        123,
+        149
+      ],
+      "smoke608": [
+        [
+          89.8,
+          78.10000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-L",
+      "view": 0,
+      "w": 160,
+      "h": 182,
+      "daySHA256": "0c48f0633be085a7fc8eb48aadb47d601dcaedd72ef1c462bfb38c3d02f05e7a",
+      "nightSHA256": "4981f8f93815d33456b0c68481f0f143c2ae25f4e66e66fcac914f10d1e03d73",
+      "occupied": 5248,
+      "lit": 282,
+      "bounds": [
+        20,
+        106,
+        139,
+        177
+      ],
+      "smoke608": [
+        [
+          76.19999999999999,
+          108.10000000000002
+        ],
+        [
+          82.6,
+          132.3
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-L",
+      "view": 1,
+      "w": 160,
+      "h": 182,
+      "daySHA256": "4711c13ec3ec787cb79528493b90384b7c924944d1c73e4ae736924e60e76736",
+      "nightSHA256": "051fcce358b0c2292b82fd33c51d314e8342b0db5064791577a901b848c278d1",
+      "occupied": 5955,
+      "lit": 355,
+      "bounds": [
+        20,
+        91,
+        139,
+        177
+      ],
+      "smoke608": [
+        [
+          112.60000000000001,
+          122.5
+        ],
+        [
+          38.2,
+          112.70000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-L",
+      "view": 2,
+      "w": 160,
+      "h": 182,
+      "daySHA256": "4e9dacb66f1634be7d03901958ba315d8c410db67e391b079c57720f5fd280ae",
+      "nightSHA256": "83cf36d463fc965e0ea0d3915693aaee4ae8be87bc2850ad6025787ff8d26cf4",
+      "occupied": 5726,
+      "lit": 368,
+      "bounds": [
+        20,
+        90,
+        139,
+        177
+      ],
+      "smoke608": [
+        [
+          83.79999999999998,
+          140.7
+        ],
+        [
+          77.4,
+          90.5
+        ]
+      ]
+    },
+    {
+      "id": "UKC021-L",
+      "view": 3,
+      "w": 160,
+      "h": 182,
+      "daySHA256": "43145c527656ff4d1a25961b04ce12ff94b6dc65983b3c52e3cae05a9b334160",
+      "nightSHA256": "a5775cba6ef48fb690a296b5c65eb8dd44824dd3c69c525dcd0ca78054e734bb",
+      "occupied": 5179,
+      "lit": 318,
+      "bounds": [
+        20,
+        106,
+        139,
+        177
+      ],
+      "smoke608": [
+        [
+          47.39999999999999,
+          126.30000000000001
+        ],
+        [
+          121.8,
+          110.10000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-S",
+      "view": 0,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "add0e5039bd4d12db9ed81d5ddb460e9c2079b57b9a6cbf50e2812e4870ea6ac",
+      "nightSHA256": "6f2d17f2f22b2a6690035684f7fc90b7eb2434e9860740ca5b801e49b366c110",
+      "occupied": 1758,
+      "lit": 130,
+      "bounds": [
+        12,
+        61,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          38,
+          60.99999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-S",
+      "view": 1,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "490d8417cf8871d8813fc7cae6961ae02d02e17af8eb11bed9569213bcf982a8",
+      "nightSHA256": "aa201437617d1ed8bb6d34d0b62caef4abe27961721a2a222d85ce60f763e118",
+      "occupied": 1784,
+      "lit": 155,
+      "bounds": [
+        12,
+        66,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          52.8,
+          66.4
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-S",
+      "view": 2,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "469f350e8aaab5136a1c6752226d7b2283725ae44289fe802e668d7ee996aec5",
+      "nightSHA256": "2d0c0bc121bee832004a95ad5cd05fc3d7b93a6b4f789d579838658bf2a907e6",
+      "occupied": 1763,
+      "lit": 165,
+      "bounds": [
+        12,
+        66,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          42,
+          73.80000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-S",
+      "view": 3,
+      "w": 80,
+      "h": 116,
+      "daySHA256": "bbea37f0537a4626ff8129cf0294d21f6f7c9fb5373d369de9508ffeed4a3160",
+      "nightSHA256": "4a91fb0883d8da14070c85e71a2e529ae45c1fa62a1cd4eca2f68129a4177d8f",
+      "occupied": 1725,
+      "lit": 150,
+      "bounds": [
+        12,
+        67,
+        67,
+        111
+      ],
+      "smoke608": [
+        [
+          27.200000000000003,
+          68.4
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-M",
+      "view": 0,
+      "w": 160,
+      "h": 166,
+      "daySHA256": "ff2ab9c567f19d2f4086ab4e798a08c96a47bcca5a548f1570335510d2b3431b",
+      "nightSHA256": "7936af9816b1c8be8f5d564029496bd617d6dae856e3fe58c361c0eca9ccb0fd",
+      "occupied": 2989,
+      "lit": 154,
+      "bounds": [
+        36,
+        91,
+        123,
+        153
+      ],
+      "smoke608": [
+        [
+          94.8,
+          108.5
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-M",
+      "view": 1,
+      "w": 160,
+      "h": 166,
+      "daySHA256": "86b4429cf91213e0b9e4f85f5d64a374eb6bfc80ccc2d24bd4b139416591f40f",
+      "nightSHA256": "58c685bdcb95829c9d385e6d380799d6f52b9b559b2bc7d57f24c3765c8c96f3",
+      "occupied": 3184,
+      "lit": 261,
+      "bounds": [
+        36,
+        97,
+        123,
+        153
+      ],
+      "smoke608": [
+        [
+          54.8,
+          103.30000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-M",
+      "view": 2,
+      "w": 160,
+      "h": 166,
+      "daySHA256": "76d48eb13f7ddfca00c95f8fefb76dce403e6d5ebd6fb2402882d5de890e9628",
+      "nightSHA256": "01d1a63d709321b4debf70a4a673a7829c059f120cf2f785f3d563136ded513d",
+      "occupied": 2988,
+      "lit": 273,
+      "bounds": [
+        36,
+        83,
+        123,
+        153
+      ],
+      "smoke608": [
+        [
+          65.2,
+          83.30000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-M",
+      "view": 3,
+      "w": 160,
+      "h": 166,
+      "daySHA256": "62462f6a86d2facb25a8ba8e1fc4bfbc20395e8916ea023c5b3e410176bff53b",
+      "nightSHA256": "61abc574e0e430b3b7f5923e63325cd19c20e3e487e181066a562f289e0da4ee",
+      "occupied": 3293,
+      "lit": 205,
+      "bounds": [
+        36,
+        88,
+        123,
+        153
+      ],
+      "smoke608": [
+        [
+          105.2,
+          88.5
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-L",
+      "view": 0,
+      "w": 160,
+      "h": 200,
+      "daySHA256": "6b8421ac604ff247985777ebf811768e9aafd3e267225bfdc1ce0bdcc46d253b",
+      "nightSHA256": "c68775103e774002ffbaf68c473721fb8456c2d77152bdb499089314cd04eeae",
+      "occupied": 6911,
+      "lit": 641,
+      "bounds": [
+        20,
+        101,
+        139,
+        195
+      ],
+      "smoke608": [
+        [
+          107.2,
+          114.60000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-L",
+      "view": 1,
+      "w": 160,
+      "h": 200,
+      "daySHA256": "542068bb0a2006d2dbbaf12c36904347e6e44d8fd74a56990a8ffa5c42e84f76",
+      "nightSHA256": "d762498080fd7afc31cc17efd20f653fa8b380586fa87f423931687dbbaf08e1",
+      "occupied": 7004,
+      "lit": 655,
+      "bounds": [
+        20,
+        100,
+        139,
+        195
+      ],
+      "smoke608": [
+        [
+          87.19999999999999,
+          131.8
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-L",
+      "view": 2,
+      "w": 160,
+      "h": 200,
+      "daySHA256": "51e1bd9c9f72aaf18e7c71d9ce5cf185875e1e6149936f32cb490bb25f5e8340",
+      "nightSHA256": "cc18e830c2de0bb0c8cfd4145ec890d7c6b7a63c3e50b6d2764aa633bf2f5df6",
+      "occupied": 5909,
+      "lit": 798,
+      "bounds": [
+        20,
+        115,
+        139,
+        195
+      ],
+      "smoke608": [
+        [
+          52.8,
+          121.8
+        ]
+      ]
+    },
+    {
+      "id": "UKI021-L",
+      "view": 3,
+      "w": 160,
+      "h": 200,
+      "daySHA256": "7037d7e3422ac07f24a60893f46f00bcff81b746a7cddaf9fef84e85cce6181a",
+      "nightSHA256": "37da61d3ea481642aaf6de82fbfeafcdcd195c12c20ff7f910ddb45e10ecbf83",
+      "occupied": 5860,
+      "lit": 723,
+      "bounds": [
+        20,
+        103,
+        139,
+        195
+      ],
+      "smoke608": [
+        [
+          72.8,
+          104.60000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-S",
+      "view": 0,
+      "w": 144,
+      "h": 138,
+      "daySHA256": "da13e175e96aa6292ca6d84dabf948f94e1e24e4e3749147875652935e4892a7",
+      "nightSHA256": "84072820b29ef6c070c7003adc9511d3c5b7566657d09b259b831d00cde7d956",
+      "occupied": 4561,
+      "lit": 48,
+      "bounds": [
+        12,
+        56,
+        131,
+        133
+      ],
+      "smoke608": [
+        [
+          70.1,
+          56.25
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-S",
+      "view": 1,
+      "w": 144,
+      "h": 138,
+      "daySHA256": "486544b7c7b06429a354cbe03761e95a5a615cc793ea6fc86790fc95401997f9",
+      "nightSHA256": "b8c8d7d03d44ee6bd811776e312c386117a28f3c456afb2545551ce0bbff3ecd",
+      "occupied": 4571,
+      "lit": 61,
+      "bounds": [
+        12,
+        66,
+        131,
+        133
+      ],
+      "smoke608": [
+        [
+          107.5,
+          73.05000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-S",
+      "view": 2,
+      "w": 144,
+      "h": 138,
+      "daySHA256": "b54902267aa604e1636e08eb17c70ea85359e93b8627d28e7731d438ff887b68",
+      "nightSHA256": "051e793bde500b91e1f8767228852ed599ec25c0c05d86c4a40ba98423829df5",
+      "occupied": 3898,
+      "lit": 68,
+      "bounds": [
+        12,
+        72,
+        131,
+        133
+      ],
+      "smoke608": [
+        [
+          73.9,
+          91.75
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-S",
+      "view": 3,
+      "w": 144,
+      "h": 138,
+      "daySHA256": "9806444e9aedfdfcda8279c364493a00632a05057132c0c5ed13c568e1e09e73",
+      "nightSHA256": "9093edfd2d6a3c0cf9a56958fe39581aecff54ce0d6c0fbb7621c60f8c7b1abf",
+      "occupied": 4057,
+      "lit": 58,
+      "bounds": [
+        12,
+        74,
+        131,
+        133
+      ],
+      "smoke608": [
+        [
+          36.5,
+          74.94999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-M",
+      "view": 0,
+      "w": 144,
+      "h": 144,
+      "daySHA256": "60d6846c664e74aaac133aa313c7173e60c2f218d8fb6664bf1b80749b6613d9",
+      "nightSHA256": "709c9b5c6531c549d74a6e0af4311aebaf933f1755ab67340875ab0f2f1ab273",
+      "occupied": 4009,
+      "lit": 81,
+      "bounds": [
+        12,
+        74,
+        131,
+        139
+      ],
+      "smoke608": [
+        [
+          26.799999999999997,
+          94.29999999999998
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-M",
+      "view": 1,
+      "w": 144,
+      "h": 144,
+      "daySHA256": "4d625f7539483f0e3341e46784ca4c4254b4be5c3749b6607758e9bd19651c54",
+      "nightSHA256": "ed37e2400f44906f769221a212c56944f08d8cc5c3e372dd7fbffc43941e81c2",
+      "occupied": 4212,
+      "lit": 53,
+      "bounds": [
+        12,
+        70,
+        131,
+        139
+      ],
+      "smoke608": [
+        [
+          69.60000000000001,
+          70.5
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-M",
+      "view": 2,
+      "w": 144,
+      "h": 144,
+      "daySHA256": "e49972790dcb926e1406bdb482ec38777bff7ea02c9532c7943b71ad5017eab8",
+      "nightSHA256": "c66d49e798799b37bda64d9b5323466a772152bd1d494b28de2f3303897e0a3e",
+      "occupied": 4330,
+      "lit": 48,
+      "bounds": [
+        12,
+        74,
+        131,
+        139
+      ],
+      "smoke608": [
+        [
+          117.2,
+          91.9
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-M",
+      "view": 3,
+      "w": 144,
+      "h": 144,
+      "daySHA256": "f48500a46b1342531066fc799363d6ae4321978eb693498fcf89323d4c218357",
+      "nightSHA256": "e030f3186dad8f3cda5f9895c0e4852a75f900e91fc0fdd82fa1658c9f7ccfb8",
+      "occupied": 4108,
+      "lit": 74,
+      "bounds": [
+        12,
+        74,
+        131,
+        139
+      ],
+      "smoke608": [
+        [
+          74.4,
+          115.69999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-L",
+      "view": 0,
+      "w": 336,
+      "h": 242,
+      "daySHA256": "810920723887ab1c614b17d2a8e9324d99f8dcb3548dc0177a67eeedd9db4360",
+      "nightSHA256": "b8706c06be27b8af8e2fb61e5b4983f5ee1c89253904d0bd22ffa5bc895430a7",
+      "occupied": 26847,
+      "lit": 167,
+      "bounds": [
+        12,
+        64,
+        323,
+        237
+      ],
+      "smoke608": [
+        [
+          169.8,
+          64.89999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-L",
+      "view": 1,
+      "w": 336,
+      "h": 242,
+      "daySHA256": "12e62a421a64406f63b695f8c42414b93c3dacc58d1937a8da21ca287029152d",
+      "nightSHA256": "a14d64585af56f1ca97686dd4f9a89461720870640a79032d65bbd1f4e4169d5",
+      "occupied": 25759,
+      "lit": 167,
+      "bounds": [
+        12,
+        81,
+        323,
+        237
+      ],
+      "smoke608": [
+        [
+          285.8,
+          124.7
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-L",
+      "view": 2,
+      "w": 336,
+      "h": 242,
+      "daySHA256": "c06fb56628575f3f2b20ac93299f0f0522e9d0b14b1bbe2cb84b35968678c97e",
+      "nightSHA256": "a6cd3ce709872b4a6fa16f67e0b8576d747800583691de10dfa055622b920f2c",
+      "occupied": 24733,
+      "lit": 193,
+      "bounds": [
+        12,
+        82,
+        323,
+        237
+      ],
+      "smoke608": [
+        [
+          166.2,
+          182.7
+        ]
+      ]
+    },
+    {
+      "id": "UKF021-L",
+      "view": 3,
+      "w": 336,
+      "h": 242,
+      "daySHA256": "e7823336ab88615962997df86f44738cc17a75539551e98070446352bd90f30a",
+      "nightSHA256": "44de0d2194246a8089a8f596ec1a4ff43bb1c4b9b13203fc823c5fbe92e8d3e8",
+      "occupied": 26083,
+      "lit": 206,
+      "bounds": [
+        12,
+        81,
+        323,
+        237
+      ],
+      "smoke608": [
+        [
+          50.19999999999999,
+          122.89999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKR021-S",
+      "view": 0,
+      "w": 144,
+      "h": 126,
+      "daySHA256": "85d3e46019f9ef40e8b9b02f972484d6d78fd315d889b175bf20d390f2fa4c65",
+      "nightSHA256": "074a8ea80569ca959ca1f9bfe209db7c0220763b41c8c797de0601c75b158319",
+      "occupied": 4187,
+      "lit": 50,
+      "bounds": [
+        12,
+        54,
+        131,
+        121
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-S",
+      "view": 1,
+      "w": 144,
+      "h": 126,
+      "daySHA256": "205095ddc5584900b8abb3c3d31801b7b11f2e7575082f41dded74e2f4a68984",
+      "nightSHA256": "a535b7f3da6824751b44c2f2784f6d883acaaec1c73c30005ed771c29ae9a47c",
+      "occupied": 4120,
+      "lit": 44,
+      "bounds": [
+        12,
+        60,
+        131,
+        121
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-S",
+      "view": 2,
+      "w": 144,
+      "h": 126,
+      "daySHA256": "ff396387f74592ef4aa6affd07f5bea5b231c56fb71898b04f77e2f0f7c9bd9a",
+      "nightSHA256": "75d0a4d0f0ae03c4d2b0034fa0f091c2b772753fd9683b48a28a71a5951390fd",
+      "occupied": 3764,
+      "lit": 51,
+      "bounds": [
+        12,
+        61,
+        131,
+        121
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-S",
+      "view": 3,
+      "w": 144,
+      "h": 126,
+      "daySHA256": "7330b0703fe26219f230f4e141aeff122d9d5a6b4893e49ed6f1f9eaf6099e3e",
+      "nightSHA256": "695282419b27c083ebe6da6dab1d2800cb702e34362270fc99856234d806c0c8",
+      "occupied": 3838,
+      "lit": 48,
+      "bounds": [
+        12,
+        61,
+        131,
+        121
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-M",
+      "view": 0,
+      "w": 144,
+      "h": 150,
+      "daySHA256": "b7980bc90ad492ed4e37366ce36841611829220685b1618e6c00dca4ec5841de",
+      "nightSHA256": "ed75275913c475e42e29b59bd27e0315b7134812a4da1646e22050f45c4c5523",
+      "occupied": 4719,
+      "lit": 56,
+      "bounds": [
+        12,
+        68,
+        131,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-M",
+      "view": 1,
+      "w": 144,
+      "h": 150,
+      "daySHA256": "3129373276ba1d2ec8986c22732b309927a972aa6a3f9e39bef4fc2d85df2925",
+      "nightSHA256": "3825c8aefa7b6c433062b3920eb794df5625b3acddff5efdd2add7382e3422fa",
+      "occupied": 4347,
+      "lit": 52,
+      "bounds": [
+        12,
+        81,
+        131,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-M",
+      "view": 2,
+      "w": 144,
+      "h": 150,
+      "daySHA256": "236bfdc0cafa934450853cd86f485083c38d8001b8b5dd735a7c066e530b342b",
+      "nightSHA256": "1220e28deef3350c3eff1c0e41503b692758ed50a54a73548d72eb2a51eeed2b",
+      "occupied": 3880,
+      "lit": 58,
+      "bounds": [
+        12,
+        85,
+        131,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-M",
+      "view": 3,
+      "w": 144,
+      "h": 150,
+      "daySHA256": "927a4b75b1b4eb357ab77f8819d3a6bc91959dc1e9167566691fd954aeea0fe0",
+      "nightSHA256": "13e848a4cf24502aad795bbed11d3b613133eaebe671cc920a996ee316331ed5",
+      "occupied": 4464,
+      "lit": 54,
+      "bounds": [
+        12,
+        78,
+        131,
+        145
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-L",
+      "view": 0,
+      "w": 144,
+      "h": 160,
+      "daySHA256": "1dc4a41901e1c7d7abc1da1ab0e2b80e8e6fe1092355fb0e71a12af26fe7b629",
+      "nightSHA256": "f86db14659ab79a89944ebe9e4b1a007146657c1aea405233c241f48584ba455",
+      "occupied": 4773,
+      "lit": 85,
+      "bounds": [
+        12,
+        86,
+        131,
+        155
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-L",
+      "view": 1,
+      "w": 144,
+      "h": 160,
+      "daySHA256": "69bd575f280cf52e7767ee2df043cb3218f7dc1164e12e8e712d7fd0d6c5c6a8",
+      "nightSHA256": "7c0be72ea0733367effe15e3bed66f535a21d7fae402e2299711ec7afd707167",
+      "occupied": 4802,
+      "lit": 76,
+      "bounds": [
+        12,
+        89,
+        131,
+        155
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-L",
+      "view": 2,
+      "w": 144,
+      "h": 160,
+      "daySHA256": "3e6cfa34e2fedf4d55fe61613539a3ec6b0ace4639fd2196277f667d74002aa8",
+      "nightSHA256": "03a27fdf296d6b86c9442a98b934a0d3ed39117ab1f743f07a32ef943a2a71b3",
+      "occupied": 5046,
+      "lit": 65,
+      "bounds": [
+        12,
+        75,
+        131,
+        155
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKR021-L",
+      "view": 3,
+      "w": 144,
+      "h": 160,
+      "daySHA256": "3126a1fa551d8174b5953671b3917f7d8a88c7811397e05819e17a692caeb101",
+      "nightSHA256": "c79aab9785f1882f52606d7d17a2e323dfdd81a8accd9f6f59bb191ea7fe1ca8",
+      "occupied": 5246,
+      "lit": 78,
+      "bounds": [
+        12,
+        81,
+        131,
+        155
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKW021-S",
+      "view": 0,
+      "w": 160,
+      "h": 180,
+      "daySHA256": "13229340cc8d4a702ff63676b06b1efdc2bdd228c4132ac7e0cd3e35b81075e6",
+      "nightSHA256": "ffccb141d6fd2df61a0181e1acc8bbedfb0ac171d7576de2df55114931c7d93f",
+      "occupied": 4679,
+      "lit": 88,
+      "bounds": [
+        21,
+        104,
+        138,
+        175
+      ],
+      "smoke608": [
+        [
+          102.60000000000001,
+          139
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-S",
+      "view": 1,
+      "w": 160,
+      "h": 180,
+      "daySHA256": "76a555a75a97b3e52a117599d6158ba696f7ceb3c885852b9f40e8642fa47c98",
+      "nightSHA256": "56679ee502f6f174229862d7d86e92998412b1e209a790160eaf090841d3b029",
+      "occupied": 4583,
+      "lit": 135,
+      "bounds": [
+        21,
+        105,
+        138,
+        175
+      ],
+      "smoke608": [
+        [
+          57.800000000000004,
+          139.2
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-S",
+      "view": 2,
+      "w": 160,
+      "h": 180,
+      "daySHA256": "300574cc7f090b8232b8a4cc1250877bef85b35afaed806a49a6f1b4c2491884",
+      "nightSHA256": "8f5cfe369e41cf8f3d7fd5ce69e04c99db29301048ac5384cd60a79ea1224eb7",
+      "occupied": 4250,
+      "lit": 130,
+      "bounds": [
+        21,
+        110,
+        138,
+        175
+      ],
+      "smoke608": [
+        [
+          57.39999999999999,
+          116.80000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-S",
+      "view": 3,
+      "w": 160,
+      "h": 180,
+      "daySHA256": "d8a5b89c5877807f4c8d2ba9f75390aca42bec21996d9eb8924f2ea42ff92c25",
+      "nightSHA256": "c57e6b30a8675548a9251445952ea5fdaa85d31e3c554794c59a041f51e52745",
+      "occupied": 4384,
+      "lit": 95,
+      "bounds": [
+        21,
+        109,
+        138,
+        175
+      ],
+      "smoke608": [
+        [
+          102.19999999999999,
+          116.60000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-M",
+      "view": 0,
+      "w": 232,
+      "h": 218,
+      "daySHA256": "fada47ae2ed5cd87ae93cc026ebfeb989b38e56bdd315727c55c1740da7bc5ed",
+      "nightSHA256": "91a77158db153ee08b77bb5af109bf02cb6a5d68714c02d5b6faa6999093bdea",
+      "occupied": 12552,
+      "lit": 521,
+      "bounds": [
+        25,
+        92,
+        206,
+        213
+      ],
+      "smoke608": [
+        [
+          122.80000000000001,
+          176.4
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-M",
+      "view": 1,
+      "w": 232,
+      "h": 218,
+      "daySHA256": "6fdd2aa483298511d63d613dc4737a0554f63795792543d627dc481c81fcec01",
+      "nightSHA256": "e320f6278836cdd46c550828bf4d8cd66bb86f0e87e462f16dd15d06d01f9e25",
+      "occupied": 11801,
+      "lit": 612,
+      "bounds": [
+        25,
+        97,
+        206,
+        213
+      ],
+      "smoke608": [
+        [
+          56,
+          149.79999999999998
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-M",
+      "view": 2,
+      "w": 232,
+      "h": 218,
+      "daySHA256": "d99f8ee3a88818f79fde46d1b28fae01072a7c11c4995e26f5ecd01a95c0e745",
+      "nightSHA256": "5f13b220cf04c0a5796dbfa0437ba35af63386e7d403ee8cc75101f5b1ca4d64",
+      "occupied": 10365,
+      "lit": 698,
+      "bounds": [
+        25,
+        114,
+        206,
+        213
+      ],
+      "smoke608": [
+        [
+          109.19999999999999,
+          116.4
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-M",
+      "view": 3,
+      "w": 232,
+      "h": 218,
+      "daySHA256": "401b7480c3baa0523049393fe816f65394d544c7d692fc551de34c84a59b1a63",
+      "nightSHA256": "7c1b7412170a44e3aa20c9757adc544f7e38b5f31a071f7f83d4d24eb612070c",
+      "occupied": 11140,
+      "lit": 535,
+      "bounds": [
+        25,
+        105,
+        206,
+        213
+      ],
+      "smoke608": [
+        [
+          176,
+          143.00000000000003
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-L",
+      "view": 0,
+      "w": 296,
+      "h": 232,
+      "daySHA256": "fce877cb1b0632096913fbc356132b8eac25a98ffc41f23873d041e1beddc1e5",
+      "nightSHA256": "6805760fa51548541606887cc2325d307ec1bf17fee3ffa622f2b7139ea3ffa2",
+      "occupied": 18685,
+      "lit": 523,
+      "bounds": [
+        25,
+        89,
+        270,
+        227
+      ],
+      "smoke608": [
+        [
+          144.6,
+          155.89999999999998
+        ],
+        [
+          151.2,
+          174.6
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-L",
+      "view": 1,
+      "w": 296,
+      "h": 232,
+      "daySHA256": "b2518006bb2d4fe475283abcfafe3da8c18ab0f12f9e18d110dfd7faf2fd5ebb",
+      "nightSHA256": "4d4719ff4d0e8383db478b32443d162ac39d4f8b1e2f8905133fd0a1c71b90db",
+      "occupied": 18743,
+      "lit": 494,
+      "bounds": [
+        25,
+        91,
+        270,
+        227
+      ],
+      "smoke608": [
+        [
+          94.2,
+          127.30000000000001
+        ],
+        [
+          56.8,
+          130.6
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-L",
+      "view": 2,
+      "w": 296,
+      "h": 232,
+      "daySHA256": "c3d923f870d8485c76df60eb20927d6656b673d61ac2e1a06eee7c19ac967fbc",
+      "nightSHA256": "dd7b9a91ae832c3b42ae5b96e268b56df4b9786c8dfe954ebe372c2e4f658cbb",
+      "occupied": 18411,
+      "lit": 482,
+      "bounds": [
+        25,
+        83,
+        270,
+        227
+      ],
+      "smoke608": [
+        [
+          151.4,
+          102.10000000000002
+        ],
+        [
+          144.8,
+          83.4
+        ]
+      ]
+    },
+    {
+      "id": "UKW021-L",
+      "view": 3,
+      "w": 296,
+      "h": 232,
+      "daySHA256": "9db5fd3435e0632883dc476d5582714cdb364d15e441fa28e749f9dce9365990",
+      "nightSHA256": "9cd1deff82b7075baff5da5e4b19476632425375215c8fd18abbb35a9deb3c9e",
+      "occupied": 18556,
+      "lit": 495,
+      "bounds": [
+        25,
+        90,
+        270,
+        227
+      ],
+      "smoke608": [
+        [
+          201.8,
+          130.70000000000002
+        ],
+        [
+          239.2,
+          127.4
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-S",
+      "view": 0,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "9be321119dfd3991484ac7e9d440139a82107e5d9c7cf8cebbb032e14baf9cf6",
+      "nightSHA256": "11fd5d2219b67572797d7c0dfbbb308e4aae482125f82501172ab490a8b16e4c",
+      "occupied": 1400,
+      "lit": 21,
+      "bounds": [
+        13,
+        61,
+        66,
+        103
+      ],
+      "smoke608": [
+        [
+          46,
+          64.49999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-S",
+      "view": 1,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "4b470562c85a3c2a5e7ab7b32799dfbb714e8d37d6fc455c9e9b84c3a8d23249",
+      "nightSHA256": "d0e321af88a35986b24576dd0a59da4c6edbfb0ac5d525387adbd938e89ae301",
+      "occupied": 1360,
+      "lit": 49,
+      "bounds": [
+        13,
+        63,
+        66,
+        103
+      ],
+      "smoke608": [
+        [
+          43.599999999999994,
+          69.3
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-S",
+      "view": 2,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "a3bd88212c0cac3146bc5317f8570db2b8e2a0d2b42a61db269408f22127bc5f",
+      "nightSHA256": "ce22a19fb043108434eca683367dd9e3db7114fa4d3270534e088eee8e7c1c10",
+      "occupied": 1252,
+      "lit": 39,
+      "bounds": [
+        13,
+        67,
+        66,
+        103
+      ],
+      "smoke608": [
+        [
+          34,
+          68.10000000000001
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-S",
+      "view": 3,
+      "w": 80,
+      "h": 108,
+      "daySHA256": "9a23ccd4eefecfee1682aa71ffa802dbfc1f5d1f97401ce843b0b163e1a7bb07",
+      "nightSHA256": "b82f7c61e16d678b7b810b196110f62af9b362b48f0eb554ea087c2861d068f8",
+      "occupied": 1266,
+      "lit": 28,
+      "bounds": [
+        13,
+        63,
+        66,
+        103
+      ],
+      "smoke608": [
+        [
+          36.400000000000006,
+          63.3
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-M",
+      "view": 0,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "872888d808798b252b42b4da2a660d6008438e5fe8b52f4a194ef6670c1006c6",
+      "nightSHA256": "48529f73f2e88b37febae30edc2863604850d5c4cab55942f65b0588b16740d3",
+      "occupied": 11145,
+      "lit": 301,
+      "bounds": [
+        25,
+        90,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          104.8,
+          92.19999999999999
+        ],
+        [
+          85.2,
+          114
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-M",
+      "view": 1,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "f1e23a5158ecc2f45fb72e1b11423b859a70f04835e49b756f31ad155b1e4a59",
+      "nightSHA256": "841cc55b9958e86c67acfad0d179cd33e1c6bf0482772ecf989efcbe3ee4380c",
+      "occupied": 10656,
+      "lit": 290,
+      "bounds": [
+        25,
+        92,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          168.8,
+          113
+        ],
+        [
+          125.19999999999999,
+          103.19999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-M",
+      "view": 2,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "c0474d7563c71f486174481f4a2bdb797ef0c2ce23b451c3d97165550226ebf1",
+      "nightSHA256": "e9bfef5dcebfade5e7a583e6e240bd92f8434c4f4198a08e9557d3da1495074d",
+      "occupied": 9679,
+      "lit": 351,
+      "bounds": [
+        25,
+        106,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          127.2,
+          145
+        ],
+        [
+          146.8,
+          123.19999999999999
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-M",
+      "view": 3,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "c6f782310d235ce3a2abe15e0b2ab4ad440117bba53dc8e96a80de9240f7f04d",
+      "nightSHA256": "e904aa23f56a485bc617ddcdb8e625e1f93ca8ea628f97c480d6fb7a1773a8fe",
+      "occupied": 10078,
+      "lit": 369,
+      "bounds": [
+        25,
+        102,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          63.19999999999999,
+          124.19999999999999
+        ],
+        [
+          106.80000000000001,
+          134
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-L",
+      "view": 0,
+      "w": 360,
+      "h": 286,
+      "daySHA256": "1a06cc398e39f50fd15e69ba3ba025034a93795e6a89208524fbcf544d0c464c",
+      "nightSHA256": "5955563605ba0409bb937989ee71f6013983230471d94a86fd4a967f804b861d",
+      "occupied": 28008,
+      "lit": 592,
+      "bounds": [
+        25,
+        118,
+        334,
+        281
+      ],
+      "smoke608": [
+        [
+          96.4,
+          141.79999999999998
+        ],
+        [
+          65.79999999999998,
+          165.9
+        ],
+        [
+          300.2,
+          180.2
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-L",
+      "view": 1,
+      "w": 360,
+      "h": 286,
+      "daySHA256": "a3ee3d58c8a2511b8cd43d54a8be68407736555f44d04c440603823736ca460c",
+      "nightSHA256": "bd9f5aa189e17e1933c87836d6918531c01342ada5fd067e4767afe2a3cc0c0d",
+      "occupied": 28431,
+      "lit": 486,
+      "bounds": [
+        25,
+        102,
+        334,
+        281
+      ],
+      "smoke608": [
+        [
+          227.6,
+          123.79999999999998
+        ],
+        [
+          179.4,
+          108.5
+        ],
+        [
+          175.8,
+          238.20000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-L",
+      "view": 2,
+      "w": 360,
+      "h": 286,
+      "daySHA256": "7e7c9eaf61446bbc986b98e3a7475c5e957bacd63b04b94218b3082455302140",
+      "nightSHA256": "da2dbc99ff1cc0fe9cf40330fef22aa19f3160bc573deb8c87c0dfced07e8a63",
+      "occupied": 27819,
+      "lit": 624,
+      "bounds": [
+        25,
+        113,
+        334,
+        281
+      ],
+      "smoke608": [
+        [
+          263.6,
+          189.4
+        ],
+        [
+          294.20000000000005,
+          165.29999999999998
+        ],
+        [
+          59.80000000000001,
+          176
+        ]
+      ]
+    },
+    {
+      "id": "UKP021-L",
+      "view": 3,
+      "w": 360,
+      "h": 286,
+      "daySHA256": "878dbc15d699dab043be681498995c3c5e992321a18d74c155b44401af16f742",
+      "nightSHA256": "2f2f1e5d3570955ef46778a5c91cde769e426a4d12dfecd3b67ad93565f43a08",
+      "occupied": 26795,
+      "lit": 594,
+      "bounds": [
+        25,
+        117,
+        334,
+        281
+      ],
+      "smoke608": [
+        [
+          132.4,
+          207.4
+        ],
+        [
+          180.59999999999997,
+          222.70000000000002
+        ],
+        [
+          184.2,
+          118
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-S",
+      "view": 0,
+      "w": 160,
+      "h": 174,
+      "daySHA256": "c11f269c122c0bc4f64dedc89806ed427ad33b5b2ac8da68b2d98b372b39ebb3",
+      "nightSHA256": "bc31fd24284752be0a6114a912fadf225b5dfe4a56277960d4c51c6aa0a3a375",
+      "occupied": 5004,
+      "lit": 100,
+      "bounds": [
+        21,
+        96,
+        138,
+        169
+      ],
+      "smoke608": [
+        [
+          93.6,
+          135.70000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-S",
+      "view": 1,
+      "w": 160,
+      "h": 174,
+      "daySHA256": "935d7f9597f21cfcbd5e1667ab2d4357162bbe78e39a9dcac24bb1e36244a5aa",
+      "nightSHA256": "b71e7f3e21941ae95b42817ea138815a0fbda4b8deb56743a6750fed8fe153fc",
+      "occupied": 5055,
+      "lit": 111,
+      "bounds": [
+        21,
+        96,
+        138,
+        169
+      ],
+      "smoke608": [
+        [
+          50.4,
+          127.70000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-S",
+      "view": 2,
+      "w": 160,
+      "h": 174,
+      "daySHA256": "6fe21a0d79e04e6fe455fda15b009e4c42fffb66a397968be295a58ff4318497",
+      "nightSHA256": "6831553be7d56d296d80d248fb35243900f50715e5bc999c89601360c7de75a7",
+      "occupied": 4647,
+      "lit": 86,
+      "bounds": [
+        21,
+        102,
+        138,
+        169
+      ],
+      "smoke608": [
+        [
+          66.4,
+          106.1
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-S",
+      "view": 3,
+      "w": 160,
+      "h": 174,
+      "daySHA256": "912a0f8939be43a658daa9d6edc867022153b89a4d7814f14ede999bde71fc39",
+      "nightSHA256": "c1b5193cbbff8da80de6a3bd9fd741291ae2f642ffaafb694bed144746cb3b53",
+      "occupied": 4733,
+      "lit": 74,
+      "bounds": [
+        21,
+        103,
+        138,
+        169
+      ],
+      "smoke608": [
+        [
+          109.6,
+          114.1
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-M",
+      "view": 0,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "2e5b8e49e91e587ec2e500fb0b653a2b62e4f3ad67d933d6aa93f114a48eaf35",
+      "nightSHA256": "a50203c36e4d926113a2b837054d688836f16d91e4f67678e7f6c262e7f6fe69",
+      "occupied": 10093,
+      "lit": 368,
+      "bounds": [
+        25,
+        99,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          62.8,
+          115
+        ],
+        [
+          107.39999999999999,
+          146.9
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-M",
+      "view": 1,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "3eff3c6154c5ed4f373e8022ada05570bfd9344b5f49da5e29c5d66a98cc6a61",
+      "nightSHA256": "4eb28045767cd594ec0b93f7389745e8329b50a456c3026bc40bb30243e1ae99",
+      "occupied": 11362,
+      "lit": 311,
+      "bounds": [
+        25,
+        89,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          126.80000000000001,
+          93.80000000000001
+        ],
+        [
+          62.999999999999986,
+          116.1
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-M",
+      "view": 2,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "8e5aee462118e1243df6c612ba688c40296f140dfca8122313ae56ef9cca5613",
+      "nightSHA256": "b6d010b7446cb6630bb24eadbcca47000f7657127d2a06c39e8db057cd506f6f",
+      "occupied": 10611,
+      "lit": 337,
+      "bounds": [
+        25,
+        92,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          169.2,
+          125.80000000000001
+        ],
+        [
+          124.60000000000001,
+          93.9
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-M",
+      "view": 3,
+      "w": 232,
+      "h": 206,
+      "daySHA256": "ca41eff38cfecef7dcd88f4166598467bb99e7b61548f0c7ae6903f798eeb453",
+      "nightSHA256": "ec2ba6efc1343ac24b3ccf320d6002e4f52d5a0839d93c623b5a5c34e83e7644",
+      "occupied": 9500,
+      "lit": 378,
+      "bounds": [
+        25,
+        110,
+        206,
+        201
+      ],
+      "smoke608": [
+        [
+          105.19999999999999,
+          147
+        ],
+        [
+          169,
+          124.70000000000002
+        ]
+      ]
+    },
+    {
+      "id": "UKT021-L",
+      "view": 0,
+      "w": 296,
+      "h": 240,
+      "daySHA256": "9273cf4c8d9bdd0a400eae2c11f00feb044ec93edb18ae6c5791d1ec13342c07",
+      "nightSHA256": "0616c674e0d9ace4e3a5e820626c761f1200e8619fffa2b8ac0f36eff863d456",
+      "occupied": 18516,
+      "lit": 558,
+      "bounds": [
+        25,
+        99,
+        270,
+        235
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKT021-L",
+      "view": 1,
+      "w": 296,
+      "h": 240,
+      "daySHA256": "f9d3af8c6a71f21d50fbb7e0342f49e9cb8a95d5f91237629f9d8e285ffa24cd",
+      "nightSHA256": "7559e3febcf315eca5fb436781e863c81e4c7d610a13cc4fd2dca6db9c6da89b",
+      "occupied": 18995,
+      "lit": 536,
+      "bounds": [
+        25,
+        81,
+        270,
+        235
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKT021-L",
+      "view": 2,
+      "w": 296,
+      "h": 240,
+      "daySHA256": "380ace1e0838e8f23776e9f4586e064ffbb85950837ffb91df5a5c25cd1fa7f1",
+      "nightSHA256": "5c1cfb76617269418eb9a0026725b1009cf5b8d211ec97a51172469c1b01f981",
+      "occupied": 17698,
+      "lit": 544,
+      "bounds": [
+        25,
+        90,
+        270,
+        235
+      ],
+      "smoke608": []
+    },
+    {
+      "id": "UKT021-L",
+      "view": 3,
+      "w": 296,
+      "h": 240,
+      "daySHA256": "512bc692c84c773edc2a32e844bf58e2f71e9e6a414c07a646f14d34e6cd16eb",
+      "nightSHA256": "2a07a043180c663b77e3fd6b6f9e8ea44e2b9c7c78071e3c1e85c709c4322c46",
+      "occupied": 17062,
+      "lit": 535,
+      "bounds": [
+        25,
+        112,
+        270,
+        235
+      ],
+      "smoke608": []
+    }
+  ],
+  "faults": [
+    {
+      "mutation": "project x +8",
+      "firstRed": "kit-project-known-native-vectors",
+      "error": "native-vector view0\n+ actual - expected\n\n  [\n+   80,\n-   72,\n    127\n  ]\n"
+    }
+  ],
+  "ok": true,
+  "failure": null
+}

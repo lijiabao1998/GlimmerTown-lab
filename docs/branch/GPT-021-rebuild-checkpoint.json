@@ -1,0 +1,62 @@
+{
+  "checkpointAtUTC": "2026-10-12T11:04:08.629206+00:00",
+  "localHEAD": "a72078e6aafb654d4dfa5aef565a7d17e7a5ff7a",
+  "baseMain": "54ecba5e186c1b2a8b258aae2be2ebe11d13efe6",
+  "fiveArtUnchanged": true,
+  "kitRebuiltNotOriginalFinal": true,
+  "sources": [
+    {
+      "path": "british-use-scales-kit021.js",
+      "bytes": 6577,
+      "sha256": "7ccbe0a54ed00b8dca173725922937346170343c9f9edca66bc2dc2055fc9efd"
+    },
+    {
+      "path": "british-use-scales-native-map021.json",
+      "bytes": 278100,
+      "sha256": "f34aeea8c080cd2bcccb984c257deb3cf366bc8b9af4d24a15f87636f45a57a7"
+    },
+    {
+      "path": "british-use-scales-release021.js",
+      "bytes": 13645,
+      "sha256": "38c40019b61cf233de4c93f0db60710e689d99da1771862da0fc76a094fbdc9a"
+    },
+    {
+      "path": "build-use-scales-release021.js",
+      "bytes": 9445,
+      "sha256": "ff41ba3aca6e5c57b60d1f4be6217ce4561088fe730500760ac175fc5921c9ab"
+    },
+    {
+      "path": "use-scales-test-harness021.js",
+      "bytes": 3756,
+      "sha256": "c4fdb04421fa256788a6855b956d762fa3b20e95590ce8ace30c14cfdba43239"
+    },
+    {
+      "path": "probeUseScalesKitRebuild021.test.js",
+      "bytes": 5387,
+      "sha256": "c7b780f5cc4c2b6549a473ffe8f9480879e696c7a4a2334c5ccfa8f1866641d2"
+    },
+    {
+      "path": "probeUseScalesNative021.js",
+      "bytes": 9351,
+      "sha256": "6dc3773dc8c5bdceb7aef2eeb64e66a4be7727c4bee48fa11d047256a1efe9fd"
+    }
+  ],
+  "generatedIndex": {
+    "sha256": "8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed",
+    "bytes": 10816659,
+    "status": "Locally integrated; idempotent Node build and85-inline-script syntax passed. Produced from original main index plus these backed-up inputs. Large generated index not yet stored remotely."
+  },
+  "tests": {
+    "baselineFP": "165 families, leaf/block fingerprints/ratchet zero changes;69.7s; raw fp-main54ec.log",
+    "kitCPU": "154/154;144 native rasters, deliberate project fault caught target first",
+    "browserFirst": "actual Chromium native game entry,36 catalog cards/directional alias,144 assets selftest;0 console errors",
+    "nativeFlows": "attempt01 failed at test-only const-hover cleanup;attempt02 failed at fixture site search for native intermodalHub. Full raw/log retained; no24/3/9 pass yet."
+  },
+  "firstPreview": "catalog-first-1440.png is real game UI; building-scene preview still in native-flow acquisition",
+  "release": "New image confirmation pending; no PR/merge/deployment",
+  "image": {
+    "path": "catalog-first-1440.png",
+    "kind": "actual game catalog UI, intermediate preview; not a building-scene approval image",
+    "sha256": "402ecca6a714d5ab9ab9526f3415a9588a885b6fe43d7ae04b2924db194e3b6f"
+  }
+}

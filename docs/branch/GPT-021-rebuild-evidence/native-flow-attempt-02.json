@@ -1,0 +1,81 @@
+{
+  "kind": "Rebuilt candidate native construction/growth; seeded legacy QA background, not organically earned rank",
+  "source": {
+    "kind": "Actual native page plus test-only closure export; no replacement renderer",
+    "candidateSHA256": "8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed",
+    "inspectedSHA256": "a5374a1a3abacce4ef98354e1dcced6c433d1606307c37c63a251f3da65c2972",
+    "inspectorSHA256": "bb37560322f37a2ce7ac1576e2a630a34e7d6cda37758f57de35f432ebe3892c",
+    "originalHarnessSHA256": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
+    "singleReversibleInsertion": true,
+    "temporaryRoot": "/tmp/use021-native-Lmt0YE"
+  },
+  "legacyFixtureSHA256": "f91a1c2b7e79eb635937910535191b842b4f6782cec51e2569a73b04323c6e11",
+  "checks": [],
+  "runs": [],
+  "photos": [],
+  "ok": false,
+  "initial": {
+    "reusedNativeRaw": true,
+    "rawSHA256": "a0c0ef99a83b080c7948b601686a42d1d7acc7babb86647e4fa07e350cd1939f",
+    "path": "legal-background021.json"
+  },
+  "started": {
+    "state": {
+      "running": true,
+      "visT": 46.86650000000008,
+      "day": 6,
+      "seed": 210021,
+      "money": 99932435.65204856,
+      "diff": 1,
+      "rankIdx": 25,
+      "n": 72,
+      "editor": false
+    },
+    "control": {
+      "sandbox": false,
+      "god": false,
+      "overrides": {
+        "unlimitedMoney": false,
+        "unlockAll": false,
+        "power": false,
+        "water": false,
+        "sewer": false,
+        "crime": false,
+        "fire": false,
+        "demand": false,
+        "skyline": false,
+        "freezeClock": false,
+        "timePhase": "noon"
+      }
+    },
+    "ordinary": true,
+    "stats": {
+      "money": 99932436,
+      "pop": 600,
+      "jobs": 107,
+      "day": 6,
+      "buildings": 180,
+      "poweredBld": 55,
+      "roads": 254,
+      "zones": 0,
+      "happy": 0.43,
+      "dem": {
+        "1": -0.6646855331169466,
+        "2": -0.38,
+        "3": 0.9244999999999999
+      },
+      "cars": 19,
+      "fires": 0,
+      "ruins": 0,
+      "weather": 0,
+      "buses": 0
+    }
+  },
+  "session": {
+    "ok": false,
+    "fails": [
+      "執行期錯誤: evaluate 例外: Error: No legal native site UKT021-L"
+    ],
+    "seconds": 57.992
+  }
+}

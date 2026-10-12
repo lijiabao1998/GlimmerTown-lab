@@ -1,5 +1,6 @@
 /* GPT-021 production integration, inside the native game closure.
- * Geometry comes from the approved d389104 modules. No sprite registry,
+ * Geometry uses the five recovered original modules and explicitly rebuilt kit.
+ * This is a reconstruction, not the lost final5db827a1 kit source. No registry,
  * simulation identity, capacity, native variant or RNG is replaced.
  */
 const USE021_ROWS = /* generated native mappings */ __USE021_ROWS__;
@@ -17,7 +18,7 @@ function use021ValidProfile(p,k,zone,office){
 function use021Placed(toolId,x,y){
   const t=T(idx(x,y)),q=use021Selection&&USE021_ROWS.find(q=>q.id===use021Selection);
   if(['zr','zc','zi','office','doze'].includes(toolId))delete t.zoneArt021;
-  if(!q||q.tool!==toolId)return;
+  if(!q||![q.tool,q.alternateTool].includes(toolId))return;
   if(q.mode==='block'){
     const p=use021Profile(q);
     if(t.zone===(q.k===2?2:3)&&(q.k!==2||t.office))t.zoneArt021=p;
@@ -113,10 +114,12 @@ function use021Toolbar(){
   }
   if(use021Selection){const q=use021Spec(use021Selection)?.s;if(q){const tag=document.createElement('span');tag.id='useScalesSelected021';tag.textContent=q.nm;cats.appendChild(tag);}}
 }
-function use021Select(id){
-  const q=USE021_ROWS.find(q=>q.id===id),meta=q&&toolMeta434(q.tool);if(!meta)return false;
+function use021Select(id,toolId){
+  const q=USE021_ROWS.find(q=>q.id===id);if(!q)return false;
+  if(toolId&&!([q.tool,q.alternateTool].includes(toolId)))return false;
+  const chosen=toolId||q.tool,meta=toolMeta434(chosen);if(!meta)return false;
   if(!toolUnlocked458(meta)){toast('🔒 '+meta.nm+'：城市 Lv.'+meta.unlockRank+' 解鎖','bad');return false;}
-  activateTool434(q.tool,true);use021Selection=id;use021Close();buildToolbar();
+  activateTool434(chosen,true);use021Selection=id;use021Close();buildToolbar();
   toast(q.mode==='block'?'已選英式分區；樓宇按原生需求與成長形成':q.k===23?'已選牛舍形制；中、大型經原生升級取得':'已選 '+use021Spec(id).s.nm,'gold');return true;
 }
 function use021Close(){const d=$('#useScalesDialog021');if(d?.open)d.close();}
@@ -132,14 +135,15 @@ function use021Open(){
     const s=use021Spec(q.id).s,m=toolMeta434(q.tool),locked=!toolUnlocked458(m),size=q.bw+'×'+q.bh;
     const method=q.mode==='block'?'原生分區成長 · Lv'+q.lv:q.k===23?'2×2牛舍 · Lv'+q.lv+(q.lv>1?'付費升級':''):'原生建造 · '+size+'格';
     const limits=q.group==='freightstation'&&q.k===167?'道路配送中心；外觀軌道不增加鐵路調度':q.k===23?'座標原生畜種為牛時採用；其他四種保留':q.mode==='block'?'形制由實際街區大小及樓宇等級決定':q.group==='market'&&q.k!==87?'沿用零售用途，沒有新增食品覆蓋':'';
-    return '<button data-use021="'+q.id+'" aria-label="'+s.nm+'"><b>'+({S:'小',M:'中',L:'大'}[q.scale])+' · '+s.nm+'</b><span>'+method+'</span><span>'+((m?.pr)||'依原生分區造價')+(locked?' · Lv'+m.unlockRank+'解鎖':'')+'</span><small>'+limits+'</small></button>';
+    const button='<button data-use021="'+q.id+'" aria-label="'+s.nm+'"><b>'+({S:'小',M:'中',L:'大'}[q.scale])+' · '+s.nm+'</b><span>'+method+'</span><span>'+((m?.pr)||'依原生分區造價')+(locked?' · Lv'+m.unlockRank+'解鎖':'')+'</span><small>'+limits+'</small></button>';
+    return q.alternateTool?'<div>'+button+'<label class="useScalesAxis021">客站方向 <select data-axis021="'+q.id+'"><option value="'+q.tool+'">南北向</option><option value="'+q.alternateTool+'">東西向</option></select></label></div>':button;
   }).join('')+'</div></section>').join('');
-  d.querySelectorAll('[data-use021]').forEach(b=>b.onclick=()=>use021Select(b.dataset.use021));d.showModal();
+  d.querySelectorAll('[data-use021]').forEach(b=>b.onclick=()=>use021Select(b.dataset.use021,d.querySelector('[data-axis021="'+b.dataset.use021+'"]')?.value));d.showModal();
 }
 function use021Selftest(){
   const checks=[],add=(s,ok)=>checks.push([s,!!ok]);
-  add('36 unique approved forms / twelve trios',USE021_ROWS.length===36&&new Set(USE021_ROWS.map(q=>q.id)).size===36&&new Set(USE021_ROWS.map(q=>q.group)).size===12);
-  add('all native tools exist',USE021_ROWS.every(q=>!!toolMeta434(q.tool)));
+  add('36 preserved form specs / twelve trios',USE021_ROWS.length===36&&new Set(USE021_ROWS.map(q=>q.id)).size===36&&new Set(USE021_ROWS.map(q=>q.group)).size===12);
+  add('all native tools and directional aliases exist',USE021_ROWS.every(q=>!!toolMeta434(q.tool)&&(!q.alternateTool||!!toolMeta434(q.alternateTool))));
   let leak=0,soft=0,crop=0,empty=0,views=0;
   for(const q of USE021_ROWS)for(let rot=0;rot<4;rot++){
     const s=use021Authored(q,q.bw,q.bh,rot,{},q.lv,0),a=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data,n=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let op=0;

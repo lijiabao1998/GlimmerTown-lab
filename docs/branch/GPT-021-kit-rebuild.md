@@ -30,4 +30,8 @@
 
 ## 施工紀錄
 
-目前：卡面先備份；基線 fp 執行中。kit／mapping／新raw尚未完成。舊失敗（原36同城共存及時序fixture）列為需重新捕捉的風險，未轉成pass。尚無新樣張確認、PR、合併或部署。
+基線 fp69.7秒完成：葉子、block559、165家族棘輪零變動。kit重建SHA7ccbe0a5、資產層154/154（144方向光柵）及project故意錯位首紅通過；五原美術未變。mapping原tool名bigFarm、station008 NS/EW已校正並接回，當前local index8bb22b69、85 inline script語法與idempotent build通過。真Chrome進城、36目錄與144資產selftest、零consoleerror；尚未宣稱原生36流程通過。
+
+原生流程attempt01在測試出口 `hover=null` 違反原生const hover物件時拋 `Assignment to constant variable`（80.289s），在新款建造之前中止，raw/log保留。測試出口改為清原物件x/y，沒有改production renderer。ordinary-state判準另明確只檢查Boolean override是否為true；原生預設enum timePhase='noon'在God關閉時不是已啟用的override，原值仍完整記錄。沒有關power/water/demand/skyline或改自然成長gate。
+
+沿用原007合法背景來源，初始terrain/age/money/rank是明示QA setup（非自然經營排名）；背景存slot3後經原生continue載入確認正常diff1、非editor、sandbox/God/Boolean overrides全部關閉。新的24直接／3cow付費／9空lot自然出生與成長另取實測證據，未用預種新bld或直接改lv/pw/wa/dem/RNG代替。尚無新樣張確認、PR、合併或部署。
