@@ -1,0 +1,46 @@
+{
+  "recoveredAtUTC": "2026-10-12T10:06:30.132865+00:00",
+  "files": [
+    {
+      "path": "docs/branch/GPT-021-recovery/original-sources/british-use-scales-release021.pre-farm-fallback.js",
+      "bytes": 12880,
+      "sha256": "d59064caa414dc258dbc2e5d0328bd6cb071bdac03a030a8b9844a5e31768cf2",
+      "approvedOriginalStandaloneSHA256": "d59064caa414dc258dbc2e5d0328bd6cb071bdac03a030a8b9844a5e31768cf2",
+      "source": "Original complete runtime before farm53 fallback fix",
+      "syntax": "node --check exit0",
+      "secretPatternScan": "no matches"
+    },
+    {
+      "path": "docs/branch/GPT-021-recovery/original-sources/build-use-scales-release021.early.js",
+      "bytes": 8233,
+      "sha256": "e898be1a829fac68f34773734dae27201045d943553aca3edc23d887414ff3e0",
+      "approvedOriginalStandaloneSHA256": "e898be1a829fac68f34773734dae27201045d943553aca3edc23d887414ff3e0",
+      "source": "Original complete earlier build",
+      "syntax": "node --check exit0",
+      "secretPatternScan": "no matches"
+    },
+    {
+      "path": "build-use-scales-release021.js",
+      "bytes": 8155,
+      "sha256": "f7cc3f5c7e0a3fb784446a8c73d5e5ff8568dd41bac37ff028dfae2e7bdc42c7",
+      "approvedOriginalStandaloneSHA256": "f7cc3f5c7e0a3fb784446a8c73d5e5ff8568dd41bac37ff028dfae2e7bdc42c7",
+      "source": "Historical hash-matched build; not executed",
+      "syntax": "node --check exit0",
+      "secretPatternScan": "no matches"
+    },
+    {
+      "path": "british-use-scales-release021.js",
+      "bytes": 13006,
+      "sha256": "abae519afda88e46e6f85358b4d5639505c78699dfb44c05efbf86f7aacbc050",
+      "approvedOriginalStandaloneSHA256": null,
+      "source": "Exact d590 runtime plus original farm53 nonzero-v fallback line; final original standalone hash unknown",
+      "syntax": "node --check exit0",
+      "secretPatternScan": "no matches"
+    }
+  ],
+  "buildExecuted": false,
+  "gameValidationExecuted": false,
+  "geometryStatus": "All five 36-form modules match original approved hashes. Final kit SHA5db827a1... missing; earlier98ca... cannot substitute.",
+  "evidenceStatus": "Historical619/14/91 raw JSON, real-game PNGs and ZIPs lost; not current pass evidence.",
+  "releaseStatus": "Recovery backup only; index/main/deployment unchanged."
+}
