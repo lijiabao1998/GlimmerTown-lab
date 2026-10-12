@@ -8,7 +8,7 @@ The environment is executable. Local commit 12560de418d6c9600de326fab2ca60856983
 
 The final report, receipt, runner exit codes, all three smoke logs, full fingerprint log and both independent reviews are uploaded here. Large raw evidence and original preview PNGs remain preserved locally while their transfer is being completed. This status does not claim that every file has been uploaded.
 
-The 1,004,407-byte mature day88 PNG upload timed out after 60 seconds; a read-only Git blob check returned404 again. Image transmission is still pending. No picture is represented as successfully uploaded yet.
+The 1,004,407-byte mature day88 PNG upload timed out after 60 seconds; a read-only Git blob check returned404 again. The original mature36 overview PNG and its lossless WebP transfer remain pending after transport timeouts; both Git blob checks returned404. The smaller [actual mobile catalogue screenshot](GPT-021-rebuild-preview/catalog-native-360.png) is uploaded, showing the real native catalogue rather than the full36 overview. This is partial delivery.
 
 Native mature36 acceptance581/581; close acceptance556/556; legacy cold compatibility43/43. Smoke exit0/0/0 and full fp exit0; leaves, block559 and165 families unchanged. See [final report](GPT-021-final-local-acceptance.md), [runner records](GPT-021-rebuild-evidence/fixed-final-runner021-results.json) and [receipt](GPT-021-rebuild-evidence/final-local-fixed-list-receipt.json).
 
