@@ -1,0 +1,197 @@
+
+=== 微光小鎮 煙霧測試 ===
+PASS pointercancel: pending touch placement is discarded
+PASS pointercancel: dragged road preview and edge timer are discarded
+PASS pointercancel: pending rectangle is discarded
+PASS pointercancel: pending pan inspect and single/double tap history are discarded
+PASS pointercancel: busrt click is discarded
+PASS pointercancel: railrt click is discarded
+PASS pointercancel: tramrt click is discarded
+PASS pointercancel: metrort click is discarded
+PASS pointercancel: applied long-hold paint remains exactly one undoable transaction
+PASS pointercancel: cancelling one pinch finger clears both and suppresses stale events
+PASS pointercancel: moved pinch cancellation does not settle zoom or register double-tap
+PASS pointercancel: cancellation after normal first pinch-up clears retained tap history
+PASS lostpointercapture: pending touch placement is discarded
+PASS lostpointercapture: dragged road preview and edge timer are discarded
+PASS lostpointercapture: pending rectangle is discarded
+PASS lostpointercapture: pending pan inspect and single/double tap history are discarded
+PASS lostpointercapture: busrt click is discarded
+PASS lostpointercapture: railrt click is discarded
+PASS lostpointercapture: tramrt click is discarded
+PASS lostpointercapture: metrort click is discarded
+PASS lostpointercapture: applied long-hold paint remains exactly one undoable transaction
+PASS lostpointercapture: cancelling one pinch finger clears both and suppresses stale events
+PASS lostpointercapture: moved pinch cancellation does not settle zoom or register double-tap
+PASS lostpointercapture: cancellation after normal first pinch-up clears retained tap history
+PASS Successful touch tap places once, and duplicate up/lostcapture remain inert
+PASS Successful road drag commits its preview and Undo/Redo restore all tiles and money
+PASS Successful rectangle commits through real commitRect and transaction functions
+PASS Successful pan tap inspects once and normal double-tap still zooms
+PASS Successful busrt tap invokes the intended route handler once
+PASS Successful railrt tap invokes the intended route handler once
+PASS Successful tramrt tap invokes the intended route handler once
+PASS Successful metrort tap invokes the intended route handler once
+PASS Second finger preserves applied long-hold paint as one undoable transaction
+PASS Long-hold drag then pinch and cancellation retain every applied tile in one transaction
+PASS Second finger preserves immediate mouse paint without a partial refund
+PASS Pending single-finger touch switches to pinch without construction
+PASS Stale move/up/cancel/lostcapture cannot mutate or end a newer active gesture
+PASS Untracked hover changes hover position but cannot move a live pan camera
+PASS Duplicate down cannot overwrite or apply a second immediate transaction
+PASS Repeated cancellation performs cleanup exactly once
+PASS Normal first pinch-up releases only the completed pointer without cancelling the survivor
+GPT-020 isolated input tests: 41/41 passed (/workspace/GlimmerTown-lab-rebuild021/index.html)
+     烘焙完成 39.0s
+  1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙（Chrome 冷啟動 1.1s）
+  4 確認主迴圈 …
+     主迴圈 OK（53 frames/1.2s）
+  4b 功能自我測試 …
+     british004 OK（26 項）
+     highStreet005 OK（100 項）
+     residential006 OK（163 項）
+     riverside012 OK（39 項）
+     gardenLife016 OK（34 項）
+     waterfrontQuarter019 OK（44 項）
+     waterfront018 OK（15 項）
+     quayside017 OK（34 項）
+     streetscape015 OK（44 項）
+     complexes014 OK（216 項）
+     theatre013 OK（43 項）
+     museum010 OK（26 項）
+     streetLife009 OK（36 項）
+     station008 OK（9 項）
+     publicLife007 OK（166 項）
+     life533 OK（10 項）
+     life535 OK（14 項）
+     overlay596 OK（4 項）
+     ukStyle596 OK（7 項）
+     roadPixel596 OK（8 項）
+     tree596 OK（12 項）
+     hud598 OK（9 項）
+     panel599 OK（19 項）
+     workshop600 OK（17 項）
+     species601 OK（15 項）
+     moreBld602 OK（7 項）
+     terrace603 OK（3 項）
+     finish604 OK（10 項）
+     bay605 OK（5 項）
+     wallDetail606 OK（16 項）
+     storyBubble607 OK（9 項）
+     industrialRoof608 OK（7 項）
+     bayFarm609 OK（6 項）
+     ranchPump610 OK（9 項）
+     logistics611 OK（10 項）
+     transport612 OK（11 項）
+     facadeSmoke613 OK（18 項）
+     leash613 OK（4 項）
+     civic614 OK（11 項）
+     culture615 OK（11 項）
+     mapScan617 OK（4 項）
+     nightDepth619 OK（6 項）
+     stripPave621 OK（4 項）
+     rotSwap622 OK（6 項）
+     roadMark623 OK（11 項）
+     massOrder624 OK（7 項）
+     neonAnchor625 OK（4 項）
+     smokeView626 OK（7 項）
+     vkey628 OK（5 項）
+     nightOcc629 OK（5 項）
+     ownNight630 OK（4 項）
+     partView632 OK（5 項）
+     part633 OK（6 項）
+     seedEl634 OK（4 項）
+     blockConstr635 OK（6 項）
+     anchor636 OK（4 項）
+     farmer637 OK（3 項）
+     variantNight638 OK（3 項）
+     fill639 OK（4 項）
+     duskFade640 OK（4 項）
+     zzz641 OK（6 項）
+     dawnFade642 OK（4 項）
+     sbNight643 OK（5 項）
+     warnGlow644 OK（5 項）
+     massWin645 OK（4 項）
+     cliff646 OK（4 項）
+     blockConstr647 OK（5 項）
+     lod648 OK（5 項）
+     warmWin649 OK（5 項）
+     dock650 OK（5 項）
+     grassGrid651 OK（4 項）
+     grove652 OK（5 項）
+     groveMixGROK1 OK（6 項）
+     occWin653 OK（5 項）
+     tree654 OK（5 項）
+     terrainTree655 OK（6 項）
+     ukMewsGROK2 OK（16 項）
+     gptCornerShop001 OK（7 項）
+     cathedralDSK2 OK（21 項）
+     keepDSK3 OK（17 項）
+     batterseaDSK4 OK（13 項）
+     waterGrad666 OK（4 項）
+     nightWater667 OK（5 項）
+     bareColor668 OK（3 項）
+     bareTrunk669 OK（3 項）
+     indVariety670 OK（4 項）
+     mewsSmoke671 OK（5 項）
+     bareTwig674 OK（4 項）
+     waterVar675 OK（5 項）
+     ornDom676 OK（4 項）
+     ukLandmark677 OK（10 項）
+     battersea2x678 OK（10 項）
+     bookshopDSK15 OK（15 項）
+     cornerPubDSK11 OK（16 項）
+     cornerPubNearDSK12 OK（7 項）
+     tearoomDSK10 OK（15 項）
+     tearoomNearDSK14 OK（8 項）
+     chippyDSK9 OK（14 項）
+     chippyNearDSK13 OK（8 項）
+     georgeInnDSK6 OK（15 項）
+     georgeInnNearDSK8 OK（7 項）
+     albertHallDSK5 OK（15 項）
+     albertHallNearDSK7 OK（7 項）
+     keepPolish679 OK（4 項）
+     shopTall680 OK（5 項）
+     mewsBays681 OK（6 項）
+     towerBridge693 OK（8 項）
+     keepNightDial694 OK（5 項）
+     nearUK695 OK（6 項）
+     ringDepth696 OK（3 項）
+     centerDep697 OK（6 項）
+     tbPower698 OK（5 項）
+     facadeWx699 OK（6 項）
+     constr700 OK（7 項）
+     constr701 OK（7 項）
+     greenhouse702 OK（7 項）
+     ukBatchSelftest707 OK（37 項）
+     ukBatchSelftest706 OK（32 項）
+     ukBatchSelftest705 OK（32 項）
+     ukBatchSelftest708 OK（40 項）
+     ukBatchSelftest703 OK（7 項）
+     ukBatchSelftest704 OK（7 項）
+     campus715 OK（6 項）
+     fastPx735 OK（4 項）
+     sil738 OK（4 項）
+     useScales021 OK（8 項）
+     renew711 OK（6 項）
+     legacyA713 OK（6 項）
+     plants710 OK（6 項）
+     civicV0712 OK（6 項）
+     legacyB714 OK（6 項）
+     auditGeo709 OK（7 項）
+     treeSeasonDSK1 OK（11 項）
+  4c UI 點擊往返 …
+     點擊往返 OK（6 步）
+  4d 事件流往返 …
+     事件流往返 OK（9 步）
+  4e 幀率快採（T584，只記不判）…
+     正午快採 37.7 fps（46 幀/1.2s；對照基線見 perf.json day_noon）
+  4f GPT-020 mobile pointer cancellation …
+     390×844 OK（54 項）
+     360×800 OK（54 項）
+  5 錯誤檢查 …
+     0 筆 console error
+     樣張 shots/smoke-1791813909657.png
+
+OK 綠燈（76.3s）— 開機管線走完、主迴圈在跑、console 乾淨
+

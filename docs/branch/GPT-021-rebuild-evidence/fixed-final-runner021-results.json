@@ -1,0 +1,58 @@
+[
+  {
+    "name": "compat-remaining-attempt-02",
+    "command": [
+      "node",
+      "probeUseScalesCompatRemaining021.js"
+    ],
+    "exitCode": 0,
+    "seconds": 209.683,
+    "logSHA256": "94bdf2b59281a0a854facab7c5a852c30fb72e7636a48a2d0adb1e8c8a416d4f",
+    "bytes": 112
+  },
+  {
+    "name": "candidate-smoke-1",
+    "command": [
+      "node",
+      "smoke.js"
+    ],
+    "exitCode": 0,
+    "seconds": 81.21,
+    "logSHA256": "e82d693017abb73cc759d8e89bc5ec4f374324113640aa02f9ac39047cc9aaa5",
+    "bytes": 8062
+  },
+  {
+    "name": "candidate-smoke-2",
+    "command": [
+      "node",
+      "smoke.js"
+    ],
+    "exitCode": 0,
+    "seconds": 81.971,
+    "logSHA256": "23dff74b492e4b2014f0c2886671086b1fa0d1de22c8bdab918b4c91da0d34ba",
+    "bytes": 8062
+  },
+  {
+    "name": "candidate-smoke-3",
+    "command": [
+      "node",
+      "smoke.js"
+    ],
+    "exitCode": 0,
+    "seconds": 76.71,
+    "logSHA256": "a514d67193c3209f1633db754c5228756bce5f935daaaa4e3a42c444a1939b60",
+    "bytes": 8062
+  },
+  {
+    "name": "candidate-fp-check",
+    "command": [
+      "node",
+      "fp.js",
+      "--check"
+    ],
+    "exitCode": 0,
+    "seconds": 71.465,
+    "logSHA256": "5eeeed38ebe905b529de195c4e34644f3ed3fdbdaa577c82de63f12ca0879142",
+    "bytes": 1528
+  }
+]

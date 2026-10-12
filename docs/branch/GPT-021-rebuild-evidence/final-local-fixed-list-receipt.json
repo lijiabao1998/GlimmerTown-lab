@@ -1,0 +1,560 @@
+{
+  "kind": "Final local fixed-list candidate acceptance; no added tests after runner",
+  "source": [
+    {
+      "file": "index.html",
+      "bytes": 10816659,
+      "sha256": "8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed"
+    },
+    {
+      "file": "british-use-scales-kit021.js",
+      "bytes": 6577,
+      "sha256": "7ccbe0a54ed00b8dca173725922937346170343c9f9edca66bc2dc2055fc9efd"
+    },
+    {
+      "file": "british-use-scales-art021.js",
+      "bytes": 11798,
+      "sha256": "7d198526e46ac209d4cf892656bcc73fd95f8115cb1a07140518b933c6276de8"
+    },
+    {
+      "file": "british-use-scales-hospitality021.js",
+      "bytes": 25121,
+      "sha256": "7270c5e8b01626e80ddd625fa22b988ed956bbcc88f9be3141f34a6c56b81cf5"
+    },
+    {
+      "file": "british-use-scales-workplaces021.js",
+      "bytes": 21273,
+      "sha256": "51f14212f00e214d4654d86f65af33f49df9575e53835e5f3820dba8859e4144"
+    },
+    {
+      "file": "british-use-scales-agriculture021.js",
+      "bytes": 26496,
+      "sha256": "fcc80082b4732b14b29b741018e8afcc1b67a6aec55f3b4735c277a406654781"
+    },
+    {
+      "file": "british-use-scales-infrastructure021.js",
+      "bytes": 27624,
+      "sha256": "1a682da294d788bccb953e0adef45dada8da632be8c6fae0cf76c944ca02a7bc"
+    },
+    {
+      "file": "british-use-scales-release021.js",
+      "bytes": 13645,
+      "sha256": "38c40019b61cf233de4c93f0db60710e689d99da1771862da0fc76a094fbdc9a"
+    },
+    {
+      "file": "build-use-scales-release021.js",
+      "bytes": 9445,
+      "sha256": "ff41ba3aca6e5c57b60d1f4be6217ce4561088fe730500760ac175fc5921c9ab"
+    },
+    {
+      "file": "british-use-scales-native-map021.json",
+      "bytes": 278100,
+      "sha256": "f34aeea8c080cd2bcccb984c257deb3cf366bc8b9af4d24a15f87636f45a57a7"
+    },
+    {
+      "file": "fp.json",
+      "bytes": 347808,
+      "sha256": "f603c71336746f9d0b0437904b54f6215f0b2bf4f059d4bfb1c16dbb20114991"
+    },
+    {
+      "file": "harness.js",
+      "bytes": 14114,
+      "sha256": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6"
+    },
+    {
+      "file": "smoke.js",
+      "bytes": 26213,
+      "sha256": "489ae51967a330ec86cc240b3b0edbb38e83d23a3b694517630f1b64000bb156"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "file": "compat-remaining-attempt-02.json",
+      "bytes": 13195813,
+      "sha256": "4561291df4ddc2849f475533c032f7e8ca8e3e6fd8346f3e2fc1791b1d9e2503"
+    },
+    {
+      "file": "compat-remaining-attempt-02.log",
+      "bytes": 112,
+      "sha256": "94bdf2b59281a0a854facab7c5a852c30fb72e7636a48a2d0adb1e8c8a416d4f"
+    },
+    {
+      "file": "fixed-final-runner021.py",
+      "bytes": 1038,
+      "sha256": "b7255b15b2c78ac7ef6eb0cfcfc5119a8017184f7342f7196956d5673990f24c"
+    },
+    {
+      "file": "fixed-final-runner021-results.json",
+      "bytes": 1263,
+      "sha256": "6a4131729354910dd4433116bffad3842c71a8a2e7e9de6a3cef4a3efc4bbe1b"
+    },
+    {
+      "file": "candidate-smoke-1.log",
+      "bytes": 8062,
+      "sha256": "e82d693017abb73cc759d8e89bc5ec4f374324113640aa02f9ac39047cc9aaa5"
+    },
+    {
+      "file": "candidate-smoke-2.log",
+      "bytes": 8062,
+      "sha256": "23dff74b492e4b2014f0c2886671086b1fa0d1de22c8bdab918b4c91da0d34ba"
+    },
+    {
+      "file": "candidate-smoke-3.log",
+      "bytes": 8062,
+      "sha256": "a514d67193c3209f1633db754c5228756bce5f935daaaa4e3a42c444a1939b60"
+    },
+    {
+      "file": "candidate-fp-check.log",
+      "bytes": 1528,
+      "sha256": "5eeeed38ebe905b529de195c4e34644f3ed3fdbdaa577c82de63f12ca0879142"
+    },
+    {
+      "file": "final-fixed-save-review.md",
+      "bytes": 8813,
+      "sha256": "7c4c177b2b779dddeffa8f6e7e26bd8e4b7831d3100075702cc55a30a26cc52d"
+    },
+    {
+      "file": "fixed-smoke-1791813750955.png",
+      "bytes": 472219,
+      "sha256": "3d5cbf33349ab962982d56267131f4f7848c67b72da2dff62c859f63e014d71c",
+      "kind": "Native smoke screenshot, separate from mature36 preview"
+    },
+    {
+      "file": "fixed-smoke-1791813832967.png",
+      "bytes": 399647,
+      "sha256": "c70ef38a52cfffaf815b3ac622d5b5807b7742d002df7558e2836c126c650512",
+      "kind": "Native smoke screenshot, separate from mature36 preview"
+    },
+    {
+      "file": "fixed-smoke-1791813909657.png",
+      "bytes": 546923,
+      "sha256": "cd97124b3e83bb11013d7affa6ffa47ff4ffc667f9740a5ae004e4a3d2f704f2",
+      "kind": "Native smoke screenshot, separate from mature36 preview"
+    },
+    {
+      "file": "final-fixed-list-review.md",
+      "bytes": 4123,
+      "sha256": "118cfbb4aa46439159b7a257f78cadf041a5023a108c0e64cda57ac7f356e19a"
+    }
+  ],
+  "nearResult": {
+    "ok": true,
+    "checks": 556,
+    "items": [
+      {
+        "name": "all36 near roof snow",
+        "status": "completed",
+        "data": {
+          "status": "completed"
+        }
+      },
+      {
+        "name": "formal dispatch and metadata faults",
+        "status": "completed",
+        "data": {
+          "status": "completed"
+        }
+      },
+      {
+        "name": "boundary and hover",
+        "status": "completed",
+        "data": {
+          "status": "completed"
+        }
+      },
+      {
+        "name": "native rank locked catalogue",
+        "status": "completed",
+        "data": {
+          "status": "completed"
+        }
+      },
+      {
+        "name": "single asset first use 30 interleaved samples",
+        "status": "completed",
+        "data": {
+          "status": "completed",
+          "summary": {
+            "original": {
+              "n": 30,
+              "median": 70,
+              "p90": 166
+            },
+            "rebuilt": {
+              "n": 30,
+              "median": 98.5,
+              "p90": 210.40000000037253
+            }
+          }
+        }
+      },
+      {
+        "name": "all36 near night emission",
+        "status": "completed",
+        "data": {
+          "status": "completed",
+          "powered": 33,
+          "unpowered": [
+            "UKP021-M",
+            "UKF021-L",
+            "UKT021-L"
+          ]
+        }
+      },
+      {
+        "name": "actual farmer tractor and bubble overlays",
+        "status": "completed",
+        "data": {
+          "status": "completed",
+          "actors": [
+            {
+              "id": "UKF021-S",
+              "status": "completed"
+            },
+            {
+              "id": "UKF021-L",
+              "status": "completed"
+            }
+          ]
+        }
+      },
+      {
+        "name": "portrait and EW actual native body draws",
+        "status": "completed",
+        "data": {
+          "status": "completed",
+          "truePaidPlacements": true,
+          "nativeGrowth": true,
+          "bodyDraws": 8
+        }
+      }
+    ]
+  },
+  "compatResult": {
+    "ok": true,
+    "checks": 43
+  },
+  "runner": [
+    {
+      "name": "compat-remaining-attempt-02",
+      "command": [
+        "node",
+        "probeUseScalesCompatRemaining021.js"
+      ],
+      "exitCode": 0,
+      "seconds": 209.683,
+      "logSHA256": "94bdf2b59281a0a854facab7c5a852c30fb72e7636a48a2d0adb1e8c8a416d4f",
+      "bytes": 112
+    },
+    {
+      "name": "candidate-smoke-1",
+      "command": [
+        "node",
+        "smoke.js"
+      ],
+      "exitCode": 0,
+      "seconds": 81.21,
+      "logSHA256": "e82d693017abb73cc759d8e89bc5ec4f374324113640aa02f9ac39047cc9aaa5",
+      "bytes": 8062
+    },
+    {
+      "name": "candidate-smoke-2",
+      "command": [
+        "node",
+        "smoke.js"
+      ],
+      "exitCode": 0,
+      "seconds": 81.971,
+      "logSHA256": "23dff74b492e4b2014f0c2886671086b1fa0d1de22c8bdab918b4c91da0d34ba",
+      "bytes": 8062
+    },
+    {
+      "name": "candidate-smoke-3",
+      "command": [
+        "node",
+        "smoke.js"
+      ],
+      "exitCode": 0,
+      "seconds": 76.71,
+      "logSHA256": "a514d67193c3209f1633db754c5228756bce5f935daaaa4e3a42c444a1939b60",
+      "bytes": 8062
+    },
+    {
+      "name": "candidate-fp-check",
+      "command": [
+        "node",
+        "fp.js",
+        "--check"
+      ],
+      "exitCode": 0,
+      "seconds": 71.465,
+      "logSHA256": "5eeeed38ebe905b529de195c4e34644f3ed3fdbdaa577c82de63f12ca0879142",
+      "bytes": 1528
+    }
+  ],
+  "acceptedPhotos": [
+    {
+      "file": "remaining-night-UKM021-M-attempt02.png",
+      "bytes": 954513,
+      "sha256": "ae1c625764674fccd3e3e38d3f45b879fbc6cc85340b43fc2c2eef11018d73fd"
+    },
+    {
+      "file": "remaining-night-UKU021-M-attempt02.png",
+      "bytes": 796795,
+      "sha256": "a20dbf07f64edd6fb6d0f931ed9d5ae84f28f2a04309c0eba3c6f7d4790778ef"
+    },
+    {
+      "file": "remaining-night-UKD021-M-attempt02.png",
+      "bytes": 946635,
+      "sha256": "cb36d6e6d3486d2f11c13f1522726cbfee4e6011260e458bdca921cbfef64d66"
+    },
+    {
+      "file": "remaining-night-UKH021-M-attempt02.png",
+      "bytes": 856661,
+      "sha256": "cb1fbcbb6776859bc5cc0d8c0928d9db7da4a6b103c86d4441016efbead27ece"
+    },
+    {
+      "file": "remaining-night-UKW021-M-attempt02.png",
+      "bytes": 897698,
+      "sha256": "53cfef6c97c9da46cfe231967a32d7ab5d8c5cea737dc82bd2eda1280cd973e2"
+    },
+    {
+      "file": "remaining-night-UKF021-M-attempt02.png",
+      "bytes": 1011178,
+      "sha256": "95b739cc214974924535159ee4b83efce50568d52fdaab88ad1ee896b29cd9f0"
+    },
+    {
+      "file": "remaining-night-UKO021-M-attempt02.png",
+      "bytes": 1041678,
+      "sha256": "11165e5fd2cd13fd5b078f79743ea0bb532380a1407054889519df535fe4bbd4"
+    },
+    {
+      "file": "remaining-night-UKC021-M-attempt02.png",
+      "bytes": 991327,
+      "sha256": "1179652bf38d64d32f8ffc3c0240e08c8df479f6af6e0baa4a9b003609363c22"
+    },
+    {
+      "file": "remaining-night-UKR021-M-attempt02.png",
+      "bytes": 915688,
+      "sha256": "ed90ad39b21903169b70c763d88eff85c1bada7cf46f5530c8fb61ad9ce2d06a"
+    },
+    {
+      "file": "remaining-night-UKP021-M-attempt02.png",
+      "bytes": 762415,
+      "sha256": "eee14dadc55286aaac6a241d9ec4042bbb1521deb0c9b96fa4418bf6d6f80c1a"
+    },
+    {
+      "file": "remaining-night-UKT021-M-attempt02.png",
+      "bytes": 879234,
+      "sha256": "5f9f88d8f21933c245fb17690ea9dc21b9c941ef61b9d21ed5a81cd2782a0c5a"
+    },
+    {
+      "file": "remaining-night-UKI021-M-attempt02.png",
+      "bytes": 1153682,
+      "sha256": "4d4d056e647646241faa66ef4cb1826ce974295ddc5a7a1722775b1a1324cf32"
+    },
+    {
+      "file": "remaining-native-bubble-attempt02.png",
+      "bytes": 973740,
+      "sha256": "fdb5b1c4d3e6dfd6f78ac6544a3e921fdb8eb044f9e16742c4265f2a20dac5a0"
+    },
+    {
+      "file": "remaining-alternate-UKC021-M-attempt02.png",
+      "bytes": 1002641,
+      "sha256": "7a47b8455b2be6ac0d9be31ee591f6a0405aa7a32ae6f5516859519fe65a4399"
+    },
+    {
+      "file": "remaining-alternate-UKP021-L-attempt02.png",
+      "bytes": 653003,
+      "sha256": "86541c3f8db2b9a0548c61e7267548fc75a74ac8556af1d0eb0dbd46c505aaf1"
+    },
+    {
+      "file": "remaining-night-UKM021-M.png",
+      "bytes": 957179,
+      "sha256": "9505904fe12851f90be11800f9e50435c81d152434212772bda6087993c22530"
+    },
+    {
+      "file": "remaining-night-UKU021-M.png",
+      "bytes": 800438,
+      "sha256": "42c1d6e1a1177dad17c89c3e57d63959f91781080d4ac25c9d9a9876026861fa"
+    },
+    {
+      "file": "remaining-night-UKD021-M.png",
+      "bytes": 948540,
+      "sha256": "4745b59dbf03868064d86a879328201bab04d1e703e66a046f850938e09f97ee"
+    },
+    {
+      "file": "remaining-night-UKH021-M.png",
+      "bytes": 857920,
+      "sha256": "a19a7852cec1594420aea9828ca1b7502c8eac5bf314bb9e6a9fe86348f54131"
+    },
+    {
+      "file": "remaining-night-UKW021-M.png",
+      "bytes": 899681,
+      "sha256": "3d32adeb00e23552fd6ef1b87ec376aa41c4b72469a3112b2e8f9cd8be777eb5"
+    },
+    {
+      "file": "remaining-night-UKF021-M.png",
+      "bytes": 1012705,
+      "sha256": "7a291bdcc8f447fb9835321edc15d1b8fa37b4a85cac53e577479ee76106abda"
+    },
+    {
+      "file": "remaining-night-UKO021-M.png",
+      "bytes": 1043929,
+      "sha256": "ea7ebabad8e3dc660fa2b3d81697815d8150bba2588583299c915ff40e5eb45f"
+    },
+    {
+      "file": "remaining-night-UKC021-M.png",
+      "bytes": 993767,
+      "sha256": "e5cdaf167cdd5c68b34514a746ca65281c70797149c8a0df09771c9a42e1314d"
+    },
+    {
+      "file": "remaining-night-UKR021-M.png",
+      "bytes": 916075,
+      "sha256": "248c2c71e52922d7819737a9af1cee90fcf95edea76c42ebbb0c2bf1761db535"
+    },
+    {
+      "file": "remaining-night-UKP021-M.png",
+      "bytes": 765139,
+      "sha256": "14c7e4c89c030667b7f482a749c23113258f7a978da50810e977b8da2308ecc2"
+    },
+    {
+      "file": "remaining-night-UKT021-M.png",
+      "bytes": 881263,
+      "sha256": "f2be442263474a67e073ad038ad3d4b49f1173dfe5a22d1eb8fa69038f15af75"
+    },
+    {
+      "file": "remaining-night-UKI021-M.png",
+      "bytes": 1154199,
+      "sha256": "c4a3c34f3b4f5573a89d8658da67c2971c52b9626eb4eea210bf088c6324a44c"
+    },
+    {
+      "file": "remaining-native-bubble.png",
+      "bytes": 977131,
+      "sha256": "16c9f8aa637611240a0ea5ffe6cde324db1e6a06b0532bfbf22722bb461aa2d6"
+    },
+    {
+      "file": "remaining-snow-UKM021-M.png",
+      "bytes": 987399,
+      "sha256": "7ef09a68ab78834ba5614252a27f26755760d4beaeadecaa01a68e1f31e1d595"
+    },
+    {
+      "file": "remaining-snow-UKU021-M.png",
+      "bytes": 834847,
+      "sha256": "eea7d18345835caf53b557eeed98ffe3a3f9b10d6437cbd07461de8f8523a535"
+    },
+    {
+      "file": "remaining-snow-UKD021-M.png",
+      "bytes": 998632,
+      "sha256": "835b4161d7d277df52ec1b9103fd5a193e95ad304bdf0314731d34d06b758d57"
+    },
+    {
+      "file": "remaining-snow-UKH021-M.png",
+      "bytes": 866780,
+      "sha256": "ed814fc26dbbf9619f4b558d5e7ccbae48bad08a504ff9dd8eece5a060738fe5"
+    },
+    {
+      "file": "remaining-snow-UKW021-M.png",
+      "bytes": 916503,
+      "sha256": "9a59e0ca2530598422ce4fabcad4901a73cdd49551d48fe129bf2dc35d675da0"
+    },
+    {
+      "file": "remaining-snow-UKF021-M.png",
+      "bytes": 1033747,
+      "sha256": "e042383924ed77922250aa3ab78b19317372024e8900344c3991963251c00ee3"
+    },
+    {
+      "file": "remaining-snow-UKO021-M.png",
+      "bytes": 1082190,
+      "sha256": "f5e7b6c4c30e3d9ccdec47883e52e2c64521be82a08c746f510c384360f54a6e"
+    },
+    {
+      "file": "remaining-snow-UKC021-M.png",
+      "bytes": 1022568,
+      "sha256": "b36aa616e3f72f15bfaf6358ff00d42e668f76e20ecf420d4e0d7722222c090d"
+    },
+    {
+      "file": "remaining-snow-UKR021-M.png",
+      "bytes": 910048,
+      "sha256": "06d7b24be8eb01a5b3b85314fa129d5178384c4e4a1369d16f9ca17c594f7a86"
+    },
+    {
+      "file": "remaining-snow-UKP021-M.png",
+      "bytes": 760449,
+      "sha256": "0ba2adba8a1114e2b4a97dc113fe79877892bf3b482315a3f2090e158b376568"
+    },
+    {
+      "file": "remaining-snow-UKT021-M.png",
+      "bytes": 879123,
+      "sha256": "184e7782acfa48940f714d0bcf40970f01f24e3526e859c4e40f2b45340f3d81"
+    },
+    {
+      "file": "remaining-snow-UKI021-M.png",
+      "bytes": 1111440,
+      "sha256": "9738b1e840b965cc6d22c3905c0869118a8d02bcdace73c2fedab1df3b508663"
+    },
+    {
+      "file": "remaining-boundary-hover.png",
+      "bytes": 467457,
+      "sha256": "c5d7d0a6bc2ae7be7e484f962768c843cadbce961443b0f39a942a44405fd4dc"
+    },
+    {
+      "file": "remaining-native-locked.png",
+      "bytes": 186820,
+      "sha256": "2dc7dc6577752dc57d04d8420fe0432b2f66bf22a67626ad942a6bfa83f825eb"
+    },
+    {
+      "file": "remaining-cold-main54ec-farm53v1-station139v0.png",
+      "bytes": 1130132,
+      "sha256": "c5ed819036603508bcb2ca1685dbdbe3536aaca99d444416a98faa9f874698b6"
+    },
+    {
+      "file": "remaining-cold-rebuilt-farm53v1-station139v0.png",
+      "bytes": 1099709,
+      "sha256": "d705485fd9e82f405e3cd193cbadd5130c5cac8c5e1d895677b35c6eed3eea88"
+    },
+    {
+      "file": "remaining-cold-main54ec-farm53v1-station139v1.png",
+      "bytes": 1137204,
+      "sha256": "7048278cd83aa69e9e63fb99f0e43234dc2617c1a32bb1d556e98d91fef421a3"
+    },
+    {
+      "file": "remaining-cold-rebuilt-farm53v1-station139v1.png",
+      "bytes": 1100790,
+      "sha256": "4fcbf5ac729cbc40813615e1ea098c52b5cf85c079e15e0188108c4c6cd62224"
+    }
+  ],
+  "historicalCompatibilityPhotoAudit": [
+    {
+      "file": "remaining-cold-rebuilt-farm53v1-station139v0.png",
+      "attempt01SHA256": "47beb5eafd39cd81744414498002ad1c10898ee2168f65c4689a5b1ace23d1e7",
+      "currentAttempt02SHA256": "d705485fd9e82f405e3cd193cbadd5130c5cac8c5e1d895677b35c6eed3eea88",
+      "status": "Historical attempt01 image overwritten by same basename; not used as accepted evidence. Original failure raw retained. Mature36 and near images unaffected."
+    },
+    {
+      "file": "remaining-cold-rebuilt-farm53v1-station139v1.png",
+      "attempt01SHA256": "f46138791f4c79a7a9514f68dec84b8891e8aebf6cf2980a19c5c2d144c3103a",
+      "currentAttempt02SHA256": "4fcbf5ac729cbc40813615e1ea098c52b5cf85c079e15e0188108c4c6cd62224",
+      "status": "Historical attempt01 image overwritten by same basename; not used as accepted evidence. Original failure raw retained. Mature36 and near images unaffected."
+    }
+  ],
+  "coverageLimits": [
+    "Hover evidence is trusted construction preview over an empty edge tile (x0,y1). Mature candidate building hover fade is unmeasured; not claimed passed or N/A.",
+    "Boundary evidence is one native 1x1 paid edge success and a 3x3 overflow rejection, not a 36-form boundary matrix.",
+    "First-asset benchmark is one 5x5 station with 30 samples per arm. It is distinct from whole-family cold and warm measurements.",
+    "Three native unpowered forms correctly suppress night windows. No power flag was forced."
+  ],
+  "releaseState": {
+    "candidateOnly": true,
+    "ownerFreshImageConfirmationPending": true,
+    "merge": false,
+    "deploy": false,
+    "externalWritePausedAfterAutoReviewRejection": true
+  },
+  "finishedUTC": "2026-10-12T14:16:55.590691+00:00",
+  "independentReadOnlyReview": {
+    "nearAndGuards": "final-fixed-list-review.md",
+    "saves": "final-fixed-save-review.md",
+    "complete": true
+  }
+}
