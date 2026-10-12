@@ -1,0 +1,61 @@
+{
+  "reportedAtUTC": "2026-10-12T12:04:21.555154+00:00",
+  "lastNativeTestFinishedUTC": "2026-10-12T11:36:43.547832+00:00",
+  "nativeSessionSeconds": 122.321,
+  "checks": {
+    "passed": 345,
+    "total": 346,
+    "failed": [
+      "36 forms coexist in one mature native frame"
+    ]
+  },
+  "peakSimultaneousForms": 33,
+  "finalSimultaneousForms": 31,
+  "historicalUnionForms": 36,
+  "historicalUnionIsNotCoexistPass": true,
+  "railFixture": {
+    "sourceWritten": true,
+    "executed": true,
+    "tiles": [
+      [
+        16,
+        13
+      ],
+      [
+        17,
+        13
+      ]
+    ],
+    "nativeCharges": [
+      40,
+      40
+    ],
+    "intermodalRoot": [
+      16,
+      14
+    ],
+    "intermodalNativeKind": 166
+  },
+  "currentBlocker": "Fixture uses native step with speed=0, preventing ordinary service vehicle advance; crime/abandonment/fire remove low RCI plots. Paid prevention/services and normal native advance need a fresh run. No permission or waiting-tool blocker.",
+  "newAcceptancePausedByParent": true,
+  "runningTestProcesses": false,
+  "onlyExitedChromiumZombies": true,
+  "candidateSHA256": "8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed",
+  "retailPhoto": {
+    "file": "retail-midway-attempt-03.png",
+    "sha256": "d5a67716ad28055cdfc72c365f2e58193ef6692cd7b023092268087ae91fec11",
+    "capturedAtUTC": "2026-10-12T11:35:24.528225+00:00",
+    "actualNativeGame": true,
+    "viewport": [
+      1440,
+      960
+    ],
+    "day": 16,
+    "newNativePaidFormsShown": 3,
+    "mature36Pass": false
+  },
+  "fixtureQualification": "Existing approved legacy QA seed sets background/rank/money. New roots and RCI acquisition use native paid placement/growth. This image is intermediate, not final acceptance.",
+  "mergeOrDeploymentPerformed": false,
+  "main": "54ecba5e186c1b2a8b258aae2be2ebe11d13efe6",
+  "remoteIntegratedIndex": false
+}
