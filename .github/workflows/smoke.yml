@@ -25,8 +25,18 @@ jobs:
           node-version: 22   # harness.js 用 Node 內建 WebSocket
       - name: 中文字型（與雲端施工容器同一套，樣張 UI 字不變豆腐）
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: GPT-022 standalone candidate from exact sources
+        if: github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab'))
+        run: node candidate-build022.js
       - name: 煙霧測試
         run: node smoke.js 2>&1 | tee smoke-run.txt; exit ${PIPESTATUS[0]}
+        shell: bash
+      - name: GPT-022 second and third consecutive smoke checks
+        if: github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab'))
+        run: |
+          set -euo pipefail
+          node smoke.js 2>&1 | tee smoke-source022-2.txt
+          node smoke.js 2>&1 | tee smoke-source022-3.txt
         shell: bash
       - name: 上傳樣張與紀錄
         if: always()
@@ -37,4 +47,17 @@ jobs:
             shots/smoke-*.png
             smoke-run.txt
           if-no-files-found: warn
+          retention-days: 14
+      - name: GPT-022 complete candidate and actual CI screenshots
+        if: always() && (github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab')))
+        uses: actions/upload-artifact@v4
+        with:
+          name: british-use-scales022-${{ github.sha }}
+          path: |
+            index.html
+            candidate-build022-receipt.json
+            docs/branch/GPT-022-source-manifest.json
+            smoke-run.txt
+            smoke-source022-*.txt
+            shots/smoke-*.png
           retention-days: 14
