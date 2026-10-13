@@ -248,3 +248,20 @@ head916adc7：push saves62成功，但PR38372563021在main/main校準step5紅（
 不是常數、不是關車流/煙/災害，也不改原生R()/ri()或任何模型/價格。區間後finally恢復原Math.random。
 原生程式碼與發布index完全不改；全native字段/15stats仍零差，main/main校準仍是必要門檻。
 如果候選改變了呼叫序列或語義導致差異，嚴格門檻照樣會紅；不使用分層隨機流或output容忍度掩蓋。
+
+
+### 固定Math.random後仍紅：先排除已運行城市的隱藏frame狀態
+
+head02b41c9，push38374020017／PR38374025762各8/9；兩個smoke38374020056／38374025645成功。
+push在main/candidate step3有161 native差（首差lastPopulation50/51）；PR在main/main step0有160差（企業cash221.52/221.53）。
+上述失敗和原始快照保留，沒有挑另一事件的綠燈通過，也沒有重跑碰運氣。
+靜態查原生updSmoke：smokeAcc是未序列化的frame accumulator，load清空smokes但沒有清smokeAcc；
+它每累計>.45才消耗Math.random噴煙。舊協議先由withGame進城、等boot沉降，這段真實時間已運行advance；
+接著反覆load只對齊save/simAcc，沒有同一smokeAcc，所以煙/車流共用亂數呼叫位置仍會偏移。
+新協議不改正式loader、不補一串挑選的reset：每個forward arm開全新、尚未進城的native page，
+只等原生menu/素材boot完成，再首次load同完整save，第一個load起匹配uniform random input和固定frame。
+新增只讀protocolInputs記錄smokeAcc、其他frame input、完整cars/roadPass/roadLoad供診斷，零輸出改寫。
+先跑三個獨立原main（B/A、C/A）：initial和六步全native字段/全15stats/非空cars必須零差；
+兩組全綠後才開始candidate，不以候選結果校準或挑分支。全部raw saves和input rows仍上傳。
+這只變更QA生命週期，正式index4798d3358a5255d212de7a90235adc0dd2317ee21b91b73a3dbb56af076c2655與批准美術未變。
+新protocol尚未實跑；如果main仍有差，先停在校準紅燈，不能進候選比較或合併。

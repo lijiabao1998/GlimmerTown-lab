@@ -56,6 +56,9 @@ if(window.__useScaleQA021===true){
   // Paired advancement must start with the same input phase, not tolerate
   // different finance/jobs outputs or disable any simulation rule.
   simulationClock:value=>{if(value!==undefined)simAcc=+value;return{day,simAcc,daylen:DAYLEN};},
+  // Read-only protocol diagnostics. load() leaves smokeAcc and other frame
+  // runtime behind; independent pairs must begin in fresh, unstarted pages.
+  protocolInputs:()=>({smokeAcc,musicAcc,quality,rain:rain.length,waterF,waterT,pop,jobs,dem:{...dem},cars:cars.map(c=>({...c})),roadPass:Array.from(roadPass),roadLoad:Array.from(roadLoad)}),
   running:v=>{if(v!==undefined)running=!!v;return running;},
   frame:(dt=.016)=>draw(dt),
   trace:on=>{trace021=!!on;traceRows021=[];imageMap021.clear();lastSize021=-1;drawRoot021=null;return trace021;},traceRows:()=>traceRows021.slice(),
