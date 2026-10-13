@@ -162,3 +162,14 @@ Remaining night取樣在bubble/helper trace沒有meta時讀bw出TypeError；hove
 保留兩臂實際input／clock供審查；尚未證明這是全部原因，若仍不同照實紅燈。
 native的36共存判準不改，下一報告追加缺項的實際native根／level／犯罪消防覆蓋／首次成熟日，查明原因前不改模擬或強制放置。
 本轮沒有合併、版本或baseline更新，所有失敗artifacts保留。
+
+
+### 第四輪：PR全綠、push的native QA地塊通路仍不足
+
+head c74a75c4b6ac5588b50e9fba0a488f3ee7a22982：PR acceptance38364580881九項均成功、push38364574692八成功一失敗；兩個smoke38364580803／38364574683成功。
+成熟hover的576情境與故意改壞首紅、閥關整幀、night/snow取樣的修正均有真實CI綠燈，沒有鬆判準。
+push native仍581checks但最後35/36；缺UKC021-L。明細證明它曾在day49從原生分區自然成熟（lv1、v8、age30、2x2），後來day382四格均無建築。
+此測試地塊消防coverage>0，但emergency actual frontage=0、reachable=false；只有外側road在更南方，北方通路不足。
+修正QA施工：在劃區前透過既有pay/preview/placeUndo逐格付費，補39..42／10..13的原生道路＋水管，接到既有39主幹。
+不改native容量／价格／模拟／美術；不关災害、不用god／需求override、不把共存改成「曾各自出現」；仍要求同一成熟幀36款。
+保留首四輪失敗報告與PR綠燈，待本修正的push及PR新報告；尚未合併／部署或配版本。

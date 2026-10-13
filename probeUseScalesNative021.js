@@ -39,6 +39,13 @@ const s=await H.withGame({fresh:!REUSE,timeout:300,preScript,log:console.log},as
  for(let y=15;y<=21;y++)road(25,y);for(let y=13;y<=33;y++)road(39,y);
  for(let y=23;y<=33;y++)road(42,y);for(const y of[24,28])for(let x=40;x<=42;x++)road(x,y);
  for(let y=10;y<=13;y++)road(19,y);for(let y=10;y<=14;y++)road(33,y);
+ // The north craft courtyard must have actual connected frontage, not only a
+ // positive geometric fire-coverage counter. Pay for its ordinary access roads
+ // before zoning; keep disasters and all native service rules enabled.
+ for(let y=10;y<=13;y++)road(39,y);
+ for(let x=39;x<=42;x++)road(x,10);
+ for(let y=10;y<=13;y++)road(42,y);
+ for(let x=39;x<=42;x++)road(x,13);
  for(const[x,y]of[[26,15],[37,14],[37,30]])pay('prison',x,y);
  for(const[x,y]of[[20,13],[34,13],[38,25],[31,21],[43,29]])pay('fire',x,y);
  G.rebuildCov();G.recomputePower450();
