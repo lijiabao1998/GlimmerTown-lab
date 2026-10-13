@@ -20,14 +20,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22   # harness.js 用 Node 內建 WebSocket
       - name: 中文字型（與雲端施工容器同一套，樣張 UI 字不變豆腐）
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
-      - name: GPT-022 standalone candidate from exact sources
+      - name: GPT-022 committed index equals isolated pinned source rebuild
         if: github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab'))
-        run: node candidate-build022.js
+        run: node candidate-build022.js --verify-materialized
       - name: 煙霧測試
         run: node smoke.js 2>&1 | tee smoke-run.txt; exit ${PIPESTATUS[0]}
         shell: bash

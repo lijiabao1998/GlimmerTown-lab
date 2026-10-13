@@ -1244,6 +1244,1689 @@ table.dtab tr:hover td{background:#1b2334}
 </div>
 
 <!-- GPT-004 approved British art BEGIN: source british-prototypes-art.js -->
+<!-- GPT-021 PURE ART START -->
+<style id="useScalesStyle021">
+#useScalesDialog021{color:#eee8d9;background:#272e2b;border:1px solid #877957;border-radius:12px;padding:20px;width:min(940px,calc(100% - 24px));max-width:calc(100% - 24px);max-height:calc(100dvh - 32px);box-sizing:border-box;overflow:auto;font:inherit}#useScalesDialog021::backdrop{background:#101816b8}#useScalesDialog021 header{display:flex;align-items:center;justify-content:space-between;gap:12px}#useScalesDialog021 h2{font-size:20px;margin:0}#useScalesDialog021 h3{margin:18px 0 8px;font-size:16px}#useScalesDialog021 p{line-height:1.6;color:#c9c6b7}#useScalesDialog021 button{font:inherit;color:inherit;background:#35403a;border:1px solid #617062;border-radius:8px;cursor:pointer}#useScalesClose021{min-width:44px;min-height:44px}.useScalesTrio021{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.useScalesTrio021 button{text-align:left;padding:12px;display:flex;flex-direction:column;gap:7px;min-width:0;min-height:118px}.useScalesTrio021 button:hover{border-color:#d9bf78}.useScalesTrio021 span{font-size:12px;color:#dbd5c4}.useScalesTrio021 small{font-size:11px;line-height:1.45;color:#b8c5b7}.useScalesTrio021>div{display:flex;flex-direction:column;gap:6px}.useScalesAxis021{font-size:12px;display:flex;align-items:center;gap:8px}.useScalesAxis021 select{font:inherit;color:inherit;background:#35403a;border:1px solid #617062;border-radius:6px;min-height:44px;max-width:100%;padding:4px}#useScalesSelected021{font-size:11px;padding:5px 8px;white-space:nowrap;color:#ddc890}#useScalesDialog021 button:focus-visible{outline:2px solid #e3c776;outline-offset:3px}@media(max-width:600px){#useScalesDialog021{padding:14px}.useScalesTrio021{grid-template-columns:1fr}.useScalesTrio021 button{min-height:98px}}
+</style>
+<script data-use021-source="british-use-scales-art021.js">
+/* GPT-021, first review group only. Original world-space shop architecture.
+ * Art-only module: no registry, save, world, simulation or RNG access.
+ * Reuses the unchanged approved opaque pixel rasterizer and material palette.
+ * References: Historic England, England's Co-operative Movement and Department
+ * Stores research. No imported raster art, text glyph facade or bitmap scaling.
+ */
+(function(root){
+  'use strict';
+  const specs=Object.freeze([
+    {id:'UKU021-S',nm:'鄰里街角商店',sz:1,w:80,h:116,k:276,tool:'stationNewsstand009',floors:2,
+      plan:'single-shop-with-side-catslide',roof:'one-gable-and-low-lean-to',entry:'front-shop-door',yard:'rear-stock-court',
+      masses:[[.9,12.1,3.6,13.9,0,24],[12.4,15,4,10.8,0,8]]},
+    {id:'UKU021-M',nm:'高街合作商舖',sz:2,w:160,h:194,k:238,tool:'coOpStores',floors:3,
+      plan:'L-shaped-two-street-frontages',roof:'two-perpendicular-ridges',entry:'two-independent-shop-entrances',yard:'open-delivery-court',
+      masses:[[1.8,29.5,1.8,10.8,0,39.5],[20.4,29.5,10.8,28.2,0,39.5]]},
+    {id:'UKU021-L',nm:'愛德華式中庭百貨',sz:3,w:232,h:240,k:240,tool:'coveredMarket',floors:4,
+      plan:'four-ranges-and-real-open-courtyard',roof:'separate-front-side-and-rear-ridges',entry:'open-arched-passage',yard:'rear-loading-wing',
+      masses:[[2,20.2,35,45.6,0,52],[26.8,46,35,45.6,0,52],[20.2,26.8,35,45.6,14.4,52],
+        [2,14,8.5,35,0,37],[34,46,8.5,35,0,37],[14,34,5,15,0,27]]}
+  ].map(s=>Object.freeze({...s,masses:Object.freeze(s.masses.map(q=>Object.freeze(q)))})));
+  function build(id,view){
+    const spec=specs.find(q=>q.id===id);if(!spec)throw Error('Unknown candidate '+id);
+    if(!Number.isInteger(view)||view<0||view>3)throw Error('Four bounded geometric views required');
+    const K=root.BritishComplexPrimitives014;if(!K)throw Error('Approved native pixel engine missing');
+    const {P,C,hash,mod,Scene,paving,brick,sash,timberDoor,lantern,wallLamp,rainpipe}=K;
+    const S=Scene(spec.sz,view,spec.w,spec.h),extent=spec.sz*16;
+    const green=C('355a49'),greenHi=C('5b7862'),greenD=C('254437'),glass=C('66868b');
+    // Illuminate the screen-left face after the same geometry turns, rather
+    // than baking world-north bright walls into every rotated elevation.
+    function dark(nx,ny){let x=nx,y=ny;if(view===1){x=-ny;y=nx;}else if(view===2){x=-nx;y=-ny;}else if(view===3){x=ny;y=-nx;}return x>y;}
+    function walls(x0,x1,y0,y1,z0,z1,seed,stone){
+      const material=(nx,ny)=>stone?K.ashlar(dark(nx,ny),seed):brick(dark(nx,ny),seed);
+      S.wall([x0,y1],[x1,y1],z0,z1,material(0,1));
+      S.wall([x1,y0],[x0,y0],z0,z1,material(0,-1));
+      S.wall([x1,y1],[x1,y0],z0,z1,material(1,0));
+      S.wall([x0,y0],[x0,y1],z0,z1,material(-1,0));
+      S.flat(x0,x1,y0,y1,z1,P.stoneR);
+      return {front:S.face([x0,y1],[x1,y1],0,1),back:S.face([x1,y0],[x0,y0],0,-1),
+        right:S.face([x1,y1],[x1,y0],1,0),left:S.face([x0,y0],[x0,y1],-1,0)};
+    }
+    function course(F,z,col){F.block(0,F.length,0,.24,z,z+.5,col||P.stone,P.stoneR,P.stoneHi);}
+    function roof(x0,x1,y0,y1,z,rise,alongX){
+      const cx=(x0+x1)/2,cy=(y0+y1)/2,slate=(nx,ny)=>K.slate(dark(nx,ny));
+      if(alongX){
+        S.poly([[x0,y0,z],[x1,y0,z],[x1,cy,z+rise],[x0,cy,z+rise]],slate(0,-1));
+        S.poly([[x0,y1,z],[x0,cy,z+rise],[x1,cy,z+rise],[x1,y1,z]],slate(0,1));
+        for(const x of[x0,x1])S.poly([[x,y0,z],[x,y1,z],[x,cy,z+rise]],brick(dark(x===x0?-1:1,0),2112));
+        S.beam([x0,cy,z+rise],[x1,cy,z+rise],P.lead,.33);
+      }else{
+        S.poly([[x0,y0,z],[cx,y0,z+rise],[cx,y1,z+rise],[x0,y1,z]],slate(-1,0));
+        S.poly([[x1,y0,z],[x1,y1,z],[cx,y1,z+rise],[cx,y0,z+rise]],slate(1,0));
+        for(const y of[y0,y1])S.poly([[x0,y,z],[x1,y,z],[cx,y,z+rise]],brick(dark(0,y===y0?-1:1),2113));
+        S.beam([cx,y0,z+rise],[cx,y1,z+rise],P.lead,.33);
+      }
+      for(const x of[x0,x1])S.beam([x,y0,z],[x,y1,z],P.ironD,.28);
+      for(const y of[y0,y1])S.beam([x0,y,z],[x1,y,z],P.ironD,.28);
+    }
+    function chimney(x,y,z,pots){
+      walls(x-.62,x+.62,y-.75,y+.75,z-2,z+4,2131);
+      S.box(x-.82,x+.82,y-.9,y+.9,z+3.6,z+4.1,P.stone,P.stoneR,P.stoneHi);
+      for(let p=0;p<pots;p++){const xx=x+(p-(pots-1)/2)*.62;
+        K.cylinder(S,xx,y,z+4.1,z+6.6,.20,.27,C('bc805c'),C('905c44'),P.ink,8);
+        K.cylinder(S,xx,y,z+6.3,z+6.7,.33,.33,C('c78c67'),C('8f5b44'),P.ink,8);
+      }
+    }
+    function crates(x,y,count){for(let a=0;a<count;a++){
+      const xx=x+a*1.35;S.box(xx,xx+1.1,y,y+1.25,.15,1.7,P.woodHi,P.woodR,P.woodHi);
+      S.beam([xx,y+1.27,.6],[xx+1.1,y+1.27,1.35],P.woodD,.16);
+    }}
+    function shopfront(F,start,width,door){
+      const bottom=.7,top=11.2;
+      F.block(start-.3,start+width+.3,.05,.44,bottom,top,green,greenD,greenHi);
+      F.panel(start,start+width,2,9.4,(x,y)=>{
+        if(y<.65||y>6.9||x<.22||x>width-.22)return greenHi;
+        if(Math.abs(mod(x,3.1))<.17||Math.abs(y-5.1)<.15)return P.frameR;
+        if(y<1.8&&mod(x,1.4)<.9)return [hash(Math.floor(x),1,2120)%2?P.woodHi:P.paper,0];
+        return [y>5?P.glassHi:glass,y>1.8?P.warm:0];
+      },.51);
+      F.block(start-.42,start+width+.42,.1,.75,10,11.1,green,greenD,greenHi);
+      F.panel(start+.3,start+width-.3,10.34,10.57,P.gold,.79);
+      for(let u=start;u<=start+width+.1;u+=3.1){
+        F.block(u-.20,u+.20,.07,.80,.7,10.2,greenHi,greenD,greenHi);
+        F.block(u-.33,u+.33,.1,.93,9.1,9.5,P.gold,C('a08d61'),C('e6d3a0'));
+      }
+      if(door!==undefined)timberDoor(F,door,.8,2.35,9,true);
+    }
+    function upper(F,floors,bays,z0,bayW,arch){
+      for(let floor=0;floor<floors;floor++){
+        const z=z0+floor*12.6,spacing=F.length/bays;
+        for(let b=0;b<bays;b++){
+          const u=spacing*(b+.5)-bayW/2;
+          if(arch&&floor===floors-1)K.archWindow(S,F,u,z,bayW,7.8,true);
+          else sash(S,F,u,z,bayW,7.7,true);
+        }
+        course(F,z-1.2);
+      }
+    }
+    function gate(F,u,w){timberDoor(F,u,.6,w,8,false);F.block(u-.25,u+w+.25,0,.6,8.6,9.3,P.stone,P.stoneR,P.stoneHi);}
+    function gutter(F,z){F.block(0,F.length,0,.35,z,z+.45,P.iron,P.ironD,P.ironHi);}
+    S.flat(.4,extent-.4,.4,extent-.4,0,paving);
+    if(spec.sz===1){
+      const F=walls(.9,12.1,3.6,13.9,.2,24,2101);
+      shopfront(F.front,.4,10.35,7.25);shopfront(F.right,.8,5.4,6.85);
+      upper(F.front,1,2,14.2,3.6,false);upper(F.right,1,2,14.2,3.1,false);
+      sash(S,F.back,1.2,14.2,3,6.2,true);gate(F.back,7.4,2.45);
+      sash(S,F.left,1.2,14.2,3,6.2,true);
+      gate(F.left,4.5,2.2);gutter(F.front,23.6);gutter(F.back,23.6);
+      roof(.66,12.34,3.38,14.1,24.2,5.4,true);chimney(2.4,6.2,28.2,2);
+      const A=walls(12.4,15,4,10.8,.2,8,2102);
+      S.poly([[12.4,4,9.3],[12.4,10.8,9.3],[15,10.8,7.9],[15,4,7.9]],K.slate(true));
+      gate(A.back,.6,1.35);crates(1.1,1.2,3);
+      walls(.9,9.8,.6,1.1,0,1.55,2140);walls(14.6,15.1,1.1,3.6,0,2.3,2141);
+      wallLamp(S,F.front,5.8,10.3);wallLamp(S,F.back,6.3,10.3);rainpipe(S,11.95,14.15,23.5);
+    }else if(spec.sz===2){
+      const A=walls(1.8,29.5,1.8,10.8,.3,39.5,2201),B=walls(20.4,29.5,10.8,28.2,.3,39.5,2202);
+      shopfront(A.front,.7,17.9,12.7);shopfront(B.front,.5,8.1,5.5);
+      shopfront(B.right,1.1,15.2,10.3);shopfront(A.left,.6,7.8,4.9);
+      upper(A.front,2,5,14.2,3.9,true);upper(A.back,2,5,14.2,3.5,false);
+      upper(B.front,2,2,14.2,3.3,true);upper(B.right,2,4,14.2,3.5,true);
+      upper(B.left,2,3,14.2,3.4,false);upper(A.left,2,2,14.2,3.1,false);
+      gate(A.back,20.5,4.2);gate(B.left,5.2,4.4);
+      for(const F of[A.front,A.back,A.left,B.front,B.right,B.left]){course(F,12.5);course(F,38.8);gutter(F,39.5);}
+      roof(1.4,29.9,1.4,11.1,39.9,7.5,true);
+      roof(20.1,29.8,11.05,28.6,39.9,8.3,false);
+      chimney(4.2,5.9,47.5,2);chimney(25,17.8,48.2,3);
+      rainpipe(S,20.1,26.7,39.3);rainpipe(S,1.45,8.2,39.3);
+      // The delivery courtyard is a full open 16-unit-wide area, with a
+      // passable gate; crates and hand trolley leave the centre lane clear.
+      const L=walls(2,4.1,15.5,24.1,0,4.8,2203);gate(L.right,1.8,3.2);
+      crates(5.2,15.5,4);crates(5.2,17,3);
+      S.box(11.1,14.9,14.6,17.7,.1,.6,P.wood,P.woodR,P.woodHi);
+      for(const x of[11.5,14.5])for(const y of[15,17.3])K.cylinder(S,x,y,.15,.8,.40,.40,P.iron,P.ironD,P.ironHi,8);
+      walls(2,12.5,29.1,29.7,0,1.45,2204);
+      lantern(S,15.6,26.7,8,true);wallLamp(S,B.front,4.4,10.2);
+    }else{
+      // Four separately designed ranges enclose a genuine hole in the plan.
+      // The front range is split, and its bridge starts above the passage.
+      const A=walls(2,20.2,35,45.6,.3,52,2301,true),B=walls(26.8,46,35,45.6,.3,52,2302,true);
+      const bridge=walls(20.2,26.8,35,45.6,14.4,52,2303,true);
+      const L=walls(2,14,8.5,35,.3,37,2304),R=walls(34,46,8.5,35,.3,37,2305),back=walls(14,34,5,15,.3,27,2306);
+      shopfront(A.front,.8,16.6,12.6);shopfront(B.front,.8,17.6,3.1);
+      shopfront(A.left,.7,9.3,5.4);shopfront(B.right,.7,9.3,5.4);
+      upper(A.front,3,3,14.8,4.3,true);upper(B.front,3,3,14.8,4.3,true);
+      upper(A.left,3,2,14.8,3.9,false);upper(B.right,3,2,14.8,3.9,false);
+      upper(bridge.front,3,1,14.8,4.4,true);
+      for(const F of[A.front,B.front,bridge.front]){course(F,12.5);course(F,51.4);for(let u=.1;u<F.length;u+=F.length/3)K.pilaster(S,F,u,12.9,37.8,.8);}
+      for(const F of[L.left,L.right,R.left,R.right]){upper(F,2,5,11.3,3.7,false);course(F,36.4);}
+      upper(back.front,1,4,14.1,3.4,false);upper(back.back,1,4,14.1,3.4,false);
+      for(const F of[L.back,R.back]){upper(F,2,2,11.3,3.5,false);gate(F,4.4,3.3);}
+      for(const F of[L.front,R.front])upper(F,2,2,11.3,3.5,false);
+      shopfront(back.front,1,18,12.3);gate(back.back,7.5,4.5);
+      roof(1.6,46.4,34.7,46,52.5,9.9,true);
+      roof(1.65,14.2,8.2,34.7,37.5,8.1,false);roof(33.8,46.35,8.2,34.7,37.5,8.1,false);
+      roof(14,34,4.7,15.2,27.3,6.3,true);
+      // Stone arch has an actual unglazed tunnel. The solid spring fills run
+      // back to the court, with upper bridge floor independent of the opening.
+      const cx=23.5,r=3.3,spring=9.9;
+      for(let i=0;i<18;i++){
+        const a=i*Math.PI/18,b=(i+1)*Math.PI/18;
+        const x0=cx+Math.cos(b)*r,x1=cx+Math.cos(a)*r,z0=spring+Math.sin(b)*r,z1=spring+Math.sin(a)*r;
+        S.poly([[x0,45.6,z0],[x1,45.6,z1],[x1,45.6,14.4],[x0,45.6,14.4]],P.stone);
+        S.poly([[x0,35,z0],[x1,35,z1],[x1,35,14.4],[x0,35,14.4]],P.stoneR);
+        S.poly([[x0,35,z0],[x1,35,z1],[x1,45.6,z1],[x0,45.6,z0]],P.stoneD);
+      }
+      K.ring(S,bridge.front,3.3,spring,r+.53,r+.53,.5,.17,P.stoneHi,18);
+      bridge.front.block(2.65,3.95,.08,.78,13.0,14.4,P.stone,P.stoneR,P.stoneHi);
+      for(const x of[20.1,26.9])S.box(x-.30,x+.30,45.61,46.05,.4,spring,P.stone,P.stoneR,P.stoneHi);
+      S.flat(20.4,26.6,35.1,47.2,.06,(x,y)=>mod(x+y,2)<.18?P.stoneR:P.paveHi);
+      wallLamp(S,A.front,17.3,10.6);wallLamp(S,B.front,1.0,10.6);
+      lantern(S,18.3,18.5,8,true);lantern(S,30.3,30.2,8,true);
+      chimney(6,23,45.7,3);chimney(40.1,13,45.7,3);chimney(6.3,38.2,61.6,3);
+      for(const x of[2.0,46])rainpipe(S,x,45.8,51.5);
+      // Rear service canopy and small packages stay behind the public court.
+      for(const x of[16.2,30.8])S.beam([x,1.1,.1],[x,1.1,7],P.iron,.38);
+      S.flat(15,32,1.1,4.9,7,P.lead);crates(16,2,5);crates(25,2.1,4);
+      walls(2.2,10.2,1.4,5.6,.1,6.2,2307);gate(S.face([10.2,1.4],[10.2,5.6],1,0),.7,2.6);
+    }
+    return S.finish({id:spec.id,nm:spec.nm,k:spec.k,tool:spec.tool,floors:spec.floors,plan:spec.plan,roof:spec.roof,
+      entry:spec.entry,yard:spec.yard,masses:spec.masses,candidate:true,lightPolicy:'opaque-shared-depth-physical-fixtures'});
+  }
+  root.BritishUseScales021=Object.freeze({specs,build,buildAll:()=>specs.flatMap(s=>Array.from({length:4},(_,v)=>build(s.id,v)))});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script data-use021-source="british-use-scales-kit021.js">
+/* GPT-021 rebuilt architectural kit, 2026-10-12. NOT the lost final5db827a1 source.
+ * Restored early helpers + new native Scene-compatible project/smoke interface.
+ * Five original architecture modules and approved rasterizer remain unchanged.
+ * Pure deterministic geometry: no game, saves, registry or simulation access.
+ * World units: 16 per native tile. Roofs and apertures share native z buffer.
+ */
+(function(root){
+  'use strict';
+  function create(spec,view){
+    if(!Number.isInteger(view)||view<0||view>3)throw Error('Four geometric views required');
+    const K=root.BritishComplexPrimitives014;if(!K)throw Error('Native rasterizer missing');
+    const {P,C}=K,sz=spec.sz,S=K.Scene(sz,view,spec.w,spec.h),extent=16*sz;
+    const chimneyHeads=[];
+    // Matches the unchanged native Scene projection; coordinates stay fractional.
+    function project(x,y,z){
+      let u=x,v=y;
+      if(view===1){u=extent-y;v=x;}else if(view===2){u=extent-x;v=extent-y;}else if(view===3){u=y;v=extent-x;}
+      return [spec.w/2+2*u-2*v,spec.h-2-2*extent+u+v-z];
+    }
+    function dark(nx,ny){let x=nx,y=ny;if(view===1){x=-ny;y=nx;}else if(view===2){x=-nx;y=-ny;}else if(view===3){x=ny;y=-nx;}return x>y;}
+    function walls(x0,x1,y0,y1,z0,z1,seed,mat){
+      const material=(x,y)=>mat==='stone'?K.ashlar(dark(x,y),seed):mat==='timber'?(dark(x,y)?P.woodR:P.wood):K.brick(dark(x,y),seed);
+      S.wall([x0,y1],[x1,y1],z0,z1,material(0,1));S.wall([x1,y0],[x0,y0],z0,z1,material(0,-1));
+      S.wall([x1,y1],[x1,y0],z0,z1,material(1,0));S.wall([x0,y0],[x0,y1],z0,z1,material(-1,0));
+      S.flat(x0,x1,y0,y1,z1,P.stoneR);
+      return {front:S.face([x0,y1],[x1,y1],0,1),back:S.face([x1,y0],[x0,y0],0,-1),right:S.face([x1,y1],[x1,y0],1,0),left:S.face([x0,y0],[x0,y1],-1,0)};
+    }
+    function course(F,z,col){F.block(0,F.length,0,.22,z,z+.5,col||P.stone,P.stoneR,P.stoneHi);}
+    function gable(x0,x1,y0,y1,z,rise,alongX){
+      const cx=(x0+x1)/2,cy=(y0+y1)/2,slate=(x,y)=>K.slate(dark(x,y));
+      if(alongX!==false){
+        S.poly([[x0,y0,z],[x1,y0,z],[x1,cy,z+rise],[x0,cy,z+rise]],slate(0,-1));
+        S.poly([[x0,y1,z],[x0,cy,z+rise],[x1,cy,z+rise],[x1,y1,z]],slate(0,1));
+        for(const x of[x0,x1])S.poly([[x,y0,z],[x,y1,z],[x,cy,z+rise]],K.brick(dark(x===x0?-1:1,0),2112));
+        S.beam([x0,cy,z+rise],[x1,cy,z+rise],P.lead,.33);
+      }else{
+        S.poly([[x0,y0,z],[cx,y0,z+rise],[cx,y1,z+rise],[x0,y1,z]],slate(-1,0));
+        S.poly([[x1,y0,z],[x1,y1,z],[cx,y1,z+rise],[cx,y0,z+rise]],slate(1,0));
+        for(const y of[y0,y1])S.poly([[x0,y,z],[x1,y,z],[cx,y,z+rise]],K.brick(dark(0,y===y0?-1:1),2113));
+        S.beam([cx,y0,z+rise],[cx,y1,z+rise],P.lead,.33);
+      }
+      for(const x of[x0,x1])S.beam([x,y0,z],[x,y1,z],P.ironD,.26);
+      for(const y of[y0,y1])S.beam([x0,y,z],[x1,y,z],P.ironD,.26);
+    }
+    function hip(x0,x1,y0,y1,z,rise,alongX){
+      const cx=(x0+x1)/2,cy=(y0+y1)/2,m=(x,y)=>K.slate(dark(x,y));
+      if(alongX!==false){const t=Math.min((y1-y0)/2,(x1-x0)/3),a=x0+t,b=x1-t;
+        S.poly([[x0,y0,z],[x1,y0,z],[b,cy,z+rise],[a,cy,z+rise]],m(0,-1));S.poly([[x0,y1,z],[a,cy,z+rise],[b,cy,z+rise],[x1,y1,z]],m(0,1));
+        S.poly([[x0,y0,z],[a,cy,z+rise],[x0,y1,z]],m(-1,0));S.poly([[x1,y0,z],[x1,y1,z],[b,cy,z+rise]],m(1,0));S.beam([a,cy,z+rise],[b,cy,z+rise],P.lead,.35);
+      }else{const t=Math.min((x1-x0)/2,(y1-y0)/3),a=y0+t,b=y1-t;
+        S.poly([[x0,y0,z],[cx,a,z+rise],[cx,b,z+rise],[x0,y1,z]],m(-1,0));S.poly([[x1,y0,z],[x1,y1,z],[cx,b,z+rise],[cx,a,z+rise]],m(1,0));
+        S.poly([[x0,y0,z],[x1,y0,z],[cx,a,z+rise]],m(0,-1));S.poly([[x0,y1,z],[cx,b,z+rise],[x1,y1,z]],m(0,1));S.beam([cx,a,z+rise],[cx,b,z+rise],P.lead,.35);
+      }
+    }
+    function shed(x0,x1,y0,y1,z,rise){S.poly([[x0,y0,z+rise],[x1,y0,z+rise],[x1,y1,z],[x0,y1,z]],K.slate(dark(0,1)));}
+    function mansard(x0,x1,y0,y1,z,rise,inset){
+      const t=inset||2.3,zm=z+rise*.72;
+      S.poly([[x0,y0,z],[x1,y0,z],[x1-t,y0+t,zm],[x0+t,y0+t,zm]],K.slate(dark(0,-1)));
+      S.poly([[x0,y1,z],[x0+t,y1-t,zm],[x1-t,y1-t,zm],[x1,y1,z]],K.slate(dark(0,1)));
+      S.poly([[x0,y0,z],[x0+t,y0+t,zm],[x0+t,y1-t,zm],[x0,y1,z]],K.slate(dark(-1,0)));
+      S.poly([[x1,y0,z],[x1,y1,z],[x1-t,y1-t,zm],[x1-t,y0+t,zm]],K.slate(dark(1,0)));
+      hip(x0+t,x1-t,y0+t,y1-t,zm,rise*.28,true);
+    }
+    function windows(F,floors,bays,z0,width,height,lit){
+      for(let f=0;f<floors;f++)for(let b=0;b<bays;b++)K.sash(S,F,F.length*(b+.5)/bays-width/2,z0+f*11.2,width,height||6.8,lit!==false);
+    }
+    function door(F,u,width,height,lit){K.timberDoor(F,u,.6,width||2.5,height||8,lit!==false);}
+    function loading(F,u,width,height){
+      const w=width||5,h=height||9;F.panel(u,u+w,.4,h,(x,y)=>K.mod(x,1.2)<.15?P.woodD:P.wood,.15);
+      F.block(u-.35,u,0,.42,.3,h+.4,P.stone,P.stoneR,P.stoneHi);F.block(u+w,u+w+.35,0,.42,.3,h+.4,P.stone,P.stoneR,P.stoneHi);
+      F.block(u-.35,u+w+.35,0,.5,h,h+.55,P.stone,P.stoneR,P.stoneHi);F.panel(u+w*.48,u+w*.52,1,h-.5,P.ironD,.25);
+    }
+    function chimney(x,y,z,pots){walls(x-.58,x+.58,y-.66,y+.66,z-1.5,z+3,2131);S.box(x-.8,x+.8,y-.8,y+.8,z+2.7,z+3.2,P.stone,P.stoneR,P.stoneHi);
+      for(let p=0;p<(pots||2);p++)K.cylinder(S,x+(p-((pots||2)-1)/2)*.62,y,z+3.2,z+5.6,.23,.30,C('bc805c'),C('905c44'),P.ink,8);chimneyHeads.push(project(x,y,z+5.6));}
+    function crates(x,y,count){for(let a=0;a<count;a++){const xx=x+a*1.4;S.box(xx,xx+1.12,y,y+1.25,.15,1.7,P.woodHi,P.woodR,P.woodHi);S.beam([xx,y+1.26,.6],[xx+1.1,y+1.26,1.35],P.woodD,.16);}}
+    function fence(x0,y0,x1,y1,h){const len=Math.hypot(x1-x0,y1-y0),steps=Math.max(1,Math.ceil(len/3));h=h||3;
+      for(let a=0;a<=steps;a++){const x=x0+(x1-x0)*a/steps,y=y0+(y1-y0)*a/steps;S.box(x-.12,x+.12,y-.12,y+.12,0,h,P.wood,P.woodR,P.woodHi);}
+      for(const z of[h*.35,h*.78])S.beam([x0,y0,z],[x1,y1,z],P.wood,.25);}
+    function canopy(x0,x1,y0,y1,z){for(const x of[x0+.3,x1-.3])for(const y of[y0+.3,y1-.3])S.box(x-.12,x+.12,y-.12,y+.12,0,z,P.iron,P.ironD,P.ironHi);ShedCanopy();
+      function ShedCanopy(){S.poly([[x0,y0,z+.8],[x1,y0,z+.8],[x1,y1,z],[x0,y1,z]],P.canopy);}}
+    function lamps(F,u,z){K.wallLamp(S,F,u,z||8.5);}
+    function finish(extra){return S.finish({...spec,view,candidate:true,__useScales021:1,lightPolicy:'solid-glazing-and-fixtures-only',smoke:[],smoke608:chimneyHeads.map(p=>p.slice()),...extra});}
+    return {S,K,P,C,extent,dark,project,walls,course,gable,hip,shed,mansard,windows,door,loading,chimney,crates,fence,canopy,lamps,finish};
+  }
+  root.BritishUseScalesKit021=Object.freeze({create});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script data-use021-source="british-use-scales-hospitality021.js">
+/* GPT-021: original hospitality candidate geometry; formal game never loads it.
+ * The native carriers, footprint limits, beds/jobs and mechanisms stay unchanged.
+ * Uses the unchanged approved rasterizer via the candidate-only architecture kit.
+ * Every elevation is drawn in world coordinates and rotates as real geometry.
+ * No registry, save, simulation, clock or RNG access; no copied bitmap or text.
+ */
+(function(root){
+  'use strict';
+  const specs=Object.freeze([
+    {id:'UKH021-S',nm:'磚砌巷口客舍',group:'hotel',scale:'S',sz:1,w:80,h:116,k:81,tool:'guesthouse',floors:2,
+      plan:'narrow-house-with-side-entry-and-low-laundry',roof:'steep-cross-gable-and-rear-lean-to',entry:'side-guest-door-with-front-steps',yard:'separate-rear-laundry-court',
+      masses:[[1.35,11.45,4.1,13.7,.2,25.5],[10.5,14.1,1.6,5.8,.2,7.1]]},
+    {id:'UKH021-M',nm:'石基院落驛館',group:'hotel',scale:'M',sz:2,w:160,h:202,k:82,tool:'hotel',floors:3,
+      plan:'three-ranges-around-open-U-court',roof:'three-perpendicular-slate-gables',entry:'court-facing-hall-and-independent-guest-door',yard:'open-coaching-court-and-low-laundry-range',
+      masses:[[1.8,29.8,2.1,10.5,.2,36.1],[1.8,9.3,10.5,26.2,.2,34.2],[21.6,29.8,10.5,28.2,.2,36.1],[1.8,9.3,26.2,30.2,.2,7.8]]},
+    {id:'UKH021-L',nm:'城鎮孟莎頂鐵道旅館',group:'hotel',scale:'L',sz:3,w:232,h:252,k:274,tool:'stationHotel009',floors:4,
+      plan:'asymmetric-H-ranges-with-open-service-court',roof:'mansard-front-and-tall-wing-plus-low-gabled-range',entry:'stone-porte-cochere-and-separate-service-entrance',yard:'rear-delivery-court-and-one-storey-service-wing',
+      masses:[[3,44.3,32,43.8,.2,49.2],[3,13.1,8.1,32,.2,37.6],[31.1,44.3,17.5,32,.2,49.2],[13.1,31.1,4.2,11.5,.2,12.1]]},
+    {id:'UKD021-S',nm:'山牆茶點屋',group:'dining',scale:'S',sz:1,w:80,h:102,k:196,tool:'tearoom',floors:1,
+      plan:'one-room-hall-with-attic-and-rear-scullery',roof:'steep-front-gable-and-low-scullery-shed',entry:'single-front-door-with-separate-scullery-door',yard:'side-delivery-strip-and-rear-wood-court',
+      functionalNote:'Native tourism landmark; no private dining/table/recipe mechanism.',
+      masses:[[1.35,12.85,4.0,13.45,.2,12.65],[1.5,4.9,1.5,4.0,.2,6.0]]},
+    {id:'UKD021-M',nm:'庭院轉角餐室',group:'dining',scale:'M',sz:2,w:160,h:178,k:275,tool:'refreshmentCafe009',floors:2,
+      plan:'two-storey-L-restaurant-with-detached-scullery',roof:'cross-ridges-and-low-kitchen-hip',entry:'court-dining-door-and-second-frontage-door',yard:'open-preparation-court-and-separate-loading-back',
+      masses:[[1.6,28.6,1.8,11.0,.2,25.5],[19.7,28.6,11.0,28.4,.2,25.5],[2.2,8.7,16.0,25.0,.2,8.9]]},
+    {id:'UKD021-L',nm:'穿堂院落客棧餐館',group:'dining',scale:'L',sz:2,w:160,h:204,k:220,tool:'foxFinchPub',floors:3,
+      plan:'three-storey-front-with-real-passage-and-two-service-ranges',roof:'long-main-gable-perpendicular-wing-and-low-hip',entry:'open-coaching-passage-with-independent-pub-door',yard:'enclosed-kitchen-delivery-court',
+      functionalNote:'Larger architectural mass on native 2x2 pub footprint; no 3x3 dining carrier or added beds.',
+      masses:[[1.5,17.3,18.7,29.7,.2,36.3],[22.4,29.5,18.7,29.7,.2,36.3],[17.3,22.4,18.7,29.7,11.5,36.3],[1.5,11.0,3.0,18.7,.2,23.5],[15.0,29.5,2.0,9.6,.2,11.8]]},
+    {id:'UKM021-S',nm:'石砌單廳農貿市場',group:'market',scale:'S',sz:2,w:160,h:150,k:87,tool:'market',floors:1,
+      plan:'single-stone-hall-and-low-receiving-annex',roof:'single-long-gable-with-side-shed',entry:'two-ended-hall-doors',yard:'side-receiving-strip-and-front-forecourt',
+      functionalNote:'Native agricultural-market coverage; not the private-retail market mechanism.',
+      masses:[[3.0,25.5,7.0,25.0,.2,18.5],[25.5,29.4,10.0,20.0,.2,6.7]]},
+    {id:'UKM021-M',nm:'雙跨玻璃室內市場',group:'market',scale:'M',sz:3,w:232,h:212,k:240,tool:'coveredMarket',floors:1,
+      plan:'two-separate-glazed-halls-and-low-crosswise-headhouse',roof:'two-parallel-unequal-glass-ridges-with-low-front-hip',entry:'central-headhouse-door-and-rear-loading-door',yard:'clear-central-delivery-spine-and-rear-loading-court',
+      functionalNote:'Alternative art for k240; mutually exclusive with retail UKU021-L on the same carrier.',
+      masses:[[2.3,20.9,7.0,35.5,.2,20.4],[25.9,44.5,11.0,35.5,.2,24.5],[2.3,44.5,35.5,44.2,.2,13.0]]},
+    {id:'UKM021-L',nm:'四翼環院拱廊市場',group:'market',scale:'L',sz:3,w:232,h:226,k:278,tool:'riversideArcade012',floors:2,
+      plan:'closed-quadrangle-with-open-sky-and-true-arcade-voids',roof:'front-mansard-low-side-hips-and-rear-gable',entry:'front-through-arch-and-independent-rear-loading-door',yard:'real-open-court-with-clear-centre-and-perimeter-stalls',
+      masses:[[2.0,21.2,35.5,44.5,.2,32.5],[26.8,46.0,35.5,44.5,.2,32.5],[21.2,26.8,35.5,44.5,12.2,32.5],[2.0,10.0,10.5,35.5,.2,15.2],[38.0,46.0,10.5,35.5,.2,15.2],[10.0,38.0,2.0,10.5,.2,16.5]]}
+  ].map(s=>Object.freeze({...s,masses:Object.freeze(s.masses.map(m=>Object.freeze(m)))})));
+
+  function trim(c,W,levels){
+    for(const F of Object.values(W)){
+      for(const z of levels)c.course(F,z);
+      for(const u of[.12,F.length-.55])F.block(u,u+.43,.01,.28,.7,levels[levels.length-1]-.4,c.P.stone,c.P.stoneR,c.P.stoneHi);
+    }
+  }
+  function sashRows(c,F,rows,bays,z0,w,h,skip){
+    for(let f=0;f<rows;f++)for(let b=0;b<bays;b++){
+      if(f===0&&skip&&skip.includes(b))continue;
+      c.K.sash(c.S,F,F.length*(b+.5)/bays-w/2,z0+f*11.2,w,h||6.8,(b+f)%3!==1);
+    }
+  }
+  function rain(c,x,y,z){c.K.rainpipe(c.S,x,y,z);}
+  function dormer(c,x,y,z,back){
+    const W=c.walls(x-1.65,x+1.65,y-1.4,y+1.4,z,z+4.6,21370,'stone');
+    c.K.sash(c.S,back?W.back:W.front,.55,z+.7,2.15,3.15,true);
+    c.gable(x-1.88,x+1.88,y-1.64,y+1.64,z+4.8,2.0,false);
+  }
+  function linenCourt(c,x0,x1,y0,y1){
+    c.S.flat(x0,x1,y0,y1,.03,c.K.paving);
+    for(const x of[x0+.7,x1-.7])c.S.beam([x,y0+.7,.1],[x,y0+.7,4.8],c.P.wood,.26);
+    c.S.beam([x0+.7,y0+.7,4.6],[x1-.7,y0+.7,4.6],c.P.ironD,.16);
+    // Sheets have their own supported world-space plane, never a floating label.
+    for(let x=x0+1.25;x<x1-1.5;x+=1.8)c.S.wall([x,y0+.72],[x+1.25,y0+.72],2.9,4.4,c.P.paper);
+  }
+  function guesthouse(c){
+    const {S,K,P}=c,A=c.walls(1.35,11.45,4.1,13.7,.2,25.5,21301);
+    trim(c,A,[.6,12.7,25.0]);
+    sashRows(c,A.front,2,2,3.1,3.15,6.9);
+    sashRows(c,A.back,2,2,3.1,2.7,6.6,[0]);
+    sashRows(c,A.right,2,2,3.1,2.8,6.6,[0]);
+    sashRows(c,A.left,2,2,3.1,2.8,6.6);
+    c.door(A.right,6.1,2.7,9.6,true);c.door(A.back,6.8,2.15,7.9,false);
+    c.gable(1.06,11.74,3.83,13.98,25.75,7.0,false);
+    c.chimney(3.15,7.7,31.6,2);
+    const B=c.walls(10.5,14.1,1.6,5.8,.2,7.1,21302);
+    c.shed(10.25,14.35,1.4,6.02,7.35,2.3);
+    c.door(B.back,.55,2.0,5.6,false);K.sash(S,B.right,.8,2.2,2.2,3.2,true);
+    linenCourt(c,1.5,9.5,1.2,3.65);
+    c.fence(1.35,1.15,8.1,1.15,2.7);c.fence(1.2,1.2,1.2,3.65,2.7);
+    S.flat(11.8,14.5,6.2,14.1,.05,P.paveHi);
+    for(let n=0;n<2;n++)S.box(11.48,12.08+n*.55,6.3,9.3,.1,.22*(2-n),P.stoneR,P.stoneD,P.stone);
+    c.lamps(A.right,5.75,9.7);c.lamps(A.back,5.4,8.5);rain(c,1.1,13.75,25.3);
+    c.crates(5.8,1.9,2);
+  }
+  function coachingInn(c){
+    const {S,K,P}=c,A=c.walls(1.8,29.8,2.1,10.5,.2,36.1,21401,'stone'),
+      B=c.walls(1.8,9.3,10.5,26.2,.2,34.2,21402),C=c.walls(21.6,29.8,10.5,28.2,.2,36.1,21403);
+    for(const [W,h]of[[A,36.1],[B,34.2],[C,36.1]])trim(c,W,[.7,12.5,23.7,h-.6]);
+    sashRows(c,A.front,3,5,3.2,3.3,6.8,[2]);sashRows(c,A.back,3,5,3.2,3.2,6.6,[0]);
+    for(const F of[A.left,A.right])sashRows(c,F,3,1,3.2,3.0,6.7);
+    for(const F of[B.left,B.right])sashRows(c,F,3,3,3.1,2.9,6.8,F===B.right?[1]:[]);
+    for(const F of[C.left,C.right])sashRows(c,F,3,3,3.2,3.1,6.8,F===C.left?[1]:[]);
+    for(const F of[B.front,C.front])sashRows(c,F,3,1,3.2,3.0,6.6);
+    c.door(A.front,11.8,4.4,10.3,true);c.loading(A.back,23.0,4.4,9.4);
+    c.door(B.right,6.8,2.65,9.0,true);c.door(C.left,7.2,2.8,9.0,true);
+    // Projected hall canopy and two stone columns frame the actual court door.
+    for(const x of[13.0,18.6])K.cylinder(S,x,12.15,.2,10.7,.38,.32,P.stone,P.stoneR,P.stoneHi,8);
+    S.flat(12.35,19.25,10.45,12.75,10.9,P.lead);
+    c.gable(1.48,30.12,1.78,10.78,36.45,7.6,true);
+    c.gable(1.5,9.6,10.45,26.5,34.55,6.2,false);
+    c.gable(21.3,30.1,10.45,28.5,36.45,6.6,false);
+    c.chimney(5.0,6.2,43.6,3);c.chimney(25.6,20.3,43.0,2);
+    const D=c.walls(1.8,9.3,26.2,30.2,.2,7.8,21404);
+    c.shed(1.53,9.58,26.2,30.42,8.0,2.3);c.loading(D.front,2.0,3.9,6.8);
+    K.sash(S,D.right,.75,2.2,2.3,3.6,true);
+    S.flat(9.6,21.2,12.8,30.4,.04,(x,y)=>K.mod(x+y,3)<.13?P.seam:P.paveHi);
+    c.fence(10.0,30.65,13.2,30.65,2.6);c.fence(20.4,30.65,28.8,30.65,2.6);
+    c.crates(10.7,13.6,3);linenCourt(c,10.0,15.5,23.0,26.0);
+    c.lamps(B.right,12.1,8.9);c.lamps(C.left,12.5,9.1);c.lamps(A.back,18.6,9.5);
+    rain(c,1.56,22.7,33.8);rain(c,30.02,28.1,35.8);
+  }
+  function railwayHotel(c){
+    const {S,K,P}=c,A=c.walls(3,44.3,32,43.8,.2,49.2,21501),
+      B=c.walls(3,13.1,8.1,32,.2,37.6,21502),C=c.walls(31.1,44.3,17.5,32,.2,49.2,21503),
+      D=c.walls(13.1,31.1,4.2,11.5,.2,12.1,21504);
+    for(const [W,h]of[[A,49.2],[B,37.6],[C,49.2]])trim(c,W,[.7,12.5,23.7,34.9,h-.7].filter(z=>z<h));
+    sashRows(c,A.front,4,7,3.2,3.5,7.0,[3]);sashRows(c,A.back,4,7,3.2,3.2,6.8,[2]);
+    for(const F of[A.left,A.right])sashRows(c,F,4,2,3.2,3.0,6.8);
+    for(const F of[B.left,B.right])sashRows(c,F,3,4,3.3,3.1,7.0,F===B.right?[0]:[]);
+    for(const F of[B.front,B.back])sashRows(c,F,3,2,3.3,3.0,6.8);
+    for(const F of[C.left,C.right])sashRows(c,F,4,2,3.2,3.2,6.8,F===C.left?[0]:[]);
+    sashRows(c,C.back,4,2,3.2,3.2,6.8);sashRows(c,C.front,4,2,3.2,3.2,6.8);
+    c.door(A.front,17.9,5.5,11.3,true);c.door(A.back,17.9,4.2,9.8,true);
+    c.door(B.right,20.3,2.7,9.5,false);c.door(C.left,10.8,2.8,10.2,true);
+    for(const F of[D.front,D.back])sashRows(c,F,1,3,3.0,3.1,6.0,[1]);
+    sashRows(c,D.left,1,1,3,2.6,6);sashRows(c,D.right,1,1,3,2.6,6);
+    c.loading(D.back,7.1,4.6,9.3);c.door(D.front,7.6,3.2,8.7,false);
+    c.mansard(2.66,44.64,31.66,44.1,49.55,10.2,2.4);
+    c.mansard(30.77,44.64,17.2,31.9,49.55,10.2,2.2);
+    c.gable(2.68,13.42,7.78,31.9,37.95,7.1,false);
+    c.hip(12.8,31.4,3.9,11.8,12.45,3.8,true);
+    for(const x of[9.3,16.3,30.8,38.3])dormer(c,x,42.0,51.7,false);
+    for(const y of[21.9,27.5]){
+      const W=c.walls(42.1,44.2,y-1.5,y+1.5,51.5,55.8,21507,'stone');
+      K.sash(S,W.right,.45,52.2,2.1,3.0,true);c.gable(41.8,44.45,y-1.75,y+1.75,56.0,1.7,true);
+    }
+    c.chimney(5.1,36.2,58.7,3);c.chimney(36.7,22.2,58.6,3);c.chimney(7.9,15.0,44.4,2);
+    // A supported stone porte-cochere distinguishes the railway hotel's entry
+    // from both the retail tunnel and the old approved hotel's solid hip block.
+    for(const x of[18.95,27.3])for(const y of[44.4,46.15]){
+      K.cylinder(S,x,y,.2,11.75,.37,.32,P.stone,P.stoneR,P.stoneHi,10);
+      S.box(x-.55,x+.55,y-.55,y+.55,11.4,12.05,P.stone,P.stoneR,P.stoneHi);
+    }
+    S.flat(18.2,28.0,43.7,46.9,12.2,P.lead);
+    S.box(18.1,28.1,46.7,47.0,12.15,12.75,P.stone,P.stoneR,P.stoneHi);
+    S.flat(14.3,29.6,12,30.4,.04,(x,y)=>K.mod(x,3.1)<.12||K.mod(y,3.1)<.12?P.seam:P.paveHi);
+    c.canopy(15.2,22.5,1.3,3.7,7.9);c.crates(16.1,1.8,4);c.crates(25,12.5,3);
+    c.fence(14.4,12.1,14.4,18.5,3.1);c.fence(30.25,12.1,30.25,17.1,3.1);
+    c.lamps(A.front,16.8,11.3);c.lamps(A.front,24.7,11.3);c.lamps(D.back,5.7,9.2);c.lamps(B.right,8.7,8.5);
+    rain(c,2.75,43.78,48.8);rain(c,44.52,32.9,48.8);rain(c,12.99,10.3,37.2);
+  }
+  function archPassage(c,x0,x1,y0,y1,spring,ceiling){
+    const {S,P}=c,r=(x1-x0)/2,cx=(x0+x1)/2;
+    for(let i=0;i<18;i++){
+      const a=i*Math.PI/18,b=(i+1)*Math.PI/18;
+      const ax=cx+Math.cos(a)*r,bx=cx+Math.cos(b)*r,az=spring+Math.sin(a)*r,bz=spring+Math.sin(b)*r;
+      S.poly([[bx,y1,bz],[ax,y1,az],[ax,y1,ceiling],[bx,y1,ceiling]],P.stone);
+      S.poly([[ax,y0,az],[bx,y0,bz],[bx,y0,ceiling],[ax,y0,ceiling]],P.stoneR);
+      S.poly([[ax,y0,az],[bx,y0,bz],[bx,y1,bz],[ax,y1,az]],P.stoneD);
+      const ro=r+.45,ri=r-.03;
+      for(const [y,col]of[[y1+.11,i%3?P.stone:P.stoneHi],[y0-.11,i%3?P.stoneR:P.stone]])S.poly([
+        [cx+Math.cos(a)*ro,y,spring+Math.sin(a)*ro],[cx+Math.cos(b)*ro,y,spring+Math.sin(b)*ro],
+        [cx+Math.cos(b)*ri,y,spring+Math.sin(b)*ri],[cx+Math.cos(a)*ri,y,spring+Math.sin(a)*ri]],col,.03);
+    }
+    for(const x of[x0-.17,x1+.17])S.box(x-.22,x+.22,y1,y1+.42,.3,spring,P.stone,P.stoneR,P.stoneHi);
+    S.flat(x0+.3,x1-.3,y0-.2,y1+.5,.06,P.paveHi);
+  }
+  function teaHouse(c){
+    const {S,K,P}=c,A=c.walls(1.35,12.85,4.0,13.45,.2,12.65,21601);
+    trim(c,A,[.65,11.9]);
+    K.archWindow(S,A.front,5.2,2.1,5.0,8.7,true);c.door(A.front,.7,2.7,9.2,true);
+    for(const F of[A.left,A.right]){
+      K.sash(S,F,1.1,2.4,2.7,6.9,true);K.sash(S,F,5.25,2.4,2.7,6.9,true);
+      F.block(.1,F.length-.1,.03,.22,10.7,11.2,P.wood,P.woodR,P.woodHi);
+    }
+    K.sash(S,A.back,1.2,3.1,3.1,5.9,true);c.door(A.back,7.1,2.6,8.0,false);
+    c.gable(1.08,13.12,3.73,13.72,12.85,7.1,false);
+    const gableFace=S.face([1.08,13.72],[13.12,13.72],0,1);
+    // The small attic is glazing in an actual gable, not an extra occupied floor.
+    K.sash(S,gableFace,4.9,14.1,2.3,3.1,true);
+    for(const x of[2.1,12.1])S.beam([x,13.83,12.9],[7.1,13.83,19.1],P.woodD,.19);
+    c.chimney(4.8,7.0,18.9,2);
+    const B=c.walls(1.5,4.9,1.5,4.0,.2,6.0,21602,'timber');
+    c.shed(1.23,5.17,1.24,4.0,6.25,2.0);c.door(B.back,.65,2.0,4.9,false);
+    S.flat(13.2,14.7,4.2,14.1,.05,P.paveHi);c.fence(5.2,1.3,12.6,1.3,2.5);
+    c.crates(6.1,1.9,3);c.lamps(A.front,4.3,9.6);c.lamps(A.back,6.25,8.6);rain(c,13.04,12.8,12.4);
+    K.cylinder(S,3.3,14.3,.2,1.8,.17,.17,P.iron,P.ironD,P.ironHi,8);
+    K.cylinder(S,3.3,14.3,1.8,2.05,.83,.83,P.woodHi,P.woodR,P.woodHi,12);
+  }
+  function courtyardDining(c){
+    const {S,K,P}=c,A=c.walls(1.6,28.6,1.8,11.0,.2,25.5,21701,'stone'),
+      B=c.walls(19.7,28.6,11.0,28.4,.2,25.5,21702);
+    trim(c,A,[.6,12.4,24.8]);trim(c,B,[.6,12.4,24.8]);
+    for(const F of[A.front,A.back]){
+      sashRows(c,F,1,4,15.0,3.7,7.0);
+      for(const b of[0,1,3])K.archWindow(S,F,F.length*(b+.5)/4-2.2,2.0,4.4,8.7,true);
+    }
+    c.door(A.front,15.6,3.3,10.0,true);c.loading(A.back,11.6,5.2,9.5);
+    for(const F of[A.left,A.right])sashRows(c,F,2,1,3.2,3.4,7.0);
+    for(const F of[B.left,B.right]){
+      sashRows(c,F,1,3,15.0,3.6,7.0);
+      for(let b=0;b<3;b++)if(!(F===B.left&&b===1))K.archWindow(S,F,F.length*(b+.5)/3-1.85,2.1,3.7,8.7,true);
+    }
+    sashRows(c,B.front,1,1,15.0,3.7,7.0);c.door(B.front,2.6,3.6,10.1,true);
+    c.door(B.left,6.65,3.2,9.5,false);
+    c.gable(1.26,28.94,1.46,11.32,25.85,6.6,true);
+    c.gable(19.37,28.94,11.05,28.73,25.85,6.9,false);
+    c.chimney(5.0,6.4,32.2,2);c.chimney(24.8,22.2,32.4,2);
+    const D=c.walls(2.2,8.7,16.0,25.0,.2,8.9,21703);
+    c.hip(1.92,8.98,15.72,25.28,9.15,2.8,false);
+    c.loading(D.right,2.6,4.5,7.3);K.sash(S,D.front,1.3,2.9,3.2,3.9,true);
+    c.canopy(2.2,8.6,26,29.7,6.5);c.crates(3.0,26.7,3);
+    S.flat(9.3,19.1,12.0,29.8,.035,(x,y)=>K.mod(y,3)<.15?P.seam:P.paveHi);
+    c.fence(10.0,30.5,14.0,30.5,2.4);
+    c.lamps(A.front,14.65,10.6);c.lamps(B.right,7.0,9.8);c.lamps(A.back,18.3,9.8);
+    rain(c,1.35,10.8,25.2);rain(c,28.84,28.4,25.2);
+  }
+  function coachingPub(c){
+    const {S,K,P}=c,A=c.walls(1.5,17.3,18.7,29.7,.2,36.3,21801),
+      B=c.walls(22.4,29.5,18.7,29.7,.2,36.3,21802),T=c.walls(17.3,22.4,18.7,29.7,11.5,36.3,21803),
+      C=c.walls(1.5,11.0,3.0,18.7,.2,23.5,21804,'stone'),D=c.walls(15.0,29.5,2.0,9.6,.2,11.8,21805);
+    for(const W of[A,B])trim(c,W,[.6,12.3,23.5,35.6]);
+    for(const W of[A,B,T])for(const F of[W.front,W.back])sashRows(c,F,2,W===A?3:1,15.0,W===A?3.5:3.1,6.9);
+    for(const [F,n]of[[A.front,3],[B.front,1],[A.back,3],[B.back,1]]){
+      F.block(.35,F.length-.35,.04,.24,.6,11.0,P.burgundy,P.burgundyD,P.burgundyHi);
+      for(let i=0;i<n;i++)if(!(F===A.front&&i===1))K.archWindow(S,F,F.length*(i+.5)/n-1.8,2.1,3.6,8.3,true);
+      c.course(F,11.4);
+    }
+    c.door(A.front,6.35,3.1,9.7,true);c.door(A.back,6.0,2.9,9.0,true);
+    for(const F of[A.left,B.right])sashRows(c,F,3,2,3.0,3.1,6.9);
+    trim(c,C,[.6,11.4,22.8]);
+    for(const F of[C.left,C.right])sashRows(c,F,2,3,3.0,2.85,6.5,F===C.right?[0]:[]);
+    for(const F of[C.front,C.back])sashRows(c,F,2,1,3.0,3.1,6.5);
+    c.door(C.right,2.0,3.15,8.5,false);
+    for(const F of[D.front,D.back])sashRows(c,F,1,3,2.7,2.85,6.1,[1]);
+    c.loading(D.back,5.1,4.3,9.0);c.loading(D.front,5.1,4.3,9.0);
+    for(const F of[D.left,D.right])K.sash(S,F,2.1,3.3,2.85,5.4,true);
+    archPassage(c,17.3,22.4,18.7,29.7,8.1,11.5);
+    c.gable(1.17,29.83,18.37,30.02,36.65,8.0,true);
+    c.gable(1.18,11.32,2.68,18.65,23.85,6.0,false);
+    c.hip(14.7,29.8,1.7,9.88,12.15,3.5,true);
+    c.chimney(6.0,24.1,44.4,3);c.chimney(6.2,8.4,29.6,2);c.chimney(27.1,5.4,15.3,2);
+    S.flat(11.4,28.8,10.1,18.2,.04,(x,y)=>K.mod(x+y,2.8)<.15?P.seam:P.paveHi);
+    c.fence(28.85,10.0,28.85,17.7,3.0);c.crates(12.2,12.0,3);
+    c.lamps(A.front,14.9,10.2);c.lamps(B.front,.95,10.2);c.lamps(D.back,10.9,9.1);c.lamps(C.left,6.1,8.8);
+    rain(c,1.25,29.6,36.1);rain(c,29.75,24.0,36.1);
+  }
+  function marketHall(c){
+    const {S,K,P}=c,A=c.walls(3.0,25.5,7.0,25.0,.2,18.5,21901,'stone');
+    trim(c,A,[.7,17.8]);
+    for(const F of[A.front,A.back]){
+      K.archWindow(S,F,1.5,3.1,4.2,10.8,true);K.archWindow(S,F,16.8,3.1,4.2,10.8,true);
+      c.door(F,8.5,5.5,12.8,true);
+      F.block(8.0,14.5,.05,.55,14.0,14.8,P.stone,P.stoneR,P.stoneHi);
+    }
+    for(const F of[A.left,A.right])for(let b=0;b<3;b++)K.archWindow(S,F,1.2+b*5.6,3.0,4.1,11.5,true);
+    c.gable(2.64,25.86,6.64,25.36,18.85,7.7,false);
+    const gf=S.face([2.64,25.36],[25.86,25.36],0,1),gb=S.face([25.86,6.64],[2.64,6.64],0,-1);
+    for(const F of[gf,gb])K.archWindow(S,F,9.1,20.0,5.0,4.6,false);
+    const B=c.walls(25.5,29.4,10.0,20.0,.2,6.7,21902,'timber');
+    S.poly([[25.5,9.7,9.0],[29.7,9.7,6.9],[29.7,20.3,6.9],[25.5,20.3,9.0]],K.slate(c.dark(1,0)));
+    c.loading(B.front,.65,2.6,5.9);c.door(B.back,.65,2.4,5.6,false);
+    S.flat(4.0,24.5,26.0,29.8,.04,P.paveHi);c.crates(4.1,3.8,5);c.crates(25.8,21.6,2);
+    c.lamps(A.front,6.6,10.1);c.lamps(A.back,15.6,10.1);rain(c,2.73,23.7,18.1);
+  }
+  function glassRoof(c,x0,x1,y0,y1,z,rise){
+    const {S,K,P}=c,cx=(x0+x1)/2;
+    const glass=right=>(x,y,zz)=>{
+      if(K.mod(y-y0,4.8)<.19||K.mod(x-x0,2.2)<.12)return right?P.ironD:P.lead;
+      if(K.mod(x+y*.38,8.0)<.36)return right?P.glass:P.glassHi;
+      return right?0x6e8b8c:0x91a7a5;
+    };
+    S.poly([[x0,y0,z],[cx,y0,z+rise],[cx,y1,z+rise],[x0,y1,z]],glass(c.dark(-1,0)));
+    S.poly([[x1,y0,z],[x1,y1,z],[cx,y1,z+rise],[cx,y0,z+rise]],glass(c.dark(1,0)));
+    // Opaque patent glazing, with framing in the same world-space depth buffer.
+    // Roof reflects sky only; warm interior light comes from vertical hall panes.
+    for(const y of[y0,y1])S.poly([[x0,y,z],[x1,y,z],[cx,y,z+rise]],(x,yy,zz)=>
+      K.mod(x-x0,3)<.15||K.mod(zz-z,2.9)<.13?P.lead:P.glassHi);
+    for(let y=y0+.15;y<y1;y+=4.8){S.beam([x0,y,z+.05],[cx,y,z+rise+.05],P.lead,.20);S.beam([cx,y,z+rise+.05],[x1,y,z+.05],P.iron,.20);}
+    S.beam([cx,y0,z+rise+.06],[cx,y1,z+rise+.06],P.ironHi,.36);
+    for(const x of[x0,x1])S.beam([x,y0,z],[x,y1,z],P.ironD,.28);
+  }
+  function doubleGlassMarket(c){
+    const {S,K,P}=c,A=c.walls(2.3,20.9,7.0,35.5,.2,20.4,22001),
+      B=c.walls(25.9,44.5,11.0,35.5,.2,24.5,22002),C=c.walls(2.3,44.5,35.5,44.2,.2,13.0,22003,'stone');
+    for(const [W,h]of[[A,20.4],[B,24.5]]){
+      for(const F of[W.left,W.right]){
+        const bays=F===W.left||F===W.right?5:3;
+        for(let b=0;b<bays;b++){
+          const u=F.length*(b+.5)/bays-1.9;
+          K.archWindow(S,F,u,3.1,3.8,h-5.1,true);
+          F.block(u-.58,u-.2,.04,.36,1.0,h-.5,P.stone,P.stoneR,P.stoneHi);
+        }
+        c.course(F,h-.6);
+      }
+      for(const F of[W.front,W.back])for(let b=0;b<3;b++)K.archWindow(S,F,F.length*(b+.5)/3-2.0,3.0,4.0,h-5.0,true);
+    }
+    c.loading(A.back,6.3,6.0,12.4);c.loading(B.back,6.3,6.0,12.4);
+    glassRoof(c,1.98,21.22,6.68,35.5,20.75,8.8);
+    glassRoof(c,25.58,44.82,10.68,35.5,24.85,11.0);
+    for(const b of[0,1,3,4])K.archWindow(S,C.front,C.front.length*(b+.5)/5-2.45,2.0,4.9,8.9,true);
+    c.door(C.front,18.55,5.1,10.4,true);
+    for(const F of[C.left,C.right])K.archWindow(S,F,1.5,2.3,4.1,8.2,true);
+    c.hip(1.98,44.82,35.32,44.52,13.35,3.5,true);
+    c.course(C.front,12.3);c.lamps(C.front,17.3,10.0);c.lamps(C.front,25.4,10.0);
+    S.flat(21.6,25.2,7.3,35.1,.04,(x,y)=>K.mod(y,2.8)<.14?P.seam:P.paveHi);
+    c.crates(6.0,3.4,6);c.crates(29.2,6.9,6);
+    c.canopy(27.4,41.3,1.5,5.8,7.5);c.crates(28.4,2.2,4);
+    c.lamps(A.back,2.8,11.1);c.lamps(B.back,15.1,12.0);
+    rain(c,2.07,17.5,20.1);rain(c,44.72,23.5,24.2);
+  }
+  function arcadeBay(c,F,u,w,spring,top){
+    const {S,P}=c,pi=.63,ri=(w-2*pi)/2,mid=u+w/2;
+    for(const a of[u,u+w-pi])F.block(a,a+pi,0,.73,.2,spring+.2,P.stone,P.stoneR,P.stoneHi);
+    for(let i=0;i<16;i++){
+      const a=i*Math.PI/16,b=(i+1)*Math.PI/16;
+      const ax=mid+Math.cos(a)*ri,bx=mid+Math.cos(b)*ri,az=spring+Math.sin(a)*ri,bz=spring+Math.sin(b)*ri;
+      S.poly([F.point(bx,.45,bz),F.point(ax,.45,az),F.point(ax,.45,top),F.point(bx,.45,top)],P.stone);
+      S.poly([F.point(ax,.03,az),F.point(bx,.03,bz),F.point(bx,.45,bz),F.point(ax,.45,az)],P.stoneD);
+      const ro=ri+.48;
+      S.poly([F.point(mid+Math.cos(a)*ro,.53,spring+Math.sin(a)*ro),F.point(mid+Math.cos(b)*ro,.53,spring+Math.sin(b)*ro),
+        F.point(bx,.53,bz),F.point(ax,.53,az)],i%3?P.stone:P.stoneHi);
+    }
+    F.block(u,u+w,.0,.56,top-.5,top+.15,P.stone,P.stoneR,P.stoneHi);
+  }
+  function quadrangleMarket(c){
+    const {S,K,P}=c,A=c.walls(2.0,21.2,35.5,44.5,.2,32.5,22101,'stone'),
+      B=c.walls(26.8,46.0,35.5,44.5,.2,32.5,22102,'stone'),T=c.walls(21.2,26.8,35.5,44.5,12.2,32.5,22103,'stone'),
+      rear=c.walls(10.0,38.0,2.0,10.5,.2,16.5,22104);
+    for(const W of[A,B]){
+      trim(c,W,[.7,14.4,31.8]);
+      for(const F of[W.front,W.back]){
+        for(let i=0;i<3;i++)K.archWindow(S,F,1.05+i*6.05,2.1,4.2,10.1,true);
+        sashRows(c,F,1,3,19.0,3.85,8.4);
+      }
+    }
+    for(const F of[A.left,B.right]){K.archWindow(S,F,2.1,2.1,4.1,10.1,true);sashRows(c,F,1,1,19.0,3.8,8.4);}
+    for(const F of[T.front,T.back])sashRows(c,F,1,1,19.0,3.2,8.4);
+    archPassage(c,21.2,26.8,35.5,44.5,8.85,12.2);
+    c.mansard(1.66,46.34,35.17,44.83,32.85,9.2,2.0);
+    for(const x of[7.2,15.7,32.1,40.5])dormer(c,x,42.8,34.7,false);
+    // Each side arcade has a thin outer back and real piers/arched spandrels.
+    // The centre and the arcaded walkways have no opaque ground-floor infill.
+    for(const right of[false,true]){
+      const x0=right?38:2,x1=right?46:10,outer=right?
+        c.walls(45.0,46.0,10.5,35.5,.2,15.2,22106):c.walls(2.0,3.0,10.5,35.5,.2,15.2,22105);
+      const outerF=right?outer.right:outer.left,court=right?S.face([38,35.5],[38,10.5],-1,0):S.face([10,10.5],[10,35.5],1,0);
+      for(let b=0;b<4;b++){
+        K.sash(S,outerF,1.65+b*6.1,4.0,2.9,6.2,b%3!==1);
+        arcadeBay(c,court,b*6.25,6.25,8.9,15.2);
+      }
+      S.flat(x0,x1,10.5,35.5,15.2,P.stoneR);
+      c.hip(x0-.27,x1+.27,10.5,35.5,15.55,3.6,false);
+      for(let b=0;b<3;b++){
+        const yy=13+b*6.8,xx=right?41.4:4.1;
+        S.box(xx,xx+3.1,yy,yy+3.5,.2,2.7,P.wood,P.woodR,P.woodHi);
+        c.crates(xx+.25,yy+.3,2);
+      }
+      c.lamps(outerF,10.8,9.5);c.lamps(court,17.4,9.5);
+      rain(c,right?46.2:1.8,32.5,15.0);
+    }
+    for(const F of[rear.front,rear.back]){
+      for(let b=0;b<4;b++)if(b!==1)K.archWindow(S,F,F.length*(b+.5)/4-2.1,3.4,4.2,9.5,true);
+      c.loading(F,8.5,5.2,11.0);
+      c.course(F,15.8);
+    }
+    for(const F of[rear.left,rear.right])K.sash(S,F,1.7,4.2,3.0,6.8,true);
+    c.gable(9.68,38.32,1.68,10.5,16.85,5.5,true);
+    c.chimney(13.1,6.1,21.8,2);
+    S.flat(10.7,37.3,11.2,34.8,.035,(x,y)=>K.mod(x,3.1)<.13||K.mod(y,3.1)<.13?P.seam:P.paveHi);
+    S.flat(21.5,26.5,11.2,47.0,.05,P.paveHi);
+    c.crates(11.2,12.2,4);c.crates(32.0,12.3,3);
+    c.lamps(A.front,17.8,11.0);c.lamps(B.front,1.4,11.0);c.lamps(rear.back,23.9,10.1);
+    rain(c,1.76,44.5,32.2);rain(c,46.22,44.5,32.2);
+  }
+  const builders={
+    'UKH021-S':guesthouse,'UKH021-M':coachingInn,'UKH021-L':railwayHotel,
+    'UKD021-S':teaHouse,'UKD021-M':courtyardDining,'UKD021-L':coachingPub,
+    'UKM021-S':marketHall,'UKM021-M':doubleGlassMarket,'UKM021-L':quadrangleMarket
+  };
+  function build(id,view){
+    const spec=specs.find(s=>s.id===id);if(!spec)throw Error('Unknown hospitality candidate '+id);
+    if(!root.BritishUseScalesKit021)throw Error('Candidate architecture kit missing');
+    const c=root.BritishUseScalesKit021.create(spec,view);
+    c.S.flat(.65,c.extent-.65,.65,c.extent-.65,0,c.K.paving);
+    builders[id](c);return c.finish({nativeFootprint:true,geometry:'original-hospitality-world-space'});
+  }
+  root.BritishUseScalesHospitality021=Object.freeze({specs,build,buildAll:()=>specs.flatMap(s=>Array.from({length:4},(_,view)=>build(s.id,view)))});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script data-use021-source="british-use-scales-workplaces021.js">
+/* GPT-021 original British workplaces, candidate-only authored geometry.
+ * No simulation, registry, save, RNG or approved-art mutation. Native office
+ * and industrial block carriers are supplied by the separate preview adapter.
+ * The medium industrial footprints are genuinely 2 x 1, centred within the
+ * rasterizer's 2 x 2 rotation envelope; their unused ground remains transparent.
+ */
+(function(root){
+  'use strict';
+  const specs=Object.freeze([
+    {id:'UKO021-S',nm:'街屋事務所',group:'office',scale:'S',sz:1,bw:1,bh:1,w:80,h:116,k:2,lv:1,tool:'office',floors:2,
+      plan:'narrow-street-office-with-side-archive',roof:'short-gable-and-low-archive-shed',entry:'central-office-door',yard:'small-rear-document-delivery-yard',
+      masses:[[1.3,12.3,3.3,13.7,.2,25.2],[12.5,14.7,4.1,9.4,.2,7.4]]},
+    {id:'UKO021-M',nm:'轉角事務大樓',group:'office',scale:'M',sz:2,bw:2,bh:2,w:160,h:184,k:2,lv:1,tool:'office',floors:3,
+      plan:'L-range-with-true-diagonal-corner-entrance',roof:'perpendicular-ridges-and-cut-corner-hip',entry:'diagonal-corner-lobby-and-rear-staff-door',yard:'open-inner-service-court',
+      masses:[[1.8,25.4,19.6,29.4,.2,37.5],[25.4,29.4,19.6,25.4,.2,37.5],[1.8,10.7,2.8,19.6,.2,37.5]],
+      polygons:[[[25.4,25.4],[29.4,25.4],[25.4,29.4]]]},
+    {id:'UKO021-L',nm:'城鎮辦公院',group:'office',scale:'L',sz:3,bw:3,bh:3,w:232,h:244,k:2,lv:2,tool:'office',floors:4,
+      plan:'two-four-storey-ranges-and-low-archive-around-open-court',roof:'two-hipped-ranges-and-low-shed-annex',entry:'two-street-lobbies-with-separate-service-drive',yard:'court-and-clear-right-hand-delivery-lane',
+      masses:[[2.3,45.4,33.8,44.8,.2,49.5],[2.3,13.2,6.2,33.8,.2,49.5],[13.2,37.6,5.2,14.8,.2,13.2]]},
+    {id:'UKC021-S',nm:'材料棚小工坊',group:'crafts',scale:'S',sz:1,bw:1,bh:1,w:80,h:108,k:3,lv:1,tool:'zi',floors:1,
+      plan:'single-workroom-with-side-material-lean-to',roof:'one-gable-with-physical-rooflights-and-low-shed',entry:'separate-worker-and-wide-material-doors',yard:'rear-timber-rack',
+      masses:[[1.2,10.9,3.3,13.6,.2,16.1],[11.1,14.7,4.4,10.7,.2,7.8]]},
+    {id:'UKC021-M',nm:'橫向雙翼工坊',group:'crafts',scale:'M',sz:2,bw:2,bh:1,w:160,h:162,k:3,lv:1,tool:'zi',floors:2,
+      plan:'rectangular-L-workhall-and-two-storey-office',roof:'long-low-gable-and-cross-ridge-office',entry:'court-facing-material-door-and-street-worker-lobby',yard:'front-working-court-and-covered-timber-rack',
+      masses:[[1.6,20.2,9.4,16.0,.2,17.0],[20.2,29.7,9.4,22.6,.2,26.1]]},
+    {id:'UKC021-L',nm:'穿堂搬運工坊院',group:'crafts',scale:'L',sz:2,bw:2,bh:2,w:160,h:182,k:3,lv:1,tool:'zi',floors:2,
+      plan:'three-workshop-ranges-and-real-ground-level-cart-passage',roof:'three-separate-gables-at-two-heights',entry:'open-cart-passage-and-independent-worker-door',yard:'open-central-material-handling-court',
+      masses:[[1.6,17.5,22.2,29.5,.2,26.0],[22.1,29.9,22.2,29.5,.2,26.0],[17.5,22.1,22.2,29.5,11.5,26.0],
+        [1.6,10.1,3.7,22.2,.2,13.5],[10.1,29.9,3.7,10.2,.2,13.5]]},
+    {id:'UKI021-S',nm:'高窗單廳輕工廠',group:'lightfactory',scale:'S',sz:1,bw:1,bh:1,w:80,h:116,k:3,lv:2,tool:'zi',floors:1,
+      plan:'one-tall-industrial-hall-and-short-loading-apron',roof:'steep-end-gable-with-short-front-loading-canopy',entry:'separate-worker-and-wide-goods-doors',yard:'rear-drum-storage-and-front-loading-face',
+      masses:[[1.3,14.5,3.2,13.5,.2,18.8]]},
+    {id:'UKI021-M',nm:'雙鋸齒採光輕工廠',group:'lightfactory',scale:'M',sz:2,bw:2,bh:1,w:160,h:166,k:3,lv:2,tool:'zi',floors:2,
+      plan:'rectangular-long-production-hall-with-office-end-wing',roof:'two-asymmetric-north-glazed-sawtooth-bays-and-office-hip',entry:'separate-production-loading-face-and-office-lobby',yard:'short-goods-apron-and-side-service-entry',
+      masses:[[1.5,22.0,9.4,21.0,.2,14.7],[22.0,29.9,15.0,22.6,.2,26.0]]},
+    {id:'UKI021-L',nm:'多層磚廠卸貨院',group:'lightfactory',scale:'L',sz:2,bw:2,bh:2,w:160,h:200,k:3,lv:2,tool:'zi',floors:3,
+      plan:'three-storey-production-range-with-low-boiler-and-dispatch-wings',roof:'high-long-gable-low-boiler-hip-and-dispatch-gable',entry:'street-worker-lobby-and-court-facing-goods-doors',yard:'open-right-hand-delivery-court-with-physical-boiler-stack',
+      masses:[[1.8,15.5,3.8,29.4,.2,37.0],[15.5,25.9,3.8,11.2,.2,13.4],[15.5,30.2,22.0,29.4,.2,14.8]]}
+  ].map(q=>Object.freeze({...q,masses:Object.freeze(q.masses.map(a=>Object.freeze(a)))})));
+
+  function build(id,view){
+    const spec=specs.find(q=>q.id===id);if(!spec)throw Error('Unknown workplace candidate '+id);
+    const kit=root.BritishUseScalesKit021;if(!kit)throw Error('Candidate architectural kit missing');
+    const A=kit.create(spec,view),{S,K,P,C,walls,course,gable,hip,shed,windows,door,loading,chimney,crates,fence,canopy,lamps}=A;
+    const industrial=spec.group!=='office';let explicitSmoke=null;
+    const rect=spec.bw===2&&spec.bh===1;
+    const bounds=rect?[.65,31.35,8.65,23.35]:[.65,A.extent-.65,.65,A.extent-.65];
+    S.flat(...bounds,0,K.paving);
+    function sills(F,levels){for(const z of levels)course(F,z);}
+    function pipe(x,y,h){K.rainpipe(S,x,y,h);}
+    function parapet(F,z){F.block(0,F.length,0,.3,z,z+.42,P.iron,P.ironD,P.ironHi);}
+    function glazing(F,u,z,w,h,lit){
+      // Factory metal casements are distinct from the office's sash windows.
+      F.panel(u-.20,u+w+.20,z-.2,z+h+.25,P.stoneD,.08);
+      F.panel(u,u+w,z,z+h,(x,y)=>{
+        if(x<.2||x>w-.2||y<.2||y>h-.2||K.mod(x,1.65)<.12||K.mod(y,2.25)<.14)return P.ironHi;
+        return lit!==false?[P.glass,P.warmD]:P.glassR;
+      },.14);
+      F.block(u-.3,u+w+.3,0,.48,z-.5,z-.12,P.stone,P.stoneR,P.stoneHi);
+      F.block(u-.27,u+w+.27,0,.27,z+h+.24,z+h+.72,P.brick[1],P.brickR[1],P.stoneR);
+    }
+    function ironTie(F,u,z){F.panel(u-.07,u+.07,z-1.05,z+1.05,P.ironD,.16);F.panel(u-.7,u+.7,z-.10,z+.10,P.ironD,.17);}
+    function timberRack(x0,x1,y0,y1,z){
+      for(const x of[x0+.4,x1-.4])for(const y of[y0+.25,y1-.25])S.box(x-.13,x+.13,y-.13,y+.13,0,z+.4,P.wood,P.woodR,P.woodHi);
+      for(let q=0;q<3;q++){
+        const zz=.8+q*1.2;S.box(x0,x1,y0,y1,zz,zz+.4,P.woodHi,P.woodR,P.woodHi);
+        for(let y=y0+.3;y<y1;y+=.62)S.beam([x0+.1,y,zz+.5],[x1-.1,y,zz+.5],P.wood,.24);
+      }
+    }
+    function rooflight(x0,x1,y0,y1,roofY0,roofYC,z,rise){
+      const height=y=>z+rise*(y-roofY0)/(roofYC-roofY0)+.07;
+      S.poly([[x0,y0,height(y0)],[x1,y0,height(y0)],[x1,y1,height(y1)],[x0,y1,height(y1)]],P.glassHi,.03);
+      for(const x of[x0,x1])S.beam([x,y0,height(y0)],[x,y1,height(y1)],P.frameR,.18);
+      for(const y of[y0,y1])S.beam([x0,y,height(y)],[x1,y,height(y)],P.frameR,.18);
+      for(let x=x0+1.8;x<x1;x+=1.8)S.beam([x,y0,height(y0)],[x,y1,height(y1)],P.ironHi,.16);
+    }
+    function sawtooth(x0,x1,y0,y1,z,rise){
+      const ridge=y0+1.05;
+      S.poly([[x0,y0,z],[x1,y0,z],[x1,ridge,z+rise],[x0,ridge,z+rise]],P.glassHi);
+      S.poly([[x0,ridge,z+rise],[x1,ridge,z+rise],[x1,y1,z],[x0,y1,z]],K.slate(A.dark(0,1)));
+      for(const x of[x0,x1])S.poly([[x,y0,z],[x,y1,z],[x,ridge,z+rise]],K.brick(A.dark(x===x0?-1:1,0),22709));
+      for(let x=x0;x<=x1+.01;x+=3.4)S.beam([x,y0,z+.03],[x,ridge,z+rise+.03],P.ironHi,.18);
+      S.beam([x0,ridge,z+rise+.05],[x1,ridge,z+rise+.05],P.lead,.33);
+      S.beam([x0,y0,z],[x1,y0,z],P.ironD,.28);S.beam([x0,y1,z],[x1,y1,z],P.ironD,.28);
+    }
+    function drum(x,y,r){K.cylinder(S,x,y,.1,2.8,r,r,P.ironHi,P.ironD,P.ironHi,8);for(const z of[.6,2.1])K.cylinder(S,x,y,z,z+.16,r+.05,r+.05,P.lead,P.iron,P.lead,8);}
+    function diagonalDoor(F,u,w,h){
+      F.panel(u-.35,u+w+.35,.4,h+.5,P.stoneHi,.12);
+      F.panel(u,u+w,.6,h,(x,y)=>{
+        if(x<.2||x>w-.2||Math.abs(x-w/2)<.13||y<.2)return P.woodD;
+        if(y>h*.72)return [P.glassHi,P.warm];
+        return K.mod(y,3.0)<.2?P.woodD:P.wood;
+      },.17);
+      for(const b of[u-.35,u+w+.35])S.beam(F.point(b,.25,.4),F.point(b,.25,h+.6),P.stone,.34);
+      S.beam(F.point(u-.5,.25,h+.5),F.point(u+w+.5,.25,h+.5),P.stoneHi,.43);
+    }
+
+    if(spec.id==='UKO021-S'){
+      const F=walls(1.3,12.3,3.3,13.7,.2,25.2,22101);
+      K.sash(S,F.front,.55,2.3,2.3,6.7,true);K.sash(S,F.front,8.15,2.3,2.3,6.7,true);
+      door(F.front,4.5,2.35,8.9,true);
+      windows(F.front,1,3,14.4,2.5,7,true);windows(F.right,2,2,3.2,2.6,6.5,true);
+      windows(F.left,2,2,3.2,2.6,6.5,true);windows(F.back,1,3,14.4,2.4,6.4,true);
+      door(F.back,7.0,2.3,7.8,false);K.sash(S,F.back,1.1,3.1,2.9,6.4,true);
+      for(const f of Object.values(F)){sills(f,[12,24.5]);parapet(f,25.2);}
+      gable(1.05,12.55,3.05,13.95,25.4,5.6,true);chimney(3.5,8.5,30.3,2);
+      const R=walls(12.5,14.7,4.1,9.4,.2,7.4,22102);loading(R.back,.38,1.48,5.7);
+      shed(12.45,14.95,4.0,9.55,7.5,1.1);crates(1.8,1.05,2);
+      fence(5.7,1.2,11.8,1.2,2.5);lamps(F.front,8.0,9.3);lamps(F.back,4.9,8.9);
+      pipe(12.42,12.9,25.0);
+    }else if(spec.id==='UKO021-M'){
+      const F=walls(1.8,25.4,19.6,29.4,.2,37.5,22201),L=walls(1.8,10.7,2.8,19.6,.2,37.5,22202);
+      const R=walls(25.4,29.4,19.6,25.4,.2,37.5,22203);
+      // A solid triangular prism makes the corner physically diagonal at all
+      // levels. It is not a painted corner door on a rectangular hidden wall.
+      const polygon=[[25.4,25.4],[29.4,25.4],[25.4,29.4]];
+      for(let i=0;i<3;i++){const a=polygon[i],b=polygon[(i+1)%3],dx=b[0]-a[0],dy=b[1]-a[1];S.wall(a,b,.2,37.5,K.brick(A.dark(dy,-dx),22204));}
+      S.poly(polygon.map(p=>[p[0],p[1],37.5]),P.stoneR);
+      const D=S.face([29.4,25.4],[25.4,29.4],Math.SQRT1_2,Math.SQRT1_2);
+      diagonalDoor(D,1.25,3.1,9.2);K.sash(S,D,1.15,14.2,3.0,7.1,true);K.sash(S,D,1.15,25.4,3.0,7.1,true);
+      windows(F.front,3,5,2.8,3.2,7.3,true);windows(F.left,3,2,2.8,2.6,7.3,true);
+      windows(F.back,3,4,2.8,3.5,7.3,true);
+      windows(L.left,3,3,2.8,3.2,7.3,true);windows(L.right,3,3,2.8,3.0,7.3,true);
+      windows(L.back,3,2,2.8,2.8,7.3,true);windows(R.right,3,1,2.8,2.8,7.3,true);
+      door(L.right,4.7,2.65,8.2,false);loading(F.back,7.2,4.0,8.4);
+      for(const f of[F.front,F.left,F.back,L.left,L.right,L.back,R.right])sills(f,[12.3,23.5,36.8]);
+      gable(1.45,25.65,19.3,29.7,37.8,7.5,true);
+      gable(1.45,11.05,2.5,19.35,37.8,7.3,false);
+      // The hip closes the cut corner without filling its open ground prism.
+      const a=[25.55,24.5,45.3],b=[29.65,19.3,37.8],c=[29.65,25.55,37.8],d=[25.55,29.65,37.8];
+      S.poly([a,b,c],K.slate(A.dark(1,0)));S.poly([a,c,d],K.slate(A.dark(1,1)));
+      S.beam(c,d,P.ironD,.28);chimney(5.9,8.6,44.8,3);chimney(12.4,24.5,45.2,2);
+      canopy(14.8,22.7,14.8,19.0,7.4);crates(16.2,16.1,3);
+      fence(28.7,3.6,28.7,15.6,3.2);fence(14.0,3.6,24.3,3.6,3.2);
+      lamps(F.front,21.7,10.0);lamps(L.back,4.4,9.4);lamps(L.right,8.6,9.4);
+      pipe(1.52,27.8,37.1);pipe(10.96,5.2,37.1);
+    }else if(spec.id==='UKO021-L'){
+      const F=walls(2.3,45.4,33.8,44.8,.2,49.5,22301,'stone'),L=walls(2.3,13.2,6.2,33.8,.2,49.5,22302,'stone');
+      const R=walls(13.2,37.6,5.2,14.8,.2,13.2,22303);
+      for(const f of[F.front,F.back]){
+        windows(f,3,8,14.0,3.6,7.1,true);sills(f,[11.8,23.0,34.2,48.8]);
+      }
+      for(const u of[1.1,6.0,18.0,23.0,36.0,40.8])K.sash(S,F.front,u,2.5,3.0,7.0,true);
+      for(const u of[11.0,28.6]){door(F.front,u,3.5,9.0,true);K.pilaster(S,F.front,u-.9,.4,10.2,.72);K.pilaster(S,F.front,u+4.4,.4,10.2,.72);F.front.block(u-1.7,u+5.2,0,.85,10.2,10.9,P.stone,P.stoneR,P.stoneHi);}
+      for(const f of[F.right,L.left,L.right,L.back]){
+        windows(f,4,f.length>20?5:2,2.8,3.2,7.0,true);sills(f,[11.8,23.0,34.2,48.8]);
+      }
+      windows(F.back,1,8,2.8,3.0,7.0,true);door(F.back,20.0,3.0,8.1,false);
+      windows(R.front,1,5,3.1,3.1,6.6,true);windows(R.back,1,5,3.1,3.1,6.6,true);
+      loading(R.right,2.0,5.0,9.2);loading(R.back,9.5,4.4,8.8);door(L.right,9.0,2.8,8.3,false);
+      hip(1.9,45.8,33.45,45.2,49.8,7.8,true);hip(1.9,13.55,5.85,33.45,49.8,7.8,false);
+      shed(13.1,37.95,4.95,15.1,13.5,3.0);
+      chimney(7.3,12.5,57.0,3);chimney(34.9,39.0,57.0,3);
+      // Clear loading lane at x39–46.2 stays open from the rear to the court.
+      S.flat(39.1,46.2,1.1,31.6,.03,(x,y)=>K.mod(x,4)<.12?P.paveR:P.paveHi);
+      canopy(21.0,32.7,1.0,4.75,7.4);crates(22.3,1.5,4);
+      K.ironRail(S,[15.1,30.4],[15.1,19.0],0,3.4);K.ironRail(S,[19.8,30.4],[35.2,30.4],0,3.4);
+      K.bench(S,20.2,19.3,6,false);K.bench(S,30.5,19.3,6,true);
+      for(const u of[7.9,16.6,25.6,34.1])lamps(F.front,u,10.0);
+      lamps(R.back,3.3,10.3);lamps(L.left,12.0,10.3);lamps(F.right,4.5,10.3);
+      pipe(45.55,41.0,49.2);pipe(2.05,9.0,49.2);
+    }else if(spec.id==='UKC021-S'){
+      const H=walls(1.2,10.9,3.3,13.6,.2,16.1,22401),M=walls(11.1,14.7,4.4,10.7,.2,7.8,22402,'timber');
+      door(H.front,.55,2.15,8.0,true);loading(H.front,4.2,4.45,10.1);
+      glazing(H.front,3.0,12.1,5.2,2.4,true);
+      for(const f of[H.left,H.right]){glazing(f,1.0,6.0,3.1,5.5,true);glazing(f,6.1,6.0,3.1,5.5,true);}
+      glazing(H.back,.7,5.7,3.1,5.4,true);glazing(H.back,5.7,5.7,3.1,5.4,true);door(H.back,3.5,1.75,7.0,false);
+      for(const f of Object.values(H)){parapet(f,16.05);ironTie(f,f.length*.5,13.9);}
+      gable(.95,11.15,3.05,13.85,16.3,5.5,true);rooflight(2.7,8.7,4.5,6.3,3.05,8.45,16.3,5.5);
+      chimney(3.2,9.5,20.6,1);shed(11.0,14.95,4.2,10.9,7.9,1.8);loading(M.front,.45,2.6,6.1);
+      timberRack(2.0,7.3,1.0,2.4,4.0);fence(8.3,1.1,14.0,1.1,2.4);
+      lamps(H.front,3.3,9.8);lamps(H.back,8.8,8.0);pipe(10.98,12.7,15.9);
+    }else if(spec.id==='UKC021-M'){
+      const H=walls(1.6,20.2,9.4,16.0,.2,17.0,22501),O=walls(20.2,29.7,9.4,22.6,.2,26.1,22502);
+      loading(H.front,8.3,6.5,10.8);door(H.left,1.3,2.2,8.0,false);
+      glazing(H.front,.9,6.1,4.8,5.5,true);glazing(H.front,14.7,6.1,2.8,5.5,true);
+      glazing(H.front,7.9,13.1,7.1,2.2,true);glazing(H.left,1.7,10.3,2.6,4.0,true);
+      for(let u=1.0;u<16.0;u+=5.6)glazing(H.back,u,5.1,3.7,7.0,true);
+      door(O.front,.85,2.5,8.5,true);K.sash(S,O.front,5.5,3.2,2.7,6.3,true);
+      windows(O.front,1,2,15.1,2.8,6.8,true);windows(O.back,2,2,3.9,2.8,6.8,true);
+      windows(O.right,2,3,3.9,2.9,6.8,true);windows(O.left,1,3,15.1,2.8,6.8,true);
+      loading(O.left,1.2,4.0,9.0);sills(O.front,[12.6,25.5]);sills(O.right,[12.6,25.5]);
+      gable(1.35,20.35,9.15,16.25,17.2,4.8,true);rooflight(3.7,11.8,10.0,11.0,9.15,12.7,17.2,4.8);
+      gable(19.95,29.95,9.15,22.85,26.3,5.6,false);chimney(25.0,11.9,31.2,2);
+      canopy(2.0,8.2,16.45,20.8,6.4);timberRack(2.6,7.2,17.1,19.6,3.8);
+      crates(13.4,19.7,4);fence(2.0,22.6,14.9,22.6,2.5);
+      lamps(H.front,6.7,9.6);lamps(O.left,9.0,9.9);lamps(O.right,9.0,9.9);
+      pipe(29.92,21.6,25.8);pipe(1.45,14.8,16.8);
+    }else if(spec.id==='UKC021-L'){
+      const F=walls(1.6,17.5,22.2,29.5,.2,26.0,22601),E=walls(22.1,29.9,22.2,29.5,.2,26.0,22602);
+      const B=walls(17.5,22.1,22.2,29.5,11.5,26.0,22603);
+      const L=walls(1.6,10.1,3.7,22.2,.2,13.5,22604),R=walls(10.1,29.9,3.7,10.2,.2,13.5,22605);
+      door(F.front,.75,2.35,8.0,true);loading(F.front,5.3,6.4,9.4);glazing(F.front,12.6,3.0,2.6,6.3,true);
+      door(E.front,1.0,2.35,8.1,true);glazing(E.front,4.2,3.0,2.7,6.3,true);
+      windows(F.front,1,3,15.0,3.2,6.5,true);windows(E.front,1,2,15.0,2.8,6.5,true);
+      K.sash(S,B.front,.8,15.0,3.0,6.5,true);K.sash(S,B.back,.8,15.0,3.0,6.5,true);
+      for(const f of[F.left,E.right])windows(f,2,1,3.8,3.0,6.5,true);
+      for(const f of[F.back,E.back])windows(f,1,f.length>10?3:2,15.0,2.8,6.5,true);
+      for(const f of[F.front,E.front,B.front])sills(f,[12.4,25.4]);
+      for(let u=1.2;u<15.8;u+=5.2){glazing(L.left,u,4.0,3.3,5.6,true);glazing(L.right,u,4.0,3.3,5.6,true);}
+      glazing(L.back,1.1,4.0,5.2,5.6,true);loading(L.right,8.5,5.6,9.4);
+      for(let u=1.0;u<16.5;u+=5.8)glazing(R.back,u,3.8,3.8,5.8,true);
+      glazing(R.right,.8,3.8,4.5,5.8,true);glazing(R.front,1.4,3.8,3.3,5.8,true);loading(R.front,7.1,6.0,9.3);
+      gable(1.35,30.15,21.95,29.75,26.3,6.0,true);
+      gable(1.35,10.35,3.45,21.95,13.8,4.7,false);gable(10.35,30.15,3.45,10.45,13.8,4.4,true);
+      // The bridge underside is above 11.5: the central cart path remains a
+      // real gap through the front building rather than a painted arch panel.
+      for(const x of[17.48,22.12])S.box(x-.22,x+.22,29.5,29.88,.3,11.8,P.stone,P.stoneR,P.stoneHi);
+      S.flat(17.8,21.8,21.2,30.7,.045,P.paveHi);
+      canopy(24.8,29.0,11.0,17.7,6.0);timberRack(25.4,28.4,12.1,16.4,3.8);crates(12.1,12.1,3);
+      chimney(6.9,8.8,18.0,2);chimney(27.1,25.8,31.0,2);
+      lamps(F.front,13.8,10.0);lamps(E.front,5.6,10.0);lamps(R.back,14.2,9.9);lamps(L.back,4.0,9.4);
+      pipe(1.43,18.9,13.4);pipe(30.03,28.0,25.8);
+    }else if(spec.id==='UKI021-S'){
+      const H=walls(1.3,14.5,3.2,13.5,.2,18.8,22701);
+      loading(H.front,1.0,5.5,10.3);door(H.front,9.5,2.3,8.4,true);
+      glazing(H.front,1.05,12.3,5.4,4.4,true);glazing(H.front,9.4,11.2,2.9,5.2,true);
+      for(const f of[H.left,H.right]){glazing(f,1.0,5.9,3.3,7.8,true);glazing(f,6.0,5.9,3.3,7.8,true);ironTie(f,5.1,15.6);}
+      for(let u=.8;u<11.0;u+=4.25)glazing(H.back,u,6.0,3.1,7.8,true);
+      door(H.back,5.0,2.1,7.8,false);sills(H.front,[17.9]);sills(H.back,[17.9]);
+      gable(1.05,14.75,2.95,13.75,19.1,7.2,false);chimney(4.3,5.3,25.0,1);
+      canopy(2.2,8.2,13.75,15.15,9.3);drum(11.0,1.5,.47);drum(12.5,1.5,.47);
+      crates(1.8,1.0,2);lamps(H.front,8.1,10.6);lamps(H.back,10.5,10.2);pipe(14.63,12.3,18.5);
+    }else if(spec.id==='UKI021-M'){
+      const H=walls(1.5,22.0,9.4,21.0,.2,14.7,22801),O=walls(22.0,29.9,15.0,22.6,.2,26.0,22802);
+      loading(H.front,8.7,6.8,10.0);glazing(H.front,1.2,4.0,4.7,6.8,true);glazing(H.front,16.7,4.0,2.7,6.8,true);
+      for(let u=.9;u<17.6;u+=5.8)glazing(H.back,u,3.8,4.0,6.9,true);
+      for(const f of[H.left,H.right]){glazing(f,1.0,4.0,3.2,6.5,true);glazing(f,6.8,4.0,3.2,6.5,true);}
+      door(H.left,4.5,2.0,7.8,false);sills(H.front,[13.8]);sills(H.back,[13.8]);
+      sawtooth(1.25,22.25,9.15,15.0,14.95,5.2);sawtooth(1.25,22.25,15.0,21.25,14.95,5.2);
+      door(O.front,.75,2.45,8.5,true);K.sash(S,O.front,4.4,3.6,2.55,6.4,true);
+      windows(O.front,1,2,15.0,2.8,6.5,true);windows(O.back,2,2,3.8,2.7,6.5,true);
+      windows(O.right,2,1,3.8,3.0,6.5,true);windows(O.left,1,1,15.0,3.0,6.5,true);
+      hip(21.75,30.15,14.75,22.85,26.3,4.9,true);chimney(26.0,18.6,30.5,2);
+      canopy(10.0,16.6,21.35,23.22,8.8);drum(25.9,11.2,.6);drum(27.5,11.2,.6);
+      crates(25.0,13.1,3);fence(23.2,9.3,29.7,9.3,2.5);
+      lamps(H.front,7.4,9.8);lamps(O.back,4.0,9.8);lamps(O.right,4.2,10.0);
+      pipe(1.35,19.4,14.5);pipe(30.0,21.7,25.8);
+    }else if(spec.id==='UKI021-L'){
+      const H=walls(1.8,15.5,3.8,29.4,.2,37.0,22901),B=walls(15.5,25.9,3.8,11.2,.2,13.4,22902);
+      const D=walls(15.5,30.2,22.0,29.4,.2,14.8,22903);
+      door(H.front,.55,2.35,8.3,true);loading(H.front,4.7,6.8,9.5);
+      for(let f=0;f<2;f++)for(const u of[1.3,8.0])glazing(H.front,u,14.1+f*11.2,4.0,7.0,true);
+      for(const face of[H.left,H.right])for(let f=0;f<3;f++)for(let u=1.3;u<21.0;u+=5.1)glazing(face,u,3.0+f*11.2,3.4,7.4,true);
+      for(let f=0;f<3;f++)for(const u of[1.3,8.0])glazing(H.back,u,3.0+f*11.2,4.0,7.4,true);
+      loading(H.right,6.2,6.0,9.5);door(H.back,5.8,2.5,8.0,false);
+      for(const face of Object.values(H)){sills(face,[12.0,23.2,36.4]);for(let u=2.2;u<face.length-1;u+=5.2)ironTie(face,u,35.2);}
+      gable(1.45,15.85,3.45,29.75,37.3,6.5,false);
+      glazing(B.back,.8,3.3,3.1,5.7,true);glazing(B.back,6.8,3.3,2.7,5.7,true);
+      glazing(B.right,1.2,3.3,4.5,5.7,true);loading(B.front,4.0,5.2,9.0);
+      hip(15.7,26.25,3.45,11.55,13.7,4.0,true);
+      loading(D.back,2.2,7.0,10.0);door(D.front,1.0,2.5,8.0,true);
+      glazing(D.front,5.1,4.1,3.5,6.6,true);glazing(D.front,10.0,4.1,3.5,6.6,true);
+      glazing(D.right,.9,4.1,4.8,6.6,true);gable(15.75,30.55,21.7,29.75,15.1,4.9,true);
+      // The boiler stack is attached to the low boilerhouse and has its own
+      // actual raster-space smoke origin in every view, never the old sprite's.
+      K.cylinder(S,21.0,7.4,0,46.9,1.28,.93,K.brick(false,22909),K.brick(true,22910),P.ink,8);
+      for(const z of[13.0,26.5,39.5])K.cylinder(S,21.0,7.4,z,z+.32,1.15,1.15,P.ironD,P.ironD,P.iron,8);
+      K.cylinder(S,21.0,7.4,46.9,47.65,1.17,1.17,P.stone,P.stoneR,P.ink,8);
+      explicitSmoke=[A.project(21.0,7.4,47.8)];
+      canopy(26.4,30.3,12.3,17.6,6.5);crates(26.9,13.0,2);drum(17.7,13.2,.7);drum(19.6,13.2,.7);
+      S.flat(16.1,30.7,18.2,21.5,.045,(x,y)=>K.mod(y,2.7)<.14?P.paveR:P.paveHi);
+      fence(30.3,3.9,30.3,10.2,3.0);fence(17.0,1.6,28.8,1.6,3.0);
+      lamps(H.front,3.6,10.0);lamps(H.back,11.6,10.0);lamps(D.front,11.8,10.0);lamps(B.right,3.5,10.0);
+      pipe(1.59,27.6,36.7);pipe(30.35,28.4,14.6);
+    }else throw Error('Unfinished workplace group '+id);
+
+    return A.finish({nativeFunction:industrial?'existing-industrial-roots-no-new-recipes':'existing-office-zoned-roots-no-new-identity',
+      footprint:[spec.bw,spec.bh],centredRasterFootprint:rect,...(explicitSmoke?{smoke608:explicitSmoke}:{}),
+      ...(industrial?{}:{smoke608:[]})});
+  }
+  root.BritishUseScalesWorkplaces021=Object.freeze({specs,build,
+    buildAll:()=>specs.flatMap(q=>Array.from({length:4},(_,v)=>build(q.id,v)))});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script data-use021-source="british-use-scales-agriculture021.js">
+/* GPT-021 candidate-only farm / ranch architecture.
+ * Six original plans, four complete world-space views each. No game registry,
+ * save, RNG, production, prices, capacities or calendar access.
+ * Farm scale carriers are native farm 2x2 / greenhouse 2x2 / largeFarm 5x5.
+ * All ranch plans stay 2x2; S/M/L depict native paid Lv1/Lv2/Lv3, not new lots.
+ * Temporal art inputs follow native T397: season 0..3, stage 0 seedling,
+ * 1 growing, 2 mature, 3 harvested stubble. Native dispatch owns those inputs.
+ * Glass uses opaque dither and genuine uncovered samples over interior beds;
+ * its frame and plants share the approved rasterizer's day/night depth buffer.
+ */
+(function(root){
+  'use strict';
+  const specs=Object.freeze([
+    {id:'UKF021-S',nm:'側院田間農場',group:'farm',scale:'S',sz:2,w:144,h:138,k:22,tool:'farm',floors:2,
+      plan:'side-house-and-independent-raised-granary-with-crop-strip',roof:'house-long-gable-and-short-granary-ridge',
+      entry:'house-door-and-field-gate-separated',yard:'side-gravel-lane-and-granary-loading-court',
+      masses:[[2.1,11.2,5.1,15.2,.15,18.5],[2.4,11.2,20.1,28.8,.8,10.3]]},
+    {id:'UKF021-M',nm:'雙跨栽培溫室',group:'farm',scale:'M',sz:2,w:144,h:144,k:63,tool:'greenhouse',floors:1,
+      plan:'two-different-glass-spans-with-brick-headhouse-and-side-potting-room',roof:'two-glazed-ridges-and-low-slate-service-roofs',
+      entry:'headhouse-public-door-and-separate-potting-door',yard:'side-potting-delivery-strip',
+      masses:[[4.8,13,4.4,25.1,1.6,7.8],[13.6,22.4,4.4,25.1,1.6,8.4],
+        [2,28.4,25.6,30.2,.15,8.6],[24.2,29.5,7.5,22.5,.15,6.8]]},
+    {id:'UKF021-L',nm:'雙糧院大型農莊',group:'farm',scale:'L',sz:5,w:336,h:242,k:53,tool:'largeFarm',floors:2,
+      plan:'stone-house-and-three-low-barn-ranges-with-two-separate-grain-courts',roof:'three-independent-threshing-and-store-ridges',
+      entry:'central-field-gate-and-east-service-gate',yard:'two-grain-courts-linked-by-an-open-service-lane',
+      masses:[[4,18,7,27,.15,24],[22,65,5,16,.15,16.8],[19.4,44,29.5,40,.15,14.5],
+        [43.5,53,16.5,37,.15,14.2]]},
+    {id:'UKR021-S',nm:'小牛舍與開牧地',group:'ranch',scale:'S',sz:2,w:144,h:126,k:23,tool:'ranch',lv:1,floors:1,
+      plan:'one-side-cattle-house-and-a-large-open-grazing-enclosure',roof:'single-long-ridge-and-a-low-feed-catslide',
+      entry:'barn-door-and-pasture-gate-separated',yard:'short-feed-apron-outside-the-barn',
+      masses:[[2.2,8.8,4,21,.15,9.6],[2.4,7.1,23.5,28.7,.15,4.7]]},
+    {id:'UKR021-M',nm:'雙翼糧樓畜舍',group:'ranch',scale:'M',sz:2,w:144,h:150,k:23,tool:'ranch',lv:2,floors:2,
+      plan:'tall-west-feed-loft-and-low-north-cattle-range-with-open-working-court',roof:'unequal-perpendicular-gables',
+      entry:'feed-loading-door-and-cattle-gate-separated',yard:'central-feed-court-and-two-grazing-strips',
+      masses:[[2.4,10.4,3,15.2,.15,19.5],[10.8,28.5,3,10.2,.15,10.2]]},
+    {id:'UKR021-L',nm:'環院覆廄農莊',group:'ranch',scale:'L',sz:2,w:144,h:160,k:23,tool:'ranch',lv:3,floors:2,
+      plan:'three-unequal-ranges-around-a-real-open-cattle-yard',roof:'north-gable-west-hip-and-east-feed-loft-gable',
+      entry:'open-south-yard-mouth-and-separate-east-loading-door',yard:'open-U-court-with-a-covered-west-stable-veranda',
+      masses:[[2,29.3,2,8.8,.15,10.5],[2,8.5,9.3,27.5,.15,11.2],[21.8,29.3,9.3,28.5,.15,22.5]]}
+  ].map(s=>Object.freeze({...s,masses:Object.freeze(s.masses.map(m=>Object.freeze(m)))})));
+  // Same native crop order as T279's CCLASS; these are visual forms only.
+  const cropClasses=Object.freeze(['sprout','grain','leaf','corn','vine','orchard','tomato','straw',
+    'grape','sun','rice','cabbage','carrot','melon','cotton','lav']);
+
+  function build(id,view,extra){
+    const spec=specs.find(s=>s.id===id);if(!spec)throw Error('Unknown agriculture candidate '+id);
+    const H=root.BritishUseScalesKit021;if(!H)throw Error('Candidate architectural kit missing');
+    const A=H.create(spec,view),{S,K,P,C,extent,walls,course,gable,hip,shed,door,loading,chimney,crates,fence,lamps,finish,dark}=A;
+    extra=extra||{};
+    const sn=typeof extra.season==='string'?['spring','summer','autumn','winter'].indexOf(extra.season):extra.season;
+    const season=Number.isInteger(sn)&&sn>=0&&sn<=3?sn:0;
+    const stage=Number.isInteger(extra.stage)&&extra.stage>=0&&extra.stage<=3?extra.stage:2;
+    const crop=Number.isInteger(extra.crop)&&extra.crop>=0&&extra.crop<16?extra.crop:(spec.k===63?2:1);
+    const winter=season===3;
+    const grassSets=[['667950','738658','596d46','8a9169'],['667846','768954','546a40','8e9668'],
+      ['858253','999063','72794c','a29a73'],['929589','a5a698','83887b','b2b1a3']].map(q=>q.map(C));
+    const soils=[['62513c','766148','887258'],['5b4d38','6e5c41','826d50'],
+      ['6b5740','7f684d','948061'],['7f7970','969187','a7a295']].map(q=>q.map(C));
+    const grass=(x,y)=>grassSets[season][K.hash(Math.floor(x*2),Math.floor(y*2),2161)%23===0?3:
+      K.hash(Math.floor(x),Math.floor(y),2162)%7===0?1:K.hash(Math.floor(x*2),Math.floor(y),2163)%5===0?2:0];
+    const gravel=(x,y)=>K.hash(Math.floor(x*2),Math.floor(y*2),2164)%11===0?P.paveHi:
+      K.hash(Math.floor(x*2),Math.floor(y*2),2165)%6===0?P.paveR:P.pave;
+    S.flat(.8,extent-.8,.8,extent-.8,0,grass);
+
+    function apron(x0,x1,y0,y1){S.flat(x0,x1,y0,y1,.035,gravel);}
+    function stoneWall(x0,x1,y0,y1,h){return walls(x0,x1,y0,y1,0,h||1.65,2166,'stone');}
+    function bales(x,y,count,layers){
+      for(let row=0;row<(layers||1);row++)for(let n=0;n<count;n++){
+        const xx=x+n*2.2+(row&1)*.25,yy=y+row*.14,z=.15+row*1.4;
+        S.box(xx,xx+1.9,yy,yy+1.6,z,z+1.35,C('c4ab6e'),C('9e8754'),C('d2bc83'));
+        for(const t of[.35,1.45])S.beam([xx+t,yy,z+1.36],[xx+t,yy+1.6,z+1.36],C('897449'),.13);
+      }
+    }
+    function trough(x,y,longY){
+      const a=longY?1.6:4.1,b=longY?4.1:1.6;
+      S.box(x,x+a,y,y+b,.1,1.45,P.stone,P.stoneR,P.stoneHi);
+      S.flat(x+.24,x+a-.24,y+.24,y+b-.24,1.47,C('607f7f'));
+    }
+    function cart(x,y){
+      S.box(x,x+2.7,y,y+2.0,1.0,1.38,P.wood,P.woodR,P.woodHi);
+      for(const xx of[x-.08,x+2.78])for(const yy of[y+.4,y+1.7])K.cylinder(S,xx,yy,.1,1.2,.36,.36,P.ironD,P.ink,P.iron,8);
+      S.beam([x+2.4,y+1,1.1],[x+4.3,y+1,.4],P.wood,.25);crates(x+.3,y+.25,1);
+    }
+    function cropPlant(x,y,cls,sn2,st,z){
+      const dry=sn2===3||st===3,base=z||.15;
+      if(dry){
+        S.beam([x,y,base],[x,y,base+.58],C('9c8b65'),.14);
+        if(sn2===3)S.beam([x-.22,y,base+.4],[x+.24,y,base+.75],C('ab9c7c'),.11);
+        return;
+      }
+      const green=sn2===2?C('78834b'):sn2===1?C('5c7b43'):C('6b8650');
+      if(st===0){
+        S.beam([x,y,base],[x,y,base+.78],green,.16);
+        S.poly([[x,y,base+.45],[x-.42,y-.07,base+.87],[x-.18,y+.17,base+.52]],C('8fa36a'));
+        S.poly([[x,y,base+.5],[x+.38,y+.05,base+.83],[x+.22,y-.15,base+.48]],green);return;
+      }
+      if(st===1){
+        S.beam([x,y,base],[x,y,base+1.45],green,.19);
+        S.poly([[x,y,base+.5],[x-.63,y,base+1.08],[x-.19,y+.20,base+.8]],green);
+        S.poly([[x,y,base+.7],[x+.50,y+.13,base+1.48],[x+.20,y-.16,base+.9]],C('91a66b'));return;
+      }
+      if(cls==='cabbage'){
+        K.cylinder(S,x,y,base+.08,base+.92,.72,.43,C('849a70'),C('627b59'),C('a3b38a'),8);
+        for(const q of[-1,1])S.poly([[x,y,base+.22],[x+q*.9,y-.20,base+.25],[x+q*.65,y+.20,base+.62]],green);
+        return;
+      }
+      if(cls==='sprout'||cls==='carrot'){
+        const hh=cls==='sprout'?1.9:1.15;
+        for(const q of[-1,0,1]){
+          S.beam([x,y,base],[x+q*.18,y+q*.1,base+hh],green,.16);
+          S.poly([[x+q*.1,y,base+.4],[x+q*.42-.18,y-.18,base+hh*.72],[x+q*.30,y+.14,base+hh]],C('8fa26b'));
+        }
+        if(cls==='carrot'&&sn2===2)S.box(x-.12,x+.16,y-.14,y+.14,base+.1,base+.37,C('bd844d'),C('926940'),C('cea162'));
+        return;
+      }
+      const low=['sprout','leaf','cabbage','carrot','vine','melon','straw'].includes(cls);
+      if(low){
+        const l=cls==='vine'||cls==='melon'?.84:cls==='straw'?.48:.61;
+        for(const sg of[-1,1]){
+          S.poly([[x,y,base+.15],[x+sg*l,y-.25,base+.40],[x+sg*l*.85,y+.32,base+.82],[x,y+.20,base+1.0]],sg<0?green:C('899d62'));
+          S.poly([[x,y,base+.12],[x-.28,y+sg*l,base+.35],[x+.32,y+sg*l*.8,base+.75],[x+.17,y,base+1]],green);
+        }
+        if(cls==='vine'||cls==='melon')K.cylinder(S,x+.4,y+.28,base+.15,base+.84,.47,.30,
+          cls==='vine'?C('b98b4f'):C('658151'),cls==='vine'?C('92713f'):C('4e6c41'),cls==='vine'?C('d4a461'):C('7b955d'),8);
+        if(cls==='straw'&&sn2>0)S.box(x-.15,x+.15,y+.2,y+.5,base+.38,base+.70,C('aa5d57'),C('854a49'),C('bd7468'));
+        return;
+      }
+      if(cls==='orchard'){
+        S.beam([x,y,base],[x,y,base+3.8],P.woodD,.30);
+        K.cylinder(S,x,y,base+2.5,base+4.4,1.1,.66,green,C('586c42'),C('91a068'),7);
+        if(sn2===1)S.box(x-.78,x-.42,y+.25,y+.59,base+3.2,base+3.54,C('ae6354'),C('80493f'),C('bf7a64'));return;
+      }
+      if(cls==='grape'){
+        for(const xx of[x-.78,x+.78])S.beam([xx,y,base],[xx,y,base+3.15],P.woodD,.18);
+        S.beam([x-.9,y,base+2.8],[x+.9,y,base+2.8],P.wood,.20);
+        S.poly([[x-.7,y,base+2.65],[x,y-.3,base+3.55],[x+.7,y,base+2.7],[x,y+.32,base+2.3]],green);
+        if(sn2===2)S.box(x-.19,x+.19,y+.14,y+.43,base+2.1,base+2.6,C('78617b'),C('605365'),C('937b97'));return;
+      }
+      const h=cls==='corn'||cls==='sun'?4.05:cls==='tomato'?2.3:cls==='lav'?2.45:2.8;
+      S.beam([x,y,base],[x,y,base+h],green,.18);
+      S.poly([[x,y,base+h*.38],[x-.70,y-.07,base+h*.70],[x-.20,y+.16,base+h*.55]],green);
+      S.poly([[x,y,base+h*.58],[x+.61,y+.12,base+h*.88],[x+.19,y-.15,base+h*.65]],C('95a66a'));
+      if(cls==='grain'||cls==='rice'){
+        const ear=sn2===2?C('d5bc79'):C('a4ae64');
+        S.beam([x-.42,y,base+h-.20],[x+.42,y,base+h+.27],ear,.32);
+        S.beam([x,y-.32,base+h-.20],[x,y+.32,base+h+.18],ear,.23);
+      }else if(cls==='corn')S.box(x+.12,x+.45,y-.11,y+.23,base+2.05,base+2.93,C('c6b069'),C('9c9154'),C('ddcc8b'));
+      else if(cls==='sun'){K.cylinder(S,x,y,base+h-.05,base+h+.3,.42,.42,C('bfa059'),C('927c4a'),C('6a5a40'),8);}
+      else if(cls==='tomato')for(const dx of[-.45,.45])S.box(x+dx-.13,x+dx+.15,y+.05,y+.31,base+1.4,base+1.77,C('b5634b'),C('8d4c3f'),C('c47c58'));
+      else if(cls==='cotton')for(const dx of[-.38,.32])S.box(x+dx-.20,x+dx+.22,y-.12,y+.20,base+2.1,base+2.52,P.paper,P.frameR,P.frame);
+      else if(cls==='lav')S.beam([x,y,base+1.9],[x,y,base+2.6],C('9785a0'),.36);
+    }
+    function cropPlot(x0,x1,y0,y1,cls,protectedBed,z){
+      const cropSeason=protectedBed&&winter?1:season,z0=z||.13,so=soils[protectedBed&&winter?1:season];
+      S.flat(x0,x1,y0,y1,z0,(x,y)=>K.mod(x-x0,2.8)<.35?so[0]:K.mod(x-x0,2.8)<.65?so[2]:so[1]);
+      if(cls==='rice'&&!winter)S.flat(x0+.5,x1-.5,y0+.5,y1-.5,z0+.035,(x,y)=>K.mod(x-x0,2.8)<.45?C('738d8c'):null);
+      const gap=cls==='orchard'?4.8:2.8;
+      const visibleStage=winter&&!protectedBed?2:stage;
+      for(let x=x0+gap*.5;x<x1-.6;x+=gap)for(let y=y0+1.25;y<y1-.8;y+=gap){
+        if(visibleStage===0&&((Math.floor(x/gap)+Math.floor(y/gap))&1))continue;
+        cropPlant(x,y,cls,cropSeason,visibleStage,z0+.04);
+      }
+    }
+    function cow(x,y,flip){
+      const q=flip?-1:1,T=(xx,yy,zz)=>[x+q*xx,y+yy,zz];
+      function box(x0,x1,y0,y1,z0,z1,col,side,top){
+        S.poly([T(x0,y0,z0),T(x1,y0,z0),T(x1,y0,z1),T(x0,y0,z1)],col);
+        S.poly([T(x0,y1,z0),T(x0,y1,z1),T(x1,y1,z1),T(x1,y1,z0)],col);
+        for(const xx of[x0,x1])S.poly([T(xx,y0,z0),T(xx,y1,z0),T(xx,y1,z1),T(xx,y0,z1)],side);
+        S.poly([T(x0,y0,z1),T(x1,y0,z1),T(x1,y1,z1),T(x0,y1,z1)],top);
+      }
+      const cream=C('d2cabb'),creamD=C('a9a79c'),black=C('484c44');
+      for(const xx of[-1.25,1.2])for(const yy of[-.43,.44])box(xx-.16,xx+.16,yy-.14,yy+.14,.15,1.55,black,C('343d36'),creamD);
+      box(-1.65,1.45,-.7,.7,1.45,3.0,cream,creamD,P.paper);
+      box(1.35,2.4,-.52,.47,2.0,2.88,black,C('343d36'),creamD);
+      box(2.1,2.72,-.48,.43,1.95,2.36,C('a89884'),C('817968'),creamD);
+      S.poly([T(-1.1,.705,1.55),T(-.43,.705,1.55),T(-.20,.705,2.35),T(-.95,.705,2.78)],black,.03);
+      S.poly([T(.47,-.705,1.7),T(1.05,-.705,1.7),T(1.3,-.705,2.7),T(.63,-.705,2.86)],black,.03);
+      S.beam(T(-1.65,0,2.72),T(-2.05,.22,1.27),black,.15);
+      for(const yy of[-.62,.62])S.beam(T(1.64,yy,2.73),T(1.92,yy*1.22,3.18),creamD,.18);
+    }
+    // Tiny inner rectangle on the actual chosen loading aperture. T403 can
+    // keep its screen-space opening/closing overlay without using old art's
+    // coordinates. Every chosen face points toward this geometric view.
+    function animationDoor(F,u,w,h){
+      const p=F.point(u+w/2,.23,Math.min(h-1.1,5.3));let x=p[0],y=p[1];
+      if(view===1){x=extent-p[1];y=p[0];}else if(view===2){x=extent-p[0];y=extent-p[1];}else if(view===3){x=p[1];y=extent-p[0];}
+      const sx=spec.w/2+2*x-2*y,sy=spec.h-2-2*extent+x+y-p[2];
+      return [Math.floor(sx)-1,Math.floor(sy)-1,2,3];
+    }
+    function barnDoors(B,width,height){
+      const candidates={};
+      for(const [name,F]of Object.entries(B)){
+        const w=Math.min(width,F.length-1.5),u=(F.length-w)/2;loading(F,u,w,height);candidates[name]={F,u,w};
+      }
+      const choice=candidates[['right','back','left','front'][view]];
+      return animationDoor(choice.F,choice.u,choice.w,height);
+    }
+    let door403=null,hen403=null;
+
+    if(id==='UKF021-S'){
+      apron(1.2,13.5,15.7,20);apron(11.5,13.6,1.4,30.6);
+      cropPlot(14.5,30.2,2.2,14.8,cropClasses[crop],false);
+      cropPlot(14.5,30.2,16.1,30.2,cropClasses[crop],false);
+      const home=walls(2.1,11.2,5.1,15.2,.15,18.5,2171);
+      for(const [name,F]of Object.entries(home)){
+        course(F,9.1);K.sash(S,F,F.length*.24-.95,11.2,2.2,5.0,true);K.sash(S,F,F.length*.73-.95,11.2,2.2,5.0,true);
+        if(name==='right'||name==='left')K.sash(S,F,1.1,2.1,2.4,5.0,true);
+      }
+      door(home.front,3.25,2.5,7.4,true);door(home.back,3.25,2.5,7.4,true);
+      K.sash(S,home.front,.45,2.0,2.05,5.1,true);K.sash(S,home.back,.45,2.0,2.05,5.1,true);
+      gable(1.85,11.45,4.85,15.45,18.7,5.9,false);chimney(6.65,7.6,24.4,2);
+      K.rainpipe(S,11.35,14.8,18.2);lamps(home.front,6.9,7.5);lamps(home.back,6.9,7.5);
+      const granary=walls(2.4,11.2,20.1,28.8,.8,10.3,2172,'timber');
+      for(const xx of[3.1,10.3])for(const yy of[20.7,28])S.box(xx-.3,xx+.3,yy-.3,yy+.3,0,.95,P.stone,P.stoneR,P.stoneHi);
+      loading(granary.right,2.4,4.2,7.3);loading(granary.left,2.4,4.2,7.3);
+      for(const F of[granary.front,granary.back])F.panel(3.1,5.7,7.8,9.4,(x,y)=>K.mod(x,.55)<.15?P.woodHi:P.ink,.14);
+      gable(2.15,11.45,19.85,29.05,10.45,4.7,true);
+      stoneWall(1.2,9.0,1.2,1.8);stoneWall(1.2,1.8,1.8,4.4);stoneWall(1.1,8.9,30.3,30.8);
+      fence(14,2.0,14,28.2,2.3);fence(14,30.7,30.6,30.7,2.3);
+      bales(2.4,17.1,3,1);cart(8.2,16.1);K.lantern(S,13.1,29.0,6.2,true);
+    }else if(id==='UKF021-M'){
+      apron(1.1,3.6,2.2,24.9);apron(23.1,30.5,3.6,25.2);
+      function glasshouse(x0,x1,y0,y1,eave,rise,seed){
+        walls(x0,x1,y0,y1,.15,1.6,seed);
+        const mid=(x0+x1)/2;
+        S.flat(x0+.25,x1-.25,y0+.25,y1-.25,1.62,P.paveR);
+        for(const [a,b]of[[x0+.85,mid-.48],[mid+.48,x1-.85]]){
+          S.box(a,b,y0+1.0,y1-1.0,1.62,2.17,P.wood,P.woodR,P.soil);
+          cropPlot(a+.12,b-.12,y0+1.12,y1-1.12,cropClasses[crop],true,2.2);
+        }
+        const glazing=(x,y,z)=>{
+          if(K.mod(y-y0,3.6)<.12||K.mod(z-1.6,2.4)<.11||K.mod(x-x0,2.6)<.11)return P.frameR;
+          if((Math.floor(x*2)+Math.floor(y*2)+Math.floor(z*2))&1)return null;
+          return K.hash(Math.floor(x),Math.floor(y),seed)%7===0?C('a7bfaf'):C('7faaa1');
+        };
+        S.wall([x0,y0],[x1,y0],1.6,eave,glazing);S.wall([x0,y1],[x1,y1],1.6,eave,glazing);
+        S.wall([x0,y0],[x0,y1],1.6,eave,glazing);S.wall([x1,y0],[x1,y1],1.6,eave,glazing);
+        S.poly([[x0,y0,eave],[mid,y0,eave+rise],[mid,y1,eave+rise],[x0,y1,eave]],glazing);
+        S.poly([[x1,y0,eave],[x1,y1,eave],[mid,y1,eave+rise],[mid,y0,eave+rise]],glazing);
+        for(const yy of[y0,y1])S.poly([[x0,yy,eave],[x1,yy,eave],[mid,yy,eave+rise]],glazing);
+        for(let yy=y0;yy<=y1+.01;yy+=3.6){
+          for(const xx of[x0,x1])S.beam([xx,yy,1.5],[xx,yy,eave+.04],P.frame,.23);
+          S.beam([x0,yy,eave+.04],[mid,yy,eave+rise+.04],P.frame,.24);
+          S.beam([mid,yy,eave+rise+.04],[x1,yy,eave+.04],P.frameR,.24);
+        }
+        for(const xx of[x0,x1])S.beam([xx,y0,eave],[xx,y1,eave],P.frameR,.28);
+        S.beam([mid,y0,eave+rise],[mid,y1,eave+rise],P.frame,.31);
+        for(const yy of[y0,y1]){
+          const F=S.face([x0,yy],[x1,yy],0,yy===y0?-1:1);
+          K.timberDoor(F,(x1-x0)/2-1.0,1.6,2.0,5.9,false);
+        }
+      }
+      glasshouse(4.8,13,4.4,25.1,7.8,5.2,2181);glasshouse(13.6,22.4,4.4,25.1,8.4,5.7,2182);
+      const head=walls(2,28.4,25.6,30.2,.15,8.6,2183);
+      for(const F of[head.front,head.back]){
+        for(const u of[1.1,5.8,17.6,22.3])K.sash(S,F,u,2.1,2.6,4.35,true);
+        door(F,11.45,3.1,6.9,true);course(F,8.25);
+      }
+      for(const F of[head.left,head.right])K.sash(S,F,1.0,2.15,2.15,4.2,true);
+      hip(1.75,28.65,25.35,30.45,8.8,2.5,true);chimney(5.3,27.9,11.3,1);
+      const pot=walls(24.2,29.5,7.5,22.5,.15,6.8,2184,'timber');
+      door(pot.front,1.35,2.3,5.6,false);loading(pot.right,5.0,4.3,5.6);
+      for(const F of[pot.left,pot.right])for(const u of[.9,10.7])K.sash(S,F,u,1.15,3.2,3.8,true);
+      K.sash(S,pot.back,1.0,1.15,3.2,3.8,true);
+      shed(24,29.75,7.25,22.75,7.0,1.6);
+      crates(24.5,23.2,3);cart(24.4,4.2);
+      for(const [x,y]of[[2.6,3.0],[28.7,2.7],[2.5,22.2],[30,23.7]])K.lantern(S,x,y,6.2,true);
+      lamps(head.front,9.5,5.1);lamps(head.back,16.0,5.1);
+    }else if(id==='UKF021-L'){
+      apron(18.8,42.8,16.8,29);apron(53.6,67,16.8,37.4);apron(2.3,77.5,40.8,44);
+      apron(39.8,44.2,40.8,77.3);apron(72.8,77.1,16.4,77.2);
+      cropPlot(3.4,38.7,46.1,76.6,cropClasses[crop],false);
+      cropPlot(45.6,71.2,46.1,76.6,cropClasses[crop],false);
+      cropPlot(68.7,77,4.0,15.0,cropClasses[crop],false);
+      cropPlot(3.4,17.6,29.4,39.2,cropClasses[crop],false);
+      const home=walls(4,18,7,27,.15,24,2191,'stone');
+      for(const F of[home.front,home.back,home.left,home.right]){
+        const bays=F.length>15?3:2;
+        for(let fl=0;fl<2;fl++)for(let b=0;b<bays;b++)K.sash(S,F,F.length*(b+.5)/bays-1.35,2.6+fl*11,2.7,6.1,true);
+        course(F,11.2);course(F,23.6);
+      }
+      door(home.right,7.8,3,8.5,true);door(home.left,7.8,3,8.5,true);
+      gable(3.65,18.35,6.65,27.35,24.3,6.3,false);chimney(11,10.1,30.6,2);
+      const north=walls(22,65,5,16,.15,16.8,2192),south=walls(19.4,44,29.5,40,.15,14.5,2193,'stone');
+      for(const u of[3.0,17.0,32.0]){
+        loading(north.front,u,6.2,11.8);loading(north.back,u,6.2,11.8);
+        K.sash(S,north.front,u+1.7,13.0,2.2,2.3,true);K.sash(S,north.back,u+1.7,13.0,2.2,2.3,true);
+      }
+      for(const F of[north.left,north.right]){loading(F,2.8,5.4,11);K.sash(S,F,4.3,13.0,2.3,2.3,true);}
+      gable(21.65,65.35,4.65,16.35,17.05,6.8,true);
+      for(const F of[south.front,south.back]){
+        loading(F,3.0,5.6,9.8);loading(F,15.0,5.6,9.8);
+        K.sash(S,F,10.6,9.0,2.6,3.6,true);lamps(F,2.0,8.8);
+      }
+      for(const F of[south.left,south.right])K.sash(S,F,3.8,7.5,2.5,4.2,true);
+      gable(19.05,44.35,29.15,40.35,14.75,5.6,true);
+      const divider=walls(43.5,53,16.5,37,.15,14.2,2194);
+      for(const F of[divider.left,divider.right]){
+        loading(F,2.2,5.0,10.2);loading(F,13.0,5.0,10.2);
+        for(const u of[3.7,14.6])K.sash(S,F,u,11.2,2.2,2.0,true);
+      }
+      for(const F of[divider.front,divider.back])K.sash(S,F,3.25,8.3,2.8,4.2,true);
+      gable(43.15,53.35,16.15,37.35,14.45,5.6,false);
+      // A genuinely open hay arcade projects into only the west court edge.
+      for(const x of[23.1,27.1,31.1])S.beam([x,21,.1],[x,21,7.8],P.woodD,.34);
+      S.poly([[22,16.2,9],[32.5,16.2,9],[32.5,21.4,7.7],[22,21.4,7.7]],K.slate(dark(0,1)));
+      bales(23.6,18.1,3,2);bales(55.6,20.3,4,2);cart(34.2,23.4);cart(58.4,31.5);
+      stoneWall(2.1,67.3,1.1,1.8,2);stoneWall(1.1,1.8,1.8,40,2);
+      stoneWall(1.6,38.2,78.0,78.6,1.6);stoneWall(45.2,71.7,78.0,78.6,1.6);
+      fence(2.6,45,38.7,45,2.6);fence(45.6,45,71.2,45,2.6);
+      for(const [x,y]of[[20.1,26.7],[61.9,37.8],[41.8,75.8],[75.2,41.1]])K.lantern(S,x,y,7.3,true);
+      lamps(home.right,4.0,8.6);lamps(north.front,28.7,9.5);
+    }else if(id==='UKR021-S'){
+      apron(8.95,13.5,9,22.5);apron(2.0,9.0,21.5,23.2);
+      const barn=walls(2.2,8.8,4,21,.15,9.6,2201);
+      door403=barnDoors(barn,3.8,7.5);
+      for(const F of[barn.left,barn.right])for(const u of[.8,12.6])K.sash(S,F,u,3.0,3.1,5.0,true);
+      gable(1.95,9.05,3.75,21.25,9.85,5.0,false);
+      for(const F of[barn.front,barn.back]){
+        const pts=[];for(let n=0;n<16;n++){const a=n*Math.PI/8;pts.push(F.point(3.3+Math.cos(a)*1.05,.14,11.8+Math.sin(a)*1.05));}
+        S.poly(pts,[P.glass,P.warm],.045);K.ring(S,F,3.3,11.8,1.27,1.27,.22,.18,P.stone,16);
+        S.beam(F.point(2.25,.2,11.8),F.point(4.35,.2,11.8),P.frameR,.16);
+        S.beam(F.point(3.3,.2,10.75),F.point(3.3,.2,12.85),P.frame,.16);
+      }
+      lamps(barn.front,.65,7.1);lamps(barn.back,.65,7.1);
+      const feed=walls(2.4,7.1,23.5,28.7,.15,4.7,2202,'timber');
+      loading(feed.front,1.0,2.8,3.8);shed(2.2,7.35,23.25,28.95,4.9,1.5);
+      lamps(feed.left,2.0,4.4);lamps(feed.right,2.0,4.4);
+      fence(10.2,1.8,30.1,1.8,2.6);fence(30.1,1.8,30.1,30.2,2.6);
+      fence(10.2,1.8,10.2,8.0,2.6);fence(10.2,12.5,10.2,29.5,2.6);
+      fence(1.4,30.2,11.5,30.2,2.6);fence(16.0,30.2,30.1,30.2,2.6);
+      fence(12.0,30.0,15.5,29.9,2.3);trough(12.2,25.5,false);
+      cow(18.0,14.9,false);cow(24.3,24.6,true);bales(3.0,22.0,2,1);
+      K.lantern(S,13.6,29.1,6.1,true);hen403=projectPoint(19,21,.3);
+    }else if(id==='UKR021-M'){
+      apron(11.0,29.0,11,22.5);apron(10.8,14.8,23.0,30.4);
+      const loft=walls(2.4,10.4,3,15.2,.15,19.5,2211);
+      door403=barnDoors(loft,4.5,8.6);
+      if(view===0)door403=animationDoor(loft.front,1.75,4.5,8.6);
+      for(const F of[loft.front,loft.back])K.sash(S,F,2.35,11.1,3.3,5.3,true);
+      for(const F of[loft.left,loft.right])for(const u of[1.15,7.45])K.sash(S,F,u,11.1,2.7,5.3,true);
+      for(const F of Object.values(loft)){course(F,9.6);course(F,19.1);}
+      gable(2.1,10.7,2.7,15.5,19.8,5.4,false);
+      const stable=walls(10.8,28.5,3,10.2,.15,10.2,2212,'stone');
+      for(const F of[stable.front,stable.back]){
+        for(const u of[1.25,6.95,12.65])loading(F,u,3.35,7.3);
+        for(const u of[2.25,7.95,13.65])K.sash(S,F,u,8.0,1.9,1.6,true);
+      }
+      for(const F of[stable.left,stable.right])K.sash(S,F,2.2,3.7,2.7,4.4,true);
+      gable(10.5,28.8,2.7,10.5,10.5,4.6,true);
+      lamps(stable.front,5.9,7.0);lamps(stable.back,5.9,7.0);lamps(loft.left,9.8,8.1);
+      fence(1.3,17.1,10.0,17.1,2.5);fence(10.0,17.1,10.0,30.2,2.5);
+      fence(1.3,30.2,9.9,30.2,2.5);fence(16.0,23.3,30.4,23.3,2.5);
+      fence(30.4,11.0,30.4,30.2,2.5);fence(16.0,30.2,30.4,30.2,2.5);
+      bales(13.0,13.0,3,2);trough(21.4,20.1,false);cart(25.0,12.5);
+      cow(5.4,23.4,false);cow(23.5,27.1,true);K.lantern(S,16.0,20.3,6.7,true);hen403=projectPoint(17.3,18.2,.3);
+    }else{
+      apron(9.2,21.0,10.1,28.5);apron(29.5,30.7,8.8,29.8);
+      const north=walls(2,29.3,2,8.8,.15,10.5,2221,'stone');
+      for(const F of[north.front,north.back]){
+        for(const u of[1.6,8.6,18.8])loading(F,u,4.1,7.8);
+        for(const u of[3.0,10.0,20.2])K.sash(S,F,u,8.3,1.9,1.6,true);
+      }
+      for(const F of[north.left,north.right])K.sash(S,F,1.65,3.8,2.8,4.3,true);
+      gable(1.7,29.6,1.7,9.1,10.8,4.5,true);
+      const west=walls(2,8.5,9.3,27.5,.15,11.2,2222,'stone');
+      for(const F of[west.left,west.right]){
+        for(const u of[1.2,7.1,13])loading(F,u,3.8,8.4);
+        for(const u of[2.2,8.1,14.0])K.sash(S,F,u,9.0,1.85,1.65,true);
+      }
+      for(const F of[west.front,west.back])K.sash(S,F,1.7,5.3,3.0,4.3,true);
+      hip(1.7,8.8,9.0,27.8,11.5,4.2,false);
+      // West veranda remains open: real posts, a low sloping roof and no
+      // solid filler under it. The central court has a full south opening.
+      for(const yy of[10.2,15.1,20.0,24.9])S.beam([10.7,yy,.1],[10.7,yy,6.8],P.woodD,.27);
+      S.poly([[8.55,9.7,8.3],[10.95,9.7,6.9],[10.95,25.4,6.9],[8.55,25.4,8.3]],K.slate(dark(1,0)));
+      const loft=walls(21.8,29.3,9.3,28.5,.15,22.5,2223);
+      door403=barnDoors(loft,4.4,9.5);
+      if(view===1)door403=animationDoor(north.back,8.6,4.1,7.8);
+      for(const F of[loft.front,loft.back]){
+        K.sash(S,F,2.3,12.6,2.85,5.2,true);course(F,11.0);course(F,22.1);
+      }
+      for(const F of[loft.left,loft.right]){
+        for(const u of[1.6,7.75,13.9])K.sash(S,F,u,12.6,2.85,5.2,true);
+        course(F,11.0);course(F,22.1);
+      }
+      gable(21.5,29.6,9.0,28.8,22.8,5.6,false);
+      lamps(north.front,15.8,7.5);lamps(north.back,15.8,7.5);lamps(loft.front,.8,8.7);lamps(loft.back,.8,8.7);
+      bales(12.2,11.4,3,2);trough(13.4,24.7,false);cart(16.9,16.0);
+      cow(14.1,20.4,false);cow(18.4,26.0,true);
+      fence(1.35,30.2,9.0,30.2,2.5);fence(21.3,30.2,30.5,30.2,2.5);
+      K.lantern(S,20.0,28.6,6.5,true);hen403=projectPoint(15.3,19.0,.3);
+    }
+    function projectPoint(xx,yy,zz){
+      let x=xx,y=yy;if(view===1){x=extent-yy;y=xx;}else if(view===2){x=extent-xx;y=extent-yy;}else if(view===3){x=yy;y=extent-xx;}
+      return [Math.round(spec.w/2+2*x-2*y),Math.round(spec.h-2-2*extent+x+y-(zz||0))];
+    }
+    const meta={season,stage,crop,cropClass:cropClasses[crop],temporalInputs:'native-T397-only',
+      nativeFootprint:spec.sz+'x'+spec.sz,nativeLevel:spec.lv||1,geometryVariant:spec.id,
+      functionality:'original-carrier-only; no new production, animal count, capacity or calendar'};
+    if(door403){meta.door403=door403;meta.hen403=hen403;meta.animalArt='static-cattle-preview; native species and head counts remain unmodified';}
+    if(spec.k===63){meta.glassPolicy='opaque-dithered-see-through-panels-over-real-interior-beds';meta.winterPolicy='protected-bed-art; external-season-color-only';}
+    else meta.winterPolicy='muted-ground-and-dry-crop-stubble; snow-owned-by-native-overlay';
+    return finish(meta);
+  }
+  root.BritishUseScalesAgriculture021=Object.freeze({specs,cropClasses,build,
+    buildAll:extra=>specs.flatMap(s=>Array.from({length:4},(_,view)=>build(s.id,view,extra)))});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script data-use021-source="british-use-scales-infrastructure021.js">
+/* GPT-021 infrastructure candidates. Original, deterministic world geometry.
+ * Warehouse carriers are 2/3/4 native tiles; passenger carriers 1/3/5.
+ * Freight's middle carrier is ROAD distribution, not a new railway station.
+ * Pure art: no registry, game world, saves, RNG, simulation or bitmap scaling.
+ * Four geometric views share the unchanged approved opaque CPU rasterizer.
+ */
+(function(root){
+  'use strict';
+  const specs=Object.freeze([
+    {id:'UKW021-S',nm:'石砌單跨貨棧',group:'warehouse',scale:'S',sz:2,w:160,h:180,k:64,tool:'warehouse',floors:1,
+      plan:'single-stone-span-and-low-side-store',roof:'long-stone-gable-and-side-catslide',entry:'front-raised-loading-door-and-side-staff-door',yard:'open-front-unloading-apron-and-rear-service-strip',
+      masses:[[3,24.3,7.1,23.8,0,19.2],[24.8,29.6,14.1,23.2,0,10.3]],
+      functionLimit:'Native k64 warehouse only; geometry does not add stock, goods or throughput.'},
+    {id:'UKW021-M',nm:'三層起重磚貨棧',group:'warehouse',scale:'M',sz:3,w:232,h:218,k:167,tool:'distributionCenter',floors:3,
+      plan:'tall-west-range-and-low-north-return-plus-gate-office',roof:'long-tall-gable-and-perpendicular-low-gable',entry:'separate-front-hoist-loading-and-east-court-staff-entry',yard:'real-open-eastern-delivery-court',
+      masses:[[3,22,5,38,0,35.5],[22,43,5,16,0,24.2],[37,44,35,44,0,13.3]],
+      functionLimit:'Native k167 road distribution; shared carrier with freight M, installed by group only.'},
+    {id:'UKW021-L',nm:'錯列雙倉理貨院',group:'warehouse',scale:'L',sz:4,w:296,h:232,k:165,tool:'containerLogistics',floors:2,
+      plan:'offset-parallel-brick-warehouses-and-detached-front-office',roof:'two-unequal-long-gables-and-office-hip',entry:'two-goods-frontages-and-independent-office-door',yard:'unobstructed-central-through-lane-and-two-loading-courts',
+      masses:[[3,23,9,53,0,24],[39,61,3,40,0,17.6],[39,60,43,59,0,27]],
+      functionLimit:'British masonry art on native k165 containerLogistics; retains its existing logistics values.'},
+    {id:'UKP021-S',nm:'鄉村單月台站房',group:'passengerstation',scale:'S',sz:1,w:80,h:108,k:17,tool:'station',floors:1,
+      plan:'compact-booking-room-and-detached-coal-store',roof:'short-gable-and-single-front-platform-canopy',entry:'separate-street-and-platform-doors',yard:'small-rear-staff-yard-with-coal-store',
+      masses:[[1.5,11.2,3.3,10.5,0,14.5],[11.8,14.5,3.1,7.7,0,7.9]],
+      functionLimit:'Native k17 is 1x1, not 2x2. Rail service still needs the native adjacent network.'},
+    {id:'UKP021-M',nm:'鎮站雙月台長站房',group:'passengerstation',scale:'M',sz:3,w:232,h:206,k:55,tool:'grandStation',floors:2,
+      plan:'long-west-booking-range-and-two-separated-platform-canopies',roof:'high-station-gable-and-two-low-iron-ridges',entry:'street-end-booking-hall-and-side-platform-access',yard:'separate-front-concourse-and-small-eastern-service-bay',
+      masses:[[3,19,7,39,0,27.2],[36,44,33,42,0,11.5]],
+      functionLimit:'Native k55 3x3 railway station. Painted internal track positions do not add or repair native topology.'},
+    {id:'UKP021-L',nm:'雙廳雙跨城市客站',group:'passengerstation',scale:'L',sz:5,w:360,h:286,k:139,tool:'hsrStation',floors:2,
+      plan:'separated-west-and-central-booking-halls-two-narrow-glass-sheds-and-east-service-range',roof:'two-independent-glass-vaults-and-separate-hipped-halls',entry:'two-street-halls-and-upper-platform-gallery',yard:'front-walking-court-and-independent-eastern-service-bay',
+      masses:[[3,16,41,76,0,28.4],[33,47,63,76,0,28.4],[35,45,65,74,28.4,52],[65,76,7,25,0,17.3]],
+      functionLimit:'Native 5x5 k139 only. When used with approved 008 variants, preserve their actual x24/x56 owned corridors and all native port/construction authorities.'},
+    {id:'UKT021-S',nm:'穿廊單跨鐵道貨棚',group:'freightstation',scale:'S',sz:2,w:160,h:174,k:110,tool:'freight',floors:1,
+      plan:'genuinely-open-through-shed-and-small-east-goods-office',roof:'one-long-gable-and-low-offset-office-hip',entry:'open-end-rail-arches-and-separated-side-goods-door',yard:'eastern-unloading-apron-and-small-office-court',
+      masses:[[3,7.4,4,27.4,0,18.8],[17.6,22,4,27.4,0,18.8],[7.4,17.6,4,4.9,11.4,18.8],[7.4,17.6,26.5,27.4,11.4,18.8],[23.5,29.9,17.4,28.3,0,11.2]],
+      functionLimit:'Native k110 freight only. Painted through-track is visual geometry, not a new railway connection or train schedule.'},
+    {id:'UKT021-M',nm:'橫樓公路配送貨院',group:'freightstation',scale:'M',sz:3,w:232,h:206,k:167,tool:'distributionCenter',floors:2,
+      plan:'two-storey-front-cross-range-low-west-shed-and-detached-canopy',roof:'long-front-hip-low-west-gable-and-open-loading-canopy',entry:'front-staff-entrance-and-rear-goods-doors',yard:'large-open-central-road-delivery-court-with-east-gate',
+      masses:[[3,42,30,44,0,25.8],[3,15,4,30,0,15.2]],
+      functionLimit:'Native k167 ROAD distribution, not a railway freight station. Shared carrier with warehouse M, installed by group only.'},
+    {id:'UKT021-L',nm:'錯列雙貨棚門吊院',group:'freightstation',scale:'L',sz:4,w:296,h:240,k:166,tool:'intermodalHub',floors:3,
+      plan:'two-offset-open-rail-goods-sheds-central-gantry-court-and-west-control-range',roof:'two-separated-slate-gables-and-hipped-control-room',entry:'two-through-rail-arches-road-gate-and-separate-control-door',yard:'separated-central-loading-yard-and-clear-painted-rail-corridors',
+      masses:[[3.7,11.9,5,27,0,18.6],[22.1,28.4,5,27,0,18.6],[11.9,22.1,5,5.9,11.4,18.6],[11.9,22.1,26.1,27,11.4,18.6],
+        [36,41.9,34,57,0,17.5],[52.1,59,34,57,0,17.5],[41.9,52.1,34,34.9,11.4,17.5],[41.9,52.1,56.1,57,11.4,17.5],[3.5,11.6,39,55,0,41.5]],
+      functionLimit:'Native k166 intermodalHub conditions remain. As disclosed in T611, painted rails do not connect adjacent true rail tiles; no new dispatch or throughput.'}
+  ].map(s=>Object.freeze({...s,masses:Object.freeze(s.masses.map(m=>Object.freeze(m)))})));
+
+  function build(id,view){
+    const spec=specs.find(s=>s.id===id);if(!spec)throw Error('Unknown infrastructure candidate '+id);
+    if(!root.BritishUseScalesKit021)throw Error('Candidate architectural kit missing');
+    const A=root.BritishUseScalesKit021.create(spec,view),{S,K,P,C,extent:E,dark,walls,course,gable,hip,shed,windows,door,loading,chimney,crates,fence,canopy,lamps}=A;
+    const ballast=C('777f76'),ballastDark=C('646f67'),ironPale=C('90a49a');
+    S.flat(.9,E-.9,.9,E-.9,0,K.paving);
+    function bay(F,u,z,w,h,lit){K.sash(S,F,u,z,w,h,lit!==false);}
+    function row(F,bays,z,w,h){for(let b=0;b<bays;b++)bay(F,F.length*(b+.5)/bays-w/2,z,w,h);}
+    function lamp(x,y,z){K.lantern(S,x,y,z||9,true);}
+    function pipes(x0,x1,y0,y1,z){for(const[x,y]of[[x0,y0],[x1,y1]])K.rainpipe(S,x,y,z);}
+    function stoneGable(x0,x1,y0,y1,z,rise,alongX){
+      gable(x0,x1,y0,y1,z,rise,alongX);
+      if(alongX){const cy=(y0+y1)/2;for(const x of[x0,x1])S.poly([[x,y0,z],[x,y1,z],[x,cy,z+rise]],K.ashlar(dark(x===x0?-1:1,0),2193),.025);}
+      else{const cx=(x0+x1)/2;for(const y of[y0,y1])S.poly([[x0,y,z],[x1,y,z],[cx,y,z+rise]],K.ashlar(dark(0,y===y0?-1:1),2194),.025);}
+    }
+    function dock(x0,x1,y0,y1,z){S.box(x0,x1,y0,y1,0,z,P.stone,P.stoneR,P.stoneHi);for(const yy of[y0,y1])S.beam([x0,yy,z+.05],[x1,yy,z+.05],P.ironD,.20);}
+    function stackedGoods(x,y){crates(x,y,4);crates(x,y+1.7,3);for(let i=0;i<2;i++)S.box(x+.7+i*1.4,x+1.8+i*1.4,y+.7,y+1.9,1.7,3.1,P.woodHi,P.woodR,P.wood);}
+    function gatePost(x,y,h){const F=walls(x-.42,x+.42,y-.42,y+.42,0,h||4.4,2189,'stone');S.box(x-.60,x+.60,y-.60,y+.60,(h||4.4)-.1,(h||4.4)+.55,P.stone,P.stoneR,P.stoneHi);return F;}
+    function clock(F,u,z,r){
+      F.panel(u-r-.4,u+r+.4,z-r-.4,z+r+.4,(xx,zz)=>{const x=xx-r-.4,y=zz-r-.4,d=Math.hypot(x,y);
+        if(d>r)return null;if(d>r-.42)return P.gold;
+        if(Math.abs(x)<.19&&y>-.25&&y<r*.63||Math.abs(y+x*.55)<.18&&x>-.18&&x<r*.58)return P.ink;
+        if(d>r-.9&&K.mod(Math.atan2(y,x)*6/Math.PI,.99)<.15)return P.ink;return P.paper;},.22);
+    }
+    function track(center,y0,y1){
+      S.flat(center-4.3,center+4.3,y0,y1,.18,(x,y)=>K.mod(y,2.4)<.38?P.woodD:K.hash(Math.floor(x*2),Math.floor(y*2),2180)%9===0?ballastDark:ballast);
+      for(const dx of[-2.45,2.45]){S.flat(center+dx-.30,center+dx+.30,y0,y1,.48,P.ironD);S.flat(center+dx-.12,center+dx+.12,y0,y1,.63,ironPale);}
+    }
+    function platform(x0,x1,y0,y1){
+      S.box(x0,x1,y0,y1,0,2.5,P.stone,P.stoneR,K.paving);
+      for(const x of[x0+.25,x1-.65])S.flat(x,x+.4,y0+.3,y1-.3,2.55,P.paper,.02);
+    }
+    function ironCanopy(x0,x1,y0,y1,z,rise){
+      const cx=(x0+x1)/2;
+      S.poly([[x0,y0,z],[cx,y0,z+rise],[cx,y1,z+rise],[x0,y1,z]],P.canopyHi);
+      S.poly([[cx,y0,z+rise],[x1,y0,z],[x1,y1,z],[cx,y1,z+rise]],P.canopyR);
+      S.beam([cx,y0,z+rise+.06],[cx,y1,z+rise+.06],P.ironHi,.34);
+      for(const y of[y0+.6,(y0+y1)/2,y1-.6]){
+        for(const x of[x0+.4,x1-.4]){S.box(x-.12,x+.12,y-.12,y+.12,0,z,P.iron,P.ironD,P.ironHi);S.beam([x,y,z-2.2],[cx,y,z+rise-.2],P.ironHi,.25);}
+        S.beam([x0,y,z],[cx,y,z+rise],P.ironHi,.26);S.beam([cx,y,z+rise],[x1,y,z],P.ironHi,.26);
+      }
+      for(const x of[x0,x1])S.beam([x,y0,z],[x,y1,z],P.ironD,.35);
+    }
+    function glassShed(x0,x1,y0,y1,z,rise){
+      const xs=[0,.16,.35,.5,.65,.84,1].map(t=>x0+(x1-x0)*t),zs=[0,.55,.91,1,.91,.55,0].map(t=>z+rise*t);
+      for(let a=0;a<xs.length-1;a++){
+        S.poly([[xs[a],y0,zs[a]],[xs[a+1],y0,zs[a+1]],[xs[a+1],y1,zs[a+1]],[xs[a],y1,zs[a]]],(x,y)=>K.mod(y-y0,3.8)<.14?P.ironHi:a<3?P.glassHi:P.glass);
+        S.beam([xs[a],y0,zs[a]+.05],[xs[a],y1,zs[a]+.05],P.ironHi,.27);
+      }
+      S.beam([x1,y0,z],[x1,y1,z],P.ironHi,.27);
+      for(let y=y0+.8;y<y1;y+=9.1){
+        for(const x of[x0,x1])S.box(x-.19,x+.19,y-.18,y+.18,0,z,P.iron,P.ironD,P.ironHi);
+        for(let a=0;a<xs.length-1;a++)S.beam([xs[a],y,zs[a]],[xs[a+1],y,zs[a+1]],P.ironHi,.47);
+        S.beam([x0,y,z],[x1,y,z],P.iron,.28);
+      }
+    }
+    function archPortal(F,u,width,height){
+      const r=width/2,spring=height-r,c=u+r,t=.9;
+      for(let i=0;i<16;i++){
+        const a=i*Math.PI/16,b=(i+1)*Math.PI/16;
+        S.poly([F.point(c+Math.cos(a)*r,.20,spring+Math.sin(a)*r),F.point(c+Math.cos(b)*r,.20,spring+Math.sin(b)*r),
+          F.point(c+Math.cos(b)*(r+t),.20,spring+Math.sin(b)*(r+t)),F.point(c+Math.cos(a)*(r+t),.20,spring+Math.sin(a)*(r+t))],i%3===0?P.stoneHi:P.stone,.04);
+      }
+      F.block(u-.85,u,0,.48,0,spring,P.stone,P.stoneR,P.stoneHi);F.block(u+width,u+width+.85,0,.48,0,spring,P.stone,P.stoneR,P.stoneHi);
+      F.block(u+width/2-.28,u+width/2+.28,0,.55,height-.15,height+1.15,P.stoneHi,P.stoneR,P.stoneHi);
+    }
+    function openGoodsShed(x0,x1,y0,y1,z,rise,center,seed){
+      const g0=center-5.1,g1=center+5.1,openingH=11.4;
+      walls(x0,g0,y0,y1,0,z,seed);walls(g1,x1,y0,y1,0,z,seed+1);
+      walls(g0,g1,y0,y0+.9,openingH,z,seed+2);walls(g0,g1,y1-.9,y1,openingH,z,seed+3);
+      gable(x0-.25,x1+.25,y0-.25,y1+.25,z,rise,false);
+      const F={front:S.face([x0,y1],[x1,y1],0,1),back:S.face([x1,y0],[x0,y0],0,-1),
+        left:S.face([x0,y0],[x0,y1],-1,0),right:S.face([x1,y1],[x1,y0],1,0)};
+      archPortal(F.front,g0-x0,10.2,openingH);archPortal(F.back,x1-g1,10.2,openingH);
+      row(F.front,3,z-4.2,2.6,2.3);row(F.back,3,z-4.2,2.6,2.3);
+      row(F.left,4,8.0,2.5,5.2);row(F.right,4,8.0,2.5,5.2);
+      course(F.left,z-.7);course(F.right,z-.7);lamps(F.front,1.25,9.0);lamps(F.back,F.back.length-1.3,9.0);
+      return F;
+    }
+    function gantry(x0,x1,y,z){
+      for(const x of[x0,x1]){
+        S.box(x-.42,x+.42,y-.53,y+.53,0,z,P.ironHi,P.ironD,P.ironHi);
+        S.box(x-.75,x+.75,y-.8,y+.8,0,.9,P.stone,P.stoneR,P.stoneHi);
+        S.beam([x,y,z-5.4],[x+(x===x0?3.3:-3.3),y,z-.5],P.ironHi,.52);
+      }
+      S.box(x0-.4,x1+.4,y-.62,y+.62,z,z+2.15,P.ironHi,P.ironD,P.ironHi);
+      for(let x=x0+.6;x<x1;x+=4.2)S.beam([x,y-.64,z+.13],[x+3.2,y-.64,z+1.97],P.ironD,.27);
+      S.box((x0+x1)/2-1.1,(x0+x1)/2+1.1,y-.85,y+.85,z-.7,z+.4,P.iron,P.ironD,P.ironHi);
+      S.beam([(x0+x1)/2,y,z-.7],[(x0+x1)/2,y,6.0],P.ironD,.14);
+      S.beam([(x0+x1)/2,y,6.0],[(x0+x1)/2+.8,y,5.5],P.iron,.28);
+    }
+
+    if(id==='UKW021-S'){
+      const F=walls(3,24.3,7.1,23.8,0,19.2,2181,'stone');
+      stoneGable(2.7,24.6,6.8,24.1,19.2,7.3,true);
+      course(F.front,18.4);course(F.back,18.4);course(F.left,18.4);course(F.right,18.4);
+      loading(F.front,7.7,6.7,10.5);bay(F.front,1.7,9.2,3,5.7);bay(F.front,16.7,9.2,3,5.7);
+      row(F.back,4,9.2,2.8,5.7);row(F.left,3,8.4,2.6,5.9);row(F.right,3,11.4,2.4,4.2);
+      lamps(F.front,2.0,5.7);lamps(F.front,18.6,5.7);lamps(F.back,10.3,7.4);
+      dock(8.5,18.8,23.9,26.7,1.3);dock(19.0,21.2,24.0,25.0,.55);
+      S.box(19.0,21.2,25.0,26.0,0,.9,P.stone,P.stoneR,P.stoneHi);
+      const O=walls(24.8,29.6,14.1,23.2,0,10.3,2182,'stone');shed(24.5,29.9,13.8,23.5,10.3,2.5);
+      door(O.front,1.1,2.5,8);bay(O.back,1.0,3.0,2.5,4.8);bay(O.right,2.7,3.0,2.5,4.8);lamps(O.right,7.3,6.4);
+      pipes(3,24.3,7.1,23.8,18.6);chimney(27.2,15.9,12.5,1);
+      stackedGoods(3.2,26.4);crates(26.0,9.1,2);
+      fence(2.1,2.8,18.4,2.8,2.7);fence(28.7,2.8,28.7,8.1,2.7);
+      gatePost(19.8,3.1,3.6);gatePost(26.0,3.1,3.6);lamp(2.4,29.2,8.3);lamp(28.1,4.2,8.0);
+    }else if(id==='UKW021-M'){
+      const F=walls(3,22,5,38,0,35.5,2183);
+      gable(2.7,22.3,4.7,38.3,35.5,7.4,false);
+      for(const z of[11.7,23.1,34.6])for(const side of['front','back','left','right'])course(F[side],z);
+      loading(F.front,6.7,6.6,10.5);bay(F.front,1.0,3.0,2.8,6.3);bay(F.front,15.2,3.0,2.7,6.3);
+      for(const z of[15.0,26.2]){bay(F.front,1.0,z,2.8,6.2);bay(F.front,15.2,z,2.7,6.2);}
+      F.front.panel(6.9,13.1,14.7,24.4,(u,z)=>K.mod(u,1.2)<.12?P.woodD:P.wood,.15);
+      F.front.block(6.6,13.4,0,.45,24.0,25.0,P.stone,P.stoneR,P.stoneHi);bay(F.front,7.7,27.0,3.0,6.0);
+      windows(F.back,3,3,3.4,3.0,6.2);windows(F.left,3,6,3.4,2.8,6.2);windows(F.right,2,6,15.0,2.8,6.2);
+      loading(F.right,9.3,6.4,10.0);door(F.right,26.6,2.6,8.7);lamps(F.front,16.1,10.2);lamps(F.back,1.5,9.4);
+      // A real attached hoist dormer and suspended rope, not a painted roof icon.
+      const H=walls(9.0,15.5,37.9,40.3,30.5,37.8,2184,'timber');gable(8.8,15.7,37.7,40.5,37.8,4.1,false);
+      H.front.panel(1.4,5.0,31.3,36.8,P.woodD,.12);
+      S.beam([12.2,38.3,35.0],[12.2,43.0,35.0],P.woodD,.55);S.beam([12.2,38.4,38.0],[12.2,42.5,35.0],P.iron,.32);
+      S.beam([12.2,42.7,34.8],[12.2,42.7,5.0],P.ironD,.12);S.beam([12.2,42.7,5.0],[12.9,42.7,4.6],P.iron,.22);
+      const R=walls(22,43,5,16,0,24.2,2185);gable(21.8,43.3,4.7,16.3,24.2,5.3,true);
+      windows(R.front,2,4,3.0,2.7,6.3);windows(R.back,2,4,3.0,2.7,6.3);row(R.right,2,14.2,2.8,6.3);
+      loading(R.right,2.1,5.6,10.2);lamps(R.front,19.4,8.3);lamps(R.back,1.5,8.6);
+      canopy(22.5,31.7,23.2,28.3,11.1);dock(22.1,25.0,23.6,30.0,1.1);
+      const O=walls(37,44,35,44,0,13.3,2186);hip(36.7,44.3,34.7,44.3,13.3,4.0,false);
+      door(O.front,2.4,2.5,9);row(O.back,2,3.7,2.4,6.1);row(O.right,2,3.7,2.4,6.1);bay(O.left,2.8,3.7,2.5,6.1);lamps(O.front,1.0,8.2);
+      pipes(3,22,5,38,35.1);pipes(22,43,5,16,23.8);chimney(40.7,37.3,16.0,2);
+      stackedGoods(25.7,18.4);stackedGoods(27.8,31.6);crates(34.0,18.3,5);
+      fence(2.0,2.6,44.7,2.6,3);fence(45.0,3.0,45.0,33.0,3);
+      gatePost(24.5,44.8,4.2);gatePost(34.7,44.8,4.2);lamp(30.0,41.4,11);lamp(44.5,19.0,10);
+    }else if(id==='UKW021-L'){
+      const W=walls(3,23,9,53,0,24,2187);gable(2.7,23.3,8.7,53.3,24,7.4,false);
+      course(W.front,12.0);course(W.back,12.0);course(W.right,23.2);course(W.left,23.2);
+      loading(W.front,5.2,9.6,11.4);row(W.front,3,14.8,3.2,5.5);row(W.back,3,14.8,3.2,5.5);
+      row(W.left,7,14.8,2.8,5.5);row(W.right,7,14.8,2.8,5.5);
+      for(const u of[5.4,21.7,34.0]){loading(W.right,u,6.4,10.5);lamps(W.right,u+7.8,9.0);}
+      lamps(W.back,1.3,8.0);lamps(W.front,17.8,8.0);
+      const R=walls(39,61,3,40,0,17.6,2188);gable(38.7,61.2,2.7,40.3,17.6,6.0,false);
+      loading(R.front,6.0,9.0,10.6);row(R.front,3,11.2,2.7,4.1);row(R.back,4,7.0,2.7,6.0);
+      row(R.left,6,10.8,2.8,4.6);row(R.right,6,10.8,2.8,4.6);loading(R.left,12.2,7.3,9.3);
+      lamps(R.front,2.0,6.9);lamps(R.back,20.0,7.0);lamps(R.right,6.0,8.0);
+      const O=walls(39,60,43,59,0,27,2190);hip(38.7,60.3,42.7,59.3,27,6.0,true);
+      for(const side of['front','back','left','right']){course(O[side],12.8);course(O[side],26.1);}
+      windows(O.front,1,4,15.6,3.0,6.6);windows(O.back,2,4,4.2,3.0,6.6);windows(O.right,2,3,4.2,2.8,6.6);windows(O.left,2,3,4.2,2.8,6.6);
+      door(O.front,8.3,3.3,10.8);bay(O.front,2.0,4.2,3.2,6.6);bay(O.front,15.8,4.2,3.2,6.6);lamps(O.front,7.0,9);lamps(O.front,13.8,9);
+      canopy(23.4,28.7,29.0,37.4,10.1);canopy(34.0,38.5,15.0,23.3,9.3);
+      dock(18.4,23.1,54.0,58.4,1.3);dock(39.0,49.7,40.2,42.0,1.0);
+      pipes(3,23,9,53,23.6);pipes(39,61,3,40,17.2);chimney(44.6,46.3,31.4,2);chimney(55.6,54.0,31.4,2);
+      stackedGoods(4.7,3.9);stackedGoods(53.4,40.7);crates(5.2,59.0,6);
+      fence(2.0,2.4,35.8,2.4,3.2);fence(2.0,4.0,2.0,59.4,3.2);fence(61.7,42.8,61.7,60.5,3.2);
+      gatePost(25.1,61.0,4.8);gatePost(36.3,61.0,4.8);lamp(31.0,55.2,11.3);lamp(31.0,7.4,11.3);lamp(60.2,41.2,9.0);
+    }else if(id==='UKP021-S'){
+      const F=walls(1.5,11.2,3.3,10.5,0,14.5,2191,'stone');stoneGable(1.2,11.5,3.0,10.8,14.5,6.3,true);
+      course(F.front,13.6);course(F.back,13.6);course(F.left,13.6);course(F.right,13.6);
+      door(F.front,4.0,2.5,9.5);K.archWindow(S,F.front,.7,2.7,2.3,10.0,true);K.archWindow(S,F.front,7.0,2.7,2.0,10.0,true);
+      row(F.back,3,3.2,2.0,5.5);bay(F.left,.9,3.2,2.0,5.5);door(F.left,4.1,2.2,8.8);row(F.right,2,3.2,2.0,5.5);
+      clock(F.front,5.25,11.6,1.7);lamps(F.back,4.8,9.3);lamps(F.right,1.1,9.0);
+      // High physical platform lamps remain visible above the low canopy;
+      // canopy-covered window glow is correctly hidden by the shared z buffer.
+      lamps(F.front,.25,11.7);lamps(F.front,9.3,11.7);
+      platform(1.3,11.9,11.0,14.7);canopy(1.1,12.1,10.8,14.5,10.5);
+      S.beam([1.3,14.5,10.5],[11.9,14.5,10.5],P.greenD,.30);for(const x of[1.7,11.4])S.beam([x,14.1,8.4],[x+(.8*(x<6?1:-1)),14.1,10.3],P.ironHi,.24);
+      const O=walls(11.8,14.5,3.1,7.7,0,7.9,2192,'timber');shed(11.6,14.7,2.9,7.9,7.9,1.8);loading(O.front,.5,1.6,6.3);
+      fence(12.1,8.4,14.5,8.4,2.6);fence(14.5,8.4,14.5,10.7,2.6);crates(12.1,9.2,1);
+      pipes(1.5,11.2,3.3,10.5,14.1);chimney(8.6,5.6,18.1,1);lamp(13.3,12.6,8.8);lamp(2.1,1.8,7.0);
+    }else if(id==='UKP021-M'){
+      track(26,2.0,43.0);track(40,2.0,30.4);
+      platform(20.1,21.5,2.0,35.6);platform(30.6,35.4,2.0,35.6);platform(44.5,46.4,2.0,29.5);
+      const F=walls(3,19,7,39,0,27.2,2195);gable(2.7,19.3,6.7,39.3,27.2,7.0,false);
+      for(const side of['front','back','left','right']){course(F[side],13.5);course(F[side],26.4);}
+      door(F.front,6.4,3.2,11);K.archWindow(S,F.front,.9,2.3,4.1,10.4,true);K.archWindow(S,F.front,11.3,2.3,3.7,10.4,true);
+      windows(F.front,1,3,16.5,2.9,6.3);windows(F.back,2,3,4.9,2.9,6.3);windows(F.left,2,6,4.9,2.7,6.3);
+      windows(F.right,1,6,16.5,2.7,6.3);for(const u of[3.2,14.0,25.0]){door(F.right,u,3,10.6);lamps(F.right,u+4.2,9.8);}
+      clock(F.front,8,29.4,2.5);lamps(F.front,5.1,9.8);lamps(F.back,1.4,9.8);
+      ironCanopy(21.4,31.0,3.0,29.3,14.0,3.7);ironCanopy(35.3,44.2,3.0,29.3,13.0,3.2);
+      for(const [x,y]of[[33.1,8.0],[33.1,25.0],[45.5,6.0],[45.5,22.8]])lamp(x,y,9.5);
+      const O=walls(36,44,33,42,0,11.5,2196,'stone');hip(35.7,44.3,32.7,42.3,11.5,3.4,false);
+      door(O.front,3.0,2.4,8.3);row(O.back,2,3.5,2.3,5.1);row(O.right,2,3.5,2.3,5.1);bay(O.left,3.0,3.5,2.3,5.1);
+      fence(35.2,43.1,45.2,43.1,2.7);crates(44.6,33.8,1);pipes(3,19,7,39,26.8);chimney(8.0,13.6,31.8,2);chimney(14.0,29.4,31.8,2);
+      lamp(4.3,43.6,10.8);lamp(24.0,44.0,10.8);lamp(44.5,31.0,9.8);
+    }else if(id==='UKP021-L'){
+      // These two centers are the approved British 008 actual rail corridors.
+      // No solid booking hall, stair or service bay occupies either corridor.
+      track(24,.9,79.1);track(56,.9,79.1);
+      platform(3.0,18.8,2.0,37.6);platform(29.2,49.8,2.0,56.7);platform(61.3,76.3,28.0,59.2);
+      glassShed(17.8,30.2,4.0,53.8,21.0,12.5);glassShed(49.8,62.2,4.0,53.8,21.0,12.5);
+      ironCanopy(65.0,75.3,31.0,52.1,14.2,4.1);
+      const W=walls(3,16,41,76,0,28.4,2197);hip(2.7,16.3,40.7,76.3,28.4,7.2,false);
+      for(const side of['front','back','left','right']){course(W[side],13.2);course(W[side],27.7);}
+      door(W.front,4.7,3.3,11.2);K.archWindow(S,W.front,.8,2.0,3.1,10.6,true);K.archWindow(S,W.front,9.2,2.0,3.0,10.6,true);
+      windows(W.front,1,3,16.0,2.7,6.6);windows(W.back,2,3,4.4,2.7,6.6);windows(W.left,2,7,4.4,2.7,6.6);windows(W.right,2,7,4.4,2.7,6.6);
+      // Booking halls have separate street entrances, not an opaque cross-track frontage.
+      const B=walls(33,47,63,76,0,28.4,2198,'stone');hip(32.7,47.3,62.7,76.3,28.4,6.0,true);
+      for(const side of['front','back','left','right']){course(B[side],13.2);course(B[side],27.7);}
+      door(B.front,5.25,3.5,11.1);K.archWindow(S,B.front,.8,2.0,3.4,10.4,true);K.archWindow(S,B.front,9.8,2.0,3.3,10.4,true);
+      windows(B.front,1,3,16.0,2.8,6.6);windows(B.back,2,3,4.4,2.8,6.6);windows(B.left,2,3,4.4,2.8,6.6);windows(B.right,2,3,4.4,2.8,6.6);
+      const T=walls(35,45,65,74,28.4,52,2199);hip(34.7,45.3,64.7,74.3,52,5.3,true);
+      for(const side of['front','back','left','right']){course(T[side],39.0);course(T[side],51.3);clock(T[side],T[side].length/2,46.2,3.1);row(T[side],2,31.2,2.5,5.0);}
+      const O=walls(65,76,7,25,0,17.3,2200);gable(64.7,76.3,6.7,25.3,17.3,5.0,false);
+      loading(O.front,3.1,5.0,9.7);row(O.back,3,5.2,2.6,7.1);row(O.left,4,5.2,2.6,7.1);row(O.right,4,5.2,2.6,7.1);lamps(O.front,1.1,10.8);lamps(O.back,8.4,10.8);
+      canopy(65.0,76.0,25.6,28.3,10.4);crates(66.7,25.8,5);
+      // Lower transverse gallery sits beyond the two glass sheds, with its
+      // stair on the independent east platform rather than inside a rail cell.
+      S.box(15.7,72.8,57.6,60.0,16.0,17.7,P.stone,P.stoneR,P.stoneHi);
+      for(const y of[57.6,60.0]){S.beam([15.7,y,17.8],[72.8,y,17.8],P.iron,.4);S.beam([15.7,y,21.0],[72.8,y,21.0],P.ironHi,.4);for(let x=16.7;x<73;x+=3.2)S.beam([x,y,17.8],[x,y,21.0],P.iron,.2);}
+      for(const x of[17.3,38.2,69.9])S.box(x-.28,x+.28,58.3,59.1,0,16.0,P.iron,P.ironD,P.ironHi);
+      for(let i=0;i<11;i++)S.box(68.2,72.0,60.1+i,61.1+i,0,16.0-i*1.5,P.stone,P.stoneR,P.stoneHi);
+      for(const x of[68.1,72.1])S.beam([x,60.1,19.1],[x,71.2,3.8],P.ironHi,.35);
+      for(const [x,y]of[[9.0,8.0],[9.0,30.2],[37.4,7.0],[37.4,28.5],[37.4,49.5],[71.0,36.0],[71.0,56.0]])lamp(x,y,12.0);
+      lamps(W.front,3.3,9.6);lamps(W.front,9.6,9.6);lamps(W.back,6.0,9.6);lamps(B.front,3.9,9.6);lamps(B.front,10.2,9.6);
+      pipes(3,16,41,76,28);pipes(33,47,63,76,28);pipes(65,76,7,25,17);chimney(7.2,49.0,32.8,2);chimney(11.6,68.7,32.8,2);chimney(71.1,11.0,20.3,1);
+      lamp(7.0,78.1,10);lamp(41.0,78.1,10);lamp(71.0,74.0,10);fence(64.1,2.9,76.7,2.9,2.8);
+    }else if(id==='UKT021-S'){
+      track(12.5,.9,31.1);
+      const F=openGoodsShed(3,22,4,27.4,18.8,6.4,12.5,2201);
+      loading(F.right,10.5,6.4,9.0);lamps(F.right,18.5,9.8);pipes(3,22,4,27.4,18.4);
+      dock(22.1,25.1,10.6,16.7,1.5);canopy(22.4,29.7,10.0,16.1,10.1);
+      const O=walls(23.5,29.9,17.4,28.3,0,11.2,2205,'stone');hip(23.3,30.1,17.2,28.5,11.2,3.5,false);
+      door(O.front,2.0,2.5,8.6);row(O.back,2,3.3,2.4,5.2);row(O.right,2,3.3,2.5,5.2);bay(O.left,4.1,3.3,2.5,5.2);lamps(O.front,.8,8.5);
+      stackedGoods(24.1,4.1);crates(24.2,28.8,3);chimney(26.8,20.0,13.5,1);
+      fence(1.8,3.0,1.8,29.0,2.7);fence(23.0,1.9,29.5,1.9,2.7);gatePost(23.9,30.1,3.6);gatePost(29.1,30.1,3.6);
+      lamp(2.1,29.2,9.0);lamp(28.9,7.2,9.0);
+    }else if(id==='UKT021-M'){
+      const F=walls(3,42,30,44,0,25.8,2206);hip(2.7,42.3,29.7,44.3,25.8,6.5,true);
+      for(const side of['front','back','left','right']){course(F[side],12.8);course(F[side],25.0);}
+      windows(F.front,1,7,15.3,2.8,6.3);windows(F.back,1,7,15.3,2.8,6.3);windows(F.left,2,3,4.1,2.5,6.3);windows(F.right,2,3,4.1,2.5,6.3);
+      for(const u of[1.8,8.2,26.0,32.5])bay(F.front,u,4.1,2.8,6.3);
+      door(F.front,18.0,3.7,10.6);lamps(F.front,16.4,9.8);lamps(F.front,23.1,9.8);
+      loading(F.back,4.0,7.0,10.2);loading(F.back,18.3,7.0,10.2);lamps(F.back,14.5,9.5);lamps(F.back,28.5,9.5);
+      const W=walls(3,15,4,30,0,15.2,2207);gable(2.7,15.3,3.7,30.3,15.2,5.2,false);
+      row(W.left,5,6.0,2.5,5.8);row(W.right,5,7.0,2.5,4.8);row(W.back,3,5.3,2.5,6.0);
+      loading(W.right,8.8,6.4,9.4);lamps(W.right,20.8,8.9);lamps(W.back,1.0,8.7);
+      canopy(24.0,42.9,11.8,22.2,10.5);dock(14.7,18.1,10.0,18.0,1.0);
+      stackedGoods(25.0,13.2);stackedGoods(34.1,13.2);crates(17.3,4.8,4);
+      // The eastern entrance opens onto a road-delivery turning court. There
+      // is deliberately no railway artwork on this road-only middle carrier.
+      fence(2.1,2.4,44.7,2.4,3.0);fence(44.9,3.8,44.9,21.2,3.0);fence(44.9,36.5,44.9,44.8,3.0);
+      gatePost(45.1,23.2,4.5);gatePost(45.1,34.5,4.5);lamp(43.8,27.6,11.2);lamp(19.5,24.0,10.5);
+      pipes(3,42,30,44,25.4);pipes(3,15,4,30,14.8);chimney(8.0,34.6,30.0,2);chimney(35.1,39.4,30.0,2);
+    }else if(id==='UKT021-L'){
+      track(17,.9,63.1);track(47,.9,63.1);
+      const N=openGoodsShed(3.7,28.4,5,27,18.6,7.0,17,2208);
+      const R=openGoodsShed(36,59,34,57,17.5,6.4,47,2212);
+      loading(N.right,6.8,6.3,9.6);loading(R.left,7.9,6.4,9.1);lamps(N.left,9.0,10.5);lamps(R.right,9.0,10.0);
+      dock(28.3,32.0,13.4,21.0,1.4);dock(32.5,36.2,39.7,47.1,1.3);
+      gantry(2.5,60.9,30.2,25.5);gantry(25.7,60.9,60.0,23.5);
+      const O=walls(3.5,11.6,39,55,0,41.5,2216);hip(3.2,11.9,38.7,55.3,41.5,5.4,false);
+      for(const side of['front','back','left','right']){
+        course(O[side],13.5);course(O[side],27.1);course(O[side],40.8);
+        O[side].panel(.55,O[side].length-.55,29.2,37.8,(u,z)=>u<.15||z<.22||z>8.3||K.mod(u,2.5)<.17||Math.abs(z-4.1)<.18?P.frameR:[P.glass,P.warmD],.19);
+      }
+      windows(O.back,2,2,4.4,2.5,6.3);windows(O.left,2,3,4.4,2.5,6.3);windows(O.right,2,3,4.4,2.5,6.3);
+      door(O.front,2.5,2.9,10.4);windows(O.front,1,2,17.2,2.5,6.3);lamps(O.front,1.0,10.2);lamps(O.back,1.0,10.2);
+      stackedGoods(25.0,37.0);stackedGoods(27.0,47.7);crates(23.6,57.0,7);crates(54.2,3.6,4);
+      pipes(3.7,28.4,5,27,18.2);pipes(36,59,34,57,17.1);pipes(3.5,11.6,39,55,41.1);
+      fence(1.7,2.1,1.7,59.2,3.0);fence(3.0,61.8,11.4,61.8,3.0);fence(24.0,61.8,38.4,61.8,3.0);fence(54.0,61.8,61.6,61.8,3.0);
+      gatePost(30.8,33.1,4.4);gatePost(39.9,33.1,4.4);lamp(31.2,7.7,12.0);lamp(30.9,43.0,12.0);lamp(58.8,25.6,12.0);lamp(12.1,57.0,11.0);
+    }
+    return A.finish({nativeFunctionOnly:true,transportGeometry:spec.group==='passengerstation'?'native-station-art-only':'none',
+      ...(id==='UKP021-L'?{railCenters:[24,56],railAxis:'v',nativePortPolicy:'preserve-approved-008-owned-corridors'}:{}),
+      ...(id==='UKP021-M'?{paintedRailCenters:[26,40],decorativeTrackGeometry:true}:{}),
+      ...(id==='UKP021-S'?{adjacentNativeRailRequired:true}:{}),
+      ...(spec.group==='freightstation'?{transportGeometry:id==='UKT021-M'?'road-delivery-only':'painted-rail-does-not-connect-native-topology',decorativeTrackGeometry:id!=='UKT021-M'}:{})});
+  }
+  function buildAll(){const out={};for(const spec of specs)out[spec.id]=Array.from({length:4},(_,v)=>build(spec.id,v));return out;}
+  root.BritishUseScalesInfrastructure021=Object.freeze({specs,build,buildAll});
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<!-- GPT-021 PURE ART END -->
 <script>
 /* British architecture study, UKP01–03. Approved UKP art embedded verbatim apart from this product namespace.
  * Native 2:1 pixel geometry: x=ax+2i-2j, y=ay-32*sz+i+j-z.
@@ -70889,9 +72572,9 @@ function wealthSpr(baseKey,we){
 }
 // T163：岸邊倒影用簡化建築 sprite 查找（僅涵蓋常見單格建築；多格/摩天樓/體育場等複雜案例回退 null 不繪，
 // 低成本簡化設計已於卡面驗收確認，不影響其餘既有渲染路徑，不消耗 R()/ri()）
-function reflectSprite(bd){
+function reflectSprite(bd,px,py){
   if(!bd||bd.ref||(bd.sz&&bd.sz>=2))return null;
-  if(!window.__noReflect608&&bd.k>=1&&bd.k<=3){try{return getBlockSprite547(bd.k,bd.lv||1,1,1,bd.v||0);}catch(e){}} // T608：倒影用城裡真的畫出來的那張街區精靈，不用 72px 舊圖集
+  if(!window.__noReflect608&&bd.k>=1&&bd.k<=3){try{const base=getBlockSprite547(bd.k,bd.lv||1,1,1,bd.v||0);const blk=px!=null&&bd.art021?rciBlockOrigin547(px,py):null;return blk&&blk.w===1&&blk.h===1?use021Resolve(px,py,bd,base,1,1):base;}catch(e){}} // T608：倒影用城裡真的畫出來的那張街區精靈，不用 72px 舊圖集
   if(bd.k===4){const sea2=season();return(inWinter()?SPR.parkW:sea2===1?(SPR.parkS||SPR.park):sea2===2?(SPR.parkA||SPR.park):SPR.park)[bd.v];} // T204：倒影用公園也套季節色
   if(bd.k===5)return SPR.plant;
   if(bd.k===10)return SPR.waterTower;
@@ -73381,6 +75064,7 @@ function recalcElMaskNear(x,y){
   recalcElMaskAt(x,y);recalcElMaskAt(x,y-1);recalcElMaskAt(x+1,y);recalcElMaskAt(x,y+1);recalcElMaskAt(x-1,y);
 }
 function newWorld(seedOverride){
+  use021Selection=null;USE021_CACHE.clear(); // GPT-021: UI/cache only, native world remains unchanged
   setMapSize(mapSizePref); // T262：開新圖套用地圖尺寸偏好（同尺寸時 no-op；場陣列隨 allocGrids 重建）
   hist=[];log=[];unread=0;if(typeof updBell==='function')updBell(); // FIX-N：跨局殘留成對重置（鐵律7）——begin() 之外的開新圖路徑（工具列🆕/GV.newWorld）也必須清歷史曲線與通知日誌
   let sd=seedOverride!==undefined?seedOverride:(Math.random()*1e9)|0;
@@ -78248,6 +79932,7 @@ foodPoints=Math.round((farmFoodU*FARM_SEASON_MULT[sea]+ranchFoodU+ghFoodU+fp340*
       const kk=cell.office?2:z;
       const we=kk===1?judgeWealth(x,y):undefined; // T123：住宅新建時判定財富級（純資料，不讀不影響經濟）
       cell.bld={k:kk,lv:1,v:(kk===1||kk===2||kk===3)?pickV406(kk,1,x,y,ri(12)):ri(4),age:0,pw:true,h:.6,den,we}; // T406：ri(12) 仍作為參數求值＝消耗次數/順序逐位不變，只是回傳值改由中心性決定
+      use021Born(cell); // GPT-021: actual native birth inherits the paid zone profile
       tickBld.push(idx(x,y)); // T316：新生建築入本 tick 索引（後續總計數迴圈需看到，與原全圖掃描語義一致） // T101-103：住宅/商業/工業 v 擴至 ri(8)；T150：再擴至 ri(12)（逐 k 判斷，其餘 k 仍 ri(4) 不變）
       if(kk===3)stampPolSrc(x,y,3,1); // T110：工業新生長為污染源
       spawns++;sPop();
@@ -81256,7 +82941,7 @@ function fw699Alpha(sp){ // 精靈 alpha 快取（繪製期量遮擋用）：w/h
 function fw699LandSpr(ox,oy,b){ // 多格的地標／公共建築：照繪製迴圈一般分支挑精靈（公園、發電廠、水塔、警消醫、農場這些特別分支不算，回 null）
   if(!b||!(b.sz>=2)||[1,2,3,4,5,9,10,11,12,13,22,52,53].includes(b.k))return null;
   const o={x:ox,y:oy},v=vdraw574(o,b),B=SPR.bld;let sp=B[b.k+'_'+b.lv+'_'+v]||B[b.k+'_'+b.lv+'_'+b.v]||B[b.k+'_'+b.lv+'_0']||B[b.k+'_1_'+b.v]||B[b.k+'_1_0'];
-  if(!(VARK574.has(b.k)&&v!==0))sp=metroIndustrySprite516A(b,sp);if(!sp)return null;
+  if(!(VARK574.has(b.k)&&v!==0))sp=metroIndustrySprite516A(b,sp);sp=use021Resolve(ox,oy,b,sp);if(!sp)return null;
   if(sp.sc!==undefined){const raw=sp,q=sp.sc;sp=raw._scView||{...raw,w:raw.w*q,h:raw.h*q,ax:raw.ax*q,ay:raw.ay*q};}
   return sp;}
 let FW699_AID=0;const FW699_FC={P:null,m:null}; // 第九版：遮擋判定的每幀快取（以 part639 物件當幀的身分）
@@ -81291,7 +82976,7 @@ function fw699Occluders(o,bd,s){ // 第九版繪製期：這棟正前方 1–3 �
       const r0=P.cl[i],ri=r0>=0?r0:i;if(seen.has(ri))return;seen.add(ri);
       let D=FC.get(ri); // 這一幀這個街區的精靈、錨點、分條柱（每幀每個街區只算一次）
       if(D===undefined){const r=r0>=0?P.map.get(r0):null,ox=r?r0%N:w[0],oy=r?(r0/N)|0:w[1],ow=r?r.w:1,oh=r?r.h:1,ob=r?T(r0).bld:b;D=null;
-        if(ob){const dm=(ow>1||oh>1)?blockDims622(ow,oh,rot):[1,1],os=getBlockSprite547(ob.k,ob.lv||1,dm[0],dm[1],ob.v||0),al=fw699Alpha(os);
+        if(ob){const dm=(ow>1||oh>1)?blockDims622(ow,oh,rot):[1,1],os=use021BlockRead(ox,oy,ob,getBlockSprite547(ob.k,ob.lv||1,dm[0],dm[1],ob.v||0),ow,oh),al=fw699Alpha(os);
           if(al){let ovx1=-1e9,ovy1=-1e9;for(const q of [[0,0],[ow-1,0],[0,oh-1],[ow-1,oh-1]]){const p=w2v(ox+q[0],oy+q[1]);if(p[0]>ovx1)ovx1=p[0];if(p[1]>ovy1)ovy1=p[1];}
             const oT=fw699Tie(ox,oy);D={al,ax:os.ax,ay:os.ay,ovx1,ovy1,src:[ox,oy,ow,oh],tl:(ow>1||oh>1)&&ov555?fw699Tiles(ox,oy,ow,oh,os.ax,os.ay,ovx1,ovy1):null,tie:oT,dep:ovx1+ovy1+oT};}
           else D=0;}
@@ -83457,6 +85142,7 @@ function bubbleFor607(x,y,b,nd,z2){ // 純函式：這格此刻要不要冒泡�
   const blk=rciBlockOrigin547(x,y);if(!blk)return null; // 超街區非原點格：不冒
   const bw=blk.w||1,bh=blk.h||1;
   let s=null;try{const d622=blockDims622(bw,bh,viewRotEff());s=getBlockSprite547(k,b.lv||1,d622[0],d622[1],b.v||0);}catch(e){s=null;} // T622
+  s=use021BlockRead(x,y,b,s,bw,bh); // GPT-021: story bubbles use the real directional sprite
   if(!s||!s.img)return null;
   let ax=x+bw-1,ay=y+bh-1,bd0=-1;
   if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
@@ -84728,12 +86414,12 @@ function draw(dt){
         ctx.drawImage(SPR.foamWave[frame][rotMask(t.wm)],sx,sy,64*z,32*z); // T375 A3：動態浪花與靜態岸線同走 rotMask（wm 是 4-bit 鄰接遮罩）
         ctx.globalAlpha=1;
       }
-      let rb=null; // 倒影：依 wm 位向優先序找第一個有建築的鄰接陸地格
-      if(t.wm&1)rb=T(idx(x,y-1)).bld;
-      if(!rb&&t.wm&2)rb=T(idx(x+1,y)).bld;
-      if(!rb&&t.wm&4)rb=T(idx(x,y+1)).bld;
-      if(!rb&&t.wm&8)rb=T(idx(x-1,y)).bld;
-      const rs=rb&&reflectSprite(rb);
+      let rb=null,rpx,rpy; // 倒影：依 wm 位向優先序找第一個有建築的鄰接陸地格
+      if(t.wm&1){rpx=x;rpy=y-1;rb=T(idx(rpx,rpy)).bld;}
+      if(!rb&&t.wm&2){rpx=x+1;rpy=y;rb=T(idx(rpx,rpy)).bld;}
+      if(!rb&&t.wm&4){rpx=x;rpy=y+1;rb=T(idx(rpx,rpy)).bld;}
+      if(!rb&&t.wm&8){rpx=x-1;rpy=y;rb=T(idx(rpx,rpy)).bld;}
+      const rs=rb&&reflectSprite(rb,rpx,rpy);
       if(rs){
         const ax2=sx+32*z,ay2=sy+32*z;
         ctx.save();
@@ -85525,6 +87211,7 @@ function draw(dt){
     if(o.block547&&(o.block547.w>1||o.block547.h>1)){const d622=blockDims622(o.block547.w,o.block547.h,viewRotEff());s=getBlockSprite547(bd.k,bd.lv||1,d622[0],d622[1],bd.v||0);} // T622：奇數旋轉時畫面佔地是 高×寬
     else if(!window.__noUkCottage596&&bd.k===1&&!(bd.sz>=2))s=getBlockSprite547(1,bd.lv||1,1,1,bd.v||0);
     else if(!window.__noMass1x1600&&(bd.k===2||bd.k===3)&&!(bd.sz>=2))s=getBlockSprite547(bd.k,bd.lv||1,1,1,bd.v||0);
+    s=use021Resolve(o.x,o.y,bd,s,o.block547?.w,o.block547?.h); // GPT-021: real renderer, after native selection
     /* T364a sc sprite view：新波素材以 2× 畫布保存細節，僅在世界繪製時縮放。
        無 sc 的既有素材直接保留原物件／原 w,h,ax,ay，下面所有舊算式逐位元不變；
        有 sc 才建立一次快取檢視，將邏輯尺寸與錨點同步縮放，並保留原圖尺寸給施工裁切與遮罩快取。 */
@@ -85995,7 +87682,8 @@ function draw(dt){
         const cyc403=16, ph403=streetHash(o.x,o.y,4033);
         const p3=((visT/cyc403)+ph403)%1, tprog=p3*2-1;
         const row3=Math.floor(streetHash(o.x,o.y,Math.floor(visT/cyc403+ph403)+4034)*3)-1;
-        const tx=bx+(164+tprog*38+row3*10-3)*z, ty=by+(206+tprog*19+row3*5-6)*z;
+        const p021=s.tractor021?use021FarmPoint(s,(tprog+1)/2,row3):[164+tprog*38+row3*10,206+tprog*19+row3*5];
+        const tx=bx+(p021[0]-3)*z, ty=by+(p021[1]-6)*z;
         ctx.fillStyle='#b03a30';ctx.fillRect(tx,ty-3*z,5*z,3*z);
         ctx.fillStyle='#22303c';ctx.fillRect(tx,ty,Math.max(1,2*z),Math.max(1,2*z));ctx.fillRect(tx+3*z,ty,Math.max(1,2*z),Math.max(1,2*z));
         ctx.fillStyle='#d8d0c0';ctx.fillRect(tx+3.5*z,ty-4.5*z,Math.max(1,1.5*z),Math.max(1,1.5*z));
@@ -86011,7 +87699,7 @@ function draw(dt){
       }
       if(bd.k===22&&gst403<=1&&streetHash(o.x,o.y,4035)<.3){ // 灑水器：生長期 30% 農戶，旋轉水弧三點
         const ang=visT*1.6+streetHash(o.x,o.y,4036)*6.28;
-        const spx=bx+68*z, spy=by+126*z;
+        const anchor021=s.farmAnchor021||[68,126],spx=bx+anchor021[0]*z, spy=by+anchor021[1]*z;
         ctx.fillStyle='#7a8894';ctx.fillRect(spx-z,spy-3*z,Math.max(1,2*z),Math.max(1,3*z));
         ctx.save();ctx.globalAlpha=.8;
         for(let d3=0;d3<3;d3++){
@@ -87905,6 +89593,7 @@ function rememberTool434(id){
   if(id==='pan'||id==='busrt'||id==='railrt'||id==='tramrt'||id==='metrort')return;const p=recentTools434.indexOf(id);if(p>=0)recentTools434.splice(p,1);recentTools434.unshift(id);if(recentTools434.length>6)recentTools434.length=6;
 }
 function activateTool434(id,fromRecent){
+  use021Selection=null; // GPT-021: choosing/cancelling another native tool clears the visual selection
   const t=toolMeta434(id);if(!t)return false;tool=id;if(fromRecent&&t.cat)toolCat=t.cat;rememberTool434(id);
   cvs.classList.toggle('build',tool!=='pan');if(tool==='busrt')showBusRt();else if(tool==='railrt')showRailRt463('rail');else if(tool==='tramrt')showRailRt463('tram');else if(tool==='metrort')showMetroPlanner467B();else hideInfo();buildToolbar();sTick();initAudio();wakeUi440();return true;
 }
@@ -88018,6 +89707,7 @@ function buildToolbar(){
     const needExp=bar.scrollWidth>bar.clientWidth+1||toolsExpanded;document.body.classList.toggle('toolsExp',toolsExpanded);
     if(needExp){const eb=document.createElement('button');eb.id='toolsExp';eb.className=toolsExpanded?'on':'';eb.textContent=toolsExpanded?'▴':'▾';eb.title=toolsExpanded?'收合工具列':'展開工具列（看完整清單）';eb.onclick=()=>{toolsExpanded=!toolsExpanded;buildToolbar();sTick();};bar.appendChild(eb);}
   }
+  use021Toolbar();
   refreshTxnUi460();if(mobile)requestAnimationFrame(()=>{const sel=$('#toolStrip434 .tool.sel:not(.recent434)')||$('#toolStrip434 .tool.sel');if(sel)sel.scrollIntoView({block:'nearest',inline:'center'});});
 }
 // T120：路線工具點選公車站——依序加入目前編輯中的路線（再點一次＝移出），純 UI 狀態，不走 doPlace
@@ -90834,7 +92524,7 @@ function save(){
         bl.push(e);
       }
     }
-    const data={v:1,n:N,gameVer:GAME_VER,seed,money:Math.round(money),day,msIdx, // T262：n＝地圖邊長（可選欄位，舊檔缺＝72）
+    const data={art021:use021Save(),v:1,n:N,gameVer:GAME_VER,seed,money:Math.round(money),day,msIdx, // T262：n＝地圖邊長（可選欄位，舊檔缺＝72）
       cam:{x:Math.round(cam.x),y:Math.round(cam.y),z:cam.z},ter,tre,rd,zn,dc,rn,rc,rcl,wp,el,bs,cm,sk,dt,skd,dtd,cmd,bl,ach:Object.keys(ach),nm:townName, // T412：cmd 入檔
       ln:loan?[loan.remain,loan.daily]:null,star:bestStar,
       rl,rb,dk,ow,tl,pm,bln,tr,of,fl,le,ab,pol,region, // T39-T60 新欄位（可選）
@@ -91044,6 +92734,7 @@ function load(slot){
       }
     }
     waterfrontLoad018(d.waterfront018);
+    use021Load(d.art021); // GPT-021: optional sparse visual metadata; old bl/RLE unchanged
     if(d.cm)for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&b.k<=3&&+d.cm[i])b.crime=1;} // 犯罪標記（T32，舊檔無 cm 則無犯罪）
     if(d.sk)for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&b.k===1&&+d.sk[i])b.sick=1;} // 生病標記（T33，舊檔無 sk 則無生病）
     if(d.dt)for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&b.k===1&&+d.dt[i])b.death=1;} // 死亡標記（T38，舊檔無 dt 則無死亡）
@@ -96542,6 +98233,7 @@ function smokeSrc608(x,y,b){ // 純函式：這格此刻的工業／民居冒煙
   if(!(b.k===1||b.k===3))return null;
   const blk=rciBlockOrigin547(x,y);if(!blk)return [];
   const bw=blk.w||1,bh=blk.h||1;let sp=null;try{const d622=blockDims622(bw,bh,viewRotEff());sp=getBlockSprite547(b.k,b.lv||1,d622[0],d622[1],b.v||0);}catch(e){sp=null;} // T622
+  sp=use021BlockRead(x,y,b,sp,bw,bh); // GPT-021: smoke readers
   if(!sp||!sp.smoke608)return [];
   let ax=x+bw-1,ay=y+bh-1,bd0=-1;
   if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
@@ -96552,6 +98244,7 @@ function smokeViewSrc626(x,y,b){ // T626：同一張街區精靈、同一個錨�
   if(!(b.k===1||b.k===2||b.k===3))return null; // T626：收 k2——T613 放寬了冬季店屋的觸發，但 smokeSrc608 開頭只收 k1／k3，店屋炊煙從來沒冒過
   const blk=rciBlockOrigin547(x,y);if(!blk)return [];
   const bw=blk.w||1,bh=blk.h||1;let sp=null;try{const d622=blockDims622(bw,bh,viewRotEff());sp=getBlockSprite547(b.k,b.lv||1,d622[0],d622[1],b.v||0);}catch(e){sp=null;}
+  sp=use021BlockRead(x,y,b,sp,bw,bh); // GPT-021: smoke readers
   if(!sp||!sp.smoke608)return [];
   let ax=x+bw-1,ay=y+bh-1,bd0=-1;
   if(bw>1||bh>1)for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){const d=viewDep(x+dx,y+dy);if(d>=bd0){bd0=d;ax=x+dx;ay=y+dy;}}
@@ -99657,7 +101350,8 @@ const X13G=(()=>{
     const {ctx,o,bd,s,bx,by,z,sxOf,syOf}=A,t=s.__t547;
     const strip=o.blockDiag555!=null&&!window.__noOverlap555&&o.block547&&(o.block547.w>1||o.block547.h>1);
     const first=!strip||o.blockDiag555===o.blockD0575,last=!strip||o.blockDiag555===o.blockD1629;
-    const old=getBlockSprite547(t.k,Math.max(1,(t.lv||2)-1),t.bw,t.bh,t.v||0);if(!old)return;
+    const previousLv=Math.max(1,(t.lv||2)-1),nativeOld=getBlockSprite547(t.k,previousLv,t.bw,t.bh,t.v||0);
+    const old=use021Resolve(o.x,o.y,{...bd,lv:previousLv},nativeOld,o.block547?.w,o.block547?.h);if(!old)return; // GPT-021: true previous native level, same profile
     const D=pen(ctx,bx+(s.ax-old.ax)*z,by+(s.ay-old.ay)*z,z,false),T=visT+hsh(o.x,o.y,1212)*37,an=A.animOn&&!window.__x13Still;
     const w=old.__t547&&old.__t547.wall,a=alphaInfo(old),top=a.topY*a.k,base=old.ay,k=ez(sm(.12,.88,p)),cutY=top+(base-top)*k;
     const Cf={M,S,p,lite:false,post:false};
@@ -102294,6 +103988,168 @@ Object.assign(window.GV,{build528:()=>({...BUILD_META528})}); // T528：QA 讀�
 Object.assign(window.GV,{build529:()=>({...BUILD_META529})}); // T529：QA 讀數
 Object.assign(window.GV,{build530:()=>({...BUILD_META530}),fc530:()=>({facade:window.__t530facade|0})}); // T530：QA 讀數
 Object.assign(window.GV,{testInjectResident534:testInjectResident534,testUiRoundtrip534:testUiRoundtrip534,testAdvance588:dt=>{advance(dt);return true;},testZone592:(x,y,z)=>{const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.deco=0;t.ruin=0;t.zone=z;buildTickIndex();groundDirty=true;return true;},testRebake592:()=>{groundDirty=true;return true;},constr13:X13G,constrSelftest700,constrSelftest701,testTile592:(x,y)=>{const t=tiles[idx(x,y)];return JSON.stringify({zone:t.zone,bld:!!t.bld,ruin:t.ruin,road:t.road,t:t.t,tree:t.tree,deco:t.deco});}}); // T592：強制地面重烘（測試出口） // T592：測試用空置地格製造（跟隨/風化探針同款 test-only 出口） // T588：測試推進模擬（跟隨原型 live demo 用）
+/* GPT-021 RUNTIME START */
+/* GPT-021 production integration, inside the native game closure.
+ * Geometry uses the five recovered original modules and explicitly rebuilt kit.
+ * This is a reconstruction, not the lost final5db827a1 kit source. No registry,
+ * simulation identity, capacity, native variant or RNG is replaced.
+ */
+const USE021_ROWS = /* generated native mappings */ [{"id":"UKU021-S","group":"retail","scale":"S","k":276,"tool":"stationNewsstand009","sz":1,"lv":1,"bw":1,"bh":1,"mode":"bld"},{"id":"UKU021-M","group":"retail","scale":"M","k":238,"tool":"coOpStores","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKU021-L","group":"retail","scale":"L","k":240,"tool":"coveredMarket","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKD021-S","group":"dining","scale":"S","k":196,"tool":"tearoom","sz":1,"lv":1,"bw":1,"bh":1,"mode":"bld"},{"id":"UKD021-M","group":"dining","scale":"M","k":275,"tool":"refreshmentCafe009","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKD021-L","group":"dining","scale":"L","k":220,"tool":"foxFinchPub","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKM021-S","group":"market","scale":"S","k":87,"tool":"market","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKM021-M","group":"market","scale":"M","k":240,"tool":"coveredMarket","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKM021-L","group":"market","scale":"L","k":278,"tool":"riversideArcade012","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKH021-S","group":"hotel","scale":"S","k":81,"tool":"guesthouse","sz":1,"lv":1,"bw":1,"bh":1,"mode":"bld"},{"id":"UKH021-M","group":"hotel","scale":"M","k":82,"tool":"hotel","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKH021-L","group":"hotel","scale":"L","k":274,"tool":"stationHotel009","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKO021-S","group":"office","scale":"S","k":2,"tool":"office","sz":1,"lv":1,"bw":1,"bh":1,"mode":"block"},{"id":"UKO021-M","group":"office","scale":"M","k":2,"tool":"office","sz":2,"lv":1,"bw":2,"bh":2,"mode":"block"},{"id":"UKO021-L","group":"office","scale":"L","k":2,"tool":"office","sz":3,"lv":2,"bw":3,"bh":3,"mode":"block"},{"id":"UKC021-S","group":"crafts","scale":"S","k":3,"tool":"zi","sz":1,"lv":1,"bw":1,"bh":1,"mode":"block"},{"id":"UKC021-M","group":"crafts","scale":"M","k":3,"tool":"zi","sz":2,"lv":1,"bw":2,"bh":1,"mode":"block"},{"id":"UKC021-L","group":"crafts","scale":"L","k":3,"tool":"zi","sz":2,"lv":1,"bw":2,"bh":2,"mode":"block"},{"id":"UKI021-S","group":"lightfactory","scale":"S","k":3,"tool":"zi","sz":1,"lv":2,"bw":1,"bh":1,"mode":"block"},{"id":"UKI021-M","group":"lightfactory","scale":"M","k":3,"tool":"zi","sz":2,"lv":2,"bw":2,"bh":1,"mode":"block"},{"id":"UKI021-L","group":"lightfactory","scale":"L","k":3,"tool":"zi","sz":2,"lv":2,"bw":2,"bh":2,"mode":"block"},{"id":"UKW021-S","group":"warehouse","scale":"S","k":64,"tool":"warehouse","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKW021-M","group":"warehouse","scale":"M","k":167,"tool":"distributionCenter","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKW021-L","group":"warehouse","scale":"L","k":165,"tool":"containerLogistics","sz":4,"lv":1,"bw":4,"bh":4,"mode":"bld"},{"id":"UKF021-S","group":"farm","scale":"S","k":22,"tool":"farm","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKF021-M","group":"farm","scale":"M","k":63,"tool":"greenhouse","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKF021-L","group":"farm","scale":"L","k":53,"tool":"bigFarm","sz":5,"lv":1,"bw":5,"bh":5,"mode":"bld"},{"id":"UKR021-S","group":"ranch","scale":"S","k":23,"tool":"ranch","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKR021-M","group":"ranch","scale":"M","k":23,"tool":"ranch","sz":2,"lv":2,"bw":2,"bh":2,"mode":"bld"},{"id":"UKR021-L","group":"ranch","scale":"L","k":23,"tool":"ranch","sz":2,"lv":3,"bw":2,"bh":2,"mode":"bld"},{"id":"UKP021-S","group":"passengerstation","scale":"S","k":17,"tool":"station","sz":1,"lv":1,"bw":1,"bh":1,"mode":"bld"},{"id":"UKP021-M","group":"passengerstation","scale":"M","k":55,"tool":"grandStation","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKP021-L","group":"passengerstation","scale":"L","k":139,"tool":"britishStationNS008","alternateTool":"britishStationEW008","sz":5,"lv":1,"bw":5,"bh":5,"mode":"bld"},{"id":"UKT021-S","group":"freightstation","scale":"S","k":110,"tool":"freight","sz":2,"lv":1,"bw":2,"bh":2,"mode":"bld"},{"id":"UKT021-M","group":"freightstation","scale":"M","k":167,"tool":"distributionCenter","sz":3,"lv":1,"bw":3,"bh":3,"mode":"bld"},{"id":"UKT021-L","group":"freightstation","scale":"L","k":166,"tool":"intermodalHub","sz":4,"lv":1,"bw":4,"bh":4,"mode":"bld"}];
+const USE021_CACHE = new Map();
+let use021Selection = null;
+function use021Modules(){return [window.BritishUseScales021,window.BritishUseScalesHospitality021,window.BritishUseScalesWorkplaces021,window.BritishUseScalesAgriculture021,window.BritishUseScalesInfrastructure021];}
+function use021Spec(id){for(const m of use021Modules()){const s=m.specs.find(s=>s.id===id);if(s)return {m,s};}return null;}
+function use021Profile(q){return q.mode==='block'?(q.k===2?'office':'industry'):q.k===23?'ranch':q.id;}
+function use021ValidProfile(p,k,zone,office){
+  if(p==='office')return k===2&&!!office;
+  if(p==='industry')return k===3;
+  if(p==='ranch')return k===23;
+  const q=USE021_ROWS.find(q=>q.id===p);return !!q&&q.mode!=='block'&&q.k===k&&q.k!==23;
+}
+function use021Placed(toolId,x,y){
+  const t=T(idx(x,y)),q=use021Selection&&USE021_ROWS.find(q=>q.id===use021Selection);
+  if(['zr','zc','zi','office','doze'].includes(toolId))delete t.zoneArt021;
+  if(!q||![q.tool,q.alternateTool].includes(toolId))return;
+  if(q.mode==='block'){
+    const p=use021Profile(q);
+    if(t.zone===(q.k===2?2:3)&&(q.k!==2||t.office))t.zoneArt021=p;
+  }else if(t.bld&&!t.bld.ref&&t.bld.k===q.k)t.bld.art021=use021Profile(q);
+}
+function use021Born(t){if(t.bld&&use021ValidProfile(t.zoneArt021,t.bld.k,t.zone,t.office))t.bld.art021=t.zoneArt021;}
+// Some native tools (notably station008) finish in their own doPlace wrapper.
+// Tag the final successful root before the caller closes its existing undo.
+const use021NativePlace=doPlace;
+doPlace=function(id,x,y,silent){const ok=use021NativePlace(id,x,y,silent);if(ok)use021Placed(id,x,y);return ok;};
+function use021Save(){
+  const a=[];for(let i=0;i<tiles.length;i++){
+    const t=tiles[i],b=t.bld;
+    if(t.zoneArt021&&(t.zoneArt021==='office'?t.zone===2&&t.office:t.zoneArt021==='industry'&&t.zone===3))a.push([i,'z',t.zoneArt021]);
+    if(b&&!b.ref&&use021ValidProfile(b.art021,b.k,t.zone,t.office))a.push([i,'b',b.art021]);
+  }return a.length?a:undefined;
+}
+function use021Load(a){
+  use021Selection=null;USE021_CACHE.clear();
+  for(const t of tiles){delete t.zoneArt021;if(t.bld)delete t.bld.art021;}
+  if(!Array.isArray(a)||a.length>2*N*N)return;
+  const seen=new Set();
+  for(const e of a){
+    if(!Array.isArray(e)||e.length!==3||!Number.isInteger(e[0])||e[0]<0||e[0]>=N*N||typeof e[2]!=='string')continue;
+    const [i,kind,p]=e,t=tiles[i],b=t.bld,key=i+':'+kind;if(seen.has(key))continue;
+    if(kind==='z'&&((p==='office'&&t.zone===2&&t.office)||(p==='industry'&&t.zone===3))){t.zoneArt021=p;seen.add(key);}
+    else if(kind==='b'&&b&&!b.ref&&use021ValidProfile(p,b.k,t.zone,t.office)){b.art021=p;seen.add(key);}
+  }
+}
+function use021FarmState(b,x,y,base){
+  const state={};if(b.k!==22&&b.k!==53)return state;
+  const sea=season(),fk=b.k+'_1_'+b.v;
+  state.crop=b.k===22?b.v:1;state.season=0;state.stage=2;
+  if(SPR.farmSea?.[sea]?.[fk]===base){state.season=sea;state.stage=sea===3?0:2;}
+  if(sea!==3)for(const st of [0,1,2])if(SPR.farmGrow?.[sea]?.[st]?.[fk]===base){state.season=sea;state.stage=st===2?3:st;}
+  return state;
+}
+function use021Authored(q,bw,bh,rot,state,lv,v){
+  const turned=q.bw!==q.bh&&bw<bh,view=(rot+(turned?1:0)+(q.k===139&&v===4?1:0))&3;
+  const d=blockDims622(bw,bh,rot),key=[q.id,bw,bh,rot,d[0],d[1],lv,v,JSON.stringify(state)].join('|');let s=USE021_CACHE.get(key);if(s)return s;
+  const a=use021Spec(q.id).m.build(q.id,view,state);
+  // A new object owns its own weather/silhouette/bubble caches. Never inherit
+  // old geometry caches. T700 demolition consumes the real native lv/v.
+  s={...a,candidate:false,sc:undefined,smoke:[],smoke608:a.smoke608||[],
+    __t547:{k:q.k,lv,v,bw:d[0],bh:d[1]},
+    __art021:{id:q.id,view,rot,bw,bh,lv,v,state:{...state}}};
+  if(q.bw!==q.bh){s.ax+=(view&1?-1:1)*16*(q.bw-q.bh);s.ay-=8*(2*a.sz-q.bw-q.bh);}
+  if(q.k===22||q.k===53){
+    // World-space paths lie in the authored crop plots, then rotate with the
+    // actual art. Legacy sprites continue using their unchanged fallback.
+    const E=16*a.sz,project=(x,y)=>{let u=x,w=y;if(view===1){u=E-y;w=x;}else if(view===2){u=E-x;w=E-y;}else if(view===3){u=y;w=E-x;}return [a.w/2+2*u-2*w,a.h-2-2*E+u+w];};
+    const plot=q.k===22?[18,23,27,27]:[10,54,34,66],p=project(plot[0],plot[1]),r=project(plot[2],plot[3]);
+    s.farmerPath=[...p,...r];s.farmAnchor021=project(q.k===22?23:22,q.k===22?18:60);
+    if(q.k===53){const o=project(22,60),ac=project(24,60);s.tractor021={origin:[o[0],o[1]+6],along:[(r[0]-p[0])/2,(r[1]-p[1])/2],across:[ac[0]-o[0],ac[1]-o[1]]};}
+  }
+  USE021_CACHE.set(key,s);return s;
+}
+function use021FarmPoint(s,progress,row){const t=s.tractor021,p=s.farmerPath;
+  return t?t.origin.map((v,i)=>v+(progress*2-1)*t.along[i]+(row||0)*t.across[i]):[p[0]+(p[2]-p[0])*progress,p[1]+(p[3]-p[1])*progress];}
+function use021Resolve(x,y,b,base,bw,bh){
+  if(window.__noUseScalesRelease021||!b||b.ref||!b.art021||!base)return base;
+  if(b.k===139&&b.age<9)return base; // Keep the native station construction assets and anchors.
+  bw=bw||b.sz||1;bh=bh||b.sz||1;const lv=b.lv||1,v=b.v||0,p=b.art021;
+  if(b.k===53&&v!==0)return base; // Only the native placed large-farm v0 uses this form; legacy crop variants stay approved.
+  if(bw!==bh){const d=blockDims622(bw,bh,viewRotEff()),r=viewRotEff()&1;if(d[0]!== (r?bh:bw)||d[1]!== (r?bw:bh))return base;}
+  let q;
+  if(p==='office'||p==='industry'){
+    for(let dy=0;dy<bh;dy++)for(let dx=0;dx<bw;dx++){
+      const t=tiles[idx(x+dx,y+dy)],r=t?.bld;
+      if(!r||r.ref||r.k!==b.k||r.art021!==p||(p==='office'&&!t.office))return base;
+    }
+    q=USE021_ROWS.find(q=>q.mode==='block'&&q.k===b.k&&q.lv===lv&&((q.bw===bw&&q.bh===bh)||(q.bw===bh&&q.bh===bw)));
+  }else if(p==='ranch')q=v===0?USE021_ROWS.find(q=>q.k===23&&q.lv===lv):null;
+  else q=USE021_ROWS.find(q=>q.id===p&&q.k===b.k&&q.mode!=='block');
+  if(!q||q.bw!==bw&&q.mode!=='block'||q.bh!==bh&&q.mode!=='block'||q.k===139&&v!==3&&v!==4)return base;
+  return use021Authored(q,bw,bh,viewRotEff(),use021FarmState(b,x,y,base),lv,v);
+}
+function use021BlockRead(x,y,b,base,w,h){return use021Resolve(x,y,b,base,w,h);}
+function use021NativeBase(x,y,b,w,h){
+  if(b.k<=3&&(w>1||h>1||!window.__noMass1x1600)){const d=blockDims622(w,h,viewRotEff());return getBlockSprite547(b.k,b.lv||1,d[0],d[1],b.v||0);}
+  const fk=b.k+'_1_'+b.v;
+  let s=SPR.bld[b.k+'_'+(b.lv||1)+'_'+vdraw574({x,y},b)]||SPR.bld[b.k+'_'+(b.lv||1)+'_'+b.v]||SPR.bld[b.k+'_'+(b.lv||1)+'_0']||SPR.bld[b.k+'_1_'+b.v]||SPR.bld[b.k+'_1_0'];
+  if(b.k===22||b.k===53){const sea=season(),hv=cityEvent&&CITY_EVENTS[cityEvent.i]&&['harvest','autumnbounty'].includes(CITY_EVENTS[cityEvent.i].id),st=hv?3:Math.floor(((day+Math.floor(streetHash(x,y,777)*16))%16)/4),gs=st===3?2:st;
+    s=SPR.bld[fk]||SPR.bld[b.k+'_1_0'];if(sea===3)s=SPR.farmSea?.[3]?.[fk]||s;else if(st!==2&&SPR.farmGrow?.[sea]?.[gs]?.[fk])s=SPR.farmGrow[sea][gs][fk];else if(sea!==0)s=SPR.farmSea?.[sea]?.[fk]||s;
+  }
+  s=waterfrontSprite018(b,s);if(!(VARK574.has(b.k)&&vdraw574({x,y},b)!==0))s=metroIndustrySprite516A(b,s);return s;
+}
+function use021Toolbar(){
+  const cats=$('#toolcats');if(!cats||$('#useScalesOpen021'))return;
+  const b=document.createElement('button');b.id='useScalesOpen021';b.textContent='🇬🇧 英式建築';b.title='12種用途、36種形制';b.onclick=use021Open;cats.appendChild(b);
+  if(mobileBuild434()){
+    const mobile=document.createElement('button');mobile.id='useScalesMobile021';mobile.className='tool';mobile.innerHTML='<span class="ic">🇬🇧</span><span>英式</span>';mobile.title='英式建築 · 36款形制';mobile.setAttribute('aria-label',mobile.title);mobile.onclick=use021Open;$('#toolStrip434').prepend(mobile);
+  }
+  if(use021Selection){const q=use021Spec(use021Selection)?.s;if(q){const tag=document.createElement('span');tag.id='useScalesSelected021';tag.textContent=q.nm;cats.appendChild(tag);}}
+}
+function use021Select(id,toolId){
+  const q=USE021_ROWS.find(q=>q.id===id);if(!q)return false;
+  if(toolId&&!([q.tool,q.alternateTool].includes(toolId)))return false;
+  const chosen=toolId||q.tool,meta=toolMeta434(chosen);if(!meta)return false;
+  if(!toolUnlocked458(meta)){toast('🔒 '+meta.nm+'：城市 Lv.'+meta.unlockRank+' 解鎖','bad');return false;}
+  activateTool434(chosen,true);use021Selection=id;use021Close();buildToolbar();
+  toast(q.mode==='block'?'已選英式分區；樓宇按原生需求與成長形成':q.k===23?'已選牛舍形制；中、大型經原生升級取得':'已選 '+use021Spec(id).s.nm,'gold');return true;
+}
+function use021Close(){const d=$('#useScalesDialog021');if(d?.open)d.close();}
+function use021Open(){
+  let d=$('#useScalesDialog021');if(!d){
+    d=document.createElement('dialog');d.id='useScalesDialog021';d.setAttribute('aria-labelledby','useScalesTitle021');
+    d.innerHTML='<header><h2 id="useScalesTitle021">英式建築 · 36款形制</h2><button id="useScalesClose021" aria-label="關閉英式建築目錄">✕</button></header><p>沿用現有用途、造價與容量。選形制後在城市建造；辦公與工業隨原生分區成長，牛舍中、大型經付費升級取得。</p><div id="useScalesGrid021"></div>';
+    document.body.appendChild(d);$('#useScalesClose021').onclick=use021Close;
+    d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)use021Close();}});
+  }
+  const groups=[['retail','商店'],['dining','餐飲'],['market','市場'],['hotel','旅館'],['office','辦公'],['crafts','作坊'],['lightfactory','輕工廠'],['warehouse','倉庫'],['farm','農業'],['ranch','牛舍'],['passengerstation','客運站'],['freightstation','貨運與配送']];
+  $('#useScalesGrid021').innerHTML=groups.map(([group,nm])=>'<section><h3>'+nm+'</h3><div class="useScalesTrio021">'+USE021_ROWS.filter(q=>q.group===group).map(q=>{
+    const s=use021Spec(q.id).s,m=toolMeta434(q.tool),locked=!toolUnlocked458(m),size=q.bw+'×'+q.bh;
+    const method=q.mode==='block'?'原生分區成長 · Lv'+q.lv:q.k===23?'2×2牛舍 · Lv'+q.lv+(q.lv>1?'付費升級':''):'原生建造 · '+size+'格';
+    const limits=q.group==='freightstation'&&q.k===167?'道路配送中心；外觀軌道不增加鐵路調度':q.k===23?'座標原生畜種為牛時採用；其他四種保留':q.mode==='block'?'形制由實際街區大小及樓宇等級決定':q.group==='market'&&q.k!==87?'沿用零售用途，沒有新增食品覆蓋':'';
+    const button='<button data-use021="'+q.id+'" aria-label="'+s.nm+'"><b>'+({S:'小',M:'中',L:'大'}[q.scale])+' · '+s.nm+'</b><span>'+method+'</span><span>'+((m?.pr)||'依原生分區造價')+(locked?' · Lv'+m.unlockRank+'解鎖':'')+'</span><small>'+limits+'</small></button>';
+    return q.alternateTool?'<div>'+button+'<label class="useScalesAxis021">客站方向 <select data-axis021="'+q.id+'"><option value="'+q.tool+'">南北向</option><option value="'+q.alternateTool+'">東西向</option></select></label></div>':button;
+  }).join('')+'</div></section>').join('');
+  d.querySelectorAll('[data-use021]').forEach(b=>b.onclick=()=>use021Select(b.dataset.use021,d.querySelector('[data-axis021="'+b.dataset.use021+'"]')?.value));d.showModal();
+}
+function use021Selftest(){
+  const checks=[],add=(s,ok)=>checks.push([s,!!ok]);
+  add('36 preserved form specs / twelve trios',USE021_ROWS.length===36&&new Set(USE021_ROWS.map(q=>q.id)).size===36&&new Set(USE021_ROWS.map(q=>q.group)).size===12);
+  add('all native tools and directional aliases exist',USE021_ROWS.every(q=>!!toolMeta434(q.tool)&&(!q.alternateTool||!!toolMeta434(q.alternateTool))));
+  let leak=0,soft=0,crop=0,empty=0,views=0;
+  for(const q of USE021_ROWS)for(let rot=0;rot<4;rot++){
+    const s=use021Authored(q,q.bw,q.bh,rot,{},q.lv,0),a=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data,n=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let op=0;
+    for(let i=3;i<a.length;i+=4){if(n[i]&&a[i]!==255)leak++;if(a[i]&&a[i]!==255)soft++;if(a[i]){op++;const z=(i-3)/4,x=z%s.w,y=(z/s.w)|0;if(x===0||y===0||x===s.w-1||y===s.h-1)crop++;}}
+    if(!op)empty++;if(s.__t547.v!==0||s.__t547.k!==q.k)empty++;views++;
+  }
+  add('144 true directional sprites',views===144);add('night stays on visible opaque material',leak===0);add('hard pixel edges',soft===0);add('no cropped canvas edges',crop===0);add('visible geometry / true native metadata',empty===0);
+  add('unknown profiles rejected',!use021ValidProfile('unknown',240,0,0)&&!use021ValidProfile('UKU021-L',167,0,0));
+  return {ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗')),pixels:{leak,soft,crop,empty},assets:USE021_CACHE.size};
+}
+window.GV.useScales021={rows:()=>USE021_ROWS.map(q=>({...q})),select:use021Select,open:use021Open,close:use021Close,selection:()=>use021Selection,resolve:use021Resolve,assets:()=>[...USE021_CACHE.values()],selftest:use021Selftest,
+  read:(x,y)=>{const b=T(idx(x,y))?.bld;if(!b||b.ref)return null;const blk=b.k<=3?rciBlockOrigin547(x,y):{w:b.sz||1,h:b.sz||1};if(!blk)return null;return use021Resolve(x,y,b,use021NativeBase(x,y,b,blk.w,blk.h),blk.w,blk.h);},
+  profileSave:use021Save,profileLoad:use021Load,upgrade:upgradeBld,activate:activateTool434,smoke:smokeViewSrc626,bubble:bubbleFor607,partition:()=>part639(),world:()=>({n:N,day,money}),farmState:use021FarmState};
+
+/* GPT-021 RUNTIME END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。

@@ -113,3 +113,14 @@ SHA256 8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed。
 
 目前本階段未執行七支 probe／hover／fp／新smoke、未 materialize 推入 PR、未合併／部署。
 結果會在實際完成後追加；未跑一律照實保留，不勾成通過。
+
+
+### 雲端靜態整合紀錄（遊戲驗收仍未跑）
+
+完整 index 已靜態生成，10,816,659 bytes／85 scripts，與批准 SHA 8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed 相符。
+`candidate-build022.js --verify-materialized` 從 pinned main 在暫存目錄重建，精確比對 PR 的完整 index，不改 runner 的被測 index。
+smoke checkout 改取完整歷史以讀 pinned main；沒有變更 workflow 權限。
+新增唯讀雲端 acceptance workflow：七支原驗收＋成熟 hover＋fp，所有首輪無 reuse。
+成熟 hover 守衛要求36款×四向×日夜×desktop/mobile共576個情境，以可信指標移動觀察原生 alpha=.35、移開回1、金錢／metadata不變，並注入原生 alpha 錯誤驗證目標首紅。
+以上新增守衛只寫完與語法檢查，尚未跑遊戲；後續只接受真實 runner 報告。
+本次沒有在容器啟動遊戲、Chrome、fp 或 probe；版本／AUTORUN-LOG／fp／DECISIONS暫未改。

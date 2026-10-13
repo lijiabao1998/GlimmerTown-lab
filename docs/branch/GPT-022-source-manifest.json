@@ -40,5 +40,9 @@
     "mature-building hover fade NOTTESTED"
   ],
   "pixelGuards": "未跑，待合併者跑",
-  "guardPortability": "Only file paths and immutable baseline retrieval ported; oracles/fixtures copied byte-exact. These guards are NOT RUN under GPT-022."
+  "guardPortability": "Only file paths and immutable baseline retrieval ported; oracles/fixtures copied byte-exact. These guards are NOT RUN under GPT-022.",
+  "delivery": "integrated index committed to the existing PR; isolated original source rebuild verified before game guards",
+  "integrationSources": {
+    "probeUseScalesHover022.js": "6d0063408ed23ef4b9733d1ab4c864484a44f4e3dada34bce6803f1cfc5cd0cf"
+  }
 }
