@@ -98,4 +98,4 @@ const s=await H.withGame({fresh:!REUSE,timeout:300,preScript,log:console.log},as
 });
  report.session={ok:s.ok,fails:s.fails,seconds:s.seconds,result:s.result};
  report.ok=s.ok&&!s.result?.errors?.length&&report.checks.length>0&&report.checks.every(q=>q.ok);
-}catch(e){report.error=e.stack;report.ok=false;}finally{H.cleanup();fs.writeFileSync(path.join(OUT,'native-flow-attempt-'+ATTEMPT+'.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,latest:report.latest?.current?.length,missing:report.latest?.missing,error:report.error,session:report.session}));if(!report.ok)process.exitCode=1;}})();
+}catch(e){report.error=e.stack;report.ok=false;}finally{await H.cleanup();fs.writeFileSync(path.join(OUT,'native-flow-attempt-'+ATTEMPT+'.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,latest:report.latest?.current?.length,missing:report.latest?.missing,error:report.error,session:report.session}));if(!report.ok)process.exitCode=1;}})();

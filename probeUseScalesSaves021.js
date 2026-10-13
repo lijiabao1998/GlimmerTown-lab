@@ -51,7 +51,7 @@ async function runArm(name,html){
  const storage=O.compareProtectedStorage(initial.protected,end.protected,{disposableProfile:true,selectorBefore:initial.selector,selectorAfter:end.selector,protectedWriteAttempts:end.attempts});add(name+' nonempty slots1/2 and backups byte-preserved with zero write attempts',storage.ok,storage);checkpoints[name].storage=storage;
  return{errors:cdp.errors,benign:cdp.benign};
  });report.sessions.push({arm:name,source:H.proof,ok:sess.ok,fails:sess.fails,seconds:sess.seconds,result:sess.result});add(name+' native browser clean',sess.ok&&!sess.result?.errors.length,sess.fails);flush();
- }finally{H.cleanup();}
+ }finally{await H.cleanup();}
 }
 (async()=>{try{
  add('immutable main pinned',report.mainSHA256==='7e4f63e8921d9dd2d56133c3bf07998316ee27b154ca45411a9b61134b336067');

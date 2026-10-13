@@ -135,3 +135,16 @@ smoke checkout 改取完整歷史以讀 pinned main；沒有變更 workflow 權�
 helper 新 byte pin 登記於 sources，原 source-only pin 保留於 sourceStagePins；批准美術與 candidate SHA不變。
 workflow 在 always 步驟印出原始報告的失敗 checks/items，以免只看到清理異常；所有 JSON／PNG照存 artifact。
 下輪必須重新實跑 fresh checks；首輪紅燈收據保留，不以 retry 代替修正。尚未合併或部署。
+
+
+### 第二輪具體問題與第二次清理修正
+
+head dcd88fe196f8985ea6960970ed5673502bcd9dc9，push acceptance 38362327666／PR 38362331358。
+同步清理仍 ENOTEMPTY；改為 await async disposal，先讓既有 withGame 的1500ms清理計時與Chrome退出完成，再有界刪除自己的 temp root。
+七支 browser probes 各自 await cleanup；沒有忽略清理或行為錯誤。
+Remaining 首紅包含 UKC021-M、UKP021-L 的pose/snow：id相同的另一朝向／variant地塊也被納入trace。
+觀察器只包原生 resolver、保留原return值，記錄實際 x/y root；body/snow只取該 native地塊，night另外比native尺寸／variant，不按期望像素座標篩資料。
+hover 首紅已有實測 alpha .35，但自算滑鼠座標對不到預期 tile；指標移動改用原生point转换，alpha=.35／恢復=1的判準不變。
+Visual第二輪32幀／8769 checks已記錄但被清理阻斷，仍不得宣稱完整通過；interaction304 checks同樣。
+第二輪新量測僅此runner：warm原生 median37.2/p90 41ms、候選29.1/42.9；whole-family cold原生60.75/66.3、候選215.95/267.2，每臂30交錯樣本。整份守衛仍紅，這些部分數字不充當驗收。
+批准五份美術、原kit與正式候選index SHA未動。首兩輪完整報告／紅燈均保留。

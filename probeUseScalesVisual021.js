@@ -26,7 +26,7 @@ function observeVisual(day,rot,night){
  const m=N.metrics(),frame={W:m.W,H:m.H,camX:m.cam.x,camY:m.cam.y,zoom:m.cam.z},checks=[],add=(name,ok,data)=>checks.push({name,ok:!!ok,data});
  for(const p of places){const s=U.read(p.x,p.y),b=N.tile(p.x,p.y).bld;
   if(!s?.__art021){add('profile/'+p.id,false);continue;}
-  const expected=O.pose({...p,rot,N:N.state().n,nativeLevel:b.lv,nativeVariant:b.v,frame}),hits=trace.filter(t=>t.id===p.id&&t.kind==='day'&&t.main&&t.args.length===4);
+  const expected=O.pose({...p,rot,N:N.state().n,nativeLevel:b.lv,nativeVariant:b.v,frame}),hits=trace.filter(t=>t.id===p.id&&t.root?.[0]===p.x&&t.root?.[1]===p.y&&t.kind==='day'&&t.main&&t.args.length===4);
   const guard=O.nativeDrawGuard(expected,hits);checks.push(guard);add('anchor/'+p.id,O.same([s.ax,s.ay],expected.anchor),{expected:expected.anchor,observed:[s.ax,s.ay]});
   add('native metadata/'+p.id,s.__t547.lv===b.lv&&s.__t547.v===b.v&&s.__art021.view===expected.view);
   const pixels=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data;
@@ -57,4 +57,4 @@ const session=await H.withGame({fresh:false,timeout:300,preScript:'window.__useS
  }
  return {errors:cdp.errors,benign:cdp.benign};
 });report.session=session;add('native browser session clean',session.ok&&!session.result?.errors?.length,session.fails);report.ok=report.checks.every(q=>q.ok);
-}catch(e){report.error=e.stack;report.ok=false;}finally{H.cleanup();flush();console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,frames:report.frames.length,error:report.error}));if(!report.ok)process.exitCode=1;}})();
+}catch(e){report.error=e.stack;report.ok=false;}finally{await H.cleanup();flush();console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,frames:report.frames.length,error:report.error}));if(!report.ok)process.exitCode=1;}})();

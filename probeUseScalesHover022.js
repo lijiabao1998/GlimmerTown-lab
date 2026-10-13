@@ -24,13 +24,13 @@ function prepare(){
 function locate(id,rot,night){
   const p=H022.places.find(p=>p.id===id),N=N021,G=GV,O=IndependentPoseOracle021;
   N.running(false);G.setSpeed(0);G.setDay(88);G.setRot(rot);G.lookAt(p.x+p.bw/2,p.y+p.bh/2);G.setZoom(1.1);G.setVisT(G.art574.cycle574()*(night?0:.5));N.hide();
-  const before={money:G.stats().money,profile:JSON.stringify(G.useScales021.profileSave())};N.trace(true);N.frame(.016);const hits=N.traceRows().filter(t=>t.id===id&&t.main&&t.kind==='day'&&t.args.length===4);N.trace(false);
+  const before={money:G.stats().money,profile:JSON.stringify(G.useScales021.profileSave())};N.trace(true);N.frame(.016);const hits=N.traceRows().filter(t=>t.id===id&&t.root?.[0]===p.x&&t.root?.[1]===p.y&&t.main&&t.kind==='day'&&t.args.length===4);N.trace(false);
   const m=N.metrics(),b=N.tile(p.x,p.y).bld,pose=O.pose({...p,rot,N:N.state().n,nativeLevel:b.lv,nativeVariant:b.v,frame:{W:m.W,H:m.H,camX:m.cam.x,camY:m.cam.y,zoom:m.cam.z}});
   const corners=[[p.x,p.y],[p.x+p.bw-1,p.y],[p.x,p.y+p.bh-1],[p.x+p.bw-1,p.y+p.bh-1]].map(q=>O.rotate(q[0],q[1],N.state().n-1,rot));
   const backDepth=Math.min(...corners.map(q=>q[0]+q[1])),targets=[];
   for(let y=Math.max(0,p.y-12);y<Math.min(N.state().n,p.y+p.bh+12);y++)for(let x=Math.max(0,p.x-12);x<Math.min(N.state().n,p.x+p.bw+12);x++){
     const uv=O.rotate(x,y,N.state().n-1,rot),ax=pose.offset[0]+(32*(uv[0]-uv[1])+32)*m.cam.z,ay=pose.offset[1]+(16*(uv[0]+uv[1])+32)*m.cam.z;
-    const px=ax/m.DPR,py=(ay-16*m.cam.z)/m.DPR;
+    const [px,py]=N.point(x,y);
     if(uv[0]+uv[1]<backDepth-.5&&ax>pose.draw[0]+2&&ax<pose.draw[0]+pose.draw[2]-2&&ay>pose.draw[1]+2&&ay<pose.draw[1]+pose.draw[3]-2&&px>80&&px<m.W/m.DPR-80&&py>90&&py<m.H/m.DPR-120)targets.push({x,y,px,py,ax,ay,depth:uv[0]+uv[1]});
   }
   const distance=t=>Math.abs(t.px-m.W/m.DPR/2)+Math.abs(t.py-m.H/m.DPR/2);targets.sort((a,b)=>distance(a)-distance(b));
@@ -50,7 +50,7 @@ async function run(source,fault=false){
           let result;
           for(const t of q.targets){
             await cdp.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:t.px,y:t.py,button:'none'});
-            result=await cdp.evalJs(`(()=>{N021.trace(true);N021.frame(.016);const hits=N021.traceRows().filter(t=>t.id===${JSON.stringify(p.id)}&&t.main&&t.kind==='day'&&t.args.length===4);N021.trace(false);return{hover:N021.hover(),hits,money:GV.stats().money,profile:JSON.stringify(GV.useScales021.profileSave())};})()`);
+            result=await cdp.evalJs(`(()=>{N021.trace(true);N021.frame(.016);const hits=N021.traceRows().filter(t=>t.id===${JSON.stringify(p.id)}&&t.root?.[0]===${p.x}&&t.root?.[1]===${p.y}&&t.main&&t.kind==='day'&&t.args.length===4);N021.trace(false);return{hover:N021.hover(),hits,money:GV.stats().money,profile:JSON.stringify(GV.useScales021.profileSave())};})()`);
             if(result.hover.x===t.x&&result.hover.y===t.y){result.target=t;break;}
           }
           const name='mature-hover-alpha/'+p.id+'/width'+width+'/r'+rot+'/'+(night?'night':'day');
@@ -58,7 +58,7 @@ async function run(source,fault=false){
           const observed={width,rot,night,age:q.p.age,hover:result?.hover,target:result?.target,alpha:result?.hits.map(h=>h.alpha)};
           if(fault){if(!ok){firstFailure={name,observed};return{firstFailure,errors:cdp.errors};}throw Error('Intentional alpha fault was not detected');}
           check(name,ok,observed);check('hover-no-charge-or-profile-mutation/'+p.id,result.money===q.before.money&&result.profile===q.before.profile);
-          const restored=await cdp.evalJs(`(()=>{N021.hide();N021.trace(true);N021.frame(.016);const hits=N021.traceRows().filter(t=>t.id===${JSON.stringify(p.id)}&&t.main&&t.kind==='day'&&t.args.length===4);N021.trace(false);return hits.map(h=>h.alpha);})()`);
+          const restored=await cdp.evalJs(`(()=>{N021.hide();N021.trace(true);N021.frame(.016);const hits=N021.traceRows().filter(t=>t.id===${JSON.stringify(p.id)}&&t.root?.[0]===${p.x}&&t.root?.[1]===${p.y}&&t.main&&t.kind==='day'&&t.args.length===4);N021.trace(false);return hits.map(h=>h.alpha);})()`);
           check('hover-restores-opaque/'+p.id,restored.length>0&&restored.every(a=>Math.abs(a-1)<1e-6),restored);report.cases.push(observed);flush();
           if(p.id===init.places[0].id)await shot(cdp,'mature-hover-width'+width+'-r'+rot+'-'+(night?'night':'day')+'.png');
         }
@@ -67,7 +67,7 @@ async function run(source,fault=false){
     });
     if(!session.ok||session.result?.errors?.length)throw Error('Hover native browser session failed: '+session.fails.join(';'));
     return{source:H.proof,session:{ok:session.ok,fails:session.fails,seconds:session.seconds},firstFailure};
-  }finally{H.cleanup();}
+  }finally{await H.cleanup();}
 }
 (async()=>{try{
   report.normal=await run(html);const target='occA=.35;break;',bad=html.replace(target,'occA=.85;break;');

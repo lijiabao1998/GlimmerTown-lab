@@ -6,13 +6,17 @@ const SOURCE=__dirname,sha=d=>crypto.createHash('sha256').update(d).digest('hex'
 const EXPORT=`
 /* GPT-021 TEST-ONLY INSPECTOR START */
 if(window.__useScaleQA021===true){
- let trace021=false,traceRows021=[],imageMap021=new Map(),lastSize021=-1;
+ let trace021=false,traceRows021=[],imageMap021=new Map(),lastSize021=-1,drawRoot021=null;
+ if(typeof use021Resolve==='function'){
+  const nativeResolve021=use021Resolve;
+  use021Resolve=function(x,y){const result=nativeResolve021.apply(this,arguments);if(trace021&&result?.__art021)drawRoot021=[x,y];return result;};
+ }
  const drawImage021=CanvasRenderingContext2D.prototype.drawImage;
  function refreshImages021(){if(typeof USE021_CACHE==='undefined'||USE021_CACHE.size===lastSize021)return;
   lastSize021=USE021_CACHE.size;
   for(const s of USE021_CACHE.values()){imageMap021.set(s.img,{s,kind:'day'});if(s.night){imageMap021.set(s.night,{s,kind:'night'});imageMap021.set(winImg649(s.night),{s,kind:'night'});}}}
  function observeDraw021(receiver,args){
-  if(trace021){refreshImages021();const a=imageMap021.get(args[0]);if(a||(args[0]&&args[0]===NL629)){const m=receiver.getTransform();traceRows021.push({id:a?.s?.__art021?.id,view:a?.s?.__art021?.view,meta:a?.s?{...a.s.__art021}:null,icon:a?.icon,kind:a?.kind||'native-night-composite',args:args.slice(1),main:receiver.canvas===cvs,nightLayer:receiver.canvas===NL629,canvasSize:[receiver.canvas.width,receiver.canvas.height],alpha:receiver.globalAlpha,matrix:[m.a,m.b,m.c,m.d,m.e,m.f]});}}
+  if(trace021){refreshImages021();const a=imageMap021.get(args[0]);if(a||(args[0]&&args[0]===NL629)){const m=receiver.getTransform();traceRows021.push({root:drawRoot021?.slice()||null,id:a?.s?.__art021?.id,view:a?.s?.__art021?.view,meta:a?.s?{...a.s.__art021}:null,icon:a?.icon,kind:a?.kind||'native-night-composite',args:args.slice(1),main:receiver.canvas===cvs,nightLayer:receiver.canvas===NL629,canvasSize:[receiver.canvas.width,receiver.canvas.height],alpha:receiver.globalAlpha,matrix:[m.a,m.b,m.c,m.d,m.e,m.f]});}}
  }
  // Observe the unchanged native snow/window/bubble/actor calls. All wrappers
  // return their original value and draw through the original methods.
@@ -47,7 +51,7 @@ if(window.__useScaleQA021===true){
   phase:()=>visT,w2v,v2w,part:()=>part639(),nativeGet:getBlockSprite547,smoke:smokeViewSrc626,bubble:bubbleFor607,
   running:v=>{if(v!==undefined)running=!!v;return running;},
   frame:(dt=.016)=>draw(dt),
-  trace:on=>{trace021=!!on;traceRows021=[];imageMap021.clear();lastSize021=-1;return trace021;},traceRows:()=>traceRows021.slice(),
+  trace:on=>{trace021=!!on;traceRows021=[];imageMap021.clear();lastSize021=-1;drawRoot021=null;return trace021;},traceRows:()=>traceRows021.slice(),
   clearArtCache:()=>{if(typeof USE021_CACHE!=='undefined')USE021_CACHE.clear();imageMap021.clear();lastSize021=-1;},
   metrics:()=>({W,H,DPR,cam:{...cam},rot:viewRotEff()}),
   point:(x,y)=>{const p=w2v(x+.5,y+.5);return[(W/2+(p[0]-p[1])*32*cam.z-cam.x*cam.z)/DPR,(H/2+(p[0]+p[1])*16*cam.z-cam.y*cam.z)/DPR];},
@@ -72,6 +76,10 @@ function makeHarness(html=fs.readFileSync(path.join(SOURCE,'index.html'),'utf8')
  // withGame requests Chrome shutdown but its profile writers can briefly still
  // be exiting. Retry only disposal of this harness's own mkdtemp directory;
  // never mask a game/guard failure or touch any other checkout/profile.
- return {...holder.exports,proof,cleanup:()=>fs.rmSync(root,{recursive:true,force:true,maxRetries:10,retryDelay:100})};
+ return {...holder.exports,proof,cleanup:async()=>{
+  // Yield so withGame's scheduled profile disposal and Chrome exit can finish.
+  await new Promise(resolve=>setTimeout(resolve,1600));
+  await fs.promises.rm(root,{recursive:true,force:true,maxRetries:10,retryDelay:100});
+ }};
 }
 module.exports={makeHarness};
