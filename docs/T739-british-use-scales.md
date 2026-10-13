@@ -218,3 +218,13 @@ fp.json、style.json、DECISIONS、AGENT-PROMPTS和原harness.js仍main原样；
 先前父線兩次合併交接被安全審查拒絕時已停止，未嘗試main合併／推送／部署或換路徑。
 此後依新直接批准恢復；本地已備好發布檔，必須先推同PR並跑最終雲端驗收才可合併。
 有確切操作仍被拒則保存action/target/reason停手，不改途徑。
+
+
+### 最終版本首輪新同種子守衛紅燈（未合併）
+
+head ef59c05793427dc1941dfc0b5f88c3e079541cad，push38368624819：其餘八項成功，新增前向配對step0紅。
+第一個差為企業cash 221.52/221.53，native共128差、jobs707/706、住宅demand差0.00063，BL無差、phase整日相同、cars16/16。
+沒有把0.01當容忍度放過。查原生load只還原整日資料，不重設未序列化的simAcc；兩個browser的boot殘留subday phase可能不同。
+新配對在原生load之後，記錄原before state，再明確把兩臂這個輸入phase都設0，繼續完全相同的native advance；不改算法、開關或存檔字段，不排除輸出差。
+保留matchedInputPhase供審查，所有原字段和15stats仍要求零差；若仍紅則不能宣稱已解決。
+這只改QA測試輸入，最終發布index SHA4798d3358a5255d212de7a90235adc0dd2317ee21b91b73a3dbb56af076c2655未動。

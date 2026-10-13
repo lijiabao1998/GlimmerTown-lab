@@ -52,6 +52,10 @@ if(window.__useScaleQA021===true){
   // T289's traffic clock is a visual input not stored in saves. Give paired
   // whole-frame comparisons the same clock; no layer or simulation is disabled.
   visualClock:value=>{if(value!==undefined)trafClock=+value;return{visT,trafClock};},
+  // load restores whole-day save data but leaves the unsaved sub-day clock.
+  // Paired advancement must start with the same input phase, not tolerate
+  // different finance/jobs outputs or disable any simulation rule.
+  simulationClock:value=>{if(value!==undefined)simAcc=+value;return{day,simAcc,daylen:DAYLEN};},
   running:v=>{if(v!==undefined)running=!!v;return running;},
   frame:(dt=.016)=>draw(dt),
   trace:on=>{trace021=!!on;traceRows021=[];imageMap021.clear();lastSize021=-1;drawRoot021=null;return trace021;},traceRows:()=>traceRows021.slice(),
