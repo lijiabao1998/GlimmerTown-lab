@@ -37,7 +37,7 @@ function observeNear(id,mode){
  const expected=O.pose({...p,rot:0,N:N.state().n,nativeLevel:b.lv,nativeVariant:b.v,frame});
  const checks=[],add=(name,ok,data)=>checks.push({name,ok:!!ok,data}),body=trace.filter(t=>t.id===id&&t.root?.[0]===p.x&&t.root?.[1]===p.y&&t.kind==='day'&&t.main&&t.args.length===4);
  checks.push(O.nativeDrawGuard(expected,body));add('native partition dimensions/'+id,s.__t547.bw===expected.nativeDims[0]&&s.__t547.bh===expected.nativeDims[1],{native:p,observed:s.__t547});
- const kind=mode==='night'?'night':'snow',hits=trace.filter(t=>t.id===id&&(mode==='night'||(t.root?.[0]===p.x&&t.root?.[1]===p.y))&&t.meta.bw===p.bw&&t.meta.bh===p.bh&&t.meta.v===b.v&&t.kind===kind&&(mode==='night'?t.nightLayer:t.main)&&t.args.length===4);
+ const kind=mode==='night'?'night':'snow',hits=trace.filter(t=>t.id===id&&t.kind===kind&&(mode==='night'||(t.root?.[0]===p.x&&t.root?.[1]===p.y))&&t.meta?.bw===p.bw&&t.meta?.bh===p.bh&&t.meta?.v===b.v&&(mode==='night'?t.nightLayer:t.main)&&t.args.length===4);
  const needed=mode==='snow'||!!b.pw;
  if(needed)add('actual '+kind+' layer/'+id,hits.length>0&&hits.every(t=>t.alpha>0&&O.same(t.args,expected.draw)&&O.same(t.matrix,expected.nativeTransform)),hits);
  else add('unpowered native night gate/'+id,hits.length===0,{powered:!!b.pw,hits});

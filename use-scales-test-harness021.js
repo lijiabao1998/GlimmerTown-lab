@@ -49,6 +49,9 @@ if(window.__useScaleQA021===true){
   clearOne:(id,bw,bh,rot,lv,v)=>{let art=0;for(const[k,s]of USE021_CACHE){const m=s.__art021;if(m.id===id&&m.bw===bw&&m.bh===bh&&m.rot===rot&&m.lv===lv&&m.v===v){USE021_CACHE.delete(k);art++;}}const row=USE021_ROWS.find(q=>q.id===id),d=blockDims622(bw,bh,rot),key=row.k+'_'+lv+'_'+d[0]+'x'+d[1]+'_'+v;return{art,native:BLOCK_SPR547.delete(key),key};},
   clearNativeBlockCache:()=>BLOCK_SPR547.clear(),
   phase:()=>visT,w2v,v2w,part:()=>part639(),nativeGet:getBlockSprite547,smoke:smokeViewSrc626,bubble:bubbleFor607,
+  // T289's traffic clock is a visual input not stored in saves. Give paired
+  // whole-frame comparisons the same clock; no layer or simulation is disabled.
+  visualClock:value=>{if(value!==undefined)trafClock=+value;return{visT,trafClock};},
   running:v=>{if(v!==undefined)running=!!v;return running;},
   frame:(dt=.016)=>draw(dt),
   trace:on=>{trace021=!!on;traceRows021=[];imageMap021.clear();lastSize021=-1;drawRoot021=null;return trace021;},traceRows:()=>traceRows021.slice(),

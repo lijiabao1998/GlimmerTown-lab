@@ -148,3 +148,17 @@ hover 首紅已有實測 alpha .35，但自算滑鼠座標對不到預期 tile�
 Visual第二輪32幀／8769 checks已記錄但被清理阻斷，仍不得宣稱完整通過；interaction304 checks同樣。
 第二輪新量測僅此runner：warm原生 median37.2/p90 41ms、候選29.1/42.9；whole-family cold原生60.75/66.3、候選215.95/267.2，每臂30交錯樣本。整份守衛仍紅，這些部分數字不充當驗收。
 批准五份美術、原kit與正式候選index SHA未動。首兩輪完整報告／紅燈均保留。
+
+
+### 第三輪雲端結果（清理已解決，未全綠）
+
+head d2cc3ef2be4830addb81fd399ebc3f11d747aad6，push 38363205584／PR 38363209843。
+kit、fp、visual、saves、compatibility 已完成成功；async cleanup不再ENOTEMPTY。
+仍紅：native 581checks，36款成熟共存只有35、缺UKC021-L；interaction306checks的閥關整幀SHA不一致；
+Remaining night取樣在bubble/helper trace沒有meta時讀bw出TypeError；hover完成72情境後r1指標tile不符（alpha已.35）。
+修正：night先限定layer再讀可選meta，body/snow仍以真root辨識；hover照原生toTile「先view格中心、後反轉整格」公式給四向指標。
+整幀A/B既有測法main只畫1次、候選off畫2次；T289 trafClock是不入存檔的visual clock，兩臂原來boot時鐘也不同。
+現在兩臂給相同trafClock=0、visT=55，最後都畫兩次.016；沒有關任何畫面層、沒有放寬逐位一致。
+保留兩臂實際input／clock供審查；尚未證明這是全部原因，若仍不同照實紅燈。
+native的36共存判準不改，下一報告追加缺項的實際native根／level／犯罪消防覆蓋／首次成熟日，查明原因前不改模擬或強制放置。
+本轮沒有合併、版本或baseline更新，所有失敗artifacts保留。

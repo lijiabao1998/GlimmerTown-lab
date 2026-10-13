@@ -30,7 +30,11 @@ function locate(id,rot,night){
   const backDepth=Math.min(...corners.map(q=>q[0]+q[1])),targets=[];
   for(let y=Math.max(0,p.y-12);y<Math.min(N.state().n,p.y+p.bh+12);y++)for(let x=Math.max(0,p.x-12);x<Math.min(N.state().n,p.x+p.bw+12);x++){
     const uv=O.rotate(x,y,N.state().n-1,rot),ax=pose.offset[0]+(32*(uv[0]-uv[1])+32)*m.cam.z,ay=pose.offset[1]+(16*(uv[0]+uv[1])+32)*m.cam.z;
-    const [px,py]=N.point(x,y);
+    // toTile floors in view coordinates before applying v2w. Rotate the
+    // integer cell first, then choose its view center; rotating x+.5/y+.5
+    // uses the N-1 corner transform and enters an adjacent tile at r1/r2/r3.
+    const px=(m.W/2-m.cam.x*m.cam.z+32*(uv[0]-uv[1])*m.cam.z)/m.DPR;
+    const py=(m.H/2-m.cam.y*m.cam.z+16*(uv[0]+uv[1]+1)*m.cam.z)/m.DPR;
     if(uv[0]+uv[1]<backDepth-.5&&ax>pose.draw[0]+2&&ax<pose.draw[0]+pose.draw[2]-2&&ay>pose.draw[1]+2&&ay<pose.draw[1]+pose.draw[3]-2&&px>80&&px<m.W/m.DPR-80&&py>90&&py<m.H/m.DPR-120)targets.push({x,y,px,py,ax,ay,depth:uv[0]+uv[1]});
   }
   const distance=t=>Math.abs(t.px-m.W/m.DPR/2)+Math.abs(t.py-m.H/m.DPR/2);targets.sort((a,b)=>distance(a)-distance(b));

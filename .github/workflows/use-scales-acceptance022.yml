@@ -78,6 +78,9 @@ jobs:
                   failed=[c for c in r['checks'] if not c.get('ok')]
                   items=[c for c in r.get('items',[]) if c.get('status')=='failed']
                   print(json.dumps({'file':p.name,'ok':r.get('ok'),'error':r.get('error'),'checks':len(r['checks']),'firstFailedChecks':failed[:6],'failedItems':items[:6],'firstFailure':r.get('firstFailure'),'cases':len(r.get('cases',[])),'frames':len(r.get('frames',[])),'fault':r.get('fault'),'performance':r.get('performance',{}).get('summary')},ensure_ascii=False))
+                  if p.name.startswith('native-flow'):
+                      missing=r.get('latest',{}).get('missing',[])
+                      print(json.dumps({'nativeMissing':missing,'latestDay':r.get('latest',{}).get('day'),'missingZones':[z for z in r.get('latest',{}).get('zones',[]) if z.get('id') in missing],'firstMatureForMissing':{k:v for k,v in r.get('saved',{}).get('first',{}).items() if k in missing},'latestControls':r.get('latest',{}).get('control'),'latestState':r.get('latest',{}).get('state')},ensure_ascii=False))
               except Exception as e: print(json.dumps({'file':p.name,'reportReadError':str(e)}))
           PY
       - name: Retain actual reports and native screenshots, including failures

@@ -15,14 +15,14 @@
     "british-use-scales-workplaces021.js": "51f14212f00e214d4654d86f65af33f49df9575e53835e5f3820dba8859e4144",
     "build-use-scales-release021.js": "ff41ba3aca6e5c57b60d1f4be6217ce4561088fe730500760ac175fc5921c9ab",
     "probeUseScalesCompatRemaining021.js": "79687cb32752b59a071cf5355efb1776b11090295f7424bb4371695b910a96fb",
-    "probeUseScalesInteraction021.js": "6f6f8a653355904901f0eb1c1e9f2154aa47e620d25e6636489d3361d82360c5",
+    "probeUseScalesInteraction021.js": "6c2d0398055a88b40a84dbeb4fa217e54f74d22bddb7ea5c9bc425261dee23c7",
     "probeUseScalesKitRebuild021.test.js": "c7b780f5cc4c2b6549a473ffe8f9480879e696c7a4a2334c5ccfa8f1866641d2",
     "probeUseScalesNative021.js": "3dfb18464c4910b9b51fbe224a1ea4871fbed513f7700e006939e0c0ca769b7b",
-    "probeUseScalesRemaining021.js": "f12d71a621485547583a47aa22f9534848d742697c740398af59fddcabb79926",
+    "probeUseScalesRemaining021.js": "f83a8939652e0f5885332b813955dc76a8bdde8169d03dd79345c0c6179fbc8f",
     "probeUseScalesSaves021.js": "3dfcac332caccf1914336d3a337ee486dfcf546b400f4a34a2abbc15c646ea8f",
     "probeUseScalesVisual021.js": "a186d7a6adcbded920d3f0baea0ed9f560824555d49083389703fe1bdff6d1c4",
     "smoke.js": "489ae51967a330ec86cc240b3b0edbb38e83d23a3b694517630f1b64000bb156",
-    "use-scales-test-harness021.js": "1f5a2b66da7abef62ef6076fb5817f1693fa2a4dc90433cd3dc1715748999edd",
+    "use-scales-test-harness021.js": "ac99a27cf7995ffe0ebb4ffbe921c930d347a7cc2aee987024a5080102b88174",
     "fp.json": "f603c71336746f9d0b0437904b54f6215f0b2bf4f059d4bfb1c16dbb20114991",
     "style.json": "07d2fb4f65651fce18e18c127ce1dac65082702352f38d38cae8786f808971a0",
     "harness.js": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
@@ -43,7 +43,7 @@
   "guardPortability": "Only file paths and immutable baseline retrieval ported; oracles/fixtures copied byte-exact. These guards are NOT RUN under GPT-022.",
   "delivery": "integrated index committed to the existing PR; isolated original source rebuild verified before game guards",
   "integrationSources": {
-    "probeUseScalesHover022.js": "de5412addb737bcb37518767edebc757ca72d17876a3551ea366b688633187b5"
+    "probeUseScalesHover022.js": "4780ebccd59b321ea122cc51e3d66d21eebc10343cea068493224d4876c00531"
   },
   "sourceStagePins": {
     "use-scales-test-harness021.js": "c44590692af85d3653cad0e0e8f81b2cb1e66881bc4d87bebb4c8dba2a9c4dd3",
