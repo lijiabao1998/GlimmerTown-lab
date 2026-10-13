@@ -41,7 +41,7 @@ async function runArm(name,html){
  // Pair actual native advancement in the original renderer and the enabled
  // candidate, from the same full save and identical explicit frame inputs.
  // No escape valve or simulation override is used for these future steps.
- checkpoints[name].simulation=await cdp.evalJs(`(()=>{N021.running(false);GV.setSpeed(0);localStorage.setItem('glimmerville.v1.s3',${JSON.stringify(inputs.new)});const loaded=GV.load();N021.running(false);GV.setSpeed(0);GV.ai(false);GV.setRot(0);GV.lookAt(24,23);GV.setZoom(.55);GV.setVisT(55);N021.visualClock(0);const before=N021.state(),matchedInputPhase=N021.simulationClock(0);GV.setSpeed(1);GV.advanceN(.05,360);GV.setSpeed(0);const prepared=N021.state(),rows=[];for(let i=0;i<6;i++){GV.setSpeed(1);GV.advanceN(.05,18);GV.setSpeed(0);N021.frame(.016);rows.push(S021.capture('same-seed-native-step-'+i));}return{loaded,before,matchedInputPhase,prepared,rows,control:N021.controls(),disasters:GV.disasters()};})()`);
+ checkpoints[name].simulation=await cdp.evalJs(`(()=>{N021.running(false);GV.setSpeed(0);localStorage.setItem('glimmerville.v1.s3',${JSON.stringify(inputs.new)});const loaded=GV.load();N021.running(false);GV.setSpeed(0);GV.ai(false);GV.setRot(0);GV.lookAt(24,23);GV.setZoom(.55);GV.setVisT(55);N021.visualClock(0);const before=N021.state(),matchedInputPhase=N021.simulationClock(0),initialCheckpoint=S021.capture('same-seed-native-initial');GV.setSpeed(1);GV.advanceN(.05,360);GV.setSpeed(0);const prepared=N021.state(),rows=[];for(let i=0;i<6;i++){GV.setSpeed(1);GV.advanceN(.05,18);GV.setSpeed(0);N021.frame(.016);rows.push(S021.capture('same-seed-native-step-'+i));}return{loaded,before,matchedInputPhase,initialCheckpoint,prepared,rows,control:N021.controls(),disasters:GV.disasters()};})()`);
  add(name+' same-seed native input and ordinary controls',checkpoints[name].simulation.loaded&&!checkpoints[name].simulation.control.god&&!checkpoints[name].simulation.control.sandbox&&!Object.values(checkpoints[name].simulation.control.overrides).some(v=>v===true),checkpoints[name].simulation.control);flush();
  if(name==='rebuilt'){
   report.vehiclePair=await cdp.evalJs(`(()=>{N021.running(false);GV.setSpeed(0);localStorage.setItem('glimmerville.v1.s3',${JSON.stringify(inputs.new)});GV.load();N021.running(false);const before=N021.state();GV.setSpeed(1);GV.advanceN(.05,360);GV.setSpeed(0);const prepared=N021.state(),first=S021.capture('same-live-native-world');window.__noUseScalesRelease021=false;N021.frame(.016);const on=S021.capture('same-live-native-world');window.__noUseScalesRelease021=true;N021.frame(.016);const off=S021.capture('same-live-native-world');window.__noUseScalesRelease021=false;return{preparation:{before,prepared,ordinaryNativeAdvance:true},first,on,off,compare:PairedSaveOracle021.compareCheckpointPair(on,off)};})()`);checkpoints.vehiclePair=report.vehiclePair;add('same native world all15 stats including nonempty cars exactly equal',report.vehiclePair.compare.ok,report.vehiclePair.compare);flush();
@@ -60,9 +60,16 @@ async function runArm(name,html){
 }
 (async()=>{try{
  add('immutable main pinned',report.mainSHA256==='7e4f63e8921d9dd2d56133c3bf07998316ee27b154ca45411a9b61134b336067');
- if(!REUSE)await runArm('main54ec',baseline);await runArm('rebuilt');
+ if(!REUSE){await runArm('main54ec',baseline);await runArm('main-calibration',baseline);}await runArm('rebuilt');
  for(const kind of['old','new'])for(let i=0;i<3;i++){
   const on=checkpoints.rebuilt.cycles[kind][i],off=checkpoints.main54ec.cycles[kind][i];const cmp=O.compareCheckpointPair(on,off,{requireNonemptyVehicles:false,requireArtMetadata:false});report.pairs.push({kind,cycle:i,compare:cmp});add('whole native main/rebuilt '+kind+' cycle'+i,cmp.ok,cmp);
+ }
+ const initialPair=O.compareCheckpointPair(checkpoints.rebuilt.simulation.initialCheckpoint,checkpoints.main54ec.simulation.initialCheckpoint,{requireArtMetadata:false,requireNonemptyVehicles:false});
+ report.initialSameSeedPair=initialPair;add('same-seed fully recounted initial native checkpoint',initialPair.ok,initialPair);
+ report.immutableMainCalibration=[];
+ for(let i=0;i<6;i++){
+  const left=checkpoints['main-calibration'].simulation.rows[i],right=checkpoints.main54ec.simulation.rows[i],cmp=O.compareCheckpointPair(left,right,{requireArtMetadata:false});
+  report.immutableMainCalibration.push({step:i,left,right,compare:cmp});add('immutable-main/main independent protocol calibration step'+i,cmp.ok,cmp);
  }
  report.sameSeedNativePairs=[];
  for(let i=0;i<6;i++){

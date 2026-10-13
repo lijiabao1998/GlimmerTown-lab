@@ -228,3 +228,12 @@ head ef59c05793427dc1941dfc0b5f88c3e079541cad，push38368624819：其餘八項�
 新配對在原生load之後，記錄原before state，再明確把兩臂這個輸入phase都設0，繼續完全相同的native advance；不改算法、開關或存檔字段，不排除輸出差。
 保留matchedInputPhase供審查，所有原字段和15stats仍要求零差；若仍紅則不能宣稱已解決。
 這只改QA測試輸入，最終發布index SHA4798d3358a5255d212de7a90235adc0dd2317ee21b91b73a3dbb56af076c2655未動。
+
+
+### 子日時鐘對齊後，新增配對仍有一個歷史字段差（未合併）
+
+head ef043773518a81f8e9ffcecc8824806bf646e8c5，push38369780347：同種子step0目前只剩c490.h[59][9]（capacityStress歷史）202/203，BL及全15stats相同。
+其他八項仍成功；不因剩0.001就忽略歷史字段。原先warm直接從load後未完整recount的runtime開始。
+現在warm前透過原生save/stats形成完整initial checkpoint，并严格比此initial pair；沒有修改任何输出或容忍度。
+另外同樣協議以不可變原main跑兩個獨立browser對照，六步main/main也必須零差，先校準協議再判main/candidate；避免把原生loader/derived-cache不確定性誤認成候選過關或失敗。
+兩類配對及失敗全快照都保存；新結果待CI，沒有自行合併。
