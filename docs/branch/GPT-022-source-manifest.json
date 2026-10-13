@@ -19,10 +19,10 @@
     "probeUseScalesKitRebuild021.test.js": "c7b780f5cc4c2b6549a473ffe8f9480879e696c7a4a2334c5ccfa8f1866641d2",
     "probeUseScalesNative021.js": "cc99922de2392a5f7d925ab7ba937d2089e7f4610bd75f7b288368fbe97e02f1",
     "probeUseScalesRemaining021.js": "f83a8939652e0f5885332b813955dc76a8bdde8169d03dd79345c0c6179fbc8f",
-    "probeUseScalesSaves021.js": "3dfcac332caccf1914336d3a337ee486dfcf546b400f4a34a2abbc15c646ea8f",
+    "probeUseScalesSaves021.js": "cd46c5961e9df34dceabf5145afad27f094f6021069bd2c64a1ae4ff3e20ea8c",
     "probeUseScalesVisual021.js": "a186d7a6adcbded920d3f0baea0ed9f560824555d49083389703fe1bdff6d1c4",
     "smoke.js": "489ae51967a330ec86cc240b3b0edbb38e83d23a3b694517630f1b64000bb156",
-    "use-scales-test-harness021.js": "ac99a27cf7995ffe0ebb4ffbe921c930d347a7cc2aee987024a5080102b88174",
+    "use-scales-test-harness021.js": "46682dc50c901462c5610d1d7308bcd553744c4f2502f530feb50a33d52c97b7",
     "fp.json": "f603c71336746f9d0b0437904b54f6215f0b2bf4f059d4bfb1c16dbb20114991",
     "style.json": "07d2fb4f65651fce18e18c127ce1dac65082702352f38d38cae8786f808971a0",
     "harness.js": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
@@ -36,14 +36,15 @@
     "british-complex-primitives014.js": "7b1e42d2514f7a1d16122ee0d0afc9ff265cfcb73c3856c74b4aed08ffd3d9c8"
   },
   "limitations": [
-    "whole-family cold +243.75ms",
-    "mature-building hover fade NOTTESTED"
+    "whole-family cold median +159.50ms in source-stage cloud run38365203669; real-device performance not measured",
+    "native unsupported combinations retain fallback"
   ],
   "pixelGuards": "未跑，待合併者跑",
   "guardPortability": "Only file paths and immutable baseline retrieval ported; oracles/fixtures copied byte-exact. These guards are NOT RUN under GPT-022.",
   "delivery": "integrated index committed to the existing PR; isolated original source rebuild verified before game guards",
   "integrationSources": {
-    "probeUseScalesHover022.js": "4780ebccd59b321ea122cc51e3d66d21eebc10343cea068493224d4876c00531"
+    "probeUseScalesHover022.js": "4780ebccd59b321ea122cc51e3d66d21eebc10343cea068493224d4876c00531",
+    "use-scales-release-labels022.js": "50418cbd6a2376f707aacf180a546bcb298d3f84780a2b4dad2f05aa8531bf0c"
   },
   "sourceStagePins": {
     "use-scales-test-harness021.js": "c44590692af85d3653cad0e0e8f81b2cb1e66881bc4d87bebb4c8dba2a9c4dd3",
@@ -53,5 +54,25 @@
     "probeUseScalesInteraction021.js": "8a96e495bf6c80e48129fe7061b1a25ee75faec7caac428885a5eff0c856172b",
     "probeUseScalesRemaining021.js": "1ce2df4fb5c6b92d8c1fe2e11a883d740ed47a53ffc3aa5902186e97ddaa044e",
     "probeUseScalesCompatRemaining021.js": "acde37f4bc4389280a9871e0cdd617ebabc25b6a5f75ae0a1f953435c6d4f5bd"
+  },
+  "publication": {
+    "version": "14.41",
+    "anchor": "T739",
+    "indexSHA256": "4798d3358a5255d212de7a90235adc0dd2317ee21b91b73a3dbb56af076c2655",
+    "literalLabelChanges": 3,
+    "sourceCandidateSHA256Retained": "8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed"
+  },
+  "sourceStageLimitations": [
+    "whole-family cold +243.75ms",
+    "mature-building hover fade NOTTESTED"
+  ],
+  "sourceStageAcceptance": {
+    "head": "a63dbda3093a60045d78860c706cdb1c1f3738ae",
+    "push": 38365203669,
+    "pullRequest": 38365212020,
+    "guards": "9/9 both events",
+    "native36BothDay": 86,
+    "hoverCases": 576,
+    "releaseLabelValidation": "pending final cloud suite"
   }
 }

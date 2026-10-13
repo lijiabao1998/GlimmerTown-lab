@@ -66,6 +66,17 @@ if(window.__useScaleQA021===true){
 /* GPT-021 TEST-ONLY INSPECTOR END */
 `;
 function makeHarness(html=fs.readFileSync(path.join(SOURCE,'index.html'),'utf8')){
+ const originalInput=html;
+ const manifest022=JSON.parse(fs.readFileSync(path.join(SOURCE,'docs/branch/GPT-022-source-manifest.json'),'utf8'));
+ let releaseLabelControl=null;
+ if(manifest022.publication&&sha(html)===manifest022.mainIndexSHA256){
+  // Preserve the immutable original hash above. The only approved save/header
+  // transition is gameVer 14.40->14.41; mirror the same three literal release
+  // labels in this old-renderer control so every other native save field is
+  // still compared exactly. Never exclude fields or normalize gameplay data.
+  html=require('./use-scales-release-labels022').releaseLabels022(html);
+  releaseLabelControl={originalSHA256:sha(originalInput),controlSHA256:sha(html),version:'14.40 -> 14.41',anchor:'T738 -> T739',literalLabels:3,gameplayAndRendererUnchanged:true};
+ }
  const anchor='Object.assign(window.GV,{art574:';
  if(html.split(anchor).length!==2)throw Error('Exactly one native art QA export anchor required');
  const inspected=html.replace(anchor,EXPORT+anchor);
@@ -75,7 +86,7 @@ function makeHarness(html=fs.readFileSync(path.join(SOURCE,'index.html'),'utf8')
  for(const file of['manifest.json','manifest.webmanifest','icon.svg','sw.js'])if(fs.existsSync(path.join(SOURCE,file)))fs.copyFileSync(path.join(SOURCE,file),path.join(root,file));
  const harness=fs.readFileSync(path.join(SOURCE,'harness.js'),'utf8'),holder={exports:{}};
  new vm.Script('(function(require,module,exports,__dirname,__filename){'+harness+'\n})',{filename:'use021-native-harness.generated.js'}).runInThisContext()(require,holder,holder.exports,root,path.join(SOURCE,'harness.js'));
- const proof={kind:'Actual native page plus test-only closure export; no replacement renderer',candidateSHA256:sha(html),inspectedSHA256:sha(inspected),inspectorSHA256:sha(EXPORT),originalHarnessSHA256:sha(harness),singleReversibleInsertion:true,temporaryRoot:root};
+ const proof={kind:'Actual native page plus test-only closure export; no replacement renderer',originalInputSHA256:sha(originalInput),releaseLabelControl,candidateSHA256:sha(html),inspectedSHA256:sha(inspected),inspectorSHA256:sha(EXPORT),originalHarnessSHA256:sha(harness),singleReversibleInsertion:true,temporaryRoot:root};
  // withGame requests Chrome shutdown but its profile writers can briefly still
  // be exiting. Retry only disposal of this harness's own mkdtemp directory;
  // never mask a game/guard failure or touch any other checkout/profile.

@@ -1,4 +1,9 @@
-# GPT-022 — 完整36款英式三規模候選源碼與唯讀 CI
+# T739 — 36款英式三規模正式整合（原 GPT-022）
+
+當前階段：業主已於2026-10-13 06:59 UTC指定GPT合併PR26；來源階段已完成雙CI九項全綠。
+本卡保留原GPT-022動手前條件及完整失敗歷史；下文source-only段落是當時的範圍，
+不表示本次只合來源包。正式index已在PR；目前準備v14.41/T739合併元資料與最終發布驗收。
+還未合併或部署，最終雲端結果待補。
 
 本卡於移植實作前建立；從最新 main
 `01e581eb19bbb7efebc50fd893483f3cb1859388` 分出
@@ -173,3 +178,43 @@ push native仍581checks但最後35/36；缺UKC021-L。明細證明它曾在day49
 修正QA施工：在劃區前透過既有pay/preview/placeUndo逐格付費，補39..42／10..13的原生道路＋水管，接到既有39主幹。
 不改native容量／价格／模拟／美術；不关災害、不用god／需求override、不把共存改成「曾各自出現」；仍要求同一成熟幀36款。
 保留首四輪失敗報告與PR綠燈，待本修正的push及PR新報告；尚未合併／部署或配版本。
+
+
+## 合併收尾（v14.41／T739，最終驗收待CI）
+
+來源階段a63dbda：push38365203669／PR38365212020的九支工作全部成功、首輪無reuse。
+kit154、native609（兩事件同day86共存36款）、visual8771/32幀、save38、compat43、interaction306、remaining845、hover1729/576情境、fp零變動。
+藉原生付款补道路解决北方工坊地塊真实通路不足；未关闭災害或改价/容量/模拟。
+跨runner启动的visT/simAcc/微量money仍有时钟差，36共存不是拿长终点数值冒充同种子等价。
+因此保存守卫追加独立main/candidate两臂：同完整save、native advance(.05,360)预备，
+再逐步advance(.05,18)+真实draw(.016)六次；每次比较全部native save字段、15stats、非空cars、保护slot。
+候选这组默认启用，无逃生阀/需求/god开关；比较结果必须本轮CI绿后才勾。
+
+只修改合併流程要求的三個版本標籤：v14.40→v14.41、T738→T739。
+原批准完整内容SHA仍8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed，
+最終發布SHA 4798d3358a5255d212de7a90235adc0dd2317ee21b91b73a3dbb56af076c2655，大小10,816,659 bytes。
+静态builder先从不可变main重建并锁原批准SHA，再逐项改三处literal labels、锁最终SHA；不存在放松原内容pin。
+为使旧renderer保存对照也使用本轮批准的gameVer，QA只对已验真原main输入镜像同三处标签，
+保留originalInputSHA256及controlSHA256证明；不排除任何其他save字段、native算法或画面层。
+fp.json、style.json、DECISIONS、AGENT-PROMPTS和原harness.js仍main原样；没有为过关重写基线。
+
+### 本次收工自检（最终发布CI待完成）
+
+- [x] 原卡先推，源阶段验收没有事后改松；所有失败保留。
+- [ ] 同种子六步main/candidate全字段配对与旧save来回：最终发布CI待跑。
+- [ ] fp所有叶子/超街区/棘轮零变；阀关整帧：最终发布CI待跑。
+- [ ] 36自然成长、四向日夜/四季/雪/近远/屏幕/边缘/疊层/成熟hover：最终发布CI待跑。
+- [ ] 新guard故意改坏首红：最终发布CI待跑。
+- [ ] 最终smoke三连绿且console0：待CI。
+- [x] 所有未跑项照实写，未宣称合并或部署。
+
+合併后还须同SHA的main smoke／既有Pages自动部署／真实公开地址验证。
+
+
+## 2026-10-13 08:14 UTC 直接明確批准後續
+
+業主原話：「本輪允許 GPT 合併 PR #26 到 main，並讓既有流程自動部署。」
+訊息 Sentinel_4b70e80a05588191a6918609234f4900，範圍僅GlimmerTown-lab本輪PR26。
+先前父線兩次合併交接被安全審查拒絕時已停止，未嘗試main合併／推送／部署或換路徑。
+此後依新直接批准恢復；本地已備好發布檔，必須先推同PR並跑最終雲端驗收才可合併。
+有確切操作仍被拒則保存action/target/reason停手，不改途徑。
