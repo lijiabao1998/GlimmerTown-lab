@@ -237,3 +237,14 @@ head ef043773518a81f8e9ffcecc8824806bf646e8c5，push38369780347：同種子step0
 現在warm前透過原生save/stats形成完整initial checkpoint，并严格比此initial pair；沒有修改任何输出或容忍度。
 另外同樣協議以不可變原main跑兩個獨立browser對照，六步main/main也必須零差，先校準協議再判main/candidate；避免把原生loader/derived-cache不確定性誤認成候選過關或失敗。
 兩類配對及失敗全快照都保存；新結果待CI，沒有自行合併。
+
+
+### main/main校準紅燈：匹配第二個原生亂數輸入
+
+head916adc7：push saves62成功，但PR38372563021在main/main校準step5紅（c490容量歷史199/198、happy0.47/0.48及物流/住房6處差）。
+同原main不一致不能當作候選美術缺陷或挑push綠合。查原文：原生車流生成/初始位置/市民取樣用Math.random，
+與已seed的模擬R()/ri()是另一未seed來源；車流又影響壅塞/物流/住房。因此相同存檔seed不足以匹配全部隨機輸入。
+只在六步配對的原生advance/原生draw区间，兩臂給相同uniform PRNG seed210022作Math.random輸入，記錄calls；
+不是常數、不是關車流/煙/災害，也不改原生R()/ri()或任何模型/價格。區間後finally恢復原Math.random。
+原生程式碼與發布index完全不改；全native字段/15stats仍零差，main/main校準仍是必要門檻。
+如果候選改變了呼叫序列或語義導致差異，嚴格門檻照樣會紅；不使用分層隨機流或output容忍度掩蓋。
