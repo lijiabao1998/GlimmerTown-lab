@@ -1,9 +1,9 @@
 # T739 — 36款英式三規模正式整合（原 GPT-022）
 
-當前階段：業主已於2026-10-13 06:59 UTC指定GPT合併PR26；來源階段已完成雙CI九項全綠。
-本卡保留原GPT-022動手前條件及完整失敗歷史；下文source-only段落是當時的範圍，
-不表示本次只合來源包。正式index已在PR；目前準備v14.41/T739合併元資料與最終發布驗收。
-還未合併或部署，最終雲端結果待補。
+當前階段：v14.41／T739的正式發布index已在PR；f398bc27的push及PR完整驗收各9/9，雙smoke各三連綠、console0。
+三個獨立原main先校準，全字段／15stats／非空cars六步零差，再比較候選也六步零差。全部舊save／保護槽守衛通過。
+本卡保留原GPT-022動手前條件及完整失敗歷史；下文source-only／待測文字均是當時紀錄。
+目前尚未合併或部署；下一步依業主2026-10-13 08:14 UTC直接批准squash合併，再核對同SHA的main CI、既有Pages及公開遊戲。
 
 本卡於移植實作前建立；從最新 main
 `01e581eb19bbb7efebc50fd893483f3cb1859388` 分出
@@ -180,7 +180,7 @@ push native仍581checks但最後35/36；缺UKC021-L。明細證明它曾在day49
 保留首四輪失敗報告與PR綠燈，待本修正的push及PR新報告；尚未合併／部署或配版本。
 
 
-## 合併收尾（v14.41／T739，最終驗收待CI）
+## 合併收尾（v14.41／T739，最終發布程序驗收完成）
 
 來源階段a63dbda：push38365203669／PR38365212020的九支工作全部成功、首輪無reuse。
 kit154、native609（兩事件同day86共存36款）、visual8771/32幀、save38、compat43、interaction306、remaining845、hover1729/576情境、fp零變動。
@@ -198,14 +198,14 @@ kit154、native609（兩事件同day86共存36款）、visual8771/32幀、save38
 保留originalInputSHA256及controlSHA256证明；不排除任何其他save字段、native算法或画面层。
 fp.json、style.json、DECISIONS、AGENT-PROMPTS和原harness.js仍main原样；没有为过关重写基线。
 
-### 本次收工自检（最终发布CI待完成）
+### 本次收工自检（f398bc27最终发布程序验收完成）
 
 - [x] 原卡先推，源阶段验收没有事后改松；所有失败保留。
-- [ ] 同种子六步main/candidate全字段配对与旧save来回：最终发布CI待跑。
-- [ ] fp所有叶子/超街区/棘轮零变；阀关整帧：最终发布CI待跑。
-- [ ] 36自然成长、四向日夜/四季/雪/近远/屏幕/边缘/疊层/成熟hover：最终发布CI待跑。
-- [ ] 新guard故意改坏首红：最终发布CI待跑。
-- [ ] 最终smoke三连绿且console0：待CI。
+- [x] 相同main三臂校准及main/candidate六步全native字段/15stats/非空cars零差；旧save各三次来回、71checks通过。
+- [x] fp165家族/3179叶子/1728超街区/棘轮零变；阀关整帧严格SHA相等，306checks通过。
+- [x] 36自然成长609checks、四向日夜四季雪/近远/屏幕/边缘/疊层：visual8771/32帧、remaining845、compat43；成熟hover576情境/1729checks通过。
+- [x] 新guard故意改坏首红：全BL variant负控首红为BL；真实生产hover .35→.85负控首红mature-hover-alpha。
+- [x] 最终smoke push38375644416／PR38375652030各三连绿、console0。
 - [x] 所有未跑项照实写，未宣称合并或部署。
 
 合併后还须同SHA的main smoke／既有Pages自动部署／真实公开地址验证。
@@ -265,3 +265,26 @@ push在main/candidate step3有161 native差（首差lastPopulation50/51）；PR�
 兩組全綠後才開始candidate，不以候選結果校準或挑分支。全部raw saves和input rows仍上傳。
 這只變更QA生命週期，正式index4798d3358a5255d212de7a90235adc0dd2317ee21b91b73a3dbb56af076c2655與批准美術未變。
 新protocol尚未實跑；如果main仍有差，先停在校準紅燈，不能進候選比較或合併。
+
+
+## 最終雲端驗收實錄（f398bc272c00b3f2cc92328dfcdbce327fe8ec80）
+
+[push完整驗收](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38375644103)／[PR完整驗收](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38375652300)：各9/9成功、attempt1、沒有rerun或reuse。
+[push smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38375644416)／[PR smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38375652030)：各三次成功、console0，真實index與PNG在artifact。
+kit154／144rasters；native609、兩事件均day86成熟共存36款、災害開、sandbox/god與各override皆false；
+visual8771／32frames；saves71；compat43；interaction306；remaining845；hover1729／576cases；fp165家族、3179葉子、1728blocks、CRC5ef6eb67，全部葉子/blocks/style棘輪零變。
+
+存檔protocol進展已有跨事件實證：三個main與candidate皆從新profile未進城頁開始，smokeAcc0、cars0；
+warm後ambient calls11161，六步day109..114依次calls11351/11602/11842/12105/12295/12502，每步cars16。
+B/A與C/A兩組main校準、candidate/A，完整native save與全15stats均零差；沒有關煙、車流、災害、需求或模型。
+可讀log與完整raw checkpoints同存artifact；先前916adc7/02b41c9等紅燈保留，不以這次綠燈抹掉歷史。
+
+本輪push的同runner30交錯樣本：native warm median22.9/p90 25.6ms、candidate16.4/25.6；
+whole-family cold native36.4/42.3ms、candidate129.15/182.8ms，cold median增加92.75ms。
+這是本次runner的配對量測；來源階段+159.5ms是另一runner。真機效能未量，不能由雲端數字宣稱手機變快。
+
+本次後續說明／唯讀公開驗證工具提交不改發布index、批准美術、任何native規則、oracle判準或既有baseline。
+既有acceptance另外印出每步完整字段數／零差／15stats及負控首紅，方便核對raw report；此workflow變動會自動驗證新的精確head。
+新增public-verification022只在本gpt分支推入固定expectedMainSHA的config後，以runner GET公開HTML、精確比main blob，
+再在一次性Chrome profile/slot3實際點新城市和36款目錄，保存真實PNG與console；沒有部署、Git寫入、permission增加。
+合併前尚無該config、尚未執行公開probe；只有既有main smoke→Pages成功且公開驗證後才稱部署完成。

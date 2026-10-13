@@ -17,7 +17,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r186 | [T739](docs/T739-british-use-scales.md) | 完整36款批准美術整合进实际index；既有native载体/价格/容量不改，v14.41/T739。来源重建与发布SHA分开锁定。 | 来源阶段a63dbda的push38365203669/PR38365212020九项全绿；最终发布smoke/深层CI待完成 | 最终发布commit待CI/合并后在PR记入 | 各CI artifact中的真实Chrome四季/四向/成熟hover/原生成长PNG | 原先多次红灯已保留；最终版本验收、合并与部署尚未完成；真机效能未量；whole-family cold较旧native仍增加（来源阶段median+159.5ms） |
+| r186 | [T739](docs/T739-british-use-scales.md) | 完整36款批准美術整合进实际index；既有native载体/价格/容量不改，v14.41/T739。来源重建与发布SHA分开锁定。 | 最终发布f398bc27：push38375644103/PR38375652300各9/9，smoke38375644416/38375652030各3次console0；saves71含三臂main校准与6步候选零差，fp零变 | 测试程序f398bc272c00b3f2cc92328dfcdbce327fe8ec80；合并commit/部署将在PR记入 | 各CI artifact中的真实Chrome四季/四向/成熟hover/原生成长PNG | 原先多次红灯已保留；最终程序验收完成，合并与部署尚未完成；真机效能未量；本轮cold median+92.75ms（30交错样本/臂） |
 
 ## r185 — T738 效能③：夜間建築影子與水面倒影改畫快取黑剪影（業主選 A）
 

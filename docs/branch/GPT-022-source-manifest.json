@@ -39,12 +39,13 @@
     "whole-family cold median +159.50ms in source-stage cloud run38365203669; real-device performance not measured",
     "native unsupported combinations retain fallback"
   ],
-  "pixelGuards": "未跑，待合併者跑",
-  "guardPortability": "Only file paths and immutable baseline retrieval ported; oracles/fixtures copied byte-exact. These guards are NOT RUN under GPT-022.",
+  "pixelGuards": "f398bc27 push38375644103/PR38375652300: nine guards passed in cloud, fresh/no reuse. Public deployment verification pending.",
+  "guardPortability": "Original independent oracles/fixtures remain byte-exact; protocol/input fixes and native first-red guards verified in both cloud events.",
   "delivery": "integrated index committed to the existing PR; isolated original source rebuild verified before game guards",
   "integrationSources": {
     "probeUseScalesHover022.js": "4780ebccd59b321ea122cc51e3d66d21eebc10343cea068493224d4876c00531",
-    "use-scales-release-labels022.js": "50418cbd6a2376f707aacf180a546bcb298d3f84780a2b4dad2f05aa8531bf0c"
+    "use-scales-release-labels022.js": "50418cbd6a2376f707aacf180a546bcb298d3f84780a2b4dad2f05aa8531bf0c",
+    "scratchpad/GPT-022-public-verification022.js": "74ba216673e6a27cb3a047603340651b3ab0a85d8b5b774506c1f737ba50287d"
   },
   "sourceStagePins": {
     "use-scales-test-harness021.js": "c44590692af85d3653cad0e0e8f81b2cb1e66881bc4d87bebb4c8dba2a9c4dd3",
@@ -73,6 +74,20 @@
     "guards": "9/9 both events",
     "native36BothDay": 86,
     "hoverCases": 576,
-    "releaseLabelValidation": "pending final cloud suite"
+    "releaseLabelValidation": "f398bc272c00b3f2cc92328dfcdbce327fe8ec80: final publication index guarded, both events 9/9 and 3 smokes"
+  },
+  "finalAcceptance": {
+    "head": "f398bc272c00b3f2cc92328dfcdbce327fe8ec80",
+    "push": 38375644103,
+    "pullRequest": 38375652300,
+    "pushSmoke": 38375644416,
+    "pullRequestSmoke": 38375652030,
+    "guards": "9/9 both events",
+    "savesChecks": 71,
+    "independentMainArms": 3,
+    "pairedForwardSteps": 6,
+    "eachStepCars": 16,
+    "allNativeAnd15StatsDifferences": 0,
+    "status": "tested program complete; merge/Pages/public verification pending"
   }
 }
