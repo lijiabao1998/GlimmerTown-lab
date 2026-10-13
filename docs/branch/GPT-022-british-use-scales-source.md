@@ -124,3 +124,14 @@ smoke checkout 改取完整歷史以讀 pinned main；沒有變更 workflow 權�
 成熟 hover 守衛要求36款×四向×日夜×desktop/mobile共576個情境，以可信指標移動觀察原生 alpha=.35、移開回1、金錢／metadata不變，並注入原生 alpha 錯誤驗證目標首紅。
 以上新增守衛只寫完與語法檢查，尚未跑遊戲；後續只接受真實 runner 報告。
 本次沒有在容器啟動遊戲、Chrome、fp 或 probe；版本／AUTORUN-LOG／fp／DECISIONS暫未改。
+
+
+### 首輪雲端驗收紅燈與清理修正
+
+整合 head d267dc99f8da88c12e63ad8d34e6011e68b18ac8，acceptance push 38361765986／PR 38361770915。
+首輪 kit 與 fp 通過；其餘七項 red，尚不能合併。多個報告在 withGame 請求 Chrome 結束後，
+立即清除自己 mkdtemp 的 profile 時遇 ENOTEMPTY；finally 的清理錯誤遮住了部分原始結果。
+只對自己 harness 的 temp root 增加有界 fs.rmSync retries，不抑制錯誤、不放寬任何行為守衛。
+helper 新 byte pin 登記於 sources，原 source-only pin 保留於 sourceStagePins；批准美術與 candidate SHA不變。
+workflow 在 always 步驟印出原始報告的失敗 checks/items，以免只看到清理異常；所有 JSON／PNG照存 artifact。
+下輪必須重新實跑 fresh checks；首輪紅燈收據保留，不以 retry 代替修正。尚未合併或部署。

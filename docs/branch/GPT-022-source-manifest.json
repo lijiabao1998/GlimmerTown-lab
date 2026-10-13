@@ -22,7 +22,7 @@
     "probeUseScalesSaves021.js": "852280421b83da547690bfecc3e911f0e19bce19d103103a81ec7ea8ed87d031",
     "probeUseScalesVisual021.js": "e22ff3fbf3d4b81a8d0878767a25d0458f5b5ac93dce10c8179c0bfb771a4d5e",
     "smoke.js": "489ae51967a330ec86cc240b3b0edbb38e83d23a3b694517630f1b64000bb156",
-    "use-scales-test-harness021.js": "c44590692af85d3653cad0e0e8f81b2cb1e66881bc4d87bebb4c8dba2a9c4dd3",
+    "use-scales-test-harness021.js": "6595ea4d61315c7c0d9a1ce521553d7c02b7127cecb2162a21033e8fbaecea14",
     "fp.json": "f603c71336746f9d0b0437904b54f6215f0b2bf4f059d4bfb1c16dbb20114991",
     "style.json": "07d2fb4f65651fce18e18c127ce1dac65082702352f38d38cae8786f808971a0",
     "harness.js": "3e86ecaa828fe32a61ffe88a89f420868a6911dc194c6e6a627efdcb1ac28cf6",
@@ -44,5 +44,8 @@
   "delivery": "integrated index committed to the existing PR; isolated original source rebuild verified before game guards",
   "integrationSources": {
     "probeUseScalesHover022.js": "6d0063408ed23ef4b9733d1ab4c864484a44f4e3dada34bce6803f1cfc5cd0cf"
+  },
+  "sourceStagePins": {
+    "use-scales-test-harness021.js": "c44590692af85d3653cad0e0e8f81b2cb1e66881bc4d87bebb4c8dba2a9c4dd3"
   }
 }

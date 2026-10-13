@@ -69,6 +69,9 @@ function makeHarness(html=fs.readFileSync(path.join(SOURCE,'index.html'),'utf8')
  const harness=fs.readFileSync(path.join(SOURCE,'harness.js'),'utf8'),holder={exports:{}};
  new vm.Script('(function(require,module,exports,__dirname,__filename){'+harness+'\n})',{filename:'use021-native-harness.generated.js'}).runInThisContext()(require,holder,holder.exports,root,path.join(SOURCE,'harness.js'));
  const proof={kind:'Actual native page plus test-only closure export; no replacement renderer',candidateSHA256:sha(html),inspectedSHA256:sha(inspected),inspectorSHA256:sha(EXPORT),originalHarnessSHA256:sha(harness),singleReversibleInsertion:true,temporaryRoot:root};
- return {...holder.exports,proof,cleanup:()=>fs.rmSync(root,{recursive:true,force:true})};
+ // withGame requests Chrome shutdown but its profile writers can briefly still
+ // be exiting. Retry only disposal of this harness's own mkdtemp directory;
+ // never mask a game/guard failure or touch any other checkout/profile.
+ return {...holder.exports,proof,cleanup:()=>fs.rmSync(root,{recursive:true,force:true,maxRetries:10,retryDelay:100})};
 }
 module.exports={makeHarness};

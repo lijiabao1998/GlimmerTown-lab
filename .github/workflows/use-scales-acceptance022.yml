@@ -65,6 +65,21 @@ jobs:
       - name: Tracked candidate and original baselines remain exact
         if: always()
         run: git diff --exit-code
+      - name: Print actual first failures before retaining full raw artifacts
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for p in Path('scratchpad/GPT-022-guard-runs').glob('*.json'):
+              try:
+                  r=json.loads(p.read_text())
+                  if not isinstance(r,dict) or 'checks' not in r: continue
+                  failed=[c for c in r['checks'] if not c.get('ok')]
+                  items=[c for c in r.get('items',[]) if c.get('status')=='failed']
+                  print(json.dumps({'file':p.name,'ok':r.get('ok'),'error':r.get('error'),'checks':len(r['checks']),'firstFailedChecks':failed[:6],'failedItems':items[:6],'firstFailure':r.get('firstFailure'),'cases':len(r.get('cases',[])),'frames':len(r.get('frames',[])),'fault':r.get('fault'),'performance':r.get('performance',{}).get('summary')},ensure_ascii=False))
+              except Exception as e: print(json.dumps({'file':p.name,'reportReadError':str(e)}))
+          PY
       - name: Retain actual reports and native screenshots, including failures
         if: always()
         uses: actions/upload-artifact@v4
