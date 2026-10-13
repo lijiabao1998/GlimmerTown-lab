@@ -78,3 +78,38 @@ NOTTESTED；真機效能未量。舊測試結果不能冒充本卡的新結果�
 - [ ] 本卡守衛故意改壞／首紅：未跑，待合併者跑。
 - [ ] CI煙霧三連綠：待CI。
 - [ ] 所有「通過」均有本卡真實CI證據。
+
+
+## 2026-10-13 純雲端合併授權與補驗收階段（動手前）
+
+業主主對話 2026-10-13 06:59 UTC 指定：「lab 你合 就行了 gpt」。
+此段僅授權本 PR 的整合與合併收尾；不授權強推、刪分支、改 GitHub 設定／權限或其他作者分支。
+全程只用已選純雲端容器及 GitHub Actions runner，不用業主電腦，不在此容器跑遊戲。
+
+原 source-only 階段已完成：source head c5c39d0adb5ed7e9fc27aaf5cd74e97d57716ca6；
+push CI 38325425204 與 PR CI 38325866448 均 attempt 1 成功，各三次 smoke 綠、console 0。
+27檔完整 blob／29個 manifest pins 讀回相符；完整候選收據為 10,816,659 bytes／85 scripts，
+SHA256 8bb22b699d7af017f8e41a462c21e7f34362ab8e3ec220142d282a1f251762ed。
+以上來源／CI階段證據不等於下面新增合併驗收通過；前文「尚未推／待CI」保留為歷史紀錄，由此段更正現況。
+
+核實整合問題：repo index 仍 main，而 smoke 已要求 useScales021 API。
+來源建置只在本分支／PR執行，直接合併會漏上線並可能使 main smoke 紅。
+本階段須將完整生成 index 寫進同一 PR，分開「pinned main重建驗證」与「正式materialized index測試」；
+保留批准美術與內容 pins，不放寬驗收，不以來源包／CI artifact 代替發布內容。
+
+施工前鎖定的本階段驗收與執行路徑：
+1. 最新 main 相容、Claude工作逐位保留；只有本 gpt 分支可修正／推送，無force。
+2. 可發布完整 index 必須在 PR 內；來源重建仍驗證原 pinned main／批准候選 SHA，
+   如版本收尾產生新 SHA，僅准已明列的三個版本標籤轉換，另外 pin 最終發布檔，不鬆原內容 pin。
+3. GitHub Actions checkout 必須取得 01e581eb19bbb7efebc50fd893483f3cb1859388 供 git show baseline；
+   同一精確 PR head 在雲端執行七支 probe、成熟建築 hover fade、fp.js --check、三次 smoke。
+4. 七支 probe 首輪不使用任何 --reuse-*；新報告／實際截圖來自本階段 runner。
+5. 完整驗收覆蓋閥關整幀、full save與保護槽、同種子/native功能、36款成長、
+   四向日夜四季/雪/近遠/尺寸/邊界/相鄰及疊層、真實取消重複undo/redo、故意改壞首紅。
+6. 成熟 hover fade 須新行為守衛；舊 cold +243.75ms 仍只是舊結果，新的效能數字來自新CI。
+7. 必要 guard 失敗／沒有合法路徑就不合，寫精確失敗及修復；不可因業主合併授權跳過不改壞標準。
+8. 合併流程所需下一T號／版本／AUTORUN-LOG只在真實驗收後按AGENTS第3節收尾；
+   fp／DECISIONS若無實際需要不改。merge前核對main與最終head，merge後追同SHA smoke／Pages／公開網址。
+
+目前本階段未執行七支 probe／hover／fp／新smoke、未 materialize 推入 PR、未合併／部署。
+結果會在實際完成後追加；未跑一律照實保留，不勾成通過。
