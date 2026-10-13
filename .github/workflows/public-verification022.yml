@@ -1,0 +1,32 @@
+name: public-verification022
+on:
+  push:
+    branches: [gpt/british-use-scales-source-022]
+    paths: [docs/branch/GPT-022-public-verification.json]
+  workflow_dispatch:
+jobs:
+  public:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Read-only actual public source and native browser
+        run: node scratchpad/GPT-022-public-verification022.js 2>&1 | tee public-verification022.txt; exit ${PIPESTATUS[0]}
+        shell: bash
+      - name: Retain public receipt and actual screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-verification022-${{ github.sha }}
+          path: |
+            public-verification022.txt
+            scratchpad/GPT-022-public-verification/**
+          retention-days: 14

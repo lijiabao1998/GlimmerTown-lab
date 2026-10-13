@@ -1,0 +1,99 @@
+name: use-scales-acceptance022
+on:
+  push:
+    branches: [gpt/british-use-scales-source-022]
+    paths-ignore: ['**.md', 'docs/**']
+  pull_request:
+    branches: [main]
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+concurrency:
+  group: use-scales-acceptance022-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  guard:
+    if: github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: kit, script: probeUseScalesKitRebuild021.test.js}
+          - {name: native, script: probeUseScalesNative021.js}
+          - {name: visual, script: probeUseScalesVisual021.js}
+          - {name: saves, script: probeUseScalesSaves021.js}
+          - {name: interaction, script: probeUseScalesInteraction021.js}
+          - {name: remaining, script: probeUseScalesRemaining021.js}
+          - {name: compatibility, script: probeUseScalesCompatRemaining021.js}
+          - {name: mature-hover, script: probeUseScalesHover022.js}
+          - {name: fingerprints, script: fp.js}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact committed candidate and immutable baseline available
+        run: node candidate-build022.js --verify-materialized
+      - name: Fresh guard on actual committed candidate
+        env:
+          GUARD_NAME022: ${{ matrix.name }}
+          GUARD_SCRIPT022: ${{ matrix.script }}
+          USE021_EVIDENCE_DIR: ${{ github.workspace }}/scratchpad/GPT-022-guard-runs
+          USE021_ATTEMPT: cloud01
+          USE021_VISUAL_ATTEMPT: cloud01
+          USE021_INTERACTION_ATTEMPT: cloud01
+          USE021_SAVE_ATTEMPT: cloud01
+          USE021_REMAIN_ATTEMPT: cloud01
+          USE021_COMPAT_ATTEMPT: cloud01
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p scratchpad/GPT-022-guard-runs
+          if [ "$GUARD_NAME022" = kit ]; then
+            node "$GUARD_SCRIPT022" --out=scratchpad/GPT-022-guard-runs/kit-native-rasters022.json 2>&1 | tee guard022.txt
+          elif [ "$GUARD_NAME022" = fingerprints ]; then
+            node fp.js --check 2>&1 | tee guard022.txt
+          else
+            node "$GUARD_SCRIPT022" 2>&1 | tee guard022.txt
+          fi
+      - name: Tracked candidate and original baselines remain exact
+        if: always()
+        run: git diff --exit-code
+      - name: Print actual first failures before retaining full raw artifacts
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for p in Path('scratchpad/GPT-022-guard-runs').glob('*.json'):
+              try:
+                  r=json.loads(p.read_text())
+                  if not isinstance(r,dict) or 'checks' not in r: continue
+                  failed=[c for c in r['checks'] if not c.get('ok')]
+                  items=[c for c in r.get('items',[]) if c.get('status')=='failed']
+                  print(json.dumps({'file':p.name,'ok':r.get('ok'),'error':r.get('error'),'checks':len(r['checks']),'firstFailedChecks':failed[:6],'failedItems':items[:6],'firstFailure':r.get('firstFailure'),'cases':len(r.get('cases',[])),'frames':len(r.get('frames',[])),'fault':r.get('fault'),'performance':r.get('performance',{}).get('summary')},ensure_ascii=False))
+                  if p.name.startswith('save-acceptance'):
+                      pairs={name:[{'step':q['step'],'ok':q['compare']['ok'],'nativeFields':len(q['compare']['save']['nativeFieldNames']),'nativeDifferences':q['compare']['save']['native']['total'],'stats':q['compare']['stats']['count'],'statsOK':q['compare']['stats']['ok'],'vehicles':q['compare']['vehicles']} for q in rows] for name,rows in r.get('forwardPairs',{}).items()}
+                      print(json.dumps({'strictForwardProof':pairs,'intentionalSaveFaultFirstFailure':r.get('intentionalFault',{}).get('firstFailure')},ensure_ascii=False))
+                  if p.name.startswith('native-flow'):
+                      missing=r.get('latest',{}).get('missing',[])
+                      print(json.dumps({'nativeMissing':missing,'latestDay':r.get('latest',{}).get('day'),'missingZones':[z for z in r.get('latest',{}).get('zones',[]) if z.get('id') in missing],'firstMatureForMissing':{k:v for k,v in r.get('saved',{}).get('first',{}).items() if k in missing},'latestControls':r.get('latest',{}).get('control'),'latestState':r.get('latest',{}).get('state')},ensure_ascii=False))
+              except Exception as e: print(json.dumps({'file':p.name,'reportReadError':str(e)}))
+          PY
+      - name: Retain actual reports and native screenshots, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: use-scales022-${{ matrix.name }}-${{ github.sha }}
+          path: |
+            guard022.txt
+            candidate-build022-receipt.json
+            scratchpad/GPT-022-guard-runs/**
+          retention-days: 14
+          if-no-files-found: error
