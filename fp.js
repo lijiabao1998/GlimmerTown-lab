@@ -16,6 +16,11 @@
  *   node fp.js --accept-style=a,b  T734：寫入模式專用。業主同意重寫風格基線時，允許列出的家族總分下降並照常寫 style.json；
  *                              每個被接受的下降都印出前後總分與七軸。列了卻沒下降＝紅；跟 --check 並用＝紅；不影響葉子差與超街區判定。
  *
+ * T740：T739 的 36 款英式三規模新美術在繪製時才由 b.art021 套上，圖不在 SPR，fp536 掃不到。進城後另取它們的
+ * 144 張標準視角（36 款 × 四向；state {}、原生 lv、v0，與 smoke 的 useScales021 自檢同一組），日夜各算 CRC32，
+ * 併成偽家族 use021（葉子 use021.<款式>.r<朝向>）；只進葉子與家族指紋，不進七軸記分。改這 36 款的卡用 --expect=use021。
+ * 期望值的獨立來源：probeUse021Fp740.js（Node 直接跑核准來源碼，不經遊戲）。
+ *
  * T631：fp.json 的葉子是業主 Windows 本機烘的；雲端 Linux 有幾葉因字型繪製永遠不同。envLeaves 登記「這個平台上這幾葉的
  * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
  * --check 不再提早退出：葉子差、超街區指紋（block559）、七軸棘輪全部跑完、全部印出，最後才判定紅綠。
@@ -39,6 +44,33 @@ const PRE = arg('pre', '');                                                     
 const PLATFORM = process.platform;
 
 const STYLE_PATH = path.join(ROOT, 'style.json');
+
+/* T740：在頁面裡跑。用遊戲自己的 useScales021 介面產生並取出 144 張標準視角，每張圖帶的 __art021 認款式與朝向；
+   CRC 演算法同 fp536（CRC32 over getImageData RGBA）。缺介面、缺任何一款任何一向、缺夜圖都回 ok:false ⇒ 紅。 */
+const USE021_FP_JS = `(()=>{
+  const U=window.GV&&window.GV.useScales021;
+  if(!U||typeof U.rows!=='function'||typeof U.assets!=='function'||typeof U.selftest!=='function')return {ok:false,err:'GV.useScales021 不存在（T739 的介面）'};
+  const TB=new Int32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);TB[n]=c;}
+  const crcB=b=>{let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=TB[(c^b[i])&0xFF]^(c>>>8);return ((c^0xFFFFFFFF)>>>0).toString(16).padStart(8,'0');};
+  const px=cv=>{if(!cv||typeof cv.getContext!=='function'||!cv.width||!cv.height)return null;const a=cv.getContext('2d').getImageData(0,0,cv.width,cv.height).data;let op=0;for(let i=3;i<a.length;i+=4)if(a[i]>40)op++;return {crc:crcB(new Uint8Array(a.buffer)),op};};
+  const st=U.selftest();   // 產生標準視角（快取在 USE021_CACHE）
+  const rows=U.rows();if(!rows.length)return {ok:false,err:'useScales021.rows() 是空的'};
+  const want=new Map();for(const q of rows)for(let r=0;r<4;r++)want.set(q.id+'|'+r,q);
+  const got=new Map();
+  for(const s of U.assets()){const m=s&&s.__art021;if(!m)continue;const key=m.id+'|'+m.rot,q=want.get(key);if(!q)continue;
+    if(m.v!==0||m.lv!==q.lv||m.bw!==q.bw||m.bh!==q.bh||JSON.stringify(m.state||{})!=='{}')continue;   // 只收標準視角
+    if(got.has(key))return {ok:false,err:'標準視角重複：'+key};got.set(key,s);}
+  const miss=[...want.keys()].filter(k=>!got.has(k));
+  if(miss.length)return {ok:false,err:'缺標準視角 '+miss.length+' 張：'+miss.slice(0,6).join(', ')};
+  const subs={},family={leaves:0,crc:'',px:0,op:0,night:0};let dayNonEmpty=0,nightNonEmpty=0;
+  for(const key of [...got.keys()].sort()){const s=got.get(key),[id,r]=key.split('|'),p='use021.'+id+'.r'+r;
+    const d=px(s.img),n=px(s.night);if(!d)return {ok:false,err:'沒有日圖：'+p};if(!n)return {ok:false,err:'沒有夜圖：'+p};
+    subs[p]={d:d.crc,op:d.op,w:s.img.width,h:s.img.height,n:n.crc};
+    if(d.op>0){dayNonEmpty++;if(n.op>0)nightNonEmpty++;}
+    family.leaves++;family.px+=s.img.width*s.img.height;family.op+=d.op;family.night++;
+    family.crc=crcB(new TextEncoder().encode(family.crc+p+':'+d.crc+':'+n.crc));}
+  return {ok:true,family,subs,count:family.leaves,dayNonEmpty,nightNonEmpty,selftestOk:!!(st&&st.ok)};
+})()`;
 
 /* ===== 七軸計分（定義集中在此，業主可改規則而不必動遊戲檔） =====
    注意：①④⑤ 的滿分門檻是「業界慣例值」，不是 TheoTown 實測值
@@ -120,7 +152,9 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     const style = await cdp.evalJs(`(window.GV && window.GV.style536) ? window.GV.style536() : {ok:false,err:'style536 不存在'}`);
     const blocks = await cdp.evalJs(`(window.GV && window.GV.blockFp536) ? window.GV.blockFp536() : {ok:false,err:'blockFp536 不存在'}`);
     if (!fp || !fp.ok) throw new Error('指紋失敗: ' + JSON.stringify(fp && (fp.err || fp.skipped || fp)));
-    return { meta, fp, style, blocks };
+    const use021 = await cdp.evalJs(USE021_FP_JS);   // T740
+    if (!use021 || !use021.ok) throw new Error('use021 指紋失敗: ' + JSON.stringify(use021 && (use021.err || use021)));
+    return { meta, fp, style, blocks, use021 };
   });
 
   if (!session.result) {
@@ -128,7 +162,12 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     process.exit(1);
   }
 
-  const { meta, fp, style, blocks } = session.result;
+  const { meta, fp, style, blocks, use021 } = session.result;
+  /* T740：use021 併進葉子與家族指紋（style 不含它，七軸記分照舊只算 SPR） */
+  fp.families.use021 = use021.family;
+  Object.assign(fp.subs, use021.subs);
+  fp.stats.families++; fp.stats.leaves += use021.count;
+  fp.stats.dayNonEmpty += use021.dayNonEmpty; fp.stats.nightNonEmpty += use021.nightNonEmpty;
   const checkFail = [];   // T631：--check 的所有失敗原因，全部檢查跑完才判定
   const cur = {
     generatedAt: new Date().toISOString(),
