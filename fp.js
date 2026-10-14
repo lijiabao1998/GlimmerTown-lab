@@ -26,6 +26,7 @@
  *                       分支自己的 fp.json 也可能被改過，只看它會變成拿自己檢查自己，所以要另對 base。
  *   --dump=<資料夾>      把這次烘出的 fp.json、style.json 寫到該資料夾（格式同寫入模式），不碰倉庫基線；--check 也能用。
  *                       給不能在本機跑 fp 的寫入者（GPT）從 CI 附件拿新基線。
+ *   --report-base-style=<檔>  對 base 的 style.json 報哪些家族風格分下降、掉在哪幾軸（提交 CI 新基線時棘輪不再擋宣告家族，所以要攤開）。
  *   有 GITHUB_STEP_SUMMARY 時，結果另寫進 GitHub Actions 的工作摘要。
  *
  * T631：fp.json 的葉子是業主 Windows 本機烘的；雲端 Linux 有幾葉因字型繪製永遠不同。envLeaves 登記「這個平台上這幾葉的
@@ -50,6 +51,7 @@ const ACCEPT_STYLE = arg('accept-style', '').split(',').map(s => s.trim()).filte
 const PRE = arg('pre', '');                                                                  // T631：測試用
 const REPORT_BASE = arg('report-base', '');                                                  // T742
 const DUMP = arg('dump', '');                                                                // T742
+const REPORT_BASE_STYLE = arg('report-base-style', '');                                      // T742
 const PLATFORM = process.platform;
 
 /* T742：GitHub Actions 工作摘要。所有出口（含中途 process.exit）都在這裡補上紅綠。 */
@@ -317,6 +319,22 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     let grand = famNames.reduce((s2, k) => s2 + curStyle[k].total, 0) / Math.max(1, famNames.length);
     const styleOut = { generatedAt: new Date().toISOString(), version: cur.version, anchor: cur.anchor, version_fp: cur.version, averages: avg, grand: +grand.toFixed(4), families: curStyle };
     if (DUMP) fs.writeFileSync(path.join(DUMP, 'style.json'), JSON.stringify(styleOut, null, 1));   // T742：棘輪判定前就先存
+    if (REPORT_BASE_STYLE) {   // T742：對 base 的 style.json 報風格分下降（提交 CI 新基線時，宣告家族的下降不會再被棘輪擋，所以要攤在摘要裡）；只報告
+      const bs = loadJson(REPORT_BASE_STYLE), out = [];
+      for (const k of famNames) {
+        const pv = bs && bs.families && bs.families[k], cv = curStyle[k];
+        if (!pv || cv.total - pv.total > -1e-6) continue;
+        const ax = Object.keys(cv.axes).filter(a => pv.axes && Math.abs(cv.axes[a] - pv.axes[a]) > 1e-6).map(a => a + ' ' + (pv.axes[a] * 100).toFixed(2) + '→' + (cv.axes[a] * 100).toFixed(2));
+        out.push(k + ' ' + (pv.total * 100).toFixed(2) + '% → ' + (cv.total * 100).toFixed(2) + '%（葉子 ' + (pv.leaves ?? '?') + '→' + cv.leaves + (ax.length ? '；' + ax.join('，') : '') + '）');
+      }
+      log('');
+      if (!bs || !bs.families) { log('風格分相對 base：讀不到 ' + REPORT_BASE_STYLE + '，略過'); SUMMARY.push('- 風格分相對 base：讀不到基線檔，略過'); }
+      else {
+        log('風格分相對 base：' + (out.length ? out.length + ' 族下降' : '沒有家族下降'));
+        out.forEach(x => log('   - ' + x));
+        SUMMARY.push('- **風格分相對 base**：' + (out.length ? out.length + ' 族下降：' + out.join('；') : '沒有家族下降'));
+      }
+    }
 
     log('');
     log('--- 七軸記分卡（全 149 家族平均）---');

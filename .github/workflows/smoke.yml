@@ -94,8 +94,9 @@ jobs:
           else BASE=$(git merge-base origin/main HEAD); fi
           echo "base = $BASE"
           git show "$BASE:fp.json" > "$RUNNER_TEMP/fp-base.json" || echo '{}' > "$RUNNER_TEMP/fp-base.json"
+          git show "$BASE:style.json" > "$RUNNER_TEMP/style-base.json" || echo '{}' > "$RUNNER_TEMP/style-base.json"
       - name: 指紋（fp.js --check）
-        run: node fp.js --check --report-base="$RUNNER_TEMP/fp-base.json" --dump=fp-rebake 2>&1 | tee fp-run.txt; exit ${PIPESTATUS[0]}
+        run: node fp.js --check --report-base="$RUNNER_TEMP/fp-base.json" --report-base-style="$RUNNER_TEMP/style-base.json" --dump=fp-rebake 2>&1 | tee fp-run.txt; exit ${PIPESTATUS[0]}
         shell: bash
       - name: 上傳指紋紀錄與本次烘出的基線
         if: always()
