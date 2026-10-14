@@ -134,6 +134,7 @@ function diffFp(base, cur) {
     const a = (base.families || {})[k], b = cur.families[k];
     if (!a || a.crc !== b.crc) { if (explained.has(k) && !dirty.has(k)) continue; famChanged.push(k); }   // 只有已登記環境差的家族不算觸及
   }
+  for (const k of Object.keys(base.families || {})) if (!(cur.families || {})[k]) famChanged.push(k);   // T741：基線有、這次整族沒烘出來也算觸及（原本只印「移除」就判綠）
   return { added, removed, changed, famChanged, envMatched };
 }
 
