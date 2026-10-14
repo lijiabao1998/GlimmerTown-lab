@@ -33,6 +33,9 @@
  * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
  * --check 不再提早退出：葉子差、超街區指紋（block559）、七軸棘輪全部跑完、全部印出，最後才判定紅綠。
  *
+ * T746：--check 另核對倉庫 style.json 每一族都等於這次算出的（--expect 宣告的家族除外）；讀不到 style.json、
+ * style536 沒回資料也算紅。棘輪只擋分數比 style.json 低，不核對就能靠手改 style.json 關掉它。
+ *
  * 邊界：自用埠 8199；進城前一律設 slot=3，不碰業主存檔。
  */
 'use strict';
@@ -227,9 +230,11 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
   }
 
   const base = loadBaseline();
+  let envFams = new Set();   // T746：只因本平台已登記環境差而不同的家族；style.json 核對對它們放行（只剩棘輪）
   if (base) {
     const d = diffFp(base, cur);
     const famTouched = [...new Set(d.famChanged)];
+    envFams = new Set(d.envMatched.map(k => k.split(/[.#]/)[0]).filter(f => !famTouched.includes(f)));   // 葉子鍵有 a.b 與 a#0 兩種
     log('');
     log('與 fp.json（' + (base.anchor || '?') + ' ' + (base.version || '?') + '）相比：');
     log('  新增 ' + d.added.length + ' / 變更 ' + d.changed.length + ' / 移除 ' + d.removed.length
@@ -336,6 +341,24 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       }
     }
 
+    /* T746：--check 時倉庫 style.json 的每一族都要等於這次算出的（總分、七軸、葉子數、原始計數）。
+       棘輪只擋「算出的比 style.json 低」；不核對的話，手改 style.json（壓低分數、刪族）就能關掉往後的棘輪。
+       --expect 宣告的家族還沒重烘、只因本平台已登記環境差而不同的家族（envFams），不比。 */
+    if (CHECK) {
+      const canon = v => JSON.stringify(v, (k, x) => x && typeof x === 'object' && !Array.isArray(x) ? Object.fromEntries(Object.keys(x).sort().map(j => [j, x[j]])) : x);
+      if (!prevStyle || !prevStyle.families) checkFail.push('讀不到 style.json（--check 要拿它核對）');
+      else {
+        const expSet = new Set(EXPECT);
+        const diff = [...new Set([...famNames, ...Object.keys(prevStyle.families)])].filter(k => !expSet.has(k) && !envFams.has(k) && canon(curStyle[k]) !== canon(prevStyle.families[k]));
+        if (envFams.size) log('style.json 核對略過已登記環境差的家族：' + [...envFams].join(', '));
+        log('');
+        if (diff.length) {
+          log('X style.json 與這次算出的不同：' + diff.join(', '));
+          checkFail.push('style.json 與這次算出的不同：' + diff.slice(0, 12).join(', ') + (diff.length > 12 ? ' …' : ''));
+        } else log('style.json 與這次算出的逐族相同（' + famNames.length + ' 族）');
+      }
+    }
+
     log('');
     log('--- 七軸記分卡（全 149 家族平均）---');
     const AX_LABEL = { palette:'(1) 調色深度', hardEdge:'(2) 硬邊', lightDir:'(3) 受光方向',
@@ -394,7 +417,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       fs.writeFileSync(STYLE_PATH, JSON.stringify(styleOut, null, 1));
       log('已寫入 style.json');
     }
-  }
+  } else if (CHECK) checkFail.push('style536 沒有回傳記分資料，棘輪與 style.json 核對都沒跑');   // T746
 
   if (INVENTORY) {
     const fams = Object.entries(cur.families).sort((a, b) => b[1].leaves - a[1].leaves);
@@ -417,7 +440,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     console.log('X --check：' + checkFail.join('；'));
     process.exit(1);
   }
-  if (CHECK) log('OK --check：葉子、超街區指紋、棘輪全部零變動');
+  if (CHECK) log('OK --check：葉子、超街區指紋、棘輪、style.json 全部零變動');
   console.log('');
   console.log('OK 指紋台完成（' + session.seconds.toFixed(1) + 's）');
   process.exit(0);

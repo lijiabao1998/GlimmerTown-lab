@@ -23,7 +23,8 @@ concurrency:
 jobs:
   build:
     # 煙霧紅的版本不上線；手動觸發時跑當下的 main
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    # T746：自動部署只認本倉庫 main 的推送。branches 比的只是分支名，fork 開一條叫 main 的分支發 PR、煙霧跑綠也會符合。
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
