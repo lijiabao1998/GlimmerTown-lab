@@ -6,6 +6,7 @@
 > **Grok**, **GLM**, **Kimi** and **DeepSeek** work on `grok/<topic>`, `glm/<topic>`, `kimi/<topic>`, `dsk/<topic>` branches: push only your own branch (with an explicit refspec, `git push origin dsk/x:dsk/x`), open a PR to `main`, never push to `main` and never merge your own PR.
 > **GPT (ChatGPT)** can write the repo but cannot run the game's local tests: it works on `gpt/<topic>` branches like the others; CI runs the smoke test on every push, and the merging writer runs the pixel guards.
 > **Nothing is merged into `main` unless the owner explicitly approves that PR.** A branch may also stay unmerged forever.
+> **Exception (owner, 2026-10-14): GPT may merge its own `gpt/` PRs** once CI is green and the §8 self-check of `docs/迭代不改壞標準.md` is ticked; at that merge it acts as the `main` writer (T number, version label, `AUTORUN-LOG.md`). Look changes that need the owner's eyes still wait for the owner. Other branch writers are unchanged.
 > Before starting, read `AUTORUN.md` (workflow and boundaries) and `docs/DECISIONS.md` (owner decisions). Do not decide global look changes yourself — make 2–3 comparison images for the owner.
 
 業主 2026-09-25 定的：「Grok、GLM 確定走 branch」，並要求 Kimi、GPT（ChatGPT）也寫一份；同日更正「GPT 是可以寫 repo 的」，GPT 也走分支；2026-09-26 業主：「dsk 加入寫入者名單」，DeepSeek 走 `dsk/*` 分支。這份檔給 Codex、Grok、GLM、Kimi、DeepSeek、GPT 等不讀 `CLAUDE.md` 的工具看；Claude 讀 `CLAUDE.md`，兩份內容一致。各家的開場白（貼給它的第一句話）在 `docs/AGENT-PROMPTS.md`。
@@ -46,6 +47,16 @@
 
 分支不一定要合。**任何分支的 PR，業主明說「合」（指名那一個 PR 或那一條分支）之前，誰都不准合進 `main`**；業主沒點頭的分支就留著，也可以一直不合。所以沒有定時合併的排程。
 
+**例外：GPT 自己合（業主 2026-10-14「自己合就行」）**。GPT 的 `gpt/` PR 不必等業主逐次點頭，GPT 可以自己在 GitHub 上合，條件：
+
+- 分支 CI 全綠（煙霧 3 連綠），卡上 `docs/迭代不改壞標準.md` 第 8 節自檢逐條打勾，驗收條件是動手前寫的；
+- 合之前 `git fetch`，PR 要接在最新 `main` 上（落後就先更新分支、等 CI 再綠）；
+- 會影響整張畫面的美術、或卡上寫「要業主選」的，照舊先給業主看圖、等業主點頭；
+- 合併那一步 GPT 就是 `main` 寫入者：在同一個 PR 裡配 T 號、改版本號（`GAME_VER`／`GAME_ANCHOR`／開始畫面版本字）、寫 `AUTORUN-LOG.md` 一段；`fp.json` 若有意變動，卡上寫明，留給 Claude／Codex 下次開工在本機更新；
+- 一律走 PR 合併，不直推 `main`、不准 `--force`；合完確認部署綠、開真網址看一眼。
+
+GPT 自己合的 PR，Claude／Codex 下次開工時照第 5 節第 4 條把卡上標「未跑」的守衛與 `fp.js --check` 在本機跑過、補上真實數字；跑出紅的照「不改壞」標準修。其他分支寫入者（Grok、GLM、Kimi、DeepSeek）不變，仍要業主點頭才合。
+
 `main` 寫入者（Claude、Codex）要做的：
 
 0. **開工時列給業主看**：同步完遠端後，看有沒有開著的分支 PR；有的話列給業主——每個 PR 一行：分支、卡號、做了什麼、CI 綠不綠、樣張連結、有沒有要業主選的美術。列完就去做自己的事，**不要自己決定合不合**。
@@ -69,7 +80,7 @@
 1. **煙霧交給 CI**：推到 `gpt/` 分支，GitHub Actions 會自動跑煙霧測試。CI 綠了才開 PR（或開 PR 後等綠）；CI 紅了就照紅線修，不准帶著紅開 PR。
 2. **守衛照寫、標「未跑」**：自檢照樣掛進 `smoke.js`（CI 會跑到）；像素守衛照樣寫成 `probeXXX.js`，卡上標「未跑，待合併者跑」。
 3. **不假裝跑過**：沒跑過的東西不能寫「通過」；卡上的數字要嘛是 CI 的結果（附 CI 連結），要嘛標「未量」。
-4. **合併者多做一步**：`main` 寫入者合 GPT 的 PR 時，除了第 3 節，還要把 GPT 卡上標「未跑」的守衛與 `fp.js --check` 在本機跑過，把真實數字補進卡裡。
+4. **合併者多做一步**（GPT 自己合的，由 Claude／Codex 下次開工補做）：`main` 寫入者合 GPT 的 PR 時，除了第 3 節，還要把 GPT 卡上標「未跑」的守衛與 `fp.js --check` 在本機跑過，把真實數字補進卡裡。
 5. 只給意見、不改檔的時候（審 PR、出卡面草稿、美術方向、演算法），直接在 PR 留言或交給業主就好，不用開分支。
 
 ## 6. 邊界（所有寫入者都一樣）

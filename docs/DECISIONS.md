@@ -7,6 +7,7 @@
 
 | 日期 | 題目 | 決定 | 出處 |
 |---|---|---|---|
+| 2026-10-14 | GPT 的合併權限要不要常態化 | **GPT 自己合就行**（業主原話「自己合就行」，回 Claude 同日的問題「GPT 的合併權限：要不要寫進規則」）。寫進 `AGENTS.md` 第 3 節例外段：CI 綠、第 8 節自檢打勾、接在最新 main、要業主看圖的美術照舊等點頭；合併那一步 GPT 兼任 main 寫入者（T 號、版本號、日誌）；不直推、不 `--force`。只限 GPT，其他分支寫入者不變。 | 業主對 Claude（town 盤點對話），2026-10-14 |
 | 2026-10-13 | T739（原 GPT-022）由 GPT 直接合併 PR #26 | 業主授權 GPT 合併本輪 PR #26 到 main，並走既有流程自動部署；不含強推、刪分支、改 GitHub 設定或權限、動別人的分支。GPT 於 09:34:56 UTC squash 合併為 `e91c9fe`（v14.41／T739）；同 SHA 的 smoke、Pages 成功，公開驗證綠。**依 GPT 卡記載，授權範圍只限本輪 PR #26**。`AGENTS.md` 第 3 節的常規分工（main 只給 Claude、Codex 推；GPT 開 PR、業主點頭後由 main 寫入者合）文字沒改；業主若要讓 GPT 常態合併，要另外改 `AGENTS.md` | 業主對 GPT 的對話（Claude 不在場，依 GPT 卡轉錄）：06:59 UTC「lab 你合 就行了 gpt」、08:14 UTC「本輪允許 GPT 合併 PR #26 到 main，並讓既有流程自動部署」；見 `docs/T739-british-use-scales.md`「2026-10-13 純雲端合併授權」「08:14 UTC 直接明確批准後續」兩段。Claude 2026-10-14 補記 |
 | 2026-10-11 | GPT 推分支常回「user-authored messages do not clearly authorize this exact external write or its CI side effects」 | `docs/AGENT-PROMPTS.md` 的 GPT 開場白末尾加一段業主授權。**整段對話有效**：可以在 `gpt/<主題>` 分支 commit、推送；推送觸發的 Actions（煙霧、分支 CI、上線觀測）業主同意；可以手動觸發、重跑自己分支的 workflow；CI 綠了可以開 PR 到 main 並在自己的 PR 留言。**不授權**：推 main、合併、強制推送、刪分支、改 GitHub 設定、改別人的分支。授權要由業主把開場白整段當自己的訊息貼進 GPT 對話才算數 | 對話（業主 2026-10-11：「你加一下好了」） |
 | 2026-10-10 | T738 夜間建築影子與水面倒影去濾鏡：畫面不再逐位相同（夜晚、黃昏的影子處最多差 2 色階），換午夜每格約快 94% | **A：接受最多差 2 色階**。T738 自檢判準由「逐位相同」放寬為「最大差 ≤2 色階」，寫在卡面；逃生閥 `__noSil738` 開時整格仍與修前逐位相同 | 對話（業主看過修前／修後／差異對照圖後回「A」） |

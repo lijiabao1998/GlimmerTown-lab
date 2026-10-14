@@ -75,10 +75,10 @@
 最先讀 docs/迭代不改壞標準.md（業主 2026-10-10 定：不管迭代玩法還是美術都不准迭代壞），每張卡收工前逐條對它第 8 節的自檢清單。
 你只在 gpt/<主題> 分支上工作：從最新的 main 開分支，卡號用 GPT-001 起、卡放 docs/branch/，
 照 AUTORUN.md 的五步施工（先量、驗收先寫、一次一件事、逃生閥、守衛），
-不要改版本號、AUTORUN-LOG.md、fp.json、docs/DECISIONS.md。
+施工提交裡不要改版本號、AUTORUN-LOG.md、fp.json、docs/DECISIONS.md（自己合併時，合併那一步照 AGENTS.md 第 3 節配 T 號、改版本號、寫日誌）。
 你不能在本機跑遊戲：推到 gpt/ 分支後 GitHub Actions 會跑煙霧測試，CI 綠了才開 PR；
 像素守衛照寫、卡上標「未跑，待合併者跑」；沒跑過的東西不要寫「通過」。
-只推自己的分支，做完開 PR 到 main，不要推 main、不要自己合併。
+只推自己的分支，做完開 PR 到 main，不要直推 main；CI 綠、第 8 節自檢打勾後可以自己合（業主 2026-10-14「自己合就行」，條件見 AGENTS.md 第 3 節；要我看圖的美術照舊等我點頭）。
 改色調、光影、密度這類會影響整張畫面的，做兩三檔對照圖或列選項讓業主選，不要自己決定。
 主線倉庫 lijiabao1998/GlimmerTown 的規矩不適用這裡，兩條線的卡號各自獨立。
 
@@ -88,8 +88,9 @@
 - 推送會自動觸發這個倉庫的 GitHub Actions（煙霧測試，以及該分支自己的 CI／像素守衛／上線後觀測 workflow）。這是預期的副作用，我同意。CI 紅了可以在同一條分支上修好再推、再觸發。
 - 也可以對自己的 gpt/ 分支手動觸發（workflow_dispatch）、重跑這些 workflow。
 - CI 綠了之後，開 PR 從你的 gpt/<主題> 分支到 main，並在自己開的 PR 上留言說明。
-我不授權：推 main、合併任何 PR、強制推送（--force）、刪除分支、改 GitHub 設定或權限、改別人的分支（claude/、codex/、grok/、glm/、kimi/、dsk/）。
-合併由 main 寫入者在我點頭後照 AGENTS.md 第 3 節做；碰到上面沒列到的對外動作，停下來先問我。
+- 照 AGENTS.md 第 3 節的條件，合併你自己開的 gpt/ PR（2026-10-14 起，「自己合就行」）。
+我不授權：直推 main、合併別人的 PR、強制推送（--force）、刪除分支、改 GitHub 設定或權限、改別人的分支（claude/、codex/、grok/、glm/、kimi/、dsk/）。
+別人的 PR 由 main 寫入者在我點頭後照 AGENTS.md 第 3 節合；碰到上面沒列到的對外動作，停下來先問我。
 ```
 
 ## Codex
@@ -99,7 +100,7 @@
 開工前先讀根目錄的 AGENTS.md，再讀 AUTORUN.md 和 docs/DECISIONS.md。
 最先讀 docs/迭代不改壞標準.md（業主 2026-10-10 定：不管迭代玩法還是美術都不准迭代壞），每張卡收工前逐條對它第 8 節的自檢清單。
 照 AUTORUN.md 第 2 節「遠端」四條：開工前 fetch、先推卡面佔號、推送前再 fetch、永遠不准 --force。
-Grok、GLM、Kimi、DeepSeek、GPT 的分支 PR 由 main 寫入者照 AGENTS.md 第 3 節合併（只有業主點頭才合）。
+Grok、GLM、Kimi、DeepSeek 的分支 PR 由 main 寫入者照 AGENTS.md 第 3 節合併（只有業主點頭才合）；GPT 可以自己合（業主 2026-10-14），它合完後把卡上「未跑」的守衛與 fp.js --check 在本機跑過、補上數字。
 改色調、光影、密度這類會影響整張畫面的，做兩三檔對照圖讓業主選，不要自己決定。
 主線倉庫 lijiabao1998/GlimmerTown 的規矩不適用這裡。
 ```
