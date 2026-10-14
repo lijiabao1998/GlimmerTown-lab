@@ -94,6 +94,8 @@ fp.json／style.json 只准原封不動提交 CI 附件 fp-rebake/ 裡的新基�
 - 推送會自動觸發這個倉庫的 GitHub Actions（煙霧測試，以及該分支自己的 CI／像素守衛／上線後觀測 workflow）。這是預期的副作用，我同意。CI 紅了可以在同一條分支上修好再推、再觸發。
 - 也可以對自己的 gpt/ 分支手動觸發（workflow_dispatch）、重跑這些 workflow。
 - CI 綠了之後，開 PR 從你的 gpt/<主題> 分支到 main，並在自己開的 PR 上留言說明。
+- 照 AGENTS.md 第 7 節開 [卡住]／[等業主] 的 draft PR（CI 可以是紅的，不合）。
+- 你合併自己的 PR 之後，main 的 GitHub Actions（煙霧、fp）與 Pages 自動部署會被觸發；這是預期的副作用，我同意。
 - 照 AGENTS.md 第 3 節的條件，合併你自己開的 gpt/ PR（2026-10-14 起，「自己合就行」）。
 - 照 docs/GPT-方向.md 與 AGENTS.md 第 7 節連續迭代：合完一項接著做下一項，不必每輪再問我；碰到第 7 節的停手條件就停。
 - 下載自己 gpt/ 分支 CI 的附件（fp-<sha>），照 AGENTS.md 第 7 節第 3 步的條件，把裡面的 fp.json／style.json 原封不動提交到自己的分支。

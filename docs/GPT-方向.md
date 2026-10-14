@@ -26,7 +26,7 @@
 
 | 序 | 項目 | 對應方向的哪一句 | 美術／玩法 | 要動的 fp 家族 | 備註 |
 |---|---|---|---|---|---|
-| 1 | **修補**：GPT-008～014 四視角英式建築（k274–293）視角 1、3 光向反了 | 不適用（Claude 2026-10-14 依業主授權列的修補項） | 美術 | `bld` | 證據、量法、驗收條件見 [`docs/T745-four-view-light.md`](T745-four-view-light.md)：`node probeLightSide745.js --check` 要轉綠（光向）且釘值全對（視角 0、2 一個像素都不准動，視角 1、3 形狀不准動），轉綠後把 `--check` 掛進 `smoke.js`。Claude 已依業主授權決定要修，修這一項**不用等業主看圖**；修完的四視角對照圖放卡上 |
+| 1 | **修補**：GPT-008～014 四視角英式建築（k274–293）視角 1、3 光向反了 | 不適用（Claude 2026-10-14 依業主授權列的修補項；`docs/DECISIONS.md` 2026-10-14 ⑥ 已決定要修，不用等業主看圖） | 美術 | `bld` | 證據、做法限制與驗收條件全在 [`docs/T745-four-view-light.md`](T745-four-view-light.md) 第 5 節：`node probeLightSide745.js --check` 與 `--valve` 都要綠（先用分支專屬 workflow 跑，綠了再掛進 `smoke.js`）；`primitives014` 只准新增 helper；`use021` 零變動；`fp.json` 只准 k274–293 的視角 1、3 葉子變；k139 不在這一項 |
 
 ## 卡住／等業主看圖
 
