@@ -67,7 +67,7 @@
 
 ## GPT（ChatGPT）
 
-> 2026-10-14 Claude 依業主「gpt 那邊能自動無限推」補：連續迭代（方向檔 `docs/GPT-方向.md`、`AGENTS.md` 第 7 節）、CI 給的新基線怎麼提交；授權段多三條，不授權的清單一字未改。
+> 2026-10-14 Claude 依業主「gpt 那邊能自動無限推」補：連續迭代（方向檔 `docs/GPT-方向.md`、`AGENTS.md` 第 7 節）、CI 給的新基線怎麼提交；授權段多五條（draft PR、合併的副作用、連續迭代、下載 CI 附件提交新基線、維護方向檔），不授權的清單一字未改。
 >
 > 2026-10-11 業主加：GPT 推分支前常回「the available user-authored messages do not clearly authorize this exact external write or its CI side effects」。它只認「業主在對話裡親口給的授權」，倉庫文件不算。所以這段最後加了一段明寫範圍的授權。**要整段當成你自己的訊息貼進 GPT 對話**，授權才算數。
 
