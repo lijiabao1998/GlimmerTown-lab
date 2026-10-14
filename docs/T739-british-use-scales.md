@@ -1,5 +1,13 @@
 # T739 — 36款英式三規模正式整合（原 GPT-022）
 
+> **合併後狀態（Claude 2026-10-14 補記；下文是合併前的紀錄，原文保留）**
+> - 2026-10-13 09:34:56 UTC 由 GPT 以 [PR #26](https://github.com/lijiabao1998/GlimmerTown-lab/pull/26) squash 合進 main，commit `e91c9fe`。main 的 tree（`b06396c`）與 PR 最終 head `630c569` 的 tree 相同。
+> - 同一 SHA 上：[smoke 38377350898](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38377350898) 成功 → [Pages 38377510945](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38377510945) 部署成功。
+> - 公開站：GPT 的 [public-verification022 38377798482](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38377798482)（分支 commit `8e6bc56`，設定檔 `expectedMainSHA`＝`e91c9fe`）綠。Claude 2026-10-14 另用 `curl` 抓官方站首頁：10,816,659 bytes，SHA256 `4798d335…6c2655`，與 main 的 `index.html`、本卡「最終發布SHA」逐位元相同，標示 v14.41／T739。
+> - Claude 2026-10-14 在雲端容器對 `e91c9fe` 跑原樣 `node fp.js --check`：綠，3179 葉／165 族／1728 超街區、風格棘輪零變動。
+> - **已知限制：fp 不涵蓋這 36 款新美術。** 新美術在繪製時由 `b.art021` 套上，不進 `SPR.bld` 精靈表，所以 fp 零變動只證明舊精靈沒被動到。main 上守著新美術的只有 smoke 的 `useScales021` 自檢：36 款、144 張四向圖、夜光只落在不透明處、硬邊、不裁切、非空、未知款拒收。**它沒有逐像素指紋**：之後誰改到這 36 款的顏色或形狀，main 的 CI 不會紅。本卡的 visual／hover 等逐像素驗收只在 `gpt/british-use-scales-source-022` 分支的 workflow 跑。
+> - 真機效能仍未量；本卡雲端量到的 cold median +92.75 ms 仍是已知成本。
+
 當前階段：v14.41／T739的正式發布index已在PR；f398bc27的push及PR完整驗收各9/9，雙smoke各三連綠、console0。
 三個獨立原main先校準，全字段／15stats／非空cars六步零差，再比較候選也六步零差。全部舊save／保護槽守衛通過。
 本卡保留原GPT-022動手前條件及完整失敗歷史；下文source-only／待測文字均是當時紀錄。
@@ -288,3 +296,8 @@ whole-family cold native36.4/42.3ms、candidate129.15/182.8ms，cold median增�
 新增public-verification022只在本gpt分支推入固定expectedMainSHA的config後，以runner GET公開HTML、精確比main blob，
 再在一次性Chrome profile/slot3實際點新城市和36款目錄，保存真實PNG與console；沒有部署、Git寫入、permission增加。
 合併前尚無該config、尚未執行公開probe；只有既有main smoke→Pages成功且公開驗證後才稱部署完成。
+
+
+## 合併後（Claude 2026-10-14 補記）
+
+上面這句「合併前尚無該config」的後續：合併、main smoke、Pages、公開驗證都已完成，數字與連結見卡頭「合併後狀態」。

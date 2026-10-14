@@ -10,6 +10,8 @@
 > ② r32 被兩輪不同的工作共用（T582 interchange 夜圖、T582 超街區立體感修復）；
 > ③ r34（T585）同時有單獨段落與 r33–r38 合併段裡的一列。
 > 原本停在 `pending` 的 commit 欄已依卡號從 git 歷史回填，並標注「T616 回填」。
+>
+> **2026-10-14 回填**：r163–r180、r186 是 GPT 寫的列，commit 欄原本寫「確切 SHA 見 PR」「將在 PR 記入」之類。已依 GitHub 的 PR 合併紀錄（`merge_commit_sha`，逐一確認在 main 上）補上 squash commit，標「2026-10-14 回填」；原文一字不改。
 
 ---
 
@@ -17,7 +19,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r186 | [T739](docs/T739-british-use-scales.md) | 完整36款批准美術整合进实际index；既有native载体/价格/容量不改，v14.41/T739。来源重建与发布SHA分开锁定。 | 最终发布f398bc27：push38375644103/PR38375652300各9/9，smoke38375644416/38375652030各3次console0；saves71含三臂main校准与6步候选零差，fp零变 | 测试程序f398bc272c00b3f2cc92328dfcdbce327fe8ec80；合并commit/部署将在PR记入 | 各CI artifact中的真实Chrome四季/四向/成熟hover/原生成长PNG | 原先多次红灯已保留；最终程序验收完成，合并与部署尚未完成；真机效能未量；本轮cold median+92.75ms（30交错样本/臂） |
+| r186 | [T739](docs/T739-british-use-scales.md) | 完整36款批准美術整合进实际index；既有native载体/价格/容量不改，v14.41/T739。来源重建与发布SHA分开锁定。 | 最终发布f398bc27：push38375644103/PR38375652300各9/9，smoke38375644416/38375652030各3次console0；saves71含三臂main校准与6步候选零差，fp零变 | 测试程序f398bc272c00b3f2cc92328dfcdbce327fe8ec80；合并commit/部署将在PR记入（2026-10-14 回填：PR #26 squash `e91c9fe`） | 各CI artifact中的真实Chrome四季/四向/成熟hover/原生成长PNG | 原先多次红灯已保留；最终程序验收完成，合并与部署尚未完成；真机效能未量；本轮cold median+92.75ms（30交错样本/臂）（2026-10-14 補記：合併已完成 `e91c9fe`；同 SHA 的 smoke、Pages 成功，官方站與 main 逐位元相同。仍未做：真機效能沒量；`fp.js` 不涵蓋這 36 款新美術，main 上沒有它們的逐像素指紋，見卡頭） |
 
 ## r185 — T738 效能③：夜間建築影子與水面倒影改畫快取黑剪影（業主選 A）
 
@@ -58,6 +60,7 @@
 - Earlier smoke evidence: three green runs at ebd069d and two each at f71fdb1 and b660f394. Native pixel equality at b660f394: all 3,179 sprites, 165 families and 1,728 blocks unchanged, run 37940504511. Raw stored style check remains 96.5% expected versus 96.3% actual on both original and repaired code.
 - Failure history: initial synthetic-input vibration warnings corrected without filtering; b660 full suite passed source controls but its added Page.getResourceContent probe failed because the no-store document was not cached. This is repaired through pre-navigation response observation, not waived.
 - Not completed: exact T733 full release suite, three smokes, pixel/style evidence, merge and deployed-byte verification remain pending. Earlier-head results are not claimed as T733 results. Physical-device testing remains unrun. No artwork or fp/style baseline changes.
+- 2026-10-14 回填：PR #25 於 2026-10-09 20:49:08 UTC squash 合進 main，commit `5102c96`。
 <!-- T733 release entry END -->
 
 <!-- T732 release entry BEGIN -->
@@ -68,6 +71,7 @@
 - Candidate full156: https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37667551413, attempt 4, completed 2026-10-07T19:43:51Z
 - Exactly32 leaves/1 family promoted; original3147 leaves/164 families/1728 blocks retained.
 - Not completed: release-head full156, three smokes, pixel/style guards, merge and deployment verification remain pending. No physical-device FPS claim.
+- 2026-10-14 回填：PR #24 於 2026-10-08 16:47:39 UTC squash 合進 main，commit `44849ee`。
 <!-- T732 release entry END -->
 
 <!-- T731 release entry BEGIN -->
@@ -75,7 +79,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r178 | [T731](docs/T731-british-waterfront-heritage.md) | 2026-10-07 08:30 UTC (conservative post-approval cutoff)；此為批准後保守日期門檻，非業主回覆的精確時間。原十張建築圖已確認，六張最終修復原圖再獲「沒問題，按照流程上線吧」批准。兩種2×2英式水岸建築外觀、八個四向素材；完整尺寸私有崖面副本保留原取樣與向外土層。v14.35 / T731 僅改三個產品發布標籤，嚴格增量晉升八葉一族。 | 批准候選f2123f682b893828e8c306e1f5609603a8e8fd08：[37590211280](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37590211280) attempt 1，148個唯一必要job全綠（preflight＋原14生命週期＋4外緣＋128歷史＋compatibility），2026-10-07 08:24:14 UTC完成；正式release head仍須完整重驗。 | gpt/british-waterfront-heritage-018；PR與合併SHA完成後記於PR。 | 六張1600×1080正式未改原圖：日間、夜間、近景各前／後；原十張建築圖確認保留。 | ① 前兩次crop／clip完整回歸失敗及原始證據逐字保留 ② 診斷圖不冒充產品批准 ③ CI耗時不等於手機FPS ④ 既有PWA／404診斷未擴修 ⑤ 本準備不代表正式CI、合併、Pages或live已完成 ⑥ 下一輪圖片仍須確認。 |
+| r178 | [T731](docs/T731-british-waterfront-heritage.md) | 2026-10-07 08:30 UTC (conservative post-approval cutoff)；此為批准後保守日期門檻，非業主回覆的精確時間。原十張建築圖已確認，六張最終修復原圖再獲「沒問題，按照流程上線吧」批准。兩種2×2英式水岸建築外觀、八個四向素材；完整尺寸私有崖面副本保留原取樣與向外土層。v14.35 / T731 僅改三個產品發布標籤，嚴格增量晉升八葉一族。 | 批准候選f2123f682b893828e8c306e1f5609603a8e8fd08：[37590211280](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37590211280) attempt 1，148個唯一必要job全綠（preflight＋原14生命週期＋4外緣＋128歷史＋compatibility），2026-10-07 08:24:14 UTC完成；正式release head仍須完整重驗。 | gpt/british-waterfront-heritage-018；PR與合併SHA完成後記於PR。（2026-10-14 回填：PR #23 squash `b101348`） | 六張1600×1080正式未改原圖：日間、夜間、近景各前／後；原十張建築圖確認保留。 | ① 前兩次crop／clip完整回歸失敗及原始證據逐字保留 ② 診斷圖不冒充產品批准 ③ CI耗時不等於手機FPS ④ 既有PWA／404診斷未擴修 ⑤ 本準備不代表正式CI、合併、Pages或live已完成 ⑥ 下一輪圖片仍須確認。 |
 
 <!-- T731 release entry END -->
 <!-- T730 release entry BEGIN -->
@@ -83,7 +87,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r177 | [T730](docs/T730-british-quayside-details.md) | 2026-10-06 22:00 UTC (release-task receipt) 收到十張原圖核對與上線批准。繫船樁、絞盤、救生圈架、錨座、柳條漁籠、曬網架，六種獨立付費步道配景，24 個四向原生素材，皆不自行發光。v14.34 / T730 只改三個產品發布標籤並嚴格增量晉升24葉。 | 已批准候選8ceebc081dff3f44f31279e5ddab4d60f25933c6，native13：[37533544152](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533544152)、legacy117：[37533544092](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533544092)、smoke：[37533543992](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533543992)，全部首次通過；release head 仍須完整驗證。 | gpt/british-quayside-details-017；PR與合併SHA完成後記於PR。 | 十張1600×1080真實原圖已核對；日夜、四向、冬景、施工第6天、冷啟動續檔。 | ① 舊PWA404及無URL script404未全分類，診斷原始負面證據保留 ② CI耗時不等於手機FPS ③ 即時裝飾步道不虛稱建築施工或新增服務 ④ 本準備不代表發布CI／Pages／live驗證完成 ⑤ 下一輪圖片仍須核對。 |
+| r177 | [T730](docs/T730-british-quayside-details.md) | 2026-10-06 22:00 UTC (release-task receipt) 收到十張原圖核對與上線批准。繫船樁、絞盤、救生圈架、錨座、柳條漁籠、曬網架，六種獨立付費步道配景，24 個四向原生素材，皆不自行發光。v14.34 / T730 只改三個產品發布標籤並嚴格增量晉升24葉。 | 已批准候選8ceebc081dff3f44f31279e5ddab4d60f25933c6，native13：[37533544152](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533544152)、legacy117：[37533544092](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533544092)、smoke：[37533543992](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37533543992)，全部首次通過；release head 仍須完整驗證。 | gpt/british-quayside-details-017；PR與合併SHA完成後記於PR。（2026-10-14 回填：PR #22 squash `1400301`） | 十張1600×1080真實原圖已核對；日夜、四向、冬景、施工第6天、冷啟動續檔。 | ① 舊PWA404及無URL script404未全分類，診斷原始負面證據保留 ② CI耗時不等於手機FPS ③ 即時裝飾步道不虛稱建築施工或新增服務 ④ 本準備不代表發布CI／Pages／live驗證完成 ⑤ 下一輪圖片仍須核對。 |
 
 <!-- T730 release entry END -->
 <!-- T729 release entry BEGIN -->
@@ -91,7 +95,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r176 | [T729](docs/T729-british-garden-life.md) | 2026-10-06 12:31 UTC (release-task receipt) 收到本輪十張圖片與上線批准。六款獨立付費庭院步道配景，24 個原創四向素材；全部不自行發光。v14.33 / T729 僅改三個產品發布標籤，嚴格增量晉升 24 葉。 | 批准候選 562dcdac6b0f221f803e5288152805e5dfd1f367：[native 13/13](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485794)、[legacy 104/104](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485853)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485811) 全綠；正式 release head 仍須完整重驗。 | gpt/british-garden-life-016；PR 與合併 SHA 待完成後記於 PR。 | 十張同 head 的原始 1600×1080 PNG，日夜、四向、冬景、實際周邊施工與冷 Continue；業主已批准。 | ① R1/R2 QA 場景錯誤、R2 原始耗時門檻失敗及未遮擋試探均保留 ② 現有 PWA 404 與無 URL script 404 未全分類，未擴修 ③ CI 耗時不等於手機 FPS ④ 配景為即時步道外觀，不虛稱九日施工或新增服務 ⑤ 本準備紀錄不代表正式 CI、Pages、live 已完成，亦非下一波發布批准。 |
+| r176 | [T729](docs/T729-british-garden-life.md) | 2026-10-06 12:31 UTC (release-task receipt) 收到本輪十張圖片與上線批准。六款獨立付費庭院步道配景，24 個原創四向素材；全部不自行發光。v14.33 / T729 僅改三個產品發布標籤，嚴格增量晉升 24 葉。 | 批准候選 562dcdac6b0f221f803e5288152805e5dfd1f367：[native 13/13](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485794)、[legacy 104/104](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485853)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37457485811) 全綠；正式 release head 仍須完整重驗。 | gpt/british-garden-life-016；PR 與合併 SHA 待完成後記於 PR。（2026-10-14 回填：PR #21 squash `c7f0ab6`） | 十張同 head 的原始 1600×1080 PNG，日夜、四向、冬景、實際周邊施工與冷 Continue；業主已批准。 | ① R1/R2 QA 場景錯誤、R2 原始耗時門檻失敗及未遮擋試探均保留 ② 現有 PWA 404 與無 URL script 404 未全分類，未擴修 ③ CI 耗時不等於手機 FPS ④ 配景為即時步道外觀，不虛稱九日施工或新增服務 ⑤ 本準備紀錄不代表正式 CI、Pages、live 已完成，亦非下一波發布批准。 |
 
 <!-- T729 release entry END -->
 <!-- T728 release entry BEGIN -->
@@ -99,7 +103,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r175 | [T728](docs/T728-british-streetscape.md) | 2026-10-06 09:35 UTC 收到本輪8張原生圖、PR、合併與上線批准。8種獨立付費 T502 路燈／店招／花器／庭院、32個原創四向素材；僅兩種實體燈面發光。v14.32/T728只改3個產品發布標籤，严格32葉增量晉升。 | 批准候選7c358552922460c09a8a90fc536490233b97279d：[native13/13](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964454)、[legacy91/91](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964669)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964649)全綠；正式release head仍須完整重驗。 | gpt/british-streetscape-015；[PR20](https://github.com/lijiabao1998/GlimmerTown-lab/pull/20)，合併SHA待完成後記於PR | 8張同head原生1600×1080 PNG已核SHA／來源／尺寸，業主已批准；日夜／反向／冬景／實際周邊建造／冷Continue | ① R1兩項QA場景失敗及兩次無遮擋試探如實保留 ② 現有manifest/icon/sw404及2筆無URL script404未全分類，不擴修 ③ CI效能不是手機FPS ④ 步道瞬間完成，不虛稱9日施工 ⑤ 本準備紀錄不代表正式CI／Pages／live已完成，亦非下一波發布批准 |
+| r175 | [T728](docs/T728-british-streetscape.md) | 2026-10-06 09:35 UTC 收到本輪8張原生圖、PR、合併與上線批准。8種獨立付費 T502 路燈／店招／花器／庭院、32個原創四向素材；僅兩種實體燈面發光。v14.32/T728只改3個產品發布標籤，严格32葉增量晉升。 | 批准候選7c358552922460c09a8a90fc536490233b97279d：[native13/13](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964454)、[legacy91/91](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964669)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37439964649)全綠；正式release head仍須完整重驗。 | gpt/british-streetscape-015；[PR20](https://github.com/lijiabao1998/GlimmerTown-lab/pull/20)，合併SHA待完成後記於PR（2026-10-14 回填：PR #20 squash `bcd77d5`） | 8張同head原生1600×1080 PNG已核SHA／來源／尺寸，業主已批准；日夜／反向／冬景／實際周邊建造／冷Continue | ① R1兩項QA場景失敗及兩次無遮擋試探如實保留 ② 現有manifest/icon/sw404及2筆無URL script404未全分類，不擴修 ③ CI效能不是手機FPS ④ 步道瞬間完成，不虛稱9日施工 ⑤ 本準備紀錄不代表正式CI／Pages／live已完成，亦非下一波發布批准 |
 
 <!-- T728 release entry END -->
 <!-- T727 release entry BEGIN -->
@@ -107,7 +111,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r174 | [T727](docs/T727-four-british-complexes.md) | 業主於2026-10-06 04:33 UTC收訖本輪8張原生圖並批准上線。四組主體k282–293共12棟、16種獨立付費步道／庭院、112個四向素材；真9日施工、道路水電人力、教育休閒服務、原生住戶與真消防車。v14.31/T727僅三處產品發布標籤與嚴格112葉增量晉升；保留T724冷載修復。 | 批准候選509e3b0ebbeefc2c92efb24fef4abbeaf6bdfc85：[完整90/90](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526348)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526296)全綠；四向日夜施工雨／暴雨／冬雪／霧、實際遮擋、失供復供、人力住戶帳、真消防出勤、兩次冷Continue各3日與8座舊城均過。正式release head仍須完整重驗。 | gpt/british-four-complexes-014；PR與合併精確SHA待成功後記錄 | 16張同一head原生PNG已核hash／尺寸；首8张日夜圖業主已批准，餘8張為反向／混合城／天候／施工，不重繪不拼圖 | ① R1–R4驗證場景／腳本失敗歷程與原始證據保留 ② CI效能不是手機實機FPS ③ 原有PWA與console診斷保留，不稱零警告 ④ 宿舍是一般原生住戶，馬廄是原生休閒，無虛構門票收益 ⑤ 正式release CI／PR／合併／Pages／live核對尚待完成，不代表其他迭代發布 |
+| r174 | [T727](docs/T727-four-british-complexes.md) | 業主於2026-10-06 04:33 UTC收訖本輪8張原生圖並批准上線。四組主體k282–293共12棟、16種獨立付費步道／庭院、112個四向素材；真9日施工、道路水電人力、教育休閒服務、原生住戶與真消防車。v14.31/T727僅三處產品發布標籤與嚴格112葉增量晉升；保留T724冷載修復。 | 批准候選509e3b0ebbeefc2c92efb24fef4abbeaf6bdfc85：[完整90/90](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526348)、[smoke](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37410526296)全綠；四向日夜施工雨／暴雨／冬雪／霧、實際遮擋、失供復供、人力住戶帳、真消防出勤、兩次冷Continue各3日與8座舊城均過。正式release head仍須完整重驗。 | gpt/british-four-complexes-014；PR與合併精確SHA待成功後記錄（2026-10-14 回填：PR #19 squash `6d137b6`） | 16張同一head原生PNG已核hash／尺寸；首8张日夜圖業主已批准，餘8張為反向／混合城／天候／施工，不重繪不拼圖 | ① R1–R4驗證場景／腳本失敗歷程與原始證據保留 ② CI效能不是手機實機FPS ③ 原有PWA與console診斷保留，不稱零警告 ④ 宿舍是一般原生住戶，馬廄是原生休閒，無虛構門票收益 ⑤ 正式release CI／PR／合併／Pages／live核對尚待完成，不代表其他迭代發布 |
 
 <!-- T727 release entry END -->
 <!-- T726 release entry BEGIN -->
@@ -115,7 +119,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r173 | [T726](docs/T726-british-edwardian-theatre-quarter.md) | 業主看過28張同head原生PNG後批准本輪上線，批准收到時間為2026-10-05 16:57 UTC。新增k281愛德華紅磚劇院3×3及六種獨立付費T502售票亭／石鋪廣場／鐵欄／長椅／花槽／英式路燈；原生16公共職位、文化休閒、物理道路水電與九日施工。v14.30/T726只改三個發布標記，嚴格晉升28新葉與必要匯總；2919舊葉及1728完整blocks、既有美術玩法與T724冷讀檔修復保持。 | 批准候選30aa0eb：[full37341815804](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37341815804)44/44及[smoke37341815847](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37341815847)全綠；四向日夜／施工／雨雪霧、物理燈光、真付費編輯、冷載兩次、五冷載控制與七舊城完整tile/stat/RNG均過。发布metadata head仍須重跑完整CI。 | [PR18](https://github.com/lijiabao1998/GlimmerTown-lab/pull/18)的T726發版準備，合併精確SHA待PR確認 | 28張精確head原生PNG已交付核准；原始CI artifacts保留完整來源／雜湊／尺寸 | ① 原有manifest/icon/sw等PWA附檔404保留 ② CI效能不是手機實機FPS ③ 正式站部署後冷載驗證尚待實測 ④ 售票亭為原生步道街具，沒有虛構票務營收 ⑤ 本紀錄不代表其他迭代已發布 |
+| r173 | [T726](docs/T726-british-edwardian-theatre-quarter.md) | 業主看過28張同head原生PNG後批准本輪上線，批准收到時間為2026-10-05 16:57 UTC。新增k281愛德華紅磚劇院3×3及六種獨立付費T502售票亭／石鋪廣場／鐵欄／長椅／花槽／英式路燈；原生16公共職位、文化休閒、物理道路水電與九日施工。v14.30/T726只改三個發布標記，嚴格晉升28新葉與必要匯總；2919舊葉及1728完整blocks、既有美術玩法與T724冷讀檔修復保持。 | 批准候選30aa0eb：[full37341815804](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37341815804)44/44及[smoke37341815847](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37341815847)全綠；四向日夜／施工／雨雪霧、物理燈光、真付費編輯、冷載兩次、五冷載控制與七舊城完整tile/stat/RNG均過。发布metadata head仍須重跑完整CI。 | [PR18](https://github.com/lijiabao1998/GlimmerTown-lab/pull/18)的T726發版準備，合併精確SHA待PR確認（2026-10-14 回填：PR #18 squash `10bc411`） | 28張精確head原生PNG已交付核准；原始CI artifacts保留完整來源／雜湊／尺寸 | ① 原有manifest/icon/sw等PWA附檔404保留 ② CI效能不是手機實機FPS ③ 正式站部署後冷載驗證尚待實測 ④ 售票亭為原生步道街具，沒有虛構票務營收 ⑤ 本紀錄不代表其他迭代已發布 |
 
 <!-- T726 release entry END -->
 <!-- T725 release entry BEGIN -->
@@ -123,7 +127,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r172 | [T725](docs/T725-british-riverside-market.md) | 業主於2026-10-05 12:35:18 UTC看過24張原生圖片後批准本輪上線。新增k278紅磚開放拱廊市場、k279花攤、k280蔬果攤與三種T502河岸步道，原生私營人力/購物/商業稅、九日施工、物理道路水電。v14.29/T725三處發布標記與严格24葉增量基準。T724冷讀檔修復及全部既有美術保留。 | 候選2b0a286：[full37309010297](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37309010297)32/32及smoke37309010329全綠；四向日夜/施工/遮擋、斷路水電與零人力、兩次真冷載各3日、五冷載控制、舊玩法與六舊城全tile/stat/RNG皆過。發布metadata head仍須重跑完整CI。 | [PR17](https://github.com/lijiabao1998/GlimmerTown-lab/pull/17)的T725 squash merge，精確SHA見PR | 24張同head原生PNG已交付並核准；完整source/hash/dim與原始CI artifacts保留 | ① 原有manifest/icon/sw等PWA附檔404保留，未稱零診斷 ② CI效能不是手機實機FPS ③ 正式站部署後驗證尚待實測 ④ 不含未批准的下一輪劇院 |
+| r172 | [T725](docs/T725-british-riverside-market.md) | 業主於2026-10-05 12:35:18 UTC看過24張原生圖片後批准本輪上線。新增k278紅磚開放拱廊市場、k279花攤、k280蔬果攤與三種T502河岸步道，原生私營人力/購物/商業稅、九日施工、物理道路水電。v14.29/T725三處發布標記與严格24葉增量基準。T724冷讀檔修復及全部既有美術保留。 | 候選2b0a286：[full37309010297](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37309010297)32/32及smoke37309010329全綠；四向日夜/施工/遮擋、斷路水電與零人力、兩次真冷載各3日、五冷載控制、舊玩法與六舊城全tile/stat/RNG皆過。發布metadata head仍須重跑完整CI。 | [PR17](https://github.com/lijiabao1998/GlimmerTown-lab/pull/17)的T725 squash merge，精確SHA見PR（2026-10-14 回填：PR #17 squash `248ce80`） | 24張同head原生PNG已交付並核准；完整source/hash/dim與原始CI artifacts保留 | ① 原有manifest/icon/sw等PWA附檔404保留，未稱零診斷 ② CI效能不是手機實機FPS ③ 正式站部署後驗證尚待實測 ④ 不含未批准的下一輪劇院 |
 
 <!-- T725 release entry END -->
 <!-- T724 release entry BEGIN -->
@@ -131,7 +135,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r171 | [T724](docs/T724-cold-load-power-rebuild.md) | 業主於2026-10-05 11:08:46 UTC批准此修復PR、發版測試、合併部署與正式站核對。唯一產品修正：成功讀檔的財政與觀測快照之後標記電網拓撲需重建，交下一次原生computePower依實際道路/電源重建；不偽造水電人力、不改存檔格式。v14.28/T724三個版本標示，fp.json及全部核准美術不變。 | 候選939324e：[full37299836912](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37299836912)20/20與smoke全綠；有館/無館各兩次真冷讀檔、無源/斷路/停用修復負對照、完整原博物館與歷史玩法、三次smoke、全精靈/blocks與舊城tile/stat/RNG均過。正式metadata head仍須再跑完整CI，未預稱通過。 | [PR16](https://github.com/lijiabao1998/GlimmerTown-lab/pull/16)的T724 squash merge，精確SHA見PR | 沿用已批准13張原生圖；本次10個真冷load首日樣張及原始manifest见CI artifacts | ① 原有manifest/icon/sw等PWA附檔404保留，未稱零診斷 ② CI效能不是手機實機FPS ③ 正式站後驗仍須實測 ④ 不含後續河岸市集 |
+| r171 | [T724](docs/T724-cold-load-power-rebuild.md) | 業主於2026-10-05 11:08:46 UTC批准此修復PR、發版測試、合併部署與正式站核對。唯一產品修正：成功讀檔的財政與觀測快照之後標記電網拓撲需重建，交下一次原生computePower依實際道路/電源重建；不偽造水電人力、不改存檔格式。v14.28/T724三個版本標示，fp.json及全部核准美術不變。 | 候選939324e：[full37299836912](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37299836912)20/20與smoke全綠；有館/無館各兩次真冷讀檔、無源/斷路/停用修復負對照、完整原博物館與歷史玩法、三次smoke、全精靈/blocks與舊城tile/stat/RNG均過。正式metadata head仍須再跑完整CI，未預稱通過。 | [PR16](https://github.com/lijiabao1998/GlimmerTown-lab/pull/16)的T724 squash merge，精確SHA見PR（2026-10-14 回填：PR #16 squash `6583659`） | 沿用已批准13張原生圖；本次10個真冷load首日樣張及原始manifest见CI artifacts | ① 原有manifest/icon/sw等PWA附檔404保留，未稱零診斷 ② CI效能不是手機實機FPS ③ 正式站後驗仍須實測 ④ 不含後續河岸市集 |
 
 <!-- T724 release entry END -->
 <!-- T723 release entry BEGIN -->
@@ -139,7 +143,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r170 | [T723](docs/T723-british-natural-history-museum.md) | 業主於2026-10-05 09:43:32 UTC看過13張原生圖後批准上線。k277英式地方自然史館4×4，紅磚淺石拱窗、門廊階梯、低翼玻璃頂與花園；三種独立付費T502鐵門／花園／木椅步道。原生T495公共人力、T491休閒、物理水電路、一份依實際職員縮放的觀光帳；舊k35與k206身份不變。v14.27/T723只改三個產品版本標示，嚴格晉升16新精靈，2879舊葉與1728 blocks保持。 | 批准候選d859e757：[full37290300808](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37290300808)15/15全綠，三次smoke、全指紋、四向日夜/40施工/12天候、部分缺水/人力/零居民、真實遮擋、覆蓋與存讀/undo、舊城全tile/stat/RNG及三套歷史玩法全過。正式metadata head必須另跑完整CI，未預稱通過。 | [PR15](https://github.com/lijiabao1998/GlimmerTown-lab/pull/15)的T723 squash merge，確切SHA見PR | 13張已交付並批准的原生PNG不重畫；全部70張來源見full CI artifacts | ① 沿用原生九日施工與鋼材加速，無博物館專屬吊車動畫 ② 文化休閒不是學校席位；花園步道無重複公園加成 ③ 原有atlas/PWA診斷未擴大處理 ④ 手機實機FPS未測 ⑤ 本PR不包含下一輪河岸市集 |
+| r170 | [T723](docs/T723-british-natural-history-museum.md) | 業主於2026-10-05 09:43:32 UTC看過13張原生圖後批准上線。k277英式地方自然史館4×4，紅磚淺石拱窗、門廊階梯、低翼玻璃頂與花園；三種独立付費T502鐵門／花園／木椅步道。原生T495公共人力、T491休閒、物理水電路、一份依實際職員縮放的觀光帳；舊k35與k206身份不變。v14.27/T723只改三個產品版本標示，嚴格晉升16新精靈，2879舊葉與1728 blocks保持。 | 批准候選d859e757：[full37290300808](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37290300808)15/15全綠，三次smoke、全指紋、四向日夜/40施工/12天候、部分缺水/人力/零居民、真實遮擋、覆蓋與存讀/undo、舊城全tile/stat/RNG及三套歷史玩法全過。正式metadata head必須另跑完整CI，未預稱通過。 | [PR15](https://github.com/lijiabao1998/GlimmerTown-lab/pull/15)的T723 squash merge，確切SHA見PR（2026-10-14 回填：PR #15 squash `759394f`） | 13張已交付並批准的原生PNG不重畫；全部70張來源見full CI artifacts | ① 沿用原生九日施工與鋼材加速，無博物館專屬吊車動畫 ② 文化休閒不是學校席位；花園步道無重複公園加成 ③ 原有atlas/PWA診斷未擴大處理 ④ 手機實機FPS未測 ⑤ 本PR不包含下一輪河岸市集 |
 
 <!-- T723 release entry END -->
 <!-- T722 release entry BEGIN -->
@@ -147,7 +151,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r169 | [T722](docs/T722-british-station-street-life.md) | 業主於 2026-10-05 07:23:55 UTC 看過原生素材、街景與施工圖後批准上線。k274鐵道旅館3×3、k275茶點咖啡館2×2、k276報刊亭1×1，各四個真幾何視角；三種可独立編輯T502步道細節。沿用真實付費施工、物理水電道路、原生私營人力與購物；旅館床位／收入只走既有旅宿帳。v14.26/T722產品僅變三個版本標示，指紋嚴格晉升24新葉、兩族匯總和必要統計，2855舊葉／1728 blocks／style保持。 | 批准候選3fa44a45：[full37275705611](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37275705611)13/13；[smoke37275705572](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37275705572)綠。四視角、40真施工日夜場景、實際遮擋、付費步道編輯／存載、旅館15入住／$5住宿、失供5→0→5、原35玩法組及4舊城×6檢查點全過。正式metadata候選仍須重跑全部測試與無例外fp check，不預稱通過。 | [PR14](https://github.com/lijiabao1998/GlimmerTown-lab/pull/14)的T722 squash merge，確切SHA見PR | 八張已交付並批准的原生素材／街景／施工PNG沿用，不重绘；原生證據見full CI附件 | ① 住宿入住沿用全城aggregate，不宣稱逐旅館分配住客 ② 街道細節沒有新增交通容量 ③ 四項既有巢狀atlas診斷及PWA附檔缺漏仍保留 ④ 實機／手機FPS未測 ⑤ 密集前景正常遮擋部分立面 ⑥ 不開始第三階段，不刪除或搬遷既有正式站 |
+| r169 | [T722](docs/T722-british-station-street-life.md) | 業主於 2026-10-05 07:23:55 UTC 看過原生素材、街景與施工圖後批准上線。k274鐵道旅館3×3、k275茶點咖啡館2×2、k276報刊亭1×1，各四個真幾何視角；三種可独立編輯T502步道細節。沿用真實付費施工、物理水電道路、原生私營人力與購物；旅館床位／收入只走既有旅宿帳。v14.26/T722產品僅變三個版本標示，指紋嚴格晉升24新葉、兩族匯總和必要統計，2855舊葉／1728 blocks／style保持。 | 批准候選3fa44a45：[full37275705611](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37275705611)13/13；[smoke37275705572](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37275705572)綠。四視角、40真施工日夜場景、實際遮擋、付費步道編輯／存載、旅館15入住／$5住宿、失供5→0→5、原35玩法組及4舊城×6檢查點全過。正式metadata候選仍須重跑全部測試與無例外fp check，不預稱通過。 | [PR14](https://github.com/lijiabao1998/GlimmerTown-lab/pull/14)的T722 squash merge，確切SHA見PR（2026-10-14 回填：PR #14 squash `d9dfe87`） | 八張已交付並批准的原生素材／街景／施工PNG沿用，不重绘；原生證據見full CI附件 | ① 住宿入住沿用全城aggregate，不宣稱逐旅館分配住客 ② 街道細節沒有新增交通容量 ③ 四項既有巢狀atlas診斷及PWA附檔缺漏仍保留 ④ 實機／手機FPS未測 ⑤ 密集前景正常遮擋部分立面 ⑥ 不開始第三階段，不刪除或搬遷既有正式站 |
 
 <!-- T722 release entry END -->
 <!-- T721 release entry BEGIN -->
@@ -155,7 +159,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r168 | [T721](docs/T721-british-central-station.md) | 業主於 2026-10-05 03:47:25 UTC 批准十張原生圖片並明確要求合併上線。原創四立面紅磚車站、兩條實體軌道、月台／跨月台通道；七種可獨立放置站前設施沿用原生鐵路、公車、步行、自行車與停車機制。真實付費車隊／車廠、九日施工、水電人力、拆除撤銷及存讀檔。v14.25／T721；產品只改三處版本標示，指紋只提升48新葉、三族匯總及必要統計，全部2807舊葉／1728 blocks／style 保持。 | 批准候選54c60fa：[CI37258927965](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927965)全部11工作成功；[smoke37258927951](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927951)通過。四鏡頭日夜／40施工里程碑、35舊玩法組／203保留鄰居、三座舊城／RNG、載入城實際車站人力與正旅客量。完整原生指紋匯出與26項preflight在7d73af0／[CI37261544977](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37261544977)通過。正式metadata候選須重跑完整套、smoke三次及無例外fp check；此記錄不預稱發版重驗通過。 | [PR13](https://github.com/lijiabao1998/GlimmerTown-lab/pull/13)的T721 squash merge，確切SHA見PR | 已交付並批准的十張原生PNG沿用，不重送；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927965) | ① 計程車路邊設施採原生一般停車，沒有獨立派車／旅客模擬 ② 四项既有巢狀atlas診斷保留 ③ 真實裝置／手機FPS未測 ④ 密集前景會正常遮住部分立面 ⑤ 站前旅館／咖啡館／報刊亭在独立下一阶段，仍需其圖片批准 ⑥ 部署沿用現有流程，正式站未刪除或搬遷 |
+| r168 | [T721](docs/T721-british-central-station.md) | 業主於 2026-10-05 03:47:25 UTC 批准十張原生圖片並明確要求合併上線。原創四立面紅磚車站、兩條實體軌道、月台／跨月台通道；七種可獨立放置站前設施沿用原生鐵路、公車、步行、自行車與停車機制。真實付費車隊／車廠、九日施工、水電人力、拆除撤銷及存讀檔。v14.25／T721；產品只改三處版本標示，指紋只提升48新葉、三族匯總及必要統計，全部2807舊葉／1728 blocks／style 保持。 | 批准候選54c60fa：[CI37258927965](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927965)全部11工作成功；[smoke37258927951](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927951)通過。四鏡頭日夜／40施工里程碑、35舊玩法組／203保留鄰居、三座舊城／RNG、載入城實際車站人力與正旅客量。完整原生指紋匯出與26項preflight在7d73af0／[CI37261544977](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37261544977)通過。正式metadata候選須重跑完整套、smoke三次及無例外fp check；此記錄不預稱發版重驗通過。 | [PR13](https://github.com/lijiabao1998/GlimmerTown-lab/pull/13)的T721 squash merge，確切SHA見PR（2026-10-14 回填：PR #13 squash `559a419`） | 已交付並批准的十張原生PNG沿用，不重送；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37258927965) | ① 計程車路邊設施採原生一般停車，沒有獨立派車／旅客模擬 ② 四项既有巢狀atlas診斷保留 ③ 真實裝置／手機FPS未測 ④ 密集前景會正常遮住部分立面 ⑤ 站前旅館／咖啡館／報刊亭在独立下一阶段，仍需其圖片批准 ⑥ 部署沿用現有流程，正式站未刪除或搬遷 |
 
 <!-- T721 release entry END -->
 <!-- T720 release entry BEGIN -->
@@ -163,7 +167,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r167 | [T720](docs/T720-british-public-life.md) | 業主於 2026-10-05 00:42:55 UTC 確認十張圖片並授權本輪 PR、合併及驗證上線。k262–273 市政、警消、學校、教會與休閒共十二款；沿用原生人力、真實道路水電、九日施工、拆除撤銷及存讀檔。v14.24／T720；產品只改三處版本標示，指紋只提升十二新葉、bld 匯總及必要統計，全部舊葉／blocks／style 保持。 | 批准候選 7f527c6：[CI37221431440](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37221431440) 十一工作成功；35 玩法組、192 視角、48 天氣、120 施工、3 真正前景遮擋；存讀城原生警消人力、全部固定舊鄰居、三次 smoke、十二新增指紋及三座舊城／RNG 對照。正式 metadata 候選須重跑完整套與無例外 fp check；本記錄不預稱發版重驗通過。 | [PR12](https://github.com/lijiabao1998/GlimmerTown-lab/pull/12) 的 T720 squash merge，確切 SHA 見 PR | 十張已交付並批准的原生 PNG 沿用；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37221431440) | ① 四鏡頭固定繪製立面 ② 施工及積雪沿用現有系統 ③ 真實裝置／手機 FPS 未測 ④ 四項既有巢狀 atlas 診斷保留，不稱全部巢狀審核綠 ⑤ 密集前景仍可正常遮住部分立面 ⑥ 沒有新存檔格式或經濟規則 ⑦ PR7 未用，正式站未刪除或搬遷 |
+| r167 | [T720](docs/T720-british-public-life.md) | 業主於 2026-10-05 00:42:55 UTC 確認十張圖片並授權本輪 PR、合併及驗證上線。k262–273 市政、警消、學校、教會與休閒共十二款；沿用原生人力、真實道路水電、九日施工、拆除撤銷及存讀檔。v14.24／T720；產品只改三處版本標示，指紋只提升十二新葉、bld 匯總及必要統計，全部舊葉／blocks／style 保持。 | 批准候選 7f527c6：[CI37221431440](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37221431440) 十一工作成功；35 玩法組、192 視角、48 天氣、120 施工、3 真正前景遮擋；存讀城原生警消人力、全部固定舊鄰居、三次 smoke、十二新增指紋及三座舊城／RNG 對照。正式 metadata 候選須重跑完整套與無例外 fp check；本記錄不預稱發版重驗通過。 | [PR12](https://github.com/lijiabao1998/GlimmerTown-lab/pull/12) 的 T720 squash merge，確切 SHA 見 PR（2026-10-14 回填：PR #12 squash `ed49bab`） | 十張已交付並批准的原生 PNG 沿用；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37221431440) | ① 四鏡頭固定繪製立面 ② 施工及積雪沿用現有系統 ③ 真實裝置／手機 FPS 未測 ④ 四項既有巢狀 atlas 診斷保留，不稱全部巢狀審核綠 ⑤ 密集前景仍可正常遮住部分立面 ⑥ 沒有新存檔格式或經濟規則 ⑦ PR7 未用，正式站未刪除或搬遷 |
 
 <!-- T720 release entry END -->
 <!-- T719 release entry BEGIN -->
@@ -171,7 +175,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r166 | [T719](docs/T719-british-residential-streets.md) | 業主看過十張確認圖，明確要求本輪合併上線。k246–261 喬治式街屋、維多利亞郊區、英式鄉村與工人街屋四組共十六款；356 住戶名額與角店 6 工作職缺；全地塊放置、九日施工、真實道路水電、拆除退款與復原、存讀檔。v14.23／T719；只提升新增十六葉、bld 匯總與必要統計，舊基準／style 保持。 | 批准候選 05fa1676：[CI37202014826](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37202014826) 十二工作成功，1792 頂層檢查、2645 新／2185 舊玩法斷言、256 視角、64 天氣、160 施工、4 遮擋；三次 smoke、嚴格舊基準與三城模擬／RNG 比較通過。正式 metadata 候選須重跑完整套；本記錄不預稱發布重驗通過。 | [PR11](https://github.com/lijiabao1998/GlimmerTown-lab/pull/11) 的 T719 squash merge，確切 SHA 見 PR | 十張原生 PNG、70 個真實遊戲畫面面板；1244 份來源檔案及 362 對全畫面／裁圖已核驗；[實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37202014826) | ① 四鏡頭固定繪製立面 ② 施工及積雪沿用現有系統 ③ 真實裝置／手機 FPS 未測 ④ 四項既有巢狀 atlas 診斷保留，不稱全部巢狀審核綠 ⑤ 未加入新的零售產業鏈 ⑥ PR7 未用，正式站未刪除或搬遷 ⑦ 下一輪另開分支、再等看圖確認 |
+| r166 | [T719](docs/T719-british-residential-streets.md) | 業主看過十張確認圖，明確要求本輪合併上線。k246–261 喬治式街屋、維多利亞郊區、英式鄉村與工人街屋四組共十六款；356 住戶名額與角店 6 工作職缺；全地塊放置、九日施工、真實道路水電、拆除退款與復原、存讀檔。v14.23／T719；只提升新增十六葉、bld 匯總與必要統計，舊基準／style 保持。 | 批准候選 05fa1676：[CI37202014826](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37202014826) 十二工作成功，1792 頂層檢查、2645 新／2185 舊玩法斷言、256 視角、64 天氣、160 施工、4 遮擋；三次 smoke、嚴格舊基準與三城模擬／RNG 比較通過。正式 metadata 候選須重跑完整套；本記錄不預稱發布重驗通過。 | [PR11](https://github.com/lijiabao1998/GlimmerTown-lab/pull/11) 的 T719 squash merge，確切 SHA 見 PR（2026-10-14 回填：PR #11 squash `36632c0`） | 十張原生 PNG、70 個真實遊戲畫面面板；1244 份來源檔案及 362 對全畫面／裁圖已核驗；[實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37202014826) | ① 四鏡頭固定繪製立面 ② 施工及積雪沿用現有系統 ③ 真實裝置／手機 FPS 未測 ④ 四項既有巢狀 atlas 診斷保留，不稱全部巢狀審核綠 ⑤ 未加入新的零售產業鏈 ⑥ PR7 未用，正式站未刪除或搬遷 ⑦ 下一輪另開分支、再等看圖確認 |
 
 <!-- T719 release entry END -->
 <!-- T718 release entry BEGIN -->
@@ -179,20 +183,20 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r165 | [T718](docs/T718-british-high-street.md) | 業主確認八張圖片並明確批准合併PR10上線：k238–245合作社、石砌麵包店、室內市場、公立學校、診所、郵局、市立浴場與社區會堂。完整目錄、九天施工、碰撞、通水通電、工作／財政／供貨／服務、拆除撤銷及存讀檔。v14.22／T718；只提升八個新葉與bld匯總，舊葉／超街區／style保持。 | 批准候選5f91c338：[CI37193328431](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37193328431)779項範圍內檢查、1687新／498舊遊戲斷言、128視角、32天氣、80施工、3遮擋、smoke三次、指紋／棘輪與兩個舊城比較全綠。正式metadata候選須重新跑完整套；最終結果見PR10/Actions，這裡不預稱通過。 | [PR10](https://github.com/lijiabao1998/GlimmerTown-lab/pull/10)的T718 squash merge，確切SHA見PR | 已交付八張原生PNG、102個驗證面板；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37193328431) | ① 四鏡頭固定立面 ② 通用鷹架／既有雪層 ③ 真實裝置／手機FPS未測 ④ 展示城11棟舊樓未接通，不聲稱全城經濟認證 ⑤ 四項原有seeded audit診斷仍在，不稱全部巢狀診斷綠 ⑥ 無新麵包產業鏈 ⑦ PR7未用，正式站未刪除或搬遷 |
+| r165 | [T718](docs/T718-british-high-street.md) | 業主確認八張圖片並明確批准合併PR10上線：k238–245合作社、石砌麵包店、室內市場、公立學校、診所、郵局、市立浴場與社區會堂。完整目錄、九天施工、碰撞、通水通電、工作／財政／供貨／服務、拆除撤銷及存讀檔。v14.22／T718；只提升八個新葉與bld匯總，舊葉／超街區／style保持。 | 批准候選5f91c338：[CI37193328431](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37193328431)779項範圍內檢查、1687新／498舊遊戲斷言、128視角、32天氣、80施工、3遮擋、smoke三次、指紋／棘輪與兩個舊城比較全綠。正式metadata候選須重新跑完整套；最終結果見PR10/Actions，這裡不預稱通過。 | [PR10](https://github.com/lijiabao1998/GlimmerTown-lab/pull/10)的T718 squash merge，確切SHA見PR（2026-10-14 回填：PR #10 squash `0072ac1`） | 已交付八張原生PNG、102個驗證面板；[原始實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37193328431) | ① 四鏡頭固定立面 ② 通用鷹架／既有雪層 ③ 真實裝置／手機FPS未測 ④ 展示城11棟舊樓未接通，不聲稱全城經濟認證 ⑤ 四項原有seeded audit診斷仍在，不稱全部巢狀診斷綠 ⑥ 無新麵包產業鏈 ⑦ PR7未用，正式站未刪除或搬遷 |
 
 <!-- T718 release entry END -->
 ## r164 — T717 三款英式建築正式接入（原 GPT-004）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r164 | [T717](docs/T717-british-playable-buildings.md) | 業主確認 PR9 的三款實景圖並要求上線：k219 維多利亞紅磚連棟屋（2×2／32人）、k220 狐狸與雀鳥街角酒館（2×2／10商業職位）、k221 愛德華公共圖書館（3×3／160名目教育席位）。接入建造目錄、施工、碰撞、通水通電、職位／稅收／服務、拆除撤銷及存讀檔；保留已批准日夜像素。v14.21／T717。指紋只升級三個新葉與 bld 匯總，旧葉、超街區與 style.json 保留。 | 已批准候選95f7d430：[CI37180809675](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37180809675) 274實景／像素＋498遊戲斷言、smoke×3、指紋／棘輪、兩個舊城模擬全綠。T717正式metadata候選必須重新跑完整套；最終SHA與結果見PR9/Actions，這裡不預稱通過。 | [PR9](https://github.com/lijiabao1998/GlimmerTown-lab/pull/9) 的 T717 squash merge；確切SHA見PR | 已交付三款日夜、同城、四鏡頭、建造／存檔PNG；[實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37180809675/artifacts/11295421271) | ① 四鏡頭沿用固定立面 ② 通用鷹架、既有柔和雪層 ③ 手機／觸控／業主硬體未測 ④ 多區HV／儲能專案僅源碼審核 ⑤ 展示城部分舊樓超出既有供電半徑 ⑥ 沒動PR7，沒有刪除或搬遷正式站點 |
+| r164 | [T717](docs/T717-british-playable-buildings.md) | 業主確認 PR9 的三款實景圖並要求上線：k219 維多利亞紅磚連棟屋（2×2／32人）、k220 狐狸與雀鳥街角酒館（2×2／10商業職位）、k221 愛德華公共圖書館（3×3／160名目教育席位）。接入建造目錄、施工、碰撞、通水通電、職位／稅收／服務、拆除撤銷及存讀檔；保留已批准日夜像素。v14.21／T717。指紋只升級三個新葉與 bld 匯總，旧葉、超街區與 style.json 保留。 | 已批准候選95f7d430：[CI37180809675](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37180809675) 274實景／像素＋498遊戲斷言、smoke×3、指紋／棘輪、兩個舊城模擬全綠。T717正式metadata候選必須重新跑完整套；最終SHA與結果見PR9/Actions，這裡不預稱通過。 | [PR9](https://github.com/lijiabao1998/GlimmerTown-lab/pull/9) 的 T717 squash merge；確切SHA見PR（2026-10-14 回填：PR #9 squash `7da1b69`） | 已交付三款日夜、同城、四鏡頭、建造／存檔PNG；[實景證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37180809675/artifacts/11295421271) | ① 四鏡頭沿用固定立面 ② 通用鷹架、既有柔和雪層 ③ 手機／觸控／業主硬體未測 ④ 多區HV／儲能專案僅源碼審核 ⑤ 展示城部分舊樓超出既有供電半徑 ⑥ 沒動PR7，沒有刪除或搬遷正式站點 |
 
 ## r163 — T716 英式建築原型歸檔（原 GPT-003；未接入建造選單）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r163 | [T716](docs/T716-british-prototypes-archive.md) | 業主批准 gpt/british-prototypes 的三款原型歸檔：2×2 維多利亞連棟住宅、2×2 轉角酒館、3×3 公共圖書館。保留獨立 renderer、實景測試 harness 與原 GPT-003 卡；HTML 只更新 GAME_VER／GAME_ANCHOR／首幀標籤至 v14.20／T716，不載入原型、不改建造選單。 | R2 基線 [CI 37150185803](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37150185803)：96/96 守衛、smoke 3/3、嚴格指紋全綠；新版本 metadata 候選需同套 CI 通過後才合，確切 SHA／結果見合併 PR 與 Actions。 | gpt/british-prototypes 的 T716 squash merge；確切 SHA 見 PR | [GPT-003 原驗收、樣張與 CI 證據](docs/branch/GPT-003-british-prototypes.md) | ① 三棟不在正常建造選單 ② 永久建築 ID、施工與遊戲整合未做 ③ 四向、季節、天氣、手機與使用者硬體未驗證 ④ 原型保留固定旋轉樣張 ⑤ 沒改 PR #7 |
+| r163 | [T716](docs/T716-british-prototypes-archive.md) | 業主批准 gpt/british-prototypes 的三款原型歸檔：2×2 維多利亞連棟住宅、2×2 轉角酒館、3×3 公共圖書館。保留獨立 renderer、實景測試 harness 與原 GPT-003 卡；HTML 只更新 GAME_VER／GAME_ANCHOR／首幀標籤至 v14.20／T716，不載入原型、不改建造選單。 | R2 基線 [CI 37150185803](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/37150185803)：96/96 守衛、smoke 3/3、嚴格指紋全綠；新版本 metadata 候選需同套 CI 通過後才合，確切 SHA／結果見合併 PR 與 Actions。 | gpt/british-prototypes 的 T716 squash merge；確切 SHA 見 PR（2026-10-14 回填：PR #8 squash `8b8ff01`） | [GPT-003 原驗收、樣張與 CI 證據](docs/branch/GPT-003-british-prototypes.md) | ① 三棟不在正常建造選單 ② 永久建築 ID、施工與遊戲整合未做 ③ 四向、季節、天氣、手機與使用者硬體未驗證 ④ 原型保留固定旋轉樣張 ⑤ 沒改 PR #7 |
 
 ## r162 — T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道（9 張）
 
