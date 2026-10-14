@@ -68,7 +68,7 @@ revert 本卡（`fp.js` 兩個選項、`smoke.yml` 的 `fp` 工作）。CI 回�
 
 - 除了驗收預期的紅燈，沒有紅燈。
 - 施工中加了 `--report-base-style`（第 5 節寫了原因），加完重跑本機驗證與一次 CI。
-- **臨時分支刪不掉**：`git push origin --delete claude/t742-break-test` 被 GitHub 代理擋下（HTTP 403，這個 session 沒有刪分支的權限）。它只有一個故意改壞的 commit（`cd2e6da`），不在 main、`claude/**` 推送不會部署，不影響官方站；請業主方便時在 GitHub 上刪。本地分支與工作樹已清掉。
+- **臨時分支刪不掉**：`git push origin --delete claude/t742-break-test` 被 GitHub 代理擋下（HTTP 403，這個 session 沒有刪分支的權限）。它只有一個故意改壞的 commit（`cd2e6da`），不在 main、`claude/**` 推送不會部署，不影響官方站；請業主方便時在 GitHub 上刪。本地分支與工作樹已清掉。（2026-10-14 補記：業主請另一個 Claude 對話代刪，已用本機 gh 以 `DELETE refs/heads/claude/t742-break-test` 刪除；刪前核對只有 `cd2e6da` 一個故意改壞的提交、落後 main 17 個、沒有任何 PR 用到。）
 - 用內建 `gh` 抓工作日誌會被轉址擋下，改用 GitHub MCP 的 `get_job_logs` 讀到。
 
 ## 8. 沒做的／已知限制

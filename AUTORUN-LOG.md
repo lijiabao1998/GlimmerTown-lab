@@ -43,7 +43,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r189 | [T742](docs/T742-ci-fingerprint.md) | 業主 2026-10-14 交辦（自動無限推的是 GPT）。main 的 CI 從不跑 `fp.js`，GPT 自己合的 PR 到部署之間沒有像素檢查，GPT 改了美術也產不出新基線。`smoke.yml` 加 `fp` 工作（main、PR、寫入者分支；`claude/**` 鏡像略過）：`--check` 紅就整個工作流紅、Pages 不部署；另對 base 的 `fp.json`／`style.json` 報觸及家族與風格分下降（工作摘要）；本次烘出的基線上傳成附件 `fp-rebake/` 給 GPT 提交。`fp.js` 加 `--report-base`、`--report-base-style`、`--dump`。產品與版本號不動 | ✅ 綠 3/3（53.8–54.8s）；CI：session 分支兩次手動觸發煙霧＋fp 全綠（跑機第一次驗 3323 葉，與雲端一致）；臨時分支故意改壞 → fp 紅（只 `use021`）、煙霧綠、工作流紅 | `c1e9611`、`d42e4b0` | 無（像素不變） | ① 臨時分支 `claude/t742-break-test` 刪不掉（代理 403），請業主刪 ② 跑機 Chrome 更新可能讓 main 的 fp 誤紅、停部署；envLeaves 只分平台，雲端與跑機分歧時沒法同時登記 ③ 觸及家族對宣告家族只報告不自動比 ④ CI 煙霧仍 1 次，3 連綠留給 T743 |
+| r189 | [T742](docs/T742-ci-fingerprint.md) | 業主 2026-10-14 交辦（自動無限推的是 GPT）。main 的 CI 從不跑 `fp.js`，GPT 自己合的 PR 到部署之間沒有像素檢查，GPT 改了美術也產不出新基線。`smoke.yml` 加 `fp` 工作（main、PR、寫入者分支；`claude/**` 鏡像略過）：`--check` 紅就整個工作流紅、Pages 不部署；另對 base 的 `fp.json`／`style.json` 報觸及家族與風格分下降（工作摘要）；本次烘出的基線上傳成附件 `fp-rebake/` 給 GPT 提交。`fp.js` 加 `--report-base`、`--report-base-style`、`--dump`。產品與版本號不動 | ✅ 綠 3/3（53.8–54.8s）；CI：session 分支兩次手動觸發煙霧＋fp 全綠（跑機第一次驗 3323 葉，與雲端一致）；臨時分支故意改壞 → fp 紅（只 `use021`）、煙霧綠、工作流紅 | `c1e9611`、`d42e4b0` | 無（像素不變） | ① 臨時分支 `claude/t742-break-test` 刪不掉（代理 403），請業主刪（10-14 已由另一個 Claude 對話照業主請求刪除） ② 跑機 Chrome 更新可能讓 main 的 fp 誤紅、停部署；envLeaves 只分平台，雲端與跑機分歧時沒法同時登記 ③ 觸及家族對宣告家族只報告不自動比 ④ CI 煙霧仍 1 次，3 連綠留給 T743 |
 
 ## r188 — T741 守衛補洞：基線有、這次沒烘出來的整族，fp.js --check 要判紅
 
