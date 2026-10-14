@@ -33,8 +33,10 @@
  * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
  * --check 不再提早退出：葉子差、超街區指紋（block559）、七軸棘輪全部跑完、全部印出，最後才判定紅綠。
  *
- * T746：--check 另核對倉庫 style.json 每一族都等於這次算出的（--expect 宣告的家族除外）；讀不到 style.json、
- * style536 沒回資料也算紅。棘輪只擋分數比 style.json 低，不核對就能靠手改 style.json 關掉它。
+ * T746：--check 另核對倉庫 style.json 每一族都等於這次算出的（只有 --expect 宣告的家族除外，已登記環境差的家族也照比）。
+ * 棘輪只擋分數比 style.json 低，不核對就能靠手改 style.json 關掉它。--check 下這些也算紅：讀不到 fp.json 或 style.json、
+ * style536／blockFp536 沒回資料、fp.json 沒有 block559 基線；棘輪下降不再提早退出，所有紅項都進摘要。
+ * 有 --report-base 時，分支 fp.json 的 envLeaves 跟 base 不同會在摘要標 ⚠（只報告：main 寫入者登記環境差那次推送也會這樣）。
  *
  * 邊界：自用埠 8199；進城前一律設 slot=3，不碰業主存檔。
  */
@@ -128,6 +130,7 @@ function buildStyle(raw) {
   return out;
 }
 function loadJson(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return null; } }
+const canon = v => JSON.stringify(v, (k, x) => x && typeof x === 'object' && !Array.isArray(x) ? Object.fromEntries(Object.keys(x).sort().map(j => [j, x[j]])) : x);   // T746：鍵排序後的 JSON，用來逐族比對
 
 function loadBaseline() {
   try { return JSON.parse(fs.readFileSync(FP_PATH, 'utf8')); } catch { return null; }
@@ -215,10 +218,12 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     fs.writeFileSync(path.join(DUMP, 'fp.json'), JSON.stringify(cur, null, 1));
     log('本次烘出的指紋另存到 ' + path.join(DUMP, 'fp.json') + '（--dump）');
   }
+  let rbFp = null;   // T746：base 那一版的 fp.json（有 --report-base 才有）
   if (REPORT_BASE) {   // T742：對 base 的基線報「這次動了哪些家族」；只報告，不影響紅綠
     const rb = loadJson(REPORT_BASE);
     if (!rb || !rb.subs) { log('相對 base：讀不到 ' + REPORT_BASE + '，略過'); SUMMARY.push('- 相對 base：讀不到基線檔，略過'); }
     else {
+      rbFp = rb;
       const d2 = diffFp(rb, cur), fams2 = [...new Set(d2.famChanged)];
       const bChg = !!(rb.blocks && cur.blocks && rb.blocks.fam !== cur.blocks.fam);
       const line = '新增 ' + d2.added.length + ' / 變更 ' + d2.changed.length + ' / 移除 ' + d2.removed.length + ' 葉，觸及家族 ' + fams2.length + (bChg ? '，超街區（block559）也變了' : '');
@@ -230,11 +235,15 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
   }
 
   const base = loadBaseline();
-  let envFams = new Set();   // T746：只因本平台已登記環境差而不同的家族；style.json 核對對它們放行（只剩棘輪）
   if (base) {
     const d = diffFp(base, cur);
     const famTouched = [...new Set(d.famChanged)];
-    envFams = new Set(d.envMatched.map(k => k.split(/[.#]/)[0]).filter(f => !famTouched.includes(f)));   // 葉子鍵有 a.b 與 a#0 兩種
+    /* T746：envLeaves 只有 main 寫入者能登記。分支上的 fp.json 改了它（跟 base 不同），摘要上要看得到 */
+    if (rbFp && canon(base.envLeaves || {}) !== canon(rbFp.envLeaves || {})) {
+      log('  ! fp.json 的 envLeaves 與 base 不同');
+      SUMMARY.push('- ⚠ **fp.json 的 envLeaves 與 base 不同**（只有 main 寫入者能登記環境差）');
+    }
+    if (d.envMatched.length) SUMMARY.push('- 已登記環境差（' + PLATFORM + '）：' + d.envMatched.length + ' 葉，不算變動');
     log('');
     log('與 fp.json（' + (base.anchor || '?') + ' ' + (base.version || '?') + '）相比：');
     log('  新增 ' + d.added.length + ' / 變更 ' + d.changed.length + ' / 移除 ' + d.removed.length
@@ -290,6 +299,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
   } else {
     log('');
     log('（尚未有 fp.json，這是基線）');
+    if (CHECK) checkFail.push('讀不到 fp.json（缺檔或不是合法 JSON；--check 要拿它核對）');   // T746
   }
 
   if (!CHECK) {
@@ -308,8 +318,8 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       blockPrevFam = base.blocks.fam;
       log('  ' + (blockPrevFam === blockFam ? '與基線一致' : '與基線不同（' + blockPrevFam + ' → ' + blockFam + '）'));
       if (CHECK && !EXPECT.length && blockPrevFam !== blockFam) checkFail.push('block559 與基線不同（' + blockPrevFam + ' → ' + blockFam + '）');   // T631
-    }
-  }
+    } else if (CHECK && base) checkFail.push('fp.json 沒有超街區（block559）基線，沒核對');   // T746
+  } else if (CHECK) checkFail.push('blockFp536 沒有回傳超街區指紋，block559 沒核對');   // T746
 
   /* ===== 七軸記分卡 + 棘輪 ===== */
   if (style && style.ok) {
@@ -343,14 +353,13 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
 
     /* T746：--check 時倉庫 style.json 的每一族都要等於這次算出的（總分、七軸、葉子數、原始計數）。
        棘輪只擋「算出的比 style.json 低」；不核對的話，手改 style.json（壓低分數、刪族）就能關掉往後的棘輪。
-       --expect 宣告的家族還沒重烘、只因本平台已登記環境差而不同的家族（envFams），不比。 */
+       只有 --expect 宣告的家族（還沒重烘）不比。已登記環境差的家族也照比：環境差登記在分支自己的 fp.json，
+       拿它放行等於讓分支自己決定哪一族免檢（T746 審查）。 */
     if (CHECK) {
-      const canon = v => JSON.stringify(v, (k, x) => x && typeof x === 'object' && !Array.isArray(x) ? Object.fromEntries(Object.keys(x).sort().map(j => [j, x[j]])) : x);
       if (!prevStyle || !prevStyle.families) checkFail.push('讀不到 style.json（--check 要拿它核對）');
       else {
         const expSet = new Set(EXPECT);
-        const diff = [...new Set([...famNames, ...Object.keys(prevStyle.families)])].filter(k => !expSet.has(k) && !envFams.has(k) && canon(curStyle[k]) !== canon(prevStyle.families[k]));
-        if (envFams.size) log('style.json 核對略過已登記環境差的家族：' + [...envFams].join(', '));
+        const diff = [...new Set([...famNames, ...Object.keys(prevStyle.families)])].filter(k => !expSet.has(k) && canon(curStyle[k]) !== canon(prevStyle.families[k]));
         log('');
         if (diff.length) {
           log('X style.json 與這次算出的不同：' + diff.join(', '));
@@ -403,11 +412,13 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       if (drops.length) {
         log('X 棘輪破裂（非本輪宣告家族分數下降）：');
         drops.slice(0, 12).forEach(d => log('   - ' + d));
-        SUMMARY.push('- ✗ 棘輪破裂（非宣告家族分數下降）：' + drops.slice(0, 12).join('；'));
-        console.log('X 棘輪下降 ⇒ 請 git checkout -- index.html 退回上一個綠點');
-        process.exit(1);
-      }
-      log('棘輪 OK（非宣告家族分數無一下降，共比對 ' + famNames.length + ' 族）');
+        if (CHECK) checkFail.push('棘輪破裂（非宣告家族分數下降；美術改壞就退回上一個綠點，style.json 被手改就還原）：' + drops.slice(0, 12).join('；'));   // T746：--check 不提早退出，其他紅項照樣進摘要
+        else {
+          SUMMARY.push('- ✗ 棘輪破裂（非宣告家族分數下降）：' + drops.slice(0, 12).join('；'));
+          console.log('X 棘輪下降 ⇒ 請 git checkout -- index.html 退回上一個綠點');
+          process.exit(1);
+        }
+      } else log('棘輪 OK（非宣告家族分數無一下降，共比對 ' + famNames.filter(k => prevStyle.families[k] && !expSet.has(k)).length + ' 族）');   // T746：印實際比對的族數
     } else {
       log('');
       log('（尚未有 style.json，這是記分卡基線）');
