@@ -50,7 +50,7 @@
 > 3. **推送前再 `git fetch` 一次**。遠端前進了：把**自己還沒推的** commit rebase 到最新的 `origin/main` 上，重跑煙霧，綠了才推。已經推上去的歷史（不管誰的）一律不改。
 > 4. **永遠不准 `--force`**。rebase 解不開（別人改了同一段程式）就停手、寫日誌、告訴業主。
 > 業主的決定記在 `docs/DECISIONS.md`，開工前讀一次，避免重問、避免照舊規則做。
-> **寫入者分工（2026-09-25 業主定）**：`main` 只給 Claude、Codex 推；Grok 走 `grok/<主題>`、GLM 走 `glm/<主題>`、Kimi 走 `kimi/<主題>`、DeepSeek 走 `dsk/<主題>`（2026-09-26 加入）、GPT 走 `gpt/<主題>` 分支，只推自己的分支、開 PR 到 `main`；**只有業主點頭才合**（分支可以一直不合），由 `main` 寫入者合併（例外：GPT 可以自己合自己的 PR，業主 2026-10-14，條件見 `AGENTS.md` 第 3 節）；卡號用 `GROK-001`／`GLM-001`／`KIMI-001`／`DSK-001`／`GPT-001`，不佔 T 號；推分支一律寫明 `git push origin <分支>:<分支>`。GPT 不能在本機跑遊戲，煙霧交給 CI，像素守衛由合併者跑。細則見根目錄 `AGENTS.md`，各家開場白見 `docs/AGENT-PROMPTS.md`。
+> **寫入者分工（2026-09-25 業主定）**：`main` 只給 Claude、Codex 推；Grok 走 `grok/<主題>`、GLM 走 `glm/<主題>`、Kimi 走 `kimi/<主題>`、DeepSeek 走 `dsk/<主題>`（2026-09-26 加入）、GPT 走 `gpt/<主題>` 分支，只推自己的分支、開 PR 到 `main`；**只有業主點頭才合**（分支可以一直不合），由 `main` 寫入者合併（例外：GPT 可以自己合自己的 PR，業主 2026-10-14，條件見 `AGENTS.md` 第 3 節）；卡號用 `GROK-001`／`GLM-001`／`KIMI-001`／`DSK-001`／`GPT-001`，不佔 T 號；推分支一律寫明 `git push origin <分支>:<分支>`。GPT 不能在本機跑遊戲，煙霧與 fp 交給 CI，其他像素守衛由 main 寫入者跑（GPT 自己合的由 Claude／Codex 下次開工補跑）；GPT 連續迭代見 `AGENTS.md` 第 7 節。細則見根目錄 `AGENTS.md`，各家開場白見 `docs/AGENT-PROMPTS.md`。
 > 下面「分岔就停手」那一條由第 3 條取代；「一個資料夾同一時間只准一個寫入者」仍然有效（那是同一個本機資料夾的事）。
 
 這個目錄現在有遠端：`origin` ＝ `lijiabao1998/GlimmerTown-lab`（**公開**倉庫）。本地 `master` 對應遠端 `main`，`push.default=upstream` 已經設好，直接打 `git push` 就會推到 `main`。
@@ -66,7 +66,7 @@ git status -sb
 - 顯示 `ahead` 又 `behind`（分岔）：**停手**，寫進日誌，等業主。不准 merge 或 rebase 別人的歷史，更不准 force。
 - 有未提交的檔案：先弄清楚是誰留下的。2026-09-24 就遇過：另一個 Claude session 中斷後，留下 14 個沒 commit 的草稿。不是你這一輪的東西，不要順手 commit，也不要刪；寫進日誌，照接手流程處理（先原樣凍結成一個 commit，再審）。
 
-**收工時**：每一輪綠燈 commit 之後，立刻 `git push`（日誌補 hash 那一筆也要推）。沒推上去的成果只存在 OneDrive 裡——主線就是因為 OneDrive 毫秒級回退 `index.html`，才搬離 OneDrive 的。
+**收工時**：每一輪綠燈 commit 之後，立刻 `git push`。日誌列跟卡片放同一個 commit，**不再另開 commit 補 hash**（2026-10-14 起，見第 6 節）。沒推上去的成果只存在 OneDrive 裡——主線就是因為 OneDrive 毫秒級回退 `index.html`，才搬離 OneDrive 的。
 
 **遠端檢查擋不住的事**：兩個 session **同時**在這個資料夾施工。一個資料夾同一時間只准一個寫入者；發現別的 session 還在跑（有新鮮的 `.smoke-profile-*`、檔案在你沒動的時候被改），就停手、寫日誌。
 
@@ -130,6 +130,8 @@ git status -sb
 ```
 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事
 ```
+
+**commit 欄（2026-10-14 起）**：寫實作 commit 的雜湊（實作與卡片／日誌分開提交時，寫日誌當下就已知）；在 GitHub 上合併的 PR（GPT 自己合）寫 `#PR號`（雜湊以 GitHub 為準：`gh api repos/lijiabao1998/GlimmerTown-lab/pulls/<號> --jq .merge_commit_sha`）；main 寫入者在本機 squash 合的 PR 照一般卡寫。實作寫不出雜湊時寫「同卡號」：實作 commit 的標題一律寫成「T7xx 實作：…」（卡面寫「T7xx 卡面：…」），要雜湊就 `git log origin/main --oneline --grep='^T7xx 實作'`。不再為了補自己的雜湊另開一個 commit。
 
 **「沒做成的事」那一欄不准空著，也不准美化。** 他要的是能拿來判斷的材料，不是一份漂亮的報告。一輪失敗、回滾、換題，照實寫「r7 失敗，原因 X，已退回 60aa657」—— 那一行比三行成功更有用。
 
