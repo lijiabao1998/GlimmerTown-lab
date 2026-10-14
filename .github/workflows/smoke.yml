@@ -27,18 +27,16 @@ jobs:
           node-version: 22   # harness.js 用 Node 內建 WebSocket
       - name: 中文字型（與雲端施工容器同一套，樣張 UI 字不變豆腐）
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
-      - name: GPT-022 committed index equals isolated pinned source rebuild
-        if: github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab'))
-        run: node candidate-build022.js --verify-materialized
       - name: 煙霧測試
         run: node smoke.js 2>&1 | tee smoke-run.txt; exit ${PIPESTATUS[0]}
         shell: bash
-      - name: GPT-022 second and third consecutive smoke checks
-        if: github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab'))
+      - name: 煙霧第 2、3 次（PR、分支寫入者推送、非 main 的手動觸發；不能在本機跑煙霧的寫入者靠 CI 湊滿 3 連綠）
+        # T743：main 與 claude/** 不跑（main 寫入者本機已跑 3 次，CI 在 main 上跑 1 次加 fp）
+        if: github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/heads/claude/')) || (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main')
         run: |
           set -euo pipefail
-          node smoke.js 2>&1 | tee smoke-source022-2.txt
-          node smoke.js 2>&1 | tee smoke-source022-3.txt
+          node smoke.js 2>&1 | tee smoke-run-2.txt
+          node smoke.js 2>&1 | tee smoke-run-3.txt
         shell: bash
       - name: 上傳樣張與紀錄
         if: always()
@@ -47,21 +45,8 @@ jobs:
           name: smoke-${{ github.sha }}
           path: |
             shots/smoke-*.png
-            smoke-run.txt
+            smoke-run*.txt
           if-no-files-found: warn
-          retention-days: 14
-      - name: GPT-022 complete candidate and actual CI screenshots
-        if: always() && (github.repository == 'lijiabao1998/GlimmerTown-lab' && (github.ref == 'refs/heads/gpt/british-use-scales-source-022' || (github.head_ref == 'gpt/british-use-scales-source-022' && github.event.pull_request.head.repo.full_name == 'lijiabao1998/GlimmerTown-lab')))
-        uses: actions/upload-artifact@v4
-        with:
-          name: british-use-scales022-${{ github.sha }}
-          path: |
-            index.html
-            candidate-build022-receipt.json
-            docs/branch/GPT-022-source-manifest.json
-            smoke-run.txt
-            smoke-source022-*.txt
-            shots/smoke-*.png
           retention-days: 14
 
   # T742：像素指紋。main、PR、各寫入者分支推送都跑（claude/** 是 main 的鏡像推送，略過）。
