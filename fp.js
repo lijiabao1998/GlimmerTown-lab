@@ -21,6 +21,13 @@
  * 併成偽家族 use021（葉子 use021.<款式>.r<朝向>）；只進葉子與家族指紋，不進七軸記分。改這 36 款的卡用 --expect=use021。
  * 期望值的獨立來源：probeUse021Fp740.js（Node 直接跑核准來源碼，不經遊戲）。
  *
+ * T742（CI 用，只讀，不影響紅綠判定）：
+ *   --report-base=<檔>  另拿一份基線（CI 給 base 那一版的 fp.json）比對，印「相對 base 動了哪些家族」；
+ *                       分支自己的 fp.json 也可能被改過，只看它會變成拿自己檢查自己，所以要另對 base。
+ *   --dump=<資料夾>      把這次烘出的 fp.json、style.json 寫到該資料夾（格式同寫入模式），不碰倉庫基線；--check 也能用。
+ *                       給不能在本機跑 fp 的寫入者（GPT）從 CI 附件拿新基線。
+ *   有 GITHUB_STEP_SUMMARY 時，結果另寫進 GitHub Actions 的工作摘要。
+ *
  * T631：fp.json 的葉子是業主 Windows 本機烘的；雲端 Linux 有幾葉因字型繪製永遠不同。envLeaves 登記「這個平台上這幾葉的
  * 正確樣子」：葉子與基線不同、但完全等於本平台登記值，就算已登記環境差（登記值本身變了照樣算真變動）。
  * --check 不再提早退出：葉子差、超街區指紋（block559）、七軸棘輪全部跑完、全部印出，最後才判定紅綠。
@@ -41,7 +48,17 @@ const EXPECT = arg('expect', '').split(',').map(s => s.trim()).filter(Boolean);
 const RECORD_ENV = arg('record-env', '').split(',').map(s => s.trim()).filter(Boolean);   // T631
 const ACCEPT_STYLE = arg('accept-style', '').split(',').map(s => s.trim()).filter(Boolean);   // T734
 const PRE = arg('pre', '');                                                                  // T631：測試用
+const REPORT_BASE = arg('report-base', '');                                                  // T742
+const DUMP = arg('dump', '');                                                                // T742
 const PLATFORM = process.platform;
+
+/* T742：GitHub Actions 工作摘要。所有出口（含中途 process.exit）都在這裡補上紅綠。 */
+const SUMMARY = [];
+process.on('exit', code => {
+  const f = process.env.GITHUB_STEP_SUMMARY;
+  if (!f || (!SUMMARY.length && !code)) return;
+  try { fs.appendFileSync(f, ['### 像素指紋 fp.js：' + (code ? '✗ 紅' : '✓ 綠'), '', ...SUMMARY, ''].join('\n') + '\n'); } catch {}
+});
 
 const STYLE_PATH = path.join(ROOT, 'style.json');
 
@@ -186,6 +203,26 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     + '、夜空畫布 ' + fp.stats.nightEmptyCanvas);
   const cov = fp.stats.dayNonEmpty ? (fp.stats.nightNonEmpty / fp.stats.dayNonEmpty * 100) : 0;
   log('夜圖覆蓋率 ' + cov.toFixed(1) + '%');
+  SUMMARY.push('- 版本 ' + cur.version + '／' + cur.anchor + '：' + fp.stats.families + ' 族、' + fp.stats.leaves + ' 葉');
+
+  if (DUMP) {   // T742：本次烘出的指紋另存，不動倉庫基線
+    fs.mkdirSync(DUMP, { recursive: true });
+    fs.writeFileSync(path.join(DUMP, 'fp.json'), JSON.stringify(cur, null, 1));
+    log('本次烘出的指紋另存到 ' + path.join(DUMP, 'fp.json') + '（--dump）');
+  }
+  if (REPORT_BASE) {   // T742：對 base 的基線報「這次動了哪些家族」；只報告，不影響紅綠
+    const rb = loadJson(REPORT_BASE);
+    if (!rb || !rb.subs) { log('相對 base：讀不到 ' + REPORT_BASE + '，略過'); SUMMARY.push('- 相對 base：讀不到基線檔，略過'); }
+    else {
+      const d2 = diffFp(rb, cur), fams2 = [...new Set(d2.famChanged)];
+      const bChg = !!(rb.blocks && cur.blocks && rb.blocks.fam !== cur.blocks.fam);
+      const line = '新增 ' + d2.added.length + ' / 變更 ' + d2.changed.length + ' / 移除 ' + d2.removed.length + ' 葉，觸及家族 ' + fams2.length + (bChg ? '，超街區（block559）也變了' : '');
+      log('');
+      log('相對 base（' + (rb.anchor || '?') + ' ' + (rb.version || '?') + '）：' + line);
+      if (fams2.length) log('  觸及：' + fams2.join(', '));
+      SUMMARY.push('- **相對 base**（' + (rb.anchor || '?') + ' ' + (rb.version || '?') + '）：' + line + (fams2.length ? '：' + fams2.map(f => '`' + f + '`').join('、') : ''));
+    }
+  }
 
   const base = loadBaseline();
   if (base) {
@@ -196,6 +233,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     log('  新增 ' + d.added.length + ' / 變更 ' + d.changed.length + ' / 移除 ' + d.removed.length
       + ' / 觸及家族 ' + famTouched.length + '（其餘 ' + (fp.stats.families - famTouched.length) + ' 族零變動）');
     if (famTouched.length) log('  觸及：' + famTouched.slice(0, 40).join(', ') + (famTouched.length > 40 ? ' …' : ''));
+    SUMMARY.push('- 與倉庫的 fp.json 相比：新增 ' + d.added.length + ' / 變更 ' + d.changed.length + ' / 移除 ' + d.removed.length + ' 葉' + (famTouched.length ? '，觸及 ' + famTouched.map(f => '`' + f + '`').join('、') : '，零變動'));
     if (d.added.length) log('  新增葉子：' + d.added.slice(0, 8).join(', ') + (d.added.length > 8 ? ' …' : ''));
     if (d.changed.length) log('  變更葉子：' + d.changed.slice(0, 8).join(', ') + (d.changed.length > 8 ? ' …' : ''));
     if (d.removed.length) log('  移除葉子：' + d.removed.slice(0, 8).join(', ') + (d.removed.length > 8 ? ' …' : ''));
@@ -233,6 +271,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       if (unexpected.length) log('  X 多改了：' + unexpected.join(', '));
       if (missing.length) log('  X 宣告了但沒動：' + missing.join(', '));
       if (unexpected.length || missing.length) {
+        SUMMARY.push('- ✗ 指紋差與宣告不符：' + (unexpected.length ? '多改了 ' + unexpected.join('、') : '') + (missing.length ? ' 宣告了但沒動 ' + missing.join('、') : ''));
         console.log('X 指紋差與宣告不符');
         process.exit(1);
       }
@@ -276,6 +315,8 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     const avg = {};
     for (const a of axNames) avg[a] = famNames.reduce((s2, k) => s2 + curStyle[k].axes[a], 0) / Math.max(1, famNames.length);
     let grand = famNames.reduce((s2, k) => s2 + curStyle[k].total, 0) / Math.max(1, famNames.length);
+    const styleOut = { generatedAt: new Date().toISOString(), version: cur.version, anchor: cur.anchor, version_fp: cur.version, averages: avg, grand: +grand.toFixed(4), families: curStyle };
+    if (DUMP) fs.writeFileSync(path.join(DUMP, 'style.json'), JSON.stringify(styleOut, null, 1));   // T742：棘輪判定前就先存
 
     log('');
     log('--- 七軸記分卡（全 149 家族平均）---');
@@ -321,6 +362,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
       if (drops.length) {
         log('X 棘輪破裂（非本輪宣告家族分數下降）：');
         drops.slice(0, 12).forEach(d => log('   - ' + d));
+        SUMMARY.push('- ✗ 棘輪破裂（非宣告家族分數下降）：' + drops.slice(0, 12).join('；'));
         console.log('X 棘輪下降 ⇒ 請 git checkout -- index.html 退回上一個綠點');
         process.exit(1);
       }
@@ -331,7 +373,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
     }
 
     if (!CHECK) {
-      fs.writeFileSync(STYLE_PATH, JSON.stringify({ generatedAt: new Date().toISOString(), version: cur.version, anchor: cur.anchor, version_fp: cur.version, averages: avg, grand: +grand.toFixed(4), families: curStyle }, null, 1));
+      fs.writeFileSync(STYLE_PATH, JSON.stringify(styleOut, null, 1));
       log('已寫入 style.json');
     }
   }
@@ -352,6 +394,7 @@ const session = await withGame({ port: PORT, timeout: 300, log, fresh: true, pre
   }
 
   if (checkFail.length) {   // T631
+    checkFail.forEach(x => SUMMARY.push('- ✗ ' + x));
     console.log('');
     console.log('X --check：' + checkFail.join('；'));
     process.exit(1);

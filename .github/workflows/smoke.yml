@@ -63,3 +63,47 @@ jobs:
             smoke-source022-*.txt
             shots/smoke-*.png
           retention-days: 14
+
+  # T742：像素指紋。main、PR、各寫入者分支推送都跑（claude/** 是 main 的鏡像推送，略過）。
+  # 它跟煙霧同一個工作流：紅了整個工作流就紅，pages.yml 只在工作流成功時部署 ⇒ 部署前一定 fp 綠。
+  # 另對 base 的 fp.json 報「這次動了哪些家族」（分支自己的 fp.json 可能也改了，只看它會變成拿自己檢查自己），
+  # 並把本次烘出的 fp.json／style.json 上傳成附件 fp-rebake/，給不能在本機跑 fp 的寫入者（GPT）提交基線用。
+  fp:
+    if: github.event_name != 'push' || !startsWith(github.ref, 'refs/heads/claude/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 中文字型（與雲端施工容器同一套）
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: 取 base 那一版的 fp.json
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" = pull_request ]; then BASE="$PR_BASE"
+          elif [ "$GITHUB_REF" = refs/heads/main ]; then
+            if [ -n "$BEFORE" ] && [ "$BEFORE" != 0000000000000000000000000000000000000000 ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then BASE="$BEFORE"; else BASE=$(git rev-parse HEAD^); fi
+          else BASE=$(git merge-base origin/main HEAD); fi
+          echo "base = $BASE"
+          git show "$BASE:fp.json" > "$RUNNER_TEMP/fp-base.json" || echo '{}' > "$RUNNER_TEMP/fp-base.json"
+      - name: 指紋（fp.js --check）
+        run: node fp.js --check --report-base="$RUNNER_TEMP/fp-base.json" --dump=fp-rebake 2>&1 | tee fp-run.txt; exit ${PIPESTATUS[0]}
+        shell: bash
+      - name: 上傳指紋紀錄與本次烘出的基線
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fp-${{ github.sha }}
+          path: |
+            fp-run.txt
+            fp-rebake/
+          if-no-files-found: warn
+          retention-days: 14
