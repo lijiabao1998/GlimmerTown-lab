@@ -1304,7 +1304,7 @@ table.dtab tr:hover td{background:#1b2334}
       S.wall([x0,y1],[x1,y1],z0,z1,mat(kind,0,1));S.wall([x1,y0],[x0,y0],z0,z1,mat(kind,0,-1));
       S.wall([x1,y1],[x1,y0],z0,z1,mat(kind,1,0));S.wall([x0,y0],[x0,y1],z0,z1,mat(kind,-1,0));
       S.flat(x0,x1,y0,y1,z1,P.stoneD);
-      return{front:S.face([x0,y1],[x1,y1],0,1),back:S.face([x1,y0],[x0,y0],0,-1),left:S.face([x0,y0],[x0,y1],-1,0),right:S.face([x1,y1],[x1,y0],1,0)};
+      return{front:Object.assign(S.face([x0,y1],[x1,y1],0,1),{nx:0,ny:1}),back:Object.assign(S.face([x1,y0],[x0,y0],0,-1),{nx:0,ny:-1}),left:Object.assign(S.face([x0,y0],[x0,y1],-1,0),{nx:-1,ny:0}),right:Object.assign(S.face([x1,y1],[x1,y0],1,0),{nx:1,ny:0})};
     }
     function band(x0,x1,y0,y1,z){S.box(x0-.18,x1+.18,y0-.18,y1+.18,z,z+.6,P.stone,P.stoneR,P.stoneHi);}
     function roof(x0,x1,y0,y1,z,rise,axis,kind,roofMat){
@@ -1323,7 +1323,7 @@ table.dtab tr:hover td{background:#1b2334}
       F.panel(u,u+w,z,z+h,(a,b)=>{
         if(a<.22||a>w-.22||b<.25||b>h-.25||Math.abs(a-w/2)<.14||Math.abs(b-h/2)<.15)return wood?T.cream:P.frame;
         if(wood&&K.mod(a+b,2.1)<.16)return P.frameR;
-        const c=dark(0,1)?P.glassR:P.glass;return lit?[c,P.warm]:c;
+        const c=dark(F.nx??0,F.ny??1)?P.glassR:P.glass;return lit?[c,P.warm]:c;
       },.19);F.block(u-.4,u+w+.4,0,.5,z-.6,z-.25,P.stone,P.stoneR,P.stoneHi);
     }
     function windows(F,floors,bays,z0,step,w,h,wood){for(let f=0;f<floors;f++)for(let b=0;b<bays;b++)glass(F,F.length*(b+.5)/bays-w/2,z0+f*step,w,h,true,wood);}
