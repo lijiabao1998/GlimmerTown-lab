@@ -1286,6 +1286,10 @@ table.dtab tr:hover td{background:#1b2334}
   ].map((r,i)=>Object.freeze({...r,v:100+i*4})));
   function context(row,view){
     const H=root.BritishUseScalesKit021.create({sz:2,w:160,h:196},view),{S,K,P,C,dark}=H;
+    // The unchanged primitive box takes world-y / world-x material slots. Only
+    // THIS fresh scene's explicit two-tone boxes swap slots on odd camera views;
+    // camera-aware walls/roofs and horizontal tops retain their original material.
+    const rawBox=S.box;S.box=function(x0,x1,y0,y1,z0,z1,front,side,top){return(view&1)&&side!==undefined?rawBox(x0,x1,y0,y1,z0,z1,side,front,top===undefined?front:top):rawBox(x0,x1,y0,y1,z0,z1,front,side,top);};
     const T={cream:C('ddd5bd'),creamR:C('aaa691'),creamHi:C('eee5ce'),oak:C('514c40'),oakR:C('353b35'),tile:C('846250'),tileR:C('604f46'),felt:C('45584e'),feltR:C('34433e')};
     if(!root.__heritage024GeometryOnly){S.box(.7,31.3,.7,31.3,0,.42,P.pave,P.paveR,P.pave);S.flat(.7,31.3,.7,31.3,.43,K.paving);}
     function mat(kind,nx,ny){
