@@ -1,0 +1,34 @@
+name: GPT-024 heritage original art and native placement
+on:
+  push:
+    branches: [gpt/british-heritage-fifteen-024]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  art-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native browser fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact embedding / original model bytes / native four views and controls
+        run: |
+          set -euo pipefail
+          node embed-heritage024.cjs --check
+          node probeHeritage024.cjs | tee heritage024-native.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: heritage024-${{ github.sha }}
+          path: |
+            heritage024-native.txt
+            shots/heritage024/
+          if-no-files-found: warn
+          retention-days: 14
