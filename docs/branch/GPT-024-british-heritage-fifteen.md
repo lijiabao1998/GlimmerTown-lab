@@ -66,3 +66,5 @@ base 版本 14.42／T747；原圖 166 族 3323 葉。T747 分支最後 smoke 三
 - [ ] 数字与失败均据实
 
 尚未施工／未验证。原Lab其他作者未追踪备份与分支保留；只在Lab自身ignored scratchpad的隔离worktree写。
+
+初稿 a2e5def 的真 Chrome 已通过60图／剪影／像素／四向自检，但正向选择造境红于“heritage024 UI native selection”。我误以为 diff3 就会解锁，原生工具实际仍要求 Lv8，只有原生创意沙盒 unlockAll 可以用作明示造境。产品正确拒绝，未改产品解锁守卫；修的是台架：先证明普通空城锁定且零收费，再在两臂共同使用既有创意沙盒、只开启 unlockAll，以 diff1、有限资金真验扣款。不声称此场景是普通新城已到 Lv8。首轮不是ALL GREEN。
