@@ -24,10 +24,16 @@ jobs:
           node probeLightSide745.js --valve | tee light023-valve.txt
       - name: Destructive controls must be red first at the original target
         run: node light-repair023.test.js | tee light023-red.txt
+      - name: Native browser font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Native four-view before / after images and actual night invariance
+        run: node light023-samples.cjs | tee light023-native.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: light023-${{ github.sha }}
-          path: light023-*.txt
+          path: |
+            light023-*.txt
+            shots/light023/
           if-no-files-found: warn
           retention-days: 14
