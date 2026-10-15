@@ -62,6 +62,8 @@ function heritageSelftest024(){
   add('heritage024 physical night: no transparent or soft emission',leak===0);add('heritage024 hard pixels: no semitransparency',soft===0);add('heritage024 canvas: no crop or empty day/night',crop===0&&empty===0);
   for(let v=112;v<116;v++){const s=SPR.bld['24_1_'+v],n=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let upper=0;for(let y=0;y<168;y++)for(let x=0;x<s.w;x++)if(n[(y*s.w+x)*4+3])upper++;add('heritage024 Rushton actual visible upper glazing '+v,upper>=50);}
   for(const q of HERITAGE024)for(let r=0;r<4;r++){const before=viewRot;viewRot=r;try{add('heritage024 actual rotation '+q.id+'/'+r,vdraw574({x:10,y:10},{k:24,lv:1,v:q.v})===q.v+r);}finally{viewRot=before;}}
+  let nativeMismatch=0;for(const q of HERITAGE024)for(let v=0;v<4;v++){const actual=SPR.bld['24_1_'+(q.v+v)],direct=window.BritishHeritageArchitecture024.build(q.id,v);if(actual.img.toDataURL()!==direct.img.toDataURL()||actual.night.toDataURL()!==direct.night.toDataURL())nativeMismatch++;}
+  add('heritage024 installed pixels match independent direct geometry: '+nativeMismatch+' mismatches',nativeMismatch===0);
   return{ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗')),pixels:{soft,leak,crop,empty},shapeHashes:shapes};
 }
 window.GV.heritage024={rows:()=>HERITAGE024.map(q=>({...q})),open:heritageOpen024,close:heritageClose024,select:heritageSelect024,selection:()=>heritageSelection024,selftest:heritageSelftest024,
