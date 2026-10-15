@@ -6304,7 +6304,7 @@ function workersCornerShop006(spec) {
     for(const x of[28.18,35.4])for(const y of[52,56.7])S.box(x,x+.24,y,y+1.4,2.6,2.85,P.iron,P.ironD,P.iron);
   }
   function college(view) {
-    const S=K.lightScene745(Scene(4,view,304,320),view,P);foundation(S,64);
+    const S=H.lightScene745(Scene(4,view,304,320),view,P);foundation(S,64);
     S.flat(15,49,15,49,.62,paving);S.flat(20,44,20,44,.65,grass);
     for(const [x0,x1,y0,y1]of[[20,21,20,44],[43,44,20,44],[20,44,20,21],[20,44,43,44]])S.flat(x0,x1,y0,y1,.7,P.stoneR);
     S.flat(29.8,34.2,20,44,.67,paving);S.flat(20,44,29.8,34.2,.67,paving);
@@ -6327,7 +6327,7 @@ function workersCornerShop006(spec) {
     return S.finish({kind:282,design:'collegiate-quadrangle',features:FEATURES[282],lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function library(view) {
-    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
+    const S=H.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     const B=collegeRange(S,4,28,6,23,29,true,true);
     for(const F of[B.left,B.right]){
       collegiateWindow(S,F,4.3,10.5,8.3,16,4,true);
@@ -6352,7 +6352,7 @@ function workersCornerShop006(spec) {
     }
   }
   function residence(view) {
-    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
+    const S=H.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     collegeRange(S,3,29,3,11,20,false,true);
     const a=collegeRange(S,3,10,11,27,18,false,false),b=collegeRange(S,22,29,11,27,18,false,false);
     S.flat(10.1,21.9,11.1,29.5,.6,paving);S.flat(12.5,19.5,14.5,23,.66,grass);
@@ -6452,7 +6452,7 @@ function workersCornerShop006(spec) {
     for(const [x,y]of[[x0+2.1,y0+2.5],[x0+2.8,y0+3.3],[x1-2.1,y1-2.2]])cylinder(S,x,y,z+.06,z+.12,.45,.45,P.leaf[2],P.leaf[3],P.leaf[2],8);
   }
   function manor(view) {
-    const S=K.lightScene745(Scene(4,view,304,320),view,P);foundation(S,64);
+    const S=H.lightScene745(Scene(4,view,304,320),view,P);foundation(S,64);
     S.flat(1.6,62.4,1.6,62.4,.57,grass);
     S.flat(2.6,61.4,4,38,.61,gravel);S.flat(2.6,61.4,38,61.5,.62,gravel);
     const B=manorBlock(S,18,46,7,28,1.1,31.8,false);
@@ -6528,7 +6528,7 @@ function workersCornerShop006(spec) {
     }
   }
   function conservatory(view) {
-    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
+    const S=H.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     S.flat(1,31,1,31,.57,gravel);
     for(const x of[6.2,15.2,25.8])for(const y of[11.5,19.5])pottedPlant(S,x,y,.66,1.45,P.flower[2]);
     glassHouse(S,3,10,8,25,.65,12.7,5.4,false);glassHouse(S,22,29,8,25,.65,12.7,5.4,false);
@@ -6573,7 +6573,7 @@ function workersCornerShop006(spec) {
     return B;
   }
   function stable(view) {
-    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
+    const S=H.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     S.flat(2,30,2,30,.6,(x,y)=>mod(y,1.3)<.13||mod(x+(Math.floor(y/1.3)&1)*.8,1.6)<.13?P.seam:hash(Math.floor(x),Math.floor(y),1477)%5?P.paveR:P.stoneR);
     stableRange(S,3,29,3,11,17,true);
     const left=stableRange(S,3,10,11,27,13,false),right=stableRange(S,22,29,11,27,13,false);

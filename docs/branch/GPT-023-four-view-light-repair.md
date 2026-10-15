@@ -35,6 +35,8 @@
 
 尚未施工／未驗證。已確認本機原 Lab 仍在舊 Grok 分支且有別人備份，未覆蓋；施工在 Lab 的 ignored scratchpad 隔離 worktree。方向獨立 PR #27 已合、只改方向檔。最近已完成 main smoke／fp／Pages 成功，不冒稱 T745 已修。
 
+初版 8029582 的實際 GitHub 原探針在 college/manor 報 `K is not defined`：該檔原依賴名是 H，我誤寫成另一個模組的 K。語法檢查不會咬未定義的運行期名稱，沒有把它記成通過；本筆修入口名稱並重嵌來源，不改原探針／釘值。完整 main 閘仍以後續精確 CI 為準。
+
 ## 第 8 節自檢
 
 - [ ] 卡面先推，條件未放寬
