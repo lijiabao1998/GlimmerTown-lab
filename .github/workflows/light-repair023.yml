@@ -1,0 +1,33 @@
+name: GPT-023 isolated original light probes
+on:
+  push:
+    branches: [gpt/four-view-light-repair-023]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-probes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Exact source embedding and original light / shape / valve pins
+        run: |
+          set -euo pipefail
+          node embed-light023.js --check
+          node probeLightSide745.js --check | tee light023-check.txt
+          node probeLightSide745.js --valve | tee light023-valve.txt
+      - name: Destructive controls must be red first at the original target
+        run: node light-repair023.test.js | tee light023-red.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: light023-${{ github.sha }}
+          path: light023-*.txt
+          if-no-files-found: warn
+          retention-days: 14

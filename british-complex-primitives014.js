@@ -404,7 +404,64 @@
     S.box(x0,x1,y0,y1,z,z+h,texture,texture,(x,y)=>hash(Math.floor(x*2),Math.floor(y*2),1459)%7===0?P.leaf[1]:P.leaf[2]);
     S.box(x0+.2,x1-.2,y0+.2,y1-.2,z+h,z+h+.28,P.leaf[0],P.leaf[3],P.leaf[2]);
   }
-  root.BritishComplexPrimitives014=Object.freeze({Scene,P,C,mod,hash,GLOW,LAMP,brick,paving,slate,band,masonry,cylinder,ring,
+  // GPT-023 / T745: opt-in adapter, not a change to the established Scene.
+  // Only the twenty building entry points use it. Horizontal ground/roof planes,
+  // rasterizer, depth, alpha and physical light emission retain their old bytes.
+  function lightScene745(base,view,palette) {
+    if(root.__noLightFix745 || !(view&1))return base;
+    const light=new Map(),dark=new Map();
+    function pair(a,b){
+      if(Array.isArray(a)&&Array.isArray(b)){for(let i=0;i<Math.min(a.length,b.length);i++)pair(a[i],b[i]);return;}
+      if(typeof a!=='number'||typeof b!=='number'||a===b)return;
+      light.set(a,a);light.set(b,a);dark.set(a,b);dark.set(b,b);
+    }
+    for(const [key,value]of Object.entries(palette)){
+      if(key.endsWith('R')||key.endsWith('D')||key.endsWith('Hi'))continue;
+      const shade=palette[key+'R'];if(shade===undefined)continue;
+      pair(value,shade);
+      if(typeof palette[key+'Hi']==='number')dark.set(palette[key+'Hi'],shade);
+    }
+    function color(value,isDark){
+      if(Array.isArray(value))return [color(value[0],isDark),value[1]];
+      const map=isDark?dark:light;return map.has(value)?map.get(value):value;
+    }
+    function material(value,isDark){
+      return typeof value==='function'?function(...a){return color(value(...a),isDark);}:color(value,isDark);
+    }
+    function plane(points){
+      const a=points[0];
+      for(let i=1;i<points.length-1;i++){
+        const b=points[i],c=points[i+1],u=b.map((n,j)=>n-a[j]),v=c.map((n,j)=>n-a[j]);
+        const nx=u[1]*v[2]-u[2]*v[1],ny=u[2]*v[0]-u[0]*v[2];
+        if(Math.abs(nx)+Math.abs(ny)>1e-9)return Math.abs(ny)>=Math.abs(nx);
+      }
+      return null; // horizontal paving must not be mistaken for a wall
+    }
+    function poly(points,value,bias){const side=plane(points);base.poly(points,side===null?value:material(value,side),bias);}
+    function wall(a,b,z0,z1,value,bias){
+      const side=Math.abs(b[0]-a[0])>=Math.abs(b[1]-a[1]);
+      base.wall(a,b,z0,z1,material(value,side),bias);
+    }
+    function box(x0,x1,y0,y1,z0,z1,front,side,top){
+      wall([x0,y0],[x1,y0],z0,z1,front);
+      wall([x0,y1],[x1,y1],z0,z1,front);
+      wall([x0,y0],[x0,y1],z0,z1,side===undefined?front:side);
+      wall([x1,y0],[x1,y1],z0,z1,side===undefined?front:side);
+      if(top!==null)base.flat(x0,x1,y0,y1,z1,top===undefined?front:top);
+    }
+    function face(a,b,nx,ny){
+      const f=base.face(a,b,nx,ny),side=Math.abs(ny)>=Math.abs(nx);
+      return {...f,
+        panel:(u0,u1,z0,z1,value,d,bias)=>f.panel(u0,u1,z0,z1,material(value,side),d,bias),
+        block:(u0,u1,d0,d1,z0,z1,c,r,top)=>{
+          const A=f.point(u0,d0,0),B=f.point(u1,d1,0);
+          box(Math.min(A[0],B[0]),Math.max(A[0],B[0]),Math.min(A[1],B[1]),Math.max(A[1],B[1]),z0,z1,c,r,top);
+        },
+        polygon:(points,value)=>poly(points,value,.03)};
+    }
+    return {...base,poly,wall,box,face};
+  }
+  root.BritishComplexPrimitives014=Object.freeze({Scene,lightScene745,P,C,mod,hash,GLOW,LAMP,brick,paving,slate,band,masonry,cylinder,ring,
     sash,hippedRoof,rainpipe,lantern,wallLamp,leafRelief,blossom,pottedPlant,ironRail,bench,cornice,pilaster,archWindow,timberDoor,
     ashlar,stoneBlock,gableRoof,hedge,grass});
 })(typeof window==='undefined'?globalThis:window);

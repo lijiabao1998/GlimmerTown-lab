@@ -303,7 +303,7 @@
   }
 
   function hotel(view) {
-    const S=Scene(3,view,208,204);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(3,view,208,204),view,P);
     S.flat(0,48,0,48,0,paving);
     S.box(3.3,44.7,4.3,40.7,0,2,P.stoneD,P.stoneD,P.stone);
     const W=masonry(S,4,44,5,40,2,59,274);
@@ -363,7 +363,7 @@
     S.box(x+.1,x+.55,y-.3,y+.15,3.72,4.3,P.paper,P.stoneR,P.paper);
   }
   function cafe(view) {
-    const S=Scene(2,view,136,148);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(2,view,136,148),view,P);
     S.flat(0,32,0,32,0,paving);
     S.box(2.7,29.3,2.7,25.3,0,1.4,P.stoneD,P.stoneD,P.stone);
     const W=masonry(S,3,29,3,25,1.4,35,275);
@@ -405,7 +405,7 @@
   }
 
   function newsstand(view) {
-    const S=Scene(1,view,72,104);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(1,view,72,104),view,P);
     S.flat(0,16,0,16,0,paving);
     S.box(2.2,13.8,2.2,12.8,0,1,P.stoneD,P.stoneD,P.stone);
     S.box(2.8,13.2,2.8,12.2,1,17.5,P.green,P.greenD,P.greenHi);

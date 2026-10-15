@@ -6000,7 +6000,64 @@ function workersCornerShop006(spec) {
     S.box(x0,x1,y0,y1,z,z+h,texture,texture,(x,y)=>hash(Math.floor(x*2),Math.floor(y*2),1459)%7===0?P.leaf[1]:P.leaf[2]);
     S.box(x0+.2,x1-.2,y0+.2,y1-.2,z+h,z+h+.28,P.leaf[0],P.leaf[3],P.leaf[2]);
   }
-  root.BritishComplexPrimitives014=Object.freeze({Scene,P,C,mod,hash,GLOW,LAMP,brick,paving,slate,band,masonry,cylinder,ring,
+  // GPT-023 / T745: opt-in adapter, not a change to the established Scene.
+  // Only the twenty building entry points use it. Horizontal ground/roof planes,
+  // rasterizer, depth, alpha and physical light emission retain their old bytes.
+  function lightScene745(base,view,palette) {
+    if(root.__noLightFix745 || !(view&1))return base;
+    const light=new Map(),dark=new Map();
+    function pair(a,b){
+      if(Array.isArray(a)&&Array.isArray(b)){for(let i=0;i<Math.min(a.length,b.length);i++)pair(a[i],b[i]);return;}
+      if(typeof a!=='number'||typeof b!=='number'||a===b)return;
+      light.set(a,a);light.set(b,a);dark.set(a,b);dark.set(b,b);
+    }
+    for(const [key,value]of Object.entries(palette)){
+      if(key.endsWith('R')||key.endsWith('D')||key.endsWith('Hi'))continue;
+      const shade=palette[key+'R'];if(shade===undefined)continue;
+      pair(value,shade);
+      if(typeof palette[key+'Hi']==='number')dark.set(palette[key+'Hi'],shade);
+    }
+    function color(value,isDark){
+      if(Array.isArray(value))return [color(value[0],isDark),value[1]];
+      const map=isDark?dark:light;return map.has(value)?map.get(value):value;
+    }
+    function material(value,isDark){
+      return typeof value==='function'?function(...a){return color(value(...a),isDark);}:color(value,isDark);
+    }
+    function plane(points){
+      const a=points[0];
+      for(let i=1;i<points.length-1;i++){
+        const b=points[i],c=points[i+1],u=b.map((n,j)=>n-a[j]),v=c.map((n,j)=>n-a[j]);
+        const nx=u[1]*v[2]-u[2]*v[1],ny=u[2]*v[0]-u[0]*v[2];
+        if(Math.abs(nx)+Math.abs(ny)>1e-9)return Math.abs(ny)>=Math.abs(nx);
+      }
+      return null; // horizontal paving must not be mistaken for a wall
+    }
+    function poly(points,value,bias){const side=plane(points);base.poly(points,side===null?value:material(value,side),bias);}
+    function wall(a,b,z0,z1,value,bias){
+      const side=Math.abs(b[0]-a[0])>=Math.abs(b[1]-a[1]);
+      base.wall(a,b,z0,z1,material(value,side),bias);
+    }
+    function box(x0,x1,y0,y1,z0,z1,front,side,top){
+      wall([x0,y0],[x1,y0],z0,z1,front);
+      wall([x0,y1],[x1,y1],z0,z1,front);
+      wall([x0,y0],[x0,y1],z0,z1,side===undefined?front:side);
+      wall([x1,y0],[x1,y1],z0,z1,side===undefined?front:side);
+      if(top!==null)base.flat(x0,x1,y0,y1,z1,top===undefined?front:top);
+    }
+    function face(a,b,nx,ny){
+      const f=base.face(a,b,nx,ny),side=Math.abs(ny)>=Math.abs(nx);
+      return {...f,
+        panel:(u0,u1,z0,z1,value,d,bias)=>f.panel(u0,u1,z0,z1,material(value,side),d,bias),
+        block:(u0,u1,d0,d1,z0,z1,c,r,top)=>{
+          const A=f.point(u0,d0,0),B=f.point(u1,d1,0);
+          box(Math.min(A[0],B[0]),Math.max(A[0],B[0]),Math.min(A[1],B[1]),Math.max(A[1],B[1]),z0,z1,c,r,top);
+        },
+        polygon:(points,value)=>poly(points,value,.03)};
+    }
+    return {...base,poly,wall,box,face};
+  }
+  root.BritishComplexPrimitives014=Object.freeze({Scene,lightScene745,P,C,mod,hash,GLOW,LAMP,brick,paving,slate,band,masonry,cylinder,ring,
     sash,hippedRoof,rainpipe,lantern,wallLamp,leafRelief,blossom,pottedPlant,ironRail,bench,cornice,pilaster,archWindow,timberDoor,
     ashlar,stoneBlock,gableRoof,hedge,grass});
 })(typeof window==='undefined'?globalThis:window);
@@ -6247,7 +6304,7 @@ function workersCornerShop006(spec) {
     for(const x of[28.18,35.4])for(const y of[52,56.7])S.box(x,x+.24,y,y+1.4,2.6,2.85,P.iron,P.ironD,P.iron);
   }
   function college(view) {
-    const S=Scene(4,view,304,320);foundation(S,64);
+    const S=K.lightScene745(Scene(4,view,304,320),view,P);foundation(S,64);
     S.flat(15,49,15,49,.62,paving);S.flat(20,44,20,44,.65,grass);
     for(const [x0,x1,y0,y1]of[[20,21,20,44],[43,44,20,44],[20,44,20,21],[20,44,43,44]])S.flat(x0,x1,y0,y1,.7,P.stoneR);
     S.flat(29.8,34.2,20,44,.67,paving);S.flat(20,44,29.8,34.2,.67,paving);
@@ -6270,7 +6327,7 @@ function workersCornerShop006(spec) {
     return S.finish({kind:282,design:'collegiate-quadrangle',features:FEATURES[282],lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function library(view) {
-    const S=Scene(2,view,160,196);foundation(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     const B=collegeRange(S,4,28,6,23,29,true,true);
     for(const F of[B.left,B.right]){
       collegiateWindow(S,F,4.3,10.5,8.3,16,4,true);
@@ -6295,7 +6352,7 @@ function workersCornerShop006(spec) {
     }
   }
   function residence(view) {
-    const S=Scene(2,view,160,196);foundation(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     collegeRange(S,3,29,3,11,20,false,true);
     const a=collegeRange(S,3,10,11,27,18,false,false),b=collegeRange(S,22,29,11,27,18,false,false);
     S.flat(10.1,21.9,11.1,29.5,.6,paving);S.flat(12.5,19.5,14.5,23,.66,grass);
@@ -6395,7 +6452,7 @@ function workersCornerShop006(spec) {
     for(const [x,y]of[[x0+2.1,y0+2.5],[x0+2.8,y0+3.3],[x1-2.1,y1-2.2]])cylinder(S,x,y,z+.06,z+.12,.45,.45,P.leaf[2],P.leaf[3],P.leaf[2],8);
   }
   function manor(view) {
-    const S=Scene(4,view,304,320);foundation(S,64);
+    const S=K.lightScene745(Scene(4,view,304,320),view,P);foundation(S,64);
     S.flat(1.6,62.4,1.6,62.4,.57,grass);
     S.flat(2.6,61.4,4,38,.61,gravel);S.flat(2.6,61.4,38,61.5,.62,gravel);
     const B=manorBlock(S,18,46,7,28,1.1,31.8,false);
@@ -6471,7 +6528,7 @@ function workersCornerShop006(spec) {
     }
   }
   function conservatory(view) {
-    const S=Scene(2,view,160,196);foundation(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     S.flat(1,31,1,31,.57,gravel);
     for(const x of[6.2,15.2,25.8])for(const y of[11.5,19.5])pottedPlant(S,x,y,.66,1.45,P.flower[2]);
     glassHouse(S,3,10,8,25,.65,12.7,5.4,false);glassHouse(S,22,29,8,25,.65,12.7,5.4,false);
@@ -6516,7 +6573,7 @@ function workersCornerShop006(spec) {
     return B;
   }
   function stable(view) {
-    const S=Scene(2,view,160,196);foundation(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,P);foundation(S,32);
     S.flat(2,30,2,30,.6,(x,y)=>mod(y,1.3)<.13||mod(x+(Math.floor(y/1.3)&1)*.8,1.6)<.13?P.seam:hash(Math.floor(x),Math.floor(y),1477)%5?P.paveR:P.stoneR);
     stableRange(S,3,29,3,11,17,true);
     const left=stableRange(S,3,10,11,27,13,false),right=stableRange(S,22,29,11,27,13,false);
@@ -6885,7 +6942,7 @@ function workersCornerShop006(spec) {
     return f;
   }
   function baths(view){
-    const S=Scene(4,view,304,320);ground(S,64);
+    const S=K.lightScene745(Scene(4,view,304,320),view,{...P,...T});ground(S,64);
     // Deliberately unequal, perpendicular pool halls distinguish this generous
     // campus from k244's compact parallel halls and from k215's open Roman pool.
     swimmingHall(S,5.8,29.0,5.6,42.6,25.0,false,1420);
@@ -6918,7 +6975,7 @@ function workersCornerShop006(spec) {
     return S.finish({id:288,design:'victorian-baths-washhouse-complex',poolHalls:2,serviceCourt:true,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function smallSwimmingHall(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     swimmingHall(S,4.8,26.6,3.2,22.6,22.7,false,1448);
     const f=masonry(S,10.0,22.0,22.9,27.2,.1,15.8,1449);
     timberDoor(f.front,3.7,.65,4.6,10.7,true);terraBand(S,10,22,22.9,27.2,13.6,.7);
@@ -6932,7 +6989,7 @@ function workersCornerShop006(spec) {
     return S.finish({id:289,design:'independent-victorian-swimming-hall',poolHalls:1,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function smallWashhouse(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     laundryBlock(S,3.6,23.0,4.0,18.9,18.0,1458);chimney(S,27.35,5.5,.1,38.0,2.9);
     const f=masonry(S,23.5,29,10.0,18.9,.1,11.8,1459);
     timberDoor(f.front,1.0,.35,3.0,8.2,false);hippedRoof(S,23.25,29.3,9.7,19.2,12.1,3.0,false);
@@ -7125,7 +7182,7 @@ function workersCornerShop006(spec) {
     S.beam([x+.35,y,z+4.6],[x+.65,y,z+.6],T.hoseR,.10);
   }
   function headquarters(view){
-    const S=Scene(4,view,304,320);ground(S,64);
+    const S=K.lightScene745(Scene(4,view,304,320),view,{...P,...T});ground(S,64);
     domesticRange(S,5.5,35.5,4.5,15.8,29.0,1470);
     domesticRange(S,50.0,60.0,17.8,51.5,35.0,1471);
     const G=garageRange(S,5.0,46.8,39.0,51.8,18.8,4,1472);
@@ -7159,7 +7216,7 @@ function workersCornerShop006(spec) {
     return S.finish({id:291,design:'central-fire-brigade-training-headquarters',applianceBays:4,motorPumps:2,drillTower:true,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function smallApplianceGarage(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     const f=garageRange(S,3.2,28.0,4.0,19.4,19.0,3,1480);
     plaque(S,f.front,10,15.1,4.8,2.8,'shield');
     motorPump(S,15.5,25.5,.95);fireHydrant(S,29.5,28.6);
@@ -7170,7 +7227,7 @@ function workersCornerShop006(spec) {
     return S.finish({id:292,design:'independent-appliance-garage',applianceBays:3,motorPumps:1,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function residentialCourt(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     domesticRange(S,3.8,28.4,3.7,12.7,27.0,1488);
     domesticRange(S,3.8,12.0,13.1,25.2,25.0,1489);
     S.flat(14,28.7,14.8,28.5,.04,T.grass);
@@ -9978,7 +10035,7 @@ function workersCornerShop006(spec) {
     F.panel(w*.34,w*.67,z+h*.42,z+h*.62,P.paper,.05);
   }
   function theatre(view) {
-    const S=Scene(3,view,232,260);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(3,view,232,260),view,P);
     S.flat(0,48,0,48,0,paving);
     for(const [x0,x1,y0,y1]of[[0,48,0,.45],[0,48,47.55,48],[0,.45,0,48],[47.55,48,0,48]])S.flat(x0,x1,y0,y1,.015,P.stoneR);
     for(const y of[3.5,45.5])S.flat(.5,47.5,y,y+.26,.028,P.stoneHi);
@@ -10729,7 +10786,7 @@ function workersCornerShop006(spec) {
   }
 
   function market(view) {
-    const S=Scene(3,view,200,164);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(3,view,200,164),view,P);
     S.flat(0,48,0,48,0,paving);
     for(const [x0,x1,y0,y1]of[[0,48,0,.42],[0,48,47.58,48],[0,.42,0,48],[47.58,48,0,48]])S.flat(x0,x1,y0,y1,.015,P.stoneR);
     // Fine stone channels follow the U and the open entrance, not a water texture.
@@ -10880,7 +10937,7 @@ function workersCornerShop006(spec) {
     if(florist)S.beam([x0+.24,y+.18,z+.35],[x0+.24,y+.18,z+2.85],P.gold,.12);
   }
   function flowerStall(view) {
-    const S=Scene(1,view,72,88);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(1,view,72,88),view,P);
     S.flat(0,16,0,16,0,paving);
     for(const y of[.45,15.1])S.flat(.45,15.55,y,y+.18,.018,P.stoneR);
     // Two florist's display heights, buckets of cut stems and separate potted
@@ -10923,7 +10980,7 @@ function workersCornerShop006(spec) {
     S.beam([x,y,z+3.55],[x+.16,y,z+4.15],P.gold,.15);
   }
   function produceStall(view) {
-    const S=Scene(1,view,72,88);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(1,view,72,88),view,P);
     S.flat(0,16,0,16,0,paving);
     for(const y of[.45,15.1])S.flat(.45,15.55,y,y+.18,.018,P.stoneR);
     counter(S,2.15,8.3,11.0,3.5,4.0);
@@ -11492,7 +11549,7 @@ function workersCornerShop006(spec) {
     }
   }
   function museum(view) {
-    const S=Scene(4,view,264,232);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(4,view,264,232),view,P);
     S.flat(0,64,0,64,0,paving);
     // Pale perimeter setts unite the building to the surrounding native footpaths.
     for(const [x0,x1,y0,y1]of[[0,64,0,.5],[0,64,63.5,64],[0,.5,0,64],[63.5,64,0,64]])S.flat(x0,x1,y0,y1,.02,P.stoneR);
@@ -11963,7 +12020,7 @@ function workersCornerShop006(spec) {
   }
 
   function hotel(view) {
-    const S=Scene(3,view,208,204);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(3,view,208,204),view,P);
     S.flat(0,48,0,48,0,paving);
     S.box(3.3,44.7,4.3,40.7,0,2,P.stoneD,P.stoneD,P.stone);
     const W=masonry(S,4,44,5,40,2,59,274);
@@ -12023,7 +12080,7 @@ function workersCornerShop006(spec) {
     S.box(x+.1,x+.55,y-.3,y+.15,3.72,4.3,P.paper,P.stoneR,P.paper);
   }
   function cafe(view) {
-    const S=Scene(2,view,136,148);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(2,view,136,148),view,P);
     S.flat(0,32,0,32,0,paving);
     S.box(2.7,29.3,2.7,25.3,0,1.4,P.stoneD,P.stoneD,P.stone);
     const W=masonry(S,3,29,3,25,1.4,35,275);
@@ -12065,7 +12122,7 @@ function workersCornerShop006(spec) {
   }
 
   function newsstand(view) {
-    const S=Scene(1,view,72,104);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(1,view,72,104),view,P);
     S.flat(0,16,0,16,0,paving);
     S.box(2.2,13.8,2.2,12.8,0,1,P.stoneD,P.stoneD,P.stone);
     S.box(2.8,13.2,2.8,12.2,1,17.5,P.green,P.greenD,P.greenHi);
