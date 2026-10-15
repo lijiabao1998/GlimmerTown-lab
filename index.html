@@ -1199,7 +1199,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.42 · T747</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.43 · T748</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -1244,6 +1244,214 @@ table.dtab tr:hover td{background:#1b2334}
 </div>
 
 <!-- GPT-004 approved British art BEGIN: source british-prototypes-art.js -->
+<!-- GPT-024 CSS START -->
+<style>
+#heritageDialog024{box-sizing:border-box;width:min(920px,94vw);max-height:90dvh;overflow:auto;padding:22px;border:1px solid #687b75;border-radius:16px;background:#182b2a;color:#e1decf;box-shadow:0 20px 80px #0008}
+#heritageDialog024::backdrop{background:#071718b8}
+#heritageDialog024 header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #53635d;padding-bottom:14px}
+#heritageDialog024 h2{font-size:23px;margin:0 0 6px}#heritageDialog024 header p{margin:0;color:#a7b6aa}
+#heritageDialog024 button{border:1px solid #718b75;border-radius:8px;padding:10px 13px;background:#294439;color:#efecd9;cursor:pointer;font:inherit}#heritageDialog024 button:disabled{opacity:.5;cursor:not-allowed}#heritageDialog024 button:focus-visible,#heritageDialog024 a:focus-visible{outline:3px solid #eac877;outline-offset:3px}
+#heritageClose024{min-width:44px;min-height:44px}#heritageDialog024 .heritageIntro024{font-size:13px;line-height:1.65;color:#bbcabd;max-width:78ch}
+#heritageGrid024{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:17px}#heritageGrid024 article{display:flex;flex-direction:column;min-width:0;border:1px solid #455c51;border-radius:10px;padding:12px;background:#203330}
+#heritageGrid024 img{align-self:center;max-width:100%;object-fit:contain;image-rendering:pixelated;height:196px}#heritageGrid024 h3{margin:5px 0;font-size:16px}#heritageGrid024 .heritageEnglish024{font-size:12px;color:#c1b49b}#heritageGrid024 p{font-size:12px;line-height:1.7;flex:1;color:#b7c4b7}
+#heritageGrid024 footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}#heritageGrid024 a{color:#dac691;font-size:12px}#heritageGrid024 button{font-size:12px;padding:9px 10px}.heritageTag024{font-size:11px;color:#e1c886;align-self:center;padding:0 6px}
+@media(max-width:680px){#heritageGrid024{grid-template-columns:repeat(2,minmax(0,1fr))}#heritageDialog024{padding:14px}#heritageGrid024 article{padding:9px}#heritageDialog024 h2{font-size:19px}}
+@media(max-width:420px){#heritageGrid024{grid-template-columns:1fr}#heritageGrid024 article{padding:14px}#heritageGrid024 img{height:170px}}
+</style>
+<!-- GPT-024 CSS END -->
+<!-- GPT-024 PURE ART START -->
+<script>
+/* GPT-024: fifteen original British heritage interpretations, native 2x2 lots.
+ * Four real world-space views; existing Scene / z buffer / opaque pixel rules.
+ * Official structural sources in ROWS. No photos, textures, simulation or RNG.
+ */
+(function(root){
+  'use strict';
+  const ROWS=Object.freeze([
+    {id:'lavenham',nm:'拉文納姆行會館',en:'Lavenham Guildhall',shape:'jettied-long-hall',note:'16世紀木構行會館：懸挑上層、木框斜撐與門廊。',url:'https://www.nationaltrust.org.uk/visit/suffolk/lavenham-guildhall/history-of-lavenham-guildhall'},
+    {id:'moreton',nm:'小莫頓庭院宅',en:'Little Moreton Hall',shape:'u-court-oriel-gallery',note:'分期建造的都鐸庭院宅：長廊、菱格窗與突出凸窗。',url:'https://www.nationaltrust.org.uk/visit/cheshire-greater-manchester/little-moreton-hall/history-of-little-moreton-hall'},
+    {id:'coxwell',nm:'考克斯韋爾大穀倉',en:'Great Coxwell Barn',shape:'cross-porch-steep-barn',note:'中世紀石造穀倉：陡屋面、十字門廊與厚扶壁。',url:'https://www.nationaltrust.org.uk/visit/oxfordshire-buckinghamshire-berkshire/great-coxwell-barn/history-of-great-coxwell-barn'},
+    {id:'rushton',nm:'拉什頓三角屋',en:'Rushton Triangular Lodge',shape:'triangular-three-gables',note:'1593–97年小屋以三為題：三角平面、三層與三個山牆。',url:'https://www.english-heritage.org.uk/visit/places/rushton-triangular-lodge/history/decoding-rushton-triangular-lodge/'},
+    {id:'dunmore',nm:'鄧莫爾鳳梨亭',en:'Dunmore Pineapple',shape:'pineapple-stone-crown',note:'蘇格蘭1761年夏亭：雕石鳳梨冠頂與低矮石翼。',url:'https://www.nts.org.uk/visit/places/The-Pineapple/'},
+    {id:'dulwich',nm:'杜爾維治畫廊',en:'Dulwich Picture Gallery',shape:'lantern-gallery-mausoleum',note:'Soane的低磚畫廊：一列屋頂採光天窗與獨立陵堂體。',url:'https://www.dulwichpicturegallery.org.uk/explore/news-stories/our-architecture/'},
+    {id:'flaxmill',nm:'什魯斯伯里亞麻廠',en:'Shrewsbury Flaxmill',shape:'five-storey-mill-tower',note:'1797年鐵架工業建築：五層磚體、規則窗列與服務塔。',url:'https://historicengland.org.uk/campaigns/visit/shrewsbury-flax-mill/history/'},
+    {id:'settle',nm:'塞特爾信號樓',en:'Settle Signal Box',shape:'raised-glazed-cab-stair',note:'1891年Midland木造信號樓：架高觀察室、外階與四坡頂。',url:'https://www.foscl.org.uk/content/settle-station-signal-box'},
+    {id:'beamish',nm:'比米什礦井展示',en:'Beamish Heapstead',shape:'stone-engine-wood-heapstead',note:'礦業展示：高石砌絞車屋、木造井架平台與礦車。',url:'https://www.beamish.org.uk/explore/1900s-colliery/'},
+    {id:'bletchley',nm:'布萊切利一號木屋',en:'Bletchley Park Hut 1',shape:'low-weatherboard-brick-annex',note:'1939年木板長屋、氈屋頂，附1942年磚造延伸部分。',url:'https://historicengland.org.uk/listing/the-list/list-entry/1391793'},
+    {id:'appleby',nm:'阿普爾比市政廳',en:'Appleby Moot Hall',shape:'white-hall-bellcote-stair',note:'白色抹灰石牆、陡板岩頂、六角鐘亭與外石階。',url:'https://historicengland.org.uk/listing/the-list/list-entry/1145607'},
+    {id:'kew',nm:'邱宮荷蘭屋',en:'Kew Palace',shape:'three-dutch-curved-gables',note:'1631年磚造小宮殿：三個荷蘭式山牆與緊湊對稱窗列。',url:'https://www.hrp.org.uk/kew-palace/history-and-stories/the-story-of-kew-palace/'},
+    {id:'orford',nm:'奧福德城堡主塔',en:'Orford Castle Keep',shape:'polygon-keep-three-turrets',note:'12世紀多邊形主塔，三座外凸方塔與外台階。',url:'https://historicengland.org.uk/listing/the-list/list-entry/1014860'},
+    {id:'delawarr',nm:'德拉沃展亭',en:'De La Warr Pavilion',shape:'modern-balcony-glazed-rotunda',note:'1935年現代主義：水平樓體、懸挑露台與玻璃樓梯體。',url:'https://www.dlwp.com/about-us/our-heritage/'},
+    {id:'rievaulx',nm:'里沃修道院遺址',en:'Rievaulx Abbey',shape:'roofless-pointed-arcade',note:'修道院石造遺址：無頂尖拱列、破牆、分層窗與庭院基址。',url:'https://www.english-heritage.org.uk/visit/places/rievaulx-abbey/history-and-stories/history/description/'}
+  ].map((r,i)=>Object.freeze({...r,v:100+i*4})));
+  function context(row,view){
+    const H=root.BritishUseScalesKit021.create({sz:2,w:160,h:196},view),{S,K,P,C,dark}=H;
+    // The unchanged primitive box takes world-y / world-x material slots. Only
+    // THIS fresh scene's explicit two-tone boxes swap slots on odd camera views;
+    // camera-aware walls/roofs and horizontal tops retain their original material.
+    const rawBox=S.box;S.box=function(x0,x1,y0,y1,z0,z1,front,side,top){return(view&1)&&side!==undefined?rawBox(x0,x1,y0,y1,z0,z1,side,front,top===undefined?front:top):rawBox(x0,x1,y0,y1,z0,z1,front,side,top);};
+    const T={cream:C('ddd5bd'),creamR:C('aaa691'),creamHi:C('eee5ce'),oak:C('514c40'),oakR:C('353b35'),tile:C('846250'),tileR:C('604f46'),felt:C('45584e'),feltR:C('34433e')};
+    if(!root.__heritage024GeometryOnly){S.box(.7,31.3,.7,31.3,0,.42,P.pave,P.paveR,P.pave);S.flat(.7,31.3,.7,31.3,.43,K.paving);}
+    function mat(kind,nx,ny){
+      const d=dark(nx,ny);
+      if(kind==='stone')return K.ashlar(d,2424);
+      if(kind==='brick')return K.brick(d,2425);
+      if(kind==='timber')return(x,y,z)=>K.mod(z,1.5)<.12?(d?P.greenD:P.green):(d?P.green:P.greenHi);
+      return(x,y,z)=>K.hash(Math.floor(x*2),Math.floor(z*2),2401)%37===0?(d?P.stoneD:T.creamHi):(d?T.creamR:T.cream);
+    }
+    function volume(x0,x1,y0,y1,z0,z1,kind){
+      kind=kind||'brick';
+      S.wall([x0,y1],[x1,y1],z0,z1,mat(kind,0,1));S.wall([x1,y0],[x0,y0],z0,z1,mat(kind,0,-1));
+      S.wall([x1,y1],[x1,y0],z0,z1,mat(kind,1,0));S.wall([x0,y0],[x0,y1],z0,z1,mat(kind,-1,0));
+      S.flat(x0,x1,y0,y1,z1,P.stoneD);
+      return{front:Object.assign(S.face([x0,y1],[x1,y1],0,1),{nx:0,ny:1}),back:Object.assign(S.face([x1,y0],[x0,y0],0,-1),{nx:0,ny:-1}),left:Object.assign(S.face([x0,y0],[x0,y1],-1,0),{nx:-1,ny:0}),right:Object.assign(S.face([x1,y1],[x1,y0],1,0),{nx:1,ny:0})};
+    }
+    function band(x0,x1,y0,y1,z){S.box(x0-.18,x1+.18,y0-.18,y1+.18,z,z+.6,P.stone,P.stoneR,P.stoneHi);}
+    function roof(x0,x1,y0,y1,z,rise,axis,kind,roofMat){
+      const cx=(x0+x1)/2,cy=(y0+y1)/2,col=(nx,ny)=>roofMat? (dark(nx,ny)?T.feltR:T.felt):K.slate(dark(nx,ny));
+      if(axis!=='y'){
+        S.poly([[x0,y0,z],[x1,y0,z],[x1,cy,z+rise],[x0,cy,z+rise]],col(0,-1));S.poly([[x0,y1,z],[x0,cy,z+rise],[x1,cy,z+rise],[x1,y1,z]],col(0,1));
+        S.poly([[x0,y0,z],[x0,y1,z],[x0,cy,z+rise]],mat(kind||'brick',-1,0));S.poly([[x1,y0,z],[x1,cy,z+rise],[x1,y1,z]],mat(kind||'brick',1,0));S.beam([x0,cy,z+rise],[x1,cy,z+rise],P.lead,.4);
+      }else{
+        S.poly([[x0,y0,z],[cx,y0,z+rise],[cx,y1,z+rise],[x0,y1,z]],col(-1,0));S.poly([[x1,y0,z],[x1,y1,z],[cx,y1,z+rise],[cx,y0,z+rise]],col(1,0));
+        S.poly([[x0,y0,z],[cx,y0,z+rise],[x1,y0,z]],mat(kind||'brick',0,-1));S.poly([[x0,y1,z],[x1,y1,z],[cx,y1,z+rise]],mat(kind||'brick',0,1));S.beam([cx,y0,z+rise],[cx,y1,z+rise],P.lead,.4);
+      }
+      for(const x of[x0,x1])S.beam([x,y0,z],[x,y1,z],P.ironD,.3);for(const y of[y0,y1])S.beam([x0,y,z],[x1,y,z],P.ironD,.3);
+    }
+    function glass(F,u,z,w,h,lit,wood){
+      F.panel(u-.3,u+w+.3,z-.3,z+h+.35,wood?T.oak:P.stoneR,.13);
+      F.panel(u,u+w,z,z+h,(a,b)=>{
+        if(a<.22||a>w-.22||b<.25||b>h-.25||Math.abs(a-w/2)<.14||Math.abs(b-h/2)<.15)return wood?T.cream:P.frame;
+        if(wood&&K.mod(a+b,2.1)<.16)return P.frameR;
+        const c=dark(F.nx??0,F.ny??1)?P.glassR:P.glass;return lit?[c,P.warm]:c;
+      },.19);F.block(u-.4,u+w+.4,0,.5,z-.6,z-.25,P.stone,P.stoneR,P.stoneHi);
+    }
+    function windows(F,floors,bays,z0,step,w,h,wood){for(let f=0;f<floors;f++)for(let b=0;b<bays;b++)glass(F,F.length*(b+.5)/bays-w/2,z0+f*step,w,h,true,wood);}
+    function pointed(F,u,z,w,h,lit){
+      const a=[[u,z],[u+w,z],[u+w,z+h*.63],[u+w/2,z+h],[u,z+h*.63]],b=[[u+.45,z+.5],[u+w-.45,z+.5],[u+w-.45,z+h*.60],[u+w/2,z+h-.7],[u+.45,z+h*.60]];
+      S.poly(a.map(p=>F.point(p[0],.15,p[1])),P.stoneHi,.035);S.poly(b.map(p=>F.point(p[0],.22,p[1])),lit?[P.glassR,P.warm]:P.glassR,.04);F.panel(u+w/2-.12,u+w/2+.12,z+.5,z+h-.8,P.stone,.28);
+    }
+    function timber(x0,x1,y0,y1,z0,z1){
+      const f=volume(x0,x1,y0,y1,z0,z1,'plaster');
+      for(const F of Object.values(f)){
+        for(let u=.3;u<F.length;u+=4.3){S.beam(F.point(u,.26,z0),F.point(u,.26,z1),T.oak,.5);for(let z=z0;z+7<z1;z+=8.4)S.beam(F.point(u,.27,z+.6),F.point(Math.min(u+4,F.length-.2),.27,z+7.7),T.oak,.29);}
+        for(let z=z0;z<=z1;z+=8.4)S.beam(F.point(0,.28,z),F.point(F.length,.28,z),T.oak,.52);
+      }return f;
+    }
+    function round(x,y,z0,z1,r0,r1,kind,lit,n){
+      n=n||12;const cap=[];
+      for(let i=0;i<n;i++){const a=i*2*Math.PI/n,b=(i+1)*2*Math.PI/n,nn=(a+b)/2,c=lit?[dark(Math.cos(nn),Math.sin(nn))?P.glassR:P.glass,P.warm]:mat(kind||'stone',Math.cos(nn),Math.sin(nn));
+        S.poly([[x+Math.cos(a)*r0,y+Math.sin(a)*r0,z0],[x+Math.cos(b)*r0,y+Math.sin(b)*r0,z0],[x+Math.cos(b)*r1,y+Math.sin(b)*r1,z1],[x+Math.cos(a)*r1,y+Math.sin(a)*r1,z1]],c);cap.push([x+Math.cos(a)*r1,y+Math.sin(a)*r1,z1]);
+      }S.poly(cap,P.stoneHi);
+    }
+    function steps(x0,x1,y0,y1,rise,n){for(let i=0;i<n;i++){const a=y0+(y1-y0)*i/n;S.box(x0,x1,a,y1,0,rise*(i+1)/n,P.stone,P.stoneR,P.stoneHi);}}
+    function lamps(){K.lantern(S,3.3,28.6,5.3,true);K.lantern(S,28.7,28.6,5.3,true);}
+    function finish(){if(!root.__heritage024GeometryOnly)lamps();return S.finish({id:row.id,design:row.shape,features:row.shape,heritageName:row.nm,lightPolicy:'opaque-physical-glazing-and-display-lanterns-only',smoke:[],__heritage024:1});}
+    return{...H,S,K,P,T,C,mat,volume,band,roof,glass,windows,pointed,timber,round,steps,finish};
+  }
+
+  function lavenham(row,v){const A=context(row,v),{S,P,T,volume,timber,roof,windows,glass}=A;
+    volume(4,28,9,22,.45,2.1,'stone');const lower=timber(4,28,9,22,2.1,12),upper=timber(3.5,28.5,8.5,22.5,12,26.5);
+    roof(3.1,28.9,8.1,22.9,27,8,'x','plaster');windows(lower.front,1,5,4,8,2.4,5.2,true);windows(upper.front,1,6,16,8,2.4,7.1,true);windows(upper.right,1,3,16,8,2,7,true);windows(upper.back,1,6,16,8,2.4,7.1,true);
+    for(const F of[lower.front,upper.front])S.beam(F.point(0,.48,12),F.point(F.length,.48,12),T.oak,.7);
+    for(const x of[13,18])S.box(x-.3,x+.3,22,26.1,.45,9,T.oak,T.oakR,T.oak);roof(12.4,18.6,22.1,26.4,9,3,'x','plaster');A.K.timberDoor(lower.front,10.5,2.4,3,8,true);glass(upper.left,4,17,3,6,true,true);A.band(4,28,9,22,1.7);return A.finish();}
+
+  function moreton(row,v){const A=context(row,v),{S,P,timber,roof,windows,glass}=A;
+    const back=timber(3.2,28.8,5.4,11.5,.45,30),left=timber(3.2,9.3,11.5,26,.45,22),right=timber(22.7,28.8,11.5,26,.45,24);
+    roof(2.9,29.1,5.1,11.8,30.5,7,'x','plaster');roof(2.9,9.6,11.3,26.3,22.5,6,'y','plaster');roof(22.4,29.1,11.3,26.3,24.5,6.7,'y','plaster');
+    windows(back.front,2,6,5,10,2.5,6.2,true);windows(back.front,1,9,23,9,1.8,5.7,true);windows(back.back,3,8,4,8.9,2,5.8,true);windows(left.left,2,4,4,9,2.3,6,true);windows(right.right,2,4,4,9,2.3,6,true);
+    const bay=timber(12.5,18.7,11.5,13.8,14,23);for(const F of Object.values(bay))glass(F,.6,16,F.length-1.2,5.5,true,true);roof(12.1,19.1,11.2,14.1,23.3,3,'x','plaster');
+    const porch=timber(22.7,28.8,26,28.3,.45,10);A.K.timberDoor(porch.front,1.8,.7,2.4,7.8,true);roof(22.5,29,25.8,28.5,10,3,'x','plaster');S.flat(10.5,21.5,14,25,.48,P.paveHi);A.K.bench(S,13.5,24.5,5,false);return A.finish();}
+
+  function coxwell(row,v){const A=context(row,v),{S,P,volume,roof}=A;const f=volume(5.4,26.6,8,22.5,.45,18.5,'stone');roof(4.9,27.1,7.5,23,19,14,'x','stone');
+    const porch=volume(12,20,22.5,28,.45,12.5,'stone');roof(11.6,20.4,22.2,28.4,13,8,'y','stone');A.loading(porch.front,1.6,4.8,10.8);
+    for(const x of[6.8,11,16,21,25.2])S.box(x-.65,x+.65,22.4,24.2,.45,12.2,P.stone,P.stoneR,P.stoneHi);
+    for(const F of[f.back,f.left,f.right])for(let u=2;u<F.length-1;u+=4)F.panel(u,u+.6,11,14,P.ink,.09);A.K.timberDoor(f.left,5,.6,4,10,false);return A.finish();}
+
+  function rushton(row,v){const A=context(row,v),{S,P,mat,pointed}=A,poly=[[4.5,25.5],[27.5,25.5],[16,5.6]],center=[16,18.9];
+    for(let i=0;i<3;i++){const a=poly[i],b=poly[(i+1)%3],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),nx=-dy/len,ny=dx/len,F=S.face(a,b,nx,ny);
+      S.wall(a,b,.45,41,mat('stone',nx,ny));for(const z of[12.5,25.7,38.8])S.wall(a,b,z,z+1.5,P.stoneD,.03);
+      for(let level=0;level<3;level++)for(const u of[3.3,len/2-1.7,len-6.7])pointed(F,u,3.3+level*12.8,3.4,7,true);
+      S.poly([F.point(0,0,41),F.point(len,0,41),F.point(len/2,0,49)],mat('stone',nx,ny));S.poly([[a[0],a[1],41],[b[0],b[1],41],[center[0],center[1],48]],A.K.slate(A.dark(nx,ny)));
+      S.beam(F.point(0,.18,41),F.point(len/2,.18,49),P.stoneHi,.55);S.beam(F.point(len,.18,41),F.point(len/2,.18,49),P.stoneHi,.55);
+    }S.poly(poly.map(p=>[...p,41]),P.stoneD);return A.finish();}
+
+  function dunmore(row,v){const A=context(row,v),{S,P,volume,round}=A;const f=volume(4,28,12,21,.45,10,'stone');A.band(3.8,28.2,11.8,21.2,10);S.flat(3.8,28.2,11.8,21.2,11,P.slateR);
+    for(const F of[f.front,f.back])for(const u of[2.4,8,14,20])A.pointed(F,u,1.5,3,7,true);round(16,16,10.5,19.5,5.1,5.1,'stone',false,12);
+    for(const F of Object.values(f))for(let u=1;u<F.length;u+=5)F.block(u,u+.65,0,.5,.6,9.9,P.stoneHi,P.stoneR,P.stoneHi);
+    const rings=[[19.5,4.9],[23,6.5],[27,6.6],[31,5.4],[34.8,3.4],[36,1.7]];for(let i=0;i<rings.length-1;i++)round(16,16,rings[i][0],rings[i+1][0],rings[i][1],rings[i+1][1],'stone',false,16);
+    for(let r=1;r<rings.length-1;r++)for(let i=0;i<16;i++){const a=i*Math.PI/8,b=(i+.5)*Math.PI/8,z=rings[r][0],rr=rings[r][1]+.07;S.beam([16+Math.cos(a)*rr,16+Math.sin(a)*rr,z-2],[16+Math.cos(b)*rr,16+Math.sin(b)*rr,z+1.3],P.stoneD,.2);}
+    for(let i=0;i<10;i++){const a=i*Math.PI/5,rr=4.2;S.poly([[16,16,35],[16+Math.cos(a-.2)*rr,16+Math.sin(a-.2)*rr,37],[16+Math.cos(a)*2.6,16+Math.sin(a)*2.6,45.5],[16+Math.cos(a+.2)*rr,16+Math.sin(a+.2)*rr,37]],P.stoneHi);}
+    for(const x of[4.5,27.5])S.box(x-.35,x+.35,4,11,.45,4,P.stone,P.stoneR,P.stoneHi);return A.finish();}
+
+  function dulwich(row,v){const A=context(row,v),{S,P,volume}=A;const f=volume(3.5,28.5,13,23,.45,14,'brick');A.band(3.5,28.5,13,23,14);S.flat(3.3,28.7,12.8,23.2,15,P.slateR);
+    for(let i=0;i<5;i++){const x=5+i*4.7;const q=volume(x,x+3.3,16.2,19.5,15,18,'plaster');for(const F of[q.front,q.back,q.left,q.right])A.glass(F,.35,15.7,F.length-.7,1.5,true,false);A.roof(x-.2,x+3.5,16,19.7,18,1.7,'x','plaster');}
+    const tomb=volume(11.2,20.8,4.3,13,.45,21,'brick');A.band(11.2,20.8,4.3,13,20.4);A.round(16,8.7,21,23.5,3.6,2.6,'stone',false,12);A.round(16,8.7,23.5,26.8,2.6,.8,'stone',false,12);
+    for(const u of[1.5,7.2,12.9,18.6])A.pointed(f.front,u,2,3.5,8,true);A.K.timberDoor(tomb.back,3,.7,3.2,8,false);for(const u of[1.4,6.5])A.pointed(tomb.left,u,6,2.2,8,true);return A.finish();}
+
+  function flaxmill(row,v){const A=context(row,v),{S,P,volume,roof}=A;const f=volume(4,25.5,8,22.5,.45,53,'brick');roof(3.6,25.9,7.6,22.9,53.5,8.5,'x','brick');
+    A.windows(f.front,5,7,3.4,9.8,1.8,5.8,false);A.windows(f.back,5,7,3.4,9.8,1.8,5.8,false);A.windows(f.left,5,4,3.4,9.8,1.8,5.8,false);A.windows(f.right,5,4,3.4,9.8,1.8,5.8,false);
+    for(const z of[12,22,32,42])A.band(4,25.5,8,22.5,z);const tower=volume(25.5,29,9,14,.45,65,'timber');roof(25.1,29.4,8.6,14.4,65.4,4.5,'y','timber');A.windows(tower.front,5,1,7,10.8,1.8,4,false);A.loading(f.front,18,4.6,8);A.crates(19,26.2,3);S.box(3,8,25,28.5,.45,2,P.stone,P.stoneR,P.stoneHi);return A.finish();}
+
+  function settle(row,v){const A=context(row,v),{S,P,T,volume}=A;const base=volume(10,24,11.5,20,.45,10,'brick'),cab=volume(9.4,24.6,10.9,20.6,10,23,'timber');
+    for(const F of Object.values(cab))A.windows(F,1,F.length>10?4:3,12.4,10,2.7,7.8,false);A.hip(9,25,10.5,21,23.5,5,'x');A.steps(5.8,9,12,26,10,9);
+    S.box(5.5,10,11.2,13,9.7,10.3,T.oak,T.oakR,T.oak);for(const x of[5.7,8.9]){S.beam([x,25.4,1.6],[x,12,12],T.oak,.25);for(let i=0;i<8;i++){const y=25.4-i*1.7;S.beam([x,y,1.6+i*1.3],[x,y,3.1+i*1.3],T.oak,.21);}}
+    A.K.timberDoor(base.front,5,.7,3,7,true);for(const y of[28.2,29.3])S.beam([5,y,.65],[27,y,.65],P.ironD,.3);for(let x=5;x<28;x+=2)S.box(x,x+.6,27.8,29.7,.45,.7,P.wood,P.woodR,P.wood);return A.finish();}
+
+  function beamish(row,v){const A=context(row,v),{S,P,T,volume,roof}=A;const engine=volume(3.5,14.5,6.5,18,.45,31,'stone');roof(3.1,14.9,6.1,18.4,31.5,8,'y','stone');A.windows(engine.left,2,2,5,13,2.5,7,false);A.pointed(engine.front,3,5,4,12,true);
+    for(const x of[19,27.5])for(const y of[13.5,24]){S.box(x-.55,x+.55,y-.55,y+.55,.45,26,P.woodR,P.woodD,P.wood);S.beam([x,y,3],[x===19?27.5:19,y,16],T.oak,.5);}
+    S.box(18.4,28.1,13,24.6,14.5,15.5,P.wood,P.woodR,P.woodHi);A.fence(18.5,24.6,28,24.6,17);roof(18.1,28.4,12.6,24.8,26.5,4,'y','timber');
+    for(const x of[20.2,25.8])S.beam([x,17,27],[23,17,36],T.oak,.7);S.beam([19.9,17,31],[26.1,17,31],P.woodHi,.55);A.round(23,17,35,36.6,1.8,1.8,'timber',false,10);
+    for(const y of[27.1,28.5])S.beam([15,y,.7],[27,y,.7],P.ironD,.25);for(let x=15;x<28;x+=2)S.box(x,x+.5,26.8,28.8,.45,.65,P.wood,P.woodR,P.wood);
+    S.box(17,20.8,26.8,28.9,1.4,3.9,P.ironHi,P.ironD,P.ink);for(const x of[17.4,20.3])for(const y of[26.7,29])A.round(x,y,.5,1.5,.45,.45,'timber',false,6);return A.finish();}
+
+  function bletchley(row,v){const A=context(row,v),{S,P,volume,roof}=A;const hut=volume(3.6,28.4,12.6,22.6,.45,11.5,'timber');roof(3.2,28.8,12.2,23,12,4,'x','timber','felt');
+    A.windows(hut.front,1,7,4,8,1.9,4.8,false);A.windows(hut.back,1,7,4,8,1.9,4.8,false);A.K.timberDoor(hut.right,3,.7,2.4,7.8,true);
+    const annex=volume(3.6,12.3,6.5,12.6,.45,11.5,'brick');roof(3.2,12.7,6.1,13,12,4,'x','brick','felt');A.windows(annex.back,1,3,4,8,1.8,4.8,false);A.loading(annex.left,1.5,3.1,7.8);
+    for(const x of[4.2,27.8])A.K.rainpipe(S,x,22.9,11.7);A.fence(3.4,25.8,13,25.8,2.5);S.flat(14,26,24.6,26,.5,P.paveR);return A.finish();}
+
+  function appleby(row,v){const A=context(row,v),{S,P,T,volume,roof}=A;const f=volume(7.8,26.2,7.5,22.8,.45,27,'plaster');roof(7.3,26.7,7,23.3,27.5,11,'x','plaster');
+    for(const F of[f.front,f.back]){A.windows(F,1,4,16,12,2.8,6.5,false);for(const u of[1.8,7.7,13.2])A.K.timberDoor(F,u,.7,3,9,true);}
+    A.round(17,15.2,38.5,43.5,1.7,1.7,'plaster',false,6);A.round(17,15.2,43.5,46.6,2.1,.1,'stone',false,6);for(const x of[16.1,17.9])S.beam([x,15.2,39],[x,15.2,43],T.oak,.22);
+    A.steps(3.6,7.7,12,25.5,14,10);S.box(3.2,7.8,10.4,12.4,13.5,14.2,P.stone,P.stoneR,P.stoneHi);
+    for(let i=0;i<10;i++){const a=Math.PI*.02+i*Math.PI/10,b=a+Math.PI/10;S.wall([8+Math.cos(a)*5,21+Math.sin(a)*5],[8+Math.cos(b)*5,21+Math.sin(b)*5],.45,3.5,P.stone);}
+    for(const z of[13.9,27])for(const F of Object.values(f))S.beam(F.point(0,.22,z),F.point(F.length,.22,z),T.oak,.42);A.glass(f.right,5,16,3.3,6.4,true,false);return A.finish();}
+
+  function kew(row,v){const A=context(row,v),{S,P,volume,roof}=A;const f=volume(4.8,28,7.5,23,.45,33.5,'brick');A.windows(f.front,3,7,3.5,10,2,6.2,false);A.windows(f.back,3,7,3.5,10,2,6.2,false);A.windows(f.left,3,4,3.5,10,2,6.2,false);A.windows(f.right,3,4,3.5,10,2,6.2,false);
+    for(let i=0;i<3;i++){const x0=5+i*7.55,x1=x0+7.1;roof(x0,x1,7.2,23.2,34,10,'y','brick');const F=S.face([x0,23.4],[x1,23.4],0,1),w=x1-x0;
+      const pp=[[0,34],[w,34],[w-.2,37],[w-1.1,39],[w-1.9,39.2],[w-1.8,42],[w/2+.75,43.4],[w/2,45],[w/2-.75,43.4],[1.8,42],[1.9,39.2],[1.1,39],[.2,37]];
+      S.poly(pp.map(p=>F.point(p[0],.08,p[1])),A.mat('brick',0,1));for(let j=0;j<pp.length-1;j++)S.beam(F.point(pp[j][0],.14,pp[j][1]),F.point(pp[j+1][0],.14,pp[j+1][1]),P.stoneHi,.4);A.glass(F,w/2-1,36.2,2,4.8,true,false);
+    }A.steps(13,19,23.3,27.5,2.2,4);A.K.timberDoor(f.front,10.2,2.4,3.4,8.4,true);for(const z of[13,23,33])A.band(4.8,28,7.5,23,z);for(const x of[7,25.6])A.chimney(x,10.1,40,2);return A.finish();}
+
+  function orford(row,v){const A=context(row,v),{S,P,mat}=A,cx=16,cy=15.7,r=8.2,n=18;
+    const outer=[];for(let i=0;i<n;i++){const a=i*2*Math.PI/n,b=(i+1)*2*Math.PI/n,p=[cx+Math.cos(a)*r,cy+Math.sin(a)*r],q=[cx+Math.cos(b)*r,cy+Math.sin(b)*r],nx=Math.cos((a+b)/2),ny=Math.sin((a+b)/2),F=S.face(p,q,nx,ny);S.wall(p,q,.45,45,mat('stone',nx,ny));outer.push([...p,44.8]);if(i%3===0)for(const z of[12,27])A.pointed(F,.8,z,1.3,5,true);S.wall(p,q,45,47,P.stoneR);S.box(p[0]-.55,p[0]+.55,p[1]-.55,p[1]+.55,47,49,P.stone,P.stoneR,P.stoneHi);}
+    S.poly(outer,P.slateD);for(const a of[Math.PI,Math.PI*1.5,Math.PI*.22]){const x=cx+Math.cos(a)*9,y=cy+Math.sin(a)*9,f=A.volume(x-2.5,x+2.5,y-2.5,y+2.5,.45,52,'stone');for(const F of Object.values(f))A.pointed(F,1.6,32,1.8,5,true);A.band(x-2.6,x+2.6,y-2.6,y+2.6,52);S.flat(x-2.3,x+2.3,y-2.3,y+2.3,52.6,P.slateD);for(const xx of[x-2.5,x+2.5])for(const yy of[y-2.5,y+2.5])S.box(xx-.5,xx+.5,yy-.5,yy+.5,52.6,55,P.stone,P.stoneR,P.stoneHi);}
+    const fore=A.volume(8.8,13.5,23,26,.45,10,'stone');A.steps(8.8,13.5,26,29.5,10,9);A.K.timberDoor(fore.front,1,9,2.7,6,false);return A.finish();}
+
+  function delawarr(row,v){const A=context(row,v),{S,P,T,volume}=A;const f=volume(3.8,25.5,7.5,19,.45,25,'plaster');for(const F of[f.front,f.back,f.left])A.windows(F,2,F.length>15?6:3,3.5,12,3,7.6,false);
+    for(const z of[12,25])S.box(3.1,26.2,7.2,22,z,z+.65,T.creamHi,T.creamR,T.creamHi);for(const x of[5,10,15,20])S.box(x-.25,x+.25,21.4,21.9,.45,12,T.cream,T.creamR,T.creamHi);
+    A.round(25.3,20,1,28,4.7,4.7,'plaster',true,16);for(let i=0;i<16;i++){const a=i*Math.PI/8,x=25.3+Math.cos(a)*4.77,y=20+Math.sin(a)*4.77;S.beam([x,y,1],[x,y,28],P.frame,.3);}for(const z of[1,12,24,28])A.round(25.3,20,z,z+.6,5,5,'plaster',false,16);
+    for(const z of[14,27]){S.beam([3.3,22,z],[24,22,z],P.ironD,.16);for(let x=3.5;x<24;x+=2)S.beam([x,22,z-1.4],[x,22,z],P.ironD,.12);}
+    for(let i=0;i<9;i++){const a=i*Math.PI/6;S.box(24+Math.cos(a)*2-.55,24+Math.cos(a)*2+.55,20+Math.sin(a)*2-.55,20+Math.sin(a)*2+.55,2+i*1.5,2.6+i*1.5,T.cream,T.creamR,T.creamHi);}A.steps(6,17,22.2,26,1.4,3);return A.finish();}
+
+  function rievaulx(row,v){const A=context(row,v),{S,P,mat}=A;
+    function arcade(a,b,nx,ny,count,z,height){const F=S.face(a,b,nx,ny),unit=F.length/count;
+      for(let i=0;i<=count;i++)F.block(i*unit-.7,i*unit+.7,0,.85,.45,z+height*.63,mat('stone',nx,ny),P.stoneR,P.stoneHi);
+      for(let i=0;i<count;i++){const u=i*unit+.8,w=unit-1.6,profile=[[0,height*.62],[w*.18,height*.82],[w/2,height],[w*.82,height*.82],[w,height*.62]];
+        for(let j=0;j<profile.length-1;j++){const p=profile[j],q=profile[j+1];S.poly([F.point(u+p[0],.1,z+p[1]),F.point(u+q[0],.1,z+q[1]),F.point(u+q[0],.1,z+q[1]+1),F.point(u+p[0],.1,z+p[1]+1)],P.stoneHi);S.poly([F.point(u+p[0],-.5,z+p[1]),F.point(u+q[0],-.5,z+q[1]),F.point(u+q[0],.1,z+q[1]),F.point(u+p[0],.1,z+p[1])],P.stoneR);}
+      }return F;
+    }
+    arcade([8,27],[8,5],-1,0,4,10,13);arcade([24,5],[24,22],1,0,3,10,13);arcade([8,5],[24,5],0,-1,3,19,19);
+    for(const x of[8,24])for(const y of[6.5,13.5,20.5])S.box(x-.8,x+.8,y-.6,y+.6,.45,30+(y<10?7:0),P.stone,P.stoneR,P.stoneHi);
+    for(const [x0,x1,y0,y1,h]of[[5.5,7.8,5,11,14],[24.2,26.5,5,14,20],[9,22,4.2,5,8],[6,13,26,27,2],[18,26,24,25.3,3]])A.volume(x0,x1,y0,y1,.45,h,'stone');
+    S.flat(11.5,20.5,10,25,.46,P.paveR);S.flat(9,23,10,11.6,.48,P.stoneD);for(const x of[11.5,20.5])S.box(x-.3,x+.3,12,25,.45,.9,P.stone,P.stoneR,P.stoneHi);return A.finish();}
+
+  const AUTHORS=Object.freeze([lavenham,moreton,coxwell,rushton,dunmore,dulwich,flaxmill,settle,beamish,bletchley,appleby,kew,orford,delawarr,rievaulx]);
+  function buildAll(){return ROWS.flatMap((row,i)=>[0,1,2,3].map(view=>({row,view,sprite:AUTHORS[i](row,view)})));}
+  root.BritishHeritageArchitecture024=Object.freeze({rows:ROWS,buildAll,build:(id,view)=>{const i=ROWS.findIndex(r=>r.id===id);if(i<0)throw Error('Unknown heritage form');if(!Number.isInteger(view)||view<0||view>3)throw Error('Four views required');return AUTHORS[i](ROWS[i],view);}});
+})(typeof window==='undefined'?globalThis:window);
+</script>
+<!-- GPT-024 PURE ART END -->
 <!-- GPT-021 PURE ART START -->
 <style id="useScalesStyle021">
 #useScalesDialog021{color:#eee8d9;background:#272e2b;border:1px solid #877957;border-radius:12px;padding:20px;width:min(940px,calc(100% - 24px));max-width:calc(100% - 24px);max-height:calc(100dvh - 32px);box-sizing:border-box;overflow:auto;font:inherit}#useScalesDialog021::backdrop{background:#101816b8}#useScalesDialog021 header{display:flex;align-items:center;justify-content:space-between;gap:12px}#useScalesDialog021 h2{font-size:20px;margin:0}#useScalesDialog021 h3{margin:18px 0 8px;font-size:16px}#useScalesDialog021 p{line-height:1.6;color:#c9c6b7}#useScalesDialog021 button{font:inherit;color:inherit;background:#35403a;border:1px solid #617062;border-radius:8px;cursor:pointer}#useScalesClose021{min-width:44px;min-height:44px}.useScalesTrio021{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.useScalesTrio021 button{text-align:left;padding:12px;display:flex;flex-direction:column;gap:7px;min-width:0;min-height:118px}.useScalesTrio021 button:hover{border-color:#d9bf78}.useScalesTrio021 span{font-size:12px;color:#dbd5c4}.useScalesTrio021 small{font-size:11px;line-height:1.45;color:#b8c5b7}.useScalesTrio021>div{display:flex;flex-direction:column;gap:6px}.useScalesAxis021{font-size:12px;display:flex;align-items:center;gap:8px}.useScalesAxis021 select{font:inherit;color:inherit;background:#35403a;border:1px solid #617062;border-radius:6px;min-height:44px;max-width:100%;padding:4px}#useScalesSelected021{font-size:11px;padding:5px 8px;white-space:nowrap;color:#ddc890}#useScalesDialog021 button:focus-visible{outline:2px solid #e3c776;outline-offset:3px}@media(max-width:600px){#useScalesDialog021{padding:14px}.useScalesTrio021{grid-template-columns:1fr}.useScalesTrio021 button{min-height:98px}}
@@ -61019,8 +61227,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.42'; // T738 效能③：夜間建築影子與水面倒影改畫快取黑剪影，不再逐格跑畫布濾鏡（業主選 A：允許最大差 2 色階）。前：T736 紅燈收拾②：拿掉三個必定 404 的 PWA 請求（manifest.json、icon.svg、sw.js）。前：T735 效能②：開機兩個共用熱點加速（outlineSprite、makeIso575().hard，像素不變）。前：T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T747'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.43'; // T738 效能③：夜間建築影子與水面倒影改畫快取黑剪影，不再逐格跑畫布濾鏡（業主選 A：允許最大差 2 色階）。前：T736 紅燈收拾②：拿掉三個必定 404 的 PWA 請求（manifest.json、icon.svg、sw.js）。前：T735 效能②：開機兩個共用熱點加速（outlineSprite、makeIso575().hard，像素不變）。前：T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T748'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -63886,7 +64094,7 @@ async function bootstrap453(){
     runVariants574();         // T574：117 個單一樣式分類的變體，必須在所有重建資產的 pass 之後
     applyT573Silhouette();    // T573：剪影光影後製，移到變體之後，新變體才吃得到（不可跑兩次）
     installBritishArt004();
-    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012();installTheatreArt013();installComplexArt014();installStreetscapeArt015();installGardenLifeArt016();installQuaysideArt017();installWaterfrontArt018();installQuarterArt019(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
+    installHighStreetArt005();installResidentialArt006();installPublicLifeArt007();installStationArt008();installStreetLifeArt009();installMuseumArt010();installRiversideArt012();installTheatreArt013();installComplexArt014();installStreetscapeArt015();installGardenLifeArt016();installQuaysideArt017();installWaterfrontArt018();installQuarterArt019();installHeritage024(); // GPT-004: preserve selected day/night pixels after global silhouette post-process
     await bootCheckpoint453(97,'整理工具與介面…','night');buildToolbar();resize();
     await bootCheckpoint453(99,'點亮主選單…','night');drawLogo();startTitleAnim();
     bootSet453(100,'微光小鎮準備完成','night');bootState453.ready=true;window.__bootDone453=true;await bootPaint453();   // T539：boot 完成旗標——量測工具必須等到這裡，否則會漏掉 T464…T480/T539 這串後置 pass
@@ -104207,6 +104415,77 @@ window.GV.useScales021={rows:()=>USE021_ROWS.map(q=>({...q})),select:use021Selec
   profileSave:use021Save,profileLoad:use021Load,upgrade:upgradeBld,activate:activateTool434,smoke:smokeViewSrc626,bubble:bubbleFor607,partition:()=>part639(),world:()=>({n:N,day,money}),farmState:use021FarmState};
 
 /* GPT-021 RUNTIME END */
+/* GPT-024 RUNTIME START: only new native k24 visual variants and selection UI. */
+const HERITAGE024=window.BritishHeritageArchitecture024.rows;
+let heritageCanonical024=null,heritageSelection024=null;
+function heritageRow024(b){return b&&b.k===24&&Number.isInteger(b.v)&&b.v>=100&&b.v<160?HERITAGE024[Math.floor((b.v-100)/4)]:null;}
+function heritageView024(b){const q=heritageRow024(b);return q?q.v+((b.v-q.v+viewRotEff())&3):null;}
+function installHeritage024(){
+  if(!heritageCanonical024){
+    const entries=window.BritishHeritageArchitecture024.buildAll(),cache={};
+    if(entries.length!==60)throw Error('heritage024 count: exactly sixty authored views');
+    for(const {row,view,sprite:s} of entries){const v=row.v+view,key='24_1_'+v;if(cache[key]||SPR.bld[key]||!s?.img||!s?.night||s.w!==160||s.h!==196||s.ax!==80||s.ay!==194||s.sz!==2||s.view!==view)throw Error('heritage024 identity: '+key);
+      cache[key]={...s,__t479:1,__t547:{k:24,lv:1,v,bw:2,bh:2}};
+    }heritageCanonical024=cache;
+  }
+  Object.assign(SPR.bld,heritageCanonical024);
+}
+const __heritageVdraw024=vdraw574;vdraw574=function(o,b){const q=heritageRow024(b);return q?(window.__noHeritage024?0:heritageView024(b)):__heritageVdraw024(o,b);};
+const __heritagePlace024=doPlace;doPlace=function(id,x,y,silent){
+  const q=id==='landmark'&&heritageSelection024&&HERITAGE024.find(r=>r.id===heritageSelection024);
+  if(q&&window.__noHeritage024){if(!silent)toast('歷史地標外觀暫停新增','bad');return false;}
+  const ok=__heritagePlace024(id,x,y,silent);
+  if(ok&&q){const b=T(idx(x,y))?.bld;if(b&&!b.ref&&b.k===24)b.v=q.v;}
+  return ok;
+};
+const __heritageActivate024=activateTool434;activateTool434=function(id,recent){heritageSelection024=null;return __heritageActivate024(id,recent);};
+const __heritageLoad024=load;load=function(slot){const ok=__heritageLoad024(slot);if(ok)heritageSelection024=null;return ok;};
+const __heritageWorld024=newWorld;newWorld=function(seed){heritageSelection024=null;return __heritageWorld024(seed);};
+const __heritageToolbar024=buildToolbar;buildToolbar=function(){const out=__heritageToolbar024();heritageToolbar024();return out;};
+function heritageToolbar024(){
+  const cats=$('#toolcats');if(!cats||$('#heritageOpen024'))return;
+  const b=document.createElement('button');b.id='heritageOpen024';b.textContent='🏛 歷史15';b.title='15座不重複的英式歷史地標';b.onclick=heritageOpen024;cats.appendChild(b);
+  if(heritageSelection024){const q=HERITAGE024.find(q=>q.id===heritageSelection024);if(q){const tag=document.createElement('span');tag.className='heritageTag024';tag.textContent=q.nm;cats.appendChild(tag);}}
+}
+function heritageSelect024(id){
+  const q=HERITAGE024.find(r=>r.id===id),meta=toolMeta434('landmark');
+  if(!q||window.__noHeritage024||!meta||!toolUnlocked458(meta))return false;
+  if(!activateTool434('landmark',true))return false;heritageSelection024=q.id;heritageClose024();buildToolbar();toast('已選 '+q.nm+' · 原生2×2地標','gold');return true;
+}
+function heritageClose024(){const d=$('#heritageDialog024');if(d?.open)d.close();}
+function heritageOpen024(){
+  let d=$('#heritageDialog024');if(!d){d=document.createElement('dialog');d.id='heritageDialog024';d.setAttribute('aria-labelledby','heritageTitle024');
+    d.innerHTML='<header><div><h2 id="heritageTitle024">英式歷史建築 · 15座</h2><p>Britain：不同年代、不同形制。</p></div><button id="heritageClose024" aria-label="關閉歷史建築目錄">✕</button></header><p class="heritageIntro024">原創像素幾何轉譯，非精密複製。全部沿用原生2×2地標的造價、解鎖、觀光、就業與維護；信號樓／亞麻廠／礦場僅為歷史展示，不新增調度或生產。夜燈呈現現代展示照明。</p><button id="heritageDefault024">改回普通地標</button><div id="heritageGrid024"></div>';
+    document.body.appendChild(d);$('#heritageClose024').onclick=heritageClose024;$('#heritageDefault024').onclick=()=>{activateTool434('landmark',true);heritageClose024();};
+    d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)heritageClose024();}});
+  }
+  const meta=toolMeta434('landmark'),locked=!toolUnlocked458(meta)||!!window.__noHeritage024;
+  $('#heritageGrid024').innerHTML=HERITAGE024.map(q=>{const s=heritageCanonical024?.['24_1_'+q.v];return '<article><img width="160" height="196" src="'+(s?.img.toDataURL()||'')+'" alt="'+q.nm+' 像素建築"><h3>'+q.nm+'</h3><div class="heritageEnglish024">'+q.en+'</div><p>'+q.note+'</p><footer><a href="'+q.url+'" target="_blank" rel="noopener noreferrer">官方考據 ↗</a><button data-heritage024="'+q.id+'"'+(locked?' disabled':'')+'>'+ (locked?'🔒 Lv.'+meta.unlockRank:'選擇 · 原生地標 $'+COST.landmark)+'</button></footer></article>';}).join('');
+  d.querySelectorAll('[data-heritage024]').forEach(b=>b.onclick=()=>heritageSelect024(b.dataset.heritage024));if(!d.open)d.showModal();
+}
+function heritageSelftest024(){
+  const checks=[],add=(name,ok)=>checks.push([name,!!ok]);
+  const keys=Object.keys(SPR.bld).filter(k=>/^24_1_1[0-5][0-9]$/.test(k));add('heritage024 count / identity: 15 forms, 60 new native sprites',HERITAGE024.length===15&&keys.length===60&&new Set(HERITAGE024.map(q=>q.id)).size===15);
+  if(!checks[0][1])return{ok:false,checks:checks.map(q=>q[0]+' ✗')};
+  let soft=0,leak=0,crop=0,empty=0;const shapes=[];
+  const had=Object.hasOwn(window,'__heritage024GeometryOnly'),old=window.__heritage024GeometryOnly;
+  try{window.__heritage024GeometryOnly=true;for(const q of HERITAGE024){const s=window.BritishHeritageArchitecture024.build(q.id,0),a=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data;let h=2166136261;for(let i=3;i<a.length;i+=4)h=Math.imul(h^(a[i]?1:0),16777619);shapes.push(h>>>0);}}finally{if(had)window.__heritage024GeometryOnly=old;else delete window.__heritage024GeometryOnly;}
+  add('heritage024 distinct structural silhouettes: no recolour duplicates',new Set(shapes).size===15);
+  for(const k of keys){const s=SPR.bld[k];add('heritage024 native geometry '+k,s.w===160&&s.h===196&&s.ax===80&&s.ay===194&&s.sz===2&&s.view===(+k.split('_')[2]-100)%4);
+    const a=s.img.getContext('2d').getImageData(0,0,s.w,s.h).data,n=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let op=0,np=0;
+    for(let i=3;i<a.length;i+=4){if(a[i]){op++;if(a[i]!==255)soft++;const p=(i-3)/4,x=p%s.w,y=(p/s.w)|0;if(x===0||y===0||x===s.w-1||y===s.h-1)crop++;}if(n[i]){np++;if(n[i]!==255||a[i]!==255)leak++;}}
+    if(!op||!np)empty++;
+  }
+  add('heritage024 physical night: no transparent or soft emission',leak===0);add('heritage024 hard pixels: no semitransparency',soft===0);add('heritage024 canvas: no crop or empty day/night',crop===0&&empty===0);
+  for(let v=112;v<116;v++){const s=SPR.bld['24_1_'+v],n=s.night.getContext('2d').getImageData(0,0,s.w,s.h).data;let upper=0;for(let y=0;y<168;y++)for(let x=0;x<s.w;x++)if(n[(y*s.w+x)*4+3])upper++;add('heritage024 Rushton actual visible upper glazing '+v,upper>=50);}
+  for(const q of HERITAGE024)for(let r=0;r<4;r++){const before=viewRot;viewRot=r;try{add('heritage024 actual rotation '+q.id+'/'+r,vdraw574({x:10,y:10},{k:24,lv:1,v:q.v})===q.v+r);}finally{viewRot=before;}}
+  let nativeMismatch=0;for(const q of HERITAGE024)for(let v=0;v<4;v++){const actual=SPR.bld['24_1_'+(q.v+v)],direct=window.BritishHeritageArchitecture024.build(q.id,v);if(actual.img.toDataURL()!==direct.img.toDataURL()||actual.night.toDataURL()!==direct.night.toDataURL())nativeMismatch++;}
+  add('heritage024 installed pixels match independent direct geometry: '+nativeMismatch+' mismatches',nativeMismatch===0);
+  return{ok:checks.every(q=>q[1]),checks:checks.map(q=>q[0]+(q[1]?' ✓':' ✗')),pixels:{soft,leak,crop,empty},shapeHashes:shapes};
+}
+window.GV.heritage024={rows:()=>HERITAGE024.map(q=>({...q})),open:heritageOpen024,close:heritageClose024,select:heritageSelect024,selection:()=>heritageSelection024,selftest:heritageSelftest024,
+  read:(x,y)=>{const b=inMap(x,y)?tiles[idx(x,y)]?.bld:null;return b?JSON.parse(JSON.stringify(b)):null;},sprite:(x,y)=>{const b=inMap(x,y)?tiles[idx(x,y)]?.bld:null;return b&&!b.ref?SPR.bld['24_1_'+vdraw574({x,y},b)]:null;}};
+/* GPT-024 RUNTIME END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
