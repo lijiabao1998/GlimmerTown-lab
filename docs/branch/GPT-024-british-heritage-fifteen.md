@@ -82,3 +82,5 @@ base 版本 14.42／T747；原圖 166 族 3323 葉。T747 分支最後 smoke 三
 首轮七轴：palette 1→1、hardEdge .9379020134→.9401778749、lightDir .8342022941→.8272816487、shade 1→1、density 1→1、nightRule .9840353995→.9849639397、variants 1→1。最新实际数值另附CI，原fp/style保持不动。
 
 [等业主 draft PR #29](https://github.com/lijiabao1998/GlimmerTown-lab/pull/29) 已开；没有合并，没有发布尾。原卡第一提交 d393fbf2eeb75b977d022249d62b7b74da0907cf。只向smoke自检清单新增heritage024，不改变既有项；专用workflow保留在未合分支，等绿后／正式获准交付前删除。下一步是业主看修正后真图，不把未获看图裁定的本卡假装完成到main。
+
+529480a／f9169f3 专用CI都在清理自己临时Chrome副本时撞ENOTEMPTY：gallery、原生行为、5个活体负控制已绿；合法源码旋转删除首红也对，但清理异常使收费源码案未跑，不能把整run写绿。只为已验证所属的CI tempfile加Node内建退避清理，不碰原harness或任何别人的目录；新增有效JS嵌入失配案必须首红在exact-source。风格降分仍红，不换基线，等待业主看图。
