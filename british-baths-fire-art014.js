@@ -246,7 +246,7 @@
     return f;
   }
   function baths(view){
-    const S=Scene(4,view,304,320);ground(S,64);
+    const S=K.lightScene745(Scene(4,view,304,320),view,{...P,...T});ground(S,64);
     // Deliberately unequal, perpendicular pool halls distinguish this generous
     // campus from k244's compact parallel halls and from k215's open Roman pool.
     swimmingHall(S,5.8,29.0,5.6,42.6,25.0,false,1420);
@@ -279,7 +279,7 @@
     return S.finish({id:288,design:'victorian-baths-washhouse-complex',poolHalls:2,serviceCourt:true,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function smallSwimmingHall(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     swimmingHall(S,4.8,26.6,3.2,22.6,22.7,false,1448);
     const f=masonry(S,10.0,22.0,22.9,27.2,.1,15.8,1449);
     timberDoor(f.front,3.7,.65,4.6,10.7,true);terraBand(S,10,22,22.9,27.2,13.6,.7);
@@ -293,7 +293,7 @@
     return S.finish({id:289,design:'independent-victorian-swimming-hall',poolHalls:1,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function smallWashhouse(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     laundryBlock(S,3.6,23.0,4.0,18.9,18.0,1458);chimney(S,27.35,5.5,.1,38.0,2.9);
     const f=masonry(S,23.5,29,10.0,18.9,.1,11.8,1459);
     timberDoor(f.front,1.0,.35,3.0,8.2,false);hippedRoof(S,23.25,29.3,9.7,19.2,12.1,3.0,false);
@@ -486,7 +486,7 @@
     S.beam([x+.35,y,z+4.6],[x+.65,y,z+.6],T.hoseR,.10);
   }
   function headquarters(view){
-    const S=Scene(4,view,304,320);ground(S,64);
+    const S=K.lightScene745(Scene(4,view,304,320),view,{...P,...T});ground(S,64);
     domesticRange(S,5.5,35.5,4.5,15.8,29.0,1470);
     domesticRange(S,50.0,60.0,17.8,51.5,35.0,1471);
     const G=garageRange(S,5.0,46.8,39.0,51.8,18.8,4,1472);
@@ -520,7 +520,7 @@
     return S.finish({id:291,design:'central-fire-brigade-training-headquarters',applianceBays:4,motorPumps:2,drillTower:true,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function smallApplianceGarage(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     const f=garageRange(S,3.2,28.0,4.0,19.4,19.0,3,1480);
     plaque(S,f.front,10,15.1,4.8,2.8,'shield');
     motorPump(S,15.5,25.5,.95);fireHydrant(S,29.5,28.6);
@@ -531,7 +531,7 @@
     return S.finish({id:292,design:'independent-appliance-garage',applianceBays:3,motorPumps:1,lightPolicy:'physical-fixtures-only-shared-depth'});
   }
   function residentialCourt(view){
-    const S=Scene(2,view,160,196);ground(S,32);
+    const S=K.lightScene745(Scene(2,view,160,196),view,{...P,...T});ground(S,32);
     domesticRange(S,3.8,28.4,3.7,12.7,27.0,1488);
     domesticRange(S,3.8,12.0,13.1,25.2,25.0,1489);
     S.flat(14,28.7,14.8,28.5,.04,T.grass);

@@ -469,7 +469,7 @@
   }
 
   function market(view) {
-    const S=Scene(3,view,200,164);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(3,view,200,164),view,P);
     S.flat(0,48,0,48,0,paving);
     for(const [x0,x1,y0,y1]of[[0,48,0,.42],[0,48,47.58,48],[0,.42,0,48],[47.58,48,0,48]])S.flat(x0,x1,y0,y1,.015,P.stoneR);
     // Fine stone channels follow the U and the open entrance, not a water texture.
@@ -620,7 +620,7 @@
     if(florist)S.beam([x0+.24,y+.18,z+.35],[x0+.24,y+.18,z+2.85],P.gold,.12);
   }
   function flowerStall(view) {
-    const S=Scene(1,view,72,88);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(1,view,72,88),view,P);
     S.flat(0,16,0,16,0,paving);
     for(const y of[.45,15.1])S.flat(.45,15.55,y,y+.18,.018,P.stoneR);
     // Two florist's display heights, buckets of cut stems and separate potted
@@ -663,7 +663,7 @@
     S.beam([x,y,z+3.55],[x+.16,y,z+4.15],P.gold,.15);
   }
   function produceStall(view) {
-    const S=Scene(1,view,72,88);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(1,view,72,88),view,P);
     S.flat(0,16,0,16,0,paving);
     for(const y of[.45,15.1])S.flat(.45,15.55,y,y+.18,.018,P.stoneR);
     counter(S,2.15,8.3,11.0,3.5,4.0);

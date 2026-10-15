@@ -417,7 +417,7 @@
     }
   }
   function museum(view) {
-    const S=Scene(4,view,264,232);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(4,view,264,232),view,P);
     S.flat(0,64,0,64,0,paving);
     // Pale perimeter setts unite the building to the surrounding native footpaths.
     for(const [x0,x1,y0,y1]of[[0,64,0,.5],[0,64,63.5,64],[0,.5,0,64],[63.5,64,0,64]])S.flat(x0,x1,y0,y1,.02,P.stoneR);

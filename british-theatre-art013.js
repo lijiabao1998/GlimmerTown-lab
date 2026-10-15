@@ -539,7 +539,7 @@
     F.panel(w*.34,w*.67,z+h*.42,z+h*.62,P.paper,.05);
   }
   function theatre(view) {
-    const S=Scene(3,view,232,260);
+    const S=root.BritishComplexPrimitives014.lightScene745(Scene(3,view,232,260),view,P);
     S.flat(0,48,0,48,0,paving);
     for(const [x0,x1,y0,y1]of[[0,48,0,.45],[0,48,47.55,48],[0,.45,0,48],[47.55,48,0,48]])S.flat(x0,x1,y0,y1,.015,P.stoneR);
     for(const y of[3.5,45.5])S.flat(.5,47.5,y,y+.26,.028,P.stoneHi);

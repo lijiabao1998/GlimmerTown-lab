@@ -30,6 +30,10 @@ const KEEP = process.argv.includes('--keep');
   console.log('=== 微光小鎮 煙霧測試 ===');
   const fails = [];
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'touch-cancellation020.test.js')], {stdio:'inherit'});
+  // GPT-023: additive only; run the unchanged light/shape/valve contracts.
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'probeLightSide745.js'), '--check'], {stdio:'inherit'});
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'probeLightSide745.js'), '--valve'], {stdio:'inherit'});
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'light-repair023.test.js')], {stdio:'inherit'});
 
   const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
     log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙' +
