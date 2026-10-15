@@ -24,6 +24,7 @@ jobs:
           node embed-heritage024.cjs --check
           node heritage024-gallery.cjs | tee heritage024-gallery.txt
           node probeHeritage024.cjs | tee heritage024-native.txt
+          node heritage024-source-red.cjs | tee heritage024-source-red.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -31,6 +32,7 @@ jobs:
           path: |
             heritage024-native.txt
             heritage024-gallery.txt
+            heritage024-source-red.txt
             shots/heritage024/
           if-no-files-found: warn
           retention-days: 14

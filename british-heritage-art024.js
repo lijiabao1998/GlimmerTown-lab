@@ -102,7 +102,7 @@
     for(const F of[f.back,f.left,f.right])for(let u=2;u<F.length-1;u+=4)F.panel(u,u+.6,11,14,P.ink,.09);A.K.timberDoor(f.left,5,.6,4,10,false);return A.finish();}
 
   function rushton(row,v){const A=context(row,v),{S,P,mat,pointed}=A,poly=[[4.5,25.5],[27.5,25.5],[16,5.6]],center=[16,18.9];
-    for(let i=0;i<3;i++){const a=poly[i],b=poly[(i+1)%3],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),nx=dy/len,ny=-dx/len,F=S.face(a,b,nx,ny);
+    for(let i=0;i<3;i++){const a=poly[i],b=poly[(i+1)%3],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),nx=-dy/len,ny=dx/len,F=S.face(a,b,nx,ny);
       S.wall(a,b,.45,41,mat('stone',nx,ny));for(const z of[12.5,25.7,38.8])S.wall(a,b,z,z+1.5,P.stoneD,.03);
       for(let level=0;level<3;level++)for(const u of[3.3,len/2-1.7,len-6.7])pointed(F,u,3.3+level*12.8,3.4,7,true);
       S.poly([F.point(0,0,41),F.point(len,0,41),F.point(len/2,0,49)],mat('stone',nx,ny));S.poly([[a[0],a[1],41],[b[0],b[1],41],[center[0],center[1],48]],A.K.slate(A.dark(nx,ny)));
