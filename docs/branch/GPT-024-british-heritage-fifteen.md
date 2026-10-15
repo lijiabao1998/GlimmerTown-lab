@@ -68,3 +68,9 @@ base 版本 14.42／T747；原圖 166 族 3323 葉。T747 分支最後 smoke 三
 尚未施工／未验证。原Lab其他作者未追踪备份与分支保留；只在Lab自身ignored scratchpad的隔离worktree写。
 
 初稿 a2e5def 的真 Chrome 已通过60图／剪影／像素／四向自检，但正向选择造境红于“heritage024 UI native selection”。我误以为 diff3 就会解锁，原生工具实际仍要求 Lv8，只有原生创意沙盒 unlockAll 可以用作明示造境。产品正确拒绝，未改产品解锁守卫；修的是台架：先证明普通空城锁定且零收费，再在两臂共同使用既有创意沙盒、只开启 unlockAll，以 diff1、有限资金真验扣款。不声称此场景是普通新城已到 Lv8。首轮不是ALL GREEN。
+
+## STOP: AWAIT_OWNER_ART — 不可自合／不換基線
+
+原 push 38747919629 的 fp artifact 11979777771（ZIP SHA256 d94ec2d7b8ac259485ef40db461e672aad492b06416a7cb795393272b8a0b5b0）实得：只有60新 bld 叶；旧叶0变／0删、165其他族／use021／1728 block零变。**bld 风格总分96.52%→96.46%，受光83.42%→82.73%**；不是环境差，不提交新fp/style。依AGENTS§7列为要业主看图，保留draft PR，不合入main。后续本分支只闭合验收台架、收真图，未获裁定前不自行改评分尺或发布。
+
+台架原生创意沙盒有确认框，CI自己的丢弃式Chrome以preScript确认；不作用于业主浏览器。先在同一个原生沙盒fork建立后再分别newWorld，避免一臂多经历load形成假差。保存键明确读取s3.sandbox516b，不把正常槽的旧档误当本次15座存档。真正整帧阀等值／完整艺术状态仍未跑。
