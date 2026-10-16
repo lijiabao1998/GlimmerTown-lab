@@ -5,16 +5,25 @@ const {withGame,ROOT}=require('./harness.js'),BASE='98545ff4e28a86a6da4e2a2cbdad
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),index=path.join(ROOT,'index.html'),head=fs.readFileSync(index),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024});
 const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
 const stateCheck=(actual,expected,label)=>{const a=JSON.stringify(canon(actual)),b=JSON.stringify(canon(expected));assert(a===b,label+' expected '+hash(Buffer.from(b))+' got '+hash(Buffer.from(a)));};
+function stateDiff(a,b,p='',out=[]){if(JSON.stringify(canon(a))===JSON.stringify(canon(b)))return out;if(a&&b&&typeof a==='object'&&typeof b==='object'){for(const k of new Set([...Object.keys(a),...Object.keys(b)]))stateDiff(a[k],b[k],p? p+'.'+k:k,out);}else if(out.length<30){const small=v=>typeof v==='string'&&v.length>100?{length:v.length,sha256:hash(Buffer.from(v))}:v;out.push({path:p,before:small(a),after:small(b)});}return out;}
 const opt={port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>0.125',log:console.log};
 function transfer(name,bytes){const b64=bytes.toString('base64');console.log('WAVE025_FILE_BEGIN '+JSON.stringify({name,head:process.env.GITHUB_SHA,bytes:bytes.length,sha256:hash(bytes)}));for(let i=0;i<b64.length;i+=4096)console.log('WAVE025_FILE_DATA '+b64.slice(i,i+4096));console.log('WAVE025_FILE_END '+name);}
 function write(name,url){const bytes=Buffer.from(url.split(',')[1],'base64');fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,name),bytes);return{file:name,bytes:bytes.length,sha256:hash(bytes)};}
-function legacyFixture025(){
+function legacyFixture025(reference){
   GV.setSpeed(0);GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);
   if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
-  const p={x:7,y:4};if(!GV.place('landmark',p.x,p.y))throw Error('scene025 legacy native fixture');GV.testAge635(p.x,p.y,2,2,30);
-  GV.save();const key='glimmerville.v1.s3.sandbox516b',raw=localStorage.getItem(key);if(!raw)throw Error('scene025 slot3 sandbox save absent');
+  const p={x:7,y:4},key='glimmerville.v1.s3.sandbox516b';let initial;
+  if(reference){localStorage.setItem(key,reference);}
+  else{
+    if(!GV.place('landmark',p.x,p.y))throw Error('scene025 legacy native fixture');GV.testAge635(p.x,p.y,2,2,30);GV.save();initial=JSON.parse(localStorage.getItem(key));
+    // Produce an actual previously loaded/saved old file on BASE. The fresh QA
+    // constructor's first native load normalizes existing fields on BASE too;
+    // retain that preparation difference instead of deleting fields from checks.
+    for(let i=0;i<2;i++){if(!GV.load())throw Error('scene025 baseline save preparation');GV.save();}
+  }
+  const raw=localStorage.getItem(key);if(!raw)throw Error('scene025 slot3 sandbox save absent');
   const states=[JSON.parse(raw)];for(let pass=0;pass<2;pass++){if(!GV.load())throw Error('scene025 old native load');GV.save();states.push(JSON.parse(localStorage.getItem(key)));}
-  return{key,raw,states,p};
+  return{key,raw,states,p,initial};
 }
 function oldFrames025(valve){
   if(valve)window.__noBritishWave025=true;
@@ -47,7 +56,7 @@ function edge025(id){
   return{smoke:GV.britishWave025.sprite(0,0).smoke.length};
 }
 (async()=>{
-  const report={head:process.env.GITHUB_SHA,base:BASE,frames:[],notes:['Visual fixtures use fixed Math.random and visT; ordinary native gameplay validation uses the separate native probe.','Edge scene uses an isolated flat pad and actual native placement.'],notApplicable:{waterReflection:'Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.',smoke:'All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.',neonSigns:'Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances.'}};
+  const report={head:process.env.GITHUB_SHA,base:BASE,frames:[],notes:['Visual fixtures use fixed Math.random and visT; ordinary native gameplay validation uses the separate native probe.','Edge scene uses native demolition/fill followed by actual paid native placement.'],notApplicable:{waterReflection:'Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.',smoke:'All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.',neonSigns:'Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances.'}};
   let old;
   try{
     fs.writeFileSync(index,base);
@@ -56,8 +65,11 @@ function edge025(id){
       if(cdp.errors.length)throw Error(cdp.errors.join('; '));return{fixture,frames};
     });assert(r.ok&&r.result,'scene025 baseline: '+r.fails.join('; '));old=r.result;
   }finally{fs.writeFileSync(index,head);}
+  fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'legacy-base.json'),old.fixture.raw);
+  report.oldSavePreparation={source:BASE,nativeLoadSaveRounds:2,differences:stateDiff(old.fixture.initial,old.fixture.states[0])};
+  console.log('scene025 BASE native preparation differences '+JSON.stringify(report.oldSavePreparation.differences));
   const r=await withGame(opt,async({cdp})=>{
-    const fixture=await cdp.evalJs('('+legacyFixture025.toString()+')()');
+    const fixture=await cdp.evalJs('('+legacyFixture025.toString()+')('+JSON.stringify(old.fixture.raw)+')');
     stateCheck(fixture.states,old.fixture.states,'scene025 complete old-save behavior matches baseline, every field');
     for(let pass=1;pass<fixture.states.length;pass++)stateCheck(fixture.states[pass],fixture.states[0],'scene025 old save roundtrip all fields '+pass);
     report.oldSave={slot:3,sandbox:true,passes:2,allFieldsEqual:true,baseSHA256:hash(Buffer.from(old.fixture.raw))};
@@ -77,7 +89,7 @@ function edge025(id){
     await cdp.evalJs('('+installScene025.toString()+')('+JSON.stringify(rows)+')');
     const specs=[];for(const [label,season,snow]of[['spring',0,0],['summer',1,0],['autumn',2,0],['winter-bare',3,0],['winter-snow',3,12]])for(const night of[false,true])for(let rot=0;rot<4;rot++)specs.push({name:label+'-'+(night?'night':'day')+'-r'+rot,season,snow,night,rot});
     for(const q of rows)specs.push({name:'near-'+q.id,z:2,at:[q.x+.5,q.y+.5]});
-    specs.push({name:'far-day',z:.45},{name:'far-night',z:.45,night:true},{name:'construction-early',age:1},{name:'construction-middle',age:4},{name:'construction-late',age:7},{name:'hover-tattershall',z:2,at:[13.5,4.5],hover:[13,4]},{name:'rain-night',weather:2,snow:12,night:true});
+    specs.push({name:'far-day',z:.45},{name:'far-night',z:.45,night:true},{name:'construction-early',age:1},{name:'construction-middle',age:4},{name:'construction-late',age:7},{name:'hover-tattershall',z:2,at:[13.5,4.5],hover:[13,3]},{name:'rain-night',weather:2,snow:12,night:true});
     for(const spec of specs){const f=await cdp.evalJs('('+scene025.toString()+')('+JSON.stringify(spec)+','+JSON.stringify(rows)+')');const meta={...spec,...f};delete meta.data;Object.assign(meta,write(spec.name+'.png',f.data));report.frames.push(meta);if(['summer-day-r0','winter-snow-day-r0','near-tattershall'].includes(spec.name))transfer('scenes/'+spec.name+'.png',fs.readFileSync(path.join(OUT,spec.name+'.png')));}
     report.edge=[];for(const q of rows){const applicability=await cdp.evalJs('('+edge025.toString()+')('+JSON.stringify(q.id)+')');assert(applicability.smoke===0);for(let rot=0;rot<4;rot++){const spec={name:'edge-'+q.id+'-r'+rot,at:[.5,.5],rot,z:1.5},f=await cdp.evalJs('('+scene025.toString()+')('+JSON.stringify(spec)+',[])');const meta={...spec,...f,...applicability};delete meta.data;Object.assign(meta,write(spec.name+'.png',f.data));report.edge.push(meta);}}
     if(cdp.errors.length)throw Error('scene025 console '+cdp.errors.join('; '));return true;
