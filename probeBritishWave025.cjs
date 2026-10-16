@@ -1,6 +1,6 @@
 'use strict';
 // Executed in real Chrome on GitHub Actions, never during local source checks.
-const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process'),vm=require('node:vm');
 const {withGame,ROOT}=require('./harness.js'),BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots','wave025'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const original=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 let stripped=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
@@ -26,6 +26,10 @@ function originalImages(){
     a.rows().forEach((q,i)=>{for(let view=0;view<4;view++){const x=view*220,y=i*240,s=spr['24_1_'+(q.v+view)];g.drawImage(s.img,x+30,y+25);if(mode==='night'){g.fillStyle='#081314';g.fillRect(x+30,y+25,s.w,s.h);g.globalAlpha=.25;g.drawImage(s.img,x+30,y+25);g.globalAlpha=1;g.drawImage(s.night,x+30,y+25);}g.fillStyle='#eee3cb';g.font='12px sans-serif';g.fillText(q.en+' · '+view,x+8,y+14,208);}});
     contacts[mode]=c.toDataURL('image/png');
   }
+  const comparisons=[[160,148],[164,108],[168,148],[172,144],[176,104],[180,116],[184,104],[188,152],[192,124],[196,108]],old=GV.heritage024.rows();
+  const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
+  comparisons.forEach(([v,ov],i)=>{const nr=a.rows().find(r=>r.v===v),or=old.find(r=>r.v===ov);for(let j=0;j<4;j++){const isNew=j%2===0,view=j<2?0:2,s=spr['24_1_'+((isNew?v:ov)+view)],x=j*220,y=i*240;g.drawImage(s.img,x+30,y+25);g.fillStyle=isNew?'#eee3cb':'#a6b6a6';g.font='12px sans-serif';g.fillText((isNew?'NEW ':'OLD ')+(isNew?nr.en:or.en)+' / '+view,x+8,y+14,208);}});
+  contacts.comparison=c.toDataURL('image/png');
   return{images:data.leaves,contacts};
 }
 // A byte-preserving transfer of public CI evidence; no credentials or world saves.
@@ -64,8 +68,6 @@ function nativeChecks(){
   expect('different names but duplicate geometry',()=>window.BritishWaveArchitecture025={...api,build:(id,v)=>api.build(id==='dunster'?'alaronde':id,v)},()=>window.BritishWaveArchitecture025=api,'wave025 ten distinct structural');
   const other=spr['24_1_164'],od=other.img,on=other.night;
   expect('installed clone with distinct authors',()=>{other.img=day;other.night=night;},()=>{other.img=od;other.night=on;},'wave025 installed pixels');
-  const draw=vdraw574;
-  expect('valid live source freezes new camera view',()=>vdraw574=function(o,b){return b?.k===24&&b.v>=160&&b.v<200?160+4*Math.floor((b.v-160)/4):draw(o,b);},()=>vdraw574=draw,'wave025 actual rotation');
   expect('empty native day and night',()=>{const c=document.createElement('canvas');c.width=160;c.height=196;s.img=c;s.night=c;},()=>{s.img=day;s.night=night;},'wave025 uncropped');
 
   let phase='initial';
@@ -83,16 +85,16 @@ function nativeChecks(){
   const unlock=()=>{if(!GV.dev516B().sandbox)GV.enterSandbox516B();if(!GV.setGod516B(true)||!GV.setOverride516B('unlockAll',true))throw Error('wave025 explicit isolated native unlock fixture');};
   unlock();
   const fee=(before,expected,after)=>{const spent=before-after;if(!Number.isFinite(before)||spent!==expected||spent<=0)throw Error('wave025 fee '+spent+' expected '+expected);return spent;};
-  // Mutate the real native placement function with valid live source, then require
+  // Mutate the public native placement API with valid live source, then require
   // the same fee assertion used below to be the first failure. Reset world after.
   GV.setDiff(1);GV.newWorldSeeded(87);GV.setSpeed(0);unlock();GV.capabilitySetMoney506(1000000);GV.setDiff(1);
-  const fp=lot(),cash=GV.devMoney516B(),quote=GV.placePreview459('landmark',fp.x,fp.y).cost,place=doPlace;let feeRed;
+  const fp=lot(),cash=GV.devMoney516B(),quote=GV.placePreview459('landmark',fp.x,fp.y).cost,place=GV.place;let feeRed;
   try{
-    doPlace=function(id,x,y,silent){const ok=place(id,x,y,silent);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney516B()-1);return ok;};
+    GV.place=function(id,x,y){const ok=place(id,x,y);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney516B()-1);return ok;};
     if(!GV.place('landmark',fp.x,fp.y))throw Error('wave025 fee negative fixture placement failed');
     try{fee(cash,quote,GV.devMoney516B());}catch(e){feeRed=e.message;}
     if(!feeRed?.startsWith('wave025 fee '))throw Error('wave025 fee negative missed target');
-  }finally{doPlace=place;}
+  }finally{GV.place=place;}
   red.push({name:'valid live source overcharges one native dollar',first:feeRed});
   const pairs=[];
   for(const seed of[31,71,103]){
@@ -135,7 +137,7 @@ function nativeChecks(){
   if(a.select('alaronde'))throw Error('wave025 valve accepted new special selection');
   for(const q of a.rows())if(GV.art574.vdraw({x:10,y:10},{k:24,lv:1,v:q.v})!==0)throw Error('wave025 valve must resolve original landmark');
   delete window.__noBritishWave025;
-  return{report,red,pairs,placed,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1},remaining:['complete seasonal/edge/overlay scenes','full-frame base/valve comparison','valid-source negative controls','human image review']};
+  return{report,red,pairs,placed,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
 }
 (async()=>{
   let images=[];
@@ -147,6 +149,17 @@ function nativeChecks(){
   });
   assert(session.ok&&session.result,'wave025 native browser: '+session.fails.join('; '));
   const r=session.result;assert.equal(r.slot,'3');
+  // The game is intentionally scoped. Exercise the real private selector by a
+  // valid source mutation in a separate CI-only boot, then restore exact bytes.
+  const index=path.join(ROOT,'index.html'),source=fs.readFileSync(index,'utf8'),target='return q?q.v+((b.v-q.v+viewRotEff())&3):null;';
+  assert.equal(source.split(target).length,2,'one own rotation source target');
+  const broken=source.replace(target,'return q?q.v:null;');for(const m of broken.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
+  try{
+    fs.writeFileSync(index,broken);const n=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true',log:console.log},async({cdp})=>{const q=await cdp.evalJs('GV.britishWave025.selftest()');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return q;});
+    assert(n.ok&&n.result,'wave025 valid-source negative boot');const first=n.result.checks.find(c=>c.endsWith('✗'));assert(!n.result.ok&&first?.startsWith('wave025 actual rotation'),'wave025 valid-source negative first RED: '+first);r.red.push({name:'valid source freezes private camera selector',first});
+  }finally{fs.writeFileSync(index,source);}
+  const restored=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true',log:console.log},async({cdp})=>{const q=await cdp.evalJs('GV.britishWave025.selftest()');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return q;});
+  assert(restored.ok&&restored.result?.ok,'wave025 restored source must boot and return GREEN');
   const manifest=Buffer.from(JSON.stringify({head:process.env.GITHUB_SHA,indexSHA256:hash(fs.readFileSync(path.join(ROOT,'index.html'))),base:BASE,...r,images},null,2)+'\n');
   fs.writeFileSync(path.join(OUT,'manifest.json'),manifest);exportEvidence('manifest.json',manifest);
   console.log('wave025 native GREEN: ten forms, forty views, eighty original PNGs; '+r.red.length+' live first-RED controls; three same-seed pairs; ten paid catalog clicks; two native save/load cycles; undo/redo/ref demolition.');
