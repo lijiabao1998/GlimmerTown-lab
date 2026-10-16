@@ -25,6 +25,7 @@ jobs:
       - name: Actual native geometry, placement, saves and live negative controls
         run: node probeBritishWave025.cjs
       - name: Original native scenes, old-save fields and base-valve full frames
+        if: always()
         run: node probeScenes025.cjs
       - name: Preserve original images and factual results
         if: always()

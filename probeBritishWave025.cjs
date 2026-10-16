@@ -151,9 +151,9 @@ function nativeChecks(){
   const r=session.result;assert.equal(r.slot,'3');
   // The game is intentionally scoped. Exercise the real private selector by a
   // valid source mutation in a separate CI-only boot, then restore exact bytes.
-  const index=path.join(ROOT,'index.html'),source=fs.readFileSync(index,'utf8'),target='return q?q.v+((b.v-q.v+viewRotEff())&3):null;';
+  const index=path.join(ROOT,'index.html'),source=fs.readFileSync(index,'utf8'),target='function britishView025(b){const q=britishRow025(b);return q?q.v+((b.v-q.v+viewRotEff())&3):null;}';
   assert.equal(source.split(target).length,2,'one own rotation source target');
-  const broken=source.replace(target,'return q?q.v:null;');for(const m of broken.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
+  const broken=source.replace(target,'function britishView025(b){const q=britishRow025(b);return q?q.v:null;}');for(const m of broken.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
   try{
     fs.writeFileSync(index,broken);const n=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true',log:console.log},async({cdp})=>{const q=await cdp.evalJs('GV.britishWave025.selftest()');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return q;});
     assert(n.ok&&n.result,'wave025 valid-source negative boot');const first=n.result.checks.find(c=>c.endsWith('✗'));assert(!n.result.ok&&first?.startsWith('wave025 actual rotation'),'wave025 valid-source negative first RED: '+first);r.red.push({name:'valid source freezes private camera selector',first});

@@ -71,7 +71,9 @@ function edge025(id){
     const damaged=await cdp.evalJs('(()=>{const c=document.getElementById("game"),g=c.getContext("2d"),d=g.getImageData(0,0,1,1);d.data[0]^=255;g.putImageData(d,0,0);return c.toDataURL("image/png");})()');
     const bad=Buffer.from(damaged.split(',')[1],'base64'),good=Buffer.from(old.frames.at(-1).data.split(',')[1],'base64');first=null;try{assert(bad.equals(good),'scene025 base/valve whole native frame');}catch(e){first=e.message;}assert(first?.startsWith('scene025 base/valve whole native frame'),'scene025 full-frame negative missed target');report.negative.push({name:'real native canvas one-pixel corruption',first});
     const clear=await cdp.evalJs('('+oldFrames025.toString()+')(true)');assert(Buffer.from(clear.at(-1).data.split(',')[1],'base64').equals(good),'scene025 full-frame restored GREEN');
-    const rows=JSON.parse(fs.readFileSync(path.join(ROOT,'shots','wave025','manifest.json'))).placed;
+    // Coordinates come from retained, independently verified native run653ccb6;
+    // re-place every form through the native API at this head before rendering.
+    const rows=JSON.parse(fs.readFileSync(path.join(ROOT,'docs','assets','GPT-025','manifest.json'))).placed;
     await cdp.evalJs('('+installScene025.toString()+')('+JSON.stringify(rows)+')');
     const specs=[];for(const [label,season,snow]of[['spring',0,0],['summer',1,0],['autumn',2,0],['winter-bare',3,0],['winter-snow',3,12]])for(const night of[false,true])for(let rot=0;rot<4;rot++)specs.push({name:label+'-'+(night?'night':'day')+'-r'+rot,season,snow,night,rot});
     for(const q of rows)specs.push({name:'near-'+q.id,z:2,at:[q.x+.5,q.y+.5]});
