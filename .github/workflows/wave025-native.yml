@@ -27,6 +27,9 @@ jobs:
       - name: Original native scenes, old-save fields and base-valve full frames
         if: always()
         run: node probeScenes025.cjs
+      - name: Native pedestrian layering with explicit test actors
+        if: always()
+        run: node probePedestrians025.cjs
       - name: Preserve original images and factual results
         if: always()
         uses: actions/upload-artifact@v4
@@ -66,3 +69,29 @@ jobs:
             fp-run.txt
             fp-rebake/
           retention-days: 14
+
+  review-export:
+    needs: native
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      max-parallel: 4
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wave025-native-${{ github.sha }}
+          path: collected
+      - name: Transfer exact public image evidence for per-image review
+        env:
+          PART: ${{ matrix.part }}
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+          const files=[];function walk(dir,rel=''){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const r=path.posix.join(rel,e.name),p=path.join(dir,e.name);if(e.isDirectory())walk(p,r);else if(/\.(png|json)$/.test(r))files.push(r);}}walk('collected');files.sort();
+          const chosen=files.filter((p,i)=>i%8===+process.env.PART);console.log('WAVE025_REVIEW_INDEX '+JSON.stringify({head:process.env.GITHUB_SHA,part:+process.env.PART,total:files.length,files:chosen}));
+          for(const name of chosen){const bytes=fs.readFileSync(path.join('collected',name)),b64=bytes.toString('base64');console.log('WAVE025_FILE_BEGIN '+JSON.stringify({name,head:process.env.GITHUB_SHA,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')}));for(let i=0;i<b64.length;i+=4096)console.log('WAVE025_FILE_DATA '+b64.slice(i,i+4096));console.log('WAVE025_FILE_END '+name);}
+          NODE
