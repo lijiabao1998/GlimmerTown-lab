@@ -1,0 +1,2811 @@
+{
+  "head": "e4ec74ae364d3f4db2d5e8cc5a78b5a11af23522",
+  "base": "98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e",
+  "frames": [
+    {
+      "name": "spring-day-r0",
+      "season": 0,
+      "snow": 0,
+      "night": false,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-day-r0.png",
+      "bytes": 674080,
+      "sha256": "f18a213252c93589ab7e0cfe629533d12f60affefaa78342c9489f20d37a7c5a"
+    },
+    {
+      "name": "spring-day-r1",
+      "season": 0,
+      "snow": 0,
+      "night": false,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-day-r1.png",
+      "bytes": 720767,
+      "sha256": "daeb5c7ec8f745f7d990c63d39f6a38c8a03a1ce7f2b267c03670bd3f3ccdf33"
+    },
+    {
+      "name": "spring-day-r2",
+      "season": 0,
+      "snow": 0,
+      "night": false,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-day-r2.png",
+      "bytes": 703543,
+      "sha256": "ab9529f23b7e25f84f45ee084c95fb96f5bebe6d202363dd33ffb1b04358e05d"
+    },
+    {
+      "name": "spring-day-r3",
+      "season": 0,
+      "snow": 0,
+      "night": false,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-day-r3.png",
+      "bytes": 657807,
+      "sha256": "bb9642d1d5d0dff3346f9d07dbdb5aa9129e70d1f21bb663296c5a77cdc558bc"
+    },
+    {
+      "name": "spring-night-r0",
+      "season": 0,
+      "snow": 0,
+      "night": true,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-night-r0.png",
+      "bytes": 695560,
+      "sha256": "3bbc13ab00703c84a1801a89bb86732dbe29fd09817201af858aa784c7a6831b"
+    },
+    {
+      "name": "spring-night-r1",
+      "season": 0,
+      "snow": 0,
+      "night": true,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-night-r1.png",
+      "bytes": 720716,
+      "sha256": "3d61883cfbdb8d5bac9bd8b30c442fd388dc9861438ff001409f0f124a930387"
+    },
+    {
+      "name": "spring-night-r2",
+      "season": 0,
+      "snow": 0,
+      "night": true,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-night-r2.png",
+      "bytes": 707287,
+      "sha256": "2fc97fe9d2aa0c1151b063d1db96f8967d1baf34e57ae0ff2a3bd02144cece91"
+    },
+    {
+      "name": "spring-night-r3",
+      "season": 0,
+      "snow": 0,
+      "night": true,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "spring-night-r3.png",
+      "bytes": 692614,
+      "sha256": "e1a554ff3510d5fea8cb44bc72ec0fe34952d02e710080235304c6d98b811829"
+    },
+    {
+      "name": "summer-day-r0",
+      "season": 1,
+      "snow": 0,
+      "night": false,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-day-r0.png",
+      "bytes": 674420,
+      "sha256": "68afae2e6b11369c245e9f7cba91207b1b912f1842c68d6f9ba9f079e9f0b6d3"
+    },
+    {
+      "name": "summer-day-r1",
+      "season": 1,
+      "snow": 0,
+      "night": false,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-day-r1.png",
+      "bytes": 724035,
+      "sha256": "c2bb212cd34f7b8f1950169cb88947555ea536c7457c35a209a11970f634a81c"
+    },
+    {
+      "name": "summer-day-r2",
+      "season": 1,
+      "snow": 0,
+      "night": false,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-day-r2.png",
+      "bytes": 707979,
+      "sha256": "d89b816273ccb60dde0aa9af4ee905e84a0f2c87dff04567b8212795ca0fb53d"
+    },
+    {
+      "name": "summer-day-r3",
+      "season": 1,
+      "snow": 0,
+      "night": false,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-day-r3.png",
+      "bytes": 664314,
+      "sha256": "e405b4a76b2c689028ee1537b41bad4e71364668e86503c6ed8073470c4972af"
+    },
+    {
+      "name": "summer-night-r0",
+      "season": 1,
+      "snow": 0,
+      "night": true,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-night-r0.png",
+      "bytes": 701382,
+      "sha256": "fea9c529444c4ba8b0de363a9f81688b00f6710e2de807bb58e33a043c2a5a3a"
+    },
+    {
+      "name": "summer-night-r1",
+      "season": 1,
+      "snow": 0,
+      "night": true,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-night-r1.png",
+      "bytes": 725850,
+      "sha256": "6cf31f91e06dd0236fe3b7e196dc2d90dec820ad83e10602196207e2b84cb704"
+    },
+    {
+      "name": "summer-night-r2",
+      "season": 1,
+      "snow": 0,
+      "night": true,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-night-r2.png",
+      "bytes": 716358,
+      "sha256": "2bd50fe4bf7b4f152e5c0df8904a7158113ec06575dfe11e94cdbd56ce952749"
+    },
+    {
+      "name": "summer-night-r3",
+      "season": 1,
+      "snow": 0,
+      "night": true,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "summer-night-r3.png",
+      "bytes": 699343,
+      "sha256": "224e7014f66927be9d3f4cd415d3226ea5bb7c589ad16a1264d5bd412331bf30"
+    },
+    {
+      "name": "autumn-day-r0",
+      "season": 2,
+      "snow": 0,
+      "night": false,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-day-r0.png",
+      "bytes": 704405,
+      "sha256": "2f43bdf5fdd340585f312c177e5e8975a6aea96184bced6c575271afbc4939a8"
+    },
+    {
+      "name": "autumn-day-r1",
+      "season": 2,
+      "snow": 0,
+      "night": false,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-day-r1.png",
+      "bytes": 750315,
+      "sha256": "3c599cbe315502c5b1053265abd8cd68db368bdd1fa835b20285eac1900909aa"
+    },
+    {
+      "name": "autumn-day-r2",
+      "season": 2,
+      "snow": 0,
+      "night": false,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-day-r2.png",
+      "bytes": 735873,
+      "sha256": "abb12980757bc2601273aa5d690dd860a2f79ff7800e09da2ead481cb659788e"
+    },
+    {
+      "name": "autumn-day-r3",
+      "season": 2,
+      "snow": 0,
+      "night": false,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-day-r3.png",
+      "bytes": 695857,
+      "sha256": "d6555b60d37842d6855e7eae10c7c9534831ea035a68337c9fe6611e76d77cac"
+    },
+    {
+      "name": "autumn-night-r0",
+      "season": 2,
+      "snow": 0,
+      "night": true,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-night-r0.png",
+      "bytes": 718363,
+      "sha256": "42ce8d6cc54cd452c44bd1e62890bf7ad388c1eca43ede2502f68e1155293e19"
+    },
+    {
+      "name": "autumn-night-r1",
+      "season": 2,
+      "snow": 0,
+      "night": true,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-night-r1.png",
+      "bytes": 742980,
+      "sha256": "ed19254acbec756eeab464addc2b445c3ba89b05d291995f8e739d571a5e88c4"
+    },
+    {
+      "name": "autumn-night-r2",
+      "season": 2,
+      "snow": 0,
+      "night": true,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-night-r2.png",
+      "bytes": 731312,
+      "sha256": "8f70408d4a1a2b0eac1b06a4ab99f9b80f0279c66ee25dd10a06409f16e5b57c"
+    },
+    {
+      "name": "autumn-night-r3",
+      "season": 2,
+      "snow": 0,
+      "night": true,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "autumn-night-r3.png",
+      "bytes": 716705,
+      "sha256": "ac8590f83f84f7abef73c76d9d0ffbad479b9f55f29793f66b07e42746aa6c8f"
+    },
+    {
+      "name": "winter-bare-day-r0",
+      "season": 3,
+      "snow": 0,
+      "night": false,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-day-r0.png",
+      "bytes": 622086,
+      "sha256": "6009e31014450e0bd65d0c2821b9353996fe9f16fcd9a32412fb3e1d91ecd470"
+    },
+    {
+      "name": "winter-bare-day-r1",
+      "season": 3,
+      "snow": 0,
+      "night": false,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-day-r1.png",
+      "bytes": 665078,
+      "sha256": "171c6c5b54e0cd1e3ee92e16d14d69641896e7a27e96df26f3b7e3600f52450d"
+    },
+    {
+      "name": "winter-bare-day-r2",
+      "season": 3,
+      "snow": 0,
+      "night": false,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-day-r2.png",
+      "bytes": 656531,
+      "sha256": "205217ee275a49fd39a54a79c86739fb43a170cf398f68ff3b31c3a793ee4abf"
+    },
+    {
+      "name": "winter-bare-day-r3",
+      "season": 3,
+      "snow": 0,
+      "night": false,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-day-r3.png",
+      "bytes": 615343,
+      "sha256": "19a8f9a95057da62f51e765a631928ee3f31ea9ad6f5439b86be67032461918c"
+    },
+    {
+      "name": "winter-bare-night-r0",
+      "season": 3,
+      "snow": 0,
+      "night": true,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-night-r0.png",
+      "bytes": 688650,
+      "sha256": "3cef7d9fc3734a0221c3650bf8ee19995aa7b7b9501328064b824963eb8e940c"
+    },
+    {
+      "name": "winter-bare-night-r1",
+      "season": 3,
+      "snow": 0,
+      "night": true,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-night-r1.png",
+      "bytes": 699820,
+      "sha256": "c63c05d9d766aae2a643128cc8161affd44fca62c2d9c1c186ae892656c73e9e"
+    },
+    {
+      "name": "winter-bare-night-r2",
+      "season": 3,
+      "snow": 0,
+      "night": true,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-night-r2.png",
+      "bytes": 696954,
+      "sha256": "68edea9377801fbe33f2b92f6b9fd102b8c7ae027c86f6b2a0a6a26f4929e7c5"
+    },
+    {
+      "name": "winter-bare-night-r3",
+      "season": 3,
+      "snow": 0,
+      "night": true,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-bare-night-r3.png",
+      "bytes": 688541,
+      "sha256": "4f4eaf51247c69717fc4e66356988e81016c0d045966882242debe78993803a0"
+    },
+    {
+      "name": "winter-snow-day-r0",
+      "season": 3,
+      "snow": 12,
+      "night": false,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-day-r0.png",
+      "bytes": 685336,
+      "sha256": "632211b3b1b11ccedc2ab298d7b39666a8cf0c1cdbafbd39359df14d6f864f39"
+    },
+    {
+      "name": "winter-snow-day-r1",
+      "season": 3,
+      "snow": 12,
+      "night": false,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-day-r1.png",
+      "bytes": 737012,
+      "sha256": "f1c69c0bec2645b65f5ce7c9101cd4fb4231a1878f4a3c6e7b52f6144d710157"
+    },
+    {
+      "name": "winter-snow-day-r2",
+      "season": 3,
+      "snow": 12,
+      "night": false,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-day-r2.png",
+      "bytes": 724714,
+      "sha256": "d8596bb928d0a60438695f7519beb4699543c463bd1c681989e21d05d019ed5e"
+    },
+    {
+      "name": "winter-snow-day-r3",
+      "season": 3,
+      "snow": 12,
+      "night": false,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 1,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-day-r3.png",
+      "bytes": 684895,
+      "sha256": "0e7c36901ac3bf0120c437852bf907680ce80d51c2bc99d2e6c9b9e19db635b4"
+    },
+    {
+      "name": "winter-snow-night-r0",
+      "season": 3,
+      "snow": 12,
+      "night": true,
+      "rot": 0,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-night-r0.png",
+      "bytes": 673888,
+      "sha256": "ce9695d0e3689f150b104be12e3327d8bdbe9c8616a8136254ec038e0fe1c73b"
+    },
+    {
+      "name": "winter-snow-night-r1",
+      "season": 3,
+      "snow": 12,
+      "night": true,
+      "rot": 1,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 1472,
+        "y": 1408,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-night-r1.png",
+      "bytes": 694740,
+      "sha256": "38b6dcdebe133b1ac8b6717d770b88a184dad731f6ca4d9e55a1fbd58f33d701"
+    },
+    {
+      "name": "winter-snow-night-r2",
+      "season": 3,
+      "snow": 12,
+      "night": true,
+      "rot": 2,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -544,
+        "y": 1872,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-night-r2.png",
+      "bytes": 694459,
+      "sha256": "4d21d2107144ff03c41f33e03ce27c2bd6bf6287815e53c946c1bbd652fb2f7c"
+    },
+    {
+      "name": "winter-snow-night-r3",
+      "season": 3,
+      "snow": 12,
+      "night": true,
+      "rot": 3,
+      "w": 1280,
+      "h": 657,
+      "brightness": 0.34,
+      "age": 30,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -1472,
+        "y": 864,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "winter-snow-night-r3.png",
+      "bytes": 674768,
+      "sha256": "c124aeeadc3b5e803fb0aa816298fdae7beef046cdd164c5b6d22949a0c015ce"
+    },
+    {
+      "name": "near-alaronde",
+      "z": 2,
+      "at": [
+        7.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 96,
+        "y": 176,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-alaronde.png",
+      "bytes": 518428,
+      "sha256": "66d26ee91c658b12594010a1283a20e60ad778980c1f1ed7ff26908f9afa4584"
+    },
+    {
+      "name": "near-dunster",
+      "z": 2,
+      "at": [
+        10.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 192,
+        "y": 224,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-dunster.png",
+      "bytes": 485670,
+      "sha256": "00ec29d5ecc02931c25b141ec18c98a78dc94790ef75edd5b50dec4753370e0e"
+    },
+    {
+      "name": "near-tattershall",
+      "z": 2,
+      "at": [
+        13.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 288,
+        "y": 272,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-tattershall.png",
+      "bytes": 446172,
+      "sha256": "82c0374f99d0ee3c584082610c8d8396769900469ff983f64cd28eb3d23faaa6"
+    },
+    {
+      "name": "near-hardwick",
+      "z": 2,
+      "at": [
+        16.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 384,
+        "y": 320,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-hardwick.png",
+      "bytes": 410832,
+      "sha256": "c33e2306e550acd21b85e4cd54a7c6066d7077aa0aba86c6416a71383196595a"
+    },
+    {
+      "name": "near-stokesay",
+      "z": 2,
+      "at": [
+        19.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 480,
+        "y": 368,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-stokesay.png",
+      "bytes": 416329,
+      "sha256": "c3ca14c5ca6e525249ba8c2936f0ad4f2dd3bd1cd1562db44f5c21fe0dba4979"
+    },
+    {
+      "name": "near-chiswick",
+      "z": 2,
+      "at": [
+        22.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 576,
+        "y": 416,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-chiswick.png",
+      "bytes": 421711,
+      "sha256": "80fe198f2266a2f2a21ebd00c71d6236ab1f12e323e231e3fb82a0377f61e34b"
+    },
+    {
+      "name": "near-cragside",
+      "z": 2,
+      "at": [
+        25.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 672,
+        "y": 464,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-cragside.png",
+      "bytes": 409848,
+      "sha256": "32e017958613645d51788c0d7fe979bf7e7ec5c433b5a20f7a9291c542f2e66f"
+    },
+    {
+      "name": "near-homewood",
+      "z": 2,
+      "at": [
+        28.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 768,
+        "y": 512,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-homewood.png",
+      "bytes": 399054,
+      "sha256": "ac8a678605a9c3526e5333a2e59917dbe7bc0d9e15f94a2d758a6f5238b77908"
+    },
+    {
+      "name": "near-cardington",
+      "z": 2,
+      "at": [
+        31.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 864,
+        "y": 560,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-cardington.png",
+      "bytes": 386391,
+      "sha256": "7024ae985edf406c0a664c428e276605f0d873921989842b6abbb22dd5087350"
+    },
+    {
+      "name": "near-willington",
+      "z": 2,
+      "at": [
+        34.5,
+        4.5
+      ],
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 960,
+        "y": 608,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "near-willington.png",
+      "bytes": 423435,
+      "sha256": "b4f8b6047aa27cea01ac8cd396e0b5f3e347331847d22e2a0ec6e970a18c942b"
+    },
+    {
+      "name": "far-day",
+      "z": 0.45,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 0.45,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "far-day.png",
+      "bytes": 376861,
+      "sha256": "3f042c51ac660139ae504481fe8217e66265f5c3e01a5485fa810880f70075b3"
+    },
+    {
+      "name": "far-night",
+      "z": 0.45,
+      "night": true,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 0.34,
+      "age": 30,
+      "rot": 0,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 0.45,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "far-night.png",
+      "bytes": 327511,
+      "sha256": "1b3538d805d1879c122c505173d5fff31b2470032fe9d597e1180be937bdbff0"
+    },
+    {
+      "name": "construction-early",
+      "age": 1,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "rot": 0,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "construction-early.png",
+      "bytes": 671005,
+      "sha256": "5403319cc0b6889b6c3fcaa5820eec87d424b76533ce82f0936219b637b19a92"
+    },
+    {
+      "name": "construction-middle",
+      "age": 4,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "rot": 0,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "construction-middle.png",
+      "bytes": 688773,
+      "sha256": "67190a576f7811b094853d0a28532d9437c5abfd12693c4d90d1061413a31124"
+    },
+    {
+      "name": "construction-late",
+      "age": 7,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "rot": 0,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "construction-late.png",
+      "bytes": 715379,
+      "sha256": "61b7304c965d574331597e030fbd01318adae73e96eacb6037c0c0001f7a3132"
+    },
+    {
+      "name": "hover-tattershall",
+      "z": 2,
+      "at": [
+        13.5,
+        4.5
+      ],
+      "hover": {
+        "x": 13,
+        "y": 3
+      },
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "rot": 0,
+      "camera": {
+        "x": 320,
+        "y": 256,
+        "z": 2,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "hover-tattershall.png",
+      "bytes": 449053,
+      "sha256": "c88523d89e75e9c7cc0650afec467433c576eb6feb09abaeb1364e9a5fb01293"
+    },
+    {
+      "name": "rain-night",
+      "weather": 2,
+      "snow": 12,
+      "night": true,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 0.34,
+      "age": 30,
+      "rot": 0,
+      "z": 1,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 544,
+        "y": 400,
+        "z": 1,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "file": "rain-night.png",
+      "bytes": 672357,
+      "sha256": "7c276e90a74145beee79602a20712a9a59487342264a4169f8ee8b56551bcf43"
+    }
+  ],
+  "failures": [
+    "scene025 old save roundtrip all fields 1 expected 3543746ea8ec03c374f35933987558336c1383828d61bee54405ea809388b08a got 0ddcc6e665c9159cbad70fce1ebabca82161a32fc40b0c4a189051886400208f",
+    "scene025 old save roundtrip all fields 2 expected 3543746ea8ec03c374f35933987558336c1383828d61bee54405ea809388b08a got 40c5388a46166eae544f318f90e08ff10dc4c20e3a4a53ba0804e16598655936"
+  ],
+  "unrun": [
+    "Old-save negative and restoration: baseline is already RED because fiscal515.history appends on every native load. Stop repairing this criterion on the art card."
+  ],
+  "notes": [
+    "Visual fixtures use fixed Math.random, visT and the existing T695 native water-frame clock input; no render layer is disabled. Ordinary native gameplay validation uses the separate native probe.",
+    "Edge scene uses native demolition/fill followed by actual paid native placement.",
+    "Strict failures remain RED at exit; independent scene evidence is retained before failing. No save field is excluded or normalized by the probe."
+  ],
+  "notApplicable": {
+    "waterReflection": "Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.",
+    "smoke": "All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.",
+    "neonSigns": "Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances."
+  },
+  "oldSavePreparation": {
+    "source": "98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e",
+    "nativeLoadSaveRounds": 2,
+    "differences": [
+      {
+        "path": "fiscal515.history.2",
+        "after": {
+          "d": 1,
+          "m": "結構餘額 $0｜同步 66%｜壓力 19%",
+          "c": "good"
+        }
+      },
+      {
+        "path": "fiscal515.history.3",
+        "after": {
+          "d": 1,
+          "m": "結構餘額 $0｜同步 66%｜壓力 19%",
+          "c": "good"
+        }
+      }
+    ]
+  },
+  "oldSave": {
+    "slot": 3,
+    "sandbox": true,
+    "passes": 2,
+    "matchesBase": true,
+    "allFieldsEqual": false,
+    "differences": [
+      {
+        "pass": 1,
+        "differences": [
+          {
+            "path": "fiscal515.history.4",
+            "after": {
+              "d": 1,
+              "m": "結構餘額 $0｜同步 66%｜壓力 19%",
+              "c": "good"
+            }
+          }
+        ]
+      },
+      {
+        "pass": 2,
+        "differences": [
+          {
+            "path": "fiscal515.history.4",
+            "after": {
+              "d": 1,
+              "m": "結構餘額 $0｜同步 66%｜壓力 19%",
+              "c": "good"
+            }
+          },
+          {
+            "path": "fiscal515.history.5",
+            "after": {
+              "d": 1,
+              "m": "結構餘額 $0｜同步 66%｜壓力 19%",
+              "c": "good"
+            }
+          }
+        ]
+      }
+    ],
+    "baseSHA256": "168d851165e275f3960483eadde80d2eb865f9502f3bd6ae728841519de6be12"
+  },
+  "negative": [
+    {
+      "name": "real native canvas one-pixel corruption",
+      "first": "scene025 base/valve whole native frame"
+    }
+  ],
+  "valve": [
+    {
+      "name": "legacy-day-r0.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+      "equal": true
+    },
+    {
+      "name": "legacy-day-r1.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60",
+      "equal": true
+    },
+    {
+      "name": "legacy-day-r2.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300",
+      "equal": true
+    },
+    {
+      "name": "legacy-day-r3.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r0.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r1.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r2.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r3.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040",
+      "equal": true
+    }
+  ],
+  "edge": [
+    {
+      "name": "edge-alaronde-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-alaronde-r0.png",
+      "bytes": 378764,
+      "sha256": "138ea4a69d8bbf24ccbf05d30a9f478b18de9c1a1b90606c07b2f732e670aed3"
+    },
+    {
+      "name": "edge-alaronde-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-alaronde-r1.png",
+      "bytes": 431468,
+      "sha256": "bd22bb79b9082661196a86524a32d71695ab3841be1c4f43a845a3ded28bc127"
+    },
+    {
+      "name": "edge-alaronde-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-alaronde-r2.png",
+      "bytes": 437159,
+      "sha256": "9983b4b329c2c779dfbb74f2c3895bd15ffb9e2bf2dae7345ea06e5ae9dcfb03"
+    },
+    {
+      "name": "edge-alaronde-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-alaronde-r3.png",
+      "bytes": 425870,
+      "sha256": "c04fc94c0e9e3f4160722cf0be0727ad09e80d009b97e85618782ab1b5450582"
+    },
+    {
+      "name": "edge-dunster-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-dunster-r0.png",
+      "bytes": 378849,
+      "sha256": "e7037667b2e23513ada55ed3514473f9b3958e9871f8beab3d726be239515a60"
+    },
+    {
+      "name": "edge-dunster-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-dunster-r1.png",
+      "bytes": 431843,
+      "sha256": "8dc09ed78f491b9d3cb2a6cdc73354b0ef588caa0125f1a909288006705fe534"
+    },
+    {
+      "name": "edge-dunster-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-dunster-r2.png",
+      "bytes": 437194,
+      "sha256": "a39516dd3afa3b4c8d966dc5f387b880e0ee8cbd08e04917cf98d0e7d049e4a4"
+    },
+    {
+      "name": "edge-dunster-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-dunster-r3.png",
+      "bytes": 426120,
+      "sha256": "533e2c27c83a70f0118f2888977c02acc7520dc184c43a351a6cc0dcc4a3017a"
+    },
+    {
+      "name": "edge-tattershall-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-tattershall-r0.png",
+      "bytes": 385827,
+      "sha256": "b6191ece8fbcf9e883e88a0b8c884540d6ebf95151f9079e4662870305c01037"
+    },
+    {
+      "name": "edge-tattershall-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-tattershall-r1.png",
+      "bytes": 436788,
+      "sha256": "705f0b87b107b1ce9a18c42751bf8b6c4c10b0edbc2fa03966323f6195e75356"
+    },
+    {
+      "name": "edge-tattershall-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-tattershall-r2.png",
+      "bytes": 437350,
+      "sha256": "603f8937c86f050fcdbb7c68e18f7523195165f6db2482bce9f3accda350c4d1"
+    },
+    {
+      "name": "edge-tattershall-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-tattershall-r3.png",
+      "bytes": 430345,
+      "sha256": "c4d8036a71c2bb8619c054189f583c4caeab42fa8c32ac80017af2772a3e8338"
+    },
+    {
+      "name": "edge-hardwick-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-hardwick-r0.png",
+      "bytes": 379851,
+      "sha256": "8e93aceab35cbe231d829d95686793bf67def584f08360e3a88a4381a4a840d8"
+    },
+    {
+      "name": "edge-hardwick-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-hardwick-r1.png",
+      "bytes": 432078,
+      "sha256": "e3dd5be22d64e458be62b182e3e6f8606213ef6e3f6e717281998e632d519de9"
+    },
+    {
+      "name": "edge-hardwick-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-hardwick-r2.png",
+      "bytes": 436396,
+      "sha256": "f5c471497b7e188bd91460fcdefded17bc0e9d335a2525693636d09bfa36947a"
+    },
+    {
+      "name": "edge-hardwick-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-hardwick-r3.png",
+      "bytes": 425549,
+      "sha256": "413b3fe6823984c2b6871312773a6e442f54c616c80bca952a741b4a93fa18cb"
+    },
+    {
+      "name": "edge-stokesay-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-stokesay-r0.png",
+      "bytes": 379540,
+      "sha256": "f7aaaedba477934e4dc7282619f8031d29df12fad8ba161494711f0498251af8"
+    },
+    {
+      "name": "edge-stokesay-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-stokesay-r1.png",
+      "bytes": 432370,
+      "sha256": "95edd1e38cd9c88305ad7bc593d61d3b078bdc1fa1d4b5c87064025e105399ee"
+    },
+    {
+      "name": "edge-stokesay-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-stokesay-r2.png",
+      "bytes": 437784,
+      "sha256": "4772f928b79bb2c744e55d4ddac0cac6ab7c7e060da2befc2c11dee57acedb82"
+    },
+    {
+      "name": "edge-stokesay-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-stokesay-r3.png",
+      "bytes": 426530,
+      "sha256": "6e92657d1958e0b49ce31f96f372f6709db3916ec64996b89a29c4845fd45787"
+    },
+    {
+      "name": "edge-chiswick-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-chiswick-r0.png",
+      "bytes": 377813,
+      "sha256": "d534109485585fe2507d915cbdc590f108a99a36eadadcd95d972069e4f99749"
+    },
+    {
+      "name": "edge-chiswick-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-chiswick-r1.png",
+      "bytes": 430212,
+      "sha256": "08fd4409c1ae86076542db147f169b2bef94f09b5c0d3533324a46ad3118981f"
+    },
+    {
+      "name": "edge-chiswick-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-chiswick-r2.png",
+      "bytes": 436829,
+      "sha256": "c74cf1dd979fbb5e1c1441476ab22e336e63b757ce27b74d8cbae020763c25e6"
+    },
+    {
+      "name": "edge-chiswick-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-chiswick-r3.png",
+      "bytes": 424735,
+      "sha256": "fd69426570fc3b1e6211ec6e61f0409e7d8d7cbc3d35d4c3e82f5e1362150efe"
+    },
+    {
+      "name": "edge-cragside-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cragside-r0.png",
+      "bytes": 380092,
+      "sha256": "ffdfb1f54aa47de825e601a6cbac044be76ef1970deb24c23a34e0eb0cf0afba"
+    },
+    {
+      "name": "edge-cragside-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cragside-r1.png",
+      "bytes": 432418,
+      "sha256": "d2e87d71a7d04f3dbecfe0d1e091ad5016fbfb6249be2384b4614ba830d4715c"
+    },
+    {
+      "name": "edge-cragside-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cragside-r2.png",
+      "bytes": 438750,
+      "sha256": "899fdd1eb8e1b847ab936681354b7c3f4f6d17fb89b7e63bcd1a57de9856c84e"
+    },
+    {
+      "name": "edge-cragside-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cragside-r3.png",
+      "bytes": 427083,
+      "sha256": "6ca40feb66cfcbf13753da0783a594d5272feb63f06d1534dc6c7d1244a0b200"
+    },
+    {
+      "name": "edge-homewood-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-homewood-r0.png",
+      "bytes": 377193,
+      "sha256": "5c7eaef533e27db9fb4ba16a8947ea3565dec5d349c5ace23561ae943a6330c9"
+    },
+    {
+      "name": "edge-homewood-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-homewood-r1.png",
+      "bytes": 430158,
+      "sha256": "e5209fc634bc0f925f1cb2eeca6b9ebf1c83f1fee3d4aeff2f29c59dc2311f89"
+    },
+    {
+      "name": "edge-homewood-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-homewood-r2.png",
+      "bytes": 435454,
+      "sha256": "c509af38cd223e244b5bcc5a60f67cad150a959fa2d2ce7137d416c79dbbc51d"
+    },
+    {
+      "name": "edge-homewood-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-homewood-r3.png",
+      "bytes": 424415,
+      "sha256": "917cf52cf6a98ca232722ab5ac752c9eb4871b762b5fa33956dcee5994d00cc7"
+    },
+    {
+      "name": "edge-cardington-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cardington-r0.png",
+      "bytes": 378361,
+      "sha256": "a9296775753cd16f332989a7f9c264940ebece50b8326bc51b47b93bbe41d1e7"
+    },
+    {
+      "name": "edge-cardington-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cardington-r1.png",
+      "bytes": 429056,
+      "sha256": "c4eaa265123d7bd50cf2ab7cb3ba1b68efb5d0f429ec6f88a5470dbb8c214ecb"
+    },
+    {
+      "name": "edge-cardington-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cardington-r2.png",
+      "bytes": 434878,
+      "sha256": "5456adcd399296b3ef0c71b7a4a4dc4b9758eaae87c79a2b08c55fc37fa51d3e"
+    },
+    {
+      "name": "edge-cardington-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-cardington-r3.png",
+      "bytes": 424246,
+      "sha256": "0355dbad3dd786e9f05220b38d6099bd4b90ef51d5bec2e92247ba99be076a47"
+    },
+    {
+      "name": "edge-willington-r0",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 0,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-willington-r0.png",
+      "bytes": 378451,
+      "sha256": "b905a3f1d478be968afeb6f9a5c1dc9884c02bbfd0b59b43e9cb017b89ced4d2"
+    },
+    {
+      "name": "edge-willington-r1",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 1,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-willington-r1.png",
+      "bytes": 430349,
+      "sha256": "cc43ff8b31f363f41196c82a711dc52f846205b64572808684cd0fea67848fb6"
+    },
+    {
+      "name": "edge-willington-r2",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 2,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": 0,
+        "y": 2272,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-willington-r2.png",
+      "bytes": 436971,
+      "sha256": "6aaf696865d1553588eebebaed382d7e02cfb49aa3c481accdfd8721002accb6"
+    },
+    {
+      "name": "edge-willington-r3",
+      "at": [
+        0.5,
+        0.5
+      ],
+      "rot": 3,
+      "z": 1.5,
+      "w": 1280,
+      "h": 657,
+      "season": 1,
+      "brightness": 1,
+      "age": 30,
+      "hover": {
+        "x": -1,
+        "y": -1
+      },
+      "camera": {
+        "x": -2272,
+        "y": 1136,
+        "z": 1.5,
+        "roadDraft": null,
+        "pointers": 0
+      },
+      "smoke": 0,
+      "file": "edge-willington-r3.png",
+      "bytes": 424789,
+      "sha256": "2d79782611d77e7303ab8e1d587ff4ecb8fc4c524372d92dbcb49c6286c1d98c"
+    }
+  ]
+}
