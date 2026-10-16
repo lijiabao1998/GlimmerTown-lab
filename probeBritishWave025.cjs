@@ -64,6 +64,9 @@ function nativeChecks(){
   expect('different names but duplicate geometry',()=>window.BritishWaveArchitecture025={...api,build:(id,v)=>api.build(id==='dunster'?'alaronde':id,v)},()=>window.BritishWaveArchitecture025=api,'wave025 ten distinct structural');
   const other=spr['24_1_164'],od=other.img,on=other.night;
   expect('installed clone with distinct authors',()=>{other.img=day;other.night=night;},()=>{other.img=od;other.night=on;},'wave025 installed pixels');
+  const draw=vdraw574;
+  expect('valid live source freezes new camera view',()=>vdraw574=function(o,b){return b?.k===24&&b.v>=160&&b.v<200?160+4*Math.floor((b.v-160)/4):draw(o,b);},()=>vdraw574=draw,'wave025 actual rotation');
+  expect('empty native day and night',()=>{const c=document.createElement('canvas');c.width=160;c.height=196;s.img=c;s.night=c;},()=>{s.img=day;s.night=night;},'wave025 uncropped');
 
   let phase='initial';
   const lot=()=>{
@@ -79,6 +82,18 @@ function nativeChecks(){
   if(GV.devUnlocked516B('landmark')||a.select('alaronde')||GV.useScales021.world().money!==lockedMoney)throw Error('wave025 unchanged native lock');
   const unlock=()=>{if(!GV.dev516B().sandbox)GV.enterSandbox516B();if(!GV.setGod516B(true)||!GV.setOverride516B('unlockAll',true))throw Error('wave025 explicit isolated native unlock fixture');};
   unlock();
+  const fee=(before,expected,after)=>{const spent=before-after;if(!Number.isFinite(before)||spent!==expected||spent<=0)throw Error('wave025 fee '+spent+' expected '+expected);return spent;};
+  // Mutate the real native placement function with valid live source, then require
+  // the same fee assertion used below to be the first failure. Reset world after.
+  GV.setDiff(1);GV.newWorldSeeded(87);GV.setSpeed(0);unlock();GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  const fp=lot(),cash=GV.devMoney516B(),quote=GV.placePreview459('landmark',fp.x,fp.y).cost,place=doPlace;let feeRed;
+  try{
+    doPlace=function(id,x,y,silent){const ok=place(id,x,y,silent);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney516B()-1);return ok;};
+    if(!GV.place('landmark',fp.x,fp.y))throw Error('wave025 fee negative fixture placement failed');
+    try{fee(cash,quote,GV.devMoney516B());}catch(e){feeRed=e.message;}
+    if(!feeRed?.startsWith('wave025 fee '))throw Error('wave025 fee negative missed target');
+  }finally{doPlace=place;}
+  red.push({name:'valid live source overcharges one native dollar',first:feeRed});
   const pairs=[];
   for(const seed of[31,71,103]){
     const arm=special=>{
@@ -86,8 +101,7 @@ function nativeChecks(){
       if(special&&!a.select('tattershall'))throw Error('wave025 paired selection');
       GV.setDiff(1);const money=GV.useScales021.world().money,expected=GV.placePreview459('landmark',p.x,p.y).cost;
       if(!GV.place('landmark',p.x,p.y))throw Error('wave025 paid native placement');
-      const spent=money-GV.useScales021.world().money,b=a.read(p.x,p.y);
-      if(!Number.isFinite(money)||spent!==expected||spent<=0)throw Error('wave025 fee '+spent+' expected '+expected);
+      const spent=fee(money,expected,GV.useScales021.world().money),b=a.read(p.x,p.y);
       if(b.k!==24||b.sz!==2||(special?b.v!==168:b.v>2))throw Error('wave025 native root identity');
       for(const [dx,dy]of[[1,0],[0,1],[1,1]])if(JSON.stringify(a.read(p.x+dx,p.y+dy).ref)!==JSON.stringify([p.x,p.y]))throw Error('wave025 native reference');
       GV.step(1);return{spent,root:{...b,v:0},stats:GV.stats(),tile:p};
@@ -104,8 +118,8 @@ function nativeChecks(){
     button.click();if(a.selection()!==q.id)throw Error('wave025 actual catalog click '+q.id);
     const money=GV.useScales021.world().money,expected=GV.placePreview459('landmark',p.x,p.y).cost;
     if(!GV.placeUndo('landmark',p.x,p.y))throw Error('wave025 native place '+q.id);
-    const b=a.read(p.x,p.y),spent=money-GV.useScales021.world().money;
-    if(b.v!==q.v||b.k!==24||b.sz!==2||!Number.isFinite(money)||spent!==expected||spent<=0)throw Error('wave025 paid identity '+q.id);
+    const b=a.read(p.x,p.y),spent=fee(money,expected,GV.useScales021.world().money);
+    if(b.v!==q.v||b.k!==24||b.sz!==2)throw Error('wave025 paid identity '+q.id);
     placed.push({...p,id:q.id,v:q.v,spent});
   }
   for(let pass=0;pass<2;pass++){GV.save();if(!GV.load())throw Error('wave025 real native load');for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave025 native saved variant roundtrip '+q.id);}
@@ -135,6 +149,6 @@ function nativeChecks(){
   const r=session.result;assert.equal(r.slot,'3');
   const manifest=Buffer.from(JSON.stringify({head:process.env.GITHUB_SHA,indexSHA256:hash(fs.readFileSync(path.join(ROOT,'index.html'))),base:BASE,...r,images},null,2)+'\n');
   fs.writeFileSync(path.join(OUT,'manifest.json'),manifest);exportEvidence('manifest.json',manifest);
-  console.log('wave025 native GREEN: ten forms, forty views, eighty original PNGs; seven live first-RED controls; three same-seed pairs; ten paid catalog clicks; two native save/load cycles; undo/redo/ref demolition.');
+  console.log('wave025 native GREEN: ten forms, forty views, eighty original PNGs; '+r.red.length+' live first-RED controls; three same-seed pairs; ten paid catalog clicks; two native save/load cycles; undo/redo/ref demolition.');
   console.log('Remaining, not claimed passed: '+r.remaining.join('; '));
 })().catch(e=>{console.error(e.stack);process.exitCode=1;});

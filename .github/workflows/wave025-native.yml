@@ -24,6 +24,8 @@ jobs:
         run: node embed-wave025.cjs --check
       - name: Actual native geometry, placement, saves and live negative controls
         run: node probeBritishWave025.cjs
+      - name: Original native scenes, old-save fields and base-valve full frames
+        run: node probeScenes025.cjs
       - name: Preserve original images and factual results
         if: always()
         uses: actions/upload-artifact@v4
