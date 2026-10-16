@@ -72,6 +72,14 @@
 
 原生報告與16張完整畫布：[附件12052582643](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38916398951/artifacts/12052582643)，8,863,290 bytes，ZIP SHA-256 `0d0340d20636750bb7e97acd084806f088d25e658dd1aa4c1a8071f40594ac6a`，保留至2026-10-30。分支專屬 workflow 最後一次 run38916398951 已綠，後續只以獨立 workflow-only commit 移除。
 
+### 常態 CI 與精確來源一致性
+
+分支專屬 workflow 刪除是 AGENTS 第3節的規定，並不是原生驗收通過的理由。00d7bd84 與原生受測28e5c5a9的完整樹差異只有本卡及移除該 workflow；index.html、smoke.js、probeFiscalLoad026.cjs、fixture 與其他程式檔逐位元相同。
+
+但00d7bd84的常態 smoke／fp只有新增的作用域自檢，沒有完整原生回歸，不能稱為已持續保護38項。本次另在既有 `.github/workflows/smoke.yml` **只追加** `fiscal-load` 獨立 job，原 smoke／fp 工作、觸發範圍、判準與 Pages 設定均保留。新 job 在同一常態 workflow 的 main、各寫入者分支及 PR 程式變更事件執行相同探針、原始fixture與全部負控制，contents: read，無部署／推送權限；失敗使整個 smoke workflow 失敗，不能成為 Pages 自動部署的成功前置。
+
+新 job 使用 fetch-depth:0、Node22、同字型、同一 `node probeFiscalLoad026.cjs`，失敗仍保留 JSON／畫布14天。這筆常態CI接入尚待當次實際run，不能沿用舊head綠燈宣稱通過；最後head的執行與附件另在PR33記錄。探針、fixture、產品與原有斷言沒有再改動。本PR因此包含常態CI變更，明確屬於AGENTS第3節不准GPT自行合併的範圍。
+
 ### 未完成與合併邊界
 
 未合併部署。按 AGENTS 第3節及第7節第1步，涉及舊檔來回與正常模擬驗收的修補保留 [等業主] PR33，交由業主／main 寫入者審閱。尚未配合併用 T 號、版本及主線日誌。

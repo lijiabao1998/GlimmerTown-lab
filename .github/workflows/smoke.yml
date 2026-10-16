@@ -93,3 +93,30 @@ jobs:
             fp-rebake/
           if-no-files-found: warn
           retention-days: 14
+
+  # GPT-026: keep the complete native fiscal regression in the regular workflow.
+  # A failure makes this workflow fail, so Pages cannot use a partial success.
+  fiscal-load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 中文字型（原生完整畫布比較）
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: 完整原生財務回歸（含舊檔、日結算、例外與負控制）
+        run: node probeFiscalLoad026.cjs
+      - name: 保存完整財務回歸報告與畫布
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fiscal-load-${{ github.sha }}
+          path: shots/fiscal026/
+          if-no-files-found: error
+          retention-days: 14
