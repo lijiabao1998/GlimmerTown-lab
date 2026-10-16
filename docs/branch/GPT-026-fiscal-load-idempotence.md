@@ -37,11 +37,43 @@
 ## 收工自檢與施工紀錄
 
 - [x] 卡面在實作前獨立提交；家族宣告固定為無
-- [ ] 同種子與完整舊檔來回
-- [ ] fp 零變動及逃生閥整幀等值
-- [ ] 每個新守衛的 first RED／還原 GREEN
-- [ ] 最後提交 smoke 三次、fp 及專屬檢查
+- [x] 同種子與完整舊檔來回
+- [x] fp 零變動及逃生閥整幀等值
+- [x] 每個新守衛的 first RED／還原 GREEN
+- [x] smoke 三次、fp 及專屬檢查已有以下實作提交的實際存證；最後整理 head 仍必須通過 PR checks
 - [x] 美術新狀態不適用：本卡不修改繪圖；仍須驗畫面沒有因載入變壞
 - [x] 未執行的測試不寫通過
 
-卡面階段：尚未修改產品、尚未執行新測試，未合併部署。未完成項就是以上未勾項；後續把實際 commit／run、成功與失敗據實補入本節。
+### 實際修改
+
+產品實作為 `0c43f4e8d7a5d04500d34c2127f587133b4c89d5`，之後三筆提交只修正新增探針的 fixture 與診斷，沒有再改產品程式。
+
+- 同步 native load 進入／離開時保存並還原深度，涵蓋內層觀測台與外層財務刷新；finally 處理正常、false、例外及重入。
+- 載入期間仍重建 city、infrastructure、assets，跳過歷史聚合、資產掃描游標、維護 backlog／游標與日結算寫入。一般 force、政策與日更走原有路徑。
+- fiscalSave515、fiscalLoad515、fiscalDailySettlement515、fiscalCompletionSettlement515 及 FISCAL_CADENCE515 逐位元相同；既有斷言、fp／style 基線與共享測試骨架沒有變動。smoke 只新增自檢入口。
+- 新增 `probeFiscalLoad026.cjs` 及原始 fixture；所有遊戲／像素執行均在 GitHub Actions，來源語法／雜湊／差異檢查另行完成。
+
+### 實際回歸與探針診斷
+
+| 實作／探針提交 | 原生回歸 run | 通過／失敗 | 結論 |
+|---|---|---:|---|
+| 0c43f4e8 | [38914220612](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38914220612) | 30／8 | 原始舊檔與12組歷史／游標場景已通過；新增探針的舊格式判讀及配對初始化有錯 |
+| 48886cda | [38914993379](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38914993379) | 32／6 | 原生序列化原本省略空 optional fiscal515；missing／null 經完整比較穩定，其餘逐欄差異指向前例殘留 |
+| 439876ed | [38915647150](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38915647150) | 35／3 | 重設獨立 fixture 並固定天氣輸入後，正常 BASE／HEAD 配對恢復；剩餘差異只有初始化第一筆 history 的文字 |
+| 28e5c5a9 | [38916398951](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38916398951) | **38／0** | **7個負控制，全部 first RED／恢復 GREEN；未刪任何比較欄位或放寬完整狀態判準** |
+
+精確原因：newWorldSeeded 不重設 T515；fin.net 也可能留有上一例的 -12。獨立正常配對現在先用原有 QA 入口固定財務輸入，再重設財務、建立本例歷史。舊 schema 不序列化 wxT，因此兩條續跑使用相同原生天氣輸入。上述修改只控制 fixture 的起點／外部輸入；歷史第一筆仍參與完整比較，原始11995-byte舊檔未變動，所有完整狀態與正常結算斷言保留。
+
+最終原生結果：一般／sandbox 各6組，兩次 load→save 的所有序列化欄位與輸入相同，非作用中鍵未動；0／4／180筆歷史、零／過期／未來游標、非零 backlog／ledger／revenue 通過。missing 舊格式首輪差異為空；null 舊格式只省略原本 optional 的 fiscal515，未虛構歷史或金流，後兩輪全欄位恆等。
+
+同種子31、1／7／14日正常結果與獨立 BASE 相同；非零 recurring／completion、同日防重、載入後下一日、7／14日節奏、force／政策、false／throw／重入與後續正常運行通過。四種真實落盤負例為 money -1、追加／刪除 history、改游標；另有原 BASE 缺陷、HEAD 逃生閥恢復載入寫歷史，以及合法來源漏 finally 清理，目標首紅及還原均通過。HEAD 與逃生閥各8個日夜四向完整畫布均等於 BASE。
+
+實作提交28e5c5a9的 [smoke三次／fp 38916398949](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38916398949) 兩工作均 success；fp 相對 base 新增0／變更0／移除0、觸及家族0，風格分沒有家族下降，165族 style 相同，超街區零變動，符合首筆家族宣告「無」。最後整理提交不更改實作或判準，仍須核對該 head 的 smoke／fp 綠燈，以 [PR33 checks](https://github.com/lijiabao1998/GlimmerTown-lab/pull/33/checks) 為準。
+
+原生報告與16張完整畫布：[附件12052582643](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38916398951/artifacts/12052582643)，8,863,290 bytes，ZIP SHA-256 `0d0340d20636750bb7e97acd084806f088d25e658dd1aa4c1a8071f40594ac6a`，保留至2026-10-30。分支專屬 workflow 最後一次 run38916398951 已綠，後續只以獨立 workflow-only commit 移除。
+
+### 未完成與合併邊界
+
+未合併部署。按 AGENTS 第3節及第7節第1步，涉及舊檔來回與正常模擬驗收的修補保留 [等業主] PR33，交由業主／main 寫入者審閱。尚未配合併用 T 號、版本及主線日誌。
+
+PR32 尚未同步修復，也未進行修復後完整重驗。需先獨立合入修復，再以該 main SHA 更新其原有 BASE 引用並完整重跑原守衛；不將未合併的財務實作混入美術 PR。第一波尚未合併，方向完成仍為0／20波。
