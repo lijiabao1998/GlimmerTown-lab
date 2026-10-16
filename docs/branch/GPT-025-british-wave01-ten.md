@@ -111,3 +111,13 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 ### 沒做成／仍待補
 
 完整季節／有無雪／遠景／邊緣／施工／懸停等遊戲場景、整幀base／逃生閥等值、完整舊存檔全欄位往返、旋轉與費用等額外首紅負控制仍待補。分支專屬workflow尚未最後全綠及移除；最後head的smoke三次與fp尚未綠；未配T號／版本／main日誌、未合併、未部署，完成波數仍為0／20。先開附實際圖片的`[等業主]`草稿供看第一項，再完成合併條件；PR未開滿12小時不自行合併。
+
+### 10:10 UTC續記：第一項已開PR；嚴格舊存檔門檻卡住
+
+[PR #32](https://github.com/lijiabao1998/GlimmerTown-lab/pull/32)於2026-10-16 09:45:21 UTC建立，滿12小時為21:45:21 UTC。只等時間不會消除紅燈；目前不能合併，未配T號、未改版本或main日誌、未部署。
+
+- `7cf8393`的新增負控制最初錯用封裝內部vdraw574，CI報ReferenceError；`489d8ce`改成合法源碼負例後，唯一定位又撞到舊輯同樣片段。`048a0db`以GPT-025函式全名唯一定位，先在本地只做源碼唯一性／87段腳本語法檢查，沒有本地啟動遊戲。其後[run38884127895](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38884127895/job/116917645996)及[run38884848648](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38884848648/job/116919987561)的native步驟皆綠：原七項加空圖、實際API多扣$1、合法源碼凍結相機選擇，共十項首紅與恢復回綠。不是把探針ReferenceError當成目標守衛首紅。
+- [新舊形制對照表](../assets/GPT-025/contact-comparison.png)源自489d8ce的實際SPR，SHA-256 `e07098eadcdc1208eefe2037aef855da928872b1c6b1e8874ac0dde18f517459`。已肉眼對照：阿拉隆德／Orford、Dunster／Coxwell、Tattershall／Orford、Hardwick／Kew、Stokesay／Little Moreton、Chiswick／Dunmore、Cragside／Little Moreton、Homewood／De La Warr、Cardington／Flaxmill、Willington／Coxwell，平面、屋頂、窗型與量體有差異，不是換色。
+- `048a0db`的舊檔完整欄位測試第一次紅；基底98545ff與分支的整個前後結果陣列相同，但兩者自己load/save都會改欄位。`613eb06`再由BASE實際原生load/save兩次產生舊檔並跨版本載入，仍紅。已查明不是僅首次正規化：`fiscal515.history`每次load都追加同日財政紀錄（如「結構餘額 $0｜同步 66%｜壓力 19%」），兩次load新增兩筆。這是既有基底行為，沒有在本美術卡改存檔或刪欄位來掩蓋。
+- 依《迭代不改壞標準》第7節「同一件事試2次沒進展就停」及AGENTS第7節卡住流程，停止在本美術卡修這條門檻，標`[卡住]`並將另卡修補列最前。仍保留原先「所有欄位不變」斷言；後續只把嚴格失敗先記錄，繼續獨立場景取圖，最後仍以非零結束，不讓工作流假綠。舊檔負控制因正向守衛在BASE已紅而未跑，不假稱驗證過。
+- 目前smoke與fp曾在af572b2、048a0db等head取得綠燈；整個專屬workflow仍因嚴格舊檔守衛紅，不能移除它來自合。後續新增外觀的undo／redo／退款／參照格拆除恢復與額外交易首紅仍待本次CI實測；完整場景、整幀及其負控制結果也仍待收集。未做成事項保持明列，不把取得原圖當成通過全部驗收。

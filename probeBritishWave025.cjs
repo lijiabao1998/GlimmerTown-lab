@@ -124,6 +124,14 @@ function nativeChecks(){
     if(b.v!==q.v||b.k!==24||b.sz!==2)throw Error('wave025 paid identity '+q.id);
     placed.push({...p,id:q.id,v:q.v,spent});
   }
+  const last=placed.at(-1),paidMoney=GV.devMoney516B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(last.x+dx,last.y+dy)===null));
+  if(!GV.undo()||!empty()||GV.devMoney516B()!==paidMoney+last.spent)throw Error('wave025 new appearance undo, footprint and refund');
+  const redoCheck=()=>{if(!GV.redo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave025 new appearance redo, identity and fee');};
+  const redo=GV.redo;let redoRed;
+  try{GV.redo=()=>false;try{redoCheck();}catch(e){redoRed=e.message;}if(!redoRed?.startsWith('wave025 new appearance redo'))throw Error('wave025 transaction negative missed target');}finally{GV.redo=redo;}
+  red.push({name:'valid live redo API fails to restore new appearance',first:redoRed});redoCheck();
+  if(!GV.placeUndo('doze',last.x+1,last.y+1)||!empty())throw Error('wave025 new appearance reference demolition');
+  if(!GV.undo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave025 undo reference demolition restores new appearance');
   for(let pass=0;pass<2;pass++){GV.save();if(!GV.load())throw Error('wave025 real native load');for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave025 native saved variant roundtrip '+q.id);}
   if(!GV.heritage024.select('kew')||a.selection()!==null)throw Error('wave025 older catalog selection must clear new selection');
   a.open();if(document.querySelectorAll('[data-wave025]').length!==10)throw Error('wave025 catalog count');
@@ -137,7 +145,7 @@ function nativeChecks(){
   if(a.select('alaronde'))throw Error('wave025 valve accepted new special selection');
   for(const q of a.rows())if(GV.art574.vdraw({x:10,y:10},{k:24,lv:1,v:q.v})!==0)throw Error('wave025 valve must resolve original landmark');
   delete window.__noBritishWave025;
-  return{report,red,pairs,placed,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
+  return{report,red,pairs,placed,newAppearanceTransactions:{id:last.id,v:last.v,undo:true,redo:true,refund:last.spent,refDemolition:true,undoRefDemolition:true},slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
 }
 (async()=>{
   let images=[];

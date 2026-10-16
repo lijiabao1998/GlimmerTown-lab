@@ -56,7 +56,8 @@ function edge025(id){
   return{smoke:GV.britishWave025.sprite(0,0).smoke.length};
 }
 (async()=>{
-  const report={head:process.env.GITHUB_SHA,base:BASE,frames:[],notes:['Visual fixtures use fixed Math.random and visT; ordinary native gameplay validation uses the separate native probe.','Edge scene uses native demolition/fill followed by actual paid native placement.'],notApplicable:{waterReflection:'Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.',smoke:'All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.',neonSigns:'Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances.'}};
+  const report={head:process.env.GITHUB_SHA,base:BASE,frames:[],failures:[],unrun:[],notes:['Visual fixtures use fixed Math.random and visT; ordinary native gameplay validation uses the separate native probe.','Edge scene uses native demolition/fill followed by actual paid native placement.','Strict failures remain RED at exit; independent scene evidence is retained before failing. No save field is excluded or normalized by the probe.'],notApplicable:{waterReflection:'Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.',smoke:'All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.',neonSigns:'Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances.'}};
+  const strict=fn=>{try{fn();return true;}catch(e){report.failures.push(e.message);console.error('scene025 STRICT RED: '+e.message);return false;}};
   let old;
   try{
     fs.writeFileSync(index,base);
@@ -70,19 +71,27 @@ function edge025(id){
   console.log('scene025 BASE native preparation differences '+JSON.stringify(report.oldSavePreparation.differences));
   const r=await withGame(opt,async({cdp})=>{
     const fixture=await cdp.evalJs('('+legacyFixture025.toString()+')('+JSON.stringify(old.fixture.raw)+')');
-    stateCheck(fixture.states,old.fixture.states,'scene025 complete old-save behavior matches baseline, every field');
-    for(let pass=1;pass<fixture.states.length;pass++)stateCheck(fixture.states[pass],fixture.states[0],'scene025 old save roundtrip all fields '+pass);
-    report.oldSave={slot:3,sandbox:true,passes:2,allFieldsEqual:true,baseSHA256:hash(Buffer.from(old.fixture.raw))};
+    const matchesBase=strict(()=>stateCheck(fixture.states,old.fixture.states,'scene025 complete old-save behavior matches baseline, every field'));
+    let allFieldsEqual=true;const differences=[];
+    for(let pass=1;pass<fixture.states.length;pass++){if(!strict(()=>stateCheck(fixture.states[pass],fixture.states[0],'scene025 old save roundtrip all fields '+pass)))allFieldsEqual=false;differences.push({pass,differences:stateDiff(fixture.states[0],fixture.states[pass])});}
+    report.oldSave={slot:3,sandbox:true,passes:2,matchesBase,allFieldsEqual,differences,baseSHA256:hash(Buffer.from(old.fixture.raw))};
+    console.log('scene025 old-save complete-field evidence '+JSON.stringify(report.oldSave));
     report.negative=[];
-    const altered=await cdp.evalJs('(()=>{const key='+JSON.stringify(fixture.key)+',d=JSON.parse(localStorage.getItem(key));d.money-=1;localStorage.setItem(key,JSON.stringify(d));if(!GV.load())throw Error("negative old-save load");GV.save();return JSON.parse(localStorage.getItem(key));})()');
-    let first;try{stateCheck(altered,fixture.states[0],'scene025 old save roundtrip all fields');}catch(e){first=e.message;}assert(first?.startsWith('scene025 old save roundtrip all fields'),'scene025 old-save negative missed target');report.negative.push({name:'real slot3 load/save loses one dollar',first});
-    const restored=await cdp.evalJs('(()=>{localStorage.setItem('+JSON.stringify(fixture.key)+','+JSON.stringify(fixture.raw)+');if(!GV.load())throw Error("restore old-save load");GV.save();return JSON.parse(GV.rawSave());})()');stateCheck(restored,fixture.states[0],'scene025 old-save restored GREEN');
+    let first;
+    if(allFieldsEqual){
+      const altered=await cdp.evalJs('(()=>{const key='+JSON.stringify(fixture.key)+',d=JSON.parse(localStorage.getItem(key));d.money-=1;localStorage.setItem(key,JSON.stringify(d));if(!GV.load())throw Error("negative old-save load");GV.save();return JSON.parse(localStorage.getItem(key));})()');
+      try{stateCheck(altered,fixture.states[0],'scene025 old save roundtrip all fields');}catch(e){first=e.message;}assert(first?.startsWith('scene025 old save roundtrip all fields'),'scene025 old-save negative missed target');report.negative.push({name:'real slot3 load/save loses one dollar',first});
+      const restored=await cdp.evalJs('(()=>{localStorage.setItem('+JSON.stringify(fixture.key)+','+JSON.stringify(fixture.raw)+');if(!GV.load())throw Error("restore old-save load");GV.save();return JSON.parse(GV.rawSave());})()');strict(()=>stateCheck(restored,fixture.states[0],'scene025 old-save restored GREEN'));
+    }else report.unrun.push('Old-save negative and restoration: baseline is already RED because fiscal515.history appends on every native load. Stop repairing this criterion on the art card.');
     const frames=await cdp.evalJs('('+oldFrames025.toString()+')(true)');
     assert.equal(frames.length,old.frames.length);report.valve=[];
-    for(let i=0;i<frames.length;i++){const a=Buffer.from(old.frames[i].data.split(',')[1],'base64'),b=Buffer.from(frames[i].data.split(',')[1],'base64');write('base-'+frames[i].name,old.frames[i].data);write('valve-'+frames[i].name,frames[i].data);if(!b.equals(a)){transfer('scenes/base-'+frames[i].name,a);transfer('scenes/valve-'+frames[i].name,b);}assert(b.equals(a),'scene025 base/valve whole native frame '+frames[i].name+' '+hash(a)+' vs '+hash(b));report.valve.push({name:frames[i].name,w:frames[i].w,h:frames[i].h,sha256:hash(b),equal:true});}
-    const damaged=await cdp.evalJs('(()=>{const c=document.getElementById("game"),g=c.getContext("2d"),d=g.getImageData(0,0,1,1);d.data[0]^=255;g.putImageData(d,0,0);return c.toDataURL("image/png");})()');
-    const bad=Buffer.from(damaged.split(',')[1],'base64'),good=Buffer.from(old.frames.at(-1).data.split(',')[1],'base64');first=null;try{assert(bad.equals(good),'scene025 base/valve whole native frame');}catch(e){first=e.message;}assert(first?.startsWith('scene025 base/valve whole native frame'),'scene025 full-frame negative missed target');report.negative.push({name:'real native canvas one-pixel corruption',first});
-    const clear=await cdp.evalJs('('+oldFrames025.toString()+')(true)');assert(Buffer.from(clear.at(-1).data.split(',')[1],'base64').equals(good),'scene025 full-frame restored GREEN');
+    let framesEqual=true;
+    for(let i=0;i<frames.length;i++){const a=Buffer.from(old.frames[i].data.split(',')[1],'base64'),b=Buffer.from(frames[i].data.split(',')[1],'base64');write('base-'+frames[i].name,old.frames[i].data);write('valve-'+frames[i].name,frames[i].data);if(!b.equals(a)&&framesEqual){transfer('scenes/base-'+frames[i].name,a);transfer('scenes/valve-'+frames[i].name,b);}const equal=strict(()=>assert(b.equals(a),'scene025 base/valve whole native frame '+frames[i].name+' '+hash(a)+' vs '+hash(b)));if(!equal)framesEqual=false;report.valve.push({name:frames[i].name,w:frames[i].w,h:frames[i].h,sha256:hash(b),equal});}
+    if(framesEqual){
+      const damaged=await cdp.evalJs('(()=>{const c=document.getElementById("game"),g=c.getContext("2d"),d=g.getImageData(0,0,1,1);d.data[0]^=255;g.putImageData(d,0,0);return c.toDataURL("image/png");})()');
+      const bad=Buffer.from(damaged.split(',')[1],'base64'),good=Buffer.from(old.frames.at(-1).data.split(',')[1],'base64');first=null;try{assert(bad.equals(good),'scene025 base/valve whole native frame');}catch(e){first=e.message;}assert(first?.startsWith('scene025 base/valve whole native frame'),'scene025 full-frame negative missed target');report.negative.push({name:'real native canvas one-pixel corruption',first});
+      const clear=await cdp.evalJs('('+oldFrames025.toString()+')(true)');strict(()=>assert(Buffer.from(clear.at(-1).data.split(',')[1],'base64').equals(good),'scene025 full-frame restored GREEN'));
+    }else report.unrun.push('Full-frame negative/restoration: the positive whole-frame criterion is RED; not claimed passed.');
     // Coordinates come from retained, independently verified native run653ccb6;
     // re-place every form through the native API at this head before rendering.
     const rows=JSON.parse(fs.readFileSync(path.join(ROOT,'docs','assets','GPT-025','manifest.json'))).placed;
@@ -96,5 +105,6 @@ function edge025(id){
   });
   assert(r.ok&&r.result,'scene025 native head: '+r.fails.join('; '));
   const bytes=Buffer.from(JSON.stringify(report,null,2)+'\n');fs.writeFileSync(path.join(OUT,'manifest-scenes.json'),bytes);transfer('scenes/manifest-scenes.json',bytes);
-  console.log('scene025 GREEN: every old-save field survives two roundtrips; eight base/valve full frames exact; '+report.frames.length+' native scene frames plus '+report.edge.length+' actual edge placements/views.');
+  console.log('scene025 retained '+report.frames.length+' native scene frames and '+report.edge.length+' actual edge placements/views; strict failures '+report.failures.length+'.');
+  assert.equal(report.failures.length,0,'scene025 strict criteria remain RED: '+report.failures.join('; '));
 })().catch(e=>{console.error(e.stack);process.exitCode=1;});
