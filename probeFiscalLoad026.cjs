@@ -9,7 +9,10 @@ const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
 const serialized=v=>JSON.stringify(canon(v));
 function stateDiff(a,b,p='',out=[]){if(serialized(a)===serialized(b))return out;if(a&&b&&typeof a==='object'&&typeof b==='object'){for(const k of new Set([...Object.keys(a),...Object.keys(b)]))stateDiff(a[k],b[k],p?p+'.'+k:k,out);}else if(out.length<40)out.push({path:p,before:a,after:b});return out;}
-function stateCheck(actual,expected,label='all serialized fields'){assert.equal(serialized(actual),serialized(expected),label);}
+function stateCheck(actual,expected,label='all serialized fields'){
+  if(serialized(actual)!==serialized(expected))console.log('FISCAL026_DIFF '+JSON.stringify({label,differences:stateDiff(expected,actual)}));
+  assert.equal(serialized(actual),serialized(expected),label);
+}
 const report={head:process.env.GITHUB_SHA,base:BASE,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
 const check=(name,fn)=>{try{const detail=fn();report.checks.push({name,ok:true,...detail});console.log('GREEN '+name);return true;}catch(e){const failure={name,message:e.message.slice(0,1000)};report.failures.push(failure);console.error('RED '+JSON.stringify(failure));return false;}};
 const expectRed=(name,actual,expected)=>{let first;try{stateCheck(actual,expected,'all serialized fields');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'all serialized fields',name+' must first fail the full-state guard');report.negative.push({name,first,differences:stateDiff(expected,actual)});};
@@ -103,7 +106,10 @@ function staticChecks(){
     return{passes:2,stateSha256:hash(serialized(q.expected)),history:q.expected.fiscal515.history.length};
   });
   for(const q of positives.legacy)check('legacy '+q.name+' migration then stable complete fields',()=>{
-    const migrated=q.actual.states[1],f=migrated.fiscal515;assert.equal(migrated.money,q.input.money);assert(f===null||f.history.length===0,'fabricated history');assert(f===null||f.settlements.length===0,'fabricated settlements');
+    // The unchanged native serializer intentionally omits an empty optional
+    // fiscal field (index: `if(f515)data.fiscal515=f515`). Null and absence are
+    // both legacy inputs; subsequent full-state comparisons stay unchanged.
+    const migrated=q.actual.states[1],f=migrated.fiscal515;assert.equal(migrated.money,q.input.money);assert(f==null||f.history.length===0,'fabricated history');assert(f==null||f.settlements.length===0,'fabricated settlements');
     stateCheck(q.actual.states[2],migrated);stateCheck(q.actual.states[3],migrated);report.migrations.push({name:q.name,differences:stateDiff(q.input,migrated)});
   });
   for(const q of positives.negative)check('live saved-state negative and restore '+q.name,()=>{expectRed(q.name,q.altered.states[2],fixture);stateCheck(q.restored.states[2],fixture);});
