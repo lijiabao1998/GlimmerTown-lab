@@ -76,10 +76,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
-      max-parallel: 4
+      max-parallel: 8
       fail-fast: false
       matrix:
-        part: [0, 1, 2, 3, 4, 5, 6, 7]
+        part: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -92,6 +92,6 @@ jobs:
           node - <<'NODE'
           const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
           const files=[];function walk(dir,rel=''){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const r=path.posix.join(rel,e.name),p=path.join(dir,e.name);if(e.isDirectory())walk(p,r);else if(/\.(png|json)$/.test(r))files.push(r);}}walk('collected');files.sort();
-          const chosen=files.filter((p,i)=>i%8===+process.env.PART);console.log('WAVE025_REVIEW_INDEX '+JSON.stringify({head:process.env.GITHUB_SHA,part:+process.env.PART,total:files.length,files:chosen}));
+          const bins=Array.from({length:32},()=>({bytes:0,files:[]}));for(const name of files.slice().sort((a,b)=>fs.statSync(path.join('collected',b)).size-fs.statSync(path.join('collected',a)).size)){const bin=bins.reduce((a,b)=>a.bytes<=b.bytes?a:b);bin.files.push(name);bin.bytes+=fs.statSync(path.join('collected',name)).size;}const chosen=bins[+process.env.PART].files.sort();console.log('WAVE025_REVIEW_INDEX '+JSON.stringify({head:process.env.GITHUB_SHA,part:+process.env.PART,total:files.length,files:chosen}));
           for(const name of chosen){const bytes=fs.readFileSync(path.join('collected',name)),b64=bytes.toString('base64');console.log('WAVE025_FILE_BEGIN '+JSON.stringify({name,head:process.env.GITHUB_SHA,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')}));for(let i=0;i<b64.length;i+=4096)console.log('WAVE025_FILE_DATA '+b64.slice(i,i+4096));console.log('WAVE025_FILE_END '+name);}
           NODE

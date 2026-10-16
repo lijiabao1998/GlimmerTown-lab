@@ -163,3 +163,12 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 ## 後續圖片交付補驗（2026-10-16，尚未執行完成）
 
 本卡所有遊戲畫面來自GitHub Actions Ubuntu的桌面headless Chromium，1280×657遊戲canvas；不是實體手機測試，也未做真機觸控、行動GPU或手機Safari驗證。後續按業主指示逐張審視全部相關原圖，加入原生行人前後景／遮擋與首紅負例，並交付Library代表圖和完整證據包。財政／存檔程式只做BASE／branch唯讀比較與最小修正範圍說明，不在本美術卡修改。嚴格舊檔守衛的紅燈保持，完成數仍0／20。
+
+
+### 2026-10-16 11:03 UTC 行人補驗與取證傳輸
+
+- `eb5edbf` 的專屬 run38890673686 / native job116939129532：原生行人分層 17 組通過，含十座日景及 Tattershall 四視角日夜。使用原生 T534 測試人物與 SPR.ped 實際 drawImage，驗前景可見、後景被不透明建物遮擋、漏畫／錯序兩次 first RED 與還原 GREEN。這是明示注入人物的繪製測試，不聲稱有真實通勤或人口成長。
+- 僅桌面 GitHub Actions Ubuntu headless Chromium；未測實體手機、手機 Safari、觸控或行動 GPU。
+- 存檔兩條嚴格檢查仍紅，未改守衛。其餘原生 97 場景、8/8 舊檔閥整幀與 bld 僅新增40保持原結果。逐張審視尚在收圖，未假勾。
+- 八份取證日誌單份過大，GitHub 讀日誌工具回 `Transport closed`；改為32份按原始位元組數均衡分片，雜湊與大小仍逐檔核對。這是同一份公開生成圖片的讀取傳輸，不變更驗收判準。
+- 只讀釐清：外層 T515 load 呼叫實為 `fiscalStep515(false,false)`。它內呼叫的 T514 load 先 `observatoryStep514(true)`，觀測摘要的 T515 wrapper 因 `ready=false` 先執行 `fiscalStep515(true,false)`；force 的聚合分支追加 history。不可把外層呼叫誤寫成強制。完整最小修補範圍另報，本美術卡不改財務程式。
