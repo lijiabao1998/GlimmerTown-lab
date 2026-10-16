@@ -1,0 +1,30 @@
+name: fiscal026 native save regression
+on:
+  push:
+    branches: ['gpt/fiscal-load-readonly-026']
+    paths-ignore: ['**.md', 'docs/**']
+permissions:
+  contents: read
+jobs:
+  fiscal026:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Chinese font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Native saves, settlement, cleanup and negative controls
+        run: node probeFiscalLoad026.cjs
+      - name: Preserve native report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fiscal026-${{ github.sha }}
+          path: shots/fiscal026/
+          if-no-files-found: error
+          retention-days: 14
