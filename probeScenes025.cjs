@@ -27,6 +27,9 @@ function legacyFixture025(reference){
 }
 function oldFrames025(valve){
   if(valve)window.__noBritishWave025=true;
+  // Existing T695 cross-boot clock fixture. Water has its own half-second timer,
+  // independent of visT; pin its actual native frame without disabling water.
+  window.__waterF695=0;
   const frames=[];GV.setSpeed(0);GV.selectTool434('pan');document.getElementById('game').dispatchEvent(new PointerEvent('pointermove',{clientX:-100000,clientY:-100000,pointerId:99,pointerType:'mouse'}));
   for(const mode of['day','night'])for(let rot=0;rot<4;rot++){
     GV.britishWeather004(1,0,0);GV.setRot(rot);GV.art574.zoom574(1.5);GV.lookAt(7.5,4.5);GV.setVisT(GV.art574.cycle574()*(mode==='day'?.5:.02));GV.forceDraw();GV.setVisT(GV.art574.cycle574()*(mode==='day'?.5:.02));GV.forceDraw();
@@ -56,7 +59,7 @@ function edge025(id){
   return{smoke:GV.britishWave025.sprite(0,0).smoke.length};
 }
 (async()=>{
-  const report={head:process.env.GITHUB_SHA,base:BASE,frames:[],failures:[],unrun:[],notes:['Visual fixtures use fixed Math.random and visT; ordinary native gameplay validation uses the separate native probe.','Edge scene uses native demolition/fill followed by actual paid native placement.','Strict failures remain RED at exit; independent scene evidence is retained before failing. No save field is excluded or normalized by the probe.'],notApplicable:{waterReflection:'Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.',smoke:'All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.',neonSigns:'Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances.'}};
+  const report={head:process.env.GITHUB_SHA,base:BASE,frames:[],failures:[],unrun:[],notes:['Visual fixtures use fixed Math.random, visT and the existing T695 native water-frame clock input; no render layer is disabled. Ordinary native gameplay validation uses the separate native probe.','Edge scene uses native demolition/fill followed by actual paid native placement.','Strict failures remain RED at exit; independent scene evidence is retained before failing. No save field is excluded or normalized by the probe.'],notApplicable:{waterReflection:'Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.',smoke:'All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.',neonSigns:'Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances.'}};
   const strict=fn=>{try{fn();return true;}catch(e){report.failures.push(e.message);console.error('scene025 STRICT RED: '+e.message);return false;}};
   let old;
   try{
