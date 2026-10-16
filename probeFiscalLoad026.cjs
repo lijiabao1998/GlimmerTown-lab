@@ -51,7 +51,9 @@ function normal026(seed,loadBeforeNextDay=false){
   if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);GV.newWorldSeeded(seed);GV.setSpeed(0);GV.setDiff(1);
   // newWorldSeeded does not reset T515. Explicitly initialize this isolated
   // no-load fixture so prior native cases cannot contribute history/cursors.
-  GV.fiscalReset515();GV.fiscalSeedQA515();GV.weather(0);
+  // Seed financial inputs before reset's existing forced refresh records its
+  // first row; fin.net otherwise retains the previous fixture's daily cost.
+  GV.fiscalSeedQA515();GV.fiscalReset515();GV.fiscalSeedQA515();GV.weather(0);
   const activated=['cadastreModernization','landValueCapture'].map(k=>({k,result:GV.fiscalProgramRawQA515(k,true,true)}));
   const snap=()=>({stats:GV.stats(),fiscal:GV.fiscalSaveState515(),city:GV.fiscal515().city,infrastructure:GV.fiscal515().infrastructure,assets:GV.fiscal515().assets});
   const before=snap(),completion=GV.fiscalInjectCompletionQA515(24,.7),duplicate=GV.fiscalDailySettlementQA515();
@@ -116,19 +118,20 @@ function staticChecks(){
     // fiscal field (index: `if(f515)data.fiscal515=f515`). Null and absence are
     // both legacy inputs; subsequent full-state comparisons stay unchanged.
     const migrated=q.actual.states[1],f=migrated.fiscal515;assert.equal(migrated.money,q.input.money);assert(f==null||f.history.length===0,'fabricated history');assert(f==null||f.settlements.length===0,'fabricated settlements');
-    stateCheck(q.actual.states[2],migrated);stateCheck(q.actual.states[3],migrated);report.migrations.push({name:q.name,differences:stateDiff(q.input,migrated)});
+    stateCheck(q.actual.states[2],migrated);stateCheck(q.actual.states[3],migrated);const migration={name:q.name,differences:stateDiff(q.input,migrated)};report.migrations.push(migration);console.log('FISCAL026_MIGRATION '+JSON.stringify(migration));
   });
   for(const q of positives.negative)check('live saved-state negative and restore '+q.name,()=>{expectRed(q.name,q.altered.states[2],fixture);stateCheck(q.restored.states[2],fixture);});
   check('same-seed normal no-load BASE/HEAD world and all fiscal fields',()=>{const a=clone(positives.normal),b=clone(old.normal);delete a.force.scope;delete b.force.scope;stateCheck(a,b,'normal simulation equality');return{seed:31,horizons:[1,7,14]};});
   check('nonzero recurring and completion, same-day deduplication, force remains live',()=>{
     const q=positives.normal;assert(q.activated.every(x=>x.result.ok),'QA policy activation');assert(q.completion.moneyAfter>q.completion.moneyBefore);assert(q.completion.captured>0,'completion must pay a nonzero amount');assert(q.completion.settlements.some(x=>x.recurring>0),'recurring must be nonzero');assert.equal(q.duplicate.value,0);for(const p of q.points.slice(1))assert.equal(p.duplicate.value,0);assert.equal(q.force.historyAfter,q.force.historyBefore+1);assert.deepEqual(q.force.scope,{depth:0,active:false});
+    return{completion:q.completion,dailyPoints:q.points.map(p=>({day:p.snapshot.stats.day,money:p.snapshot.stats.money,cursor:p.snapshot.fiscal.lastSettlementDay,duplicate:p.duplicate?.value})),force:q.force};
   });
   check('load does not lose or duplicate the next normal daily settlement',()=>{stateCheck(positives.loaded.points,positives.normal.points,'next-day loaded/no-load equality');assert(positives.loaded.points[1].snapshot.fiscal.lastSettlementDay>positives.loaded.points[0].snapshot.fiscal.lastSettlementDay);});
   check('7-day aggregation and 14-day asset cadence after native load',()=>{
     const q=positives.cadence;for(const p of q.points){assert.equal(p.aggregate,q.day+(p.offset>=14?14:p.offset>=7?7:0));assert.equal(p.asset,q.day+(p.offset>=14?14:0));assert.equal(p.history,q.initialHistory+(p.offset>=14?2:p.offset>=7?1:0));}return q;
   });
   const valve=await session('HEAD escape valve',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,true),frames:await evaluate(cdp,frames026)}),'window.__noFiscalLoad026=true');
-  check('escape valve restores independent BASE full serialized behavior',()=>stateCheck(valve.load.states,old.load.states));
+  check('escape valve restores independent BASE full serialized behavior',()=>{stateCheck(valve.load.states,old.load.states);expectRed('HEAD valve restores loaded journal writes',valve.load.states[1],fixture);});
   for(let i=0;i<old.frames.length;i++)check('complete native frame '+old.frames[i].name,()=>{
     for(const [kind,list] of [['head',positives.frames],['valve',valve.frames]]){assert.equal(list[i].data,old.frames[i].data,'full frame '+kind);const bytes=Buffer.from(list[i].data.split(',')[1],'base64'),file=kind+'-'+list[i].name+'.png';fs.writeFileSync(path.join(OUT,file),bytes);report.frames.push({file,sha256:hash(bytes),bytes:bytes.length});}
   });
