@@ -1,0 +1,19 @@
+{
+  "representatives": {
+    "status": "failed",
+    "attemptedLocalPaths": [
+      "/workspace/wave025-review-20261016/delivery/native-summer.png",
+      "/workspace/wave025-review-20261016/delivery/native-night.png",
+      "/workspace/wave025-review-20261016/delivery/native-winter-snow.png"
+    ],
+    "action": "Current Library library_upload.py helper; one ordered batch, purpose=create_library_file, type=image",
+    "exitCode": 1,
+    "error": "library upload failed: hosted apps tools/list request failed: network",
+    "returnedLibraryFileIds": []
+  },
+  "fullPackage": {
+    "status": "blocked before upload; no retry of the unavailable hosted-app bridge",
+    "returnedLibraryFileIds": []
+  },
+  "fallback": "Use exact GitHub artifact and immutable repository paths; do not assume these cloud paths can be read by the parent environment."
+}

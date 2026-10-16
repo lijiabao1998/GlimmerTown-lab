@@ -1,0 +1,2186 @@
+{
+  "head": "a29e1b48b1dbbf9b99e944b31a5d1c36288e3fa1",
+  "platform": "GitHub Actions Ubuntu desktop headless Chromium; not a real mobile device",
+  "fixture": "Two explicitly injected T534 test actors, at=2; native SPR.ped and native object sorting. No commuting or population-growth claim.",
+  "cases": [
+    {
+      "spec": {
+        "row": {
+          "x": 7,
+          "y": 4,
+          "id": "alaronde",
+          "v": 160,
+          "spent": 2000
+        },
+        "index": 0,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          8.51,
+          5.1
+        ],
+        "overlap": 28,
+        "visible": 36,
+        "changed": 32,
+        "occludedChanged": 28,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 75,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 81,
+            "args": [
+              662.24,
+              434.52,
+              6,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          6.4,
+          4.4
+        ],
+        "overlap": 12,
+        "visible": 28,
+        "changed": 16,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 55,
+            "args": [
+              572,
+              346.6,
+              6,
+              8
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 76,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "alaronde-day-r0-combined.png",
+        "sha256": "33ba0cc9659d672319b3061cf31711899567a2ce767e075493bad9c6d30b435f",
+        "bytes": 520237
+      },
+      "frontImage": {
+        "file": "alaronde-day-r0-front.png",
+        "sha256": "4307f95f268e04a1de20b4cb35d8e11e6ed535d90e4170526e4329d7ad78b83c",
+        "bytes": 520038
+      },
+      "backImage": {
+        "file": "alaronde-day-r0-back.png",
+        "sha256": "12ce3b07b1c7590c175c9900d999f1caf86615864f873499be05e1868ad459ef",
+        "bytes": 520205
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 10,
+          "y": 4,
+          "id": "dunster",
+          "v": 164,
+          "spent": 2000
+        },
+        "index": 1,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          11.51,
+          5.1
+        ],
+        "overlap": 20,
+        "visible": 28,
+        "changed": 24,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 96,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 107,
+            "args": [
+              662.24,
+              436.52,
+              6,
+              8
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          9.49,
+          5.2
+        ],
+        "overlap": 4,
+        "visible": 44,
+        "changed": 36,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 83,
+            "args": [
+              526.56,
+              373.08000000000004,
+              8,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 97,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "dunster-day-r0-combined.png",
+        "sha256": "7ec72e7e398aba4c4dd99440d1cea1de480dee32e84fa480c63465caae952a45",
+        "bytes": 488615
+      },
+      "frontImage": {
+        "file": "dunster-day-r0-front.png",
+        "sha256": "0fc3def839cc08c9337362451dfc7e1b19a6e7329c6dd812908d4dfd5ab61222",
+        "bytes": 488541
+      },
+      "backImage": {
+        "file": "dunster-day-r0-back.png",
+        "sha256": "f8736051a08054aad03d57c589ad64d9e558da1b212fce574f9b7dfaaf3663ba",
+        "bytes": 488516
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 0,
+        "night": false,
+        "controls": true
+      },
+      "front": {
+        "world": [
+          14.51,
+          5.1
+        ],
+        "overlap": 20,
+        "visible": 44,
+        "changed": 32,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 127,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 133,
+            "args": [
+              662.24,
+              434.52,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          12.4,
+          4.4
+        ],
+        "overlap": 36,
+        "visible": 36,
+        "changed": 0,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 109,
+            "args": [
+              572,
+              344.6,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 128,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [
+        {
+          "fault": "drop actual native pedestrian draw",
+          "first": "ped025 native pedestrian draw"
+        },
+        {
+          "fault": "paint real front actor before native building",
+          "first": "ped025 depth order"
+        }
+      ],
+      "combined": {
+        "file": "tattershall-day-r0-combined.png",
+        "sha256": "cb5cb4daea92d71bd51155a212de6a6f9a22a046f0a80b138dcafd836670a95c",
+        "bytes": 448758
+      },
+      "frontImage": {
+        "file": "tattershall-day-r0-front.png",
+        "sha256": "cb5cb4daea92d71bd51155a212de6a6f9a22a046f0a80b138dcafd836670a95c",
+        "bytes": 448758
+      },
+      "backImage": {
+        "file": "tattershall-day-r0-back.png",
+        "sha256": "9a99b4c2fc54aa8d352826d21fb597149dbb0d79e82c66e89239f41527e22c8e",
+        "bytes": 448660
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 16,
+          "y": 4,
+          "id": "hardwick",
+          "v": 172,
+          "spent": 2000
+        },
+        "index": 3,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          17.51,
+          5.1
+        ],
+        "overlap": 28,
+        "visible": 36,
+        "changed": 32,
+        "occludedChanged": 28,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 149,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 156,
+            "args": [
+              662.2400000000002,
+              434.52,
+              6,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          15.4,
+          4.9
+        ],
+        "overlap": 8,
+        "visible": 28,
+        "changed": 20,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 134,
+            "args": [
+              540,
+              362.6,
+              6,
+              8
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 150,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "hardwick-day-r0-combined.png",
+        "sha256": "f269c9cf2ed942bb0d84fbc419401d71712abcb11f0c49343403c1aee539c2b3",
+        "bytes": 413658
+      },
+      "frontImage": {
+        "file": "hardwick-day-r0-front.png",
+        "sha256": "19d89438671686ae8ce04e9230b7f725ae2800bc19d4a8725cb6139508744f41",
+        "bytes": 413510
+      },
+      "backImage": {
+        "file": "hardwick-day-r0-back.png",
+        "sha256": "e96b2bb3334e340aa1d3c9b1b2e8fee56071a7d3ab6e35b889ed73da99776ed2",
+        "bytes": 413562
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 19,
+          "y": 4,
+          "id": "stokesay",
+          "v": 176,
+          "spent": 2000
+        },
+        "index": 4,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          20.51,
+          5.1
+        ],
+        "overlap": 20,
+        "visible": 28,
+        "changed": 24,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 183,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 192,
+            "args": [
+              662.2400000000002,
+              436.52,
+              6,
+              8
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          18.49,
+          5.2
+        ],
+        "overlap": 4,
+        "visible": 44,
+        "changed": 36,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 168,
+            "args": [
+              526.56,
+              373.0799999999999,
+              8,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 184,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "stokesay-day-r0-combined.png",
+        "sha256": "a27040320c12fb35c5565eb39464b39cd91b3d898c4bd46df72e60e7e1faa18f",
+        "bytes": 418665
+      },
+      "frontImage": {
+        "file": "stokesay-day-r0-front.png",
+        "sha256": "b050156f8e6e709db2c19d776da21f7c7be0396d6bafe2fb696284fb4020cb81",
+        "bytes": 418702
+      },
+      "backImage": {
+        "file": "stokesay-day-r0-back.png",
+        "sha256": "c9dccd76ee504630abc0f0f3a5ac13503fdfdfe603c4b273f2725ce343420c07",
+        "bytes": 418730
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 22,
+          "y": 4,
+          "id": "chiswick",
+          "v": 180,
+          "spent": 2000
+        },
+        "index": 5,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          23.51,
+          5.1
+        ],
+        "overlap": 20,
+        "visible": 44,
+        "changed": 32,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 228,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 235,
+            "args": [
+              662.2400000000002,
+              434.52,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          21.49,
+          5.2
+        ],
+        "overlap": 2,
+        "visible": 36,
+        "changed": 34,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 211,
+            "args": [
+              526.56,
+              373.0799999999999,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 229,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "chiswick-day-r0-combined.png",
+        "sha256": "b8213b2ab5c6d7be5db4a23ebffdb6a08a873bfa6daed9c7c7031f2825e1a3c5",
+        "bytes": 422660
+      },
+      "frontImage": {
+        "file": "chiswick-day-r0-front.png",
+        "sha256": "8f8179bd8fd83a4e77912a90e3b1f900c80db5ba25654c599ba4e8f5f88258d1",
+        "bytes": 422663
+      },
+      "backImage": {
+        "file": "chiswick-day-r0-back.png",
+        "sha256": "9fb6580ce01e9318c47f8cd7cd382c60bd0fee64c9f2a2dfb4171ee1d3230e93",
+        "bytes": 422558
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 25,
+          "y": 4,
+          "id": "cragside",
+          "v": 184,
+          "spent": 2000
+        },
+        "index": 6,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          26.51,
+          5.1
+        ],
+        "overlap": 28,
+        "visible": 36,
+        "changed": 32,
+        "occludedChanged": 28,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 259,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 275,
+            "args": [
+              662.2400000000002,
+              434.52,
+              6,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          24.4,
+          4.9
+        ],
+        "overlap": 28,
+        "visible": 28,
+        "changed": 0,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 246,
+            "args": [
+              540,
+              362.5999999999999,
+              6,
+              8
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 260,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "cragside-day-r0-combined.png",
+        "sha256": "de2f56574ab6ee4e9c9145c5ad961b715d4525470db2babd610c1fecc72cf7f4",
+        "bytes": 410693
+      },
+      "frontImage": {
+        "file": "cragside-day-r0-front.png",
+        "sha256": "de2f56574ab6ee4e9c9145c5ad961b715d4525470db2babd610c1fecc72cf7f4",
+        "bytes": 410693
+      },
+      "backImage": {
+        "file": "cragside-day-r0-back.png",
+        "sha256": "cbe95f7a704b6d7dc3e9bc6db14642d1aed9662ac7c9246cd7e78c73b29f455e",
+        "bytes": 410682
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 28,
+          "y": 4,
+          "id": "homewood",
+          "v": 188,
+          "spent": 2000
+        },
+        "index": 7,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          29.51,
+          5.1
+        ],
+        "overlap": 20,
+        "visible": 28,
+        "changed": 24,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 295,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 304,
+            "args": [
+              662.2400000000002,
+              436.52,
+              6,
+              8
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          27.49,
+          5.2
+        ],
+        "overlap": 4,
+        "visible": 44,
+        "changed": 36,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 278,
+            "args": [
+              526.56,
+              373.0799999999999,
+              8,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 296,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "homewood-day-r0-combined.png",
+        "sha256": "9166db813dbcdbce379dd42c452ba187c308c585b5547dfd3c6fc501633c98a2",
+        "bytes": 399480
+      },
+      "frontImage": {
+        "file": "homewood-day-r0-front.png",
+        "sha256": "7c69adf78e7c1f136191dc37506a1ee269ab35728a22560f6248031e89bdae16",
+        "bytes": 399463
+      },
+      "backImage": {
+        "file": "homewood-day-r0-back.png",
+        "sha256": "eac385a203d3de64a074f59b41e96184c425d9fa7d42d31d3ab865983dd40c8e",
+        "bytes": 399450
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 31,
+          "y": 4,
+          "id": "cardington",
+          "v": 192,
+          "spent": 2000
+        },
+        "index": 8,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          32.51,
+          5.1
+        ],
+        "overlap": 20,
+        "visible": 44,
+        "changed": 32,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 316,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 324,
+            "args": [
+              662.2399999999998,
+              434.52,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          30.4,
+          4.9
+        ],
+        "overlap": 8,
+        "visible": 36,
+        "changed": 28,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 300,
+            "args": [
+              540,
+              360.5999999999999,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 317,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "cardington-day-r0-combined.png",
+        "sha256": "25496eb3ae396ba6f64931a4aaa2f54a43a754b4868eee02be1584707a3e91ea",
+        "bytes": 388454
+      },
+      "frontImage": {
+        "file": "cardington-day-r0-front.png",
+        "sha256": "12f767dfc0a5e4f0db67d4dd6982173d11dd28498ff7a08de15ce88be6071998",
+        "bytes": 388248
+      },
+      "backImage": {
+        "file": "cardington-day-r0-back.png",
+        "sha256": "35e85d9c8745e7d3d48622686b85ca61fab6f6cfff07b68ba4a8bfdace7ce30b",
+        "bytes": 388201
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 34,
+          "y": 4,
+          "id": "willington",
+          "v": 196,
+          "spent": 2000
+        },
+        "index": 9,
+        "rot": 0,
+        "night": false,
+        "controls": false
+      },
+      "front": {
+        "world": [
+          35.51,
+          5.1
+        ],
+        "overlap": 28,
+        "visible": 36,
+        "changed": 36,
+        "occludedChanged": 28,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 307,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 308,
+            "args": [
+              662.2399999999998,
+              434.52,
+              6,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          33.4,
+          4.4
+        ],
+        "overlap": 8,
+        "visible": 28,
+        "changed": 20,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "child",
+            "seq": 287,
+            "args": [
+              572,
+              346.5999999999999,
+              6,
+              8
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 308,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "willington-day-r0-combined.png",
+        "sha256": "c4b6132ffba73bced941d61f4211f72453d4671d6ca23df69594f1b3f0ab30de",
+        "bytes": 425449
+      },
+      "frontImage": {
+        "file": "willington-day-r0-front.png",
+        "sha256": "5f9405ed8c1e34ce43ae33f46592779cba706756d5381935840c802527cb1833",
+        "bytes": 425444
+      },
+      "backImage": {
+        "file": "willington-day-r0-back.png",
+        "sha256": "60921312e0919a46628a036f67cb47945d43804d068c48960ae8a63cb91f1aab",
+        "bytes": 425225
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 1,
+        "night": false
+      },
+      "front": {
+        "world": [
+          14.1,
+          3.489999999999995
+        ],
+        "overlap": 20,
+        "visible": 44,
+        "changed": 44,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 217,
+            "args": [
+              416,
+              37,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 222,
+            "args": [
+              598.2400000000002,
+              402.52000000000044,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          13.4,
+          5.599999999999994
+        ],
+        "overlap": 36,
+        "visible": 36,
+        "changed": 0,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 200,
+            "args": [
+              508.00000000000045,
+              312.60000000000036,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 218,
+            "args": [
+              416,
+              37,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-day-r1-combined.png",
+        "sha256": "6b2c932adf510b425e989c52908d4d6c086223619b4a9aaf4b1c406d9c72b772",
+        "bytes": 458208
+      },
+      "frontImage": {
+        "file": "tattershall-day-r1-front.png",
+        "sha256": "6b2c932adf510b425e989c52908d4d6c086223619b4a9aaf4b1c406d9c72b772",
+        "bytes": 458208
+      },
+      "backImage": {
+        "file": "tattershall-day-r1-back.png",
+        "sha256": "e1bf0dfc9a73dec0c1102e564ba9accb352ad32c09024a162e99e7bc35afc8ca",
+        "bytes": 457952
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 2,
+        "night": false
+      },
+      "front": {
+        "world": [
+          12.490000000000002,
+          3.9000000000000057
+        ],
+        "overlap": 20,
+        "visible": 44,
+        "changed": 32,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 349,
+            "args": [
+              480,
+              5,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 355,
+            "args": [
+              662.2400000000002,
+              370.5199999999995,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          12.799999999999997,
+          5.510000000000005
+        ],
+        "overlap": 2,
+        "visible": 36,
+        "changed": 32,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 335,
+            "args": [
+              745.4400000000005,
+              309.0799999999999,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 350,
+            "args": [
+              480,
+              5,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-day-r2-combined.png",
+        "sha256": "f233d3293598f973b72865cf4312bb4f613c7e238cceab93025e2601f5692943",
+        "bytes": 417762
+      },
+      "frontImage": {
+        "file": "tattershall-day-r2-front.png",
+        "sha256": "1625e7462fae417519321b858c1a6ce24f4b17b7ba91b9b3f84f478571e34729",
+        "bytes": 417532
+      },
+      "backImage": {
+        "file": "tattershall-day-r2-back.png",
+        "sha256": "1c470ca64898abdf10bd2ee4ca2aa9675822c39902b60fa902d46865f2a8fd0e",
+        "bytes": 417659
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 3,
+        "night": false
+      },
+      "front": {
+        "world": [
+          12.899999999999999,
+          5.51
+        ],
+        "overlap": 20,
+        "visible": 44,
+        "changed": 44,
+        "occludedChanged": 20,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 277,
+            "args": [
+              544,
+              37,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 285,
+            "args": [
+              726.2399999999998,
+              402.52,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          14.509999999999998,
+          5.2
+        ],
+        "overlap": 4,
+        "visible": 36,
+        "changed": 30,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 263,
+            "args": [
+              809.4399999999996,
+              341.0799999999999,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 278,
+            "args": [
+              544,
+              37,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-day-r3-combined.png",
+        "sha256": "be7f69a7ba7876fdabdbae7b713da03bb8f1d8ff9de0dc4c16b81c072d79c5a1",
+        "bytes": 427717
+      },
+      "frontImage": {
+        "file": "tattershall-day-r3-front.png",
+        "sha256": "2e062c602e067fd14c5d0a5723dc9fb2c2ab4aede026212c65e304b270d003e4",
+        "bytes": 427726
+      },
+      "backImage": {
+        "file": "tattershall-day-r3-back.png",
+        "sha256": "615dba58f7edb5c9e352e12e8bd51b0aab0816fa5792c39298ea6ddc1a5bcad1",
+        "bytes": 427740
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 0,
+        "night": true
+      },
+      "front": {
+        "world": [
+          14.51,
+          5.1
+        ],
+        "overlap": 24,
+        "visible": 44,
+        "changed": 32,
+        "occludedChanged": 24,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 138,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 146,
+            "args": [
+              662.24,
+              434.52,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          12.4,
+          4.4
+        ],
+        "overlap": 36,
+        "visible": 36,
+        "changed": 0,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 118,
+            "args": [
+              572,
+              344.6,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 139,
+            "args": [
+              480,
+              69,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-night-r0-combined.png",
+        "sha256": "e3bcebec4efaf928ef49dd2e74cb20af45c7e3e29a427793807a7cd40661d94c",
+        "bytes": 434128
+      },
+      "frontImage": {
+        "file": "tattershall-night-r0-front.png",
+        "sha256": "e3bcebec4efaf928ef49dd2e74cb20af45c7e3e29a427793807a7cd40661d94c",
+        "bytes": 434128
+      },
+      "backImage": {
+        "file": "tattershall-night-r0-back.png",
+        "sha256": "47d8309b4a3e0cbd928fc393c0d91c1ad1cc115a0002f93e86ec98832fac4b9a",
+        "bytes": 434178
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 1,
+        "night": true
+      },
+      "front": {
+        "world": [
+          14.1,
+          3.489999999999995
+        ],
+        "overlap": 24,
+        "visible": 44,
+        "changed": 44,
+        "occludedChanged": 24,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 228,
+            "args": [
+              416,
+              37,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 235,
+            "args": [
+              598.2400000000002,
+              402.52000000000044,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          13.4,
+          5.599999999999994
+        ],
+        "overlap": 36,
+        "visible": 36,
+        "changed": 0,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 209,
+            "args": [
+              508.00000000000045,
+              312.60000000000036,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 229,
+            "args": [
+              416,
+              37,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-night-r1-combined.png",
+        "sha256": "426bfd93c701f643fd3ecb025e244dbcb674e1da8bb1499638f71a228e8307e3",
+        "bytes": 417571
+      },
+      "frontImage": {
+        "file": "tattershall-night-r1-front.png",
+        "sha256": "426bfd93c701f643fd3ecb025e244dbcb674e1da8bb1499638f71a228e8307e3",
+        "bytes": 417571
+      },
+      "backImage": {
+        "file": "tattershall-night-r1-back.png",
+        "sha256": "bfcea301d37fc93fc2d3c63d31a5b46c30e70d1b07488d08db73189c6491fb6e",
+        "bytes": 417610
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 2,
+        "night": true
+      },
+      "front": {
+        "world": [
+          12.490000000000002,
+          3.9000000000000057
+        ],
+        "overlap": 24,
+        "visible": 44,
+        "changed": 32,
+        "occludedChanged": 24,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 380,
+            "args": [
+              480,
+              5,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 388,
+            "args": [
+              662.2400000000002,
+              370.5199999999995,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          12.799999999999997,
+          5.510000000000005
+        ],
+        "overlap": 2,
+        "visible": 36,
+        "changed": 32,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 364,
+            "args": [
+              745.4400000000005,
+              309.0799999999999,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 381,
+            "args": [
+              480,
+              5,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-night-r2-combined.png",
+        "sha256": "dd400f99d92f6b6ec2a10ac0630fc4fd6122d64c79c62b2af6799141d6b1c34c",
+        "bytes": 407793
+      },
+      "frontImage": {
+        "file": "tattershall-night-r2-front.png",
+        "sha256": "1839df0d16770ef4ff410959cdd1ab9d0236915eb9f46abe44fea40739ae4d24",
+        "bytes": 407766
+      },
+      "backImage": {
+        "file": "tattershall-night-r2-back.png",
+        "sha256": "c701d6a8c35979798b49d2b37a63addc10b41dbdb14df03a05d925b48c8fb09d",
+        "bytes": 408165
+      },
+      "w": 1280,
+      "h": 657
+    },
+    {
+      "spec": {
+        "row": {
+          "x": 13,
+          "y": 4,
+          "id": "tattershall",
+          "v": 168,
+          "spent": 2000
+        },
+        "index": 2,
+        "rot": 3,
+        "night": true
+      },
+      "front": {
+        "world": [
+          12.899999999999999,
+          5.51
+        ],
+        "overlap": 24,
+        "visible": 44,
+        "changed": 44,
+        "occludedChanged": 24,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 foreground visible",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "root",
+            "seq": 308,
+            "args": [
+              544,
+              37,
+              320,
+              392
+            ]
+          },
+          {
+            "kind": "ped",
+            "type": "stroller",
+            "seq": 318,
+            "args": [
+              726.2399999999998,
+              402.52,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      "back": {
+        "world": [
+          14.509999999999998,
+          5.2
+        ],
+        "overlap": 4,
+        "visible": 36,
+        "changed": 30,
+        "occludedChanged": 0,
+        "checks": [
+          [
+            "ped025 native pedestrian draw",
+            true
+          ],
+          [
+            "ped025 depth order",
+            true
+          ],
+          [
+            "ped025 opaque building occludes rear",
+            true
+          ]
+        ],
+        "events": [
+          {
+            "kind": "ped",
+            "type": "adult",
+            "seq": 292,
+            "args": [
+              809.4399999999996,
+              341.0799999999999,
+              6,
+              10
+            ]
+          },
+          {
+            "kind": "root",
+            "seq": 309,
+            "args": [
+              544,
+              37,
+              320,
+              392
+            ]
+          }
+        ]
+      },
+      "failures": [],
+      "firstRed": [],
+      "combined": {
+        "file": "tattershall-night-r3-combined.png",
+        "sha256": "1249c77ff4680aa46b7c24c189dad05c47a8da872c14a08382a935b95396ec5a",
+        "bytes": 404738
+      },
+      "frontImage": {
+        "file": "tattershall-night-r3-front.png",
+        "sha256": "9edca0fa814089566fa71bbab1c694523c3e40e8a88ef9aca4d344a83b778c99",
+        "bytes": 404703
+      },
+      "backImage": {
+        "file": "tattershall-night-r3-back.png",
+        "sha256": "73be54960d3736f0527fa02ba2e2d5aad362abc663d50015545783aa2985b654",
+        "bytes": 404645
+      },
+      "w": 1280,
+      "h": 657
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,36 @@
+{
+  "sourceHead": "a29e1b48b1dbbf9b99e944b31a5d1c36288e3fa1",
+  "localPackage": {
+    "path": "/workspace/wave025-review-20261016/delivery/GlimmerTown-GPT025-Chromium-complete-evidence-a29e1b4.zip",
+    "bytes": 89552975,
+    "sha256": "72ecf253f1cbc205e1eea948be209ff6a01b11b7d1507e906816691cd6770770",
+    "members": 272
+  },
+  "library": {
+    "status": "blocked",
+    "library_file_id": null,
+    "error": "library upload failed: hosted apps tools/list request failed: network"
+  },
+  "originalCompleteImageBundle": {
+    "githubArtifact": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386460/artifacts/12042510466",
+    "artifactId": 12042510466,
+    "file_id": "file_000000000acc81f4b8b53249856698c7",
+    "fileName": "GlimmerTown-GPT025-original-Chromium-evidence-a29e1b4.zip",
+    "bytes": 83893182,
+    "sha256": "8336e904a87b2d6ffc839f6ecae1c4bd36be9fdc043c2e301ee5eae6ea404e72",
+    "rawPNG": 247,
+    "rawJSON": 5
+  },
+  "permanentSupplementPaths": [
+    "docs/assets/GPT-025/native-summer.png",
+    "docs/assets/GPT-025/native-night.png",
+    "docs/assets/GPT-025/native-winter-snow.png",
+    "docs/assets/GPT-025/native-near-tattershall.png",
+    "docs/assets/GPT-025/visual-review.json",
+    "docs/assets/GPT-025/finance-readonly.json",
+    "docs/assets/GPT-025/transfer-index.json",
+    "docs/assets/GPT-025/pedestrian-results.json",
+    "docs/assets/GPT-025/library-delivery-status.json"
+  ],
+  "crossEnvironmentRule": "Use the reusable file_id or GitHub tools; do not assume local cloud paths are readable from the parent environment."
+}

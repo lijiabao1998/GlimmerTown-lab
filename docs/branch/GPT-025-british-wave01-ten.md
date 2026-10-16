@@ -1,6 +1,6 @@
 # GPT-025 — 第一波：十座不同形制的英式建築（20 波之 1）
 
-> 現況（2026-10-16）：十座已在分支實作並取得桌面Chromium遊戲畫布圖；PR #32等業主看圖，另因基底既有存檔紀錄副作用卡住。最終可獨立驗證的結果見文末；未合併、未部署，方向完成數0／20。
+> 現況（2026-10-16）：十座已在分支實作並取得桌面Chromium遊戲畫布圖；PR #32等業主看圖，另因基底既有存檔紀錄副作用卡住。247張原始PNG已逐張審視，行人17組及兩負例通過；Library工具橋接網路失敗。最新交付與限制見文末；未合併、未部署，方向完成數0／20。
 
 ## 授權與本輪邊界
 
@@ -69,7 +69,7 @@
 - [x] 卡面在動手前推上去，固定驗收未改鬆（首筆5d1b17b）
 - [ ] 同種子配對與存檔來回的真實結果
 - [x] fp只有宣告家族；8張基底／閥關原生遊戲畫布整幀等值（e4ec74a，文末附證據）
-- [ ] 各狀態與疊層原始樣張與肉眼檢查
+- [x] 各狀態與疊層原始樣張已逐張看過：a29e1b4附件247 PNG；遠景粗略LOD／測試人物／不適用項與未測真機範圍照實列於文末（不等於完整驗收綠燈）
 - [ ] 每條新守衛的首紅負控制
 - [ ] smoke三次及fp最後commit全綠
 - [x] 沒有未跑卻寫通過；下方逐項區分已跑、失敗與待補
@@ -160,7 +160,7 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 
 完整美術狀態的逐張肉眼覆核與行人疊層尚未完成；舊檔負控制未跑；最終head的CI狀態以PR頁為準。未配T號／版本／main日誌，未合併、未部署、沒有手動觸發Pages。方向完成數仍0／20；十座實作和圖片僅在本分支，不把PR或計畫當成已發布建築。
 
-## 後續圖片交付補驗（2026-10-16，尚未執行完成）
+## 後續圖片交付補驗（2026-10-16；下方續記為最新狀態）
 
 本卡所有遊戲畫面來自GitHub Actions Ubuntu的桌面headless Chromium，1280×657遊戲canvas；不是實體手機測試，也未做真機觸控、行動GPU或手機Safari驗證。後續按業主指示逐張審視全部相關原圖，加入原生行人前後景／遮擋與首紅負例，並交付Library代表圖和完整證據包。財政／存檔程式只做BASE／branch唯讀比較與最小修正範圍說明，不在本美術卡修改。嚴格舊檔守衛的紅燈保持，完成數仍0／20。
 
@@ -172,3 +172,39 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 - 存檔兩條嚴格檢查仍紅，未改守衛。其餘原生 97 場景、8/8 舊檔閥整幀與 bld 僅新增40保持原結果。逐張審視尚在收圖，未假勾。
 - 八份取證日誌單份過大，GitHub 讀日誌工具回 `Transport closed`；改為32份按原始位元組數均衡分片，雜湊與大小仍逐檔核對。這是同一份公開生成圖片的讀取傳輸，不變更驗收判準。
 - 只讀釐清：外層 T515 load 呼叫實為 `fiscalStep515(false,false)`。它內呼叫的 T514 load 先 `observatoryStep514(true)`，觀測摘要的 T515 wrapper 因 `ready=false` 先執行 `fiscalStep515(true,false)`；force 的聚合分支追加 history。不可把外層呼叫誤寫成強制。完整最小修補範圍另報，本美術卡不改財務程式。
+
+
+## 2026-10-16 圖片交付完成記錄；存檔紅燈獨立保留
+
+實際受測原始碼head：`a29e1b48b1dbbf9b99e944b31a5d1c36288e3fa1`。本次後續只保存原始圖片／報告及文件，不改任何遊戲／財務／存檔原始碼，不改第一筆家族或既有守衛。
+
+- [標準push smoke＋fp 38891386436](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386436)及[PR smoke＋fp 38891391825](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891391825)均success。專屬[run38891386460／native job116941464774](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386460/job/116941464774)仍failure，僅原本兩個嚴格舊檔往返斷言紅；native、行人、fp與32個取證分片均完成。最終文件保存head的CI另以PR頁為準，不把先前run說成後續commit的run。
+- [完整原始附件12042510466](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386460/artifacts/12042510466)：83,893,182 bytes，ZIP SHA-256 `8336e904a87b2d6ffc839f6ecae1c4bd36be9fdc043c2e301ee5eae6ea404e72`。內含**247 PNG＋5 JSON＝252檔**：80張實際SPR日／發光層、3張接觸表、97張原生場景／邊界、16張base／閥關圖、51張行人圖。全部原檔逐一核對大小／SHA-256，索引見[transfer-index.json](../assets/GPT-025/transfer-index.json)。
+- **247／247張PNG已逐張審視**，不是僅看選圖或接觸表。原始圖無重新生成、補畫、調色或裁切；[逐圖檢視紀錄](../assets/GPT-025/visual-review.json)保留每批檔名及觀察。未發現這些fixture中的新精靈裁切、穿過不透明建物的行人或換色重複。這是限定fixture的人工檢視，不宣稱窮舉所有城市。
+- 原生行人**17組、51 PNG**全部看過且CI通過：[pedestrian-results.json](../assets/GPT-025/pedestrian-results.json)。含十座日景r0、Tattershall其餘三個日景視角及四個夜景視角；前景可見、後景不透明覆蓋處零外露、真正SPR.ped物理draw與正確排序。兩個故意破壞的first RED（漏畫人物、先畫前景人物再畫建物的錯誤順序）及恢復GREEN均通過。人物是明示注入的T534測試actor，不是自然通勤或人口成長驗證。
+
+### 可直接交付的原圖、平台與視覺限制
+
+[日景native-summer.png](../assets/GPT-025/native-summer.png)／[夜景native-night.png](../assets/GPT-025/native-night.png)／[積雪native-winter-snow.png](../assets/GPT-025/native-winter-snow.png)／[近景native-near-tattershall.png](../assets/GPT-025/native-near-tattershall.png)。夜景原檔SHA-256 `fea9c529444c4ba8b0de363a9f81688b00f6710e2de807bb58e33a043c2a5a3a`，701,382 bytes。
+
+所有遊戲截圖為**GitHub Actions Ubuntu桌面headless Chromium的1280×657真實遊戲canvas**。沒有實體手機、手機Safari、行動GPU或觸控測試，不能稱為真機手機畫面。夜景可見的強藍色光柱是原生T359 k24地標探照燈，本卡未新增或關閉這項全局效果。
+
+逐圖檢視的限制：遠景兩張在原生粗略LOD下只顯示簡化地塊／點位，**不能聲稱此縮放仍看得出十種屋頂細節**；施工三張是原生進度的定格，非完整即時播放。懸停真pointermove可見原生淡出與地塊；倒影仍依原生sz≥2排除，本十座沒有主動煙或霓虹招牌，理由不變。
+
+### Library交付阻礙與可用替代證據
+
+依最新要求先嘗試三張代表圖的完整有序batch，使用當次Library skill原樣下載的`library_upload.py`。工具在hosted-app可用性階段失敗，exit 1，精確錯誤：`library upload failed: hosted apps tools/list request failed: network`。**沒有返回任何library_file_id，不冒稱已存入Library，也不改走另一個寫入方式重複提交**。完整包因同一橋接失敗尚未送入Library；細節見[library-delivery-status.json](../assets/GPT-025/library-delivery-status.json)。
+
+原始完整附件已由GitHub連線成功取得可重用檔案參照`file_000000000acc81f4b8b53249856698c7`，檔名`GlimmerTown-GPT025-original-Chromium-evidence-a29e1b4.zip`；**這不是Library ID**。父線可使用支援的file-id取用流程或上述GitHub附件，再讀本PR永久保存的圖審／財務報告。雲端本地檔案位置另列交付manifest，不假設父線環境能直接讀到本地路徑。
+
+### 財務只讀對照與另卡最小範圍（未實作）
+
+[finance-readonly.json](../assets/GPT-025/finance-readonly.json)記錄BASE／branch來源位置與函式SHA-256。只移除本卡三個有界內嵌塊及安裝呼叫後，整份index逐位元還原BASE，SHA-256同為`abb9ab4b3e83df7d4d395830bd341b41398bf2828e0d5ee3ccfe8791575ea9c9`；五個財務函式也逐位元相同。
+
+確切呼叫鏈：讀檔本體`fiscalLoad515`還原history並使ready=false；**內層T514 load先執行觀測台刷新**，`observatorySummary514(true)`的T515 wrapper因尚未ready而呼叫`fiscalStep515(true,false)`。force使聚合history追加並動游標；settle=false只跳過金流結算。外層T515 load本身實為`fiscalStep515(false,false)`，不是強制呼叫。此fixture的BASE／branch完整結果陣列相同，但第一次load多history.4、第二次又多.5，故「所有欄位不變」仍失敗。
+
+另卡最小方案需修改`index.html`的財務load-only刷新模式與涵蓋內外load的例外安全作用域；可能還涉及`fiscalAssetScan515`／`fiscalCity515`避免重建快取消耗已存的掃描／backlog／聚合游標。新增獨立探針與smoke自檢，不改既有判準、schema、稅率／費用／容量／RNG或正常日更／政策語義。必驗同日重讀與不同既有history、跨聚合日只追加一次、舊格式bootstrap及異常後作用域還原。**本美術卡未修改這些程式，先回報範圍，不擴張任務。**
+
+第7節仍要求修補優先；第二波只能在最新main、運行開關與綠色main／Pages核實後，按已知修補的處理範圍接續，不藉新卡繞過此缺陷。第一波12小時為21:45:21 UTC，但時間屆滿仍不能越過紅燈。未合併、未部署，完成0／20。
+
+完整本地補充包與原始GitHub附件／file-id對照見[evidence-package.json](../assets/GPT-025/evidence-package.json)；Library失敗不影響原檔及報告已取得的事實，但不冒稱Library保存成功。
