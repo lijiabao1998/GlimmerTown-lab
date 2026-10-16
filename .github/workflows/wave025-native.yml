@@ -32,3 +32,34 @@ jobs:
           path: shots/wave025/
           if-no-files-found: warn
           retention-days: 14
+      - name: Fingerprint against latest-main ancestor and preserve exact baseline bytes
+        if: always()
+        shell: bash
+        run: |
+          base=$(git merge-base origin/main HEAD)
+          git show "$base:fp.json" > "$RUNNER_TEMP/fp-base025.json"
+          git show "$base:style.json" > "$RUNNER_TEMP/style-base025.json"
+          node fp.js --check --report-base="$RUNNER_TEMP/fp-base025.json" --report-base-style="$RUNNER_TEMP/style-base025.json" --dump=fp-rebake 2>&1 | tee fp-run.txt
+          exit ${PIPESTATUS[0]}
+      - name: Byte-preserving public evidence transfer
+        if: always()
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),crypto=require('node:crypto');
+          for(const name of ['fp.json','style.json']){
+            const file='fp-rebake/'+name;if(!fs.existsSync(file))continue;
+            const bytes=fs.readFileSync(file),b64=bytes.toString('base64');
+            console.log('WAVE025_FILE_BEGIN '+JSON.stringify({name:file,head:process.env.GITHUB_SHA,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')}));
+            for(let i=0;i<b64.length;i+=4096)console.log('WAVE025_FILE_DATA '+b64.slice(i,i+4096));
+            console.log('WAVE025_FILE_END '+file);
+          }
+          NODE
+      - name: Preserve fingerprint report and exact CI baselines
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fp-${{ github.sha }}
+          path: |
+            fp-run.txt
+            fp-rebake/
+          retention-days: 14

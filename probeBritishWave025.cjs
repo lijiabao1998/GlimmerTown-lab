@@ -16,14 +16,38 @@ stripped=stripped.replace('installHeritage024();installBritishWave025();','insta
 assert.equal(stripped,original,'wave025 existing native model and original rendering source byte-identical');
 cp.execFileSync(process.execPath,['embed-wave025.cjs','--check'],{cwd:ROOT,stdio:'inherit'});
 
+function originalImages(){
+  GV.setSpeed(0);
+  const a=GV.britishWave025,spr=GV.art574.SPR().bld,data=GV.sheet536('bld','^bld[.]24_1_1[6-9][0-9]$');
+  if(!data.ok||data.leaves.length!==40)throw Error('wave025 forty actual installed leaves');
+  const contacts={};
+  for(const mode of['day','night']){
+    const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
+    a.rows().forEach((q,i)=>{for(let view=0;view<4;view++){const x=view*220,y=i*240,s=spr['24_1_'+(q.v+view)];g.drawImage(s.img,x+30,y+25);if(mode==='night'){g.fillStyle='#081314';g.fillRect(x+30,y+25,s.w,s.h);g.globalAlpha=.25;g.drawImage(s.img,x+30,y+25);g.globalAlpha=1;g.drawImage(s.night,x+30,y+25);}g.fillStyle='#eee3cb';g.font='12px sans-serif';g.fillText(q.en+' · '+view,x+8,y+14,208);}});
+    contacts[mode]=c.toDataURL('image/png');
+  }
+  return{images:data.leaves,contacts};
+}
+// A byte-preserving transfer of public CI evidence; no credentials or world saves.
+function exportEvidence(name,bytes){
+  const b64=bytes.toString('base64');
+  console.log('WAVE025_FILE_BEGIN '+JSON.stringify({name,head:process.env.GITHUB_SHA,bytes:bytes.length,sha256:hash(bytes)}));
+  for(let i=0;i<b64.length;i+=4096)console.log('WAVE025_FILE_DATA '+b64.slice(i,i+4096));
+  console.log('WAVE025_FILE_END '+name);
+}
+function preserveImages(r){
+  fs.mkdirSync(OUT,{recursive:true});const images=[];
+  for(const s of r.images)for(const layer of['day','night']){const bytes=Buffer.from(s[layer].split(',')[1],'base64'),file=s.p.replace('bld.','')+'-'+layer+'.png';fs.writeFileSync(path.join(OUT,file),bytes);images.push({file,w:s.w,h:s.h,sha256:hash(bytes)});}
+  for(const [mode,data]of Object.entries(r.contacts)){const bytes=Buffer.from(data.split(',')[1],'base64');fs.writeFileSync(path.join(OUT,'contact-'+mode+'.png'),bytes);exportEvidence('contact-'+mode+'.png',bytes);}
+  return images;
+}
+
 function nativeChecks(){
   GV.setSpeed(0);
   const a=GV.britishWave025,before=JSON.stringify(GV.stats()),report=a.selftest(),spr=GV.art574.SPR().bld;
   if(!report.ok)throw Error(report.checks.find(c=>c.endsWith('✗')));
   if(before!==JSON.stringify(GV.stats()))throw Error('wave025 selftest mutated the native world');
   if(!GV.heritage024.selftest().ok||!GV.useScales021.selftest().ok)throw Error('wave025 old architecture selftests regressed');
-  const data=GV.sheet536('bld','^bld[.]24_1_1[6-9][0-9]$');
-  if(!data.ok||data.leaves.length!==40)throw Error('wave025 forty actual installed leaves');
   const red=[],expect=(name,mutate,restore,target)=>{
     try{mutate();const r=a.selftest(),first=r.checks.find(c=>c.endsWith('✗'));if(r.ok||!first?.startsWith(target))throw Error('wrong first RED '+name+': '+first);red.push({name,first});}
     finally{restore();}
@@ -41,13 +65,15 @@ function nativeChecks(){
   const other=spr['24_1_164'],od=other.img,on=other.night;
   expect('installed clone with distinct authors',()=>{other.img=day;other.night=night;},()=>{other.img=od;other.night=on;},'wave025 installed pixels');
 
+  let phase='initial';
   const lot=()=>{
     for(let y=4;y<66;y+=3)for(let x=4;x<66;x+=3){
       if(!GV.placePreview459('landmark',x,y)?.ok)continue;
       let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;
       if(clear)return{x,y};
     }
-    throw Error('wave025 no legal native lot');
+    const samples=[];for(const [x,y]of[[4,4],[16,16],[32,32],[48,48]])samples.push({x,y,preview:GV.placePreview459('landmark',x,y)});
+    throw Error('wave025 no legal native lot: '+JSON.stringify({phase,money:GV.useScales021.world().money,dev:GV.dev516B(),samples}));
   };
   const lockedMoney=GV.useScales021.world().money;
   if(GV.devUnlocked516B('landmark')||a.select('alaronde')||GV.useScales021.world().money!==lockedMoney)throw Error('wave025 unchanged native lock');
@@ -56,7 +82,7 @@ function nativeChecks(){
   const pairs=[];
   for(const seed of[31,71,103]){
     const arm=special=>{
-      GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);unlock();const p=lot();
+      GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);unlock();GV.capabilitySetMoney506(1000000);phase='paired '+seed+' '+(special?'new':'old');const p=lot();
       if(special&&!a.select('tattershall'))throw Error('wave025 paired selection');
       GV.setDiff(1);const money=GV.useScales021.world().money,expected=GV.placePreview459('landmark',p.x,p.y).cost;
       if(!GV.place('landmark',p.x,p.y))throw Error('wave025 paid native placement');
@@ -70,10 +96,10 @@ function nativeChecks(){
     if(JSON.stringify(old)!==JSON.stringify(next))throw Error('wave025 same-seed model/RNG difference '+seed);
     pairs.push({seed,spent:old.spent,equal:true});
   }
-  GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);unlock();GV.setDiff(1);
+  GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);unlock();GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   const placed=[];
   for(const q of a.rows()){
-    const p=lot();a.open();const button=document.querySelector('[data-wave025="'+q.id+'"]');
+    phase='catalog '+q.id;const p=lot();a.open();const button=document.querySelector('[data-wave025="'+q.id+'"]');
     if(!button||button.disabled)throw Error('wave025 actual catalog button '+q.id);
     button.click();if(a.selection()!==q.id)throw Error('wave025 actual catalog click '+q.id);
     const money=GV.useScales021.world().money,expected=GV.placePreview459('landmark',p.x,p.y).cost;
@@ -85,7 +111,7 @@ function nativeChecks(){
   for(let pass=0;pass<2;pass++){GV.save();if(!GV.load())throw Error('wave025 real native load');for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave025 native saved variant roundtrip '+q.id);}
   if(!GV.heritage024.select('kew')||a.selection()!==null)throw Error('wave025 older catalog selection must clear new selection');
   a.open();if(document.querySelectorAll('[data-wave025]').length!==10)throw Error('wave025 catalog count');
-  document.getElementById('waveDefault025').click();const p=lot();
+  document.getElementById('waveDefault025').click();phase='legacy after catalog';const p=lot();
   if(a.selection()!==null||!GV.placeUndo('landmark',p.x,p.y)||a.read(p.x,p.y).v>2)throw Error('wave025 legacy landmark selection');
   if(!GV.undo()||a.read(p.x,p.y)!==null)throw Error('wave025 native undo');
   if(!GV.redo()||a.read(p.x,p.y).k!==24)throw Error('wave025 native redo');
@@ -95,25 +121,20 @@ function nativeChecks(){
   if(a.select('alaronde'))throw Error('wave025 valve accepted new special selection');
   for(const q of a.rows())if(GV.art574.vdraw({x:10,y:10},{k:24,lv:1,v:q.v})!==0)throw Error('wave025 valve must resolve original landmark');
   delete window.__noBritishWave025;
-  const contacts={};
-  for(const mode of['day','night']){
-    const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
-    a.rows().forEach((q,i)=>{for(let view=0;view<4;view++){const x=view*220,y=i*240,s=spr['24_1_'+(q.v+view)];g.drawImage(s.img,x+30,y+25);if(mode==='night'){g.fillStyle='#081314';g.fillRect(x+30,y+25,s.w,s.h);g.globalAlpha=.25;g.drawImage(s.img,x+30,y+25);g.globalAlpha=1;g.drawImage(s.night,x+30,y+25);}g.fillStyle='#eee3cb';g.font='12px sans-serif';g.fillText(q.en+' · '+view,x+8,y+14,208);}});
-    contacts[mode]=c.toDataURL('image/png');
-  }
-  return{report,red,pairs,placed,images:data.leaves,contacts,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),remaining:['complete seasonal/edge/overlay scenes','full-frame base/valve comparison','valid-source negative controls','human image review']};
+  return{report,red,pairs,placed,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1},remaining:['complete seasonal/edge/overlay scenes','full-frame base/valve comparison','valid-source negative controls','human image review']};
 }
 (async()=>{
+  let images=[];
   const session=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true',log:console.log},async({cdp})=>{
+    images=preserveImages(await cdp.evalJs('('+originalImages.toString()+')()'));
+    fs.writeFileSync(path.join(OUT,'samples.json'),JSON.stringify({head:process.env.GITHUB_SHA,indexSHA256:hash(fs.readFileSync(path.join(ROOT,'index.html'))),base:BASE,status:'samples captured; native checks not yet completed',images},null,2)+'\n');
     const r=await cdp.evalJs('('+nativeChecks.toString()+')()');
     if(cdp.errors.length)throw Error('wave025 console: '+cdp.errors.join('; '));return r;
   });
   assert(session.ok&&session.result,'wave025 native browser: '+session.fails.join('; '));
-  const r=session.result;assert.equal(r.slot,'3');fs.mkdirSync(OUT,{recursive:true});const images=[];
-  for(const s of r.images)for(const layer of['day','night']){const bytes=Buffer.from(s[layer].split(',')[1],'base64'),file=s.p.replace('bld.','')+'-'+layer+'.png';fs.writeFileSync(path.join(OUT,file),bytes);images.push({file,w:s.w,h:s.h,sha256:hash(bytes)});}
-  for(const [mode,data]of Object.entries(r.contacts))fs.writeFileSync(path.join(OUT,'contact-'+mode+'.png'),Buffer.from(data.split(',')[1],'base64'));
-  const {images:_,contacts:__,...rest}=r;
-  fs.writeFileSync(path.join(OUT,'manifest.json'),JSON.stringify({head:process.env.GITHUB_SHA,indexSHA256:hash(fs.readFileSync(path.join(ROOT,'index.html'))),base:BASE,...rest,images},null,2)+'\n');
+  const r=session.result;assert.equal(r.slot,'3');
+  const manifest=Buffer.from(JSON.stringify({head:process.env.GITHUB_SHA,indexSHA256:hash(fs.readFileSync(path.join(ROOT,'index.html'))),base:BASE,...r,images},null,2)+'\n');
+  fs.writeFileSync(path.join(OUT,'manifest.json'),manifest);exportEvidence('manifest.json',manifest);
   console.log('wave025 native GREEN: ten forms, forty views, eighty original PNGs; seven live first-RED controls; three same-seed pairs; ten paid catalog clicks; two native save/load cycles; undo/redo/ref demolition.');
   console.log('Remaining, not claimed passed: '+r.remaining.join('; '));
 })().catch(e=>{console.error(e.stack);process.exitCode=1;});
