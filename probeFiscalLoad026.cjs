@@ -48,12 +48,18 @@ function frames026(){
   return out;
 }
 function normal026(seed,loadBeforeNextDay=false){
-  if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);GV.newWorldSeeded(seed);GV.setSpeed(0);GV.setDiff(1);GV.fiscalSeedQA515();
+  if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);GV.newWorldSeeded(seed);GV.setSpeed(0);GV.setDiff(1);
+  // newWorldSeeded does not reset T515. Explicitly initialize this isolated
+  // no-load fixture so prior native cases cannot contribute history/cursors.
+  GV.fiscalReset515();GV.fiscalSeedQA515();GV.weather(0);
   const activated=['cadastreModernization','landValueCapture'].map(k=>({k,result:GV.fiscalProgramRawQA515(k,true,true)}));
   const snap=()=>({stats:GV.stats(),fiscal:GV.fiscalSaveState515(),city:GV.fiscal515().city,infrastructure:GV.fiscal515().infrastructure,assets:GV.fiscal515().assets});
   const before=snap(),completion=GV.fiscalInjectCompletionQA515(24,.7),duplicate=GV.fiscalDailySettlementQA515();
   const points=[{n:0,snapshot:snap()}];
   if(loadBeforeNextDay){GV.save();if(!GV.load())throw Error('load before next real tick');GV.setSpeed(0);}
+  // The old schema does not serialize wxT. Give both continuations the same
+  // existing native weather input; every state comparison below stays intact.
+  GV.weather(0);
   for(const n of [1,6,7]){GV.step(n);points.push({n,snapshot:snap(),duplicate:GV.fiscalDailySettlementQA515()});}
   const beforeForce=GV.fiscalSaveState515(),force=GV.fiscalStep515(true),afterForce=GV.fiscalSaveState515();
   return{seed,activated,before,completion,duplicate,points,force:{historyBefore:beforeForce?.history.length,historyAfter:afterForce?.history.length,day:force.day,scope:GV.fiscalLoad026?.status()}};
