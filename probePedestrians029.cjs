@@ -53,6 +53,11 @@ function case029(spec){
     return{checks,ped,overlap,changed,occludedChanged,visible,diagnosticPixels};
   }
   const offsets={back:[[-1.01,.7],[.7,-1.01],[-1.1,.4],[.4,-1.1],[-1.1,-.1],[-.1,-1.1],[-1.4,.2],[.2,-1.4]],front:[[1.01,.6],[.6,1.01],[1.1,-.1],[-.1,1.1],[1.3,.2],[.2,1.3],[1.4,-.2],[-.2,1.4]]};
+  // Narrow central bodies need closer physical samples than the old perimeter
+  // offsets. Keep the original samples and append a fixed quarter-tile lattice.
+  // Candidate selection still uses only independent opaque geometry overlap;
+  // every original depth, nonzero-overlap and exact occlusion assertion remains.
+  for(let ix=0;ix<8;ix++)for(let iy=0;iy<8;iy++)offsets.back.push([-.875+ix*.25,-.875+iy*.25]);
   const selected={};
   for(const which of['front','back']){
     let firstCandidate;

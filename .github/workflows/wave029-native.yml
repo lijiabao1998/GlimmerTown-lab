@@ -165,7 +165,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave029-fp-rebake-${{ github.sha }}
+          name: fp-${{ github.sha }}
           path: fp-rebake/
           if-no-files-found: error
           retention-days: 14
