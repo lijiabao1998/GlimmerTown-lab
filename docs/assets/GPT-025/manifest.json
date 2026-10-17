@@ -1,0 +1,717 @@
+{
+  "head": "653ccb6f102c47c27ac529c1be807ad529a9dd8f",
+  "indexSHA256": "2dca9986682d15d546d4813e7b186165addeaa8715a6aa17748f71829c81843f",
+  "base": "98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e",
+  "report": {
+    "ok": true,
+    "checks": [
+      "wave025 count and unique identity ✓",
+      "wave025 ten distinct structural silhouettes without shared paving ✓",
+      "wave025 native geometry 24_1_160 ✓",
+      "wave025 native geometry 24_1_161 ✓",
+      "wave025 native geometry 24_1_162 ✓",
+      "wave025 native geometry 24_1_163 ✓",
+      "wave025 native geometry 24_1_164 ✓",
+      "wave025 native geometry 24_1_165 ✓",
+      "wave025 native geometry 24_1_166 ✓",
+      "wave025 native geometry 24_1_167 ✓",
+      "wave025 native geometry 24_1_168 ✓",
+      "wave025 native geometry 24_1_169 ✓",
+      "wave025 native geometry 24_1_170 ✓",
+      "wave025 native geometry 24_1_171 ✓",
+      "wave025 native geometry 24_1_172 ✓",
+      "wave025 native geometry 24_1_173 ✓",
+      "wave025 native geometry 24_1_174 ✓",
+      "wave025 native geometry 24_1_175 ✓",
+      "wave025 native geometry 24_1_176 ✓",
+      "wave025 native geometry 24_1_177 ✓",
+      "wave025 native geometry 24_1_178 ✓",
+      "wave025 native geometry 24_1_179 ✓",
+      "wave025 native geometry 24_1_180 ✓",
+      "wave025 native geometry 24_1_181 ✓",
+      "wave025 native geometry 24_1_182 ✓",
+      "wave025 native geometry 24_1_183 ✓",
+      "wave025 native geometry 24_1_184 ✓",
+      "wave025 native geometry 24_1_185 ✓",
+      "wave025 native geometry 24_1_186 ✓",
+      "wave025 native geometry 24_1_187 ✓",
+      "wave025 native geometry 24_1_188 ✓",
+      "wave025 native geometry 24_1_189 ✓",
+      "wave025 native geometry 24_1_190 ✓",
+      "wave025 native geometry 24_1_191 ✓",
+      "wave025 native geometry 24_1_192 ✓",
+      "wave025 native geometry 24_1_193 ✓",
+      "wave025 native geometry 24_1_194 ✓",
+      "wave025 native geometry 24_1_195 ✓",
+      "wave025 native geometry 24_1_196 ✓",
+      "wave025 native geometry 24_1_197 ✓",
+      "wave025 native geometry 24_1_198 ✓",
+      "wave025 native geometry 24_1_199 ✓",
+      "wave025 opaque physical night ✓",
+      "wave025 hard pixels ✓",
+      "wave025 uncropped nonempty day and night ✓",
+      "wave025 actual rotation alaronde/0 ✓",
+      "wave025 actual rotation alaronde/1 ✓",
+      "wave025 actual rotation alaronde/2 ✓",
+      "wave025 actual rotation alaronde/3 ✓",
+      "wave025 actual rotation dunster/0 ✓",
+      "wave025 actual rotation dunster/1 ✓",
+      "wave025 actual rotation dunster/2 ✓",
+      "wave025 actual rotation dunster/3 ✓",
+      "wave025 actual rotation tattershall/0 ✓",
+      "wave025 actual rotation tattershall/1 ✓",
+      "wave025 actual rotation tattershall/2 ✓",
+      "wave025 actual rotation tattershall/3 ✓",
+      "wave025 actual rotation hardwick/0 ✓",
+      "wave025 actual rotation hardwick/1 ✓",
+      "wave025 actual rotation hardwick/2 ✓",
+      "wave025 actual rotation hardwick/3 ✓",
+      "wave025 actual rotation stokesay/0 ✓",
+      "wave025 actual rotation stokesay/1 ✓",
+      "wave025 actual rotation stokesay/2 ✓",
+      "wave025 actual rotation stokesay/3 ✓",
+      "wave025 actual rotation chiswick/0 ✓",
+      "wave025 actual rotation chiswick/1 ✓",
+      "wave025 actual rotation chiswick/2 ✓",
+      "wave025 actual rotation chiswick/3 ✓",
+      "wave025 actual rotation cragside/0 ✓",
+      "wave025 actual rotation cragside/1 ✓",
+      "wave025 actual rotation cragside/2 ✓",
+      "wave025 actual rotation cragside/3 ✓",
+      "wave025 actual rotation homewood/0 ✓",
+      "wave025 actual rotation homewood/1 ✓",
+      "wave025 actual rotation homewood/2 ✓",
+      "wave025 actual rotation homewood/3 ✓",
+      "wave025 actual rotation cardington/0 ✓",
+      "wave025 actual rotation cardington/1 ✓",
+      "wave025 actual rotation cardington/2 ✓",
+      "wave025 actual rotation cardington/3 ✓",
+      "wave025 actual rotation willington/0 ✓",
+      "wave025 actual rotation willington/1 ✓",
+      "wave025 actual rotation willington/2 ✓",
+      "wave025 actual rotation willington/3 ✓",
+      "wave025 installed pixels equal independent direct geometry ✓"
+    ],
+    "pixels": {
+      "semi": 0,
+      "leak": 0,
+      "crop": 0,
+      "empty": 0,
+      "mismatch": 0
+    }
+  },
+  "red": [
+    {
+      "name": "missing installed leaf",
+      "first": "wave025 count and unique identity ✗"
+    },
+    {
+      "name": "wrong native dimensions",
+      "first": "wave025 native geometry 24_1_160 ✗"
+    },
+    {
+      "name": "night light on transparent sky",
+      "first": "wave025 opaque physical night ✗"
+    },
+    {
+      "name": "soft native day pixel",
+      "first": "wave025 hard pixels ✗"
+    },
+    {
+      "name": "native canvas crop",
+      "first": "wave025 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "different names but duplicate geometry",
+      "first": "wave025 ten distinct structural silhouettes without shared paving ✗"
+    },
+    {
+      "name": "installed clone with distinct authors",
+      "first": "wave025 installed pixels equal independent direct geometry ✗"
+    }
+  ],
+  "pairs": [
+    {
+      "seed": 31,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 71,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 103,
+      "spent": 2000,
+      "equal": true
+    }
+  ],
+  "placed": [
+    {
+      "x": 7,
+      "y": 4,
+      "id": "alaronde",
+      "v": 160,
+      "spent": 2000
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "id": "dunster",
+      "v": 164,
+      "spent": 2000
+    },
+    {
+      "x": 13,
+      "y": 4,
+      "id": "tattershall",
+      "v": 168,
+      "spent": 2000
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "id": "hardwick",
+      "v": 172,
+      "spent": 2000
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "id": "stokesay",
+      "v": 176,
+      "spent": 2000
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "id": "chiswick",
+      "v": 180,
+      "spent": 2000
+    },
+    {
+      "x": 25,
+      "y": 4,
+      "id": "cragside",
+      "v": 184,
+      "spent": 2000
+    },
+    {
+      "x": 28,
+      "y": 4,
+      "id": "homewood",
+      "v": 188,
+      "spent": 2000
+    },
+    {
+      "x": 31,
+      "y": 4,
+      "id": "cardington",
+      "v": 192,
+      "spent": 2000
+    },
+    {
+      "x": 34,
+      "y": 4,
+      "id": "willington",
+      "v": 196,
+      "spent": 2000
+    }
+  ],
+  "slot": "3",
+  "version": "14.43",
+  "fixture": {
+    "initialMoney": 1000000,
+    "unlimitedMoney": false,
+    "difficulty": 1
+  },
+  "remaining": [
+    "complete seasonal/edge/overlay scenes",
+    "full-frame base/valve comparison",
+    "valid-source negative controls",
+    "human image review"
+  ],
+  "images": [
+    {
+      "file": "24_1_160-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "056844161bc9d8f0bac6430b8ea485f0e83703c45596cbe398999f4e1605a77a"
+    },
+    {
+      "file": "24_1_160-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e7a718bcced725e39eed2a84702f8a4da0e8a37bef9f63c9a2cd79764308aff2"
+    },
+    {
+      "file": "24_1_161-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6d00ef4cbab06c28f4d81665001ec40a97320a2538e19d0a66b1227700053a78"
+    },
+    {
+      "file": "24_1_161-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "594d46fefac9e80df20d16de5a35b54bf8dfee6d8fef6f7ebf204cb06cc36eac"
+    },
+    {
+      "file": "24_1_162-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "f38a0b1ef899b7ca988271cbc51c0983a223b5d8f1e3f8048116693b9ca0f3ee"
+    },
+    {
+      "file": "24_1_162-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "64a5440b2bff233f7ceddae18be696ddef26ee85722741caaac47d8880174987"
+    },
+    {
+      "file": "24_1_163-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2b7c4418b1da39d8c3de26ed3714dcfdd83216659077ed539093643e6a3e7b6f"
+    },
+    {
+      "file": "24_1_163-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "f96673fbb356388b16bb12a434f2421dc43a1a029e91550f98cf34d4351412bf"
+    },
+    {
+      "file": "24_1_164-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "20ae373483e4618dc4cf1e1e38ec36410db90e9a15337425852a1ee8cdeb475a"
+    },
+    {
+      "file": "24_1_164-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "22513c23ace7494f144499a48068388a0ade2f756d17bcb38a7715c9a414253d"
+    },
+    {
+      "file": "24_1_165-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "320994fdc4e827022e7219c7183c2facb20ba268cccecdab1ec720ef04050cc4"
+    },
+    {
+      "file": "24_1_165-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b4bf1d6732d9674524e4abb34650310cab99ef3fa305fa900ce267fc81ab7139"
+    },
+    {
+      "file": "24_1_166-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "1ad0c28d3df36dd3324679c29b231ea1a81d656772e7addc5ca42d2b93cd3bb9"
+    },
+    {
+      "file": "24_1_166-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "886fed14cd8d626e1fed9e8f1ab654294e92cd21a8a932b1364b60ff029c3a08"
+    },
+    {
+      "file": "24_1_167-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6a73a201584d1eac212f8a976fbecb0e0b7905fe864415246bec51efd4c43dd6"
+    },
+    {
+      "file": "24_1_167-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "844c16e20826034abb88e52e74fd4f32494f5e5bc59091eb1b7d28ab91dd2b05"
+    },
+    {
+      "file": "24_1_168-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4abbc666b97f9b5673bb4a92fa14fa47e54ef4b330ae491721e25603017d97e4"
+    },
+    {
+      "file": "24_1_168-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "94eccda8b058c28b5e7ca2bfefec2b5234b5e5b1d9c4527b22ec7fa285339df1"
+    },
+    {
+      "file": "24_1_169-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6527e9ade9f376fbfe63fc6bd1047487a6c6f88a83ac3bfc414a5a579148e7d1"
+    },
+    {
+      "file": "24_1_169-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "88dcebd927e7427dcb577fb027b947312d131073860c7a57715253b809049c1e"
+    },
+    {
+      "file": "24_1_170-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d517a955e75b210acae664820fe9deceaef1e584efa1a2fbfdca51ff67acf74e"
+    },
+    {
+      "file": "24_1_170-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "0960e3848c28edf18c70ef2bd768099be5c47dba84ee946c9d8820425b62fcad"
+    },
+    {
+      "file": "24_1_171-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "1c66acaf0d86d3c7376b68617f3a3c4c768aa14ae513f476a3c9eff644b061e5"
+    },
+    {
+      "file": "24_1_171-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "937e8b2b6b8cdddb314c774067e59f9f02efda8ed01eddbd6faf98cfb6424284"
+    },
+    {
+      "file": "24_1_172-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "07edee9d782a86b29429e2a06d1acba4c68865d8f770872bddaece32d702756b"
+    },
+    {
+      "file": "24_1_172-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d843daac194ff35d58a69601855124de13a7cd95c94e38eb0a2cbe12b7e34751"
+    },
+    {
+      "file": "24_1_173-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2a88efdd671114588e1358d56efd7881dd99ee9621794e000442fc3940500412"
+    },
+    {
+      "file": "24_1_173-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "46a192131ce211b91ca229b9ffc0e7bbd419eb2fb4b3092edd03d6b6fb7626d3"
+    },
+    {
+      "file": "24_1_174-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "58996cd9a696d537341f3ec9f5bdd81e6a270b0e7a399547ba16773e609efbc5"
+    },
+    {
+      "file": "24_1_174-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e90896135a798cdfde3ff245d0fc4f2389da9eca4bb9c4d46aca16ea37269b0b"
+    },
+    {
+      "file": "24_1_175-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "09648038fb4f92b2050b43ae820ece9320c5d14fdad22416a5c30e06d20d4964"
+    },
+    {
+      "file": "24_1_175-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "534aadf02d1c8184b5499d03d98b2bd91effd177305a15c9a93833c2ab2b8a35"
+    },
+    {
+      "file": "24_1_176-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c568be2dfb8c7924e201e8183253222d1cba2248375d5e995b38e0013d2514f9"
+    },
+    {
+      "file": "24_1_176-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b1619bdb7517bbc32a77ab7563fb7293fdf1e080d8a69fe7512166dcab7f50c6"
+    },
+    {
+      "file": "24_1_177-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a0d7ca7c3ee66b7fd24a904215dbb5c40788cd5d9bd947ff9cf06aa6e6890f28"
+    },
+    {
+      "file": "24_1_177-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b96ef4a125ef675a78c3a36bd8b324f476ed26ec6ccaf677a6edb16b454f48c6"
+    },
+    {
+      "file": "24_1_178-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a76d8eeafbaf228991c84f6cfe4b73a4caeec51e1b57db57669dd68a9fc125e9"
+    },
+    {
+      "file": "24_1_178-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "ed3978dbae97450b24b7e771c863648f00ae983cb04da05ae9ff93920dcd4e3e"
+    },
+    {
+      "file": "24_1_179-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "ff7ec9c7d6546d409241eb3efef2f29f76e41340bf57cc9c1d784bd697ec3175"
+    },
+    {
+      "file": "24_1_179-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "1442f81c67557c2bf949f57ffd7d94c2e987c6170aa997eec634aa42a57e5b67"
+    },
+    {
+      "file": "24_1_180-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "782d52529c9abfe5c8580dd851f9591b22d4dcd09d03fd842e7dd009ed878545"
+    },
+    {
+      "file": "24_1_180-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bb87bdfeba0ba796d4d64e549a4e64199d229ee927918fbd8ed58221371e6cc3"
+    },
+    {
+      "file": "24_1_181-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e53dd6d3590c20d7e5dc74e1cd3fb647a94acd6f73f0f4c0220d7236a72002a0"
+    },
+    {
+      "file": "24_1_181-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "3e14b42f26e70640187913c058bcc2bf66fb85b84140303e1b8da96596f85ced"
+    },
+    {
+      "file": "24_1_182-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "18d5797d804f8aea8e0aa17e404057b09f1f875a0d041ecdcfbb20b9ed936302"
+    },
+    {
+      "file": "24_1_182-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "8fe51286e6ff4a090c9a77beeccf9891d0f7772e6db7e3209fc779f52c718981"
+    },
+    {
+      "file": "24_1_183-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "45be126943ff42dd4254c62ec620c6702225f36a266e5fc7eadf21795e5307fc"
+    },
+    {
+      "file": "24_1_183-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a563c7491f4a83c26a704220969554ac204f3c87aa16eab04d11ac765adb6f31"
+    },
+    {
+      "file": "24_1_184-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c12203d79d20c992821065b0c2dfb4492977b68acba875a2d089c3acf5017cee"
+    },
+    {
+      "file": "24_1_184-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "95b5a2d72b74e27481e1121449c05805c49dc2273e62ab5ed2b7f43e943dcacb"
+    },
+    {
+      "file": "24_1_185-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "5789444689c961aa21883e3192301600f8add00fd9a7f43e2876e9659aac99d2"
+    },
+    {
+      "file": "24_1_185-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "09bc64720132e6684b7ef834b5629faf9a9ce028323191f9f7374dfb295ff06f"
+    },
+    {
+      "file": "24_1_186-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "26b2fb20178968b3d2a0140523d81842dc20c76d3ab6429c2772c8dc53e257c6"
+    },
+    {
+      "file": "24_1_186-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c4f7cf27c512af024daea843f3529c112f60ba88e7da697384374b6c0b7eb803"
+    },
+    {
+      "file": "24_1_187-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d0620764ee84a2119a78335fa6428c25de055b420bd4eb57f73469e4c0b4317b"
+    },
+    {
+      "file": "24_1_187-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "55e336d441890df04b41cb2c85788b352e59674957ac802881aceab40eae208b"
+    },
+    {
+      "file": "24_1_188-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bb7cd7e338af0591617e03307da89d741d79b9283ac0203c979c383bb3938b80"
+    },
+    {
+      "file": "24_1_188-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "923e3fd1c923b4f6eca02d9f872ab302fad09a3463b60a6ba41f2bc0e0225c67"
+    },
+    {
+      "file": "24_1_189-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "17392dbd57469d8b3402e78e7bb8d3b187c0d605128bd55aa868ff24f52c0e60"
+    },
+    {
+      "file": "24_1_189-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "0717344ecf2002088aa050015d97111e7037108254058b4cb4fb5e3d3986fc0a"
+    },
+    {
+      "file": "24_1_190-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d6de0aed895d4cfa0daba0121e5bb7697c19e31fd1f2601caa47d0861434069b"
+    },
+    {
+      "file": "24_1_190-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "0c6b76617ccc0c52fde59c7c86bddf4d863ebe8dbbcc37d6ae6d68578827d728"
+    },
+    {
+      "file": "24_1_191-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "567a5e252244c9deb8bb9aa0f56dceeb597963351b3acac42557fbc75b28dbb9"
+    },
+    {
+      "file": "24_1_191-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "5cf64248d38d970afc2f6c2b9b97abd529970ac1a4d9b4f4c3c5ef36e9217222"
+    },
+    {
+      "file": "24_1_192-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "84c86e03e3283436dc66c350cd0588a496e2c0dc2baf5658eca0d807789b3254"
+    },
+    {
+      "file": "24_1_192-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bf818adeaccbab15b6edd86d902ae589b9cdccaeff200b8707e498fff2ebc460"
+    },
+    {
+      "file": "24_1_193-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "da8182022afbc649643e19af6571c63ae0a3994eccd7a4db69d0d3e9d8e8508f"
+    },
+    {
+      "file": "24_1_193-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "811692ff60021db928bce7987c9aa1aa5d13e66c0703fc6fa064549c5f04f98e"
+    },
+    {
+      "file": "24_1_194-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "40123d320888a636a087bc9ed63dce98e993048a45782725120679b5c5595287"
+    },
+    {
+      "file": "24_1_194-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "671ae5ccbeff0df1ba8a1e4b544114e82850b1ddc330b929dcfa053fad403f49"
+    },
+    {
+      "file": "24_1_195-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bcb134d0febf84bc519087583f1741d67fa5c8086833f7bbad68dbc70cec9ec0"
+    },
+    {
+      "file": "24_1_195-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "98501149c1674a981e8523276400a6d48376e1becc7bcc841c8b4149e400e8fd"
+    },
+    {
+      "file": "24_1_196-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d9e090bcfd831b1f122dd250a723cbea2ded53e54b90e1adbaacb49293bdf3c9"
+    },
+    {
+      "file": "24_1_196-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2a146aa6e78cfe91d56b9f60e77999d9255908b308fdf7e804cf69a94852971e"
+    },
+    {
+      "file": "24_1_197-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "11db6a133e7df4901f62c44d24fa372afc892d37ccd2cf1afa21e347b00fcabc"
+    },
+    {
+      "file": "24_1_197-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b11533d470b7d4cde2bf7acac0048e707a5c1a0bcd241136d5ce0f89e8391a17"
+    },
+    {
+      "file": "24_1_198-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "8b695b273c1119f4071cb1e8088771aaf7bace268d347f6a2bf1cb4342fe98a1"
+    },
+    {
+      "file": "24_1_198-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "89642e10e3675c327fd608d15f64d14b524fe5822f2b9f94a2d87a5d84bfbc42"
+    },
+    {
+      "file": "24_1_199-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7641059843bf57ca76a04dc30430989365277318caca4cefaa95883036346919"
+    },
+    {
+      "file": "24_1_199-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "58cf0dd9e90515d24436f3c5a74a968857ff8ade0707ca64cb3f2abad736bdb6"
+    }
+  ]
+}

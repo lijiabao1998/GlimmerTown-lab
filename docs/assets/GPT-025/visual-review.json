@@ -1,0 +1,760 @@
+{
+  "platform": "GitHub Actions Ubuntu desktop headless Chromium game canvas; no physical mobile device testing",
+  "source": "Original generated PNG bytes, not image generation",
+  "reviews": [
+    {
+      "files": [
+        "contact-day.png",
+        "contact-night.png",
+        "contact-comparison.png"
+      ],
+      "method": "Viewed original contact images; all 40 day cells and 40 labelled night-preview cells inspected",
+      "observations": [
+        "Ten silhouettes, roof forms and window structures differ; tall red-brick turreted tower versus low sixteen-sided dwelling, open post pavilion, glazed broad hall, unequal stone towers, portico/dome, asymmetrical cross-gables, L pilotis villa, steel buttressed shed and stepped-gable dovecote.",
+        "Comparison rows show structural differences from Orford, Coxwell, Kew, Little Moreton, Dunmore, De La Warr and Flaxmill.",
+        "Night contact is labelled composite preview; it does not replace actual night canvas checks."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/summer-day-r0.png",
+        "scenes/winter-snow-day-r0.png",
+        "scenes/near-tattershall.png"
+      ],
+      "method": "Viewed full original desktop Chromium PNGs at original resolution",
+      "observations": [
+        "All ten native placements visible at regular overview scale; wide/tall/low forms readable.",
+        "Native winter layer coats roofs and terrain; roof forms still discernible. Existing snow presentation unchanged.",
+        "Near red-brick tower has corner turrets, battlements and stone-framed windows; nearby hall and open pavilion remain distinct."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "24_1_160-day.png",
+        "24_1_160-night.png",
+        "24_1_161-day.png",
+        "24_1_161-night.png",
+        "24_1_162-day.png",
+        "24_1_162-night.png",
+        "24_1_163-day.png",
+        "24_1_163-night.png",
+        "24_1_164-day.png",
+        "24_1_164-night.png",
+        "24_1_165-day.png",
+        "24_1_165-night.png",
+        "24_1_166-day.png",
+        "24_1_166-night.png",
+        "24_1_167-day.png",
+        "24_1_167-night.png",
+        "24_1_168-day.png",
+        "24_1_168-night.png",
+        "24_1_169-day.png",
+        "24_1_169-night.png"
+      ],
+      "observations": [
+        "Raw 160–169 day and separate emissive PNGs inspected. Low sixteen-sided mass, diamond windows and roof facets differ from open octagonal pavilion and tall corner-turret brick tower.",
+        "Emissive pixels track actual windows/lamps; no visible floating broad light patches or edge clipping in these views."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "24_1_170-day.png",
+        "24_1_170-night.png",
+        "24_1_171-day.png",
+        "24_1_171-night.png",
+        "24_1_172-day.png",
+        "24_1_172-night.png",
+        "24_1_173-day.png",
+        "24_1_173-night.png",
+        "24_1_174-day.png",
+        "24_1_174-night.png",
+        "24_1_175-day.png",
+        "24_1_175-night.png",
+        "24_1_176-day.png",
+        "24_1_176-night.png",
+        "24_1_177-day.png",
+        "24_1_177-night.png",
+        "24_1_178-day.png",
+        "24_1_178-night.png",
+        "24_1_179-day.png",
+        "24_1_179-night.png"
+      ],
+      "observations": [
+        "Remaining tower views, six-tower glazed hall and unequal stone/timber gatehouse views inspected.",
+        "Hardwick has tall upper glazing and flat projecting towers; Stokesay gatehouse remains visibly separate across rotations. Window emissions follow visible openings; no visible sprite clipping."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "24_1_180-day.png",
+        "24_1_180-night.png",
+        "24_1_181-day.png",
+        "24_1_181-night.png",
+        "24_1_182-day.png",
+        "24_1_182-night.png",
+        "24_1_183-day.png",
+        "24_1_183-night.png",
+        "24_1_184-day.png",
+        "24_1_184-night.png",
+        "24_1_185-day.png",
+        "24_1_185-night.png",
+        "24_1_186-day.png",
+        "24_1_186-night.png",
+        "24_1_187-day.png",
+        "24_1_187-night.png",
+        "24_1_188-day.png",
+        "24_1_188-night.png",
+        "24_1_189-day.png",
+        "24_1_189-night.png"
+      ],
+      "observations": [
+        "Chiswick portico/stairs and octagonal cap, Cragside asymmetrical cross-gables and chimney stacks, and Homewood front/side cantilever and pilotis inspected in raw day/emissive files.",
+        "All have distinct plan and roof construction; exposed windows emit within facades. Portico remains open rather than a repeated solid wall."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "24_1_190-day.png",
+        "24_1_190-night.png",
+        "24_1_191-day.png",
+        "24_1_191-night.png",
+        "24_1_192-day.png",
+        "24_1_192-night.png",
+        "24_1_193-day.png",
+        "24_1_193-night.png",
+        "24_1_194-day.png",
+        "24_1_194-night.png",
+        "24_1_195-day.png",
+        "24_1_195-night.png",
+        "24_1_196-day.png",
+        "24_1_196-night.png",
+        "24_1_197-day.png",
+        "24_1_197-night.png",
+        "24_1_198-day.png",
+        "24_1_198-night.png",
+        "24_1_199-day.png",
+        "24_1_199-night.png"
+      ],
+      "observations": [
+        "Homewood rear L/wall glazing, all steel hangar rotations and all stone dovecote views inspected as raw day/emissive PNGs.",
+        "Hangar ribs, folded/arched roof and large doors remain legible; dovecote has stepped gable ends and roof louvre with deliberately sparse light. No visible sprite-edge clipping."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/spring-day-r0.png",
+        "scenes/spring-day-r1.png",
+        "scenes/spring-day-r2.png",
+        "scenes/spring-day-r3.png",
+        "scenes/spring-night-r0.png",
+        "scenes/spring-night-r1.png",
+        "scenes/spring-night-r2.png",
+        "scenes/spring-night-r3.png"
+      ],
+      "observations": [
+        "Spring day/night all four camera rotations inspected: all ten buildings retain correct positions, roof silhouettes and view-dependent shading.",
+        "Night windows visible on occupied facades; prominent blue vertical columns are existing native T359 landmark spotlights, not newly introduced global lighting. No rendering layer was disabled for these screenshots."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/summer-day-r1.png",
+        "scenes/summer-day-r2.png",
+        "scenes/summer-day-r3.png",
+        "scenes/summer-night-r1.png",
+        "scenes/summer-night-r2.png",
+        "scenes/summer-night-r3.png"
+      ],
+      "observations": [
+        "Summer remaining three day/night rotations inspected; all ten placements remain grounded, distinct and complete in the canvas. Consistent facade lighting across view changes.",
+        "Native landmark beams are visually strong and retained as inherited behavior, not edited out of the evidence."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/autumn-day-r0.png",
+        "scenes/autumn-day-r1.png",
+        "scenes/autumn-day-r2.png",
+        "scenes/autumn-day-r3.png",
+        "scenes/autumn-night-r0.png",
+        "scenes/autumn-night-r1.png",
+        "scenes/autumn-night-r2.png",
+        "scenes/autumn-night-r3.png"
+      ],
+      "observations": [
+        "Autumn all four day/night views inspected: seasonal vegetation changes without replacing the ten architectural forms; foreground/background order remains consistent.",
+        "No apparent new holes, detached roof pieces or unexpected facade glow in this fixed fixture."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/winter-bare-day-r0.png",
+        "scenes/winter-bare-day-r1.png",
+        "scenes/winter-bare-day-r2.png",
+        "scenes/winter-bare-day-r3.png",
+        "scenes/winter-bare-night-r0.png",
+        "scenes/winter-bare-night-r1.png",
+        "scenes/winter-bare-night-r2.png",
+        "scenes/winter-bare-night-r3.png"
+      ],
+      "observations": [
+        "Winter without roof snow: all four day/night views inspected. Terrain is winter-white and water frozen by the existing seasonal system while roofs retain original materials.",
+        "Roof silhouettes, open pavilion supports, hangar buttresses and modern cantilever stay legible; existing winter atmospheric bands retained."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/winter-snow-day-r1.png",
+        "scenes/winter-snow-day-r2.png",
+        "scenes/winter-snow-day-r3.png",
+        "scenes/winter-snow-night-r0.png",
+        "scenes/winter-snow-night-r1.png",
+        "scenes/winter-snow-night-r2.png",
+        "scenes/winter-snow-night-r3.png"
+      ],
+      "observations": [
+        "Winter roof-snow remaining seven day/night views inspected; native snow follows roof tops while walls and openings remain distinguishable.",
+        "Existing large atmospheric arcs/bands are retained in the native winter renderer. No new snow shader or weather adjustment made."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/near-alaronde.png",
+        "scenes/near-cardington.png",
+        "scenes/near-chiswick.png",
+        "scenes/near-cragside.png",
+        "scenes/near-dunster.png",
+        "scenes/near-hardwick.png",
+        "scenes/near-homewood.png",
+        "scenes/near-stokesay.png",
+        "scenes/near-willington.png"
+      ],
+      "observations": [
+        "Nine remaining individual near views inspected; together with previously viewed Tattershall, each of ten targets has a near canvas review.",
+        "Target roofs, door openings, pillar gaps, fenestration and grounding are readable. Neighbouring buildings can fall outside camera crop, distinct from sprite texture clipping. Cardington length is knowingly compressed to the native 2x2 footprint as already disclosed."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/construction-early.png",
+        "scenes/construction-late.png",
+        "scenes/construction-middle.png",
+        "scenes/far-day.png",
+        "scenes/far-night.png",
+        "scenes/hover-tattershall.png",
+        "scenes/rain-night.png"
+      ],
+      "observations": [
+        "Three construction stages inspected: empty pads at early stage, partial native scaffold/raised geometry in middle stage, later scaffold plus target art; stages show native per-building progression rather than a new construction animation.",
+        "Real pointer hover produces translucent Tattershall and affected neighbour so underlying placement diamond remains visible.",
+        "Rain/night frame preserves window glows and native beams.",
+        "Far day/night fixtures use native coarse LOD: buildings appear as simplified footprint/point markers; architectural roof/window detail is not visible at this zoom. This limits the far-scene claim to native LOD rendering and does not prove distinct distant silhouettes."
+      ],
+      "issues": [],
+      "limitations": [
+        "Far LOD has generic markers; no ten distinct roof-detail claim at that zoom.",
+        "Construction captures are fixed snapshots, not a full real-time construction playback."
+      ]
+    },
+    {
+      "files": [
+        "scenes/edge-alaronde-r0.png",
+        "scenes/edge-alaronde-r1.png",
+        "scenes/edge-alaronde-r2.png",
+        "scenes/edge-alaronde-r3.png",
+        "scenes/edge-cardington-r0.png",
+        "scenes/edge-cardington-r1.png",
+        "scenes/edge-cardington-r2.png",
+        "scenes/edge-cardington-r3.png"
+      ],
+      "observations": [
+        "A la Ronde and Cardington at actual native corner placement inspected in all four rotations.",
+        "Body remains grounded and complete, with roof/ribs retained and no apparent texture cut at map corner. Map cutaway and sky outside the map are native presentation."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/edge-chiswick-r0.png",
+        "scenes/edge-chiswick-r1.png",
+        "scenes/edge-chiswick-r2.png",
+        "scenes/edge-chiswick-r3.png",
+        "scenes/edge-cragside-r0.png",
+        "scenes/edge-cragside-r1.png",
+        "scenes/edge-cragside-r2.png",
+        "scenes/edge-cragside-r3.png"
+      ],
+      "observations": [
+        "Chiswick and Cragside corner placements inspected in all rotations. Portico/open steps and asymmetrical tower/gables remain complete on their native footprint.",
+        "No visible map-edge sprite truncation or mirrored single facade replacing true rotations."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/edge-dunster-r0.png",
+        "scenes/edge-dunster-r1.png",
+        "scenes/edge-dunster-r2.png",
+        "scenes/edge-dunster-r3.png",
+        "scenes/edge-hardwick-r0.png",
+        "scenes/edge-hardwick-r1.png",
+        "scenes/edge-hardwick-r2.png",
+        "scenes/edge-hardwick-r3.png"
+      ],
+      "observations": [
+        "Dunster and Hardwick corner placements inspected in four views. Open pavilion legs remain open; hall glazing/tower projections and view-dependent shade remain consistent.",
+        "Neither object appears cut off at the map boundary in this fixture."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/edge-homewood-r0.png",
+        "scenes/edge-homewood-r1.png",
+        "scenes/edge-homewood-r2.png",
+        "scenes/edge-homewood-r3.png",
+        "scenes/edge-stokesay-r0.png",
+        "scenes/edge-stokesay-r1.png",
+        "scenes/edge-stokesay-r2.png",
+        "scenes/edge-stokesay-r3.png"
+      ],
+      "observations": [
+        "Homewood and Stokesay corner placements inspected in four views. Pilotis/cantilever, brick lower wing, separate gatehouse and unequal towers remain identifiable.",
+        "Native cutaway does not clip the target geometry in these views."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/edge-tattershall-r0.png",
+        "scenes/edge-tattershall-r1.png",
+        "scenes/edge-tattershall-r2.png",
+        "scenes/edge-tattershall-r3.png",
+        "scenes/edge-willington-r0.png",
+        "scenes/edge-willington-r1.png",
+        "scenes/edge-willington-r2.png",
+        "scenes/edge-willington-r3.png"
+      ],
+      "observations": [
+        "Tattershall and Willington corner placements inspected in all four views, completing the ten-building 40-frame edge review.",
+        "Tall turrets and low stepped-gable/louvre silhouette stay complete and grounded; no new map-edge clipping found in this fixture."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/base-legacy-day-r0.png",
+        "scenes/base-legacy-day-r1.png",
+        "scenes/base-legacy-day-r2.png",
+        "scenes/base-legacy-day-r3.png",
+        "scenes/base-legacy-night-r0.png",
+        "scenes/base-legacy-night-r1.png",
+        "scenes/base-legacy-night-r2.png",
+        "scenes/base-legacy-night-r3.png"
+      ],
+      "observations": [
+        "BASE original-landmark scene inspected in four day/night views; original purple landmark, terrain/water, shadows and native lighting retained.",
+        "These eight fixtures are the precise reference for the CI zero-byte-difference valve comparison, not all possible old cities."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/valve-legacy-day-r0.png",
+        "scenes/valve-legacy-day-r1.png",
+        "scenes/valve-legacy-day-r2.png",
+        "scenes/valve-legacy-day-r3.png",
+        "scenes/valve-legacy-night-r0.png",
+        "scenes/valve-legacy-night-r1.png",
+        "scenes/valve-legacy-night-r2.png",
+        "scenes/valve-legacy-night-r3.png"
+      ],
+      "observations": [
+        "Valve-off branch original-landmark scene inspected in four day/night views; visually matches the previously viewed BASE reference.",
+        "Exact 8/8 full-canvas equality and one-pixel negative/recovery are CI assertions, not inferred from this visual review."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "pedestrians/alaronde-day-r0-back.png",
+        "pedestrians/alaronde-day-r0-combined.png",
+        "pedestrians/alaronde-day-r0-front.png",
+        "pedestrians/cardington-day-r0-back.png",
+        "pedestrians/cardington-day-r0-combined.png",
+        "pedestrians/cardington-day-r0-front.png",
+        "pedestrians/chiswick-day-r0-back.png",
+        "pedestrians/chiswick-day-r0-combined.png",
+        "pedestrians/chiswick-day-r0-front.png"
+      ],
+      "observations": [
+        "A la Ronde, Cardington and Chiswick front/back/combined pedestrian canvases individually inspected.",
+        "Explicit test actors are tiny native sprites: front figures remain visible near the plinth, rear portions disappear behind opaque geometry; exposed portions outside the silhouette may remain visible. No apparent drawing over opaque rear walls."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "pedestrians/cragside-day-r0-back.png",
+        "pedestrians/cragside-day-r0-combined.png",
+        "pedestrians/cragside-day-r0-front.png",
+        "pedestrians/dunster-day-r0-back.png",
+        "pedestrians/dunster-day-r0-combined.png",
+        "pedestrians/dunster-day-r0-front.png",
+        "pedestrians/hardwick-day-r0-back.png",
+        "pedestrians/hardwick-day-r0-combined.png",
+        "pedestrians/hardwick-day-r0-front.png"
+      ],
+      "observations": [
+        "Cragside, open Dunster pavilion and Hardwick front/back/combined pedestrian frames individually inspected.",
+        "Visible foreground figures remain outside/at plinth edges; rear portions covered by opaque silhouette do not appear painted on facade. Open pavilion naturally permits visibility outside opaque roof/pillar coverage."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "pedestrians/homewood-day-r0-back.png",
+        "pedestrians/homewood-day-r0-combined.png",
+        "pedestrians/homewood-day-r0-front.png",
+        "pedestrians/stokesay-day-r0-back.png",
+        "pedestrians/stokesay-day-r0-combined.png",
+        "pedestrians/stokesay-day-r0-front.png",
+        "pedestrians/tattershall-day-r1-back.png",
+        "pedestrians/tattershall-day-r1-combined.png",
+        "pedestrians/tattershall-day-r1-front.png"
+      ],
+      "observations": [
+        "Homewood, Stokesay and rotated Tattershall front/back/combined frames individually inspected.",
+        "The open cantilever/gatehouse and tall tower do not paint rear figures over opaque facade portions; native small front sprites remain readable near ground."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "pedestrians/tattershall-day-r2-back.png",
+        "pedestrians/tattershall-day-r2-combined.png",
+        "pedestrians/tattershall-day-r2-front.png",
+        "pedestrians/tattershall-day-r3-back.png",
+        "pedestrians/tattershall-day-r3-combined.png",
+        "pedestrians/tattershall-day-r3-front.png",
+        "pedestrians/tattershall-night-r1-back.png",
+        "pedestrians/tattershall-night-r1-combined.png",
+        "pedestrians/tattershall-night-r1-front.png"
+      ],
+      "observations": [
+        "Tattershall day rotations 2/3 and night rotation 1 front/back/combined canvases individually inspected.",
+        "Camera rotation preserves world-side occlusion. Foreground people remain small visible native sprites; rear overlap is hidden by the tower rather than painted through it. Existing night particle/beam effects remain active."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "pedestrians/tattershall-night-r2-back.png",
+        "pedestrians/tattershall-night-r2-combined.png",
+        "pedestrians/tattershall-night-r2-front.png",
+        "pedestrians/tattershall-night-r3-back.png",
+        "pedestrians/tattershall-night-r3-combined.png",
+        "pedestrians/tattershall-night-r3-front.png",
+        "pedestrians/willington-day-r0-back.png",
+        "pedestrians/willington-day-r0-combined.png",
+        "pedestrians/willington-day-r0-front.png"
+      ],
+      "observations": [
+        "Tattershall night rotations 2/3 and low Willington front/back/combined canvases individually inspected, completing all 51 pedestrian images.",
+        "Foreground native people remain visible at ground; rear overlap is occluded by the corresponding building in every inspected pair. Native night effects remain unchanged."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "pedestrians/tattershall-day-r0-back.png",
+        "pedestrians/tattershall-day-r0-combined.png",
+        "pedestrians/tattershall-day-r0-front.png",
+        "pedestrians/tattershall-night-r0-back.png",
+        "pedestrians/tattershall-night-r0-combined.png",
+        "pedestrians/tattershall-night-r0-front.png"
+      ],
+      "observations": [
+        "Day/night rotation-0 front/back/combined canvases were inspected first. Test characters are tiny native adult/child/stroller sprites; their hidden rear overlap and visible foreground match the independently recorded 17-case native depth/occlusion checks."
+      ],
+      "issues": []
+    },
+    {
+      "files": [
+        "scenes/summer-night-r0.png"
+      ],
+      "observations": [
+        "Actual native summer night overview inspected before the representative Library attempt; all ten placements and warm facade windows visible under inherited strong T359 landmark spotlights.",
+        "This is a real desktop Chromium canvas, not the emissive-sprite contact preview and not a real phone test."
+      ],
+      "issues": []
+    }
+  ],
+  "reviewComplete": true,
+  "knownBlockingIssue": "Strict old-save all-field roundtrip fails on unchanged BASE fiscal history; art PR not complete and not merged.",
+  "reviewedFiles": [
+    "24_1_160-day.png",
+    "24_1_160-night.png",
+    "24_1_161-day.png",
+    "24_1_161-night.png",
+    "24_1_162-day.png",
+    "24_1_162-night.png",
+    "24_1_163-day.png",
+    "24_1_163-night.png",
+    "24_1_164-day.png",
+    "24_1_164-night.png",
+    "24_1_165-day.png",
+    "24_1_165-night.png",
+    "24_1_166-day.png",
+    "24_1_166-night.png",
+    "24_1_167-day.png",
+    "24_1_167-night.png",
+    "24_1_168-day.png",
+    "24_1_168-night.png",
+    "24_1_169-day.png",
+    "24_1_169-night.png",
+    "24_1_170-day.png",
+    "24_1_170-night.png",
+    "24_1_171-day.png",
+    "24_1_171-night.png",
+    "24_1_172-day.png",
+    "24_1_172-night.png",
+    "24_1_173-day.png",
+    "24_1_173-night.png",
+    "24_1_174-day.png",
+    "24_1_174-night.png",
+    "24_1_175-day.png",
+    "24_1_175-night.png",
+    "24_1_176-day.png",
+    "24_1_176-night.png",
+    "24_1_177-day.png",
+    "24_1_177-night.png",
+    "24_1_178-day.png",
+    "24_1_178-night.png",
+    "24_1_179-day.png",
+    "24_1_179-night.png",
+    "24_1_180-day.png",
+    "24_1_180-night.png",
+    "24_1_181-day.png",
+    "24_1_181-night.png",
+    "24_1_182-day.png",
+    "24_1_182-night.png",
+    "24_1_183-day.png",
+    "24_1_183-night.png",
+    "24_1_184-day.png",
+    "24_1_184-night.png",
+    "24_1_185-day.png",
+    "24_1_185-night.png",
+    "24_1_186-day.png",
+    "24_1_186-night.png",
+    "24_1_187-day.png",
+    "24_1_187-night.png",
+    "24_1_188-day.png",
+    "24_1_188-night.png",
+    "24_1_189-day.png",
+    "24_1_189-night.png",
+    "24_1_190-day.png",
+    "24_1_190-night.png",
+    "24_1_191-day.png",
+    "24_1_191-night.png",
+    "24_1_192-day.png",
+    "24_1_192-night.png",
+    "24_1_193-day.png",
+    "24_1_193-night.png",
+    "24_1_194-day.png",
+    "24_1_194-night.png",
+    "24_1_195-day.png",
+    "24_1_195-night.png",
+    "24_1_196-day.png",
+    "24_1_196-night.png",
+    "24_1_197-day.png",
+    "24_1_197-night.png",
+    "24_1_198-day.png",
+    "24_1_198-night.png",
+    "24_1_199-day.png",
+    "24_1_199-night.png",
+    "contact-comparison.png",
+    "contact-day.png",
+    "contact-night.png",
+    "pedestrians/alaronde-day-r0-back.png",
+    "pedestrians/alaronde-day-r0-combined.png",
+    "pedestrians/alaronde-day-r0-front.png",
+    "pedestrians/cardington-day-r0-back.png",
+    "pedestrians/cardington-day-r0-combined.png",
+    "pedestrians/cardington-day-r0-front.png",
+    "pedestrians/chiswick-day-r0-back.png",
+    "pedestrians/chiswick-day-r0-combined.png",
+    "pedestrians/chiswick-day-r0-front.png",
+    "pedestrians/cragside-day-r0-back.png",
+    "pedestrians/cragside-day-r0-combined.png",
+    "pedestrians/cragside-day-r0-front.png",
+    "pedestrians/dunster-day-r0-back.png",
+    "pedestrians/dunster-day-r0-combined.png",
+    "pedestrians/dunster-day-r0-front.png",
+    "pedestrians/hardwick-day-r0-back.png",
+    "pedestrians/hardwick-day-r0-combined.png",
+    "pedestrians/hardwick-day-r0-front.png",
+    "pedestrians/homewood-day-r0-back.png",
+    "pedestrians/homewood-day-r0-combined.png",
+    "pedestrians/homewood-day-r0-front.png",
+    "pedestrians/stokesay-day-r0-back.png",
+    "pedestrians/stokesay-day-r0-combined.png",
+    "pedestrians/stokesay-day-r0-front.png",
+    "pedestrians/tattershall-day-r0-back.png",
+    "pedestrians/tattershall-day-r0-combined.png",
+    "pedestrians/tattershall-day-r0-front.png",
+    "pedestrians/tattershall-day-r1-back.png",
+    "pedestrians/tattershall-day-r1-combined.png",
+    "pedestrians/tattershall-day-r1-front.png",
+    "pedestrians/tattershall-day-r2-back.png",
+    "pedestrians/tattershall-day-r2-combined.png",
+    "pedestrians/tattershall-day-r2-front.png",
+    "pedestrians/tattershall-day-r3-back.png",
+    "pedestrians/tattershall-day-r3-combined.png",
+    "pedestrians/tattershall-day-r3-front.png",
+    "pedestrians/tattershall-night-r0-back.png",
+    "pedestrians/tattershall-night-r0-combined.png",
+    "pedestrians/tattershall-night-r0-front.png",
+    "pedestrians/tattershall-night-r1-back.png",
+    "pedestrians/tattershall-night-r1-combined.png",
+    "pedestrians/tattershall-night-r1-front.png",
+    "pedestrians/tattershall-night-r2-back.png",
+    "pedestrians/tattershall-night-r2-combined.png",
+    "pedestrians/tattershall-night-r2-front.png",
+    "pedestrians/tattershall-night-r3-back.png",
+    "pedestrians/tattershall-night-r3-combined.png",
+    "pedestrians/tattershall-night-r3-front.png",
+    "pedestrians/willington-day-r0-back.png",
+    "pedestrians/willington-day-r0-combined.png",
+    "pedestrians/willington-day-r0-front.png",
+    "scenes/autumn-day-r0.png",
+    "scenes/autumn-day-r1.png",
+    "scenes/autumn-day-r2.png",
+    "scenes/autumn-day-r3.png",
+    "scenes/autumn-night-r0.png",
+    "scenes/autumn-night-r1.png",
+    "scenes/autumn-night-r2.png",
+    "scenes/autumn-night-r3.png",
+    "scenes/base-legacy-day-r0.png",
+    "scenes/base-legacy-day-r1.png",
+    "scenes/base-legacy-day-r2.png",
+    "scenes/base-legacy-day-r3.png",
+    "scenes/base-legacy-night-r0.png",
+    "scenes/base-legacy-night-r1.png",
+    "scenes/base-legacy-night-r2.png",
+    "scenes/base-legacy-night-r3.png",
+    "scenes/construction-early.png",
+    "scenes/construction-late.png",
+    "scenes/construction-middle.png",
+    "scenes/edge-alaronde-r0.png",
+    "scenes/edge-alaronde-r1.png",
+    "scenes/edge-alaronde-r2.png",
+    "scenes/edge-alaronde-r3.png",
+    "scenes/edge-cardington-r0.png",
+    "scenes/edge-cardington-r1.png",
+    "scenes/edge-cardington-r2.png",
+    "scenes/edge-cardington-r3.png",
+    "scenes/edge-chiswick-r0.png",
+    "scenes/edge-chiswick-r1.png",
+    "scenes/edge-chiswick-r2.png",
+    "scenes/edge-chiswick-r3.png",
+    "scenes/edge-cragside-r0.png",
+    "scenes/edge-cragside-r1.png",
+    "scenes/edge-cragside-r2.png",
+    "scenes/edge-cragside-r3.png",
+    "scenes/edge-dunster-r0.png",
+    "scenes/edge-dunster-r1.png",
+    "scenes/edge-dunster-r2.png",
+    "scenes/edge-dunster-r3.png",
+    "scenes/edge-hardwick-r0.png",
+    "scenes/edge-hardwick-r1.png",
+    "scenes/edge-hardwick-r2.png",
+    "scenes/edge-hardwick-r3.png",
+    "scenes/edge-homewood-r0.png",
+    "scenes/edge-homewood-r1.png",
+    "scenes/edge-homewood-r2.png",
+    "scenes/edge-homewood-r3.png",
+    "scenes/edge-stokesay-r0.png",
+    "scenes/edge-stokesay-r1.png",
+    "scenes/edge-stokesay-r2.png",
+    "scenes/edge-stokesay-r3.png",
+    "scenes/edge-tattershall-r0.png",
+    "scenes/edge-tattershall-r1.png",
+    "scenes/edge-tattershall-r2.png",
+    "scenes/edge-tattershall-r3.png",
+    "scenes/edge-willington-r0.png",
+    "scenes/edge-willington-r1.png",
+    "scenes/edge-willington-r2.png",
+    "scenes/edge-willington-r3.png",
+    "scenes/far-day.png",
+    "scenes/far-night.png",
+    "scenes/hover-tattershall.png",
+    "scenes/near-alaronde.png",
+    "scenes/near-cardington.png",
+    "scenes/near-chiswick.png",
+    "scenes/near-cragside.png",
+    "scenes/near-dunster.png",
+    "scenes/near-hardwick.png",
+    "scenes/near-homewood.png",
+    "scenes/near-stokesay.png",
+    "scenes/near-tattershall.png",
+    "scenes/near-willington.png",
+    "scenes/rain-night.png",
+    "scenes/spring-day-r0.png",
+    "scenes/spring-day-r1.png",
+    "scenes/spring-day-r2.png",
+    "scenes/spring-day-r3.png",
+    "scenes/spring-night-r0.png",
+    "scenes/spring-night-r1.png",
+    "scenes/spring-night-r2.png",
+    "scenes/spring-night-r3.png",
+    "scenes/summer-day-r0.png",
+    "scenes/summer-day-r1.png",
+    "scenes/summer-day-r2.png",
+    "scenes/summer-day-r3.png",
+    "scenes/summer-night-r0.png",
+    "scenes/summer-night-r1.png",
+    "scenes/summer-night-r2.png",
+    "scenes/summer-night-r3.png",
+    "scenes/valve-legacy-day-r0.png",
+    "scenes/valve-legacy-day-r1.png",
+    "scenes/valve-legacy-day-r2.png",
+    "scenes/valve-legacy-day-r3.png",
+    "scenes/valve-legacy-night-r0.png",
+    "scenes/valve-legacy-night-r1.png",
+    "scenes/valve-legacy-night-r2.png",
+    "scenes/valve-legacy-night-r3.png",
+    "scenes/winter-bare-day-r0.png",
+    "scenes/winter-bare-day-r1.png",
+    "scenes/winter-bare-day-r2.png",
+    "scenes/winter-bare-day-r3.png",
+    "scenes/winter-bare-night-r0.png",
+    "scenes/winter-bare-night-r1.png",
+    "scenes/winter-bare-night-r2.png",
+    "scenes/winter-bare-night-r3.png",
+    "scenes/winter-snow-day-r0.png",
+    "scenes/winter-snow-day-r1.png",
+    "scenes/winter-snow-day-r2.png",
+    "scenes/winter-snow-day-r3.png",
+    "scenes/winter-snow-night-r0.png",
+    "scenes/winter-snow-night-r1.png",
+    "scenes/winter-snow-night-r2.png",
+    "scenes/winter-snow-night-r3.png"
+  ],
+  "reviewedCount": 247,
+  "head": "a29e1b48b1dbbf9b99e944b31a5d1c36288e3fa1",
+  "run": 38891386460,
+  "scope": "All 247 PNG files from the 252-file native artifact individually viewed; the 3 contact sheets were inspected in addition to raw files. No claim of exhaustive gameplay, phone testing or all possible saves."
+}

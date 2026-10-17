@@ -1,0 +1,101 @@
+{
+  "mode": "read-only source comparison; no finance/save/gameplay implementation modified",
+  "base": "98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e",
+  "branch": "a29e1b48b1dbbf9b99e944b31a5d1c36288e3fa1",
+  "entireIndexRestoredByRemovingOnlyGPT025Additions": true,
+  "baseIndexSHA256": "abb9ab4b3e83df7d4d395830bd341b41398bf2828e0d5ee3ccfe8791575ea9c9",
+  "functions": [
+    {
+      "name": "fiscalLoad515",
+      "identical": true,
+      "bytes": 1333,
+      "sha256": "1342e47ccdb02292843f6b0cbb714482f18a5c66b685779e85ddad5e7cf3cc3f",
+      "baseLine": 97657,
+      "branchLine": 97921
+    },
+    {
+      "name": "fiscalSave515",
+      "identical": true,
+      "bytes": 829,
+      "sha256": "55ba041f5ab23dcbc1e15654e6c6174ba7f7ffb5fd3490984d2e5d3835571442",
+      "baseLine": 97656,
+      "branchLine": 97920
+    },
+    {
+      "name": "fiscalStep515",
+      "identical": true,
+      "bytes": 1378,
+      "sha256": "96fcf2a2aceecb06a18d66874cfaa08adf981f4082e3d49b94ddc594d287d4e2",
+      "baseLine": 97653,
+      "branchLine": 97917
+    },
+    {
+      "name": "fiscalAssetScan515",
+      "identical": true,
+      "bytes": 986,
+      "sha256": "ef2261a66a11b95da58d00c8627721b220246b53acccfbac788ab42a4fa15d5c",
+      "baseLine": 97645,
+      "branchLine": 97909
+    },
+    {
+      "name": "fiscalCity515",
+      "identical": true,
+      "bytes": 4534,
+      "sha256": "8fac3e5b291ad2e2c27b1d7861079faa100717f14d9f1ed2b2f1a8977d57794f",
+      "baseLine": 97652,
+      "branchLine": 97916
+    }
+  ],
+  "callChain": [
+    "native load body restores fiscalLoad515(d.fiscal515); ready=false and lastDay=-1 after reset",
+    "inner T514 load wrapper calls observatoryStep514(true) before outer T515 wrapper resumes",
+    "observatoryStep514(true) calls observatorySummary514(true)",
+    "T515 observatorySummary514 wrapper sees fiscal not ready and calls fiscalStep515(true,false)",
+    "fiscalStep515 force=true forces aggregate journal append and updates persisted cadence cursor; settle=false prevents cash settlement only",
+    "outer T515 load wrapper actually calls fiscalStep515(false,false), then observatoryStep514(true); it is not itself a true-force call"
+  ],
+  "runtimeEvidence": {
+    "run": 38891386460,
+    "job": 116941464774,
+    "oldSaveMatchesBase": true,
+    "allFieldsEqual": false,
+    "pass1AddedPaths": [
+      "fiscal515.history.4"
+    ],
+    "pass2AddedPaths": [
+      "fiscal515.history.4",
+      "fiscal515.history.5"
+    ],
+    "observedAddedRecord": {
+      "d": 1,
+      "m": "結構餘額 $0｜同步 66%｜壓力 19%",
+      "c": "good"
+    },
+    "scope": "Exact fixed slot3 sandbox fixture only. Not proof all possible saves change only history."
+  },
+  "minimalRepairProposal": {
+    "newCardRequired": true,
+    "editScope": [
+      "index.html fiscalStep515: separate load-only derived refresh from persisted journal and cadence mutations",
+      "index.html load wrapper or scoped load context covering inner T514 and outer T515 wrappers, protected by finally",
+      "possibly fiscalAssetScan515/fiscalCity515: ensure load-only rebuild does not consume saved scan/backlog cursors",
+      "new probe and additive smoke selftest only; existing strict guard unchanged"
+    ],
+    "semanticsPreserved": [
+      "schema v1 and all saved fields",
+      "taxes, costs, capacities, RNG and daily cadence",
+      "ordinary explicit refresh/policy action behavior",
+      "strict all-field comparisons including fiscal history"
+    ],
+    "validationRequired": [
+      "same-day old-save load/save twice and multiple histories: all serialized fields identical",
+      "BASE and repaired branch comparison with explicit expected journal fix only",
+      "advance across aggregate cadence: one expected journal/settlement, no duplication",
+      "legacy file without fiscal515: bounded bootstrap without invented prior history",
+      "load-only exception cleanup and subsequent manual/daily updates still work",
+      "repeat existing entire-frame valve and native geometry/art checks"
+    ],
+    "noImplementationAttempted": true
+  },
+  "currentDecision": "GPT025 remains blocked. Do not suppress history, drop fields, normalize comparisons, mark N/A, delete the failing workflow, merge or deploy."
+}
