@@ -113,3 +113,9 @@ St Albans 已補讀 [HE 1103127](https://historicengland.org.uk/listing/the-list
 ## 提交基線前的完整結果（d70f9db）
 
 自己的 12 個 job 已全部跑完：原生／預覽／配對／97 場景／行人／效能與五個純資料搬運 job 共 11 個 success；只剩 baseline-evidence 因舊基線不含本卡 40 葉而預期 failure，沒有重跑。常駐 push [39051795784](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39051795784) 煙霧三次成功、fp 同樣預期紅；財務結果是 **52 項 GREEN／10 個負控制**，唯一 failure 是 `scoped serialization, settlement, cadence and guard source integrity` 內「current renderer fingerprints match the committed baselines; see current-fp.txt，1 !== 0」。原探針把 `fp.js --check` 列為其中一項，因此尚未提交美術基線時它不可能報 53／10；沒有改動財務守衛或刪掉這一項，也不冒稱已 53／10。其餘金錢／完整保存／日結算／原生整幀／真正反例與恢復均已走完；原始報告 artifact `12108047929` 保留。提交上述原始基線後須等全新 head 的常駐與分支驗收，才開 PR。
+
+## 圓頭窗的考據修正（只改本卡新圖；待新 CI）
+
+最後逐款對回名錄時，確認本卡 `pane(...,'arch')` 沿用的近似與 `pointed` 都只有一個三角頂點；Royal Exchange、Faversham 等來源明確是 round-headed，不該畫成尖頂。此次只在自己的 029 幾何函式把 `arch` 分成「直窗梃＋12 段半圓頂」的真輪廓，`pointed` 保留原尖拱，`sash`／`mullion`／`ribbon` 與舊 027 等模組不動。不是換色，也不修改光向、全局調色或守衛。
+
+先前 672c799／12b928a／d70f9db 的圖片、七軸與基線仍作真實歷史證據；`0bf10a9` 已原封提交那次基線，但它不是這個圓窗修正版的新基線。本次必須等自己的新 push 完整預覽／像素／保存／配對／遮擋／效能，再核相對最新 main 仍只有原宣告 40 葉，從新 CI 原附件取代基線，重新核實並覆看新原圖。十款 40 葉與首筆家族範圍、全部原驗收條件維持不變；不以舊 head 綠燈當新圖通過，也未合併或部署第三波。

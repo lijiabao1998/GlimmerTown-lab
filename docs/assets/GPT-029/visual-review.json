@@ -1,12 +1,12 @@
 {
   "wave": 3,
-  "status": "visual inspection only; final CI, PR and publication pending",
+  "status": "prior-source visual observations; round-headed window correction pending new CI and manual image inspection",
   "base": "35be6a37ebc672c90e9406c50c32e157e8701196",
   "artSourceSHA256": "9519e4ca8fdc82b4cf1a97a099fb5b919f86285f12fbe032a88a79955576ad79",
   "nativeIndexBlob": "a3525c1e4e4bdbca6114addc7509eed1d10e29ec",
   "contactsSourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
   "nearSourceHead": "12b928a0efe22eb3f91494c47d9cde1e47b13828",
-  "sourceParity": "identical art, runtime and index bytes between these heads and d70f9db; only own workflow, diagnostic probe and card changed",
+  "sourceParity": "672c799 and 12b928a historical captures share exact prior art bytes. Current own arch function now uses a semicircle; these old PNGs are not claimed as current-source acceptance.",
   "inspected": {
     "allTenFormsDayNightFourViewContacts": true,
     "oldNewComparison": true,
@@ -109,8 +109,9 @@
   ],
   "blockingVisualFindings": [],
   "unresolvedAcceptance": [
-    "latest head complete CI required after committing raw baseline",
-    "final code review and main/automatic Pages not yet completed"
+    "fresh round-headed current-source images and complete native/normal/scene/pedestrian/performance CI",
+    "fresh raw fingerprint baseline from this new push",
+    "latest head review, main and automatic Pages"
   ],
   "contactFiles": [
     {
@@ -158,5 +159,7 @@
       "negative": 10,
       "onlyFailure": "current renderer fingerprints match committed baselines; its nested fp check remains RED before baseline submission"
     }
-  }
+  },
+  "inspectedArtSourceSHA256": "9519e4ca8fdc82b4cf1a97a099fb5b919f86285f12fbe032a88a79955576ad79",
+  "currentArtSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc"
 }

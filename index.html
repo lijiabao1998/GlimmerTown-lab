@@ -1438,7 +1438,13 @@ table.dtab tr:hover td{background:#1b2334}
       if(type==='diamond'){
         outside=[[cx,z-.35],[u+w+.35,z+h/2],[cx,z+h+.35],[u-.35,z+h/2]];
         inside=[[cx,z+.35],[u+w-.35,z+h/2],[cx,z+h-.35],[u+.35,z+h/2]];
-      }else if(type==='pointed'||type==='arch'){
+      }else if(type==='arch'){
+        // A round-headed opening is a semicircle above straight jambs.
+        // Keep pointed tracery separate; do not substitute a triangular peak.
+        const spring=z+h-w/2;
+        const arc=(radius,bottom)=>[[cx-radius,bottom],[cx+radius,bottom],...Array.from({length:13},(_,i)=>{const a=i*Math.PI/12;return[cx+Math.cos(a)*radius,spring+Math.sin(a)*radius];})];
+        outside=arc(w/2+.35,z-.35);inside=arc(w/2-.22,z+.22);
+      }else if(type==='pointed'){
         outside=[[u-.3,z-.35],[u+w+.3,z-.35],[u+w+.3,z+head],[cx,z+h+.4],[u-.3,z+head]];
         inside=[[u+.3,z+.35],[u+w-.3,z+.35],[u+w-.3,z+head-.2],[cx,z+h-.35],[u+.3,z+head-.2]];
       }else{
