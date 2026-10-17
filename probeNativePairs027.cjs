@@ -24,7 +24,9 @@ function pair027(useNew){
     }
     out.push({seed,placements,checkpoints});
   }
-  return{pairs:out,controls};
+  const early=out[0].checkpoints[0].state,key='glimmerville.v1.s3.sandbox516b';
+  localStorage.setItem(key,JSON.stringify(early));if(!GV.load())throw Error('normal027 original pre-update constructor load');GV.save();
+  return{pairs:out,controls,bootstrap:{input:early,output:JSON.parse(GV.rawSave())}};
 }
 async function run(source,useNew){
   fs.writeFileSync(file,source);
@@ -46,8 +48,8 @@ function compare(a,b,allowedVariants){
 }
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});let a,b;
-  let controls;
-  try{const ar=await run(base,false),br=await run(head,true);a=ar.pairs;b=br.pairs;controls=br.controls;}finally{fs.writeFileSync(file,head);}
+  let controls,baseBootstrap,headBootstrap;
+  try{const ar=await run(base,false),br=await run(head,true);a=ar.pairs;b=br.pairs;controls=br.controls;baseBootstrap=ar.bootstrap;headBootstrap=br.bootstrap;}finally{fs.writeFileSync(file,head);}
   const pairs=[],allowed=[];
   for(let i=0;i<a.length;i++){
     assert.equal(a[i].seed,b[i].seed);const av=new Map();
@@ -74,6 +76,12 @@ function compare(a,b,allowedVariants){
     compare(c.original,c.restored,new Map());negative.push({seed:c.seed,name:'actual native money API removes one dollar then native save',first,restoredGreen:true});
     fs.writeFileSync(path.join(OUT,'native-fault-'+c.seed+'.json'),JSON.stringify(c,null,2)+'\n');
   }
-  const report={head:process.env.GITHUB_SHA,base:BASE,pairs,negative,fieldExclusions:[],nativeGameplay:true,usesEscapeValve:false};
+  const bootstrapAllowed=new Map();for(let j=0;j<3;j++){const p=b[0].placements[j],index=p.y*headBootstrap.input.n+p.x;for(const side of['input','output']){const at=headBootstrap[side].bl.findIndex(q=>q[0]===index);assert(at>=0);bootstrapAllowed.set(side+'.bl.'+at+'.3',[200,212,236][j]);}}
+  const bootstrapDifferences=compare(baseBootstrap,headBootstrap,bootstrapAllowed);
+  const changedTop=(a,b)=>[...new Set([...Object.keys(a),...Object.keys(b)])].filter(k=>JSON.stringify(canon(a[k]))!==JSON.stringify(canon(b[k])));
+  const earlyFields={base:changedTop(baseBootstrap.input,baseBootstrap.output),head:changedTop(headBootstrap.input,headBootstrap.output)};
+  assert.deepEqual(earlyFields.base,earlyFields.head,'normal027 native constructor bootstrap fields match original BASE');
+  fs.writeFileSync(path.join(OUT,'constructor-base.json'),JSON.stringify(baseBootstrap,null,2)+'\n');fs.writeFileSync(path.join(OUT,'constructor-head.json'),JSON.stringify(headBootstrap,null,2)+'\n');
+  const report={head:process.env.GITHUB_SHA,base:BASE,pairs,negative,constructorBootstrap:{earlyFields,baseHeadDifferences:bootstrapDifferences,note:'An untouched pre-first-update constructor bootstraps native optional policy/governance/innovation fields on load on both sources. Stable new-appearance roundtrip uses one actual native simulation step before its first reference save.'},fieldExclusions:[],nativeGameplay:true,usesEscapeValve:false};
   fs.writeFileSync(path.join(OUT,'manifest-normal-pairs.json'),JSON.stringify(report,null,2)+'\n');console.log('normal027 GREEN '+JSON.stringify(report));
 })().catch(e=>{fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'failure.json'),JSON.stringify({head:process.env.GITHUB_SHA,action:'normal native BASE-HEAD proof',error:e.stack},null,2)+'\n');console.error(e.stack);process.exitCode=1;});

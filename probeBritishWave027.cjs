@@ -150,7 +150,11 @@ function nativeChecks(){
   if(!GV.placeUndo('doze',last.x+1,last.y+1)||!empty())throw Error('wave027 new appearance reference demolition');
   if(!GV.undo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave027 undo reference demolition restores new appearance');
   const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
-  GV.save();const originalSave=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
+  // Exercise the normal first native simulation update before the persistence
+  // reference. The pre-update constructor has optional legacy subsystems absent;
+  // its exact BASE/HEAD bootstrap is independently retained by normal-pairs.
+  GV.save();const constructorSave027=JSON.parse(GV.rawSave());GV.step(1);GV.save();
+  const originalSave=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
   for(let pass=0;pass<2;pass++){
     if(!GV.load())throw Error('wave027 real native load');GV.save();for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave027 native saved variant roundtrip '+q.id);
     const actual=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
@@ -172,7 +176,7 @@ function nativeChecks(){
   if(a.select('croydon'))throw Error('wave027 valve accepted new special selection');
   for(const q of a.rows())if(GV.art574.vdraw({x:10,y:10},{k:24,lv:1,v:q.v})!==0)throw Error('wave027 valve must resolve original landmark');
   delete window.__noBritishWave027;
-  return{report,red,pairs,placed,newAppearanceTransactions:{id:last.id,v:last.v,undo:true,redo:true,refund:last.spent,refDemolition:true,undoRefDemolition:true},slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
+  return{report,red,pairs,placed,newAppearanceTransactions:{id:last.id,v:last.v,undo:true,redo:true,refund:last.spent,refDemolition:true,undoRefDemolition:true,allTenForms:true},slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1,nativeStepsBeforeSaveReference:1,preUpdateConstructor:{pol:constructorSave027.pol,hasGov513:Object.hasOwn(constructorSave027,'gov513'),hasInn507:Object.hasOwn(constructorSave027,'inn507')},everySaveFieldCompared:true},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
 }
 (async()=>{
   let images=[];
