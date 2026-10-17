@@ -3,12 +3,18 @@
 // nothing is committed, pushed, deployed, or accepted as a product baseline.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),vm=require('node:vm'),crypto=require('node:crypto');
 const {resolveChangeBase026}=require('./fiscalChangeBase026.cjs');
-const ROOT=__dirname,OUT=path.join(ROOT,'shots','fiscal026-compat'),ART='30de519db8cc6b8e67a8ca94925e947852d90c79',PRE_FIX='25df1adcc2f5c9822025797c593227d3d8a5f02b',PINNED_RELEASE='ad77b62dabc6f3074ceff3c679dc999371555001';
+const ROOT=__dirname,CASES=['rebake','future-release','visible-art'],CASE=process.argv.find(a=>a.startsWith('--case='))?.slice(7)||'all';
+assert(CASE==='all'||CASES.includes(CASE),'known compatibility case');
+if(CASE==='all'){
+  const results=CASES.map(name=>{const r=cp.spawnSync(process.execPath,[__filename,'--case='+name],{cwd:ROOT,stdio:'inherit'});return{name,status:r.status};});
+  const out=path.join(ROOT,'shots','fiscal026-compat');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({ok:results.every(r=>r.status===0),cases:results},null,2)+'\n');process.exit(results.every(r=>r.status===0)?0:1);
+}
+const OUT=path.join(ROOT,'shots','fiscal026-compat',CASE),ART='30de519db8cc6b8e67a8ca94925e947852d90c79',PRE_FIX='25df1adcc2f5c9822025797c593227d3d8a5f02b',PINNED_RELEASE='ad77b62dabc6f3074ceff3c679dc999371555001',PRE_FRAME_FIX='dd8b222ba29862497b3973124541217424625000';
 const git=(args,options={})=>cp.execFileSync('git',args,{cwd:ROOT,maxBuffer:24*1024*1024,...options}),show=(sha,file)=>git(['show',sha+':'+file]);
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),head=git(['rev-parse','HEAD']).toString().trim();
 const files=['index.html','fp.json','style.json','fp.js','british-wave01-art025.js','wave025-runtime.js','wave025.css','embed-wave025.cjs'];
 const original=Object.fromEntries(files.map(f=>[f,fs.existsSync(path.join(ROOT,f))?fs.readFileSync(path.join(ROOT,f)):null]));
-const report={head,fixture:'future-art working tree over an independent fiscal base',artSource:ART,checks:[],negative:[],failures:[]};
+const report={head,case:CASE,fixture:'future-art working tree over an independent fiscal base',artSource:ART,checks:[],negative:[],failures:[]};
 fs.mkdirSync(OUT,{recursive:true});
 function run(name,args,env=process.env){const r=cp.spawnSync(process.execPath,args,{cwd:ROOT,env:{...env,GITHUB_STEP_SUMMARY:''},encoding:'utf8',maxBuffer:24*1024*1024});const text=(r.stdout||'')+(r.stderr||'');fs.writeFileSync(path.join(OUT,name+'.txt'),text);return{...r,text};}
 function staticOnly(source,env){const at=source.indexOf('\n(async()=>{');assert(at>0,'static prefix boundary');return run('static-'+report.negative.length,['-e',source.slice(0,at)+'\nstaticChecks();'],env);}
@@ -49,29 +55,39 @@ try{
   assert.equal(guardFailure.status,1);assert(guardFailure.text.includes('fp.js unchanged relative to the change base'),'changed guard still rejected');assert(!/ReferenceError/.test(guardFailure.text));
   report.negative.push({name:'unexpected guard edit after the independent base',first:'fp.js unchanged relative to the change base'});fs.writeFileSync(path.join(ROOT,'fp.js'),guard);
 
-  const positive=run('future-art-full-native',['probeFiscalLoad026.cjs'],env);assert.equal(positive.status,0,'legitimate art rebake passes the complete fiscal guard');
-  const result=JSON.parse(fs.readFileSync(path.join(ROOT,'shots','fiscal026','report.json'),'utf8'));assert.equal(result.ok,true);assert.equal(result.checks.length,42);assert.equal(result.negative.length,8);assert.equal(result.changeBase.sha,base);
-  report.checks.push({name:'legitimate real art and rebaked baselines',fiscalChecks:result.checks.length,negative:result.negative.length,changeBase:result.changeBase});
+  const currentIndex=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');let candidate=currentIndex;
+  if(CASE==='future-release'){
+    for(const [before,after] of [["const GAME_VER='14.44';","const GAME_VER='14.45';"],["const GAME_ANCHOR='T751';","const GAME_ANCHOR='T752';"],['id="startVersion456">v14.44 · T751</span>','id="startVersion456">v14.45 · T752</span>']]){assert.equal(candidate.split(before).length,2,'unique next-release metadata fixture');candidate=candidate.replace(before,after);}
+    fs.writeFileSync(path.join(ROOT,'index.html'),candidate);
+    const pinnedFailure=staticOnly(show(PINNED_RELEASE,'probeFiscalLoad026.cjs').toString(),env);
+    assert.equal(pinnedFailure.status,1);assert(pinnedFailure.text.includes('exact declared build metadata'),'version freeze reproduces at the pinned metadata guard');
+    report.negative.push({name:'previous fiscal guard rejects legitimate next-release metadata',first:'exact declared build metadata'});
+  }
+  if(CASE==='visible-art'){
+    const anchor='Object.assign(window.GV,{art574:';assert.equal(candidate.split(anchor).length,2,'unique visible-art native renderer anchor');
+    const appearance='const __visibleDraw026=vdraw574;vdraw574=function(o,b){return b&&b.k===24&&!b.ref&&b.v===2?168+viewRotEff():__visibleDraw026(o,b);};\n';
+    candidate=candidate.replace(anchor,appearance+anchor);fs.writeFileSync(path.join(ROOT,'index.html'),candidate);
+    report.visibleArt={savedKind:24,savedVariant:2,approvedAppearance:'tattershall',nativeViews:[168,169,170,171],method:'native renderer selection; no saved data or canvas pixels rewritten'};
+    const oldFrames=run('old-frozen-frame-native',['-e',show(PRE_FRAME_FIX,'probeFiscalLoad026.cjs').toString()],env);
+    assert.equal(oldFrames.status,1,'previous permanent frame guard must reject the genuinely visible art change');
+    const oldReport=JSON.parse(fs.readFileSync(path.join(ROOT,'shots','fiscal026','report.json'),'utf8'));
+    assert(oldReport.failures.length>0);assert(oldReport.failures.every(f=>f.name.startsWith('complete native frame ')&&f.message.startsWith('full frame head')),'the old guard must reject only intended complete-frame changes');assert.equal(oldReport.negative.length,8,'all original saved-state negative controls still pass');
+    report.negative.push({name:'previous permanent guard rejects approved visible art',first:oldReport.failures[0],frameFailures:oldReport.failures.length});
+    fs.cpSync(path.join(ROOT,'shots','fiscal026'),path.join(OUT,'old-frozen-frame-native'),{recursive:true});
+  }
+  const positive=run(CASE+'-full-native',['probeFiscalLoad026.cjs'],env);assert.equal(positive.status,0,'legitimate '+CASE+' passes the complete fiscal guard');
+  const result=JSON.parse(fs.readFileSync(path.join(ROOT,'shots','fiscal026','report.json'),'utf8'));assert.equal(result.ok,true);assert.equal(result.checks.length,52);assert.equal(result.negative.length,9);assert.equal(result.changeBase.sha,base);assert.equal(result.frameScope.historicalBaseEquality,false);
+  const changed=result.frames.filter(f=>f.file.startsWith('head-')&&!f.equalChangeBase);if(CASE==='visible-art')assert(changed.length>0,'approved native art must actually change a complete fixture view');
+  assert.deepEqual(result.release,CASE==='future-release'?{gameVer:'14.45',anchor:'T752'}:{gameVer:'14.44',anchor:'T751'});
+  report.checks.push({name:'legitimate '+CASE+' with real approved art',fiscalChecks:result.checks.length,negative:result.negative.length,changeBase:result.changeBase,release:result.release,visibleChangedFrames:changed.length});
   report.futureSources={index:hash(fs.readFileSync(path.join(ROOT,'index.html'))),fp:hash(validFp),style:hash(validStyle),guard:hash(guard)};
-  fs.cpSync(path.join(ROOT,'shots','fiscal026'),path.join(OUT,'future-art-native'),{recursive:true});
-  // A subsequent legitimate main-writer release also changes build metadata.
-  // This source variant is CI-only and is restored before the remaining checks.
-  const currentIndex=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');let nextIndex=currentIndex;
-  for(const [before,after] of [["const GAME_VER='14.44';","const GAME_VER='14.45';"],["const GAME_ANCHOR='T751';","const GAME_ANCHOR='T752';"],['id="startVersion456">v14.44 · T751</span>','id="startVersion456">v14.45 · T752</span>']]){assert.equal(nextIndex.split(before).length,2,'unique next-release metadata fixture');nextIndex=nextIndex.replace(before,after);}
-  fs.writeFileSync(path.join(ROOT,'index.html'),nextIndex);
-  const pinnedFailure=staticOnly(show(PINNED_RELEASE,'probeFiscalLoad026.cjs').toString(),env);
-  assert.equal(pinnedFailure.status,1);assert(pinnedFailure.text.includes('exact declared build metadata'),'version freeze reproduces at the pinned metadata guard');
-  report.negative.push({name:'previous fiscal guard rejects legitimate next-release metadata',first:'exact declared build metadata'});
-  const futureRelease=run('future-release-full-native',['probeFiscalLoad026.cjs'],env);assert.equal(futureRelease.status,0,'legitimate next-release writer metadata passes complete fiscal guard');
-  const nextResult=JSON.parse(fs.readFileSync(path.join(ROOT,'shots','fiscal026','report.json'),'utf8'));assert.equal(nextResult.ok,true);assert.equal(nextResult.checks.length,42);assert.equal(nextResult.negative.length,8);assert.deepEqual(nextResult.release,{gameVer:'14.45',anchor:'T752'});
-  report.checks.push({name:'legitimate next-release metadata with real art',fiscalChecks:nextResult.checks.length,negative:nextResult.negative.length,release:nextResult.release});
-  fs.cpSync(path.join(ROOT,'shots','fiscal026'),path.join(OUT,'future-release-native'),{recursive:true});fs.writeFileSync(path.join(ROOT,'index.html'),currentIndex);
+  fs.cpSync(path.join(ROOT,'shots','fiscal026'),path.join(OUT,'current-full-native'),{recursive:true});
   const bad=JSON.parse(validFp),leaf=Object.keys(bad.subs).find(k=>k==='bld.24_1_160');assert(leaf,'actual new-art leaf exists');bad.subs[leaf].d=(bad.subs[leaf].d[0]==='0'?'1':'0')+bad.subs[leaf].d.slice(1);fs.writeFileSync(path.join(ROOT,'fp.json'),JSON.stringify(bad));
   const badFp=run('invalid-fp',['checkFiscalFingerprint026.cjs','--out='+path.join(OUT,'invalid-fp-check')],env);assert.equal(badFp.status,1);assert(badFp.text.includes('FISCAL_FP_RED fingerprint leaf mismatch: '+leaf+'.d'),'isolated invalid leaf must fail the combined renderer/leaf guard');report.negative.push({name:'incorrect new-art pixel CRC',first:badFp.text.split('\n').find(l=>l.startsWith('FISCAL_FP_RED')),leaf});fs.writeFileSync(path.join(ROOT,'fp.json'),validFp);
   const style=JSON.parse(validStyle);style.families.bld.axes.palette-=.01;fs.writeFileSync(path.join(ROOT,'style.json'),JSON.stringify(style));
   const badStyle=run('invalid-style',['checkFiscalFingerprint026.cjs','--out='+path.join(OUT,'invalid-style-check')],env);assert.equal(badStyle.status,1);assert(badStyle.text.includes('style.json 與這次算出的不同：bld'),'forged style must fail the existing style guard');report.negative.push({name:'forged new-art style score',first:'style.json 與這次算出的不同：bld'});fs.writeFileSync(path.join(ROOT,'style.json'),validStyle);
   const restored=run('restored-real-art',['checkFiscalFingerprint026.cjs','--out='+path.join(OUT,'restored-fp-check')],env);assert.equal(restored.status,0,'restored legitimate art baselines GREEN');report.checks.push('restored legitimate fingerprint/style baselines GREEN');
-}catch(e){report.failures.push(e.stack);console.error(e.stack);}
+}catch(e){report.failures.push(e.stack);console.error(e.stack);const file=path.join(ROOT,'shots','fiscal026','report.json');if(fs.existsSync(file)){const native=JSON.parse(fs.readFileSync(file,'utf8'));console.error('NATIVE_CASE_REPORT '+JSON.stringify({ok:native.ok,failures:native.failures,checks:native.checks.length,negative:native.negative.length}));}}
 finally{
   for(const [f,b] of Object.entries(original))if(b===null)fs.rmSync(path.join(ROOT,f),{force:true});else fs.writeFileSync(path.join(ROOT,f),b);
   report.restored=files.every(f=>original[f]===null?!fs.existsSync(path.join(ROOT,f)):fs.readFileSync(path.join(ROOT,f)).equals(original[f]));

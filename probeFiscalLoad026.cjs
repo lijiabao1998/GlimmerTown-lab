@@ -6,6 +6,7 @@ const {resolveChangeBase026}=require('./fiscalChangeBase026.cjs');
 const BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots','fiscal026'),index=path.join(ROOT,'index.html');
 const head=fs.readFileSync(index,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const changeBase=resolveChangeBase026(),comparisonSource=cp.execFileSync('git',['show',changeBase.sha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
+const historicalFrameScope=!(comparisonSource.includes('function fiscalLoading026(){')&&comparisonSource.includes('finally{fiscalLoadDepth026=previous026;}'));
 const raw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy.json'),'utf8'),fixture=JSON.parse(raw);
 const APPROVED_RELEASE=Object.freeze({gameVer:'14.44',anchor:'T751'});
 function declaredRelease026(source){
@@ -29,7 +30,7 @@ function stateCheck(actual,expected,label='all serialized fields'){
   if(serialized(actual)!==serialized(expected))console.log('FISCAL026_DIFF '+JSON.stringify({label,differences:stateDiff(expected,actual)}));
   assert.equal(serialized(actual),serialized(expected),label);
 }
-const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,release:RELEASE,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},approvedReleaseExpected:{bytes:Buffer.byteLength(approvedReleaseRaw),sha256:hash(approvedReleaseRaw)},releaseExpected:{bytes:Buffer.byteLength(releaseRaw),sha256:hash(releaseRaw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
+const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,release:RELEASE,frameScope:{sameHeadValve:true,sameVersionLoad:true,historicalBaseEquality:historicalFrameScope,historicalReason:historicalFrameScope?'the change base does not contain the scoped fiscal repair; retain independent-base pixel equality':'the change base already contains the fiscal repair; current art is checked before/after load and against its own fiscal valve'},fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},approvedReleaseExpected:{bytes:Buffer.byteLength(approvedReleaseRaw),sha256:hash(approvedReleaseRaw)},releaseExpected:{bytes:Buffer.byteLength(releaseRaw),sha256:hash(releaseRaw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
 const check=(name,fn)=>{try{const detail=fn();report.checks.push({name,ok:true,...detail});console.log('GREEN '+name);return true;}catch(e){const failure={name,message:e.message.slice(0,1000)};report.failures.push(failure);console.error('RED '+JSON.stringify(failure));return false;}};
 const expectRed=(name,actual,expected)=>{let first;try{stateCheck(actual,expected,'all serialized fields');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'all serialized fields',name+' must first fail the full-state guard');report.negative.push({name,first,differences:stateDiff(expected,actual)});};
 const opt={port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>0.125',log:console.log};
@@ -59,9 +60,43 @@ function frames026(){
   for(const mode of ['day','night'])for(let rot=0;rot<4;rot++){
     GV.britishWeather004(1,0,0);GV.setRot(rot);GV.art574.zoom574(1.5);GV.lookAt(7.5,4.5);
     const t=GV.art574.cycle574()*(mode==='day'?.5:.02);GV.setVisT(t);GV.forceDraw();GV.setVisT(t);GV.forceDraw();
-    out.push({name:mode+'-r'+rot,data:document.getElementById('game').toDataURL('image/png')});
+    const canvas=document.getElementById('game');out.push({name:mode+'-r'+rot,w:canvas.width,h:canvas.height,data:canvas.toDataURL('image/png')});
   }
   return out;
+}
+function frameCheck026(actual,expected,label){
+  assert.equal(actual.name,expected.name,label+' view');assert.equal(actual.w,expected.w,label+' width');assert.equal(actual.h,expected.h,label+' height');
+  assert.equal(actual.data,expected.data,label);
+}
+function frameEvidence026(frame,file){
+  const bytes=Buffer.from(frame.data.split(',')[1],'base64');if(file)fs.writeFileSync(path.join(OUT,file),bytes);
+  return{name:frame.name,w:frame.w,h:frame.h,sha256:hash(bytes),bytes:bytes.length,...(file?{file}:{})};
+}
+function loadFrameEvidence026(result,prefix,saveAll=false){
+  return{expected:result.expected,passes:result.passes.map(p=>({pass:p.pass,state:p.state,frames:p.frames.map((f,i)=>frameEvidence026(f,saveAll||i===0?prefix+'-p'+p.pass+'-'+f.name+'.png':null))})),before:result.before.map((f,i)=>frameEvidence026(f,saveAll||i===0?prefix+'-before-'+f.name+'.png':null))};
+}
+async function nativeLoadFrames026(cdp,passes=2){
+  await cdp.evalJs('window.__armFiscalFrameFault026=false;window.__badLoadedView026=false;');
+  await evaluate(cdp,roundtrip026,releaseRaw,true);
+  const before=await evaluate(cdp,frames026);
+  const text=await cdp.evalJs('(()=>{GV.save();return GV.rawSave();})()'),expected=JSON.parse(text),out=[];
+  await cdp.evalJs('window.__armFiscalFrameFault026=true;');
+  for(let pass=1;pass<=passes;pass++){
+    const round=await evaluate(cdp,roundtrip026,text,true,1),frames=await evaluate(cdp,frames026);
+    out.push({pass,state:round.states[1],status:round.status[0],frames});
+  }
+  return{expected,before,passes:out};
+}
+function assertLoadFrameState026(result,expectedPasses=2){
+  assert.equal(result.expected.gameVer,RELEASE.gameVer,'same-version render input writer');assert.equal(result.before.length,8,'eight complete day/night views');
+  assert.equal(result.passes.length,expectedPasses,'exact native load-frame round count');
+  for(const p of result.passes){stateCheck(p.state,result.expected,'same-version render load all saved fields');assert.equal(p.frames.length,8,'eight complete loaded views');assert.deepEqual(p.status.scope,{depth:0,active:false});}
+}
+function badLoadFrameSource026(source){
+  const loadAnchor='const ok=__load515(slot);',drawAnchor='Object.assign(window.GV,{art574:';
+  assert.equal(source.split(loadAnchor).length,2,'unique native load-frame fault anchor');assert.equal(source.split(drawAnchor).length,2,'unique native renderer fault anchor');
+  const wrongView='const __fiscalDrawFault026=vdraw574;vdraw574=function(o,b){return window.__badLoadedView026&&b&&b.k===24&&!b.ref&&b.v===2?0:__fiscalDrawFault026(o,b);};\n';
+  return source.replace(loadAnchor,loadAnchor+'if(ok&&window.__armFiscalFrameFault026)window.__badLoadedView026=true;').replace(drawAnchor,wrongView+drawAnchor);
 }
 function normal026(seed,loadBeforeNextDay=false){
   if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);GV.newWorldSeeded(seed);GV.setSpeed(0);GV.setDiff(1);
@@ -136,7 +171,7 @@ function staticChecks(){
       const j=clone(fixture);if(change==='money')j.money-=1;else if(change==='appendHistory')j.fiscal515.history.push({d:j.day,m:'negative extra row',c:'bad'});else if(change==='removeHistory')j.fiscal515.history.pop();else j.fiscal515.lastAssetScanDay-=1;
       result.negative.push({name:change,altered:await evaluate(cdp,roundtrip026,JSON.stringify(j),true),restored:await evaluate(cdp,roundtrip026,raw,true)});
     }
-    await evaluate(cdp,roundtrip026,raw,true);result.frames=await evaluate(cdp,frames026);
+    await evaluate(cdp,roundtrip026,raw,true);result.frames=await evaluate(cdp,frames026);result.loadFrames=await nativeLoadFrames026(cdp);
     result.normal=await evaluate(cdp,normal026,31);result.loaded=await evaluate(cdp,normal026,31,true);result.cadence=await evaluate(cdp,cadence026,raw);
     result.metadata=await cdp.evalJs('({version:GV.ver(),start:document.getElementById("startVersion456").textContent.trim()})');
     return result;
@@ -170,9 +205,27 @@ function staticChecks(){
   });
   const valve=await session('HEAD escape valve',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,true),frames:await evaluate(cdp,frames026)}),'window.__noFiscalLoad026=true');
   check('escape valve restores independent BASE full serialized behavior',()=>{const expected=old.load.states.map((s,i)=>i===0?s:releaseExpected026(s));stateCheck(valve.load.states,expected);expectRed('HEAD valve restores loaded journal writes',valve.load.states[1],releaseFixture);assert(report.negative.at(-1).differences[0].path.startsWith('fiscal515.history'));});
+  assert.equal(reference.frames.length,8);assert.equal(positives.frames.length,8);assert.equal(valve.frames.length,8);
   for(let i=0;i<reference.frames.length;i++)check('complete native frame '+reference.frames[i].name,()=>{
-    for(const [kind,list] of [['head',positives.frames],['valve',valve.frames]]){assert.equal(list[i].data,reference.frames[i].data,'full frame '+kind);const bytes=Buffer.from(list[i].data.split(',')[1],'base64'),file=kind+'-'+list[i].name+'.png';fs.writeFileSync(path.join(OUT,file),bytes);report.frames.push({file,sha256:hash(bytes),bytes:bytes.length,changeBase:changeBase.sha});}
+    const referenceFrame=reference.frames[i],headFrame=positives.frames[i],valveFrame=valve.frames[i];
+    const evidence=frameEvidence026(referenceFrame,'change-base-'+referenceFrame.name+'.png');
+    frameCheck026(valveFrame,headFrame,'same-HEAD fiscal valve full frame');
+    if(historicalFrameScope){frameCheck026(headFrame,referenceFrame,'full frame head');frameCheck026(valveFrame,referenceFrame,'full frame valve');}
+    for(const [kind,frame] of [['head',headFrame],['valve',valveFrame]])report.frames.push({...frameEvidence026(frame,kind+'-'+frame.name+'.png'),changeBase:changeBase.sha,changeBaseFrame:evidence,equalChangeBase:frame.data===referenceFrame.data});
   });
+  check('same-version native load preserves all saved fields before rendering',()=>assertLoadFrameState026(positives.loadFrames));
+  for(let i=0;i<positives.loadFrames.before.length;i++)check('same-version native full frame '+positives.loadFrames.before[i].name,()=>{
+    for(const p of positives.loadFrames.passes)frameCheck026(p.frames[i],positives.loadFrames.before[i],'same-version full frame '+p.frames[i].name+' pass '+p.pass);
+  });
+  report.sameVersionFrames=loadFrameEvidence026(positives.loadFrames,'same-version',true);
+  const badFrames=await session('source corrupts native appearance only after load',badLoadFrameSource026(head),cdp=>nativeLoadFrames026(cdp,1));
+  check('native load picture fault first RED at complete same-version frame',()=>{
+    assertLoadFrameState026(badFrames,1);let first;
+    try{for(const p of badFrames.passes)for(let i=0;i<badFrames.before.length;i++)frameCheck026(p.frames[i],badFrames.before[i],'same-version full frame '+p.frames[i].name+' pass '+p.pass);}catch(e){first=e.message.split('\n')[0];}
+    assert.equal(first,'same-version full frame day-r0 pass 1','native load appearance corruption must hit the real frame guard');
+    report.negative.push({name:'source changes the native landmark appearance only after load',first,savedFieldsUnchanged:true});
+  });
+  report.badLoadFrames=loadFrameEvidence026(badFrames,'bad-load');
   const anchor='const ok=__load515(slot);',cleanup='finally{fiscalLoadDepth026=previous026;}';
   assert.equal(head.split(anchor).length,2,'fault injection anchor unique');assert.equal(head.split(cleanup).length,2,'cleanup anchor unique');
   const hook='if(window.__fault026==="throw"){window.__fault026="";throw new Error("fiscal026 controlled throw");}if(window.__fault026==="false"){window.__fault026="";return false;}if(window.__fault026==="nested"){window.__fault026="";window.__nested026=load(slot);window.__nestedDepth026=fiscalLoadDepth026;}';
@@ -188,8 +241,9 @@ function staticChecks(){
   const writerAnchor='gameVer:GAME_VER,seed';assert.equal(head.split(writerAnchor).length,2,'writer metadata fault anchor unique');
   const wrongWriter=await session('source writes stale version metadata',head.replace(writerAnchor,"gameVer:'14.43',seed"),async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false)}));
   check('stale writer version first RED at gameVer',()=>{expectRed('writer emits stale gameVer',wrongWriter.load.states[2],releaseFixture);assert.deepEqual(report.negative.at(-1).differences,[{path:'gameVer',before:RELEASE.gameVer,after:'14.43'}]);});
-  const restored=await session('restored HEAD cleanup',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),normal:await evaluate(cdp,normal026,31)}));
-  check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],releaseFixture);stateCheck(restored.normal,positives.normal);});
+  const restored=await session('restored HEAD cleanup',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),normal:await evaluate(cdp,normal026,31),loadFrames:await nativeLoadFrames026(cdp,1)}));
+  check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],releaseFixture);stateCheck(restored.normal,positives.normal);assertLoadFrameState026(restored.loadFrames,1);for(const p of restored.loadFrames.passes)for(let i=0;i<restored.loadFrames.before.length;i++)frameCheck026(p.frames[i],restored.loadFrames.before[i],'restored same-version full frame');});
+  report.restoredLoadFrames=loadFrameEvidence026(restored.loadFrames,'restored-load');
  }catch(e){report.failures.push({name:'probe infrastructure or unexpected exception',message:e.stack});console.error(e.stack);}
  finally{fs.writeFileSync(index,head);report.ok=report.failures.length===0;fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,negative:report.negative.length,failures:report.failures}));}
  process.exitCode=report.ok?0:1;
