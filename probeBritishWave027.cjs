@@ -151,7 +151,14 @@ function nativeChecks(){
   if(!GV.undo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave027 undo reference demolition restores new appearance');
   const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
   GV.save();const originalSave=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
-  for(let pass=0;pass<2;pass++){if(!GV.load())throw Error('wave027 real native load');GV.save();for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave027 native saved variant roundtrip '+q.id);if(JSON.stringify(canonical(JSON.parse(GV.rawSave())))!==originalSave)throw Error('wave027 new appearances complete-field save roundtrip '+pass);}
+  for(let pass=0;pass<2;pass++){
+    if(!GV.load())throw Error('wave027 real native load');GV.save();for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave027 native saved variant roundtrip '+q.id);
+    const actual=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
+    if(actual!==originalSave){
+      const differences=[],walk=(x,y,p='')=>{if(JSON.stringify(canonical(x))===JSON.stringify(canonical(y)))return;if(x&&y&&typeof x==='object'&&typeof y==='object'){for(const k of new Set([...Object.keys(x),...Object.keys(y)]))walk(x[k],y[k],p?p+'.'+k:k);}else if(differences.length<24)differences.push({path:p,before:x,after:y});};walk(JSON.parse(originalSave),JSON.parse(actual));
+      throw Error('wave027 new appearances complete-field save roundtrip '+pass+' '+JSON.stringify(differences));
+    }
+  }
   if(!GV.heritage024.select('kew')||a.selection()!==null)throw Error('wave027 older catalog selection must clear new selection');
   if(!a.select('croydon')||!GV.britishWave025.select('alaronde')||a.selection()!==null)throw Error('wave027 first-wave catalog selection must clear new selection');
   a.open();if(document.querySelectorAll('[data-wave027]').length!==10)throw Error('wave027 catalog count');

@@ -132,3 +132,12 @@ fp原始附件來源是push run39033504181、job117398622205、head c9817b397b85
 ## 負控制補足（尚待新head CI）
 
 完整正常BASE／HEAD檢查的負例改為三組真正原生金錢API→save的一美元破壞，再以原生API還原→save核對所有欄位；不只改報告副本。效能負例另以合法活體forceDraw延遲30樣本，要求同一原判準首紅，還原後再做40組交錯A/B量測綠燈。原生來源邊界亦用合法HTML在自有區塊外插入註解驗首紅與還原。既有條件／門檻不改。完整舊檔第一個實際load亦明列：同版本差異必須[]；將來發布版本只能精確改已提交GAME_VER，其他欄位一律相同。所有工作仍須最新head的實跑結果，不以本段文字當通過。
+
+
+## 2ac9a80驗收結果與尚存紅線
+
+[分支run39034290852](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39034290852)：fp基線工作、預覽、場景、行人、效能、完整正常BASE／HEAD配對均success；[標準39034290791](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39034290791)的smoke三次與fp已success，完整財務仍待結論，不能冒稱全綠。
+
+BASE／HEAD種子31／71／103，每組3個時間檢查點，原始完整存檔與統計只差實際指定root的b.v；fieldExclusions:[]。三次原生金錢API破壞一美元均首紅money並真實還原全欄位綠。場景舊檔BASE準備差異[]、原生首載宣告遷移差異[]、兩次全欄位差異[]；57個完整狀態與40邊界視角成功。效能正常40樣本交錯：BASE median11.275ms／p90 25.45ms，HEAD median2.625ms／p90 26.9ms；故意20ms延遲30樣本首紅，還原後另40組交錯BASE9ms／25.275ms、HEAD2.525ms／26.9ms。暖繪新幾何重烘0次。這是桌面CI參考，不能說成手機加速。
+
+原生native新增的「十款新檔每一欄位save→load→save」第一輪首紅：`wave027 new appearances complete-field save roundtrip 0`。十款外觀值檢查先已過，但其他欄位仍有差；此筆只補精確差異輸出，判準／比較欄位完全不改。尚未定位前不合、不部署、不增加2／20完成數。
