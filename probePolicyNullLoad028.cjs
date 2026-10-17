@@ -4,6 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_pro
 const {withGame,ROOT}=require('./harness.js');
 const BASE='58130eae1f5451a5f56142b5fab7b003b910155e',file=path.join(ROOT,'index.html'),OUT=path.join(ROOT,'shots','policy028');
 const head=fs.readFileSync(file,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
+const originalRaw=fs.readFileSync(path.join(ROOT,'fixtures','policy-null028','original-main-native.json'),'utf8');
 const oldCall='policyLoad504(d.p504,d.p504===undefined);',newCall='policyLoad504(d.p504,legacyPolicyLoad028(d));',fixed=head.includes(newCall);
 const defaults={taxR:1,taxC:1,taxI:1,curfew:false,recycle:false,tourPromo:false,ecoReg:false,freeTransit:false,schoolLunch:false,smokeDetect:false,indSubsidy:false,nightMarket:false,parkNight:false,insurance:false,integratedTransit:false,housingSubsidy:false,inclusionaryHousing:false,stationHousing:false,waterConserve:false,reclaimPriority:false,industrialPretreat:false,spongeCity:false,infrastructureStimulus:false,consumptionSupport:false,industrialRelief:false,completeStreets:false,parkingManagement:false,criticalReserve492:false,emergencyStockpile492:false};
 const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
@@ -36,6 +37,7 @@ function makeFixture(seed=87){
 function roundtrip(input,sandbox=false,passes=2){
   GV.setSpeed(0);if(sandbox&&!GV.dev516B().sandbox)GV.enterSandbox516B();if(!sandbox&&GV.dev516B().sandbox)GV.exitSandbox516B();
   const key='glimmerville.v1.s3'+(sandbox?'.sandbox516b':''),other='glimmerville.v1.s3'+(sandbox?'':'.sandbox516b'),inactive=localStorage.getItem(other),states=[input];
+  if(window.__policyTrace028)window.__policyTrace028=[];
   localStorage.setItem(key,JSON.stringify(input));
   for(let i=0;i<passes;i++){if(!GV.load())throw Error('policy028 native load returned false');GV.setSpeed(0);GV.save();states.push(JSON.parse(GV.rawSave()));}
   return{key,states,inactiveUnchanged:localStorage.getItem(other)===inactive,trace:window.__policyTrace028||null};
@@ -46,15 +48,18 @@ function frames(){
 }
 function frameFiles(rows,prefix){return rows.map(f=>{const b=Buffer.from(f.data.split(',')[1],'base64'),name=prefix+'-'+f.name+'.png';fs.writeFileSync(path.join(OUT,name),b);return{name,w:f.w,h:f.h,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')};});}
 async function frameSession(source,input,label){
-  return session(label,source,async cdp=>{await evaluate(cdp,roundtrip,input,true,1);const before=await evaluate(cdp,frames);const expected=await cdp.evalJs('(()=>{GV.save();return JSON.parse(GV.rawSave());})()');const rounds=[];for(let i=0;i<2;i++){const load=await evaluate(cdp,roundtrip,expected,true,1),views=await evaluate(cdp,frames);rounds.push({load,views});}return{expected,before,rounds};});
+  // One synchronous browser task gives every comparison the same visual
+  // inputs; separate CDP awaits had allowed live animation frames in between.
+  return session(label,source,cdp=>cdp.evalJs('(function(input){const roundtrip=('+roundtrip.toString()+'),frames=('+frames.toString()+');roundtrip(input,true,1);frames();const before=frames();GV.save();const expected=JSON.parse(GV.rawSave()),rounds=[];for(let i=0;i<2;i++){const load=roundtrip(expected,true,1),views=frames();rounds.push({load,views});}return{expected,before,rounds};})('+JSON.stringify(input)+')'));
 }
-function proceed(loadBeforeNextDay){
-  if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);GV.save();const input=JSON.parse(GV.rawSave());
+function proceed(specimen,loadBeforeNextDay){
+  if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);localStorage.setItem('glimmerville.v1.s3',JSON.stringify(specimen));if(!GV.load())throw Error('policy028 prepare common archived native input');GV.setSpeed(0);GV.save();const input=JSON.parse(GV.rawSave());
   if(loadBeforeNextDay&&!GV.load())throw Error('policy028 normal next-day load');GV.setSpeed(0);GV.weather(0);
   const points=[];for(const n of[1,6,7]){GV.step(n);GV.save();points.push({n,state:JSON.parse(GV.rawSave())});}return{input,points};
 }
 function staticScope(){
   assert.equal(base.split(oldCall).length,2,'one original native load call');
+  assert.equal(hash(originalRaw),'bd34e6f3b22b70c4a935d7244f6e9884c55a7a5a3b89c5627e2176a8350975d5','exact unmodified main native input from original failing guard');
   let stripped=head.replace(/\/\* GPT-028 POLICY CLASSIFICATION BEGIN \*\/[\s\S]*?\/\* GPT-028 POLICY CLASSIFICATION END \*\/\n/,'').replace(/\/\* GPT-028 POLICY EXPORT BEGIN \*\/[\s\S]*?\/\* GPT-028 POLICY EXPORT END \*\/\n/,'').replace(newCall,oldCall);
   assert.equal(stripped,base,'all other product source bytes unchanged');
   for(const p of['fp.json','style.json','fp.js','harness.js','gallery.js','probeFiscalLoad026.cjs','.github/workflows/smoke.yml','AGENTS.md','AUTORUN.md','docs/DECISIONS.md'])assert.equal(cp.execFileSync('git',['diff',BASE,'--',p],{encoding:'utf8'}),'',p+' unchanged');
@@ -65,14 +70,10 @@ function staticScope(){
   fs.mkdirSync(OUT,{recursive:true});check('source boundaries and unchanged existing acceptance',staticScope);
   const generated=await session('independent unmodified BASE fixture',base,cdp=>evaluate(cdp,makeFixture));archive('original-base-input.json',generated);
   assert.equal(generated.freshWorldInput.pol,null,'unmodified newWorld/native save explicitly writes null');
-  // The fresh transaction/render setup may materialize default policies before
-  // its last save. Exercise the nullable value actually written by newWorld in
-  // an otherwise initialized native specimen, with this input change declared
-  // before HEAD is run. This is a schema case, not a claim that the ten-lot
-  // freshly booted session reproduces GPT-027's entire preceding UI history.
-  const input={...generated.input,pol:generated.freshWorldInput.pol};
-  equal({...input,pol:generated.input.pol},generated.input,'explicit case changes exactly the native nullable policy value');
-  archive('explicit-null-specimen.json',{origin:'BASE native ten-transaction specimen; pol uses independently saved newWorld null',input,declaredInputDifferences:differences(generated.input,input)});
+  // This is the exact original failing BASE save, independently captured
+  // before its assertions, with no input edits or serialized-field exclusions.
+  const input=JSON.parse(originalRaw);assert.equal(input.pol,null);
+  archive('explicit-null-specimen.json',{origin:'run39038063179 job117411791145 unmodified BASE ar.tenTransactions.initialized',input,inputByteEdits:[]});
   assert(!Object.hasOwn(input,'p504'),'real native writer omits empty optional p504');assert.equal(generated.lots.length,10);
   const active={...input,pol:{...defaults,taxR:1.2,recycle:true}},missing={...input};delete missing.pol;
   const baseCases=await session('unmodified BASE native loads',base,async cdp=>{const rows=[];for(const sandbox of[false,true])for(const [name,j]of[['null',input],['missing',missing],['active',active]])rows.push({name,sandbox,result:await evaluate(cdp,roundtrip,j,sandbox,3)});return rows;});archive('base-complete-native-rounds.json',baseCases);
@@ -119,9 +120,17 @@ function staticScope(){
   check('eight complete BASE-HEAD frames and two native loaded rounds',()=>{assert.equal(a.before.length,8);equal(b.before,a.before,'whole native frame equality against BASE');for(const q of b.rounds){equal(q.load.states[1],b.expected);equal(q.views,b.before,'whole native frame equality after native load');}return{views:8,rounds:2,fullCanvas:true};});
   const normal=[];
   for(const [label,source,load]of[['base-no-load',base,false],['head-no-load',head,false],['head-with-load',head,true]]){
-    const data=await session(label,source,async cdp=>{const fixture=await evaluate(cdp,makeFixture);const continuation=await evaluate(cdp,proceed,load);return{fixture,continuation};});normal.push({label,data});archive(label+'-complete-model.json',data);
+    const data=await session(label,source,async cdp=>{const fixture=await evaluate(cdp,makeFixture);const continuation=await evaluate(cdp,proceed,input,load);return{fixture,continuation};});normal.push({label,data});archive(label+'-complete-model.json',data);
   }
-  check('same-seed paid gameplay and all normal saved fields equal BASE',()=>{equal(normal[1].data,normal[0].data);return{seed:87,lots:10,horizons:[1,7,14],fieldExclusions:[]};});
+  check('same-seed full model changes exactly the intended nullable policy state',()=>{
+    const expected=structuredClone(normal[0].data),paths=['fixture.input.pol','continuation.input.pol',...Array.from({length:3},(_,i)=>'continuation.points.'+i+'.state.pol')];
+    // Undo uses native load too. Its BASE output has the old defaults; the
+    // independently specified corrected output must retain the saved null.
+    // Check the exact before value, then compare every output field to this
+    // declared correction. No field is masked or omitted.
+    for(const p of paths){const keys=p.split('.'),last=keys.pop();let target=expected;for(const k of keys)target=target[k];assert.deepEqual(target[last],defaults,'original BASE wrong policy defaults at '+p);target[last]=null;}
+    equal(normal[1].data,expected);return{seed:87,lots:10,horizons:[1,7,14],intentionalDifferences:differences(normal[0].data,expected),fieldExclusions:[]};
+  });
   check('same-HEAD load/no-load all fields and next normal days equal',()=>{equal(normal[2].data,normal[1].data);return{horizons:[1,7,14],fieldExclusions:[]};});
 })().catch(e=>{report.failures.push({name:'native probe infrastructure or unexpected assertion',error:e.stack});console.error(e.stack);}).finally(()=>{
   fs.writeFileSync(file,head);fs.mkdirSync(OUT,{recursive:true});archive('report.json',report);console.log('POLICY028 RESULT '+JSON.stringify({head:report.head,fixed,checks:report.checks.length,negative:report.negative.length,failures:report.failures}));
