@@ -47,6 +47,24 @@ function frames(){
   const out=[];for(const mode of['day','night'])for(let rot=0;rot<4;rot++){GV.setRot(rot);GV.art574.zoom574(1.4);GV.lookAt(20,5);const t=GV.art574.cycle574()*(mode==='day'?.5:.02);GV.setVisT(t);GV.forceDraw();GV.setVisT(t);GV.forceDraw();const c=document.getElementById('game');out.push({name:mode+'-r'+rot,w:c.width,h:c.height,data:c.toDataURL('image/png')});}GV.setRot(0);return out;
 }
 function frameFiles(rows,prefix){return rows.map(f=>{const b=Buffer.from(f.data.split(',')[1],'base64'),name=prefix+'-'+f.name+'.png';fs.writeFileSync(path.join(OUT,name),b);return{name,w:f.w,h:f.h,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')};});}
+function framePixels028(frame){
+  const b=Buffer.from(frame.data.split(',')[1],'base64');assert.equal(b.subarray(1,4).toString(),'PNG');const w=b.readUInt32BE(16),h=b.readUInt32BE(20);assert.equal(b[24],8);assert.equal(b[25],6);assert.equal(b[28],0);const chunks=[];
+  for(let p=8;p<b.length;){const n=b.readUInt32BE(p),kind=b.toString('ascii',p+4,p+8);if(kind==='IDAT')chunks.push(b.subarray(p+8,p+8+n));p+=12+n;}
+  const raw=require('node:zlib').inflateSync(Buffer.concat(chunks)),stride=w*4,out=Buffer.alloc(stride*h);assert.equal(raw.length,(stride+1)*h);
+  const paeth=(a,b,c)=>{const p=a+b-c,pa=Math.abs(p-a),pb=Math.abs(p-b),pc=Math.abs(p-c);return pa<=pb&&pa<=pc?a:pb<=pc?b:c;};
+  let at=0;for(let y=0;y<h;y++){const f=raw[at++];assert(f>=0&&f<=4);for(let x=0;x<stride;x++){const i=y*stride+x,a=x>=4?out[i-4]:0,u=y?out[i-stride]:0,c=y&&x>=4?out[i-stride-4]:0;out[i]=(raw[at++]+(f===0?0:f===1?a:f===2?u:f===3?Math.floor((a+u)/2):paeth(a,u,c)))&255;}}
+  return{w,h,out};
+}
+function frameDiff028(a,b){const x=framePixels028(a),y=framePixels028(b);assert.equal(x.w,y.w);assert.equal(x.h,y.h);let pixels=0,minX=x.w,minY=x.h,maxX=-1,maxY=-1,maxChannel=0;const samples=[];for(let i=0;i<x.out.length;i+=4){let changed=false;for(let c=0;c<4;c++){const d=Math.abs(x.out[i+c]-y.out[i+c]);if(d)changed=true;maxChannel=Math.max(maxChannel,d);}if(changed){const px=(i/4)%x.w,py=Math.floor(i/4/x.w);pixels++;minX=Math.min(minX,px);minY=Math.min(minY,py);maxX=Math.max(maxX,px);maxY=Math.max(maxY,py);if(samples.length<8)samples.push({x:px,y:py,before:[...x.out.subarray(i,i+4)],after:[...y.out.subarray(i,i+4)]});}}return{view:a.name,pixels,maxChannel,bbox:pixels?[minX,minY,maxX,maxY]:null,samples};}
+async function verifyFrames028(input){
+  const a=await frameSession(base,input,'BASE exact full frames'),b=await frameSession(head,input,'HEAD exact full frames');
+  archive('frame-base-native-states.json',{expected:a.expected,rounds:a.rounds.map(q=>q.load)});archive('frame-head-native-states.json',{expected:b.expected,rounds:b.rounds.map(q=>q.load)});
+  report.frames={base:frameFiles(a.before,'base'),head:frameFiles(b.before,'head'),rounds:b.rounds.map((q,i)=>frameFiles(q.views,'head-load-'+(i+1)))};
+  report.frameDifferences={baseHead:a.before.map((f,i)=>frameDiff028(f,b.before[i])),headLoad:b.rounds.map(q=>q.views.map((f,i)=>frameDiff028(b.before[i],f))),savedModelBaseHead:differences(a.expected,b.expected),savedModelHeadLoads:b.rounds.map(q=>differences(b.expected,q.load.states[1]))};archive('frame-differences.json',report.frameDifferences);console.log('POLICY028_FRAME_DIFF '+JSON.stringify(report.frameDifferences));
+  check('eight complete BASE-HEAD frames',()=>{assert.equal(a.before.length,8);equal(b.before,a.before,'whole native frame equality against BASE');});
+  check('same-version loaded frame input preserves all native saved fields',()=>{for(const q of b.rounds)equal(q.load.states[1],b.expected);});
+  check('eight complete native loaded frames in two rounds',()=>{for(const q of b.rounds)equal(q.views,b.before,'whole native frame equality after native load');});
+}
 async function frameSession(source,input,label){
   // One synchronous browser task gives every comparison the same visual
   // inputs; separate CDP awaits had allowed live animation frames in between.
@@ -68,6 +86,7 @@ function staticScope(){
 }
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});check('source boundaries and unchanged existing acceptance',staticScope);
+  if(process.argv.includes('--frames-only')){await verifyFrames028(JSON.parse(originalRaw));return;}
   const generated=await session('independent unmodified BASE fixture',base,cdp=>evaluate(cdp,makeFixture));archive('original-base-input.json',generated);
   assert.equal(generated.freshWorldInput.pol,null,'unmodified newWorld/native save explicitly writes null');
   // This is the exact original failing BASE save, independently captured
@@ -114,10 +133,7 @@ function staticScope(){
   check('restored production source complete native equality',()=>{for(const s of restored.stable.states.slice(1))equal(s,input);for(const s of restored.recovery.states.slice(1))equal(s,input);});
   check('real native money corruption first RED, restore GREEN',()=>{firstRed('native money API removes one dollar then saves',restored.damaged,input,'money');equal(restored.recovery.states[2],input);});
   check('real persisted policy corruption first RED',()=>{firstRed('native input changes taxR to 1.3 then loads/saves',restored.policyDamage.states[2],registry,'pol.taxR');});
-  const a=await frameSession(base,input,'BASE exact full frames'),b=await frameSession(head,input,'HEAD exact full frames');
-  archive('frame-base-native-states.json',{expected:a.expected,rounds:a.rounds.map(q=>q.load)});archive('frame-head-native-states.json',{expected:b.expected,rounds:b.rounds.map(q=>q.load)});
-  report.frames={base:frameFiles(a.before,'base'),head:frameFiles(b.before,'head'),rounds:b.rounds.map((q,i)=>frameFiles(q.views,'head-load-'+(i+1)))};
-  check('eight complete BASE-HEAD frames and two native loaded rounds',()=>{assert.equal(a.before.length,8);equal(b.before,a.before,'whole native frame equality against BASE');for(const q of b.rounds){equal(q.load.states[1],b.expected);equal(q.views,b.before,'whole native frame equality after native load');}return{views:8,rounds:2,fullCanvas:true};});
+  await verifyFrames028(input);
   const normal=[];
   for(const [label,source,load]of[['base-no-load',base,false],['head-no-load',head,false],['head-with-load',head,true]]){
     const data=await session(label,source,async cdp=>{const fixture=await evaluate(cdp,makeFixture);const continuation=await evaluate(cdp,proceed,input,load);return{fixture,continuation};});normal.push({label,data});archive(label+'-complete-model.json',data);
