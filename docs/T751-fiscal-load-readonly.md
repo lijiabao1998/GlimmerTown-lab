@@ -92,7 +92,9 @@ fp.json／style.json不再要求等於歷史檔案，而由未修改的 `fp.js -
 
 提交6d3b22b6的run39007135385已實際驗證合法PR32美術／重烘基線可通過完整38項／7負控制，舊凍結規則與額外守衛變更兩個首紅亦正確；其後單獨破壞新葉CRC的負例失敗於預期exit1、實際exit0。原fp.js只用家族CRC差異決定退出，葉子資料差異只記錄；這次只改subs中的d、家族CRC未變，故暴露逐葉資料一致性缺口。沒有把負例改成接受exit0，也沒有改原fp.js。
 
-新增checkFiscalFingerprint026.cjs：先跑原fp.js --check與當次dump，再對 committed／rendered 的所有葉子鍵集合及d／n／w／h／op逐項核對；僅保留既有、逐項精確匹配的本平台envLeaves例外。這層限定在本次自有相容性驗證，補強單葉資料與家族摘要不一致時的拒絕；常態財務探針保留已提交的fp.js檢查。壞CRC、偽造風格及還原GREEN仍須實際驗證。此修正尚未發布，不能把前次合法案例通過當成整個相容性job通過。
+新增checkFiscalFingerprint026.cjs：先跑原fp.js --check與當次dump，再對 committed／rendered 的所有葉子鍵集合及d／n／w／h／op逐項核對；僅保留既有、逐項精確匹配的本平台envLeaves例外。這層限定在本次自有相容性驗證，補強單葉資料與家族摘要不一致時的拒絕；常態財務探針保留已提交的fp.js檢查。修正已於ad77b62d發布；[push39008444100](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39008444100)／[PR39008447373](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39008447373)的六個常態job均成功，兩組完整原生回歸各42項／8負控制，過期writer只首紅於gameVer。當時相容性job仍執行中，不能把合法案例通過當成整個相容性job通過。
+
+永久探針亦不能把目前14.44／T751寫成所有未來版本的固定判準。保留14.44完整期望檔與其精確SHA，T751仍固定要求14.44；後續版本只從程式宣告的GAME_VER／GAME_ANCHOR建立期望中唯一可變的gameVer，再完整比較實際保存輸出，不從待測輸出推導期望、不排除任何欄位。實際版本字與過期writer首紅同樣要匹配宣告。自有相容性測試另在CI暫時套用14.45／T752三個版本文字，先證明前一版探針在固定版本判準首紅，再要求新版完整42項／8負控制通過，最後逐位元還原。產品仍是14.44／T751，未把未來版本提交或部署。
 
 ### v14.44／T751 精確遷移驗收
 

@@ -7,8 +7,17 @@ const BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots'
 const head=fs.readFileSync(index,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const changeBase=resolveChangeBase026(),comparisonSource=cp.execFileSync('git',['show',changeBase.sha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const raw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy.json'),'utf8'),fixture=JSON.parse(raw);
-const RELEASE=Object.freeze({gameVer:'14.44',anchor:'T751'});
-const releaseRaw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy-v14_44.expected.json'),'utf8'),releaseFixture=JSON.parse(releaseRaw);
+const APPROVED_RELEASE=Object.freeze({gameVer:'14.44',anchor:'T751'});
+function declaredRelease026(source){
+  const one=(pattern,label)=>{const matches=[...source.matchAll(pattern)];assert.equal(matches.length,1,'unique declared '+label);return matches[0][1];};
+  return Object.freeze({gameVer:one(/^const GAME_VER='(\d+\.\d{2})';/gm,'GAME_VER'),anchor:one(/^const GAME_ANCHOR='(T\d+)';/gm,'GAME_ANCHOR')});
+}
+const RELEASE=declaredRelease026(head);
+const approvedReleaseRaw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy-v14_44.expected.json'),'utf8'),approvedReleaseFixture=JSON.parse(approvedReleaseRaw);
+// The pinned migration specimen remains independent evidence for 14.44.
+// Later releases change only its declared writer metadata, never tested output.
+const releaseFixture=RELEASE.gameVer===APPROVED_RELEASE.gameVer?approvedReleaseFixture:{...approvedReleaseFixture,gameVer:RELEASE.gameVer};
+const releaseRaw=RELEASE.gameVer===APPROVED_RELEASE.gameVer?approvedReleaseRaw:JSON.stringify(releaseFixture);
 // Expected writer metadata is declared independently of the tested output.
 // Preserve every input key/value; only this approved release field may differ.
 function releaseExpected026(input){assert(['14.43',RELEASE.gameVer].includes(input.gameVer),'declared input save version');return input.gameVer===RELEASE.gameVer?input:{...input,gameVer:RELEASE.gameVer};}
@@ -20,7 +29,7 @@ function stateCheck(actual,expected,label='all serialized fields'){
   if(serialized(actual)!==serialized(expected))console.log('FISCAL026_DIFF '+JSON.stringify({label,differences:stateDiff(expected,actual)}));
   assert.equal(serialized(actual),serialized(expected),label);
 }
-const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,release:RELEASE,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},releaseExpected:{bytes:Buffer.byteLength(releaseRaw),sha256:hash(releaseRaw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
+const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,release:RELEASE,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},approvedReleaseExpected:{bytes:Buffer.byteLength(approvedReleaseRaw),sha256:hash(approvedReleaseRaw)},releaseExpected:{bytes:Buffer.byteLength(releaseRaw),sha256:hash(releaseRaw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
 const check=(name,fn)=>{try{const detail=fn();report.checks.push({name,ok:true,...detail});console.log('GREEN '+name);return true;}catch(e){const failure={name,message:e.message.slice(0,1000)};report.failures.push(failure);console.error('RED '+JSON.stringify(failure));return false;}};
 const expectRed=(name,actual,expected)=>{let first;try{stateCheck(actual,expected,'all serialized fields');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'all serialized fields',name+' must first fail the full-state guard');report.negative.push({name,first,differences:stateDiff(expected,actual)});};
 const opt={port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>0.125',log:console.log};
@@ -82,10 +91,13 @@ function cadence026(text){
 const clone=v=>JSON.parse(JSON.stringify(v));
 function staticChecks(){
   assert.equal(hash(raw),'168d851165e275f3960483eadde80d2eb865f9502f3bd6ae728841519de6be12');
-  assert.equal(fixture.gameVer,'14.43');assert.equal(RELEASE.gameVer,'14.44');assert.equal(RELEASE.anchor,'T751');
-  assert.deepEqual(releaseFixture,{...fixture,gameVer:'14.44'},'complete release fixture changes exactly one declared field');
-  assert.deepEqual(stateDiff(fixture,releaseFixture),[{path:'gameVer',before:'14.43',after:'14.44'}]);
-  assert(head.includes("const GAME_VER='14.44';")&&head.includes("const GAME_ANCHOR='T751';")&&head.includes('id="startVersion456">v14.44 · T751</span>'),'exact declared build metadata');
+  assert.equal(fixture.gameVer,'14.43');assert.deepEqual(APPROVED_RELEASE,{gameVer:'14.44',anchor:'T751'});
+  assert.deepEqual(approvedReleaseFixture,{...fixture,gameVer:'14.44'},'complete approved release fixture changes exactly one declared field');
+  assert.deepEqual(stateDiff(fixture,approvedReleaseFixture),[{path:'gameVer',before:'14.43',after:'14.44'}]);
+  assert.equal(hash(approvedReleaseRaw),'a309a1c546ef6989b73065f9aaec79e2e3e97b6e89ab3117aa5b78da473d2276');
+  if(RELEASE.anchor===APPROVED_RELEASE.anchor)assert.equal(RELEASE.gameVer,APPROVED_RELEASE.gameVer,'T751 approved writer version');
+  assert.deepEqual(releaseFixture,{...fixture,gameVer:RELEASE.gameVer},'complete expected save changes only declared writer metadata');
+  assert(head.includes('id="startVersion456">v'+RELEASE.gameVer+' · '+RELEASE.anchor+'</span>'),'exact declared build metadata');
   for(const key of ['function fiscalSave515(', 'function fiscalLoad515(', 'function fiscalDailySettlement515(', 'function fiscalCompletionSettlement515(', 'const FISCAL_CADENCE515=']){
     const line=s=>s.split('\n').find(x=>x.startsWith(key));assert(line(head),key+' exists');assert.equal(line(head),line(comparisonSource),key+' byte-identical relative to the change base');
   }
@@ -137,7 +149,7 @@ function staticChecks(){
     for(const f of q.actual.status){assert.deepEqual(f.scope,{depth:0,active:false});assert.equal(f.ready,true);assert(Number.isFinite(f.city.structuralBalance));assert(Object.keys(f.infrastructure).length>=8);assert(Number.isFinite(f.assets.count));}
     return{passes:2,inputVersion:q.expected.gameVer,writerVersion:RELEASE.gameVer,stateSha256:hash(serialized(expected)),history:q.expected.fiscal515.history.length};
   });
-  check('exact writer and build version metadata',()=>{assert.deepEqual(positives.metadata,{version:'14.44',start:'v14.44 · T751'});return positives.metadata;});
+  check('exact writer and build version metadata',()=>{assert.deepEqual(positives.metadata,{version:RELEASE.gameVer,start:'v'+RELEASE.gameVer+' · '+RELEASE.anchor});return positives.metadata;});
   for(const q of positives.legacy)check('legacy '+q.name+' migration then stable complete fields',()=>{
     // The unchanged native serializer intentionally omits an empty optional
     // fiscal field (index: `if(f515)data.fiscal515=f515`). Null and absence are
@@ -175,7 +187,7 @@ function staticChecks(){
   check('leaked load scope first RED at cleanup guard',()=>{let first;try{assert.equal(leaked.status.depth,0,'scope cleanup');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'scope cleanup');assert.equal(leaked.selftest.ok,false);report.negative.push({name:'source omits finally restoration',first,depth:leaked.status.depth});});
   const writerAnchor='gameVer:GAME_VER,seed';assert.equal(head.split(writerAnchor).length,2,'writer metadata fault anchor unique');
   const wrongWriter=await session('source writes stale version metadata',head.replace(writerAnchor,"gameVer:'14.43',seed"),async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false)}));
-  check('stale writer version first RED at gameVer',()=>{expectRed('writer emits stale gameVer',wrongWriter.load.states[2],releaseFixture);assert.deepEqual(report.negative.at(-1).differences,[{path:'gameVer',before:'14.44',after:'14.43'}]);});
+  check('stale writer version first RED at gameVer',()=>{expectRed('writer emits stale gameVer',wrongWriter.load.states[2],releaseFixture);assert.deepEqual(report.negative.at(-1).differences,[{path:'gameVer',before:RELEASE.gameVer,after:'14.43'}]);});
   const restored=await session('restored HEAD cleanup',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),normal:await evaluate(cdp,normal026,31)}));
   check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],releaseFixture);stateCheck(restored.normal,positives.normal);});
  }catch(e){report.failures.push({name:'probe infrastructure or unexpected exception',message:e.stack});console.error(e.stack);}
