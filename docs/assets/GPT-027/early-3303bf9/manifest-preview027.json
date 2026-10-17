@@ -1,0 +1,187 @@
+{
+  "head": "3303bf923ed52ed7d3be4181a8410a5f679cbbcf",
+  "base": "58130eae1f5451a5f56142b5fab7b003b910155e",
+  "prototypeOnly": true,
+  "committedIndexSHA256": "b4c1b9e94b02d2bbe82eff0376f2df019754047bfe8a58346ff41ea84a7b5cb8",
+  "previewIndexSHA256": "e8e859032cf0368e7dc948521843f2106e1215fcde350a7b31f25fa8f69e4f8c",
+  "scope": "early native preview; final guards separate",
+  "notClaimed": [
+    "all ten complete",
+    "final native/save/pixel/negative/performance acceptance",
+    "mobile hardware validation"
+  ],
+  "files": [
+    {
+      "name": "croydon-r0-day.png",
+      "bytes": 5919,
+      "sha256": "98b610cf76d59c7c968debb31035e842fad51c472630a43df50c75ca37563327"
+    },
+    {
+      "name": "croydon-r0-night.png",
+      "bytes": 2453,
+      "sha256": "96ff3db888c69db3fb4f4794e5213b95e6f05b006690e96cbff150d6f3aafc8c"
+    },
+    {
+      "name": "croydon-r1-day.png",
+      "bytes": 5283,
+      "sha256": "aae5f82f81e0f07184a97ee5d6a976c23e55b2d8b76d06540f1346173d21e4bc"
+    },
+    {
+      "name": "croydon-r1-night.png",
+      "bytes": 2326,
+      "sha256": "29cd024503a5779c7d7195d49276b99909e191326aec80311a4c75dd4ff3eb0e"
+    },
+    {
+      "name": "croydon-r2-day.png",
+      "bytes": 4842,
+      "sha256": "513f140898d7bdee5f843393e963fc2360556a8d086daf5382300d2ce277df89"
+    },
+    {
+      "name": "croydon-r2-night.png",
+      "bytes": 2330,
+      "sha256": "ba656949337dca8764bf63bfde37aed85302f51bc47c202012f5aa26e6f63be8"
+    },
+    {
+      "name": "croydon-r3-day.png",
+      "bytes": 5859,
+      "sha256": "64b5bf28a4cadca33724444ddab078d00456ef0d0976b761b9187739a3aacf65"
+    },
+    {
+      "name": "croydon-r3-night.png",
+      "bytes": 2407,
+      "sha256": "1d439559e9fac48e68d311aff613602b66018129e6bba5259eae86a34071a1f1"
+    },
+    {
+      "name": "preston-r0-day.png",
+      "bytes": 5710,
+      "sha256": "38a94799ffb2489e6c049b177ddab38342d92ce7744c5570bdd705c8e31448ec"
+    },
+    {
+      "name": "preston-r0-night.png",
+      "bytes": 1618,
+      "sha256": "51219325cb3bff592f155adbf1da3972eca82e3706eef378225139d1a5b3408b"
+    },
+    {
+      "name": "preston-r1-day.png",
+      "bytes": 5644,
+      "sha256": "b1b767064e2086846f08834bc30fb5b1613cb9eafc768c47332564b95a261ee6"
+    },
+    {
+      "name": "preston-r1-night.png",
+      "bytes": 1619,
+      "sha256": "e4bd5f41c1e5ba6af7f802f37a296441b5630782e68bfd86e85e27a0cf2afece"
+    },
+    {
+      "name": "preston-r2-day.png",
+      "bytes": 4985,
+      "sha256": "6de53f495d5d1a3a7ba4bb401b2739db0a2e3bf4b06dd59d0bdad941861abb04"
+    },
+    {
+      "name": "preston-r2-night.png",
+      "bytes": 1676,
+      "sha256": "21b5ab4a79e906bf08830589bfc262f84e684bbf56c0c2296f3d720500f819b0"
+    },
+    {
+      "name": "preston-r3-day.png",
+      "bytes": 5481,
+      "sha256": "159bc47685cc56293a99c5dda41f64970c2eae910115125ca752633dc71edf28"
+    },
+    {
+      "name": "preston-r3-night.png",
+      "bytes": 1722,
+      "sha256": "5918dd8ebe519b58a5d14ad4b1a874e6ac4afb6ec0e2bcbda0cc46d99ddaee73"
+    },
+    {
+      "name": "contact-day.png",
+      "bytes": 48167,
+      "sha256": "4514c7da5959ecb1b00634e8c927fef52264ba05daa6ca7912c3656576a14d32"
+    },
+    {
+      "name": "contact-night.png",
+      "bytes": 48349,
+      "sha256": "dbc192e5990ca795aa81c676ea47a533e22fb20472f0ee9b98ac869aadda0ee4"
+    },
+    {
+      "name": "native-day-r0.png",
+      "bytes": 578987,
+      "sha256": "a6354da166ccfc4b1de6cf7e21c74c90ea15ed84f79786829b8e34e5d7ad69c1"
+    },
+    {
+      "name": "native-day-r1.png",
+      "bytes": 627642,
+      "sha256": "94607edf9cadf6235c41264c7cf54c9954f3afda2de9d3d909ff22b8f55a3eaf"
+    },
+    {
+      "name": "native-day-r2.png",
+      "bytes": 607126,
+      "sha256": "3ff25bccdba01722cad14cd812273c27f4f93c464ac502f367b618a6c34349b9"
+    },
+    {
+      "name": "native-day-r3.png",
+      "bytes": 590264,
+      "sha256": "325773d936747e0624e97f7f0a4c3e2293974c453d4629a8c5a857e248d83520"
+    },
+    {
+      "name": "native-night-r0.png",
+      "bytes": 499740,
+      "sha256": "6322e311a6f16a64b8064d5f7a199fe105ee02d6be6927c43e4bda9bca700f51"
+    },
+    {
+      "name": "native-night-r1.png",
+      "bytes": 557052,
+      "sha256": "f43004a716b9b12f8363b46e09068014125529496a4de3e73f97aba956dfd820"
+    },
+    {
+      "name": "native-night-r2.png",
+      "bytes": 551494,
+      "sha256": "e9dc4d0e5d7804485927f81cfc04d0258be2ebe46ced46329f3760367d2a2e79"
+    },
+    {
+      "name": "native-night-r3.png",
+      "bytes": 537665,
+      "sha256": "d537b36dbe157fd20c6cee39bccf8d5dea9c03a6df330bb633a431202526ff15"
+    }
+  ],
+  "prototypeCount": 2,
+  "rows": [
+    {
+      "id": "croydon",
+      "nm": "克羅伊登航站樓",
+      "en": "Croydon Airport Terminal",
+      "shape": "cargo-wings-glazed-booking-dome-square-control-tower",
+      "note": "低貨運翼、玻璃採光廳與四層方形控制塔；鋼框窗、深窗台和屋頂天線。",
+      "url": "https://www.historiccroydonairport.org.uk/history/building-britains-first-airport-terminal/",
+      "imageSource": "https://www.historiccroydonairport.org.uk/image-gallery/",
+      "v": 200
+    },
+    {
+      "id": "preston",
+      "nm": "普雷斯頓巴士站",
+      "en": "Preston Bus Station",
+      "shape": "five-open-decks-curved-concrete-lips-glazed-concourse",
+      "note": "五層開放車庫、外挑曲面混凝土邊緣、柱列與底層玻璃大廳；無新增交通路線。",
+      "url": "https://www.johnputtickassociates.com/project/preston-bus-station/",
+      "imageSource": "https://www.johnputtickassociates.com/project/preston-bus-station/",
+      "v": 204
+    }
+  ],
+  "placed": [
+    {
+      "x": 7,
+      "y": 4,
+      "id": "croydon",
+      "v": 200,
+      "spent": 2000
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "id": "preston",
+      "v": 204,
+      "spent": 2000
+    }
+  ],
+  "slot": "3",
+  "version": "14.45",
+  "restoredCommittedIndex": true
+}
