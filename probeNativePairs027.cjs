@@ -1,7 +1,16 @@
 'use strict';
 if(!process.env.GITHUB_ACTIONS)throw Error('wave027 native pairs run on GitHub Actions only');
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
-const {withGame,ROOT}=require('./harness.js'),BASE='57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',file=path.join(ROOT,'index.html'),head=fs.readFileSync(file),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024}),OUT=path.join(ROOT,'shots','wave027','normal-pairs');
+const {withGame,ROOT}=require('./harness.js'),BASE='57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',file=path.join(ROOT,'index.html'),head=fs.readFileSync(file),originalBase=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024}),OUT=path.join(ROOT,'shots','wave027','normal-pairs');
+// The independent Git model runs under the same explicitly declared release
+// labels as HEAD. Native region.ver is produced from GAME_VER at settlement.
+// Saved states are compared unchanged; the existing compare guard stays exact.
+function declaredRelease027(bytes){const s=bytes.toString(),ver=s.match(/^const GAME_VER='(\d+\.\d{2})';/m)?.[1],anchor=s.match(/^const GAME_ANCHOR='(T\d+)';/m)?.[1];assert(ver&&anchor,'normal027 declared release');return{ver,anchor};}
+const baseRelease=declaredRelease027(originalBase),headRelease=declaredRelease027(head);
+const labelPairs=[["const GAME_VER='"+baseRelease.ver+"';","const GAME_VER='"+headRelease.ver+"';"],["const GAME_ANCHOR='"+baseRelease.anchor+"';","const GAME_ANCHOR='"+headRelease.anchor+"';"],['id="startVersion456">v'+baseRelease.ver+' · '+baseRelease.anchor+'</span>','id="startVersion456">v'+headRelease.ver+' · '+headRelease.anchor+'</span>']];
+let declaredBase=originalBase.toString();for(const [from,to]of labelPairs){assert.equal(declaredBase.split(from).length,2,'normal027 unique original release label');declaredBase=declaredBase.replace(from,to);}
+let restoredBase=declaredBase;for(const [from,to]of labelPairs){assert.equal(restoredBase.split(to).length,2,'normal027 unique declared release label');restoredBase=restoredBase.replace(to,from);}assert.equal(restoredBase,originalBase.toString(),'normal027 independent BASE changes exactly three declared release labels and no model source');
+const base=Buffer.from(declaredBase),sourceHash=x=>crypto.createHash('sha256').update(x).digest('hex');
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex'),canon=x=>Array.isArray(x)?x.map(canon):x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,canon(x[k])])):x;
 function pair027(useNew){
   const out=[],controls=[];
@@ -65,7 +74,8 @@ function compare(a,b,allowedVariants){
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});let a,b;
   let controls,baseBootstrap,headBootstrap,baseTen,headTen;
-  try{const ar=await run(base,false),br=await run(head,true);a=ar.pairs;b=br.pairs;controls=br.controls;baseBootstrap=ar.bootstrap;headBootstrap=br.bootstrap;baseTen=ar.tenTransactions;headTen=br.tenTransactions;}finally{fs.writeFileSync(file,head);}
+  fs.writeFileSync(path.join(OUT,'base-source-provenance.json'),JSON.stringify({source:BASE,originalSHA256:sourceHash(originalBase),declaredSHA256:sourceHash(base),originalRelease:baseRelease,declaredRelease:headRelease,onlySourceChanges:labelPairs,allModelSourceExact:true,stateNormalization:false,fieldExclusions:[]},null,2)+'\n');
+  try{const raw=await run(originalBase,false);fs.writeFileSync(path.join(OUT,'original-main-complete-pairs.json'),JSON.stringify(raw,null,2)+'\n');const ar=base.equals(originalBase)?raw:await run(base,false),br=await run(head,true);a=ar.pairs;b=br.pairs;controls=br.controls;baseBootstrap=ar.bootstrap;headBootstrap=br.bootstrap;baseTen=ar.tenTransactions;headTen=br.tenTransactions;}finally{fs.writeFileSync(file,head);}
   const pairs=[],allowed=[];
   for(let i=0;i<a.length;i++){
     assert.equal(a[i].seed,b[i].seed);const av=new Map();
