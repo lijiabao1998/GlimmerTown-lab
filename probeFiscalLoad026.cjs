@@ -7,6 +7,11 @@ const BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots'
 const head=fs.readFileSync(index,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const changeBase=resolveChangeBase026(),comparisonSource=cp.execFileSync('git',['show',changeBase.sha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const raw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy.json'),'utf8'),fixture=JSON.parse(raw);
+const RELEASE=Object.freeze({gameVer:'14.44',anchor:'T751'});
+const releaseRaw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy-v14_44.expected.json'),'utf8'),releaseFixture=JSON.parse(releaseRaw);
+// Expected writer metadata is declared independently of the tested output.
+// Preserve every input key/value; only this approved release field may differ.
+function releaseExpected026(input){assert(['14.43',RELEASE.gameVer].includes(input.gameVer),'declared input save version');return input.gameVer===RELEASE.gameVer?input:{...input,gameVer:RELEASE.gameVer};}
 const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
 const serialized=v=>JSON.stringify(canon(v));
@@ -15,7 +20,7 @@ function stateCheck(actual,expected,label='all serialized fields'){
   if(serialized(actual)!==serialized(expected))console.log('FISCAL026_DIFF '+JSON.stringify({label,differences:stateDiff(expected,actual)}));
   assert.equal(serialized(actual),serialized(expected),label);
 }
-const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
+const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,release:RELEASE,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},releaseExpected:{bytes:Buffer.byteLength(releaseRaw),sha256:hash(releaseRaw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
 const check=(name,fn)=>{try{const detail=fn();report.checks.push({name,ok:true,...detail});console.log('GREEN '+name);return true;}catch(e){const failure={name,message:e.message.slice(0,1000)};report.failures.push(failure);console.error('RED '+JSON.stringify(failure));return false;}};
 const expectRed=(name,actual,expected)=>{let first;try{stateCheck(actual,expected,'all serialized fields');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'all serialized fields',name+' must first fail the full-state guard');report.negative.push({name,first,differences:stateDiff(expected,actual)});};
 const opt={port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>0.125',log:console.log};
@@ -77,6 +82,10 @@ function cadence026(text){
 const clone=v=>JSON.parse(JSON.stringify(v));
 function staticChecks(){
   assert.equal(hash(raw),'168d851165e275f3960483eadde80d2eb865f9502f3bd6ae728841519de6be12');
+  assert.equal(fixture.gameVer,'14.43');assert.equal(RELEASE.gameVer,'14.44');assert.equal(RELEASE.anchor,'T751');
+  assert.deepEqual(releaseFixture,{...fixture,gameVer:'14.44'},'complete release fixture changes exactly one declared field');
+  assert.deepEqual(stateDiff(fixture,releaseFixture),[{path:'gameVer',before:'14.43',after:'14.44'}]);
+  assert(head.includes("const GAME_VER='14.44';")&&head.includes("const GAME_ANCHOR='T751';")&&head.includes('id="startVersion456">v14.44 · T751</span>'),'exact declared build metadata');
   for(const key of ['function fiscalSave515(', 'function fiscalLoad515(', 'function fiscalDailySettlement515(', 'function fiscalCompletionSettlement515(', 'const FISCAL_CADENCE515=']){
     const line=s=>s.split('\n').find(x=>x.startsWith(key));assert(line(head),key+' exists');assert.equal(line(head),line(comparisonSource),key+' byte-identical relative to the change base');
   }
@@ -101,6 +110,7 @@ function staticChecks(){
     const result={cases:[],legacy:[],negative:[]};
     for(const sandbox of [false,true]){
       result.cases.push({name:'archived-original-'+(sandbox?'sandbox':'normal'),expected:fixture,actual:await evaluate(cdp,roundtrip026,raw,sandbox)});
+      result.cases.push({name:'same-release-'+(sandbox?'sandbox':'normal'),expected:releaseFixture,actual:await evaluate(cdp,roundtrip026,releaseRaw,sandbox)});
       for(const shape of ['empty','full','zero','expired','future']){
         const j=clone(fixture),f=j.fiscal515;f.maintenanceBacklog=123.456;f.revenue={recurringAdmin:13.25,valueCapture:17.5,oneOffToday:7,recurringToday:11,totalCaptured:39};f.processedProjects=['QA026-old'];f.settlements=[{d:1,id:'DAY1',recurring:11,captured:7,total:18}];f.capitalLedger=[{d:1,id:'QA026-old',amount:23}];
         if(shape==='empty')f.history=[];
@@ -116,22 +126,27 @@ function staticChecks(){
     }
     await evaluate(cdp,roundtrip026,raw,true);result.frames=await evaluate(cdp,frames026);
     result.normal=await evaluate(cdp,normal026,31);result.loaded=await evaluate(cdp,normal026,31,true);result.cadence=await evaluate(cdp,cadence026,raw);
+    result.metadata=await cdp.evalJs('({version:GV.ver(),start:document.getElementById("startVersion456").textContent.trim()})');
     return result;
   });
   for(const q of positives.cases)check('two native load/save rounds '+q.name,()=>{
     assert.equal(q.actual.inactiveUnchanged,true,'inactive slot changed');
-    for(let i=1;i<q.actual.states.length;i++)stateCheck(q.actual.states[i],q.expected);
+    const expected=releaseExpected026(q.expected);
+    for(let i=1;i<q.actual.states.length;i++)stateCheck(q.actual.states[i],expected);
+    stateCheck(q.actual.states[2],q.actual.states[1],'same-version second save every field');
     for(const f of q.actual.status){assert.deepEqual(f.scope,{depth:0,active:false});assert.equal(f.ready,true);assert(Number.isFinite(f.city.structuralBalance));assert(Object.keys(f.infrastructure).length>=8);assert(Number.isFinite(f.assets.count));}
-    return{passes:2,stateSha256:hash(serialized(q.expected)),history:q.expected.fiscal515.history.length};
+    return{passes:2,inputVersion:q.expected.gameVer,writerVersion:RELEASE.gameVer,stateSha256:hash(serialized(expected)),history:q.expected.fiscal515.history.length};
   });
+  check('exact writer and build version metadata',()=>{assert.deepEqual(positives.metadata,{version:'14.44',start:'v14.44 · T751'});return positives.metadata;});
   for(const q of positives.legacy)check('legacy '+q.name+' migration then stable complete fields',()=>{
     // The unchanged native serializer intentionally omits an empty optional
     // fiscal field (index: `if(f515)data.fiscal515=f515`). Null and absence are
     // both legacy inputs; subsequent full-state comparisons stay unchanged.
     const migrated=q.actual.states[1],f=migrated.fiscal515;assert.equal(migrated.money,q.input.money);assert(f==null||f.history.length===0,'fabricated history');assert(f==null||f.settlements.length===0,'fabricated settlements');
+    const expected={...releaseExpected026(q.input)};if(expected.fiscal515===null)delete expected.fiscal515;stateCheck(migrated,expected,'legacy full-field declared migration');
     stateCheck(q.actual.states[2],migrated);stateCheck(q.actual.states[3],migrated);const migration={name:q.name,differences:stateDiff(q.input,migrated)};report.migrations.push(migration);console.log('FISCAL026_MIGRATION '+JSON.stringify(migration));
   });
-  for(const q of positives.negative)check('live saved-state negative and restore '+q.name,()=>{expectRed(q.name,q.altered.states[2],fixture);stateCheck(q.restored.states[2],fixture);});
+  for(const q of positives.negative)check('live saved-state negative and restore '+q.name,()=>{expectRed(q.name,q.altered.states[2],releaseFixture);const target=q.name==='money'?'money':q.name==='cursor'?'fiscal515.lastAssetScanDay':'fiscal515.history';assert(report.negative.at(-1).differences[0].path.startsWith(target),'first RED is the damaged data field');stateCheck(q.restored.states[2],releaseFixture);});
   check('same-seed normal no-load BASE/HEAD world and all fiscal fields',()=>{const a=clone(positives.normal),b=clone(reference.normal);delete a.force.scope;delete b.force.scope;stateCheck(a,b,'normal simulation equality');return{seed:31,horizons:[1,7,14],changeBase};});
   check('nonzero recurring and completion, same-day deduplication, force remains live',()=>{
     const q=positives.normal;assert(q.activated.every(x=>x.result.ok),'QA policy activation');assert(q.completion.moneyAfter>q.completion.moneyBefore);assert(q.completion.captured>0,'completion must pay a nonzero amount');assert(q.completion.settlements.some(x=>x.recurring>0),'recurring must be nonzero');assert.equal(q.duplicate.value,0);for(const p of q.points.slice(1))assert.equal(p.duplicate.value,0);assert.equal(q.force.historyAfter,q.force.historyBefore+1);assert.deepEqual(q.force.scope,{depth:0,active:false});
@@ -142,7 +157,7 @@ function staticChecks(){
     const q=positives.cadence;for(const p of q.points){assert.equal(p.aggregate,q.day+(p.offset>=14?14:p.offset>=7?7:0));assert.equal(p.asset,q.day+(p.offset>=14?14:0));assert.equal(p.history,q.initialHistory+(p.offset>=14?2:p.offset>=7?1:0));}return q;
   });
   const valve=await session('HEAD escape valve',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,true),frames:await evaluate(cdp,frames026)}),'window.__noFiscalLoad026=true');
-  check('escape valve restores independent BASE full serialized behavior',()=>{stateCheck(valve.load.states,old.load.states);expectRed('HEAD valve restores loaded journal writes',valve.load.states[1],fixture);});
+  check('escape valve restores independent BASE full serialized behavior',()=>{const expected=old.load.states.map((s,i)=>i===0?s:releaseExpected026(s));stateCheck(valve.load.states,expected);expectRed('HEAD valve restores loaded journal writes',valve.load.states[1],releaseFixture);assert(report.negative.at(-1).differences[0].path.startsWith('fiscal515.history'));});
   for(let i=0;i<reference.frames.length;i++)check('complete native frame '+reference.frames[i].name,()=>{
     for(const [kind,list] of [['head',positives.frames],['valve',valve.frames]]){assert.equal(list[i].data,reference.frames[i].data,'full frame '+kind);const bytes=Buffer.from(list[i].data.split(',')[1],'base64'),file=kind+'-'+list[i].name+'.png';fs.writeFileSync(path.join(OUT,file),bytes);report.frames.push({file,sha256:hash(bytes),bytes:bytes.length,changeBase:changeBase.sha});}
   });
@@ -155,11 +170,14 @@ function staticChecks(){
       v.recovery=await evaluate(cdp,roundtrip026,raw,false);v.normal=await evaluate(cdp,normal026,31);out.push(v);
     }return{out};
   });
-  for(const q of fault.out)check('finally cleanup '+q.kind,()=>{assert.deepEqual(q.status,{depth:0,active:false});if(q.kind==='throw')assert.equal(q.error,'fiscal026 controlled throw');if(q.kind==='false')assert.equal(q.value,false);if(q.kind==='nested'){assert.equal(q.nested,true);assert.equal(q.nestedDepth,1);}stateCheck(q.recovery.states[2],fixture);stateCheck(q.normal,positives.normal,'normal behavior after cleanup');});
+  for(const q of fault.out)check('finally cleanup '+q.kind,()=>{assert.deepEqual(q.status,{depth:0,active:false});if(q.kind==='throw')assert.equal(q.error,'fiscal026 controlled throw');if(q.kind==='false')assert.equal(q.value,false);if(q.kind==='nested'){assert.equal(q.nested,true);assert.equal(q.nestedDepth,1);}stateCheck(q.recovery.states[2],releaseFixture);stateCheck(q.normal,positives.normal,'normal behavior after cleanup');});
   const leaked=await session('source leak negative',head.replace(cleanup,'finally{/* deliberately omitted in CI negative source */}'),async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),status:await cdp.evalJs('GV.fiscalLoad026.status()'),selftest:await cdp.evalJs('GV.fiscalLoad026.selftest()')}));
   check('leaked load scope first RED at cleanup guard',()=>{let first;try{assert.equal(leaked.status.depth,0,'scope cleanup');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'scope cleanup');assert.equal(leaked.selftest.ok,false);report.negative.push({name:'source omits finally restoration',first,depth:leaked.status.depth});});
+  const writerAnchor='gameVer:GAME_VER,seed';assert.equal(head.split(writerAnchor).length,2,'writer metadata fault anchor unique');
+  const wrongWriter=await session('source writes stale version metadata',head.replace(writerAnchor,"gameVer:'14.43',seed"),async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false)}));
+  check('stale writer version first RED at gameVer',()=>{expectRed('writer emits stale gameVer',wrongWriter.load.states[2],releaseFixture);assert.deepEqual(report.negative.at(-1).differences,[{path:'gameVer',before:'14.44',after:'14.43'}]);});
   const restored=await session('restored HEAD cleanup',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),normal:await evaluate(cdp,normal026,31)}));
-  check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],fixture);stateCheck(restored.normal,positives.normal);});
+  check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],releaseFixture);stateCheck(restored.normal,positives.normal);});
  }catch(e){report.failures.push({name:'probe infrastructure or unexpected exception',message:e.stack});console.error(e.stack);}
  finally{fs.writeFileSync(index,head);report.ok=report.failures.length===0;fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,negative:report.negative.length,failures:report.failures}));}
  process.exitCode=report.ok?0:1;
