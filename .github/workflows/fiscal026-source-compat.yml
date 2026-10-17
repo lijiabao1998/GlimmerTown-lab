@@ -1,0 +1,35 @@
+name: fiscal026 source and art compatibility
+on:
+  push:
+    branches: ['gpt/fiscal-load-readonly-026']
+    paths-ignore: ['**.md', 'docs/**']
+permissions:
+  contents: read
+jobs:
+  compatibility:
+    name: compatibility (${{ matrix.case }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        case: [rebake, future-release, visible-art, source-scope]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Chinese font for unchanged native rendering guards
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Full native checks and committed-source counterexamples
+        run: node probeFiscalArtCompat026.cjs --case=${{ matrix.case }}
+      - name: Preserve source, save, frame and restoration proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fiscal026-source-compat-${{ matrix.case }}-${{ github.sha }}
+          path: shots/fiscal026-compat/${{ matrix.case }}/
+          if-no-files-found: error
+          retention-days: 14

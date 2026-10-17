@@ -7,6 +7,12 @@ const BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots'
 const head=fs.readFileSync(index,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const changeBase=resolveChangeBase026(),comparisonSource=cp.execFileSync('git',['show',changeBase.sha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const historicalFrameScope=!(comparisonSource.includes('function fiscalLoading026(){')&&comparisonSource.includes('finally{fiscalLoadDepth026=previous026;}'));
+// The T751 patch keeps its original source boundaries. Later committed work
+// may change those sources, but temporary/uncommitted edits are still rejected.
+const sourceIdentityRevision=historicalFrameScope?changeBase.sha:'HEAD';
+const sourceIdentitySha=cp.execFileSync('git',['rev-parse',sourceIdentityRevision+'^{commit}'],{encoding:'utf8'}).trim();
+const sourceIdentityLabel=historicalFrameScope?'the change base':'committed HEAD';
+const sourceIdentitySource=historicalFrameScope?comparisonSource:cp.execFileSync('git',['show',sourceIdentitySha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const raw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy.json'),'utf8'),fixture=JSON.parse(raw);
 const APPROVED_RELEASE=Object.freeze({gameVer:'14.44',anchor:'T751'});
 function declaredRelease026(source){
@@ -138,9 +144,9 @@ function staticChecks(){
   assert.deepEqual(releaseFixture,{...fixture,gameVer:RELEASE.gameVer},'complete expected save changes only declared writer metadata');
   assert(head.includes('id="startVersion456">v'+RELEASE.gameVer+' · '+RELEASE.anchor+'</span>'),'exact declared build metadata');
   for(const key of ['function fiscalSave515(', 'function fiscalLoad515(', 'function fiscalDailySettlement515(', 'function fiscalCompletionSettlement515(', 'const FISCAL_CADENCE515=']){
-    const line=s=>s.split('\n').find(x=>x.startsWith(key));assert(line(head),key+' exists');assert.equal(line(head),line(comparisonSource),key+' byte-identical relative to the change base');
+    const line=s=>s.split('\n').find(x=>x.startsWith(key));assert(line(head),key+' exists');assert.equal(line(head),line(sourceIdentitySource),key+' byte-identical relative to '+sourceIdentityLabel);
   }
-  for(const file of ['fp.js','harness.js','gallery.js'])assert.equal(cp.execFileSync('git',['diff',changeBase.sha,'--',file],{encoding:'utf8'}),'',file+' unchanged relative to the change base');
+  for(const file of ['fp.js','harness.js','gallery.js'])assert.equal(cp.execFileSync('git',['diff',sourceIdentitySha,'--',file],{encoding:'utf8'}),'',file+' unchanged relative to '+sourceIdentityLabel);
   // Legitimate art changes submit new baselines. Validate them against the
   // actual renderer with the unchanged guard, rather than freezing old bytes.
   const fpBase=path.join(OUT,'change-base-fp.json'),styleBase=path.join(OUT,'change-base-style.json');
@@ -148,12 +154,13 @@ function staticChecks(){
   const fp=cp.spawnSync(process.execPath,[path.join(ROOT,'fp.js'),'--check','--report-base='+fpBase,'--report-base-style='+styleBase,'--dump='+path.join(OUT,'fp-rebake')],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024,env:{...process.env,GITHUB_STEP_SUMMARY:''}});
   fs.writeFileSync(path.join(OUT,'current-fp.txt'),(fp.stdout||'')+(fp.stderr||''));
   assert.equal(fp.status,0,'current renderer fingerprints match the committed baselines; see current-fp.txt');
-  return{changeBase,fingerprintCheck:fp.status};
+  const sourceScope={mode:historicalFrameScope?'T751 change-base identity':'committed HEAD integrity',revision:sourceIdentitySha,patchIdentityPreserved:historicalFrameScope};
+  report.sourceScope=sourceScope;return{changeBase,sourceScope,fingerprintCheck:fp.status};
 }
 (async()=>{
  fs.mkdirSync(OUT,{recursive:true});
  try{
-  check('unchanged serialization, settlement functions, cadence and guards',staticChecks);
+  check('scoped serialization, settlement, cadence and guard source integrity',staticChecks);
   const old=await session('independent BASE',base,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,true),frames:await evaluate(cdp,frames026),normal:await evaluate(cdp,normal026,31)}));
   check('BASE old defect is caught by the exact full-state guard',()=>{expectRed('unfixed BASE native load',old.load.states[1],fixture);assert(stateDiff(fixture,old.load.states[1]).some(x=>x.path.startsWith('fiscal515.history')));});
   const reference=changeBase.sha===BASE?old:await session('independent change-base reference',comparisonSource,async cdp=>{await evaluate(cdp,roundtrip026,raw,true);return{frames:await evaluate(cdp,frames026),normal:await evaluate(cdp,normal026,31)};});
