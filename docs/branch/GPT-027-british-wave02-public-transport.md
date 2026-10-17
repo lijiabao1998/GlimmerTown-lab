@@ -173,3 +173,28 @@ PR35已於15:12:10 UTC合併為`57069b0db4c6182c95f23d0f9fa90ac78b65eb3c`（v14.
 在獨立工作樹合入實際main57069b0；保留原9aa8a42工作樹三個未推送檔案及其完整SHA-256備份。原生配對、場景、效能及預覽來源的BASE精確改成該實際main，全部原固定比較、負控制與欄位仍保留；normal-pairs只在斷言之前保存完整交易輸出及逐來源首紅。自己的有界美術／CSS／runtime與安裝呼叫剝除後，產品全文必須精確等於新main；不在此卡修改共用政策模型。十款幾何、選款與原生交易實作均不變。
 
 為取得包含這次main的push CI原始基線，fp.json／style.json先取main原檔，預期只在宣告bld40葉報差；將核對當次CI家族、舊3423葉、其他165族、blocks與env及七軸，符合第7節後才照抄原始輸出。自己的7個job與標準3個job均重跑原完整驗收；此段尚不是通過聲明。PR36保持draft，第二波不配T／版本／日誌、不合併或部署。
+
+
+## 同步head dfb3990的實跑與新基線（2026-10-17）
+
+[push原完整驗收39045000304](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39045000304)的六個非基線job均實際success；BASE為修補已發布的57069b0，產品有界區塊外全文逐位相同。先前失敗的native新檔與normal-pairs已按原判準轉綠：十款完整存檔兩次往返、BASE及HEAD各兩次交易存檔自比全為差異[]，fieldExclusions:[]，沒有靠逃生閥或剔除pol。三組種子31／71／103各三個時間點正常原生配對只差宣告root b.v，三個真正金錢API一美元負例各首紅money並完整還原。
+
+- native job117431855876：十款40視角、80原始日夜PNG、十次有限錢目錄放置、每款undo／redo／退款／參照格拆除恢復、兩次完整新檔往返及12個合法活體／源碼負控制全部成功。此前pol首紅及其原始附件保留為歷史；未再於純美術來源修存檔模型。
+- scenes job117431855946：57個完整狀態場景、40個邊界放置視角、8／8日夜四向BASE／閥關完整畫布逐位相同；舊檔首載及後續兩次所有欄位差異[]，兩個真存檔／畫布首紅及還原，strict failures:0、unrun:[]。
+- pedestrians job117431855774：17組真行人前後排序、實體遮擋／繪製及兩個活體首紅、還原成功。
+- performance job117431855662：40組交錯原生樣本，BASE median13ms／p90 25.775ms、HEAD median2.925ms／p90 27.4ms；30樣本真延遲負例首紅、還原後另40組通過，暖繪新幾何重烘0次。僅桌面Chromium CI參考，實體手機／Safari／觸控仍未測。
+- preview job117431855806：正式committed來源10款40視角、真付費放置10次、8張世界畫布，prototypeOnly:false；這項預覽本身仍不代替其他驗收。已實看本次原始日／夜四向接觸表、舊款對照、原生世界日景、完整夏景／冬雪景及Guildford近景，未裁切或重畫證據。其他狀態的自動原圖已在完整場景附件，未冒稱逐張人工覆核全部97張。
+
+這次初始fp與baseline-evidence紅在預期的bld新40葉及尚未提交style值。新基線逐位元原樣取自[同一push run39045000304／job117431855930](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39045000304/job/117431855930)、[原始附件12104868820](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39045000304/artifacts/12104868820)，來源head dfb3990已包含最新main57069b0。CI日誌的base64原檔先核bytes與SHA-256，再原樣拷入；沒有手改欄位、日期、分數或env。
+
+| 原始CI檔案 | bytes | SHA-256 |
+|---|---:|---|
+| fp.json | 378623 | 77551693eb954495c7fda294f9dac1c9375af7c99dccd94119c521e58cee3f73 |
+| style.json | 73165 | edcae6ba9ca87e6d05551244f38eb89cbd210754eca5bea72963f10ba5fc8bb3 |
+
+獨立JSON物件對比核實：只新增bld.24_1_200–239共40葉，舊3423葉逐物件相同，其他165族相同，blocks全文相同（1728／CRC5ef6eb67），env未變。bld七軸及總分精確等於前文表：palette1→1、hardEdge0.941807574369→0.943236167835、lightDir0.830972615675→0.828025477707、shade1→1、density1→1、nightRule0.985529009386→0.986054449214、variants1→1、total0.9655→0.9653。第二波按連續授權披露下降，沒有更改量尺或判準。
+
+本提交只帶入上述CI原始基線與真實文件紀錄。全部可執行產品／美術／探針／workflow位元組與dfb3990相同；提交後仍必須等待新head的標準smoke三次、fp、財務53／10及七個專屬job實際全綠，不能把本段當成未來CI結果。最後head結果與精確run連結貼在PR36內文。專屬workflow仍只綁本分支、contents:read；本階段不刪、不配T／版本、不轉正式、不合併部署，完成波數維持1／20。
+
+
+本輪PR常態run39045004126的財務job117431867307已實跑：52項正向及10個負控制成功，唯一失敗是source-integrity工作內的current-fp核對（倉庫暫取main基線，尚無新增40葉），不是pol或財務行為欄位不等值。完整報告為checks:52、negative:10、failures只有current renderer fingerprints match the committed baselines；因此這次不寫財務53／10全綠。下一個原始基線提交後必須實跑該完整工作轉為53／10，不能重跑賭綠或略過此門。
