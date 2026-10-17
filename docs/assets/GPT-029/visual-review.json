@@ -1,14 +1,14 @@
 {
   "wave": 3,
-  "status": "rounded-window source native images inspected; baseline and complete contact-width correction awaiting new head CI",
+  "status": "rounded-window current-source native images inspected; complete full-width contacts inspected; release/review/publication gates pending",
   "base": "35be6a37ebc672c90e9406c50c32e157e8701196",
   "artSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc",
   "nativeIndexBlob": "a6c83ec7f0cf940665b5a9edd41a348ca1ff8fbe",
-  "contactsSourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+  "contactsSourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
   "nearSourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
-  "sourceParity": "All current inspected PNGs come from dd5d674 with round-headed arch geometry; all ten complete near frames and 80 native sprite views were examined. The native contact canvas clipped the fourth column, so all twenty fourth-view day/night originals were inspected separately; only the own contact canvas width is corrected from 880 to 1040 for the next CI. No game pixel or guard criterion is changed by that contact correction.",
+  "sourceParity": "dd5d674 and fa704ce share byte-identical index.html and artwork. Current review includes all ten complete dd5 near scenes, 80 native sprites and fa704ce complete 1040x2400 day/night/comparison contacts. The contact width correction changes only evidence layout, no game pixel or criterion.",
   "inspected": {
-    "allTenFormsDayNightFourViewContacts": false,
+    "allTenFormsDayNightFourViewContacts": true,
     "oldNewComparison": true,
     "allTenCompleteNearScenes": true,
     "all97IndividualStates": false,
@@ -110,33 +110,36 @@
   ],
   "blockingVisualFindings": [],
   "unresolvedAcceptance": [
-    "new head CI with copied raw dd5 fingerprint baseline and full-width contacts",
-    "latest head review, main and automatic Pages"
+    "release labels, last whole native workflow success and workflow-only deletion",
+    "latest final-head PR review, main and automatic Pages"
   ],
   "contactFiles": [
     {
       "file": "contact-day.png",
-      "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
-      "sha256": "d3f96b6d886d0a5c86600097909663d9f7c57a4841f1916b8085442c6fe0e83a",
-      "width": 880,
+      "sourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+      "sha256": "52ae089dc902436c3b5fed7cfae1aaabb8152671148689ae2642490aabe1f1aa",
+      "width": 1040,
       "height": 2400,
-      "fourthColumnClipped": true
+      "fourthColumnClipped": false,
+      "bytes": 275728
     },
     {
       "file": "contact-night.png",
-      "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
-      "sha256": "a8297a21314f4173221c8d312d0e3eb942891607bb49670731b5fd550aab32c1",
-      "width": 880,
+      "sourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+      "sha256": "6ce07ca41f2e9c74f8b2ee56a18a374af0ce7767960174d3c11206d7f36eb813",
+      "width": 1040,
       "height": 2400,
-      "fourthColumnClipped": true
+      "fourthColumnClipped": false,
+      "bytes": 280364
     },
     {
       "file": "contact-comparison.png",
-      "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
-      "sha256": "906ec19e8da93fa8ec3d5af10e5e7791dc114d47ab88092af1cff9dd6a04ccb8",
-      "width": 880,
+      "sourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+      "sha256": "7a4b025d5e181b243879cc8dea2cd24bc4bc14903bbe5a2413f57ae7a7f74dae",
+      "width": 1040,
       "height": 2400,
-      "fourthColumnClipped": true
+      "fourthColumnClipped": false,
+      "bytes": 317419
     }
   ],
   "limits": [
@@ -195,5 +198,48 @@
         "sha256": "e36dc20590d9fb11332b2363ff2e450c2650d60c1e2c47f5b203a4d7f4b663e4"
       }
     ]
+  },
+  "currentCodeCI": {
+    "head": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+    "ordinaryRun": 39077425521,
+    "ordinaryJobsSuccess": 3,
+    "nativeRun": 39077425528,
+    "nativeJobsSuccess": 12,
+    "fiscal": {
+      "ok": true,
+      "checks": 53,
+      "negative": 10,
+      "failures": []
+    },
+    "fpRepositoryComparison": {
+      "added": 0,
+      "changed": 0,
+      "removed": 0,
+      "families": 0
+    },
+    "fpActualMainComparison": {
+      "added": 40,
+      "changed": 0,
+      "removed": 0,
+      "families": [
+        "bld"
+      ]
+    },
+    "envWarning": false,
+    "styleDeclines": []
+  },
+  "delivery": {
+    "nativeOriginals": {
+      "artifact": 12117546477,
+      "fileId": "file_000000002b2081f5b063900c8c398af1",
+      "filename": "GlimmerTown-Wave03-ten-building-originals-fa704ce.zip",
+      "zipSHA256": "e7a2da641911d4d6f2026948cfe59b9c46ae3d83cdf224ac6eb51bd6ac98fbba"
+    },
+    "completeScenes": {
+      "artifact": 12117911258,
+      "fileId": "file_00000000f778823084b2260c53961895",
+      "filename": "GlimmerTown-Wave03-complete-native-scenes-fa704ce.zip",
+      "zipSHA256": "ce81ee67a2ad0f85f36e14ec99b92d470c1feb4c781acdb3ba53f17ae5074da2"
+    }
   }
 }

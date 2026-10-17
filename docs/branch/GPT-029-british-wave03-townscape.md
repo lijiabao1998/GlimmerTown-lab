@@ -134,3 +134,21 @@ St Albans 已補讀 [HE 1103127](https://historicengland.org.uk/listing/the-list
 已重新實看 dd5 十款完整近景、新舊比較、日夜接觸表，以及接觸表被裁到的第四視角逐款日夜原 PNG。原生 80 張各自完整；我發現自己的接觸表 canvas 寬 880、四欄卻用 260 間距，造成最後欄截短。因此同筆只把自己 `probeBritishWave029.cjs` 兩個接觸表 canvas 加寬為 1040；位置、模型、原生圖、判準都不變，等新 CI 重產完整接觸表再覆看。大場景 log 的一張 summer PNG SHA 不合已丟棄，未當原圖或聲稱實看；冬景與十款近景均 SHA 合，新版完整 97 場景附件仍保留。公開頁、實體手機／Safari／觸控與逐張全部 97 場景仍未驗，不假勾。
 
 新版已實際通過 12 個目標首紅控制、三種子正常全欄配對、十款原生有費放置／各自 undo／redo／退款／參照格拆除、全保存兩輪；8／8 舊畫整幀閥逐位元相等，97 場景嚴格失敗 0、17 行人／兩個真負控制恢復、40 組 BASE／HEAD 交錯效能且暖畫新烘焙 0，30 筆真延遲控制首紅並恢復。這些 dd5 功能／像素證據不等於新基線提交後的最後 head 全綠，仍須等新 CI。第三波未合併、未部署，已發布仍 2／20。
+
+## fa704ce：修復後完整全綠；開草稿 PR 前第 8 節自檢
+
+最近實作 head `fa704ce0f03ed109ca924d94fe40935a5b5d3443`：常駐 push [39077425521](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425521) 三個 job 全 success（smoke 三次、fp、財務）；財務 job `117527373895` 原報告為 `{"ok":true,"checks":53,"negative":10,"failures":[]}`。自己的 [39077425528](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528) 十二個 job 全 success。沒有按 rerun；前述紅燈由提交最新原始基線修復，新 head 實際再驗。
+
+fp job `117527373823` 原摘要：「相對 base：新增 40／變更 0／移除 0，觸及家族 1」「與 fp.json 相比：新增 0／變更 0／移除 0，觸及家族 0（其餘 166 族零變動）」「風格分相對 base：沒有家族下降」「葉子、超街區指紋、棘輪、style.json 全部零變動」。沒有 envLeaves 警告；actual base git 仍為 `35be6a37`，JSON 內舊版本標籤依原始 CI 保留，不能手改。
+
+已實看原始 1040×2400 完整四欄日／夜／新舊對照三表；來源 fa704ce、index SHA256 `03109333eee1b65859fba2eb4a409ee72cb5f23026705c4fc128effa5a97e124`，與 dd5 遊戲及新圖來源逐位元相同。第四欄現在完整。80 張與三表的[原圖附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528/artifacts/12117546477)、[完整 97 場景附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528/artifacts/12117911258)均已保留；逐 SHA 記錄見 [visual-review.json](../assets/GPT-029/visual-review.json)。
+
+- [x] 動手前卡面已單獨推送；首筆只有 `bld`，家族與原驗收條件未改鬆。
+- [x] 三種子／三檢查點的正常獨立 BASE 全欄配對，十款真實有費交易、全部保存欄位新舊檔兩輪已驗；只容許宣告外觀 `b.v` 與精確版本遷移差，不剔除通知／region 等欄位。
+- [x] fp 只新增宣告 `bld` 40 葉；其餘舊葉／165 族／環境／街區零變；8／8 日夜四向獨立整幀閥逐位元相同。
+- [ ] 美術人工逐張全部 97 狀態未完成；CI 已涵蓋 57 狀態＋40 邊界且嚴格失敗 0，已人工看十款全部四向日夜、新舊比較、十款完整近景及冬雪場景。按 AGENTS §3 允許的此一人工覆核例外如實列未跑，實體手機／Safari／觸控亦未測；不假勾。
+- [x] 每條本卡新守衛已用真像素／合法原生來源或金錢／保存 API 反例證明首紅，並同判準恢復；含 12 原生控制、場景及整幀控制、17 行人／兩控制、暖烘焙與 30 筆真延遲控制。
+- [x] 上述最新實作 head 的原生 smoke 三次、fp、財務 53／10及自己的十二 job 全綠，不靠重跑。
+- [x] 未跑、代理 403、公站未實看、未發布與剩餘 review／版本／workflow 刪除門檻均已明列，沒有把文件或預覽計入完成波次。
+
+本筆僅把已取得的實際結果／原圖覆核記回文件，不改任何遊戲或判準。草稿 PR 開立後才依最新 main 配 T／三處版本字／日誌，版本後仍需完整原生驗收；自己的 workflow 最後一次整個 run 綠才以獨立刪除 commit 移掉，後續每一筆均確認不加回，Ready 後請新的 Codex review。第三波仍未發布，2／20不變。
