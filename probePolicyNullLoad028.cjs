@@ -21,7 +21,7 @@ async function session(name,source,fn,preScript=''){
   finally{fs.writeFileSync(file,head);}
 }
 function makeFixture(seed=87){
-  GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);GV.save();const freshWorldInput=JSON.parse(GV.rawSave());if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   const lots=[];
   for(let j=0;j<10;j++){
     let p;for(let y=4;y<66&&!p;y+=3)for(let x=4;x<66;x+=3)if(GV.placePreview459('landmark',x,y)?.ok){let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;if(clear){p={x,y};break;}}
@@ -31,7 +31,7 @@ function makeFixture(seed=87){
   }
   const last=lots.at(-1);if(!GV.undo()||!GV.redo()||!GV.placeUndo('doze',last.x+1,last.y+1)||!GV.undo())throw Error('policy028 final native ref transaction');
   GV.selectTool434('pan');GV.step(1);GV.weather(0);GV.setRot(0);GV.art574.zoom574(1.4);GV.lookAt(20,5);GV.save();
-  return{seed,lots,input:JSON.parse(GV.rawSave())};
+  return{seed,lots,freshWorldInput,input:JSON.parse(GV.rawSave())};
 }
 function roundtrip(input,sandbox=false,passes=2){
   GV.setSpeed(0);if(sandbox&&!GV.dev516B().sandbox)GV.enterSandbox516B();if(!sandbox&&GV.dev516B().sandbox)GV.exitSandbox516B();
@@ -64,7 +64,16 @@ function staticScope(){
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});check('source boundaries and unchanged existing acceptance',staticScope);
   const generated=await session('independent unmodified BASE fixture',base,cdp=>evaluate(cdp,makeFixture));archive('original-base-input.json',generated);
-  const input=generated.input;assert.equal(input.pol,null,'real native writer explicitly saved null');assert(!Object.hasOwn(input,'p504'),'real native writer omits empty optional p504');assert.equal(generated.lots.length,10);
+  assert.equal(generated.freshWorldInput.pol,null,'unmodified newWorld/native save explicitly writes null');
+  // The fresh transaction/render setup may materialize default policies before
+  // its last save. Exercise the nullable value actually written by newWorld in
+  // an otherwise initialized native specimen, with this input change declared
+  // before HEAD is run. This is a schema case, not a claim that the ten-lot
+  // freshly booted session reproduces GPT-027's entire preceding UI history.
+  const input={...generated.input,pol:generated.freshWorldInput.pol};
+  equal({...input,pol:generated.input.pol},generated.input,'explicit case changes exactly the native nullable policy value');
+  archive('explicit-null-specimen.json',{origin:'BASE native ten-transaction specimen; pol uses independently saved newWorld null',input,declaredInputDifferences:differences(generated.input,input)});
+  assert(!Object.hasOwn(input,'p504'),'real native writer omits empty optional p504');assert.equal(generated.lots.length,10);
   const active={...input,pol:{...defaults,taxR:1.2,recycle:true}},missing={...input};delete missing.pol;
   const baseCases=await session('unmodified BASE native loads',base,async cdp=>{const rows=[];for(const sandbox of[false,true])for(const [name,j]of[['null',input],['missing',missing],['active',active]])rows.push({name,sandbox,result:await evaluate(cdp,roundtrip,j,sandbox,3)});return rows;});archive('base-complete-native-rounds.json',baseCases);
   for(const q of baseCases.filter(q=>q.name==='null'))check('unmodified BASE first RED '+q.sandbox,()=>{for(const s of q.result.states.slice(1)){const d=firstRed('unmodified BASE '+q.sandbox,s,input,'pol');assert.deepEqual(d,[{path:'pol',before:null,after:defaults}]);}return{onlyChangedField:'pol',passes:3};});
