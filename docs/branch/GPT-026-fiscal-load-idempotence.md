@@ -80,6 +80,14 @@
 
 新 job 使用 fetch-depth:0、Node22、同字型、同一 `node probeFiscalLoad026.cjs`，失敗仍保留 JSON／畫布14天。這筆常態CI接入尚待當次實際run，不能沿用舊head綠燈宣稱通過；最後head的執行與附件另在PR33記錄。探針、fixture、產品與原有斷言沒有再改動。本PR因此包含常態CI變更，明確屬於AGENTS第3節不准GPT自行合併的範圍。
 
+### P1：歷史存檔與當次變更基底分工
+
+審查 discussion_r4296182098 成立：先前 staticChecks 把 fp.json、style.json 與守衛固定比對98545ff4，會阻擋之後合法美術重烘。本次修正不變更存檔欄位比較或負控制：歷史98545ff4僅保留原始缺陷／舊檔證據；當次來源檢查與正常配對由 `fiscalChangeBase026.cjs` 取PR事件base.sha、main push的before，分支則用merge-base origin/main。缺少PR基底即失敗，不退回歷史SHA。
+
+fp.json／style.json不再要求等於歷史檔案，而由未修改的 `fp.js --check` 對當前真正烘焙結果完整核對，並以當次變更基底報差異；守衛來源仍須等於當次基底。這是替換錯誤的永久檔案凍結判準，不是移除指紋／風格驗證。原始11995-byte fixture、stateCheck、roundtrip026、金額／history／游標負控制均保留。
+
+`probeFiscalArtCompat026.cjs` 與僅綁本分支的唯讀臨時workflow驗證：真實PR32美術與其有效重烘檔確實不同於財務分支；舊staticChecks須首紅於fp.json unchanged；新版須在獨立當次基底（另含無行為差異的守衛註解）通過完整38項／7負控制。額外修改守衛、錯誤新葉CRC及偽造風格分仍須命中各自既有守衛，還原有效基線GREEN。所有暫存輸入最後逐位元還原，不推送或部署。這筆相容性接入尚待當次CI，不沿用舊head綠燈。
+
 ### 未完成與合併邊界
 
 未合併部署。按 AGENTS 第3節及第7節第1步，涉及舊檔來回與正常模擬驗收的修補保留 [等業主] PR33，交由業主／main 寫入者審閱。尚未配合併用 T 號、版本及主線日誌。

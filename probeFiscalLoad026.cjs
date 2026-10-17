@@ -2,8 +2,10 @@
 // Native game execution belongs in GitHub Actions. Existing guards stay intact.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const {withGame,ROOT}=require('./harness.js');
+const {resolveChangeBase026}=require('./fiscalChangeBase026.cjs');
 const BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots','fiscal026'),index=path.join(ROOT,'index.html');
 const head=fs.readFileSync(index,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
+const changeBase=resolveChangeBase026(),comparisonSource=cp.execFileSync('git',['show',changeBase.sha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const raw=fs.readFileSync(path.join(ROOT,'fixtures','fiscal-load026','legacy.json'),'utf8'),fixture=JSON.parse(raw);
 const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
 const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
@@ -13,7 +15,7 @@ function stateCheck(actual,expected,label='all serialized fields'){
   if(serialized(actual)!==serialized(expected))console.log('FISCAL026_DIFF '+JSON.stringify({label,differences:stateDiff(expected,actual)}));
   assert.equal(serialized(actual),serialized(expected),label);
 }
-const report={head:process.env.GITHUB_SHA,base:BASE,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
+const report={head:process.env.GITHUB_SHA,base:BASE,changeBase,fixture:{bytes:Buffer.byteLength(raw),sha256:hash(raw)},checks:[],failures:[],negative:[],migrations:[],frames:[]};
 const check=(name,fn)=>{try{const detail=fn();report.checks.push({name,ok:true,...detail});console.log('GREEN '+name);return true;}catch(e){const failure={name,message:e.message.slice(0,1000)};report.failures.push(failure);console.error('RED '+JSON.stringify(failure));return false;}};
 const expectRed=(name,actual,expected)=>{let first;try{stateCheck(actual,expected,'all serialized fields');}catch(e){first=e.message.split('\n')[0];}assert.equal(first,'all serialized fields',name+' must first fail the full-state guard');report.negative.push({name,first,differences:stateDiff(expected,actual)});};
 const opt={port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>0.125',log:console.log};
@@ -76,9 +78,17 @@ const clone=v=>JSON.parse(JSON.stringify(v));
 function staticChecks(){
   assert.equal(hash(raw),'168d851165e275f3960483eadde80d2eb865f9502f3bd6ae728841519de6be12');
   for(const key of ['function fiscalSave515(', 'function fiscalLoad515(', 'function fiscalDailySettlement515(', 'function fiscalCompletionSettlement515(', 'const FISCAL_CADENCE515=']){
-    const line=s=>s.split('\n').find(x=>x.startsWith(key));assert(line(head),key+' exists');assert.equal(line(head),line(base),key+' byte-identical');
+    const line=s=>s.split('\n').find(x=>x.startsWith(key));assert(line(head),key+' exists');assert.equal(line(head),line(comparisonSource),key+' byte-identical relative to the change base');
   }
-  for(const file of ['fp.json','style.json','fp.js','harness.js','gallery.js'])assert.equal(cp.execFileSync('git',['diff',BASE,'--',file],{encoding:'utf8'}),'',file+' unchanged');
+  for(const file of ['fp.js','harness.js','gallery.js'])assert.equal(cp.execFileSync('git',['diff',changeBase.sha,'--',file],{encoding:'utf8'}),'',file+' unchanged relative to the change base');
+  // Legitimate art changes submit new baselines. Validate them against the
+  // actual renderer with the unchanged guard, rather than freezing old bytes.
+  const fpBase=path.join(OUT,'change-base-fp.json'),styleBase=path.join(OUT,'change-base-style.json');
+  for(const [file,target] of [['fp.json',fpBase],['style.json',styleBase]])fs.writeFileSync(target,cp.execFileSync('git',['show',changeBase.sha+':'+file]));
+  const fp=cp.spawnSync(process.execPath,[path.join(ROOT,'fp.js'),'--check','--report-base='+fpBase,'--report-base-style='+styleBase,'--dump='+path.join(OUT,'fp-rebake')],{cwd:ROOT,encoding:'utf8',maxBuffer:8*1024*1024,env:{...process.env,GITHUB_STEP_SUMMARY:''}});
+  fs.writeFileSync(path.join(OUT,'current-fp.txt'),(fp.stdout||'')+(fp.stderr||''));
+  assert.equal(fp.status,0,'current renderer fingerprints match the committed baselines; see current-fp.txt');
+  return{changeBase,fingerprintCheck:fp.status};
 }
 (async()=>{
  fs.mkdirSync(OUT,{recursive:true});
@@ -86,6 +96,7 @@ function staticChecks(){
   check('unchanged serialization, settlement functions, cadence and guards',staticChecks);
   const old=await session('independent BASE',base,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,true),frames:await evaluate(cdp,frames026),normal:await evaluate(cdp,normal026,31)}));
   check('BASE old defect is caught by the exact full-state guard',()=>{expectRed('unfixed BASE native load',old.load.states[1],fixture);assert(stateDiff(fixture,old.load.states[1]).some(x=>x.path.startsWith('fiscal515.history')));});
+  const reference=changeBase.sha===BASE?old:await session('independent change-base reference',comparisonSource,async cdp=>{await evaluate(cdp,roundtrip026,raw,true);return{frames:await evaluate(cdp,frames026),normal:await evaluate(cdp,normal026,31)};});
   const positives=await session('HEAD native cases',head,async cdp=>{
     const result={cases:[],legacy:[],negative:[]};
     for(const sandbox of [false,true]){
@@ -121,7 +132,7 @@ function staticChecks(){
     stateCheck(q.actual.states[2],migrated);stateCheck(q.actual.states[3],migrated);const migration={name:q.name,differences:stateDiff(q.input,migrated)};report.migrations.push(migration);console.log('FISCAL026_MIGRATION '+JSON.stringify(migration));
   });
   for(const q of positives.negative)check('live saved-state negative and restore '+q.name,()=>{expectRed(q.name,q.altered.states[2],fixture);stateCheck(q.restored.states[2],fixture);});
-  check('same-seed normal no-load BASE/HEAD world and all fiscal fields',()=>{const a=clone(positives.normal),b=clone(old.normal);delete a.force.scope;delete b.force.scope;stateCheck(a,b,'normal simulation equality');return{seed:31,horizons:[1,7,14]};});
+  check('same-seed normal no-load BASE/HEAD world and all fiscal fields',()=>{const a=clone(positives.normal),b=clone(reference.normal);delete a.force.scope;delete b.force.scope;stateCheck(a,b,'normal simulation equality');return{seed:31,horizons:[1,7,14],changeBase};});
   check('nonzero recurring and completion, same-day deduplication, force remains live',()=>{
     const q=positives.normal;assert(q.activated.every(x=>x.result.ok),'QA policy activation');assert(q.completion.moneyAfter>q.completion.moneyBefore);assert(q.completion.captured>0,'completion must pay a nonzero amount');assert(q.completion.settlements.some(x=>x.recurring>0),'recurring must be nonzero');assert.equal(q.duplicate.value,0);for(const p of q.points.slice(1))assert.equal(p.duplicate.value,0);assert.equal(q.force.historyAfter,q.force.historyBefore+1);assert.deepEqual(q.force.scope,{depth:0,active:false});
     return{completion:q.completion,dailyPoints:q.points.map(p=>({day:p.snapshot.stats.day,money:p.snapshot.stats.money,cursor:p.snapshot.fiscal.lastSettlementDay,duplicate:p.duplicate?.value})),force:q.force};
@@ -132,8 +143,8 @@ function staticChecks(){
   });
   const valve=await session('HEAD escape valve',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,true),frames:await evaluate(cdp,frames026)}),'window.__noFiscalLoad026=true');
   check('escape valve restores independent BASE full serialized behavior',()=>{stateCheck(valve.load.states,old.load.states);expectRed('HEAD valve restores loaded journal writes',valve.load.states[1],fixture);});
-  for(let i=0;i<old.frames.length;i++)check('complete native frame '+old.frames[i].name,()=>{
-    for(const [kind,list] of [['head',positives.frames],['valve',valve.frames]]){assert.equal(list[i].data,old.frames[i].data,'full frame '+kind);const bytes=Buffer.from(list[i].data.split(',')[1],'base64'),file=kind+'-'+list[i].name+'.png';fs.writeFileSync(path.join(OUT,file),bytes);report.frames.push({file,sha256:hash(bytes),bytes:bytes.length});}
+  for(let i=0;i<reference.frames.length;i++)check('complete native frame '+reference.frames[i].name,()=>{
+    for(const [kind,list] of [['head',positives.frames],['valve',valve.frames]]){assert.equal(list[i].data,reference.frames[i].data,'full frame '+kind);const bytes=Buffer.from(list[i].data.split(',')[1],'base64'),file=kind+'-'+list[i].name+'.png';fs.writeFileSync(path.join(OUT,file),bytes);report.frames.push({file,sha256:hash(bytes),bytes:bytes.length,changeBase:changeBase.sha});}
   });
   const anchor='const ok=__load515(slot);',cleanup='finally{fiscalLoadDepth026=previous026;}';
   assert.equal(head.split(anchor).length,2,'fault injection anchor unique');assert.equal(head.split(cleanup).length,2,'cleanup anchor unique');
