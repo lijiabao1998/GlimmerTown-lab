@@ -31,3 +31,29 @@ jobs:
           path: shots/policy028/
           if-no-files-found: error
           retention-days: 14
+  original-wave027-guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        guard: [native, normal-pairs]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Original art RED, independent repair candidate, unchanged full acceptance
+        run: node probePolicyWave027Compat028.cjs ${{ matrix.guard }}
+      - name: Preserve original guard logs and all native save fields
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: policy028-original-${{ matrix.guard }}-${{ github.sha }}
+          path: shots/policy028-compat/
+          if-no-files-found: error
+          retention-days: 14

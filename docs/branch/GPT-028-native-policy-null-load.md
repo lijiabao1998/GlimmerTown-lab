@@ -38,3 +38,13 @@
 後續將另保留未修改 main 的 newWorld→save 原始 null 值，事先明列 nullable schema 案例：使用完整且已初始化的原生十筆交易存檔，只把 pol 設為該獨立原生新局寫出的 null；輸入改動全數記錄。這是明確設計的有效存檔案例，並非聲稱它是 GPT-027 原始檔。以未修改 BASE 的實際載入、對原遷移分支的前後追蹤，再比修後完整欄位，驗證 nullable 存檔能否保持。完整輸出比較不排除 pol 或任何其他欄位。
 
 GPT-027 美術草稿 PR 曾被自動核准以超出最初 docs-only 授權拒絕，尚未建立。此卡不繞過該拒絕、不發布該美術 PR；只依業主最新要求處理讀檔紅燈。
+
+### 2d1bb264 的實際結果與下一步
+
+[39037388662](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39037388662)：smoke 三次、fp、原有 fiscal-load 全成功。fp 為166家族／3423葉，新增0／變更0／移除0，相對 base 觸及0；style165族一致、無下降，超街區1728項 CRC `5ef6eb67`。
+
+[39037388686](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39037388686)：新診斷整組仍紅，10項成功、6筆負控制紀錄，不宣稱完成。修補後 nullable 案例已不改 pol；原生缺 pol、非預設既成政策、已存在 p504 的修前修後完整結果相同。來源故障與逃生閥都重現 pol 首紅。
+
+但這個新造案例另暴露 gov513.lastAggregateDay 從1變2；首次 trace 還混到進城時的呼叫；跨原生 undo 的 BASE／HEAD 起點也因修補真的改到 undo 內部載入而出現預期 pol 差異。額外14日續跑在 inn507.talentStock／talentPipeline 有0.0001差異，完整畫布比較亦紅。所有比較、失敗與原始 JSON 保留；不把這些整組驗收寫成綠，不排除上述欄位，不修改遊戲其他子系統來湊過。
+
+下一步用 CI 暫時讀取原美術 head9aa8a42，先以原 native／normal-pairs 斷言重現 pol 紅，再僅套入獨立2d1bb264修補候選；對照 BASE 也改為這個真實獨立修補 commit。原斷言／容忍值／欄位比較逐位元保留，只追加在斷言之前存原始輸入輸出的證據，並明列候選未合入 main。兩支工作平行執行，不部署、不推送、不改原美術分支；CI暫存檔最後還原。
