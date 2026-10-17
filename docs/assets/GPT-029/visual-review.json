@@ -1,19 +1,20 @@
 {
   "wave": 3,
-  "status": "prior-source visual observations; round-headed window correction pending new CI and manual image inspection",
+  "status": "rounded-window source native images inspected; baseline and complete contact-width correction awaiting new head CI",
   "base": "35be6a37ebc672c90e9406c50c32e157e8701196",
-  "artSourceSHA256": "9519e4ca8fdc82b4cf1a97a099fb5b919f86285f12fbe032a88a79955576ad79",
-  "nativeIndexBlob": "a3525c1e4e4bdbca6114addc7509eed1d10e29ec",
-  "contactsSourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
-  "nearSourceHead": "12b928a0efe22eb3f91494c47d9cde1e47b13828",
-  "sourceParity": "672c799 and 12b928a historical captures share exact prior art bytes. Current own arch function now uses a semicircle; these old PNGs are not claimed as current-source acceptance.",
+  "artSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc",
+  "nativeIndexBlob": "a6c83ec7f0cf940665b5a9edd41a348ca1ff8fbe",
+  "contactsSourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+  "nearSourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+  "sourceParity": "All current inspected PNGs come from dd5d674 with round-headed arch geometry; all ten complete near frames and 80 native sprite views were examined. The native contact canvas clipped the fourth column, so all twenty fourth-view day/night originals were inspected separately; only the own contact canvas width is corrected from 880 to 1040 for the next CI. No game pixel or guard criterion is changed by that contact correction.",
   "inspected": {
-    "allTenFormsDayNightFourViewContacts": true,
+    "allTenFormsDayNightFourViewContacts": false,
     "oldNewComparison": true,
     "allTenCompleteNearScenes": true,
     "all97IndividualStates": false,
     "livePublicPages": false,
-    "physicalMobileSafariTouch": false
+    "physicalMobileSafariTouch": false,
+    "all80NativeSpritesIncludingSeparateFourthColumn": true
   },
   "rows": [
     {
@@ -22,7 +23,7 @@
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1103127",
       "nearFile": "near-stalbans.png",
       "bytes": 519859,
-      "sha256": "62fe283a5d6a6aabe1826b116421a5a5abaa0d40ee331b3f8f90d6fb1f66b2ec",
+      "sha256": "af2ed5d06b34934fa1f3a1177de8bfeecea6dfdc6fd5c313abfe3315998453d6",
       "observation": "四段收窄鐘樓、雙面大鐘與獨立頂部，與四角凸塔的 Tattershall 有結構差別。"
     },
     {
@@ -30,8 +31,8 @@
       "name": "Bessie Surtees House",
       "source": "https://www.english-heritage.org.uk/visit/places/bessie-surtees-house/",
       "nearFile": "near-bessie.png",
-      "bytes": 488198,
-      "sha256": "b5c139b6db965ee89c4f91096e299d7591fe6bad7d83f976bb8a74b56b9c9ae5",
+      "bytes": 488291,
+      "sha256": "6efaf708fd07467fe372b6fc7c58351ed38ad96a8f904b5fa8e9f9db9fe21fd1",
       "observation": "五層高商人雙屋與逐層挑出立面，對比 Lavenham 的低長廳；並非後者換色。"
     },
     {
@@ -39,8 +40,8 @@
       "name": "Ipswich Ancient House",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1037756",
       "nearFile": "near-ancient.png",
-      "bytes": 449984,
-      "sha256": "b0803ec2ee9f6d2dc3f10a2fb145218dbc1247afc9605ac84b1e8f27987eee9e",
+      "bytes": 449872,
+      "sha256": "ba74750cf8f5c826b1b41aa3b5d338326fbe921d7e1df7bbc19e980a50f152e0",
       "observation": "圓凸窗、L 側翼與四山牆窗形成輪廓，前後角度可見後院；與 Moreton 的木廊庭院不同。"
     },
     {
@@ -48,8 +49,8 @@
       "name": "Pulteney Bridge",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1394514",
       "nearFile": "near-pulteney.png",
-      "bytes": 413119,
-      "sha256": "ed3e0c4b38bfa60fa5af0eda07060216805a93d106683151fc93cef6758ca556",
+      "bytes": 412867,
+      "sha256": "b4d2e4d536dbdc833b253fdbab983257eb57321836ad74dcf19d75a2f89bce3e",
       "observation": "三個橋下拱與狹長雙列店屋、南面端亭與北面坡頂有差別，與雙排山牆市場廳不同。"
     },
     {
@@ -57,8 +58,8 @@
       "name": "Halifax Piece Hall",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1273056",
       "nearFile": "near-piecehall.png",
-      "bytes": 418774,
-      "sha256": "a4a12d10edefd324f13c8b46b4ae3d4813904dfe5a7194c49fa193faeb7e13ed",
+      "bytes": 418498,
+      "sha256": "7067b32cec0cf931efb9ef99de86b9d3f459494a184073dd46e5b6fa3968ce44",
       "observation": "朝內柱廊與四翼空院，東西樓高不同；外側以盲石牆保留原型，不將空院填實。"
     },
     {
@@ -66,8 +67,8 @@
       "name": "Manchester Royal Exchange",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1200826",
       "nearFile": "near-exchange.png",
-      "bytes": 422250,
-      "sha256": "f5d8853648c0edeee2eb6691c695da7223efa70e5018b985ded706a987cc7035",
+      "bytes": 421794,
+      "sha256": "fa079a37b9cb86db609d90ee0c6cf07c07506231225dd9e1e60a09be8bd0f622",
       "observation": "三個玻璃穹頂、孟莎頂與角塔、巨拱窗，與 Birmingham 的低展廳／方鐘塔不同。"
     },
     {
@@ -75,8 +76,8 @@
       "name": "Chichester Market Cross",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1005890",
       "nearFile": "near-chichester.png",
-      "bytes": 413854,
-      "sha256": "d80bd307b763b51ab175fe3d7dde8dac3af53b56bb1f7027d3da2fe74a8d5a54",
+      "bytes": 413742,
+      "sha256": "0ddb8090bc927e5f652ee37e1e55eff7403a37753312e4ae3669c8cc5c4d10f0",
       "observation": "八角透空底部與匯聚石頂、扶壁尖飾與中央鐘亭，與 Dunster 的木頂檐亭不同。"
     },
     {
@@ -84,8 +85,8 @@
       "name": "Willis Building Ipswich",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1237417",
       "nearFile": "near-willis.png",
-      "bytes": 402239,
-      "sha256": "dfa722f3215ebb91822f5cabb6e753a031eb2d36c1d20340d4111f6845a5d7cb",
+      "bytes": 402354,
+      "sha256": "e0edd9a0992e27dc17ac2b59c9352bbe4a20585fee02730489b9b665afec523d",
       "observation": "低曲面銅色玻璃牆、草頂綠籬與退縮頂亭，日夜照明在玻璃範圍；與 Preston 的開敞層板不同。"
     },
     {
@@ -93,8 +94,8 @@
       "name": "Castle Cary Round House",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1056279",
       "nearFile": "near-roundhouse.png",
-      "bytes": 390125,
-      "sha256": "9fcfb91491b75e4b856a5a8ba94f94ea52fa63d0d552df0dc3be88cb0cacc63b",
+      "bytes": 390038,
+      "sha256": "2f7f2deefd4ba3d324bde333f3a8e96e857b77ac5086bb373ffa3ce585afedc0",
       "observation": "小圓石屋及蜂巢頂、四級門階，刻意保留實物的小量體；與 Arnos 寬基座／玻璃筒／大平圓盤不同。"
     },
     {
@@ -102,43 +103,52 @@
       "name": "Faversham Guildhall",
       "source": "https://historicengland.org.uk/listing/the-list/list-entry/1343844",
       "nearFile": "near-faversham.png",
-      "bytes": 425648,
-      "sha256": "9917959508dff0b0a9c0e8a17ef03d20494e1569692a5d899b81c43e84983042",
+      "bytes": 425802,
+      "sha256": "249a42c4c1812731eff1ccb721457234aacbb3810a0b3cb5274ade6d4747c00d",
       "observation": "上層廳架在三排柱上、端部山花及角鐘塔鉛頂，與 Guildford 的落地窄木立面不同。"
     }
   ],
   "blockingVisualFindings": [],
   "unresolvedAcceptance": [
-    "fresh round-headed current-source images and complete native/normal/scene/pedestrian/performance CI",
-    "fresh raw fingerprint baseline from this new push",
+    "new head CI with copied raw dd5 fingerprint baseline and full-width contacts",
     "latest head review, main and automatic Pages"
   ],
   "contactFiles": [
     {
       "file": "contact-day.png",
-      "sourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
-      "sha256": "4c9c46b83879bfb092a981b9ddab4d82969ba6a47d6101998c74d20f32152a65"
+      "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+      "sha256": "d3f96b6d886d0a5c86600097909663d9f7c57a4841f1916b8085442c6fe0e83a",
+      "width": 880,
+      "height": 2400,
+      "fourthColumnClipped": true
     },
     {
       "file": "contact-night.png",
-      "sourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
-      "sha256": "453be9c4a55ec96de21b47ecab18a9b7070a73196a71c672d0d5c1c4255c30b6"
+      "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+      "sha256": "a8297a21314f4173221c8d312d0e3eb942891607bb49670731b5fd550aab32c1",
+      "width": 880,
+      "height": 2400,
+      "fourthColumnClipped": true
     },
     {
       "file": "contact-comparison.png",
-      "sourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
-      "sha256": "bae32a113f3ebf29c94e2fe85a623817c7ef6768c47f1344eecd4d87e7f82253"
+      "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+      "sha256": "906ec19e8da93fa8ec3d5af10e5e7791dc114d47ab88092af1cff9dd6a04ccb8",
+      "width": 880,
+      "height": 2400,
+      "fourthColumnClipped": true
     }
   ],
   "limits": [
     "Full-scene PNGs are original GitHub Actions captures, not current public-site viewing.",
     "All 97 state/edge images were not individually manually inspected.",
-    "Models are compressed 2x2 original interpretations, not measured replicas."
+    "Models are compressed 2x2 original interpretations, not measured replicas.",
+    "One summer scene decoded from the large CI log failed SHA verification and was discarded, never viewed or presented as original. All ten near frames, winter frame, native sprite files and their manifests passed exact SHA checks. The complete original scene artifact remains available."
   ],
   "pedestrianFixture": {
-    "head": "d70f9db18ed9d13eba46723f2866f5e231fb2a16",
-    "run": 39051795766,
-    "job": 117451723051,
+    "head": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+    "run": 39076844632,
+    "job": 117525648866,
     "cases": 17,
     "failures": 0,
     "liveFirstRedControls": 2,
@@ -148,18 +158,42 @@
     "assertionsUnchanged": true
   },
   "preBaselineCI": {
-    "head": "d70f9db18ed9d13eba46723f2866f5e231fb2a16",
-    "ownRun": 39051795766,
+    "head": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+    "ownRun": 39076844632,
     "ownJobsSuccess": 11,
-    "ownExpectedRed": "baseline-evidence; old committed fp lacks the declared 40 leaves",
-    "pushRun": 39051795784,
-    "smoke": "3 success",
-    "fiscal": {
-      "checks": 52,
-      "negative": 10,
-      "onlyFailure": "current renderer fingerprints match committed baselines; its nested fp check remains RED before baseline submission"
-    }
+    "ownExpectedRed": "baseline-evidence; committed pre-round-headed baseline differs in 12 declared bld leaves and bld style; actual main still only +40 new leaves",
+    "pushRun": 39076844733,
+    "smoke": "3 success; fiscal still running at this record"
   },
-  "inspectedArtSourceSHA256": "9519e4ca8fdc82b4cf1a97a099fb5b919f86285f12fbe032a88a79955576ad79",
-  "currentArtSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc"
+  "inspectedArtSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc",
+  "currentArtSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc",
+  "historicalReview": {
+    "artSourceSHA256": "9519e4ca8fdc82b4cf1a97a099fb5b919f86285f12fbe032a88a79955576ad79",
+    "nativeIndexBlob": "a3525c1e4e4bdbca6114addc7509eed1d10e29ec",
+    "contactsSourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
+    "nearSourceHead": "12b928a0efe22eb3f91494c47d9cde1e47b13828"
+  },
+  "nativeIndexSHA256": "03109333eee1b65859fba2eb4a409ee72cb5f23026705c4fc128effa5a97e124",
+  "rawBaseline": {
+    "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+    "run": 39076844632,
+    "job": 117525648867,
+    "artifact": 12117885317,
+    "name": "fp-dd5d674000936e10e2cb4295b7d35904e68825ba",
+    "zipSHA256": "ab37528f0c7c89d36a3ca35e231f6732ea00659b8c0d092f773cc3dbbd8646a6",
+    "files": [
+      {
+        "name": "fp.json",
+        "head": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+        "bytes": 382823,
+        "sha256": "4236cf342e39003b2674f99d529a9c164d00b7b556cd0324e20e15ac552be72d"
+      },
+      {
+        "name": "style.json",
+        "head": "dd5d674000936e10e2cb4295b7d35904e68825ba",
+        "bytes": 73168,
+        "sha256": "e36dc20590d9fb11332b2363ff2e450c2650d60c1e2c47f5b203a4d7f4b663e4"
+      }
+    ]
+  }
 }

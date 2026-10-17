@@ -34,12 +34,12 @@ function originalImages(){
   if(!data.ok||data.leaves.length!==40)throw Error('wave029 forty actual installed leaves');
   const contacts={};
   for(const mode of['day','night']){
-    const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
+    const c=document.createElement('canvas');c.width=1040;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
     a.rows().forEach((q,i)=>{for(let view=0;view<4;view++){const x=view*260,y=i*240,s=spr['24_1_'+(q.v+view)];g.drawImage(s.img,x+30,y+25);if(mode==='night'){g.fillStyle='#081314';g.fillRect(x+30,y+25,s.w,s.h);g.globalAlpha=.25;g.drawImage(s.img,x+30,y+25);g.globalAlpha=1;g.drawImage(s.night,x+30,y+25);}g.fillStyle='#eee3cb';g.font='12px sans-serif';g.fillText(q.en+' · '+view,x+8,y+14,248);}});
     contacts[mode]=c.toDataURL('image/png');
   }
   const comparisons=[[240,168],[244,100],[248,104],[252,212],[256,104],[260,220],[264,164],[268,204],[272,208],[276,216]],old=[...GV.heritage024.rows(),...GV.britishWave025.rows(),...GV.britishWave027.rows()];
-  const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
+  const c=document.createElement('canvas');c.width=1040;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
   comparisons.forEach(([v,ov],i)=>{const nr=a.rows().find(r=>r.v===v),or=old.find(r=>r.v===ov);for(let j=0;j<4;j++){const isNew=j%2===0,view=j<2?0:2,s=spr['24_1_'+((isNew?v:ov)+view)],x=j*260,y=i*240;g.drawImage(s.img,x+30,y+25);g.fillStyle=isNew?'#eee3cb':'#a6b6a6';g.font='12px sans-serif';g.fillText((isNew?'NEW ':'OLD ')+(isNew?nr.en:or.en)+' / '+view,x+8,y+14,248);}});
   contacts.comparison=c.toDataURL('image/png');
   return{images:data.leaves,contacts};
