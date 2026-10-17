@@ -1,4 +1,4 @@
-name: wave039-native
+name: wave029-native
 on:
   push:
     branches: ['gpt/british-wave03-029']
@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: wave039-native
+  group: wave029-native
   cancel-in-progress: true
 jobs:
   preview:
@@ -27,8 +27,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wave039-preview-${{ github.sha }}
-          path: shots/wave039/preview/
+          name: wave029-preview-${{ github.sha }}
+          path: shots/wave029/preview/
           retention-days: 14
           if-no-files-found: error
   native:
@@ -48,8 +48,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave039-native-${{ github.sha }}
-          path: shots/wave039/
+          name: wave029-native-${{ github.sha }}
+          path: shots/wave029/
           if-no-files-found: error
           retention-days: 14
   scenes:
@@ -71,8 +71,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave039-scenes-${{ github.sha }}
-          path: shots/wave039/scenes/
+          name: wave029-scenes-${{ github.sha }}
+          path: shots/wave029/scenes/
           if-no-files-found: error
           retention-days: 14
   pedestrians:
@@ -94,8 +94,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave039-pedestrians-${{ github.sha }}
-          path: shots/wave039/pedestrians/
+          name: wave029-pedestrians-${{ github.sha }}
+          path: shots/wave029/pedestrians/
           if-no-files-found: error
           retention-days: 14
   normal-pairs:
@@ -115,8 +115,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave039-normal-pairs-${{ github.sha }}
-          path: shots/wave039/normal-pairs/
+          name: wave029-normal-pairs-${{ github.sha }}
+          path: shots/wave029/normal-pairs/
           if-no-files-found: error
           retention-days: 14
   performance:
@@ -136,8 +136,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave039-performance-${{ github.sha }}
-          path: shots/wave039/performance/
+          name: wave029-performance-${{ github.sha }}
+          path: shots/wave029/performance/
           if-no-files-found: error
           retention-days: 14
   baseline-evidence:
@@ -165,7 +165,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wave039-fp-rebake-${{ github.sha }}
+          name: wave029-fp-rebake-${{ github.sha }}
           path: fp-rebake/
           if-no-files-found: error
           retention-days: 14
@@ -183,8 +183,8 @@ jobs:
           node-version: 22
       - uses: actions/download-artifact@v4
         with:
-          name: wave039-scenes-${{ github.sha }}
-          path: shots/wave039/scenes/
+          name: wave029-scenes-${{ github.sha }}
+          path: shots/wave029/scenes/
       - name: Transfer two byte-exact already captured close scenes
         env:
           WAVE029_SCENE_PART: ${{ matrix.part }}

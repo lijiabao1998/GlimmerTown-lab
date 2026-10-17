@@ -26,7 +26,7 @@ function case029(spec){
     if(ped&&fault==='drop')return;
     if(ped&&fault==='before')return;
     if(img===installed.img&&fault==='before'&&inject){stamp(inject.img,inject.args);events.push({kind:'ped',type:ft,seq:seq++,args:inject.args.slice()});}
-    if(img===installed.img)events.push({kind:'root',seq:seq++,args:args.slice()});
+    if(img===installed.img)events.push({kind:'root',seq:seq++,args:args.slice(),alpha:g.globalAlpha,smoothing:g.imageSmoothingEnabled,composite:g.globalCompositeOperation,transform:Array.from(['a','b','c','d','e','f'],k=>g.getTransform()[k])});
     else if(ped)events.push({kind:'ped',type:ped.type,seq:seq++,args:args.slice()});else seq++;
     return original.call(this,img,...args);
   }
@@ -47,10 +47,10 @@ function case029(spec){
     // selected by the fixed native clock when building the coverage mask.
     const actor=actors[which==='front'?0:1].c,fr=Math.floor(phase*3+actor.hx*.7)%2,pglyph=SPR.ped[ped.type][fr];
     const m=document.createElement('canvas');m.width=W;m.height=H;const gg=m.getContext('2d');gg.imageSmoothingEnabled=false;gg.drawImage(pglyph.img,...ped.args);const pa=gg.getImageData(0,0,W,H).data;
-    let overlap=0,changed=0,occludedChanged=0,visible=0;
-    for(let p=0;p<W*H;p++){const i=p*4;if(!pa[i+3])continue;visible++;const d=baseline.pixels[i]!==shot.pixels[i]||baseline.pixels[i+1]!==shot.pixels[i+1]||baseline.pixels[i+2]!==shot.pixels[i+2];if(d)changed++;if(body[i+3]===255){overlap++;if(d)occludedChanged++;}}
+    let overlap=0,changed=0,occludedChanged=0,visible=0;const diagnosticPixels=[];
+    for(let p=0;p<W*H;p++){const i=p*4;if(!pa[i+3])continue;visible++;const d=baseline.pixels[i]!==shot.pixels[i]||baseline.pixels[i+1]!==shot.pixels[i+1]||baseline.pixels[i+2]!==shot.pixels[i+2];if(d)changed++;if(body[i+3]===255){overlap++;if(d){occludedChanged++;if(diagnosticPixels.length<20)diagnosticPixels.push({x:p%W,y:Math.floor(p/W),body:Array.from(body.slice(i,i+4)),base:Array.from(baseline.pixels.slice(i,i+4)),actual:Array.from(shot.pixels.slice(i,i+4)),actor:Array.from(pa.slice(i,i+4))});}}}
     checks.push([which==='front'?'ped029 foreground visible':'ped029 opaque building occludes rear',which==='front'?changed>0:overlap>0&&occludedChanged===0]);
-    return{checks,ped,overlap,changed,occludedChanged,visible};
+    return{checks,ped,overlap,changed,occludedChanged,visible,diagnosticPixels};
   }
   const offsets={back:[[-1.01,.7],[.7,-1.01],[-1.1,.4],[.4,-1.1],[-1.1,-.1],[-.1,-1.1],[-1.4,.2],[.2,-1.4]],front:[[1.01,.6],[.6,1.01],[1.1,-.1],[-.1,1.1],[1.3,.2],[.2,1.3],[1.4,-.2],[-.2,1.4]]};
   const selected={};
@@ -76,7 +76,7 @@ function case029(spec){
     const restored=metrics(capture(selected.front.p,null),'front');if(restored.checks.some(c=>!c[1]))throw Error('ped029 restoration must GREEN');
   }
   const combined=capture(selected.front.p,selected.back.p);
-  const clean=which=>({world:selected[which].p,overlap:selected[which].m.overlap,visible:selected[which].m.visible,changed:selected[which].m.changed,occludedChanged:selected[which].m.occludedChanged,checks:selected[which].m.checks,events:selected[which].events});
+  const clean=which=>({world:selected[which].p,overlap:selected[which].m.overlap,visible:selected[which].m.visible,changed:selected[which].m.changed,occludedChanged:selected[which].m.occludedChanged,checks:selected[which].m.checks,diagnosticPixels:selected[which].m.diagnosticPixels,events:selected[which].events});
   for(const r of actors)r.c.at=0;
   return{spec,front:clean('front'),back:clean('back'),failures,firstRed,combined:combined.url(),frontImage:selected.front.data,backImage:selected.back.data,w:W,h:H};
 }
@@ -89,5 +89,6 @@ function case029(spec){
     if(cdp.errors.length)throw Error(cdp.errors.join('; '));return true;
   });
   if(!r.ok)report.failures.push(...r.fails);fs.writeFileSync(path.join(OUT,'manifest-pedestrians.json'),JSON.stringify(report,null,2)+'\n');
+  for(const q of report.cases)console.log('ped029 EXACT_CASE '+JSON.stringify({spec:q.spec,front:q.front,back:q.back,failures:q.failures,firstRed:q.firstRed}));
   assert(r.ok&&report.failures.length===0,'ped029 strict failures: '+report.failures.join('; '));console.log('ped029 GREEN: '+report.cases.length+' native day/night/view cases, physical draw and depth/occlusion checks; two live first-RED controls and restored GREEN.');
 })().catch(e=>{console.error(e.stack);process.exitCode=1;});
