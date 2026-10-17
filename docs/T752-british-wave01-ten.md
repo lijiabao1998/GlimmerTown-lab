@@ -1,6 +1,6 @@
-# GPT-025 — 第一波：十座不同形制的英式建築（20 波之 1）
+# T752 — 第一波：十座不同形制的英式建築（原 GPT-025，20 波之 1）
 
-> 現況（2026-10-17）：第一波圖片已獲業主批准，PR32 已同步獨立修復 main；6205572 三套 CI 全綠，完整舊檔往返守衛已恢復。業主另明確允許轉正式、合併並發布十棟。本卡正依規清理 workflow 及配發布號，尚未合併／部署。
+> T752 · v14.45（原 GPT-025）：第一波十棟及發布已獲業主批准；完整原生重驗全綠。最後發布提交須標準 CI 全綠才合；實際合併與自動 Pages 結果以 PR32 為準。
 
 ## 授權與本輪邊界
 
@@ -85,7 +85,7 @@
 - [原生驗證run 38881795344](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38881795344/job/116910033269)：native步驟成功。十個實際目錄按鈕、每項原生有限錢扣款$2000、三組seed31／71／103新舊配對相同、兩次save/load保留外觀、原地標／T748選擇互斥、undo／redo／參照格拆除均已執行。不是完整舊存檔全欄位兼容證明。
 - 同run的七個活體首紅負控制均命中並恢復回綠：缺葉、錯尺寸、透明天空漏夜光、半透明像素、裁切、作者同幾何、實際SPR複製。旋轉與費用等額外負控制仍待補，不把七個說成全部。
 - [最初提交煙霧run](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38880647747/job/116906289039)三次全綠；新基線提交之後仍須重新等最後head的煙霧與fp。
-- 實際SPR的40葉／80張原始日夜PNG在[原生附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38881795344/artifacts/12037802788)。[日接觸表](../assets/GPT-025/contact-day.png)、[夜接觸表](../assets/GPT-025/contact-night.png)、[原始manifest](../assets/GPT-025/manifest.json)為該run原始位元，沒有重畫或合成替代產品精靈；夜接觸表是0.25日圖＋實體夜光的標示預覽，不冒稱遊戲整幀。
+- 實際SPR的40葉／80張原始日夜PNG在[原生附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38881795344/artifacts/12037802788)。[日接觸表](assets/GPT-025/contact-day.png)、[夜接觸表](assets/GPT-025/contact-night.png)、[原始manifest](assets/GPT-025/manifest.json)為該run原始位元，沒有重畫或合成替代產品精靈；夜接觸表是0.25日圖＋實體夜光的標示預覽，不冒稱遊戲整幀。
 - 已肉眼看40個四向日圖及40個夜光預覽：低16角屋、開放8角市亭、高磚四角塔、六塔玻璃廳、雙塔石廳與木門樓、柱廊穹頂方宅、不對稱高低山牆、懸挑L形現代宅、鋼棚扶壁滑門、低石鴿舍形制各異。仍需完整遊戲場景和既有近似款的對照，不僅憑名稱不同認定不重複。
 
 ### CI基線來源與七軸
@@ -119,7 +119,7 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 [PR #32](https://github.com/lijiabao1998/GlimmerTown-lab/pull/32)於2026-10-16 09:45:21 UTC建立，滿12小時為21:45:21 UTC。只等時間不會消除紅燈；目前不能合併，未配T號、未改版本或main日誌、未部署。
 
 - `7cf8393`的新增負控制最初錯用封裝內部vdraw574，CI報ReferenceError；`489d8ce`改成合法源碼負例後，唯一定位又撞到舊輯同樣片段。`048a0db`以GPT-025函式全名唯一定位，先在本地只做源碼唯一性／87段腳本語法檢查，沒有本地啟動遊戲。其後[run38884127895](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38884127895/job/116917645996)及[run38884848648](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38884848648/job/116919987561)的native步驟皆綠：原七項加空圖、實際API多扣$1、合法源碼凍結相機選擇，共十項首紅與恢復回綠。不是把探針ReferenceError當成目標守衛首紅。
-- [新舊形制對照表](../assets/GPT-025/contact-comparison.png)源自489d8ce的實際SPR，SHA-256 `e07098eadcdc1208eefe2037aef855da928872b1c6b1e8874ac0dde18f517459`。已肉眼對照：阿拉隆德／Orford、Dunster／Coxwell、Tattershall／Orford、Hardwick／Kew、Stokesay／Little Moreton、Chiswick／Dunmore、Cragside／Little Moreton、Homewood／De La Warr、Cardington／Flaxmill、Willington／Coxwell，平面、屋頂、窗型與量體有差異，不是換色。
+- [新舊形制對照表](assets/GPT-025/contact-comparison.png)源自489d8ce的實際SPR，SHA-256 `e07098eadcdc1208eefe2037aef855da928872b1c6b1e8874ac0dde18f517459`。已肉眼對照：阿拉隆德／Orford、Dunster／Coxwell、Tattershall／Orford、Hardwick／Kew、Stokesay／Little Moreton、Chiswick／Dunmore、Cragside／Little Moreton、Homewood／De La Warr、Cardington／Flaxmill、Willington／Coxwell，平面、屋頂、窗型與量體有差異，不是換色。
 - `048a0db`的舊檔完整欄位測試第一次紅；基底98545ff與分支的整個前後結果陣列相同，但兩者自己load/save都會改欄位。`613eb06`再由BASE實際原生load/save兩次產生舊檔並跨版本載入，仍紅。已查明不是僅首次正規化：`fiscal515.history`每次load都追加同日財政紀錄（如「結構餘額 $0｜同步 66%｜壓力 19%」），兩次load新增兩筆。這是既有基底行為，沒有在本美術卡改存檔或刪欄位來掩蓋。
 - 依《迭代不改壞標準》第7節「同一件事試2次沒進展就停」及AGENTS第7節卡住流程，停止在本美術卡修這條門檻，標`[卡住]`並將另卡修補列最前。仍保留原先「所有欄位不變」斷言；後續只把嚴格失敗先記錄，繼續獨立場景取圖，最後仍以非零結束，不讓工作流假綠。舊檔負控制因正向守衛在BASE已紅而未跑，不假稱驗證過。
 - 目前smoke與fp曾在af572b2、048a0db等head取得綠燈；整個專屬workflow仍因嚴格舊檔守衛紅，不能移除它來自合。後續新增外觀的undo／redo／退款／參照格拆除恢復與額外交易首紅仍待本次CI實測；完整場景、整幀及其負控制結果也仍待收集。未做成事項保持明列，不把取得原圖當成通過全部驗收。
@@ -133,13 +133,13 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 測試原始碼提交：`e4ec74ae364d3f4db2d5e8cc5a78b5a11af23522`；以下圖片與JSON全是該次CI原檔，核對長度及SHA-256後保存到本卡assets，沒有重畫圖片或手改測試數字。後續僅文件／原圖保存提交不改產品或守衛。
 
 - [標準smoke＋fp run38886837187](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38886837187)：兩個job均success；smoke三次。fp相對倉庫新增0／變更0／移除0，超街區、棘輪及style全部零變動；相對base只新增宣告bld40葉，舊3383葉／其餘165族／完整1728超街區不變，無envLeaves警告、無家族總分下降。七軸仍如上表，lightDir單軸下降照實保留。
-- [專屬run38886837333／job116926526541](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38886837333/job/116926526541)：native步驟success，十一項首紅負例及恢復全部通過；十項真目錄、有費放置各$2000、三組同種子配對、十種v保存來回、新外觀undo／redo／退款／參照拆除及拆除undo恢復均已跑。[原生結果JSON](../assets/GPT-025/native-results.json)。
-- **整幀8／8相同**：採用原地標舊檔fixture，比較基底與閥關版本的完整1280×657原生遊戲畫布；白天／夜間各四向，PNG位元及像素完全一致。這是列明fixture的完整畫布對照，沒有窮舉所有玩家保存場景；十種新外觀另驗證閥關時vdraw回退原圖0、選擇拒絕。使用既有T695水面幀輸入0、同visT與鏡頭，不關任何渲染層。實際畫布改壞一像素，首紅落在整幀守衛；真draw重畫後再回綠。[完整場景結果JSON](../assets/GPT-025/scene-results.json)。
+- [專屬run38886837333／job116926526541](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38886837333/job/116926526541)：native步驟success，十一項首紅負例及恢復全部通過；十項真目錄、有費放置各$2000、三組同種子配對、十種v保存來回、新外觀undo／redo／退款／參照拆除及拆除undo恢復均已跑。[原生結果JSON](assets/GPT-025/native-results.json)。
+- **整幀8／8相同**：採用原地標舊檔fixture，比較基底與閥關版本的完整1280×657原生遊戲畫布；白天／夜間各四向，PNG位元及像素完全一致。這是列明fixture的完整畫布對照，沒有窮舉所有玩家保存場景；十種新外觀另驗證閥關時vdraw回退原圖0、選擇拒絕。使用既有T695水面幀輸入0、同visT與鏡頭，不關任何渲染層。實際畫布改壞一像素，首紅落在整幀守衛；真draw重畫後再回綠。[完整場景結果JSON](assets/GPT-025/scene-results.json)。
 - **工作流整體仍failure**，唯一嚴格失敗是舊檔兩次來回新增fiscal歷史，沒有吞錯：`matchesBase:true`、`allFieldsEqual:false`；第一次新增`fiscal515.history.4`，第二次新增`.4`及`.5`。源頭在[BASE fiscalStep515的force聚合分支](https://github.com/lijiabao1998/GlimmerTown-lab/blob/98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e/index.html#L97653)；`fiscalLoad515`保留history後，強制重算仍追加。這是已核對的新舊一致行為，不能寫成完整舊存檔守衛通過。舊檔首紅負例因其正向在BASE已紅而未跑。
 
 ### 桌面Chromium遊戲畫布圖與狀態範圍
 
-[夏季十座總覽](../assets/GPT-025/native-summer.png)／[冬季積雪十座總覽](../assets/GPT-025/native-winter-snow.png)／[Tattershall近景](../assets/GPT-025/native-near-tattershall.png)。三張均已肉眼看過，十座在真正遊戲地塊上繪製，沒有用接觸表代替實際接入。
+[夏季十座總覽](assets/GPT-025/native-summer.png)／[冬季積雪十座總覽](assets/GPT-025/native-winter-snow.png)／[Tattershall近景](assets/GPT-025/native-near-tattershall.png)。三張均已肉眼看過，十座在真正遊戲地塊上繪製，沒有用接觸表代替實際接入。
 
 [本run完整原始圖片附件12040235956](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38886837333/artifacts/12040235956)含80張精靈日夜PNG、三種接觸表、57張場景、40張邊界四向圖、16張base／閥關比較圖及JSON。附件依workflow保留14天；本卡選定圖片及JSON永久隨Git保存。
 
@@ -179,13 +179,13 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 實際受測原始碼head：`a29e1b48b1dbbf9b99e944b31a5d1c36288e3fa1`。本次後續只保存原始圖片／報告及文件，不改任何遊戲／財務／存檔原始碼，不改第一筆家族或既有守衛。
 
 - [標準push smoke＋fp 38891386436](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386436)及[PR smoke＋fp 38891391825](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891391825)均success。專屬[run38891386460／native job116941464774](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386460/job/116941464774)仍failure，僅原本兩個嚴格舊檔往返斷言紅；native、行人、fp與32個取證分片均完成。最終文件保存head的CI另以PR頁為準，不把先前run說成後續commit的run。
-- [完整原始附件12042510466](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386460/artifacts/12042510466)：83,893,182 bytes，ZIP SHA-256 `8336e904a87b2d6ffc839f6ecae1c4bd36be9fdc043c2e301ee5eae6ea404e72`。內含**247 PNG＋5 JSON＝252檔**：80張實際SPR日／發光層、3張接觸表、97張原生場景／邊界、16張base／閥關圖、51張行人圖。全部原檔逐一核對大小／SHA-256，索引見[transfer-index.json](../assets/GPT-025/transfer-index.json)。
-- **247／247張PNG已逐張審視**，不是僅看選圖或接觸表。原始圖無重新生成、補畫、調色或裁切；[逐圖檢視紀錄](../assets/GPT-025/visual-review.json)保留每批檔名及觀察。未發現這些fixture中的新精靈裁切、穿過不透明建物的行人或換色重複。這是限定fixture的人工檢視，不宣稱窮舉所有城市。
-- 原生行人**17組、51 PNG**全部看過且CI通過：[pedestrian-results.json](../assets/GPT-025/pedestrian-results.json)。含十座日景r0、Tattershall其餘三個日景視角及四個夜景視角；前景可見、後景不透明覆蓋處零外露、真正SPR.ped物理draw與正確排序。兩個故意破壞的first RED（漏畫人物、先畫前景人物再畫建物的錯誤順序）及恢復GREEN均通過。人物是明示注入的T534測試actor，不是自然通勤或人口成長驗證。
+- [完整原始附件12042510466](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/38891386460/artifacts/12042510466)：83,893,182 bytes，ZIP SHA-256 `8336e904a87b2d6ffc839f6ecae1c4bd36be9fdc043c2e301ee5eae6ea404e72`。內含**247 PNG＋5 JSON＝252檔**：80張實際SPR日／發光層、3張接觸表、97張原生場景／邊界、16張base／閥關圖、51張行人圖。全部原檔逐一核對大小／SHA-256，索引見[transfer-index.json](assets/GPT-025/transfer-index.json)。
+- **247／247張PNG已逐張審視**，不是僅看選圖或接觸表。原始圖無重新生成、補畫、調色或裁切；[逐圖檢視紀錄](assets/GPT-025/visual-review.json)保留每批檔名及觀察。未發現這些fixture中的新精靈裁切、穿過不透明建物的行人或換色重複。這是限定fixture的人工檢視，不宣稱窮舉所有城市。
+- 原生行人**17組、51 PNG**全部看過且CI通過：[pedestrian-results.json](assets/GPT-025/pedestrian-results.json)。含十座日景r0、Tattershall其餘三個日景視角及四個夜景視角；前景可見、後景不透明覆蓋處零外露、真正SPR.ped物理draw與正確排序。兩個故意破壞的first RED（漏畫人物、先畫前景人物再畫建物的錯誤順序）及恢復GREEN均通過。人物是明示注入的T534測試actor，不是自然通勤或人口成長驗證。
 
 ### 可直接交付的原圖、平台與視覺限制
 
-[日景native-summer.png](../assets/GPT-025/native-summer.png)／[夜景native-night.png](../assets/GPT-025/native-night.png)／[積雪native-winter-snow.png](../assets/GPT-025/native-winter-snow.png)／[近景native-near-tattershall.png](../assets/GPT-025/native-near-tattershall.png)。夜景原檔SHA-256 `fea9c529444c4ba8b0de363a9f81688b00f6710e2de807bb58e33a043c2a5a3a`，701,382 bytes。
+[日景native-summer.png](assets/GPT-025/native-summer.png)／[夜景native-night.png](assets/GPT-025/native-night.png)／[積雪native-winter-snow.png](assets/GPT-025/native-winter-snow.png)／[近景native-near-tattershall.png](assets/GPT-025/native-near-tattershall.png)。夜景原檔SHA-256 `fea9c529444c4ba8b0de363a9f81688b00f6710e2de807bb58e33a043c2a5a3a`，701,382 bytes。
 
 所有遊戲截圖為**GitHub Actions Ubuntu桌面headless Chromium的1280×657真實遊戲canvas**。沒有實體手機、手機Safari、行動GPU或觸控測試，不能稱為真機手機畫面。夜景可見的強藍色光柱是原生T359 k24地標探照燈，本卡未新增或關閉這項全局效果。
 
@@ -193,13 +193,13 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 
 ### Library交付阻礙與可用替代證據
 
-依最新要求先嘗試三張代表圖的完整有序batch，使用當次Library skill原樣下載的`library_upload.py`。工具在hosted-app可用性階段失敗，exit 1，精確錯誤：`library upload failed: hosted apps tools/list request failed: network`。**沒有返回任何library_file_id，不冒稱已存入Library，也不改走另一個寫入方式重複提交**。完整包因同一橋接失敗尚未送入Library；細節見[library-delivery-status.json](../assets/GPT-025/library-delivery-status.json)。
+依最新要求先嘗試三張代表圖的完整有序batch，使用當次Library skill原樣下載的`library_upload.py`。工具在hosted-app可用性階段失敗，exit 1，精確錯誤：`library upload failed: hosted apps tools/list request failed: network`。**沒有返回任何library_file_id，不冒稱已存入Library，也不改走另一個寫入方式重複提交**。完整包因同一橋接失敗尚未送入Library；細節見[library-delivery-status.json](assets/GPT-025/library-delivery-status.json)。
 
 原始完整附件已由GitHub連線成功取得可重用檔案參照`file_000000000acc81f4b8b53249856698c7`，檔名`GlimmerTown-GPT025-original-Chromium-evidence-a29e1b4.zip`；**這不是Library ID**。父線可使用支援的file-id取用流程或上述GitHub附件，再讀本PR永久保存的圖審／財務報告。雲端本地檔案位置另列交付manifest，不假設父線環境能直接讀到本地路徑。
 
 ### 財務只讀對照與另卡最小範圍（未實作）
 
-[finance-readonly.json](../assets/GPT-025/finance-readonly.json)記錄BASE／branch來源位置與函式SHA-256。只移除本卡三個有界內嵌塊及安裝呼叫後，整份index逐位元還原BASE，SHA-256同為`abb9ab4b3e83df7d4d395830bd341b41398bf2828e0d5ee3ccfe8791575ea9c9`；五個財務函式也逐位元相同。
+[finance-readonly.json](assets/GPT-025/finance-readonly.json)記錄BASE／branch來源位置與函式SHA-256。只移除本卡三個有界內嵌塊及安裝呼叫後，整份index逐位元還原BASE，SHA-256同為`abb9ab4b3e83df7d4d395830bd341b41398bf2828e0d5ee3ccfe8791575ea9c9`；五個財務函式也逐位元相同。
 
 確切呼叫鏈：讀檔本體`fiscalLoad515`還原history並使ready=false；**內層T514 load先執行觀測台刷新**，`observatorySummary514(true)`的T515 wrapper因尚未ready而呼叫`fiscalStep515(true,false)`。force使聚合history追加並動游標；settle=false只跳過金流結算。外層T515 load本身實為`fiscalStep515(false,false)`，不是強制呼叫。此fixture的BASE／branch完整結果陣列相同，但第一次load多history.4、第二次又多.5，故「所有欄位不變」仍失敗。
 
@@ -207,7 +207,7 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 
 第7節仍要求修補優先；第二波只能在最新main、運行開關與綠色main／Pages核實後，按已知修補的處理範圍接續，不藉新卡繞過此缺陷。第一波12小時為21:45:21 UTC，但時間屆滿仍不能越過紅燈。未合併、未部署，完成0／20。
 
-完整本地補充包與原始GitHub附件／file-id對照見[evidence-package.json](../assets/GPT-025/evidence-package.json)；Library失敗不影響原檔及報告已取得的事實，但不冒稱Library保存成功。
+完整本地補充包與原始GitHub附件／file-id對照見[evidence-package.json](assets/GPT-025/evidence-package.json)；Library失敗不影響原檔及報告已取得的事實，但不冒稱Library保存成功。
 
 
 ## 2026-10-17 PR33 獨立合入後同步與重驗（進行中）
@@ -238,3 +238,14 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 依 AGENTS 第3節，先把綠燈連結及實際自檢記入卡，再等這個純文件提交自動重跑的專屬 workflow 綠；下一筆只刪自己的 `.github/workflows/wave025-native.yml`。此後每筆都確認該檔仍不存在；再配 T／版本／日誌與方向完成表，待最後提交標準CI全綠後，轉正式並合併，最後追 main／自動Pages。
 
 真實限制仍保留：全部遊戲測試來自桌面Chromium CI；實體手機／Safari／觸控未測。先前247張原圖已逐張審視且圖片獲准，本次未冒稱新附件重新逐張人工檢視。Library橋接未修；公開站雲端讀取代理403，部署成功與網址內容驗證分開回報。
+
+
+## T752 發布整理與最後驗收入口（2026-10-17）
+
+- 卡面補證據提交 `44466b29bcaa22b5d37ea9936318795ad162e2f5` 的最後專屬 [39027768427](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39027768427) 已 success，原生及32個取證 job 全綠；標準 [39027772890](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39027772890) 亦全綠。它與6205572的遊戲及探針位元組完全相同，只有卡面更新。
+- 清理提交 `fd9b019e16629c3b5848b1d9743cf5a8bedf0100` 只刪 `.github/workflows/wave025-native.yml`。此發布整理及後續每筆均核對該檔不存在；沒有把分支專屬 workflow 帶進 main。
+- T號取 main 卡檔／日誌／提交標題最大751加1；輪次取實際日誌列最大r198加1。本卡搬為T752，原GPT-025號、第一筆家族與固定驗收保留。三處版本標示改為14.45／T752；除此之外 index 與完整原生受測44466b2逐位元相同，沒有重畫、改模型或修改判準。
+- 發布 head 的 smoke三次、fp、常駐財務53／10 必須重新全綠，並核對review無阻斷，才轉正式及合併；最終結果見 [PR32 checks](https://github.com/lijiabao1998/GlimmerTown-lab/pull/32/checks)。專屬原生受測head明確為44466b2，不冒稱刪除workflow後重跑了該專屬工作流。
+- `AUTORUN-LOG.md` 新增r199，commit欄#32；方向檔只更新完成表為此方向1／20波，開關與方向原話保持main逐位元內容。十座不是增加城市人口／密度／價格／容量，沿用原生k24資料與行為。
+
+[自檢證據](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39027768427)保留完整欄位兩次往返差異空、8／8整幀、十一個原生／兩個場景／兩個行人首紅與還原；已批准原圖未變，桌面CI、遠景LOD、原生無倒影／煙／霓虹及未測手機等限制如前。本段是發布準備與合前門檻，合併、main CI及Pages必須各有實際結果，不把卡面當成已發布。
