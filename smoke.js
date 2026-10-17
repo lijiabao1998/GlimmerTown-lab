@@ -175,6 +175,7 @@ const KEEP = process.argv.includes('--keep');
       ['fastPx735', `(window.GV && window.GV.fastPxSelftest735) ? window.GV.fastPxSelftest735() : {ok:false,checks:['API 不存在']}`],
       ['sil738', `(window.GV && window.GV.silSelftest738) ? window.GV.silSelftest738() : {ok:false,checks:['API 不存在']}`],
       ['fiscalLoad026', `(window.GV && window.GV.fiscalLoad026) ? window.GV.fiscalLoad026.selftest() : {ok:false,checks:['API missing']}`],
+      ['policyNullLoad028', `(window.GV && window.GV.policyNullLoad028) ? window.GV.policyNullLoad028.selftest() : {ok:false,checks:['API missing']}`],
       ['heritage024', `(window.GV && window.GV.heritage024) ? window.GV.heritage024.selftest() : {ok:false,checks:['API 不存在']}`],
       ['britishWave025', `(window.GV && window.GV.britishWave025) ? window.GV.britishWave025.selftest() : {ok:false,checks:['API 不存在']}`],
       ['useScales021', `(window.GV && window.GV.useScales021) ? window.GV.useScales021.selftest() : {ok:false,checks:['API 不存在']}`],
