@@ -54,11 +54,11 @@ function roundtrip026(text,sandbox=false,passes=2){
   }
   return{states,status,key,inactiveUnchanged:localStorage.getItem(other)===inactive};
 }
-function frames026(){
+function frames026(zoom=1.5,season=1){
   window.__waterF695=0;GV.setSpeed(0);GV.selectTool434('pan');document.getElementById('game').dispatchEvent(new PointerEvent('pointermove',{clientX:-100000,clientY:-100000,pointerId:99,pointerType:'mouse'}));
   const out=[];
   for(const mode of ['day','night'])for(let rot=0;rot<4;rot++){
-    GV.britishWeather004(1,0,0);GV.setRot(rot);GV.art574.zoom574(1.5);GV.lookAt(7.5,4.5);
+    GV.britishWeather004(season,0,0);GV.setRot(rot);GV.art574.zoom574(zoom);GV.lookAt(7.5,4.5);
     const t=GV.art574.cycle574()*(mode==='day'?.5:.02);GV.setVisT(t);GV.forceDraw();GV.setVisT(t);GV.forceDraw();
     const canvas=document.getElementById('game');out.push({name:mode+'-r'+rot,w:canvas.width,h:canvas.height,data:canvas.toDataURL('image/png')});
   }
@@ -73,19 +73,23 @@ function frameEvidence026(frame,file){
   return{name:frame.name,w:frame.w,h:frame.h,sha256:hash(bytes),bytes:bytes.length,...(file?{file}:{})};
 }
 function loadFrameEvidence026(result,prefix,saveAll=false){
-  return{expected:result.expected,passes:result.passes.map(p=>({pass:p.pass,state:p.state,frames:p.frames.map((f,i)=>frameEvidence026(f,saveAll||i===0?prefix+'-p'+p.pass+'-'+f.name+'.png':null))})),before:result.before.map((f,i)=>frameEvidence026(f,saveAll||i===0?prefix+'-before-'+f.name+'.png':null))};
+  return{scene:result.scene,expected:result.expected,passes:result.passes.map(p=>({pass:p.pass,state:p.state,frames:p.frames.map((f,i)=>frameEvidence026(f,saveAll||i===0?prefix+'-p'+p.pass+'-'+f.name+'.png':null))})),before:result.before.map((f,i)=>frameEvidence026(f,saveAll||i===0?prefix+'-before-'+f.name+'.png':null))};
 }
 async function nativeLoadFrames026(cdp,passes=2){
   await cdp.evalJs('window.__armFiscalFrameFault026=false;window.__badLoadedView026=false;');
   await evaluate(cdp,roundtrip026,releaseRaw,true);
-  const before=await evaluate(cdp,frames026);
+  // The legacy summer renderer fixture changes day to101 and uses an export
+  // zoom1.5 that native load snaps to its discrete1.4 step. Keep that contract,
+  // but construct this saved-state fixture at its original day and valid zoom.
+  const scene={zoom:1.4,season:0,day:fixture.day},before=await evaluate(cdp,frames026,scene.zoom,scene.season);
   const text=await cdp.evalJs('(()=>{GV.save();return GV.rawSave();})()'),expected=JSON.parse(text),out=[];
+  assert.equal(expected.day,scene.day,'render fixture does not advance the saved day');assert.equal(expected.cam.z,scene.zoom,'render input uses a native load-compatible zoom');
   await cdp.evalJs('window.__armFiscalFrameFault026=true;');
   for(let pass=1;pass<=passes;pass++){
-    const round=await evaluate(cdp,roundtrip026,text,true,1),frames=await evaluate(cdp,frames026);
+    const round=await evaluate(cdp,roundtrip026,text,true,1),frames=await evaluate(cdp,frames026,scene.zoom,scene.season);
     out.push({pass,state:round.states[1],status:round.status[0],frames});
   }
-  return{expected,before,passes:out};
+  return{scene,expected,before,passes:out};
 }
 function assertLoadFrameState026(result,expectedPasses=2){
   assert.equal(result.expected.gameVer,RELEASE.gameVer,'same-version render input writer');assert.equal(result.before.length,8,'eight complete day/night views');
