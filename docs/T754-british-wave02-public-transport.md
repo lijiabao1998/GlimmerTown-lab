@@ -59,11 +59,11 @@
 ## 收工自檢與沒做成的事
 
 - [x] 先推本卡，家族與固定驗收先於幾何實作。
-- [ ] 同種子／完整舊檔與新外觀來回。
-- [ ] 只新增bld40；完整閥關畫布等值。
-- [ ] 全部必要狀態／原圖及原型對照實看，或依規明列未跑／不適用。
-- [ ] 每條新守衛首紅與還原。
-- [ ] 最後head smoke三次、fp、財務與新守衛全綠。
+- [x] 同種子／完整舊檔與新外觀來回。
+- [x] 只新增bld40；完整閥關畫布等值。
+- [x] 全部必要狀態／原圖及原型對照實看，或依規明列未跑／不適用。
+- [x] 每條新守衛首紅與還原。
+- [x] 最後head smoke三次、fp、財務與新守衛全綠。
 - [x] 本卡沒有把未跑測試、待核考據、候選或計畫寫成已完成。
 
 開工時未完成：十款未定稿、幾何／目錄／新守衛尚未實作，沒有第二波測試或預覽結果；第一波完成數維持1／20。已知工具限制：HE Preston頁not accessible、Guildford舊頁404、Croydon兩個舊子頁TimeoutError；可讀的Croydon建築史另已實讀。公開Pages真網址在既有雲端網路為代理403；不轉用業主電腦。
@@ -219,3 +219,35 @@ aef00f3在v14.47原完整重驗中，native工作成功（12負控制、十款�
 
 
 十款近景原圖原已由scenes工作產出並成功驗收，但單份大量base64日誌在GitHub工具兩次讀取均回`Transport closed`；保留此存取失敗紀錄。現在讓自己的唯讀workflow於scenes成功後，以五個獨立取證工作各讀同一次原始附件的兩張近景，先核對原manifest的SHA-256再無損輸出。原場景守衛與所有輸出PNG不變，首兩款只供內部覆核，不加入其餘八款交付。這些是附件讀取／取證工作，沒有再執行遊戲或修改圖片；原七個驗收工作仍全部保留。
+
+
+### 十款完整圖片覆核與可交付原圖
+
+已實看十款日夜四向接觸表、舊款對照，以及c8238a3原生世界中每款完整近景10／10。逐款觀察、原圖SHA-256及未跑事項見[覆核紀錄](assets/GPT-027/visual-review.json)。未發現本輪新增的阻斷圖像缺失；這是對已讀原圖的判斷，不宣稱照片等比例複製或全部97張已逐張人工看完。
+
+其餘八款交付包為`file_00000000888c8230babf2c8c81a0e8f0`（GitHub原始附件12106206868，run39047184620、native117438149904）；590266 bytes，ZIP SHA-256 `1768791e1521dab2c1723d5adf7a14e5fa6e8ba8631fa90d305e784163f79bbc`。64張原始日夜PNG、兩張直接由原生sprite繪製的四向接觸表、manifest全含雜湊；排除已交的首兩款Croydon／Preston。沒有裁切、重畫或色彩修改。Library儲存未成功，原錯誤`library upload failed: hosted apps tools/list request failed: network`，未宣稱有PNG Library檔案ID；上述可重用CI ZIP檔案ID有效。
+
+以下逐款紀錄在原型考據與實際圖片之間核對結構差異：
+
+| 原型 | 實圖觀察 |
+|---|---|
+| Croydon Airport Terminal | 低翼、玻璃採光穹頂與方形控制塔高低分明；塔窗帶與入口玻璃廳不同於舊三角別墅。 |
+| Preston Bus Station | 五層退後核心、曲面外挑樓板唇與柱間空隙可辨；量體為寬厚水平層疊，和舊低層轉角陽台不同。 |
+| Arnos Grove Station | 方形低站翼上為磚砌圓鼓、直立分格窗及深出挑平圓盤，和A la Ronde斜頂住宅不同。 |
+| Chipping Campden Market Hall | 長形透空石拱、中央柱列與六山牆／谷屋頂；舊Dunster八角木亭的平面及屋頂不同。 |
+| Guildford Guildhall | 窄三開間凸出樓層、街面鐘架、分格窗與小鉛頂亭可辨；沒有沿用Lavenham寬展木廳。 |
+| Birmingham Museum and Big Brum | 低寬展廳、門廊與側置方鐘塔；有拱形／矩形窗及分開屋面，和Tattershall實心城堡不同。 |
+| Coventry New Cathedral | 低頂長堂的折面高窗、玻璃屏與弧形洗禮堂可辨，沒有舊堂哥德尖塔；和屋毀修院不同。 |
+| National Space Centre | 高圓胖ETFE塔與低展廳、低天象圓頂形成三種體量，接縫及鼓面明確；和古典穹頂別墅不同。 |
+| Penshaw Monument | 矩形階基、柱列、深簷楣與山花保留透空屋面；和附屋古典門廊不同，不虛構窗或屋頂。 |
+| Blackpool Tower | 細高透空鐵格構、外張四足、分層觀景台與低維多利亞基座；不是實心石塔或舊木井架。 |
+
+
+### 發布可執行head c8238a3完整成功，清理前存證
+
+[分支專屬run39047184620](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39047184620)最後整組為success：原preview／native／scenes／pedestrians／normal-pairs／performance／baseline-evidence七工作與五個只讀近景取證工作共12工作全部success。[push39047184605](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39047184605)及[PR39047188407](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39047188407)各smoke三次、fp、完整財務53／10均success，合計18個工作，沒有重跑賭綠。原始main完整資料與只改三處宣告版本的同模型資料都有留檔；正常配對及BASE／HEAD兩次完整新檔均零欄位差異，fieldExclusions:[]。新取證的80個原始sprite PNG及所有接觸表雜湊與已實看原檔逐位相同。上述打勾對應這些實跑結果；其後純文件與刪workflow提交不改任何可執行產品／美術／探針位元組，最後常態CI與轉正式後Codex仍須實際完成。
+
+此卡在刪自己workflow之前已附最後全綠run。PR36已於2026-10-17轉正式，在c8238a3觸發新的Codex程式及安全審查；審查完成前不合併，若有真實缺失先修。分支workflow僅contents:read、只綁自己分支；刪除提交將只動該workflow，其後每筆確認仍不存在。
+
+
+Codex在c8238a3的轉正式後新審查已完成：程式審查receipt5558661433只提出P1「刪除分支專屬workflow」（inline4303383299），無其他程式finding；安全審查completed、無finding。接下來以原已授權的獨立workflow-only提交修復該P1，再跑最後常態CI並重請Codex核對最後head；所有步驟完成前不合併。

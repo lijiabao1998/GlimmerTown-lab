@@ -1,0 +1,130 @@
+{
+  "sourceArtSHA256": "0c8d01b396e3ebd6975b346509efc6a966d7868678a8f6e36c05337e1165305f",
+  "spriteSourceHead": "c8238a3793041952c4391de2a8139e0c99db7c73",
+  "sceneSourceHead": "c8238a3793041952c4391de2a8139e0c99db7c73",
+  "sceneRun": 39047184620,
+  "originalContactDaySHA256": "ab79d4af63c3c211ddb69fa43f120e8318c8ed94774d2ddf18dc1ceb077d8d52",
+  "remainingContactDaySHA256": "def90ac0e395d0cdad9b5cfa5558924fe3d6069d47cfb0dbc442c91023292fb3",
+  "remainingContactNightSHA256": "cc0895077e5d2370e1a0ef6d5903ad0161e785153a6ad498ac2517975380a95c",
+  "inspected": {
+    "allTenDayAndNightFourViewContacts": true,
+    "closeScenes": 10,
+    "oldStyleComparison": true,
+    "summerAndWinterSnowWholeScenes": true
+  },
+  "forms": [
+    {
+      "id": "croydon",
+      "name": "Croydon Airport Terminal",
+      "observation": "低翼、玻璃採光穹頂與方形控制塔高低分明；塔窗帶與入口玻璃廳不同於舊三角別墅。",
+      "nearScene": "scenes/near-croydon.png",
+      "sha256": "716cbe140116d9056b44a6fef3669f9289831ae52703bee3ccb54d72a0ae4640",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": false
+    },
+    {
+      "id": "preston",
+      "name": "Preston Bus Station",
+      "observation": "五層退後核心、曲面外挑樓板唇與柱間空隙可辨；量體為寬厚水平層疊，和舊低層轉角陽台不同。",
+      "nearScene": "scenes/near-preston.png",
+      "sha256": "8167e8b3e0947b20409a27afe8bf070b01a994e84c4df0464c73ac19d42a183e",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": false
+    },
+    {
+      "id": "arnos",
+      "name": "Arnos Grove Station",
+      "observation": "方形低站翼上為磚砌圓鼓、直立分格窗及深出挑平圓盤，和A la Ronde斜頂住宅不同。",
+      "nearScene": "scenes/near-arnos.png",
+      "sha256": "a8926c96c64aa5050c998c4eb361a4239caae1e539a982caa8adf1e31ac8df8c",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "campden",
+      "name": "Chipping Campden Market Hall",
+      "observation": "長形透空石拱、中央柱列與六山牆／谷屋頂；舊Dunster八角木亭的平面及屋頂不同。",
+      "nearScene": "scenes/near-campden.png",
+      "sha256": "f8a7ebbbdaf47574c10c87a01d039a8fcac36fe1fc4d4036784b535d445937b1",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "guildford",
+      "name": "Guildford Guildhall",
+      "observation": "窄三開間凸出樓層、街面鐘架、分格窗與小鉛頂亭可辨；沒有沿用Lavenham寬展木廳。",
+      "nearScene": "scenes/near-guildford.png",
+      "sha256": "5c5de1bd5d16e98190cf5f3e9c63c5de91ab08ada18f5b6d2ae8c9af215c81df",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "birmingham",
+      "name": "Birmingham Museum and Big Brum",
+      "observation": "低寬展廳、門廊與側置方鐘塔；有拱形／矩形窗及分開屋面，和Tattershall實心城堡不同。",
+      "nearScene": "scenes/near-birmingham.png",
+      "sha256": "9c5a46b46966c26a3f1a4026acaeac5fe5b138fc98ceff873a399e246222aa50",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "coventry",
+      "name": "Coventry New Cathedral",
+      "observation": "低頂長堂的折面高窗、玻璃屏與弧形洗禮堂可辨，沒有舊堂哥德尖塔；和屋毀修院不同。",
+      "nearScene": "scenes/near-coventry.png",
+      "sha256": "172e184bb776adfe7a1c9ed4010dc062dc69b4c1e3fb575734ee333ceecb814a",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "spacecentre",
+      "name": "National Space Centre",
+      "observation": "高圓胖ETFE塔與低展廳、低天象圓頂形成三種體量，接縫及鼓面明確；和古典穹頂別墅不同。",
+      "nearScene": "scenes/near-spacecentre.png",
+      "sha256": "a97503d491d27254e759541624e79a85518ee8ddc955727887c05a7726cd4404",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "penshaw",
+      "name": "Penshaw Monument",
+      "observation": "矩形階基、柱列、深簷楣與山花保留透空屋面；和附屋古典門廊不同，不虛構窗或屋頂。",
+      "nearScene": "scenes/near-penshaw.png",
+      "sha256": "fb2cfcefad5547a8fc64170e1ce81bff785eb478319c1e52cdce1a5b478fe93d",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    },
+    {
+      "id": "blackpool",
+      "name": "Blackpool Tower",
+      "observation": "細高透空鐵格構、外張四足、分層觀景台與低維多利亞基座；不是實心石塔或舊木井架。",
+      "nearScene": "scenes/near-blackpool.png",
+      "sha256": "b04ba38cca4705ea5b099175ef3f4cea791901f5aa55d1260025d7259f84bb4d",
+      "nativeFullImage": true,
+      "imageEdits": false,
+      "redeliver": true
+    }
+  ],
+  "blockingVisualFindings": [],
+  "notClaimed": [
+    "逐張人工看完全部97張場景／邊界圖",
+    "實體手機、Safari及觸控驗證",
+    "公開Pages線上畫布實看",
+    "尚未實讀的一手照片逐張比對"
+  ],
+  "firstTwoNotRedelivered": true,
+  "deliveredFileID": "file_00000000888c8230babf2c8c81a0e8f0",
+  "deliveredArtifact": 12106206868,
+  "zipBytes": 590266,
+  "zipSHA256": "1768791e1521dab2c1723d5adf7a14e5fa6e8ba8631fa90d305e784163f79bbc",
+  "nativeSourceVerifiedCurrentHead": true
+}
