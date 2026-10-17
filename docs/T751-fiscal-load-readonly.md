@@ -108,4 +108,14 @@ stateCheck、roundtrip026 與原始檔保留；跨版本完整比較改用獨立
 
 尚未合併部署。合併前仍須最新head的原生、相容性負控制、smoke三次與fp全綠，以及最新審查無未處理阻斷。分支專屬相容workflow須最後一次綠後另以workflow-only提交移除；完整財務回歸仍留在常態smoke流程，原smoke／fp工作保留。T751／r198與v14.44合併紀錄在同一PR，commit欄為#33。
 
+### 最新完整驗證：2747933b
+
+[push39008834073](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39008834073)／[PR39008837614](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39008837614)六個常態job全綠：兩組smoke各三次、fp相對base新增0／變更0／移除0、家族0、風格無下降、style165族相同；兩組原生回歸各42項／8負控制／0失敗。PR測試合併提交a3bc538b的tree與本提交相同，均為c9f76c6c3c3a71361470f5d501387246b4f305c6。
+
+分支專屬workflow最後一次[run39008834071](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39008834071)已成功。真實PR32美術重烘與CI暫時14.45／T752案例分別通過完整42項／8負控制。五個相容性負例分別首紅於舊fp凍結、額外守衛修改、舊固定版本判準、新葉CRC及偽造風格分；還原有效基線GREEN，restored=true、failures=[]、ok=true。原fp.js及正式產品14.44／T751不變。
+
+[完整相容性證據12092770331](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39008834071/artifacts/12092770331)：18428342 bytes，ZIP SHA-256 f78a037c068fb00d7b4ffa0af78f83fbb5fc10926783e9d07f42332cbacdfbf8，保留至2026-10-31。包含目前／未來版本兩組原生報告與完整畫布、全部負例日誌及還原證明。
+
+本段記錄已驗證的程式提交；接下來僅補此卡，再以workflow-only提交刪除本分支臨時workflow。刪除後仍須最終smoke／fp／完整財務回歸全綠，不把刪除本身當成測試通過。既有P1已有實作與相容性證據；沒有宣稱取得新一輪外部機器人複審。
+
 PR32尚未同步修復，也未進行修復後完整重驗。需先獨立合入修復，再以該main SHA更新其原有BASE引用並完整重跑原守衛；不將未合併財務實作混入美術PR。第一波尚未合併，方向完成仍為0／20波。
