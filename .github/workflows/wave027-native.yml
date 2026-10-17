@@ -1,0 +1,33 @@
+name: wave027-native
+on:
+  push:
+    branches: ['gpt/british-wave02-027']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave027-native
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Early native preview with explicit prototype provenance
+        run: node previewWave027.cjs
+      - name: Preserve raw native preview before longer acceptance work
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave027-preview-${{ github.sha }}
+          path: shots/wave027/preview/
+          retention-days: 14
+          if-no-files-found: error
