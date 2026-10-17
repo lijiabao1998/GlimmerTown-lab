@@ -96,3 +96,20 @@ St Albans 已補讀 [HE 1103127](https://historicengland.org.uk/listing/the-list
 | variants | 1 | 1 |
 
 家族總分 0.9653 → 0.9657，無軸下降；這是已取得的 CI 數據，不代表行人守衛／最後 head／發布已完成。新圖來源與安裝遊戲位元組仍是 672c799 的同一份，較早預覽只作來源一致的實機預覽。
+
+## d70f9db：行人原判準 GREEN；原始基線交付
+
+[39051795766](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39051795766) 行人 job `117451723051` 實際 **17 案／0 失敗**，原兩例找到非零實體重疊：St Albans 後方 28 像素、Round House 16 像素，被遮擋部分改變均為 0；原 draw 與前後順序皆 true。兩個實際首紅與恢復仍成功。沒有改遊戲、遮罩、像素容差、斷言或用判準通過與否挑位置；只補近距幾何輸入。
+
+同 head 的 native／preview／正常 BASE 配對／97 場景與效能 job 都實際 success；五個僅搬運既有場景的 data job 與常駐煙霧／財務尚未全完成時，不能稱最新整個 run 綠。本地已實看十款四向日夜接觸表、新舊對照及十款完整近景，記錄與逐檔 SHA 見 [visual-review.json](../assets/GPT-029/visual-review.json)。全部 97 張未逐張人工覆核、公開頁與實體手機／Safari／觸控仍未實測。
+
+本次將提交的新基線逐位元取自這個含最新 main 的 **push**：`d70f9db` → run **39051795766** → job **117451722824** → artifact **12107727517**，名稱 `fp-d70f9db18ed9d13eba46723f2866f5e231fb2a16`，ZIP SHA256 `27fd157008eb1a539252cab68ea714d348c2866421a7b3c65bc447d4128d8531`。它是本分支只讀 workflow 直接執行未改動 `fp.js` 的 `fp-rebake/`；摘要新 40／變 0／刪 0、只有 `bld`、其餘 165 族零變、無家族下降／env 警告，七軸如上。不是自己手算／改寫 JSON，也不把另一個 run 的時間貼進來。
+
+- `fp.json`：382823 bytes，SHA256 `bacd8ad5970edd78bb4bc6cd51c1a4c2c1519cbac6134098d9c727d3b24ff6b8`。
+- `style.json`：73168 bytes，SHA256 `f4bc84ea7c321ce05f2a4de6eef7bc3e393597dd7076ebb8064a8fd46ac4236f`。
+
+舊 3463 葉逐物件全等，新增葉逐字正好 240–279，所有其他家族／環境／blocks 全等，統計中家族數不變、日夜非空數各 +40。來源 FP 的內部版本標籤承接既有基線，實際 ancestry 與本次程式來源以明列 git SHA 為準；完整版本字於合併步驟才配。第三波仍未合併、未部署，完成數維持 2／20。
+
+## 提交基線前的完整結果（d70f9db）
+
+自己的 12 個 job 已全部跑完：原生／預覽／配對／97 場景／行人／效能與五個純資料搬運 job 共 11 個 success；只剩 baseline-evidence 因舊基線不含本卡 40 葉而預期 failure，沒有重跑。常駐 push [39051795784](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39051795784) 煙霧三次成功、fp 同樣預期紅；財務結果是 **52 項 GREEN／10 個負控制**，唯一 failure 是 `scoped serialization, settlement, cadence and guard source integrity` 內「current renderer fingerprints match the committed baselines; see current-fp.txt，1 !== 0」。原探針把 `fp.js --check` 列為其中一項，因此尚未提交美術基線時它不可能報 53／10；沒有改動財務守衛或刪掉這一項，也不冒稱已 53／10。其餘金錢／完整保存／日結算／原生整幀／真正反例與恢復均已走完；原始報告 artifact `12108047929` 保留。提交上述原始基線後須等全新 head 的常駐與分支驗收，才開 PR。

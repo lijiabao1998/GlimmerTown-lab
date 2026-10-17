@@ -1,0 +1,162 @@
+{
+  "wave": 3,
+  "status": "visual inspection only; final CI, PR and publication pending",
+  "base": "35be6a37ebc672c90e9406c50c32e157e8701196",
+  "artSourceSHA256": "9519e4ca8fdc82b4cf1a97a099fb5b919f86285f12fbe032a88a79955576ad79",
+  "nativeIndexBlob": "a3525c1e4e4bdbca6114addc7509eed1d10e29ec",
+  "contactsSourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
+  "nearSourceHead": "12b928a0efe22eb3f91494c47d9cde1e47b13828",
+  "sourceParity": "identical art, runtime and index bytes between these heads and d70f9db; only own workflow, diagnostic probe and card changed",
+  "inspected": {
+    "allTenFormsDayNightFourViewContacts": true,
+    "oldNewComparison": true,
+    "allTenCompleteNearScenes": true,
+    "all97IndividualStates": false,
+    "livePublicPages": false,
+    "physicalMobileSafariTouch": false
+  },
+  "rows": [
+    {
+      "id": "stalbans",
+      "name": "St Albans Clock Tower",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1103127",
+      "nearFile": "near-stalbans.png",
+      "bytes": 519859,
+      "sha256": "62fe283a5d6a6aabe1826b116421a5a5abaa0d40ee331b3f8f90d6fb1f66b2ec",
+      "observation": "四段收窄鐘樓、雙面大鐘與獨立頂部，與四角凸塔的 Tattershall 有結構差別。"
+    },
+    {
+      "id": "bessie",
+      "name": "Bessie Surtees House",
+      "source": "https://www.english-heritage.org.uk/visit/places/bessie-surtees-house/",
+      "nearFile": "near-bessie.png",
+      "bytes": 488198,
+      "sha256": "b5c139b6db965ee89c4f91096e299d7591fe6bad7d83f976bb8a74b56b9c9ae5",
+      "observation": "五層高商人雙屋與逐層挑出立面，對比 Lavenham 的低長廳；並非後者換色。"
+    },
+    {
+      "id": "ancient",
+      "name": "Ipswich Ancient House",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1037756",
+      "nearFile": "near-ancient.png",
+      "bytes": 449984,
+      "sha256": "b0803ec2ee9f6d2dc3f10a2fb145218dbc1247afc9605ac84b1e8f27987eee9e",
+      "observation": "圓凸窗、L 側翼與四山牆窗形成輪廓，前後角度可見後院；與 Moreton 的木廊庭院不同。"
+    },
+    {
+      "id": "pulteney",
+      "name": "Pulteney Bridge",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1394514",
+      "nearFile": "near-pulteney.png",
+      "bytes": 413119,
+      "sha256": "ed3e0c4b38bfa60fa5af0eda07060216805a93d106683151fc93cef6758ca556",
+      "observation": "三個橋下拱與狹長雙列店屋、南面端亭與北面坡頂有差別，與雙排山牆市場廳不同。"
+    },
+    {
+      "id": "piecehall",
+      "name": "Halifax Piece Hall",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1273056",
+      "nearFile": "near-piecehall.png",
+      "bytes": 418774,
+      "sha256": "a4a12d10edefd324f13c8b46b4ae3d4813904dfe5a7194c49fa193faeb7e13ed",
+      "observation": "朝內柱廊與四翼空院，東西樓高不同；外側以盲石牆保留原型，不將空院填實。"
+    },
+    {
+      "id": "exchange",
+      "name": "Manchester Royal Exchange",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1200826",
+      "nearFile": "near-exchange.png",
+      "bytes": 422250,
+      "sha256": "f5d8853648c0edeee2eb6691c695da7223efa70e5018b985ded706a987cc7035",
+      "observation": "三個玻璃穹頂、孟莎頂與角塔、巨拱窗，與 Birmingham 的低展廳／方鐘塔不同。"
+    },
+    {
+      "id": "chichester",
+      "name": "Chichester Market Cross",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1005890",
+      "nearFile": "near-chichester.png",
+      "bytes": 413854,
+      "sha256": "d80bd307b763b51ab175fe3d7dde8dac3af53b56bb1f7027d3da2fe74a8d5a54",
+      "observation": "八角透空底部與匯聚石頂、扶壁尖飾與中央鐘亭，與 Dunster 的木頂檐亭不同。"
+    },
+    {
+      "id": "willis",
+      "name": "Willis Building Ipswich",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1237417",
+      "nearFile": "near-willis.png",
+      "bytes": 402239,
+      "sha256": "dfa722f3215ebb91822f5cabb6e753a031eb2d36c1d20340d4111f6845a5d7cb",
+      "observation": "低曲面銅色玻璃牆、草頂綠籬與退縮頂亭，日夜照明在玻璃範圍；與 Preston 的開敞層板不同。"
+    },
+    {
+      "id": "roundhouse",
+      "name": "Castle Cary Round House",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1056279",
+      "nearFile": "near-roundhouse.png",
+      "bytes": 390125,
+      "sha256": "9fcfb91491b75e4b856a5a8ba94f94ea52fa63d0d552df0dc3be88cb0cacc63b",
+      "observation": "小圓石屋及蜂巢頂、四級門階，刻意保留實物的小量體；與 Arnos 寬基座／玻璃筒／大平圓盤不同。"
+    },
+    {
+      "id": "faversham",
+      "name": "Faversham Guildhall",
+      "source": "https://historicengland.org.uk/listing/the-list/list-entry/1343844",
+      "nearFile": "near-faversham.png",
+      "bytes": 425648,
+      "sha256": "9917959508dff0b0a9c0e8a17ef03d20494e1569692a5d899b81c43e84983042",
+      "observation": "上層廳架在三排柱上、端部山花及角鐘塔鉛頂，與 Guildford 的落地窄木立面不同。"
+    }
+  ],
+  "blockingVisualFindings": [],
+  "unresolvedAcceptance": [
+    "latest head complete CI required after committing raw baseline",
+    "final code review and main/automatic Pages not yet completed"
+  ],
+  "contactFiles": [
+    {
+      "file": "contact-day.png",
+      "sourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
+      "sha256": "4c9c46b83879bfb092a981b9ddab4d82969ba6a47d6101998c74d20f32152a65"
+    },
+    {
+      "file": "contact-night.png",
+      "sourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
+      "sha256": "453be9c4a55ec96de21b47ecab18a9b7070a73196a71c672d0d5c1c4255c30b6"
+    },
+    {
+      "file": "contact-comparison.png",
+      "sourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
+      "sha256": "bae32a113f3ebf29c94e2fe85a623817c7ef6768c47f1344eecd4d87e7f82253"
+    }
+  ],
+  "limits": [
+    "Full-scene PNGs are original GitHub Actions captures, not current public-site viewing.",
+    "All 97 state/edge images were not individually manually inspected.",
+    "Models are compressed 2x2 original interpretations, not measured replicas."
+  ],
+  "pedestrianFixture": {
+    "head": "d70f9db18ed9d13eba46723f2866f5e231fb2a16",
+    "run": 39051795766,
+    "job": 117451723051,
+    "cases": 17,
+    "failures": 0,
+    "liveFirstRedControls": 2,
+    "stalbansRearOpaqueOverlap": 28,
+    "roundhouseRearOpaqueOverlap": 16,
+    "bothOccludedChanged": 0,
+    "assertionsUnchanged": true
+  },
+  "preBaselineCI": {
+    "head": "d70f9db18ed9d13eba46723f2866f5e231fb2a16",
+    "ownRun": 39051795766,
+    "ownJobsSuccess": 11,
+    "ownExpectedRed": "baseline-evidence; old committed fp lacks the declared 40 leaves",
+    "pushRun": 39051795784,
+    "smoke": "3 success",
+    "fiscal": {
+      "checks": 52,
+      "negative": 10,
+      "onlyFailure": "current renderer fingerprints match committed baselines; its nested fp check remains RED before baseline submission"
+    }
+  }
+}
