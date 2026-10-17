@@ -110,6 +110,9 @@ try{
     fs.appendFileSync(path.join(probeRoot,'fp.js'),'\n// unexpected edit after the committed future HEAD\n');
     try{const red=staticOnly(currentProbe,probeEnv,probeRoot);assert.equal(red.status,1);assert(red.text.includes('fp.js unchanged relative to committed HEAD'));assert(!/ReferenceError/.test(red.text));report.negative.push({name:'future HEAD still rejects an uncommitted shared-guard edit',first:'fp.js unchanged relative to committed HEAD'});}
     finally{fs.writeFileSync(path.join(probeRoot,'fp.js'),future.payload['fp.js']);}
+    fs.writeFileSync(path.join(probeRoot,'index.html'),commentFiscal026(future.payload['index.html'].toString(),[FISCAL_DECLARATIONS[0]]));
+    try{const red=staticOnly(currentProbe,probeEnv,probeRoot);assert.equal(red.status,1);assert(red.text.includes('function fiscalSave515( byte-identical relative to committed HEAD'));assert(!/ReferenceError/.test(red.text));report.negative.push({name:'future HEAD still rejects an uncommitted fiscal declaration edit',first:'function fiscalSave515( byte-identical relative to committed HEAD'});}
+    finally{fs.writeFileSync(path.join(probeRoot,'index.html'),future.payload['index.html']);}
   }
   if(CASE==='visible-art'){
     const anchor='Object.assign(window.GV,{art574:';assert.equal(candidate.split(anchor).length,2,'unique visible-art native renderer anchor');
