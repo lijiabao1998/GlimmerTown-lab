@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_pro
 const {withGame,ROOT}=require('./harness.js'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',file=path.join(ROOT,'index.html'),head=fs.readFileSync(file),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024}),OUT=path.join(ROOT,'shots','wave027','normal-pairs');
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex'),canon=x=>Array.isArray(x)?x.map(canon):x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,canon(x[k])])):x;
 function pair027(useNew){
-  const out=[];
+  const out=[],controls=[];
   for(const seed of[31,71,103]){
     GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
     const find=()=>{for(let y=4;y<66;y+=3)for(let x=4;x<66;x+=3)if(GV.placePreview459('landmark',x,y)?.ok){let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;if(clear)return{x,y};}throw Error('normal027 legal native lot');};
@@ -17,9 +17,14 @@ function pair027(useNew){
     }
     GV.selectTool434('pan');const checkpoints=[];
     for(const ticks of[0,1,3]){if(ticks)GV.step(ticks);GV.save();checkpoints.push({ticks,state:JSON.parse(GV.rawSave()),stats:GV.stats()});}
+    if(useNew){
+      const cash=GV.devMoney516B();GV.capabilitySetMoney506(cash-1);GV.save();const damaged=JSON.parse(GV.rawSave());
+      GV.capabilitySetMoney506(cash);GV.save();const restored=JSON.parse(GV.rawSave());
+      controls.push({seed,original:checkpoints.at(-1).state,damaged,restored});
+    }
     out.push({seed,placements,checkpoints});
   }
-  return out;
+  return{pairs:out,controls};
 }
 async function run(source,useNew){
   fs.writeFileSync(file,source);
@@ -41,7 +46,8 @@ function compare(a,b,allowedVariants){
 }
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});let a,b;
-  try{a=await run(base,false);b=await run(head,true);}finally{fs.writeFileSync(file,head);}
+  let controls;
+  try{const ar=await run(base,false),br=await run(head,true);a=ar.pairs;b=br.pairs;controls=br.controls;}finally{fs.writeFileSync(file,head);}
   const pairs=[],allowed=[];
   for(let i=0;i<a.length;i++){
     assert.equal(a[i].seed,b[i].seed);const av=new Map();
@@ -61,9 +67,13 @@ function compare(a,b,allowedVariants){
     }
     const differences=compare(baseline,next,av);allowed.push(av);pairs.push({seed:a[i].seed,baseSHA256:hash(canon(a[i])),headSHA256:hash(canon(b[i])),differences,checkpoints:a[i].checkpoints.length});
   }
-  const bad=structuredClone(b[0]);bad.checkpoints[0].state.money-=1;let first;
-  try{compare(b[0],bad,new Map());}catch(e){first=e.message;}assert(first?.startsWith('normal027 complete native model differs at checkpoints.0.state.money'),'normal027 money corruption first RED');
-  bad.checkpoints[0].state.money=b[0].checkpoints[0].state.money;compare(a[0],bad,allowed[0]);
-  const report={head:process.env.GITHUB_SHA,base:BASE,pairs,negative:{name:'retained native money loses one dollar',first},fieldExclusions:[],nativeGameplay:true,usesEscapeValve:false};
+  const negative=[];assert.equal(controls.length,3,'normal027 three actual live-source fault fixtures');
+  for(const c of controls){
+    let first;try{compare(c.original,c.damaged,new Map());}catch(e){first=e.message;}
+    assert(first?.startsWith('normal027 complete native model differs at money:'),'normal027 actual native money corruption first RED');
+    compare(c.original,c.restored,new Map());negative.push({seed:c.seed,name:'actual native money API removes one dollar then native save',first,restoredGreen:true});
+    fs.writeFileSync(path.join(OUT,'native-fault-'+c.seed+'.json'),JSON.stringify(c,null,2)+'\n');
+  }
+  const report={head:process.env.GITHUB_SHA,base:BASE,pairs,negative,fieldExclusions:[],nativeGameplay:true,usesEscapeValve:false};
   fs.writeFileSync(path.join(OUT,'manifest-normal-pairs.json'),JSON.stringify(report,null,2)+'\n');console.log('normal027 GREEN '+JSON.stringify(report));
-})().catch(e=>{console.error(e.stack);process.exitCode=1;});
+})().catch(e=>{fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'failure.json'),JSON.stringify({head:process.env.GITHUB_SHA,action:'normal native BASE-HEAD proof',error:e.stack},null,2)+'\n');console.error(e.stack);process.exitCode=1;});

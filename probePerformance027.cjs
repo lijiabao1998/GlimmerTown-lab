@@ -35,8 +35,14 @@ async function measure027(baseSHA){
     const summary=a=>{const v=[...a].sort((x,y)=>x-y);return{n:v.length,median:v[Math.floor(v.length*.5)],p90:v[Math.floor(v.length*.9)],min:v[0],max:v.at(-1)};};
     const stats={base:summary(sample.base),head:summary(sample.head)};
     // A repeated millisecond-scale difference matters; isolated maxima do not.
-    if(stats.head.median>stats.base.median*1.5+2||stats.head.p90>stats.base.p90*1.5+3)throw Error('perf027 repeatable native redraw regression '+JSON.stringify(stats));
-    return{stats,sample,newGeometryBuildsDuringWarmDraw:builds,cacheLeaves:refs.length,firstRed:first,restoredGreen:true,interleaved:true,nativeBaselineSource:baseSHA,viewport:{head:[innerWidth,innerHeight],base:[old.innerWidth,old.innerHeight]},hardware:'GitHub Actions Ubuntu desktop Chromium; not real mobile hardware'};
+    const check=stats=>{if(stats.head.median>stats.base.median*1.5+2||stats.head.p90>stats.base.p90*1.5+3)throw Error('perf027 repeatable native redraw regression '+JSON.stringify(stats));};check(stats);
+    let timingRed;const slow=[];
+    try{GV.forceDraw=()=>{const until=performance.now()+20;while(performance.now()<until){}return draw();};for(let i=0;i<30;i++){const t=performance.now();GV.forceDraw();slow.push(performance.now()-t);}try{check({base:stats.base,head:summary(slow)});}catch(e){timingRed=e.message;}}
+    finally{GV.forceDraw=draw;}
+    if(!timingRed?.startsWith('perf027 repeatable native redraw regression '))throw Error('perf027 timing negative missed target');
+    const restored={base:[],head:[]};for(let i=0;i<40;i++)for(const which of(i%2?['head','base']:['base','head'])){const G=which==='base'?old.GV:GV,t=performance.now();for(let j=0;j<4;j++)G.forceDraw();restored[which].push((performance.now()-t)/4);}
+    const restoredStats={base:summary(restored.base),head:summary(restored.head)};check(restoredStats);if(builds)throw Error('perf027 final restored native draw rebaked geometry');
+    return{stats,sample,restoredStats,newGeometryBuildsDuringWarmDraw:builds,cacheLeaves:refs.length,firstRed:first,timingFirstRed:timingRed,timingNegativeSamples:slow.length,restoredGreen:true,interleaved:true,nativeBaselineSource:baseSHA,viewport:{head:[innerWidth,innerHeight],base:[old.innerWidth,old.innerHeight]},hardware:'GitHub Actions Ubuntu desktop Chromium; not real mobile hardware'};
   }finally{window.BritishWaveArchitecture027=API;frame.remove();}
 }
 (async()=>{
@@ -44,4 +50,4 @@ async function measure027(baseSHA){
   fs.writeFileSync(file,original.replace('<head>','<head><script>window.confirm=()=>true;Math.random=()=>.125;<\/script>'));
   try{const r=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>.125',log:console.log},async({cdp})=>{const q=await cdp.evalJs('('+measure027.toString()+')('+JSON.stringify(BASE)+')');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return q;});assert(r.ok&&r.result,'perf027 native sessions '+r.fails.join('; '));fs.writeFileSync(path.join(OUT,'manifest-performance.json'),JSON.stringify({head:process.env.GITHUB_SHA,...r.result},null,2)+'\n');console.log('perf027 GREEN '+JSON.stringify(r.result));}
   finally{fs.rmSync(file,{force:true});}
-})().catch(e=>{console.error(e.stack);process.exitCode=1;});
+})().catch(e=>{fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'failure.json'),JSON.stringify({head:process.env.GITHUB_SHA,action:'interleaved native performance proof',error:e.stack},null,2)+'\n');console.error(e.stack);process.exitCode=1;});

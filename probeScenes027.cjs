@@ -14,7 +14,7 @@ function legacyFixture027(reference){
   GV.setSpeed(0);GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);
   if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   const p={x:7,y:4},key='glimmerville.v1.s3.sandbox516b';let initial;
-  if(reference){localStorage.setItem(key,reference);}
+  if(reference){localStorage.setItem(key,reference);if(!GV.load())throw Error('scene027 first real legacy migration load');GV.save();}
   else{
     if(!GV.place('landmark',p.x,p.y))throw Error('scene027 legacy native fixture');GV.testAge635(p.x,p.y,2,2,30);GV.save();initial=JSON.parse(localStorage.getItem(key));
     // Produce an actual previously loaded/saved old file on BASE. The fresh QA
@@ -24,7 +24,7 @@ function legacyFixture027(reference){
   }
   const raw=localStorage.getItem(key);if(!raw)throw Error('scene027 slot3 sandbox save absent');
   const states=[JSON.parse(raw)];for(let pass=0;pass<2;pass++){if(!GV.load())throw Error('scene027 old native load');GV.save();states.push(JSON.parse(localStorage.getItem(key)));}
-  return{key,raw,states,p,initial};
+  return{key,raw,states,p,initial,input:reference?JSON.parse(reference):null};
 }
 function oldFrames027(valve){
   if(valve)window.__noBritishWave027=true;
@@ -77,6 +77,8 @@ function edge027(id){
   const r=await withGame(opt,async({cdp})=>{
     const fixture=await cdp.evalJs('('+legacyFixture027.toString()+')('+JSON.stringify(old.fixture.raw)+')');
     assert.equal(fixture.states[0].gameVer,head.toString().match(/^const GAME_VER='(\d+\.\d{2})';/m)[1],'scene027 exact committed writer migration');
+    const migration=stateDiff(fixture.input,fixture.states[0]),expectedMigration=fixture.input.gameVer===fixture.states[0].gameVer?[]:[{path:'gameVer',before:fixture.input.gameVer,after:fixture.states[0].gameVer}];
+    assert.deepEqual(migration,expectedMigration,'scene027 first actual legacy load changes exactly the declared version and no other field');report.oldSaveMigration=migration;
     const matchesBase=strict(()=>stateCheck(fixture.states,old.fixture.states.map(v=>({...v,gameVer:fixture.states[0].gameVer})),'scene027 complete old-save behavior matches baseline, every field plus exact declared gameVer migration'));
     let allFieldsEqual=true;const differences=[];
     for(let pass=1;pass<fixture.states.length;pass++){if(!strict(()=>stateCheck(fixture.states[pass],fixture.states[0],'scene027 old save roundtrip all fields '+pass)))allFieldsEqual=false;differences.push({pass,differences:stateDiff(fixture.states[0],fixture.states[pass])});}

@@ -4,7 +4,8 @@ if(!process.env.GITHUB_ACTIONS)throw Error('wave027 game guards run on GitHub Ac
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process'),vm=require('node:vm');
 const {withGame,ROOT}=require('./harness.js'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',OUT=path.join(ROOT,'shots','wave027'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const original=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
-let stripped=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+const committedSource=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+function nativeSource027(text){let stripped=text;
 for(const part of['PURE ART','CSS']){
   const start='<!-- GPT-027 '+part+' START -->',end='<!-- GPT-027 '+part+' END -->',a=stripped.indexOf(start),b=stripped.indexOf(end,a);
   assert(a>=0&&b>a&&stripped.indexOf(start,a+1)<0,'one embedding '+part);
@@ -18,7 +19,13 @@ const release=s=>({ver:s.match(/^const GAME_VER='(\d+\.\d{2})';/m)?.[1],anchor:s
 const oldRelease=release(original),newRelease=release(stripped);
 assert(oldRelease.ver&&oldRelease.anchor&&newRelease.ver&&newRelease.anchor,'wave027 explicit release declarations');
 stripped=stripped.replace("const GAME_VER='"+newRelease.ver+"';","const GAME_VER='"+oldRelease.ver+"';").replace("const GAME_ANCHOR='"+newRelease.anchor+"';","const GAME_ANCHOR='"+oldRelease.anchor+"';").replace('id="startVersion456">v'+newRelease.ver+' · '+newRelease.anchor+'</span>','id="startVersion456">v'+oldRelease.ver+' · '+oldRelease.anchor+'</span>');
-assert.equal(stripped,original,'wave027 existing native model and original rendering source byte-identical except exact declared release metadata');
+return stripped;}
+const sourceCheck027=text=>assert(nativeSource027(text)===original,'wave027 existing native model and original rendering source byte-identical except exact declared release metadata');
+sourceCheck027(committedSource);let sourceFirstRed027;
+const sourceFault027=committedSource.replace('</head>','<!-- GPT027 valid HTML outside the declared source boundary -->\n</head>');
+for(const m of sourceFault027.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
+try{sourceCheck027(sourceFault027);}catch(e){sourceFirstRed027=e.message.split('\n')[0];}
+assert(sourceFirstRed027?.startsWith('wave027 existing native model'),'wave027 source-boundary negative missed target');sourceCheck027(committedSource);
 cp.execFileSync(process.execPath,['embed-wave027.cjs','--check'],{cwd:ROOT,stdio:'inherit'});
 
 function originalImages(){
@@ -170,6 +177,7 @@ function nativeChecks(){
   });
   assert(session.ok&&session.result,'wave027 native browser: '+session.fails.join('; '));
   const r=session.result;assert.equal(r.slot,'3');
+  r.red.push({name:'valid HTML mutates original source outside declared bounds',first:sourceFirstRed027,restoredGreen:true});
   // The game is intentionally scoped. Exercise the real private selector by a
   // valid source mutation in a separate CI-only boot, then restore exact bytes.
   const index=path.join(ROOT,'index.html'),source=fs.readFileSync(index,'utf8'),target='function britishView027(b){const q=britishRow027(b);return q?q.v+((b.v-q.v+viewRotEff())&3):null;}';
