@@ -153,7 +153,11 @@ function nativeChecks(){
   // Exercise the normal first native simulation update before the persistence
   // reference. The pre-update constructor has optional legacy subsystems absent;
   // its exact BASE/HEAD bootstrap is independently retained by normal-pairs.
-  GV.save();const constructorSave027=JSON.parse(GV.rawSave());GV.step(1);GV.save();
+  GV.save();const constructorSave027=JSON.parse(GV.rawSave());GV.step(1);
+  // Read the real mayor options UI to materialize the native lazy policy model.
+  // No policy is applied and AI is not enabled. Keep the early-state BASE proof.
+  const mayorButton027=document.getElementById('bAI');if(!mayorButton027)throw Error('wave027 native mayor button missing');mayorButton027.click();
+  const options027=document.querySelector('[data-mtab470="options"]');if(!options027)throw Error('wave027 native mayor options missing');options027.click();document.getElementById('infoX').click();GV.save();
   const originalSave=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
   for(let pass=0;pass<2;pass++){
     if(!GV.load())throw Error('wave027 real native load');GV.save();for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave027 native saved variant roundtrip '+q.id);
@@ -176,7 +180,7 @@ function nativeChecks(){
   if(a.select('croydon'))throw Error('wave027 valve accepted new special selection');
   for(const q of a.rows())if(GV.art574.vdraw({x:10,y:10},{k:24,lv:1,v:q.v})!==0)throw Error('wave027 valve must resolve original landmark');
   delete window.__noBritishWave027;
-  return{report,red,pairs,placed,newAppearanceTransactions:{id:last.id,v:last.v,undo:true,redo:true,refund:last.spent,refDemolition:true,undoRefDemolition:true,allTenForms:true},slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1,nativeStepsBeforeSaveReference:1,preUpdateConstructor:{pol:constructorSave027.pol,hasGov513:Object.hasOwn(constructorSave027,'gov513'),hasInn507:Object.hasOwn(constructorSave027,'inn507')},everySaveFieldCompared:true},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
+  return{report,red,pairs,placed,newAppearanceTransactions:{id:last.id,v:last.v,undo:true,redo:true,refund:last.spent,refDemolition:true,undoRefDemolition:true,allTenForms:true},slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),fixture:{initialMoney:1000000,unlimitedMoney:false,difficulty:1,nativeStepsBeforeSaveReference:1,nativeMayorOptionsRead:true,preUpdateConstructor:{pol:constructorSave027.pol,hasGov513:Object.hasOwn(constructorSave027,'gov513'),hasInn507:Object.hasOwn(constructorSave027,'inn507')},everySaveFieldCompared:true},remaining:['complete seasonal/edge/overlay scenes (separate probe)','full-frame base/valve comparison (separate probe)','human full-scene image review']};
 }
 (async()=>{
   let images=[];
