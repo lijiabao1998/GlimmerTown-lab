@@ -57,18 +57,31 @@ function framePixels028(frame){
 }
 function frameDiff028(a,b){const x=framePixels028(a),y=framePixels028(b);assert.equal(x.w,y.w);assert.equal(x.h,y.h);let pixels=0,minX=x.w,minY=x.h,maxX=-1,maxY=-1,maxChannel=0;const samples=[];for(let i=0;i<x.out.length;i+=4){let changed=false;for(let c=0;c<4;c++){const d=Math.abs(x.out[i+c]-y.out[i+c]);if(d)changed=true;maxChannel=Math.max(maxChannel,d);}if(changed){const px=(i/4)%x.w,py=Math.floor(i/4/x.w);pixels++;minX=Math.min(minX,px);minY=Math.min(minY,py);maxX=Math.max(maxX,px);maxY=Math.max(maxY,py);if(samples.length<8)samples.push({x:px,y:py,before:[...x.out.subarray(i,i+4)],after:[...y.out.subarray(i,i+4)]});}}return{view:a.name,pixels,maxChannel,bbox:pixels?[minX,minY,maxX,maxY]:null,samples};}
 async function verifyFrames028(input){
-  const a=await frameSession(base,input,'BASE exact full frames'),b=await frameSession(head,input,'HEAD exact full frames');
+  const a=await frameSession(base,input,'BASE exact full frames',0),b=await frameSession(head,input,'HEAD exact full frames',0);
   archive('frame-base-native-states.json',{expected:a.expected,rounds:a.rounds.map(q=>q.load)});archive('frame-head-native-states.json',{expected:b.expected,rounds:b.rounds.map(q=>q.load)});
-  report.frames={base:frameFiles(a.before,'base'),head:frameFiles(b.before,'head'),rounds:b.rounds.map((q,i)=>frameFiles(q.views,'head-load-'+(i+1)))};
+  report.frames={base:frameFiles(a.before,'base'),head:frameFiles(b.before,'head'),rounds:b.rounds.map((q,i)=>frameFiles(q.views,'head-load-'+(i+1))),clocks:{base:a.clock,head:b.clock}};
   report.frameDifferences={baseHead:a.before.map((f,i)=>frameDiff028(f,b.before[i])),headLoad:b.rounds.map(q=>q.views.map((f,i)=>frameDiff028(b.before[i],f))),savedModelBaseHead:differences(a.expected,b.expected),savedModelHeadLoads:b.rounds.map(q=>differences(b.expected,q.load.states[1]))};archive('frame-differences.json',report.frameDifferences);console.log('POLICY028_FRAME_DIFF '+JSON.stringify(report.frameDifferences));
   check('eight complete BASE-HEAD frames',()=>{assert.equal(a.before.length,8);equal(b.before,a.before,'whole native frame equality against BASE');});
   check('same-version loaded frame input preserves all native saved fields',()=>{for(const q of b.rounds)equal(q.load.states[1],b.expected);});
   check('eight complete native loaded frames in two rounds',()=>{for(const q of b.rounds)equal(q.views,b.before,'whole native frame equality after native load');});
+  const offset=await frameSession(head,input,'real native half-day clock negative',.5),restored=await frameSession(head,input,'restored real native day-boundary clock',0);
+  const clockNegative={clock:offset.clock,restoredClock:restored.clock,changed:offset.before.map((f,i)=>frameDiff028(b.before[i],f)),restored:restored.before.map((f,i)=>frameDiff028(b.before[i],f))};archive('native-clock-negative.json',clockNegative);console.log('POLICY028_CLOCK_NEGATIVE '+JSON.stringify(clockNegative));
+  check('real native fractional clock first RED and native boundary restoration GREEN',()=>{
+    equal(offset.expected,b.expected,'clock case keeps every saved field identical');equal(restored.expected,b.expected,'clock restoration keeps every saved field identical');
+    let first;try{equal(offset.before,b.before,'whole native frame equality');}catch(e){first=e.message;}assert(first,'native half-day offset must fail the whole-frame guard');assert(clockNegative.changed.some(q=>q.pixels>0),'real changed pixels in the native construction layer');
+    equal(restored.before,b.before,'restored native clock whole-frame equality');report.negative.push({name:'native advance creates half-day fractional construction offset',first:first.slice(0,1500),changed:clockNegative.changed.map(({samples,...d})=>d),restoredGreen:true});
+  });
 }
-async function frameSession(source,input,label){
+async function frameSession(source,input,label,phase){
   // One synchronous browser task gives every comparison the same visual
   // inputs; separate CDP awaits had allowed live animation frames in between.
-  return session(label,source,cdp=>cdp.evalJs('(function(input){const roundtrip=('+roundtrip.toString()+'),frames=('+frames.toString()+');roundtrip(input,true,1);frames();const before=frames();GV.save();const expected=JSON.parse(GV.rawSave()),rounds=[];for(let i=0;i<2;i++){const load=roundtrip(expected,true,1),views=frames();rounds.push({load,views});}return{expected,before,rounds};})('+JSON.stringify(input)+')'));
+  // Bind the existing private advance/clock to CI without changing their code.
+  // Align before loading the fixed specimen through a real simulation day;
+  // no construction override, escape valve or serialized-field rewrite is used.
+  const anchor='Object.assign(window.GV,{art574:';assert.equal(source.split(anchor).length,2,'one native clock observation binding');
+  const binding='Object.assign(window.GV,{policyFrameClock028:Object.freeze({read:()=>({simAcc,DAYLEN,day,fraction:simAcc/DAYLEN}),advance:dt=>advance(dt)}),art574:';
+  const measured=source.replace(anchor,binding);assert.equal(measured.replace(binding,anchor),source,'only the read/native-advance binding is added');
+  return session(label,measured,cdp=>cdp.evalJs('(function(input,phase){const roundtrip=('+roundtrip.toString()+'),frames=('+frames.toString()+'),native=GV.policyFrameClock028,initial=native.read();GV.setSpeed(1);native.advance(initial.DAYLEN-initial.simAcc+Number.EPSILON*initial.DAYLEN);GV.setSpeed(0);const boundary=native.read();if(Math.abs(boundary.fraction)>1e-12||boundary.day!==initial.day+1)throw Error("native clock boundary did not use one real simulation day");if(phase){GV.setSpeed(1);native.advance(boundary.DAYLEN*phase);GV.setSpeed(0);}const aligned=native.read();if(Math.abs(aligned.fraction-phase)>1e-12)throw Error("native fractional clock input");roundtrip(input,true,1);frames();const before=frames();GV.save();const expected=JSON.parse(GV.rawSave()),rounds=[];for(let i=0;i<2;i++){const load=roundtrip(expected,true,1),views=frames();rounds.push({load,views});}return{expected,before,rounds,clock:{initial,boundary,aligned,end:native.read()}};})('+JSON.stringify(input)+','+JSON.stringify(phase)+')'));
 }
 function proceed(specimen,loadBeforeNextDay){
   if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);localStorage.setItem('glimmerville.v1.s3',JSON.stringify(specimen));if(!GV.load())throw Error('policy028 prepare common archived native input');GV.setSpeed(0);GV.save();const input=JSON.parse(GV.rawSave());
