@@ -208,3 +208,17 @@ lightDir單軸下降，已照實列出；家族總分不降。不把總分持平
 第7節仍要求修補優先；第二波只能在最新main、運行開關與綠色main／Pages核實後，按已知修補的處理範圍接續，不藉新卡繞過此缺陷。第一波12小時為21:45:21 UTC，但時間屆滿仍不能越過紅燈。未合併、未部署，完成0／20。
 
 完整本地補充包與原始GitHub附件／file-id對照見[evidence-package.json](../assets/GPT-025/evidence-package.json)；Library失敗不影響原檔及報告已取得的事實，但不冒稱Library保存成功。
+
+
+## 2026-10-17 PR33 獨立合入後同步與重驗（進行中）
+
+業主已批准先合入獨立財務修復 PR #33，再同步及完整重驗本 PR #32。第一波圖片先前已獲批准；本次不重畫、不合併本美術 PR。
+
+- 真實 main 為 `ada5256dad087286c80724bae558445a2bdef1ff`（T751、v14.44）。已讀回實際 squash commit 的獨立 trailer `Glimmer-Fiscal-Load-Repair: GPT-026`，原實作 commit 並非其祖先；lineage 仍解析為受保護修復範圍，不靠原分支 SHA。
+- main [smoke／fp／財務回歸 39022122461](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39022122461) 全綠：財務 53 項、10 項負控制；fp 相對 base 新增／變更／移除均 0，165 族 style 相同、無下降。自動 [Pages 39022474031](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39022474031) build／deploy 全綠，未手動觸發。
+- 部署後公開真網址的雲端讀取仍失敗：`<urlopen error Tunnel connection failed: 403 Forbidden>`。已確認 Git 主線與部署成功，尚未核實公開站 HTML 位元組，不能宣稱已看過更新後網站。
+- 從原分支 `30de519db8cc6b8e67a8ca94925e947852d90c79` 正常合入上述 main，保留兩邊歷史；不是 rebase／force。只把 `probeBritishWave025.cjs`、`probeScenes025.cjs` 的固定 BASE 更新成這個已獨立合入的 main，原完整欄位、往返、整幀與負控制判準一字未改。
+- 同步來源核對：剝除本卡三個有界內嵌塊及安裝呼叫後，完整 index 與新 main 逐位元相同；英式幾何、CSS／runtime、既有原始 PNG、fp.json／style.json 與原分支逐位元相同。財務實作只繼承 main，不在本美術卡另修。
+- 推送後須跑標準 smoke 三次、fp、常駐財務 53／10，以及原生放置／完整存檔／負控制、場景與八張 BASE／八張閥關整幀、17 組行人及 32 份原始取證分片。此處尚未跑完，保持待驗；不以計畫、靜態核對或舊 head 的綠燈代替新 head 結果。
+
+本 PR 保留 draft、未合併、未部署；方向完成數仍 0／20。專屬 workflow 暫留供完整重驗，尚未進入刪除／配號／合併階段。

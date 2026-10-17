@@ -1,7 +1,7 @@
 'use strict';
 // Executed in real Chrome on GitHub Actions, never during local source checks.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process'),vm=require('node:vm');
-const {withGame,ROOT}=require('./harness.js'),BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots','wave025'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const {withGame,ROOT}=require('./harness.js'),BASE='ada5256dad087286c80724bae558445a2bdef1ff',OUT=path.join(ROOT,'shots','wave025'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const original=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 let stripped=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
 for(const part of['PURE ART','CSS']){
