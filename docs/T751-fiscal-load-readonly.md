@@ -181,3 +181,15 @@ PR32尚未同步修復，也未進行修復後完整重驗。需先獨立合入�
 - [可見美術12095268820](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125971/artifacts/12095268820)：30192713 bytes，SHA-256 25ed846a2cf4ee7fe399237460530b243663a6121c41ff06b917e10ffdb943cc。
 
 來源P1已據此回覆discussion_r4302050944並標解決；不拿已完成畫布案例替代這項來源驗證，也不宣稱最新外部機器人重審已完成。四案例已全綠並在本卡記錄；接下來須workflow-only刪除新source-compat workflow，並取得最後head常態CI及新外部重審，才依先前獨立批准合併。原產品、fp.js／harness.js／gallery.js、完整保存／正常模擬／結算／cadence／負控制／畫布判準保持；PR32尚待本修補獨立合入main後同步重驗。
+
+
+### 2026-10-17 新範圍審查：施工前穩定歷史與模擬契約
+
+審查5557051249兩項成立，分別為discussion_r4302079986（以程式拼字辨識修補會在格式重構後誤判）與discussion_r4302079989（永久base／HEAD模擬恆等會擋後續正式玩法變更）。不重開已解決的來源、版本或畫布討論；以下先於本次施工記錄。
+
+1. **穩定修補範圍**：以Git變更base的祖先歷史查找精確commit trailer「Glimmer-Fiscal-Load-Repair: GPT-026」，並核實標記commit確為祖先，不再以函式或finally的拼字判斷。標記只隨已含本修補的實作提交及最後squash合併commit發布；真正PR33 base98545ff4仍無標記，繼續原T751來源、獨立base整幀及模擬恆等驗收。格式／命名重構不會抹掉既有Git歷史標記。合併訊息必須保留該trailer。
+2. **原T751模擬不降低**：本修補仍完整比較同種子獨立base與HEAD的正常世界及所有財務欄位。base已含修補的後續工作，永久比較同一HEAD有讀檔／無讀檔的完整正常模擬結果，包含原points以外的初始化、完工與force欄位；原loaded.points守衛保留並加強全結果恆等。產品數值、公式、cadence、RNG及原normal026函式不改。
+3. **新增活體反例**：CI暫存來源只在正常世界原生load之後，讓後續日結算多一元；原生新世界重設故障旗標。原生有／無load兩條序列須由同一完整正常模擬守衛精確首紅，還原來源後完整GREEN。原52項／9原生負控制全保留，新增此反例後預期53項／10負控制，以實跑為準。
+4. **格式重構正例**：CI的真實已修補base只改fiscalLoading026宣告的空白，另以既有批准資產讓QA畫布確實可見變動。精確c175bddf舊探針應因錯誤歷史範圍拒絕8張畫布，新探針須全53項／10負控制GREEN；不改任何保存欄位或畫布比較判準。
+5. **玩法變更正例**：僅CI真實後續子HEAD把日結算的recurring收入加1，base保留原公式。精確c175bddf舊探針須只在正常base／HEAD數值恆等首紅；新版須實證base／HEAD正常結果不同、同HEAD有／無讀檔全結果相同，並通過全部53項／10負控制。此數值變更只作測試輸入，不提交產品index.html或部署。
+6. **原驗證與收尾**：原重烘、下一版、可見美術、來源四案例及其負控制不刪，另加refactor-scope／model-scope兩個獨立runner。原fp.js／harness.js／gallery.js、兩份fixture、正式fp/style及產品index.html不改；所有CI暫存輸入還原。新唯讀分支workflow最後六案例全綠後寫卡，再workflow-only刪除；最後head常態CI與新審查仍是合併門檻。以上為施工前契約，尚未宣稱新案例通過。
