@@ -2,7 +2,7 @@
 if(!process.env.GITHUB_ACTIONS)throw Error('wave027 performance runs on GitHub Actions only');
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {withGame,ROOT}=require('./harness.js'),OUT=path.join(ROOT,'shots','wave027','performance'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',file=path.join(ROOT,'perf-base027.html');
-async function measure027(){
+async function measure027(baseSHA){
   const frame=document.createElement('iframe');frame.style.cssText='position:fixed;left:-20000px;top:0;width:'+innerWidth+'px;height:'+innerHeight+'px;border:0';frame.src='/perf-base027.html';document.body.appendChild(frame);
   const wait=async test=>{const end=Date.now()+120000;while(Date.now()<end){if(test())return;await new Promise(r=>setTimeout(r,100));}throw Error('perf027 BASE iframe native boot timeout');};
   await wait(()=>frame.contentWindow?.__bootDone453&&frame.contentWindow.GV);const old=frame.contentWindow;old.localStorage.setItem('glimmerville.v1.slot','3');old.GV.newWorldSeeded(87);old.GV.setSpeed(0);await wait(()=>old.__t519Roof>0&&old.__bootDone453);await new Promise(r=>setTimeout(r,3000));
@@ -36,12 +36,12 @@ async function measure027(){
     const stats={base:summary(sample.base),head:summary(sample.head)};
     // A repeated millisecond-scale difference matters; isolated maxima do not.
     if(stats.head.median>stats.base.median*1.5+2||stats.head.p90>stats.base.p90*1.5+3)throw Error('perf027 repeatable native redraw regression '+JSON.stringify(stats));
-    return{stats,sample,newGeometryBuildsDuringWarmDraw:builds,cacheLeaves:refs.length,firstRed:first,restoredGreen:true,interleaved:true,nativeBaselineSource:BASE,viewport:{head:[innerWidth,innerHeight],base:[old.innerWidth,old.innerHeight]},hardware:'GitHub Actions Ubuntu desktop Chromium; not real mobile hardware'};
+    return{stats,sample,newGeometryBuildsDuringWarmDraw:builds,cacheLeaves:refs.length,firstRed:first,restoredGreen:true,interleaved:true,nativeBaselineSource:baseSHA,viewport:{head:[innerWidth,innerHeight],base:[old.innerWidth,old.innerHeight]},hardware:'GitHub Actions Ubuntu desktop Chromium; not real mobile hardware'};
   }finally{window.BritishWaveArchitecture027=API;frame.remove();}
 }
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});const original=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
   fs.writeFileSync(file,original.replace('<head>','<head><script>window.confirm=()=>true;Math.random=()=>.125;<\/script>'));
-  try{const r=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>.125',log:console.log},async({cdp})=>{const q=await cdp.evalJs('('+measure027.toString()+')()');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return q;});assert(r.ok&&r.result,'perf027 native sessions '+r.fails.join('; '));fs.writeFileSync(path.join(OUT,'manifest-performance.json'),JSON.stringify({head:process.env.GITHUB_SHA,...r.result},null,2)+'\n');console.log('perf027 GREEN '+JSON.stringify(r.result));}
+  try{const r=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>.125',log:console.log},async({cdp})=>{const q=await cdp.evalJs('('+measure027.toString()+')('+JSON.stringify(BASE)+')');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return q;});assert(r.ok&&r.result,'perf027 native sessions '+r.fails.join('; '));fs.writeFileSync(path.join(OUT,'manifest-performance.json'),JSON.stringify({head:process.env.GITHUB_SHA,...r.result},null,2)+'\n');console.log('perf027 GREEN '+JSON.stringify(r.result));}
   finally{fs.rmSync(file,{force:true});}
 })().catch(e=>{console.error(e.stack);process.exitCode=1;});

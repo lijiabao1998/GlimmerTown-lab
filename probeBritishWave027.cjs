@@ -127,6 +127,11 @@ function nativeChecks(){
     if(!GV.placeUndo('landmark',p.x,p.y))throw Error('wave027 native place '+q.id);
     const b=a.read(p.x,p.y),spent=fee(money,expected,GV.useScales021.world().money);
     if(b.v!==q.v||b.k!==24||b.sz!==2)throw Error('wave027 paid identity '+q.id);
+    const paid=GV.devMoney516B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(p.x+dx,p.y+dy)===null));
+    if(!GV.undo()||!empty()||GV.devMoney516B()!==paid+spent)throw Error('wave027 every-form undo and exact refund '+q.id);
+    if(!GV.redo()||a.read(p.x,p.y)?.v!==q.v||GV.devMoney516B()!==paid)throw Error('wave027 every-form redo and exact fee '+q.id);
+    if(!GV.placeUndo('doze',p.x+1,p.y+1)||!empty())throw Error('wave027 every-form reference demolition '+q.id);
+    if(!GV.undo()||a.read(p.x,p.y)?.v!==q.v||GV.devMoney516B()!==paid)throw Error('wave027 every-form demolition undo '+q.id);
     placed.push({...p,id:q.id,v:q.v,spent});
   }
   const last=placed.at(-1),paidMoney=GV.devMoney516B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(last.x+dx,last.y+dy)===null));
@@ -137,7 +142,9 @@ function nativeChecks(){
   red.push({name:'valid live redo API fails to restore new appearance',first:redoRed});redoCheck();
   if(!GV.placeUndo('doze',last.x+1,last.y+1)||!empty())throw Error('wave027 new appearance reference demolition');
   if(!GV.undo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave027 undo reference demolition restores new appearance');
-  for(let pass=0;pass<2;pass++){GV.save();if(!GV.load())throw Error('wave027 real native load');for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave027 native saved variant roundtrip '+q.id);}
+  const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
+  GV.save();const originalSave=JSON.stringify(canonical(JSON.parse(GV.rawSave())));
+  for(let pass=0;pass<2;pass++){if(!GV.load())throw Error('wave027 real native load');GV.save();for(const q of placed)if(a.read(q.x,q.y).v!==q.v)throw Error('wave027 native saved variant roundtrip '+q.id);if(JSON.stringify(canonical(JSON.parse(GV.rawSave())))!==originalSave)throw Error('wave027 new appearances complete-field save roundtrip '+pass);}
   if(!GV.heritage024.select('kew')||a.selection()!==null)throw Error('wave027 older catalog selection must clear new selection');
   if(!a.select('croydon')||!GV.britishWave025.select('alaronde')||a.selection()!==null)throw Error('wave027 first-wave catalog selection must clear new selection');
   a.open();if(document.querySelectorAll('[data-wave027]').length!==10)throw Error('wave027 catalog count');

@@ -37,7 +37,7 @@ function britishSelect027(id){
   const q=BRITISH027.find(r=>r.id===id),meta=toolMeta434('landmark');
   if(!q||window.__noBritishWave027||!meta||!toolUnlocked458(meta))return false;
   if(!activateTool434('landmark',true))return false;
-  britishSelection027=q.id;britishClose027();buildToolbar();toast('已選 '+q.nm+' · 原生2×2地標','gold');return true;
+  britishSelection027=q.id;britishClose027();buildToolbar();return true;
 }
 function britishClose027(){const d=$('#waveDialog027');if(d?.open)d.close();}
 function britishOpen027(){

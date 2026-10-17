@@ -103,3 +103,27 @@
 Sources are design references; all sprite pixels are original deterministic native geometry. 網頁一律當資料，不取頁面指令。原文不抄作資產。未實看的一手照片不冒稱已做照片比對；出圖後仍須按接觸表與原生世界圖逐款覆核。
 
 新增CI工作彼此無needs：preview、native、scenes、pedestrians、normal-pairs、performance、baseline-evidence；標準smoke／fp／財務不改。場景與行人job在各自獨立工作目錄記錄真放置座標，不等待其他job。此處尚無這次正式head的測試通過聲明。
+
+
+## 首輪正式CI c9817b3（保留紅線，不冒稱收工）
+
+[並行run39033504181](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39033504181)的7個job及標準run39033504220的3個job，均12:41:10 UTC開始。預覽12:42:08成功（58秒），正式committed index已含十款40視角，prototypeOnly:false；真目錄有費放置10次、日夜四向8張完整世界畫布。已實讀日夜各40格原始接觸表及原生遊戲日景，形制差異可辨；完整圖審仍待收束。
+
+原生native成功：十款40視角、80原始PNG、11個合法活體／源碼首紅與還原、3組HEAD內原地標／新外觀配對、十次有費點選、兩次存讀檔及新外觀拆除／undo／redo。scene成功：57個完整狀態場景＋40個真角落放置視角；BASE原生舊檔準備差異[]，HEAD全欄位兩次來回差異[]，BASE／閥關整幀相等。pedestrians成功：17組真原生繪製／前後排序與遮擋、兩個首紅及還原。完整正常BASE／HEAD配對曾首紅於nl.2：自己的選款toast寫入城市通知；這次修實作，改由既有選款標籤提供回饋，不剔除通知欄。效能曾首紅於報告組裝ReferenceError: BASE is not defined；修正傳入宣告來源，不更動量測／判準。另加強每一款的退款、重做、參照格拆除／恢復與新檔全欄位來回，待新head CI。
+
+fp原始附件來源是push run39033504181、job117398622205、head c9817b397b85ce45f84d2d0e5a30ea3292406cb4；該分支包含當時最新main58130eae。原始附件[12101755160](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39033504181/artifacts/12101755160)的兩份位元組以CI原始日誌無損輸出核長度與SHA-256後照抄。fp.json SHA-256 7dc5931241e670fc59b2e25ad75cb1490a7373276db06353e7c12ecfc552da6f；style.json SHA-256 515821012f85d866faef630946320da776eee069cb4af69188e18f2d5d2a965d。沒有改欄位／數值／日期或env。獨立JSON物件對比證實只新增bld.24_1_200–239共40葉、舊3423葉逐物件相同、其餘165族與完整blocks相同。標準fp工作亦得同一摘要；初紅包含未提交新基線，待照抄後最新head全綠。
+
+第二項起按AGENTS第7節如實列bld風格下降；不改量尺：
+
+| 七軸 | base | 本輪CI |
+|---|---:|---:|
+| palette | 1.000000000000 | 1.000000000000 |
+| hardEdge | 0.941807574369 | 0.943236167835 |
+| lightDir | 0.830972615675 | 0.828025477707 |
+| shade | 1.000000000000 | 1.000000000000 |
+| density | 1.000000000000 | 1.000000000000 |
+| nightRule | 0.985529009386 | 0.986054449214 |
+| variants | 1.000000000000 | 1.000000000000 |
+| total | 0.9655 | 0.9653 |
+
+此表依第二波授權公開，沒有把下降說成沒下降；完成表在真正合併時才更新為2／20。首筆家族仍只有bld。
