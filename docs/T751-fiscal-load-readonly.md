@@ -133,3 +133,23 @@ PR32尚未同步修復，也未進行修復後完整重驗。需先獨立合入�
 本次只動自有probeFiscalLoad026.cjs、probeFiscalArtCompat026.cjs、本卡及僅綁本分支的臨時相容workflow。臨時workflow只有contents: read，將重烘、下一版、可見美術三種輸入放入獨立runner；沒有部署或推送。最後一次相容run全綠後仍須workflow-only刪除，再以最後head的常態smoke／fp／完整原生回歸與最新重審作合併門檻。以上為待實作驗收，尚無本次新增案例通過宣稱。
 
 首次e77d8696常態CI的原有完整保存／結算／cadence與八個負控制仍通過，新增八張正常讀檔畫布亦通過；實際49項成功／8個負控制，新增保存判準、畫面反例與恢復判準三處先紅於完整欄位。原因是取景fixture本身呼叫britishWeather004(1,0,0)把day1改成101但治理／觀測游標仍為1，且取景zoom1.5會被原生load按T106離散縮放檔位落到1.4。不是刪去cam或gov／obs欄位：歷史八張完整畫布仍用原1.5／夏季輸入；新增同版本保存案例改用原存檔春季day1與原生檔位zoom1.4，先斷言準備沒有推進日數且保存的是可原樣讀回的縮放，再完整比較讀檔輸出與所有原始欄位。輸出不正規化、不排除欄位、不放寬像素斷言；新結果仍待實際CI。
+
+### 0be8c4f9：新52項／9負控制與可見美術實證
+
+[push39013156009](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39013156009)／[PR39013158432](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39013158432)六個常態job全綠，兩組完整原生各52項／9負控制／0失敗；同版本全欄位、兩輪八視圖、讀檔後錯外觀首紅及來源還原GREEN均實際執行。PR測試合併ae9a0104的tree與本提交同為eb95ea619c4c83f65542930946361732753c5d5a。
+
+臨時workflow最後[run39013155866](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39013155866)已completed／success，三個獨立案例均完整52項／9負控制：
+
+- 重烘：14.44／T751，四個相容性負例正確首紅，restored=true、failures=[]。
+- 下一版：14.45／T752，五個相容性負例正確首紅，restored=true、failures=[]。固定14.44檔只是歷史期望，沒有凍結目前HEAD；版本P1已回覆當次完整證據。
+- 可見美術：QA的k24／v2由原生選圖入口顯示已批准塔特舍爾四向168–171，完整保存資料不變。實測八張HEAD畫布皆異於基底；精確舊dd8探針只在這八張有意變動的完整畫布RED，新完整探針全部GREEN。五個相容性負例含舊畫布凍結均命中；原生讀檔後錯選v0的反例先證明保存欄位全同，再首紅於same-version full frame day-r0 pass1，恢復來源GREEN。所有暫存檔逐位元還原，沒有把不同畫面裁成相同。
+
+完整證據均保留至2026-10-31：
+
+- [可見美術12093921680](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39013155866/artifacts/12093921680)：30192474 bytes，SHA-256 95db5ffb674896373d279356866331efcee6a6b8e44e99adb3690c8613f44a83。
+- [下一版12094355882](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39013155866/artifacts/12094355882)：30428318 bytes，SHA-256 bbc9cd089dee03dcf16b3aa35fa2e3e91b0522d5d8422ed8fc8503ad62cf6011。
+- [重烘12093268698](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39013155866/artifacts/12093268698)：30427705 bytes，SHA-256 0060e9afe3f3d3fd0fe75dd524ccc221641e49401443de447cde4ffef006b5e5。
+
+原42項／8負控制及原始存檔不動，新增的是更強的同版本保存／整幀與真實壞讀檔反例。相容性GREEN只證明此讀檔守衛不誤擋已批准美術，不替代fp／風格／首卡家族或業主圖片批准。兩個新P1討論已依來源與執行證據標為解決；最後head的外部重審尚待執行，不宣稱已取得。
+
+接下來僅補本卡與本輪日誌的52項實測記錄，再以workflow-only提交移除自有相容workflow。其後仍須最後head的smoke／fp／完整原生全綠及最新外部重審無阻斷，才依既有批准合併。本段不代表已合併、已部署或已重驗PR32。
