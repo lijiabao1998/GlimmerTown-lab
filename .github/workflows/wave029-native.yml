@@ -1,0 +1,191 @@
+name: wave029-native
+on:
+  push:
+    branches: ['gpt/british-wave03-029']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave029-native
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Early native preview with explicit prototype provenance
+        run: node previewWave029.cjs
+      - name: Preserve raw native preview before longer acceptance work
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave029-preview-${{ github.sha }}
+          path: shots/wave029/preview/
+          retention-days: 14
+          if-no-files-found: error
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Native catalog, paid transactions, save-load and first-RED controls
+        run: node probeBritishWave029.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave029-native-${{ github.sha }}
+          path: shots/wave029/
+          if-no-files-found: error
+          retention-days: 14
+  scenes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Record independently placed scene coordinates
+        run: node previewWave029.cjs
+      - name: Exact old-save and whole-frame guard, seasons, edges and layers
+        run: node probeScenes029.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave029-scenes-${{ github.sha }}
+          path: shots/wave029/scenes/
+          if-no-files-found: error
+          retention-days: 14
+  pedestrians:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Record independently placed scene coordinates
+        run: node previewWave029.cjs
+      - name: Real native pedestrian drawing, depth, occlusion and first-RED controls
+        run: node probePedestrians029.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave029-pedestrians-${{ github.sha }}
+          path: shots/wave029/pedestrians/
+          if-no-files-found: error
+          retention-days: 14
+  normal-pairs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Independent BASE-HEAD same-seed complete native states
+        run: node probeNativePairs029.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave029-normal-pairs-${{ github.sha }}
+          path: shots/wave029/normal-pairs/
+          if-no-files-found: error
+          retention-days: 14
+  performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Forty interleaved native BASE-HEAD samples and no warm rebake
+        run: node probePerformance029.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave029-performance-${{ github.sha }}
+          path: shots/wave029/performance/
+          if-no-files-found: error
+          retention-days: 14
+  baseline-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Exact native fp calculation against the independent main base
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show "$(git merge-base origin/main HEAD):fp.json" > "$RUNNER_TEMP/fp-base.json"
+          git show "$(git merge-base origin/main HEAD):style.json" > "$RUNNER_TEMP/style-base.json"
+          node fp.js --check --report-base="$RUNNER_TEMP/fp-base.json" --report-base-style="$RUNNER_TEMP/style-base.json" --dump=fp-rebake
+      - name: Byte-preserving evidence transfer
+        if: always()
+        run: node -e "const fs=require('fs'),c=require('crypto');for(const n of ['fp.json','style.json']){const b=fs.readFileSync('fp-rebake/'+n),s=b.toString('base64');console.log('WAVE029_BASE_BEGIN '+JSON.stringify({name:n,head:process.env.GITHUB_SHA,bytes:b.length,sha256:c.createHash('sha256').update(b).digest('hex')}));for(let i=0;i<s.length;i+=4096)console.log('WAVE029_BASE_DATA '+s.slice(i,i+4096));console.log('WAVE029_BASE_END '+n);}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fp-${{ github.sha }}
+          path: fp-rebake/
+          if-no-files-found: error
+          retention-days: 14
+  scene-evidence:
+    needs: scenes
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        part: [0, 1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          name: wave029-scenes-${{ github.sha }}
+          path: shots/wave029/scenes/
+      - name: Transfer two byte-exact already captured close scenes
+        env:
+          WAVE029_SCENE_PART: ${{ matrix.part }}
+        run: node transferWave029Scenes.cjs
