@@ -37,6 +37,9 @@ function originalImages(){
     const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
     a.rows().forEach((q,i)=>{for(let view=0;view<4;view++){const x=view*220,y=i*240,s=spr['24_1_'+(q.v+view)];g.drawImage(s.img,x+30,y+25);if(mode==='night'){g.fillStyle='#081314';g.fillRect(x+30,y+25,s.w,s.h);g.globalAlpha=.25;g.drawImage(s.img,x+30,y+25);g.globalAlpha=1;g.drawImage(s.night,x+30,y+25);}g.fillStyle='#eee3cb';g.font='12px sans-serif';g.fillText(q.en+' · '+view,x+8,y+14,208);}});
     contacts[mode]=c.toDataURL('image/png');
+    const rest=document.createElement('canvas');rest.width=880;rest.height=1920;const rg=rest.getContext('2d');rg.imageSmoothingEnabled=false;rg.fillStyle='#20312e';rg.fillRect(0,0,rest.width,rest.height);
+    a.rows().slice(2).forEach((q,i)=>{for(let view=0;view<4;view++){const x=view*220,y=i*240,s=spr['24_1_'+(q.v+view)];rg.drawImage(s.img,x+30,y+25);if(mode==='night'){rg.fillStyle='#081314';rg.fillRect(x+30,y+25,s.w,s.h);rg.globalAlpha=.25;rg.drawImage(s.img,x+30,y+25);rg.globalAlpha=1;rg.drawImage(s.night,x+30,y+25);}rg.fillStyle='#eee3cb';rg.font='12px sans-serif';rg.fillText(q.en+' · '+view,x+8,y+14,208);}});
+    contacts['remaining-eight-'+mode]=rest.toDataURL('image/png');
   }
   const comparisons=[[200,112],[204,152],[208,160],[212,164],[216,100],[220,168],[224,156],[228,180],[232,180],[236,132]],old=[...GV.heritage024.rows(),...GV.britishWave025.rows()];
   const c=document.createElement('canvas');c.width=880;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
@@ -52,9 +55,10 @@ function exportEvidence(name,bytes){
   console.log('WAVE027_FILE_END '+name);
 }
 function preserveImages(r){
-  fs.mkdirSync(OUT,{recursive:true});const images=[];
-  for(const s of r.images)for(const layer of['day','night']){const bytes=Buffer.from(s[layer].split(',')[1],'base64'),file=s.p.replace('bld.','')+'-'+layer+'.png';fs.writeFileSync(path.join(OUT,file),bytes);images.push({file,w:s.w,h:s.h,sha256:hash(bytes)});}
-  for(const [mode,data]of Object.entries(r.contacts)){const bytes=Buffer.from(data.split(',')[1],'base64');fs.writeFileSync(path.join(OUT,'contact-'+mode+'.png'),bytes);exportEvidence('contact-'+mode+'.png',bytes);}
+  fs.mkdirSync(OUT,{recursive:true});const images=[],delivery=path.join(OUT,'remaining-eight'),contacts=[];fs.mkdirSync(delivery,{recursive:true});
+  for(const s of r.images)for(const layer of['day','night']){const bytes=Buffer.from(s[layer].split(',')[1],'base64'),file=s.p.replace('bld.','')+'-'+layer+'.png';fs.writeFileSync(path.join(OUT,file),bytes);images.push({file,w:s.w,h:s.h,sha256:hash(bytes)});exportEvidence(file,bytes);if(+file.match(/^24_1_(\d+)-/)[1]>=208)fs.writeFileSync(path.join(delivery,file),bytes);}
+  for(const [mode,data]of Object.entries(r.contacts)){const bytes=Buffer.from(data.split(',')[1],'base64'),file='contact-'+mode+'.png';fs.writeFileSync(path.join(OUT,file),bytes);exportEvidence(file,bytes);if(mode.startsWith('remaining-eight-')){fs.writeFileSync(path.join(delivery,file),bytes);contacts.push({file,sha256:hash(bytes)});}}
+  const manifest=Buffer.from(JSON.stringify({head:process.env.GITHUB_SHA,indexSHA256:hash(fs.readFileSync(path.join(ROOT,'index.html'))),scope:'eight remaining forms only; previously delivered Croydon and Preston excluded',forms:8,views:32,originalPNGs:images.filter(q=>+q.file.match(/^24_1_(\d+)-/)[1]>=208),contacts},null,2)+'\n');fs.writeFileSync(path.join(delivery,'manifest.json'),manifest);exportEvidence('remaining-eight/manifest.json',manifest);
   return images;
 }
 

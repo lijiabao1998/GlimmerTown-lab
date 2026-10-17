@@ -77,7 +77,7 @@
 - [預覽39031673038／job117393201120](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39031673038/job/117393201120) success，12:13:25開始、12:14:17結束，共52秒。標準smoke、fp、財務三個獨立job也實際於12:13:25開始，沒有把長測完成設為預覽前置。
 - 真目錄點擊、有費原生放置兩次：Croydon (7,4)、Preston (10,4)，各扣$2000；日夜四向實際遊戲畫布8張，另有16張sprite日／夜層與兩張接觸表。slot3、桌面Chromium1280×657。
 - 正式committed index SHA-256仍為 `b4c1b9e94b02d2bbe82eff0376f2df019754047bfe8a58346ff41ea84a7b5cb8`；CI預覽暫嵌入後為 `e8e859032cf0368e7dc948521843f2106e1215fcde350a7b31f25fa8f69e4f8c`，manifest明示 `prototypeOnly:true`、`finalAcceptance:false`，測後還原。不是已提交正式整合或十款完成。
-- [日景四向原圖](../assets/GPT-027/early-3303bf9/contact-day.png)／[夜景四向原圖](../assets/GPT-027/early-3303bf9/contact-night.png)／[原生遊戲日景](../assets/GPT-027/early-3303bf9/native-day-r0.png)／[manifest](../assets/GPT-027/early-3303bf9/manifest-preview027.json)。檔案大小及SHA-256均核對CI日誌原始位元組，沒有裁切、調色或重畫。
+- [日景四向原圖](assets/GPT-027/early-3303bf9/contact-day.png)／[夜景四向原圖](assets/GPT-027/early-3303bf9/contact-night.png)／[原生遊戲日景](assets/GPT-027/early-3303bf9/native-day-r0.png)／[manifest](assets/GPT-027/early-3303bf9/manifest-preview027.json)。檔案大小及SHA-256均核對CI日誌原始位元組，沒有裁切、調色或重畫。
 - [完整原始附件12100781393](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39031673038/artifacts/12100781393)：4,672,030 bytes，ZIP digest `sha256:306181060fd29db5d8b588a5e5867020dbc0300d3e5d1c2c7b734dc5d792d96e`。可重用file ID `file_000000008fe88230a45b0dfc3ef4d46a`，不是Library ID。
 
 目前圖審：已實看這次日景接觸表8個視角與原生世界日景，兩款量體差異可讀。Preston層間與曲面剖面仍偏淺，需再強化實際結構間隙及曲面受光；尚未宣稱十款、全狀態、完整守衛或最終品質通過。完成波數維持1／20，第二波尚未合併部署。
@@ -198,3 +198,14 @@ PR35已於15:12:10 UTC合併為`57069b0db4c6182c95f23d0f9fa90ac78b65eb3c`（v14.
 
 
 本輪PR常態run39045004126的財務job117431867307已實跑：52項正向及10個負控制成功，唯一失敗是source-integrity工作內的current-fp核對（倉庫暫取main基線，尚無新增40葉），不是pol或財務行為欄位不等值。完整報告為checks:52、negative:10、failures只有current renderer fingerprints match the committed baselines；因此這次不寫財務53／10全綠。下一個原始基線提交後必須實跑該完整工作轉為53／10，不能重跑賭綠或略過此門。
+
+
+## T754／v14.47發布準備與第二波完整覆核（原GPT-027）
+
+業主2026-10-16方向仍為20波×10座、第一波看且沒回應繼續；本波為第二波，適用AGENTS第7節「業主授權連續做」。8ebb2ae最後13個工作全綠：push39045489238及PR39045493921各smoke三次、fp與財務53／10；專屬39045489191七工作全綠，原pol完整往返紅線解除，沒有排除欄位。十款日夜四向接觸表、舊款對照與完整夏／冬雪／原生世界畫布已實看；量體高低胖瘦、圓鼓／石拱／退台／ETFE／桁架與各款窗、屋頂存在結構差異，不以換色充數。
+
+這次產品只加三個精確版本標示14.47／T754，十款幾何、模擬、價格、容量、原存檔及原守衛判準不改。自己兩支CJS只增原始PNG及十款近景的無損證據輸出；原全部斷言仍原樣。分支專屬native工作另存「其餘八款」64個原始日夜PNG、兩張由同一原生sprite直接繪製的四向接觸表及manifest，不重發已交的Croydon／Preston首兩款。這是可交付取證，不是用接觸表取代全場景驗收。發布head仍須整個專屬run和常態CI重新成功，綠後先把實際run連結寫入本卡，再以獨立workflow-only提交刪除自有workflow；後續每筆確認它不在，轉正式後等新Codex審查完成才合。
+
+收工自檢以實際已跑的8ebb2ae與本發布head後續CI為準：卡面先推、首筆bld家族與全部固定驗收保持；正常三種子／完整新舊檔、40新葉／舊3423葉及其他165族／blocks、8／8完整閥關、97場景與17行人、合法首紅還原、smoke三次均有實跑證據，沒有靠重跑。全部97張逐張人工覆核仍不冒稱，GPT可標未跑的人工全狀態審視例外照實保留，另將實看十款近景與逐款筆記存證。
+
+沒做成的事：實體手機／Safari／觸控未測；公開Pages代理403且網頁工具not accessible，未實看線上畫布。規則要求的發布核對將使用既有已授權自動Pages建置／部署對同一main SHA的成功證據並保留存取限制，不繞過、不手動dispatch、不用業主電腦。分支完成表的2／20須隨PR36合入main才生效；發布前不稱已部署。
