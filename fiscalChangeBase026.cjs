@@ -16,4 +16,14 @@ function resolveChangeBase026({env=process.env,event,git}={}){
   const sha=git(['rev-parse',candidate+'^{commit}']);assert(/^[a-f0-9]{40}$/.test(sha),'resolved change base is a commit SHA');
   return{sha,reason};
 }
-module.exports={resolveChangeBase026};
+const REPAIR_MARKER026='Glimmer-Fiscal-Load-Repair: GPT-026';
+function resolveRepairScope026({baseSha,git}={}){
+  assert(/^[a-f0-9]{40}$/.test(baseSha||''),'repair scope requires an exact base commit');
+  git=git||((args)=>cp.execFileSync('git',args,{encoding:'utf8'}).trim());
+  const matches=git(['log','--format=%H','--extended-regexp','--grep=^'+REPAIR_MARKER026+'$',baseSha]).split(/\s+/).filter(Boolean);
+  if(!matches.length)return{historical:true,repairCommit:null,marker:REPAIR_MARKER026,reason:'no marked fiscal repair in the change-base ancestry'};
+  const repairCommit=matches[0];assert(/^[a-f0-9]{40}$/.test(repairCommit),'repair marker identifies a commit');
+  git(['merge-base','--is-ancestor',repairCommit,baseSha]);
+  return{historical:false,repairCommit,marker:REPAIR_MARKER026,reason:'marked fiscal repair is an ancestor of the change base'};
+}
+module.exports={resolveChangeBase026,resolveRepairScope026,REPAIR_MARKER026};

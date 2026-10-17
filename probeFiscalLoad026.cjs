@@ -2,11 +2,11 @@
 // Native game execution belongs in GitHub Actions. Existing guards stay intact.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const {withGame,ROOT}=require('./harness.js');
-const {resolveChangeBase026}=require('./fiscalChangeBase026.cjs');
+const {resolveChangeBase026,resolveRepairScope026}=require('./fiscalChangeBase026.cjs');
 const BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e',OUT=path.join(ROOT,'shots','fiscal026'),index=path.join(ROOT,'index.html');
 const head=fs.readFileSync(index,'utf8'),base=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const changeBase=resolveChangeBase026(),comparisonSource=cp.execFileSync('git',['show',changeBase.sha+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
-const historicalFrameScope=!(comparisonSource.includes('function fiscalLoading026(){')&&comparisonSource.includes('finally{fiscalLoadDepth026=previous026;}'));
+const repairScope=resolveRepairScope026({baseSha:changeBase.sha}),historicalFrameScope=repairScope.historical;
 // The T751 patch keeps its original source boundaries. Later committed work
 // may change those sources, but temporary/uncommitted edits are still rejected.
 const sourceIdentityRevision=historicalFrameScope?changeBase.sha:'HEAD';
@@ -108,6 +108,13 @@ function badLoadFrameSource026(source){
   const wrongView='const __fiscalDrawFault026=vdraw574;vdraw574=function(o,b){return window.__badLoadedView026&&b&&b.k===24&&!b.ref&&b.v===2?0:__fiscalDrawFault026(o,b);};\n';
   return source.replace(loadAnchor,loadAnchor+'if(ok&&window.__armFiscalFrameFault026)window.__badLoadedView026=true;').replace(drawAnchor,wrongView+drawAnchor);
 }
+function normalLoadCheck026(loaded,normal){stateCheck(loaded,normal,'same-HEAD normal load/no-load equality');}
+function badNormalSource026(source){
+  const loadAnchor='const ok=__load515(slot);',dailyAnchor='extra=recurring+capture;',exportAnchor='Object.assign(window.GV,{art574:';
+  for(const anchor of [loadAnchor,dailyAnchor,exportAnchor])assert.equal(source.split(anchor).length,2,'unique normal-load fault anchor');
+  const reset='const __normalWorldFault026=window.GV.newWorldSeeded;window.GV.newWorldSeeded=function(...args){window.__normalLoadFault026=false;window.__normalArm026=true;return __normalWorldFault026.apply(this,args);};\n';
+  return source.replace(loadAnchor,loadAnchor+'if(ok&&window.__normalArm026)window.__normalLoadFault026=true;').replace(dailyAnchor,'extra=recurring+capture+(window.__normalLoadFault026?1:0);').replace(exportAnchor,reset+exportAnchor);
+}
 function normal026(seed,loadBeforeNextDay=false){
   if(GV.dev516B().sandbox)GV.exitSandbox516B();GV.setDiff(1);GV.newWorldSeeded(seed);GV.setSpeed(0);GV.setDiff(1);
   // newWorldSeeded does not reset T515. Explicitly initialize this isolated
@@ -205,12 +212,17 @@ function staticChecks(){
     stateCheck(q.actual.states[2],migrated);stateCheck(q.actual.states[3],migrated);const migration={name:q.name,differences:stateDiff(q.input,migrated)};report.migrations.push(migration);console.log('FISCAL026_MIGRATION '+JSON.stringify(migration));
   });
   for(const q of positives.negative)check('live saved-state negative and restore '+q.name,()=>{expectRed(q.name,q.altered.states[2],releaseFixture);const target=q.name==='money'?'money':q.name==='cursor'?'fiscal515.lastAssetScanDay':'fiscal515.history';assert(report.negative.at(-1).differences[0].path.startsWith(target),'first RED is the damaged data field');stateCheck(q.restored.states[2],releaseFixture);});
-  check('same-seed normal no-load BASE/HEAD world and all fiscal fields',()=>{const a=clone(positives.normal),b=clone(reference.normal);delete a.force.scope;delete b.force.scope;stateCheck(a,b,'normal simulation equality');return{seed:31,horizons:[1,7,14],changeBase};});
+  check('scoped same-seed world and complete normal fiscal behavior',()=>{
+    if(historicalFrameScope){const a=clone(positives.normal),b=clone(reference.normal);delete a.force.scope;delete b.force.scope;stateCheck(a,b,'normal simulation equality');}
+    else normalLoadCheck026(positives.loaded,positives.normal);
+    const normalScope={mode:historicalFrameScope?'T751 independent-base equality':'same-HEAD complete load/no-load equality',baseNormalSha256:hash(serialized(reference.normal)),headNormalSha256:hash(serialized(positives.normal)),baseDay1Money:reference.normal.points[1].snapshot.stats.money,headDay1Money:positives.normal.points[1].snapshot.stats.money};
+    report.repairScope=repairScope;report.normalScope=normalScope;return{seed:31,horizons:[1,7,14],changeBase,normalScope};
+  });
   check('nonzero recurring and completion, same-day deduplication, force remains live',()=>{
     const q=positives.normal;assert(q.activated.every(x=>x.result.ok),'QA policy activation');assert(q.completion.moneyAfter>q.completion.moneyBefore);assert(q.completion.captured>0,'completion must pay a nonzero amount');assert(q.completion.settlements.some(x=>x.recurring>0),'recurring must be nonzero');assert.equal(q.duplicate.value,0);for(const p of q.points.slice(1))assert.equal(p.duplicate.value,0);assert.equal(q.force.historyAfter,q.force.historyBefore+1);assert.deepEqual(q.force.scope,{depth:0,active:false});
     return{completion:q.completion,dailyPoints:q.points.map(p=>({day:p.snapshot.stats.day,money:p.snapshot.stats.money,cursor:p.snapshot.fiscal.lastSettlementDay,duplicate:p.duplicate?.value})),force:q.force};
   });
-  check('load does not lose or duplicate the next normal daily settlement',()=>{stateCheck(positives.loaded.points,positives.normal.points,'next-day loaded/no-load equality');assert(positives.loaded.points[1].snapshot.fiscal.lastSettlementDay>positives.loaded.points[0].snapshot.fiscal.lastSettlementDay);});
+  check('load does not lose or duplicate the next normal daily settlement',()=>{stateCheck(positives.loaded.points,positives.normal.points,'next-day loaded/no-load equality');normalLoadCheck026(positives.loaded,positives.normal);assert(positives.loaded.points[1].snapshot.fiscal.lastSettlementDay>positives.loaded.points[0].snapshot.fiscal.lastSettlementDay);});
   check('7-day aggregation and 14-day asset cadence after native load',()=>{
     const q=positives.cadence;for(const p of q.points){assert.equal(p.aggregate,q.day+(p.offset>=14?14:p.offset>=7?7:0));assert.equal(p.asset,q.day+(p.offset>=14?14:0));assert.equal(p.history,q.initialHistory+(p.offset>=14?2:p.offset>=7?1:0));}return q;
   });
@@ -237,6 +249,12 @@ function staticChecks(){
     report.negative.push({name:'source changes the native landmark appearance only after load',first,savedFieldsUnchanged:true});
   });
   report.badLoadFrames=loadFrameEvidence026(badFrames,'bad-load');
+  const badNormal=await session('source changes daily simulation only after native load',badNormalSource026(head),async cdp=>({normal:await evaluate(cdp,normal026,31),loaded:await evaluate(cdp,normal026,31,true)}));
+  check('post-load simulation fault first RED at complete normal guard',()=>{
+    let first;try{normalLoadCheck026(badNormal.loaded,badNormal.normal);}catch(e){first=e.message.split('\n')[0];}
+    assert.equal(first,'same-HEAD normal load/no-load equality');const differences=stateDiff(badNormal.normal,badNormal.loaded);assert(differences.some(d=>d.path.startsWith('points.')),'fault changes the next real simulated results');
+    report.negative.push({name:'source adds one dollar per daily settlement after native load',first,differences});
+  });report.badNormalSimulation=badNormal;
   const anchor='const ok=__load515(slot);',cleanup='finally{fiscalLoadDepth026=previous026;}';
   assert.equal(head.split(anchor).length,2,'fault injection anchor unique');assert.equal(head.split(cleanup).length,2,'cleanup anchor unique');
   const hook='if(window.__fault026==="throw"){window.__fault026="";throw new Error("fiscal026 controlled throw");}if(window.__fault026==="false"){window.__fault026="";return false;}if(window.__fault026==="nested"){window.__fault026="";window.__nested026=load(slot);window.__nestedDepth026=fiscalLoadDepth026;}';
@@ -252,8 +270,8 @@ function staticChecks(){
   const writerAnchor='gameVer:GAME_VER,seed';assert.equal(head.split(writerAnchor).length,2,'writer metadata fault anchor unique');
   const wrongWriter=await session('source writes stale version metadata',head.replace(writerAnchor,"gameVer:'14.43',seed"),async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false)}));
   check('stale writer version first RED at gameVer',()=>{expectRed('writer emits stale gameVer',wrongWriter.load.states[2],releaseFixture);assert.deepEqual(report.negative.at(-1).differences,[{path:'gameVer',before:RELEASE.gameVer,after:'14.43'}]);});
-  const restored=await session('restored HEAD cleanup',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),normal:await evaluate(cdp,normal026,31),loadFrames:await nativeLoadFrames026(cdp,1)}));
-  check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],releaseFixture);stateCheck(restored.normal,positives.normal);assertLoadFrameState026(restored.loadFrames,1);for(const p of restored.loadFrames.passes)for(let i=0;i<restored.loadFrames.before.length;i++)frameCheck026(p.frames[i],restored.loadFrames.before[i],'restored same-version full frame');});
+  const restored=await session('restored HEAD cleanup',head,async cdp=>({load:await evaluate(cdp,roundtrip026,raw,false),normal:await evaluate(cdp,normal026,31),loaded:await evaluate(cdp,normal026,31,true),loadFrames:await nativeLoadFrames026(cdp,1)}));
+  check('source restoration GREEN',()=>{stateCheck(restored.load.states[2],releaseFixture);stateCheck(restored.normal,positives.normal);normalLoadCheck026(restored.loaded,restored.normal);assertLoadFrameState026(restored.loadFrames,1);for(const p of restored.loadFrames.passes)for(let i=0;i<restored.loadFrames.before.length;i++)frameCheck026(p.frames[i],restored.loadFrames.before[i],'restored same-version full frame');});
   report.restoredLoadFrames=loadFrameEvidence026(restored.loadFrames,'restored-load');
  }catch(e){report.failures.push({name:'probe infrastructure or unexpected exception',message:e.stack});console.error(e.stack);}
  finally{fs.writeFileSync(index,head);report.ok=report.failures.length===0;fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({ok:report.ok,checks:report.checks.length,negative:report.negative.length,failures:report.failures}));}

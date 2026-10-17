@@ -2,14 +2,14 @@
 // CI-only compatibility fixtures. Temporary art/guard inputs are restored;
 // nothing is committed, pushed, deployed, or accepted as a product baseline.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),vm=require('node:vm'),crypto=require('node:crypto');
-const {resolveChangeBase026}=require('./fiscalChangeBase026.cjs');
-const ROOT=__dirname,CASES=['rebake','future-release','visible-art','source-scope'],CASE=process.argv.find(a=>a.startsWith('--case='))?.slice(7)||'all';
+const {resolveChangeBase026,resolveRepairScope026}=require('./fiscalChangeBase026.cjs');
+const ROOT=__dirname,CASES=['rebake','future-release','visible-art','source-scope','refactor-scope','model-scope'],CASE=process.argv.find(a=>a.startsWith('--case='))?.slice(7)||'all';
 assert(CASE==='all'||CASES.includes(CASE),'known compatibility case');
 if(CASE==='all'){
   const results=CASES.map(name=>{const r=cp.spawnSync(process.execPath,[__filename,'--case='+name],{cwd:ROOT,stdio:'inherit'});return{name,status:r.status};});
   const out=path.join(ROOT,'shots','fiscal026-compat');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({ok:results.every(r=>r.status===0),cases:results},null,2)+'\n');process.exit(results.every(r=>r.status===0)?0:1);
 }
-const OUT=path.join(ROOT,'shots','fiscal026-compat',CASE),ART='30de519db8cc6b8e67a8ca94925e947852d90c79',PRE_FIX='25df1adcc2f5c9822025797c593227d3d8a5f02b',PINNED_RELEASE='ad77b62dabc6f3074ceff3c679dc999371555001',PRE_FRAME_FIX='dd8b222ba29862497b3973124541217424625000',PRE_SOURCE_FIX='8da82b8f3545bfda2a2e5faebc007e6d28a79bff',PATCH_BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e';
+const OUT=path.join(ROOT,'shots','fiscal026-compat',CASE),ART='30de519db8cc6b8e67a8ca94925e947852d90c79',PRE_FIX='25df1adcc2f5c9822025797c593227d3d8a5f02b',PINNED_RELEASE='ad77b62dabc6f3074ceff3c679dc999371555001',PRE_FRAME_FIX='dd8b222ba29862497b3973124541217424625000',PRE_SOURCE_FIX='8da82b8f3545bfda2a2e5faebc007e6d28a79bff',PRE_SCOPE_FIX='c175bddf2cec1cc872918a37fe5b7143196916e5',PATCH_BASE='98545ff4e28a86a6da4e2a2cbdad5f5cb7f0637e';
 const git=(args,options={})=>cp.execFileSync('git',args,{cwd:ROOT,maxBuffer:24*1024*1024,...options}),show=(sha,file)=>git(['show',sha+':'+file]);
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),head=git(['rev-parse','HEAD']).toString().trim();
 const GUARDS=['fp.js','harness.js','gallery.js'],FISCAL_DECLARATIONS=['function fiscalSave515(','function fiscalLoad515(','function fiscalDailySettlement515(','function fiscalCompletionSettlement515(','const FISCAL_CADENCE515='];
@@ -26,6 +26,7 @@ function commentFiscal026(source,keys=FISCAL_DECLARATIONS){
 }
 function committedFuture026(base,candidate){
   const payload=Object.fromEntries(files.map(f=>[f,fs.readFileSync(path.join(ROOT,f))]));
+  if(CASE==='model-scope'){const anchor='recurring=Math.round(mix.recurringAdmin),';assert.equal(candidate.split(anchor).length,2,'unique actual recurring model fixture');candidate=candidate.replace(anchor,'recurring=Math.round(mix.recurringAdmin)+1,');}
   payload['index.html']=Buffer.from(commentFiscal026(candidate));
   for(const file of GUARDS)payload[file]=Buffer.concat([payload[file],Buffer.from('\n// approved committed source-scope fixture; no behavior change\n')]);
   const fixtureEnv={...process.env,GIT_INDEX_FILE:path.join(OUT,'future-head-index')};git(['read-tree',base],{env:fixtureEnv});
@@ -36,7 +37,7 @@ function committedFuture026(base,candidate){
   assert.equal(cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),sha,'real detached future HEAD');
   assert.equal(cp.execFileSync('git',['rev-parse','HEAD^'],{cwd:root,encoding:'utf8'}).trim(),base,'future HEAD is a real child of its change base');
   for(const f of GUARDS)assert(!payload[f].equals(show(base,f)),'committed future guard really differs from its base: '+f);
-  report.committedFuture={sha,tree,parent:base,fiscalDeclarations:FISCAL_DECLARATIONS,guards:GUARDS,method:'real detached Git HEAD; comments only in fiscal/guard sources; exact approved art and baselines'};
+  report.committedFuture={sha,tree,parent:base,fiscalDeclarations:FISCAL_DECLARATIONS,guards:GUARDS,method:CASE==='model-scope'?'real detached Git HEAD; actual daily recurring +1 fixture, source comments, exact approved art and baselines':'real detached Git HEAD; comments only in fiscal/guard sources; exact approved art and baselines'};
   const proof=path.join(OUT,'committed-source-proof');fs.mkdirSync(path.join(proof,'base'),{recursive:true});fs.mkdirSync(path.join(proof,'head'),{recursive:true});
   for(const f of ['index.html',...GUARDS]){fs.writeFileSync(path.join(proof,'base',f),show(base,f));fs.writeFileSync(path.join(proof,'head',f),payload[f]);}
   fs.writeFileSync(path.join(proof,'commits.json'),JSON.stringify({base:{sha:base,raw:git(['cat-file','-p',base]).toString()},head:{sha,raw:git(['cat-file','-p',sha]).toString()}},null,2)+'\n');
@@ -50,6 +51,10 @@ function selectors(){
   assert.deepEqual(resolveChangeBase026({env:{GITHUB_EVENT_NAME:'push',GITHUB_REF:'refs/heads/gpt/art'},event:{before:B},git:stub}),{sha:C,reason:'branch merge-base origin/main'});
   assert.deepEqual(resolveChangeBase026({env:{GITHUB_EVENT_NAME:'workflow_dispatch',GITHUB_REF:'refs/heads/main'},event:{},git:stub}),{sha:B,reason:'main parent'});
   assert.throws(()=>resolveChangeBase026({env:{GITHUB_EVENT_NAME:'pull_request'},event:{},git:stub}),/PR change base must be supplied/);
+  assert.equal(resolveRepairScope026({baseSha:A,git:args=>{assert.equal(args[0],'log');return'';}}).historical,true);
+  const ancestorCalls=[];const scope=resolveRepairScope026({baseSha:A,git:args=>{ancestorCalls.push(args);if(args[0]==='log')return B;if(args[0]==='merge-base')return'';throw Error('unexpected repair-scope fixture');}});
+  assert.equal(scope.historical,false);assert.equal(scope.repairCommit,B);assert(ancestorCalls.some(a=>a.join(' ')==='merge-base --is-ancestor '+B+' '+A),'real ancestry verification is required');
+  assert.throws(()=>resolveRepairScope026({baseSha:A,git:()=> 'not-a-commit'}),/repair marker identifies a commit/);
   assert(calls.some(x=>x[0]==='cat-file'),'push base existence checked');report.checks.push('PR/push/main/branch base selection and missing-PR-base rejection');
 }
 try{
@@ -70,8 +75,12 @@ try{
   fs.writeFileSync(path.join(ROOT,'fp.js'),guard);
   const fixtureEnv={...process.env,GIT_INDEX_FILE:path.join(OUT,'base-index')};git(['read-tree',head],{env:fixtureEnv});
   const guardBlob=git(['hash-object','-w','--stdin'],{input:guard}).toString().trim();git(['update-index','--add','--cacheinfo','100644,'+guardBlob+',fp.js'],{env:fixtureEnv});
+  if(CASE==='refactor-scope'){
+    const source=original['index.html'].toString(),anchor='function fiscalLoading026(){';assert.equal(source.split(anchor).length,2,'one scope-spelling fixture');
+    const formatted=source.replace(anchor,'function fiscalLoading026 (){'),blob=git(['hash-object','-w','--stdin'],{input:Buffer.from(formatted)}).toString().trim();git(['update-index','--add','--cacheinfo','100644,'+blob+',index.html'],{env:fixtureEnv});
+  }
   const tree=git(['write-tree'],{env:fixtureEnv}).toString().trim(),base=git(['-c','user.name=Fiscal compatibility fixture','-c','user.email=fiscal-ci@example.invalid','commit-tree',tree,'-p',head,'-m','Synthetic independent guard-comment base'],{env:{...process.env,GIT_AUTHOR_DATE:'2026-10-16T00:00:00Z',GIT_COMMITTER_DATE:'2026-10-16T00:00:00Z'}}).toString().trim();
-  report.independentBase={sha:base,tree,parent:head,guardDiffersFromHistorical:true};
+  report.independentBase={sha:base,tree,parent:head,guardDiffersFromHistorical:true,formatOnlyRefactor:CASE==='refactor-scope',repairScope:resolveRepairScope026({baseSha:base})};assert.equal(report.independentBase.repairScope.historical,false,'fixture base inherits the marked fiscal repair');
   const eventPath=path.join(OUT,'future-pr-event.json');fs.writeFileSync(eventPath,JSON.stringify({pull_request:{base:{sha:base}},compatibilityFixture:true}));
   const env={...process.env,GITHUB_EVENT_NAME:'pull_request',GITHUB_EVENT_PATH:eventPath};
   // A future committed HEAD may intentionally differ from the independent base.
@@ -114,7 +123,14 @@ try{
     try{const red=staticOnly(currentProbe,probeEnv,probeRoot);assert.equal(red.status,1);assert(red.text.includes('function fiscalSave515( byte-identical relative to committed HEAD'));assert(!/ReferenceError/.test(red.text));report.negative.push({name:'future HEAD still rejects an uncommitted fiscal declaration edit',first:'function fiscalSave515( byte-identical relative to committed HEAD'});}
     finally{fs.writeFileSync(path.join(probeRoot,'index.html'),future.payload['index.html']);}
   }
-  if(CASE==='visible-art'){
+  if(CASE==='model-scope'){
+    const future=committedFuture026(base,currentIndex);probeRoot=future.root;probeEnv={...env,GITHUB_SHA:future.sha};
+    const frozen=run('old-frozen-model-native',['-e',show(PRE_SCOPE_FIX,'probeFiscalLoad026.cjs').toString()],probeEnv,probeRoot);assert.equal(frozen.status,1,'old guard must reject the intended committed model change');
+    const oldReport=JSON.parse(fs.readFileSync(path.join(probeRoot,'shots','fiscal026','report.json'),'utf8'));assert.equal(oldReport.failures.length,1);assert.equal(oldReport.failures[0].name,'same-seed normal no-load BASE/HEAD world and all fiscal fields');assert(oldReport.failures[0].message.startsWith('normal simulation equality'));assert.equal(oldReport.negative.length,9);assert.equal(oldReport.checks.length,51);
+    report.negative.push({name:'previous permanent normal guard rejects a committed gameplay change',first:oldReport.failures[0]});fs.cpSync(path.join(probeRoot,'shots','fiscal026'),path.join(OUT,'old-frozen-model-native'),{recursive:true});
+  }
+  if(CASE==='visible-art'||CASE==='refactor-scope'){
+    if(CASE==='refactor-scope'){const anchor='function fiscalLoading026(){';assert.equal(candidate.split(anchor).length,2);candidate=candidate.replace(anchor,'function fiscalLoading026 (){');}
     const anchor='Object.assign(window.GV,{art574:';assert.equal(candidate.split(anchor).length,2,'unique visible-art native renderer anchor');
     const appearance='const __visibleDraw026=vdraw574;vdraw574=function(o,b){return b&&b.k===24&&!b.ref&&b.v===2?168+viewRotEff():__visibleDraw026(o,b);};\n';
     candidate=candidate.replace(anchor,appearance+anchor);fs.writeFileSync(path.join(ROOT,'index.html'),candidate);
@@ -122,20 +138,21 @@ try{
     // The exact old probe requires the synthetic base's guard bytes. Preserve
     // that historical fixture while the new probe audits its committed HEAD.
     let oldFrames;fs.writeFileSync(path.join(ROOT,'fp.js'),guard);
-    try{oldFrames=run('old-frozen-frame-native',['-e',show(PRE_FRAME_FIX,'probeFiscalLoad026.cjs').toString()],env);}
+    try{oldFrames=run('old-frozen-frame-native',['-e',show(CASE==='refactor-scope'?PRE_SCOPE_FIX:PRE_FRAME_FIX,'probeFiscalLoad026.cjs').toString()],env);}
     finally{fs.writeFileSync(path.join(ROOT,'fp.js'),original['fp.js']);}
     assert.equal(oldFrames.status,1,'previous permanent frame guard must reject the genuinely visible art change');
     const oldReport=JSON.parse(fs.readFileSync(path.join(ROOT,'shots','fiscal026','report.json'),'utf8'));
-    assert(oldReport.failures.length>0);assert(oldReport.failures.every(f=>f.name.startsWith('complete native frame ')&&f.message.startsWith('full frame head')),'the old guard must reject only intended complete-frame changes');assert.equal(oldReport.negative.length,8,'all original saved-state negative controls still pass');
-    report.negative.push({name:'previous permanent guard rejects approved visible art',first:oldReport.failures[0],frameFailures:oldReport.failures.length});
+    assert(oldReport.failures.length>0);assert(oldReport.failures.every(f=>f.name.startsWith('complete native frame ')&&f.message.startsWith('full frame head')),'the old guard must reject only intended complete-frame changes');assert.equal(oldReport.negative.length,CASE==='refactor-scope'?9:8,'all original saved-state negative controls still pass');
+    report.negative.push({name:CASE==='refactor-scope'?'previous spelling-based repair scope rejects approved visible art':'previous permanent guard rejects approved visible art',first:oldReport.failures[0],frameFailures:oldReport.failures.length});
     fs.cpSync(path.join(ROOT,'shots','fiscal026'),path.join(OUT,'old-frozen-frame-native'),{recursive:true});
   }
   const positive=run(CASE+'-full-native',['probeFiscalLoad026.cjs'],probeEnv,probeRoot);assert.equal(positive.status,0,'legitimate '+CASE+' passes the complete fiscal guard');
-  const result=JSON.parse(fs.readFileSync(path.join(probeRoot,'shots','fiscal026','report.json'),'utf8'));assert.equal(result.ok,true);assert.equal(result.checks.length,52);assert.equal(result.negative.length,9);assert.equal(result.changeBase.sha,base);assert.equal(result.frameScope.historicalBaseEquality,false);
+  const result=JSON.parse(fs.readFileSync(path.join(probeRoot,'shots','fiscal026','report.json'),'utf8'));assert.equal(result.ok,true);assert.equal(result.checks.length,53);assert.equal(result.negative.length,10);assert.equal(result.changeBase.sha,base);assert.equal(result.frameScope.historicalBaseEquality,false);assert.equal(result.repairScope.historical,false);assert(result.repairScope.repairCommit);
   assert.equal(result.sourceScope.mode,'committed HEAD integrity');if(CASE==='source-scope')assert.equal(result.sourceScope.revision,report.committedFuture.sha);
-  const changed=result.frames.filter(f=>f.file.startsWith('head-')&&!f.equalChangeBase);if(CASE==='visible-art')assert(changed.length>0,'approved native art must actually change a complete fixture view');
+  const changed=result.frames.filter(f=>f.file.startsWith('head-')&&!f.equalChangeBase);if(CASE==='visible-art'||CASE==='refactor-scope')assert(changed.length>0,'approved native art must actually change a complete fixture view');
+  if(CASE==='model-scope'){assert.equal(result.normalScope.mode,'same-HEAD complete load/no-load equality');assert.notEqual(result.normalScope.baseNormalSha256,result.normalScope.headNormalSha256,'actual committed model change must change the seeded normal result');report.modelScope=result.normalScope;}
   assert.deepEqual(result.release,CASE==='future-release'?{gameVer:'14.45',anchor:'T752'}:{gameVer:'14.44',anchor:'T751'});
-  report.checks.push({name:'legitimate '+CASE+' with real approved art',fiscalChecks:result.checks.length,negative:result.negative.length,changeBase:result.changeBase,release:result.release,visibleChangedFrames:changed.length});
+  report.checks.push({name:'legitimate '+CASE+' with real approved art',fiscalChecks:result.checks.length,negative:result.negative.length,changeBase:result.changeBase,release:result.release,repairScope:result.repairScope,normalScope:result.normalScope,visibleChangedFrames:changed.length});
   report.futureSources={index:hash(fs.readFileSync(path.join(probeRoot,'index.html'))),fp:hash(validFp),style:hash(validStyle),guards:Object.fromEntries(GUARDS.map(f=>[f,hash(fs.readFileSync(path.join(probeRoot,f)))]))};
   fs.cpSync(path.join(probeRoot,'shots','fiscal026'),path.join(OUT,'current-full-native'),{recursive:true});
   const bad=JSON.parse(validFp),leaf=Object.keys(bad.subs).find(k=>k==='bld.24_1_160');assert(leaf,'actual new-art leaf exists');bad.subs[leaf].d=(bad.subs[leaf].d[0]==='0'?'1':'0')+bad.subs[leaf].d.slice(1);fs.writeFileSync(path.join(ROOT,'fp.json'),JSON.stringify(bad));
