@@ -193,3 +193,25 @@ PR32尚未同步修復，也未進行修復後完整重驗。需先獨立合入�
 4. **格式重構正例**：CI的真實已修補base只改fiscalLoading026宣告的空白，另以既有批准資產讓QA畫布確實可見變動。精確c175bddf舊探針應因錯誤歷史範圍拒絕8張畫布，新探針須全53項／10負控制GREEN；不改任何保存欄位或畫布比較判準。
 5. **玩法變更正例**：僅CI真實後續子HEAD把日結算的recurring收入加1，base保留原公式。精確c175bddf舊探針須只在正常base／HEAD數值恆等首紅；新版須實證base／HEAD正常結果不同、同HEAD有／無讀檔全結果相同，並通過全部53項／10負控制。此數值變更只作測試輸入，不提交產品index.html或部署。
 6. **原驗證與收尾**：原重烘、下一版、可見美術、來源四案例及其負控制不刪，另加refactor-scope／model-scope兩個獨立runner。原fp.js／harness.js／gallery.js、兩份fixture、正式fp/style及產品index.html不改；所有CI暫存輸入還原。新唯讀分支workflow最後六案例全綠後寫卡，再workflow-only刪除；最後head常態CI與新審查仍是合併門檻。以上為施工前契約，尚未宣稱新案例通過。
+
+
+### ac5c208c：六案例及53項／10負控制完整實證
+
+[push39019054802](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054802)／[PR39019059026](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019059026)六個常態job全成功，兩組smoke各三次、fp相對base新增0／變更0／移除0、家族0、風格無下降、style165族相同；兩組完整原生回歸各53項／10負控制／0失敗。原52項／9負控制保留，新增真實load後日結算副作用首紅及還原。PR測試合併bdf6fe70的tree與本提交同為d0b386ea238cf81d71cf984c2056e45ca545fa4f。
+
+新lineage分支workflow最後[run39019054850](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850)已completed／success，六案例各53項／10原生負控制、failures=[]、restored=true：
+
+| 案例 | 額外相容性負例 | 原始附件／bytes／ZIP SHA-256 |
+|---|---:|---|
+| 重烘 | 4 | [12095933457](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850/artifacts/12095933457)／30442391／8b4b12f904362a947883c042a056448c575ffdbc510b8037267d3f951a11b3cc |
+| 14.45／T752 | 5 | [12096360567](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850/artifacts/12096360567)／30443003／1a9fcaab956e6e3c9269dcf3f6861d97f278a43a0e0fd3d51c3e12358be5efde |
+| 可見美術 | 5 | [12096053182](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850/artifacts/12096053182)／30207189／e11910006260d8e0ab5e6bd4f84411bc40d1bdfacc3d14a6c0d95aea6944d51e |
+| 來源完整性 | 10 | [12095857376](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850/artifacts/12095857376)／37697048／b6b4c7a429e730ce05de32b13b7229ee31d55795a67b7d6cbbc998f0924ee3ee |
+| 格式重構 | 5 | [12096227684](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850/artifacts/12096227684)／50967595／757486959002649933caec79705ad3a108874468dcdc478e077a4a9fc989acdc |
+| 玩法變更 | 5 | [12096591373](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39019054850/artifacts/12096591373)／67687400／6853ee12a5fc8e81413fc60d80514b1b00e83425288a232e69e012ad496a8f5d |
+
+格式重構的真實base只改函式宣告空白，修補標記ac5c208c仍是祖先；精確c175舊探針只拒絕8張完整畫布，新版全53項／10負控制GREEN。玩法子HEAD只在CI將日結算recurring加1，精確c175舊探針只紅正常base／HEAD數值恆等（51成功、9負控制、1目標失敗）；新版base／HEAD正常結果確實不同，第一日money10975／10977，仍完整保持同HEAD有／無load結果相同。
+
+新增真實來源反例只在原生load後讓後續日結算多一元，兩組常態原生與六案例均由same-HEAD normal load/no-load equality首紅、還原GREEN。舊T751獨立base模擬／來源／整幀判準不降低；產品index.html、公式、參數、原共用守衛、兩份fixture、正式fp/style及原normal026／cadence等函式不改。
+
+新兩項P1已分別據實證回覆discussion_r4302156598／discussion_r4302157008並標解決。接下來只記錄自身r198單列、workflow-only刪除lineage分支workflow，再核最後head常態CI及新外部重審；尚未合併部署或重驗PR32。最後squash合併訊息必須逐字保留獨立footer：Glimmer-Fiscal-Load-Repair: GPT-026；合後核實該marker與main祖先解析。
