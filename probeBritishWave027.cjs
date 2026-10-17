@@ -2,7 +2,7 @@
 if(!process.env.GITHUB_ACTIONS)throw Error('wave027 game guards run on GitHub Actions only');
 // Executed in real Chrome on GitHub Actions, never during local source checks.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process'),vm=require('node:vm');
-const {withGame,ROOT}=require('./harness.js'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',OUT=path.join(ROOT,'shots','wave027'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const {withGame,ROOT}=require('./harness.js'),BASE='57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',OUT=path.join(ROOT,'shots','wave027'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const original=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
 const committedSource=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
 function nativeSource027(text){let stripped=text;

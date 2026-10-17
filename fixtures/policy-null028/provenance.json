@@ -1,0 +1,17 @@
+{
+  "sourceRepository": "lijiabao1998/GlimmerTown-lab",
+  "originalSourceCommit": "58130eae1f5451a5f56142b5fab7b003b910155e",
+  "originalGuardCommit": "9aa8a42ef2b26fccf0974334bd5090ae225304ed",
+  "sourceRun": 39038063179,
+  "sourceJob": 117411791145,
+  "sourceGuard": "probeNativePairs027.cjs",
+  "sourceProperty": "ar.tenTransactions.initialized",
+  "capturedBeforeAssertions": true,
+  "inputBytes": 17706,
+  "inputSha256": "bd34e6f3b22b70c4a935d7244f6e9884c55a7a5a3b89c5627e2176a8350975d5",
+  "byteEdits": [],
+  "pol": null,
+  "day": 2,
+  "governanceLastAggregateDay": 2,
+  "notes": "Exact raw unmodified BASE native save, replaying original prior UI/transaction history. The independent repair-candidate BASE produced the identical bytes. Not derived from repaired HEAD output."
+}

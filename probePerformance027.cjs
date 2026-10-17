@@ -1,7 +1,7 @@
 'use strict';
 if(!process.env.GITHUB_ACTIONS)throw Error('wave027 performance runs on GitHub Actions only');
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict');
-const {withGame,ROOT}=require('./harness.js'),OUT=path.join(ROOT,'shots','wave027','performance'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',file=path.join(ROOT,'perf-base027.html');
+const {withGame,ROOT}=require('./harness.js'),OUT=path.join(ROOT,'shots','wave027','performance'),BASE='57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',file=path.join(ROOT,'perf-base027.html');
 async function measure027(baseSHA){
   const frame=document.createElement('iframe');frame.style.cssText='position:fixed;left:-20000px;top:0;width:'+innerWidth+'px;height:'+innerHeight+'px;border:0';frame.src='/perf-base027.html';document.body.appendChild(frame);
   const wait=async test=>{const end=Date.now()+120000;while(Date.now()<end){if(test())return;await new Promise(r=>setTimeout(r,100));}throw Error('perf027 BASE iframe native boot timeout');};

@@ -36,7 +36,7 @@ function capture027(){
   fs.mkdirSync(OUT,{recursive:true});const committed=fs.readFileSync(index);let report;
   try{
     cp.execFileSync(process.execPath,['embed-wave027.cjs'],{cwd:ROOT,stdio:'inherit'});const preview=fs.readFileSync(index);
-    report={head:process.env.GITHUB_SHA,base:'58130eae1f5451a5f56142b5fab7b003b910155e',prototypeOnly:!committed.equals(preview),committedIndexSHA256:hash(committed),previewIndexSHA256:hash(preview),scope:'early native preview; final guards separate',notClaimed:['all ten complete','final native/save/pixel/negative/performance acceptance','mobile hardware validation'],files:[]};
+    report={head:process.env.GITHUB_SHA,base:'57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',prototypeOnly:!committed.equals(preview),committedIndexSHA256:hash(committed),previewIndexSHA256:hash(preview),scope:'early native preview; final guards separate',notClaimed:['all ten complete','final native/save/pixel/negative/performance acceptance','mobile hardware validation'],files:[]};
     const r=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>.125',log:console.log},async({cdp})=>{const x=await cdp.evalJs('('+capture027.toString()+')()');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return x;});
     assert(r.ok&&r.result,'native preview boot: '+r.fails.join('; '));const q=r.result;assert.equal(q.slot,'3');
     Object.assign(report,{prototypeCount:q.prototypeCount,rows:q.rows,placed:q.placed,slot:q.slot,version:q.version});

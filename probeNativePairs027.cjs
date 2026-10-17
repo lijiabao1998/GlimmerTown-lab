@@ -1,7 +1,7 @@
 'use strict';
 if(!process.env.GITHUB_ACTIONS)throw Error('wave027 native pairs run on GitHub Actions only');
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
-const {withGame,ROOT}=require('./harness.js'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',file=path.join(ROOT,'index.html'),head=fs.readFileSync(file),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024}),OUT=path.join(ROOT,'shots','wave027','normal-pairs');
+const {withGame,ROOT}=require('./harness.js'),BASE='57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',file=path.join(ROOT,'index.html'),head=fs.readFileSync(file),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024}),OUT=path.join(ROOT,'shots','wave027','normal-pairs');
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex'),canon=x=>Array.isArray(x)?x.map(canon):x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,canon(x[k])])):x;
 function pair027(useNew){
   const out=[],controls=[];
@@ -102,8 +102,16 @@ function compare(a,b,allowedVariants){
     const state=prefix.startsWith('loaded')?headTen.loaded[+prefix.split('.')[1]]:headTen[prefix];
     for(let j=0;j<10;j++){const p=headTen.lots[j],root=p.y*state.n+p.x,at=state.bl.findIndex(q=>q[0]===root);assert(at>=0);assert.equal(state.bl[at][3],200+j*4);tenAllowed.set(prefix+'.bl.'+at+'.3',200+j*4);}
   }
-  const tenDifferences=compare(baseTen,headTen,tenAllowed);for(const side of[baseTen,headTen])for(const state of side.loaded)compare(side.initialized,state,new Map());
+  const tenDifferences=compare(baseTen,headTen,tenAllowed);
   fs.writeFileSync(path.join(OUT,'ten-transactions-base.json'),JSON.stringify(baseTen,null,2)+'\n');fs.writeFileSync(path.join(OUT,'ten-transactions-head.json'),JSON.stringify(headTen,null,2)+'\n');
+  const stability=[];
+  for(const [source,side]of[['BASE',baseTen],['HEAD',headTen]])for(let pass=0;pass<side.loaded.length;pass++){
+    try{compare(side.initialized,side.loaded[pass],new Map());stability.push({source,pass:pass+1,ok:true,differences:[]});}
+    catch(e){stability.push({source,pass:pass+1,ok:false,fields:changedTop(side.initialized,side.loaded[pass]),first:e.message});}
+  }
+  fs.writeFileSync(path.join(OUT,'ten-transaction-stability.json'),JSON.stringify({head:process.env.GITHUB_SHA,base:BASE,baseHeadDifferences:tenDifferences,stability,fieldExclusions:[]},null,2)+'\n');
+  console.log('normal027 TEN_TRANSACTION_STABILITY '+JSON.stringify(stability));
+  assert(stability.every(q=>q.ok),'normal027 complete native save fields remain RED: '+stability.filter(q=>!q.ok).map(q=>q.source+'/'+q.pass+' '+q.fields.join(',')).join('; '));
   const report={head:process.env.GITHUB_SHA,base:BASE,pairs,negative,constructorBootstrap:{earlyFields,baseHeadDifferences:bootstrapDifferences,note:'The three-lot early fixture is separate from the matched ten-lot transaction fixture; no bootstrap change is assumed.'},tenTransactions:{forms:10,baseHeadDifferences:tenDifferences,nativeFirstUpdate:{base:changedTop(baseTen.preUpdate,baseTen.afterStep),head:changedTop(headTen.preUpdate,headTen.afterStep)},nativeMayorOptionsRead:{base:changedTop(baseTen.afterStep,baseTen.initialized),head:changedTop(headTen.afterStep,headTen.initialized)},completeStableRounds:2,fieldExclusions:[]},fieldExclusions:[],nativeGameplay:true,usesEscapeValve:false};
   fs.writeFileSync(path.join(OUT,'manifest-normal-pairs.json'),JSON.stringify(report,null,2)+'\n');console.log('normal027 GREEN '+JSON.stringify(report));
 })().catch(e=>{fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'failure.json'),JSON.stringify({head:process.env.GITHUB_SHA,action:'normal native BASE-HEAD proof',error:e.stack},null,2)+'\n');console.error(e.stack);process.exitCode=1;});

@@ -2,7 +2,7 @@
 if(!process.env.GITHUB_ACTIONS)throw Error('wave027 game guards run on GitHub Actions only');
 // Real native game canvas, only on GitHub Actions. No shared guard is modified.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
-const {withGame,ROOT}=require('./harness.js'),BASE='58130eae1f5451a5f56142b5fab7b003b910155e',OUT=path.join(ROOT,'shots','wave027','scenes');
+const {withGame,ROOT}=require('./harness.js'),BASE='57069b0db4c6182c95f23d0f9fa90ac78b65eb3c',OUT=path.join(ROOT,'shots','wave027','scenes');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),index=path.join(ROOT,'index.html'),head=fs.readFileSync(index),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:20*1024*1024});
 const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
 const stateCheck=(actual,expected,label)=>{const a=JSON.stringify(canon(actual)),b=JSON.stringify(canon(expected));assert(a===b,label+' expected '+hash(Buffer.from(b))+' got '+hash(Buffer.from(a)));};
