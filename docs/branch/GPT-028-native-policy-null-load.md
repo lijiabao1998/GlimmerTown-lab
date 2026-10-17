@@ -1,6 +1,6 @@
 # GPT-028 原生載入保留明確的空政策狀態
 
-狀態：已先推卡面與首輪診斷；原生分類修補已在本地準備，尚待實際 CI 驗證。全部遊戲驗證交 GitHub Actions。
+狀態：純讀檔修補及完整 CI 驗收已成功，草稿 PR35 等業主審核；未合併、未部署。分支 workflow 清理後的最後常態 CI 另以 PR checks 為準。全部遊戲驗證由 GitHub Actions 執行。
 
 ## 目標與授權
 
@@ -31,7 +31,7 @@
 
 ## 交付與自檢
 
-實際 CI、首紅與修後綠、完整 JSON 雜湊、負控制、舊政策遷移、畫布、fp 結果：未跑，待實作後逐項補真實連結。此修補涉及原生讀檔，按 AGENTS 第 7 節等業主審核，不自行合併或部署。
+實際 CI、首紅與修後綠、完整 JSON 雜湊、負控制、舊政策遷移、畫布及 fp 結果見末節。此修補涉及原生讀檔，按 AGENTS 第 7 節等業主審核，不自行合併或部署；以下保留各輪實際診斷及未成功階段。
 
 首輪診斷 `66916926d345690c57fe3a69cfd10a854e76f300`／[39037145405](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39037145405) 在測試前提失敗：新建的十筆交易／渲染設定情境，在保存參考檔前已把 pol 初始化。這不是原生讀檔首紅，也不是修補成功。保留該原始 JSON，不再假設只重做十筆交易能重現 GPT-027 先前整段 UI 歷史。
 
@@ -63,10 +63,34 @@ GPT-027 美術草稿 PR 曾被自動核准以超出最初 docs-only 授權拒絕
 
 已開 [純修補草稿 PR35](https://github.com/lijiabao1998/GlimmerTown-lab/pull/35)，沒有美術改動，未合併部署。
 
-[39038520953](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39038520953) 的原兩支候選整合再次成功。新增診斷19項成功／1項失敗、10負控制命中：真實原始檔普通與沙盒各三輪全部序列化欄位不變；missing／active／registry遷移保持；原遷移分支前後追蹤、實際來源故障與逃生閥首紅、金額與政策資料破壞／恢復、完整同種子模型與14日load/no-load續跑均成功。唯一失敗是八方向日夜完整PNG比較。常態 [39038520939](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39038520939) 三個工作全成功，財務53項／10負控制。
+[39038520953](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39038520953) 的原兩支候選整合再次成功。新增診斷19項成功／1項失敗、10負控制命中：真實原始檔普通與沙盒各三輪全部序列化欄位不變；missing／active／registry遷移保持；原遷移分支前後追蹤、實際來源故障與逃生閥首紅、金額與政策資料破壞／恢復、完整同種子模型與14日load/no-load續跑均成功。唯一失敗是日夜四向的八張完整PNG比較。常態 [39038520939](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39038520939) 三個工作全成功，財務53項／10負控制。
 
 畫布仍紅，所以不刪分支專屬workflow，不把PR標可合。下一筆只增加RGBA像素數／最大通道差／差異bbox及完整模型差異診斷，將BASE／HEAD、載入前後模型、載入前後畫布分開報結果；既有完整相等斷言保留。另加平行的frames-only工作，以兩次原生開機先定位差異，不等其餘案例結束；不改產品或放寬畫布判準。
 
 a0056133 的 [frames-only診斷39039271651／job117415255809](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039271651) 已直接量得：HEAD自身兩次讀檔，日夜四向共16張完整畫布全部0像素差，所有存檔欄位0差異；BASE／HEAD模型只差本項預期的pol，畫布每張419–987像素不同，顏色與位置對應施工機具。來源的施工進度為age+simAcc/DAYLEN，load並不重設、不序列化simAcc，兩次不同瀏覽器開機保留各自小數日。
 
 接下來的因果驗證只在CI暫時綁定原本的clock讀值及advance函式；其餘來源逐位元不變。以真實advance跨一個模擬日界，然後原生載入同一完整參考，建立相同小數日與visT輸入；施工、機具與所有畫布層照常繪製，仍要求完整PNG／RGBA零差異。另用真實advance再推半日，要求同一全畫布判準首紅，而所有保存欄位仍相同；再跨原生日界恢復，要求全畫布GREEN。這項實際因果驗證尚未跑，不先宣稱小數時鐘已證實是唯一原因，不修改遊戲或改容忍值。
+
+## 最終受測實作 dc8627fc：全部成功
+
+- [分支專屬39039742391](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039742391) 為 completed／success，四工作全成功；完整原生23項／11個負控制，失敗0。原兩支native／normal-pairs也各自先紅pol，再用同一產品修補於原判準下轉綠。
+- [push常態39039742498](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039742498) 與 [PR常態39039746667](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039746667) 均 completed／success：各有smoke三次、fp、財務53項／10負控制。相對base fp零變動，無風格下降；產品及基線來源邊界保持。
+- 真實原始main參考檔在普通／sandbox各三次native load→save，所有鍵值與陣列順序等於原輸入，非作用中槽未改；missing／active／existing-registry遷移與獨立BASE相同。非預設舊政策仍grandfathered／100%，舊註冊資料保持。
+- 同種子十筆實付／undo／redo／ref拆除的完整模型，只出現事先定義的原生載入pol修正；其餘欄位相同。從同一原檔的0／1次額外載入比較，1／7／14日全部序列化欄位相同。
+- 原生時鐘因果驗證成功：日夜四向BASE／HEAD八張、HEAD兩次載入16張完整畫布皆0像素差，所有保存欄位0差。真advance半日使每張差10272–10921像素，被同一完整PNG守衛首紅；跨原生日界恢復後八張全0差。施工層照常繪製，沒有用施工或政策逃生閥作正向驗收，也沒有放寬容忍值。證明先前最後的跨Chrome畫布紅燈是小數時鐘輸入未同步。
+- 11負控制包括獨立BASE的六輪pol首紅、來源恢復舊分類、診斷逃生閥恢復舊分類、實際少一元、真實政策落盤變更，以及實際半日時鐘偏移；恢復後GREEN。
+
+完整原生報告與原PNG：[附件12104295044](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039742391/artifacts/12104295044)，19566260 bytes，ZIP SHA256 `715e943eff4daf3845acc9db17261587c1f958823efe8c0ca3d018b3d10ab040`。報告JSON SHA256 `ecd5dfff46ace7eabdfe73fb1c0fe405b45b67e510e03c8a4df81716094e2a1c`。獨立frames-only [附件12103786433](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039742391/artifacts/12103786433) 亦成功，5項／1負控制；原normal-pairs [12103188016](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039742391/artifacts/12103188016)、原native [12102549981](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39039742391/artifacts/12102549981) 保留所有斷言前原始資料與原日誌。
+
+### 收工自檢
+
+- [x] 卡面先推，fp家族固定「無」；實作與美術分開
+- [x] 同種子完整模型、真實舊檔全部欄位來回、日結算
+- [x] fp／style／超街區零變動，原守衛不改判準
+- [x] 每項新增守衛有真實首紅與恢復綠；10個既有財務負控制保持
+- [x] smoke三次及原生23項／11負控制的實際CI全綠
+- [x] 原生日夜四向完整畫布相等；施工層及原時鐘偏移負控制均有驗證
+- [x] 純讀檔修補沒有新增美術；四季／遠景／邊緣美術改畫不適用
+- [x] 未把已保存的早期失敗紀錄改成成功；原新局暫態小數案例沒有宣稱已修
+
+此後只可補文件及依庫規以獨立workflow-only提交移除本分支workflow。清理後產品、probe、fixture必須逐位元等於dc8627fc；最後head常態CI仍須全綠。PR35依原生讀檔審核邊界維持草稿，沒有合併或部署，第二波計數仍未增加。
