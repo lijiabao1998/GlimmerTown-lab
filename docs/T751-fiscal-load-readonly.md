@@ -164,3 +164,20 @@ PR32尚未同步修復，也未進行修復後完整重驗。需先獨立合入�
 3. **真實正例先舊RED再新GREEN**：新增CI暫存、具真實父子關係的獨立base與後續HEAD；後續HEAD只對指定財務宣告及三個守衛加無行為差異註解，並沿用既有真實美術與原封不動基線。精確8da82b8f舊探針須因來源凍結RED，新探針須在該真正HEAD通過全部52項／9負控制。
 4. **原負例與修補邊界**：既有額外守衛修改負例保留，後續工作中的額外未提交修改亦須首紅；另在T751範圍驗財務來源及守衛修改，仍由原base逐字恆等首紅。全部保存欄位、原stateCheck／roundtrip／結算／cadence、9個原生負控制、歷史及同HEAD／同版本完整畫布判準均不變；不修改原fp.js。
 5. **驗證與收尾**：原rebake／future-release／visible-art三案例不刪，新增source-scope獨立runner。所有CI暫存來源與工作樹逐位元還原，不推送或部署暫存HEAD。新分支專屬唯讀workflow最後全綠後寫卡、再workflow-only刪除；其後最後head常態CI與最新外部審查仍須全部完成。以上是動手前驗收，尚未宣稱新來源案例通過。
+
+
+### 75e42cf9：來源範圍與四案例完整實證
+
+[push39017125987](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125987)／[PR39017130368](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017130368)六個常態job全成功：兩組smoke各三次，fp相對base新增0／變更0／移除0、家族0、風格無下降、style165族相同；原生回歸各52項／9負控制／0失敗。PR測試合併d67f3ff7的tree與本提交同為1acf578138bb0c8557a806c6b1998e8b3027e68a。
+
+新來源案例以真正CI暫存父子提交驗證：base9faac235、後續HEAD2474cba2。五項財務宣告與三個共用守衛在後續HEAD只加無行為差異註解；精確8da82b8f舊探針分別首紅於財務來源與守衛凍結，新探針完整52項／9負控制GREEN。T751範圍財務／守衛修改仍精確首紅於原base恆等；未提交的財務／守衛修改亦精確首紅於已提交HEAD完整性。來源案例另含既有重烘／CRC／風格反例，共10個相容性負例；restored=true、futureWorktreeRemoved=true、failures=[]。
+
+[來源附件12095317913](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125971/artifacts/12095317913)：37682572 bytes，SHA-256 26896f2c7a32f6a4f36def738c6092efe357a2a19428b97b9cbf29170ecc0401，保存base／HEAD完整來源、原始commit內容、原生完整保存／畫布與全部首紅。暫存提交只在CI存在，不是產品提交或部署。
+
+新分支專屬workflow最後[run39017125971](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125971)已completed／success。重烘、14.45／T752、可見美術、來源四案例各完整52項／9原生負控制，額外相容性負例分別4／5／5／10；真正可見美術實際改變8張完整畫布，舊探針只因這8張畫布RED，新版完整GREEN。所有暫存輸入逐位元還原。
+
+- [重烘12095761111](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125971/artifacts/12095761111)：30427934 bytes，SHA-256 6c679396b6d0be2d80ef1550a7e5260de45f3389e759fc7be4e887487d76a1c3。
+- [下一版12095019234](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125971/artifacts/12095019234)：30428563 bytes，SHA-256 edb9990d434740e64686ce9ed8f546698b019710eda159b29228920a63ea8798。
+- [可見美術12095268820](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39017125971/artifacts/12095268820)：30192713 bytes，SHA-256 25ed846a2cf4ee7fe399237460530b243663a6121c41ff06b917e10ffdb943cc。
+
+來源P1已據此回覆discussion_r4302050944並標解決；不拿已完成畫布案例替代這項來源驗證，也不宣稱最新外部機器人重審已完成。四案例已全綠並在本卡記錄；接下來須workflow-only刪除新source-compat workflow，並取得最後head常態CI及新外部重審，才依先前獨立批准合併。原產品、fp.js／harness.js／gallery.js、完整保存／正常模擬／結算／cadence／負控制／畫布判準保持；PR32尚待本修補獨立合入main後同步重驗。
