@@ -1648,7 +1648,7 @@ table.dtab tr:hover td{background:#1b2334}
     const sol=roundedPlan(11.5,20.5,8.4,15.4,3.4),L=planBlock(A,sol,17.1,22,'plaster');
     for(const F of L)if(F.length>1.2)A.pane(F,.13,18,F.length-.26,3,'ribbon',true);
     planBlock(A,roundedPlan(11.2,20.8,8.1,15.7,3.7),22,22.5,'plaster');
-    const pool=[[3.1,23.2],[24.8,23.2],...Array.from({length:13},(_,i)=>[24.8+4.5*Math.sin(i*Math.PI/12),26.4-3.2*Math.cos(i*Math.PI/12)]),[3.1,29.6]];
+    const pool=[[3.1,23.2],[24.8,23.2],...Array.from({length:12},(_,i)=>[24.8+4.5*Math.sin((i+1)*Math.PI/12),26.4-3.2*Math.cos((i+1)*Math.PI/12)]),[3.1,29.6]];
     planBlock(A,pool,.45,1.4,'stone',P.glassR);
     for(let j=0;j<4;j++)S.beam([4.4,24+j*1.5,1.43],[24,24+j*1.5,1.43],P.glass,.10);
     for(let j=0;j<3;j++)A.polygon(6.1,20.5,1.3-j*.3,1.5+j*.9,2.1+j*.9,16,'stone');
@@ -1717,7 +1717,7 @@ table.dtab tr:hover td{background:#1b2334}
     for(let j=3;j<=23;j+=2){const t=j/30,a=bow(-1,t),b=bow(1,t),mid=[16,(a[1]+17.3)/2,a[2]+1.3];S.beam(a,mid,Q.steel,.28);S.beam(mid,b,Q.steel,.28);ribs++;}
     const decks=[[57,8.6,6.2],[60.1,7.1,4.8],[63.2,5.7,3.2]];
     for(const [z,wide,deep]of decks){
-      const points=[[16-wide,15],[16+wide,15],[16+wide*.63,15-deep],[16-wide*.63,15-deep]],F=planBlock(A,points,z,z+2.65,'plaster');
+      const points=[[16-wide,15],[16-wide*.63,15-deep],[16+wide*.63,15-deep],[16+wide,15]],F=planBlock(A,points,z,z+2.65,'plaster');
       for(const f of F){A.pane(f,.18,z+.48,f.length-.36,1.75,'ribbon',true);}
       for(let i=0;i<points.length;i++)S.beam([...points[i],z+2.8],[...points[(i+1)%points.length],z+2.8],Q.creamHi,.3);
     }

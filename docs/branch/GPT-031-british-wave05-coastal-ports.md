@@ -90,3 +90,14 @@
 - 靜態剝除031的新增標記及安裝點後，index逐位元還原38a2774；全部新增JS與91個inline script只做語法解析，沒有本機遊戲執行。凍結的十條驗收與先推卡面逐位元相同。
 - 前置來源讀取程式在完成實際照片觀察後移除；同一個031分支專用workflow改為完整唯讀原生驗收（含13工作），不是把來源讀取成功當成美術驗收。原始來源manifest保存在docs/assets/GPT-031，第三方照片只留研究證據，不放入遊戲。
 - 本波尚無CI結果或原生圖審，不宣稱第五波已發布；前四波仍40座。
+
+
+## 真實阻擋：既有bld掃描容量（不提交錯誤基線、不合併）
+
+- 新的可信頂層轉交包含業主Sentinel_8ecc21ccfc0c8191b1721d0d11b5ba53、Sentinel_bf08c630fff88191b990ee5f38a2c126與Sentinel_104370934dd08191a9852663dfebbf78的20波工程授權後，原create_tree動作只重試一次成功，tree `d727d7e1fba7f6795fd27b9ce62dd08085b42e8e`；實作commit [864724c](https://github.com/lijiabao1998/GlimmerTown-lab/commit/864724c21f356102656e195d725faa7238bbbcc5)只推自己的分支。原自動核准拒絕證據保留；manager:a37d52dbcf904b79a87f002ba7eef934:1缺少狀態查詢工具，狀態未能核實，未當成同意。
+- [常規push39097227274](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39097227274)的fp首紅：[117586078640](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39097227274/job/117586078640)，actual base38a2774，165家族／2364葉；相對base「新增0／變更0／移除1179，觸及bld」，blocks1728／CRC5ef6eb67。這不是可接受的新增40葉，不提交其fp-rebake檔。
+- 原有index.html的walkSpr、sheetFetch536及style536在物件鍵數超過1200時直接return；原main bld1179，新增40後為1219，因此整個bld被跳過。原生[預覽117586079080](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39097227275/job/117586079080)已實際安裝40向、10筆有費放置並保留80PNG／8幀；[native117586079057](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39097227275/job/117586079057)卻在GV.sheet536四十葉檢查首紅，符合此容量原因。本卡不修改、包裝或繞過任何共用指紋／風格／樣張守衛，不隱藏鍵、不刪舊葉、不更換家族來避開上限。
+- 該head獨立normal-pairs、完整scenes、pedestrians、performance與public-site工作success；只是這些工作成功，不宣稱native／fp或完整workflow成功。所有新原生守衛的12負控制因collector首紅尚未全部執行，不假勾。
+- 已人工看原生日／夜接觸表及Lynn近景；本筆修正泳池平面的一個重複點，並修正Spinnaker三層梯形平台的面向，使窗面位移確實朝外。新增新舊接觸表到自己的預覽輸出，追加實際SPR鍵數與原有collector葉數的唯讀診斷；不更動守衛或它的判準。修正後原生圖仍須重新看。
+- 開[卡住]草稿PR保留可審閱的第五波，不能合併或發布。共用守衛修復必須獨立處理並按AGENTS第3節交業主／main寫入者審核；未解決前後續同樣每波+40也會超過1200，不以空跑新波繞過。自己的暫用workflow保持在分支，待真正最後完整run綠後才可依規獨立刪除。
+- 本波仍未完成；前四波4／20、40座。Library仍0檔，保留原網路失敗狀態，不重試圖片上傳。

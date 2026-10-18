@@ -24,13 +24,25 @@ function capture031(){
     rows.forEach((q,i)=>{for(let v=0;v<4;v++){const s=sprites['24_1_'+(q.v+v)];if(!s||s.w!==160||s.h!==196||s.sz!==2)throw Error('Preview native sprite '+q.id+'/'+v);g.drawImage(s.img,v*160,i*260+19);if(mode==='night'){g.fillStyle='#081314';g.fillRect(v*160,i*260+19,160,196);g.globalAlpha=.25;g.drawImage(s.img,v*160,i*260+19);g.globalAlpha=1;g.drawImage(s.night,v*160,i*260+19);}g.fillStyle='#eee3cb';g.font='11px sans-serif';g.fillText(q.en+' / '+v,v*160+3,i*260+13,154);if(mode==='day')for(const layer of['day','night'])images.push({file:q.id+'-r'+v+'-'+layer+'.png',w:s.w,h:s.h,data:(layer==='day'?s.img:s.night).toDataURL('image/png'),details:s.details});}});
     contacts['contact-'+mode+'.png']=c.toDataURL('image/png');
   }
+  {const a=api,spr=sprites;
+  const catalog=[...GV.heritage024.rows(),...GV.britishWave025.rows(),...GV.britishWave027.rows(),...GV.britishWave029.rows(),...GV.britishWave030.rows()];
+  const comparisons=[{v:320,ov:136},{v:324,key:'69_1_2',alt:'69_1_0',name:'Native lattice / ordinary lighthouse'},{v:328,ov:152},{v:332,ov:204},{v:336,ov:272},{v:340,ov:236},{v:344,ov:276},{v:348,ov:316},{v:352,key:'69_1_1',alt:'69_1_0',name:'Native keeper cottage / ordinary lighthouse'},{v:356,family:'waterfront018',key:'lifeboatHall_',name:'Existing Lifeboat Hall 018'}];
+  const c=document.createElement('canvas');c.width=1040;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
+  comparisons.forEach((item,i)=>{const nr=a.rows().find(r=>r.v===item.v),or=catalog.find(r=>r.v===item.ov);for(let j=0;j<4;j++){
+    const isNew=j%2===0,view=j<2?0:2,key=isNew?'24_1_'+(item.v+view):item.family?item.key+view:item.key?(j<2?item.key:item.alt):'24_1_'+(item.ov+view),family=isNew?'bld':(item.family||'bld'),s=GV.art574.SPR()[family][key],x=j*260,y=i*240;
+    if(!s?.img)throw Error('wave031 actual old/new comparison sprite '+family+'.'+key);
+    g.drawImage(s.img,x+30,y+25);g.fillStyle=isNew?'#eee3cb':'#a6b6a6';g.font='12px sans-serif';g.fillText((isNew?'NEW ':'OLD ')+(isNew?nr.en:(or?.en||item.name))+' / '+view,x+8,y+14,248);
+  }});
+  contacts['contact-comparison.png']=c.toDataURL('image/png');
+  }
   const at=[placed.reduce((a,p)=>a+p.x+.5,0)/placed.length,placed.reduce((a,p)=>a+p.y+.5,0)/placed.length],frames=[];
   window.__waterF695=0;
   for(const night of[false,true])for(let rot=0;rot<4;rot++){
     GV.britishWeather004(1,0,0);GV.setRot(rot);GV.art574.zoom574(1.5);GV.lookAt(...at);const t=GV.art574.cycle574()*(night?.02:.5);GV.setVisT(t);GV.forceDraw();GV.setVisT(t);GV.forceDraw();
     frames.push({file:'native-'+(night?'night':'day')+'-r'+rot+'.png',w:game.width,h:game.height,data:game.toDataURL('image/png')});
   }
-  return{rows,placed,images,contacts,frames,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),prototypeCount:rows.length};
+  const collected=GV.sheet536('bld','^bld[.]24_1_3[2-5][0-9]$'),collectorDiagnostics={nativeBldKeyCount:Object.keys(sprites).length,selectedFortyKeys:rows.flatMap(q=>[0,1,2,3].map(v=>'24_1_'+(q.v+v))).filter(k=>sprites[k]?.img).length,publicCollectorOK:collected.ok,publicCollectorLeaves:collected.leaves.length,sharedGuardChanged:false};
+  return{collectorDiagnostics,rows,placed,images,contacts,frames,slot:localStorage.getItem('glimmerville.v1.slot'),version:GV.ver(),prototypeCount:rows.length};
 }
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});const committed=fs.readFileSync(index);let report;
@@ -39,10 +51,10 @@ function capture031(){
     report={head:process.env.GITHUB_SHA,base:'38a27743e9708517d88e251a005c3475fff1bbe7',prototypeOnly:!committed.equals(preview),committedIndexSHA256:hash(committed),previewIndexSHA256:hash(preview),scope:'early native preview; final guards separate',notClaimed:['final fifth-wave acceptance complete','final native/save/pixel/negative/performance acceptance','mobile hardware validation'],files:[]};
     const r=await withGame({port:8199,fresh:true,timeout:300,preScript:'window.confirm=()=>true;Math.random=()=>.125',log:console.log},async({cdp})=>{const x=await cdp.evalJs('('+capture031.toString()+')()');if(cdp.errors.length)throw Error(cdp.errors.join('; '));return x;});
     assert(r.ok&&r.result,'native preview boot: '+r.fails.join('; '));const q=r.result;assert.equal(q.slot,'3');
-    Object.assign(report,{prototypeCount:q.prototypeCount,rows:q.rows,placed:q.placed,slot:q.slot,version:q.version});
+    Object.assign(report,{prototypeCount:q.prototypeCount,rows:q.rows,placed:q.placed,slot:q.slot,version:q.version,collectorDiagnostics:q.collectorDiagnostics});
     function write(name,url){const b=Buffer.from(url.split(',')[1],'base64');fs.writeFileSync(path.join(OUT,name),b);const m={name,bytes:b.length,sha256:hash(b)};report.files.push(m);return b;}
     for(const im of q.images)write(im.file,im.data);for(const[name,url]of Object.entries(q.contacts)){const b=write(name,url);transfer(name,b);}for(const f of q.frames){const b=write(f.file,f.data);if(f.file==='native-day-r0.png')transfer(f.file,b);}
     report.restoredCommittedIndex=true;const b=Buffer.from(JSON.stringify(report,null,2)+'\n');fs.writeFileSync(path.join(OUT,'manifest-preview031.json'),b);transfer('manifest-preview031.json',b);
-    console.log('WAVE031_PREVIEW '+JSON.stringify({prototypeCount:q.prototypeCount,installedViews:q.prototypeCount*4,actualNativePaidPlacements:q.placed.length,frames:q.frames.length,prototypeOnly:report.prototypeOnly,finalAcceptance:false}));
+    console.log('WAVE031_PREVIEW '+JSON.stringify({prototypeCount:q.prototypeCount,installedViews:q.prototypeCount*4,actualNativePaidPlacements:q.placed.length,frames:q.frames.length,collectorDiagnostics:q.collectorDiagnostics,prototypeOnly:report.prototypeOnly,finalAcceptance:false}));
   }finally{fs.writeFileSync(index,committed);}
 })().catch(e=>{fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'preview-error.txt'),e.stack+'\n');console.error(e.stack);process.exitCode=1;});
