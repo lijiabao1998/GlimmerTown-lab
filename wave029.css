@@ -1,0 +1,11 @@
+#waveDialog029{box-sizing:border-box;width:min(920px,94vw);max-height:90dvh;overflow:auto;padding:22px;border:1px solid #687b75;border-radius:16px;background:#182b2a;color:#e1decf;box-shadow:0 20px 80px #0008}
+#waveDialog029::backdrop{background:#071718b8}
+#waveDialog029 header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #53635d;padding-bottom:14px}
+#waveDialog029 h2{font-size:23px;margin:0 0 6px}#waveDialog029 header p{margin:0;color:#a7b6aa}
+#waveDialog029 button{border:1px solid #718b75;border-radius:8px;padding:10px 13px;background:#294439;color:#efecd9;cursor:pointer;font:inherit}#waveDialog029 button:disabled{opacity:.5;cursor:not-allowed}#waveDialog029 button:focus-visible,#waveDialog029 a:focus-visible{outline:3px solid #eac877;outline-offset:3px}
+#waveClose029{min-width:44px;min-height:44px}#waveDialog029 .waveIntro029{font-size:13px;line-height:1.65;color:#bbcabd;max-width:78ch}
+#waveGrid029{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:17px}#waveGrid029 article{display:flex;flex-direction:column;min-width:0;border:1px solid #455c51;border-radius:10px;padding:12px;background:#203330}
+#waveGrid029 img{align-self:center;max-width:100%;object-fit:contain;image-rendering:pixelated;height:196px}#waveGrid029 h3{margin:5px 0;font-size:16px}#waveGrid029 .waveEnglish029{font-size:12px;color:#c1b49b}#waveGrid029 p{font-size:12px;line-height:1.7;flex:1;color:#b7c4b7}
+#waveGrid029 footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}#waveGrid029 a{color:#dac691;font-size:12px}#waveGrid029 button{font-size:12px;padding:9px 10px}.waveTag029{font-size:11px;color:#e1c886;align-self:center;padding:0 6px}
+@media(max-width:680px){#waveGrid029{grid-template-columns:repeat(2,minmax(0,1fr))}#waveDialog029{padding:14px}#waveGrid029 article{padding:9px}#waveDialog029 h2{font-size:19px}}
+@media(max-width:420px){#waveGrid029{grid-template-columns:1fr}#waveGrid029 article{padding:14px}#waveGrid029 img{height:170px}}
