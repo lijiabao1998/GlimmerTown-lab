@@ -153,7 +153,26 @@ ordinary 首輪財務 job `117563372977` 的結果是 52 checks／10 negatives�
 - [ ] 全部 97 場景尚未逐張人工覆核；CI 已驗 57 狀態＋40 邊界，已看全四向日夜接觸表、新舊比較及十款完整近景。依 AGENTS §3 此一人工覆核例外如實保留；實體手機／Safari／觸控未測。
 - [x] 每條本卡新守衛已以真像素／原生 API 或金錢／保存輸入反例驗首紅及同判準恢復；原生十二控制、場景控制、17 行人及兩控制、40 組效能／30 實際延遲控制已有真實結果。
 - [x] 上述 710d368 常規煙霧三次、fp、財務53／10及13專用工作成功，沒有重跑賭綠。
-- [ ] 本筆發布版本之完整專用 CI、最後 head 常規 CI、刪自己暫用 workflow、Ready 後新的 Codex 程式與安全審查尚待；沒有假勾。
+- [x] 發布版本 6a91671 的完整專用 CI 與 push／PR 常規 CI 已全部成功，見文末實際回執。
+- [ ] 刪自己暫用 workflow 後最後 head 常規 CI、Ready 後新的 Codex 程式與安全審查尚待；沒有假勾。
 - [x] 未跑人工／裝置項、第三波 Library 網路失敗 0 已存檔、第四波尚未上線與待審查狀態均已明列，沒有把文件、預覽或 CI 綠當成發布。
 
 bld 七軸仍為上表 522f9f1 原始值，總分 0.9657→0.9656、lightDir 下降；PR38 與方向檔的條件式完成列均列明。fp.json／style.json 原封保留取自 push 522f9f1 的 14.48／T755 metadata，沒有手改它們來配新版本。最後完整專用 run 成功且記卡後，才以只刪 `.github/workflows/wave030-native.yml` 的獨立 commit 移除；不加回027／029或改名替代。
+
+
+## 6a91671 發布版本完整綠燈；刪 workflow 前回執
+
+實際發布準備 head `6a916719d4d7f692d460e60c594137f6bc7e31fb`，index SHA256 `c82b281c94090f497d7638398efe6b369b437d6c9a30249bc6809b30a30db276`、v14.49／T756。這是未發布的分支驗收，正式站仍第三波，3／20。
+
+- [完整分支 run 39092129437](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39092129437) **completed／success，13 工作全成功**，含原生、獨立 BASE 配對、場景、行人、效能、基線、公站、預覽與五個原圖搬運工作。這就是刪專用 workflow 前最後一次完整 run。
+- [push 39092129396](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39092129396) 與 [PR 39092132718](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39092132718) 三個工作全成功；各 smoke 日誌實數 **3 次 OK 綠燈**，財務兩次皆 **53 checks／10 negatives／failures []**。fp 相對 base 新增40／變更0／移除0、僅 bld；與倉庫新增0／變更0／移除0、其餘166族零變動，無 envLeaves 警告。bld 七軸與下降仍照上表披露。
+- native job `117570914459` 的原始 manifest：slot3／14.49、80張日夜原生圖、12真首紅及恢復、三種子配對與十款原生有費新外觀。manifest SHA256 `051f9dcf1f4407ddf26c39fe55cbee33e060fc55225bf496dc957635babd3eb3`。80精靈＋3接觸表 **83張PNG逐位元等於人工覆核過的522f9f1原圖**，沒有重畫或縮放替代；版本提交只改三個精確標記。
+- scene job `117570914517`：57原生狀態＋40真邊界、strict failures0／unrun[]，八個日夜四向 BASE／本卡閥的1280×657全幀逐位元相同。真正舊檔由14.48遷移14.49，完整唯一差是 `gameVer`；之後兩輪全部序列化欄位一致、與原 BASE 行為一致。原生負控制1美元差及1像素差各首紅／恢復。manifest SHA256 `f4a97ce513e063dfbb06948940d330d8d02a904ec28ed99108fbf5243c58f0f4`。native manifest 原先交由 separate probe 的場景／全幀項因此完成；人工全部97圖仍未完成。
+- normal-pairs job `117570914292`：seeds31／71／103，每個三檢查點；`fieldExclusions:[]`、`nativeGameplay:true`、`usesEscapeValve:false`。正常十款有費交易對 BASE 只含宣告 b.v 差，兩輪完整穩定；各種子真實 money−1 首紅且恢復綠。BASE來源原文保留，只同步三個精確發布標記並驗反向還原，沒有正規化實際結果或剔除region.ver。
+- performance job `117570914465`：40組交錯 BASE／HEAD median12.500／2.650ms、p90 25.075／26.750ms，暖畫新烘焙0；原判準成功。真延遲71ms、30實際樣本median73.600／p90 73.800ms，原守衛首紅；恢復後40組median9.050／2.650、p90 26.125／27.100ms，同判準綠。這只是桌面Ubuntu Chromium，不稱實體手機效能。
+
+發布版本原[80精靈附件12123009193](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39092129437/artifacts/12123009193)，ZIP SHA256 `e0159dd69c7eda6a8b73350abbbda43374cd7fd22a04b6bbad7e0767f77efa51`；[完整97場景與manifest附件12123506404](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39092129437/artifacts/12123506404)，ZIP SHA256 `d7473d368cf68b553fbc3676e5368d15058d818ababa44001d46a45ab7ffced6`。這些是GitHub原始附件，不是Library已保存檔案。
+
+人工另看過本次原始冬雪全景與Gladstone完整近景，長度／SHA均已核實。summer-day-r0的日誌搬運少3072bytes，該副本未寫入、未使用；原始完整CI ZIP不受影響。所有97場景未逐張人工覆核、實體手機／Safari／觸控仍未測，保留AGENTS §3例外。沒有把少量已看圖寫成全部已看。
+
+本筆只記已完成的真實驗收與原圖一致性，不改遊戲、判準或基線。下一筆只刪自己的 `.github/workflows/wave030-native.yml`；刪後每筆確認030與舊027／029專用workflow沒有加回，等最後普通CI全綠、Ready後請新Codex review並核實程式／安全兩項實際結果，才照AGENTS §3／§7合PR38。合後仍須main、automatic Pages精確SHA與真實公開v14.49／T756核驗，不能拿本節CI綠當上線。

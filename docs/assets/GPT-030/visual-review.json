@@ -695,5 +695,61 @@
   "publishedWaves": 3,
   "totalWaves": 20,
   "wave04Published": false,
-  "LibraryDeliverySavedFiles": 0
+  "LibraryDeliverySavedFiles": 0,
+  "releaseValidation": {
+    "head": "6a916719d4d7f692d460e60c594137f6bc7e31fb",
+    "indexSHA256": "c82b281c94090f497d7638398efe6b369b437d6c9a30249bc6809b30a30db276",
+    "version": "14.49",
+    "T": 756,
+    "run": 39092129437,
+    "all13Jobs": "success",
+    "pushRun": 39092129396,
+    "prRun": 39092132718,
+    "smokeGreenEach": 3,
+    "fiscalChecksEach": 53,
+    "fiscalNegativesEach": 10,
+    "nativeJob": 117570914459,
+    "nativeManifestSHA256": "051f9dcf1f4407ddf26c39fe55cbee33e060fc55225bf496dc957635babd3eb3",
+    "nativeArtifact": 12123009193,
+    "nativeArtifactSHA256": "e0159dd69c7eda6a8b73350abbbda43374cd7fd22a04b6bbad7e0767f77efa51",
+    "nativePNGCount": 83,
+    "nativePNGsByteEqualToPreviousManualReview": 83,
+    "sceneJob": 117570914517,
+    "sceneManifestSHA256": "f4a97ce513e063dfbb06948940d330d8d02a904ec28ed99108fbf5243c58f0f4",
+    "sceneArtifact": 12123506404,
+    "sceneArtifactSHA256": "d7473d368cf68b553fbc3676e5368d15058d818ababa44001d46a45ab7ffced6",
+    "sceneFrames": 57,
+    "edgeFrames": 40,
+    "wholeFrameValveEqual": 8,
+    "oldSaveMigration": [
+      {
+        "path": "gameVer",
+        "before": "14.48",
+        "after": "14.49"
+      }
+    ],
+    "oldSaveTwoFullRoundsAllFieldsEqual": true,
+    "newManualSceneFiles": [
+      {
+        "name": "scenes/winter-snow-day-r0.png",
+        "sha256": "e396fd3da6271185ceaa364280535b7cf1c0c61f4fe7e97e05353dfde8006abd"
+      },
+      {
+        "name": "scenes/near-gladstone.png",
+        "sha256": "bfddb596b56777f9f56b9c67393a64c5fe9e823d1a004c3cafffd51da222f62a"
+      }
+    ],
+    "all97ManuallyVerified": false,
+    "physicalMobileSafariTouchTested": false,
+    "discardedIncompleteLogCopies": [
+      {
+        "name": "scenes/summer-day-r0.png",
+        "expectedBytes": 680531,
+        "receivedBytes": 677459,
+        "expectedSHA256": "40db7d799b5978e83a67616a241f15afa28a524a0902e2d497017a04cdc9d8f5",
+        "receivedSHA256": "a6fc5be1b843ff96c8a90ade0874a41cd9cb4b81bec1a953ba2ceeec0b972aff"
+      }
+    ],
+    "wave04Published": false
+  }
 }
