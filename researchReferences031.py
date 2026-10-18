@@ -15,6 +15,7 @@ out = Path('shots/wave031/references')
 out.mkdir(parents=True, exist_ok=True)
 
 def get(url):
+    url = urllib.parse.quote(url, safe=':/?&=%+#@')
     request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 GlimmerTown-Lab-Reference-Reader/1.0'})
     with urllib.request.urlopen(request, timeout=45) as response:
         data = response.read()

@@ -74,3 +74,6 @@
 - Hastings採羽邊水平木板、兩至三層、逐層裝卸外門；內部梯道不畫成外梯。RNLI的Cromer為分段淺弧金屬頂、木板牆與高窗帶、黑鋼柱支承、混凝土下水斜道，與018既有石拱窗／山牆艇庫不同。
 - 本筆追加唯讀來源照片：由Somerset官方頁取得Burnham實景核對色帶方向，由Wikipedia原始照片連結取得George’s Dock實物圖（照片只作觀察，建築文字事實仍依Historic England原名錄；不引用Wikipedia矛盾樓層數）。兩款在看過圖前不開始繪製；其餘模型可依已核實的一手資料進行。
 - head fc35db8原有常規CI三工作success；該head尚無第五波遊戲圖，不能算本波驗收。
+
+
+追加來源run39096003546首輪失敗：Somerset官方圖片檔名含©，urllib發請求時報 `UnicodeEncodeError: 'ascii' codec can't encode character '\xa9' in position 58: ordinal not in range(128)`，未進入遊戲。修正為對來源原始URL做標準UTF-8百分號編碼，保留來源實物位元；修正後的新commit重新跑，不以重跑賭過。
