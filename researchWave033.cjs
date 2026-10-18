@@ -4,9 +4,6 @@ if(process.env.GITHUB_ACTIONS!=='true')throw Error('Source photo reads run on Gi
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const out=path.join(__dirname,'shots','wave033','primary-sources');fs.mkdirSync(out,{recursive:true});
 const sources=[
-  ['york-central-hall.jpg','https://upload.wikimedia.org/wikipedia/commons/b/b0/Central_Hall_and_Physics-Electronics_-_geograph.org.uk_-_4704778.jpg'],
-  ['roger-stevens.jpg','https://upload.wikimedia.org/wikipedia/commons/a/a5/Roger_Stevens_Building_-_geograph.org.uk_-_816896.jpg'],
-  ['roger-stevens-east.jpg','https://upload.wikimedia.org/wikipedia/commons/4/42/Roger_Stevens_Building%2C_University_of_Leeds_%282004%29.jpg'],
   ['st-catherines.jpg','https://upload.wikimedia.org/wikipedia/commons/7/72/Old_stcatz.jpg'],
   ['senate-house.jpg','https://upload.wikimedia.org/wikipedia/commons/f/ff/Senate_House_-_geograph.org.uk_-_5400623.jpg']
 ];
@@ -15,7 +12,8 @@ function emit(name,b){console.log('WAVE033_SOURCE_BEGIN '+JSON.stringify({name,b
 (async()=>{
   const report={head:process.env.GITHUB_SHA,scope:'Read-only original real-building photographs for observation; architectural facts remain the HE/HES primary records; not art acceptance',images:[]};
   for(const[name,url]of sources){
-    const r=await fetch(url,{redirect:'follow',signal:AbortSignal.timeout(60000)});assert.equal(r.status,200,'source033 HTTP 200 '+name);
+    if(report.images.length)await new Promise(resolve=>setTimeout(resolve,10000));
+    const r=await fetch(url,{redirect:'follow',signal:AbortSignal.timeout(60000),headers:{'User-Agent':'GlimmerTown-Lab-Architecture-Research/1.0 (https://github.com/lijiabao1998/GlimmerTown-lab)'}});if(r.status!==200)console.log('SOURCE033_HTTP_FAILURE '+JSON.stringify({name,status:r.status,retryAfter:r.headers.get('retry-after'),url}));assert.equal(r.status,200,'source033 HTTP 200 '+name);
     assert((r.headers.get('content-type')||'').startsWith('image/'),'source033 real image '+name);
     const b=Buffer.from(await r.arrayBuffer());assert(b.length>1000&&b.length<2000000,'source033 bounded image '+name);fs.writeFileSync(path.join(out,name),b);
     report.images.push({name,url,receivedURL:r.url,status:r.status,contentType:r.headers.get('content-type'),bytes:b.length,sha256:hash(b)});emit(name,b);

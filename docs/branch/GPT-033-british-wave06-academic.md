@@ -17,7 +17,7 @@
 
 | 起始v | 原型與一手來源 | 須保留的結構差異與舊款比較 |
 |---|---|---|
-| 360 | [Leicester Engineering Building，HE1074756](https://historicengland.org.uk/listing/the-list/list-entry/1074756)；[大學原頁](https://le.ac.uk/engineering/about/building) | 兩座高低不同塔樓、斜底講堂、45°玻璃屋脊工場及八角煙囪；不同於007普通技術學院或040一般辦公樓 |
+| 360 | [Leicester Engineering Building，HE1074756](https://historicengland.org.uk/listing/the-list/list-entry/1074756)；[大學原頁](https://le.ac.uk/engineering/about/building) | 兩座高低不同塔樓、斜底講堂、45°玻璃屋脊工場及八角煙囪；不同於007技術學院（實際原生鍵266_1_0） |
 | 364 | [UEA Norfolk Terrace，HE1390647](https://historicengland.org.uk/listing/the-list/list-entry/1390647) | 90°相接的退臺宿舍、連續橫窗、凹角及凸出廚房、後方高架步道與服務塔；不同於014普通住宿翼 |
 | 368 | [Sussex Falmer House，HE1381044](https://historicengland.org.uk/listing/the-list/list-entry/1381044) | 三層紅磚／深混凝土帶、開放拱廊、食堂節段桶拱、北梯V頂、院落；不同於014石砌修道院 |
 | 372 | [York Central Hall，HE1456551](https://historicengland.org.uk/listing/the-list/list-entry/1456551) | 不規則六角上層懸挑、較小玻璃基層、外梯與鋼管支承金屬頂；不同於既有圓館或普通劇院 |
@@ -58,3 +58,8 @@
 
 
 [來源前置run39106151107](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39106151107)在698f6eb失敗，job117612300387的實際首紅為 `AssertionError [ERR_ASSERTION]: source033 HTTP 200 york-central-hall.webp`，`403 !== 200`，沒有圖片附件，不能寫已看。保留此結果，不重跑賭過。這筆修正改讀已由Commons原頁核實的五張原始實景JPEG（York、Roger Stevens兩面、St Catherine舊實景、Senate House），不改驗收門檻、不重新編碼圖片；只作外觀觀察，文字建築事實仍依前表HE／HES一手名錄。七款幾何及新探針目前只在本分支本地編寫，未推任何美術、未執行遊戲；三款等待所需原圖再畫。
+
+
+[第二來源run39106631854](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39106631854)在100e3af仍為failure：第三張額外東面圖 `source033 HTTP 200 roger-stevens-east.jpg` 首紅，實際 `429 !== 200`。但前兩張原始JPEG實際已取得：York63739 bytes／SHA256 `11e032eccb507c10de1eaee81a5e9d806803421d0d5f580a06713be1c3890b9d`；Roger Stevens74000 bytes／SHA256 `b65bc515002366bb593bfdf7b624aa15cbb813694d244ed16540c26777eebd36`，兩張傳回原檔位元驗證相符後已人工看過。York確為低金屬帳篷頂及露出鋼管尖頂；Leeds東面可見盲盒體、玻璃梯樓、架空凹口與池側。整個run未成功，不拿部分成功冒充全綠。
+
+這筆只讀取尚未取得的St Catherine與Senate兩張原件，不重讀已取得兩圖、不再請求額外東面圖；兩次請求間隔10秒、提供真實研究User-Agent並記HTTP及Retry-After。這是新來源工作，不是重跑失敗的遊戲守衛；沒有更改十條凍結驗收或共用CI。St Catherine在所需照片真正看過前仍不畫。
