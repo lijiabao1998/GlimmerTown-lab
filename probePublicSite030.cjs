@@ -3,12 +3,18 @@
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const {launchChrome,pageWsUrl,cdpConnect,waitFor,sleep}=require('./harness.js');
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('Run the public-site browser verification only on GitHub Actions');
-const URL='https://lijiabao1998.github.io/GlimmerTown-lab/',BASE='9335b08f47ab184ebb5fa7f46b776c1049cd5cc9';
+const URL='https://lijiabao1998.github.io/GlimmerTown-lab/';
+// Read the current main as the independent published-source expectation. This
+// also lets this one HTTP/browser job verify a new deployment after a merge,
+// without re-running smoke/fp or restoring the deleted branch workflow.
+cp.execFileSync('git',['fetch','--no-tags','origin','main:refs/remotes/origin/main'],{cwd:__dirname,timeout:60000,stdio:'pipe'});
+const BASE=cp.execFileSync('git',['rev-parse','refs/remotes/origin/main'],{cwd:__dirname,encoding:'utf8'}).trim();
+assert.match(BASE,/^[0-9a-f]{40}$/,'public030 independent main SHA');
 const OUT=path.join(__dirname,'shots','wave030','public-site'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const baseline=cp.execFileSync('git',['show',BASE+':index.html'],{cwd:__dirname,maxBuffer:32*1024*1024});
 const baselineText=baseline.toString('utf8'),version=/const GAME_VER='([^']+)'/.exec(baselineText)[1],anchor=/const GAME_ANCHOR='([^']+)'/.exec(baselineText)[1];
-const expected={sha256:hash(baseline),version,anchor};
-const report={ok:false,head:process.env.GITHUB_SHA,base:BASE,startedAt:new Date().toISOString(),url:URL,expected,files:[],negativeControls:[],runtimeErrors:[],networkFailures:[],notClaimed:['physical mobile, Safari or touch validation','fourth-wave art implementation']};
+const expected={sha256:hash(baseline),version,anchor,wave04:baselineText.includes('installBritishWave030();')};
+const report={ok:false,head:process.env.GITHUB_SHA,base:BASE,startedAt:new Date().toISOString(),url:URL,expected,files:[],negativeControls:[],runtimeErrors:[],networkFailures:[],notClaimed:['physical mobile, Safari or touch validation','all art states manually inspected']};
 fs.mkdirSync(OUT,{recursive:true});
 function verifyResponse(r,e=expected){
   assert.equal(r.status,200,'public030 HTTP 200');
@@ -64,10 +70,13 @@ function transfer(name,b){console.log('WAVE030_PUBLIC_FILE_BEGIN '+JSON.stringif
     const baked=await waitFor(cdp,"!!window.__bootDone453 && (window.__bootSeq453|0)==="+seq+" && (window.__t519Roof|0)>0 && getComputedStyle(document.getElementById('start')).display==='none' && !!GV.tile(0,0)",180000);assert(baked,'public030 public native city and sprites baked');await sleep(3000);
     report.city=await cdp.evalJs("(()=>{const c=document.getElementById('game'),g=c.getContext('2d'),a=g.getImageData(0,0,c.width,c.height).data;let opaque=0;const colors=new Set();for(let i=0;i<a.length;i+=4){if(a[i+3])opaque++;if(i%64===0)colors.add(a[i]+','+a[i+1]+','+a[i+2]+','+a[i+3]);}return {url:location.href,version:GV.ver(),anchor:document.getElementById('startVersion456')?.textContent.match(/T[0-9]+/)?.[0],slot:localStorage.getItem('glimmerville.v1.slot'),width:c.width,height:c.height,opaque,colors:colors.size,wave03Rows:GV.britishWave029.rows().map(q=>({id:q.id,v:q.v})),wave03SpriteCount:Object.keys(GV.art574.SPR().bld).filter(k=>/^24_1_2[4-7][0-9]$/.test(k)).length,bootDone:!!window.__bootDone453}})()");
     assert.equal(report.city.version,version);assert.equal(report.city.anchor,anchor);assert.equal(report.city.slot,'3');assert.equal(report.city.wave03Rows.length,10);assert.equal(report.city.wave03SpriteCount,40);assert(report.city.opaque>10000&&report.city.colors>100,'public030 live public canvas nonempty');
+    report.wave04=await cdp.evalJs("({rows:GV.britishWave030?GV.britishWave030.rows().map(q=>({id:q.id,v:q.v})):null,spriteCount:Object.keys(GV.art574.SPR().bld).filter(k=>/^24_1_(?:2[89]|3[01])[0-9]$/.test(k)).length})");
+    if(expected.wave04){assert.equal(report.wave04.rows?.length,10,'public030 live fourth-wave catalog');assert.equal(report.wave04.spriteCount,40,'public030 live fourth-wave forty leaves');}else{assert.equal(report.wave04.rows,null,'public030 fourth-wave not yet on main');assert.equal(report.wave04.spriteCount,0,'public030 no unpublished fourth-wave leaves');}
     const cityShot=await cdp.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});write('public-city-page.png',Buffer.from(cityShot.data,'base64'));
     const canvas=await cdp.evalJs("document.getElementById('game').toDataURL('image/png')");write('public-city-canvas.png',Buffer.from(canvas.split(',')[1],'base64'));
-    const opened=await cdp.evalJs("(()=>{const b=document.getElementById('waveOpen029');if(b)b.click();return !!document.getElementById('waveDialog029')?.open})()");assert(opened,'public030 live wave03 catalog button');
-    const catalog=await cdp.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});write('public-wave03-catalog.png',Buffer.from(catalog.data,'base64'));
+    const catalogId=expected.wave04?'030':'029';
+    const opened=await cdp.evalJs("(()=>{const b=document.getElementById('waveOpen"+catalogId+"');if(b)b.click();return !!document.getElementById('waveDialog"+catalogId+"')?.open})()");assert(opened,'public030 live published catalog button');
+    const catalog=await cdp.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});write('public-wave'+(expected.wave04?'04':'03')+'-catalog.png',Buffer.from(catalog.data,'base64'));
     report.liveCanvasCaptured=true;report.localServerUsed=false;assert.equal(report.runtimeErrors.length,0,'public030 actual browser errors: '+JSON.stringify(report.runtimeErrors));report.ok=true;
   }catch(error){report.error={name:error.name,message:error.message,stack:error.stack};process.exitCode=1;}
   finally{

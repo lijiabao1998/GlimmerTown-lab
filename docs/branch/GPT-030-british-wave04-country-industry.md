@@ -94,7 +94,7 @@
 
 實作提交 `50243f9125f2e69865c5cbfd57036327878af201`，[39089619040](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39089619040)：公開站、preview、native、完整場景、行人、獨立 BASE 正常配對、效能七個工作及五個純原圖搬運工作皆 success；baseline-evidence 因尚未提交新增圖的基線而紅，不把整個 run 寫成綠。ordinary [39089619004](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39089619004) 的 fp 也紅在新 40 葉與新 style 尚未提交，沒有重跑賭綠。
 
-preview 原 manifest、日夜接觸表與一張完整城市圖已逐長度／SHA 核實。`prototypeOnly:false`、10 種原生有費放置、40 四向精靈，committed index SHA256 `8d5b39d3cc5e46381c6bb8357ed63d3308104778dceb73fbec03c8190c331675`。實際看過 40 向白天與夜晚接觸表；屬分支原生預覽，未發布。首輪 raw fp／style 從本次 push 的 job `117563373202` 原封取回：fp SHA256 `55bac5e2fa2929bfa8e858674dcd150154c022153888dc730dcfe4a3184761fb`；style `5e62f58d63c2951bff875454ba804b78a9e81856a31d5def511400aff67d651e`。3503 舊 subs、其餘 165 家族、blocks 全部相同；新葉精確 280–319 共 40。raw 檔內 T754／14.47 是原 main 基線留下的歷史版本欄，不改寫成目前版本。
+preview 原 manifest、日夜接觸表與一張完整城市圖已逐長度／SHA 核實。`prototypeOnly:false`、10 種原生有費放置、40 四向精靈，committed index SHA256 `8d5b39d3cc5e46381c6bb8357ed63d3308104778dceb73fbec03c8190c331675`。實際看過 40 向白天與夜晚接觸表；屬分支原生預覽，未發布。首輪 raw fp／style 從本次 push 的 job `117563373202` 原封取回：fp SHA256 `55bac5e2fa2929bfa8e858674dcd150154c022153888dc730dcfe4a3184761fb`；style `5e62f58d63c2951bff875454ba804b78a9e81856a31d5def511400aff67d651e`。3503 舊 subs、其餘 165 家族、blocks 全部相同；新葉精確 280–319 共 40。摘要的 base 標籤 T754／14.47 來自 main 已提交的舊 raw 基線；本次新 dump 的原始版本欄是 T755／14.48。兩者都按原值保留，不手改任何 metadata。
 
 首輪 bld 七軸有受光方向下降，總分 0.9657→0.9656，依第二波起連續授權如實披露；沒有提交或手改這份基線，因下述真實看圖問題先修圖。
 
@@ -111,3 +111,29 @@ preview 原 manifest、日夜接觸表與一張完整城市圖已逐長度／SHA
 看圖及純來源定位：Crossness 主體三聯小窗的厚窗框蓋住部分窗面，黃磚紋理也誤讀 world y 為高度；Sissinghurst 白風帽在原生尺寸太細小；Towanroath 的開口尚缺考據中的磚拱圈。本次只改自己新圖：小窗改細框真圓頭玻璃、黃磚按真實 z 排磚並按牆法向受光；提高方錐頂的原生辨識度、放大白木風帽；石造遺構補有深度磚拱圈、內側拱牆改用內法向受光。沒有改夜光範圍規則、渲染器、判準、四十葉範圍、窗／窯／柱的宣告形制數量或遊戲。
 
 修改後又通過純來源嵌入與 90 script 解析，剝除本卡來源仍精確還原 `9335b08f`；新圖仍須新 CI 重驗，舊 50243f9 結果不能冒充修改後通過。首輪兩份基線只留作歷史證據，修改後需取新的最新 push 原始基線。
+
+## 522f9f1：修圖後原生驗收、看圖與本次原始基線
+
+`522f9f1fd63eb2d3f12ac40634a414dc43161684` 的 [39090161665](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39090161665) 七個原生／正常配對／完整場景／行人／效能／公開站／預覽工作及五個原圖搬運工作皆 success；只有未換基線的 baseline-evidence 預期紅。native job `117565022020` 實際 80 PNG、12 個真首紅與恢復、三種子配對、十款有費目錄點擊、兩輪完整新檔、原生 undo／redo／參照格拆除均成功。場景 job `117565022032` 57 狀態＋40 真邊界、失敗 0；八個整幀閥逐位元相等，原舊檔兩輪完整比較成功。行人 job `117565021771` 17 案及兩個實際反例／恢復成功。
+
+原 native 84 檔（80 PNG、三張接觸表與 manifest）及十款完整近景、原場景 manifest 全部逐長度／SHA 核實，人工看過 40 向日圖、40 向夜圖、新舊比較與十款完整近景；泵站真窗面、磚拱圈及白風帽已可辨。原圖不裁切、不重畫。詳細來源與逐檔雜湊見 [visual-review.json](../assets/GPT-030/visual-review.json)。所有 97 狀態尚未逐張人工覆核，實體手機／Safari／觸控未做，照實保留。
+
+效能 job `117565021995` 正常 40 組交錯 BASE／HEAD：median 10.125／2.325 ms、p90 21.150／20.825 ms，暖畫新烘焙 0。真延遲 63 ms、30 實際樣本，原守衛首紅 median 65.3／p90 95.9 ms；恢復 40 組 median 8.175／2.250 ms、p90 20.650／19.875 ms，原判準綠。這些僅桌面 CI，不稱手機效能已測。
+
+ordinary 首輪財務 job `117563372977` 的結果是 52 checks／10 negatives，唯一失敗為最後 source-integrity 組的「current renderer fingerprints match the committed baselines」；日結算等 diff 是各真負控制被捕捉的紀錄，不是額外未修財務錯誤。新圖在提交新基線前因此也會讓這組紅，未修改共用財務程式／判準、不重跑賭綠；換基線後仍須完整 53／10 成功。
+
+**本次只原封提交最新 push 522f9f1 的 [fp artifact 12122258416](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39090161665/artifacts/12122258416)**，來自未改 `fp.js` 的 job `117565022137`，GitHub ZIP digest `fc58f0a6e8754d243e9aad55f7d6f85183e368614d6e74a4c2f105c86e577f7e`：`fp.json` 387023 bytes／SHA256 `b79a06a20a35e1bb60e15fca40448e90a570110172feae9dcdcd307252b795cc`；`style.json` 73166 bytes／`40220d5897969af38878d53c12ccb6cbfccdca936ae0a7800d64332d87286e0f`。原版本 T755／14.48、時間、統計及環境欄均未重寫。included main 仍 `9335b08f`；3503 舊 subs、165 其他家族、blocks 完全不變，唯一新增精確 `bld.24_1_280..319`。
+
+| bld 七軸 | main 9335b08f | 522f9f1 實測 |
+|---|---:|---:|
+| palette | 1 | 1 |
+| hardEdge | 0.9446630781096588 | 0.9459846379810595 |
+| lightDir | 0.8287971905179983 | 0.8261238337574215 |
+| shade | 1 | 1 |
+| density | 1 | 1 |
+| nightRule | 0.9865421265088656 | 0.986992585347136 |
+| variants | 1 | 1 |
+
+總分仍 0.9657→0.9656，受光方向下降，不寫成無下降；依第二波起連續授權在 PR 與方向已完成表同步披露。新基線提交後的 CI 尚待，不稱最後 head 已綠。
+
+公開站檢查另改成只讀 fetch 當時的 origin/main，獨立讀取該 git 物件再核真正 URL／HTML／API／畫布；發布後也核第四輯十款與 40 葉。依 [GitHub 官方單獨工作執行機制](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)，待 main 與自動 Pages 成功後，僅對新的正式站輸入再執行 public-site 工作，不重跑煙霧／fp，不新增或加回已刪 workflow，不手動觸發 pages.yml。該執行仍用原探針 GITHUB_SHA，實際遊戲來源另以 manifest 的 base／HTML SHA 證明；附件名附 run_attempt 保留前次原證據。這是新發布頁面的唯讀核驗，不是拿失敗守衛重跑賭過。
