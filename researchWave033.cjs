@@ -4,14 +4,16 @@ if(process.env.GITHUB_ACTIONS!=='true')throw Error('Source photo reads run on Gi
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const out=path.join(__dirname,'shots','wave033','primary-sources');fs.mkdirSync(out,{recursive:true});
 const sources=[
-  ['york-central-hall.webp','https://historicengland.org.uk/etl/1456551/1837fc1a-d9f4-42f9-8f88-7d87c9c9930b.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false'],
-  ['roger-stevens.webp','https://historicengland.org.uk/etl/1393836/75480cbd-1876-44d8-8159-c5a254eafba4.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false'],
-  ['st-catherines.webp','https://historicengland.org.uk/etl/1229934/5d2d5a6e-0db7-4862-96a0-4cdeecab11c8.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false']
+  ['york-central-hall.jpg','https://upload.wikimedia.org/wikipedia/commons/b/b0/Central_Hall_and_Physics-Electronics_-_geograph.org.uk_-_4704778.jpg'],
+  ['roger-stevens.jpg','https://upload.wikimedia.org/wikipedia/commons/a/a5/Roger_Stevens_Building_-_geograph.org.uk_-_816896.jpg'],
+  ['roger-stevens-east.jpg','https://upload.wikimedia.org/wikipedia/commons/4/42/Roger_Stevens_Building%2C_University_of_Leeds_%282004%29.jpg'],
+  ['st-catherines.jpg','https://upload.wikimedia.org/wikipedia/commons/7/72/Old_stcatz.jpg'],
+  ['senate-house.jpg','https://upload.wikimedia.org/wikipedia/commons/f/ff/Senate_House_-_geograph.org.uk_-_5400623.jpg']
 ];
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 function emit(name,b){console.log('WAVE033_SOURCE_BEGIN '+JSON.stringify({name,bytes:b.length,sha256:hash(b),head:process.env.GITHUB_SHA}));const s=b.toString('base64');for(let i=0;i<s.length;i+=4096)console.log('WAVE033_SOURCE_DATA '+s.slice(i,i+4096));console.log('WAVE033_SOURCE_END '+name);}
 (async()=>{
-  const report={head:process.env.GITHUB_SHA,scope:'Read-only primary source photographs before authoring; not art acceptance',images:[]};
+  const report={head:process.env.GITHUB_SHA,scope:'Read-only original real-building photographs for observation; architectural facts remain the HE/HES primary records; not art acceptance',images:[]};
   for(const[name,url]of sources){
     const r=await fetch(url,{redirect:'follow',signal:AbortSignal.timeout(60000)});assert.equal(r.status,200,'source033 HTTP 200 '+name);
     assert((r.headers.get('content-type')||'').startsWith('image/'),'source033 real image '+name);

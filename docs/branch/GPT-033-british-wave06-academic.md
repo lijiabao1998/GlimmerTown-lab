@@ -55,3 +55,6 @@
 ## 原始來源照片前置讀取（不是美術驗收）
 
 名錄十款文字已核實；York金屬屋頂、Roger Stevens外部豎井與St Catherine雙片鐘塔另取Historic England原始圖片觀察。選定雲端直接讀取三個官方圖URL均報 `URLError: <urlopen error Tunnel connection failed: 403 Forbidden>`，未取得圖、不改用使用者電腦。本筆只在自己的分支暫用唯讀workflow讀取相同三張官方圖及保存長度／SHA／URL；沒有啟動遊戲、沒有本波繪圖，也不算原生驗收。必要原圖核實後才開始相應幾何。
+
+
+[來源前置run39106151107](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39106151107)在698f6eb失敗，job117612300387的實際首紅為 `AssertionError [ERR_ASSERTION]: source033 HTTP 200 york-central-hall.webp`，`403 !== 200`，沒有圖片附件，不能寫已看。保留此結果，不重跑賭過。這筆修正改讀已由Commons原頁核實的五張原始實景JPEG（York、Roger Stevens兩面、St Catherine舊實景、Senate House），不改驗收門檻、不重新編碼圖片；只作外觀觀察，文字建築事實仍依前表HE／HES一手名錄。七款幾何及新探針目前只在本分支本地編寫，未推任何美術、未執行遊戲；三款等待所需原圖再畫。
