@@ -63,3 +63,6 @@
 [第二來源run39106631854](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39106631854)在100e3af仍為failure：第三張額外東面圖 `source033 HTTP 200 roger-stevens-east.jpg` 首紅，實際 `429 !== 200`。但前兩張原始JPEG實際已取得：York63739 bytes／SHA256 `11e032eccb507c10de1eaee81a5e9d806803421d0d5f580a06713be1c3890b9d`；Roger Stevens74000 bytes／SHA256 `b65bc515002366bb593bfdf7b624aa15cbb813694d244ed16540c26777eebd36`，兩張傳回原檔位元驗證相符後已人工看過。York確為低金屬帳篷頂及露出鋼管尖頂；Leeds東面可見盲盒體、玻璃梯樓、架空凹口與池側。整個run未成功，不拿部分成功冒充全綠。
 
 這筆只讀取尚未取得的St Catherine與Senate兩張原件，不重讀已取得兩圖、不再請求額外東面圖；兩次請求間隔10秒、提供真實研究User-Agent並記HTTP及Retry-After。這是新來源工作，不是重跑失敗的遊戲守衛；沒有更改十條凍結驗收或共用CI。St Catherine在所需照片真正看過前仍不畫。
+
+
+[剩餘來源run39106925595](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39106925595)的來源工作成功，job117614695408、head709a453。Senate67510 bytes／SHA256 `d0522f6385ad6c2884dc9ecbbb153dab883222dfd9cc44a5ca634fdaacc681be`與舊StCatz73453 bytes／SHA256 `6a2fa28018397483f4bdb3193209e43cd05a883a0f25bda388c991839a138e59`均逐位元核對後實際看過。但人工發現 `Old_stcatz.jpg`是舊址的坡頂樓，不能拿它當Jacobsen現址平頂院落的證據；不按錯照片畫。改取Commons已核實、用於Arne Jacobsen條目的 `Catz_Moat.jpg`原件，這次僅一個來源請求，不重試先前429圖片。Senate實景已修正上層圓拱窗、中央雙層高門、欄杆女兒牆及中央三開間兩側各一根通高柱；原十條驗收不變，尚無遊戲或像素實測。

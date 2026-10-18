@@ -4,8 +4,7 @@ if(process.env.GITHUB_ACTIONS!=='true')throw Error('Source photo reads run on Gi
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const out=path.join(__dirname,'shots','wave033','primary-sources');fs.mkdirSync(out,{recursive:true});
 const sources=[
-  ['st-catherines.jpg','https://upload.wikimedia.org/wikipedia/commons/7/72/Old_stcatz.jpg'],
-  ['senate-house.jpg','https://upload.wikimedia.org/wikipedia/commons/f/ff/Senate_House_-_geograph.org.uk_-_5400623.jpg']
+  ['st-catherines-jacobsen.jpg','https://upload.wikimedia.org/wikipedia/commons/b/b7/Catz_Moat.jpg']
 ];
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 function emit(name,b){console.log('WAVE033_SOURCE_BEGIN '+JSON.stringify({name,bytes:b.length,sha256:hash(b),head:process.env.GITHUB_SHA}));const s=b.toString('base64');for(let i=0;i<s.length;i+=4096)console.log('WAVE033_SOURCE_DATA '+s.slice(i,i+4096));console.log('WAVE033_SOURCE_END '+name);}
