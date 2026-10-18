@@ -74,7 +74,9 @@ function transfer(name,b){console.log('WAVE030_PUBLIC_FILE_BEGIN '+JSON.stringif
     try{cdp?.close();}catch{}try{chrome?.kill();}catch{}
     if(profile)setTimeout(()=>{try{fs.rmSync(profile,{recursive:true,force:true});}catch{}},1500);
     report.finishedAt=new Date().toISOString();const manifest=Buffer.from(JSON.stringify(report,null,2)+'\n');fs.writeFileSync(path.join(OUT,'public-site-verification.json'),manifest);
-    for(const f of report.files)transfer(f.name,fs.readFileSync(path.join(OUT,f.name)));transfer('public-site-verification.json',manifest);
+    // Raw full-resolution canvas remains in the original artifact. Keep the
+    // console transfer below the transport size that lost one base64 chunk.
+    for(const f of report.files)if(f.name!=='public-city-canvas.png')transfer(f.name,fs.readFileSync(path.join(OUT,f.name)));transfer('public-site-verification.json',manifest);
     console.log('PUBLIC030_RESULT '+JSON.stringify({ok:report.ok,http:report.http,browserDocument:report.browserDocument,city:report.city,negativeControls:report.negativeControls.length,runtimeErrors:report.runtimeErrors,error:report.error?.message}));
   }
 })();

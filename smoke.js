@@ -180,6 +180,7 @@ const KEEP = process.argv.includes('--keep');
       ['britishWave025', `(window.GV && window.GV.britishWave025) ? window.GV.britishWave025.selftest() : {ok:false,checks:['API 不存在']}`],
       ['britishWave027', `(window.GV && window.GV.britishWave027) ? window.GV.britishWave027.selftest() : {ok:false,checks:['API 不存在']}`],
       ['britishWave029', `(window.GV && window.GV.britishWave029) ? window.GV.britishWave029.selftest() : {ok:false,checks:['API 不存在']}`],
+      ['britishWave030', `(window.GV && window.GV.britishWave030) ? window.GV.britishWave030.selftest() : {ok:false,checks:['API 不存在']}`],
       ['useScales021', `(window.GV && window.GV.useScales021) ? window.GV.useScales021.selftest() : {ok:false,checks:['API 不存在']}`],
       ['renew711', `(window.GV && window.GV.renewSelftest711) ? window.GV.renewSelftest711() : {ok:false,checks:['API 不存在']}`],
       ['legacyA713', `(window.GV && window.GV.legacyASelftest713) ? window.GV.legacyASelftest713() : {ok:false,checks:['API 不存在']}`],

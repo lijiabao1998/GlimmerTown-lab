@@ -52,7 +52,7 @@
 ## §8 開工狀態／沒做成的事
 
 - [x] 卡面單獨先推：[b0782e997fb870762efce882a5adf893396888a0](https://github.com/lijiabao1998/GlimmerTown-lab/commit/b0782e997fb870762efce882a5adf893396888a0)，只有本卡一檔，parent 為上述 main；在它成功前沒有美術施工。
-- [ ] 公開第三波版本／真實畫布：尚未由可連線的 CI 讀取，不聲稱已核實。
+- [x] 公開第三波版本／真實畫布：[39087737240](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240) 已實際 HTTP／瀏覽器核實並人工看過原始城市頁面與第三輯目錄，詳見下方。
 - [ ] 第四波原生樣張、完整舊檔及三種子：尚未施工／未跑。
 - [ ] fp 與整幀、完整狀態、行人、負控制及效能：尚未跑。
 - [ ] 最後 head 煙霧三次／完整 CI／審查：尚未跑。
@@ -73,3 +73,19 @@
 隨後我自己探針的 metadata eval 發生 `ReferenceError: GAME_VER is not defined`：遊戲常數在既有封閉作用域中，不能直接由外部 CDP 名稱讀取。未產生城市截圖，所以不稱完整線上驗證通過。次筆只將自己探針的版本讀取改為既有公開 `GV.ver()`，錨點讀實際 DOM 的版本頁腳；HTTP SHA、原生 UI、畫布、數量及錯誤判準不變，不改正式遊戲。
 
 次筆 `ba76206ee6488fe8e325eada15b6ecb578d79a10` 的 [39087506385](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087506385) 尚在跑時，純來源核對又發現探針對原生 UI 的前提錯誤：`bStartNew456` 呼叫 `begin(true)`，它建立 tiles 並隱藏主選單，沒有再次呼叫 `bootstrap453()`，所以不能要求烘焙序號增加。下筆將這個錯誤前提改為「同一個已完成的 bootstrap／素材存在＋原生主選單已隱藏＋真實 tile 已初始化」，仍須後續原畫布不空、版本、四十葉／十款目錄與錯誤檢查全部成立；不是關掉進城檢查，也不改正式遊戲。該 run 若被新 push 取消，只記取消，不記通過。
+
+## 第三波真實公開站已核實；第四波美術尚待施工
+
+`505c019e1207672a5336a6b4f158c77a80e79ab9` 的 [39087737240](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240)，job `117557747174` 全部成功。01:47:44 UTC 真公開 URL 與 Chrome 主文件均 HTTP 200、10968593 bytes、SHA256 `77c51c5171c95f3d272999276b71ec9e94233b5f2bd0de0ca785d09745f73c3e`，與獨立 git main `9335b08f` 相同。實際公開 API 版本 14.48、DOM 頁腳 T755、隔離槽 3、十款目錄／40 葉；原生 UI 建城後畫布 1280×657、840960 非透明像素／2297 取樣色，五個 HTTP 反例與原判準恢復成功，瀏覽器錯誤陣列空。未啟動本地伺服器，沒有用部署成功代替實際讀站。
+
+原始證據 [artifact 12121047997](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240/artifacts/12121047997)，GitHub ZIP digest `5050702d1df132e541ab034906dfec9453774999b2a8653f80655880cf96da54`。未改寫的原 manifest 存於 [public-site-verification.json](../assets/GPT-030/public-site-verification.json)。人工看過從 log 取回、長度及 SHA 均相符的完整城市頁面與第三輯目錄 PNG；這是正式站實際擷取，不是本地預覽。raw canvas 的大 log 搬運少 3072 bytes，該份搬運資料已拒收，沒有拿它當原圖；原始 CI ZIP 內仍保留其原檔及 SHA。之後 log 只搬較小的完整頁面／目錄／主選單，raw canvas 留在原 artifact，不改驗證判準或圖檔。
+
+先前 `39087506385` 最終狀態為 cancelled，未列通過。雲端直接代理仍 403 是該通道限制；現在已有真正 CI 公開 HTTP／瀏覽器與人工看圖證據，不能再寫成「完全未核線上」。實體手機／Safari／觸控及第三波全 97 張逐張人工覆核仍未做。進度仍 3／20，第四波尚未新增美術。
+
+## 第四波施工來源檢查（遊戲與樣張仍未跑）
+
+十個獨立幾何作者及 40 葉 adapter／第四輯目錄已寫入並嵌入；本機只做來源解析，90 個 inline script 可解析。剝除本卡的 art／CSS／runtime 與唯一 install 呼叫後，完整 index 與獨立 `9335b08f:index.html` 逐位元相等（SHA256 `77c51c5171c95f3d272999276b71ec9e94233b5f2bd0de0ca785d09745f73c3e`）；smoke 只加本卡自檢一行，所有舊斷言、共用守衛及規則未改。版本仍 14.48／T755，未提前配 T 或宣稱發布。
+
+本卡自己的原生、完整狀態、正常全欄配對、行人、效能與 5 個僅搬原圖的工作，沿用前三波已修正的嚴格判準，換成獨立新 base、280–319、新十款及新舊結構對照。另補第三輯目錄切換清除此輯選擇的原生檢查。自己的 workflow 現含公開站與上述完整驗收，總 13 jobs；預覽與長測試同輪並行。這些全部仍待 CI，來源語法成功不是遊戲通過。
+
+選取構件／比例：Gladstone 畫三種已列入名錄的瓶形窯構件及階梯煙道，不宣稱全館總窯數；Temple 繪 18 個前柱、選取 12 個圓錐頂光，不宣稱原廠實際天窗總數；超長 Chatham 依宣告壓縮長度。石灰窯的六個下陷窯口與五個實際透空拱口、Wheal Coates 的無屋頂／無木樓層均由幾何構成，不能用換色代替。各向目視與像素檢查仍待原生圖，未把程式碼當交付。
