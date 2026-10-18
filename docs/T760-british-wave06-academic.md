@@ -1,4 +1,4 @@
-# GPT-033：第六波十座有考據的英式學院與學術建築
+# T760：第六波十座有考據的英式學院與學術建築（原GPT-033）
 
 ## 動手前卡面／不可變範圍
 
@@ -70,7 +70,7 @@
 
 ### 一手文字與必要實景已核實，開始完整原生美術
 
-[Jacobsen來源run39107165254](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107165254)在243940f成功，job117615431692；現址 `Catz_Moat.jpg`原件103528 bytes／SHA256 `6a4329a5bbf37f2713dc5f349aee983dc01c337ee2ac285d22fb2afae4e0a2f2`已位元核對並實際看過，確認平頂、強豎梃玻璃面及低矮淺黃磚牆，與舊址照片不同。鐘塔的雙片混凝土、頂部相連及豎向銅葉片依HE1229934原文，不冒稱這張照片拍到了鐘塔。四張可用實景、拒用舊址圖與403／429前置失敗均記在[source provenance](../assets/GPT-033/source-provenance.json)，來源原照不放進遊戲。
+[Jacobsen來源run39107165254](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107165254)在243940f成功，job117615431692；現址 `Catz_Moat.jpg`原件103528 bytes／SHA256 `6a4329a5bbf37f2713dc5f349aee983dc01c337ee2ac285d22fb2afae4e0a2f2`已位元核對並實際看過，確認平頂、強豎梃玻璃面及低矮淺黃磚牆，與舊址照片不同。鐘塔的雙片混凝土、頂部相連及豎向銅葉片依HE1229934原文，不冒稱這張照片拍到了鐘塔。四張可用實景、拒用舊址圖與403／429前置失敗均記在[source provenance](assets/GPT-033/source-provenance.json)，來源原照不放進遊戲。
 
 本筆加入十款獨立世界座標幾何、四十個原生向與第六輯目錄；玻璃45°工場屋脊／兩段90°階梯宿舍／食堂桶拱和V形梯頂／六角懸挑與露出鋼管尖頂／低平學院及雙片鐘塔／白色懸挑T形醫師學院／直曲窗山花的古典議事廳／雙院落及鏤空尖塔／坡岸錯層鋸齒簷／半圓豎井階梯講堂，分別建模。只用原有光柵器和調色板，不改全局觀感、模擬、價格、RNG、解鎖或存檔格式。舊smoke逐位元保留，只加本卡一條自檢。
 
@@ -81,10 +81,10 @@
 
 [原生run39107472000](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000)仍為failure，只有baseline-evidence因尚未接納本波新指紋／style而紅；其餘12個工作實際success。不能稱完整workflow已綠。
 
-- [native117616342176](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342176)：86項自檢、12真首紅／恢復、十款DOM扣費放置、undo／redo／退款／參照格拆除、新外觀兩輪load/save完整欄位穩定；四十向／八十原始PNG，semi／leak／crop／empty／mismatch全0。[原始manifest](../assets/GPT-033/native-initial-282ca39.json)。
-- [normal-pairs117616342183](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342183)：獨立BASE1bf22ad與HEAD正常模型，seeds31／71／103×3檢查點全欄只差明列的實際b.v，真少$1首紅／恢復；BASE與HEAD各十款匹配交易、首次update／市長選項及兩輪保存差異[]，fieldExclusions=[]。[原始console值](../assets/GPT-033/normal-pairs-initial-282ca39.json)。
-- [scenes117616342185](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342185)：57狀態＋40邊緣，8／8完整1280×657 BASE／閥關逐位元相同，failures=[]、unrun=[]；真正舊檔兩輪全欄、實際畫布1px與真保存少$1首紅／恢復。[原始manifest](../assets/GPT-033/scenes-initial-282ca39.json)。
-- [pedestrians117616342232](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342232)：17原生深度／遮擋例及兩真負控制／恢復成功。[performance117616342198](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342198)：40組交錯median BASE11.925／HEAD2.600ms、p90 24.850／26.850ms，暖畫新烘焙0，30真延遲樣本及恢復成功。[原始console值](../assets/GPT-033/performance-initial-282ca39.json)。僅Ubuntu桌面Chromium參考，不冒充手機。
+- [native117616342176](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342176)：86項自檢、12真首紅／恢復、十款DOM扣費放置、undo／redo／退款／參照格拆除、新外觀兩輪load/save完整欄位穩定；四十向／八十原始PNG，semi／leak／crop／empty／mismatch全0。[原始manifest](assets/GPT-033/native-initial-282ca39.json)。
+- [normal-pairs117616342183](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342183)：獨立BASE1bf22ad與HEAD正常模型，seeds31／71／103×3檢查點全欄只差明列的實際b.v，真少$1首紅／恢復；BASE與HEAD各十款匹配交易、首次update／市長選項及兩輪保存差異[]，fieldExclusions=[]。[原始console值](assets/GPT-033/normal-pairs-initial-282ca39.json)。
+- [scenes117616342185](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342185)：57狀態＋40邊緣，8／8完整1280×657 BASE／閥關逐位元相同，failures=[]、unrun=[]；真正舊檔兩輪全欄、實際畫布1px與真保存少$1首紅／恢復。[原始manifest](assets/GPT-033/scenes-initial-282ca39.json)。
+- [pedestrians117616342232](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342232)：17原生深度／遮擋例及兩真負控制／恢復成功。[performance117616342198](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342198)：40組交錯median BASE11.925／HEAD2.600ms、p90 24.850／26.850ms，暖畫新烘焙0，30真延遲樣本及恢復成功。[原始console值](assets/GPT-033/performance-initial-282ca39.json)。僅Ubuntu桌面Chromium參考，不冒充手機。
 - 原始80PNG／三接觸表／manifest與十張near全景共95個檔案已傳回並逐檔bytes／SHA驗證；日夜四十向接觸表、新舊比較、十張near全景均人工看過。全部97圖仍未逐張人工覆核、實體手機／Safari／觸控未測。
 
 [常規push39107472052](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472052)的fp及[baseline job117616342226](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342226)核實只新增360–399四十葉，3583舊subs、其餘165個fp家族、blocks1728／5ef6eb67逐位元不變，沒有env警告；164個非bld的style家族原值不變。本筆沒有提交初輪raw基線，先修人工圖審觀察並等待專項批准PR41發布，再同步真正最新main後重新取同次push的raw基線。
@@ -114,7 +114,7 @@
 
 ## 圖審修正後原生結果與分支基線（精確a6e406e；未配T／未發布）
 
-[修正run39108241441](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441)的12個原生／傳回工作實際success，只有尚未接納新基線的baseline-evidence仍failure，不把overall寫綠。[native117618629823](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629823)仍86項／12首紅及完整新檔交易；[scenes117618629793](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629793)57＋40／8整幀相同、failures與unrun皆[]；[行人117618629815](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629815)17例與真負控制成功；[normal-pairs117618629885](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629885)正常三種子／全欄新舊檔與十款交易穩定；[performance117618629896](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629896)40組交錯、30真延遲控制與恢復成功。原始[native](../assets/GPT-033/native-fix-a6e406e.json)、[scenes](../assets/GPT-033/scenes-fix-a6e406e.json)、[normal pairs](../assets/GPT-033/normal-pairs-fix-a6e406e.json)、[performance](../assets/GPT-033/performance-fix-a6e406e.json)逐位元保留。
+[修正run39108241441](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441)的12個原生／傳回工作實際success，只有尚未接納新基線的baseline-evidence仍failure，不把overall寫綠。[native117618629823](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629823)仍86項／12首紅及完整新檔交易；[scenes117618629793](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629793)57＋40／8整幀相同、failures與unrun皆[]；[行人117618629815](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629815)17例與真負控制成功；[normal-pairs117618629885](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629885)正常三種子／全欄新舊檔與十款交易穩定；[performance117618629896](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629896)40組交錯、30真延遲控制與恢復成功。原始[native](assets/GPT-033/native-fix-a6e406e.json)、[scenes](assets/GPT-033/scenes-fix-a6e406e.json)、[normal pairs](assets/GPT-033/normal-pairs-fix-a6e406e.json)、[performance](assets/GPT-033/performance-fix-a6e406e.json)逐位元保留。
 
 修正後80原始PNG、三張接觸表與兩份manifest已逐檔驗bytes／SHA。與初輪相比只有UEA／York共8個向、10張日夜PNG實際變動，另70張PNG逐位元相同；新的40向日／夜接觸表與完整舊款比較表已實際看過，確認平台連接、鋼架及大尺寸舊圖完整容納。新十張near全景人工覆核仍待傳回；不把初輪十近景稱為修正後十圖。全97圖人工與實體手機／Safari／觸控未測仍保留。
 
@@ -135,7 +135,7 @@ lightDir及總分下降依第二項起連續授權披露，沒有改分數或判
 
 ## 分支基線接納後完整綠（精確1f15592；仍未發布）
 
-[原生run39108933867](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933867)在`1f1559294aa4d22ba936e3214d654a76d7dec0c6`全部13個工作實際success，包含baseline-evidence與5個原始場景傳回工作。[native117620675619](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933867/job/117620675619)原始[manifest](../assets/GPT-033/native-baseline-1f15592.json)核實86項／12首紅控制、80張PNG的bytes／SHA與已圖審a6原件逐一相同；不是宣稱重新人工看了80張。修正後十張near原始全景也已完成圖審覆蓋：七張變更原件逐張重新看過，Glasgow／Dunelm／Roger Stevens三張與初輪已看原件逐位元相同而沿用；全部97場景逐張人工、實體手機／Safari／觸控仍未測。
+[原生run39108933867](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933867)在`1f1559294aa4d22ba936e3214d654a76d7dec0c6`全部13個工作實際success，包含baseline-evidence與5個原始場景傳回工作。[native117620675619](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933867/job/117620675619)原始[manifest](assets/GPT-033/native-baseline-1f15592.json)核實86項／12首紅控制、80張PNG的bytes／SHA與已圖審a6原件逐一相同；不是宣稱重新人工看了80張。修正後十張near原始全景也已完成圖審覆蓋：七張變更原件逐張重新看過，Glasgow／Dunelm／Roger Stevens三張與初輪已看原件逐位元相同而沿用；全部97場景逐張人工、實體手機／Safari／觸控仍未測。
 
 [常規push39108933870](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933870)全部success：smoke117620675830實際三次、本卡86項各跑三次；fp117620675850與本分支基線相比零變，對BASE只新增bld40、舊葉／其他家族／blocks／env不變；財務117620675688為`ok:true, checks:53, negative:10, failures:[]`。沒有靠重跑把首輪紅改寫成成功。最終發布仍須接最新main、最後head驗收及獨立程式／安全審查。
 
@@ -152,3 +152,16 @@ PR41的main [CI39109491116](https://github.com/lijiabao1998/GlimmerTown-lab/acti
 同步已實際推為`b0d3442019a720e4115dfe4659de9342b077c236`，第二父正是最新main95689b5；[baseline-evidence117628231190](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39111435123/job/117628231190)實際success，該次[push fp117628231476](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39111435124/job/117628231476)也success。這筆只原封接納同次push的兩份raw原件：fp.json395423 bytes／SHA256 `08f86533d6d8fa8c8e2fe5da14e77c46d2be4e003956758b98d1aaa012ffba6e`，style.json73168 bytes／SHA256 `ee72b475fe901c10e097e75fc8288368eb8a9a77673833b9e3d07e70451f7d1d`。保留CI原生generatedAt、v14.52／T759／version_fp，沒有手改metadata或分數。
 
 與main95689b5比，新增恰為`bld.24_1_360..399`四十葉，3583舊subs、165其餘fp家族、blocks1728／5ef6eb67與164其餘style家族逐位元相同。與前次a6原件相比，所有非metadata值完全一致；main95689b5的fp／style又與1bf完全相同，因此前表七軸數值仍全部適用：bld總分0.9655→0.9654、lightDir0.8236259228876128→0.8212867355043686，照第二項起連續授權明列下降。單一baseline工作與fp成功不冒充完整13工作或PR成功；這筆基線提交的全部新head驗收仍待實際完成，PR保持草稿。
+
+## 2026-10-18 09:42 UTC：精確修正與發布批准（施工前追加）
+
+業主訊息 `Sentinel_bba89515ccc88191a2553646b644bf6c` 直接回覆助手同時刻 `Sentinel_6913b3d2d8cc8191bd3c10bea0d5013f` 的精確確認「允許」。確認內容為：「待批准仍只有Lab PR42：在GlimmerTown-lab修復公開探針sandbox、移除臨時workflow及完成發布準備；最後驗收全綠後轉Ready、合入main並核驗Pages，發布第6波10棟。允許嗎？3D已批准項目不需再答覆。」這是先前只准草稿之後的新授權，不回寫舊紀錄。僅操作本PR及自己的分支，不改既有判準或共用CI；不手動觸發Pages。
+
+動手前核對遠端main仍95689b5，main CI39109491116與Pages39109881451成功，只有草稿PR42開著。docs/T檔名、main提交標題與AUTORUN-LOG三權威最大T759，最大輪次r206；預備T760／v14.53／r207，合前仍須再核。雲端git fetch實報 `fatal: unable to access 'https://github.com/lijiabao1998/GlimmerTown-lab.git/': CONNECT tunnel failed, response 403`；使用仍正常的已連接GitHub工具核對及更新同一雲端分支，不改用業主電腦。
+
+追加驗收（原十條與所有舊門檻保持）：
+
+1. P2 r4306407766只改本卡新`probePublicSite033.cjs`：以既有findChrome及探針內spawn啟動Chrome，不加任何停用sandbox旗標；啟動不支援就回報原錯誤，不改OS安全設定、不改受保護harness.js、不做不安全fallback。導航公站前留下真實啟動參數／sandbox證據，故意停用時須首紅並恢復。既有HTTP／URL／SHA／版本／錨點五真負控制、slot3、原生UI、完整畫布與runtimeErrors檢查全保留。
+2. 新T／版本／日誌／方向待辦與已完成列一併準備，開關與方向原話不改；卡搬成T760並保留原GPT-033及首commit家族證據。重新取得含最新main的新完整原生run與push／PR驗收；既有raw基線不手改metadata。80原PNG及10近景與已獨立圖審原件做bytes／SHA核對，變更圖像須重新實看。
+3. 最後完整run真綠、原始證據記卡後，另筆只刪自己的workflow；刪除之後每筆提交確認未加回。最後head分支smoke3／fp／財務53／10與PR實際重用模式須成功，取得精確head獨立程式／安全覆核並處理findings。原圖審環境0張回執不充作通過；新獨立審稿者於01a已實看80單圖＋3接觸表＋10近景、核84原檔及10近景SHA，無已確認視覺finding，見PR42交付留言6248182200；87其餘場景與實體裝置限制保留。
+4. 精確最後head通過才Ready及合PR42，追同SHA main CI與既有自動Pages，再用已恢復sandbox的公開探針核真URL／HTML SHA／v14.53／T760／第六輯10款40葉及畫布。合入與公開核實完成之前仍僅5／20波50座，不把本施工計畫當發布。
