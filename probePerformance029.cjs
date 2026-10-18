@@ -36,13 +36,13 @@ async function measure029(baseSHA){
     const stats={base:summary(sample.base),head:summary(sample.head)};
     // A repeated millisecond-scale difference matters; isolated maxima do not.
     const check=stats=>{if(stats.head.median>stats.base.median*1.5+2||stats.head.p90>stats.base.p90*1.5+3)throw Error('perf029 repeatable native redraw regression '+JSON.stringify(stats));};check(stats);
-    let timingRed;const slow=[];
-    try{GV.forceDraw=()=>{const until=performance.now()+20;while(performance.now()<until){}return draw();};for(let i=0;i<30;i++){const t=performance.now();GV.forceDraw();slow.push(performance.now()-t);}try{check({base:stats.base,head:summary(slow)});}catch(e){timingRed=e.message;}}
+    let timingRed;const slow=[],timingInjectedDelayMs=Math.ceil(2*Math.max(stats.base.median,stats.base.p90)+20);
+    try{GV.forceDraw=()=>{const until=performance.now()+timingInjectedDelayMs;while(performance.now()<until){}return draw();};for(let i=0;i<30;i++){const t=performance.now();GV.forceDraw();slow.push(performance.now()-t);}try{check({base:stats.base,head:summary(slow)});}catch(e){timingRed=e.message;}}
     finally{GV.forceDraw=draw;}
-    if(!timingRed?.startsWith('perf029 repeatable native redraw regression '))throw Error('perf029 timing negative missed target');
+    if(!timingRed?.startsWith('perf029 repeatable native redraw regression '))throw Error('perf029 timing negative missed target '+JSON.stringify({stats,sample,timingInjectedDelayMs,slow}));
     const restored={base:[],head:[]};for(let i=0;i<40;i++)for(const which of(i%2?['head','base']:['base','head'])){const G=which==='base'?old.GV:GV,t=performance.now();for(let j=0;j<4;j++)G.forceDraw();restored[which].push((performance.now()-t)/4);}
     const restoredStats={base:summary(restored.base),head:summary(restored.head)};check(restoredStats);if(builds)throw Error('perf029 final restored native draw rebaked geometry');
-    return{stats,sample,restoredStats,newGeometryBuildsDuringWarmDraw:builds,cacheLeaves:refs.length,firstRed:first,timingFirstRed:timingRed,timingNegativeSamples:slow.length,restoredGreen:true,interleaved:true,nativeBaselineSource:baseSHA,viewport:{head:[innerWidth,innerHeight],base:[old.innerWidth,old.innerHeight]},hardware:'GitHub Actions Ubuntu desktop Chromium; not real mobile hardware'};
+    return{stats,sample,restoredStats,newGeometryBuildsDuringWarmDraw:builds,cacheLeaves:refs.length,firstRed:first,timingFirstRed:timingRed,timingNegativeSamples:slow.length,timingInjectedDelayMs,timingNegativeSampleMs:slow,restoredGreen:true,interleaved:true,nativeBaselineSource:baseSHA,viewport:{head:[innerWidth,innerHeight],base:[old.innerWidth,old.innerHeight]},hardware:'GitHub Actions Ubuntu desktop Chromium; not real mobile hardware'};
   }finally{window.BritishWaveArchitecture029=API;frame.remove();}
 }
 (async()=>{

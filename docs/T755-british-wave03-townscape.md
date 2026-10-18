@@ -158,3 +158,11 @@ fp job `117527373823` 原摘要：「相對 base：新增 40／變更 0／移除
 [草稿 PR37](https://github.com/lijiabao1998/GlimmerTown-lab/pull/37) 建立於實作 fa704ce 的常駐三 job 與專屬十二 job 全綠之後。配號前再次核對遠端 main `35be6a37`、方向「運行」、只有本 PR 開啟、main smoke `39049008748` 與自動 Pages `39049461383` 最新完成均 success。main 的 docs/T 檔名、AUTORUN-LOG 及 git log 標題最大號皆為 T754，真正 `## rN` 標頭最大為 r201，因此本 PR 預備 **T755／r202／v14.48**；只改三處原版本字，日誌 commit 欄固定 `#37`，卡保留原 GPT-029／首筆家族證據。方向完成列的 3／20只在本 PR 真正合入 main 時生效。
 
 本筆不改模型、圖、判準或原始 CI 基線，先保留自己的只讀 workflow，等 v14.48／T755 新 push 的完整驗收成功後才記最後成功 run 並獨立刪除。配對探針依首卡凍結方式，只將獨立 BASE 的三處版本字輸入與宣告 release 對齊，輸出全欄仍原判準；真實舊版本存檔遷移另用未改 actual base 驗，不能剔除 region／通知或任意正規化輸出。最終 CI、review、合併、main／自動 Pages 均未預填通過。
+
+## 99747ad 發布版本：效能紅在故障控制；不改正常判準
+
+原生／正常配對／場景／行人／fp 已 success，但專屬 [39083894318](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39083894318) 的效能 job `117546324368` 真正失敗於 `perf029 timing negative missed target`。程式順序顯示正常 40 組 BASE／HEAD 的原 `check(stats)` 已先通過；尚不能稱整個效能驗收通過。該筆固定 20ms 的活體延遲沒有使同一個原判準首紅，失敗流程沒有輸出這段原始樣本，因此不編造該次 median／p90，也不把控制失敗算作遊戲退化或整項成功。
+
+本筆只修自己的新 `probePerformance029.cjs` 的故障輸入：在注入之前，由獨立 BASE 已量得的 median／p90 算出 `ceil(2*max(base.median,base.p90)+20)` ms，一次固定這個延遲，仍透過真實 `GV.forceDraw` 忙等注入、量至少 30 筆，必須由原 `check` 捕捉首紅並恢復。不是看 HEAD 通不通來挑樣本／重試，沒有永假斷言。正常與恢復各 40 組、交錯次序、零暖烘焙與原 `head.median > base.median*1.5+2 || head.p90 > base.p90*1.5+3` 比較一字不動；只讓故障輸入在這次 BASE 實測尺度上確實足夠大。成功證據新增實際注入毫秒與 30 筆原始值；若控制再漏，錯誤也帶原正向／負向樣本。
+
+無遊戲、模型、版本、fp／style、既有守衛或 shared workflow 改動；只修本卡新控制輸入，卡面凍結的第 7 項驗收門檻不變。這是有具體修正的新提交，不按 rerun 賭綠；自己的 workflow 尚未刪，必須等最新一整次 run 全綠，之後才可收尾。PR37仍 draft，未合併／未發布，完成數仍2／20。

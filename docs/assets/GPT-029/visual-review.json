@@ -252,5 +252,16 @@
     "pendingIndexBlob": "eae196b7e144dea915885996681b81c61cab06e0",
     "published": false,
     "fullReleaseCIPending": true
+  },
+  "releaseValidation": {
+    "head": "99747ad6f968f8f853228938fd5bd156e77bd35c",
+    "ownRun": 39083894318,
+    "performanceJob": 117546324368,
+    "performanceStatus": "failure",
+    "exactFailure": "perf029 timing negative missed target",
+    "normalABReachedAndPassedOriginalCheck": true,
+    "failureMedianP90NotRecorded": true,
+    "fix": "Negative fault duration fixed before injection from independent BASE statistics; original positive/restored thresholds and sample counts unchanged; raw negative samples exported",
+    "fullReleaseCIPending": true
   }
 }
