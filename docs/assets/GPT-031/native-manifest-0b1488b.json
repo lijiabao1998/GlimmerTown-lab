@@ -1,0 +1,755 @@
+{
+  "head": "0b1488b25f841b610cd64838d4b82150f19f28b5",
+  "indexSHA256": "9b8cda690ae51aa539a90b8d94be6b89c32cd535c0bcb2b975a771e2bcbdf546",
+  "base": "38a27743e9708517d88e251a005c3475fff1bbe7",
+  "report": {
+    "ok": true,
+    "checks": [
+      "wave031 count and unique identity ✓",
+      "wave031 ten distinct structural silhouettes without shared paving ✓",
+      "wave031 native geometry 24_1_320 ✓",
+      "wave031 native geometry 24_1_321 ✓",
+      "wave031 native geometry 24_1_322 ✓",
+      "wave031 native geometry 24_1_323 ✓",
+      "wave031 native geometry 24_1_324 ✓",
+      "wave031 native geometry 24_1_325 ✓",
+      "wave031 native geometry 24_1_326 ✓",
+      "wave031 native geometry 24_1_327 ✓",
+      "wave031 native geometry 24_1_328 ✓",
+      "wave031 native geometry 24_1_329 ✓",
+      "wave031 native geometry 24_1_330 ✓",
+      "wave031 native geometry 24_1_331 ✓",
+      "wave031 native geometry 24_1_332 ✓",
+      "wave031 native geometry 24_1_333 ✓",
+      "wave031 native geometry 24_1_334 ✓",
+      "wave031 native geometry 24_1_335 ✓",
+      "wave031 native geometry 24_1_336 ✓",
+      "wave031 native geometry 24_1_337 ✓",
+      "wave031 native geometry 24_1_338 ✓",
+      "wave031 native geometry 24_1_339 ✓",
+      "wave031 native geometry 24_1_340 ✓",
+      "wave031 native geometry 24_1_341 ✓",
+      "wave031 native geometry 24_1_342 ✓",
+      "wave031 native geometry 24_1_343 ✓",
+      "wave031 native geometry 24_1_344 ✓",
+      "wave031 native geometry 24_1_345 ✓",
+      "wave031 native geometry 24_1_346 ✓",
+      "wave031 native geometry 24_1_347 ✓",
+      "wave031 native geometry 24_1_348 ✓",
+      "wave031 native geometry 24_1_349 ✓",
+      "wave031 native geometry 24_1_350 ✓",
+      "wave031 native geometry 24_1_351 ✓",
+      "wave031 native geometry 24_1_352 ✓",
+      "wave031 native geometry 24_1_353 ✓",
+      "wave031 native geometry 24_1_354 ✓",
+      "wave031 native geometry 24_1_355 ✓",
+      "wave031 native geometry 24_1_356 ✓",
+      "wave031 native geometry 24_1_357 ✓",
+      "wave031 native geometry 24_1_358 ✓",
+      "wave031 native geometry 24_1_359 ✓",
+      "wave031 opaque physical night ✓",
+      "wave031 hard pixels ✓",
+      "wave031 uncropped nonempty day and night ✓",
+      "wave031 actual rotation netshops/0 ✓",
+      "wave031 actual rotation netshops/1 ✓",
+      "wave031 actual rotation netshops/2 ✓",
+      "wave031 actual rotation netshops/3 ✓",
+      "wave031 actual rotation burnham/0 ✓",
+      "wave031 actual rotation burnham/1 ✓",
+      "wave031 actual rotation burnham/2 ✓",
+      "wave031 actual rotation burnham/3 ✓",
+      "wave031 actual rotation saltdean/0 ✓",
+      "wave031 actual rotation saltdean/1 ✓",
+      "wave031 actual rotation saltdean/2 ✓",
+      "wave031 actual rotation saltdean/3 ✓",
+      "wave031 actual rotation marinecourt/0 ✓",
+      "wave031 actual rotation marinecourt/1 ✓",
+      "wave031 actual rotation marinecourt/2 ✓",
+      "wave031 actual rotation marinecourt/3 ✓",
+      "wave031 actual rotation roundtower/0 ✓",
+      "wave031 actual rotation roundtower/1 ✓",
+      "wave031 actual rotation roundtower/2 ✓",
+      "wave031 actual rotation roundtower/3 ✓",
+      "wave031 actual rotation spinnaker/0 ✓",
+      "wave031 actual rotation spinnaker/1 ✓",
+      "wave031 actual rotation spinnaker/2 ✓",
+      "wave031 actual rotation spinnaker/3 ✓",
+      "wave031 actual rotation lynncustoms/0 ✓",
+      "wave031 actual rotation lynncustoms/1 ✓",
+      "wave031 actual rotation lynncustoms/2 ✓",
+      "wave031 actual rotation lynncustoms/3 ✓",
+      "wave031 actual rotation georgesdock/0 ✓",
+      "wave031 actual rotation georgesdock/1 ✓",
+      "wave031 actual rotation georgesdock/2 ✓",
+      "wave031 actual rotation georgesdock/3 ✓",
+      "wave031 actual rotation portlandbill/0 ✓",
+      "wave031 actual rotation portlandbill/1 ✓",
+      "wave031 actual rotation portlandbill/2 ✓",
+      "wave031 actual rotation portlandbill/3 ✓",
+      "wave031 actual rotation cromer/0 ✓",
+      "wave031 actual rotation cromer/1 ✓",
+      "wave031 actual rotation cromer/2 ✓",
+      "wave031 actual rotation cromer/3 ✓",
+      "wave031 installed pixels equal independent direct geometry ✓"
+    ],
+    "pixels": {
+      "semi": 0,
+      "leak": 0,
+      "crop": 0,
+      "empty": 0,
+      "mismatch": 0
+    }
+  },
+  "red": [
+    {
+      "name": "missing installed leaf",
+      "first": "wave031 count and unique identity ✗"
+    },
+    {
+      "name": "wrong native dimensions",
+      "first": "wave031 native geometry 24_1_320 ✗"
+    },
+    {
+      "name": "night light on transparent sky",
+      "first": "wave031 opaque physical night ✗"
+    },
+    {
+      "name": "soft native day pixel",
+      "first": "wave031 hard pixels ✗"
+    },
+    {
+      "name": "native canvas crop",
+      "first": "wave031 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "different names but duplicate geometry",
+      "first": "wave031 ten distinct structural silhouettes without shared paving ✗"
+    },
+    {
+      "name": "installed clone with distinct authors",
+      "first": "wave031 installed pixels equal independent direct geometry ✗"
+    },
+    {
+      "name": "empty native day and night",
+      "first": "wave031 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "valid live source overcharges one native dollar",
+      "first": "wave031 fee 2001 expected 2000"
+    },
+    {
+      "name": "valid live redo API fails to restore new appearance",
+      "first": "wave031 new appearance redo, identity and fee"
+    },
+    {
+      "name": "valid HTML mutates original source outside declared bounds",
+      "first": "wave031 existing native model and original rendering source equal the exact published T757 upstream except three declared release labels",
+      "restoredGreen": true
+    },
+    {
+      "name": "valid source freezes private camera selector",
+      "first": "wave031 actual rotation netshops/1 ✗"
+    }
+  ],
+  "pairs": [
+    {
+      "seed": 31,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 71,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 103,
+      "spent": 2000,
+      "equal": true
+    }
+  ],
+  "placed": [
+    {
+      "x": 7,
+      "y": 4,
+      "id": "netshops",
+      "v": 320,
+      "spent": 2000
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "id": "burnham",
+      "v": 324,
+      "spent": 2000
+    },
+    {
+      "x": 13,
+      "y": 4,
+      "id": "saltdean",
+      "v": 328,
+      "spent": 2000
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "id": "marinecourt",
+      "v": 332,
+      "spent": 2000
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "id": "roundtower",
+      "v": 336,
+      "spent": 2000
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "id": "spinnaker",
+      "v": 340,
+      "spent": 2000
+    },
+    {
+      "x": 25,
+      "y": 4,
+      "id": "lynncustoms",
+      "v": 344,
+      "spent": 2000
+    },
+    {
+      "x": 28,
+      "y": 4,
+      "id": "georgesdock",
+      "v": 348,
+      "spent": 2000
+    },
+    {
+      "x": 31,
+      "y": 4,
+      "id": "portlandbill",
+      "v": 352,
+      "spent": 2000
+    },
+    {
+      "x": 34,
+      "y": 4,
+      "id": "cromer",
+      "v": 356,
+      "spent": 2000
+    }
+  ],
+  "newAppearanceTransactions": {
+    "id": "cromer",
+    "v": 356,
+    "undo": true,
+    "redo": true,
+    "refund": 2000,
+    "refDemolition": true,
+    "undoRefDemolition": true,
+    "allTenForms": true
+  },
+  "slot": "3",
+  "version": "14.50",
+  "fixture": {
+    "initialMoney": 1000000,
+    "unlimitedMoney": false,
+    "difficulty": 1,
+    "nativeStepsBeforeSaveReference": 1,
+    "nativeMayorOptionsRead": true,
+    "preUpdateConstructor": {
+      "pol": null,
+      "hasGov513": false,
+      "hasInn507": false
+    },
+    "everySaveFieldCompared": true
+  },
+  "remaining": [
+    "complete seasonal/edge/overlay scenes (separate probe)",
+    "full-frame base/valve comparison (separate probe)",
+    "human full-scene image review"
+  ],
+  "images": [
+    {
+      "file": "24_1_320-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a3c93dfad6ba9265db84e72b68bf16e76e1f2e1a4483d93f2b5dc081e1993fa3"
+    },
+    {
+      "file": "24_1_320-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "360def5e75594256ad856cf14a80499d2b2e985090ae203dd74299973a07cf9b"
+    },
+    {
+      "file": "24_1_321-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "8f7b72e603d8ac3a9ee5ba693ba6fa0224dc9d922346e7d6ec7fc127bded7e0b"
+    },
+    {
+      "file": "24_1_321-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "3686727bc9dd99eaa169e8f0dd6d5d13c51abc6c5c9411db425ebf0d5baf0d8f"
+    },
+    {
+      "file": "24_1_322-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "672c72b91a9e46a8491f5b8c464cd2a67fd0fc2df4994a7917fcc5e1e4eb1cec"
+    },
+    {
+      "file": "24_1_322-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "395e530b3f8534f867294219f4d798b2553c8a273a61e64045f63b6e72a645a7"
+    },
+    {
+      "file": "24_1_323-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2610981ebea290e441371543da4f947b38d9e972f96a6fd13b47e33a89b382e1"
+    },
+    {
+      "file": "24_1_323-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2a0c41a209d688bb79a66a8a7daf49b62eb1140d39eebb7be2dca0f416831729"
+    },
+    {
+      "file": "24_1_324-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "724ade36eaea8e27f75aea8b976c8c4bdddd9937f938d386ed8e5bd0653a4377"
+    },
+    {
+      "file": "24_1_324-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4f8bfe1fe2504f092f26381fa98a2285028abc6ceb57f3b857347f53e57fc04d"
+    },
+    {
+      "file": "24_1_325-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "379f561d080b2907a35b77ca0426ef0102abfd39935ac15a0da4ed588adc48e5"
+    },
+    {
+      "file": "24_1_325-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "3686727bc9dd99eaa169e8f0dd6d5d13c51abc6c5c9411db425ebf0d5baf0d8f"
+    },
+    {
+      "file": "24_1_326-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "ea09a14fe8788dc83df6a921336e50d3e923d2e0fd83bb8862e70604cb27b94c"
+    },
+    {
+      "file": "24_1_326-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c66f64823c3fdf4c45a51258751ab31806d6bf28a8c1a1866113a4399b0a0817"
+    },
+    {
+      "file": "24_1_327-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e884c5bb9bea9c5e60f854d06238a23501da9dab0b77ed0b970d3d821ae3fd66"
+    },
+    {
+      "file": "24_1_327-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2e19a50f64996566678c17d3f79d3301ab20569c47c2f82820e4a0f7741a7f88"
+    },
+    {
+      "file": "24_1_328-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "f9e57e3a77255f53299260689d01f0a02b66ce1945792e0ed9e985ea340913d8"
+    },
+    {
+      "file": "24_1_328-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "320b812946e8466b68d753bb3771704836e666051068a833b27f930bb9c54ba4"
+    },
+    {
+      "file": "24_1_329-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4f3011de50be6e739e33e8840cd36746c16fc62eb9aa6930e7ec55c14de373a0"
+    },
+    {
+      "file": "24_1_329-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "f667a9ac6627d3f50fd57066102614f4ec513c4f56baa30ba72722b540d701af"
+    },
+    {
+      "file": "24_1_330-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c4c8783c5212727c0a3ceb8573f251698be1669c97f4b9e56b76851da81cef20"
+    },
+    {
+      "file": "24_1_330-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "37af928bf19cf3a21cc9eb513aced268eb4ff14a546b5861d9707d451436fcc5"
+    },
+    {
+      "file": "24_1_331-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "0fb09e5a849b2299ecbe7a2605adccf0d3c60bf5f4de1f1aa229155e5b05421e"
+    },
+    {
+      "file": "24_1_331-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "9297774ecfdb8d919f29cdcb29f396c81bff73a7253953b8ba278a19443e9082"
+    },
+    {
+      "file": "24_1_332-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "8fd242e3fc384fbe45286ec76918ac86992dc22ba64d378ed32a0fbe1ae85450"
+    },
+    {
+      "file": "24_1_332-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "876fa883ad21ce359ab2ca8c7aaff2e0ab4000733707259732aa349be7b236d4"
+    },
+    {
+      "file": "24_1_333-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "9e740124b8e3abce075d7227c4989087d2bcc48c726a22f9b1d7232d45d1df82"
+    },
+    {
+      "file": "24_1_333-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "76caa3ad2dab775b4c51e5f65f04016062911a85b619a16d759cec08e3f31056"
+    },
+    {
+      "file": "24_1_334-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "89c9750e548aebc3f23cb71c46415c99063ac9057835c1669525f70fa0fc749a"
+    },
+    {
+      "file": "24_1_334-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "265d40424231fccfba419d34941232c6d4143f30aecb3adbc28f6d6784092d5c"
+    },
+    {
+      "file": "24_1_335-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "94111cdecc384e4d70ec927a8efdca2e34a183df2217b5d30690316c7ea3b440"
+    },
+    {
+      "file": "24_1_335-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a5bdf7d0975cfab1159002bf4ea713a3827be5cae39469062ea97c997d31ad18"
+    },
+    {
+      "file": "24_1_336-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6f249596df2ab9cbe43d58649f1f16636fcc7779c59225eff421add9b60677b6"
+    },
+    {
+      "file": "24_1_336-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "55d71d95631a57e0cecee4dce497be40b26722642049050c3dc7dc33c1645390"
+    },
+    {
+      "file": "24_1_337-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c776e3aba78b77e66da9893a8b8673f22a4a6ae070910ed32c9acc4a58ee080f"
+    },
+    {
+      "file": "24_1_337-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "3686727bc9dd99eaa169e8f0dd6d5d13c51abc6c5c9411db425ebf0d5baf0d8f"
+    },
+    {
+      "file": "24_1_338-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4ea6a6df8852955485d610ef468c8c008a0f8f7ecc34acb0ae8e11d9f3b70941"
+    },
+    {
+      "file": "24_1_338-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c66f64823c3fdf4c45a51258751ab31806d6bf28a8c1a1866113a4399b0a0817"
+    },
+    {
+      "file": "24_1_339-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d500b0010f471e7a0c4688b628662fa9d0a4a0530261d2f736e8486c88f0924e"
+    },
+    {
+      "file": "24_1_339-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4b430752b12e3cc7be1cf9c1ef133191f5914b72d763d50f21bcb371d640f86b"
+    },
+    {
+      "file": "24_1_340-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "45dc25d0568920b5b83434bbe994b4efe6a7326c0c493c7dd9ef1428537fb0b6"
+    },
+    {
+      "file": "24_1_340-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "98e7bc9febe51dd6947624abab28829958685f67e83b43341a31fd48ff4eeb3c"
+    },
+    {
+      "file": "24_1_341-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "0817cfb295d5cb5e9a9ffd26721819a14fe10a55087cc3a9488213b6098ef535"
+    },
+    {
+      "file": "24_1_341-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a759223307b08c3ecd910397305215416f38912390dd1300bf1fcc3c0cd71408"
+    },
+    {
+      "file": "24_1_342-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "fb361701988e3922d92e0e69351633fc55db28c831c2b6a01ab3b6bb2d1cb477"
+    },
+    {
+      "file": "24_1_342-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "af32090a7ff40a93f902f6728b602d7b5353e8188a1a1262b14980d08fb78d45"
+    },
+    {
+      "file": "24_1_343-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2fc0628e57af04992e8fb650041ba6057045845fc417bfa438977b4dc9207928"
+    },
+    {
+      "file": "24_1_343-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4f2c30d52c6253190172c22a66d80e333c2c27060ef62da15252e8d9241173de"
+    },
+    {
+      "file": "24_1_344-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "eab9e6ea6f5939fbded38274db3b9560a11b76fd278d21397e24ef7763750c02"
+    },
+    {
+      "file": "24_1_344-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "086696fa173a28eb3bf6e7941cf59da3d6491684f9813beabfa32d89ebe2affe"
+    },
+    {
+      "file": "24_1_345-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "1651344063ca572dd160e0487e086ad5c18d756188add6a0a47969c2c57e25ef"
+    },
+    {
+      "file": "24_1_345-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "96ce3df565b8ba8d242bbc06aecf2f1ba7e48c84a920e18b7334b75c09333e11"
+    },
+    {
+      "file": "24_1_346-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7406a3f78c3f3951cac9bb1b7360140e57c60d326a46427f2b9b16b7f09bb081"
+    },
+    {
+      "file": "24_1_346-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b3826f14c271b85eb737f9fcf6aefa0c28819a898f8d3cb16442942236f50630"
+    },
+    {
+      "file": "24_1_347-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "85b0481c7546a6be5994cc8501eb0fa7d4a948735d03f10739ac078186ae55eb"
+    },
+    {
+      "file": "24_1_347-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4bf72e6b2f8eb6b76a14adf16d1afaa82a39651fe8d57a60fc7cb20be5718dd6"
+    },
+    {
+      "file": "24_1_348-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "82712807cad2bebfa55b8729b20a4a2203e22aff61aece3df641b8825a89b110"
+    },
+    {
+      "file": "24_1_348-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "31340c61ba8206b6977754bb94f5fe1bb70f5dd9c8863eeea7c41cc934a62ef6"
+    },
+    {
+      "file": "24_1_349-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "34ba368c9b996709e341b98f1702d0c9454705547940875ccad7edac0f63d5a5"
+    },
+    {
+      "file": "24_1_349-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "a5ad5be14f576750671d64114492ffd12bcb08067c49a3254d68afd2fd54f137"
+    },
+    {
+      "file": "24_1_350-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "11045cb84892aacf024514ee354165cbe6b0de0e3c1e42a1a0f74e1910a5b288"
+    },
+    {
+      "file": "24_1_350-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e141bb5358bbecbf4cd77ca1694b941f3c99f26038f6b0303dbbfc3156af65c2"
+    },
+    {
+      "file": "24_1_351-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "662691a03ef9204cd8b1fcbcd2cb2568fab93aa32b25a6b32f9e89adc0e78488"
+    },
+    {
+      "file": "24_1_351-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "3d778cfe14b34784c8b9bea25d81a2857efcffc1fb84fdc14c0ed3617b4013a4"
+    },
+    {
+      "file": "24_1_352-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "8eea111a80ed6fe090d8b0060f15491c5e7b9663feaf22f7e68cc1f3c8268d87"
+    },
+    {
+      "file": "24_1_352-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "22c7b6ef0f4c41a4a82f564e4beb2274976f8a5e4283822ce861733796a36227"
+    },
+    {
+      "file": "24_1_353-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "797c384ec77635245f0a55f9734d840c2fe7118525d839d9e2231c7691bfa0e9"
+    },
+    {
+      "file": "24_1_353-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e24b10c469e3b5f76b8d544760a297776e87a940d92f43e1aa65bf32f703d27f"
+    },
+    {
+      "file": "24_1_354-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "23a0a28ce27fff44b77941ca65a35edd4cf3f46f797578078b5e42762ab45c7a"
+    },
+    {
+      "file": "24_1_354-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "36a00a4d89004ab9c0676f90e1de7329b7633668c6e04e10f5199c7f9d59961c"
+    },
+    {
+      "file": "24_1_355-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "8c63393ede7c8c8e915112ffb5373ff4cd3920112eed071cc50604117d270d70"
+    },
+    {
+      "file": "24_1_355-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d1821a766e0e5378b27f076bbd34e79a3418990d5878ba051079cdc6db831772"
+    },
+    {
+      "file": "24_1_356-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "75f17abe6ec9312ff5ca51c4b4c3ca8d7debca496d299707aeb60c18be9003fb"
+    },
+    {
+      "file": "24_1_356-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "f10b5df277ca8f978743134e4ef6f76279e4e91ddefd29355159a3a94f063209"
+    },
+    {
+      "file": "24_1_357-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7cd5215e92ba37c4b02aa6ba61d35529215fb3891719f2d659b5bfecfd39575f"
+    },
+    {
+      "file": "24_1_357-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4336dc0e5269618ab35e0d638a102a0c947aa008cb1786a872e7dd97af01f5fe"
+    },
+    {
+      "file": "24_1_358-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b93a9bec8f7e4d09de75c90806881dfc644709dd854d68b2b140e7171934aba9"
+    },
+    {
+      "file": "24_1_358-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "67f0a3eacf76cf62532af786aa4f54a190b2c7cae3d646196ab3e75a35854799"
+    },
+    {
+      "file": "24_1_359-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "f86058aa9bd51501c877080fb2596a3f48f0fcf5170d3b1be7780ea571a6b631"
+    },
+    {
+      "file": "24_1_359-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "20ebac5917932e4130785d64156aecf6edd232275c895ca495f276b53f29c5a1"
+    }
+  ]
+}

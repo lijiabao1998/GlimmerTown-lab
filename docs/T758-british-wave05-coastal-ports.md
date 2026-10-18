@@ -1,4 +1,4 @@
-# GPT-031：第五波十座有考據的英式海岸與港口建築
+# T758：第五波十座有考據的英式海岸與港口建築（原GPT-031）
 
 ## 動手前卡面／不可變範圍
 
@@ -116,3 +116,55 @@ PR40已由業主05:14 UTC專項批准，正式合入main為f723a90c4b0cd3f98b53f
 先前1f31a32的原生／baseline工作因舊1200掃描上限失敗，沒有提交那份移除1179葉的錯誤基線。本次包含真實上游修補的新來源必須重新跑031完整唯讀workflow及常規push／PR CI：完整12個以上真反例、全部狀態／整幀、正常三種子／舊檔與新檔／原生付費、行人、效能及正確bld新增40葉都仍待新實測，未勾選通過。自己的031 workflow尚未刪除，沒有加回已刪的027／029／030／032 workflow；其最後完整run成功後才獨立刪除。所有遊戲／Chrome只由GitHub Actions執行。
 
 PR40已完成、PR39仍是未發布草稿。第三、第四波原圖與Library原network失敗保持原樣；prepare／upload／finalize未重試、未換路，本任務Library已存0檔。第五波DRAFT ZIP仍是既有artifact12125347182，不把草稿圖包稱為正式第五波交付。
+
+
+## 本波完整原生證據與T758發布準備（精確0b1488b）
+
+[39101928355](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355)在含最新main f723a90的push head 0b1488b25f841b610cd64838d4b82150f19f28b5實測本波，不是舊1f31a32容量失敗結果。這次workflow的baseline-evidence因尚未接納新美術基線而失敗，所以overall仍failure；其餘12個工作（含5個原圖分片）均成功，不能稱整個workflow已綠。
+
+- [native117599794386](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355/job/117599794386)：86項自檢、12個真實首紅／恢復；3種子原生配對、DOM十款各扣$2000、逐款undo／redo／退款／參照格拆除、新外觀兩輪真load/save全部序列化欄位一致。首紅包含少葉、尺寸、天空夜光、軟像素、裁切、重複輪廓、已安裝克隆、空圖、原生多扣$1、redo失敗、越界HTML來源與真相機視角凍結。原始manifest逐位元保留為[native JSON](assets/GPT-031/native-manifest-0b1488b.json)。
+- [normal-pairs117599794447](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355/job/117599794447)：BASE38a2774與HEAD正常遊戲，不靠逃生閥，seeds31／71／103×3檢查點所有欄位只差已宣告根b.v；3次真金錢−$1由完整comparator首先捕獲、恢復綠。十款匹配交易的完整保存兩輪穩定，fieldExclusions=[]，原生初次update及市長選項惰性欄位的兩端變化全部保留；[原console JSON值](assets/GPT-031/normal-pairs-0b1488b.json)。
+- [scenes117599794258](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355/job/117599794258)：57狀態＋40真邊緣、8／8完整1280×657 BASE／本卡閥關畫布逐位元相同，failures=[]、unrun=[]。真正舊檔兩輪全欄位穩定，原檔首次載入只發生明列gameVer14.49→14.50遷移；真少$1保存與實際畫布1px破壞首紅／恢復成功。[原始scene JSON](assets/GPT-031/scene-manifest-0b1488b.json)保持原字節。
+- [pedestrians117599794382](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355/job/117599794382)：17原生深度／遮擋案例逐例failures=[]；實際不畫行人與實際錯誤前後序兩控制首紅／恢復成功。
+- [performance117599794456](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355/job/117599794456)：同環境40組交錯native BASE／HEAD，median11.65／2.625ms、p9024.875／26.700ms，暖畫新幾何烘焙0；真重烘焙首紅與30個真延遲樣本首紅（median72.5ms）及恢復再量通過。是Ubuntu桌面Chromium參考，不當實體手機結果。
+
+本波80張原生日夜PNG及三張接觸表皆由CI原件取回，逐檔bytes／SHA驗證後看過全部40向日／夜及最接近舊圖的比較。十款完整near場景由同run的5個scene-evidence工作各轉2張原始圖，不畫圖、不重編碼；10／10 byte-exact等於先前已逐張人工看過的1f31a32原件，所以沿用該十圖的既有圖審。全部97狀態圖未逐張人工看過、實體手機／Safari／觸控未測，仍列未跑，不以桌面自動守衛冒充人工全覆核。
+
+[常規push39101928389](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928389)與[PR39101930968](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101930968)各實際smoke三次成功。當時fp及既有財務仍紅：兩份財務各52項／10負控制，唯一failure是current renderer fingerprints match committed baselines；尚未提交本波新基線，沒有寫成53項通過。正常完整財務／存檔的獨立配對已見上列真CI；最後發布head仍須所有原守衛轉綠。
+
+### 本次raw基線與七軸披露
+
+本次push同head的[baseline job117599794408](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355/job/117599794408)及[常規fp117599794198](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928389/job/117599794198)均實測新增40／變更0／移除0，觸及恰為bld；166家族、3583葉，3543舊subs及其餘165家族逐項相同，blocks1728／5ef6eb67原值相同，無env警告。風格只有bld變動；其餘style家族逐項相同。
+
+fp.json原始391223 bytes／SHA256 ceb3235b0f5262b203f24c74783d12a56ccc315120b349c400af7866f9b79972；style.json原始73169 bytes／SHA256 6909c0cdc22aaa4f426d025b3ab2c8ece718a57667b6a3f0aef5a84ccd40832e。本筆只逐位元複製同次CI的fp-rebake原件；raw metadata維持T757／14.50及原generatedAt，不手改時間、版本、分數或環境。首次錯誤丟失1179葉的舊附件從未提交。
+
+| 軸 | main前 | 本波後 |
+|---|---:|---:|
+| palette | 1 | 1 |
+| hardEdge | 0.9459846379810595 | 0.9472259747892049 |
+| lightDir | 0.8261238337574215 | 0.8236259228876128 |
+| shade | 1 | 1 |
+| density | 1 | 1 |
+| nightRule | 0.986992585347136 | 0.9874138870772997 |
+| variants | 1 | 1 |
+| total | 0.9656 | 0.9655 |
+
+總分0.9656→0.9655，lightDir下降；依AGENTS第7節「業主授權連續做」第二項起的既有明文例外披露，沒有改分數、判準或全局光影。卡、PR與方向檔條件式完成列同時列明此下降，供業主抽看。
+
+### 發布準備與§8逐條狀態
+
+main仍f723a90；docs/T檔名、AUTORUN-LOG與git標題均最大T757，實際r標題最大r204，配T758／v14.51／r205。只改GAME_VER、GAME_ANCHOR、開始版本字三個精確標記，搬本卡、日誌commit欄#39；方向原文／開關取main原字節。自己的031唯讀workflow此時仍保留，必須在本次raw基線與發布準備的新完整run成功後，另用只刪該檔的commit移除；舊027／029／030／032 workflow均未加回。
+
+- [x] 動手前卡面已先推，首卡bld家族、10座／40鍵與十條驗收原文不變。
+- [x] 獨立原始BASE正常三種子／9檢查點、十款匹配交易、舊檔與新外觀兩輪保存全欄穩定；僅宣告b.v外觀與精確gameVer遷移，無輸出欄位刪除。
+- [x] 本次CI真bld+40、3543舊葉／165族／blocks／env不變；原raw基線位元保留，七軸下降如上公開。
+- [x] 日／夜四向80原圖、最接近舊款比較、十款完整近景已實際看過；8／8整幀、57＋40狀態守衛有真CI證據。
+- [ ] 全97張逐張人工覆核、實體手機／Safari／觸控未跑；依GPT美術狀態例外如實保留，不假勾。
+- [x] 新守衛真首紅及恢復、完整保存少$1、實際畫布1px、行人／深度、重烘焙／30延遲樣本均有實證。
+- [x] 0b1488b常規push／PR各實際smoke三次成功，沒有重跑賭過；其fp與財務基線failure仍如實保留。
+- [ ] 本次raw基線／T758準備head、workflow刪後最後head的完整CI／各3次smoke／fp／財務53／10尚待真結果。
+- [ ] Ready後同一最後head的新Codex程式及安全審查尚未請求／完成。
+- [ ] 第五波未合併或發布，main／自動Pages／正式URL第五輯與畫布仍待實核；發布後才計5／20。
+- [x] 沒有任何未跑事項寫成通過；所有遊戲與Chrome僅在GitHub Actions，選定雲端本機只做Git、來源解析、位元檢查與看原圖。
+
+第三、第四波Library原network失敗與全部原件保持原樣；本任務Library存入0檔，prepare／upload／finalize未重試或換路。後續第六至二十波仍須逐項照第7節，不以本文件或計畫當已實作建築。
