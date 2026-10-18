@@ -63,6 +63,14 @@
 本卡尚未實作或發布。所有遊戲與像素守衛只在GitHub Actions執行；原始素材研究、流程文件與候選不列為已完成建築。
 
 
-## 只讀考據前置工作（尚待CI）
+## 只讀考據前置工作（已核對原件）
 
 本筆只加自己分支專用、contents:read的暫用workflow及原始來源讀取程式，取得RNLI官方Cromer照片與Hastings保存調查PDF，核對SHA並保留第一頁及原文。這個前置工作不啟動遊戲、不繪第五波，也不是原生美術驗收。看過必要原圖後才畫各款；來源照片不嵌入正式遊戲。完整美術階段仍需本卡凍結的全部原生守衛。
+
+
+### 第一輪來源原件已看（不代表本波完成）
+
+- [唯讀來源run39095336484](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39095336484)成功，head fc35db83ffacc10171d2238d688f2371f8f97651；官方RNLI原圖與Hastings保存調查PDF皆HTTP200，四份傳回檔長度與SHA全部相符。已人工看照片、PDF封面與原文。
+- Hastings採羽邊水平木板、兩至三層、逐層裝卸外門；內部梯道不畫成外梯。RNLI的Cromer為分段淺弧金屬頂、木板牆與高窗帶、黑鋼柱支承、混凝土下水斜道，與018既有石拱窗／山牆艇庫不同。
+- 本筆追加唯讀來源照片：由Somerset官方頁取得Burnham實景核對色帶方向，由Wikipedia原始照片連結取得George’s Dock實物圖（照片只作觀察，建築文字事實仍依Historic England原名錄；不引用Wikipedia矛盾樓層數）。兩款在看過圖前不開始繪製；其餘模型可依已核實的一手資料進行。
+- head fc35db8原有常規CI三工作success；該head尚無第五波遊戲圖，不能算本波驗收。
