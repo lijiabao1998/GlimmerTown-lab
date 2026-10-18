@@ -43,7 +43,7 @@
 
 ## §8 開工狀態／沒做成的事
 
-- [ ] 此卡等待單獨推送回執；尚無本波美術。
+- [x] 此卡已單獨先推：[a75de8758c59336127ea17870ff0292996f5cdf9](https://github.com/lijiabao1998/GlimmerTown-lab/commit/a75de8758c59336127ea17870ff0292996f5cdf9)，僅本卡一檔；尚無本波美術。
 - [ ] 本波10款／原圖／正常配對／存檔／fp／場景／行人／負控制／效能尚未實測。
 - [ ] 最後CI與精確head的新程式／安全審查尚未執行；尚無本波PR、合併或發布。
 - [ ] 全97圖人工逐張覆核與實體手機／Safari／觸控未測。
@@ -51,3 +51,7 @@
 - [x] 第三／四波Library原失敗保持：`hosted apps tools/list request failed: network`；prepare／upload／finalize未重試，Library已存0檔。GitHub原始artifact檔案另存，不冒稱Library已存。
 
 原文與候選記錄不能當已實作。後續每筆施工與驗收只追加真實結果，不改鬆上述首卡條件。
+
+## 原始來源照片前置讀取（不是美術驗收）
+
+名錄十款文字已核實；York金屬屋頂、Roger Stevens外部豎井與St Catherine雙片鐘塔另取Historic England原始圖片觀察。選定雲端直接讀取三個官方圖URL均報 `URLError: <urlopen error Tunnel connection failed: 403 Forbidden>`，未取得圖、不改用使用者電腦。本筆只在自己的分支暫用唯讀workflow讀取相同三張官方圖及保存長度／SHA／URL；沒有啟動遊戲、沒有本波繪圖，也不算原生驗收。必要原圖核實後才開始相應幾何。

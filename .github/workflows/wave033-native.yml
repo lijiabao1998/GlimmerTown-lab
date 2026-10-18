@@ -1,0 +1,29 @@
+name: wave033-native
+on:
+  push:
+    branches: ['gpt/british-wave06-033']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave033-native
+  cancel-in-progress: true
+jobs:
+  source-photographs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read original primary-source photographs without running the game
+        run: node researchWave033.cjs
+      - name: Preserve exact source bytes and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave033-primary-sources-${{ github.sha }}
+          path: shots/wave033/primary-sources/
+          retention-days: 14
+          if-no-files-found: error
