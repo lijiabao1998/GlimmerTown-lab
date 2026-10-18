@@ -1,0 +1,41 @@
+{
+  "head": "fc35db83ffacc10171d2238d688f2371f8f97651",
+  "gameExecuted": false,
+  "purpose": "primary source inspection before drawing wave05",
+  "sources": [
+    {
+      "name": "cromer-rnli.jpg",
+      "url": "https://rnli.org/-/media/rnli/images/findmynearest/lifeboatstation/cromer/cromer-rnli-lifeboat-station-paul-russell-16x9.jpg?rev=b7e36f900c074be59a2be00f6df02cb6",
+      "finalURL": "https://rnli.org/-/media/rnli/images/findmynearest/lifeboatstation/cromer/cromer-rnli-lifeboat-station-paul-russell-16x9.jpg?rev=b7e36f900c074be59a2be00f6df02cb6",
+      "status": 200,
+      "bytes": 123564,
+      "sha256": "9219c3980aadad882f494d7f6501e5d6b1ac46a13cd7a8f59ab5cc0334ab7d1e"
+    },
+    {
+      "name": "hastings-net-shops.pdf",
+      "url": "https://hastingstrust.hastingsvoluntaryaction.org.uk/sites/hastingstrust.hastingsvoluntaryaction.org.uk/files/910000%20Fishermen%27s%20Net%20Shops.pdf",
+      "finalURL": "https://hastingstrust.hastingsvoluntaryaction.org.uk/sites/hastingstrust.hastingsvoluntaryaction.org.uk/files/910000%20Fishermen%27s%20Net%20Shops.pdf",
+      "status": 200,
+      "bytes": 7131913,
+      "sha256": "649f013a9232008d26331ed9111a2fd2a842c58f6738bf929d305d264bf90b2c"
+    }
+  ],
+  "derivedPreview": "First survey PDF page rasterized for reading; not a game asset",
+  "files": [
+    {
+      "name": "cromer-rnli.jpg",
+      "bytes": 123564,
+      "sha256": "9219c3980aadad882f494d7f6501e5d6b1ac46a13cd7a8f59ab5cc0334ab7d1e"
+    },
+    {
+      "name": "hastings-page01.png",
+      "bytes": 1275446,
+      "sha256": "c8b151899c98eb30f627fd93167193d42e70f6e6ccd3a5328e4b3636e0a9c105"
+    },
+    {
+      "name": "hastings-text.txt",
+      "bytes": 28039,
+      "sha256": "6bd88c200291f1dc89d119d73a0db111226b316b96f13f0791e4a8b60c6950ff"
+    }
+  ]
+}
