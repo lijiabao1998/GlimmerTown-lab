@@ -82773,7 +82773,7 @@ function sheetFetch536(family,pattern){
       }
       if(v.img&&v.img.getContext){leaves.push({p:p,d:v.img,n:(v.night&&v.night.getContext)?v.night:null});return;}
       if(d>3)return;
-      const ks=Object.keys(v);if(ks.length>1200)return;
+      const ks=Object.keys(v);if(ks.length>1200&&!(v===SPR.bld&&d===0&&p==='bld'&&ks.length<=2000))return;
       for(let i=0;i<ks.length;i++)walk(v[ks[i]],p+'.'+ks[i],d+1);
     }
   };
@@ -82809,7 +82809,7 @@ function style536(){
       }
       if(v.img&&v.img.getContext){leaves.push({p:p,d:v.img,n:(v.night&&v.night.getContext)?v.night:null});return;}
       if(d>3)return;
-      const ks=Object.keys(v);if(ks.length>1200)return;
+      const ks=Object.keys(v);if(ks.length>1200&&!(v===SPR.bld&&d===0&&p==='bld'&&ks.length<=2000))return;
       for(let i=0;i<ks.length;i++)walk(v[ks[i]],p+'.'+ks[i],d+1);
     }
   };
@@ -82899,7 +82899,7 @@ function fpSpr536(){
       if(v.img&&v.img.getContext){leaves.push({p:path,d:v.img,n:(v.night&&v.night.getContext)?v.night:null});return;}
       if(depth>3)return;
       const ks=Object.keys(v);
-      if(ks.length>1200)return;
+      if(ks.length>1200&&!(v===SPR.bld&&depth===0&&path==='bld'&&ks.length<=2000))return;
       for(let i=0;i<ks.length;i++)walk(v[ks[i]],path+'.'+ks[i],depth+1);
     }
   };
@@ -106498,6 +106498,24 @@ window.GV.britishWave030={rows:()=>BRITISH030.map(q=>({...q})),open:britishOpen0
   read:(x,y)=>{const b=inMap(x,y)?tiles[idx(x,y)]?.bld:null;return b?JSON.parse(JSON.stringify(b)):null;},
   sprite:(x,y)=>{const b=inMap(x,y)?tiles[idx(x,y)]?.bld:null;return b&&!b.ref?SPR.bld['24_1_'+vdraw574({x,y},b)]:null;}};
 /* GPT-030 RUNTIME END */
+/* GPT-032 CAPACITY SELFTEST START */
+function bldCapacitySelftest032(){
+  const checks=[],add=(name,ok)=>checks.push([name,!!ok]),registry=SPR.bld,entries=Object.entries(registry),within=entries.length<=2000;
+  const expected=within?entries.filter(([,s])=>s?.img?.getContext).map(([k])=>'bld.'+k):[],wanted=new Set(expected);
+  const world=JSON.stringify(window.GV.stats()),storage=JSON.stringify(localStorage);
+  const fp=window.GV.fp536(),sheet=window.GV.sheet536('bld'),style=window.GV.style536();
+  const fpKeys=Object.keys(fp.subs||{}).filter(k=>k.startsWith('bld.')),sheetKeys=(sheet.leaves||[]).map(s=>s.p),styleKeys=Object.keys(style.leaves||{}).filter(k=>k.startsWith('bld.'));
+  const exact=keys=>keys.length===wanted.size&&keys.every(k=>wanted.has(k));
+  add('capacity032 fingerprint covers the bounded bld registry',fp.ok&&exact(fpKeys));
+  add('capacity032 sheet covers the bounded bld registry',sheet.ok&&exact(sheetKeys));
+  add('capacity032 style covers the bounded bld registry',style.ok&&exact(styleKeys));
+  add('capacity032 registry identities unchanged',SPR.bld===registry&&entries.length===Object.keys(registry).length&&entries.every(([k,s])=>registry[k]===s));
+  add('capacity032 native world unchanged',JSON.stringify(window.GV.stats())===world);
+  add('capacity032 storage unchanged',JSON.stringify(localStorage)===storage);
+  return{ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗')),counts:{registry:entries.length,expected:expected.length,fp:fpKeys.length,sheet:sheetKeys.length,style:styleKeys.length},limit:{bldRoot:2000,otherObjects:1200}};
+}
+window.GV.bldCapacity032=Object.freeze({selftest:bldCapacitySelftest032});
+/* GPT-032 CAPACITY SELFTEST END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
@@ -108551,7 +108569,7 @@ function walkSpr(v,p,d,out){if(v==null)return;
   if(typeof v==='object'){
     if(v.A&&v.A.getContext){out.push({p:p+'.A',d:v.A,n:(v.NA&&v.NA.getContext)?v.NA:null});if(v.B&&v.B.getContext)out.push({p:p+'.B',d:v.B,n:(v.NB&&v.NB.getContext)?v.NB:null});return;}
     if(v.img&&v.img.getContext){out.push({p:p,d:v.img,n:(v.night&&v.night.getContext)?v.night:null});return;}
-    if(d>3)return;const ks=Object.keys(v);if(ks.length>1200)return;
+    if(d>3)return;const ks=Object.keys(v);if(ks.length>1200&&!(v===SPR.bld&&d===0&&p==='bld'&&ks.length<=2000))return;
     for(let i=0;i<ks.length;i++)walkSpr(v[ks[i]],p+'.'+ks[i],d+1,out);
   }
 }

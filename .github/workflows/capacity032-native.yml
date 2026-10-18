@@ -1,0 +1,29 @@
+name: capacity032-native
+on:
+  push:
+    branches: ['gpt/bld-fingerprint-capacity-032']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+jobs:
+  native-capacity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Independent original main versus bounded bld root repair
+        run: node probeBldCapacity032.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: capacity032-native-${{ github.sha }}
+          path: shots/capacity032/
+          retention-days: 14
+          if-no-files-found: error
