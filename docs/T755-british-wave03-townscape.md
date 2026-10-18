@@ -49,7 +49,7 @@
 9. **完整 CI 與審查**：分支及 PR 最後 head 原生煙霧各 3 次、fp 與既有財務 53 項／10 負控制全綠，無環境警告，不重跑賭綠。只新增 `wave029` 自己分支 workflow、`permissions: contents: read`，不部署／推送／寫其他對象；最後一次完整 run 綠並寫卡後，以「只刪自己 workflow」commit 移除，後續每個 commit 都確認沒有加回。Ready 後請新 Codex review，處理真實 findings；沒回覆／未執行不算通過。
 10. **合併與數量**：最新 main 的方向／PR／CI／Pages／ancestry 再核，按三個權威來源最大號配 T／版本／日誌，卡片搬到 T 檔，更新完成表與待辦但保留 main 開關／方向。最後 CI 綠、規約允許才合自己 PR。核 merged tree、main CI 與自動 Pages 精確 SHA，開真網址；若代理仍 403，保留錯誤、未實看聲明及授權 CI 證據，不繞過。第三波 10 座只有真正合入 main 才記 3／20；之後繼續第 4 波直到 20 波或 §7 真實停手條件，普通步驟結束不算停手理由。
 
-## §8 開工狀態與證據紀錄
+## §8 開工時狀態（歷史；最新驗收見文末）
 
 - [x] 卡面單獨推送成功：[6de1bbe70e4f43fdb5807458c748839b534abebf](https://github.com/lijiabao1998/GlimmerTown-lab/commit/6de1bbe70e4f43fdb5807458c748839b534abebf)；該筆僅本卡一檔，parent 為上述主線，遠端 ref 已核；美術在該筆成功後才開始。
 - [ ] 同種子對比／完整新舊檔：未跑。
@@ -166,3 +166,17 @@ fp job `117527373823` 原摘要：「相對 base：新增 40／變更 0／移除
 本筆只修自己的新 `probePerformance029.cjs` 的故障輸入：在注入之前，由獨立 BASE 已量得的 median／p90 算出 `ceil(2*max(base.median,base.p90)+20)` ms，一次固定這個延遲，仍透過真實 `GV.forceDraw` 忙等注入、量至少 30 筆，必須由原 `check` 捕捉首紅並恢復。不是看 HEAD 通不通來挑樣本／重試，沒有永假斷言。正常與恢復各 40 組、交錯次序、零暖烘焙與原 `head.median > base.median*1.5+2 || head.p90 > base.p90*1.5+3` 比較一字不動；只讓故障輸入在這次 BASE 實測尺度上確實足夠大。成功證據新增實際注入毫秒與 30 筆原始值；若控制再漏，錯誤也帶原正向／負向樣本。
 
 無遊戲、模型、版本、fp／style、既有守衛或 shared workflow 改動；只修本卡新控制輸入，卡面凍結的第 7 項驗收門檻不變。這是有具體修正的新提交，不按 rerun 賭綠；自己的 workflow 尚未刪，必須等最新一整次 run 全綠，之後才可收尾。PR37仍 draft，未合併／未發布，完成數仍2／20。
+
+## v14.48 最後完整原生驗收與刪 workflow 前證據（1a2554b）
+
+自己的 **最後一次完整 run [39084192598](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084192598)** 在發布版本 `1a2554b66a6aee675e268eed1d229aff44705249` 實際十二個工作全部 success（含五個純資料搬運工作）。分支 push [39084192588](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084192588) 與 PR [39084194591](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084194591) 各三 job 全 success、smoke 各三次；兩邊財務原報告均為 `{"ok":true,"checks":53,"negative":10,"failures":[]}`，沒有 rerun。
+
+- 原生 job `117547218980`：40 真四向／80 原圖、12 真首紅與恢復、三種子、十款有費點選／逐款 undo／redo／退款與參照格拆除、新舊全部保存欄位兩輪。正常獨立 BASE job `117547218951` 三種子／三檢查點與十款真交易全欄一致，`fieldExclusions:[]`、`usesEscapeValve:false`。
+- 場景 job `117547219032`：57 原生狀態＋40 真邊界放置，嚴格失敗 0；8／8 日夜四向獨立全畫布相等。真實舊 BASE 檔僅 `gameVer:14.47→14.48` 的精確原生遷移，之後兩輪全欄保存差異均空。行人 job `117547219073` 實際17案／兩個真負控制與恢復成功。
+- 效能 job `117547219040`：正常 BASE／HEAD 各40組，中位數8.325／1.600ms、p90 13.450／13.125ms；事前由獨立 BASE 算出的47ms故障，30筆實測48.4–94ms，原門檻首紅；恢復後BASE／HEAD中位數6.000／1.525ms、p90 13.125／12.950ms，暖畫新烘焙0。比較函式逐字等同第一筆實作672c799；只修負控制輸入與原始證據輸出，不改判準或遊戲。
+- fp job `117547305080`：對倉庫新增0／改0／刪0、166族零變動；對實際 main `35be6a37` 新40／改0／刪0，逐字只有首卡宣告的 `bld`，其餘165族、3463舊葉、blocks及環境不變，無風格下降與env警告。七軸與dd5原始基線來源如前，未重寫JSON時間／環境。
+- 最新[80張原圖與完整四欄接觸表](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084192598/artifacts/12120620105)與[完整97場景](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084192598/artifacts/12119708035)已交付；SHA256與來源見 [visual-review.json](assets/GPT-029/visual-review.json)。最新80原圖及十款近景與已實看圓頭窗來源逐位元相同；再次展示完整日夜四欄，沒有換圖／裁切或把預覽當發布。全部97張仍未逐張人工覆核，實體手機／Safari／觸控與線上公站畫布未測，不假勾。
+
+第8節最新自檢：先推卡與原家族／原驗收條件不改鬆、正常配對／全部保存欄位、fp範圍與8／8整幀、所有真首紅與恢復、最新實作head的煙霧三次及全CI、不冒稱未跑均已實際完成；人工逐張全部97狀態仍按AGENTS §3的允許例外列未跑。未改規則、共用守衛或既有smoke斷言。業主2026-10-18已對本PR六路徑發布準備、取代原單檔限制及驗收後合併main／發布Pages回覆「允許」。
+
+本筆只記實際證據。上述最後完整run已綠，下一筆依AGENTS §3 **只刪自己的 `.github/workflows/wave029-native.yml`**；刪後每個commit都核實它與舊027專屬workflow沒有加回，最後普通CI再全綠、Ready後請新的Codex review並處理真實findings，才可合PR37。合併與main／自動Pages精確SHA、公站實際讀取結果均以[PR37](https://github.com/lijiabao1998/GlimmerTown-lab/pull/37)後續實際回執為準，不預填發布成功、不另補日誌commit雜湊。第三波只在真正合入main後計3／20。

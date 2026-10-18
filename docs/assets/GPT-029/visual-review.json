@@ -1,12 +1,12 @@
 {
   "wave": 3,
-  "status": "rounded-window current-source native images inspected; complete full-width contacts inspected; release/review/publication gates pending",
+  "status": "v14.48 original native evidence verified; final publication receipt is PR37",
   "base": "35be6a37ebc672c90e9406c50c32e157e8701196",
   "artSourceSHA256": "60bb2976bb56ab3e49b87770c3c6ebde146934d07292d0f5fe4b33f415446bcc",
-  "nativeIndexBlob": "a6c83ec7f0cf940665b5a9edd41a348ca1ff8fbe",
-  "contactsSourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
-  "nearSourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
-  "sourceParity": "dd5d674 and fa704ce share byte-identical index.html and artwork. Current review includes all ten complete dd5 near scenes, 80 native sprites and fa704ce complete 1040x2400 day/night/comparison contacts. The contact width correction changes only evidence layout, no game pixel or criterion.",
+  "nativeIndexBlob": "eae196b7e144dea915885996681b81c61cab06e0",
+  "contactsSourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
+  "nearSourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
+  "sourceParity": "All 80 current v14.48 native sprite originals and ten complete near frames are byte-identical to the inspected round-headed dd5 artwork. Current full-width day/night contacts were displayed again. Only three release version labels differ in index.html; all current source provenance is 1a2554b.",
   "inspected": {
     "allTenFormsDayNightFourViewContacts": true,
     "oldNewComparison": true,
@@ -109,14 +109,10 @@
     }
   ],
   "blockingVisualFindings": [],
-  "unresolvedAcceptance": [
-    "release labels, last whole native workflow success and workflow-only deletion",
-    "latest final-head PR review, main and automatic Pages"
-  ],
   "contactFiles": [
     {
       "file": "contact-day.png",
-      "sourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+      "sourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
       "sha256": "52ae089dc902436c3b5fed7cfae1aaabb8152671148689ae2642490aabe1f1aa",
       "width": 1040,
       "height": 2400,
@@ -125,7 +121,7 @@
     },
     {
       "file": "contact-night.png",
-      "sourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+      "sourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
       "sha256": "6ce07ca41f2e9c74f8b2ee56a18a374af0ce7767960174d3c11206d7f36eb813",
       "width": 1040,
       "height": 2400,
@@ -134,7 +130,7 @@
     },
     {
       "file": "contact-comparison.png",
-      "sourceHead": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
+      "sourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
       "sha256": "7a4b025d5e181b243879cc8dea2cd24bc4bc14903bbe5a2413f57ae7a7f74dae",
       "width": 1040,
       "height": 2400,
@@ -176,7 +172,7 @@
     "contactsSourceHead": "672c799c5255392ff0567126b93e3e07f15b5007",
     "nearSourceHead": "12b928a0efe22eb3f91494c47d9cde1e47b13828"
   },
-  "nativeIndexSHA256": "03109333eee1b65859fba2eb4a409ee72cb5f23026705c4fc128effa5a97e124",
+  "nativeIndexSHA256": "77c51c5171c95f3d272999276b71ec9e94233b5f2bd0de0ca785d09745f73c3e",
   "rawBaseline": {
     "sourceHead": "dd5d674000936e10e2cb4295b7d35904e68825ba",
     "run": 39076844632,
@@ -199,7 +195,34 @@
       }
     ]
   },
-  "currentCodeCI": {
+  "delivery": {
+    "nativeOriginals": {
+      "sourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
+      "artifact": 12120620105,
+      "filename": "GlimmerTown-Wave03-ten-building-originals-v14.48-1a2554b.zip",
+      "bytes": 1099922,
+      "zipSHA256": "36143ba7f0da677febe0391863ddac745d6319665ce716a6d8ba2700d288aa0c",
+      "artifactURL": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084192598/artifacts/12120620105"
+    },
+    "completeScenes": {
+      "sourceHead": "1a2554b66a6aee675e268eed1d229aff44705249",
+      "artifact": 12119708035,
+      "filename": "GlimmerTown-Wave03-complete-native-scenes-v14.48-1a2554b.zip",
+      "bytes": 61320077,
+      "zipSHA256": "d9569e0b1311f2629199df8ebdc16a4e8c9461f3cd1fa748acebc823a7bbf76d",
+      "artifactURL": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39084192598/artifacts/12119708035"
+    }
+  },
+  "releasePreparation": {
+    "PR": 37,
+    "T": 755,
+    "round": 202,
+    "version": "14.48",
+    "main": "35be6a37ebc672c90e9406c50c32e157e8701196",
+    "threeVersionLabelsOnly": true,
+    "indexBlob": "eae196b7e144dea915885996681b81c61cab06e0"
+  },
+  "preReleaseFullCI": {
     "head": "fa704ce0f03ed109ca924d94fe40935a5b5d3443",
     "ordinaryRun": 39077425521,
     "ordinaryJobsSuccess": 3,
@@ -228,40 +251,252 @@
     "envWarning": false,
     "styleDeclines": []
   },
-  "delivery": {
+  "releasePerformanceHistory": [
+    {
+      "head": "99747ad6f968f8f853228938fd5bd156e77bd35c",
+      "ownRun": 39083894318,
+      "performanceJob": 117546324368,
+      "performanceStatus": "failure",
+      "exactFailure": "perf029 timing negative missed target",
+      "normalABReachedAndPassedOriginalCheck": true,
+      "failureMedianP90NotRecorded": true,
+      "fix": "Negative fault duration fixed before injection from independent BASE statistics; original positive/restored thresholds and sample counts unchanged; raw negative samples exported",
+      "fullReleaseCIPending": true
+    }
+  ],
+  "lastFullNativeCI": {
+    "head": "1a2554b66a6aee675e268eed1d229aff44705249",
+    "run": 39084192598,
+    "jobsSuccess": 12,
+    "pushRun": 39084192588,
+    "PRRun": 39084194591,
+    "ordinaryJobsSuccessEach": 3,
+    "smokeRunsEach": 3,
+    "fiscalEach": {
+      "ok": true,
+      "checks": 53,
+      "negative": 10,
+      "failures": []
+    },
+    "fpRepositoryChanges": 0,
+    "actualMainNewLeaves": 40,
+    "families": [
+      "bld"
+    ],
+    "oldLeavesEqual": 3463,
+    "otherFamiliesEqual": 165,
+    "envWarning": false,
+    "styleDeclines": [],
+    "states": 57,
+    "edges": 40,
+    "strictSceneFailures": 0,
+    "wholeFramesEqual": 8,
+    "pedestrianCases": 17,
+    "fieldExclusions": [],
+    "oldSaveMigration": [
+      {
+        "path": "gameVer",
+        "before": "14.47",
+        "after": "14.48"
+      }
+    ]
+  },
+  "performanceProof": {
+    "head": "1a2554b66a6aee675e268eed1d229aff44705249",
+    "run": 39084192598,
+    "job": 117547219040,
+    "stats": {
+      "base": {
+        "n": 40,
+        "median": 8.32499999999709,
+        "p90": 13.450000000004366,
+        "min": 4.099999999998545,
+        "max": 16.224999999998545
+      },
+      "head": {
+        "n": 40,
+        "median": 1.5999999999985448,
+        "p90": 13.125,
+        "min": 1.3499999999985448,
+        "max": 15.099999999998545
+      }
+    },
+    "sample": {
+      "base": [
+        7.224999999998545,
+        14.450000000004366,
+        8.32499999999709,
+        13.099999999998545,
+        5.450000000004366,
+        13.5,
+        6.599999999998545,
+        13.44999999999709,
+        6.30000000000291,
+        16.224999999998545,
+        5.150000000001455,
+        13.450000000004366,
+        4.575000000004366,
+        13.32499999999709,
+        4.575000000004366,
+        5.274999999994179,
+        13.05000000000291,
+        5.125,
+        12.25,
+        5.07499999999709,
+        12.69999999999709,
+        5.049999999995634,
+        12.85000000000582,
+        5.150000000001455,
+        12.599999999998545,
+        4.900000000001455,
+        13.424999999995634,
+        5.424999999995634,
+        13.35000000000582,
+        4.099999999998545,
+        4.974999999998545,
+        12.924999999995634,
+        5.125,
+        12.724999999998545,
+        4.950000000004366,
+        12.25,
+        5.075000000004366,
+        12.674999999995634,
+        4.92500000000291,
+        12.55000000000291
+      ],
+      "head": [
+        13.224999999998545,
+        1.5749999999970896,
+        2.525000000001455,
+        15.099999999998545,
+        1.5499999999956344,
+        1.4500000000043656,
+        12.900000000001455,
+        1.5749999999970896,
+        1.5999999999985448,
+        1.4500000000043656,
+        13.19999999999709,
+        1.4749999999985448,
+        1.5499999999956344,
+        12.700000000004366,
+        1.8249999999970896,
+        1.4250000000029104,
+        12.82499999999709,
+        1.4500000000043656,
+        1.5,
+        12.47500000000582,
+        1.5500000000029104,
+        1.4000000000014552,
+        1.7999999999956344,
+        13.125,
+        1.8000000000029104,
+        1.5999999999985448,
+        12.80000000000291,
+        1.5250000000014552,
+        1.5749999999970896,
+        12.67500000000291,
+        1.6999999999970896,
+        1.4500000000043656,
+        1.5500000000029104,
+        12.5,
+        1.5749999999970896,
+        1.3499999999985448,
+        13.125,
+        1.375,
+        1.75,
+        12.424999999995634
+      ]
+    },
+    "restoredStats": {
+      "base": {
+        "n": 40,
+        "median": 6,
+        "p90": 13.125,
+        "min": 3.9250000000029104,
+        "max": 13.525000000001455
+      },
+      "head": {
+        "n": 40,
+        "median": 1.5250000000014552,
+        "p90": 12.950000000004366,
+        "min": 1.3499999999985448,
+        "max": 13.099999999998545
+      }
+    },
+    "newGeometryBuildsDuringWarmDraw": 0,
+    "cacheLeaves": 40,
+    "firstRed": "perf029 normal redraw rebaked new geometry",
+    "timingFirstRed": "perf029 repeatable native redraw regression {\"base\":{\"n\":40,\"median\":8.32499999999709,\"p90\":13.450000000004366,\"min\":4.099999999998545,\"max\":16.224999999998545},\"head\":{\"n\":30,\"median\":48.69999999998254,\"p90\":49.09999999997672,\"min\":48.40000000002328,\"max\":94}}",
+    "timingNegativeSamples": 30,
+    "timingInjectedDelayMs": 47,
+    "timingNegativeSampleMs": [
+      48.80000000001746,
+      48.69999999998254,
+      48.80000000001746,
+      48.69999999998254,
+      48.70000000001164,
+      48.79999999998836,
+      48.60000000000582,
+      48.5,
+      48.60000000000582,
+      48.5,
+      94,
+      48.79999999998836,
+      48.70000000001164,
+      48.60000000000582,
+      48.5,
+      48.5,
+      48.5,
+      48.5,
+      48.5,
+      48.60000000000582,
+      48.40000000002328,
+      49.09999999997672,
+      48.80000000001746,
+      92.69999999998254,
+      48.70000000001164,
+      48.60000000000582,
+      48.79999999998836,
+      48.80000000001746,
+      48.59999999997672,
+      48.60000000000582
+    ],
+    "restoredGreen": true,
+    "interleaved": true,
+    "nativeBaselineSource": "35be6a37ebc672c90e9406c50c32e157e8701196",
+    "viewport": {
+      "head": [
+        1280,
+        657
+      ],
+      "base": [
+        1280,
+        657
+      ]
+    },
+    "hardware": "GitHub Actions Ubuntu desktop Chromium; not real mobile hardware"
+  },
+  "performancePositiveCriterionExactFirstImplementation": true,
+  "originalsByteVerified": 84,
+  "all80SpritesByteEqualInspectedSource": true,
+  "all10NearFramesByteEqualInspectedSource": true,
+  "publicationGatesTrackedInPR37": [
+    "only-own-workflow deletion after its last complete success",
+    "final-head smoke three times, fp and fiscal53/10",
+    "new Codex review",
+    "actual merge tree, main CI, automatic Pages exact SHA and public URL read"
+  ],
+  "publicationReceiptURL": "https://github.com/lijiabao1998/GlimmerTown-lab/pull/37",
+  "historicalDelivery": {
     "nativeOriginals": {
       "artifact": 12117546477,
-      "fileId": "file_000000002b2081f5b063900c8c398af1",
       "filename": "GlimmerTown-Wave03-ten-building-originals-fa704ce.zip",
       "zipSHA256": "e7a2da641911d4d6f2026948cfe59b9c46ae3d83cdf224ac6eb51bd6ac98fbba"
     },
     "completeScenes": {
       "artifact": 12117911258,
-      "fileId": "file_00000000f778823084b2260c53961895",
       "filename": "GlimmerTown-Wave03-complete-native-scenes-fa704ce.zip",
       "zipSHA256": "ce81ee67a2ad0f85f36e14ec99b92d470c1feb4c781acdb3ba53f17ae5074da2"
     }
-  },
-  "releasePreparation": {
-    "PR": 37,
-    "T": 755,
-    "round": 202,
-    "version": "14.48",
-    "main": "35be6a37ebc672c90e9406c50c32e157e8701196",
-    "threeVersionLabelsOnly": true,
-    "pendingIndexBlob": "eae196b7e144dea915885996681b81c61cab06e0",
-    "published": false,
-    "fullReleaseCIPending": true
-  },
-  "releaseValidation": {
-    "head": "99747ad6f968f8f853228938fd5bd156e77bd35c",
-    "ownRun": 39083894318,
-    "performanceJob": 117546324368,
-    "performanceStatus": "failure",
-    "exactFailure": "perf029 timing negative missed target",
-    "normalABReachedAndPassedOriginalCheck": true,
-    "failureMedianP90NotRecorded": true,
-    "fix": "Negative fault duration fixed before injection from independent BASE statistics; original positive/restored thresholds and sample counts unchanged; raw negative samples exported",
-    "fullReleaseCIPending": true
   }
 }
