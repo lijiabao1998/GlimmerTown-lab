@@ -7,7 +7,19 @@ const pd="if(ks.length>1200&&!(v===SPR.bld&&d===0&&p==='bld'&&ks.length<=2000))r
 assert.equal(restored.split(pd).length-1,3);assert.equal(restored.split(pth).length-1,1);
 restored=restored.replaceAll(pd,'if(ks.length>1200)return;').replace(pth,'if(ks.length>1200)return;');
 const begin='/* GPT-032 CAPACITY SELFTEST START */',end='/* GPT-032 CAPACITY SELFTEST END */',a=restored.indexOf(begin),b=restored.indexOf(end,a);assert(a>=0&&b>a);restored=restored.slice(0,a)+restored.slice(b+end.length+1);
-assert.equal(restored,base.toString(),'capacity032 four capacity conditions and own selftest are the complete product source delta');
+// The approved merge-writer release changes exactly three explicit labels.
+// No sprite, style, world, save or other output field is normalized.
+const readRelease032=text=>({ver:text.match(/^const GAME_VER='(\d+\.\d{2})';/m)?.[1],anchor:text.match(/^const GAME_ANCHOR='(T\d+)';/m)?.[1]});
+const oldRelease032=readRelease032(base.toString()),newRelease032=readRelease032(restored);
+assert(oldRelease032.ver&&oldRelease032.anchor&&newRelease032.ver&&newRelease032.anchor,'capacity032 explicit release declarations');
+const releaseLabels032=[[
+  "const GAME_VER='"+newRelease032.ver+"';","const GAME_VER='"+oldRelease032.ver+"';"
+],["const GAME_ANCHOR='"+newRelease032.anchor+"';","const GAME_ANCHOR='"+oldRelease032.anchor+"';"],[
+  'id="startVersion456">v'+newRelease032.ver+' · '+newRelease032.anchor+'</span>',
+  'id="startVersion456">v'+oldRelease032.ver+' · '+oldRelease032.anchor+'</span>'
+]];
+for(const [from,to]of releaseLabels032){assert.equal(restored.split(from).length,2,'capacity032 unique declared release label');restored=restored.replace(from,to);}
+assert.equal(restored,base.toString(),'capacity032 four capacity conditions and own selftest are the complete product source delta except three exact declared release labels');
 for(const m of head.toString().matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
 cp.execFileSync(process.execPath,['embed-capacity032.cjs','--check'],{cwd:ROOT,stdio:'inherit'});
 async function nativeCapacity032(mode){
