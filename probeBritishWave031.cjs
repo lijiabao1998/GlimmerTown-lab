@@ -4,6 +4,23 @@ if(!process.env.GITHUB_ACTIONS)throw Error('wave031 game guards run on GitHub Ac
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process'),vm=require('node:vm');
 const {withGame,ROOT}=require('./harness.js'),BASE='38a27743e9708517d88e251a005c3475fff1bbe7',OUT=path.join(ROOT,'shots','wave031'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const original=cp.execFileSync('git',['show',BASE+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
+// Keep the first-card BASE intact. The required main synchronization has one
+// separately owner-approved, published guard repair; verify that entire source
+// before reversing its four bounded conditions and exact read-only selftest.
+const APPROVED_MAIN032='f723a90c4b0cd3f98b53fc223762074205fbc9f7';
+const upstream032=cp.execFileSync('git',['show',APPROVED_MAIN032+':index.html'],{encoding:'utf8',maxBuffer:20*1024*1024});
+cp.execFileSync('git',['merge-base','--is-ancestor',APPROVED_MAIN032,'HEAD'],{stdio:'pipe'});
+let alignedUpstream032=upstream032;
+for(const [from,to]of[["const GAME_VER='14.50';","const GAME_VER='14.49';"],["const GAME_ANCHOR='T757';","const GAME_ANCHOR='T756';"],['id="startVersion456">v14.50 · T757</span>','id="startVersion456">v14.49 · T756</span>']]){assert.equal(alignedUpstream032.split(from).length,2,'wave031 unique approved upstream release label');alignedUpstream032=alignedUpstream032.replace(from,to);}
+const capacityBegin032='/* GPT-032 CAPACITY SELFTEST START */',capacityEnd032='/* GPT-032 CAPACITY SELFTEST END */';
+const ca032=upstream032.indexOf(capacityBegin032),cb032=upstream032.indexOf(capacityEnd032,ca032);assert(ca032>=0&&cb032>ca032,'wave031 approved upstream selftest markers');
+const approvedSelftest032=upstream032.slice(ca032,cb032+capacityEnd032.length+1);
+function reverseApprovedCapacity032(text){
+  assert.equal(text.split(approvedSelftest032).length,2,'wave031 exact approved upstream selftest');text=text.replace(approvedSelftest032,'');
+  for(const [condition,count]of[["if(ks.length>1200&&!(v===SPR.bld&&d===0&&p==='bld'&&ks.length<=2000))return;",3],["if(ks.length>1200&&!(v===SPR.bld&&depth===0&&path==='bld'&&ks.length<=2000))return;",1]]){assert.equal(text.split(condition).length-1,count,'wave031 exact approved upstream capacity condition');text=text.replaceAll(condition,'if(ks.length>1200)return;');}
+  return text;
+}
+assert(reverseApprovedCapacity032(alignedUpstream032)===original,'wave031 approved T757 upstream reverses byte-exactly to the immutable first-card BASE');
 const committedSource=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
 function nativeSource031(text){let stripped=text;
 for(const part of['PURE ART','CSS']){
@@ -19,6 +36,8 @@ const release=s=>({ver:s.match(/^const GAME_VER='(\d+\.\d{2})';/m)?.[1],anchor:s
 const oldRelease=release(original),newRelease=release(stripped);
 assert(oldRelease.ver&&oldRelease.anchor&&newRelease.ver&&newRelease.anchor,'wave031 explicit release declarations');
 stripped=stripped.replace("const GAME_VER='"+newRelease.ver+"';","const GAME_VER='"+oldRelease.ver+"';").replace("const GAME_ANCHOR='"+newRelease.anchor+"';","const GAME_ANCHOR='"+oldRelease.anchor+"';").replace('id="startVersion456">v'+newRelease.ver+' · '+newRelease.anchor+'</span>','id="startVersion456">v'+oldRelease.ver+' · '+oldRelease.anchor+'</span>');
+assert(stripped===alignedUpstream032,'wave031 existing native model and original rendering source equal the exact published T757 upstream except three declared release labels');
+stripped=reverseApprovedCapacity032(stripped);
 return stripped;}
 const sourceCheck031=text=>assert(nativeSource031(text)===original,'wave031 existing native model and original rendering source byte-identical except exact declared release metadata');
 sourceCheck031(committedSource);let sourceFirstRed031;

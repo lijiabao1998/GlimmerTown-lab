@@ -101,3 +101,18 @@
 - 已人工看原生日／夜接觸表及Lynn近景；本筆修正泳池平面的一個重複點，並修正Spinnaker三層梯形平台的面向，使窗面位移確實朝外。新增新舊接觸表到自己的預覽輸出，追加實際SPR鍵數與原有collector葉數的唯讀診斷；不更動守衛或它的判準。修正後原生圖仍須重新看。
 - 開[卡住]草稿PR保留可審閱的第五波，不能合併或發布。共用守衛修復必須獨立處理並按AGENTS第3節交業主／main寫入者審核；未解決前後續同樣每波+40也會超過1200，不以空跑新波繞過。自己的暫用workflow保持在分支，待真正最後完整run綠後才可依規獨立刪除。
 - 本波仍未完成；前四波4／20、40座。Library仍0檔，保留原網路失敗狀態，不重試圖片上傳。
+
+
+## 同步已批准並實際發布的T757（2026-10-18）
+
+PR40已由業主05:14 UTC專項批准，正式合入main為f723a90c4b0cd3f98b53fc223762074205fbc9f7（v14.50／T757／r204，tree c5e8ff789ab2e05768da80663eb99c2df9a16127）。[main CI39100942592](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39100942592)三工作成功：main按原設定實際smoke1次、fp166族／3543葉／blocks零差異、財務53／10；[自動Pages39101323074](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101323074)由workflow_run發布同一SHA成功。容量修補非建築波次，仍4／20波、40座。
+
+[真公開站117598418237](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39097558584/job/117598418237)從正式URL取得HTTP200且真Chrome文件200，兩者均11016210 bytes、SHA256 de6a128a432a7bd9d7725aae953140dc0dfb0585ee3f68d875b64084b76e3236，等於獨立main f723a90；實際v14.50／T757、slot3、1280×657畫布opaque840960／1447色、runtimeErrors[]、5個內容／HTTP真負控制恢復。原始menu／city／第四輯catalog三圖已核bytes及SHA後人工看過。該probe head為1f31a32，manifest base才是實際正式main f723a90；只重做成功的只讀public-site工作以核新部署，沒有重跑舊失敗smoke／fp或手動Pages。正式站第五波API仍不存在、第五波精靈0，因此不能算第五波已交付。
+
+本波分支以保留歷史的merge接上此main，沒有重寫1f31a32。index／smoke兩處相鄰新增衝突，以完整f723a90來源重新嵌入逐位元相同的031純美術／CSS／runtime，smoke保留T757自檢並只加原031單條自檢。十款幾何42541 bytes、SHA256 8b0e815ee15ac71c8363f5cd22350861219e5d4e34266ec498b7a01b599a8786及所有原031場景／配對／行人／效能判準不變；fp.json／style.json取main原檔，尚未重烘。
+
+首卡釘住的actual BASE38a2774原始Git來源與十條凍結驗收原文保持不變。native來源守衛增加兩層嚴格上游證明：去除031自己的明確嵌入後，必須等於完整已發布T757原碼（僅精確還原三個已宣告版本標記）；再逐字還原T757四個已批准容量條件與完全相同的只讀自檢區塊，必須逐位元等於首卡38a2774。另驗f723a90為HEAD祖先。原本031的完整來源等值assert與實際HTML反例首紅仍保留，不改正常配對、存檔、像素、容量或輸出比較，不刪任何欄位。其餘配對／舊檔／場景／效能探針仍讀首卡真BASE38a2774，僅沿用首卡已明列的三個版本字與gameVer遷移處理。
+
+先前1f31a32的原生／baseline工作因舊1200掃描上限失敗，沒有提交那份移除1179葉的錯誤基線。本次包含真實上游修補的新來源必須重新跑031完整唯讀workflow及常規push／PR CI：完整12個以上真反例、全部狀態／整幀、正常三種子／舊檔與新檔／原生付費、行人、效能及正確bld新增40葉都仍待新實測，未勾選通過。自己的031 workflow尚未刪除，沒有加回已刪的027／029／030／032 workflow；其最後完整run成功後才獨立刪除。所有遊戲／Chrome只由GitHub Actions執行。
+
+PR40已完成、PR39仍是未發布草稿。第三、第四波原圖與Library原network失敗保持原樣；prepare／upload／finalize未重試、未換路，本任務Library已存0檔。第五波DRAFT ZIP仍是既有artifact12125347182，不把草稿圖包稱為正式第五波交付。
