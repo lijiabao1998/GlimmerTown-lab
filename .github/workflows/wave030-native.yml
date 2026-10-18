@@ -1,0 +1,33 @@
+name: wave030-native
+on:
+  push:
+    branches: ['gpt/british-wave04-030']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave030-native
+  cancel-in-progress: true
+jobs:
+  public-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Native Chinese fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Read actual public Pages HTML and render the real online city
+        run: node probePublicSite030.cjs
+      - name: Preserve actual HTTP, browser and screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave030-public-site-${{ github.sha }}
+          path: shots/wave030/public-site/
+          retention-days: 14
+          if-no-files-found: error
