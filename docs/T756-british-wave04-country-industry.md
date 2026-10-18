@@ -1,4 +1,4 @@
-# GPT-030：第四波十座有考據的英式鄉村與工業遺產建築
+# T756（原 GPT-030）：第四波十座有考據的英式鄉村與工業遺產建築
 
 ## 動手前卡面／不可變範圍
 
@@ -49,7 +49,7 @@
 9. **CI 與審查**：最後 head 原生煙霧 3 次、fp、既有財務 53 項／10 負控制全綠，無環境警告，不靠重跑。自己的唯讀 workflow 最後完整 run 必須綠並附卡，才以只刪它的 commit 移除；後續每筆不得加回。Ready 後請新的 Codex review，處理真實 findings；未執行或未回覆不稱通過。
 10. **合併、發布、進度**：再核最新 main／方向／PR／CI／Pages／ancestry，按三個權威最大號配 T、版本與日誌，卡搬 T 檔；更新完成表與待辦，main 的開關／方向原文不動。最後 CI 綠且規約允許才合。核 merged tree、main CI、自動 Pages 的精確 SHA，開真網址看實際版本；失敗寫精確錯誤。只有合入 main 的十座才記 4／20，然後續第五波至二十波或真實停手條件。
 
-## §8 開工狀態／沒做成的事
+## §8 開工狀態（歷史；最新自檢見文末）
 
 - [x] 卡面單獨先推：[b0782e997fb870762efce882a5adf893396888a0](https://github.com/lijiabao1998/GlimmerTown-lab/commit/b0782e997fb870762efce882a5adf893396888a0)，只有本卡一檔，parent 為上述 main；在它成功前沒有美術施工。
 - [x] 公開第三波版本／真實畫布：[39087737240](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240) 已實際 HTTP／瀏覽器核實並人工看過原始城市頁面與第三輯目錄，詳見下方。
@@ -78,7 +78,7 @@
 
 `505c019e1207672a5336a6b4f158c77a80e79ab9` 的 [39087737240](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240)，job `117557747174` 全部成功。01:47:44 UTC 真公開 URL 與 Chrome 主文件均 HTTP 200、10968593 bytes、SHA256 `77c51c5171c95f3d272999276b71ec9e94233b5f2bd0de0ca785d09745f73c3e`，與獨立 git main `9335b08f` 相同。實際公開 API 版本 14.48、DOM 頁腳 T755、隔離槽 3、十款目錄／40 葉；原生 UI 建城後畫布 1280×657、840960 非透明像素／2297 取樣色，五個 HTTP 反例與原判準恢復成功，瀏覽器錯誤陣列空。未啟動本地伺服器，沒有用部署成功代替實際讀站。
 
-原始證據 [artifact 12121047997](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240/artifacts/12121047997)，GitHub ZIP digest `5050702d1df132e541ab034906dfec9453774999b2a8653f80655880cf96da54`。未改寫的原 manifest 存於 [public-site-verification.json](../assets/GPT-030/public-site-verification.json)。人工看過從 log 取回、長度及 SHA 均相符的完整城市頁面與第三輯目錄 PNG；這是正式站實際擷取，不是本地預覽。raw canvas 的大 log 搬運少 3072 bytes，該份搬運資料已拒收，沒有拿它當原圖；原始 CI ZIP 內仍保留其原檔及 SHA。之後 log 只搬較小的完整頁面／目錄／主選單，raw canvas 留在原 artifact，不改驗證判準或圖檔。
+原始證據 [artifact 12121047997](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087737240/artifacts/12121047997)，GitHub ZIP digest `5050702d1df132e541ab034906dfec9453774999b2a8653f80655880cf96da54`。未改寫的原 manifest 存於 [public-site-verification.json](assets/GPT-030/public-site-verification.json)。人工看過從 log 取回、長度及 SHA 均相符的完整城市頁面與第三輯目錄 PNG；這是正式站實際擷取，不是本地預覽。raw canvas 的大 log 搬運少 3072 bytes，該份搬運資料已拒收，沒有拿它當原圖；原始 CI ZIP 內仍保留其原檔及 SHA。之後 log 只搬較小的完整頁面／目錄／主選單，raw canvas 留在原 artifact，不改驗證判準或圖檔。
 
 先前 `39087506385` 最終狀態為 cancelled，未列通過。雲端直接代理仍 403 是該通道限制；現在已有真正 CI 公開 HTTP／瀏覽器與人工看圖證據，不能再寫成「完全未核線上」。實體手機／Safari／觸控及第三波全 97 張逐張人工覆核仍未做。進度仍 3／20，第四波尚未新增美術。
 
@@ -116,7 +116,7 @@ preview 原 manifest、日夜接觸表與一張完整城市圖已逐長度／SHA
 
 `522f9f1fd63eb2d3f12ac40634a414dc43161684` 的 [39090161665](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39090161665) 七個原生／正常配對／完整場景／行人／效能／公開站／預覽工作及五個原圖搬運工作皆 success；只有未換基線的 baseline-evidence 預期紅。native job `117565022020` 實際 80 PNG、12 個真首紅與恢復、三種子配對、十款有費目錄點擊、兩輪完整新檔、原生 undo／redo／參照格拆除均成功。場景 job `117565022032` 57 狀態＋40 真邊界、失敗 0；八個整幀閥逐位元相等，原舊檔兩輪完整比較成功。行人 job `117565021771` 17 案及兩個實際反例／恢復成功。
 
-原 native 84 檔（80 PNG、三張接觸表與 manifest）及十款完整近景、原場景 manifest 全部逐長度／SHA 核實，人工看過 40 向日圖、40 向夜圖、新舊比較與十款完整近景；泵站真窗面、磚拱圈及白風帽已可辨。原圖不裁切、不重畫。詳細來源與逐檔雜湊見 [visual-review.json](../assets/GPT-030/visual-review.json)。所有 97 狀態尚未逐張人工覆核，實體手機／Safari／觸控未做，照實保留。
+原 native 84 檔（80 PNG、三張接觸表與 manifest）及十款完整近景、原場景 manifest 全部逐長度／SHA 核實，人工看過 40 向日圖、40 向夜圖、新舊比較與十款完整近景；泵站真窗面、磚拱圈及白風帽已可辨。原圖不裁切、不重畫。詳細來源與逐檔雜湊見 [visual-review.json](assets/GPT-030/visual-review.json)。所有 97 狀態尚未逐張人工覆核，實體手機／Safari／觸控未做，照實保留。
 
 效能 job `117565021995` 正常 40 組交錯 BASE／HEAD：median 10.125／2.325 ms、p90 21.150／20.825 ms，暖畫新烘焙 0。真延遲 63 ms、30 實際樣本，原守衛首紅 median 65.3／p90 95.9 ms；恢復 40 組 median 8.175／2.250 ms、p90 20.650／19.875 ms，原判準綠。這些僅桌面 CI，不稱手機效能已測。
 
@@ -137,3 +137,23 @@ ordinary 首輪財務 job `117563372977` 的結果是 52 checks／10 negatives�
 總分仍 0.9657→0.9656，受光方向下降，不寫成無下降；依第二波起連續授權在 PR 與方向已完成表同步披露。新基線提交後的 CI 尚待，不稱最後 head 已綠。
 
 公開站檢查另改成只讀 fetch 當時的 origin/main，獨立讀取該 git 物件再核真正 URL／HTML／API／畫布；發布後也核第四輯十款與 40 葉。依 [GitHub 官方單獨工作執行機制](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)，待 main 與自動 Pages 成功後，僅對新的正式站輸入再執行 public-site 工作，不重跑煙霧／fp，不新增或加回已刪 workflow，不手動觸發 pages.yml。該執行仍用原探針 GITHUB_SHA，實際遊戲來源另以 manifest 的 base／HTML SHA 證明；附件名附 run_attempt 保留前次原證據。這是新發布頁面的唯讀核驗，不是拿失敗守衛重跑賭過。
+
+
+## PR38：T756／v14.49／r203 發布準備與最新 §8 自檢
+
+[PR38](https://github.com/lijiabao1998/GlimmerTown-lab/pull/38) 已以原 20 檔完整差異建立草稿，head `710d368c24b9d612a1ae6250c94fdaefa67db0fc`。原 docs-only PR31 已另行完成；本卡依業主 2026-10-16 的二十波連續方向及其後「沒問題繼續吧20輪跑完」「lab 繼續」執行。第四波仍未合併／發布，正式站仍是 v14.48／T755 的第三波，3／20。
+
+三個權威以遠端 main `9335b08f` 核實：docs 檔名最大 T755、AUTORUN-LOG 最大 T755、main git log 標題最大 T755；輪次標題最大 r202，因此本筆配 T756／r203、版本 v14.49。只改 index 的 GAME_VER、GAME_ANCHOR、開始畫面三個精確版本標記；數字幾何中的 14.48 不改。卡搬到本檔，日誌 commit 欄只寫 #38，不預填未來合併 SHA。合前仍會再核權威與最新 main。
+
+710d368 的[常規 CI 39090987840](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39090987840) 三工作成功：smoke 三次綠、fp 相對 main 只新增 bld 40 葉且對倉庫零差／無環境警告、既有財務 53 項／10 負控制失敗 0。[完整專用 CI 39090987837](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39090987837) 13 工作全部成功。這是版本變更前的真實結果；本筆 v14.49 與 T756 的全部原生驗收仍待新 push，不冒用前一 head。
+
+- [x] 卡面已在施工前單獨推送；第一筆僅 bld，凍結驗收逐位元保留。
+- [x] 上述三種子／三檢查點獨立 BASE 正常全欄配對、新外觀有費放置及完整新舊檔兩輪已驗；v14.49 發布字後須再核精確 gameVer 遷移，不刪任何其餘欄。
+- [x] 上述 CI fp 限定 bld 四十新葉、3503 舊葉與其他 165 族、街區、env 不變，8／8 日夜四向全幀閥相同；v14.49 後仍須再驗。
+- [ ] 全部 97 場景尚未逐張人工覆核；CI 已驗 57 狀態＋40 邊界，已看全四向日夜接觸表、新舊比較及十款完整近景。依 AGENTS §3 此一人工覆核例外如實保留；實體手機／Safari／觸控未測。
+- [x] 每條本卡新守衛已以真像素／原生 API 或金錢／保存輸入反例驗首紅及同判準恢復；原生十二控制、場景控制、17 行人及兩控制、40 組效能／30 實際延遲控制已有真實結果。
+- [x] 上述 710d368 常規煙霧三次、fp、財務53／10及13專用工作成功，沒有重跑賭綠。
+- [ ] 本筆發布版本之完整專用 CI、最後 head 常規 CI、刪自己暫用 workflow、Ready 後新的 Codex 程式與安全審查尚待；沒有假勾。
+- [x] 未跑人工／裝置項、第三波 Library 網路失敗 0 已存檔、第四波尚未上線與待審查狀態均已明列，沒有把文件、預覽或 CI 綠當成發布。
+
+bld 七軸仍為上表 522f9f1 原始值，總分 0.9657→0.9656、lightDir 下降；PR38 與方向檔的條件式完成列均列明。fp.json／style.json 原封保留取自 push 522f9f1 的 14.48／T755 metadata，沒有手改它們來配新版本。最後完整專用 run 成功且記卡後，才以只刪 `.github/workflows/wave030-native.yml` 的獨立 commit 移除；不加回027／029或改名替代。
