@@ -132,3 +132,17 @@
 | total | 0.9655 | 0.9654 |
 
 lightDir及總分下降依第二項起連續授權披露，沒有改分數或判準；兩檔保留CI原始generatedAt／T758／14.51等metadata，未手改。接納後完整新run、常規CI與新獨立審查都仍待實測。自己的workflow仍在，須真正最後完整綠並記卡後才獨立刪除。
+
+## 分支基線接納後完整綠（精確1f15592；仍未發布）
+
+[原生run39108933867](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933867)在`1f1559294aa4d22ba936e3214d654a76d7dec0c6`全部13個工作實際success，包含baseline-evidence與5個原始場景傳回工作。[native117620675619](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933867/job/117620675619)原始[manifest](../assets/GPT-033/native-baseline-1f15592.json)核實86項／12首紅控制、80張PNG的bytes／SHA與已圖審a6原件逐一相同；不是宣稱重新人工看了80張。修正後十張near原始全景也已完成圖審覆蓋：七張變更原件逐張重新看過，Glasgow／Dunelm／Roger Stevens三張與初輪已看原件逐位元相同而沿用；全部97場景逐張人工、實體手機／Safari／觸控仍未測。
+
+[常規push39108933870](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108933870)全部success：smoke117620675830實際三次、本卡86項各跑三次；fp117620675850與本分支基線相比零變，對BASE只新增bld40、舊葉／其他家族／blocks／env不變；財務117620675688為`ok:true, checks:53, negative:10, failures:[]`。沒有靠重跑把首輪紅改寫成成功。最終發布仍須接最新main、最後head驗收及獨立程式／安全審查。
+
+PR41已於2026-10-18 07:55:36 UTC實際合入main `95689b5c8db4008952d7a15aab60724ae60d9ed0`（T759／v14.52／r206）；已讀入並逐位元核對該main的共用CI、helper／test、卡及日誌，遊戲只變三個發布字。main的CI／既有自動Pages與正式URL仍待該工作者核實，本波不搶先合併。自己的分支同步會完整保留這些業主批准的上游檔，不改共用CI。上游PR41改為在同一精確head／同樹證據齊備時由PR重用push三次smoke／fp／財務結果；本卡原凍結驗收文字保留，實際最終紀錄會明列「PR重用」或「PR實跑」，不能把重用冒稱另啟動三次瀏覽器。
+
+### PR42明確批准與最新main同步
+
+首次建立本波草稿PR被自動核准審查拒絕，理由為美術／程式超出它當時承認的docs-only範圍；確定未執行，沒有換路徑。業主2026-10-18 08:15 UTC訊息`Sentinel_aa9f25f1b2b0819185c281f15582b107`直接答覆08:11的精確確認「三項都允許」，其中第1項為「Lab第6波：允許把gpt/british-wave06-033的10棟學院建築及相關程式，在GlimmerTown-lab建立草稿PR」。收到可信頂層授權後，先核實現有PR為空，再將原呼叫原樣重試一次，實際建立[草稿PR42](https://github.com/lijiabao1998/GlimmerTown-lab/pull/42)。本次明確批准只涵蓋建立草稿PR，不轉Ready、不合併或發布。
+
+PR41的main [CI39109491116](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39109491116)與既有自動[Pages39109881451](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39109881451)均已實際success；公站v14.52／T759由該工作者核實。此同步以main95689b5作第二父提交保留歷史，共用CI／helper／測試／上游卡與日誌均逐位元保留；自己的索引只對齊三個上游發布字，不占T759、不配新T、不添加本波發布日誌、不改方向檔。含該main的新push／PR須重新驗收並取其raw基線，舊1f全綠不冒充同步後head結果。自己的唯讀workflow仍保留，待後續正式發布準備及最後完整綠後才按原規則另筆獨立刪除；第六波仍未發布，正式計數5／20、50座。
