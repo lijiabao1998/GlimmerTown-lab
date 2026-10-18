@@ -168,3 +168,18 @@ main仍f723a90；docs/T檔名、AUTORUN-LOG與git標題均最大T757，實際r�
 - [x] 沒有任何未跑事項寫成通過；所有遊戲與Chrome僅在GitHub Actions，選定雲端本機只做Git、來源解析、位元檢查與看原圖。
 
 第三、第四波Library原network失敗與全部原件保持原樣；本任務Library存入0檔，prepare／upload／finalize未重試或換路。後續第六至二十波仍須逐項照第7節，不以本文件或計畫當已實作建築。
+
+
+## 最後完整唯讀workflow已成功（94d135f；刪除前回執）
+
+[完整run39102665167](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39102665167)精確發布準備head94d135fe991e192f7ab694d8f408c8923a8a30e6，completed/success，13／13工作成功：native、preview、scenes、normal-pairs、pedestrians、performance、baseline-evidence、public-site及5個scene-evidence。原始產品仍T758／14.51；同一產品來源的raw native／scene manifest已核SHA，原console JSON值、全部job與實數記錄彙入[acceptance-T758.json](assets/GPT-031/acceptance-T758.json)，不把該JSON當新基線或已發布。
+
+- native再次真實完成86項／12首紅與恢復、10款原生交易及兩輪完整保存；83張PNG（80原圖＋3接觸表）的SHA／bytes全部等於先前已逐檔核實及看過的0b原件，沒有重編碼／補畫。
+- normal-pairs再次正常seeds31／71／103×3檢查點，只差宣告根b.v，三次真少$1由全欄comparator首紅並恢復；fieldExclusions=[]、不用本卡閥、10款匹配交易兩輪完整穩定。
+- scenes再次57＋40、8／8本run獨立BASE／本卡閥關完整畫布逐位元相同；舊檔首次只有gameVer14.49→14.51明列遷移，其後兩輪所有欄位一致；少$1與真1px破壞／恢復成功。十張完整near圖與已看0b原件逐位元相同。額外跨run97圖比較的construction-late SHA不同，未將全97跨run恆等當通過證據；本卡凍結的本run8／8嚴格等值與全部97場景守衛仍真實成功，全97逐張人工覆核仍未做。
+- pedestrians再次17案例逐例failures=[]，實際不畫行人與前後序錯誤兩首紅／恢復成功。performance再次40交錯樣本、暖畫新烘焙0、30個真延遲樣本及恢復成功：BASE／HEAD median11.725／2.775ms、p9026.300／27.725ms，桌面CI參考。
+- [push39102665203](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39102665203)與[PR39102668748](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39102668748)各smoke實數3次，每次031自檢86項及032 fixture首紅／恢復皆真通過；兩份財務均ok=true／checks53／negative10／failures=[]。
+- 兩份fp都「與倉庫相比新增0／變更0／移除0」；相對base只bld新增40，其他165族／blocks／env不變；style與本次逐族相同。相對main的一族風格下降仍照前節七軸及方向表披露，沒有用新分數蓋掉下降紀錄。
+- 初步程式審查[6246369934](https://github.com/lijiabao1998/GlimmerTown-lab/pull/39#issuecomment-6246369934)對精確94d135f已completed且無findings；這不是最後head審查，security目前尚未跑，不稱已通過。
+
+本筆只把上述已完成事實記卡與證據檔，不改產品、基線或自己的workflow。確認此最後完整run成功並記錄後，下一筆必須獨立只刪.github/workflows/wave031-native.yml；之後每筆確認沒有加回，等最後head新的push／PR各smoke3、fp／財務53／10綠及Ready後新的程式／安全審查。第五波尚未合併發布、正式站仍4／20波；合併／main／自動Pages／真第五輯畫布與版本仍待實核。
