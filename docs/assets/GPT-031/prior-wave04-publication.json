@@ -1,0 +1,206 @@
+{
+  "ok": true,
+  "head": "6a916719d4d7f692d460e60c594137f6bc7e31fb",
+  "base": "38a27743e9708517d88e251a005c3475fff1bbe7",
+  "startedAt": "2026-10-18T03:44:02.503Z",
+  "url": "https://lijiabao1998.github.io/GlimmerTown-lab/",
+  "expected": {
+    "sha256": "c82b281c94090f497d7638398efe6b369b437d6c9a30249bc6809b30a30db276",
+    "version": "14.49",
+    "anchor": "T756",
+    "wave04": true
+  },
+  "files": [
+    {
+      "name": "public-menu.png",
+      "bytes": 92306,
+      "sha256": "ad3b9f2c4c4cdfb9b5809e52ca968493ae11c22bef543be693c3ee0cf8802ab9"
+    },
+    {
+      "name": "public-city-page.png",
+      "bytes": 497665,
+      "sha256": "60483d8583967aae01707ae541ce9ac1951d5eea3b7b552e3d458413c6eeaecd"
+    },
+    {
+      "name": "public-city-canvas.png",
+      "bytes": 791976,
+      "sha256": "3cfde87b7f9e3512a42751c19e1104929e80058a5e43a2816a4880c439033225"
+    },
+    {
+      "name": "public-wave04-catalog.png",
+      "bytes": 258074,
+      "sha256": "cbc67ad2f0096f50ab7cd0884c9da8e7bc0ecdb00b282eca64025137e61a5d23"
+    }
+  ],
+  "negativeControls": [
+    {
+      "name": "status",
+      "target": "public030 HTTP 200",
+      "firstRed": "public030 HTTP 200\n\n404 !== 200\n"
+    },
+    {
+      "name": "URL",
+      "target": "public030 exact public URL",
+      "firstRed": "public030 exact public URL\n+ actual - expected\n\n+ 'https://example.invalid/'\n- 'https://lijiabao1998.github.io/GlimmerTown-lab/'\n           ^\n"
+    },
+    {
+      "name": "one real byte",
+      "target": "public030 index byte SHA256",
+      "firstRed": "public030 index byte SHA256\n+ actual - expected\n\n+ 'ad8993c8f0ccb2b03d564bc147ae191f396088d8e650f7f6739a3dcb59390cac'\n- 'c82b281c94090f497d7638398efe6b369b437d6c9a30249bc6809b30a30db276'\n"
+    },
+    {
+      "name": "version expectation",
+      "target": "public030 source version",
+      "firstRed": "public030 source version\n+ actual - expected\n\n+ '14.49'\n- 'invalid-control'\n"
+    },
+    {
+      "name": "anchor expectation",
+      "target": "public030 source anchor",
+      "firstRed": "public030 source anchor\n+ actual - expected\n\n+ 'T756'\n- 'invalid-control'\n"
+    }
+  ],
+  "runtimeErrors": [],
+  "networkFailures": [],
+  "notClaimed": [
+    "physical mobile, Safari or touch validation",
+    "all art states manually inspected"
+  ],
+  "http": {
+    "status": 200,
+    "url": "https://lijiabao1998.github.io/GlimmerTown-lab/",
+    "bytes": 11014291,
+    "sha256": "c82b281c94090f497d7638398efe6b369b437d6c9a30249bc6809b30a30db276",
+    "headers": {
+      "content-type": "text/html; charset=utf-8",
+      "etag": "W/\"6ad4401c-a81093\"",
+      "last-modified": "Sun, 18 Oct 2026 03:42:20 GMT",
+      "cache-control": "max-age=600",
+      "age": "0"
+    },
+    "checkedAt": "2026-10-18T03:44:03.087Z"
+  },
+  "navigation": {
+    "frameId": "A0890CFCF1629C90509D5FAA6B486464",
+    "loaderId": "89EF31E11BD6A2040EF877AFB2736651",
+    "isDownload": false
+  },
+  "browserDocument": {
+    "requestId": "89EF31E11BD6A2040EF877AFB2736651",
+    "url": "https://lijiabao1998.github.io/GlimmerTown-lab/",
+    "status": 200,
+    "mimeType": "text/html",
+    "bytes": 11014291,
+    "sha256": "c82b281c94090f497d7638398efe6b369b437d6c9a30249bc6809b30a30db276"
+  },
+  "menu": {
+    "url": "https://lijiabao1998.github.io/GlimmerTown-lab/",
+    "version": "14.49",
+    "anchor": "T756",
+    "footer": "v14.49 · T756",
+    "slot": "3",
+    "bootDone": true
+  },
+  "cityCreation": "native UI city created",
+  "city": {
+    "url": "https://lijiabao1998.github.io/GlimmerTown-lab/",
+    "version": "14.49",
+    "anchor": "T756",
+    "slot": "3",
+    "width": 1280,
+    "height": 657,
+    "opaque": 840960,
+    "colors": 1657,
+    "wave03Rows": [
+      {
+        "id": "stalbans",
+        "v": 240
+      },
+      {
+        "id": "bessie",
+        "v": 244
+      },
+      {
+        "id": "ancient",
+        "v": 248
+      },
+      {
+        "id": "pulteney",
+        "v": 252
+      },
+      {
+        "id": "piecehall",
+        "v": 256
+      },
+      {
+        "id": "exchange",
+        "v": 260
+      },
+      {
+        "id": "chichester",
+        "v": 264
+      },
+      {
+        "id": "willis",
+        "v": 268
+      },
+      {
+        "id": "roundhouse",
+        "v": 272
+      },
+      {
+        "id": "faversham",
+        "v": 276
+      }
+    ],
+    "wave03SpriteCount": 40,
+    "bootDone": true
+  },
+  "wave04": {
+    "rows": [
+      {
+        "id": "cley",
+        "v": 280
+      },
+      {
+        "id": "crossness",
+        "v": 284
+      },
+      {
+        "id": "chatham",
+        "v": 288
+      },
+      {
+        "id": "limekilns",
+        "v": 292
+      },
+      {
+        "id": "gladstone",
+        "v": 296
+      },
+      {
+        "id": "towanroath",
+        "v": 300
+      },
+      {
+        "id": "sissinghurst",
+        "v": 304
+      },
+      {
+        "id": "abbeydale",
+        "v": 308
+      },
+      {
+        "id": "temple",
+        "v": 312
+      },
+      {
+        "id": "hoover",
+        "v": 316
+      }
+    ],
+    "spriteCount": 40
+  },
+  "liveCanvasCaptured": true,
+  "localServerUsed": false,
+  "finishedAt": "2026-10-18T03:44:41.918Z"
+}

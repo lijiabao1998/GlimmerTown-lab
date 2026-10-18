@@ -1,0 +1,565 @@
+{
+  "head": "0b1488b25f841b610cd64838d4b82150f19f28b5",
+  "base": "38a27743e9708517d88e251a005c3475fff1bbe7",
+  "pairs": [
+    {
+      "seed": 31,
+      "baseSHA256": "154c0c087068c42bef2004e26b41fb39786ebbd3b135429e1d3bc075e66b5709",
+      "headSHA256": "7e1aff0919c6627a11fe315e4d2ab7c28939ce57b3caf859477ae4be34de27de",
+      "differences": [
+        {
+          "path": "placements.0.v",
+          "base": 2,
+          "head": 320
+        },
+        {
+          "path": "placements.1.v",
+          "base": 1,
+          "head": 332
+        },
+        {
+          "path": "placements.2.v",
+          "base": 0,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.0.state.bl.0.3",
+          "base": 2,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.0.state.bl.1.3",
+          "base": 1,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.0.state.bl.2.3",
+          "base": 0,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.1.state.bl.0.3",
+          "base": 2,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.1.state.bl.1.3",
+          "base": 1,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.1.state.bl.2.3",
+          "base": 0,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.2.state.bl.0.3",
+          "base": 2,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.2.state.bl.1.3",
+          "base": 1,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.2.state.bl.2.3",
+          "base": 0,
+          "head": 340
+        }
+      ],
+      "checkpoints": 3
+    },
+    {
+      "seed": 71,
+      "baseSHA256": "3a80e2c329d1d9d734770ee59b6df67b066d6cd6184300233c66a08136ab6d88",
+      "headSHA256": "65113e2623194a0b93b9b3f6affadca08372187b606ce9b63eb320b8bea4a20e",
+      "differences": [
+        {
+          "path": "placements.0.v",
+          "base": 0,
+          "head": 320
+        },
+        {
+          "path": "placements.1.v",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "placements.2.v",
+          "base": 2,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.0.state.bl.0.3",
+          "base": 0,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.0.state.bl.1.3",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.0.state.bl.2.3",
+          "base": 2,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.1.state.bl.0.3",
+          "base": 0,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.1.state.bl.1.3",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.1.state.bl.2.3",
+          "base": 2,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.2.state.bl.0.3",
+          "base": 0,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.2.state.bl.1.3",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.2.state.bl.2.3",
+          "base": 2,
+          "head": 340
+        }
+      ],
+      "checkpoints": 3
+    },
+    {
+      "seed": 103,
+      "baseSHA256": "2414f464f9b63584cab1264f8275eb0407bef0b73006f1f5677275ea80e7d05d",
+      "headSHA256": "52b7ff4f0e4f1634db2b14d9ca7453d4712d16f516d5d4c443277512e7e66f9a",
+      "differences": [
+        {
+          "path": "placements.0.v",
+          "base": 1,
+          "head": 320
+        },
+        {
+          "path": "placements.1.v",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "placements.2.v",
+          "base": 1,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.0.state.bl.0.3",
+          "base": 1,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.0.state.bl.1.3",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.0.state.bl.2.3",
+          "base": 1,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.1.state.bl.0.3",
+          "base": 1,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.1.state.bl.1.3",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.1.state.bl.2.3",
+          "base": 1,
+          "head": 340
+        },
+        {
+          "path": "checkpoints.2.state.bl.0.3",
+          "base": 1,
+          "head": 320
+        },
+        {
+          "path": "checkpoints.2.state.bl.1.3",
+          "base": 2,
+          "head": 332
+        },
+        {
+          "path": "checkpoints.2.state.bl.2.3",
+          "base": 1,
+          "head": 340
+        }
+      ],
+      "checkpoints": 3
+    }
+  ],
+  "negative": [
+    {
+      "seed": 31,
+      "name": "actual native money API removes one dollar then native save",
+      "first": "normal031 complete native model differs at money: 993904 -> 993903",
+      "restoredGreen": true
+    },
+    {
+      "seed": 71,
+      "name": "actual native money API removes one dollar then native save",
+      "first": "normal031 complete native model differs at money: 993904 -> 993903",
+      "restoredGreen": true
+    },
+    {
+      "seed": 103,
+      "name": "actual native money API removes one dollar then native save",
+      "first": "normal031 complete native model differs at money: 993904 -> 993903",
+      "restoredGreen": true
+    }
+  ],
+  "constructorBootstrap": {
+    "earlyFields": {
+      "base": [],
+      "head": []
+    },
+    "baseHeadDifferences": [
+      {
+        "path": "input.bl.0.3",
+        "base": 2,
+        "head": 320
+      },
+      {
+        "path": "input.bl.1.3",
+        "base": 1,
+        "head": 332
+      },
+      {
+        "path": "input.bl.2.3",
+        "base": 0,
+        "head": 340
+      },
+      {
+        "path": "output.bl.0.3",
+        "base": 2,
+        "head": 320
+      },
+      {
+        "path": "output.bl.1.3",
+        "base": 1,
+        "head": 332
+      },
+      {
+        "path": "output.bl.2.3",
+        "base": 0,
+        "head": 340
+      }
+    ],
+    "note": "The three-lot early fixture is separate from the matched ten-lot transaction fixture; no bootstrap change is assumed."
+  },
+  "tenTransactions": {
+    "forms": 10,
+    "baseHeadDifferences": [
+      {
+        "path": "preUpdate.bl.0.3",
+        "base": 0,
+        "head": 320
+      },
+      {
+        "path": "preUpdate.bl.1.3",
+        "base": 2,
+        "head": 324
+      },
+      {
+        "path": "preUpdate.bl.2.3",
+        "base": 1,
+        "head": 328
+      },
+      {
+        "path": "preUpdate.bl.3.3",
+        "base": 0,
+        "head": 332
+      },
+      {
+        "path": "preUpdate.bl.4.3",
+        "base": 1,
+        "head": 336
+      },
+      {
+        "path": "preUpdate.bl.5.3",
+        "base": 2,
+        "head": 340
+      },
+      {
+        "path": "preUpdate.bl.6.3",
+        "base": 0,
+        "head": 344
+      },
+      {
+        "path": "preUpdate.bl.7.3",
+        "base": 1,
+        "head": 348
+      },
+      {
+        "path": "preUpdate.bl.8.3",
+        "base": 1,
+        "head": 352
+      },
+      {
+        "path": "preUpdate.bl.9.3",
+        "base": 1,
+        "head": 356
+      },
+      {
+        "path": "afterStep.bl.0.3",
+        "base": 0,
+        "head": 320
+      },
+      {
+        "path": "afterStep.bl.1.3",
+        "base": 2,
+        "head": 324
+      },
+      {
+        "path": "afterStep.bl.2.3",
+        "base": 1,
+        "head": 328
+      },
+      {
+        "path": "afterStep.bl.3.3",
+        "base": 0,
+        "head": 332
+      },
+      {
+        "path": "afterStep.bl.4.3",
+        "base": 1,
+        "head": 336
+      },
+      {
+        "path": "afterStep.bl.5.3",
+        "base": 2,
+        "head": 340
+      },
+      {
+        "path": "afterStep.bl.6.3",
+        "base": 0,
+        "head": 344
+      },
+      {
+        "path": "afterStep.bl.7.3",
+        "base": 1,
+        "head": 348
+      },
+      {
+        "path": "afterStep.bl.8.3",
+        "base": 1,
+        "head": 352
+      },
+      {
+        "path": "afterStep.bl.9.3",
+        "base": 1,
+        "head": 356
+      },
+      {
+        "path": "initialized.bl.0.3",
+        "base": 0,
+        "head": 320
+      },
+      {
+        "path": "initialized.bl.1.3",
+        "base": 2,
+        "head": 324
+      },
+      {
+        "path": "initialized.bl.2.3",
+        "base": 1,
+        "head": 328
+      },
+      {
+        "path": "initialized.bl.3.3",
+        "base": 0,
+        "head": 332
+      },
+      {
+        "path": "initialized.bl.4.3",
+        "base": 1,
+        "head": 336
+      },
+      {
+        "path": "initialized.bl.5.3",
+        "base": 2,
+        "head": 340
+      },
+      {
+        "path": "initialized.bl.6.3",
+        "base": 0,
+        "head": 344
+      },
+      {
+        "path": "initialized.bl.7.3",
+        "base": 1,
+        "head": 348
+      },
+      {
+        "path": "initialized.bl.8.3",
+        "base": 1,
+        "head": 352
+      },
+      {
+        "path": "initialized.bl.9.3",
+        "base": 1,
+        "head": 356
+      },
+      {
+        "path": "loaded.0.bl.0.3",
+        "base": 0,
+        "head": 320
+      },
+      {
+        "path": "loaded.0.bl.1.3",
+        "base": 2,
+        "head": 324
+      },
+      {
+        "path": "loaded.0.bl.2.3",
+        "base": 1,
+        "head": 328
+      },
+      {
+        "path": "loaded.0.bl.3.3",
+        "base": 0,
+        "head": 332
+      },
+      {
+        "path": "loaded.0.bl.4.3",
+        "base": 1,
+        "head": 336
+      },
+      {
+        "path": "loaded.0.bl.5.3",
+        "base": 2,
+        "head": 340
+      },
+      {
+        "path": "loaded.0.bl.6.3",
+        "base": 0,
+        "head": 344
+      },
+      {
+        "path": "loaded.0.bl.7.3",
+        "base": 1,
+        "head": 348
+      },
+      {
+        "path": "loaded.0.bl.8.3",
+        "base": 1,
+        "head": 352
+      },
+      {
+        "path": "loaded.0.bl.9.3",
+        "base": 1,
+        "head": 356
+      },
+      {
+        "path": "loaded.1.bl.0.3",
+        "base": 0,
+        "head": 320
+      },
+      {
+        "path": "loaded.1.bl.1.3",
+        "base": 2,
+        "head": 324
+      },
+      {
+        "path": "loaded.1.bl.2.3",
+        "base": 1,
+        "head": 328
+      },
+      {
+        "path": "loaded.1.bl.3.3",
+        "base": 0,
+        "head": 332
+      },
+      {
+        "path": "loaded.1.bl.4.3",
+        "base": 1,
+        "head": 336
+      },
+      {
+        "path": "loaded.1.bl.5.3",
+        "base": 2,
+        "head": 340
+      },
+      {
+        "path": "loaded.1.bl.6.3",
+        "base": 0,
+        "head": 344
+      },
+      {
+        "path": "loaded.1.bl.7.3",
+        "base": 1,
+        "head": 348
+      },
+      {
+        "path": "loaded.1.bl.8.3",
+        "base": 1,
+        "head": 352
+      },
+      {
+        "path": "loaded.1.bl.9.3",
+        "base": 1,
+        "head": 356
+      }
+    ],
+    "nativeFirstUpdate": {
+      "base": [
+        "money",
+        "day",
+        "bl",
+        "region",
+        "hi",
+        "nl",
+        "c490",
+        "fiscal515",
+        "aiv470",
+        "inn507",
+        "gov513"
+      ],
+      "head": [
+        "money",
+        "day",
+        "bl",
+        "region",
+        "hi",
+        "nl",
+        "c490",
+        "fiscal515",
+        "aiv470",
+        "inn507",
+        "gov513"
+      ]
+    },
+    "nativeMayorOptionsRead": {
+      "base": [
+        "aiv470"
+      ],
+      "head": [
+        "aiv470"
+      ]
+    },
+    "completeStableRounds": 2,
+    "fieldExclusions": []
+  },
+  "fieldExclusions": [],
+  "nativeGameplay": true,
+  "usesEscapeValve": false
+}

@@ -15,6 +15,14 @@
 
 ---
 
+## r205 — T758 第五波十座有考據英式海岸與港口建築（原GPT-031）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r205 | [T758](docs/T758-british-wave05-coastal-ports.md) | Hastings木鋪、Burnham低燈塔、Saltdean泳場、Marine Court、Round Tower、Spinnaker、Lynn海關、George通風塔、Portland Bill及Cromer艇庫，10款×4真幾何向／80日夜PNG；只沿原生k24外觀、bld新增40，無模擬／保存／價格變更；v14.51，僅隨PR39合入生效 | 0b1488b push39101928389及PR39101930968各實數smoke3；原生86項／12首紅、3種子9檢查點／十款新舊檔全欄、57＋40場景／8整幀、17行人與40組效能皆有實證；此時fp／財務52／10仍紅於舊基線，新發布head須完整綠 | #39 | [完整唯讀run39101928355](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39101928355)，80原PNG、3接觸表與10張完整近景；原JSON詳卡 | bld總分0.9656→0.9655、lightDir下降，按第二項起連續授權公開七軸；raw基線取0b同次CI原字節；新完整run／刪workflow後最後CI／同head程式安全審查／main及自動Pages與正式第五輯仍待實核；全97圖未逐張人工覆核、手機／Safari／觸控未測；Library原network失敗保留 |
+
+---
+
 ## r204 — T757 bld根物件容量修補（原GPT-032；業主直接批准PR40）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |

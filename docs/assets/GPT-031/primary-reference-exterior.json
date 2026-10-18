@@ -1,0 +1,53 @@
+{
+  "head": "0cd039fb45ce87aacae5af7a44b4513c6e28919c",
+  "gameExecuted": false,
+  "purpose": "verify Burnham stripe orientation and George Dock exterior before drawing either model",
+  "reuseInGame": false,
+  "sources": [
+    {
+      "name": "burnham-somerset-1.jpg",
+      "sourcePage": "https://www.somerset.gov.uk/film_locations/burnham-low-lighthouse/",
+      "imageURL": "https://28e3e776d6e4908ac673.b-cdn.net/wp-content/uploads/2023/11/Lighthouse-4-1024x576.jpg",
+      "finalURL": "https://28e3e776d6e4908ac673.b-cdn.net/wp-content/uploads/2023/11/Lighthouse-4-1024x576.jpg",
+      "status": 200,
+      "bytes": 40091,
+      "sha256": "94072bfe2fbd7cf4857bfe46381b26397416c1a24518556c5970d523416badad"
+    },
+    {
+      "name": "burnham-somerset-2.jpg",
+      "sourcePage": "https://www.somerset.gov.uk/film_locations/burnham-low-lighthouse/",
+      "imageURL": "https://28e3e776d6e4908ac673.b-cdn.net/wp-content/uploads/2023/05/Burnham-lighthouse-sunset-©-from-Sedgemoor-DC-1024x768.jpg",
+      "finalURL": "https://28e3e776d6e4908ac673.b-cdn.net/wp-content/uploads/2023/05/Burnham-lighthouse-sunset-%C2%A9-from-Sedgemoor-DC-1024x768.jpg",
+      "status": 200,
+      "bytes": 63392,
+      "sha256": "8df42ebd9dceeeddfa0c6065597629a4a4675e407049e197c34dbb5863761b95"
+    },
+    {
+      "name": "burnham-somerset-3.jpg",
+      "sourcePage": "https://www.somerset.gov.uk/film_locations/burnham-low-lighthouse/",
+      "imageURL": "https://28e3e776d6e4908ac673.b-cdn.net/wp-content/uploads/2023/02/burnham-on-Sea-lighthouse-1024x682.jpeg",
+      "finalURL": "https://28e3e776d6e4908ac673.b-cdn.net/wp-content/uploads/2023/02/burnham-on-Sea-lighthouse-1024x682.jpeg",
+      "status": 200,
+      "bytes": 110886,
+      "sha256": "249366216bc224ee8bee0142e1c9aeac5b60408d1bd47b70d6c18b32b14313f2"
+    },
+    {
+      "name": "georgesdock-photo-1.jpg",
+      "sourcePage": "https://en.wikipedia.org/wiki/George%27s_Dock_Building",
+      "imageURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/George%27s_Dock_building_1.jpg/1280px-George%27s_Dock_building_1.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail",
+      "finalURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/George%27s_Dock_building_1.jpg/1280px-George%27s_Dock_building_1.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail",
+      "status": 200,
+      "bytes": 309756,
+      "sha256": "cf58f683109efbb2309fa9ffffdcab0d6456e10f0000057897b9ddb792789eb6"
+    },
+    {
+      "name": "burnham-seaward-contributor-2021.jpg",
+      "sourcePage": "https://britishlistedbuildings.co.uk/101262771-burnham-low-lighthouse-on-foreshore-off-gore-road-burnham-on-sea-and-highbridge/photos/274794",
+      "imageURL": "https://s3.britishlistedbuildings.co.uk/lbimg/101/262/771/101262771-274794-800.jpg",
+      "finalURL": "https://s3.britishlistedbuildings.co.uk/lbimg/101/262/771/101262771-274794-800.jpg",
+      "status": 200,
+      "bytes": 235919,
+      "sha256": "1c8af5224989f03b61542388039dc712112dac33c212d5f56d3f61d001a08667"
+    }
+  ]
+}
