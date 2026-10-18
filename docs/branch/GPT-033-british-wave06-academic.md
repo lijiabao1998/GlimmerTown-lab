@@ -110,3 +110,25 @@
 
 
 初輪[smoke117616480201](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472052/job/117616480201)實際三次成功（57.3／49.9／49.0秒），86項本卡自檢及T757不可變fixture首紅／恢復各跑三次。[財務117616480226](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472052/job/117616480226)實際52項／10負控制，唯一failure為 `current renderer fingerprints match the committed baselines`；因初輪尚未接納bld四十新葉，沒有把52寫成53，也沒有重跑失敗守衛。圖審修正以新commit完整重測，先不占T號或接納舊raw，仍等PR41實際發布後同步main。
+
+
+## 圖審修正後原生結果與分支基線（精確a6e406e；未配T／未發布）
+
+[修正run39108241441](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441)的12個原生／傳回工作實際success，只有尚未接納新基線的baseline-evidence仍failure，不把overall寫綠。[native117618629823](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629823)仍86項／12首紅及完整新檔交易；[scenes117618629793](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629793)57＋40／8整幀相同、failures與unrun皆[]；[行人117618629815](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629815)17例與真負控制成功；[normal-pairs117618629885](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629885)正常三種子／全欄新舊檔與十款交易穩定；[performance117618629896](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629896)40組交錯、30真延遲控制與恢復成功。原始[native](../assets/GPT-033/native-fix-a6e406e.json)、[scenes](../assets/GPT-033/scenes-fix-a6e406e.json)、[normal pairs](../assets/GPT-033/normal-pairs-fix-a6e406e.json)、[performance](../assets/GPT-033/performance-fix-a6e406e.json)逐位元保留。
+
+修正後80原始PNG、三張接觸表與兩份manifest已逐檔驗bytes／SHA。與初輪相比只有UEA／York共8個向、10張日夜PNG實際變動，另70張PNG逐位元相同；新的40向日／夜接觸表與完整舊款比較表已實際看過，確認平台連接、鋼架及大尺寸舊圖完整容納。新十張near全景人工覆核仍待傳回；不把初輪十近景稱為修正後十圖。全97圖人工與實體手機／Safari／觸控未測仍保留。
+
+本筆前再讀遠端main仍1bf22ad、CI／Pages成功；PR41尚未合併。只在自己的分支逐位元接納這次含當時最新main的push a6e406e之[baseline117618629698](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39108241441/job/117618629698)兩份raw原件，3583舊subs／165其餘fp族／blocks／env及164其餘style族均相同。沒有配T號、合main或宣稱第六波發布；PR41完成後仍須再次同步真正最新main與新驗收，不以本次接納跳過該流程。
+
+| 軸（a6e406e） | main前 | 修正後 |
+|---|---:|---:|
+| palette | 1 | 1 |
+| hardEdge | 0.9472259747892049 | 0.9483921112714824 |
+| lightDir | 0.8236259228876128 | 0.8212867355043686 |
+| shade | 1 | 1 |
+| density | 1 | 1 |
+| nightRule | 0.9874138870772997 | 0.9878124606474332 |
+| variants | 1 | 1 |
+| total | 0.9655 | 0.9654 |
+
+lightDir及總分下降依第二項起連續授權披露，沒有改分數或判準；兩檔保留CI原始generatedAt／T758／14.51等metadata，未手改。接納後完整新run、常規CI與新獨立審查都仍待實測。自己的workflow仍在，須真正最後完整綠並記卡後才獨立刪除。
