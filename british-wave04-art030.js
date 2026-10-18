@@ -95,7 +95,7 @@
     function mat(kind,nx,ny){
       const d=dark(nx,ny);
       if(kind==='flint')return(u,z)=>{const n=K.hash(Math.floor(u*2.8),Math.floor(z*2.8),3004);return n%7<2?(d?Q.creamD:Q.creamHi):(d?P.stoneD:P.stoneR);};
-      if(kind==='yellowbrick')return(u,z)=>K.mod(z,1.65)<.18||K.mod(u+(Math.floor(z/1.65)%2)*1.7,3.4)<.13?(d?Q.creamD:Q.cream):(d?Q.cream:Q.creamHi);
+      if(kind==='yellowbrick')return(x,y,z)=>{const u=Math.abs(nx)>.5?y:x;return K.mod(z,1.65)<.18||K.mod(u+(Math.floor(z/1.65)%2)*1.7,3.4)<.13?(d?P.stoneD:P.stoneR):(d?Q.creamD:Q.cream);};
       if(kind==='brick')return K.brick(d,3001);
       if(kind==='stone')return K.ashlar(d,3002);
       if(kind==='steel')return(u,z)=>K.mod(z,3.3)<.16?(d?Q.steel:Q.steelHi):(d?Q.steelD:Q.steel);
@@ -259,22 +259,31 @@
     for(const [a,b]of[[[-r,0],[r,0]],[[0,-r],[0,r]]])S.beam(F.point(u+a[0],.36,z+a[1]),F.point(u+b[0],.36,z+b[1]),P.frame,.14);
   }
   // Real wall apertures, with jamb and soffit depth. No painted black "holes".
-  function archWall(A,F,z0,z1,holes,kind='stone',thickness=.75){
+  function archWall(A,F,z0,z1,holes,kind='stone',thickness=.75,trim=null){
     const {S,P}=A;let cursor=0;
     const panel=(u0,u1,a,b)=>{if(u1<=u0||b<=a)return;for(const d of[0,-thickness])S.poly([F.point(u0,d,a),F.point(u1,d,a),F.point(u1,d,b),F.point(u0,d,b)],A.mat(kind,F.nx*(d? -1:1),F.ny*(d? -1:1)));};
     for(const h of holes.toSorted((a,b)=>a.u-b.u)){
       const {u,w,bottom,spring,rise}=h;panel(cursor,u,z0,z1);panel(u,u+w,z0,bottom);
       for(let j=0;j<16;j++){
         const at=t=>[u+w*t,spring+rise*Math.sqrt(Math.max(0,1-(2*t-1)**2))],p=at(j/16),q=at((j+1)/16);
-        for(const d of[0,-thickness])S.poly([F.point(p[0],d,p[1]),F.point(q[0],d,q[1]),F.point(q[0],d,z1),F.point(p[0],d,z1)],A.mat(kind,F.nx,F.ny));
+        for(const d of[0,-thickness])S.poly([F.point(p[0],d,p[1]),F.point(q[0],d,q[1]),F.point(q[0],d,z1),F.point(p[0],d,z1)],A.mat(kind,F.nx*(d?-1:1),F.ny*(d?-1:1)));
         S.poly([F.point(p[0],0,p[1]),F.point(q[0],0,q[1]),F.point(q[0],-thickness,q[1]),F.point(p[0],-thickness,p[1])],P.stoneD);
+        if(trim)S.poly([F.point(p[0],.08,p[1]),F.point(q[0],.08,q[1]),F.point(q[0],.08,q[1]+.75),F.point(p[0],.08,p[1]+.75)],A.mat(trim,F.nx,F.ny));
       }
       for(const x of[u,u+w])S.poly([F.point(x,0,bottom),F.point(x,0,spring),F.point(x,-thickness,spring),F.point(x,-thickness,bottom)],P.stoneD);
+      if(trim){F.panel(u-.48,u,bottom,spring,A.mat(trim,F.nx,F.ny),.08);F.panel(u+w,u+w+.48,bottom,spring,A.mat(trim,F.nx,F.ny),.08);}
       cursor=u+w;
     }
     panel(cursor,F.length,z0,z1);
   }
   function face(A,a,b,nx,ny){return Object.assign(A.S.face(a,b,nx,ny),{nx,ny});}
+  function fineRoundPane(A,F,u,z,w,h){
+    const {S,P}=A,cx=u+w/2,spring=z+h-w/2;
+    const arc=(r,bottom)=>[[cx-r,bottom],[cx+r,bottom],...Array.from({length:13},(_,i)=>[cx+Math.cos(i*Math.PI/12)*r,spring+Math.sin(i*Math.PI/12)*r])];
+    S.poly(arc(w/2+.10,z-.1).map(p=>F.point(p[0],.16,p[1])),P.stoneHi);
+    S.poly(arc(w/2-.10,z+.1).map(p=>F.point(p[0],.28,p[1])),[A.dark(F.nx,F.ny)?P.glassR:P.glass,P.warm]);
+    F.panel(u+.1,u+w-.1,z+h*.5-.055,z+h*.5+.055,P.frame,.32);
+  }
   function pyramid(A,x0,x1,y0,y1,z,rise,kind='slate'){
     const {S,K}=A,c=[(x0+x1)/2,(y0+y1)/2,z+rise],v=[[x0,y0],[x1,y0],[x1,y1],[x0,y1]];
     for(let j=0;j<4;j++){const p=v[j],q=v[(j+1)%4],nx=[0,1,0,-1][j],ny=[-1,0,1,0][j];S.poly([[...p,z],[...q,z],c],kind==='plaster'?A.mat(kind,nx,ny):K.slate(A.dark(nx,ny)));S.beam([...p,z],c,A.P.lead,.18);}
@@ -310,9 +319,9 @@
   }
   function crossness(row,view){
     const A=context(row,view),D=details(A),{S,P,Q}=A;
-    const main=A.volume(2.8,29.2,18.5,28.5,.5,28.6,'yellowbrick');
+    const main=A.volume(2.8,29.2,18.5,28.5,.5,28.6,'yellowbrick');let mainLights=0;
     for(const f of[main.front,main.back]){
-      for(let level=0;level<2;level++)for(let bay=0;bay<7;bay++)for(let j=0;j<3;j++)D.pane(f,f.length*(bay+.5)/7-1.25+j*.86,3.7+level*12,.65,6.8,'arch');
+      for(let level=0;level<2;level++)for(let bay=0;bay<7;bay++)for(let j=0;j<3;j++){fineRoundPane(A,f,f.length*(bay+.5)/7-1.45+j,3.7+level*12,.9,6.8);mainLights++;}
       for(let j=0;j<=7;j++)f.block(j*f.length/7-.21,j*f.length/7+.21,.04,.62,.7,27.6,Q.cream,Q.creamD,Q.creamHi);
       for(let j=0;j<28;j++)f.block(j*f.length/28,j*f.length/28+.4,.08,.92,26.2,27.3,Q.cream,Q.creamD,Q.creamHi);D.cornice(f,28.2);
     }
@@ -323,7 +332,7 @@
       for(let j=0;j<3;j++)D.pane(F.back,1.1+j*2.1,4,1.5,7.1,'arch');const gable=face(A,[x+8.6,3.2],[x-.2,3.2],0,-1);circlePane(A,gable,gable.length/2,18,1.4,true);
       if(i===0||i===2)for(let j=0;j<4;j++)D.pane(i===0?F.left:F.right,1.1+j*3.4,4,1.5,7,'arch');
     }
-    return{...A.finish(),details:{...D.counts,mainStoreys:2,mainBays:7,roundHeadedLightsPerBay:3,parallelGabledRanges:3,roof:'three-rear-gables-and-parapeted-main-block',unverifiedChimneyAdded:false}};
+    return{...A.finish(),details:{...D.counts,mainRoundHeadedLights:mainLights,mainStoreys:2,mainBays:7,roundHeadedLightsPerBay:3,parallelGabledRanges:3,roof:'three-rear-gables-and-parapeted-main-block',unverifiedChimneyAdded:false}};
   }
   function chatham(row,view){
     const A=context(row,view),D=details(A),{S,K,P,Q}=A,B=A.volume(2,30,10,24,.5,27.3,'brick');
@@ -373,10 +382,10 @@
   function towanroath(row,view){
     const A=context(row,view),{S,P}=A;
     const front=face(A,[8,25],[23,25],0,1),back=face(A,[23,7],[8,7],0,-1),right=face(A,[23,25],[23,7],1,0),left=face(A,[8,7],[8,25],-1,0);
-    archWall(A,front,.5,35,[{u:4.8,w:5.4,bottom:.5,spring:10.5,rise:2.4}],'stone',1.1);
-    for(const [z0,z1,bottom,spring,rise]of[[.5,12,1,7,2],[12,24,14,20,2],[24,35,26,31,2]])archWall(A,back,z0,z1,[{u:5.5,w:4,bottom,spring,rise}],'stone',1.1);
-    archWall(A,right,.5,8,[{u:12,w:3,bottom:1,spring:5,rise:1.4}],'stone',1.1);
-    archWall(A,right,8,20,[{u:3,w:3,bottom:10,spring:15,rise:1.5},{u:11,w:3,bottom:10,spring:15,rise:1.5}],'stone',1.1);
+    archWall(A,front,.5,35,[{u:4.8,w:5.4,bottom:.5,spring:10.5,rise:2.4}],'stone',1.1,'brick');
+    for(const [z0,z1,bottom,spring,rise]of[[.5,12,1,7,2],[12,24,14,20,2],[24,35,26,31,2]])archWall(A,back,z0,z1,[{u:5.5,w:4,bottom,spring,rise}],'stone',1.1,'brick');
+    archWall(A,right,.5,8,[{u:12,w:3,bottom:1,spring:5,rise:1.4}],'stone',1.1,'brick');
+    archWall(A,right,8,20,[{u:3,w:3,bottom:10,spring:15,rise:1.5},{u:11,w:3,bottom:10,spring:15,rise:1.5}],'stone',1.1,'brick');
     archWall(A,right,20,35,[],'stone',1.1);archWall(A,left,.5,35,[],'stone',1.1);
     // Empty roof and missing timber floors are intentional, not a glass roof.
     S.poly([[8,7,35],[15.5,7,41],[23,7,35]],A.mat('stone',0,-1));
@@ -391,12 +400,12 @@
     const kiln=(cx,cy,span,z,rise)=>{
       const F=A.volume(cx-span/2,cx+span/2,cy-span/2,cy+span/2,.5,z,'brick');pyramid(A,cx-span/2-.2,cx+span/2+.2,cy-span/2-.2,cy+span/2+.2,z+.2,rise);
       for(const f of[F.front,F.back]){f.panel(f.length/2-.38,f.length/2+.38,3,4.4,P.ironD,.16);f.block(f.length/2-.58,f.length/2+.58,.02,.36,2.7,3,P.stoneHi,P.stoneR,P.stoneHi);}
-      const top=z+rise+.2;lathe(A,cx,cy,[[top,1.05],[top+2.3,1.05],[top+3.4,.65]],'plaster',16);
-      S.poly([[cx-.9,cy-.8,top+2.5],[cx+.9,cy-.8,top+2.5],[cx+.9,cy+.9,top+3.5],[cx-.9,cy+.9,top+3.5]],Q.creamHi);
-      S.poly([[cx-.65,cy-.82,top+.8],[cx+.65,cy-.82,top+.8],[cx+.65,cy-.82,top+2.2],[cx-.65,cy-.82,top+2.2]],P.ironD);
+      const top=z+rise+.2;lathe(A,cx,cy,[[top,1.25],[top+3.2,1.25],[top+4.6,.75]],'plaster',16);
+      S.poly([[cx-1.1,cy-1,top+3.3],[cx+1.1,cy-1,top+3.3],[cx+1.1,cy+1.05,top+4.7],[cx-1.1,cy+1.05,top+4.7]],Q.creamHi);
+      S.poly([[cx-.85,cy-1.02,top+1],[cx+.85,cy-1.02,top+1],[cx+.85,cy-1.02,top+3],[cx-.85,cy-1.02,top+3]],P.ironD);
     };
-    for(const y of[8,17])for(const x of[6,16,26])kiln(x,y,7.5,y===8?17:20,y===8?8:9);
-    for(const x of[9,23])kiln(x,26,10,23.5,11.5);
+    for(const y of[8,17])for(const x of[6,16,26])kiln(x,y,7.5,y===8?17:20,y===8?10.5:12);
+    for(const x of[9,23])kiln(x,26,10,23.5,14.5);
     const door=face(A,[4,31.1],[14,31.1],0,1);K.timberDoor(door,3.4,.7,3.2,7,false);
     return{...A.finish(),details:{smallSquareOasts:6,largerSquareOasts:2,whiteVentCowls:8,roof:'eight-square-pyramidal-kiln-roofs-and-white-cowls',compressedPlan:true}};
   }
