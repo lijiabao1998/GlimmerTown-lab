@@ -1,4 +1,4 @@
-# GPT-029：第三波十座有考據的英式街鎮建築
+# T755：第三波十座有考據的英式街鎮建築（原 GPT-029）
 
 ## 動手前卡面／不可變範圍
 
@@ -101,7 +101,7 @@ St Albans 已補讀 [HE 1103127](https://historicengland.org.uk/listing/the-list
 
 [39051795766](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39051795766) 行人 job `117451723051` 實際 **17 案／0 失敗**，原兩例找到非零實體重疊：St Albans 後方 28 像素、Round House 16 像素，被遮擋部分改變均為 0；原 draw 與前後順序皆 true。兩個實際首紅與恢復仍成功。沒有改遊戲、遮罩、像素容差、斷言或用判準通過與否挑位置；只補近距幾何輸入。
 
-同 head 的 native／preview／正常 BASE 配對／97 場景與效能 job 都實際 success；五個僅搬運既有場景的 data job 與常駐煙霧／財務尚未全完成時，不能稱最新整個 run 綠。本地已實看十款四向日夜接觸表、新舊對照及十款完整近景，記錄與逐檔 SHA 見 [visual-review.json](../assets/GPT-029/visual-review.json)。全部 97 張未逐張人工覆核、公開頁與實體手機／Safari／觸控仍未實測。
+同 head 的 native／preview／正常 BASE 配對／97 場景與效能 job 都實際 success；五個僅搬運既有場景的 data job 與常駐煙霧／財務尚未全完成時，不能稱最新整個 run 綠。本地已實看十款四向日夜接觸表、新舊對照及十款完整近景，記錄與逐檔 SHA 見 [visual-review.json](assets/GPT-029/visual-review.json)。全部 97 張未逐張人工覆核、公開頁與實體手機／Safari／觸控仍未實測。
 
 本次將提交的新基線逐位元取自這個含最新 main 的 **push**：`d70f9db` → run **39051795766** → job **117451722824** → artifact **12107727517**，名稱 `fp-d70f9db18ed9d13eba46723f2866f5e231fb2a16`，ZIP SHA256 `27fd157008eb1a539252cab68ea714d348c2866421a7b3c65bc447d4128d8531`。它是本分支只讀 workflow 直接執行未改動 `fp.js` 的 `fp-rebake/`；摘要新 40／變 0／刪 0、只有 `bld`、其餘 165 族零變、無家族下降／env 警告，七軸如上。不是自己手算／改寫 JSON，也不把另一個 run 的時間貼進來。
 
@@ -141,7 +141,7 @@ St Albans 已補讀 [HE 1103127](https://historicengland.org.uk/listing/the-list
 
 fp job `117527373823` 原摘要：「相對 base：新增 40／變更 0／移除 0，觸及家族 1」「與 fp.json 相比：新增 0／變更 0／移除 0，觸及家族 0（其餘 166 族零變動）」「風格分相對 base：沒有家族下降」「葉子、超街區指紋、棘輪、style.json 全部零變動」。沒有 envLeaves 警告；actual base git 仍為 `35be6a37`，JSON 內舊版本標籤依原始 CI 保留，不能手改。
 
-已實看原始 1040×2400 完整四欄日／夜／新舊對照三表；來源 fa704ce、index SHA256 `03109333eee1b65859fba2eb4a409ee72cb5f23026705c4fc128effa5a97e124`，與 dd5 遊戲及新圖來源逐位元相同。第四欄現在完整。80 張與三表的[原圖附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528/artifacts/12117546477)、[完整 97 場景附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528/artifacts/12117911258)均已保留；逐 SHA 記錄見 [visual-review.json](../assets/GPT-029/visual-review.json)。
+已實看原始 1040×2400 完整四欄日／夜／新舊對照三表；來源 fa704ce、index SHA256 `03109333eee1b65859fba2eb4a409ee72cb5f23026705c4fc128effa5a97e124`，與 dd5 遊戲及新圖來源逐位元相同。第四欄現在完整。80 張與三表的[原圖附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528/artifacts/12117546477)、[完整 97 場景附件](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39077425528/artifacts/12117911258)均已保留；逐 SHA 記錄見 [visual-review.json](assets/GPT-029/visual-review.json)。
 
 - [x] 動手前卡面已單獨推送；首筆只有 `bld`，家族與原驗收條件未改鬆。
 - [x] 三種子／三檢查點的正常獨立 BASE 全欄配對，十款真實有費交易、全部保存欄位新舊檔兩輪已驗；只容許宣告外觀 `b.v` 與精確版本遷移差，不剔除通知／region 等欄位。
@@ -152,3 +152,9 @@ fp job `117527373823` 原摘要：「相對 base：新增 40／變更 0／移除
 - [x] 未跑、代理 403、公站未實看、未發布與剩餘 review／版本／workflow 刪除門檻均已明列，沒有把文件或預覽計入完成波次。
 
 本筆僅把已取得的實際結果／原圖覆核記回文件，不改任何遊戲或判準。草稿 PR 開立後才依最新 main 配 T／三處版本字／日誌，版本後仍需完整原生驗收；自己的 workflow 最後一次整個 run 綠才以獨立刪除 commit 移掉，後續每一筆均確認不加回，Ready 後請新的 Codex review。第三波仍未發布，2／20不變。
+
+## PR37 合併準備（尚未發布）
+
+[草稿 PR37](https://github.com/lijiabao1998/GlimmerTown-lab/pull/37) 建立於實作 fa704ce 的常駐三 job 與專屬十二 job 全綠之後。配號前再次核對遠端 main `35be6a37`、方向「運行」、只有本 PR 開啟、main smoke `39049008748` 與自動 Pages `39049461383` 最新完成均 success。main 的 docs/T 檔名、AUTORUN-LOG 及 git log 標題最大號皆為 T754，真正 `## rN` 標頭最大為 r201，因此本 PR 預備 **T755／r202／v14.48**；只改三處原版本字，日誌 commit 欄固定 `#37`，卡保留原 GPT-029／首筆家族證據。方向完成列的 3／20只在本 PR 真正合入 main 時生效。
+
+本筆不改模型、圖、判準或原始 CI 基線，先保留自己的只讀 workflow，等 v14.48／T755 新 push 的完整驗收成功後才記最後成功 run 並獨立刪除。配對探針依首卡凍結方式，只將獨立 BASE 的三處版本字輸入與宣告 release 對齊，輸出全欄仍原判準；真實舊版本存檔遷移另用未改 actual base 驗，不能剔除 region／通知或任意正規化輸出。最終 CI、review、合併、main／自動 Pages 均未預填通過。
