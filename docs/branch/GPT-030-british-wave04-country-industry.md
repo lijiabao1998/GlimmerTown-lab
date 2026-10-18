@@ -65,3 +65,9 @@
 先推自己的 `probePublicSite030.cjs` 與唯讀分支 workflow，直接向真正 Pages URL 取得 HTTP，並以獨立 git base 的完整 index 位元核對；再讓隔離、空白瀏覽器只用 slot 3，經原生 UI 建立測試城，擷取實際主選單、城市、畫布與第三輯目錄。沒有啟動本地伺服器，不改正式網站、來源遊戲或其他檔案；所有正常頁面錯誤原樣留存。HTTP 比較器另用真回應的副本故意改 status／URL／一個位元，以及錯誤版本／錨點期望，保留首紅與原判準恢復。本機只做來源語法檢查，不執行探針或瀏覽器。
 
 這些尚未跑的程式不算線上核實；第四波十座建築仍未開始畫。
+
+## 首輪公開站核驗：HTTP 已核實，探針作用域錯誤尚待修復
+
+[39087289579](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087289579)，head `0efdafdc0e9ee14ad4e9261d7cb06e6866cf0232`，job `117556416553`：01:40:00 UTC 真正公開 URL 回應 HTTP 200，10968593 bytes，SHA256 `77c51c5171c95f3d272999276b71ec9e94233b5f2bd0de0ca785d09745f73c3e`，逐位元符合獨立 main `9335b08f`。隔離 Chrome 實際主文件亦 HTTP 200、相同位元與 SHA，主選單烘焙閘門已到，五個 HTTP 比較器反例與恢復完成、頁面錯誤陣列空。這是實際網站回應，非部署紀錄。
+
+隨後我自己探針的 metadata eval 發生 `ReferenceError: GAME_VER is not defined`：遊戲常數在既有封閉作用域中，不能直接由外部 CDP 名稱讀取。未產生城市截圖，所以不稱完整線上驗證通過。次筆只將自己探針的版本讀取改為既有公開 `GV.ver()`，錨點讀實際 DOM 的版本頁腳；HTTP SHA、原生 UI、畫布、數量及錯誤判準不變，不改正式遊戲。
