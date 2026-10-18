@@ -75,3 +75,38 @@
 本筆加入十款獨立世界座標幾何、四十個原生向與第六輯目錄；玻璃45°工場屋脊／兩段90°階梯宿舍／食堂桶拱和V形梯頂／六角懸挑與露出鋼管尖頂／低平學院及雙片鐘塔／白色懸挑T形醫師學院／直曲窗山花的古典議事廳／雙院落及鏤空尖塔／坡岸錯層鋸齒簷／半圓豎井階梯講堂，分別建模。只用原有光柵器和調色板，不改全局觀感、模擬、價格、RNG、解鎖或存檔格式。舊smoke逐位元保留，只加本卡一條自檢。
 
 十款幾何尚無CI像素或圖審結果；本機只做靜態來源／語法檢查。來源前置腳本在完成必要照片觀察後移除，自己的同一暫用workflow進入完整13工作原生驗收；來源讀取成功不是美術驗收成功。fp／style保持main原件，等待含最新main的本次push實際計算；全部凍結驗收與第一個commit相同。第六波仍未完成，累計維持5／20波、50座。
+
+
+## 首輪完整原生結果（精確282ca39；尚未接納基線／發布）
+
+[原生run39107472000](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000)仍為failure，只有baseline-evidence因尚未接納本波新指紋／style而紅；其餘12個工作實際success。不能稱完整workflow已綠。
+
+- [native117616342176](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342176)：86項自檢、12真首紅／恢復、十款DOM扣費放置、undo／redo／退款／參照格拆除、新外觀兩輪load/save完整欄位穩定；四十向／八十原始PNG，semi／leak／crop／empty／mismatch全0。[原始manifest](../assets/GPT-033/native-initial-282ca39.json)。
+- [normal-pairs117616342183](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342183)：獨立BASE1bf22ad與HEAD正常模型，seeds31／71／103×3檢查點全欄只差明列的實際b.v，真少$1首紅／恢復；BASE與HEAD各十款匹配交易、首次update／市長選項及兩輪保存差異[]，fieldExclusions=[]。[原始console值](../assets/GPT-033/normal-pairs-initial-282ca39.json)。
+- [scenes117616342185](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342185)：57狀態＋40邊緣，8／8完整1280×657 BASE／閥關逐位元相同，failures=[]、unrun=[]；真正舊檔兩輪全欄、實際畫布1px與真保存少$1首紅／恢復。[原始manifest](../assets/GPT-033/scenes-initial-282ca39.json)。
+- [pedestrians117616342232](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342232)：17原生深度／遮擋例及兩真負控制／恢復成功。[performance117616342198](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342198)：40組交錯median BASE11.925／HEAD2.600ms、p90 24.850／26.850ms，暖畫新烘焙0，30真延遲樣本及恢復成功。[原始console值](../assets/GPT-033/performance-initial-282ca39.json)。僅Ubuntu桌面Chromium參考，不冒充手機。
+- 原始80PNG／三接觸表／manifest與十張near全景共95個檔案已傳回並逐檔bytes／SHA驗證；日夜四十向接觸表、新舊比較、十張near全景均人工看過。全部97圖仍未逐張人工覆核、實體手機／Safari／觸控未測。
+
+[常規push39107472052](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472052)的fp及[baseline job117616342226](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472000/job/117616342226)核實只新增360–399四十葉，3583舊subs、其餘165個fp家族、blocks1728／5ef6eb67逐位元不變，沒有env警告；164個非bld的style家族原值不變。本筆沒有提交初輪raw基線，先修人工圖審觀察並等待專項批准PR41發布，再同步真正最新main後重新取同次push的raw基線。
+
+| 初輪軸（282ca39，之後仍重測） | main前 | 首輪後 |
+|---|---:|---:|
+| palette | 1 | 1 |
+| hardEdge | 0.9472259747892049 | 0.9483916279248801 |
+| lightDir | 0.8236259228876128 | 0.8212867355043686 |
+| shade | 1 | 1 |
+| density | 1 | 1 |
+| nightRule | 0.9874138870772997 | 0.9878124942475206 |
+| variants | 1 | 1 |
+| total | 0.9655 | 0.9654 |
+
+初輪bld總分與lightDir下降如上；依第二項起連續授權如實披露，不改分數或判準。正式PR／方向完成列仍須寫最終同次raw結果。
+
+### 人工圖審修正與合併協調
+
+補UEA兩折逃生梯的中間支柱、上方連接平台及承柱，確保通往既有後廊；加清楚York實景的開放鋼管頂架，保持真正透空。新舊比較接觸表改四欄各384、每列360，所有精靈仍1:1原始複製：舊014學院實際304×320、4×4地基，原260×240小格會溢出；新格完整容納，不裁圖、不縮圖、不改原始PNG。這些是新幾何／證據排版的修正，原全部驗收不放寬，修正後仍須新CI及圖審。
+
+業主07:22已另批准CI去重PR41，工作者正在準備T759／v14.52／r206；本波不占T759、不合main、不修改共用CI。待該項實際合併、發布後同步main，再取當時最大號與重跑本波驗收；文件與初輪測試不當第六波已發布。
+
+
+初輪[smoke117616480201](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472052/job/117616480201)實際三次成功（57.3／49.9／49.0秒），86項本卡自檢及T757不可變fixture首紅／恢復各跑三次。[財務117616480226](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39107472052/job/117616480226)實際52項／10負控制，唯一failure為 `current renderer fingerprints match the committed baselines`；因初輪尚未接納bld四十新葉，沒有把52寫成53，也沒有重跑失敗守衛。圖審修正以新commit完整重測，先不占T號或接納舊raw，仍等PR41實際發布後同步main。

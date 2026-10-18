@@ -364,6 +364,10 @@
     const T=concreteBox(A,26,28.2,6,9,.5,35.4);for(let i=0;i<7;i++)A.pane(T.back,.65,2.1+i*4.4,.8,1.7,'plain',true);
     S.box(25.7,28.5,5.7,9.3,35.4,36.5,Q.cream,Q.creamD,Q.creamHi);
     stairs3(A,1.8,3,9,16,.7,13.1,15);stairs3(A,1.8,3,16,9,13.1,26.4,15);
+    S.box(1.55,3.25,15.7,16.5,12.8,13.2,Q.cream,Q.creamD,Q.creamHi);
+    for(const x of[1.8,3])S.box(x-.18,x+.18,15.9,16.25,.5,13.1,Q.cream,Q.creamD,Q.creamHi);
+    S.box(2.9,13.1,9,10.2,26.1,26.45,Q.cream,Q.creamD,Q.creamHi);rail(A,[[3,9],[12.8,9]],26.45,1.4,false);
+    for(const x of[4.5,8])S.box(x-.22,x+.22,9.45,9.9,.5,26.1,Q.cream,Q.creamD,Q.creamHi);
     for(const x of[16,20,24]){S.beam([x,9,.6],[x+.65,9,1.7],P.ironD,.12);S.beam([x+.65,9,1.7],[x+1.2,9,.6],P.ironD,.12);}
     return{...A.finish(),details:{selectedLinkedBlocks:2,wholeTerraceBlocks:6,storeysSelected:7,selectedFlats:flats,linkAngleDegrees:90,rearRaisedWalkway:true,projectingCornerKitchens:7,roof:'stepped-terraces-sculptural-service-tower',notWholeCampus:true}};
   }
@@ -550,7 +554,7 @@
     }
     // The apex is the visible open tubular support, as in the source photo.
     const bottom=[[13.5,14.1],[18.1,14.1],[18.1,18.7],[13.5,18.7]],top=[[15.3,15.9],[16.3,15.9],[16.3,16.9],[15.3,16.9]];
-    for(let i=0;i<4;i++){S.beam([...bottom[i],29.3],[...top[i],40.5],Q.steelD,.24);S.beam([...top[i],40.5],[...top[(i+1)%4],40.5],Q.steelD,.21);}
+    for(let i=0;i<4;i++){S.beam([...bottom[i],29.3],[...top[i],40.5],Q.steelHi,.58);S.beam([...top[i],40.5],[...top[(i+1)%4],40.5],Q.steelHi,.46);}
     const lift=[[25.2,13.2],[28.5,14.2],[28.5,18],[25.2,18.8]];planBlock(A,lift,17,30.5,'plaster');
     stairs3(A,27.4,29.7,5.7,13,.6,14.8,17);stairs3(A,27.4,29.7,29.4,21,.6,14.8,17);
     S.box(3.2,28.6,4.6,29.7,.42,.7,Q.red,Q.redD,P.stoneHi);

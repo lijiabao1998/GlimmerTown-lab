@@ -40,11 +40,11 @@ function originalImages(){
   }
   const catalog=[...GV.heritage024.rows(),...GV.britishWave025.rows(),...GV.britishWave027.rows(),...GV.britishWave029.rows(),...GV.britishWave030.rows(),...GV.britishWave031.rows()];
   const comparisons=[{"v":360,"key":"266_1_0","alt":"266_1_0","name":"Existing technical institute 007"},{"v":364,"key":"284_1_0","alt":"284_1_2","name":"Existing college residence 014"},{"v":368,"key":"282_1_0","alt":"282_1_2","name":"Existing collegiate court 014"},{"v":372,"ov":208},{"v":376,"key":"282_1_0","alt":"282_1_2","name":"Existing collegiate court 014"},{"v":380,"ov":188},{"v":384,"ov":180},{"v":388,"key":"282_1_0","alt":"282_1_2","name":"Existing collegiate court 014"},{"v":392,"ov":204},{"v":396,"ov":204}];
-  const c=document.createElement('canvas');c.width=1040;c.height=2400;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
+  const c=document.createElement('canvas');c.width=1536;c.height=3600;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.fillStyle='#20312e';g.fillRect(0,0,c.width,c.height);
   comparisons.forEach((item,i)=>{const nr=a.rows().find(r=>r.v===item.v),or=catalog.find(r=>r.v===item.ov);for(let j=0;j<4;j++){
-    const isNew=j%2===0,view=j<2?0:2,key=isNew?'24_1_'+(item.v+view):item.family?item.key+view:item.key?(j<2?item.key:item.alt):'24_1_'+(item.ov+view),family=isNew?'bld':(item.family||'bld'),s=GV.art574.SPR()[family][key],x=j*260,y=i*240;
+    const isNew=j%2===0,view=j<2?0:2,key=isNew?'24_1_'+(item.v+view):item.family?item.key+view:item.key?(j<2?item.key:item.alt):'24_1_'+(item.ov+view),family=isNew?'bld':(item.family||'bld'),s=GV.art574.SPR()[family][key],x=j*384,y=i*360;
     if(!s?.img)throw Error('wave033 actual old/new comparison sprite '+family+'.'+key);
-    g.drawImage(s.img,x+30,y+25);g.fillStyle=isNew?'#eee3cb':'#a6b6a6';g.font='12px sans-serif';g.fillText((isNew?'NEW ':'OLD ')+(isNew?nr.en:(or?.en||item.name))+' / '+view,x+8,y+14,248);
+    g.drawImage(s.img,x+40,y+25);g.fillStyle=isNew?'#eee3cb':'#a6b6a6';g.font='12px sans-serif';g.fillText((isNew?'NEW ':'OLD ')+(isNew?nr.en:(or?.en||item.name))+' / '+view,x+8,y+14,368);
   }});
   contacts.comparison=c.toDataURL('image/png');
   return{images:data.leaves,contacts};
