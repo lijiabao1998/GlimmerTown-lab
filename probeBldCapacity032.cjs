@@ -1,7 +1,7 @@
 'use strict';
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('capacity032 game guards run only on GitHub Actions');
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict'),vm=require('node:vm');
-const {withGame,ROOT}=require('./harness.js'),BASE='38a27743e9708517d88e251a005c3475fff1bbe7',WAVE='1f31a32bab664c2e02e825532f33dbc7d46a89c7',index=path.join(ROOT,'index.html'),head=fs.readFileSync(index),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:24*1024*1024}),art=cp.execFileSync('git',['show',WAVE+':british-wave05-art031.js'],{encoding:'utf8'}),OUT=path.join(ROOT,'shots','capacity032'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const {withGame,ROOT}=require('./harness.js'),BASE='38a27743e9708517d88e251a005c3475fff1bbe7',WAVE='1f31a32bab664c2e02e825532f33dbc7d46a89c7',index=path.join(ROOT,'index.html'),head=fs.readFileSync(index),base=cp.execFileSync('git',['show',BASE+':index.html'],{maxBuffer:24*1024*1024}),art=require('./bld-capacity032-fixture.cjs').readWaveFixture032(),OUT=path.join(ROOT,'shots','capacity032'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 let restored=head.toString();
 const pd="if(ks.length>1200&&!(v===SPR.bld&&d===0&&p==='bld'&&ks.length<=2000))return;",pth="if(ks.length>1200&&!(v===SPR.bld&&depth===0&&path==='bld'&&ks.length<=2000))return;";
 assert.equal(restored.split(pd).length-1,3);assert.equal(restored.split(pth).length-1,1);

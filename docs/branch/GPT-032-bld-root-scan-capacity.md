@@ -61,3 +61,14 @@
 - [x] 所有已勾項均有真CI結果；沒有本機遊戲執行，未跑項維持未跑。
 - [ ] 臨時workflow刪除後的最終head新程式／安全審查尚待完成。
 - [x] 本PR涉及共用守衛容量界限，保留[等業主]，GPT不自行合併或部署。
+
+
+## 審查修補：把原生輸入固定在本分支
+
+最後head398ebeb的新一輪審查指出P2：[4305790094](https://github.com/lijiabao1998/GlimmerTown-lab/pull/40#discussion_r4305790094)。原探針以git show讀未合併PR39的1f31a32，清潔checkout或該分支刪除後可能找不到物件。此finding成立，不以第一輪無findings掩蓋。
+
+本筆將同一份42541 bytes幾何逐位元複製到fixtures/bld-capacity032，Git blob仍dfda65bf4f511052581305f4f1d728a9fae042f2，另存來源provenance；不放入index、不安裝SPR、不增加正式美術。探針改用固定fixture讀取器，硬性校驗SHA256；自己的單條smoke自檢先跑同一讀取器的損壞位元反例與恢復，再跑原先瀏覽器只讀自檢。
+
+產品index及原生容量測試函式與綠run37e9e34完全相同，fixture位元與該run的真實幾何輸入完全相同；只修輸入取得方式，不修改容量案例或判準。原生完整run仍為39098124736／37e9e34，不冒稱在新head重跑完整原生。已刪workflow不加回、不另取名繞過；新head由既有smoke CI實測fixture讀取、實際破壞一位元首紅、恢復及瀏覽器自檢，fp與財務照常跑，另請新的審查。
+
+條件不變：第一筆卡面的八條凍結驗收保持原文；這項檢驗fixture僅保證條件3可重現，不是新增產品美術或放寬任何像素判準。新head的實際CI及新程式／安全審查仍未完成，不宣稱通過。
