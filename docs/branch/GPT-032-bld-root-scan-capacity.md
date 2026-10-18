@@ -38,3 +38,26 @@
 獨立探針先開原始38a2774，再開修補HEAD，都在CI臨時登錄PR39精確1f31a32的真實40向幾何；BASE三出口需各真首紅，HEAD讀滿1219並比所有舊指紋／風格葉和舊日夜sheet原始PNG序列。另測1200／1201／1219／1819／2000／2001、非bld根1201及子物件1201，實際API丟葉負控制與恢復。不將測試精靈或dummy帶入正式遊戲。
 
 反向還原四個條件並移除自己的明確自檢標記後，index逐位元等於38a2774；90個inline blocks及新增JS僅做語法解析。所有實際遊戲、反例、容量、世界／儲存、CI數字未跑，不宣稱通過。不自行合併。
+
+
+## 原生容量驗收已完成（最後產品來源37e9e34）
+
+- [完整唯讀run39098124736](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39098124736)已completed/success，精確head `37e9e34c8f7ee58d016b307e675529ea17cf7db1`；[native job117588687668](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39098124736/job/117588687668)。原始完整manifest在[artifact12126010154](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39098124736/artifacts/12126010154)，本卡assets另保留原始CI console summary的JSON值，不冒稱fp基線。
+- 獨立原始main在登錄PR39的40原生向後，SPR鍵數1219，fp／sheet／style皆0；三個各自首紅分別 `capacity032 fp complete bld real wave05 expected1219 actual0`、sheet及style相同目標。
+- HEAD登錄同一40向後，三出口皆1219，新增路徑恰為320–359共40葉，舊完整fingerprint／style與獨立BASE相同，舊日夜sheet PNG序列的SHA256均為 `b3687abea55a39f51e252277692d653d409771d3e4ca696d3bd6bdcf0ec4e4ee`。這是容量修補的隔離試驗，不是第五波完整守衛通過或已發布。
+- 真實根物件1200、1201、1219、1819、2000三出口全部完整；2001三者仍0。其他根1201及bld子物件1201仍按原界限跳過。八類容量案例實際通過。
+- 真正公共sheet API刪去一葉時，新自檢第二項首紅 `capacity032 sheet covers the bounded bld registry ✗`，恢復原API後同判準綠；不是永假assert。世界及localStorage均未變，slot3，原registry物件與既有canvas參照完整還原。
+- [push fp117588687699](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39098124718/job/117588687699)已success：166家族／3543葉；相對base及倉庫均新增0／變更0／移除0，blocks1728／5ef6eb67，style逐族相同，無風格下降或env警告；fp.json／style.json未提交新版本。
+- 接下來只刪自己capacity032-native.yml的獨立commit；刪後最後head的常規push／PR CI及新Codex程式與安全審查尚待完成，不能提前假勾。
+
+## §8 目前逐條自檢
+
+- [x] 動手前單檔卡面已先推，以上八條凍結驗收原文不變。
+- [x] 不改模擬／存檔；實際只讀自檢與容量探針已驗世界／儲存未變，原registry還原。
+- [x] CI fp已驗166家族、3543舊葉及blocks全部零變；修補只讀掃描，不產生新遊戲畫面，整幀閥不適用。
+- [x] 無美術變更；獨立BASE／HEAD的完整舊日夜原圖序列一致，所有美術來源靜態未變。
+- [x] 三個原始BASE真首紅、實際sheet丟葉負控制及恢復、有界容量案例已跑。
+- [ ] 最後head push／PR煙霧各3次、財務53／10與fp仍待最後CI結果。
+- [x] 所有已勾項均有真CI結果；沒有本機遊戲執行，未跑項維持未跑。
+- [ ] 臨時workflow刪除後的最終head新程式／安全審查尚待完成。
+- [x] 本PR涉及共用守衛容量界限，保留[等業主]，GPT不自行合併或部署。
