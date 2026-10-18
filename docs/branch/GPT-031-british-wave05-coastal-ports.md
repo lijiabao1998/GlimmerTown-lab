@@ -53,7 +53,7 @@
 
 ## §8 開工狀態／沒做成的事
 
-- [ ] 本卡尚未推送；須先單獨推成功，才開始美術。
+- [x] 卡面已單獨先推：[ac1df245ff94f78b4cf7680789e322b63d69b809](https://github.com/lijiabao1998/GlimmerTown-lab/commit/ac1df245ff94f78b4cf7680789e322b63d69b809)，只有本卡一檔，parent為上述main；本波美術尚未開始。
 - [ ] 本波10款尚未繪製，尚無原生樣張、正常配對／新舊檔、fp、全幀／完整狀態、行人、負控制或效能結果。
 - [ ] 最後head常規CI、專用CI與新審查尚未執行。
 - [ ] 全部美術狀態／實體手機／Safari／觸控尚未人工測試，不假勾。
@@ -61,3 +61,8 @@
 - [x] 第三及第四波原生日夜圖與完整80PNG包保留，GitHub原始ZIP可用；Library唯讀診斷仍 `hosted apps tools/list request failed: network`，prepare／upload／finalize均未重試，Library已存0檔，不以本機路徑當交付。
 
 本卡尚未實作或發布。所有遊戲與像素守衛只在GitHub Actions執行；原始素材研究、流程文件與候選不列為已完成建築。
+
+
+## 只讀考據前置工作（尚待CI）
+
+本筆只加自己分支專用、contents:read的暫用workflow及原始來源讀取程式，取得RNLI官方Cromer照片與Hastings保存調查PDF，核對SHA並保留第一頁及原文。這個前置工作不啟動遊戲、不繪第五波，也不是原生美術驗收。看過必要原圖後才畫各款；來源照片不嵌入正式遊戲。完整美術階段仍需本卡凍結的全部原生守衛。

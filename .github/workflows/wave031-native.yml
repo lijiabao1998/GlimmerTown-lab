@@ -1,0 +1,32 @@
+name: wave031-native
+
+on:
+  push:
+    branches: [gpt/british-wave05-031]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install PDF reference reader
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Read official reference bytes before drawing
+        run: python3 researchReferences031.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wave031-primary-references-${{ github.sha }}
+          path: shots/wave031/references/
+          retention-days: 14
