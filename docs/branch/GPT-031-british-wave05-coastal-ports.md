@@ -77,3 +77,6 @@
 
 
 追加來源run39096003546首輪失敗：Somerset官方圖片檔名含©，urllib發請求時報 `UnicodeEncodeError: 'ascii' codec can't encode character '\xa9' in position 58: ordinal not in range(128)`，未進入遊戲。修正為對來源原始URL做標準UTF-8百分號編碼，保留來源實物位元；修正後的新commit重新跑，不以重跑賭過。
+
+
+修正後[run39096150097](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39096150097)成功，四張來源照片及manifest五檔已核長度／SHA並實際看過。George’s Dock照片確認高石塔、頂部細長格柵、中央直紋浮雕與兩側深凹窗組，塔不畫成住宅窗層。Somerset三張Burnham照片都為後側，確認九柱、黑色下部後牆、外梯、金屬四坡頂，仍沒有看見海向紅帶，故追加2021原攝影者海向照片再畫該款，不將後視照片當正面證據。

@@ -69,6 +69,16 @@ for label, page in sources:
         names.append(name)
         records.append({'name': name, 'sourcePage': page, 'imageURL': url, 'finalURL': actual, 'status': 200, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
 
+# All three council views show the rear. The original contributor's seaward
+# photograph checks the stripe, rather than guessing from those rear views.
+front_url = 'https://s3.britishlistedbuildings.co.uk/lbimg/101/262/771/101262771-274794-800.jpg'
+front_data, front_actual = get(front_url)
+assert front_data.startswith(b'\xff\xd8')
+front_name = 'burnham-seaward-contributor-2021.jpg'
+(out/front_name).write_bytes(front_data)
+names.append(front_name)
+records.append({'name': front_name, 'sourcePage': 'https://britishlistedbuildings.co.uk/101262771-burnham-low-lighthouse-on-foreshore-off-gore-road-burnham-on-sea-and-highbridge/photos/274794', 'imageURL': front_url, 'finalURL': front_actual, 'status': 200, 'bytes': len(front_data), 'sha256': hashlib.sha256(front_data).hexdigest()})
+
 manifest = {'head': os.environ['GITHUB_SHA'], 'gameExecuted': False, 'purpose': 'verify Burnham stripe orientation and George Dock exterior before drawing either model', 'reuseInGame': False, 'sources': records}
 (out/'manifest-references-extra.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n')
 for name in names+['manifest-references-extra.json']:
