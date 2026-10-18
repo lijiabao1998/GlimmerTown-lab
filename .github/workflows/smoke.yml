@@ -15,7 +15,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # GPT-034: PR-only evidence gate. Push/main/dispatch still execute full tests.
+  # API denial, timeout, drift, or incomplete evidence means full PR tests too.
+  reuse-push:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 27
+    outputs:
+      reuse: ${{ steps.proof.outputs.reuse }}
+      source_run_id: ${{ steps.proof.outputs.source_run_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: CI evidence helper negative controls
+        run: node --test .github/scripts/reuse-push-ci.test.cjs
+      - name: Wait for exact-tree full push evidence (at most 25 minutes)
+        id: proof
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node .github/scripts/reuse-push-ci.cjs
+
   smoke:
+    needs: reuse-push
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -25,21 +52,33 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22   # harness.js 用 Node 內建 WebSocket
+      - name: Confirm complete push evidence for this job
+        id: reuse
+        if: github.event_name == 'pull_request' && needs.reuse-push.outputs.reuse == 'true'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CI_SOURCE_RUN_ID: ${{ needs.reuse-push.outputs.source_run_id }}
+        run: node .github/scripts/reuse-push-ci.cjs --confirm
+      - name: CI evidence helper negative controls
+        run: node --test .github/scripts/reuse-push-ci.test.cjs
       - name: 中文字型（與雲端施工容器同一套，樣張 UI 字不變豆腐）
+        if: steps.reuse.outputs.reuse != 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: 煙霧測試
+        if: steps.reuse.outputs.reuse != 'true'
         run: node smoke.js 2>&1 | tee smoke-run.txt; exit ${PIPESTATUS[0]}
         shell: bash
       - name: 煙霧第 2、3 次（PR、分支寫入者推送、非 main 的手動觸發；不能在本機跑煙霧的寫入者靠 CI 湊滿 3 連綠）
         # T743：main 與 claude/** 不跑（main 寫入者本機已跑 3 次，CI 在 main 上跑 1 次加 fp）
-        if: github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/heads/claude/')) || (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main')
+        if: steps.reuse.outputs.reuse != 'true' && (github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/heads/claude/')) || (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main'))
         run: |
           set -euo pipefail
           node smoke.js 2>&1 | tee smoke-run-2.txt
           node smoke.js 2>&1 | tee smoke-run-3.txt
         shell: bash
       - name: 上傳樣張與紀錄
-        if: always()
+        if: always() && steps.reuse.outputs.reuse != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: smoke-${{ github.sha }}
@@ -54,7 +93,8 @@ jobs:
   # 另對 base 的 fp.json 報「這次動了哪些家族」（分支自己的 fp.json 可能也改了，只看它會變成拿自己檢查自己），
   # 並把本次烘出的 fp.json／style.json 上傳成附件 fp-rebake/，給不能在本機跑 fp 的寫入者（GPT）提交基線用。
   fp:
-    if: github.event_name != 'push' || !startsWith(github.ref, 'refs/heads/claude/')
+    needs: reuse-push
+    if: ${{ !cancelled() && (github.event_name != 'push' || !startsWith(github.ref, 'refs/heads/claude/')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -64,9 +104,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Confirm complete push evidence for this job
+        id: reuse
+        if: github.event_name == 'pull_request' && needs.reuse-push.outputs.reuse == 'true'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CI_SOURCE_RUN_ID: ${{ needs.reuse-push.outputs.source_run_id }}
+        run: node .github/scripts/reuse-push-ci.cjs --confirm
       - name: 中文字型（與雲端施工容器同一套）
+        if: steps.reuse.outputs.reuse != 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: 取 base 那一版的 fp.json
+        if: steps.reuse.outputs.reuse != 'true'
+        id: fp-base
         shell: bash
         env:
           EVENT: ${{ github.event_name }}
@@ -78,13 +129,19 @@ jobs:
             if [ -n "$BEFORE" ] && [ "$BEFORE" != 0000000000000000000000000000000000000000 ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then BASE="$BEFORE"; else BASE=$(git rev-parse HEAD^); fi
           else BASE=$(git merge-base origin/main HEAD); fi
           echo "base = $BASE"
+          echo "sha=$BASE" >> "$GITHUB_OUTPUT"
           git show "$BASE:fp.json" > "$RUNNER_TEMP/fp-base.json" || echo '{}' > "$RUNNER_TEMP/fp-base.json"
           git show "$BASE:style.json" > "$RUNNER_TEMP/style-base.json" || echo '{}' > "$RUNNER_TEMP/style-base.json"
+      # A successful push must expose its actual baseline, not just its tree.
+      - name: CI fp base ${{ steps.fp-base.outputs.sha }}
+        if: steps.reuse.outputs.reuse != 'true'
+        run: echo 'The exact fingerprint base is recorded in this step name.'
       - name: 指紋（fp.js --check）
+        if: steps.reuse.outputs.reuse != 'true'
         run: node fp.js --check --report-base="$RUNNER_TEMP/fp-base.json" --report-base-style="$RUNNER_TEMP/style-base.json" --dump=fp-rebake 2>&1 | tee fp-run.txt; exit ${PIPESTATUS[0]}
         shell: bash
       - name: 上傳指紋紀錄與本次烘出的基線
-        if: always()
+        if: always() && steps.reuse.outputs.reuse != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: fp-${{ github.sha }}
@@ -97,6 +154,8 @@ jobs:
   # GPT-026: keep the complete native fiscal regression in the regular workflow.
   # A failure makes this workflow fail, so Pages cannot use a partial success.
   fiscal-load:
+    needs: reuse-push
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     permissions:
@@ -108,12 +167,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Confirm complete push evidence for this job
+        id: reuse
+        if: github.event_name == 'pull_request' && needs.reuse-push.outputs.reuse == 'true'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CI_SOURCE_RUN_ID: ${{ needs.reuse-push.outputs.source_run_id }}
+        run: node .github/scripts/reuse-push-ci.cjs --confirm
       - name: 中文字型（原生完整畫布比較）
+        if: steps.reuse.outputs.reuse != 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: 完整原生財務回歸（含舊檔、日結算、例外與負控制）
+        if: steps.reuse.outputs.reuse != 'true'
         run: node probeFiscalLoad026.cjs
       - name: 保存完整財務回歸報告與畫布
-        if: always()
+        if: always() && steps.reuse.outputs.reuse != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: fiscal-load-${{ github.sha }}
