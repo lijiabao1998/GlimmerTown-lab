@@ -44,6 +44,15 @@
 - [x] 同種子／舊存檔：不適用，沒有改玩法或存檔
 - [ ] fp：交 CI 驗證；沒有宣告任何美術家族變動
 - [x] 美術各狀態／逃生閥：不適用，沒有改遊戲或美術
-- [ ] 新守門 helper 的正反向破壞測試
+- [x] 新守門 helper 的正反向破壞測試：126 項通過（本機 Node v24.19.0；CI 使用 Node 22）
 - [ ] smoke 3 次與完整財務回歸：交 CI 驗證
 - [x] 未跑不記為通過
+
+### 實作驗證（2026-10-18）
+
+- 新增 PR-only `reuse-push` 證據 gate；原 `smoke`／`fp`／`fiscal-load` check 名稱不變，逐 job 再查證據後才跳過耗時步驟。缺少輸出或 helper 出錯會全跑。
+- 原 push／main／dispatch 測試命令、時限、artifacts、並發群組、既有權限保持；`pages.yml`、遊戲及所有既有守衛檔零變更。
+- helper tests：`node --test .github/scripts/reuse-push-ci.test.cjs`，126 pass／0 fail／0 skipped。包含 API outage／權限拒絕、假同名成功、實際測試未跑、錯 baseline、PR／source attempt race、25 分鐘上限、真 Git tree／ancestor fixture。
+- YAML 經 PyYAML 解析，`git diff --check` 通過；未執行本機遊戲測試。
+- Fiscal job 的既有 token 只有 contents:read；若讀證據被拒絕，保守全跑該 job，不擴權。
+- 沒做成的事：GitHub branch／PR CI 尚待實測；省下的 runner 時間尚未量，不能先宣稱重用已成功。
