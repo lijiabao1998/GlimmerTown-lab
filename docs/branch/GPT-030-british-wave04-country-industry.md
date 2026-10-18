@@ -71,3 +71,5 @@
 [39087289579](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087289579)，head `0efdafdc0e9ee14ad4e9261d7cb06e6866cf0232`，job `117556416553`：01:40:00 UTC 真正公開 URL 回應 HTTP 200，10968593 bytes，SHA256 `77c51c5171c95f3d272999276b71ec9e94233b5f2bd0de0ca785d09745f73c3e`，逐位元符合獨立 main `9335b08f`。隔離 Chrome 實際主文件亦 HTTP 200、相同位元與 SHA，主選單烘焙閘門已到，五個 HTTP 比較器反例與恢復完成、頁面錯誤陣列空。這是實際網站回應，非部署紀錄。
 
 隨後我自己探針的 metadata eval 發生 `ReferenceError: GAME_VER is not defined`：遊戲常數在既有封閉作用域中，不能直接由外部 CDP 名稱讀取。未產生城市截圖，所以不稱完整線上驗證通過。次筆只將自己探針的版本讀取改為既有公開 `GV.ver()`，錨點讀實際 DOM 的版本頁腳；HTTP SHA、原生 UI、畫布、數量及錯誤判準不變，不改正式遊戲。
+
+次筆 `ba76206ee6488fe8e325eada15b6ecb578d79a10` 的 [39087506385](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39087506385) 尚在跑時，純來源核對又發現探針對原生 UI 的前提錯誤：`bStartNew456` 呼叫 `begin(true)`，它建立 tiles 並隱藏主選單，沒有再次呼叫 `bootstrap453()`，所以不能要求烘焙序號增加。下筆將這個錯誤前提改為「同一個已完成的 bootstrap／素材存在＋原生主選單已隱藏＋真實 tile 已初始化」，仍須後續原畫布不空、版本、四十葉／十款目錄與錯誤檢查全部成立；不是關掉進城檢查，也不改正式遊戲。該 run 若被新 push 取消，只記取消，不記通過。
