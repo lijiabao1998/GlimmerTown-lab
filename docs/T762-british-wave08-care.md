@@ -1,4 +1,4 @@
-# GPT-036：第八波十座有考據的英式醫療與照護建築
+# T762：第八波十座有考據的英式醫療與照護建築（原GPT-036）
 
 ## 動手前卡面／不可變範圍
 
@@ -76,7 +76,7 @@
 
 ## 修正版驗收與覆核交接（C5實際證據；本提交只採基線／記錄）
 
-- 精確來源head ffbfad3b2a7e0bf606d0e803aaa39c25dfd88fb2、tree e50a0e654183f2fbf6440f690406c39921ed5704，[run39381055905](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905)完整13/13success。source index SHA256、關鍵blob及93圖逐張SHA列於[覆核manifest](GPT-036-review-manifest.json)。本提交只動原始fp.json／style.json、本卡及manifest；美術／runtime／所有probe／index保持C5原bytes。
+- 精確來源head ffbfad3b2a7e0bf606d0e803aaa39c25dfd88fb2、tree e50a0e654183f2fbf6440f690406c39921ed5704，[run39381055905](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905)完整13/13success。source index SHA256、關鍵blob及93圖逐張SHA列於[覆核manifest](branch/GPT-036-review-manifest.json)。本提交只動原始fp.json／style.json、本卡及manifest；美術／runtime／所有probe／index保持C5原bytes。
 - [原圖artifact12245730814](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905/artifacts/12245730814)：80原PNG、三完整接觸表、manifest.json，ZIP SHA256 f9d0827ff799187ee77959263b654b26fd4ea11ca1ed9d7d1f8d30c96e6cf317。[場景12245084171](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905/artifacts/12245084171)：97張（57＋40）及manifest-scenes.json，ZIP SHA256 aa425fd18084ae349fda9efa3e0c9e5d03d7d3ac1bdd6ffb606ed52453a782c1，near-十張供覆核。原附件與producer log保留；本地97資料檔經byte-count／SHA驗證恢復，不冒稱已解ZIP。
 - 原生86自檢、12真故障首紅／恢復；semi／leak／crop／empty／mismatch皆0。作者逐張實看80單圖、三接觸表、十近景；C5只有Mineral四日圖及460／463兩夜層變，其餘74張逐byte同首版已實看圖，新8層再重看，三新接觸表／十新近景均看。第一次本地revision-diff檢查誤預期夜層不變而assert停；核原bytes後如實記兩夜層受加高不透明柱遮擋，未改圖或遊戲門檻。
 - 完整正常模型：BASE50d0d52，seeds31／71／103×3checkpoint，不設本波閥；只有實際新b.v差，所有序列化欄位及stats比較，fieldExclusions=[]。十款匹配交易、首次update、市長options惰性欄位及兩輪舊／新load→save全欄穩定；真$1保存首紅後恢復。
@@ -98,3 +98,17 @@
 - [x] 卡上通過有實際CI或作者逐張實看證據，首紅／未採基線紅／未跑限制不美化。
 - [ ] 獨立程式／安全／93實看圖審待主對話安排並回報精確final head／scope／findings／count／hash／限制；CI與作者自審不替代。後續head僅改原基線／本卡／manifest，仍明列差異供重新綁定。
 - [ ] Ready／workflow刪除收尾／T／版本／主線日誌／合併／main CI／既有Pages／第八波公站核驗均留後續發布階段。本輪維持Draft；原035 workflow保持不存在。036 workflow最後完整run綠後，未來另作純刪除提交，刪後每commit核缺席，不手動Pages、不改排程。
+
+
+## T762／v14.55／r209發布準備（尚未合併／尚未發布）
+
+- 本段接續既有Draft成果進行發布準備；上方Draft階段記錄保留為歷史，不重寫首卡、家族清單或驗收門檻。現有PR44／head651adf1d901d0ccecadd005bada5ab30cc4e9cda／base50d0d52b2617460670f180dbaafa0a89bc806a5b；main CI39374964862與既有自動Pages39375586942仍綠。三處T號權威（main docs/T檔名、主線日誌、commit標題）最大均761；輪次標題／表列最大208，歷史scratchpad/r706路徑不是輪次。於本PR準備T762／v14.55／r209，合前再核；合併與公站核實後才計8／20、80座。
+- 651adf1的push39382234067真smoke3／fp零差／財務53＋10綠；原生39382234035完整13／13綠；PR39383755769實際以T759核實重用該完整push，非新跑三次。本次發布準備提交只改三個明列版本字、卡片／日誌／方向／審查紀錄與唯讀index來源證據；十款美術、runtime、原probe、既有斷言及原始fp/style bytes皆不改。新head必須重新完整執行，未完成前不沿用舊head通過稱新通過。
+- 獨立程式審查鎖定651adf1／base50d0d52，來源與日誌範圍未發現可操作缺陷；確認首卡凍結、來源邊界、十二負控制與新增40葉／舊3663葉及165其他族證據。它不是獨立執行遊戲。獨立圖審實際逐張看93圖（80原生日夜sprite、10 near、3 contact）：90張個圖manifest雜湊／尺寸通過，三contact由官方ZIP digest綁定；未見目標裁切或意外遮擋、十款具結構差異。夜sprite為燈光層，須搭配合成contact；Oxford背面r2燈光較少，未構成已證明缺陷。不得將本次作者／CI核SHA冒稱圖審已獨立重算index大檔。
+- 場景ZIP實有113圖＝97狀態＋16張BASE／閥關守衛畫布；圖審只看其中10 near，另103張未審（含先前列的87狀態及16守衛畫布）。未做實機Safari／觸控／手機。上方「97／另87」僅指狀態子集合；本段補足整包113／未審103範圍，不把未審升格成通過。
+- 大檔GitHub blob讀取一次回Transport closed，沒有取回內容或重試，完整回應留本地；不以宣告的index SHA代替實際讀回。本次在原只讀workflow的baseline producer保留實際index原檔，逐byte對HEAD:index.html並驗Git blob；另八個有界唯讀工作分段傳輸原bytes，接收端須重算完整SHA256與Git blob並對遠端tree。原13項驗收保留不減，新八工作僅運輸來源證據，不執行遊戲、不改來源、不聯網、不讀憑證。
+- 發布準備完整新run全綠／原始index取回核實、產物與來源綁定及新差異獨立覆核仍待本提交後實際結果。最後完整綠run記卡後才另作純刪wave036 workflow提交，之後每commit核036／035皆缺席；刪後標準push／PR及最後差異再核。Ready／合併／main CI／既有自動Pages／真正公開HTTP及Chrome版本內容必須分開核；未成功不寫已上線、不手動Pages。
+
+### 本次三版本字可逆證明
+
+發布準備的index僅將GAME_VER14.54→14.55、GAME_ANCHORT761→T762、startVersion456顯示v14.54·T761→v14.55·T762三個唯一字串替換；反向還原後逐byte等於651adf1的index SHA256 b0d0c4cc67a1cdde60a155e360e8ae3934fa76b22acb606a06e6fc776213b4de。除此無任何index變更。
