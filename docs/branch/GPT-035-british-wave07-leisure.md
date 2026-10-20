@@ -68,7 +68,7 @@
 - c9d35d8原圖80張／三接觸表及manifest已從不可變job118449998793取回並驗證每張byte-count/SHA256。相對已逐張實看的首輪80圖，只有408／411兩張day原圖改變；78張原圖逐位相同，兩張新圖及三張新接觸表已再實看。十近景原圖均取回（scene-evidence五job），其中六張因場內Eastbourne改變而再看，四張SHA256與已實看首輪相同。作者已實看本head的80單圖、3接觸表、10近景與舊款比較。其餘87場景未逐張人工；這不是獨立覆核，獨立程式／安全／視覺仍待完成；實體手機、Safari、觸控未測。
 - c9d35d8場景57+40、8張1280×657完整BASE/閥關逐位等值，完整舊檔二輪零差，1px畫布與少$1原生存檔故障首紅/恢復均通過；原生正常seeds31/71/103×三checkpoint包含全部欄位，僅實際b.v差異，不用閥、不刪欄位、不正規化輸出。
 - 常規push [39368273712](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39368273712) smoke job118450184006真跑三次全綠；財務job118450184079結果ok:false、checks52、negative10，唯一失敗是source-integrity內要求current-fp等於尚未更新的root基線，沒有當成財務53全綠。fp同樣因預期40葉新增及尚未提交原始基線紅，不改低門檻。
-- 同head fp相對base只新增bld40、變更0、移除0；舊3623 subs、其餘165家族、blocks1728／5ef6eb67及env全相同。新bld1299／CRC6fe6e361，全族166／3663 leaves，夜2199。七軸完整披露如下；本波是既有連續授權第七項，依法使用第二項起下降披露例外，不改分、不等同全局風格變更。
+- 同head fp相對base只新增bld40、變更0、移除0；舊3623 subs、其餘165家族、blocks1728／5ef6eb67及env全相同。新bld1299／CRC6fe6e361，全族166／3663 leaves，夜2199。七軸完整披露如下；本波是既有連續授權第七項，依AGENTS第7節使用第二項起下降披露例外，不改分、不等同全局風格變更。
 
 | bld七軸 | main之前 | 本波c9d35d8 |
 |---|---:|---:|
@@ -83,3 +83,11 @@
 
 - 基線傳輸現況：常規fp附件12240571606（fp-c9d35d888feb21d6de06288f76969d085e4efb45.zip，70,729 bytes，ZIP SHA2564c4fe7f570b112e6ddec023f037fa1057406fe1a83c5286ce7add3979a7a226e）存在；GitHub下載工具已產出精確file_id，但容器GET被proxy403阻擋，Library只回signed URL、workspace_path:null，沒有宣稱轉入成功或猜URL。額外baseline-evidence job118449998917完整fp輸出後，ArtifactService/CreateArtifact連續網路timeout而上傳失敗；原始console完整取回fp.json399623 bytes／SHA2566576d17c31cfdcdbe094157964123de5218f0703bec6dd86ba2a4cb2af30d531及style.json73166 bytes／SHA2569bc93bf8622ed87feab8b0917b41c67daa4b4a38f16c94c1c5013e3f9077b1be。它們只存候選證據，沒有採用失敗附件或前head舊基線。
 - 下一提交只為自己的暫用workflow新增produced-file SHA256/head/tree附件清單及本紀錄，原`node fp.js --check`/退出碼/範圍/全部門檻不變，仍contents:read。用新head的實際成功附件和同一producer的完整字節轉輸核對後，才能原封提交root fp/style，再等完整最後CI。沒有重跑舊失敗run，也沒有手動Pages。
+
+### 原始基線傳輸已解決
+
+- 新push d347d9d298710f297315c8ca7a41e692d9c2283c 含精確main d5a357e，root tree10045a8be6967ff90a7479afcecdff1814c67625，index／runtime／全部美術與已圖審c9d35d8逐位相同。追加的manifest只加強來源核對，沒有改fp命令或退出碼。
+- [run39369262640／job118453169415](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39369262640/job/118453169415)已成功上傳實際附件[fp-d347d9d／12241170620](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39369262640/artifacts/12241170620)，69,837 bytes，ZIP digest29af8bac59c444ccb48aa535aa710c34a41b02b572c7c3a5dfe763a59c3dacf8。仍因root舊基線而fp預期紅，沒有冒稱本run整體全綠。
+- 附件包含原始fp.json、style.json與provenance-wave035.json。取回方法是同一producer的逐位元console傳輸；依實際附件內的manifest核對head、tree、byte-count、SHA256，再把原始bytes寫入root，沒有重新serialize或改metadata。fp.json399623 bytes／SHA256e75d77e53ee586457ac43836223d2af54b70f6bc30b963411cb92651f5d129fe；style.json73166 bytes／SHA25614cc8bd36f84a8d933b5470a3afdee1aad6fc20c756ba8c78643e33ba9dcdd6d。並非使用前head失敗附件、不是把Library下載連結當本地文件。
+- 原始subs集合差精確為bld.24_1_400..439、40葉，舊3623 entries逐值相等、其餘165家族與style逐族相等、blocks全相等、env相等。七軸與上表相同，bld CRC6fe6e361；來源原文留scratchpad/wave035/adopt-baselines。
+- 下一head僅原始基線及本紀錄變動；完整原生／煙霧三次／fp／原財務53+10仍待新的實際回執。未開PR、未配T／版本／日誌、未移除臨時workflow、獨立覆核未完成；仍6/20已發布。
