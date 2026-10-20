@@ -1,0 +1,34 @@
+{
+  "receivedFromParentThread": "01a156ad-44af-75b7-894a-e52816d140fb",
+  "reviewedHead": "7c307bce32aa0247a13e6bb3dd741bd2a066fda8",
+  "reviewedBase": "e195002da691b33acc1f3a2c426aba4c87c8c42d",
+  "reviewers": 2,
+  "reviewerIdentitiesAndOriginalReportLinks": "not provided in parent summary; do not invent",
+  "codeScope": "22 changed files; frozen first-card acceptance retained; existing harness/fp.js/guards unchanged; full source independently recovered from eight official logs; source stripping equals BASE; original 3703 leaves, blocks/env unchanged; only480..519 forty new leaves; committed fp/style match exact raw artifact bytes",
+  "codeFindings": "No blocking defects reported within stated scope",
+  "source": {
+    "bytes": 11296190,
+    "sha256": "0a0b0841fda05831a563281c5f53659a03488438568546141d28136003089611",
+    "gitBlob": "d159dbd97ebdd76e2251399f3c340430d903bc18"
+  },
+  "visual": {
+    "actuallyViewed": 93,
+    "nativeDayNight": 80,
+    "wholeContacts": 3,
+    "near": 10,
+    "officialZipDigestsIndependentlyRecomputed": 3,
+    "manifestImageHashesIndependentlyRecomputed": 90,
+    "fullIndexIndependentlyRecomputed": true,
+    "findings": "No blocking defects; ten distinct structures; no obvious crop/floating/occlusion or previous Manchester shelf defect",
+    "nonBlockingLimits": [
+      "London glass night illumination bright",
+      "Middlesex sculpture recognition weak at native size",
+      "Thaxted timber details weak at native size",
+      "Holyrood depicts committee towers only",
+      "Reference photo coverage limits retained",
+      "103 other scene images not manually inspected",
+      "physical mobile/Safari/touch not tested"
+    ]
+  },
+  "remaining": "Confirm current full CI; release metadata changes, workflow deletion and final changed-head independent delta review remain required. Never treat byte rebinding as a new manual review."
+}

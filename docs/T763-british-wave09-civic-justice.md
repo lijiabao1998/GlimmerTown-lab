@@ -1,4 +1,4 @@
-# GPT-037：第九波十座有考據的英式市政與司法建築
+# T763：第九波十座有考據的英式市政與司法建築（原GPT-037）
 
 ## 動手前卡面／不可變範圍
 
@@ -109,3 +109,12 @@
 - [x] 新守衛真首紅及恢復已在C7完整CI實跑；未改舊斷言／pins／共享守衛。
 - [x] C7標準smoke真連跑3次成功，沒有靠重跑；C8根fp及財務完整綠仍待實際CI，開PR前核對。
 - [x] 卡上所有「通過」均綁實際版本／run／原產物；作者93觀看不冒充獨立審稿。必要獨立程式／安全／視覺報告仍待，不能Ready或合併。
+
+## T763／v14.56／r210 發布準備（尚未合併／尚未發布）
+
+- 本段接續同一Draft PR45，原首卡與全部施工／失敗歷史保留。初審head **7c307bce32aa0247a13e6bb3dd741bd2a066fda8**／tree **f36dda275b946a8a921ff662b9ff6ef1c6328e50**；main仍 **e195002da691b33acc1f3a2c426aba4c87c8c42d**，主線CI39391579412及既有自動Pages39392366175成功。main三處T權威（docs/T檔名／AUTORUN-LOG／commit標題）最大皆762、正式輪次209，於本PR準備**T763／v14.56／r210**；合前再核。只有同PR合入並真公開核實後才計9／20波90座，此前仍8／20波80座。
+- C8 [完整run39410993966](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39410993966) attempt1首次21／21全部成功；push39410993835真smoke3（53.6／44.5／44.2s）、fp根基線零差／相對main僅bld40／blocks一致／env無警告、財務53／53＋10負控制全綠；PR39412329368成功，三工作皆明確重用該完整push。PR虛擬merge2821a91的tree仍為本稿f36dda275b946a8a921ff662b9ff6ef1c6328e50，未當成已合入main。八個來源工作全部取回，合計11,296,190 bytes／SHA0a0b0841fda05831a563281c5f53659a03488438568546141d28136003089611／Git blobd159dbd97ebdd76e2251399f3c340430d903bc18，完整原bytes與已恢復C7相同，producer HEAD:index／遠端tree／native indexSHA均相符。
+- 2026-10-20由parent任務轉交兩位**獨立reviewer**對精確C8 head／base的有界結論，詳[獨立報告摘要](branch/GPT-037-independent-review-summary.json)：程式審查22檔差異、首卡驗收保留、原harness／fp.js／守衛未改；獨立從8官方log恢復完整index、重算上述bytes／SHA／Git blob並核remote tree，剝037後精確等於BASE；原3703葉、blocks／env不變，僅480..519四十葉，fp／style提交與原產物一致。此範圍內未發現阻擋缺陷；沒有聲稱獨立重跑CI。
+- 獨立圖審已逐張實看同head **80日夜原圖＋3完整contact＋10near＝93**，獨立重算3個官方ZIP digest、90個manifest圖SHA及完整index皆一致；十款有真結構差異，未見明顯裁切、懸空、遮擋或Manchester舊側背大片板。非阻擋限制完整保留：London夜玻璃偏亮、Middlesex雕塑辨識與Thaxted木構細節在原生尺寸偏弱，Holyrood僅committee towers；照片覆蓋限制、另103場景與實機手機／Safari／觸控未人工驗證。93原圖在C8全新CI逐byte等於已看C7，這是原bytes重綁，不冒稱重新人工看過。
+- 本發布準備只換三個唯一發布字串：GAME_VER14.55→14.56、GAME_ANCHORT762→T763、startVersion456顯示v14.55·T762→v14.56·T763；**四個ASCII byte**改變，反向還原逐byte等於已審C8。新index **11,296,190 bytes／SHA256 2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60／Git blob 69a3851fb58fab4aa66616941d92492220b17a33**。靜態剝除037與反向還原發布字後完整等於main e195002。美術／runtime／CSS／守衛／所有判準與raw fp／style完全未改。
+- 卡按規則移為本T檔並保留原GPT-037；新增r210日誌／方向待完成列與[發布來源綁定](branch/GPT-037-release-source-binding.json)。新head的完整21工作、三次smoke／fp／財務、新93原bytes與完整index、最後workflow純刪後CI及**最終新增差異獨立覆核仍待實際完成**，未預先寫綠。037 workflow仍在本分支；035／036不在。Ready／合併／main／既有Pages／正式v14.56公站皆未發生。
