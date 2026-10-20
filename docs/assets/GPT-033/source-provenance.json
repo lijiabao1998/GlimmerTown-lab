@@ -1,0 +1,156 @@
+{
+  "task": "GPT-033 wave06",
+  "firstCard": "a75de8758c59336127ea17870ff0292996f5cdf9",
+  "independentModelBASE": "1bf22ad7d6d533f8dfdf4480209a9a4b29c6fea6",
+  "primaryArchitectureFacts": [
+    {
+      "id": "leicester",
+      "en": "Leicester Engineering Building",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1074756",
+      "note": "高低雙塔、斜底講堂與45°玻璃工場屋脊；八角煙囪，長校舍作比例壓縮。"
+    },
+    {
+      "id": "norfolk",
+      "en": "UEA Norfolk Terrace",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1390647",
+      "note": "選取六座連續宿舍中的兩段90°退臺、橫窗、凸出廚房與高架後廊，非全校縮圖。"
+    },
+    {
+      "id": "falmer",
+      "en": "Sussex Falmer House",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1381044",
+      "note": "紅磚院落、粗混凝土層帶、開放節段拱廊、食堂桶拱與北梯V頂。"
+    },
+    {
+      "id": "yorkhall",
+      "en": "York Central Hall",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1456551",
+      "note": "不規則六角懸挑大廳、玻璃基層、外部寬梯與懸吊鋼管金屬屋頂。"
+    },
+    {
+      "id": "stcatherines",
+      "en": "Oxford St Catherine's College",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1229934",
+      "note": "平頂餐廳與圖書館、豎梃玻璃住宿翼、覆玻璃步道及兩片混凝土鐘塔，院落比例壓縮。"
+    },
+    {
+      "id": "physicians",
+      "en": "Royal College of Physicians",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1246159",
+      "note": "白色懸挑圖書館、成對窄豎窗、曲面磚講堂與淺錐頂、雙服務塔。"
+    },
+    {
+      "id": "senate",
+      "en": "Cambridge Senate House",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1322818",
+      "note": "九開間長廳、中央三開間柱式及山花、直曲交替窗上山花；非圓頂圖書館。"
+    },
+    {
+      "id": "glasgow",
+      "en": "Glasgow Gilbert Scott Building",
+      "url": "https://portal.historicenvironment.scot/apex/f?p=1505:300:::::VIEWTYPE,VIEWREF:designation,LB32913",
+      "note": "選取雙院落、六段中央塔與鏤空尖頂、角亭小錐塔及階梯山牆；校園長度作壓縮。"
+    },
+    {
+      "id": "dunelm",
+      "en": "Durham Dunelm House",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1477064",
+      "note": "向坡下錯層的混凝土廳體、中央階梯、鋸齒簷與平斜混合頂、突出廳及窄豎梃。"
+    },
+    {
+      "id": "rogerstevens",
+      "en": "Leeds Roger Stevens Building",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1393836",
+      "note": "四段階梯講堂、半圓通風竪井、凸出梯灣、架空層與高架通道；依實物壓縮。"
+    }
+  ],
+  "photoUse": "Original real-building photographs only observed for geometry; not embedded or copied as textures. HE/HES official records remain the architecture fact sources. Source pages contain author/license metadata.",
+  "sourceImages": [
+    {
+      "name": "york-central-hall.jpg",
+      "bytes": 63739,
+      "sha256": "11e032eccb507c10de1eaee81a5e9d806803421d0d5f580a06713be1c3890b9d",
+      "head": "100e3af6e02ef6b7a163680bfe20535835a25f68",
+      "run": 39106631854,
+      "job": 117613779556,
+      "byteVerified": true,
+      "manuallyViewed": true,
+      "accepted": true,
+      "photoSourcePage": "https://commons.wikimedia.org/wiki/File:Central_Hall_and_Physics-Electronics_-_geograph.org.uk_-_4704778.jpg"
+    },
+    {
+      "name": "roger-stevens.jpg",
+      "bytes": 74000,
+      "sha256": "b65bc515002366bb593bfdf7b624aa15cbb813694d244ed16540c26777eebd36",
+      "head": "100e3af6e02ef6b7a163680bfe20535835a25f68",
+      "run": 39106631854,
+      "job": 117613779556,
+      "byteVerified": true,
+      "manuallyViewed": true,
+      "accepted": true,
+      "photoSourcePage": "https://commons.wikimedia.org/wiki/File:Roger_Stevens_Building_-_geograph.org.uk_-_816896.jpg"
+    },
+    {
+      "name": "st-catherines.jpg",
+      "bytes": 73453,
+      "sha256": "6a2fa28018397483f4bdb3193209e43cd05a883a0f25bda388c991839a138e59",
+      "head": "709a4531febf7043696cde902bf137c9806732f0",
+      "run": 39106925595,
+      "job": 117614695408,
+      "byteVerified": true,
+      "manuallyViewed": true,
+      "accepted": false,
+      "rejectedReason": "Old St Catz premises; not the Jacobsen campus. Never used as modern-college geometry evidence.",
+      "photoSourcePage": "https://commons.wikimedia.org/wiki/File:Old_stcatz.jpg"
+    },
+    {
+      "name": "senate-house.jpg",
+      "bytes": 67510,
+      "sha256": "d0522f6385ad6c2884dc9ecbbb153dab883222dfd9cc44a5ca634fdaacc681be",
+      "head": "709a4531febf7043696cde902bf137c9806732f0",
+      "run": 39106925595,
+      "job": 117614695408,
+      "byteVerified": true,
+      "manuallyViewed": true,
+      "accepted": true,
+      "photoSourcePage": "https://commons.wikimedia.org/wiki/File:Senate_House_-_geograph.org.uk_-_5400623.jpg"
+    },
+    {
+      "name": "st-catherines-jacobsen.jpg",
+      "bytes": 103528,
+      "sha256": "6a4329a5bbf37f2713dc5f349aee983dc01c337ee2ac285d22fb2afae4e0a2f2",
+      "head": "243940f06986f98bf42c5e59619044f496f5c538",
+      "run": 39107165254,
+      "job": 117615431692,
+      "byteVerified": true,
+      "manuallyViewed": true,
+      "accepted": true,
+      "photoSourcePage": "https://commons.wikimedia.org/wiki/File:Catz_Moat.jpg"
+    }
+  ],
+  "failures": [
+    {
+      "run": 39106151107,
+      "job": 117612300387,
+      "head": "698f6eb614048c4362d5dc7a84df4366fec75d4f",
+      "firstRed": "source033 HTTP 200 york-central-hall.webp",
+      "actualStatus": 403,
+      "imagesObtained": 0
+    },
+    {
+      "run": 39106631854,
+      "job": 117613779556,
+      "head": "100e3af6e02ef6b7a163680bfe20535835a25f68",
+      "firstRed": "source033 HTTP 200 roger-stevens-east.jpg",
+      "actualStatus": 429,
+      "imagesObtained": 2,
+      "extraFailedPhotoRetried": false
+    }
+  ],
+  "completeSourceRuns": [
+    39106925595,
+    39107165254
+  ],
+  "gameOrArtAcceptance": false,
+  "localGameExecuted": false
+}

@@ -1,0 +1,755 @@
+{
+  "head": "282ca395584e4564128717c486041b8af706afb2",
+  "indexSHA256": "497a5551b39b02bbb15b08b784a8c469c457aee2d1135a24684574bf15f0991f",
+  "base": "1bf22ad7d6d533f8dfdf4480209a9a4b29c6fea6",
+  "report": {
+    "ok": true,
+    "checks": [
+      "wave033 count and unique identity ✓",
+      "wave033 ten distinct structural silhouettes without shared paving ✓",
+      "wave033 native geometry 24_1_360 ✓",
+      "wave033 native geometry 24_1_361 ✓",
+      "wave033 native geometry 24_1_362 ✓",
+      "wave033 native geometry 24_1_363 ✓",
+      "wave033 native geometry 24_1_364 ✓",
+      "wave033 native geometry 24_1_365 ✓",
+      "wave033 native geometry 24_1_366 ✓",
+      "wave033 native geometry 24_1_367 ✓",
+      "wave033 native geometry 24_1_368 ✓",
+      "wave033 native geometry 24_1_369 ✓",
+      "wave033 native geometry 24_1_370 ✓",
+      "wave033 native geometry 24_1_371 ✓",
+      "wave033 native geometry 24_1_372 ✓",
+      "wave033 native geometry 24_1_373 ✓",
+      "wave033 native geometry 24_1_374 ✓",
+      "wave033 native geometry 24_1_375 ✓",
+      "wave033 native geometry 24_1_376 ✓",
+      "wave033 native geometry 24_1_377 ✓",
+      "wave033 native geometry 24_1_378 ✓",
+      "wave033 native geometry 24_1_379 ✓",
+      "wave033 native geometry 24_1_380 ✓",
+      "wave033 native geometry 24_1_381 ✓",
+      "wave033 native geometry 24_1_382 ✓",
+      "wave033 native geometry 24_1_383 ✓",
+      "wave033 native geometry 24_1_384 ✓",
+      "wave033 native geometry 24_1_385 ✓",
+      "wave033 native geometry 24_1_386 ✓",
+      "wave033 native geometry 24_1_387 ✓",
+      "wave033 native geometry 24_1_388 ✓",
+      "wave033 native geometry 24_1_389 ✓",
+      "wave033 native geometry 24_1_390 ✓",
+      "wave033 native geometry 24_1_391 ✓",
+      "wave033 native geometry 24_1_392 ✓",
+      "wave033 native geometry 24_1_393 ✓",
+      "wave033 native geometry 24_1_394 ✓",
+      "wave033 native geometry 24_1_395 ✓",
+      "wave033 native geometry 24_1_396 ✓",
+      "wave033 native geometry 24_1_397 ✓",
+      "wave033 native geometry 24_1_398 ✓",
+      "wave033 native geometry 24_1_399 ✓",
+      "wave033 opaque physical night ✓",
+      "wave033 hard pixels ✓",
+      "wave033 uncropped nonempty day and night ✓",
+      "wave033 actual rotation leicester/0 ✓",
+      "wave033 actual rotation leicester/1 ✓",
+      "wave033 actual rotation leicester/2 ✓",
+      "wave033 actual rotation leicester/3 ✓",
+      "wave033 actual rotation norfolk/0 ✓",
+      "wave033 actual rotation norfolk/1 ✓",
+      "wave033 actual rotation norfolk/2 ✓",
+      "wave033 actual rotation norfolk/3 ✓",
+      "wave033 actual rotation falmer/0 ✓",
+      "wave033 actual rotation falmer/1 ✓",
+      "wave033 actual rotation falmer/2 ✓",
+      "wave033 actual rotation falmer/3 ✓",
+      "wave033 actual rotation yorkhall/0 ✓",
+      "wave033 actual rotation yorkhall/1 ✓",
+      "wave033 actual rotation yorkhall/2 ✓",
+      "wave033 actual rotation yorkhall/3 ✓",
+      "wave033 actual rotation stcatherines/0 ✓",
+      "wave033 actual rotation stcatherines/1 ✓",
+      "wave033 actual rotation stcatherines/2 ✓",
+      "wave033 actual rotation stcatherines/3 ✓",
+      "wave033 actual rotation physicians/0 ✓",
+      "wave033 actual rotation physicians/1 ✓",
+      "wave033 actual rotation physicians/2 ✓",
+      "wave033 actual rotation physicians/3 ✓",
+      "wave033 actual rotation senate/0 ✓",
+      "wave033 actual rotation senate/1 ✓",
+      "wave033 actual rotation senate/2 ✓",
+      "wave033 actual rotation senate/3 ✓",
+      "wave033 actual rotation glasgow/0 ✓",
+      "wave033 actual rotation glasgow/1 ✓",
+      "wave033 actual rotation glasgow/2 ✓",
+      "wave033 actual rotation glasgow/3 ✓",
+      "wave033 actual rotation dunelm/0 ✓",
+      "wave033 actual rotation dunelm/1 ✓",
+      "wave033 actual rotation dunelm/2 ✓",
+      "wave033 actual rotation dunelm/3 ✓",
+      "wave033 actual rotation rogerstevens/0 ✓",
+      "wave033 actual rotation rogerstevens/1 ✓",
+      "wave033 actual rotation rogerstevens/2 ✓",
+      "wave033 actual rotation rogerstevens/3 ✓",
+      "wave033 installed pixels equal independent direct geometry ✓"
+    ],
+    "pixels": {
+      "semi": 0,
+      "leak": 0,
+      "crop": 0,
+      "empty": 0,
+      "mismatch": 0
+    }
+  },
+  "red": [
+    {
+      "name": "missing installed leaf",
+      "first": "wave033 count and unique identity ✗"
+    },
+    {
+      "name": "wrong native dimensions",
+      "first": "wave033 native geometry 24_1_360 ✗"
+    },
+    {
+      "name": "night light on transparent sky",
+      "first": "wave033 opaque physical night ✗"
+    },
+    {
+      "name": "soft native day pixel",
+      "first": "wave033 hard pixels ✗"
+    },
+    {
+      "name": "native canvas crop",
+      "first": "wave033 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "different names but duplicate geometry",
+      "first": "wave033 ten distinct structural silhouettes without shared paving ✗"
+    },
+    {
+      "name": "installed clone with distinct authors",
+      "first": "wave033 installed pixels equal independent direct geometry ✗"
+    },
+    {
+      "name": "empty native day and night",
+      "first": "wave033 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "valid live source overcharges one native dollar",
+      "first": "wave033 fee 2001 expected 2000"
+    },
+    {
+      "name": "valid live redo API fails to restore new appearance",
+      "first": "wave033 new appearance redo, identity and fee"
+    },
+    {
+      "name": "valid HTML mutates original source outside declared bounds",
+      "first": "wave033 existing native model and original rendering source byte-identical except exact declared release metadata",
+      "restoredGreen": true
+    },
+    {
+      "name": "valid source freezes private camera selector",
+      "first": "wave033 actual rotation leicester/1 ✗"
+    }
+  ],
+  "pairs": [
+    {
+      "seed": 31,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 71,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 103,
+      "spent": 2000,
+      "equal": true
+    }
+  ],
+  "placed": [
+    {
+      "x": 7,
+      "y": 4,
+      "id": "leicester",
+      "v": 360,
+      "spent": 2000
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "id": "norfolk",
+      "v": 364,
+      "spent": 2000
+    },
+    {
+      "x": 13,
+      "y": 4,
+      "id": "falmer",
+      "v": 368,
+      "spent": 2000
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "id": "yorkhall",
+      "v": 372,
+      "spent": 2000
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "id": "stcatherines",
+      "v": 376,
+      "spent": 2000
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "id": "physicians",
+      "v": 380,
+      "spent": 2000
+    },
+    {
+      "x": 25,
+      "y": 4,
+      "id": "senate",
+      "v": 384,
+      "spent": 2000
+    },
+    {
+      "x": 28,
+      "y": 4,
+      "id": "glasgow",
+      "v": 388,
+      "spent": 2000
+    },
+    {
+      "x": 31,
+      "y": 4,
+      "id": "dunelm",
+      "v": 392,
+      "spent": 2000
+    },
+    {
+      "x": 34,
+      "y": 4,
+      "id": "rogerstevens",
+      "v": 396,
+      "spent": 2000
+    }
+  ],
+  "newAppearanceTransactions": {
+    "id": "rogerstevens",
+    "v": 396,
+    "undo": true,
+    "redo": true,
+    "refund": 2000,
+    "refDemolition": true,
+    "undoRefDemolition": true,
+    "allTenForms": true
+  },
+  "slot": "3",
+  "version": "14.51",
+  "fixture": {
+    "initialMoney": 1000000,
+    "unlimitedMoney": false,
+    "difficulty": 1,
+    "nativeStepsBeforeSaveReference": 1,
+    "nativeMayorOptionsRead": true,
+    "preUpdateConstructor": {
+      "pol": null,
+      "hasGov513": false,
+      "hasInn507": false
+    },
+    "everySaveFieldCompared": true
+  },
+  "remaining": [
+    "complete seasonal/edge/overlay scenes (separate probe)",
+    "full-frame base/valve comparison (separate probe)",
+    "human full-scene image review"
+  ],
+  "images": [
+    {
+      "file": "24_1_360-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "73516935f8fba727dd9883648ba72836c308da1c385564e9697b4e5e7c7593ff"
+    },
+    {
+      "file": "24_1_360-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "9aa5fc74f74503a25c03cdb7467c290279f603776f5af80f31f5bd53fe5e5249"
+    },
+    {
+      "file": "24_1_361-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "10245fd40ff968cdb052f65a9a9cf5a0184b96f13827096c37244f55f1c4ed4f"
+    },
+    {
+      "file": "24_1_361-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "fbb009194b7cd821bdeff97d3beb6caf460e96bb8aca294f29f0ad4f10f84837"
+    },
+    {
+      "file": "24_1_362-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4ee3a73bd60b7f3b67d38c607c875a4491f75dc47c572b23da98a1645dd695b0"
+    },
+    {
+      "file": "24_1_362-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b65b7ef838bce67b762a39da5d464cb6677896d66ec2f2a81498628eb9012569"
+    },
+    {
+      "file": "24_1_363-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "917a5f71a84cf6786c51cb56bfe54584a80e244566c8d5be8f2c18a8d5c02d07"
+    },
+    {
+      "file": "24_1_363-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "3ef8172eb076c34c2285c6d0a897b0935413078a780d989b97a015002dbeb193"
+    },
+    {
+      "file": "24_1_364-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "27193396ad1df452de3f0ea5266c7bb8168582fe58dc1f3fcfe00973ddf5c16f"
+    },
+    {
+      "file": "24_1_364-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bf6185acae5534e74502e8dd954cd31b6dfe35d0c2c8c43a74a039d25a0ff70b"
+    },
+    {
+      "file": "24_1_365-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "9dac9c40027bfaf4df24bc9f798738ec98560433a7a269c3b5c6b269b8f93517"
+    },
+    {
+      "file": "24_1_365-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "30f8d079acc5276ac76faa75b7f450da1ff73adb131082a4c13de5c31c5d3c6a"
+    },
+    {
+      "file": "24_1_366-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "635e77b83c78f4c69f559dbee8bab5c07963eb835a594f350a009a84aafa827d"
+    },
+    {
+      "file": "24_1_366-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "128eaa39f7810b36847913c8241d32006cba87880926b4e5688a98d52b1b310c"
+    },
+    {
+      "file": "24_1_367-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "88dd90d4e99161d867a8b958de86a2b7a56a54e75d6991b9258971faf953b7b5"
+    },
+    {
+      "file": "24_1_367-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "26214a1f7ddd8d1738c4081b6ae0dc55b9d4ff87b4a706e003e4afedaa9301b2"
+    },
+    {
+      "file": "24_1_368-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "91fac93b1e60faac4a30f685cee3acc05af5197f5f1eacf184107bd07ed57bee"
+    },
+    {
+      "file": "24_1_368-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "295afd03ee9514ef2a33a3e04b7dccf82d3a7813a2a6da4652ffa42a2ee35a59"
+    },
+    {
+      "file": "24_1_369-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "444318942f3e12ab30aba740f0b75e6dd5e34157bd6a00c4321adbe84716c7ae"
+    },
+    {
+      "file": "24_1_369-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c09cb960600e725e201e3f50b527d4d5191422153b616e4e11815cc56e2c710b"
+    },
+    {
+      "file": "24_1_370-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "119c794573de4d0b3e2254cbb72385b54f2e62cc90ab27fe989289af1b72008f"
+    },
+    {
+      "file": "24_1_370-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "517f34e84da6ed9398b05b47118dbe2dff88e89ec998475526e5f11c2757e902"
+    },
+    {
+      "file": "24_1_371-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e2993adba420658a173b1c702dfc962f81e492251cab53b9ec13a44a69e91a78"
+    },
+    {
+      "file": "24_1_371-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2bec6376e6b56fc0db8105ceb1e19744f6ab38599337fef0aa71ebd5740f31ec"
+    },
+    {
+      "file": "24_1_372-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "ef43e4f6ff3b3252a87ac37d3d695cf8d92f011998b3b3f055e8215300d32606"
+    },
+    {
+      "file": "24_1_372-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "20afc165f48084c48f730b78b20fb03dc9a48786fc5dbd192bac684f73d77e06"
+    },
+    {
+      "file": "24_1_373-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "22094e66fd72310e93908996f1adfabea55f0846f9d49f8b79d0c72911a8159b"
+    },
+    {
+      "file": "24_1_373-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "509dde7c38e9d33bc6f4a936ef891494dd23d2f84453b976f1924340fdfa6326"
+    },
+    {
+      "file": "24_1_374-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d99b03389394654de5a5d8e7f19260ab07cbac2d4f62f8e3617082f58f7eda23"
+    },
+    {
+      "file": "24_1_374-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "65f255182798234753f89af55070717da18a4dd07bab25fd95a70d077f27d701"
+    },
+    {
+      "file": "24_1_375-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "0d695f63be2e6a1c206049894bfb800d7d6fa312d6ece3ac8fd95e53bf8f87f6"
+    },
+    {
+      "file": "24_1_375-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "67ea386eea6ff0618b13494d551bc88cab2b1e13d2f0b6bcfa598fa291ca2cfa"
+    },
+    {
+      "file": "24_1_376-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "666b307e8974cdb118011a432b8e8c781a04f176a8f426aef2a5fb325c6f5a5f"
+    },
+    {
+      "file": "24_1_376-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4f1acbd9fea9ce07fa043085b2991152987794ab15a0fb85bee7eeecc6da9671"
+    },
+    {
+      "file": "24_1_377-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2493efca717fe0196ed281753f6b640f37f01016ff787e3105e9f04d928ebc98"
+    },
+    {
+      "file": "24_1_377-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "92341c19e87c9e67a087d0bff4c38755609e9b5b633c23a2ee62cc069122cdb8"
+    },
+    {
+      "file": "24_1_378-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "5ddf2191387ce19af709bf7eff4ae3fe4443ca0e2610f063292b64e6c4166c79"
+    },
+    {
+      "file": "24_1_378-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4f07fa09e4c1b0711b63a449776bfcfdcf1d83155b81e5a4262320e78ca7aa63"
+    },
+    {
+      "file": "24_1_379-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "49cd9bae75ea59f51eff1392cc58ecdcd8d3499bd8084cd561a2f43f03857b7e"
+    },
+    {
+      "file": "24_1_379-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b0c683288d92b88fac51742ef755f3f272b144f0d17af6d9bb7b7a604cbc6bc8"
+    },
+    {
+      "file": "24_1_380-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "83224414e1bc889dcfbe886a1a7cd2bf200982d5f73b90208837b561883e074c"
+    },
+    {
+      "file": "24_1_380-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "5573d761aebddd7a923dd3bd063a81d95923cba3cd241318d99e3c44d7061806"
+    },
+    {
+      "file": "24_1_381-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "1e5f1130d104c8d2d786390ac70a38cd90c5bb38811a31038362bad63c2fa394"
+    },
+    {
+      "file": "24_1_381-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bc3bfac1525dedfc3519a1968269841d456f0fa6ab14ceb28903e98d0bba7977"
+    },
+    {
+      "file": "24_1_382-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7d7d804094a109743f40515f65f8e6ccea0dfcbecf09429043351deaf6f64dc5"
+    },
+    {
+      "file": "24_1_382-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6887f614e882d92f205ad571d7608a801b4144d9789e5519e67b3996793ab8fe"
+    },
+    {
+      "file": "24_1_383-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "e2e978d9c3483d9886c359e00c2739b6485eae36589d0b8a76d12dd370878697"
+    },
+    {
+      "file": "24_1_383-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "516a5c3219abf3b7c87df7f87c70a3ca947fcff6d3e0a4ce6e3f110d447b9402"
+    },
+    {
+      "file": "24_1_384-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "58f338f31bb55cce343b3116d919ed1aa0da997e3a519ce130fbebd992a882b6"
+    },
+    {
+      "file": "24_1_384-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7c814b701619bd3df44e053419edab009cda4feef8cbe8f7c55b9511d888e95d"
+    },
+    {
+      "file": "24_1_385-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "97a67baa39e6e066b3e25baf44c7ab72373933c8e17e668539d10d9a5a443724"
+    },
+    {
+      "file": "24_1_385-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d543d961a4863f432fdc66bd76677d8ede421d05f43e7c60402a9bbc2125bbde"
+    },
+    {
+      "file": "24_1_386-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "4749ff21bc838c6b13d50dc1a2e4ef31ec74bce31abbad218b9d5787bcfa4a32"
+    },
+    {
+      "file": "24_1_386-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "624fa8b25d4b6ce72ff91ca2473269d939a3d874cb39657318100ec4ca532eba"
+    },
+    {
+      "file": "24_1_387-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "ff0d9119ef1ef99d1e9d1857b7f127f8b985a7eda9d2515688f30ba872b04e56"
+    },
+    {
+      "file": "24_1_387-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6279525bda823941b028afe8cc2a2d80b4c2b0471c63c66e738e3baad6dafcfa"
+    },
+    {
+      "file": "24_1_388-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "9d91c15aac23f23c91436570b8dba39c648ceb64264ad58764fbeadb790a5905"
+    },
+    {
+      "file": "24_1_388-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "82c641610faddc967d1793a1427ba65dd922bb5a290b723ac9e4ac11b46a9878"
+    },
+    {
+      "file": "24_1_389-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "b60a667b02c5ab86e050d288bb7939d9d05da9f47fed3606d38a58d0fd551f92"
+    },
+    {
+      "file": "24_1_389-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7a209476f0e25f9ac09a072c984e47436175ce845e212742121baf36f36f2de1"
+    },
+    {
+      "file": "24_1_390-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "1fccc9401c129cd4db231c07166070aa1e4984b81d2a269949f88774e4cfbe2e"
+    },
+    {
+      "file": "24_1_390-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "6efdfac0b96ba4e203b5d8acbcafe0ce2e6c1b01e06dece5e0b1849a65baf779"
+    },
+    {
+      "file": "24_1_391-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c8591a4698361ee44cfe112449e8e1d437d638e91da733f618e7b86d3ca4e715"
+    },
+    {
+      "file": "24_1_391-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "682c8e0f9ccb118024683a8084a4d21dcfa06d282fb1d62da7066b57bd8e7532"
+    },
+    {
+      "file": "24_1_392-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "7f71880d7f2c08070f78adf560fb5b326868688d13e7867d0fa87ddb083aebf0"
+    },
+    {
+      "file": "24_1_392-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "22acaf4835b3b02b7377801538c515479c3fbfc9852636c22837c72c9b4a96a8"
+    },
+    {
+      "file": "24_1_393-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2b7ae14fc8e2a93030b1f48ae8654dc994eb2169fcc9e94e5470ccd40329f8e0"
+    },
+    {
+      "file": "24_1_393-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d407e77d35ef7e6724b5b4cfe703b715e5153fa96b94b3d9003f9efc0f4928a7"
+    },
+    {
+      "file": "24_1_394-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "67bec69b523ea3eb4e6e59da185ffeede4937857f6b19ea2fb3f5b052bba257d"
+    },
+    {
+      "file": "24_1_394-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "09455f25ec4a2040a864f1c4e89c09cd4c5b9d6bead3e8a55498a05b6dd43044"
+    },
+    {
+      "file": "24_1_395-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "2982c6f3f31f9fdf0b19537b3c089d3239e46af80331b4007053763100fcae18"
+    },
+    {
+      "file": "24_1_395-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "93a6e2439d33aad86deb4f3397d2429d8a30b3dc97d345a33bed6d2b193d62aa"
+    },
+    {
+      "file": "24_1_396-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "c968fe354b7d550a20b40bd7f660bea10b99ab80725836b2ef6411aa23501e94"
+    },
+    {
+      "file": "24_1_396-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "9de7c1f316943c3f7de8f288e7a9e183b21f042975e6c4b6b159d79b6c05832c"
+    },
+    {
+      "file": "24_1_397-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "da919004e9b87afdf1b7d658b080a7eb835de849e5e0ec3f47a30074da0afdc6"
+    },
+    {
+      "file": "24_1_397-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "d9e2a0d3b8c529ec823aa862c4c5d7b45af31801fce70246948d948a78474d39"
+    },
+    {
+      "file": "24_1_398-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "bdbffc2ad0faed2beb9319b5466f2136f9ccef17a5f3a2b5b4fae941fa447de0"
+    },
+    {
+      "file": "24_1_398-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "83343d3d28976d5552796a8439f1a0d85b3acd80ad42aa877cf38a4f30e55a4f"
+    },
+    {
+      "file": "24_1_399-day.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "98c654abcf2ccbf6a017d626130be4e3e124279550f4ce4a513b8405af55cb77"
+    },
+    {
+      "file": "24_1_399-night.png",
+      "w": 160,
+      "h": 196,
+      "sha256": "5ad77ca1718120ed67995593fd3afc51d11859d5c4df66fffaa36cfa8d10fd64"
+    }
+  ]
+}
