@@ -14,7 +14,7 @@ if os.environ.get('GITHUB_ACTIONS') != 'true':
 
 OUT = Path('shots/wave035/references')
 OUT.mkdir(parents=True, exist_ok=True)
-SOURCES = [('royalshakespeare', 'https://www.rsc.org.uk/your-visit/royal-shakespeare-theatre'), ('jubilee', 'https://jubileepool.co.uk/'), ('alexandra', 'https://www.alexandrapalace.com/')]
+SOURCES = [('royalshakespeare', 'https://www.bennettsassociates.com/projects/royal-shakespeare-theatre/'), ('jubilee', 'https://jubileepool.co.uk/'), ('wintergardens', 'https://www.wintergardensblackpool.co.uk/wg-heritage/our-story/')]
 
 
 class Images(HTMLParser):
@@ -28,6 +28,9 @@ class Images(HTMLParser):
             src = a.get('data-src') or a.get('src')
             if src:
                 self.items.append({'url': urljoin(self.base, html.unescape(src)), 'alt': a.get('alt', '')})
+        elif tag == 'source' and a.get('srcset'):
+            for part in a['srcset'].split(','):
+                self.items.append({'url': urljoin(self.base, html.unescape(part.strip().split()[0])), 'alt': 'responsive photo source'})
         elif tag == 'meta' and a.get('property') == 'og:image' and a.get('content'):
             self.items.append({'url': urljoin(self.base, html.unescape(a['content'])), 'alt': 'page primary image'})
 
@@ -49,7 +52,11 @@ for name, page in SOURCES:
         data, _, final = read(page, 4 * 1024 * 1024)
         record.update(htmlBytes=len(data), htmlSHA256=hashlib.sha256(data).hexdigest(), finalPage=final)
         parser = Images(final)
-        parser.feed(data.decode('utf8', errors='replace'))
+        text = data.decode('utf8', errors='replace').replace('\\/', '/')
+        parser.feed(text)
+        # Venue sites also publish photographs as CSS backgrounds and JSON data.
+        for match in re.findall(r'''(?:https:)?//[^\s"'<>]+?\.(?:jpe?g|png|webp|avif)(?:\?[^\s"'<>)]*)?''', text, re.I):
+            parser.items.append({'url': urljoin(final, html.unescape(match)), 'alt': 'photo URL present in source page'})
         unique = {}
         for item in parser.items:
             u = item['url']
@@ -58,12 +65,12 @@ for name, page in SOURCES:
             if urlparse(u).scheme == 'https':
                 unique.setdefault(u, item)
         record['candidates'] = list(unique.values())
-        for j, item in enumerate(record['candidates'][:5]):
+        for j, item in enumerate(sorted(record['candidates'], key=lambda x: ('exterior' not in x['alt'].lower(), x['alt'] != 'page primary image'))[:8]):
             try:
                 image, mime, final_url = read(item['url'], 8 * 1024 * 1024)
-                if mime not in ('image/jpeg', 'image/png', 'image/webp'):
+                if mime not in ('image/jpeg', 'image/png', 'image/webp', 'image/avif'):
                     raise ValueError('Not a raster photo: ' + mime)
-                file = name + '-' + str(j) + ('.jpg' if mime == 'image/jpeg' else '.png' if mime == 'image/png' else '.webp')
+                file = name + '-' + str(j) + ('.jpg' if mime == 'image/jpeg' else '.png' if mime == 'image/png' else '.avif' if mime == 'image/avif' else '.webp')
                 (OUT / file).write_bytes(image)
                 meta = {**item, 'file': file, 'finalURL': final_url, 'bytes': len(image), 'sha256': hashlib.sha256(image).hexdigest()}
                 record['images'].append(meta)
