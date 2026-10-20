@@ -51,3 +51,11 @@
 - [x] 既有方向與批准有效，沒有重建方向／批准卡、沒有排程修改、沒有受保護檔案權限擴張。
 
 回滾：分支未合前停止並保留證據；閥關退回既有圖。main紅或公開核驗失敗依AGENTS第7節原停手／回報規則處理，不用重跑賭過，不逕自revert他人內容。
+
+## 施工紀錄（首卡之後追加；原門檻不改鬆）
+
+- 首卡已於動手前推送 [5198b553](https://github.com/lijiabao1998/GlimmerTown-lab/commit/5198b5537d06b3cc410d4320e93f51b0f50ed914)，相對main只新增本卡，唯一fp家族仍為bld。GitHub API建立的遠端commit／tree有實際核對；本地簽章物件還原只完成main，後續API提交沒有冒稱已被本地git fetch。
+- 取圖經過：唯讀branch CI [39365810063](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39365810063)保留HE八頁HTTP403；沒有繞過。改讀已驗證業主／設計事務所頁，[39366033574](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39366033574)、[39366216842](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39366216842)、[39366576326](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39366576326)保留來源、原圖、SHA256及限制。RSC CDN憑證鏈失敗未關TLS；Bennetts頁CSS中的真照片已成功取得。Jubilee首頁有超時，歷史頁的2014台階／擋海牆原圖可用，沒有把舊海灘圖說成泳池照片；Winter Gardens舊照片按歷史參考標示，未說成目前全複合體。
+- 已實看並逐位核雜湊的考據：Landmark外部與內廳、Dreamland亮字鰭塔、Eastbourne四柱與雙階碟頂、Alexandra歷史全景圖、Jubilee受損台階／白牆、Dudley五S棚、Penguin懸挑交鎖坡道、Globe木骨茅頂外牆、Bennetts的RST日／夜外觀、Winter Gardens歷史外部與Empress內部。這是建築考據，並非本波遊戲圖驗收。來源照片不嵌進遊戲。
+- 清單勘誤：首卡把Chichester舊款說成單一帳篷頂，實際已存在的是Chichester Market Cross（v264），沒有Festival Theatre款。Landmark最接近的既有圓量體比較改用Arnos Grove（v208），並保留與愛德華劇院的結構辨別；Dudley對比k275實際名稱為refreshment cafe，非arcade。k272／273只有原生v0；接觸表明列此限制，不捏造舊款四向。這些是比較對象名稱校正，沒有減少10款、40葉、80圖或任何驗收要求。
+- 本地僅靜態核實93個inline script語法、embed精確、剝除本波標記／唯一安裝點後index等於獨立main、smoke僅新增一項自檢；遊戲／Chrome／fp等全部仍待CI。本波初稿未定稿、未過驗收、未開PR、未發布，計數仍6/20。

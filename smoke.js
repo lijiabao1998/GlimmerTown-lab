@@ -183,6 +183,7 @@ const KEEP = process.argv.includes('--keep');
       ['britishWave030', `(window.GV && window.GV.britishWave030) ? window.GV.britishWave030.selftest() : {ok:false,checks:['API 不存在']}`],
       ['britishWave031', `(window.GV && window.GV.britishWave031) ? window.GV.britishWave031.selftest() : {ok:false,checks:['API 不存在']}`],
       ['britishWave033', `(window.GV && window.GV.britishWave033) ? window.GV.britishWave033.selftest() : {ok:false,checks:['API 不存在']}`],
+      ['britishWave035', `(window.GV && window.GV.britishWave035) ? window.GV.britishWave035.selftest() : {ok:false,checks:['API 不存在']}`],
       ['bldCapacity032', (require('./bld-capacity032-fixture.cjs').selftest(), `(window.GV && window.GV.bldCapacity032) ? window.GV.bldCapacity032.selftest() : {ok:false,checks:['API missing']}`)],
       ['useScales021', `(window.GV && window.GV.useScales021) ? window.GV.useScales021.selftest() : {ok:false,checks:['API 不存在']}`],
       ['renew711', `(window.GV && window.GV.renewSelftest711) ? window.GV.renewSelftest711() : {ok:false,checks:['API 不存在']}`],
