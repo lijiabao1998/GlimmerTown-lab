@@ -154,3 +154,16 @@ C14 68ff1d880801d4d4b293d0960cb3bddc12e0a772／run39460187998 有兩個獨立首
 夜景方面先做最小穩定性檢查：相同原生暫停畫面須連續兩次完整PNG逐byte相等，最多8次；穩定不了直接紅並留前／後原PNG。故障前、禁用本波單一night、復原後各自取得穩定畫面，原本的整幀逐byte復原、3窗光像素／6RGB總差及斷電嚴格等值斷言完全保留，無裁圖、無容差、無只比窗區替代整幀。先把實際前／禁用／復原PNG寫入診斷再判斷，避免首紅缺圖。這是檢查量測前提，尚未確認Bishop差異來自暖機；若仍不等，保留精確圖與資料停下回報，不繼續改規則或賭重跑。
 
 全部249張新增實際game PNG依原生phase分四個有界artifact，核心HTML／完整保存／所有hash／manifest另存core artifact。總數249由runner新增硬斷言，不刪減原圖；失敗前尚無圖片的phase只警告上傳缺檔，測試本身仍紅。日誌只送兩張整景、Halifax供電／禁用／斷電及真負控制六張原PNG，加完整manifest，避免上一輪大日誌傳輸中斷。原規範的113全波場景仍未宣稱完成；old-only量化限制及Silver缺項不變，沒有合併發布。
+
+
+## C16 — 本輪真結果與停止夜景寫入（只記錄，不重跑）
+
+最後實測程式頭 d651a01991f936a4b135cc6e15047a6c5bd4bf05。標準run39461860454已全部success：真smoke3次、fp新增／變更／移除皆0且無風格下降、財務53項＋10負控制無failures。候選及既有partial-native-nine（run39461859935，jobs118763081183／118763080728）success；84真靜態PNG已取回，全部逐byte等於已審f530，美術SHA仍7ac802076803a9538fb318760269975a744ea7628968c48e0f8f62b14769ecab。原生啟動暫停後完整保存比較仍保留全部欄位，fiscal515.lastBacklogDay差異未再出現。
+
+新增night-power-nine job118763081383仍failure，不能把另外兩個job或標準CI當它通過。BASE已走供電／道路斷開／電源拆除／原生undo復原四phase；HEAD混合街區已實測9/9 root.pw=true及night powerRate1，前三款view0可見窗光。Bishop view0實測605個投影窗光像素，最大RGB總差205；healthy／suppressed／restored各自連續穩定樣本數2／3／2，但單一新night復原整幀仍不等，首紅 `night038 single new night key restoration exact 24_1_532`。依C15停手條件停止這項測試的後續修改及重跑，不放寬斷言、不改原生規則。
+
+已從實際日誌取回完整診斷JSON2583477 bytes／SHA851484941d6b307d02f96080686137153e93e273867a22cad15960ec53a95c9f及三張1280×657原PNG，三張皆實際開啟：healthy640341 bytes／SHA2bcbf96d8bab5091d2abba800cd8cc90867778841ecb4090ff9fc38e4692c1ff；suppressed631890 bytes／SHAc983abdc921396e3c6ff62b951588bfd923333ae5b626b52291a8bbfe2360fd9；restored640342 bytes／SHA1cd750588bb812d3c5750bc0aeb04a711b3dbdb0398876eca745f9526accf1d9。精確RGBA比較healthy→restored共179 RGB差異像素，bbox[391,308,402,325)，單通道最大168；它們全部在本款實際day draw rectangle[480,69,320,392]外，該矩形內差異0。原圖清楚顯示路口交通號誌由黃轉紅；精確BASE的T289 sigPhase讀trafClock，draw每次執行trafClock+=dt，這個純視覺時鐘不由setSpeed(0)或setVisT固定。這定位了整幀守衛的無關動畫差異；不是藉裁圖通過，也未確認新夜圖產品缺陷。仍須保留同一完整畫布等值要求，交父任務覆核與決定後續固定原生號誌相位的做法。
+
+官方證據：core artifact12283197335（GitHub ZIP digest adefe08febbcaf305caa26574c58ab103a14deaa95b72ad023815e028bdfb9c3）；on12284020425；road-cut12284110259；source-off12284080367；restored12283856194。名稱不代表全部HEAD phase完成：本次在HEAD phase0中途紅，四圖片分件僅是已走完的BASE16整景；HEAD後續四向／斷電／復原尚未完成，也未產生成功manifest-night-power038.json，249原圖硬門檻尚未達。HEAD三張首紅原圖在core診斷JSON中保留且已解碼原bytes。上述ZIP digest是GitHub metadata，作者沒有本地下載ZIP重算。既有局部整合artifact12283811208及靜態artifact12282183994另存，全部綁同d651頭。
+
+C12／C13／C14所有原始首紅、失敗程式副本、新舊供電診斷和C15實際原圖／hash均另封存；沒有賭重跑、刪欄、套容差、關號誌來冒稱通過、改pw／供電率或降低十款守衛。old-only pool8/9量化限制仍未修復。Silver缺後側實照仍沒有模型；正式index、runtime／CSS、美術與完整十款守衛不改，main仍3e335233，沒有合併或發布第十波。此最後一筆只追加卡面結果，實測來源仍d651，docs-only本身不是一次新CI通過。
