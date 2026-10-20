@@ -165,3 +165,12 @@ PR41的main [CI39109491116](https://github.com/lijiabao1998/GlimmerTown-lab/acti
 2. 新T／版本／日誌／方向待辦與已完成列一併準備，開關與方向原話不改；卡搬成T760並保留原GPT-033及首commit家族證據。重新取得含最新main的新完整原生run與push／PR驗收；既有raw基線不手改metadata。80原PNG及10近景與已獨立圖審原件做bytes／SHA核對，變更圖像須重新實看。
 3. 最後完整run真綠、原始證據記卡後，另筆只刪自己的workflow；刪除之後每筆提交確認未加回。最後head分支smoke3／fp／財務53／10與PR實際重用模式須成功，取得精確head獨立程式／安全覆核並處理findings。原圖審環境0張回執不充作通過；新獨立審稿者於01a已實看80單圖＋3接觸表＋10近景、核84原檔及10近景SHA，無已確認視覺finding，見PR42交付留言6248182200；87其餘場景與實體裝置限制保留。
 4. 精確最後head通過才Ready及合PR42，追同SHA main CI與既有自動Pages，再用已恢復sandbox的公開探針核真URL／HTML SHA／v14.53／T760／第六輯10款40葉及畫布。合入與公開核實完成之前仍僅5／20波50座，不把本施工計畫當發布。
+
+
+## 2026-10-20 接替執行：恢復遠端原件及最小修正
+
+本任務經業主明確批准替代長期斷線舊任務，接續同PR42，不重畫。遠端PR仍Draft，head5f149b6、main95689b5；已連線GitHub工具核對main CI39109491116／Pages39109881451及head的PR CI39116765642皆success，僅此PR開放。容器初始為乾淨main，沒有舊任務本地原圖或未提交檔；標準及升權唯讀git fetch各遇代理CONNECT403，gh token無效，不登入、不變更憑證或遠端。經GitHub工具取得完整差異，恢復後1154個檔案逐一核對遠端blob SHA，零不符；本地恢復快照不等於已commit或發布。倉庫及workspace無可用.agents/skills，AGENTS／CLAUDE／AUTORUN／DECISIONS／不改壞標準已讀。
+
+先前獨立圖審與Security Review按留言6248182200保留範圍與限制，不冒稱本容器已有原檔。尚未更改任何033美術、runtime、CSS、既有基線、smoke或共用CI／harness。僅修probePublicSite033：findChrome＋本檔spawn，禁止停用sandbox的啟動參數；先在同一Chrome實讀chrome://sandbox的PID／Network namespace及Seccomp-BPF為Yes，再導航公站。沙箱啟動／狀態失敗會保留原錯誤並失敗，無降級或OS安全設定變更。新增禁用參數及失效狀態兩項首紅／恢復，原HTTP／URL／SHA／版本／錨點五負控制和slot3／畫布／目錄／runtimeErrors全部保留。語法與92段index內嵌來源精確核對已完成；沒有在本機啟動遊戲或Chrome。
+
+三權威main最大T759、日誌r206，沿已預留T760／v14.53／r207；只改三個發布字，方向開關與原話逐位元保留。日誌及方向列明須待真合併與公開核實生效。workflow仍保留，等待本次完整原生run成功，記卡後才獨立只刪。後續任何新結果均追加，不將舊證據或施工計畫當成執行完成。

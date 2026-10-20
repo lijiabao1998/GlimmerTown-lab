@@ -1,7 +1,7 @@
 'use strict';
 // Read the real public Pages origin on GitHub Actions. Never serve local HTML here.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
-const {launchChrome,pageWsUrl,cdpConnect,waitFor,sleep}=require('./harness.js');
+const {findChrome,pageWsUrl,cdpConnect,waitFor,sleep}=require('./harness.js');
 if(process.env.GITHUB_ACTIONS!=='true')throw Error('Run the public-site browser verification only on GitHub Actions');
 const URL='https://lijiabao1998.github.io/GlimmerTown-lab/';
 // Read the current main as the independent published-source expectation. This
@@ -26,6 +26,24 @@ function verifyResponse(r,e=expected){
 }
 function write(name,b){fs.writeFileSync(path.join(OUT,name),b);report.files.push({name,bytes:b.length,sha256:hash(b)});}
 function transfer(name,b){console.log('WAVE033_PUBLIC_FILE_BEGIN '+JSON.stringify({name,head:process.env.GITHUB_SHA,bytes:b.length,sha256:hash(b)}));const s=b.toString('base64');for(let i=0;i<s.length;i+=4096)console.log('WAVE033_PUBLIC_FILE_DATA '+s.slice(i,i+4096));console.log('WAVE033_PUBLIC_FILE_END '+name);}
+function verifySandboxArguments(args){
+  assert(!args.some(a=>/^--(?:no-sandbox|disable-(?:setuid|namespace|seccomp-filter|gpu)-sandbox|single-process|no-zygote)(?:=|$)/.test(a)),'public033 sandbox-disabling launch argument');
+}
+function launchSandboxedChrome(devPort,profile){
+  const args=['--headless=new','--disable-gpu','--no-first-run','--no-default-browser-check','--hide-scrollbars','--mute-audio','--window-size=1280,800',`--user-data-dir=${profile}`,`--remote-debugging-port=${devPort}`,'about:blank'];
+  verifySandboxArguments(args);
+  const proc=cp.spawn(findChrome(),args,{stdio:['ignore','ignore','pipe']});
+  report.browserLaunch={executable:proc.spawnfile,args:proc.spawnargs.slice(1),pid:proc.pid};
+  verifySandboxArguments(report.browserLaunch.args);
+  // Keep the original launch error for pageWsUrl; never retry without sandboxing.
+  proc.__tail='';proc.stderr.on('data',d=>{proc.__tail=(proc.__tail+d.toString()).slice(-2048);});proc.stderr.unref();
+  proc.on('error',e=>{proc.__spawnErr=e.message;proc.__tail+='\n'+e.message;});
+  return proc;
+}
+function verifySandboxStatus(status){
+  assert.equal(status.url,'chrome://sandbox/','public033 sandbox status origin');
+  for(const label of ['PID namespaces','Network namespaces','Seccomp-BPF sandbox'])assert.equal(status.rows.find(r=>r[0]===label)?.[1],'Yes','public033 active '+label);
+}
 (async()=>{
   let chrome,cdp,profile;
   try{
@@ -37,7 +55,23 @@ function transfer(name,b){console.log('WAVE033_PUBLIC_FILE_BEGIN '+JSON.stringif
     const cases=[['status',{...actual,status:404},expected,'public033 HTTP 200'],['URL',{...actual,url:'https://example.invalid/'},expected,'public033 exact public URL'],['one real byte',{...actual,body:damaged},expected,'public033 index byte SHA256'],['version expectation',actual,{...expected,version:'invalid-control'},'public033 source version'],['anchor expectation',actual,{...expected,anchor:'invalid-control'},'public033 source anchor']];
     for(const[name,input,exp,target]of cases){let error;try{verifyResponse(input,exp);}catch(e){error=e;}assert(error&&error.message.includes(target),'public033 negative missed target '+name);report.negativeControls.push({name,target,firstRed:error.message});verifyResponse(actual);}
     profile=fs.mkdtempSync(path.join(os.tmpdir(),'wave033-public-browser-'));
-    const devPort=9222;chrome=launchChrome(devPort,profile);const ws=await pageWsUrl(devPort,chrome);
+    const devPort=9222;chrome=launchSandboxedChrome(devPort,profile);const ws=await pageWsUrl(devPort,chrome);
+    // Prove real Chromium sandbox state before allowing any network-origin script.
+    cdp=await cdpConnect(ws);await cdp.send('Page.enable');
+    const sandboxNavigation=await cdp.send('Page.navigate',{url:'chrome://sandbox/'});assert(!sandboxNavigation.errorText,'public033 sandbox status navigation');
+    assert(await waitFor(cdp,"location.href==='chrome://sandbox/' && document.querySelectorAll('tr').length>2",30000),'public033 sandbox status ready');
+    report.sandbox=await cdp.evalJs("({url:location.href,rows:[...document.querySelectorAll('tr')].map(r=>[...r.querySelectorAll('td')].map(c=>c.textContent.trim())),text:document.body.innerText,checkedAt:new Date().toISOString()})");
+    verifySandboxStatus(report.sandbox);
+    const safeArgs=report.browserLaunch.args;
+    let sandboxRed;try{verifySandboxArguments([...safeArgs,'--no-sandbox']);}catch(e){sandboxRed=e;}
+    assert(sandboxRed?.message.includes('public033 sandbox-disabling launch argument'),'public033 sandbox launch negative missed target');
+    report.negativeControls.push({name:'sandbox disabled argument rejected before spawn',target:'public033 sandbox-disabling launch argument',firstRed:sandboxRed.message});verifySandboxArguments(safeArgs);
+    const disabled={...report.sandbox,rows:report.sandbox.rows.map(r=>r[0]==='Seccomp-BPF sandbox'?[r[0],'No']:r)};
+    let statusRed;try{verifySandboxStatus(disabled);}catch(e){statusRed=e;}
+    assert(statusRed?.message.includes('public033 active Seccomp-BPF sandbox'),'public033 sandbox status negative missed target');
+    report.negativeControls.push({name:'inactive sandbox status',target:'public033 active Seccomp-BPF sandbox',firstRed:statusRed.message});verifySandboxStatus(report.sandbox);
+    console.log('PUBLIC033_SANDBOX '+JSON.stringify({launch:report.browserLaunch,status:report.sandbox}));
+    cdp.close();cdp=null;
     const documents=[];
     cdp=await cdpConnect(ws,m=>{
       if(m.method==='Network.responseReceived'&&m.params.type==='Document')documents.push({requestId:m.params.requestId,url:m.params.response.url,status:m.params.response.status,mimeType:m.params.response.mimeType});
