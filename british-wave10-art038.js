@@ -208,7 +208,7 @@
       if(kind==='wood')return(x,y,z)=>K.mod(z,1.5)<.15?(d?Q.oakD:Q.oak):(d?P.woodR:P.woodHi);
       return(u,z)=>K.hash(Math.floor(u*2),Math.floor(z*2),3003)%47===0?(d?Q.creamD:Q.creamHi):(d?Q.creamD:Q.cream);
     }
-    function volume(x0,x1,y0,y1,z0,z1,kind){
+    function volume(x0,x1,y0,y1,z0,z1,kind,cap=true){
       const f={
         front:Object.assign(S.face([x0,y1],[x1,y1],0,1),{nx:0,ny:1}),
         back:Object.assign(S.face([x1,y0],[x0,y0],0,-1),{nx:0,ny:-1}),
@@ -217,7 +217,7 @@
       };
       S.wall([x0,y1],[x1,y1],z0,z1,mat(kind,0,1));S.wall([x1,y0],[x0,y0],z0,z1,mat(kind,0,-1));
       S.wall([x1,y1],[x1,y0],z0,z1,mat(kind,1,0));S.wall([x0,y0],[x0,y1],z0,z1,mat(kind,-1,0));
-      S.flat(x0,x1,y0,y1,z1,kind==='steel'?Q.steelD:P.stoneR);
+      if(cap)S.flat(x0,x1,y0,y1,z1,kind==='steel'?Q.steelD:P.stoneR);
       return f;
     }
     function roof(x0,x1,y0,y1,z,rise,axis,kind){
@@ -563,6 +563,31 @@
     }
     F.panel(0,F.length,z+h+.3,z+h+1.15,A.P.greenD,.4);
   }
+  // The photographed timber buildings have dark window frames, not stone
+  // surrounds. These real facade planes retain opaque glass and lead bars.
+  function timberPane(A,F,u,z,w,h,bays=3,rows=2){
+    const {P,Q}=A,glass=A.dark(F.nx,F.ny)?P.glassR:P.glass;
+    F.panel(u-.24,u+w+.24,z-.28,z+h+.28,Q.tar,.20);
+    F.panel(u+.12,u+w-.12,z+.15,z+h-.15,[glass,P.warm],.31);
+    for(let j=1;j<bays;j++)F.panel(u+w*j/bays-.10,u+w*j/bays+.10,z+.15,z+h-.15,Q.tar,.39);
+    for(let j=1;j<rows;j++)F.panel(u+.12,u+w-.12,z+h*j/rows-.10,z+h*j/rows+.10,Q.tar,.4);
+  }
+  function copperMansard(A,x,y){
+    const {S,P}=A;
+    // A steep lower slope, a separate shallow upper roof and actual dormers.
+    // The earlier single pyramidal cap lost the photographed mansard profile.
+    hipPlateau(A,x-2.65,x+2.65,y-2.65,y+2.65,55,6.7,.65,'copper');
+    hipPlateau(A,x-2,x+2,y-2,y+2,61.7,2.3,1.1,'copper');
+    for(const [dx,dy,nx,ny]of[[0,2.35,0,1],[0,-2.35,0,-1],[2.35,0,1,0],[-2.35,0,-1,0]]){
+      const xx=x+dx,yy=y+dy;
+      const f=A.volume(xx-(nx?.6:1),xx+(nx?.6:1),yy-(ny?.6:1),yy+(ny?.6:1),57.3,61.8,'terracotta');
+      const F=ny>0?f.front:ny<0?f.back:nx>0?f.right:f.left;
+      A.pane(F,F.length/2-.55,58,1.1,2.5,'arch',true);
+      const a=F.point(0,.12,61.7),b=F.point(F.length/2,.12,63.1),c=F.point(F.length,.12,61.7);
+      S.poly([a,b,c],P.stoneHi);S.beam(a,b,P.stoneHi,.28);S.beam(b,c,P.stoneHi,.28);
+    }
+    A.polygon(x,y,.7,64,66.5,8,'terracotta');A.cone(x,y,1,.05,66.5,69,8,'lead');
+  }
   function leedsCorn(row,view){
     const A=context(row,view),{S,P}=A,pts=ellipse(16,15,13,10.4,40),fs=planBlock(A,pts,.6,30,'stone');
     for(const F of fs){
@@ -631,20 +656,34 @@
     const A=context(row,view),{S,P,Q}=A;
     for(const [x0,x1]of[[5,16],[16,27]]){
       const ground=A.volume(x0,x1,7.2,25.8,.6,10,'stone');shopFront(A,ground.front,2,1.1,7.2);
-      A.volume(x0,x1,7.2,21.2,10.2,20,'blackwood');S.flat(x0-.4,x1+.4,7,27,10.2,P.woodR);
+      const recessed=A.volume(x0,x1,7.2,20,10.2,20,'blackwood');
+      recessed.front.panel(0,recessed.front.length,10.3,19.9,Q.tar,.15);
+      for(const u of[2,7])timberPane(A,recessed.front,u,12.7,2.6,5,2,2);
+      // A deep open passage: floor/soffit, separate turned posts, low rail
+      // and diagonal braces. No face fills the front of the Rows gallery.
+      S.flat(x0-.4,x1+.4,20,27,10.2,P.woodR);
+      S.flat(x0-.45,x1+.45,20,27.3,19.95,Q.tar);
       const gallery=face(A,[x0-.2,26.8],[x1+.2,26.8],0,1);
-      for(let u=.4;u<gallery.length;u+=3.2){const p=gallery.point(u,0,0);S.box(p[0]-.19,p[0]+.19,p[1]-.19,p[1]+.19,10.2,20,Q.tar,Q.tarD,Q.tarHi);}
-      rail(A,[[x0,26.8],[x1,26.8]],10.3,2.8,false,Q.tarHi);
+      for(const u of[.4,gallery.length/2,gallery.length-.4]){
+        const p=gallery.point(u,0,0);S.box(p[0]-.3,p[0]+.3,p[1]-.3,p[1]+.3,10.2,20,Q.tar,Q.tarD,Q.tarHi);
+        S.box(p[0]-.52,p[0]+.52,p[1]-.48,p[1]+.48,18.7,19.3,Q.tarHi,Q.tarD,Q.tarHi);
+        for(const du of[-1.1,1.1])S.beam(gallery.point(u,.06,17.6),gallery.point(Math.max(.1,Math.min(gallery.length-.1,u+du)),.06,19.8),Q.tarHi,.3);
+      }
+      rail(A,[[x0,26.8],[x1,26.8]],10.3,2.3,false,Q.tarHi);
+      for(let u=.8;u<gallery.length-.3;u+=.9){const p=gallery.point(u,0,0);S.beam([p[0],p[1],10.5],[p[0],p[1],12.5],Q.tarHi,.25);}
       const upper=A.volume(x0-.45,x1+.45,6.8,27.3,20,39,'blackwood');
       for(const F of[upper.front,upper.back]){
-        A.windows(F,2,2,23.2,9.1,3.7,6.1,'mullion');
-        for(const z of[20.5,29.8,38.2])F.panel(0,F.length,z,z+.5,Q.tarHi,.42);
-        for(let u=1;u<F.length-1;u+=1.4){const z=21.2;S.beam(F.point(u-.4,.48,z),F.point(u,.48,z+1.1),Q.oak,.19);S.beam(F.point(u,.48,z+1.1),F.point(u+.4,.48,z),Q.oak,.19);}
+        for(const z of[23.2,32.3])for(let b=0;b<2;b++)timberPane(A,F,F.length*(b+.5)/2-2.05,z,4.1,5.8,4,3);
+        for(const z of[20.5,29.8,38.2])F.panel(0,F.length,z,z+.65,Q.tarHi,.45);
+        for(let u=1;u<F.length-1;u+=1.5)for(const z of[21.2,30.5]){
+          F.panel(u-.52,u+.52,z,z+1.35,Q.tarHi,.42);F.panel(u-.35,u+.35,z+.19,z+1.13,Q.tar,.5);
+          S.beam(F.point(u-.3,.55,z+.35),F.point(u,.55,z+1),Q.oak,.22);S.beam(F.point(u,.55,z+1),F.point(u+.3,.55,z+.35),Q.oak,.22);
+        }
       }
-      for(const F of[upper.left,upper.right]){A.windows(F,2,3,23.5,9,2.1,5.8,'mullion');timberFace(A,F,20.5,38.7,3.2,true);}
+      for(const F of[upper.left,upper.right]){for(const z of[23.5,32.5])for(let b=0;b<3;b++)timberPane(A,F,F.length*(b+.5)/3-1.2,z,2.4,5.8,3,2);timberFace(A,F,20.5,38.7,3.2,true);}
       A.roof(x0-.8,x1+.8,6.4,27.7,39,10,'y','blackwood');
-      const F=face(A,[x0-.8,27.72],[x1+.8,27.72],0,1),cx=F.length/2;A.pane(F,cx-1.8,40,3.6,5.6,'mullion',true);
-      S.beam(F.point(.2,.05,39),F.point(cx,.05,49),Q.tarHi,.42);S.beam(F.point(cx,.05,49),F.point(F.length-.2,.05,39),Q.tarHi,.42);S.beam(F.point(cx,.1,39),F.point(cx,.1,49),Q.tarHi,.3);
+      const F=face(A,[x0-.8,27.72],[x1+.8,27.72],0,1),cx=F.length/2;timberPane(A,F,cx-2,40,4,5.6,4,3);
+      S.beam(F.point(.2,.08,39),F.point(cx,.08,49),Q.tarHi,.6);S.beam(F.point(cx,.08,49),F.point(F.length-.2,.08,39),Q.tarHi,.6);S.beam(F.point(cx,.1,39),F.point(cx,.1,49),Q.tarHi,.45);
       for(const x of[x0+.3,x1-.3])A.chimney(x,9,43,3.7);
     }
     return{...A.finish(),details:{streetGables:2,openFirstFloorRowsGallery:true,carvedTimberPanels:true,upperJettiedGlazedBays:true,slateGabledRoofs:true,notWholeBishopsPalace:true}};
@@ -685,36 +724,66 @@
         for(const z of[12,53]){const u=(j+.5)*step,p=F.point(u,.7,z);S.box(p[0]-.13,p[0]+.13,p[1]-.13,p[1]+.13,z,z+.3,[P.paper,P.warmHi],[P.paper,P.warmHi],[P.paper,P.warmHi]);}
       }
     }
-    for(const [x,y]of[[5.7,8],[26.3,8],[5.7,24.2],[26.3,24.2]]){
-      const f=A.volume(x-2.2,x+2.2,y-2.2,y+2.2,48,55,'terracotta');hipPlateau(A,x-2.6,x+2.6,y-2.6,y+2.6,55,9,1.8,'copper');
-      for(const F of Object.values(f))A.pane(F,F.length/2-.6,51,1.2,3.3,'arch',true);
-      A.polygon(x,y,.7,64,66.5,8,'terracotta');A.cone(x,y,1,.05,66.5,69,8,'lead');
+    // Recessed roof surface and the photographed balustrade line. No claim
+    // that the unphotographed service-roof plan has been surveyed.
+    S.flat(3.4,28.6,5.4,26.6,54.04,P.lead);
+    for(const [a,b]of[[[3.2,5.2],[28.8,5.2]],[[28.8,5.2],[28.8,26.8]],[[28.8,26.8],[3.2,26.8]],[[3.2,26.8],[3.2,5.2]]]){
+      rail(A,[a,b],54.2,2.1,false,P.stoneHi);
+      const n=Math.round(Math.hypot(b[0]-a[0],b[1]-a[1])/4.2);
+      for(let j=0;j<=n;j++){const t=j/n,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;S.box(x-.35,x+.35,y-.35,y+.35,54,57,P.stone,P.stoneR,P.stoneHi);}
     }
-    const drum=A.polygon(16,23,3.7,54,61,8,'terracotta',Math.PI/8);for(const F of drum)A.pane(F,.4,55.7,F.length-.8,4.2,'arch',true);
-    copperDome(A,16,23,61,4.3,11.5);A.polygon(16,23,.9,72.5,77.3,8,'terracotta');A.cone(16,23,1.3,.15,77.3,80.5,12,'lead');S.beam([16,23,80.5],[16,23,84],P.ironD,.15);
-    const central=face(A,[12.7,27.3],[19.3,27.3],0,1);A.pane(central,.65,32,5.3,15.2,'arch',true);pediment(A,12.2,19.8,27.7,53.5,4.2,1.1);
-    return{...A.finish(),details:{terracottaDepartmentStore:true,storeys:6,giantPilasters:true,displayWindowBase:true,centralOctagonalRibbedDome:true,cornerCopperMansards:4,physicalFixtureNightLights:true,noBrandLogo:true}};
+    for(const [x,y]of[[5.7,8],[26.3,8],[5.7,24.2],[26.3,24.2]]){
+      const f=A.volume(x-2.2,x+2.2,y-2.2,y+2.2,48,55,'terracotta');copperMansard(A,x,y);
+      for(const F of Object.values(f))A.pane(F,F.length/2-.6,51,1.2,3.3,'arch',true);
+    }
+    const cx=16,cy=22.5,drum=A.polygon(cx,cy,4.4,54,64,8,'terracotta',Math.PI/8);
+    for(const F of drum){A.pane(F,.35,55.6,F.length-.7,6.8,'arch',true);orientedBand(A,F,63.5,.35);}
+    const profile=[[64,4.9],[66.5,4.8],[70.8,4.0],[74,2.7],[76.5,1.25]];
+    lathe(A,cx,cy,profile,'copper',8,Math.PI/8);
+    for(let j=0;j<8;j++)for(let k=0;k<profile.length-1;k++){
+      const t=Math.PI/8+j*Math.PI/4,[za,ra]=profile[k],[zb,rb]=profile[k+1];
+      S.beam([cx+ra*Math.cos(t),cy+ra*Math.sin(t),za],[cx+rb*Math.cos(t),cy+rb*Math.sin(t),zb],P.stoneHi,.42);
+    }
+    const lantern=A.polygon(cx,cy,1.25,76.5,82,8,'terracotta',Math.PI/8);
+    for(const F of lantern)A.pane(F,.18,77.4,F.length-.36,3.2,'arch',false);
+    A.cone(cx,cy,1.7,.15,82,85.4,8,'lead');S.beam([cx,cy,85.4],[cx,cy,88.5],P.ironD,.18);
+    const central=face(A,[12.7,27.3],[19.3,27.3],0,1);A.pane(central,.65,32,5.3,15.2,'arch',true);
+    for(const z of[37.1,42.3])central.panel(.7,5.9,z,z+.48,P.stoneHi,.45);
+    for(const u of[2.3,4.2])central.panel(u,u+.22,32.3,46.3,P.stoneHi,.46);
+    pediment(A,12.2,19.8,27.7,53.5,4.2,1.1);
+    return{...A.finish(),details:{terracottaDepartmentStore:true,storeys:6,giantPilasters:true,displayWindowBase:true,centralOctagonalRibbedDome:true,cornerCopperMansards:4,twoSlopeMansardsAndDormers:true,roofBalustrade:true,physicalFixtureNightLights:true,noBrandLogo:true}};
   }
   function liberty(row,view){
-    const A=context(row,view),{S,P,Q}=A,body=A.volume(3.7,28.3,6,27,.6,43,'plaster');
+    // Keep the body uncapped: a solid flat cap concealed the three actual
+    // lightwell bottoms in the first candidate. Roof pieces close the solids.
+    const A=context(row,view),{S,P,Q}=A,body=A.volume(3.7,28.3,6,27,.6,43,'plaster',false);
     for(const [i,F]of Object.values(body).entries()){
-      timberFace(A,F,.8,42.8,3.05,false);A.windows(F,4,i<2?6:5,3,10.1,2.25,6.7,'mullion');
-      for(const z of[10.7,21,31.2,42])F.panel(0,F.length,z,z+.48,Q.tar,.45);
+      const bays=i<2?6:5,step=F.length/bays;
+      for(let level=0;level<4;level++)for(let b=0;b<bays;b++)timberPane(A,F,(b+.5)*step-1.4,2.5+level*10.1,2.8,7.2,3,3);
+      for(let b=0;b<=bays;b++)F.panel(Math.max(0,b*step-.3),Math.min(F.length,b*step+.3),.8,42.8,Q.tar,.48);
+      for(const z of[.9,10.7,21,31.2,42])F.panel(0,F.length,z,z+.85,Q.tar,.5);
+      for(let b=0;b<bays;b++)for(const z of[11.6,21.9,32.1]){
+        const u=b*step+.5;S.beam(F.point(u,.54,z),F.point(u+step-1,.54,z+1.5),Q.tar,.32);
+      }
     }
     // Three original high street gables; rear roof wells are text-derived.
     for(let j=0;j<3;j++){
       const x0=3.3+j*8.45,x1=x0+8.5,cx=(x0+x1)/2;A.roof(x0,x1,19.5,27.7,43,10,'y','plaster');
-      const F=face(A,[x0,27.73],[x1,27.73],0,1);A.pane(F,2.3,44.4,3.8,5.2,'mullion',true);
-      for(const [a,b]of[[[x0,27.8,43],[cx,27.8,53]],[[cx,27.8,53],[x1,27.8,43]],[[cx,27.85,43],[cx,27.85,52.8]]])S.beam(a,b,Q.tar,.4);
-      for(const x of[cx-2.5,cx+2.5])S.beam([x,27.85,43],[x,27.85,47],Q.tar,.24);
-      const out=[[x0,7],[x1,7],[x1,19.3],[x0,19.3]],inside=[[cx-1.2,11.5],[cx+1.2,11.5],[cx+1.2,14.5],[cx-1.2,14.5]];
-      rim(A,out,inside,42.6,43.1,'plaster');ringSurface(A,out,inside,43.1,45.4,A.K.slate(A.dark(0,1)));S.flat(cx-1.2,cx+1.2,11.5,14.5,41,P.glassR);
+      const F=face(A,[x0,27.73],[x1,27.73],0,1);timberPane(A,F,2.3,44.4,3.8,5.2,4,2);
+      for(const [a,b]of[[[x0,27.8,43],[cx,27.8,53]],[[cx,27.8,53],[x1,27.8,43]],[[cx,27.85,43],[cx,27.85,52.8]]])S.beam(a,b,Q.tar,.75);
+      for(const x of[cx-2.5,cx+2.5])S.beam([x,27.85,43],[x,27.85,47],Q.tar,.45);
+      const out=[[x0,6],[x1,6],[x1,19.5],[x0,19.5]],inside=[[cx-1.7,10.8],[cx+1.7,10.8],[cx+1.7,15.3],[cx-1.7,15.3]];
+      ringSurface(A,out,inside,43.1,45.4,A.K.slate(A.dark(0,1)));
+      for(let k=0;k<4;k++){
+        const a=inside[k],b=inside[(k+1)%4];S.wall(a,b,35.5,45.4,k<2?Q.tarD:Q.creamD);S.beam([...a,45.45],[...b,45.45],P.lead,.28);
+      }
+      S.flat(cx-1.7,cx+1.7,10.8,15.3,35.5,P.glassR);
     }
     for(const x of[8.2,23.8]){
       const f=A.volume(x-1.7,x+1.7,26,28.4,.7,34,'stone');A.windows(f.front,3,1,4,9.7,1.4,4.3,'mullion');A.hip(x-1.9,x+1.9,25.8,28.6,34,2,true);
     }
     for(const x of[5.7,14.3,26.1]){A.chimney(x,8.1,46,6.5);A.chimney(x+1.45,8.1,46,5);}
-    for(const x of[4.9,16,27.1]){const f=A.volume(x-1.1,x+1.1,27,28.1,23,40,'blackwood');A.windows(f.front,2,1,24,9,1.7,6.4,'mullion');}
+    for(const x of[4.9,16,27.1]){const f=A.volume(x-1.1,x+1.1,27,28.1,23,40,'blackwood');for(const z of[24,33])timberPane(A,f.front,.25,z,1.7,6.1,2,3);}
     return{...A.finish(),details:{fourStoreyTimberDepartmentStore:true,frontGables:3,stoneStairTowers:2,projectingGlazedTimberBays:true,groupedChimneys:true,textDerivedRoofWells:3,notLittleMarlboroughWarehouse:true,noBrandLogo:true}};
   }
   function danum(row,view){
@@ -735,8 +804,10 @@
     const A=context(row,view),{S,P}=A,body=A.volume(10,22,11,27,.6,48,'whiteplaster');
     for(const F of[body.left,body.right,body.back]){A.windows(F,4,2,3.5,11,1.8,6.2,'rect');band(A,F,47.5,.45);}
     const F=body.front;A.pane(F,1.0,1.4,3.2,7.6,'rect',true);A.pane(F,5,1.4,6.0,7.6,'ribbon',true);
-    const bow=planBlock(A,[[10.6,27],[11.2,28.1],[13.1,28.8],[18.8,28.8],[20.8,28.1],[21.4,27]],11,21.5,'plaster');
-    for(const G of bow)if(G.ny>0&&G.length>1)A.pane(G,.15,11.7,G.length-.3,8.6,'mullion',true);
+    // Counter-clockwise footprint gives outward normals on every curved
+    // facade segment. The C6 clockwise footprint glazed the hidden closure.
+    const bow=planBlock(A,[[21.4,27],[20.8,28.1],[18.8,28.8],[13.1,28.8],[11.2,28.1],[10.6,27]],11,21.5,'whiteplaster');
+    for(const G of bow)if(G.ny>0&&G.length>1)timberPane(A,G,.15,11.7,G.length-.3,8.6,Math.max(2,Math.round(G.length/.9)),4);
     for(const [u,w]of[[1.0,2.1],[4.4,2.2],[8.2,2.8]])A.pane(F,u,25,w,6.2,'rect',true);
     for(const [u,w]of[[1.1,3.2],[5.6,1.7],[9.0,1.8]])A.pane(F,u,37,w,6.6,'rect',true);
     for(const z of[10.1,22,46.9])F.panel(.15,11.85,z,z+.5,P.stoneHi,.55);

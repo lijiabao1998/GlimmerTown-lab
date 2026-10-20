@@ -1,0 +1,3212 @@
+{
+  "schema": "glimmertown.wave038.independent-visual-review.v1",
+  "reviewer": "independent agent /root/wave10_independent_visual",
+  "recordedAtUTC": "2026-10-20T14:23:50.700669+00:00",
+  "reviewMode": "read-only visual and static source review; only this JSON written",
+  "candidate": {
+    "head": "65e7e62c01532374de6c6dcb1639302949d67668",
+    "tree": "5c4b5e5e0d11c0de6813535139e39a46b7d8ca7e",
+    "base": "3e33523305401ea258e24204ea7218345a6dc268",
+    "runId": 39436939287,
+    "jobId": 118676316714,
+    "officialArtifactId": 12272381639,
+    "officialArtifactZIPDigest": "b0ebac37fedb5cec381a29769df82ac24ad6309ed0801c8edbe7b293369762e4",
+    "officialArtifactZIPDownloaded": false,
+    "originalRecovery": "handoff says originals restored from actual CI rawlog; every restored PNG independently rehashed here against manifest and recovery receipt",
+    "sourceSHA256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+    "sourceGitBlob": "46790a26f756e544038ae3e8724ac22b409501f5",
+    "manifestSHA256": "8ad959bcbe85d7e53ca5dc35f5e7b5c3d26ca5518b361c6ddac911a87a23dbe8",
+    "recoveryReceiptSHA256": "6344c6a5f00d2f3ece77aed13dc27ffae0621f24140c6481a12da95241b0a8f2",
+    "savedGitHubCommitAPI": {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidate-C6-GitHub-commit.json",
+      "sha256": "3deee1e8ce818188b025a2669588e7cad5687111a5be7667f4f132b39ed8fe61",
+      "head": "65e7e62c01532374de6c6dcb1639302949d67668",
+      "tree": "5c4b5e5e0d11c0de6813535139e39a46b7d8ca7e",
+      "verifiedHere": "Read saved API JSON and checked exact head/tree. Did not issue independent network request or import candidate commit object."
+    },
+    "bindingLimit": "Local Git worktree HEAD was BASE and exact candidate commit was absent from both local Git object stores at check time. Art bytes and canonical Git blob independently match candidate manifest; saved API receipt binds named head/tree. This review is of those exact restored images and preserved source, not a fresh renderer execution.",
+    "indexSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+    "indexUnchangedAgainstKnownBaseSHA": true,
+    "nativeGameInstallation": false,
+    "wholeWaveAcceptance": false,
+    "scope": "9 candidates x4 world orientations =36 views, day and light-only night layers; Silver540..543 absent"
+  },
+  "verdict": "revise",
+  "candidateApproval": false,
+  "releaseApproval": false,
+  "summary": "84/84原PNG逐張實看並核bytes/SHA/尺寸；17張保存真照覆蓋九款。四款需修：Bishop Lloyd Rows廊道、Harrods屋頂量體、Liberty木框／真採光井、Willow弧凸玻璃窗；五款僅候選層級通過並保留中度建議。沒有全波或發布意義。",
+  "blockingFindings": [
+    "BL-01",
+    "HR-01",
+    "LI-01",
+    "LI-02",
+    "WI-01"
+  ],
+  "blockingSubjects": [
+    "bishoplloyd",
+    "harrods",
+    "liberty",
+    "willow"
+  ],
+  "severityDefinition": {
+    "high": "Blocks candidate visual finalization because frozen major identification or intended visible structure is absent/illegible.",
+    "medium": "Actionable refinement/readability issue; not an additional candidate blocker in this limited review.",
+    "low": "Minor polish only."
+  },
+  "inspection": {
+    "nativeSinglePNGsActuallyViewed": 72,
+    "nativeDayPNGs": 36,
+    "nativeNightLayerPNGs": 36,
+    "fullContactsActuallyViewed": 3,
+    "nearPNGsActuallyViewed": 9,
+    "totalCandidateOriginalPNGsActuallyViewed": 84,
+    "uniqueWorldViewsActuallyViewed": 36,
+    "viewMethod": "Each of 72 native singles was separately returned as its own view_image original image block, then each of 9 near originals and all3 complete original contacts were also viewed. Contacts were not used to substitute for single-image inspection.",
+    "referencePhotosActuallyViewed": 17,
+    "referenceSubjectsCovered": 9,
+    "referenceAssetsAvailableAccordingToExistingLedger": 25,
+    "referenceLimit": "Only the 17 named real photographs below were independently viewed. Existing25-file ledger was preserved and read, but not all25 assets were re-viewed by this reviewer. No Silver references reviewed; C3 silver-1.jpg is a render and not counted.",
+    "contactScope": "contact-comparison provides real old leaves only at orientations0/2 for the nine listed pairs. No claim of all previous buildings or old r1/r3 inspection.",
+    "nightInterpretation": "Standalone *-night.png files are transparent light overlays. contact-night and right half of near use source preview composition: day at alpha .25 plus night at full alpha on #20312e. They are not captured installed-game night scenes.",
+    "noActionsPerformed": [
+      "no art edits",
+      "no repository or remote writes",
+      "no game execution",
+      "no browser or local server",
+      "no network/reference downloads",
+      "no retry of denied targets",
+      "no publishing or deployment"
+    ],
+    "onlyWriteTarget": "/workspace/GlimmerTown-lab/scratchpad/wave038/independent-visual-C6.json"
+  },
+  "independentFileChecks": {
+    "all84ManifestLengthsMatch": true,
+    "all84ManifestSHA256Match": true,
+    "all84DimensionsMatch": true,
+    "nativeDimensions": [
+      160,
+      196
+    ],
+    "nearDimensions": [
+      1280,
+      784
+    ],
+    "dayNightContactDimensions": [
+      1040,
+      2160
+    ],
+    "comparisonContactDimensions": [
+      1280,
+      2070
+    ],
+    "allNativeLayersHardAlpha0or255": true,
+    "nightPixelsOutsideDayOpaqueTotal": 0,
+    "all36DayBoundsClearOfCanvasEdges": true,
+    "limitation": "Hard alpha and non-edge bounds do not certify architectural correctness, internal seam quality, light fixture placement, RGB palette or whole-game performance. Night/day opaque ratios below include shared paving and are not building-only luminance scores."
+  },
+  "globalVisualAssessment": {
+    "massingAndRoofDiversity": "Nine silhouettes and roof organizations visibly differ: ellipse dome; low five-ridge market+tower; enclosed crossing-roof market; paired timber gables; low double-shop arcade; tall terracotta department block; tall timber gable department block; stepped modern glazing block; narrow white shop with rear annex. This is more than recolouring.",
+    "fourDirections": "All36 day views and36 light layers inspected. Moving asymmetric parts (porches, tower, entrance, dome offset, stone turrets, curved stair, rear annex) and source world-coordinate kit(view) support real geometry rotations. Symmetric parts naturally repeat. No image mirror/rotate shortcut found in read source; no execution-based installation equality proved.",
+    "croppingSeamsVoids": "No source-canvas edge crop or obvious catastrophic outer seam found in these originals. Intentional galleries/loggias are not mistaken for holes. Liberty's wells instead show a blocked depth issue; Willow's opaque bow is a surface-facing issue.",
+    "density": "Halifax glass/roof/dormer lines and Burlington transverse arches alias into over-dense highlights; Liberty and Harrods equal-weight window grids suppress major hierarchy.",
+    "night": "No night alpha outside opaque day pixels. No entire-building bloom seen in the preview composition. Harrods dense lights and large central window plus Danum ribbon lights dominate, but structure remains partly separated; Willow/Liberty already weak structural identification becomes weaker at night.",
+    "oldGeometryDuplication": "For all9 selected old/new pairs at r0/r2, no direct geometric copy seen. Shared native palette/windows/roof primitives recur. This is a limited comparison, not exhaustive historical asset deduplication."
+  },
+  "models": [
+    {
+      "id": "leedsCorn",
+      "prototype": "Leeds Corn Exchange",
+      "v": 520,
+      "verdict": "pass-candidate-only",
+      "mass": "橢圓本體、雙層環向開窗、灰板岩橢圓穹頂與凸出半圓入口都能辨識；和真舊款260的矩形三穹頂交換所具有結構差異。",
+      "windows": "雙層窗帶存在；原生圖中窄窗多讀成直立矩形縫，圓拱頂部辨識弱。",
+      "roof": "為真曲面穹頂而非平頂；背側採光區會隨方向變換，可見照片不能證實北側細節。",
+      "rotations": "r0/r3顯露入口與前部鐘飾，r1/r2轉到背側與另一屋面；對稱輪廓不等於鏡像克隆，靜態world-space建模與可見遮擋關係一致。",
+      "clippingSeamsHoles": "無畫布邊界裁切；未見大面接縫或意外透空。",
+      "night": "兩層暖光保留窗帶與入口差異，未見漂浮光塊；屋頂較暗但橢圓輪廓仍在。",
+      "oldComparison": {
+        "oldLeaves": [
+          260,
+          262
+        ],
+        "result": "所見r0/r2與舊矩形三穹頂屋體不同；未審舊款r1/r3或全部舊資產。"
+      },
+      "findings": [
+        {
+          "id": "LC-01",
+          "severity": "medium",
+          "blocksCandidateFinalization": false,
+          "issue": "密排窄窗在160×196原圖中失去照片最明顯的圓拱節奏。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r0-day.png",
+              "sha256": "79761b72e69b38ba9c4fe87874d993ba65b315345f99168e173bcd4587bf526d",
+              "region": "雙層環向窗帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r3-day.png",
+              "sha256": "66a51b67f7b8c98e83bf0e78619cb84aa2f86c6607aa8ef34f700c742d910c54",
+              "region": "雙層環向窗帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-leedsCorn.png",
+              "sha256": "500872656d48048c498c65aaaa8f8a9cd9ecdc30e14c72822d55118a3263b105",
+              "region": "雙層環向窗帶"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/leedsCorn-1.jpg",
+              "sha256": "f4c200b008197c68d8fa34ab92a16c03b5f6b567e32740755add71e15938669c",
+              "visible": "兩層清楚分離的圓拱石窗與入口"
+            }
+          ],
+          "suggestion": "維持橢圓量體；可減少局部窗數或調整窗寬／拱頭高度，讓拱頂至少有可見階梯。此為候選細化建議，不要求假造未見北面。"
+        }
+      ]
+    },
+    {
+      "id": "darlington",
+      "prototype": "Darlington Market and Clock Tower",
+      "v": 524,
+      "verdict": "pass-candidate-only",
+      "mass": "低市場與旁置高鐘塔的高低差清楚，五條市場屋脊／升高頂帶可數；不是把舊Manchester市政廳換色。",
+      "windows": "市場上層拱窗／低層店面與鐘塔尖拱狹窗分開；市場窗弧線在近景較清楚，原生圖較方。",
+      "roof": "五並列屋脊有實際高低層，尖塔與角尖飾獨立於市場屋面；照片只證實街向部分。",
+      "rotations": "塔在四向相對市場的位置及遮擋改變；塔頂畫布位置改變來自平面位置旋轉，不是塔被裁切。",
+      "clippingSeamsHoles": "四向塔尖均完整，無接縫／漏空阻擋點。",
+      "night": "市場暖光較集中但仍保留柱間分隔；塔鐘／狹窗比市場暗，不以燈光取代塔量體。",
+      "oldComparison": {
+        "oldLeaves": [
+          484,
+          486
+        ],
+        "result": "新低市場＋側塔對舊三角多翼高塔的屋面與平面輪廓不同。"
+      },
+      "findings": [
+        {
+          "id": "DA-01",
+          "severity": "medium",
+          "blocksCandidateFinalization": false,
+          "issue": "街照的細長鑄鐵拱廊與通透百葉頂，在候選被壓縮成較厚石框／密細亮線；是比例與可讀性問題。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r0-day.png",
+              "sha256": "3d479a28e6be68a81d88ea69cec6fb1b10e5d3c75f38b0b86d8c328607a0c401",
+              "region": "市場上層拱廊及五條升高頂帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r2-day.png",
+              "sha256": "c9c162cd5a53dc92eb044fd6375396d0aad5c98d97e006cb62dd19121b2be4ed",
+              "region": "市場上層拱廊及五條升高頂帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-darlington.png",
+              "sha256": "44987baa71793593b07247647bdf7062f34c3fc63ee0474fb93f6d599486a8b9",
+              "region": "市場上層拱廊及五條升高頂帶"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/darlington-0.jpg",
+              "sha256": "d90ce6092f09c4e1fc0e9eed586faa84193e7943434488e3caf2acb5e04b1593",
+              "visible": "市場長立面細鐵柱、半圓窗、百葉頂與完整鐘塔"
+            }
+          ],
+          "suggestion": "如再細化，優先保留幾段較寬的深色玻璃面和細柱，減少百葉頂一像素亮線互撞；不宣稱照片證實完整五脊屋頂平面。"
+        }
+      ]
+    },
+    {
+      "id": "halifax",
+      "prototype": "Halifax Borough Market",
+      "v": 528,
+      "verdict": "pass-candidate-only",
+      "mass": "石店屋三側圍合、中央覆頂市場與一側入口伸翼可辨，中央燈亭形成獨有輪廓；與舊Piece Hall開放大院區分清楚。",
+      "windows": "店屋規則高窗和底層店窗可分；密山牆／老虎窗在原生圖聚成細碎亮點。",
+      "roof": "交叉屋面與中央八角玻璃斜面／小頂帽存在，但中央玻璃與板岩使用相近灰藍，交叉脊被細節淹沒，照片的大塊玻璃帶較清楚。",
+      "rotations": "入口伸翼及三側不同高店屋隨四向轉動；不是固定正面貼圖。",
+      "clippingSeamsHoles": "入口側開口屬市場配置，不當作意外穿洞；未見外邊裁切或明顯脫縫。",
+      "night": "主要光在店窗；屋頂細亮點較碎，玻璃燈亭不會把整屋照成發光罩。",
+      "oldComparison": {
+        "oldLeaves": [
+          256,
+          258
+        ],
+        "result": "有蓋交叉屋面＋中央燈亭對舊開放院落明確不同。"
+      },
+      "findings": [
+        {
+          "id": "HA-01",
+          "severity": "medium",
+          "blocksCandidateFinalization": false,
+          "issue": "屋頂線／老虎窗／玻璃桁架過密，中央八角燈亭與交叉玻璃帶的優先層次不足。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r0-day.png",
+              "sha256": "a5cf1020eb9908b3f67c269c6615b2302841825facd97d57e889bdee178a6a13",
+              "region": "中央燈亭與四周玻璃／板岩交叉屋面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r1-day.png",
+              "sha256": "a4854b0580a38d27b8fc75eab937b165bdb96de336f33fe6b027455b68780acf",
+              "region": "中央燈亭與四周玻璃／板岩交叉屋面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r2-day.png",
+              "sha256": "3d8304c94d1142b56fa9848f6f9e28402d29fe601222851b6c16494527ab5988",
+              "region": "中央燈亭與四周玻璃／板岩交叉屋面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r3-day.png",
+              "sha256": "1e9f47eb8d7ba3997f973656f09ab4a5c8967a44e25fd5462ace741d397f777d",
+              "region": "中央燈亭與四周玻璃／板岩交叉屋面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-halifax.png",
+              "sha256": "7c80ccdc7042d8543704e2f89e44830893dbbbe18ad489597ce7434400befb7a",
+              "region": "中央燈亭與四周玻璃／板岩交叉屋面"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/halifax-1.jpg",
+              "sha256": "420c923bc1ecb60d5ca4af0edb546b157c3a729c7996a1e88857d19c9730d945",
+              "visible": "中央八角玻璃燈亭、上層小帽及玻璃坡面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/halifax-2.jpg",
+              "sha256": "45e4cc1b713f99cf8e31882e1f5f9336826ff3e012cf9042dd8d77db578a6e49",
+              "visible": "較寬屋面玻璃帶和中央交叉脊"
+            }
+          ],
+          "suggestion": "優先留寬玻璃面、較暗連續板岩脊與少量明確框線；減少在同一像素帶重疊的老虎窗尖飾。屬候選整理建議，未要求補照片外的背面細節。"
+        }
+      ]
+    },
+    {
+      "id": "bishoplloyd",
+      "prototype": "Bishop Lloyd's House Chester",
+      "v": 532,
+      "verdict": "revise",
+      "mass": "雙宅並列、兩條深雙坡屋頂、上部木色外牆與地面店面具有新輪廓；但主要辨識點Rows廊道在成圖中不足。",
+      "windows": "上部窄高鉛格窗與側牆木框有變化；前方凸窗立體感較弱。",
+      "roof": "兩條雙坡頂有真山牆；灰板岩與煙囪完整。",
+      "rotations": "前廊在r0/r3，後面較實心的立面在r1/r2，遮擋差異符合幾何旋轉。",
+      "clippingSeamsHoles": "沒有畫布裁切或可確認的意外透空；問題是本應開放的廊道讀成實心帶，不是缺一片PNG。",
+      "night": "地面店窗明亮、上部窗可見；第一樓Rows幾乎消失成暗／褐色實心區，夜光沒有補回結構。",
+      "oldComparison": {
+        "oldLeaves": [
+          100,
+          102
+        ],
+        "result": "相較舊Lavenham長單脊廳，新雙脊較高雙宅不是幾何複製；Rows若不清楚仍會失去此原型的核心差別。"
+      },
+      "findings": [
+        {
+          "id": "BL-01",
+          "severity": "high",
+          "blocksCandidateFinalization": true,
+          "issue": "Rows開放首層廊道在r0/r3及近景讀成平整褐色板帶，柱、欄杆、後退走廊與下層店面的層次不足；不能僅憑openFirstFloorRowsGallery metadata通過。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r0-day.png",
+              "sha256": "06f71d040e0941e2366bb04337c50530a715509c28d06dd7b4de6c5e804c81ad",
+              "region": "街層店面之上、懸挑窗層之下的Rows廊道帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r3-day.png",
+              "sha256": "02d75536f7dcda547c260055fa3cd4b9b904c2aa9a7e66035b9110ebfede11d3",
+              "region": "街層店面之上、懸挑窗層之下的Rows廊道帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r0-night.png",
+              "sha256": "6149d082c6257fcc389a1f848affd2ddb0351d67ae2cee9e2789269712c28b8c",
+              "region": "街層店面之上、懸挑窗層之下的Rows廊道帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r3-night.png",
+              "sha256": "9c5b028cc213cefe94487b0f128ef6151dc2694445767dc29fba8e8a85d6f7fa",
+              "region": "街層店面之上、懸挑窗層之下的Rows廊道帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-bishoplloyd.png",
+              "sha256": "28b03e8b8c79147cc73de652ff61a9bc0c8fc550012874626017bd04add0d49c",
+              "region": "街層店面之上、懸挑窗層之下的Rows廊道帶"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/bishoplloyd-0.jpg",
+              "sha256": "3cb1feab0363182bc242bfc83dedd95e0de18be08a18e11e65465d71076627fa",
+              "visible": "黑暗後退廊道、清楚獨立立柱、欄杆與懸挑上層"
+            }
+          ],
+          "sourceCorroboration": {
+            "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/british-wave10-art038.js",
+            "sha256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+            "line": 630,
+            "note": "來源確有gallery柱與rail，但幾何存在不保證原生像素可讀。此發現針對成圖。"
+          },
+          "suggestion": "加深走廊後退與暗口，讓前柱／欄杆以足夠像素寬度前置；以可見空隙把廊道和後牆分開，再保持上層凸窗與地面店窗區別。修後重烘四向日夜，需同時在160×196與near確認。"
+        }
+      ]
+    },
+    {
+      "id": "burlington",
+      "prototype": "Burlington Arcade",
+      "v": 536,
+      "verdict": "pass-candidate-only",
+      "mass": "低長雙列店鋪、中間覆頂通道、較高Piccadilly入口與較簡單另一端分開；與舊Campden三開間石廳輪廓不同。",
+      "windows": "長側牆兩層小窗屬外牆轉譯；正入口上方三個開口存在，但拱頭／柱列在原生圖更像矩形門框。",
+      "roof": "中央為折坡採光頂，不是圓桶；橫向拱肋和屋頂框線太密，在near形成鋸齒亮梳。",
+      "rotations": "r0/r3看到高入口，r1/r2高入口轉後，低後門明顯；四向沒有用同一門面代替兩端。",
+      "clippingSeamsHoles": "上層loggia本應開敞；可見開口不判作缺面。無畫布裁切。",
+      "night": "外側窗帶比通道頂更亮，入口暗，但仍可見較高端部輪廓；沒有無支撐光塊。",
+      "oldComparison": {
+        "oldLeaves": [
+          212,
+          214
+        ],
+        "result": "雙店列＋中間採光頂與舊三個實心雙坡廳不同。"
+      },
+      "findings": [
+        {
+          "id": "BU-01",
+          "severity": "medium",
+          "blocksCandidateFinalization": false,
+          "issue": "屋頂採光玻璃被密橫拱肋分割成鋸齒白線，入口的大扁拱／上層三拱也偏方框，削弱照片的連續採光與入口辨識。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r0-day.png",
+              "sha256": "90c8a72428b74d0e5ac078349f5df999199d521bcf5e10ffca34858a7c5631b2",
+              "region": "Piccadilly入口與中間狹長玻璃屋面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r3-day.png",
+              "sha256": "3e401f7fbcb499feddbbe4409ed0909b1a7d14a62121f4ffcff7fe3341d1975b",
+              "region": "Piccadilly入口與中間狹長玻璃屋面"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-burlington.png",
+              "sha256": "cfe6b9d416114b829573d2462c72fb51f003b480d013b4510df914ed7c78c699",
+              "region": "Piccadilly入口與中間狹長玻璃屋面"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/burlington-2.jpg",
+              "sha256": "fa855a5bbefcf7219ada49051ada73b6d1d4ca2d1225ef0452d5416dcbaa064f",
+              "visible": "低大扁拱與連續折坡採光帶"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ab7f11b/burlington-0.jpg",
+              "sha256": "42a1c5f7947353999e748f25675097f4b9bfd8aa9e7b3b88bf39b39294ae12ac",
+              "visible": "三拱上層開敞loggia與柱列"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/burlington-3.jpg",
+              "sha256": "607444d3654c60de1f26fede3ac52a2345ffd98481f239c463295f307f9b8a16",
+              "visible": "較平實另一端入口和折坡玻璃"
+            }
+          ],
+          "suggestion": "可減少橫向拱肋亮像素、留連續暗玻璃面；在正入口保留清楚扁拱輪廓和三個上層拱口。保留兩端差別，不用同一門面複製。"
+        }
+      ]
+    },
+    {
+      "id": "harrods",
+      "prototype": "Harrods historic department store",
+      "v": 544,
+      "verdict": "revise",
+      "mass": "六層赤陶色大店體、底部綠雨棚、中央圓頂與角帽能識別百貨類型；尚未充分轉譯照片可見的中央／角部屋頂層次。",
+      "windows": "大量等距矩形窗與巨柱式線條過於等權；中央三層高亮窗在夜間變成一條較大的亮塊。",
+      "roof": "四向均有大塊無層次米色平面，四角帽近似簡單金字塔，中央小圓頂像擺在平屋頂上的圓球；主要頂部結構弱。",
+      "rotations": "中央圓頂相對四角帽的位置隨方向改變，確有世界位置；四側牆規則對稱屬模型設計，未因對稱指控鏡像。",
+      "clippingSeamsHoles": "無畫布邊界裁切；零星框線像素不構成確認的漏面。",
+      "night": "高密窗光與中央大光塊明顯，仍有牆柱暗縫，不判作全樓過曝；屋頂結構在夜圖更弱。",
+      "oldComparison": {
+        "oldLeaves": [
+          480,
+          482
+        ],
+        "result": "較高六層矩形店體＋前置中央小頂對舊Belfast較低院落／中央大頂不同，但都使用小圓頂語彙，需靠照片屋頂組合拉開。"
+      },
+      "findings": [
+        {
+          "id": "HR-01",
+          "severity": "high",
+          "blocksCandidateFinalization": true,
+          "issue": "大面裸平頂和四個簡化金字塔帽主導等距視角，未把照片可辨的厚實角部孟莎屋頂／老虎窗／中央肋穹頂與鼓座做成足夠清楚的量體。不能以4個cornerCopperMansards標記代替成圖。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r0-day.png",
+              "sha256": "64c47bb78e7f8fcd81d1de7eec37b06d176ffcb56e1f88df2653122cb02616a3",
+              "region": "整片米色頂面、四角帽與中央穹頂"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r1-day.png",
+              "sha256": "912fb666f3bc69bd49ac2757e63f50bd2aa275c476c5d25b46d4cd02d97a8c8b",
+              "region": "整片米色頂面、四角帽與中央穹頂"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r2-day.png",
+              "sha256": "7029b7e018af33f5015bc07e17f7a6f30ceeee6e02c03d6a3da880962f155ea9",
+              "region": "整片米色頂面、四角帽與中央穹頂"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r3-day.png",
+              "sha256": "fc289b3ea9c18f35b745c9ebceaa7cb1cbf497b707b6b1b1efe9cd139fc4e2b2",
+              "region": "整片米色頂面、四角帽與中央穹頂"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-harrods.png",
+              "sha256": "e060eccb90988e191fe9625df5575925089fc09c4338012c4d0a423f59ee1af3",
+              "region": "整片米色頂面、四角帽與中央穹頂"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/harrods-0.jpg",
+              "sha256": "f63f0704c17a635569409f2078a48f1e1dd4b952ee837ffa6bc290fd69eaafea",
+              "visible": "中央高鼓座、肋穹頂、頂亭與外緣分層構件"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/harrods-0.jpg",
+              "sha256": "ff9f609bd9047cba404ed60e876264e4b460b374130d149db8bd27be7a606935",
+              "visible": "可見角部屋頂組、中央頂與分層屋脊輪廓"
+            }
+          ],
+          "sourceCorroboration": {
+            "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/british-wave10-art038.js",
+            "sha256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+            "line": 674,
+            "note": "body整片頂蓋與小範圍hipPlateau角帽形成目前的主導平面。"
+          },
+          "suggestion": "先重做照片看得到的外緣角亭／孟莎折坡、老虎窗及中央八角鼓座與肋線，調整比例以縮減無層次空平面的主導程度。未見的內部屋頂不可任意補成照片已證實的結構。重烘四向日夜後再圖審。"
+        },
+        {
+          "id": "HR-02",
+          "severity": "medium",
+          "blocksCandidateFinalization": false,
+          "issue": "中央三層高單一亮窗塊比其餘等距窗搶眼，夜間令巨柱式立面分層更弱。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r0-night.png",
+              "sha256": "bfc995f9d098606956063d42ce5962678c4d6911e152e16e88d9254560f03cee",
+              "region": "中央高窗夜光及兩側密排窗"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r3-night.png",
+              "sha256": "b5c100a9505b866f542944200963df454097a6dff0f5e311f593e6c695010251",
+              "region": "中央高窗夜光及兩側密排窗"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-harrods.png",
+              "sha256": "e060eccb90988e191fe9625df5575925089fc09c4338012c4d0a423f59ee1af3",
+              "region": "中央高窗夜光及兩側密排窗"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/harrods-0.jpg",
+              "sha256": "f63f0704c17a635569409f2078a48f1e1dd4b952ee837ffa6bc290fd69eaafea",
+              "visible": "中央拱窗與其內分格、立面分層"
+            }
+          ],
+          "suggestion": "以本模型真窗框／橫梃分隔高窗暖光；不改共享夜色或全局光影。"
+        }
+      ]
+    },
+    {
+      "id": "liberty",
+      "prototype": "Liberty Tudor Building",
+      "v": 548,
+      "verdict": "revise",
+      "mass": "四層體量、三個前山牆、兩座石樓梯塔和群煙囪在幾何上不同於舊Moreton低矮院落，但成圖整體更像淺色規則窗辦公盒。",
+      "windows": "原型粗黑木框／白填充的強對比消失為纖細框線與密排窗；石塔在正面成為過大的淺色板帶。",
+      "roof": "正面三山牆弱，背面可見三個較清楚三角頂；三個聲稱採光井在原圖中是米白實心小塊，沒有清楚暗井底／內壁。",
+      "rotations": "石塔與前山牆r0/r3、背面三角頂r1/r2的顯隱符合真幾何；不因前後不同就算完成辨識。",
+      "clippingSeamsHoles": "無外邊裁切；井的問題是被封住／缺少可見深度，不是意外透明大洞。",
+      "night": "窗光仍有分隔，但更接近規則多層辦公樓；木框與井的結構缺陷在夜色下加重。",
+      "oldComparison": {
+        "oldLeaves": [
+          104,
+          106
+        ],
+        "result": "新緊湊四層店體與舊低矮開放木構院落不同，未見直接幾何克隆。"
+      },
+      "findings": [
+        {
+          "id": "LI-01",
+          "severity": "high",
+          "blocksCandidateFinalization": true,
+          "issue": "粗黑木框與白填充、突出山牆／凸窗應是主識別；目前原生圖和near以淺色規則窗格為主，黑木框及前山牆弱到不足以讀成照片中的Tudor百貨。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r0-day.png",
+              "sha256": "cb4eeb4b2f5fed36faacad9a8960cd97c64ad0cc8b8f0990bcb917a0fcd808d7",
+              "region": "正立面木框、凸窗、石樓梯塔與三山牆"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r3-day.png",
+              "sha256": "e40941854ae050dec292cf8cfb98e35b596c226f0ac9d1c5719c1f2731628678",
+              "region": "正立面木框、凸窗、石樓梯塔與三山牆"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r0-night.png",
+              "sha256": "394da715e35889d4e1c098d81a09890b9f791f4d1ff6824c076ece4428083ed1",
+              "region": "正立面木框、凸窗、石樓梯塔與三山牆"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-liberty.png",
+              "sha256": "8535842dc61a4c93c37bb918c56e06fdd3ac1a651d934f866a5f0ff78c89e3d6",
+              "region": "正立面木框、凸窗、石樓梯塔與三山牆"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/liberty-0.jpg",
+              "sha256": "d188bb55861b3e12818b7f8d5ead6dc34481a50aafe4ea99a9a6106e168f6ed1",
+              "visible": "粗黑橫直木框、白填充、突出凸窗、主山牆與局部石塔的比例"
+            }
+          ],
+          "sourceCorroboration": {
+            "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/british-wave10-art038.js",
+            "sha256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+            "line": 701,
+            "note": "timberFace先繪、後繪規則窗；實際可讀性須以成圖確認，未斷言唯一成因。"
+          },
+          "suggestion": "重分配原生像素：放粗主要黑木梁、減少同權小窗框，給前山牆足夠高度與白／黑格樣，讓石塔只佔照片所示局部；重烘確認四向與夜間仍能認出。"
+        },
+        {
+          "id": "LI-02",
+          "severity": "high",
+          "blocksCandidateFinalization": true,
+          "issue": "三個採光井在四向／near顯示為米白色實心小方塊，缺井深。靜態來源顯示整片body頂蓋z43會蓋住z41的井底玻璃，與成圖相符。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r0-day.png",
+              "sha256": "cb4eeb4b2f5fed36faacad9a8960cd97c64ad0cc8b8f0990bcb917a0fcd808d7",
+              "region": "三個米白色屋頂小方塊"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r1-day.png",
+              "sha256": "f5a855a4dca01cf759f303d247132920796bee87ce6201a0f812950a52b4ea86",
+              "region": "三個米白色屋頂小方塊"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r2-day.png",
+              "sha256": "0ab161e52e587d68ab32f8a5f7d4c99457d093d2a61edc5eb47a53ce88d1607f",
+              "region": "三個米白色屋頂小方塊"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r3-day.png",
+              "sha256": "e40941854ae050dec292cf8cfb98e35b596c226f0ac9d1c5719c1f2731628678",
+              "region": "三個米白色屋頂小方塊"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-liberty.png",
+              "sha256": "8535842dc61a4c93c37bb918c56e06fdd3ac1a651d934f866a5f0ff78c89e3d6",
+              "region": "三個米白色屋頂小方塊"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/liberty-0.jpg",
+              "sha256": "d188bb55861b3e12818b7f8d5ead6dc34481a50aafe4ea99a9a6106e168f6ed1",
+              "visible": "此照片僅證實主店立面、山牆與煙囪；不能證實後部採光井平面"
+            }
+          ],
+          "sourceCorroboration": {
+            "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/british-wave10-art038.js",
+            "sha256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+            "line": 698,
+            "detail": "body=A.volume(...,.6,43,'plaster')包含整片S.flat頂蓋；井底S.flat(...,41,P.glassR)低於該蓋。此為來源與成圖一致的靜態診斷，未跑遊戲。"
+          },
+          "suggestion": "把井口從整片頂蓋真切開，或分成不覆蓋井口的實體頂面，保留內壁與較暗的可見底面；維持text-derived標示，不假稱後部平面有照片驗證。"
+        }
+      ]
+    },
+    {
+      "id": "danum",
+      "prototype": "Doncaster Co-operative Emporium Danum House",
+      "v": 552,
+      "verdict": "pass-candidate-only",
+      "mass": "黃磚中央高層、藍灰低翼與圓弧樓梯位置可辨，體量退階清楚，和舊Hoover雙高塔長廳不同。",
+      "windows": "橫向窗帶存在；圓弧樓梯被厚白框切成窄縫，比照片的通高玻璃柱更石質。",
+      "roof": "此現代原型可有平頂；主層和兩側退階不是一塊泛型平屋頂，未用古典屋頂硬套。",
+      "rotations": "圓弧樓梯與高中央塊在四向換位，背側階梯輪廓完整；支持真幾何。",
+      "clippingSeamsHoles": "未見畫布裁切或大面脫縫。",
+      "night": "橫窗有高覆蓋暖光，支撐像素皆在日圖；分層仍能讀出，無白色泛光遮蔽整體。",
+      "oldComparison": {
+        "oldLeaves": [
+          316,
+          318
+        ],
+        "result": "中央退階＋弧玻璃梯柱對舊兩端方塔／中間低廳明確不同。"
+      },
+      "findings": [
+        {
+          "id": "DN-01",
+          "severity": "medium",
+          "blocksCandidateFinalization": false,
+          "issue": "樓梯柱的淺色實心比例偏高、玻璃帶過窄，曲面與黃磚／Vitriolite對比不足。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r0-day.png",
+              "sha256": "2cb04bd5ceadc6ecc79e9c26cecedf57d701f5a5cf90c73c6dd4c871b4875b75",
+              "region": "前側圓弧樓梯柱與兩側連續橫窗"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r3-day.png",
+              "sha256": "93696fd2b617679101bd963e0e8ffc70e1169201f82249d2259b297e933582a7",
+              "region": "前側圓弧樓梯柱與兩側連續橫窗"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-danum.png",
+              "sha256": "233d41013bd83105cb44ae4dce8b0a7b84277fc61b2df7418952a763954bc0f7",
+              "region": "前側圓弧樓梯柱與兩側連續橫窗"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/danum-0.jpg",
+              "sha256": "427d0e1423f9648786af4b1d53ed020c23864b21d6bba2afff2ab2c4504d7009",
+              "visible": "薄白框、通高深色玻璃樓梯柱、弧角橫窗與退階側翼"
+            }
+          ],
+          "suggestion": "後續優先放寬樓梯柱深色玻璃、收細白梃，連接橫窗曲角；中央高層與退階量體保留，不加古典細節。"
+        }
+      ]
+    },
+    {
+      "id": "willow",
+      "prototype": "Willow Tea Rooms 217 Sauchiehall Street",
+      "v": 556,
+      "verdict": "revise",
+      "mass": "窄高白四層本體、深水平檐與低背附屋可辨；與舊Finsbury寬低院落不同。",
+      "windows": "不等寬上層窗有設計；核心首層弧凸鉛格窗卻在成圖成為不透明灰褐板，不具照片可見的高密細鉛格玻璃。",
+      "roof": "主樓簡平頂＋背部低坡附屋有高低差；後附屋四坡／玻璃僅文字支持，不能說已由街照核實。",
+      "rotations": "r0/r3顯露白正立面及空白凸窗；r1/r2看到低背附屋，為真幾何換面。",
+      "clippingSeamsHoles": "未見畫布裁切；凸窗不透並非材質審美選擇，來源法線／條件有明確錯配。",
+      "night": "上層與地層有光，弧凸窗整片暗／不發光，支持它沒有正確得到玻璃面的視覺發現。",
+      "oldComparison": {
+        "oldLeaves": [
+          440,
+          442
+        ],
+        "result": "窄高單樓＋小附屋和舊寬低幾翼院落不同，無直接幾何重複。"
+      },
+      "findings": [
+        {
+          "id": "WI-01",
+          "severity": "high",
+          "blocksCandidateFinalization": true,
+          "issue": "首層弧凸鉛格窗在r0/r3與near讀成完整灰褐不透明凸板，照片的主要辨識點缺失。",
+          "evidence": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r0-day.png",
+              "sha256": "a2dacebb65f0a2829d409cee570a35f93e98b9b6cc1bd167055139e504a1fc20",
+              "region": "正面介於地層玻璃與兩層上窗間的整片弧凸板"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r3-day.png",
+              "sha256": "648f90ee8c5375fec580a709b5fdaa02e9ce2b7c993ea03832ef7c94f9628798",
+              "region": "正面介於地層玻璃與兩層上窗間的整片弧凸板"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r0-night.png",
+              "sha256": "bfe5ea92020917a11eb2186c43cd6942b273d45edc40d436f9bf86b76839c025",
+              "region": "正面介於地層玻璃與兩層上窗間的整片弧凸板"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r3-night.png",
+              "sha256": "1ee1898ccf93fa7acc92f80cbd3094cc0ab664eab64f9e6a03d6b6746addddf1",
+              "region": "正面介於地層玻璃與兩層上窗間的整片弧凸板"
+            },
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-willow.png",
+              "sha256": "899b4b116c18904c6493d495e4514c94fb2f155266eae009af933453bb555fd0",
+              "region": "正面介於地層玻璃與兩層上窗間的整片弧凸板"
+            }
+          ],
+          "references": [
+            {
+              "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-512d3d5/willow-0.jpg",
+              "sha256": "7e746078f5fe33ce87aad8ed5e70c0ccdc6efa2236929526ee9cf71b4710e80f",
+              "visible": "樹雖遮部分下部，仍可見白窄樓、首層弧凸連續鉛格玻璃與小方格裝飾"
+            }
+          ],
+          "sourceCorroboration": {
+            "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/british-wave10-art038.js",
+            "sha256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+            "helperLine": 331,
+            "modelLine": 738,
+            "paneLine": 739,
+            "signedPlanArea": -16.575,
+            "detail": "bow點序順時針；planBlock使用(nx,ny)=(dy/len,-dx/len)，五段外弧面的ny均負，只有閉合背面ny=1。for(G of bow) if(G.ny>0...)因而只在背面加窗，與成圖灰褐外弧一致。此計算僅讀來源座標，未執行建模或遊戲。"
+          },
+          "suggestion": "修正本模型弧面點序／外法線與加窗判定，使玻璃／鉛梃實際覆在可見外弧面。保留白外框及下方方格細節，原生圖至少要看出分離玻璃帶；四向日夜重烘後再審。"
+        }
+      ]
+    }
+  ],
+  "sourceFilesReadAndHashed": [
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/previewWave038Candidates.cjs",
+      "sha256": "893823cae7b9c786b94ef603bf02261b6491c90d9dcd90018c9708558fcd08b3",
+      "gitBlob": "076b55a576289554654c2bd6509388099d151eb4",
+      "bytes": 9688
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/british-wave10-art038.js",
+      "sha256": "9e08ececa93c3e654c5274d42d8cb7d590bd86f1727252681ffbf6373f947222",
+      "gitBlob": "46790a26f756e544038ae3e8724ac22b409501f5",
+      "bytes": 49947
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/.github/workflows/wave038-native.yml",
+      "sha256": "3eca69f3812a7c7d5924a5433f2b9c9b8507677ad004b431c9c607d628a10abd",
+      "gitBlob": "1d4c73e084bfacc9112733460f44ce6a3c1d7055",
+      "bytes": 997
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/docs/branch/GPT-038-british-wave10-commerce-markets.md",
+      "sha256": "cb168b3b04ff31ae17026047e4c74a60ca82abe18e361c36cc5de91482e825a0",
+      "gitBlob": "49a1ba887e3ecd8e547fcb942f4abbde2a07c324",
+      "bytes": 21560
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/delivery-65e7e62-nine-candidates/committed-source/docs/branch/GPT-038-reference-inspection-C2-C5.json",
+      "sha256": "6cb6220700916cd05957fcb59377867a5aeeb097e921840b918feaf64ffd64b9",
+      "gitBlob": "4d7add7f1610ff679f1e63ab207fc8966728009a",
+      "bytes": 36081
+    }
+  ],
+  "candidateImageLedger": [
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r0-day.png",
+      "name": "leedsCorn-r0-day.png",
+      "sha256": "79761b72e69b38ba9c4fe87874d993ba65b315345f99168e173bcd4587bf526d",
+      "bytes": 6305,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r0-night.png",
+      "name": "leedsCorn-r0-night.png",
+      "sha256": "847bbede1e67a6be39d194062b1b7d9c21bef69d87f8c31c8ffe1c4cb75745a4",
+      "bytes": 1874,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r1-day.png",
+      "name": "leedsCorn-r1-day.png",
+      "sha256": "776dc453ed658db615be1a36face51c96fdbf9727e0c78df6e0c5630731b69c1",
+      "bytes": 5853,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r1-night.png",
+      "name": "leedsCorn-r1-night.png",
+      "sha256": "26d895e1f867dfa264c8f67fed63dc43829da189e485df1d12c8646e51f24a25",
+      "bytes": 1890,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r2-day.png",
+      "name": "leedsCorn-r2-day.png",
+      "sha256": "5cf9c04639afe30782536aafdfef6e2c23affe472ec9db5bd2d3bd99c4f91f6d",
+      "bytes": 5689,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r2-night.png",
+      "name": "leedsCorn-r2-night.png",
+      "sha256": "cbca71f7168e4480e33423e99c46c1df20d5c4dbc44ec0df3694eabe2c5ef8d7",
+      "bytes": 1892,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r3-day.png",
+      "name": "leedsCorn-r3-day.png",
+      "sha256": "66a51b67f7b8c98e83bf0e78619cb84aa2f86c6607aa8ef34f700c742d910c54",
+      "bytes": 6002,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/leedsCorn-r3-night.png",
+      "name": "leedsCorn-r3-night.png",
+      "sha256": "308baae0d051832aa8d981c455a05ed1ff94ebd42de39b13ca64db669644b0cc",
+      "bytes": 1870,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r0-day.png",
+      "name": "darlington-r0-day.png",
+      "sha256": "3d479a28e6be68a81d88ea69cec6fb1b10e5d3c75f38b0b86d8c328607a0c401",
+      "bytes": 6556,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r0-night.png",
+      "name": "darlington-r0-night.png",
+      "sha256": "01821ab6c18d41cd00e55796392d3e5c82b6c31302dfbfed09cb7165e3e4301b",
+      "bytes": 2139,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r1-day.png",
+      "name": "darlington-r1-day.png",
+      "sha256": "ddbff44923c5e27f375f842a74866e0c35273341de11ad3318037e09323c3086",
+      "bytes": 6874,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r1-night.png",
+      "name": "darlington-r1-night.png",
+      "sha256": "8d1ad3e6831c6626f0d6124ed00920c985a3bd2d984f4c08ade2da45e12b9227",
+      "bytes": 2198,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r2-day.png",
+      "name": "darlington-r2-day.png",
+      "sha256": "c9c162cd5a53dc92eb044fd6375396d0aad5c98d97e006cb62dd19121b2be4ed",
+      "bytes": 6787,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r2-night.png",
+      "name": "darlington-r2-night.png",
+      "sha256": "8df1b0086bb700d9a957086bafb380790746d5f0ff0652d147c6c49cdd75c77a",
+      "bytes": 2183,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r3-day.png",
+      "name": "darlington-r3-day.png",
+      "sha256": "53e520fb1cf66964bd514fdee3e0f6a1f9e37c60927981f19446d59243196bba",
+      "bytes": 6754,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/darlington-r3-night.png",
+      "name": "darlington-r3-night.png",
+      "sha256": "9f1068cd37a77609be2c8253bb60107c7888b48de46d4f17b8c12e711ba5f7dc",
+      "bytes": 2201,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r0-day.png",
+      "name": "halifax-r0-day.png",
+      "sha256": "a5cf1020eb9908b3f67c269c6615b2302841825facd97d57e889bdee178a6a13",
+      "bytes": 7428,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r0-night.png",
+      "name": "halifax-r0-night.png",
+      "sha256": "e2ec9af9b54247c57225f278bd9259778b2feeb0bf0edb3913c9db9f4334a6f7",
+      "bytes": 2471,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r1-day.png",
+      "name": "halifax-r1-day.png",
+      "sha256": "a4854b0580a38d27b8fc75eab937b165bdb96de336f33fe6b027455b68780acf",
+      "bytes": 7302,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r1-night.png",
+      "name": "halifax-r1-night.png",
+      "sha256": "4ac4ae0d37ad204c7bcbe80ca8a370aafa97cf856ab22b4a4bea07961ab8febf",
+      "bytes": 2330,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r2-day.png",
+      "name": "halifax-r2-day.png",
+      "sha256": "3d8304c94d1142b56fa9848f6f9e28402d29fe601222851b6c16494527ab5988",
+      "bytes": 7078,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r2-night.png",
+      "name": "halifax-r2-night.png",
+      "sha256": "00aabf3427dc8da0ecdd59b3e5f5c3fa4b3c16ef0eb5903c56c8d2f0c6de7f4b",
+      "bytes": 2231,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r3-day.png",
+      "name": "halifax-r3-day.png",
+      "sha256": "1e9f47eb8d7ba3997f973656f09ab4a5c8967a44e25fd5462ace741d397f777d",
+      "bytes": 6980,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/halifax-r3-night.png",
+      "name": "halifax-r3-night.png",
+      "sha256": "0db53dcf8c502a876975004fe2689c44594add4fc536183b5dca179d43c89225",
+      "bytes": 2374,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r0-day.png",
+      "name": "bishoplloyd-r0-day.png",
+      "sha256": "06f71d040e0941e2366bb04337c50530a715509c28d06dd7b4de6c5e804c81ad",
+      "bytes": 6642,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r0-night.png",
+      "name": "bishoplloyd-r0-night.png",
+      "sha256": "6149d082c6257fcc389a1f848affd2ddb0351d67ae2cee9e2789269712c28b8c",
+      "bytes": 2154,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r1-day.png",
+      "name": "bishoplloyd-r1-day.png",
+      "sha256": "5a816c9d4a7e9c19ec6527d82ba5572cdb2eaf070cac7252119b3a2a0692c95b",
+      "bytes": 5949,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r1-night.png",
+      "name": "bishoplloyd-r1-night.png",
+      "sha256": "252771c06a9c8707a4c7e26e0ace48bd5feb199bf29277620324a12d74aa95e5",
+      "bytes": 1927,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r2-day.png",
+      "name": "bishoplloyd-r2-day.png",
+      "sha256": "27b6d550d9777c910dec8b3cb9f97518fa44f9148e8926bd51131f62b3bfdbde",
+      "bytes": 6231,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r2-night.png",
+      "name": "bishoplloyd-r2-night.png",
+      "sha256": "80fc323245a25ef841939fb4f58babc3c9bdaf31a13663bb37f655fcbb8d6b6b",
+      "bytes": 1937,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r3-day.png",
+      "name": "bishoplloyd-r3-day.png",
+      "sha256": "02d75536f7dcda547c260055fa3cd4b9b904c2aa9a7e66035b9110ebfede11d3",
+      "bytes": 6245,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/bishoplloyd-r3-night.png",
+      "name": "bishoplloyd-r3-night.png",
+      "sha256": "9c5b028cc213cefe94487b0f128ef6151dc2694445767dc29fba8e8a85d6f7fa",
+      "bytes": 2130,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r0-day.png",
+      "name": "burlington-r0-day.png",
+      "sha256": "90c8a72428b74d0e5ac078349f5df999199d521bcf5e10ffca34858a7c5631b2",
+      "bytes": 5844,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r0-night.png",
+      "name": "burlington-r0-night.png",
+      "sha256": "e368dccb53a2dbe1e6314131d4b8f09c1cc1c02cf034f896d8081b9caf6c81ae",
+      "bytes": 1737,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r1-day.png",
+      "name": "burlington-r1-day.png",
+      "sha256": "daef97f746c80bee72811bab3a80b824dcd12a86b354f7755b7e752d19ff19dd",
+      "bytes": 5426,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r1-night.png",
+      "name": "burlington-r1-night.png",
+      "sha256": "d711357a274dd3f986fa854dd52aed38735f838f4041eeedfabf8980fe0e22cb",
+      "bytes": 1712,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r2-day.png",
+      "name": "burlington-r2-day.png",
+      "sha256": "ee9d201452e31e7c390121a8c49d2dca0ddf65b192d51171a58114eefc7b9ba3",
+      "bytes": 5264,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r2-night.png",
+      "name": "burlington-r2-night.png",
+      "sha256": "45059c8dd3ba4dd183085130048bb3b67383452d50e811700eb70c38a4cc3959",
+      "bytes": 1718,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r3-day.png",
+      "name": "burlington-r3-day.png",
+      "sha256": "3e401f7fbcb499feddbbe4409ed0909b1a7d14a62121f4ffcff7fe3341d1975b",
+      "bytes": 5479,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/burlington-r3-night.png",
+      "name": "burlington-r3-night.png",
+      "sha256": "25339a06c939a797bd71a26fb29cca4b5fb87133ae75634e8e603547f06d7ee4",
+      "bytes": 1723,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r0-day.png",
+      "name": "harrods-r0-day.png",
+      "sha256": "64c47bb78e7f8fcd81d1de7eec37b06d176ffcb56e1f88df2653122cb02616a3",
+      "bytes": 7727,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r0-night.png",
+      "name": "harrods-r0-night.png",
+      "sha256": "bfc995f9d098606956063d42ce5962678c4d6911e152e16e88d9254560f03cee",
+      "bytes": 3237,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r1-day.png",
+      "name": "harrods-r1-day.png",
+      "sha256": "912fb666f3bc69bd49ac2757e63f50bd2aa275c476c5d25b46d4cd02d97a8c8b",
+      "bytes": 7576,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r1-night.png",
+      "name": "harrods-r1-night.png",
+      "sha256": "314d04741951cce87a9fbaf75af5493547c23172738b58ec86fba2ab442e451b",
+      "bytes": 3297,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r2-day.png",
+      "name": "harrods-r2-day.png",
+      "sha256": "7029b7e018af33f5015bc07e17f7a6f30ceeee6e02c03d6a3da880962f155ea9",
+      "bytes": 7230,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r2-night.png",
+      "name": "harrods-r2-night.png",
+      "sha256": "29c5a89709234ea29da4f2b5f6cede0da79c154092d25c2925a408e55be2cc57",
+      "bytes": 3266,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r3-day.png",
+      "name": "harrods-r3-day.png",
+      "sha256": "fc289b3ea9c18f35b745c9ebceaa7cb1cbf497b707b6b1b1efe9cd139fc4e2b2",
+      "bytes": 7578,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/harrods-r3-night.png",
+      "name": "harrods-r3-night.png",
+      "sha256": "b5c100a9505b866f542944200963df454097a6dff0f5e311f593e6c695010251",
+      "bytes": 3281,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r0-day.png",
+      "name": "liberty-r0-day.png",
+      "sha256": "cb4eeb4b2f5fed36faacad9a8960cd97c64ad0cc8b8f0990bcb917a0fcd808d7",
+      "bytes": 7755,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r0-night.png",
+      "name": "liberty-r0-night.png",
+      "sha256": "394da715e35889d4e1c098d81a09890b9f791f4d1ff6824c076ece4428083ed1",
+      "bytes": 2384,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r1-day.png",
+      "name": "liberty-r1-day.png",
+      "sha256": "f5a855a4dca01cf759f303d247132920796bee87ce6201a0f812950a52b4ea86",
+      "bytes": 6776,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r1-night.png",
+      "name": "liberty-r1-night.png",
+      "sha256": "e10dccf65928bef849455d0a33f8adb1ce4d9e210d72534a474c8809efd9ec07",
+      "bytes": 2318,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r2-day.png",
+      "name": "liberty-r2-day.png",
+      "sha256": "0ab161e52e587d68ab32f8a5f7d4c99457d093d2a61edc5eb47a53ce88d1607f",
+      "bytes": 6741,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r2-night.png",
+      "name": "liberty-r2-night.png",
+      "sha256": "e6036d12d269851b172ab846638da583e188e57b37f132fbc583eead7a08b79a",
+      "bytes": 2347,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r3-day.png",
+      "name": "liberty-r3-day.png",
+      "sha256": "e40941854ae050dec292cf8cfb98e35b596c226f0ac9d1c5719c1f2731628678",
+      "bytes": 7304,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/liberty-r3-night.png",
+      "name": "liberty-r3-night.png",
+      "sha256": "4994fba00ba5fc42a2780695a2ea4b1ee000eca26501c66c6a7cd78c3885f0ba",
+      "bytes": 2375,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r0-day.png",
+      "name": "danum-r0-day.png",
+      "sha256": "2cb04bd5ceadc6ecc79e9c26cecedf57d701f5a5cf90c73c6dd4c871b4875b75",
+      "bytes": 5581,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r0-night.png",
+      "name": "danum-r0-night.png",
+      "sha256": "1b494ec23f3a9629af8ce108ed462a3d415f71be5b6e797d61114c74da39789b",
+      "bytes": 2703,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r1-day.png",
+      "name": "danum-r1-day.png",
+      "sha256": "82932a2f13dbaac40f06c172d99f2792f7655fb64190d7839f7c6025ce5b1a8b",
+      "bytes": 5469,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r1-night.png",
+      "name": "danum-r1-night.png",
+      "sha256": "725706e7a69aa0aeded42f2fa2fd645660653cd9ff3f5a69b2023f0192560958",
+      "bytes": 2826,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r2-day.png",
+      "name": "danum-r2-day.png",
+      "sha256": "796a9e0a8d27e82dc57ac4a5748c834b430014029975d3e6d38a677ceb153ec5",
+      "bytes": 5127,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r2-night.png",
+      "name": "danum-r2-night.png",
+      "sha256": "0c9e18d92f898b57c685fda4165bfdfa75872fb72f574544eaeb2cea44fa8d38",
+      "bytes": 2871,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r3-day.png",
+      "name": "danum-r3-day.png",
+      "sha256": "93696fd2b617679101bd963e0e8ffc70e1169201f82249d2259b297e933582a7",
+      "bytes": 5458,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/danum-r3-night.png",
+      "name": "danum-r3-night.png",
+      "sha256": "898f42b843cbe44dff28a2a26ae132d24686cf8c45fcffcb9ca739467a027893",
+      "bytes": 2816,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r0-day.png",
+      "name": "willow-r0-day.png",
+      "sha256": "a2dacebb65f0a2829d409cee570a35f93e98b9b6cc1bd167055139e504a1fc20",
+      "bytes": 4764,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r0-night.png",
+      "name": "willow-r0-night.png",
+      "sha256": "bfe5ea92020917a11eb2186c43cd6942b273d45edc40d436f9bf86b76839c025",
+      "bytes": 1944,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r1-day.png",
+      "name": "willow-r1-day.png",
+      "sha256": "5f641ca0bc1d175abef6879c390cfd055c7ea72e767d516335322739274f8cb2",
+      "bytes": 4548,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r1-night.png",
+      "name": "willow-r1-night.png",
+      "sha256": "ba453e71c3ef5874702cad24d157eea2906ef6672a2fea7edb1331bd83a30666",
+      "bytes": 1866,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r2-day.png",
+      "name": "willow-r2-day.png",
+      "sha256": "a2472f1218fdca858711201c1f71b61c28ab8b0c52be4c0018351374798f5170",
+      "bytes": 4155,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r2-night.png",
+      "name": "willow-r2-night.png",
+      "sha256": "cd8587c011897bfff892ec86a8a82040b4424236ec3792574ced213df17eef2f",
+      "bytes": 1906,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r3-day.png",
+      "name": "willow-r3-day.png",
+      "sha256": "648f90ee8c5375fec580a709b5fdaa02e9ce2b7c993ea03832ef7c94f9628798",
+      "bytes": 4377,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/willow-r3-night.png",
+      "name": "willow-r3-night.png",
+      "sha256": "1ee1898ccf93fa7acc92f80cbd3094cc0ab664eab64f9e6a03d6b6746addddf1",
+      "bytes": 1906,
+      "dimensions": [
+        160,
+        196
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/contact-day.png",
+      "name": "contact-day.png",
+      "sha256": "40102078f349a38ef43a1fe7cea62ef752e4854faae493a65d81302e6730d74f",
+      "bytes": 275157,
+      "dimensions": [
+        1040,
+        2160
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/contact-night.png",
+      "name": "contact-night.png",
+      "sha256": "d544f6802279a1a3f44450af0e66e1b3e677ba839613c16f6e98c7098f120f1b",
+      "bytes": 276673,
+      "dimensions": [
+        1040,
+        2160
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/contact-comparison.png",
+      "name": "contact-comparison.png",
+      "sha256": "2a1dcd93a70e8a9b6c7f0b8a9c5c71fdcc486fa5c0217c91d9c0ef3b6494caf2",
+      "bytes": 308030,
+      "dimensions": [
+        1280,
+        2070
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-leedsCorn.png",
+      "name": "near-leedsCorn.png",
+      "sha256": "500872656d48048c498c65aaaa8f8a9cd9ecdc30e14c72822d55118a3263b105",
+      "bytes": 41620,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-darlington.png",
+      "name": "near-darlington.png",
+      "sha256": "44987baa71793593b07247647bdf7062f34c3fc63ee0474fb93f6d599486a8b9",
+      "bytes": 43471,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-halifax.png",
+      "name": "near-halifax.png",
+      "sha256": "7c80ccdc7042d8543704e2f89e44830893dbbbe18ad489597ce7434400befb7a",
+      "bytes": 47518,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-bishoplloyd.png",
+      "name": "near-bishoplloyd.png",
+      "sha256": "28b03e8b8c79147cc73de652ff61a9bc0c8fc550012874626017bd04add0d49c",
+      "bytes": 44661,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-burlington.png",
+      "name": "near-burlington.png",
+      "sha256": "cfe6b9d416114b829573d2462c72fb51f003b480d013b4510df914ed7c78c699",
+      "bytes": 40874,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-harrods.png",
+      "name": "near-harrods.png",
+      "sha256": "e060eccb90988e191fe9625df5575925089fc09c4338012c4d0a423f59ee1af3",
+      "bytes": 48533,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-liberty.png",
+      "name": "near-liberty.png",
+      "sha256": "8535842dc61a4c93c37bb918c56e06fdd3ac1a651d934f866a5f0ff78c89e3d6",
+      "bytes": 49570,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-danum.png",
+      "name": "near-danum.png",
+      "sha256": "233d41013bd83105cb44ae4dce8b0a7b84277fc61b2df7418952a763954bc0f7",
+      "bytes": 40172,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/candidates-65e7e62/near-willow.png",
+      "name": "near-willow.png",
+      "sha256": "899b4b116c18904c6493d495e4514c94fb2f155266eae009af933453bb555fd0",
+      "bytes": 35643,
+      "dimensions": [
+        1280,
+        784
+      ],
+      "mode": "RGBA",
+      "manifestSHAMatch": true,
+      "manifestBytesMatch": true,
+      "dimensionsMatch": true,
+      "actuallyViewedOriginal": true,
+      "viewMethod": "view_image detail=original; separate tool image block; no generated montage"
+    }
+  ],
+  "nativePixelChecks": [
+    {
+      "subject": "leedsCorn",
+      "view": 0,
+      "dayOpaque": 5586,
+      "nightOpaque": 257,
+      "nightOverDayOpaqueRatio": 0.046008,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        106,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "leedsCorn",
+      "view": 1,
+      "dayOpaque": 5483,
+      "nightOpaque": 310,
+      "nightOverDayOpaqueRatio": 0.056538,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        111,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "leedsCorn",
+      "view": 2,
+      "dayOpaque": 5483,
+      "nightOpaque": 310,
+      "nightOverDayOpaqueRatio": 0.056538,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        111,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "leedsCorn",
+      "view": 3,
+      "dayOpaque": 5586,
+      "nightOpaque": 257,
+      "nightOverDayOpaqueRatio": 0.046008,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        106,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "darlington",
+      "view": 0,
+      "dayOpaque": 5163,
+      "nightOpaque": 509,
+      "nightOverDayOpaqueRatio": 0.098586,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        101,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "darlington",
+      "view": 1,
+      "dayOpaque": 6207,
+      "nightOpaque": 620,
+      "nightOverDayOpaqueRatio": 0.099887,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        84,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "darlington",
+      "view": 2,
+      "dayOpaque": 5864,
+      "nightOpaque": 672,
+      "nightOverDayOpaqueRatio": 0.114598,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        58,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "darlington",
+      "view": 3,
+      "dayOpaque": 5977,
+      "nightOpaque": 689,
+      "nightOverDayOpaqueRatio": 0.115275,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        83,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "halifax",
+      "view": 0,
+      "dayOpaque": 5933,
+      "nightOpaque": 760,
+      "nightOverDayOpaqueRatio": 0.128097,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        105,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "halifax",
+      "view": 1,
+      "dayOpaque": 6297,
+      "nightOpaque": 572,
+      "nightOverDayOpaqueRatio": 0.090837,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        106,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "halifax",
+      "view": 2,
+      "dayOpaque": 6221,
+      "nightOpaque": 551,
+      "nightOverDayOpaqueRatio": 0.088571,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        106,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "halifax",
+      "view": 3,
+      "dayOpaque": 5865,
+      "nightOpaque": 742,
+      "nightOverDayOpaqueRatio": 0.126513,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        107,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "bishoplloyd",
+      "view": 0,
+      "dayOpaque": 6607,
+      "nightOpaque": 598,
+      "nightOverDayOpaqueRatio": 0.09051,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        94,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "bishoplloyd",
+      "view": 1,
+      "dayOpaque": 6820,
+      "nightOpaque": 295,
+      "nightOverDayOpaqueRatio": 0.043255,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        95,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "bishoplloyd",
+      "view": 2,
+      "dayOpaque": 6809,
+      "nightOpaque": 293,
+      "nightOverDayOpaqueRatio": 0.043031,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        95,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "bishoplloyd",
+      "view": 3,
+      "dayOpaque": 6620,
+      "nightOpaque": 609,
+      "nightOverDayOpaqueRatio": 0.091994,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        94,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "burlington",
+      "view": 0,
+      "dayOpaque": 4783,
+      "nightOpaque": 197,
+      "nightOverDayOpaqueRatio": 0.041188,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        118,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "burlington",
+      "view": 1,
+      "dayOpaque": 4973,
+      "nightOpaque": 204,
+      "nightOverDayOpaqueRatio": 0.041022,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        107,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "burlington",
+      "view": 2,
+      "dayOpaque": 4982,
+      "nightOpaque": 204,
+      "nightOverDayOpaqueRatio": 0.040947,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        107,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "burlington",
+      "view": 3,
+      "dayOpaque": 4782,
+      "nightOpaque": 197,
+      "nightOverDayOpaqueRatio": 0.041196,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        118,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "harrods",
+      "view": 0,
+      "dayOpaque": 8646,
+      "nightOpaque": 1365,
+      "nightOverDayOpaqueRatio": 0.157876,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        75,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "harrods",
+      "view": 1,
+      "dayOpaque": 8908,
+      "nightOpaque": 1270,
+      "nightOverDayOpaqueRatio": 0.142568,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        75,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "harrods",
+      "view": 2,
+      "dayOpaque": 8908,
+      "nightOpaque": 1270,
+      "nightOverDayOpaqueRatio": 0.142568,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        75,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "harrods",
+      "view": 3,
+      "dayOpaque": 8646,
+      "nightOpaque": 1365,
+      "nightOverDayOpaqueRatio": 0.157876,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        75,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "liberty",
+      "view": 0,
+      "dayOpaque": 7300,
+      "nightOpaque": 625,
+      "nightOverDayOpaqueRatio": 0.085616,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        88,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "liberty",
+      "view": 1,
+      "dayOpaque": 7579,
+      "nightOpaque": 705,
+      "nightOverDayOpaqueRatio": 0.09302,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        89,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "liberty",
+      "view": 2,
+      "dayOpaque": 7600,
+      "nightOpaque": 703,
+      "nightOverDayOpaqueRatio": 0.0925,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        89,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "liberty",
+      "view": 3,
+      "dayOpaque": 7293,
+      "nightOpaque": 654,
+      "nightOverDayOpaqueRatio": 0.089675,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        88,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "danum",
+      "view": 0,
+      "dayOpaque": 5983,
+      "nightOpaque": 1102,
+      "nightOverDayOpaqueRatio": 0.184189,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        105,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "danum",
+      "view": 1,
+      "dayOpaque": 6366,
+      "nightOpaque": 1236,
+      "nightOverDayOpaqueRatio": 0.194156,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        102,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "danum",
+      "view": 2,
+      "dayOpaque": 6556,
+      "nightOpaque": 1249,
+      "nightOverDayOpaqueRatio": 0.190513,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        94,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "danum",
+      "view": 3,
+      "dayOpaque": 6283,
+      "nightOpaque": 1136,
+      "nightOverDayOpaqueRatio": 0.180805,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        99,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "willow",
+      "view": 0,
+      "dayOpaque": 5643,
+      "nightOpaque": 306,
+      "nightOverDayOpaqueRatio": 0.054226,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        101,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "willow",
+      "view": 1,
+      "dayOpaque": 5864,
+      "nightOpaque": 175,
+      "nightOverDayOpaqueRatio": 0.029843,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        95,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "willow",
+      "view": 2,
+      "dayOpaque": 5864,
+      "nightOpaque": 175,
+      "nightOverDayOpaqueRatio": 0.029843,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        95,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    },
+    {
+      "subject": "willow",
+      "view": 3,
+      "dayOpaque": 5643,
+      "nightOpaque": 311,
+      "nightOverDayOpaqueRatio": 0.055113,
+      "nightOutsideDayOpaque": 0,
+      "alphaValuesDay": [
+        0,
+        255
+      ],
+      "alphaValuesNight": [
+        0,
+        255
+      ],
+      "boundsLTRBExclusive": [
+        19,
+        101,
+        141,
+        192
+      ],
+      "touchesCanvasBorder": false
+    }
+  ],
+  "referenceImageLedger": [
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/leedsCorn-0.jpg",
+      "relativeFile": "references-2b2c281/leedsCorn-0.jpg",
+      "bytes": 55562,
+      "sha256": "8fcb0bbb0d97dc76cc9ce30ee7923e636fb088256117831b23049cf39e4db821",
+      "dimensions": [
+        426,
+        640
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/leedsCorn-1.jpg",
+      "relativeFile": "references-2b2c281/leedsCorn-1.jpg",
+      "bytes": 72226,
+      "sha256": "f4c200b008197c68d8fa34ab92a16c03b5f6b567e32740755add71e15938669c",
+      "dimensions": [
+        640,
+        419
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/darlington-0.jpg",
+      "relativeFile": "references-2b2c281/darlington-0.jpg",
+      "bytes": 72915,
+      "sha256": "d90ce6092f09c4e1fc0e9eed586faa84193e7943434488e3caf2acb5e04b1593",
+      "dimensions": [
+        640,
+        480
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/halifax-0.jpg",
+      "relativeFile": "references-ef6227e/halifax-0.jpg",
+      "bytes": 76688,
+      "sha256": "67271e2ac4f1fb3e62da5a92c73223b24b6effcb48cbe5b2b78784a5a2b5f038",
+      "dimensions": [
+        427,
+        640
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/halifax-1.jpg",
+      "relativeFile": "references-ef6227e/halifax-1.jpg",
+      "bytes": 182839,
+      "sha256": "420c923bc1ecb60d5ca4af0edb546b157c3a729c7996a1e88857d19c9730d945",
+      "dimensions": [
+        800,
+        450
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/halifax-2.jpg",
+      "relativeFile": "references-ef6227e/halifax-2.jpg",
+      "bytes": 165456,
+      "sha256": "45e4cc1b713f99cf8e31882e1f5f9336826ff3e012cf9042dd8d77db578a6e49",
+      "dimensions": [
+        800,
+        581
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/bishoplloyd-0.jpg",
+      "relativeFile": "references-2b2c281/bishoplloyd-0.jpg",
+      "bytes": 119186,
+      "sha256": "3cb1feab0363182bc242bfc83dedd95e0de18be08a18e11e65465d71076627fa",
+      "dimensions": [
+        480,
+        640
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/burlington-0.jpg",
+      "relativeFile": "references-2b2c281/burlington-0.jpg",
+      "bytes": 64930,
+      "sha256": "66121a36250d4ce4aa2bd844e928b52872b05350a7393efe26e8045a550a3668",
+      "dimensions": [
+        427,
+        640
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/burlington-1.jpg",
+      "relativeFile": "references-2b2c281/burlington-1.jpg",
+      "bytes": 935258,
+      "sha256": "ea883481991734cec16eee924e09bf5c9542248dafc4390bacafa72a72515d8e",
+      "dimensions": [
+        1800,
+        1202
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/burlington-2.jpg",
+      "relativeFile": "references-2b2c281/burlington-2.jpg",
+      "bytes": 683509,
+      "sha256": "fa855a5bbefcf7219ada49051ada73b6d1d4ca2d1225ef0452d5416dcbaa064f",
+      "dimensions": [
+        1800,
+        1350
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/burlington-3.jpg",
+      "relativeFile": "references-2b2c281/burlington-3.jpg",
+      "bytes": 568711,
+      "sha256": "607444d3654c60de1f26fede3ac52a2345ffd98481f239c463295f307f9b8a16",
+      "dimensions": [
+        1800,
+        1350
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ab7f11b/burlington-0.jpg",
+      "relativeFile": "references-ab7f11b/burlington-0.jpg",
+      "bytes": 478390,
+      "sha256": "42a1c5f7947353999e748f25675097f4b9bfd8aa9e7b3b88bf39b39294ae12ac",
+      "dimensions": [
+        746,
+        1024
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/harrods-0.jpg",
+      "relativeFile": "references-2b2c281/harrods-0.jpg",
+      "bytes": 91865,
+      "sha256": "ff9f609bd9047cba404ed60e876264e4b460b374130d149db8bd27be7a606935",
+      "dimensions": [
+        640,
+        427
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-ef6227e/harrods-0.jpg",
+      "relativeFile": "references-ef6227e/harrods-0.jpg",
+      "bytes": 971671,
+      "sha256": "f63f0704c17a635569409f2078a48f1e1dd4b952ee837ffa6bc290fd69eaafea",
+      "dimensions": [
+        2560,
+        1706
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/liberty-0.jpg",
+      "relativeFile": "references-2b2c281/liberty-0.jpg",
+      "bytes": 109233,
+      "sha256": "d188bb55861b3e12818b7f8d5ead6dc34481a50aafe4ea99a9a6106e168f6ed1",
+      "dimensions": [
+        640,
+        480
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-2b2c281/danum-0.jpg",
+      "relativeFile": "references-2b2c281/danum-0.jpg",
+      "bytes": 83679,
+      "sha256": "427d0e1423f9648786af4b1d53ed020c23864b21d6bba2afff2ab2c4504d7009",
+      "dimensions": [
+        640,
+        480
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    },
+    {
+      "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/references-512d3d5/willow-0.jpg",
+      "relativeFile": "references-512d3d5/willow-0.jpg",
+      "bytes": 94606,
+      "sha256": "7e746078f5fe33ce87aad8ed5e70c0ccdc6efa2236929526ee9cf71b4710e80f",
+      "dimensions": [
+        530,
+        640
+      ],
+      "coverageSHAMatch": true,
+      "actuallyViewedOriginal": true,
+      "isRealPhoto": true
+    }
+  ],
+  "referenceCoverageLedger": {
+    "file": "/workspace/GlimmerTown-lab/scratchpad/wave038/reference-coverage-after-C5.json",
+    "sha256": "a8391cf1f019228dcd956934876cdd3a73d40d2214ba1c537a095475fc39b9a0"
+  },
+  "unverified": [
+    "Silver Arcade model absent; rear Cank Street square pavilion remains pending. No substitute model or reduced40-view gate accepted.",
+    "No installed native registry/catalog/payment/undo/redo/removal/save/load or old/new save comparison.",
+    "No whole-wave40-leaf installation,80 native day/night originals,93 required art originals or full21-job acceptance.",
+    "No winter/snow/no-snow, spring/summer/autumn colour, far zoom, map edge/corner, construction stages, hover fade, actual reflections/pedestrians/smoke/signage scene review.",
+    "No113 scene/guard canvases, no full-frame escape-valve equality, no fault-injection/first-red, no performance or pedestrian occlusion verification.",
+    "No mobile device, Safari, iOS/Android or touch testing.",
+    "No new CI run, no independent ZIP download, no direct network provenance verification.",
+    "No Ready/merge/Pages/public HTTP/browser/source/version/full-wave release verification."
+  ],
+  "accessBoundary": {
+    "status": "respected; no outbound fetch performed",
+    "knownDeniedTargetsNotRetried": [
+      "nine HE /etl/ resources recorded in reference-blocked-targets.json",
+      "https://live.staticflickr.com/3640/3440632823_1420a4c19f.jpg",
+      "BLB target that returned Tunnel connection failed:403 Forbidden"
+    ],
+    "reason": "Review used saved originals only; no CI relocation, alternate size/parameter, mirror or other retry of denied resource."
+  },
+  "nextReview": "Repair the four blocking candidates, preserve these C6 originals, produce new head/source-bound CI originals and manifest, then request delta visual review. Recheck all four directions and night layers for changed candidates and ensure unchanged candidates preserve hashes. Existing green CI or metadata cannot clear the above visual findings.",
+  "publishedWaveCountUnchanged": "9/20",
+  "notAReleaseAcceptance": true
+}
