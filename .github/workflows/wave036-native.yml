@@ -1,0 +1,32 @@
+name: wave036-native
+on:
+  push:
+    branches: ['gpt/british-wave08-036']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave036-native
+  cancel-in-progress: true
+jobs:
+  references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read bounded primary architectural photographs, no game execution
+        env:
+          WAVE036_REFERENCE_PART: ${{ matrix.part }}
+        run: python collectWave036References.py
+      - name: Preserve actual primary photo bytes, provenance and full failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave036-reference-part${{ matrix.part }}-${{ github.sha }}
+          path: shots/wave036/references/
+          retention-days: 14
+          if-no-files-found: error

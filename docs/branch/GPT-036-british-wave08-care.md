@@ -54,3 +54,7 @@
 
 ## 施工紀錄（首卡後追加；原門檻不改鬆）
 
+
+- 首卡已在新美術前單獨推送[21b91a4](https://github.com/lijiabao1998/GlimmerTown-lab/commit/21b91a4ef8d74b5ce5f072a2ad2fb1a393e9139d)，root tree b8df6869a630c098bbe85c599750516a1fa12d50；相對main只新增本卡，唯一凍結家族仍bld。遠端分支從精確main50d0d52建立並以head lease快進，沒有重寫歷史。
+- 本地原簽章物件首次重建少了尾端gpgsig續行而SHA不符，assert在寫入前停止；之後switch因物件未入庫失敗，原檔未覆蓋。讀取已核父物件確認真實序列化後，唯一一次修正重建得到精確50d0d52，從該物件開乾淨分支。錯誤保留scratchpad/wave036/opening-local-import-error.txt。
+- 容器對十個考據頁的CONNECT均被proxy403阻擋，沒有取得原站回覆／照片，完整可得錯誤逐項存scratchpad/wave036/references；未改proxy／憑證／TLS或擴張權限。依既有唯讀分支CI讀已由網頁工具核對的公開一手照片，沒有本地遊戲測試；取得與人工看圖之前不繪製。HE／機構文字已初核，來源日期不混稱現況；Bath舊院址2019已遷出，畫歷史建築外觀，不宣稱仍在舊址提供醫療。
