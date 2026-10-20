@@ -53,6 +53,7 @@ jobs:
           name: wave038-night-power-core-${{ github.sha }}
           path: |
             shots/wave038/night-power/*.json
+            shots/wave038/night-power/*.gz
             shots/wave038/night-power/*.html
             shots/wave038/night-power/*.txt
           retention-days: 14

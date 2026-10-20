@@ -11,10 +11,19 @@ assert.equal(strip(full),original.toString(),'wave038 full future source strips 
 assert.equal(strip(partial,true),original.toString(),'wave038 explicitly partial fixture source strips exactly to independent BASE');
 assert(!full.includes('GPT-038 CI NINE FIXTURE START'),'wave038 production composition excludes partial test setup');
 assert.equal(compose(full,sources),full,'wave038 full composition idempotent');
+const phaseBridge=fs.readFileSync('wave038-traffic-phase-fixture.js','utf8'),phasePoint='Object.assign(window.GV,{art574:';
+assert.equal(original.toString().split(phasePoint).length,2,'source038 unique BASE phase bridge location');
+const phaseBase=original.toString().replace(phasePoint,phaseBridge+'\n'+phasePoint),phaseHead=compose(current.toString(),sources,fixture+'\n'+phaseBridge);
+assert.equal(phaseBase.split(phaseBridge+'\n').length,2,'source038 unique CI bridge in BASE');
+assert.equal(phaseBase.replace(phaseBridge+'\n',''),original.toString(),'source038 phase BASE removes only CI bridge to exact independent Git bytes');
+assert.equal(strip(phaseHead,true),original.toString(),'source038 phase HEAD three blocks strip to exact independent Git bytes');
+assert(!full.includes('__wave038TrafficPhase'),'source038 production excludes traffic-phase helper');
 const negative=[],expect=(name,fn,target)=>{let first='';try{fn();}catch(e){first=e.message.split('\n')[0];}assert(first.startsWith(target),'source038 intended first RED '+name+': '+first);negative.push({name,first});};
 const damaged=full.replace('</head>','<!-- legitimate HTML outside038 source boundary -->\n</head>');parse(damaged);
 expect('valid HTML outside declared three blocks',()=>assert.equal(strip(damaged),original.toString(),'wave038 source-boundary mismatch'),'wave038 source-boundary mismatch');
 expect('partial fixture cannot be accepted as full source',()=>strip(partial),'wave038 unique declared installation tail');
+const phaseLeak=full.replace(phasePoint,phaseBridge+'\n'+phasePoint);parse(phaseLeak);
+expect('valid phase bridge leaked outside production boundaries',()=>assert.equal(strip(phaseLeak),original.toString(),'wave038 source-boundary mismatch'),'wave038 source-boundary mismatch');
 assert.equal(strip(full),original.toString(),'source038 restored full source');
 const card='docs/branch/GPT-038-british-wave10-commerce-markets.md',localFirst=process.argv.find(x=>x.startsWith('--first-card='));
 assert(!localFirst||process.env.GITHUB_ACTIONS!=='true','wave038 CI requires the actual C1 Git object');
@@ -28,12 +37,12 @@ for(const file of['fp.js','fp.json','style.json','harness.js','gallery.js','brit
 const guardPreparation=JSON.parse(fs.readFileSync('docs/branch/GPT-038-full-guard-preparation.json','utf8'));
 for(const entry of guardPreparation.fullGuardPreparedSources)assert.equal(hash(fs.readFileSync(entry.file)),entry.expectedSHA256,'source038 exact prepared full ten-model guard '+entry.file);
 const nativeReferences=new Set();
-for(const file of [...guardPreparation.fullGuardPreparedSources.map(x=>x.file),'partialNinePairs038.cjs','partialNineChecks038.cjs','probePartialNative038.cjs','partialNinePower038.cjs','probeNightPower038.cjs']){
+for(const file of [...guardPreparation.fullGuardPreparedSources.map(x=>x.file),'partialNinePairs038.cjs','partialNineChecks038.cjs','probePartialNative038.cjs','partialNinePower038.cjs','probeNightPower038.cjs','wave038-traffic-phase-fixture.js']){
   const text=fs.readFileSync(file,'utf8');assert(!text.includes('sandbox556b'),'source038 original native sandbox save key '+file);
   for(const [,name]of text.matchAll(/GV\.([A-Za-z_$][A-Za-z0-9_$]*)/g))if(name!=='britishWave038'){
     assert(original.includes(Buffer.from(name)),'source038 reference exists in independent native source '+file+': '+name);nativeReferences.add(name);
   }
 }
-const report={base:BASE,head:process.env.GITHUB_SHA||null,scope:'static source preparation, not native ten-model acceptance',committedIndexSHA256:hash(current),artSourceSHA256:hash(Buffer.from(sources.art)),runtimeSHA256:hash(Buffer.from(sources.runtime)),cssSHA256:hash(Buffer.from(sources.css)),fixtureSHA256:hash(Buffer.from(fixture)),fullFutureCompositionSHA256:hash(Buffer.from(full)),partialFixtureSHA256:hash(Buffer.from(partial)),fullInlineBlocks:parse(full),partialInlineBlocks:parse(partial),sourceBoundaryNegative:negative,fullSourceStripByteEqual:true,partialSourceStripByteEqual:true,gameExecuted:false,fullWaveAcceptance:false};
+const report={base:BASE,head:process.env.GITHUB_SHA||null,scope:'static source preparation, not native ten-model acceptance',committedIndexSHA256:hash(current),artSourceSHA256:hash(Buffer.from(sources.art)),runtimeSHA256:hash(Buffer.from(sources.runtime)),cssSHA256:hash(Buffer.from(sources.css)),fixtureSHA256:hash(Buffer.from(fixture)),fullFutureCompositionSHA256:hash(Buffer.from(full)),partialFixtureSHA256:hash(Buffer.from(partial)),phaseBaseFixtureSHA256:hash(Buffer.from(phaseBase)),phaseHeadFixtureSHA256:hash(Buffer.from(phaseHead)),trafficBridgeSHA256:hash(Buffer.from(phaseBridge)),phaseBaseInlineBlocks:parse(phaseBase),phaseHeadInlineBlocks:parse(phaseHead),productionTrafficBridgeAbsent:true,fullInlineBlocks:parse(full),partialInlineBlocks:parse(partial),sourceBoundaryNegative:negative,fullSourceStripByteEqual:true,partialSourceStripByteEqual:true,gameExecuted:false,fullWaveAcceptance:false};
 if(process.env.GITHUB_ACTIONS==='true'){fs.mkdirSync('shots/wave038/source-preparation',{recursive:true});fs.writeFileSync('shots/wave038/source-preparation/manifest.json',JSON.stringify(report,null,2)+'\n');}
 console.log('WAVE038_SOURCE_PREPARATION '+JSON.stringify(report));

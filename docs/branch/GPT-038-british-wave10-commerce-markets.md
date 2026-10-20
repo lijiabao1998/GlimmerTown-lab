@@ -181,3 +181,16 @@ C12／C13／C14所有原始首紅、失敗程式副本、新舊供電診斷和C1
 6. 新head重跑原候選／完整欄位九款局部整合及新增夜景job，完成九款×四向供電、道路斷開、電源拆除、原生undo復原全部矩陣；BASE／HEAD正常操作、全serialize／stats／utility比較仍fieldExclusions=[]、只允許九款真b.v差。額外保留相位負例及其復原原圖，原249幅之外新增2幅相位原圖，總數251硬驗；所有原PNG、hash、完整保存和source由分件artifact保留，小量原圖／manifest從日誌傳回。最新smoke3／fp零變／財務53+10及獨立差異覆核仍必要；未全過如實報紅。
 
 此授權只接續測試fixture，不重畫九款、不修production時鐘或old-only pool量化限制、不補Silver假模型；Silver與完整十款／21工作仍缺，禁止合併發布。
+
+
+## C18 — 依已先凍結C17實作CI-only相位capture
+
+C17 d4c10eb0eee6039c3ba48e42f0697f63f78f6976已先單獨推送並核實後才動手。新增wave038-traffic-phase-fixture.js，僅由night runner加入生成測試頁，不加入production runtime或原wave038-nine-fixture.js。bridge每次保存trafClock、暫置輸入0、呼叫原GV.forceDraw，記錄原生實際post-draw .016及signalList/sigPhase證據，finally還原counter；所有capture每次都硬驗實際post-draw clock及counter，未覆寫任何原生renderer／信號／供電函式。
+
+移除C15依stableFrame相鄰相等而重試的8次迴圈，只用兩次固定相位capture硬驗全幀相同，未通過直接紅。正常／本波night禁用／復原的實際clock和號誌相位另外逐項相等；原嚴格整張PNG復原、3窗光像素／6RGB差、未通電時整幀逐byte等同禁用night、單一night真缺失首紅與復原均保留。BASE和HEAD全部實拍同用此bridge。
+
+Bishop view0另以真輸入2.7擾動交通相位，不動精靈或供電；同一整幀復原guard必須先紅，實際sigPhase必須改變並保存錯相位原PNG及像素差異統計。回輸入0必須全幀逐byte恢復，原counter、SPR鍵與物件引用、完整native rawSave都要精確不變；不是用相位負例替代夜窗負例。兩張相位錯誤／復原PNG加在原249張之外，251張仍硬驗。
+
+新增測試前即寫出的source-provenance：原獨立Git BASE SHA2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60，BASE+同一CI橋SHA4b30f61985b58d9749a4fe91f8f1430280f741d64e679eb3969ca43d6e907c13，HEAD含橋測試頁SHAe3c10dd83aafd77241fde600d1711e0a9cebd8a5f83876f44e793da04cc15a48。這些是本地純文字組裝核實，真CI仍待推送；兩種測試頁都不能冒稱提交的index。BASE只移除唯一完整橋原bytes回Git原檔；HEAD把橋放在038 CI runtime塊內，仍只剝三塊及原fixture install尾端回同一BASE。production compose明確無helper，另對把合法JS橋漏到production邊界外的有效來源實測靜態首紅／復原；原兩個source負例及全部既有共享來源、完整十款guard SHA不改。
+
+所有saved原圖的phase witness寫入分phase檔，保留BASE四整景與HEAD每款實際捕捉證據；完整manifest及原JSON由core artifact保存，日誌以原manifest的gzip傳回並列原SHA，避免大量重複phase witness撐斷傳輸。六張明列原PNG改為供電整景、Halifax供電／禁用／物理斷電、Bishop錯相位／精確復原，其他所有原PNG照樣留分件。新job仍本分支contents:read，無部署推送。本地只做JS語法、YAML、hash及純文字組裝／剝離／compile；未跑遊戲。C12～C16資料不覆蓋，C18真結果與251矩陣待新頭CI，不先寫通過。
