@@ -103,3 +103,18 @@ C9 `30ee6a320cdc5f2fa6684d7826f5f12ad68a8754` 的來源隔離檢查及九款靜�
 查閱精確 BASE 原始碼及已通過的 wave037 探針後，確認既有 developer API 固定為 `516B`、sandbox 存檔尾碼固定為 `.sandbox516b`。修正九款局部程式及預備完整守衛中錯誤遷移為 556 的這些原生 API／key 字串；完整十款計數、判斷式、負控制及門檻不變。來源靜態檢查新增對獨立 BASE 中 API 名稱與原生 sandbox key 的核對，完整守衛 metadata 保留 C9 草稿 SHA 並明記本次原生呼叫修正。
 
 美術、runtime、CSS、正式 index、凍結卡原文、版本／T／日誌、fp/style 及共用骨架均不改。Silver 仍缺後側實照且沒有模型；新 CI 仍只准證明九款局部，完整十款、完整21 jobs、實機與發布均未取得通過。
+
+
+## C11 — 通電夜景補證計畫（實作前凍結）
+
+父任務已交付 C10 精確 head61db8277a33abf1eef0ab3a68ef93b5fcbb5d6c2 的新獨立覆核：官方 artifact12278738941 真下載成功；113 manifest 檔、84靜態圖、72安裝 sprite、8組BASE／valve完整畫布、來源組裝／剝離及完整守衛雜湊已核；已實看17遊戲場景和2目錄圖。原場景未明確建立供電，只能說「通電夜景整合尚未證明」，不是已確認產品 bug。原作者環境仍未取得該ZIP，不能把審稿者下載實核改寫成作者已下載。完整首紅及 C10 原始證據不覆蓋。
+
+依明確接續指示，在原九款局部驗證中新增有界原生供電／斷電及窗光實際可見的證據；以下條件先凍結，不降低原首卡十款／40向／21工作及任何完整守衛。
+
+1. 僅新增 Actions 測試與本分支只讀 job。正式 index、美術、runtime／CSS、原生夜燈與電力規則、共享骨架、完整十款守衛、版本／T／主線日誌／fp/style 一概不改。正式安裝及自檢仍因 Silver 缺席拒絕，沒有假模型或假供電。
+2. 在 slot3 的相同有界可拋棄世界，以既有原生 GV.placePreview459／GV.place／placeUndo／undo 實際建造九款地標、道路及核電源；只用既有成熟度測試出口固定施工期。不可寫 bd.pw、容量、dispatch 結果或 nightGlobalPowerRate487，不使用 nightPowerTest698 或改電力／夜燈規則。正常 simulation step 產生 bd.pw、T471 dispatch 及 T487 夜間供電真值。
+3. 同一布局比較四個真狀態：供電完整、實際拆掉唯一道路橋接（地標斷電而電源側仍有電）、實際拆除電源（全局供電率0）、用原生 undo 復原。保留獨立只讀道路 BFS 見證、電源／負載／pool／T487 snapshot、九款 root/ref 及完整保存。BASE 與 HEAD 各自跑同樣原生操作及 phase，完整 serialize／stats／utility 比較只允許九款實際 b.v 差異，fieldExclusions=[]。
+4. 九款×四向，真 native game canvas 取得供電／道路切斷／電源斷電／復原夜景。攔截只讀 Canvas drawImage 記錄實際 day sprite 的螢幕座標，以原始夜圖 alpha 投影窗光 mask；不憑手寫相機座標猜測。供電及復原各向都必須出現可量的窗光（至少3個投影像素、最大亮度總差至少6），斷電狀態逐位等於該單一夜圖禁用時的實際原生畫面。此故障僅暫改該本波新 key 的 night，不改共用規則／舊鍵。
+5. 實際移除首款本波 night 作負控制，同一可見性斷言第一紅必須落在 powered-window visibility；還原 canonical sprite 後畫布必須逐byte恢復。全程檢查無 console error、slot3／其他 slot 不變；正式生成頁仍只剝三塊與唯一 fixture tail 可回到獨立 BASE。全部 actual PNG、原 HTML、來源 SHA／Git blob、保存原檔及 manifest 由 artifact 保存；小量明列原圖與完整 manifest 另經日誌傳回，避免上一輪過大日誌中斷。未實看圖明說，Ubuntu Chrome不推論手機／Safari／觸控。
+
+此卡只補九款局部夜景供電證據；Silver 仍無足夠後側照片且暫停繪製，完整十款與合併／發布維持禁止。
