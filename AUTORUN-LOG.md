@@ -19,7 +19,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r208 | [T761](docs/T761-british-wave07-leisure.md) | Landmark、Dreamland、Eastbourne、Alexandra、Jubilee、Dudley、Penguin、Globe、Royal Shakespeare、Winter Gardens，10款×4原生幾何向／80日夜PNG；僅bld新增400..439共40葉，沿原生k24有費目錄／存檔／模擬；v14.54，僅隨PR43合入生效，公開發布另核 | 4887720完整原生39369554933為13／13、十二首紅恢復；push39369554944真smoke3／fp零差／財務53＋10皆綠；T761發布標記後新完整原生、刪workflow後最後常態CI與PR實際模式均須另核，未把舊head說成新head已跑 | #43 | 原生job118449998793的80單圖／3接觸表與十張原始近景已由作者實看；4887720重新83圖SHA全相符；獨立視覺尚未完成，附件／原始bytes詳卡 | bld總分0.9654→0.9651、lightDir0.8212867355043686→0.8183217859892224，七軸詳卡／PR，按第二波起授權披露；獨立程式／安全／視覺、新發布head完整CI、workflow只刪、main／自動Pages與真公站待實核；另87場景未逐張人工、實體手機／Safari／觸控未測；Library未落地0檔，原403／timeout證據保留 |
+| r208 | [T761](docs/T761-british-wave07-leisure.md) | Landmark、Dreamland、Eastbourne、Alexandra、Jubilee、Dudley、Penguin、Globe、Royal Shakespeare、Winter Gardens，10款×4原生幾何向／80日夜PNG；僅bld新增400..439共40葉，沿原生k24有費目錄／存檔／模擬；v14.54，僅隨PR43合入生效，公開發布另核 | T761／14.54發布head20c731a完整原生39370841520為13／13、十二首紅恢復；push39370841371真smoke3／fp零差／財務53＋10皆綠；PR39370845283核實重用該完整push，未冒稱PR重跑三次；刪workflow後最終CI另核 | #43 | 原生job118449998793的80單圖／3接觸表與十張原始近景已由作者實看；4887720重新83圖SHA全相符；獨立視覺尚未完成，附件／原始bytes詳卡 | bld總分0.9654→0.9651、lightDir0.8212867355043686→0.8183217859892224，七軸詳卡／PR，按第二波起授權披露；獨立程式／安全／視覺、workflow只刪後最終CI、main／自動Pages與真公站待實核；另87場景未逐張人工、實體手機／Safari／觸控未測；Library未落地0檔，原403／timeout證據保留 |
 
 ---
 

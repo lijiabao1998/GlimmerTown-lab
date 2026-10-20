@@ -113,3 +113,14 @@
 - main的docs/T檔名、日誌實際卡號及最近提交標題最大T760；實際輪次段標及輪次欄最大r207。分配下一號T761／r208，版本14.53→14.54，只改GAME_VER、GAME_ANCHOR與startVersion456三處精確宣告；既有幾何中的數字14.53不改。卡從docs/branch移至本檔，第一個commit凍結家族、原驗收與原型清單不變。
 - 本次發布標記及方向／日誌變動後，完整原生、真smoke三次、fp、原財務53＋10須以新head實際結果重驗。最後全綠原生記卡後，另作只刪自己wave035-native.yml的獨立提交；後續每個commit核它仍缺席。最後常態CI與獨立程式／安全／實際視覺覆核皆完成後才可Ready及合併。
 - 當前公開計數仍6／20、60座。T761／v14.54是本PR發布準備，並非main、Pages或公開站已更新；第七波只有同PR合入、主線CI／自動Pages成功且真公開文件與精確main SHA吻合後才計7／20、70座。未決項仍為新發布head完整CI、獨立覆核、workflow收尾與發布核實，不縮減80單圖／3接觸表／10近景，另87場景與實體手機／Safari／觸控限制保留。
+
+
+### 20c731a發布標記head完整全綠／臨時workflow刪除前存證
+
+- 發布head20c731aaf686dbb42879cc26a2665ddfea57343d／tree552f26d12c107ece3136425fd0839e839d08dbd2；T761／14.54／r208，index11,183,234 bytes，Git bloba73f1e9542fa96f2ad98bf169d0f4d4bd5015e3c，SHA256825bc9dd04b9461eadc572f36469dacbf6178ea50b7a39a807c14f837a3eec5f。
+- **自己分支臨時workflow最後一次完整[39370841520](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39370841520)已13／13 success、attempt1。** 包含原生86項／十二真故障首紅與恢復、完整三種子九checkpoint／新舊檔、57＋40場景與8整幀、17行人、40組交錯效能／暖畫0／30延遲控制、實際公站保留沙箱與7負控制。這個run是刪workflow前最後完整原生綠燈；本筆先記回執，下一個獨立提交只刪自己wave035-native.yml，產品／探針／原始基線不改，之後不加回。
+- [完整push39370841371](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39370841371)必要三job皆success／attempt1；smoke118458122844真實三次綠／三次console0，fp118458123000與root基線新增0／變更0／移除0，與base只有bld40新增，blocks1728／5ef6eb67、舊3623／其餘165／env全不變；style七軸下降仍如前表並在方向／PR公開。財務118458122693於04:46:58 UTC回執ok:true、checks53、negative10、failures[]。
+- [PR39370845283](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39370845283)為T759實際重用：reuse-push118458171609核實來源完整push39370841371；PR三job成功，沒有把它們說成再跑三次smoke。刪workflow後最終head的push與PR仍須各核真實模式／來源，原生不冒稱在刪除head重跑。
+- 原生原圖[附件12240879513](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39370841520/artifacts/12240879513)、場景[附件12240859544](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39370841520/artifacts/12240859544)上傳成功。native118458122945重新83單圖／接觸表，scene-evidence118458763439／118458763432／118458763409／118458763407／118458763428重新十近景的byte-count／SHA256全部等於已取回且作者實看的c9d35d8原件；93個原PNG已備妥供獨立審稿。這是雜湊綁定與作者圖審，尚無獨立視覺／程式／安全通過。
+- 公站job118458123025於04:41 UTC真核仍main d5a357e／v14.53／T760，第七輯未出現。HTTP與Chrome文件SHA256仍535318c1eb7891d8b714ab7ddebdb0e4e6fdad0b75be97f147048a5bba050458；導航前PID／Network namespace與Seccomp皆Yes，沒有解除sandbox。這證明仍6／20、60座，不是第七波部署證據。
+- 當下沒有未決平台批准、沒有不確定遠端寫入。尚待刪workflow後最終常態CI、獨立程式／安全／實際圖審，才可Ready／合併；main／自動Pages／真公站精確SHA另核。另87場景未逐張人工、實體手機／Safari／觸控未測。
