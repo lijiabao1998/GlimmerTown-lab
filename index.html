@@ -1606,12 +1606,12 @@ table.dtab tr:hover td{background:#1b2334}
   // Real wall apertures, with jamb and soffit depth. No painted black "holes".
   function archWall(A,F,z0,z1,holes,kind='stone',thickness=.75,trim=null){
     const {S,P}=A;let cursor=0;
-    const panel=(u0,u1,a,b)=>{if(u1<=u0||b<=a)return;for(const d of[0,-thickness])S.poly([F.point(u0,d,a),F.point(u1,d,a),F.point(u1,d,b),F.point(u0,d,b)],A.mat(kind,F.nx*(d? -1:1),F.ny*(d? -1:1)));};
+    const panel=(u0,u1,a,b)=>{if(u1<=u0||b<=a)return;for(const d of[0,-thickness])S.poly([F.point(u0,d,a),F.point(u1,d,a),F.point(u1,d,b),F.point(u0,d,b)],d?P.stoneD:A.mat(kind,F.nx,F.ny));};
     for(const h of holes.toSorted((a,b)=>a.u-b.u)){
       const {u,w,bottom,spring,rise}=h;panel(cursor,u,z0,z1);panel(u,u+w,z0,bottom);
       for(let j=0;j<16;j++){
         const at=t=>[u+w*t,spring+rise*Math.sqrt(Math.max(0,1-(2*t-1)**2))],p=at(j/16),q=at((j+1)/16);
-        for(const d of[0,-thickness])S.poly([F.point(p[0],d,p[1]),F.point(q[0],d,q[1]),F.point(q[0],d,z1),F.point(p[0],d,z1)],A.mat(kind,F.nx*(d?-1:1),F.ny*(d?-1:1)));
+        for(const d of[0,-thickness])S.poly([F.point(p[0],d,p[1]),F.point(q[0],d,q[1]),F.point(q[0],d,z1),F.point(p[0],d,z1)],d?P.stoneD:A.mat(kind,F.nx,F.ny));
         S.poly([F.point(p[0],0,p[1]),F.point(q[0],0,q[1]),F.point(q[0],-thickness,q[1]),F.point(p[0],-thickness,p[1])],P.stoneD);
         if(trim)S.poly([F.point(p[0],.08,p[1]),F.point(q[0],.08,q[1]),F.point(q[0],.08,q[1]+.75),F.point(p[0],.08,p[1]+.75)],A.mat(trim,F.nx,F.ny));
       }
@@ -1917,7 +1917,7 @@ table.dtab tr:hover td{background:#1b2334}
     return{...A.finish(),details:{officeStoreys:12,westCarillon:true,lowCourtyardWings:true,ellipticalCouncilChamber:true,openColumnBase:true,finials:'compressed motif, not a counted replica of the sea-horses'}};
   }
   function london(row,view){
-    const A=context(row,view),{S,P}=A,n=48,levels=10;
+    const A=context(row,view),{S,P}=A,n=32,levels=10;
     // Successive floor centres shift toward world south. No bitmap transforms.
     const ring=(j,zOffset=0)=>{const t=j/levels,r=2.2+10.6*Math.sin((.19+.75*t)*Math.PI),cx=16,cy=12.8+7.1*t;return ellipse(cx,cy,r,r*.78,n).map(p=>[...p,3+j*5.8+zOffset]);};
     for(let j=0;j<levels;j++){
@@ -1925,7 +1925,7 @@ table.dtab tr:hover td{background:#1b2334}
       for(let k=0;k<n;k++){
         const next=(k+1)%n,m=(k+.5)*2*Math.PI/n,glass=A.dark(Math.cos(m),Math.sin(m))?P.glassR:P.glass;
         S.poly([a[k],a[next],b[next],b[k]],[glass,P.warmD]);
-        S.beam(a[k],a[next],P.lead,.21);S.beam(a[k],b[k],P.frame,.12);
+        S.beam(a[k],a[next],P.lead,.32);S.beam(a[k],b[k],P.frame,.12);
         if((k+j)%2===0)S.beam(a[k],b[next],P.frame,.11);
       }
       S.poly(b,P.lead);
@@ -1944,15 +1944,32 @@ table.dtab tr:hover td{background:#1b2334}
       const pts=roundedPlan(cx-rx,cx+rx,cy-ry,cy+ry,1.6,5),fs=planBlock(A,pts,.7,h,'plaster');
       for(const F of fs){
         if(F.length<3)continue;
-        A.windows(F,3,Math.max(1,Math.round(F.length/4)),4,9,2.1,5.7,'rect');
+        const bays=Math.max(1,Math.round(F.length/4));
+        for(let l=0;l<3;l++)for(let b=0;b<bays;b++){
+          const u=F.length*(b+.5)/bays-1.05,z=4+l*9;
+          F.block(u-.18,u+2.28,0,.72,z-.25,z+6,Q.creamHi,Q.creamD,Q.creamHi);
+          const G=face(A,F.point(u,.73,0).slice(0,2),F.point(u+2.1,.73,0).slice(0,2),F.nx,F.ny);
+          A.pane(G,.12,z,1.86,5.7,'rect',true);
+        }
         for(let l=0;l<3;l++){
           const z=5+l*9,u=F.length*.52,w=Math.min(2,F.length*.28);
           const p=[[u-w,z-1],[u+w,z-1],[u+w,z+4],[u+w*.25,z+4],[u+w*.25,z+7],[u-w,z+7]];
           S.poly(p.map(v=>F.point(v[0],.3,v[1])),P.slateR);
         }
       }
-      const out=ellipse(cx,cy,rx*.84,ry*.82,36),inside=ellipse(cx,cy,rx*.3,ry*.5,36);
-      ringSurface(A,out,inside,h+.3,h+3.6,P.lead);S.poly(inside.map(p=>[...p,h+3.6]),Q.creamHi);
+      // A continuous three-dimensional hull roof replaces the flat ring cap.
+      // Narrow pointed ends, a curved keel and unequal side slopes remain real
+      // world geometry at every camera direction.
+      const hull=Array.from({length:17},(_,j)=>{
+        const t=j/8-1,w=rx*.93*Math.sqrt(Math.max(0,1-t*t)),y=cy+ry*.94*t,z=h+.35+1.1*t;
+        return{left:[cx-w,y,z],right:[cx+w,y,z],ridge:[cx+.4,y,h+.55+6.6*(1-t*t)]};
+      });
+      for(let j=0;j<hull.length-1;j++){
+        const a=hull[j],b=hull[j+1];
+        S.poly([a.left,b.left,b.ridge,a.ridge],P.lead);S.poly([a.right,a.ridge,b.ridge,b.right],Q.creamHi);
+        if(j%3===0){S.beam(a.left,a.ridge,P.frame,.17);S.beam(a.right,a.ridge,P.frame,.17);}
+        S.beam(a.left,b.left,P.frame,.22);S.beam(a.right,b.right,P.frame,.22);
+      }
     }
     const link=A.volume(9.5,22,10.5,17,.8,14,'plaster');glassFace(A,link.front,3,12,6);
     // Narrow pointed roof-light boats share a depth buffer with their glazing.
@@ -1988,12 +2005,16 @@ table.dtab tr:hover td{background:#1b2334}
       }
     }
     hipPlateau(A,4.1,15.9,6.1,25.9,37.5,7,5.1,'tile');hipPlateau(A,16.1,27.9,6.1,25.9,37.5,7,5.1,'tile');
+    // The first upper floor has a real shaded timber underside. Without this
+    // surface the open undercroft visually borrowed bright upper-wall pixels.
+    S.flat(5.3,26.7,7.3,24.7,12.08,P.woodD);
+    A.K.cylinder(S,16,16,.8,12.08,.48,.48,P.wood,P.woodD,P.woodD,8);
     S.box(5.5,26.5,8,24,.5,.8,P.stone,P.stoneR,P.stoneHi);
     return{...A.finish(),details:{openTimberMarketBase:true,upperJettiedFloors:2,roofRanges:2,presentHippedTileRoofs:true,paleFrameFromOriginalPhoto:true,notLavenhamOrGuildfordClone:true}};
   }
 
-  // These three models begin only after their actual C2 exterior photographs
-  // were inspected. Other frozen candidates await their C3 exterior evidence.
+  // These three models began after their actual C2 exterior photographs were
+  // inspected. The other seven models followed their C3 reference inspection.
   function abingdon(row,view){
     const A=context(row,view),{S,P}=A;
     for(let j=0;j<3;j++)S.box(2.7+j*.4,29.3-j*.4,7.1+j*.4,24.9-j*.4,.44+j*.34,.78+j*.34,P.stone,P.stoneR,P.stoneHi);
@@ -2001,9 +2022,10 @@ table.dtab tr:hover td{background:#1b2334}
     const fs=[face(A,[x0,y1],[x1,y1],0,1),face(A,[x1,y0],[x0,y0],0,-1),face(A,[x1,y1],[x1,y0],1,0),face(A,[x0,y0],[x0,y1],-1,0)];
     for(let i=0;i<fs.length;i++){
       const F=fs[i],bays=i<2?4:2,step=F.length/bays;
-      archWall(A,F,1.45,18,Array.from({length:bays},(_,j)=>({u:j*step+1.05,w:step-2.1,bottom:1.45,spring:9.5,rise:(step-2.1)/2})),'stone',1,'stone');
+      archWall(A,F,1.45,18,Array.from({length:bays},(_,j)=>({u:j*step+1.05,w:step-2.1,bottom:1.45,spring:12,rise:(step-2.1)/2})),'stone',1,'stone');
     }
-    S.flat(x0,x1,y0,y1,17.9,P.stoneD);
+    S.flat(x0,x1,y0,y1,17.9,P.woodD);
+    S.flat(x0+.7,x1-.7,y0+.7,y1-.7,1.46,P.stoneD);
     const hall=A.volume(x0,x1,y0,y1,18,42,'stone');
     for(const [i,F]of Object.values(hall).entries()){
       const bays=i<2?4:2,step=F.length/bays;
