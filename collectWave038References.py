@@ -18,66 +18,71 @@ OUT.mkdir(parents=True, exist_ok=True)
 SOURCES = [
     [
         "leedsCorn",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1255771",
+        "https://www.geograph.org.uk/photo/7660387",
         [
-            "https://historicengland.org.uk/etl/1255771/834ee99f-a5f4-4712-841c-0541ce5c12f8.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false",
-            "https://images.squarespace-cdn.com/content/v1/687e1a7c495e1f0ac7287589/1753094781577-OJXRLX1K9EIT7I84Z08T/ABG09421.jpg"
+            "https://s0.geograph.org.uk/geophotos/07/66/03/7660387_b207eaff.jpg",
+            "https://s0.geograph.org.uk/geophotos/05/47/40/5474054_13df065b.jpg"
         ]
     ],
     [
         "darlington",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1322944",
+        "https://www.geograph.org.uk/photo/6299652",
         [
-            "https://historicengland.org.uk/etl/1322944/2fff4b27-598e-4ea9-ae9e-698d039844d3.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/geophotos/06/29/96/6299652_4be64fee.jpg"
         ]
     ],
     [
         "halifax",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1281516",
+        "https://commons.wikimedia.org/wiki/File:Borough_Market,_Halifax_-_geograph.org.uk_-_2836415.jpg",
         [
-            "https://historicengland.org.uk/etl/1281516/d8045128-ef7e-4a29-9c97-c0959425f727.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://upload.wikimedia.org/wikipedia/commons/6/6b/Borough_Market%2C_Halifax_-_geograph.org.uk_-_2836415.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org",
+            "https://upload.wikimedia.org/wikipedia/commons/b/b0/Halifax_Borough_Market_roof_%282265020733%29.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org"
         ]
     ],
     [
         "bishoplloyd",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1376439",
+        "https://www.geograph.org.uk/photo/6544554",
         [
-            "https://historicengland.org.uk/etl/1376439/e6cff2e8-30e3-4a9c-bf8e-172197d5576c.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/geophotos/06/54/45/6544554_88d3b862.jpg"
         ]
     ],
     [
         "burlington",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1066338",
+        "https://www.geograph.org.uk/photo/8188950",
         [
-            "https://historicengland.org.uk/etl/1066338/b36e3295-89a1-4fd5-a5da-b942784da2ab.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/geophotos/08/18/89/8188950_c3927be3.jpg",
+            "https://jamiefobertarchitects.com/wp-content/uploads/2016/05/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-1800x1202.jpg",
+            "https://jamiefobertarchitects.com/wp-content/uploads/2015/07/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-Picadilly-entrance-1800x1350.jpg",
+            "https://jamiefobertarchitects.com/wp-content/uploads/2015/07/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-Burlington-entrance-1800x1350.jpg"
         ]
     ],
     [
         "silver",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1074775",
+        "https://leicestershirepress.com/2025/03/10/leicesters-silver-arcade-welcomes-new-stores-it-feels-like-a-revival/?amp=1",
         [
-            "https://historicengland.org.uk/etl/1074775/a447b97f-2e36-4af5-83fb-35fd973e7f67.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://i0.wp.com/leicestershirepress.com/wp-content/uploads/2025/03/Silver-Arcade-2.jpg?resize=1024%2C768&ssl=1",
+            "https://www.maber.co.uk/app/uploads/2019/09/2895_N8_medium.jpg"
         ]
     ],
     [
         "harrods",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1294346",
+        "https://www.geograph.org.uk/photo/3262298",
         [
-            "https://historicengland.org.uk/etl/1294346/40512116-54b6-43e1-8a2a-46728e888e79.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/geophotos/03/26/22/3262298_b87129ea.jpg"
         ]
     ],
     [
         "liberty",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1357064",
+        "https://www.geograph.org.uk/photo/104144",
         [
-            "https://historicengland.org.uk/etl/1357064/360569f4-b3db-47e8-9b6a-a577de37b62a.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/photos/10/41/104144_746b7bd3.jpg"
         ]
     ],
     [
         "danum",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1031509",
+        "https://www.geograph.org.uk/photo/7628318",
         [
-            "https://historicengland.org.uk/etl/1031509/8affcb29-0c5d-4353-9859-845fb00b0aa6.jpg?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/geophotos/07/62/83/7628318_ab148d32.jpg"
         ]
     ],
     [
@@ -91,7 +96,7 @@ SOURCES = [
 PART = int(os.environ['WAVE038_REFERENCE_PART'])
 if PART not in range(5):
     raise ValueError('Exactly five bounded reference parts')
-REQUESTED = set(filter(None, os.environ.get('WAVE038_REFERENCE_IDS', '').split(',')))
+REQUESTED = set(filter(None, os.environ.get('WAVE038_REFERENCE_IDS', 'leedsCorn,darlington,halifax,bishoplloyd,burlington,silver,harrods,liberty,danum').split(',')))
 if REQUESTED - {s[0] for s in SOURCES}:
     raise ValueError('Unknown reference subject')
 
@@ -131,6 +136,7 @@ def error_record(error, name):
     return out
 
 
+PROVENANCE = {x['url']: x for x in json.loads(Path('docs/branch/GPT-038-reference-provenance.json').read_text())['assets']}
 records = []
 for name, page, direct in SOURCES[PART * 2:PART * 2 + 2]:
     if REQUESTED and name not in REQUESTED:
@@ -165,7 +171,7 @@ for name, page, direct in SOURCES[PART * 2:PART * 2 + 2]:
                 raise ValueError('Reference must be a raster photo: ' + mime)
             file = name + '-' + str(j) + ext
             (OUT / file).write_bytes(b)
-            meta = {**item, 'file': file, 'finalURL': final, 'bytes': len(b), 'sha256': hashlib.sha256(b).hexdigest(), 'head': os.environ.get('GITHUB_SHA'), 'part': PART}
+            meta = {**item, **{k: v for k, v in PROVENANCE.get(item['url'], {}).items() if k != 'state'}, 'file': file, 'finalURL': final, 'bytes': len(b), 'sha256': hashlib.sha256(b).hexdigest(), 'head': os.environ.get('GITHUB_SHA'), 'part': PART}
             rec['images'].append(meta)
             print('WAVE038_REF_BEGIN ' + json.dumps(meta), flush=True)
             s = base64.b64encode(b).decode()

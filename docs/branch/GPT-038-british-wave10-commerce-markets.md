@@ -60,3 +60,7 @@
 - C1首卡[95373e6](https://github.com/lijiabao1998/GlimmerTown-lab/commit/95373e6e6222cfa54830323adc8e9b0fba24120f)／tree4b33ea78c865f41ca2be804c38ac4a27fcbb1155已在新遠端分支核實，唯一父main3e335233；compare唯一差異為新增本卡，沒有先繪製。環境斷線通知後已用真exec讀取確認工作樹／卡檔與原SHA完整，沒有把通知當已恢復或丟檔。
 - 一手文字核實後逐一點開九個HE頁實際photo link、Leeds營運者頁照片，以及Richard Sutcliffe在Geograph7360104的217 Sauchiehall Street外景。四個NTS imgix圖片在web工具Internal Error、Geograph architect tag頁not accessible，完整回應本地保存，不重試這些URL；沒有把錯誤猜成403或登入。Geograph2264810文字指向Buchanan Street，是別處的Willow Tea Rooms，排除而不作本原型依據。十款原照仍未實看、未開始新美術。
 - C2只新增有界038參考collector、只讀且僅綁本分支的五個參考工作與此施工紀錄；不改index或任何遊戲／判準。collector只讀已在來源頁點開的明列公開圖片，保留原bytes／headers錯誤／SHA與官方artifact；不取上一輪已失敗目標、不改proxy／TLS／sandbox／權限、不登入。圖片是否真外觀及證據涵蓋程度仍待實際取回、實看；成功前不宣稱考據完成。
+
+- C2 [512d3d5](https://github.com/lijiabao1998/GlimmerTown-lab/commit/512d3d5b51cbf0bf3efd0e7f57288185a1cf502e) 的參考run39427226725五工作全部失敗於九個HE /etl/圖片HTTP403／Cloudflare challenge，原HTML錯誤body／headers由五官方artifacts保存，完整rawlogs／bodySHA與被拒URL清單已保存；所有九個目標停止、不重跑、不改URL或headers取同一資源。標準39427226056真smoke3／fp零變／財務53＋10全成功，但index未變，只驗BASE，不當成本波美術完成。
+- C2成功取回兩張真原bytes並核SHA／實看：Willow7360104為217Sauchiehall完整窄高白立面，樹遮部分下層，背部／全屋頂未見；Leeds營運者ABG09421是室內，排除作外景完成，不能代替橢圓屋身與穹頂照片。正式仍9／20波90棟，未開始新美術。
+- C3依新的接續指示保留相同十款及原外景要求，僅改用不同攝影者的獨立公開照片、建築師項目與現場新聞照片，逐張URL均在其原發布頁實際點開，不是重取被擋HE資源。九個缺外景subject明列讀取，Willow已保存的不重取；原出處／作者／許可已知範圍與照片用途保存GPT-038-reference-provenance.json，未核bytes或實看前仍不算補齊。Leeds6918607頁工具not-accessible、兩個Calderdale頁404、Boden項目頁Internal Error等亦不重試，原回應保存。所有原凍結條件、模型來源、原判準不變，十一份私有038守衛僅本地草稿／語法核實，未提交或跑遊戲。

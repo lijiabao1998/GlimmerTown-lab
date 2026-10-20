@@ -1,0 +1,149 @@
+{
+  "unchangedPrototypes": true,
+  "unchangedAcceptanceCriteria": true,
+  "parentInstruction": "Keep same buildings and exterior evidence requirements; independently authored legal public sources only; no requests to HE403 resources",
+  "alreadyPreservedAndViewed": [
+    "willow-0.jpg",
+    "leedsCorn-1.jpg (interior only)"
+  ],
+  "alreadyCompleteSubjectNotRefetched": [
+    "willow"
+  ],
+  "assets": [
+    {
+      "id": "danum",
+      "url": "https://s0.geograph.org.uk/geophotos/07/62/83/7628318_ab148d32.jpg",
+      "page": "https://www.geograph.org.uk/photo/7628318",
+      "credit": "Stephen Craven",
+      "license": "CC BY-SA 2.0",
+      "role": "exterior candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "bishoplloyd",
+      "url": "https://s0.geograph.org.uk/geophotos/06/54/45/6544554_88d3b862.jpg",
+      "page": "https://www.geograph.org.uk/photo/6544554",
+      "credit": "Stephen Richards",
+      "license": "CC BY-SA 2.0",
+      "role": "Watergate Street exterior candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "darlington",
+      "url": "https://s0.geograph.org.uk/geophotos/06/29/96/6299652_4be64fee.jpg",
+      "page": "https://www.geograph.org.uk/photo/6299652",
+      "credit": "Graham Hogg",
+      "license": "CC BY-SA 2.0",
+      "role": "market and clock tower exterior candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "liberty",
+      "url": "https://s0.geograph.org.uk/photos/10/41/104144_746b7bd3.jpg",
+      "page": "https://www.geograph.org.uk/photo/104144",
+      "credit": "John Winfield",
+      "license": "CC BY-SA 2.0",
+      "role": "Great Marlborough Street exterior candidate; historical photograph",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "harrods",
+      "url": "https://s0.geograph.org.uk/geophotos/03/26/22/3262298_b87129ea.jpg",
+      "page": "https://www.geograph.org.uk/photo/3262298",
+      "credit": "Christine Matthews",
+      "license": "CC BY-SA 2.0",
+      "role": "exterior candidate; Christmas-display framing to be checked",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "leedsCorn",
+      "url": "https://s0.geograph.org.uk/geophotos/07/66/03/7660387_b207eaff.jpg",
+      "page": "https://www.geograph.org.uk/photo/7660387",
+      "credit": "Christopher Hilton",
+      "license": "CC BY-SA 2.0",
+      "role": "2023 exterior candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "leedsCorn",
+      "url": "https://s0.geograph.org.uk/geophotos/05/47/40/5474054_13df065b.jpg",
+      "page": "https://www.geograph.org.uk/photo/5474054",
+      "credit": "Philip Halling",
+      "license": "CC BY-SA 2.0",
+      "role": "1980 exterior and roof candidate; historical, not current condition",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "halifax",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Borough_Market%2C_Halifax_-_geograph.org.uk_-_2836415.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org",
+      "page": "https://commons.wikimedia.org/wiki/File:Borough_Market,_Halifax_-_geograph.org.uk_-_2836415.jpg",
+      "credit": "Phil Champion",
+      "license": "CC BY-SA 2.0",
+      "role": "exterior candidate; independent Geograph photograph hosted under its license",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "halifax",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Halifax_Borough_Market_roof_%282265020733%29.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org",
+      "page": "https://commons.wikimedia.org/wiki/File:Halifax_Borough_Market_roof_(2265020733).jpg",
+      "credit": "Tim Green",
+      "license": "CC BY 2.0",
+      "role": "roof candidate; view direction and interior/exterior to be checked",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "burlington",
+      "url": "https://s0.geograph.org.uk/geophotos/08/18/89/8188950_c3927be3.jpg",
+      "page": "https://www.geograph.org.uk/photo/8188950",
+      "credit": "DS Pugh",
+      "license": "CC BY-SA 2.0",
+      "role": "Piccadilly entrance candidate; may show only part of frontage",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "silver",
+      "url": "https://i0.wp.com/leicestershirepress.com/wp-content/uploads/2025/03/Silver-Arcade-2.jpg?resize=1024%2C768&ssl=1",
+      "page": "https://leicestershirepress.com/2025/03/10/leicesters-silver-arcade-welcomes-new-stores-it-feels-like-a-revival/?amp=1",
+      "credit": "Leicestershire Press; article by Alfie Linville-Sibley; visible exterior caption has no separate photographer credit",
+      "license": "publicly displayed press photograph; reference only; no license inferred",
+      "role": "external entrance before renovation per original caption",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "silver",
+      "url": "https://www.maber.co.uk/app/uploads/2019/09/2895_N8_medium.jpg",
+      "page": "https://www.maber.co.uk/projects/silver-arcade/",
+      "credit": "Maber project publication; photographer not identified in visible page",
+      "license": "publicly displayed architect project image; reference only; no license inferred",
+      "role": "interior and glazed roof candidate; not an exterior substitute",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "burlington",
+      "url": "https://jamiefobertarchitects.com/wp-content/uploads/2016/05/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-1800x1202.jpg",
+      "page": "https://jamiefobertarchitects.com/work/burlington-arcade/",
+      "credit": "Jamie McGregor Smith / Jamie Fobert Architects project publication",
+      "license": "publicly displayed architect project image; reference only; no license inferred",
+      "role": "interior roof and bays candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "burlington",
+      "url": "https://jamiefobertarchitects.com/wp-content/uploads/2015/07/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-Picadilly-entrance-1800x1350.jpg",
+      "page": "https://jamiefobertarchitects.com/work/burlington-arcade/",
+      "credit": "Jamie McGregor Smith / Jamie Fobert Architects project publication",
+      "license": "publicly displayed architect project image; reference only; no license inferred",
+      "role": "Piccadilly entrance candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    },
+    {
+      "id": "burlington",
+      "url": "https://jamiefobertarchitects.com/wp-content/uploads/2015/07/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-Burlington-entrance-1800x1350.jpg",
+      "page": "https://jamiefobertarchitects.com/work/burlington-arcade/",
+      "credit": "Jamie McGregor Smith / Jamie Fobert Architects project publication",
+      "license": "publicly displayed architect project image; reference only; no license inferred",
+      "role": "Burlington Gardens entrance candidate",
+      "state": "published source link observed; CI bytes and manual inspection pending"
+    }
+  ]
+}
