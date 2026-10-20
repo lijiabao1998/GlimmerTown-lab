@@ -2009,7 +2009,9 @@ table.dtab tr:hover td{background:#1b2334}
     // surface the open undercroft visually borrowed bright upper-wall pixels.
     S.flat(5.3,26.7,7.3,24.7,12.08,P.woodD);
     A.K.cylinder(S,16,16,.8,12.08,.48,.48,P.wood,P.woodD,P.woodD,8);
-    S.box(5.5,26.5,8,24,.5,.8,P.stone,P.stoneR,P.stoneHi);
+    // The isometric ray sees the real covered market paving through the open
+    // posts. Shade that physical surface; keep the openings genuinely empty.
+    S.box(5.5,26.5,8,24,.5,.8,P.stone,P.stoneR,P.stoneD);
     return{...A.finish(),details:{openTimberMarketBase:true,upperJettiedFloors:2,roofRanges:2,presentHippedTileRoofs:true,paleFrameFromOriginalPhoto:true,notLavenhamOrGuildfordClone:true}};
   }
 
