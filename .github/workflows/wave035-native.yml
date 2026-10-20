@@ -1,0 +1,26 @@
+name: wave035-native
+on:
+  push:
+    branches: ['gpt/british-wave07-035']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave035-native
+  cancel-in-progress: true
+jobs:
+  references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read primary architectural photos without booting the game
+        run: python3 collectWave035References.py
+      - name: Preserve raw reference photos and exact source manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave035-references-${{ github.sha }}
+          path: shots/wave035/references/
+          retention-days: 14
+          if-no-files-found: error
