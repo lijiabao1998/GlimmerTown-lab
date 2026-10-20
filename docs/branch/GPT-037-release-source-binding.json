@@ -187,7 +187,307 @@
     ],
     "reverseToReviewedSourceBytesEqual": true,
     "stripToOriginalMainBytesEqual": true,
-    "newHeadCI": "pending"
+    "newHeadCI": {
+      "head": "0420b2193b248efedd7101c8133fec722b800512",
+      "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+      "fullRun": 39414702723,
+      "runAttempt": 1,
+      "jobsSuccess": 21,
+      "pushRun": 39414702730,
+      "pushActualSmokeRuns": 3,
+      "pushActualSmokeSeconds": [
+        74.8,
+        64.9,
+        63.5
+      ],
+      "rootFpChanges": 0,
+      "baseAddedBldLeaves": 40,
+      "baseChangedOldLeaves": 0,
+      "baseRemovedLeaves": 0,
+      "fiscalChecks": 53,
+      "fiscalNegative": 10,
+      "PRRun": 39414707924,
+      "PRActualReuseSource": 39414702730,
+      "PRNewSmokeExecutionsClaimed": false
+    },
+    "actualSourceParts": [
+      {
+        "name": "index.html.part0",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 0,
+        "parts": 8,
+        "offset": 0,
+        "bytes": 1500000,
+        "sha256": "3016651eede024388371df4b9a6832de8956eb72c2da4449f3d9b2773c2e37c5",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part1",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 1,
+        "parts": 8,
+        "offset": 1500000,
+        "bytes": 1500000,
+        "sha256": "575266a5ed4030f336223c416d07c9f67539e842b5c29183554eed2581b48755",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part2",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 2,
+        "parts": 8,
+        "offset": 3000000,
+        "bytes": 1500000,
+        "sha256": "73a19f53a1b5e3d18eba597a4ee8828179d77233c2598b084fb81ff5c35c4cb9",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part3",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 3,
+        "parts": 8,
+        "offset": 4500000,
+        "bytes": 1500000,
+        "sha256": "66f309c545a4519d9c140a340b1b9a900ad50d622c0c04c6563bfae81a662f73",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part4",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 4,
+        "parts": 8,
+        "offset": 6000000,
+        "bytes": 1500000,
+        "sha256": "edcc9233de0f56e91620a9d6f4d7c2cd02ed31fb62bb177e43b8a381f1db6ed8",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part5",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 5,
+        "parts": 8,
+        "offset": 7500000,
+        "bytes": 1500000,
+        "sha256": "b7c57b6bef16bb02cfec52289f91ee940eadae8d04a86e93f362a04848fb76e7",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part6",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 6,
+        "parts": 8,
+        "offset": 9000000,
+        "bytes": 1500000,
+        "sha256": "87af5d535a1cd91f7b8d5184ae138bef39410baf752be5faac02dc84775604a8",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      },
+      {
+        "name": "index.html.part7",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+        "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+        "part": 7,
+        "parts": 8,
+        "offset": 10500000,
+        "bytes": 796190,
+        "sha256": "082c972a121cec9a1cfc1ad34fcf1c28fa595efd512054f919591470f710788e",
+        "totalBytes": 11296190,
+        "fullSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+        "rawBytesEqualExpectedReleaseIndex": true
+      }
+    ],
+    "producerProof": {
+      "head": "0420b2193b248efedd7101c8133fec722b800512",
+      "tree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+      "gitBlob": "69a3851fb58fab4aa66616941d92492220b17a33",
+      "bytes": 11296190,
+      "sha256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+      "committedObjectBytesEqual": true
+    },
+    "officialArtifacts": {
+      "artifacts": [
+        {
+          "id": 12261295612,
+          "name": "wave037-scenes-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 61482065,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12261295612",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12261295612/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:26:31Z",
+          "expires_at": "2026-11-03T11:26:28Z",
+          "updated_at": "2026-10-20T11:26:31Z",
+          "digest": "sha256:ef16141e3bc0bec76fb2b9f0ee441a156d4ebf4fa0f57b3519a5a24777c955c3",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260996420,
+          "name": "wave037-public-site-0420b2193b248efedd7101c8133fec722b800512-attempt-1",
+          "size_in_bytes": 2015601,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260996420",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260996420/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:25:24Z",
+          "expires_at": "2026-11-03T11:25:22Z",
+          "updated_at": "2026-10-20T11:25:24Z",
+          "digest": "sha256:797a7636055a0adb7e553b57d7bbd8c1c157192e4c44e1c9c7fc24e375910745",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260806689,
+          "name": "wave037-pedestrians-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 21926480,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260806689",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260806689/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:25:44Z",
+          "expires_at": "2026-11-03T11:25:42Z",
+          "updated_at": "2026-10-20T11:25:44Z",
+          "digest": "sha256:fe5d1d3920faea1853e476c08866a2c727dbcb66d2ace4d67fc89a98e88929fc",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260761759,
+          "name": "fp-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 3770865,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260761759",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260761759/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:25:49Z",
+          "expires_at": "2026-11-03T11:25:47Z",
+          "updated_at": "2026-10-20T11:25:49Z",
+          "digest": "sha256:27f2c48ec1e077c3bdd3bd8b3294eefaf55f315752a626c6df6e94ec54ad3da0",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260701883,
+          "name": "wave037-performance-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 1225,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260701883",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260701883/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:26:06Z",
+          "expires_at": "2026-11-03T11:26:06Z",
+          "updated_at": "2026-10-20T11:26:06Z",
+          "digest": "sha256:0025f94f204a2ac5562a96aa54f8022c0dbf88710583255960206cc83b38375c",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260667046,
+          "name": "wave037-native-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 1242073,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260667046",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260667046/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:26:32Z",
+          "expires_at": "2026-11-03T11:26:31Z",
+          "updated_at": "2026-10-20T11:26:32Z",
+          "digest": "sha256:6dd0193c83e7be5640c9ba6e12e7caef4acef9e84a58a50157e48b517b117407",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260459914,
+          "name": "wave037-preview-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 5485576,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260459914",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260459914/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:25:26Z",
+          "expires_at": "2026-11-03T11:25:25Z",
+          "updated_at": "2026-10-20T11:25:26Z",
+          "digest": "sha256:77aadff6055d676528116387956f45bd4e14c71b5e411935b223fb85255e5aa5",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        },
+        {
+          "id": 12260314942,
+          "name": "wave037-normal-pairs-0420b2193b248efedd7101c8133fec722b800512",
+          "size_in_bytes": 75616,
+          "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260314942",
+          "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12260314942/zip",
+          "expired": false,
+          "created_at": "2026-10-20T11:26:15Z",
+          "expires_at": "2026-11-03T11:26:14Z",
+          "updated_at": "2026-10-20T11:26:15Z",
+          "digest": "sha256:d893d8c1ade68469e269a0f92f31efb5ba1a35ad4818a9beb4698b233a221ab3",
+          "workflow_run": {
+            "id": 39414702723,
+            "repository_id": 1385034362,
+            "head_repository_id": 1385034362,
+            "head_branch": "gpt/british-wave09-037",
+            "head_sha": "0420b2193b248efedd7101c8133fec722b800512"
+          }
+        }
+      ]
+    }
   },
   "reviewedOriginals": {
     "rawProducerHead": "7c307bce32aa0247a13e6bb3dd741bd2a066fda8",
@@ -677,6 +977,691 @@
     "originalRawBytesUnchanged": true
   },
   "finalReleaseSourceAndRawPngRebinding": "pending new head full21 CI",
-  "finalIndependentDeltaReview": "pending after release metadata and workflow deletion",
-  "publication": "not merged; public remains8/20 v14.55 T762"
+  "finalIndependentDeltaReview": "pending exact final head after release record and workflow deletion",
+  "publication": "state at pre-deletion audit: not merged; public remains8/20 v14.55 T762. Later final outcome belongs to PR45 receipts.",
+  "current93RawByteRebinding": {
+    "producerHead": "0420b2193b248efedd7101c8133fec722b800512",
+    "producerTree": "61915e5b6e937680ecb3ac06b61a5e1c07a376b1",
+    "run": 39414702723,
+    "native": [
+      {
+        "name": "24_1_480-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 7071,
+        "sha256": "8da022673333a10b32079e1b781e2ba5e39585c5cf9c87d0343e94f2a05b1373",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_480-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2340,
+        "sha256": "e66856e7c22393731ac04457367374e623db8c0d69ac3a2b6522a7163a25c4f1",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_481-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6889,
+        "sha256": "0c3a0e77a2141ee54353d1e7dffafe572004e7689ab318873316db5fa8bfde1e",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_481-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2434,
+        "sha256": "d62d224679a9347b73d7044d3a3369cdaf778c2a685fece29e3bb93271c6545a",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_482-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6804,
+        "sha256": "f5952ef462a142c79b829f5fd4d9691d9abb47aef76dcbbee9e2bd485a039005",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_482-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2472,
+        "sha256": "7aa7c8931fe92f96e1a23e2cbf3c94838f821cd2f66fa514ee08df9b9bf99029",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_483-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6840,
+        "sha256": "b5c29a308296a1570696659e56fd4faa55ac460d85b52b4162e7bc3779b39b31",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_483-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2352,
+        "sha256": "906bf4930f273eb4074f7b068ffa714aaed0c584155f27dc7d4861dc3e830a0e",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_484-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 7324,
+        "sha256": "a0c9feeac6d050dd11c47073aefc106df1e1dd824eb63480f6ab46fadb43f756",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_484-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2146,
+        "sha256": "3f7031ae1d00245a5e8fe298549de4def798927befb53f33f8044ba8ed13c5c4",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_485-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6997,
+        "sha256": "d40e2c59702abb1b061caba47cf41ad710b8902e98ee3013b36d40dc9de00b16",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_485-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2071,
+        "sha256": "0713b445b09c29ae46d98daa5ecf089b2c9249238de0c5879661422815af8063",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_486-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6723,
+        "sha256": "17f84c4f85cac6962b7a1c475584dc6c0c1d44645141a0164b57abef366b2362",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_486-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2016,
+        "sha256": "7b256627385c2523706f7055ec7ae53700def9c487d6b331424d585d855c2318",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_487-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6953,
+        "sha256": "c3128989e32e3c0775960c822bb57c9d68c08453fb856b60a9303ce2c0e460d6",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_487-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2145,
+        "sha256": "a0b8d33fd4af2d68a52f0a2a987f875e4d6a7ca41ea1eb9f13404302ff264a11",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_488-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6622,
+        "sha256": "aee812cc3daa6da9070f1b2ba2aa84619e5e1a1001e854f69f04527cc84a161b",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_488-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2197,
+        "sha256": "9ae3982ff9a65307cb08cabcd94dc2f5c57436e81417b742918e9ee8ff355739",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_489-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6989,
+        "sha256": "1f5b36527d7e8259c8d0b7e3bf6a90fb966336f823f1c0daa6c5974f1b276b32",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_489-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2538,
+        "sha256": "e4939ae3477bd66bcaa7db32312e3d4a2d9b15dc35bf6f2c9522fe776f81e609",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_490-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6702,
+        "sha256": "fed68cb6654a2b72213086102fa78c9c404b70417a92c193a90d9106d82d59e2",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_490-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2539,
+        "sha256": "786bc1eb94145ae7e5134fb2aefe8acfe67d83bebd85c079c2120eb0de88c504",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_491-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6188,
+        "sha256": "fd7ff85b0a0c2ed81d9ddb61604ba74d471d160dd8e396a8c3889809d1d06f04",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_491-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2210,
+        "sha256": "c951fa73c3243c40dc4296c67e79e2843d9886efe5067b9fec17a53b37424c5e",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_492-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6921,
+        "sha256": "6bfcf85d8a6eeaac237cfe0a2691a330d33dfc7a098b7f680db209cbc91b7319",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_492-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2428,
+        "sha256": "1723a86197c2ed5c9c32a96052141e21da5c8d6ded2cb212301dfa186dc57bfd",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_493-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5650,
+        "sha256": "0fac37685f9d833da49cdb5f012d7ffc5fa4009b3acb8134a22d45f1ae1149be",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_493-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2206,
+        "sha256": "8cf49b5505c52cc7afdcf3d7b40126d9ba3a9a7b978856747b5e4c29a76332ec",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_494-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5626,
+        "sha256": "9b6f2c307e6131f01cba86750111103f8e9ffa81a45cd7b8fd37444d233edc66",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_494-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1982,
+        "sha256": "7a2c35100edb7d87253d916487b521f5b59a122822b6a38bdff8553ce1355bbb",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_495-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6441,
+        "sha256": "7d3379d43c695c714627ddc95511c9208770f8b3dc263e258370b48e8efec693",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_495-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2341,
+        "sha256": "f723b3cd2dbd9ae751ff8e67e5fb4b62ca52250edd5b6bd99c5d3d8f160d254d",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_496-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5897,
+        "sha256": "9c3a19db85bcfbcc7d5b49dbeb6f577ef31e023dfd26b063cbe1eae43218bd19",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_496-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 3334,
+        "sha256": "b8ac12df0d48cdf483838ea0219a33427746e2f79e4742a6f9258c2023874001",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_497-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5751,
+        "sha256": "11cb063a9bdb730b98f6d5c56bbd683fd9c57af02e2dd5ee9a015da20c376cbf",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_497-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 3563,
+        "sha256": "335203a4637c093eac49ae7c4ac5bfcb8216213f474238b4eeb63b862f7bbd6f",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_498-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5405,
+        "sha256": "5c7dedf1e354d4519b586e30cbda35dde8053dfe06aa8a7a539a4b5fcf7532ba",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_498-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 3571,
+        "sha256": "839a4c76b78410ec8aaf6cce31bb40dfb0c0110492626517997d63725a65c253",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_499-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5582,
+        "sha256": "1ee53428a88256e6e5d30939085f470310660a31627899ac9e4c5bce6425446c",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_499-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 3303,
+        "sha256": "b2bd1eeaf36239a3e83fb44d90e95061ab6819b513d0d5d2e0e1a02bb77ef22b",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_500-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5575,
+        "sha256": "16938029bf4b84dd3da9b78efcc5cb1e9568912184099c3af93d5e64ecc50558",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_500-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2073,
+        "sha256": "03588cb57bef4d64d2af73643e53e036b5b0626d71feaa706dd386a555a7b23f",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_501-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 4789,
+        "sha256": "e2c4187eda65672bf6456a1cca37f83114af6c3ba3b37d6c5a3bbc6b65d2ef18",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_501-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1902,
+        "sha256": "0d2fc9589c9cdbbccaf6724b9a82476a9eafe9db467475b31d7c76ccfd807fc5",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_502-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 4893,
+        "sha256": "9e4afe738353399be127db52918dbb7720ab8546f499707118d0c3d40d30dcd6",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_502-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1977,
+        "sha256": "6ca52f7f92747f1b182bfc1e4f8fba9689b03386d9e5f22a8f604239d2021118",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_503-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5661,
+        "sha256": "c5b8fc68e181972e5bbda7f6fddf4095b3e043b378945728ab340315d9eb9704",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_503-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2135,
+        "sha256": "2b0bde43871bf7c87548dda7816c450de4ff071d1df0fd767f598da545cfb14a",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_504-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5492,
+        "sha256": "a1dec771fe11b455951b3e4a89539399ac7852b5287ac8d36e78b8166b4006e8",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_504-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1891,
+        "sha256": "26e07a715bee44bb885316979281e0db34e5b586ef6544515ced3b381c808efa",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_505-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5266,
+        "sha256": "6a995bd31527dba39c35b6996fe8ad2884de6c819d23995d41d5743b5a09597d",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_505-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1865,
+        "sha256": "5ac354942c8dfe086d9c1fe768b556593298dfdb73b7e4c9e0f37869c511ff6d",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_506-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 4780,
+        "sha256": "ea77e6bc9887385367e57865ceaa506861290fc61e13ae909453768746b99c5d",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_506-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1858,
+        "sha256": "488abac0f1fd847eeb4dcbc35f41efb15eabfe930583ed1e973ef5360203a067",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_507-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5240,
+        "sha256": "405cb85400a788418e23ad1d5287698d81654de9f39c6a51e137f7a03b922dd1",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_507-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1892,
+        "sha256": "974ef2761d652c026aa471e1e100102cecc7b1ad86cb33b17277ed5319b1ff20",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_508-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6288,
+        "sha256": "b5fa823baa85dbfefcb40eeff486b600a57fc95bfed3da7dce7079eba527cd2f",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_508-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1992,
+        "sha256": "4c7a0e774085bb8d12ef3b4bd875cfcaa4d7ab44ef6c42abb4e8b3eb5c8eb7c2",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_509-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6172,
+        "sha256": "5340cd5cff8edc8cc13ee3f8b5ac6d64b67d1532cd746557029ef2ff9c1c076c",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_509-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1963,
+        "sha256": "4588a0734c0443f3f5ef0b1c3fecec145eed847051388476db458d5d0f6c02f2",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_510-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5981,
+        "sha256": "9b9e3ac6022f922be3a6e3c538eadf10667a6449ba6ed31272db1a34e34a7da7",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_510-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1848,
+        "sha256": "8e009f3784898b004ce427b0ed96f975fc9662ed46b35f4a8d6812ecb76fa66f",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_511-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5945,
+        "sha256": "126c5f8a37f59c3399bb86fa0dc5eff757b0bf61f3b61daafbdb2eb513d84b23",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_511-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1921,
+        "sha256": "282224a7988f7872468c9463831f44c46c8206d791582dddce374031b598388a",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_512-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6164,
+        "sha256": "9a3c8231a48aa8c06b982996c3076fb6ad09538e7a38efde5ad941ceaf247fb9",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_512-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2201,
+        "sha256": "68c5dea28d87bc6a3515fd0c10887e12da4f2bb6f18c93ee86d898e86db9d6ec",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_513-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5672,
+        "sha256": "b5ab13697a2312c1f13a6bc170ca8a05245a5707a0919502e9680280df72f3c1",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_513-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2210,
+        "sha256": "1b3104ef9a51b4d3594831bf98c3dc54d58040719081dafdb369cb78f815f287",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_514-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5467,
+        "sha256": "8a3bce847758c4484e7429d3567f60ea3dbeddc0925fc67c3b971e80b715c3bc",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_514-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2228,
+        "sha256": "75ba232f72fa78a3d4c90ee4b9d681b9013315945c7bb2b553b94dd2fa8593f3",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_515-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 5989,
+        "sha256": "1309238d2f260c9c4355beaf0aa855260e351789ba59d3ee9703cb2eb6f74818",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_515-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2179,
+        "sha256": "2c30a73e2f456886cc7cb0059b9bae49e595fa1ac0f39d6c7fe4d7c13ee5e4ec",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_516-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6479,
+        "sha256": "3aced8ab8c091dc7bc444bddc767a701bec2c2e62475f43c0fc82413625073a7",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_516-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2077,
+        "sha256": "b27da4cedbd11d0ac8c7c20a320e90ce4514bccc99dd24489c8fc2b69b04721b",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_517-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6177,
+        "sha256": "ebc1f9d5c81fdb0af2df8d682c546676a06f2be15675e0a83d7e3f79d86b1531",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_517-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 1908,
+        "sha256": "ce4c6dbdfcaf37555665a553182d138e183283bc0ca74f207d6a68af4c6519c8",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_518-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6402,
+        "sha256": "e33ff7d94e2549cc810730ea0d680f9363f6fb93899d5e5efe1b182a1ba12b96",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_518-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2011,
+        "sha256": "7881c59aa0f23bec8a164862d29218fd767e855351c0ba5e9ea78aca1988263f",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_519-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 6432,
+        "sha256": "bb437b8ec32c36545dc91e58912a05665483f3f6ec7b9721508f707e36a71fef",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "24_1_519-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 2157,
+        "sha256": "74fd323ca3f953e06e9a0cbd487fabea4c1215dbb86e57edb77380b61ea23780",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "contact-day.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 293311,
+        "sha256": "aa4b54778ab1bf2b7a3891b1a820436294527fe765cb7500d8dddf22c57b1f82",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "contact-night.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 295473,
+        "sha256": "03f85390d7612c24f2ac6d574272561cc9fb38b2b56db38db8a473ac68721086",
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "contact-comparison.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 421489,
+        "sha256": "6cf7f2956897b69a7ece694b11f5b831867055ac9e9cac4645817f61d02dd167",
+        "rawBytesEqualReviewedC8": true
+      }
+    ],
+    "near": [
+      {
+        "name": "scenes/near-belfast.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 519027,
+        "sha256": "8e06c4a41f27563220bcd6b4de8773331de9570d417119110ca26047d98a5344",
+        "evidenceOnly": true,
+        "part": 0,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-manchester.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 486706,
+        "sha256": "54d8518da0c0f168e3c6298b40646f9b9dcc107f02852e1fa90cc2f489ef5a71",
+        "evidenceOnly": true,
+        "part": 0,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-leeds.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 448225,
+        "sha256": "c9557c361f4911616e1c7b62ef6040d77dfd7ef2029ead46f501d806c4a70b2f",
+        "evidenceOnly": true,
+        "part": 1,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-newcastle.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 411540,
+        "sha256": "7dd30dc0f3f64fbe9634936b01c50a069fbffd7258e63220eb77d9147a15f4cc",
+        "evidenceOnly": true,
+        "part": 1,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-london.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 418864,
+        "sha256": "31767137a1ec21d2a4023ceba253a494b6e1cbdd8d2c1aa705bfd81ee97f1f29",
+        "evidenceOnly": true,
+        "part": 2,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-holyrood.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 426005,
+        "sha256": "f25b0b28845f31af03699e8244e7ce26dc1b6d317fbc8a1992f8900eddd17d14",
+        "evidenceOnly": true,
+        "part": 2,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-thaxted.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 416926,
+        "sha256": "4edfa2955a3e1a9e8195a3336dc586e4eb5821534dca46ee562b278fdca71776",
+        "evidenceOnly": true,
+        "part": 3,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-abingdon.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 406229,
+        "sha256": "2d94f06a254fe7bbb1830eadf7bee84e4ce5570ff52c7e53eeb28478ac7426b0",
+        "evidenceOnly": true,
+        "part": 3,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-middlesex.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 393199,
+        "sha256": "e270585ed1d8505e1bb1b01c71654956ce2bffb07577c8a72fff086075bd9961",
+        "evidenceOnly": true,
+        "part": 4,
+        "rawBytesEqualReviewedC8": true
+      },
+      {
+        "name": "scenes/near-rcj.png",
+        "head": "0420b2193b248efedd7101c8133fec722b800512",
+        "bytes": 428453,
+        "sha256": "332e3485ca6627df09568450805e7bb981a7db3973927a9863084826bd237163",
+        "evidenceOnly": true,
+        "part": 4,
+        "rawBytesEqualReviewedC8": true
+      }
+    ],
+    "reboundFromIndependentReviewedHead": "7c307bce32aa0247a13e6bb3dd741bd2a066fda8",
+    "all93RawBytesEqual": true,
+    "newManualReviewClaimed": false
+  },
+  "lastFullGreenWorkflowRunBeforeDeletion": 39414702723,
+  "workflowDeletion": "next separate deletion-only commit; workflow still present when this audit record is committed"
 }
