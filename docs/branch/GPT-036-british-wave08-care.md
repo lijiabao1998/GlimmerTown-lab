@@ -45,8 +45,8 @@
 ## §8 開工狀態／沒做成的事
 
 - [x] 本卡首提交21b91a4已在美術動手前推成功；動手前驗收不改鬆。
-- [ ] 第八波原生圖、交易、正常配對、保存、像素、場景、行人、效能、故障控制與fp均尚未執行，沒有本波通過結果。
-- [ ] 尚無第八波PR或獨立覆核；第一次artifact與精確head出現就提早交接，不等收尾才安排。
+- [x] 原生／交易／正常模型／保存／像素／場景／行人／效能／首紅已有下列C5來源CI證據；最新root零差及完整標準CI待採基線後的提交觸發，不提前稱綠。
+- [ ] 獨立程式／安全／93實看覆核待完成；精確head／原圖artifact已在收尾前交接。Draft PR在採原基線後標準CI綠時建立。
 - [x] 正式計數仍7／20、70座；第七波原圖、獨立覆核、主線／Pages／公站證據均保留。另87場景及實機／Safari／觸控未測的限制不轉寫成通過。
 - [x] 沒有新增批准／方向卡、沒有改排程、沒有把本輪範圍擴張成發布、沒有動其他寫入者分支或擴張守門權限。
 
@@ -72,3 +72,29 @@
 - 首版head4b002b5930465325ba2fad243d3e25decea2722f／tree1cbed4df67ec1ddd1ab784aaa4ed6c6698860a72，run39380356830已完成13/13success；原生86自檢與12真首紅／恢復，57＋40場景、8整幀、17行人、40交錯效能與30真延遲、正常完整保存／3seeds×3checkpoints均綠。首版原圖附件12245546267、場景12244729263、預覽12245157183已及早交接精確head／ID；原96個資料檔透過producer完整原bytes傳輸，逐byte-count／SHA核實，沒有宣稱本地解ZIP。
 - 首版baseline producer job118487833067／artifact12244709400成功，獨立核只新增bld40、舊3663／其他165族／blocks1728／5ef6eb67／env全不變；bld七軸palette1→1、hardEdge0.949393389794125→0.9505040944378403、lightDir0.8183217859892224→0.8192681105302465、shade1→1、density1→1、nightRule0.9881813927037836→0.9885339952207213、variants1→1，total0.9651→0.9655無下降。標準fp如實紅在root舊基線的有意bld40，未重跑賭過；原fp／style bytes已取回核SHA，但未提交。
 - 作者實看首版三完整接觸表及Mineral八張日／夜原PNG時，發現中央山花被屋頂遮住，故先修本波Mineral四向：提高其四巨Ionic壁柱與中央山花，使其高於本體簷頂而可辨，不碰其他家族／舊款／判準。另去掉Finsbury凸面輪廓中重複的零長邊，不改輪廓幾何；補第六、七輯選擇清除新選擇的兩條實際catalog驗收。舊證據保留為首版，不當修正版通過結果；修正版重新跑完整CI並重新交head／原圖綁定。首版基線不提交，等待修正版原始producer。
+
+
+## 修正版驗收與覆核交接（C5實際證據；本提交只採基線／記錄）
+
+- 精確來源head ffbfad3b2a7e0bf606d0e803aaa39c25dfd88fb2、tree e50a0e654183f2fbf6440f690406c39921ed5704，[run39381055905](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905)完整13/13success。source index SHA256、關鍵blob及93圖逐張SHA列於[覆核manifest](GPT-036-review-manifest.json)。本提交只動原始fp.json／style.json、本卡及manifest；美術／runtime／所有probe／index保持C5原bytes。
+- [原圖artifact12245730814](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905/artifacts/12245730814)：80原PNG、三完整接觸表、manifest.json，ZIP SHA256 f9d0827ff799187ee77959263b654b26fd4ea11ca1ed9d7d1f8d30c96e6cf317。[場景12245084171](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905/artifacts/12245084171)：97張（57＋40）及manifest-scenes.json，ZIP SHA256 aa425fd18084ae349fda9efa3e0c9e5d03d7d3ac1bdd6ffb606ed52453a782c1，near-十張供覆核。原附件與producer log保留；本地97資料檔經byte-count／SHA驗證恢復，不冒稱已解ZIP。
+- 原生86自檢、12真故障首紅／恢復；semi／leak／crop／empty／mismatch皆0。作者逐張實看80單圖、三接觸表、十近景；C5只有Mineral四日圖及460／463兩夜層變，其餘74張逐byte同首版已實看圖，新8層再重看，三新接觸表／十新近景均看。第一次本地revision-diff檢查誤預期夜層不變而assert停；核原bytes後如實記兩夜層受加高不透明柱遮擋，未改圖或遊戲門檻。
+- 完整正常模型：BASE50d0d52，seeds31／71／103×3checkpoint，不設本波閥；只有實際新b.v差，所有序列化欄位及stats比較，fieldExclusions=[]。十款匹配交易、首次update、市長options惰性欄位及兩輪舊／新load→save全欄穩定；真$1保存首紅後恢復。
+- 57＋40原生場景／8張完整1280×657 BASE對閥關逐byte同，真畫布1px／真保存$1控制及恢復；17原生行人日夜／四向例與兩真漏畫／錯深度首紅皆過。2×2無倒影、inactive煙囪無煙、k24無k2霓虹依真原生路徑核不適用。另87場景未人工實看，實機手機／Safari／觸控未測。
+- 效能40交錯BASE→HEAD：median10.90→2.10ms、p9019.95→19.55ms；恢復40組median6.75→2.00ms、p9018.90→19.08ms。暖畫新烘焙0、40快取身份不變；30真延遲負樣本首紅並恢復。僅GitHub Ubuntu桌面Chromium，不推論實機手機。
+- 成功producer job118490020668／[基線artifact12245408167](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39381055905/artifacts/12245408167)，ZIP SHA256 44607f8d00f9598327d247ae2cdafda74f5e59bac094645ae30bcd42c2121a11。fp.json403,824 bytes／SHA256 295fe5fe33aa20d862a64760de86ce138d025f35ca544595e3aef43ec7c0bc07；style.json73,171 bytes／SHA256 000031074c01957a788e75aeed5ff5a3a73579d9585c1c2fc2299219348be203。逐byte原封採用，無重新serialize或改metadata，producer metadata14.54／T761。
+- 只新增bld.24_1_440..479，舊3663葉／165其他族／blocks1728／5ef6eb67／env零變。bld1299／6fe6e361→1339／50494dfd；palette1→1、hardEdge0.949393389794125→0.9505050520005902、lightDir0.8183217859892224→0.8192681105302465、shade1→1、density1→1、nightRule0.9881813927037836→0.9885339952207213、variants1→1、total0.9651→0.9655，無下降。root零差必須等本提交標準CI，結果補PR正文，不提前稱過。
+- 首版標準run39380356888真smoke三次綠；fp及財務來源完整性因root仍舊基線而紅。財務實際52檢查／10負控制，唯一失敗為內部fp --check，不是完整53過；原附件12245645214／ZIP SHA256 9330b60a23bed32fdfc3cc011af65512dc1507d08527a85728509ca52c067622與完整log保留。C5同樣先保留root舊基線；不重跑舊紅run，採原CI bytes後以新head觸發原全部門檻。
+- C5公開站探針成功，HTTP／Chrome文件11,183,234 bytes／SHA256 825bc9dd04b9461eadc572f36469dacbf6178ea50b7a39a807c14f837a3eec5f等於main50d0d52，v14.54／T761、第七輯10／40、第八輯不存在。外站導航前真PID／Network／Seccomp沙箱Yes，七負控制、slot3活畫布、runtime errors0。這是既有第七波公站核驗，沒有發布第八波。
+
+### §8逐條處理及本輪待辦
+
+- [x] 首卡21b91a4在美術前單獨先推；唯一家族bld／40新鍵／原門檻不改鬆。
+- [x] 同種子完整正常對比、兩輪舊新保存全欄結果有上述CI證據，不靠閥／刪欄／正規化。
+- [x] CI fp只明列bld40，舊葉／其他族／blocks／env全不變；閥關八完整畫布逐byte同。root零差由採基線後同head標準CI再核。
+- [ ] 美術各狀態全部人工實看未跑，待Claude／Codex補：CI有97場景；作者只宣稱80單圖＋三接觸表＋十近景，另87場景未實看，手機／Safari／觸控未測。
+- [x] 新守衛真故障首紅落目標並恢復；既有財務／fp／harness／gallery／pins／規則／判準不改；smoke只加036自檢。
+- [x] 首版真smoke三次綠；新head採原基線後仍須再真三次綠、fp零差、財務53／10全綠，未成功前不開可合PR、不聲稱通過。
+- [x] 卡上通過有實際CI或作者逐張實看證據，首紅／未採基線紅／未跑限制不美化。
+- [ ] 獨立程式／安全／93實看圖審待主對話安排並回報精確final head／scope／findings／count／hash／限制；CI與作者自審不替代。後續head僅改原基線／本卡／manifest，仍明列差異供重新綁定。
+- [ ] Ready／workflow刪除收尾／T／版本／主線日誌／合併／main CI／既有Pages／第八波公站核驗均留後續發布階段。本輪維持Draft；原035 workflow保持不存在。036 workflow最後完整run綠後，未來另作純刪除提交，刪後每commit核缺席，不手動Pages、不改排程。
