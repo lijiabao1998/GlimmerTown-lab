@@ -125,3 +125,12 @@ C9 `30ee6a320cdc5f2fa6684d7826f5f12ad68a8754` 的來源隔離檢查及九款靜�
 依已先推的 C11 計畫（f89665c6c70bc08db14a540fbe44d8f4587bf829）新增 partialNinePower038.cjs／probeNightPower038.cjs 和本分支第三個只讀 night-power-nine job。測試以真付費填土／道路／九地標／核電源建設；獨立 BFS 留道路見證，原生 step 結算供電與夜間 dispatch，實際拆橋／拆電源／原生undo復原。沒有夜間供電 hook、直接 pw／容量／供電率賦值。BASE／HEAD 同操作、完整保存／stats／供電 snapshot 比較，僅九款 b.v 差；新鍵夜圖真故障的首紅與精確復原、九款四向 actual canvas 投影窗光守衛保留 C11 的3像素／6 RGB總差門檻。
 
 來源檢查只把兩個新測試檔加入既有 BASE API 名稱核對；未修改原守衛斷言。全部已審美術／runtime／CSS／正式index／完整十款守衛來源與雜湊不動。語法與純文字 source strip 檢查通過；本地未跑遊戲，夜景驗證仍待本提交真 CI，不能先寫成功。完整原圖與保存放 artifact，明列小量原PNG和 manifest 從日誌送回；原 C9 首紅與 C10 產物／新獨立覆核分開保留，不覆蓋。
+
+
+## C13 — 修正 BASE 供電 fixture 的電源 frontage，保留首紅
+
+C12 head0b7f407540ec64bd31a73c2894266f2e3ab8faf2／run39458137778／job118750257418 首紅在 BASE 階段 `night038 real root power state phase0`，尚未測到新候選夜窗。完整原始日誌已保留；官方失敗 artifact12281597767（GitHub ZIP digest e921fb096d2dcc776749e256dde4b6a7b895e185dab60adfcf12050bd323ca9a）保留實際生成頁、BASE setup 及錯誤，沒有盲重跑。
+
+核對精確 BASE 的 computePower／powerFrontageRoads450 及 preparePowerDispatch471／powerCandidateDistricts450 後，發現 fixture 只在3×3核電源的底側接路：T450完整footprint可傳電，但既有T471 source pool仍讀 root radius2，底側y+3超出其範圍；主幹亦在 root x+4，因而沒有合格的 source pool 道路。本次只在同一電源西側新增真付費道路，再連原西側底部支路，使原生 root radius2 與 footprint frontage 都能接同一電網；唯一橋接及拆橋／拆電源／undo復原照舊。不改原T471供電語義，不直接寫 pw／容量／供電率，不提高容量或放寬任何窗光、通電或完整十款門檻。
+
+另外把新fixture在各phase的實際原生供電／夜間／root資料於守衛前存為只讀診斷；若再失敗，原數據隨artifact及小量日誌保存，不只留籠統錯誤。先前失敗證據不覆蓋。語法與靜態來源核對通過；修正後效果仍待新頭CI，不先宣稱供電成功。

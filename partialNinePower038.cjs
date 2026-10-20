@@ -16,7 +16,10 @@ module.exports=function partialNinePower038(arg){
       const add=(m,X,Y)=>m.set(X+','+Y,{x:X,y:Y});
       for(const Y of[y+2,y+8,y+14])for(let X=x-2;X<=x+14;X++)add(road,X,Y);
       for(let Y=y+2;Y<=y+14;Y++)add(road,x-2,Y);
-      for(let X=x-6;X<=x-2;X++)add(road,X,y+8);
+      // Native T471 assigns a source to a pool from its root radius2. Keep a
+      // real left frontage as well as T450's full-footprint bottom frontage.
+      for(let Y=y+5;Y<=y+8;Y++)add(road,x-7,Y);
+      for(let X=x-7;X<=x-2;X++)add(road,X,y+8);
       for(const p of [...lots.map(q=>({...q,sz:2})),source])for(let dy=0;dy<p.sz;dy++)for(let dx=0;dx<p.sz;dx++)add(cells,p.x+dx,p.y+dy);
       for(const p of road.values())add(cells,p.x,p.y);
       if([...cells.values()].every(p=>{const t=GV.tile(p.x,p.y);return t&&t.t!==3&&!t.bld;}))layout={lots,source,bridge,roads:[...road.values()],cells:[...cells.values()]};
@@ -47,6 +50,7 @@ module.exports=function partialNinePower038(arg){
   const power=GV.t471(),night=GV.t487(),powered=arg.phase===0||arg.phase===3;
   const targets=lots.map(q=>({...q,root:GV.tile(q.x,q.y).bld,refs:[GV.tile(q.x+1,q.y).bld,GV.tile(q.x,q.y+1).bld,GV.tile(q.x+1,q.y+1).bld],authority:GV.powerAt471(q.x,q.y)}));
   const rate=night.snapshot.lighting.powerRate;
+  Q.lastDiagnostics={phase:arg.phase,power,night,targets,layout:Q.layout,dev:GV.dev516B()};
   need(night.ready&&night.ok,'night038 native finalized night dispatch');
   need(targets.every(q=>q.root.k===24&&q.root.age>=9&&!!q.root.pw===powered),'night038 real root power state phase'+arg.phase);
   if(powered)need(power.available>0&&power.periods.night.available>=power.periods.night.demand&&rate>0&&targets.every(q=>q.authority.load?.pool>=0),'night038 real supplied native pools and night rate');
