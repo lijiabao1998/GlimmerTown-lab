@@ -178,6 +178,8 @@ function nativeChecks(){
   if(!a.select('finsbury')||!GV.britishWave029.select('stalbans')||a.selection()!==null)throw Error('wave036 third-wave catalog selection must clear new selection');
   if(!a.select('finsbury')||!GV.britishWave030.select('cley')||a.selection()!==null)throw Error('wave036 fourth-wave catalog selection must clear new selection');
   if(!a.select('finsbury')||!GV.britishWave031.select('netshops')||a.selection()!==null)throw Error('wave036 fifth-wave catalog selection must clear new selection');
+  if(!a.select('finsbury')||!GV.britishWave033.select('leicester')||a.selection()!==null)throw Error('wave036 sixth-wave catalog selection must clear new selection');
+  if(!a.select('finsbury')||!GV.britishWave035.select('landmarktheatre')||a.selection()!==null)throw Error('wave036 seventh-wave catalog selection must clear new selection');
   a.open();if(document.querySelectorAll('[data-wave036]').length!==10)throw Error('wave036 catalog count');
   document.getElementById('waveDefault036').click();phase='legacy after catalog';const p=lot();
   if(a.selection()!==null||!GV.placeUndo('landmark',p.x,p.y)||a.read(p.x,p.y).v>2)throw Error('wave036 legacy landmark selection');

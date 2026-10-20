@@ -420,7 +420,7 @@
     for(const F of[link.front,link.back])glassFace(A,F,4,10,6);
     A.volume(11,21,10.5,15.7,22,25.7,'plaster');A.parapet(10.7,21.3,10.2,16,25.7,false);
     barrel(A,12,20,3.3,9.7,17,3.8);
-    const pts=[[8,16],[24,16],[24,19],...Array.from({length:13},(_,j)=>{const a=j*Math.PI/12;return[16+8*Math.cos(a),19+4*Math.sin(a)];})];
+    const pts=[[8,16],[24,16],...Array.from({length:13},(_,j)=>{const a=j*Math.PI/12;return[16+8*Math.cos(a),19+4*Math.sin(a)];})];
     const foyer=planBlock(A,pts,.8,13,'plaster',Q.creamHi);
     for(let j=2;j<foyer.length;j++){
       const F=foyer[j];if(F.length<.2)continue;
@@ -546,12 +546,12 @@
     A.mansard(2.7,29.3,7.7,23.3,33.5,6.5,2);
     // Four giant unfluted Ionic pilasters are real shallow projections.
     for(const x of[10.9,14.3,17.7,21.1]){
-      S.box(x-.42,x+.42,23.05,23.9,2,28,P.stoneHi,P.stoneR,P.stoneHi);
+      S.box(x-.42,x+.42,23.05,23.9,2,32.8,P.stoneHi,P.stoneR,P.stoneHi);
       S.box(x-.65,x+.65,23,24.05,1.4,2.3,P.stoneHi,P.stoneR,P.stoneHi);
-      S.box(x-.68,x+.68,23,24.08,27.7,28.6,P.stoneHi,P.stoneR,P.stoneHi);
-      const F=face(A,[x-.8,24.13],[x+.8,24.13],0,1);for(const u of[.25,1.35])A.K.ring(S,F,u,28,.28,.28,.12,.12,P.stoneD,12);
+      S.box(x-.68,x+.68,23,24.08,32.1,33,P.stoneHi,P.stoneR,P.stoneHi);
+      const F=face(A,[x-.8,24.13],[x+.8,24.13],0,1);for(const u of[.25,1.35])A.K.ring(S,F,u,32.4,.28,.28,.12,.12,P.stoneD,12);
     }
-    pediment(A,10,22,24.2,31.2,6.8,1.5);
+    pediment(A,10,22,24.5,34,8,1.5);
     const F=face(A,[13.7,24],[18.3,24],0,1);A.pane(F,.9,1.7,2.8,8,'rect');pediment(A,13.7,18.3,24.7,11.8,1.7,.75);
     A.steps(13.5,18.5,24.4,28.7,1.4,5);
     // Only the photograph-verified central facade/range is selected; no invented bridge.

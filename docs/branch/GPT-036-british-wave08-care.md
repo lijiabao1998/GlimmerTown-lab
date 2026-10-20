@@ -68,3 +68,7 @@
 - 私有探針從既有完整035門檻副本調整新鍵440..479、精確BASE50d0d52與新原型ID，保留所有數值判準、原生完整保存／正常配對／97場景／8完整畫布／17行人例／40交錯效能／30真延遲與首紅控制。smoke只新增036自檢；所有既有斷言不改。舊款對照採真既有四向：Homewood188、Royal Exchange260、Stokesay176、Moreton104、Appleby140、Senate384、Landmark400、YorkHall372、Physicians380、Dunelm392。
 - 新workflow仍只綁自己分支contents:read，沿原13個遊戲／公開站／原字節證據工作。baseline-evidence在root尚無本波葉時用既有fp.js --expect=bld明列有意新增家族，再獨立逐項鎖舊3663葉／165其他族／blocks／env及恰好40新鍵；原標準smoke/fp工作流完全不改，仍如實報root舊基線的有意fp紅。root採用原CI bytes後，私有producer改跑原--check零差，沒有持續--expect放過變更。
 - 以上僅完成來源編寫與語法／嵌入一致性檢查，未在本機執行遊戲；第八波CI／原PNG／獨立覆核尚無通過聲稱。
+
+- 首版head4b002b5930465325ba2fad243d3e25decea2722f／tree1cbed4df67ec1ddd1ab784aaa4ed6c6698860a72，run39380356830已完成13/13success；原生86自檢與12真首紅／恢復，57＋40場景、8整幀、17行人、40交錯效能與30真延遲、正常完整保存／3seeds×3checkpoints均綠。首版原圖附件12245546267、場景12244729263、預覽12245157183已及早交接精確head／ID；原96個資料檔透過producer完整原bytes傳輸，逐byte-count／SHA核實，沒有宣稱本地解ZIP。
+- 首版baseline producer job118487833067／artifact12244709400成功，獨立核只新增bld40、舊3663／其他165族／blocks1728／5ef6eb67／env全不變；bld七軸palette1→1、hardEdge0.949393389794125→0.9505040944378403、lightDir0.8183217859892224→0.8192681105302465、shade1→1、density1→1、nightRule0.9881813927037836→0.9885339952207213、variants1→1，total0.9651→0.9655無下降。標準fp如實紅在root舊基線的有意bld40，未重跑賭過；原fp／style bytes已取回核SHA，但未提交。
+- 作者實看首版三完整接觸表及Mineral八張日／夜原PNG時，發現中央山花被屋頂遮住，故先修本波Mineral四向：提高其四巨Ionic壁柱與中央山花，使其高於本體簷頂而可辨，不碰其他家族／舊款／判準。另去掉Finsbury凸面輪廓中重複的零長邊，不改輪廓幾何；補第六、七輯選擇清除新選擇的兩條實際catalog驗收。舊證據保留為首版，不當修正版通過結果；修正版重新跑完整CI並重新交head／原圖綁定。首版基線不提交，等待修正版原始producer。
