@@ -19,7 +19,7 @@
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
 |---|---|---|---|---|---|---|
-| r207 | [T760](docs/T760-british-wave06-academic.md) | Leicester、Norfolk、Falmer、York、St Catherine、Physicians、Senate、Glasgow、Dunelm、Roger Stevens，10款×4原生向／80日夜PNG；僅bld新增40葉，原價格／交易／存檔／全局美術不變；公開探針改用保留沙箱的獨立啟動與導航前真實沙箱核對；v14.53，隨PR42合入生效，發布另核 | 原01a完整13工作39111679599與push39111679586已綠，PR39111683802明列重用push；本次發布準備head須新完整原生／smoke3／fp／財務53＋10全綠，結果追加卡及PR，不把舊run冒作最新head | #42 | 原artifact12130089995，80單圖＋3接觸表＋10近景已由獨立審稿者實看且SHA相符；發布head原圖須再核原始bytes | bld總分0.9655→0.9654、lightDir下降，七軸詳卡，按第二波起授權披露；新版完整CI、workflow刪除後最終CI／獨立程式安全覆核、合併與自動Pages／公開站待實際核驗；97場景另87張未人工逐張看、實體手機／Safari／觸控未測；Library0檔，未重試 |
+| r207 | [T760](docs/T760-british-wave06-academic.md) | Leicester、Norfolk、Falmer、York、St Catherine、Physicians、Senate、Glasgow、Dunelm、Roger Stevens，10款×4原生向／80日夜PNG；僅bld新增40葉，原價格／交易／存檔／全局美術不變；公開探針改用保留沙箱的獨立啟動與導航前真實沙箱核對；v14.53，隨PR42合入生效，發布另核 | 7fa新完整原生39359542415為13／13；push39359542451真smoke3／fp／財務53＋10全綠；新83原圖與10近景原bytes皆匹配獨立圖審原件，沙箱導航前核實與7負控制通過；刪workflow後最後CI與PR重用模式另以PR42實證為準 | #42 | 原artifact12130089995，80單圖＋3接觸表＋10近景已由獨立審稿者實看且SHA相符；發布head原圖須再核原始bytes | bld總分0.9655→0.9654、lightDir下降，七軸詳卡，按第二波起授權披露；新版完整CI、workflow刪除後最終CI／獨立程式安全覆核、合併與自動Pages／公開站待實際核驗；97場景另87張未人工逐張看、實體手機／Safari／觸控未測；Library0檔，未重試 |
 
 ---
 

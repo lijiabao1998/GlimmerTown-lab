@@ -174,3 +174,31 @@ PR41的main [CI39109491116](https://github.com/lijiabao1998/GlimmerTown-lab/acti
 先前獨立圖審與Security Review按留言6248182200保留範圍與限制，不冒稱本容器已有原檔。尚未更改任何033美術、runtime、CSS、既有基線、smoke或共用CI／harness。僅修probePublicSite033：findChrome＋本檔spawn，禁止停用sandbox的啟動參數；先在同一Chrome實讀chrome://sandbox的PID／Network namespace及Seccomp-BPF為Yes，再導航公站。沙箱啟動／狀態失敗會保留原錯誤並失敗，無降級或OS安全設定變更。新增禁用參數及失效狀態兩項首紅／恢復，原HTTP／URL／SHA／版本／錨點五負控制和slot3／畫布／目錄／runtimeErrors全部保留。語法與92段index內嵌來源精確核對已完成；沒有在本機啟動遊戲或Chrome。
 
 三權威main最大T759、日誌r206，沿已預留T760／v14.53／r207；只改三個發布字，方向開關與原話逐位元保留。日誌及方向列明須待真合併與公開核實生效。workflow仍保留，等待本次完整原生run成功，記卡後才獨立只刪。後續任何新結果均追加，不將舊證據或施工計畫當成執行完成。
+
+
+## 發布準備精確7fa5f6a完整驗收（2026-10-20；合併／部署尚未執行）
+
+修正已實際提交於同一PR42分支`7fa5f6a944240b9aae46ba034ac106013066d1aa`，父提交5f149b6，tree `acccb173c8737056b7b4fd19e3182e1b0d0e4402`。相對接手head恰改公開探針、三個發布字、T760卡、r207日誌、方向待辦／條件式完成列這5檔；033美術／runtime／CSS、共用harness／CI／守衛／規則與fp／style原件均未變。剝除原先033新增區段及單一安裝點、精確還原三個發布字後，index與最新main95689b5逐位元相同。最大正式T759／r206重核取自main卡檔、提交標題與日誌正式輪次列；歷史路徑scratchpad/r706不是輪次，不納入。
+
+[完整原生run39359542415](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415)為13／13 success，run_attempt=1，沒有重跑：
+
+- [native118422199610](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199610)：86自檢、12真首紅／恢復、40向／80PNG，semi／leak／crop／empty／mismatch全0；十款DOM真扣費／undo／redo／退款／參照拆除、旋轉與新外觀兩輪原生load/save成功。manifest indexSHA256為`535318c1eb7891d8b714ab7ddebdb0e4e6fdad0b75be97f147048a5bba050458`，v14.53／slot3。
+- [scenes118422199539](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199539)：57場景＋40邊緣、8／8完整1280×657 BASE／閥關逐位元相同，failures=[]、unrun=[]；實際少$1存檔與畫布1px負控制首紅／恢復。正常模型[pairs118422199789](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199789)三種子31／71／103×3檢查點只差明列的b.v，fieldExclusions=[]、usesEscapeValve=false；兩端十款匹配交易／首次update／市長選項／兩輪完整保存穩定。
+- [pedestrians118422199352](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199352)：17原生深度／遮擋例及兩真首紅／恢復。[performance118422199632](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199632)：40交錯組median BASE14.100／HEAD2.750ms，p90 30.900／28.350ms；30真延遲負控制與恢復，暖畫新烘焙0。只屬Ubuntu桌面Chromium，未外推手機。
+- [public-site118422199516](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199516)：真正`/usr/bin/google-chrome`無停用沙箱參數；導航公站之前實讀chrome://sandbox，PID namespaces／Network namespaces／Seccomp-BPF sandbox皆Yes。禁用參數在spawn前拒絕及失效狀態兩首紅／恢復、原HTTP／URL／SHA／版本／錨點五負控制共7項成功。HTTP及瀏覽器實際文件均200／11068695 bytes／SHA256 `f7e4a78366723ab6f59e9bd59152e46391ee19bda9a4b12900b4209b979bbd02`，匹配當時main95689b5；真公站仍v14.52／T759、slot3、完整1280×713活畫布，第六輯尚不存在，runtimeErrors=[]。這是發布前公站基線，不能稱第六波發布。
+- [baseline-evidence118422199927](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542415/job/118422199927)與常規push fp皆通過；新raw兩檔僅metadata時間／version／anchor／version_fp與已接納b0原件不同，所有非metadata欄位逐位元相同。fp／style繼續保留已接納原始bytes及SHA `08f86533d6d8fa8c8e2fe5da14e77c46d2be4e003956758b98d1aaa012ffba6e`／`ee72b475fe901c10e097e75fc8288368eb8a9a77673833b9e3d07e70451f7d1d`，未手改metadata，也未為新時間戳無意義重烘基線。
+
+[常規push39359542451](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542451)三實跑工作全部success，run_attempt=1：[smoke118422200727](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542451/job/118422200727)真實三次綠（79.1／51.0／49.9s），[fp118422200595](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542451/job/118422200595)相對BASE只新增40葉、唯一bld、其餘舊葉／blocks1728／CRC5ef6eb67／env不變，與已接納基線零差異且無env警告；財務[118422200259](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39359542451/job/118422200259)為ok:true／checks:53／negative:10／failures:[]。PR39359549019的helper已成功；其三個確認工作仍排隊，未宣稱PR全綠或另跑3次瀏覽器。刪除workflow後最終head必須另等新的push／PR證據全綠。
+
+### 原圖追溯與§8如實自檢
+
+本容器已從原native117628976429及五個scene-evidence工作真日誌恢復84原檔與10近景，逐檔實算bytes／SHA256皆符合01a的原始metadata。新native7fa的80PNG＋3接觸表共83圖與原件的base64原始bytes／長度／SHA逐一完全相同；manifest只改本次head、索引SHA／版本等結果metadata。新五組scene-evidence傳回的10近景亦逐一原bytes／SHA相同，無任何變更圖片需要重畫或再編碼。故沿用留言6248182200已完成的獨立實看範圍，不冒稱本工作者重新獨立審閱80圖。原環境r4306449989零圖的歷史保留；現已具備原件與另一名獨立審稿者的真實交付，後續覆核可按這些證據判斷。
+
+- [x] 首卡a75de875在實作前提交，唯一bld家族及原十條驗收未改鬆。
+- [x] 三種子全欄配對、舊／新檔兩輪及真負控制結果如上述，無欄位排除。
+- [x] fp僅新增明列40葉，其他族／環境不變；8完整閥關畫布逐位元相同。
+- [x] 原凍結人工必看範圍80單圖／3接觸表／10近景／最接近舊款已有獨立實看，且新圖bytes完全相同；自動97場景全過。
+- [ ] 其餘87場景未人工逐張覆核；實體手機／Safari／觸控未測。保留限制，不以CI替代人工，按AGENTS第3節允許如實標未跑。
+- [x] 新沙箱兩項及原五項負控制、原生12、整幀1px／存檔$1、行人與效能真首紅及恢復有實證；沒有放寬門檻。
+- [x] 7fa push smoke實跑3次／fp／財務全綠；所有通過皆有對應實跑證據。
+- [ ] 尚未轉Ready／合併／部署。下一筆僅刪.github/workflows/wave033-native.yml，後續每筆確認不加回；最後head CI／獨立程式安全覆核及main／既有自動Pages／公開版本以後續PR42回執為準。本節完成不把第六波提前計為已發布。
