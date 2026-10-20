@@ -134,3 +134,12 @@ C12 head0b7f407540ec64bd31a73c2894266f2e3ab8faf2／run39458137778／job118750257
 核對精確 BASE 的 computePower／powerFrontageRoads450 及 preparePowerDispatch471／powerCandidateDistricts450 後，發現 fixture 只在3×3核電源的底側接路：T450完整footprint可傳電，但既有T471 source pool仍讀 root radius2，底側y+3超出其範圍；主幹亦在 root x+4，因而沒有合格的 source pool 道路。本次只在同一電源西側新增真付費道路，再連原西側底部支路，使原生 root radius2 與 footprint frontage 都能接同一電網；唯一橋接及拆橋／拆電源／undo復原照舊。不改原T471供電語義，不直接寫 pw／容量／供電率，不提高容量或放寬任何窗光、通電或完整十款門檻。
 
 另外把新fixture在各phase的實際原生供電／夜間／root資料於守衛前存為只讀診斷；若再失敗，原數據隨artifact及小量日誌保存，不只留籠統錯誤。先前失敗證據不覆蓋。語法與靜態來源核對通過；修正後效果仍待新頭CI，不先宣稱供電成功。
+
+
+## C14 — 保留 old-only pool 的既有量化限制，補原生混合街區場景
+
+C13 fe2bf6200a63ca452e222a272996285233d80ada／run39459181358／job118753831356 再停在同一 BASE root power 首紅；新診斷原檔30,844 bytes／SHA762ea09e3f813da2f88e93706955c633372662cb20456d78bb18ce5d5c122b20已從日誌實際取回。西側接路已生效：核電源online、available222.3、pool0、69道路全通電、night powerRate1、前8款pw=true；Willow pw=false。九負載晚峰各1.408，照明1.113，實際13.785在old-only pool被既有dispatched兩位小數記為13.78，最後剩1.403不足1.408。不是本次新美術導致，不能把8/9改算通過。官方首紅artifact12280944636／ZIP digest932d21ff4322a9a7fe3bc24fd9657a51bae8a621e272ed5df742071605a2e0c9及完整rawlog／原始程式碼保留。
+
+核對BASE發現它本來已有兩條原生pool路徑：完全old-only沿用原捨入；含已發布BRITISH004的混合街區使用既有physicalDispatched004完整物理量。本次不改任何路徑、不抹掉已觀察限制；在同一真付費fixture遠東側正常建造一座既有edwardianLibrary，真道路接同一電網，由BASE自身選擇既有混合街區路徑。這是新增明列原生背景上下文，並非修改舊式pool、偽造供電或宣稱該量化限制已修復。來源／所有新窗光與9/9通電、真拆橋／拆電源、完整保存／stats／供電對照及負控制斷言不變；關閉建築pw或供電率一樣必須紅。
+
+證據的結論只能是這個原生混合街區中的九款局部夜景；old-only量化限制仍列未修復，不擴張為全城市電力修復或十款／完整21驗收。若本次再在同一root guard紅，不再延伸診斷或再推修復；保留精確資料交父任務。語法／來源靜態檢查通過，真遊戲結果仍待新CI。

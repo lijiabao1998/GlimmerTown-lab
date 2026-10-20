@@ -11,8 +11,8 @@ module.exports=function partialNinePower038(arg){
     GV.britishWeather004(1,0,0);GV.save();const N=JSON.parse(GV.rawSave()).n;need(N>=60&&N<=100,'night038 bounded native map');
     GV.art574.clear574(0,0,N,N);GV.rebuildCov();
     let layout=null;
-    for(let y=6;y<N-18&&!layout;y++)for(let x=9;x<N-18&&!layout;x++){
-      const lots=fixed.map(([id,v],i)=>({id,v,x:x+(i%3)*6,y:y+Math.floor(i/3)*6})),source={x:x-6,y:y+5,sz:3},bridge={x:x-3,y:y+8},road=new Map(),cells=new Map();
+    for(let y=6;y<N-18&&!layout;y++)for(let x=9;x<N-26&&!layout;x++){
+      const lots=fixed.map(([id,v],i)=>({id,v,x:x+(i%3)*6,y:y+Math.floor(i/3)*6})),source={x:x-6,y:y+5,sz:3},background={x:x+22,y:y+5,sz:3,tool:'edwardianLibrary'},bridge={x:x-3,y:y+8},road=new Map(),cells=new Map();
       const add=(m,X,Y)=>m.set(X+','+Y,{x:X,y:Y});
       for(const Y of[y+2,y+8,y+14])for(let X=x-2;X<=x+14;X++)add(road,X,Y);
       for(let Y=y+2;Y<=y+14;Y++)add(road,x-2,Y);
@@ -20,9 +20,13 @@ module.exports=function partialNinePower038(arg){
       // real left frontage as well as T450's full-footprint bottom frontage.
       for(let Y=y+5;Y<=y+8;Y++)add(road,x-7,Y);
       for(let X=x-7;X<=x-2;X++)add(road,X,y+8);
-      for(const p of [...lots.map(q=>({...q,sz:2})),source])for(let dy=0;dy<p.sz;dy++)for(let dx=0;dx<p.sz;dx++)add(cells,p.x+dx,p.y+dy);
+      // A normally placed, already published library makes this a mixed native
+      // city pool. BASE itself selects its existing physicalDispatched004 path.
+      // The old-only rounding limitation remains recorded in C13 evidence.
+      for(let X=x+15;X<=x+24;X++)add(road,X,y+8);
+      for(const p of [...lots.map(q=>({...q,sz:2})),source,background])for(let dy=0;dy<p.sz;dy++)for(let dx=0;dx<p.sz;dx++)add(cells,p.x+dx,p.y+dy);
       for(const p of road.values())add(cells,p.x,p.y);
-      if([...cells.values()].every(p=>{const t=GV.tile(p.x,p.y);return t&&t.t!==3&&!t.bld;}))layout={lots,source,bridge,roads:[...road.values()],cells:[...cells.values()]};
+      if([...cells.values()].every(p=>{const t=GV.tile(p.x,p.y);return t&&t.t!==3&&!t.bld;}))layout={lots,source,background,bridge,roads:[...road.values()],cells:[...cells.values()]};
     }
     need(layout,'night038 real terrain supports bounded utility layout');
     const paid=[];
@@ -30,6 +34,7 @@ module.exports=function partialNinePower038(arg){
     for(const p of layout.cells)if(GV.tile(p.x,p.y).t===0)place('tland',p.x,p.y);
     for(const p of layout.roads)place('road',p.x,p.y);
     for(const q of layout.lots){if(arg.useNew)need(GV.britishWave038.select(q.id),'night038 real selected appearance '+q.id);place('landmark',q.x,q.y);need(paid.at(-1).spent===2000,'night038 native landmark2000');}
+    place(layout.background.tool,layout.background.x,layout.background.y);
     place('nuclear',layout.source.x,layout.source.y);GV.selectTool434('pan');
     const game=document.getElementById('game');game.dispatchEvent(new PointerEvent('pointermove',{clientX:-100000,clientY:-100000,pointerId:99,pointerType:'mouse'}));window.__waterF695=0;
     const canonical=arg.useNew?new Map(fixed.flatMap(([,v])=>Array.from({length:4},(_,r)=>[v+r,GV.art574.SPR().bld['24_1_'+(v+r)]]))):null;
@@ -38,15 +43,17 @@ module.exports=function partialNinePower038(arg){
     return{N,layout,paid,dev:GV.dev516B(),slot:3,method:'native paid terrain/road/landmark/nuclear placement; no power flag, capacity, dispatch, rate or night-rule assignment'};
   }
   const Q=window.__wave038Power;need(Q&&Q.phase+1===arg.phase,'night038 ordered native physical phases');Q.phase=arg.phase;
-  const {lots,source,bridge}=Q.layout;
+  const {lots,source,background,bridge}=Q.layout;
   if(arg.phase===1)need(GV.placeUndo('doze',bridge.x,bridge.y),'night038 actually remove unique road bridge');
   if(arg.phase===2){need(GV.undo(),'night038 native undo restores bridge');need(GV.placeUndo('doze',source.x,source.y),'night038 actually remove nuclear source');}
   if(arg.phase===3)need(GV.undo(),'night038 native undo restores real source');
   for(const q of lots)GV.testAge635(q.x,q.y,2,2,30);
   if(GV.tile(source.x,source.y).bld)GV.testAge635(source.x,source.y,3,3,30);
+  GV.testAge635(background.x,background.y,3,3,30);
   GV.recomputePower450();GV.step(1);GV.setSpeed(0);
   for(const q of lots)GV.testAge635(q.x,q.y,2,2,30);
   if(GV.tile(source.x,source.y).bld)GV.testAge635(source.x,source.y,3,3,30);
+  GV.testAge635(background.x,background.y,3,3,30);
   const power=GV.t471(),night=GV.t487(),powered=arg.phase===0||arg.phase===3;
   const targets=lots.map(q=>({...q,root:GV.tile(q.x,q.y).bld,refs:[GV.tile(q.x+1,q.y).bld,GV.tile(q.x,q.y+1).bld,GV.tile(q.x+1,q.y+1).bld],authority:GV.powerAt471(q.x,q.y)}));
   const rate=night.snapshot.lighting.powerRate;
