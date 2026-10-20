@@ -1,0 +1,429 @@
+{
+  "head": "f53009d460c62777c7160b0920bb7303c87a11f7",
+  "artSourceSHA256": "7ac802076803a9538fb318760269975a744ea7628968c48e0f8f62b14769ecab",
+  "artSourceGitBlob": "4a25b20b5ea7d23c83e180c988e987c8683b32bc",
+  "indexSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+  "files": [
+    {
+      "name": "leedsCorn-r0-day.png",
+      "bytes": 6305,
+      "sha256": "79761b72e69b38ba9c4fe87874d993ba65b315345f99168e173bcd4587bf526d"
+    },
+    {
+      "name": "leedsCorn-r0-night.png",
+      "bytes": 1874,
+      "sha256": "847bbede1e67a6be39d194062b1b7d9c21bef69d87f8c31c8ffe1c4cb75745a4"
+    },
+    {
+      "name": "leedsCorn-r1-day.png",
+      "bytes": 5853,
+      "sha256": "776dc453ed658db615be1a36face51c96fdbf9727e0c78df6e0c5630731b69c1"
+    },
+    {
+      "name": "leedsCorn-r1-night.png",
+      "bytes": 1890,
+      "sha256": "26d895e1f867dfa264c8f67fed63dc43829da189e485df1d12c8646e51f24a25"
+    },
+    {
+      "name": "leedsCorn-r2-day.png",
+      "bytes": 5689,
+      "sha256": "5cf9c04639afe30782536aafdfef6e2c23affe472ec9db5bd2d3bd99c4f91f6d"
+    },
+    {
+      "name": "leedsCorn-r2-night.png",
+      "bytes": 1892,
+      "sha256": "cbca71f7168e4480e33423e99c46c1df20d5c4dbc44ec0df3694eabe2c5ef8d7"
+    },
+    {
+      "name": "leedsCorn-r3-day.png",
+      "bytes": 6002,
+      "sha256": "66a51b67f7b8c98e83bf0e78619cb84aa2f86c6607aa8ef34f700c742d910c54"
+    },
+    {
+      "name": "leedsCorn-r3-night.png",
+      "bytes": 1870,
+      "sha256": "308baae0d051832aa8d981c455a05ed1ff94ebd42de39b13ca64db669644b0cc"
+    },
+    {
+      "name": "darlington-r0-day.png",
+      "bytes": 6556,
+      "sha256": "3d479a28e6be68a81d88ea69cec6fb1b10e5d3c75f38b0b86d8c328607a0c401"
+    },
+    {
+      "name": "darlington-r0-night.png",
+      "bytes": 2139,
+      "sha256": "01821ab6c18d41cd00e55796392d3e5c82b6c31302dfbfed09cb7165e3e4301b"
+    },
+    {
+      "name": "darlington-r1-day.png",
+      "bytes": 6874,
+      "sha256": "ddbff44923c5e27f375f842a74866e0c35273341de11ad3318037e09323c3086"
+    },
+    {
+      "name": "darlington-r1-night.png",
+      "bytes": 2198,
+      "sha256": "8d1ad3e6831c6626f0d6124ed00920c985a3bd2d984f4c08ade2da45e12b9227"
+    },
+    {
+      "name": "darlington-r2-day.png",
+      "bytes": 6787,
+      "sha256": "c9c162cd5a53dc92eb044fd6375396d0aad5c98d97e006cb62dd19121b2be4ed"
+    },
+    {
+      "name": "darlington-r2-night.png",
+      "bytes": 2183,
+      "sha256": "8df1b0086bb700d9a957086bafb380790746d5f0ff0652d147c6c49cdd75c77a"
+    },
+    {
+      "name": "darlington-r3-day.png",
+      "bytes": 6754,
+      "sha256": "53e520fb1cf66964bd514fdee3e0f6a1f9e37c60927981f19446d59243196bba"
+    },
+    {
+      "name": "darlington-r3-night.png",
+      "bytes": 2201,
+      "sha256": "9f1068cd37a77609be2c8253bb60107c7888b48de46d4f17b8c12e711ba5f7dc"
+    },
+    {
+      "name": "halifax-r0-day.png",
+      "bytes": 7428,
+      "sha256": "a5cf1020eb9908b3f67c269c6615b2302841825facd97d57e889bdee178a6a13"
+    },
+    {
+      "name": "halifax-r0-night.png",
+      "bytes": 2471,
+      "sha256": "e2ec9af9b54247c57225f278bd9259778b2feeb0bf0edb3913c9db9f4334a6f7"
+    },
+    {
+      "name": "halifax-r1-day.png",
+      "bytes": 7302,
+      "sha256": "a4854b0580a38d27b8fc75eab937b165bdb96de336f33fe6b027455b68780acf"
+    },
+    {
+      "name": "halifax-r1-night.png",
+      "bytes": 2330,
+      "sha256": "4ac4ae0d37ad204c7bcbe80ca8a370aafa97cf856ab22b4a4bea07961ab8febf"
+    },
+    {
+      "name": "halifax-r2-day.png",
+      "bytes": 7078,
+      "sha256": "3d8304c94d1142b56fa9848f6f9e28402d29fe601222851b6c16494527ab5988"
+    },
+    {
+      "name": "halifax-r2-night.png",
+      "bytes": 2231,
+      "sha256": "00aabf3427dc8da0ecdd59b3e5f5c3fa4b3c16ef0eb5903c56c8d2f0c6de7f4b"
+    },
+    {
+      "name": "halifax-r3-day.png",
+      "bytes": 6980,
+      "sha256": "1e9f47eb8d7ba3997f973656f09ab4a5c8967a44e25fd5462ace741d397f777d"
+    },
+    {
+      "name": "halifax-r3-night.png",
+      "bytes": 2374,
+      "sha256": "0db53dcf8c502a876975004fe2689c44594add4fc536183b5dca179d43c89225"
+    },
+    {
+      "name": "bishoplloyd-r0-day.png",
+      "bytes": 6499,
+      "sha256": "fe5fcc9f7a09b23c6777643ac2f1461dca7c0c8777395579f4b5eab966a13aea"
+    },
+    {
+      "name": "bishoplloyd-r0-night.png",
+      "bytes": 2469,
+      "sha256": "bd2b55ceb9efd26594af2924f95bfc0a0d252e7af63e57fe78a4b6424a67634a"
+    },
+    {
+      "name": "bishoplloyd-r1-day.png",
+      "bytes": 5839,
+      "sha256": "e11c4b494a078a622e621e1878898042ce53b2b0f2d696328ec9d9f906bd2152"
+    },
+    {
+      "name": "bishoplloyd-r1-night.png",
+      "bytes": 1989,
+      "sha256": "9edd1ce6b6c28217967d286e56877f63d67641413bc8a7ee30190186aa84fb9f"
+    },
+    {
+      "name": "bishoplloyd-r2-day.png",
+      "bytes": 6079,
+      "sha256": "f2f06a9e54458d12ab4533739356b406fe2a9a0f6a6c474d2e63973a8d26d5e9"
+    },
+    {
+      "name": "bishoplloyd-r2-night.png",
+      "bytes": 2060,
+      "sha256": "ee1f927f242eff499dff6a5b1b681e8dc2579dcc881b3078a0802d45392c97f1"
+    },
+    {
+      "name": "bishoplloyd-r3-day.png",
+      "bytes": 6202,
+      "sha256": "5f6ee77443896902bcfedd860463afafb04cd58690a5097382b4f4982eaa40de"
+    },
+    {
+      "name": "bishoplloyd-r3-night.png",
+      "bytes": 2432,
+      "sha256": "b9ea34152351bb04d9383654c76f7fae9a66c139e59987f995e51cdf43c6adfe"
+    },
+    {
+      "name": "burlington-r0-day.png",
+      "bytes": 5844,
+      "sha256": "90c8a72428b74d0e5ac078349f5df999199d521bcf5e10ffca34858a7c5631b2"
+    },
+    {
+      "name": "burlington-r0-night.png",
+      "bytes": 1737,
+      "sha256": "e368dccb53a2dbe1e6314131d4b8f09c1cc1c02cf034f896d8081b9caf6c81ae"
+    },
+    {
+      "name": "burlington-r1-day.png",
+      "bytes": 5426,
+      "sha256": "daef97f746c80bee72811bab3a80b824dcd12a86b354f7755b7e752d19ff19dd"
+    },
+    {
+      "name": "burlington-r1-night.png",
+      "bytes": 1712,
+      "sha256": "d711357a274dd3f986fa854dd52aed38735f838f4041eeedfabf8980fe0e22cb"
+    },
+    {
+      "name": "burlington-r2-day.png",
+      "bytes": 5264,
+      "sha256": "ee9d201452e31e7c390121a8c49d2dca0ddf65b192d51171a58114eefc7b9ba3"
+    },
+    {
+      "name": "burlington-r2-night.png",
+      "bytes": 1718,
+      "sha256": "45059c8dd3ba4dd183085130048bb3b67383452d50e811700eb70c38a4cc3959"
+    },
+    {
+      "name": "burlington-r3-day.png",
+      "bytes": 5479,
+      "sha256": "3e401f7fbcb499feddbbe4409ed0909b1a7d14a62121f4ffcff7fe3341d1975b"
+    },
+    {
+      "name": "burlington-r3-night.png",
+      "bytes": 1723,
+      "sha256": "25339a06c939a797bd71a26fb29cca4b5fb87133ae75634e8e603547f06d7ee4"
+    },
+    {
+      "name": "harrods-r0-day.png",
+      "bytes": 8499,
+      "sha256": "c7735f9532c7144185eff65e3e9763af0d7cf1438cad460a3d5cd9c6646a622f"
+    },
+    {
+      "name": "harrods-r0-night.png",
+      "bytes": 3343,
+      "sha256": "d61bf9cc0d6bd848188784607e1da935efb8cedbf8784f06c3fb70e79b191135"
+    },
+    {
+      "name": "harrods-r1-day.png",
+      "bytes": 8277,
+      "sha256": "b39583e5a2ae4f83c45d8b7720366446bdf6e663b1e7d01965a55deef31f82fb"
+    },
+    {
+      "name": "harrods-r1-night.png",
+      "bytes": 3326,
+      "sha256": "9cd70080884b937cdb7b14b7dc3ad1fc845f6d1d216154b60e2eb9bb5f276c9a"
+    },
+    {
+      "name": "harrods-r2-day.png",
+      "bytes": 7947,
+      "sha256": "fb9cc9aeda0d600b373b01ee96f446de1f3ede4fd06df6771ca763326b134857"
+    },
+    {
+      "name": "harrods-r2-night.png",
+      "bytes": 3318,
+      "sha256": "1ac06bc58c998587cd3330f3dd4edbb3c37aa1ff3a1e6d94a0c00cf6c4664fb7"
+    },
+    {
+      "name": "harrods-r3-day.png",
+      "bytes": 8324,
+      "sha256": "27026b98d9be6789d13e7f7660d3290aa8a2dd44d0cdaebd131f597f5f268a8c"
+    },
+    {
+      "name": "harrods-r3-night.png",
+      "bytes": 3371,
+      "sha256": "9fcaa670d454c61ee8f01ae4fb6698fb02d570ce48e0e9c2ca2c56f949c5a42b"
+    },
+    {
+      "name": "liberty-r0-day.png",
+      "bytes": 7584,
+      "sha256": "6737584c6f5366caab0498e3f2e5cebcbe95817d533635b3c05c8dd206b3164c"
+    },
+    {
+      "name": "liberty-r0-night.png",
+      "bytes": 2810,
+      "sha256": "9f9194a61621443b320264c773b0ffc0d7143c77f567b2b98bae548565bf9faa"
+    },
+    {
+      "name": "liberty-r1-day.png",
+      "bytes": 6898,
+      "sha256": "3db04d1c14f05b9a8e2f380e0359aab9cba26de8c70072bcf047402a3bd005a8"
+    },
+    {
+      "name": "liberty-r1-night.png",
+      "bytes": 2889,
+      "sha256": "2a6ddfa2825f1aa5b5815cadf94506c7d9655d3ef50488bb1e096ad2a2854bec"
+    },
+    {
+      "name": "liberty-r2-day.png",
+      "bytes": 6876,
+      "sha256": "8d028767042d98e2cbce3c838653a27c21b1790ab729d694e2db6921f42591ae"
+    },
+    {
+      "name": "liberty-r2-night.png",
+      "bytes": 2911,
+      "sha256": "d104cd2e26224636df575cc28bfe5e2502a9e186932e06bd7fb0641c3e0883a0"
+    },
+    {
+      "name": "liberty-r3-day.png",
+      "bytes": 7072,
+      "sha256": "dc0f8ffa4a006dc27e9db721114c8d1ae483d59c179600862bed83132319ccbe"
+    },
+    {
+      "name": "liberty-r3-night.png",
+      "bytes": 2849,
+      "sha256": "3a65f2f32b33062d698d0aaa82c95836b67569c426319c534505ef39d3a7fc34"
+    },
+    {
+      "name": "danum-r0-day.png",
+      "bytes": 5581,
+      "sha256": "2cb04bd5ceadc6ecc79e9c26cecedf57d701f5a5cf90c73c6dd4c871b4875b75"
+    },
+    {
+      "name": "danum-r0-night.png",
+      "bytes": 2703,
+      "sha256": "1b494ec23f3a9629af8ce108ed462a3d415f71be5b6e797d61114c74da39789b"
+    },
+    {
+      "name": "danum-r1-day.png",
+      "bytes": 5469,
+      "sha256": "82932a2f13dbaac40f06c172d99f2792f7655fb64190d7839f7c6025ce5b1a8b"
+    },
+    {
+      "name": "danum-r1-night.png",
+      "bytes": 2826,
+      "sha256": "725706e7a69aa0aeded42f2fa2fd645660653cd9ff3f5a69b2023f0192560958"
+    },
+    {
+      "name": "danum-r2-day.png",
+      "bytes": 5127,
+      "sha256": "796a9e0a8d27e82dc57ac4a5748c834b430014029975d3e6d38a677ceb153ec5"
+    },
+    {
+      "name": "danum-r2-night.png",
+      "bytes": 2871,
+      "sha256": "0c9e18d92f898b57c685fda4165bfdfa75872fb72f574544eaeb2cea44fa8d38"
+    },
+    {
+      "name": "danum-r3-day.png",
+      "bytes": 5458,
+      "sha256": "93696fd2b617679101bd963e0e8ffc70e1169201f82249d2259b297e933582a7"
+    },
+    {
+      "name": "danum-r3-night.png",
+      "bytes": 2816,
+      "sha256": "898f42b843cbe44dff28a2a26ae132d24686cf8c45fcffcb9ca739467a027893"
+    },
+    {
+      "name": "willow-r0-day.png",
+      "bytes": 4833,
+      "sha256": "623b0f5110b76bb468723c040677f9422a862bdf305ef79cccb9b859ffb6fc9f"
+    },
+    {
+      "name": "willow-r0-night.png",
+      "bytes": 2036,
+      "sha256": "8b63dc874c3b4613e939e14b9c3792e7dadfbfd4e8f339e4669c354de5450a6e"
+    },
+    {
+      "name": "willow-r1-day.png",
+      "bytes": 4570,
+      "sha256": "d825ed9b200dd5363caf73e544aa8b21c29056e7cd43ec8128fdda7d5c4f94b2"
+    },
+    {
+      "name": "willow-r1-night.png",
+      "bytes": 1866,
+      "sha256": "ba453e71c3ef5874702cad24d157eea2906ef6672a2fea7edb1331bd83a30666"
+    },
+    {
+      "name": "willow-r2-day.png",
+      "bytes": 4164,
+      "sha256": "c1c414e4c63c01250d21fcef7f31c2e7087a9b918515b68b36713a46f98b6bdf"
+    },
+    {
+      "name": "willow-r2-night.png",
+      "bytes": 1906,
+      "sha256": "cd8587c011897bfff892ec86a8a82040b4424236ec3792574ced213df17eef2f"
+    },
+    {
+      "name": "willow-r3-day.png",
+      "bytes": 4429,
+      "sha256": "a08cc726c7a79b83d0c5a3335d37ad969c36212a81219c3425f38d6380472fc4"
+    },
+    {
+      "name": "willow-r3-night.png",
+      "bytes": 1978,
+      "sha256": "61302cebce96101de50990d20d4669acc0213e8dbd103c797980b5d3f3aadc6f"
+    },
+    {
+      "name": "contact-day.png",
+      "bytes": 279391,
+      "sha256": "6ec06ec03e16bfd0a00b9da066e6a75fc9d9b9e927bc813c8392b7020180b83a"
+    },
+    {
+      "name": "contact-night.png",
+      "bytes": 280360,
+      "sha256": "88353c3d88624ab5f70eead9e10f29e463842806b9da36566a3fae08980e5393"
+    },
+    {
+      "name": "contact-comparison.png",
+      "bytes": 309882,
+      "sha256": "73eb3893209cb507fa332a56ae6c5f566dd3be4b705aa78a5a2e4f8634f39ca4"
+    },
+    {
+      "name": "near-leedsCorn.png",
+      "bytes": 41620,
+      "sha256": "500872656d48048c498c65aaaa8f8a9cd9ecdc30e14c72822d55118a3263b105"
+    },
+    {
+      "name": "near-darlington.png",
+      "bytes": 43471,
+      "sha256": "44987baa71793593b07247647bdf7062f34c3fc63ee0474fb93f6d599486a8b9"
+    },
+    {
+      "name": "near-halifax.png",
+      "bytes": 47518,
+      "sha256": "7c80ccdc7042d8543704e2f89e44830893dbbbe18ad489597ce7434400befb7a"
+    },
+    {
+      "name": "near-bishoplloyd.png",
+      "bytes": 43981,
+      "sha256": "0b39cf2db76090f8a70a06b85a6f81459b8e80597877af2d3c5ff5528558d09e"
+    },
+    {
+      "name": "near-burlington.png",
+      "bytes": 40874,
+      "sha256": "cfe6b9d416114b829573d2462c72fb51f003b480d013b4510df914ed7c78c699"
+    },
+    {
+      "name": "near-harrods.png",
+      "bytes": 51679,
+      "sha256": "0cf353feb0c323a0c824f578586b0fa8ecf438c2dae567a7e2308eff51d97889"
+    },
+    {
+      "name": "near-liberty.png",
+      "bytes": 46282,
+      "sha256": "ea809bfb8f9dab09a4b6eb4488cfcf6750643c4ad85d6a7226c610bd0cbb0ea3"
+    },
+    {
+      "name": "near-danum.png",
+      "bytes": 40172,
+      "sha256": "233d41013bd83105cb44ae4dce8b0a7b84277fc61b2df7418952a763954bc0f7"
+    },
+    {
+      "name": "near-willow.png",
+      "bytes": 36106,
+      "sha256": "66787e81eec9fdca037e97d3935c1a6493ae0150db6eb11c1871abfb025ebc8b"
+    }
+  ],
+  "scope": "independently reviewed nine static candidates only; original bytes and hashes retained"
+}

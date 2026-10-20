@@ -1,0 +1,123 @@
+{
+  "scope": "complete ten-model guard preparation; active workflow performs only static9 and explicitly partial9 integration",
+  "firstCard": "95373e6e6222cfa54830323adc8e9b0fba24120f",
+  "unchangedFullGuardDrafts": [
+    {
+      "file": "probeBritishWave038.cjs",
+      "expectedSHA256": "3d65807cac27adb273224bdd880cf4c3bb59a5ce4485b350cee18f0a6a1b1821",
+      "BASE37Source": "probeBritishWave037.cjs",
+      "BASE37SHA256": "c04c6ec4c7e0252f0de7360787f18f85afa73109c123bd3cd607a54cec35b61d",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "probeNativePairs038.cjs",
+      "expectedSHA256": "c9e9205b5621dd7b55afdd97ce2dea4fa37693d88b632d00752ca1e55397516a",
+      "BASE37Source": "probeNativePairs037.cjs",
+      "BASE37SHA256": "57ed81838e807a2463723477da8c40c3f999c8f31bed08e0ba9fd3f27a4e1e35",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "probeScenes038.cjs",
+      "expectedSHA256": "ff9f15aab0fbb12a15055acb763b12ea759443579561daf9a33f1a1ede9de271",
+      "BASE37Source": "probeScenes037.cjs",
+      "BASE37SHA256": "080d99c8b9e2ea1e06842cf8913ac3987c6811ba4882b8fe9d88162fbb4393ec",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "probePedestrians038.cjs",
+      "expectedSHA256": "4c4f75a1b7b41a4eb6a86f145a959a81bd9d47c2bea90e3e6689e19e660eb4e4",
+      "BASE37Source": "probePedestrians037.cjs",
+      "BASE37SHA256": "24b900c43ce79b69bf6bcd52ef3ad3f49cbc697686baa32aae5a406efee31368",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "probePerformance038.cjs",
+      "expectedSHA256": "98060384be59f0b6a01b2a6568c75a183a7ef0cd781debdbaf1ecd90a35d3cf7",
+      "BASE37Source": "probePerformance037.cjs",
+      "BASE37SHA256": "e1f169b35fcf97bd57d13d406ea1ccae0bd3e49c82acc25ef9fb7b586853a37b",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "previewWave038.cjs",
+      "expectedSHA256": "290d3ca3522a4e6b1e73827f5fb315c5411088102a0f2477f2ef14538dd48f72",
+      "BASE37Source": "previewWave037.cjs",
+      "BASE37SHA256": "1b8b0d5ba4170c6b01021306a5f584b986c164783d5278f2ff524eef4631272d",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "proveWave038Baseline.cjs",
+      "expectedSHA256": "0304753cc44dcb94fb74b49567a6332660f44b83033d5fc544356b47a49615c2",
+      "BASE37Source": "proveWave037Baseline.cjs",
+      "BASE37SHA256": "a94e16f1bc933245c4b438129681b4cc95037d8c52774984bfa883f22b28b19c",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "transferWave038Source.cjs",
+      "expectedSHA256": "a05d5a534eac20c8b312cbc7e8c9080937cfe7eba8cc90a4dfaf3f8d14a79ffb",
+      "BASE37Source": "transferWave037Source.cjs",
+      "BASE37SHA256": "4b5e44712e54f51d9b5a57503f749c465a137ca766f9be8e2bb18cd1659db335",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "transferWave038Scenes.cjs",
+      "expectedSHA256": "34bfc1f9b1b82ba7c4b19580eda9bf0cab516f3933fa43ce92f62bf77d455737",
+      "BASE37Source": "transferWave037Scenes.cjs",
+      "BASE37SHA256": "fd362c2be0848597bc23fa2563d77f9efdf9d46f851281de2dbd244c4be7820d",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    },
+    {
+      "file": "probePublicSite038.cjs",
+      "expectedSHA256": "98bf00cf0235b7663cccb4933bf5ce11d3924affbafd753c88425980396b8510",
+      "BASE37Source": "probePublicSite037.cjs",
+      "BASE37SHA256": "03d5200237c17832a70aa02a77ecd0fe5d2f6c957502347c39d6ccd65bca39b2",
+      "state": "complete ten-model guard preparation; not executed or claimed passed now"
+    }
+  ],
+  "embedRefactor": "production-only composer delegates to wave038-source.cjs; no partial fixture included by embed-wave038.cjs",
+  "newSmokeHook": "requires full40/ten selftest whenever the actual served source embeds038; pre-existing assertions byte-preserved",
+  "expectedCompleteCounts": {
+    "models": 10,
+    "leaves": 40,
+    "nativeOriginals": 80,
+    "contactSheets": 3,
+    "nearOriginals": 10,
+    "authorOriginalImages": 93,
+    "sceneAndGuardPNG": 113,
+    "fullCIJobs": 21,
+    "normalSeeds": [
+      31,
+      71,
+      103
+    ],
+    "matchedPaidForms": 10,
+    "saveLoadCycles": 2,
+    "minimumNativeFirstRed": 12,
+    "pedestrianCases": 17,
+    "pedestrianNegatives": 2,
+    "performanceAlternatingGroups": 40,
+    "realDelayNegatives": 30
+  },
+  "performanceOriginalLimits": [
+    "median <= BASE*1.5+2",
+    "p90 <= BASE*1.5+3",
+    "warm redraw geometry builds =0"
+  ],
+  "fieldExclusions": [],
+  "fullWorkflowTemplate": {
+    "file": "docs/branch/GPT-038-full-acceptance-workflow.yml.txt",
+    "enabled": false,
+    "reason": "requires complete Silver model and real integrated committed HEAD source; not scheduled for nine partial fixture",
+    "expectedExpandedJobs": 21,
+    "sourceTransferParts": 8,
+    "sceneEvidenceParts": 5
+  },
+  "notComplete": [
+    "Silver exterior/model",
+    "real ten-model installed source",
+    "complete21 native/scene/normal/pedestrian/performance/baseline/source jobs",
+    "new fp-rebake raw baselines",
+    "workflow deletion and release steps"
+  ],
+  "noGuardWeakenedToNine": true,
+  "fullWaveAcceptance": false
+}
