@@ -289,7 +289,16 @@
       "credit": "Chris Allen",
       "license": "CC BY-SA 2.0",
       "role": "Market Street exterior candidate; historical 2013 photograph",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "halifax-0.jpg",
+      "originalBytes": 76688,
+      "originalSHA256": "67271e2ac4f1fb3e62da5a92c73223b24b6effcb48cbe5b2b78784a5a2b5f038",
+      "observedKind": "exterior-massing-photograph",
+      "observations": "Oblique Market Street frontage: long multi-storey stone range, repeated projecting bays, varied shaped gables/dormers, finials, slate roof edges, arcaded ground-floor shop openings. Historical 2013 photo.",
+      "limitations": [
+        "street-level angle does not show roof plan",
+        "historical rather than current shop occupation"
+      ]
     },
     {
       "id": "halifax",
@@ -298,7 +307,16 @@
       "credit": "Calderdale Council / Calderdale Next Chapter official project publication; photographer not separately identified",
       "license": "publicly displayed council project photograph; reference only; no open license inferred",
       "role": "officially captioned aerial dome photograph; actual visible roof shape pending inspection",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "halifax-1.jpg",
+      "originalBytes": 182839,
+      "originalSHA256": "420c923bc1ecb60d5ca4af0edb546b157c3a729c7996a1e88857d19c9730d945",
+      "observedKind": "exterior-aerial-detail-photograph",
+      "observations": "Council aerial close view: faceted octagonal glazed lantern and small raised domed cupola, slate-faced base with large fan-shaped glazed opening, cruciform raised pitched roof ridges and long glazed clerestory strips; adjoining slate/chimney/shop roofs visible.",
+      "limitations": [
+        "surrounding external street elevations largely hidden by roof angle",
+        "renovation-era photograph; not a new survey"
+      ]
     },
     {
       "id": "halifax",
@@ -307,7 +325,16 @@
       "credit": "Calderdale Council / Calderdale Next Chapter official project publication; photographer not separately identified",
       "license": "publicly displayed council project photograph; reference only; no open license inferred",
       "role": "officially captioned full-roof aerial photograph; actual external ranges/roof coverage pending inspection",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "halifax-2.jpg",
+      "originalBytes": 165456,
+      "originalSHA256": "45e4cc1b713f99cf8e31882e1f5f9336826ff3e012cf9042dd8d77db578a6e49",
+      "observedKind": "exterior-aerial-massing-photograph",
+      "observations": "Council full market aerial clearly shows rectangular enclosing stone shop ranges, different roof heights, repeated glazed roof bays in four quarters divided by crossing slate ridges, central octagonal glass lantern/cupola and projecting narrow glazed arcade at one end. Dormers/chimneys and outer gable rhythm readable.",
+      "limitations": [
+        "street-facing decorative details are better read in Chris Allen street photo",
+        "do not copy surrounding unrelated blocks"
+      ]
     },
     {
       "id": "silver",
@@ -316,7 +343,16 @@
       "credit": "Maber official project publication; photographer not separately identified",
       "license": "publicly displayed architect project image; reference only; no open license inferred",
       "role": "candidate real roof/interior photograph; must inspect and exclude any render",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "silver-0.jpg",
+      "originalBytes": 317731,
+      "originalSHA256": "ced445f80b7fde23cd22c4dc3ba8d88031e5d7667c54938b9e2a7597f5664e74",
+      "observedKind": "interior-roof-photograph",
+      "observations": "Real camera view of Silver Arcade upper central void: pitched glazed roof with repeating curved transverse structural arches/triangular spandrels, stacked iron galleries with gold/black balustrades and upper shop windows. Actual roof structure supports HE text; not an external full-roof photograph.",
+      "limitations": [
+        "interior only; does not show exterior roof slopes or rear Cank Street square pavilion",
+        "gallery visibility must not be claimed as full exterior"
+      ]
     },
     {
       "id": "silver",
@@ -325,7 +361,16 @@
       "credit": "Maber official 2019 studio publication; photographer not separately identified",
       "license": "publicly displayed architect project image; reference only; no open license inferred",
       "role": "candidate real camera photograph of glazed roof/gallery; not exterior substitute",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "silver-1.jpg",
+      "originalBytes": 1353123,
+      "originalSHA256": "1a5bd0225dc0e71c92ed1e7e3e0c968399783eb690f14c61965dd97d43eb4e81",
+      "observedKind": "interior-office-photograph",
+      "observations": "Real camera photograph through glazing into staff kitchen/meeting area, exposed painted roof structure and suspended lights; people, tables and model display at right.",
+      "limitations": [
+        "office detail only; rejected as exterior/whole-roof gate completion",
+        "interior people/furniture not architectural evidence for game exterior"
+      ]
     },
     {
       "id": "silver",
@@ -334,7 +379,16 @@
       "credit": "Maber official 2019 studio publication; photographer not separately identified",
       "license": "publicly displayed architect project image; reference only; no open license inferred",
       "role": "candidate real camera photograph of glazed roof/gallery; not exterior substitute",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "silver-2.jpg",
+      "originalBytes": 877766,
+      "originalSHA256": "83fb99d437eb0f8ad656eb47a4601e6b3ca0ad143a5956e709e1b9429150710a",
+      "observedKind": "interior-office-photograph",
+      "observations": "Real camera office photograph of staff, workstations, suspended light bulbs and repeated white interior beams; no external massing or main roof glazing.",
+      "limitations": [
+        "office detail only; rejected as exterior/whole-roof gate completion",
+        "not needed for sprite exterior"
+      ]
     },
     {
       "id": "harrods",
@@ -343,18 +397,37 @@
       "credit": "Make Architects official facade-restoration publication, 13 December 2021; photographer not separately identified",
       "license": "publicly displayed architect project photograph; reference only; no open license inferred",
       "role": "daylight full Brompton Road facade with new awnings; roof/dome visibility pending inspection",
-      "state": "Published asset URL actually opened from primary publication; new bounded CI retrieval and author inspection pending"
+      "state": "CI original bytes recovered, SHA256 verified and author viewed",
+      "actualFile": "harrods-0.jpg",
+      "originalBytes": 971671,
+      "originalSHA256": "f63f0704c17a635569409f2078a48f1e1dd4b952ee837ffa6bc290fd69eaafea",
+      "observedKind": "exterior-daylight-massing-photograph",
+      "observations": "Make Architects daylight Brompton Road facade: warm terracotta surface, repeated large display windows, deep green physical awnings, giant pilaster rhythm, projecting bays, central elaborate arched raised mass, ribbed copper-toned roof with oval dormers and lantern; further corner roof groups visible.",
+      "limitations": [
+        "left edge and some highest rooftop detail cropped",
+        "brand names are incidental and not to be reproduced as game signage",
+        "photo does not survey full rear building plan"
+      ]
+    },
+    {
+      "id": "burlington",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Burlington_Arcade%2C_Piccadilly_-_geograph.org.uk_-_7821822.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org",
+      "page": "https://commons.wikimedia.org/wiki/File:Burlington_Arcade,_Piccadilly_-_geograph.org.uk_-_7821822.jpg",
+      "originalPhotographerPage": "https://www.geograph.org.uk/photo/7821822",
+      "credit": "Stephen Richards",
+      "license": "CC BY-SA 2.0",
+      "role": "2018 Piccadilly exterior photograph; complete upper loggia coverage to be verified by original-image inspection",
+      "state": "Primary photographer page and explicitly linked original Commons file actually opened; bounded CI bytes and view pending"
     }
   ],
   "C3ActuallyViewedImages": 15,
   "C3RealPhotographs": 14,
   "C3RenderExcludedFromPhotoCount": 1,
   "activeRequestSubjectIDs": [
-    "halifax",
-    "silver",
-    "harrods"
+    "burlington"
   ],
   "activeRequestOnlyNewURLs": true,
   "C3InspectionLedger": "docs/branch/GPT-038-reference-inspection-C3.json",
-  "allOtherAcquiredSourcesRetainedWithoutRefetch": true
+  "allOtherAcquiredSourcesRetainedWithoutRefetch": true,
+  "C4InspectionLedger": "docs/branch/GPT-038-reference-inspection-C4.json"
 }

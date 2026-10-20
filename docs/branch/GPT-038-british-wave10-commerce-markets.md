@@ -67,3 +67,6 @@
 
 - C3 [2b2c281](https://github.com/lijiabao1998/GlimmerTown-lab/commit/2b2c28128513f90a35eaa188403dafae6038a3c1) 參考run39430090998五工作成功，15原檔逐檔SHA核對並全部實看：14真照片＋1建築師剖視渲染；Silver2895_N8不是照片，明確排除真照片與屋頂證據計數。Halifax兩張都是室內，仍缺外立面與外部屋頂；Harrods是整體夜景，日間材質與屋頂細節未補。Burlington兩端入口辨識及帳篷形採光頂可見，上層loggia未完整入鏡。逐圖出處／作者／許可／SHA／實際涵蓋與限制記reference-inspection-C3，不把取得或實看等同本波獨立圖審。標準run39430090981真smoke3／root及BASE fp零變／財務53＋10全成功；遊戲未變，仍只驗BASE。
 - C4仍固定相同十款與全部首卡條件，只取七個新URL：Chris Allen的Halifax Market Street外景、Council項目頁實際連結的兩張屋頂空拍、Make Architects發布的Harrods日景、Maber實際發布的三張新室內／屋頂候選；原15張已取原檔不重讀，Willow不重取，任何渲染均不得補真照片門檻。這些不是被擋HE檔案的鏡像或改參數重試。照片不足款式暫停繪製，沒有開始新美術或降低驗收。
+
+- C4 [ef6227e](https://github.com/lijiabao1998/GlimmerTown-lab/commit/ef6227eb72781d30e5211d688493953cc9ee6270) 參考run39431957051成功；三個有明列目標的parts取七張新原bytes，另兩part無目標只保存空manifest。七張逐SHA核對並實看：Halifax的Chris Allen街景與Council兩空拍清楚顯示石店屋外立面／多坡交叉玻璃屋面／中央八角燈亭；Harrods的Make日景補米粉赤陶與肋穹頂細節；Silver2895_N4是真玻璃頂／多層鐵廊照，另兩張只拍辦公室，不作外景補齊。現在24原檔實看＝23真照片＋1排除渲染，十款均有外景，仍不等於全部外部辨識點齊備。
+- C5只新增Stephen Richards於2018拍攝的Burlington Piccadilly外景一個明列URL，以核上層loggia，不重取已保存的其他23照片或渲染；Silver後側Cank Street方亭尚無足夠實看外照，不繪製該不足款式、不改原建築或要求。Commons猜定類別頁not-accessible不重試；Leicester Civic舊campaign連結實際轉新News列表，沒有假稱已讀舊圖。原錯誤／發現頁保留，七原圖出處與可見限制記inspection-C4。尚未開始本波美術。

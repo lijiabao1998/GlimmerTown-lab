@@ -49,12 +49,9 @@ SOURCES = [
     ],
     [
         "burlington",
-        "https://www.geograph.org.uk/photo/8188950",
+        "https://commons.wikimedia.org/wiki/File:Burlington_Arcade,_Piccadilly_-_geograph.org.uk_-_7821822.jpg",
         [
-            "https://s0.geograph.org.uk/geophotos/08/18/89/8188950_c3927be3.jpg",
-            "https://jamiefobertarchitects.com/wp-content/uploads/2016/05/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-1800x1202.jpg",
-            "https://jamiefobertarchitects.com/wp-content/uploads/2015/07/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-Picadilly-entrance-1800x1350.jpg",
-            "https://jamiefobertarchitects.com/wp-content/uploads/2015/07/Burlington-Arcade-Piccadilly-London-Royal-Academy-Jamie-Fobert-Architects-British-stone-floor-marble-mosaic-Burlington-entrance-1800x1350.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/b/b0/Burlington_Arcade%2C_Piccadilly_-_geograph.org.uk_-_7821822.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org"
         ]
     ],
     [
@@ -98,7 +95,7 @@ SOURCES = [
 PART = int(os.environ['WAVE038_REFERENCE_PART'])
 if PART not in range(5):
     raise ValueError('Exactly five bounded reference parts')
-REQUESTED = set(filter(None, os.environ.get('WAVE038_REFERENCE_IDS', 'halifax,silver,harrods').split(',')))
+REQUESTED = set(filter(None, os.environ.get('WAVE038_REFERENCE_IDS', 'burlington').split(',')))
 if REQUESTED - {s[0] for s in SOURCES}:
     raise ValueError('Unknown reference subject')
 
