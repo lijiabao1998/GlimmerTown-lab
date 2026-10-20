@@ -46,14 +46,51 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
       - name: Real native generation, bridge/source disconnection and visible night windows
         run: node probeNightPower038.cjs
-      - name: Preserve actual night power originals, full saves and native dispatch witnesses
+      - name: Preserve exact night source, manifests, full saves and dispatch witnesses
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wave038-night-power-nine-${{ github.sha }}
-          path: shots/wave038/night-power/
+          name: wave038-night-power-core-${{ github.sha }}
+          path: |
+            shots/wave038/night-power/*.json
+            shots/wave038/night-power/*.html
+            shots/wave038/night-power/*.txt
           retention-days: 14
           if-no-files-found: error
+      - name: Preserve powered originals and actual missing-night controls
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-night-power-on-${{ github.sha }}
+          path: |
+            shots/wave038/night-power/*-on-*.png
+            shots/wave038/night-power/head-negative-missing-new-night.png
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Preserve actual road-disconnected originals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-night-power-road-cut-${{ github.sha }}
+          path: shots/wave038/night-power/*-road-cut-*.png
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Preserve actual source-off originals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-night-power-source-off-${{ github.sha }}
+          path: shots/wave038/night-power/*-source-off-*.png
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Preserve actually restored originals and controls
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-night-power-restored-${{ github.sha }}
+          path: shots/wave038/night-power/*-restored-*.png
+          retention-days: 14
+          if-no-files-found: warn
 
   partial-native-nine:
     runs-on: ubuntu-latest

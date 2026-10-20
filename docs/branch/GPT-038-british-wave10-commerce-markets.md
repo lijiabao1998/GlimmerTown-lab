@@ -143,3 +143,14 @@ C13 fe2bf6200a63ca452e222a272996285233d80ada／run39459181358／job118753831356 
 核對BASE發現它本來已有兩條原生pool路徑：完全old-only沿用原捨入；含已發布BRITISH004的混合街區使用既有physicalDispatched004完整物理量。本次不改任何路徑、不抹掉已觀察限制；在同一真付費fixture遠東側正常建造一座既有edwardianLibrary，真道路接同一電網，由BASE自身選擇既有混合街區路徑。這是新增明列原生背景上下文，並非修改舊式pool、偽造供電或宣稱該量化限制已修復。來源／所有新窗光與9/9通電、真拆橋／拆電源、完整保存／stats／供電對照及負控制斷言不變；關閉建築pw或供電率一樣必須紅。
 
 證據的結論只能是這個原生混合街區中的九款局部夜景；old-only量化限制仍列未修復，不擴張為全城市電力修復或十款／完整21驗收。若本次再在同一root guard紅，不再延伸診斷或再推修復；保留精確資料交父任務。語法／來源靜態檢查通過，真遊戲結果仍待新CI。
+
+
+## C15 — 固定原生啟動時鐘，要求故障前畫面本身先穩定
+
+C14 68ff1d880801d4d4b293d0960cb3bddc12e0a772／run39460187998 有兩個獨立首紅，原始日誌均已保留。夜景job118757330584已完成BASE供電／拆橋／拆電源／復原四phase並進HEAD，實測9/9 pw=true、night powerRate1；前三款view0通過可見窗光，最後成功Halifax真遊戲PNG已取回及實看（healthy SHA f9d3b35d6b316c40da2de695b0b167b79d38612ba8eb4cb26788b67df0e5b771，單一新night禁用 SHA b7193e4b2d545cef202a1b2023c7701cd37d4117dfd73239124cc51e0271ac8e，760窗光像素、最大RGB總差205）。其後首紅是Bishop24_1_532的單一夜圖復原整幀不等。診斷JSON1364564 bytes／SHA fdf46848351eb7e217392ad3d0175f44de425276b30a96b1a479efcbfe385839；只保留到上一成功case，不冒稱已有Bishop差異像素原因。
+
+既有局部job118757330216也首紅在完整保存 fiscal515.lastBacklogDay 5→4。精確原局部來源、生成HTML及runtime均未改；查shared harness它建立城市後等待3秒才進測試，既有newWorld又未重置fiscal515，可能把不同次數的未請求啟動tick帶進配對。此次不刪／正規化任何財務欄位：只在兩個私有runner用既有GV.setSpeed(0)暫停原生啟動時鐘，到callback立刻移除計時器、斷言boot day恰為1，之後仍由原生step執行全部原比較。記錄BASE／HEAD bootstrap stats；shared harness、正常serialize／stats比較、$1負控制及完整十款守衛不改。
+
+夜景方面先做最小穩定性檢查：相同原生暫停畫面須連續兩次完整PNG逐byte相等，最多8次；穩定不了直接紅並留前／後原PNG。故障前、禁用本波單一night、復原後各自取得穩定畫面，原本的整幀逐byte復原、3窗光像素／6RGB總差及斷電嚴格等值斷言完全保留，無裁圖、無容差、無只比窗區替代整幀。先把實際前／禁用／復原PNG寫入診斷再判斷，避免首紅缺圖。這是檢查量測前提，尚未確認Bishop差異來自暖機；若仍不等，保留精確圖與資料停下回報，不繼續改規則或賭重跑。
+
+全部249張新增實際game PNG依原生phase分四個有界artifact，核心HTML／完整保存／所有hash／manifest另存core artifact。總數249由runner新增硬斷言，不刪減原圖；失敗前尚無圖片的phase只警告上傳缺檔，測試本身仍紅。日誌只送兩張整景、Halifax供電／禁用／斷電及真負控制六張原PNG，加完整manifest，避免上一輪大日誌傳輸中斷。原規範的113全波場景仍未宣稱完成；old-only量化限制及Silver缺項不變，沒有合併發布。
