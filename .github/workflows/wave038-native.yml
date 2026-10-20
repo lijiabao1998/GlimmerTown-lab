@@ -31,3 +31,22 @@ jobs:
           path: shots/wave038/candidates/
           retention-days: 14
           if-no-files-found: error
+
+  silver-new-references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read five newly published independent photo targets once
+        env:
+          WAVE038_REFERENCE_PART: '2'
+          WAVE038_REFERENCE_IDS: silver
+        run: python3 collectWave038References.py
+      - name: Preserve source originals, headers and failed responses
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-silver-new-references-${{ github.sha }}
+          path: shots/wave038/references/
+          retention-days: 14
+          if-no-files-found: error

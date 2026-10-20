@@ -656,13 +656,14 @@
     const A=context(row,view),{S,P,Q}=A;
     for(const [x0,x1]of[[5,16],[16,27]]){
       const ground=A.volume(x0,x1,7.2,25.8,.6,10,'stone');shopFront(A,ground.front,2,1.1,7.2);
-      const recessed=A.volume(x0,x1,7.2,20,10.2,20,'blackwood');
+      const recessed=A.volume(x0,x1,7.2,24,10.2,20,'blackwood');
       recessed.front.panel(0,recessed.front.length,10.3,19.9,Q.tar,.15);
-      for(const u of[2,7])timberPane(A,recessed.front,u,12.7,2.6,5,2,2);
-      // A deep open passage: floor/soffit, separate turned posts, low rail
-      // and diagonal braces. No face fills the front of the Rows gallery.
-      S.flat(x0-.4,x1+.4,20,27,10.2,P.woodR);
-      S.flat(x0-.45,x1+.45,20,27.3,19.95,Q.tar);
+      for(const u of[2,7])timberPane(A,recessed.front,u,11.8,2.6,4.4,2,2);
+      // At this isometric scale a seven-unit floor consumed the visible
+      // opening. Keep a genuine three-unit recessed passage, shadowed floor,
+      // soffit, separate posts and low rail; there is no front infill plane.
+      S.flat(x0-.4,x1+.4,24,27,10.2,Q.tarD);
+      S.flat(x0-.45,x1+.45,24,27.3,19.95,Q.tar);
       const gallery=face(A,[x0-.2,26.8],[x1+.2,26.8],0,1);
       for(const u of[.4,gallery.length/2,gallery.length-.4]){
         const p=gallery.point(u,0,0);S.box(p[0]-.3,p[0]+.3,p[1]-.3,p[1]+.3,10.2,20,Q.tar,Q.tarD,Q.tarHi);
@@ -775,9 +776,9 @@
       const out=[[x0,6],[x1,6],[x1,19.5],[x0,19.5]],inside=[[cx-1.7,10.8],[cx+1.7,10.8],[cx+1.7,15.3],[cx-1.7,15.3]];
       ringSurface(A,out,inside,43.1,45.4,A.K.slate(A.dark(0,1)));
       for(let k=0;k<4;k++){
-        const a=inside[k],b=inside[(k+1)%4];S.wall(a,b,35.5,45.4,k<2?Q.tarD:Q.creamD);S.beam([...a,45.45],[...b,45.45],P.lead,.28);
+        const a=inside[k],b=inside[(k+1)%4];S.wall(a,b,40.6,45.4,k<2?Q.tarD:P.slateD);S.beam([...a,45.45],[...b,45.45],P.lead,.28);
       }
-      S.flat(cx-1.7,cx+1.7,10.8,15.3,35.5,P.glassR);
+      S.flat(cx-1.7,cx+1.7,10.8,15.3,40.6,P.glassR);
     }
     for(const x of[8.2,23.8]){
       const f=A.volume(x-1.7,x+1.7,26,28.4,.7,34,'stone');A.windows(f.front,3,1,4,9.7,1.4,4.3,'mullion');A.hip(x-1.9,x+1.9,25.8,28.6,34,2,true);

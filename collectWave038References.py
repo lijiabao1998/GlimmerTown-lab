@@ -56,11 +56,13 @@ SOURCES = [
     ],
     [
         "silver",
-        "https://www.maber.co.uk/projects/silver-arcade/",
+        "https://www.boxpodcommercialproperty.co.uk/unit-to-let/131066/leicester",
         [
-            "https://www.maber.co.uk/app/uploads/2019/09/2895_N4_medium.jpg",
-            "https://www.maber.co.uk/app/uploads/2019/02/silver-arcade-final-1-of-5-1.jpg",
-            "https://www.maber.co.uk/app/uploads/2019/02/0000-silver-arcade-office-final-11-of-7.jpg"
+            "https://www.boxpodcommercialproperty.co.uk/prop_images/retail-unit-1375459.jpg",
+            "https://www.boxpodcommercialproperty.co.uk/prop_images/retail-unit-1375463.jpg",
+            "https://www.boxpodcommercialproperty.co.uk/prop_images/retail-unit-1375466.jpg",
+            "https://www.boxpodcommercialproperty.co.uk/prop_images/retail-unit-1375469.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/9/91/Silver_Arcade_Leicester.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org"
         ]
     ],
     [

@@ -1,0 +1,2199 @@
+{
+  "branch": "gpt/british-wave10-038",
+  "officialArtifactZIPDownloaded": false,
+  "originalPNGTransfer": "Original PNG bytes recovered from actual completed candidate job logs; all84 length/SHA/IHDR dimensions verified.",
+  "sourceFile": "british-wave10-art038.js",
+  "unchangedMainGameIndexSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+  "sourcePhotoLedger": "docs/branch/GPT-038-reference-inspection-C2-C5.json",
+  "sourceOriginals": 25,
+  "realPhotographs": 24,
+  "excludedArchitecturalRender": 1,
+  "nativeGameInstallation": false,
+  "fullWaveAcceptance": false,
+  "publishedWaves": 9,
+  "SilverMissingModel": true,
+  "SilverNewFailedTargets": [
+    {
+      "target": "https://live.staticflickr.com/3640/3440632823_1420a4c19f.jpg",
+      "action": "published exact asset read",
+      "reason": "403 Forbidden",
+      "status": "stopped; no bytes; no CI or alternate endpoint retry"
+    },
+    {
+      "target": "https://britishlistedbuildings.co.uk/101074775-silver-arcade-section-from-sillver-street-to-cank-street-castle-ward/photos",
+      "action": "one normal read-only urllib HTML fetch to recover actual asset/credit links",
+      "reason": "URLError(OSError('Tunnel connection failed: 403 Forbidden'))",
+      "status": "stopped; no HTML/image bytes; not a site HTTP response"
+    }
+  ],
+  "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+  "tree": "519a0785bc17ef29672c07a4fa7562c61d85137f",
+  "parent": "65e7e62c01532374de6c6dcb1639302949d67668",
+  "candidateRun": 39440068190,
+  "candidateJob": 118687243907,
+  "artifactID": 12273204614,
+  "artifactName": "wave038-nine-candidates-a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+  "artifactZIPBytes": 1396348,
+  "artifactZIPDigest": "sha256:01b4aad7bc73ea820227aaa92edfd3c698a72bcaa6f5d6e9bf19200e98bb8332",
+  "artSourceSHA256": "a6ed7fe8a64afd19bff375ccef10ab4c8b2cf6edc10a92224cb095042d1edf56",
+  "artSourceGitBlob": "820e9101c573cca278b5178bf23038388786af2d",
+  "rows": [
+    {
+      "id": "leedsCorn",
+      "nm": "里茲穀物交易所",
+      "en": "Leeds Corn Exchange",
+      "v": 520,
+      "shape": "elliptical-body-two-arched-window-tiers-semicircular-tuscan-porch-elliptical-slate-dome",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1255771",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "8fcb0bbb0d97dc76cc9ce30ee7923e636fb088256117831b23049cf39e4db821",
+        "f4c200b008197c68d8fa34ab92a16c03b5f6b567e32740755add71e15938669c"
+      ],
+      "referenceLimitations": [
+        "northern rooflight not visible in acquired south photographs"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "darlington",
+      "nm": "達靈頓市場與鐘塔",
+      "en": "Darlington Market and Clock Tower",
+      "v": 524,
+      "shape": "five-roof-ridges-raised-louvred-tops-cast-iron-arcade-adjacent-seven-stage-clock-tower",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1322944",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "d90ce6092f09c4e1fc0e9eed586faa84193e7943434488e3caf2acb5e04b1593"
+      ],
+      "referenceLimitations": [
+        "complete five-ridge roof layout supported by official text, not independently surveyed from street photo"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "halifax",
+      "nm": "哈利法克斯自治市集",
+      "en": "Halifax Borough Market",
+      "v": 528,
+      "shape": "three-stone-shop-ranges-crossed-glazed-roofs-octagonal-lantern-north-arcade",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1281516",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "3d1dd07c4b09fbd558a89199c92ea159a514700874a5d7892e1517ea5ca44306",
+        "b6f70665860254b098ed3db4c78349f4e1919bbe1a24d843949d337e0c1599d9",
+        "67271e2ac4f1fb3e62da5a92c73223b24b6effcb48cbe5b2b78784a5a2b5f038",
+        "420c923bc1ecb60d5ca4af0edb546b157c3a729c7996a1e88857d19c9730d945",
+        "45e4cc1b713f99cf8e31882e1f5f9336826ff3e012cf9042dd8d77db578a6e49"
+      ],
+      "referenceLimitations": [
+        "historic 2013 street photo and council renovation-era aerial photos; not a new survey"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "bishoplloyd",
+      "nm": "切斯特主教萊德雙宅",
+      "en": "Bishop Lloyd's House Chester",
+      "v": 532,
+      "shape": "paired-gables-carved-dark-timber-open-first-floor-rows-gallery-upper-glazed-bays",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1376439",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "3cb1feab0363182bc242bfc83dedd95e0de18be08a18e11e65465d71076627fa"
+      ],
+      "referenceLimitations": [
+        "rear and some roof edge absent from street view"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "burlington",
+      "nm": "伯靈頓拱廊街",
+      "en": "Burlington Arcade",
+      "v": 536,
+      "shape": "narrow-double-shop-rows-tent-rooflights-upper-three-arch-piccadilly-loggia-distinct-plain-rear-portal",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1066338",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "66121a36250d4ce4aa2bd844e928b52872b05350a7393efe26e8045a550a3668",
+        "ea883481991734cec16eee924e09bf5c9542248dafc4390bacafa72a72515d8e",
+        "fa855a5bbefcf7219ada49051ada73b6d1d4ca2d1225ef0452d5416dcbaa064f",
+        "607444d3654c60de1f26fede3ac52a2345ffd98481f239c463295f307f9b8a16",
+        "42a1c5f7947353999e748f25675097f4b9bfd8aa9e7b3b88bf39b39294ae12ac"
+      ],
+      "referenceLimitations": [
+        "full external long-roof envelope not visible; roof form supported by official HE text plus actual axial/interior roof photographs"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "harrods",
+      "nm": "騎士橋百貨大樓",
+      "en": "Harrods historic department store",
+      "v": 544,
+      "shape": "six-storey-terracotta-giant-pilasters-central-octagonal-ribbed-dome-corner-mansards",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1294346",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "ff9f609bd9047cba404ed60e876264e4b460b374130d149db8bd27be7a606935",
+        "f63f0704c17a635569409f2078a48f1e1dd4b952ee837ffa6bc290fd69eaafea"
+      ],
+      "referenceLimitations": [
+        "some rooftop edges/rear plan not shown; no claim of surveyed reproduction",
+        "shop logos excluded from game art"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "liberty",
+      "nm": "倫敦都鐸百貨大樓",
+      "en": "Liberty Tudor Building",
+      "v": 548,
+      "shape": "four-storey-timber-department-store-multiple-gables-oriels-stair-turrets-chimneys-three-roof-wells",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1357064",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "d188bb55861b3e12818b7f8d5ead6dc34481a50aafe4ea99a9a6106e168f6ed1"
+      ],
+      "referenceLimitations": [
+        "rear lightwell plan not visible; restrict any claimed photographed main-shop group accordingly"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "danum",
+      "nm": "唐卡斯特合作社百貨",
+      "en": "Doncaster Co-operative Emporium Danum House",
+      "v": 552,
+      "shape": "yellowbrick-centre-blue-vitriolite-stepped-wings-curved-glass-stair-window-bands-canopy",
+      "url": "https://historicengland.org.uk/listing/the-list/list-entry/1031509",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "427d0e1423f9648786af4b1d53ed020c23864b21d6bba2afff2ab2c4504d7009"
+      ],
+      "referenceLimitations": [
+        "unpictured rear roof/wing not claimed as photo verified"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    },
+    {
+      "id": "willow",
+      "nm": "格拉斯哥柳樹茶室",
+      "en": "Willow Tea Rooms 217 Sauchiehall Street",
+      "v": 556,
+      "shape": "narrow-white-four-storey-uneven-sashes-bowed-leaded-window-deep-cornice-low-glazed-hipped-annex",
+      "url": "https://portal.historicenvironment.scot/apex/f?p=1505:300:::::VIEWTYPE,VIEWREF:designation,LB33173",
+      "note": "原創像素外觀；照片未見部分依官方文字轉譯，限制保留。",
+      "inspectedReferenceSHA256": [
+        "7e746078f5fe33ce87aad8ed5e70c0ccdc6efa2236929526ee9cf71b4710e80f"
+      ],
+      "referenceLimitations": [
+        "street tree occludes central lower part; rear annex/glazed hip roof only official HES text"
+      ],
+      "evidenceStatus": "photo-plus-official-text-with-declared-limits"
+    }
+  ],
+  "checks": [
+    {
+      "id": "leedsCorn",
+      "view": 0,
+      "dayOpaque": 5586,
+      "nightOpaque": 257,
+      "bounds": {
+        "minX": 19,
+        "minY": 106,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "ellipticalBody": true,
+        "roundArchedWindowTiers": 2,
+        "semicircularTuscanPorch": true,
+        "ellipticalSlateDome": true,
+        "northernRooflight": true,
+        "photoScope": "1980 full south exterior and2023 porch; north glazing corroborated by HE text"
+      }
+    },
+    {
+      "id": "leedsCorn",
+      "view": 1,
+      "dayOpaque": 5483,
+      "nightOpaque": 310,
+      "bounds": {
+        "minX": 19,
+        "minY": 111,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "ellipticalBody": true,
+        "roundArchedWindowTiers": 2,
+        "semicircularTuscanPorch": true,
+        "ellipticalSlateDome": true,
+        "northernRooflight": true,
+        "photoScope": "1980 full south exterior and2023 porch; north glazing corroborated by HE text"
+      }
+    },
+    {
+      "id": "leedsCorn",
+      "view": 2,
+      "dayOpaque": 5483,
+      "nightOpaque": 310,
+      "bounds": {
+        "minX": 19,
+        "minY": 111,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "ellipticalBody": true,
+        "roundArchedWindowTiers": 2,
+        "semicircularTuscanPorch": true,
+        "ellipticalSlateDome": true,
+        "northernRooflight": true,
+        "photoScope": "1980 full south exterior and2023 porch; north glazing corroborated by HE text"
+      }
+    },
+    {
+      "id": "leedsCorn",
+      "view": 3,
+      "dayOpaque": 5586,
+      "nightOpaque": 257,
+      "bounds": {
+        "minX": 19,
+        "minY": 106,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "ellipticalBody": true,
+        "roundArchedWindowTiers": 2,
+        "semicircularTuscanPorch": true,
+        "ellipticalSlateDome": true,
+        "northernRooflight": true,
+        "photoScope": "1980 full south exterior and2023 porch; north glazing corroborated by HE text"
+      }
+    },
+    {
+      "id": "darlington",
+      "view": 0,
+      "dayOpaque": 5163,
+      "nightOpaque": 509,
+      "bounds": {
+        "minX": 19,
+        "minY": 101,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "parallelMarketRoofRidges": 5,
+        "raisedGlazedLouvredTops": 5,
+        "castIronArchedGlazing": true,
+        "adjacentClockTowerStages": 7,
+        "spireAndCornerTurrets": true,
+        "notOldTownHall": true
+      }
+    },
+    {
+      "id": "darlington",
+      "view": 1,
+      "dayOpaque": 6207,
+      "nightOpaque": 620,
+      "bounds": {
+        "minX": 19,
+        "minY": 84,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "parallelMarketRoofRidges": 5,
+        "raisedGlazedLouvredTops": 5,
+        "castIronArchedGlazing": true,
+        "adjacentClockTowerStages": 7,
+        "spireAndCornerTurrets": true,
+        "notOldTownHall": true
+      }
+    },
+    {
+      "id": "darlington",
+      "view": 2,
+      "dayOpaque": 5864,
+      "nightOpaque": 672,
+      "bounds": {
+        "minX": 19,
+        "minY": 58,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "parallelMarketRoofRidges": 5,
+        "raisedGlazedLouvredTops": 5,
+        "castIronArchedGlazing": true,
+        "adjacentClockTowerStages": 7,
+        "spireAndCornerTurrets": true,
+        "notOldTownHall": true
+      }
+    },
+    {
+      "id": "darlington",
+      "view": 3,
+      "dayOpaque": 5977,
+      "nightOpaque": 689,
+      "bounds": {
+        "minX": 19,
+        "minY": 83,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "parallelMarketRoofRidges": 5,
+        "raisedGlazedLouvredTops": 5,
+        "castIronArchedGlazing": true,
+        "adjacentClockTowerStages": 7,
+        "spireAndCornerTurrets": true,
+        "notOldTownHall": true
+      }
+    },
+    {
+      "id": "halifax",
+      "view": 0,
+      "dayOpaque": 5933,
+      "nightOpaque": 760,
+      "bounds": {
+        "minX": 19,
+        "minY": 105,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "stoneShopEnclosingRanges": 3,
+        "crossedSlateAndGlazedRoof": true,
+        "octagonalGlazedLantern": true,
+        "roofCupola": true,
+        "northGlazedArcade": true,
+        "roofAndExteriorPhotoVerified": true,
+        "notPieceHallOpenCourt": true
+      }
+    },
+    {
+      "id": "halifax",
+      "view": 1,
+      "dayOpaque": 6297,
+      "nightOpaque": 572,
+      "bounds": {
+        "minX": 19,
+        "minY": 106,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "stoneShopEnclosingRanges": 3,
+        "crossedSlateAndGlazedRoof": true,
+        "octagonalGlazedLantern": true,
+        "roofCupola": true,
+        "northGlazedArcade": true,
+        "roofAndExteriorPhotoVerified": true,
+        "notPieceHallOpenCourt": true
+      }
+    },
+    {
+      "id": "halifax",
+      "view": 2,
+      "dayOpaque": 6221,
+      "nightOpaque": 551,
+      "bounds": {
+        "minX": 19,
+        "minY": 106,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "stoneShopEnclosingRanges": 3,
+        "crossedSlateAndGlazedRoof": true,
+        "octagonalGlazedLantern": true,
+        "roofCupola": true,
+        "northGlazedArcade": true,
+        "roofAndExteriorPhotoVerified": true,
+        "notPieceHallOpenCourt": true
+      }
+    },
+    {
+      "id": "halifax",
+      "view": 3,
+      "dayOpaque": 5865,
+      "nightOpaque": 742,
+      "bounds": {
+        "minX": 19,
+        "minY": 107,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "stoneShopEnclosingRanges": 3,
+        "crossedSlateAndGlazedRoof": true,
+        "octagonalGlazedLantern": true,
+        "roofCupola": true,
+        "northGlazedArcade": true,
+        "roofAndExteriorPhotoVerified": true,
+        "notPieceHallOpenCourt": true
+      }
+    },
+    {
+      "id": "bishoplloyd",
+      "view": 0,
+      "dayOpaque": 6607,
+      "nightOpaque": 605,
+      "bounds": {
+        "minX": 19,
+        "minY": 94,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "streetGables": 2,
+        "openFirstFloorRowsGallery": true,
+        "carvedTimberPanels": true,
+        "upperJettiedGlazedBays": true,
+        "slateGabledRoofs": true,
+        "notWholeBishopsPalace": true
+      }
+    },
+    {
+      "id": "bishoplloyd",
+      "view": 1,
+      "dayOpaque": 6843,
+      "nightOpaque": 445,
+      "bounds": {
+        "minX": 19,
+        "minY": 95,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "streetGables": 2,
+        "openFirstFloorRowsGallery": true,
+        "carvedTimberPanels": true,
+        "upperJettiedGlazedBays": true,
+        "slateGabledRoofs": true,
+        "notWholeBishopsPalace": true
+      }
+    },
+    {
+      "id": "bishoplloyd",
+      "view": 2,
+      "dayOpaque": 6827,
+      "nightOpaque": 451,
+      "bounds": {
+        "minX": 19,
+        "minY": 95,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "streetGables": 2,
+        "openFirstFloorRowsGallery": true,
+        "carvedTimberPanels": true,
+        "upperJettiedGlazedBays": true,
+        "slateGabledRoofs": true,
+        "notWholeBishopsPalace": true
+      }
+    },
+    {
+      "id": "bishoplloyd",
+      "view": 3,
+      "dayOpaque": 6623,
+      "nightOpaque": 605,
+      "bounds": {
+        "minX": 19,
+        "minY": 94,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "streetGables": 2,
+        "openFirstFloorRowsGallery": true,
+        "carvedTimberPanels": true,
+        "upperJettiedGlazedBays": true,
+        "slateGabledRoofs": true,
+        "notWholeBishopsPalace": true
+      }
+    },
+    {
+      "id": "burlington",
+      "view": 0,
+      "dayOpaque": 4783,
+      "nightOpaque": 197,
+      "bounds": {
+        "minX": 19,
+        "minY": 118,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "narrowDoubleShopRows": true,
+        "tentLikeGlazedRooflights": true,
+        "transverseArches": 9,
+        "piccadillyOpenLoggiaArches": 3,
+        "distinctPlainBurlingtonGardensPortal": true,
+        "fullUpperEntrancePhotoVerified": true,
+        "noGenericBarrelVault": true
+      }
+    },
+    {
+      "id": "burlington",
+      "view": 1,
+      "dayOpaque": 4973,
+      "nightOpaque": 204,
+      "bounds": {
+        "minX": 19,
+        "minY": 107,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "narrowDoubleShopRows": true,
+        "tentLikeGlazedRooflights": true,
+        "transverseArches": 9,
+        "piccadillyOpenLoggiaArches": 3,
+        "distinctPlainBurlingtonGardensPortal": true,
+        "fullUpperEntrancePhotoVerified": true,
+        "noGenericBarrelVault": true
+      }
+    },
+    {
+      "id": "burlington",
+      "view": 2,
+      "dayOpaque": 4982,
+      "nightOpaque": 204,
+      "bounds": {
+        "minX": 19,
+        "minY": 107,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "narrowDoubleShopRows": true,
+        "tentLikeGlazedRooflights": true,
+        "transverseArches": 9,
+        "piccadillyOpenLoggiaArches": 3,
+        "distinctPlainBurlingtonGardensPortal": true,
+        "fullUpperEntrancePhotoVerified": true,
+        "noGenericBarrelVault": true
+      }
+    },
+    {
+      "id": "burlington",
+      "view": 3,
+      "dayOpaque": 4782,
+      "nightOpaque": 197,
+      "bounds": {
+        "minX": 19,
+        "minY": 118,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "narrowDoubleShopRows": true,
+        "tentLikeGlazedRooflights": true,
+        "transverseArches": 9,
+        "piccadillyOpenLoggiaArches": 3,
+        "distinctPlainBurlingtonGardensPortal": true,
+        "fullUpperEntrancePhotoVerified": true,
+        "noGenericBarrelVault": true
+      }
+    },
+    {
+      "id": "harrods",
+      "view": 0,
+      "dayOpaque": 8839,
+      "nightOpaque": 1417,
+      "bounds": {
+        "minX": 19,
+        "minY": 75,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "terracottaDepartmentStore": true,
+        "storeys": 6,
+        "giantPilasters": true,
+        "displayWindowBase": true,
+        "centralOctagonalRibbedDome": true,
+        "cornerCopperMansards": 4,
+        "twoSlopeMansardsAndDormers": true,
+        "roofBalustrade": true,
+        "physicalFixtureNightLights": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "harrods",
+      "view": 1,
+      "dayOpaque": 9160,
+      "nightOpaque": 1371,
+      "bounds": {
+        "minX": 19,
+        "minY": 70,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "terracottaDepartmentStore": true,
+        "storeys": 6,
+        "giantPilasters": true,
+        "displayWindowBase": true,
+        "centralOctagonalRibbedDome": true,
+        "cornerCopperMansards": 4,
+        "twoSlopeMansardsAndDormers": true,
+        "roofBalustrade": true,
+        "physicalFixtureNightLights": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "harrods",
+      "view": 2,
+      "dayOpaque": 9160,
+      "nightOpaque": 1371,
+      "bounds": {
+        "minX": 19,
+        "minY": 70,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "terracottaDepartmentStore": true,
+        "storeys": 6,
+        "giantPilasters": true,
+        "displayWindowBase": true,
+        "centralOctagonalRibbedDome": true,
+        "cornerCopperMansards": 4,
+        "twoSlopeMansardsAndDormers": true,
+        "roofBalustrade": true,
+        "physicalFixtureNightLights": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "harrods",
+      "view": 3,
+      "dayOpaque": 8839,
+      "nightOpaque": 1430,
+      "bounds": {
+        "minX": 19,
+        "minY": 75,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "terracottaDepartmentStore": true,
+        "storeys": 6,
+        "giantPilasters": true,
+        "displayWindowBase": true,
+        "centralOctagonalRibbedDome": true,
+        "cornerCopperMansards": 4,
+        "twoSlopeMansardsAndDormers": true,
+        "roofBalustrade": true,
+        "physicalFixtureNightLights": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "liberty",
+      "view": 0,
+      "dayOpaque": 7346,
+      "nightOpaque": 1083,
+      "bounds": {
+        "minX": 19,
+        "minY": 88,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "fourStoreyTimberDepartmentStore": true,
+        "frontGables": 3,
+        "stoneStairTowers": 2,
+        "projectingGlazedTimberBays": true,
+        "groupedChimneys": true,
+        "textDerivedRoofWells": 3,
+        "notLittleMarlboroughWarehouse": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "liberty",
+      "view": 1,
+      "dayOpaque": 7653,
+      "nightOpaque": 1209,
+      "bounds": {
+        "minX": 19,
+        "minY": 88,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "fourStoreyTimberDepartmentStore": true,
+        "frontGables": 3,
+        "stoneStairTowers": 2,
+        "projectingGlazedTimberBays": true,
+        "groupedChimneys": true,
+        "textDerivedRoofWells": 3,
+        "notLittleMarlboroughWarehouse": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "liberty",
+      "view": 2,
+      "dayOpaque": 7673,
+      "nightOpaque": 1211,
+      "bounds": {
+        "minX": 19,
+        "minY": 88,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "fourStoreyTimberDepartmentStore": true,
+        "frontGables": 3,
+        "stoneStairTowers": 2,
+        "projectingGlazedTimberBays": true,
+        "groupedChimneys": true,
+        "textDerivedRoofWells": 3,
+        "notLittleMarlboroughWarehouse": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "liberty",
+      "view": 3,
+      "dayOpaque": 7339,
+      "nightOpaque": 1098,
+      "bounds": {
+        "minX": 19,
+        "minY": 88,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "fourStoreyTimberDepartmentStore": true,
+        "frontGables": 3,
+        "stoneStairTowers": 2,
+        "projectingGlazedTimberBays": true,
+        "groupedChimneys": true,
+        "textDerivedRoofWells": 3,
+        "notLittleMarlboroughWarehouse": true,
+        "noBrandLogo": true
+      }
+    },
+    {
+      "id": "danum",
+      "view": 0,
+      "dayOpaque": 5983,
+      "nightOpaque": 1102,
+      "bounds": {
+        "minX": 19,
+        "minY": 105,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "centralFiveStoreyYellowBrick": true,
+        "lowerBlueVitrioliteWings": true,
+        "roundedGlazedStairTower": true,
+        "horizontalWindowBands": true,
+        "continuousShopCanopy": true,
+        "steppedStreetMassing": true
+      }
+    },
+    {
+      "id": "danum",
+      "view": 1,
+      "dayOpaque": 6366,
+      "nightOpaque": 1236,
+      "bounds": {
+        "minX": 19,
+        "minY": 102,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "centralFiveStoreyYellowBrick": true,
+        "lowerBlueVitrioliteWings": true,
+        "roundedGlazedStairTower": true,
+        "horizontalWindowBands": true,
+        "continuousShopCanopy": true,
+        "steppedStreetMassing": true
+      }
+    },
+    {
+      "id": "danum",
+      "view": 2,
+      "dayOpaque": 6556,
+      "nightOpaque": 1249,
+      "bounds": {
+        "minX": 19,
+        "minY": 94,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "centralFiveStoreyYellowBrick": true,
+        "lowerBlueVitrioliteWings": true,
+        "roundedGlazedStairTower": true,
+        "horizontalWindowBands": true,
+        "continuousShopCanopy": true,
+        "steppedStreetMassing": true
+      }
+    },
+    {
+      "id": "danum",
+      "view": 3,
+      "dayOpaque": 6283,
+      "nightOpaque": 1136,
+      "bounds": {
+        "minX": 19,
+        "minY": 99,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "centralFiveStoreyYellowBrick": true,
+        "lowerBlueVitrioliteWings": true,
+        "roundedGlazedStairTower": true,
+        "horizontalWindowBands": true,
+        "continuousShopCanopy": true,
+        "steppedStreetMassing": true
+      }
+    },
+    {
+      "id": "willow",
+      "view": 0,
+      "dayOpaque": 5643,
+      "nightOpaque": 407,
+      "bounds": {
+        "minX": 19,
+        "minY": 101,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "correctAddress217SauchiehallStreet": true,
+        "narrowWhiteFourStoreyFront": true,
+        "unevenUpperSashGroups": true,
+        "bowedLeadedFirstFloorWindow": true,
+        "squareBorderDetails": true,
+        "deepCornice": true,
+        "partGlazedHippedRearAnnexTextDerived": true,
+        "notBuchananStreetTearooms": true
+      }
+    },
+    {
+      "id": "willow",
+      "view": 1,
+      "dayOpaque": 5865,
+      "nightOpaque": 175,
+      "bounds": {
+        "minX": 19,
+        "minY": 95,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "correctAddress217SauchiehallStreet": true,
+        "narrowWhiteFourStoreyFront": true,
+        "unevenUpperSashGroups": true,
+        "bowedLeadedFirstFloorWindow": true,
+        "squareBorderDetails": true,
+        "deepCornice": true,
+        "partGlazedHippedRearAnnexTextDerived": true,
+        "notBuchananStreetTearooms": true
+      }
+    },
+    {
+      "id": "willow",
+      "view": 2,
+      "dayOpaque": 5865,
+      "nightOpaque": 175,
+      "bounds": {
+        "minX": 19,
+        "minY": 95,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "correctAddress217SauchiehallStreet": true,
+        "narrowWhiteFourStoreyFront": true,
+        "unevenUpperSashGroups": true,
+        "bowedLeadedFirstFloorWindow": true,
+        "squareBorderDetails": true,
+        "deepCornice": true,
+        "partGlazedHippedRearAnnexTextDerived": true,
+        "notBuchananStreetTearooms": true
+      }
+    },
+    {
+      "id": "willow",
+      "view": 3,
+      "dayOpaque": 5643,
+      "nightOpaque": 407,
+      "bounds": {
+        "minX": 19,
+        "minY": 101,
+        "maxX": 140,
+        "maxY": 191
+      },
+      "nativeDimensions": [
+        160,
+        196
+      ],
+      "anchor": [
+        80,
+        194
+      ],
+      "details": {
+        "correctAddress217SauchiehallStreet": true,
+        "narrowWhiteFourStoreyFront": true,
+        "unevenUpperSashGroups": true,
+        "bowedLeadedFirstFloorWindow": true,
+        "squareBorderDetails": true,
+        "deepCornice": true,
+        "partGlazedHippedRearAnnexTextDerived": true,
+        "notBuchananStreetTearooms": true
+      }
+    }
+  ],
+  "files": [
+    {
+      "name": "leedsCorn-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6305,
+      "sha256": "79761b72e69b38ba9c4fe87874d993ba65b315345f99168e173bcd4587bf526d",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1874,
+      "sha256": "847bbede1e67a6be39d194062b1b7d9c21bef69d87f8c31c8ffe1c4cb75745a4",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5853,
+      "sha256": "776dc453ed658db615be1a36face51c96fdbf9727e0c78df6e0c5630731b69c1",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1890,
+      "sha256": "26d895e1f867dfa264c8f67fed63dc43829da189e485df1d12c8646e51f24a25",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5689,
+      "sha256": "5cf9c04639afe30782536aafdfef6e2c23affe472ec9db5bd2d3bd99c4f91f6d",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1892,
+      "sha256": "cbca71f7168e4480e33423e99c46c1df20d5c4dbc44ec0df3694eabe2c5ef8d7",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6002,
+      "sha256": "66a51b67f7b8c98e83bf0e78619cb84aa2f86c6607aa8ef34f700c742d910c54",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "leedsCorn-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1870,
+      "sha256": "308baae0d051832aa8d981c455a05ed1ff94ebd42de39b13ca64db669644b0cc",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6556,
+      "sha256": "3d479a28e6be68a81d88ea69cec6fb1b10e5d3c75f38b0b86d8c328607a0c401",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2139,
+      "sha256": "01821ab6c18d41cd00e55796392d3e5c82b6c31302dfbfed09cb7165e3e4301b",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6874,
+      "sha256": "ddbff44923c5e27f375f842a74866e0c35273341de11ad3318037e09323c3086",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2198,
+      "sha256": "8d1ad3e6831c6626f0d6124ed00920c985a3bd2d984f4c08ade2da45e12b9227",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6787,
+      "sha256": "c9c162cd5a53dc92eb044fd6375396d0aad5c98d97e006cb62dd19121b2be4ed",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2183,
+      "sha256": "8df1b0086bb700d9a957086bafb380790746d5f0ff0652d147c6c49cdd75c77a",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6754,
+      "sha256": "53e520fb1cf66964bd514fdee3e0f6a1f9e37c60927981f19446d59243196bba",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "darlington-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2201,
+      "sha256": "9f1068cd37a77609be2c8253bb60107c7888b48de46d4f17b8c12e711ba5f7dc",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 7428,
+      "sha256": "a5cf1020eb9908b3f67c269c6615b2302841825facd97d57e889bdee178a6a13",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2471,
+      "sha256": "e2ec9af9b54247c57225f278bd9259778b2feeb0bf0edb3913c9db9f4334a6f7",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 7302,
+      "sha256": "a4854b0580a38d27b8fc75eab937b165bdb96de336f33fe6b027455b68780acf",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2330,
+      "sha256": "4ac4ae0d37ad204c7bcbe80ca8a370aafa97cf856ab22b4a4bea07961ab8febf",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 7078,
+      "sha256": "3d8304c94d1142b56fa9848f6f9e28402d29fe601222851b6c16494527ab5988",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2231,
+      "sha256": "00aabf3427dc8da0ecdd59b3e5f5c3fa4b3c16ef0eb5903c56c8d2f0c6de7f4b",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6980,
+      "sha256": "1e9f47eb8d7ba3997f973656f09ab4a5c8967a44e25fd5462ace741d397f777d",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "halifax-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2374,
+      "sha256": "0db53dcf8c502a876975004fe2689c44594add4fc536183b5dca179d43c89225",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6526,
+      "sha256": "c7346579654f52ac186c05f16b9459ea38aa3a4a3ac01a93b15203ff8f9f4555",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2457,
+      "sha256": "039b173d2252b7c7d4e25961ee813afe05dd19ad628a54743377b994afd09f60",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5851,
+      "sha256": "5b10d5d24f110b90f9c425d5e66872adaff214971831647bcab993d761dba007",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1989,
+      "sha256": "9edd1ce6b6c28217967d286e56877f63d67641413bc8a7ee30190186aa84fb9f",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6101,
+      "sha256": "62e038b2e68f6c770132f7742cc045947a6a16cae599ecdc4dfc23c82dbb853c",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2060,
+      "sha256": "ee1f927f242eff499dff6a5b1b681e8dc2579dcc881b3078a0802d45392c97f1",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6218,
+      "sha256": "2781b6ad026c05040224ab72e82f68a9d2ce5627ada75ab0fc5c9954a5b481f6",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "bishoplloyd-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2400,
+      "sha256": "a81b50b25b4457a9d1364eb376d43c0fa60bfcb3769c42a6487cbdb7aa5485c7",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5844,
+      "sha256": "90c8a72428b74d0e5ac078349f5df999199d521bcf5e10ffca34858a7c5631b2",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1737,
+      "sha256": "e368dccb53a2dbe1e6314131d4b8f09c1cc1c02cf034f896d8081b9caf6c81ae",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5426,
+      "sha256": "daef97f746c80bee72811bab3a80b824dcd12a86b354f7755b7e752d19ff19dd",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1712,
+      "sha256": "d711357a274dd3f986fa854dd52aed38735f838f4041eeedfabf8980fe0e22cb",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5264,
+      "sha256": "ee9d201452e31e7c390121a8c49d2dca0ddf65b192d51171a58114eefc7b9ba3",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1718,
+      "sha256": "45059c8dd3ba4dd183085130048bb3b67383452d50e811700eb70c38a4cc3959",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5479,
+      "sha256": "3e401f7fbcb499feddbbe4409ed0909b1a7d14a62121f4ffcff7fe3341d1975b",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "burlington-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1723,
+      "sha256": "25339a06c939a797bd71a26fb29cca4b5fb87133ae75634e8e603547f06d7ee4",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 8499,
+      "sha256": "c7735f9532c7144185eff65e3e9763af0d7cf1438cad460a3d5cd9c6646a622f",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 3343,
+      "sha256": "d61bf9cc0d6bd848188784607e1da935efb8cedbf8784f06c3fb70e79b191135",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 8277,
+      "sha256": "b39583e5a2ae4f83c45d8b7720366446bdf6e663b1e7d01965a55deef31f82fb",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 3326,
+      "sha256": "9cd70080884b937cdb7b14b7dc3ad1fc845f6d1d216154b60e2eb9bb5f276c9a",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 7947,
+      "sha256": "fb9cc9aeda0d600b373b01ee96f446de1f3ede4fd06df6771ca763326b134857",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 3318,
+      "sha256": "1ac06bc58c998587cd3330f3dd4edbb3c37aa1ff3a1e6d94a0c00cf6c4664fb7",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 8324,
+      "sha256": "27026b98d9be6789d13e7f7660d3290aa8a2dd44d0cdaebd131f597f5f268a8c",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "harrods-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 3371,
+      "sha256": "9fcaa670d454c61ee8f01ae4fb6698fb02d570ce48e0e9c2ca2c56f949c5a42b",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 7564,
+      "sha256": "d6c8935edeaa6ca739053a4f0987c38779e75f570806d72f21c347ff882f3f64",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2810,
+      "sha256": "9f9194a61621443b320264c773b0ffc0d7143c77f567b2b98bae548565bf9faa",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6890,
+      "sha256": "eed825184765950a971e057aeb219ef2110075236c208aee5d486e67a2b04f38",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2889,
+      "sha256": "2a6ddfa2825f1aa5b5815cadf94506c7d9655d3ef50488bb1e096ad2a2854bec",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 6840,
+      "sha256": "40569570d20a6862e7c6da0775ddcf36bf9de8a313f8e23a038053f6cf9405be",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2911,
+      "sha256": "d104cd2e26224636df575cc28bfe5e2502a9e186932e06bd7fb0641c3e0883a0",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 7033,
+      "sha256": "16d6448ba2559d773874549147d8d909c952646004eac11cbd5f38cff8a76161",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "liberty-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2849,
+      "sha256": "3a65f2f32b33062d698d0aaa82c95836b67569c426319c534505ef39d3a7fc34",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5581,
+      "sha256": "2cb04bd5ceadc6ecc79e9c26cecedf57d701f5a5cf90c73c6dd4c871b4875b75",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2703,
+      "sha256": "1b494ec23f3a9629af8ce108ed462a3d415f71be5b6e797d61114c74da39789b",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5469,
+      "sha256": "82932a2f13dbaac40f06c172d99f2792f7655fb64190d7839f7c6025ce5b1a8b",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2826,
+      "sha256": "725706e7a69aa0aeded42f2fa2fd645660653cd9ff3f5a69b2023f0192560958",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5127,
+      "sha256": "796a9e0a8d27e82dc57ac4a5748c834b430014029975d3e6d38a677ceb153ec5",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2871,
+      "sha256": "0c9e18d92f898b57c685fda4165bfdfa75872fb72f574544eaeb2cea44fa8d38",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 5458,
+      "sha256": "93696fd2b617679101bd963e0e8ffc70e1169201f82249d2259b297e933582a7",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "danum-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2816,
+      "sha256": "898f42b843cbe44dff28a2a26ae132d24686cf8c45fcffcb9ca739467a027893",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r0-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 4833,
+      "sha256": "623b0f5110b76bb468723c040677f9422a862bdf305ef79cccb9b859ffb6fc9f",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r0-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 2036,
+      "sha256": "8b63dc874c3b4613e939e14b9c3792e7dadfbfd4e8f339e4669c354de5450a6e",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r1-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 4570,
+      "sha256": "d825ed9b200dd5363caf73e544aa8b21c29056e7cd43ec8128fdda7d5c4f94b2",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r1-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1866,
+      "sha256": "ba453e71c3ef5874702cad24d157eea2906ef6672a2fea7edb1331bd83a30666",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r2-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 4164,
+      "sha256": "c1c414e4c63c01250d21fcef7f31c2e7087a9b918515b68b36713a46f98b6bdf",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r2-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1906,
+      "sha256": "cd8587c011897bfff892ec86a8a82040b4424236ec3792574ced213df17eef2f",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r3-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 4429,
+      "sha256": "a08cc726c7a79b83d0c5a3335d37ad969c36212a81219c3425f38d6380472fc4",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "willow-r3-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 1978,
+      "sha256": "61302cebce96101de50990d20d4669acc0213e8dbd103c797980b5d3f3aadc6f",
+      "dimensions": [
+        160,
+        196
+      ]
+    },
+    {
+      "name": "contact-day.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 279352,
+      "sha256": "26a2f4d911c212f9a80020ebed9263c3ad7acaabf4bb5b05dce2e7d81bfb1678",
+      "dimensions": [
+        1040,
+        2160
+      ]
+    },
+    {
+      "name": "contact-night.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 280203,
+      "sha256": "b9f40253287f6dcb74a7faa7e5fe304525f77841f2b457ff5376fd7d252fd85e",
+      "dimensions": [
+        1040,
+        2160
+      ]
+    },
+    {
+      "name": "contact-comparison.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 309736,
+      "sha256": "55eee6d139d63d63d731bc5f2e207fdc3e67de7e7a0346943352d41bd481e63f",
+      "dimensions": [
+        1280,
+        2070
+      ]
+    },
+    {
+      "name": "near-leedsCorn.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 41620,
+      "sha256": "500872656d48048c498c65aaaa8f8a9cd9ecdc30e14c72822d55118a3263b105",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-darlington.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 43471,
+      "sha256": "44987baa71793593b07247647bdf7062f34c3fc63ee0474fb93f6d599486a8b9",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-halifax.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 47518,
+      "sha256": "7c80ccdc7042d8543704e2f89e44830893dbbbe18ad489597ce7434400befb7a",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-bishoplloyd.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 44250,
+      "sha256": "315bb48f93afde3396a821fa742519c9428c155e9583abe834d2f3c9eaa45981",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-burlington.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 40874,
+      "sha256": "cfe6b9d416114b829573d2462c72fb51f003b480d013b4510df914ed7c78c699",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-harrods.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 51679,
+      "sha256": "0cf353feb0c323a0c824f578586b0fa8ecf438c2dae567a7e2308eff51d97889",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-liberty.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 46214,
+      "sha256": "2cc687e3411d4499156dce21a96c06c9dfa0b24f1fc03cb7a1ef09d57382928b",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-danum.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 40172,
+      "sha256": "233d41013bd83105cb44ae4dce8b0a7b84277fc61b2df7418952a763954bc0f7",
+      "dimensions": [
+        1280,
+        784
+      ]
+    },
+    {
+      "name": "near-willow.png",
+      "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+      "bytes": 36106,
+      "sha256": "66787e81eec9fdca037e97d3935c1a6493ae0150db6eb11c1871abfb025ebc8b",
+      "dimensions": [
+        1280,
+        784
+      ]
+    }
+  ],
+  "exactByteEqualToC6": [
+    "leedsCorn-r0-day.png",
+    "leedsCorn-r0-night.png",
+    "leedsCorn-r1-day.png",
+    "leedsCorn-r1-night.png",
+    "leedsCorn-r2-day.png",
+    "leedsCorn-r2-night.png",
+    "leedsCorn-r3-day.png",
+    "leedsCorn-r3-night.png",
+    "darlington-r0-day.png",
+    "darlington-r0-night.png",
+    "darlington-r1-day.png",
+    "darlington-r1-night.png",
+    "darlington-r2-day.png",
+    "darlington-r2-night.png",
+    "darlington-r3-day.png",
+    "darlington-r3-night.png",
+    "halifax-r0-day.png",
+    "halifax-r0-night.png",
+    "halifax-r1-day.png",
+    "halifax-r1-night.png",
+    "halifax-r2-day.png",
+    "halifax-r2-night.png",
+    "halifax-r3-day.png",
+    "halifax-r3-night.png",
+    "burlington-r0-day.png",
+    "burlington-r0-night.png",
+    "burlington-r1-day.png",
+    "burlington-r1-night.png",
+    "burlington-r2-day.png",
+    "burlington-r2-night.png",
+    "burlington-r3-day.png",
+    "burlington-r3-night.png",
+    "danum-r0-day.png",
+    "danum-r0-night.png",
+    "danum-r1-day.png",
+    "danum-r1-night.png",
+    "danum-r2-day.png",
+    "danum-r2-night.png",
+    "danum-r3-day.png",
+    "danum-r3-night.png",
+    "willow-r1-night.png",
+    "willow-r2-night.png",
+    "near-leedsCorn.png",
+    "near-darlington.png",
+    "near-halifax.png",
+    "near-burlington.png",
+    "near-danum.png"
+  ],
+  "changedFromC6": [
+    "bishoplloyd-r0-day.png",
+    "bishoplloyd-r0-night.png",
+    "bishoplloyd-r1-day.png",
+    "bishoplloyd-r1-night.png",
+    "bishoplloyd-r2-day.png",
+    "bishoplloyd-r2-night.png",
+    "bishoplloyd-r3-day.png",
+    "bishoplloyd-r3-night.png",
+    "harrods-r0-day.png",
+    "harrods-r0-night.png",
+    "harrods-r1-day.png",
+    "harrods-r1-night.png",
+    "harrods-r2-day.png",
+    "harrods-r2-night.png",
+    "harrods-r3-day.png",
+    "harrods-r3-night.png",
+    "liberty-r0-day.png",
+    "liberty-r0-night.png",
+    "liberty-r1-day.png",
+    "liberty-r1-night.png",
+    "liberty-r2-day.png",
+    "liberty-r2-night.png",
+    "liberty-r3-day.png",
+    "liberty-r3-night.png",
+    "willow-r0-day.png",
+    "willow-r0-night.png",
+    "willow-r1-day.png",
+    "willow-r2-day.png",
+    "willow-r3-day.png",
+    "willow-r3-night.png",
+    "contact-day.png",
+    "contact-night.png",
+    "contact-comparison.png",
+    "near-bishoplloyd.png",
+    "near-harrods.png",
+    "near-liberty.png",
+    "near-willow.png"
+  ],
+  "fiveUnchangedModels45PNGsByteEqual": true,
+  "standardRun": {
+    "id": 39440068080,
+    "head": "a04e6bf2d9bd0c2891aca836d43ab385ad24ce02",
+    "status": "completed",
+    "conclusion": "success",
+    "smokeRealRuns": 3,
+    "fpChangedLeaves": 0,
+    "styleDrops": 0,
+    "fiscalChecks": 53,
+    "fiscalNegativeControls": 10,
+    "fiscalFailures": []
+  },
+  "independentVisualVerdict": "revise: reviewer manually viewed37 changed PNG, rebound47 exact-equal C6 PNG, checked84; BL-01 and LI-02 remain high; exact written report attached separately when complete",
+  "authorManualViewCountAtC7": 4,
+  "authorViewedFiles": [
+    "near-willow.png",
+    "near-bishoplloyd.png",
+    "near-harrods.png",
+    "near-liberty.png"
+  ],
+  "authorViewNote": "4 new near images inspected; not all84 author views. Bishop Rows and Liberty well readability remain insufficient."
+}
