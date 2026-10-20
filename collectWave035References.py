@@ -14,7 +14,7 @@ if os.environ.get('GITHUB_ACTIONS') != 'true':
 
 OUT = Path('shots/wave035/references')
 OUT.mkdir(parents=True, exist_ok=True)
-SOURCES = [('dreamland', 'https://www.thanet.gov.uk/dreamland-freehold-sale-completes-today/'), ('eastbourne', 'https://www.eastbournebandstand.co.uk/'), ('alexandra', 'https://www.alexandrapalace.com/blog/1875-the-second-palace/'), ('jubilee', 'https://jubileepool.co.uk/about-jubilee-pool/history/'), ('dudley', 'https://tectons.dudleyzoo.org.uk/repairs/shop-entrance-building/'), ('penguin', 'https://www.londonzoo.org/zoo-stories/history-of-london-zoo/lubetkin-penguin-pool'), ('royalshakespeare', 'https://www.bennettsassociates.com/projects/royal-shakespeare-theatre/'), ('wintergardens', 'https://www.wintergardensblackpool.co.uk/wg-heritage/our-story/')]
+SOURCES = [('royalshakespeare', 'https://www.rsc.org.uk/your-visit/royal-shakespeare-theatre'), ('jubilee', 'https://jubileepool.co.uk/'), ('alexandra', 'https://www.alexandrapalace.com/')]
 
 
 class Images(HTMLParser):
