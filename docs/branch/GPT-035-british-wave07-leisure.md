@@ -59,3 +59,27 @@
 - 已實看並逐位核雜湊的考據：Landmark外部與內廳、Dreamland亮字鰭塔、Eastbourne四柱與雙階碟頂、Alexandra歷史全景圖、Jubilee受損台階／白牆、Dudley五S棚、Penguin懸挑交鎖坡道、Globe木骨茅頂外牆、Bennetts的RST日／夜外觀、Winter Gardens歷史外部與Empress內部。這是建築考據，並非本波遊戲圖驗收。來源照片不嵌進遊戲。
 - 清單勘誤：首卡把Chichester舊款說成單一帳篷頂，實際已存在的是Chichester Market Cross（v264），沒有Festival Theatre款。Landmark最接近的既有圓量體比較改用Arnos Grove（v208），並保留與愛德華劇院的結構辨別；Dudley對比k275實際名稱為refreshment cafe，非arcade。k272／273只有原生v0；接觸表明列此限制，不捏造舊款四向。這些是比較對象名稱校正，沒有減少10款、40葉、80圖或任何驗收要求。
 - 本地僅靜態核實93個inline script語法、embed精確、剝除本波標記／唯一安裝點後index等於獨立main、smoke僅新增一項自檢；遊戲／Chrome／fp等全部仍待CI。本波初稿未定稿、未過驗收、未開PR、未發布，計數仍6/20。
+
+### 第七波首輪與修復證據（尚未發布）
+
+- 實作4cbf831de65034c3739a11b3d8ea885ce923917e，首輪[39367375993](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39367375993) native負控制誤刪第六波360葉，首紅`wrong first RED missing installed leaf: undefined`。修正提交bcdd061485591f384ecb79f4f74668e87dfef912只把新探針目標改為400／404，沒有更改判準；[39367765602](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39367765602)的native十二個真故障首紅與恢復全部通過。初輪16份完整原始job logs共18,298,550 bytes另存scratchpad/wave035/logs-initial，有每份SHA256清單。初輪常規smoke/fiscal因新提交的既有concurrency取消，沒有聲稱完整通過。
+- 圖審後唯一美術修正c9d35d888feb21d6de06288f76969d085e4efb45：Eastbourne增加照片可見的實體內側舞台背板，外牆／柱子／四視角／另外九款不改。[39368273775](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39368273775)目前native、preview、97場景、17行人、正常模型配對、40組交錯效能及public-site全部通過。native仍為十二個真故障首紅、十款實扣$2000、undo/ref拆除退款/redo與二輪完整保存。
+- c9d35d8 index原文11,183,234 bytes，SHA256 ab0b4b3b17e1fe9e92dbb2d7679b358ac00fb619ae322d396ea88fcd2fd89fc6；Git blob2c37e4cd87db823b120310122972439bab5c4734。root tree222fd5cf234ceef8bb54bbe1f0f265c5523a57f4，與本地暫存tree精確一致；main仍d5a357e。
+- c9d35d8原圖80張／三接觸表及manifest已從不可變job118449998793取回並驗證每張byte-count/SHA256。相對已逐張實看的首輪80圖，只有408／411兩張day原圖改變；78張原圖逐位相同，兩張新圖及三張新接觸表已再實看。十近景原圖均取回（scene-evidence五job），其中六張因場內Eastbourne改變而再看，四張SHA256與已實看首輪相同。作者已實看本head的80單圖、3接觸表、10近景與舊款比較。其餘87場景未逐張人工；這不是獨立覆核，獨立程式／安全／視覺仍待完成；實體手機、Safari、觸控未測。
+- c9d35d8場景57+40、8張1280×657完整BASE/閥關逐位等值，完整舊檔二輪零差，1px畫布與少$1原生存檔故障首紅/恢復均通過；原生正常seeds31/71/103×三checkpoint包含全部欄位，僅實際b.v差異，不用閥、不刪欄位、不正規化輸出。
+- 常規push [39368273712](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39368273712) smoke job118450184006真跑三次全綠；財務job118450184079結果ok:false、checks52、negative10，唯一失敗是source-integrity內要求current-fp等於尚未更新的root基線，沒有當成財務53全綠。fp同樣因預期40葉新增及尚未提交原始基線紅，不改低門檻。
+- 同head fp相對base只新增bld40、變更0、移除0；舊3623 subs、其餘165家族、blocks1728／5ef6eb67及env全相同。新bld1299／CRC6fe6e361，全族166／3663 leaves，夜2199。七軸完整披露如下；本波是既有連續授權第七項，依法使用第二項起下降披露例外，不改分、不等同全局風格變更。
+
+| bld七軸 | main之前 | 本波c9d35d8 |
+|---|---:|---:|
+| palette | 1 | 1 |
+| hardEdge | 0.9483921112714824 | 0.949393389794125 |
+| lightDir | 0.8212867355043686 | 0.8183217859892224 |
+| shade | 1 | 1 |
+| density | 1 | 1 |
+| nightRule | 0.9878124606474332 | 0.9881813927037836 |
+| variants | 1 | 1 |
+| total | 0.9654 | 0.9651 |
+
+- 基線傳輸現況：常規fp附件12240571606（fp-c9d35d888feb21d6de06288f76969d085e4efb45.zip，70,729 bytes，ZIP SHA2564c4fe7f570b112e6ddec023f037fa1057406fe1a83c5286ce7add3979a7a226e）存在；GitHub下載工具已產出精確file_id，但容器GET被proxy403阻擋，Library只回signed URL、workspace_path:null，沒有宣稱轉入成功或猜URL。額外baseline-evidence job118449998917完整fp輸出後，ArtifactService/CreateArtifact連續網路timeout而上傳失敗；原始console完整取回fp.json399623 bytes／SHA2566576d17c31cfdcdbe094157964123de5218f0703bec6dd86ba2a4cb2af30d531及style.json73166 bytes／SHA2569bc93bf8622ed87feab8b0917b41c67daa4b4a38f16c94c1c5013e3f9077b1be。它們只存候選證據，沒有採用失敗附件或前head舊基線。
+- 下一提交只為自己的暫用workflow新增produced-file SHA256/head/tree附件清單及本紀錄，原`node fp.js --check`/退出碼/範圍/全部門檻不變，仍contents:read。用新head的實際成功附件和同一producer的完整字節轉輸核對後，才能原封提交root fp/style，再等完整最後CI。沒有重跑舊失敗run，也沒有手動Pages。
