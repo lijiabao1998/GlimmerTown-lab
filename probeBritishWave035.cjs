@@ -74,8 +74,8 @@ function nativeChecks(){
     finally{restore();}
     if(!a.selftest().ok)throw Error('wave035 restoration failed '+name);
   };
-  const s=spr['24_1_360'];
-  expect('missing installed leaf',()=>delete spr['24_1_360'],()=>spr['24_1_360']=s,'wave035 count');
+  const s=spr['24_1_400'];
+  expect('missing installed leaf',()=>delete spr['24_1_400'],()=>spr['24_1_400']=s,'wave035 count');
   const width=s.w;expect('wrong native dimensions',()=>s.w=159,()=>s.w=width,'wave035 native geometry');
   const night=s.night,day=s.img;
   expect('night light on transparent sky',()=>{const c=document.createElement('canvas');c.width=s.w;c.height=s.h;const g=c.getContext('2d');g.drawImage(night,0,0);g.fillStyle='#fff';g.fillRect(0,0,1,1);s.night=c;},()=>s.night=night,'wave035 opaque physical night');
@@ -83,7 +83,7 @@ function nativeChecks(){
   expect('native canvas crop',()=>{const c=document.createElement('canvas');c.width=s.w;c.height=s.h;const g=c.getContext('2d');g.drawImage(day,0,0);g.fillStyle='#e0d8c0';g.fillRect(0,0,1,1);s.img=c;},()=>s.img=day,'wave035 uncropped');
   const api=window.BritishWaveArchitecture035;
   expect('different names but duplicate geometry',()=>window.BritishWaveArchitecture035={...api,build:(id,v)=>api.build(id==='dreamland'?'landmarktheatre':id,v)},()=>window.BritishWaveArchitecture035=api,'wave035 ten distinct structural');
-  const other=spr['24_1_364'],od=other.img,on=other.night;
+  const other=spr['24_1_404'],od=other.img,on=other.night;
   expect('installed clone with distinct authors',()=>{other.img=day;other.night=night;},()=>{other.img=od;other.night=on;},'wave035 installed pixels');
   expect('empty native day and night',()=>{const c=document.createElement('canvas');c.width=160;c.height=196;s.img=c;s.night=c;},()=>{s.img=day;s.night=night;},'wave035 uncropped');
 
