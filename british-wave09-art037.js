@@ -416,6 +416,15 @@
     for(const [p,q,c]of[[pts[0],pts[3],a],[pts[1],pts[2],b]])A.S.poly([[...p,z],[...q,z],[...c,z+rise]],A.mat(kind,nx,ny));
     A.S.beam([...a,z+rise],[...b,z+rise],A.P.lead,.3);return fs;
   }
+  function orientedBand(A,F,z,depth=.65){
+    // F.block produces an axis-aligned world box. A diagonal wall instead
+    // needs the four actual oriented corners, with top, underside and ends.
+    const {S,P}=A,points=[[-.25,0],[F.length+.25,0],[F.length+.25,depth],[-.25,depth]].map(([u,d])=>F.point(u,d,0).slice(0,2));
+    const a=F.point(0,0,0),b=F.point(F.length,0,0),tx=(b[0]-a[0])/F.length,ty=(b[1]-a[1])/F.length;
+    const normals=[[-F.nx,-F.ny],[tx,ty],[F.nx,F.ny],[-tx,-ty]];
+    S.poly(points.map(p=>[...p,z]),P.stoneD);S.poly(points.map(p=>[...p,z+.65]),P.stoneHi);
+    for(let j=0;j<4;j++)S.wall(points[j],points[(j+1)%4],z,z+.65,A.dark(...normals[j])?P.stoneR:P.stoneHi);
+  }
   function copperDome(A,x,y,z,r,h){
     const profile=Array.from({length:13},(_,j)=>[z+h*Math.sin(j*Math.PI/24),r*Math.cos(j*Math.PI/24)]),n=28;
     for(let k=0;k<profile.length-1;k++)for(let j=0;j<n;j++){
@@ -457,7 +466,7 @@
     const A=context(row,view),{S,P}=A;
     for(const [a,b]of[[[5,26],[16,5]],[[16,5],[27,26]],[[27,26],[5,26]]]){
       const fs=ridgeRange(A,a,b,4.8,34,10,'stone');
-      for(const F of fs){A.windows(F,3,Math.max(2,Math.round(F.length/3.9)),4,10,2.3,6.6,'pointed');for(const z of[13,24,33.5])band(A,F,z,.25);}
+      for(const F of fs){A.windows(F,3,Math.max(2,Math.round(F.length/3.9)),4,10,2.3,6.6,'pointed');for(const z of[13,24,33.5])orientedBand(A,F,z,.25);}
     }
     for(const [x,y]of[[5,26],[16,5],[27,26]]){
       const fs=A.polygon(x,y,2.2,.7,41,8,'stone');for(const F of fs)if(F.length>1.5)A.pane(F,.3,30,F.length-.6,7,'pointed',true);
@@ -607,8 +616,8 @@
       }
     }
     hipPlateau(A,4.1,15.9,6.1,25.9,37.5,7,5.1,'tile');hipPlateau(A,16.1,27.9,6.1,25.9,37.5,7,5.1,'tile');
-    // The first upper floor has a real shaded timber underside. Without this
-    // surface the open undercroft visually borrowed bright upper-wall pixels.
+    // Retain the real timber floor underside and central post. The isometric
+    // opening's visible ground shading is defined on the paving below.
     S.flat(5.3,26.7,7.3,24.7,12.08,P.woodD);
     A.K.cylinder(S,16,16,.8,12.08,.48,.48,P.wood,P.woodD,P.woodD,8);
     // The isometric ray sees the real covered market paving through the open
