@@ -42,7 +42,7 @@
 
 ## §8 開工狀態／沒做成的事
 
-- [ ] 本卡尚待首筆遠端提交確認；成功前不繪製。
+- [x] 本卡首筆遠端提交0dcafb7已確認，且相對BASE只新增本卡；確認之前沒有繪製。
 - [ ] 第九波正常模型、保存、整幀、場景、行人、效能、首紅、fp、smoke及財務均未跑；第八波結果只作BASE，不算本波通過。
 - [ ] 十款文字來源初核，原照片尚待實際取得與作者觀看；沒有已完成新美術或新原圖的聲稱。
 - [ ] 必要獨立程式／安全／視覺覆核待本波精確產物；另103場景及實機手機／Safari／觸控不提前勾選。
@@ -50,3 +50,11 @@
 - [x] 正式仍8／20、80座；目前完成的是基準核對／排重與卡面，沒有把計畫記成實作。
 
 回滾：未合前保留分支與證據；本波閥能即時退舊圖。main／Pages紅或原停手條件成立照規則回報，不重跑賭過、不強推、不自行revert其他寫入者。遇來源403／登入／平台拒絕，保留完整回應，不解挑戰、不改proxy／TLS／沙箱或權限。
+
+## 施工紀錄（首卡後追加；原驗收不改鬆）
+
+- 首卡[0dcafb7](https://github.com/lijiabao1998/GlimmerTown-lab/commit/0dcafb7cc8c3a23614dbc6d2cc9188837d46fbd3)／tree681061e5dd066736b93a5767e58ddb30bc97de0e已在新遠端gpt/british-wave09-037核實。其唯一父提交是main e195002，diff只新增本卡，bld40範圍不變，尚未新美術。
+- 建新ref時誤用update_ref，GitHub校驗回422 Reference does not exist，未執行；完整回應保存scratchpad/wave037/first-new-ref-update-422.json，該更新未重試。改用連接器正式create_branch建立已授權的新分支成功，再以遠端ref／commit／compare核實。本項是缺少分支的API校驗錯誤，沒有強推、修改權限或繞過批准拒絕。
+- C1無簽章GitHub JSON的單一UTC候選未核出相同raw commit SHA，計算即停，沒有導入錯誤物件或移動本地ref。本地HEAD仍精確main e195002，檔案／index tree681061e等於遠端C1；後續以遠端提交、實際tree與CI為準，不重複提交已上傳卡片。完整計算回執保留first-card-local-serialization-check.json。
+- 本次只新增純唯讀參考照片collector與分支專屬037 workflow（五個parts、每part兩原型、最多每款兩張候選照片），沒有遊戲執行／新美術或修改index／三版本字／fp/style。照片必須實際取得、核bytes／SHA並由作者看清外觀後才畫，內景、標誌或錯主體不當幾何依據。Leeds原照使用HE原頁實際圖片連結，Middlesex使用法院原頁實際外觀圖；Holyrood照片另取[原建築師項目頁](https://www.mirallestagliabue.com/project/scottish-parliament-building/)，不是把議會室內設計展當外景。所有URL均來自已讀公開頁面，不猜Library或下載網址。
+- 五個參考工作僅取得資料，不等於第九波原生／圖像驗收。結果尚待本提交後實際執行；若有HTTP錯誤，保留原回應，原目標不重跑賭過。新完整原生21項及標準CI待真正美術完成後再執行。

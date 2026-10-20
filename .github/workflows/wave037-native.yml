@@ -1,0 +1,32 @@
+name: wave037-native
+on:
+  push:
+    branches: ['gpt/british-wave09-037']
+    paths: ['collectWave037References.py', '.github/workflows/wave037-native.yml']
+permissions:
+  contents: read
+jobs:
+  references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read bounded original reference photographs before drawing
+        env:
+          WAVE037_REFERENCE_PART: ${{ matrix.part }}
+        run: python collectWave037References.py
+      - name: Preserve real reference bytes and any complete error responses
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave037-references-${{ github.sha }}-part-${{ matrix.part }}
+          path: shots/wave037/references/
+          if-no-files-found: error
+          retention-days: 14
