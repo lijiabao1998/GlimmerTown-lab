@@ -26,7 +26,14 @@ assert(smokeStart>=0&&smokeEnd>smokeStart,'source038 unique appended smoke hook'
 assert.equal(smoke.slice(0,smokeStart)+smoke.slice(smokeEnd+'    // GPT-038 NEW SELFTEST END\n'.length),cp.execFileSync('git',['show',BASE+':smoke.js'],{encoding:'utf8'}),'source038 every previous smoke assertion byte unchanged');
 for(const file of['fp.js','fp.json','style.json','harness.js','gallery.js','british-use-scales-kit021.js','british-complex-primitives014.js'])assert(fs.readFileSync(file).equals(cp.execFileSync('git',['show',BASE+':'+file],{maxBuffer:8*1024*1024})),'source038 unchanged shared source '+file);
 const guardPreparation=JSON.parse(fs.readFileSync('docs/branch/GPT-038-full-guard-preparation.json','utf8'));
-for(const entry of guardPreparation.unchangedFullGuardDrafts)assert.equal(hash(fs.readFileSync(entry.file)),entry.expectedSHA256,'source038 unchanged full ten-model guard '+entry.file);
+for(const entry of guardPreparation.fullGuardPreparedSources)assert.equal(hash(fs.readFileSync(entry.file)),entry.expectedSHA256,'source038 exact prepared full ten-model guard '+entry.file);
+const nativeReferences=new Set();
+for(const file of [...guardPreparation.fullGuardPreparedSources.map(x=>x.file),'partialNinePairs038.cjs','partialNineChecks038.cjs','probePartialNative038.cjs']){
+  const text=fs.readFileSync(file,'utf8');assert(!text.includes('sandbox556b'),'source038 original native sandbox save key '+file);
+  for(const [,name]of text.matchAll(/GV\.([A-Za-z_$][A-Za-z0-9_$]*)/g))if(name!=='britishWave038'){
+    assert(original.includes(Buffer.from(name)),'source038 reference exists in independent native source '+file+': '+name);nativeReferences.add(name);
+  }
+}
 const report={base:BASE,head:process.env.GITHUB_SHA||null,scope:'static source preparation, not native ten-model acceptance',committedIndexSHA256:hash(current),artSourceSHA256:hash(Buffer.from(sources.art)),runtimeSHA256:hash(Buffer.from(sources.runtime)),cssSHA256:hash(Buffer.from(sources.css)),fixtureSHA256:hash(Buffer.from(fixture)),fullFutureCompositionSHA256:hash(Buffer.from(full)),partialFixtureSHA256:hash(Buffer.from(partial)),fullInlineBlocks:parse(full),partialInlineBlocks:parse(partial),sourceBoundaryNegative:negative,fullSourceStripByteEqual:true,partialSourceStripByteEqual:true,gameExecuted:false,fullWaveAcceptance:false};
 if(process.env.GITHUB_ACTIONS==='true'){fs.mkdirSync('shots/wave038/source-preparation',{recursive:true});fs.writeFileSync('shots/wave038/source-preparation/manifest.json',JSON.stringify(report,null,2)+'\n');}
 console.log('WAVE038_SOURCE_PREPARATION '+JSON.stringify(report));

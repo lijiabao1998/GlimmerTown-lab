@@ -15,31 +15,31 @@ const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex'
 function pair038(useNew){
   const out=[],controls=[];
   for(const seed of[31,71,103]){
-    GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+    GV.setDiff(3);GV.newWorldSeeded(seed);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
     const find=()=>{for(let y=4;y<66;y+=3)for(let x=4;x<66;x+=3)if(GV.placePreview459('landmark',x,y)?.ok){let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;if(clear)return{x,y};}throw Error('normal038 legal native lot');};
     const placements=[];
     for(let i=0;i<3;i++){
-      const p=find(),quote=GV.placePreview459('landmark',p.x,p.y).cost,before=GV.devMoney556B();
+      const p=find(),quote=GV.placePreview459('landmark',p.x,p.y).cost,before=GV.devMoney516B();
       if(useNew&&!GV.britishWave038.select(['leedsCorn','bishoplloyd','silver'][i]))throw Error('normal038 appearance selection');
       if(!GV.placeUndo('landmark',p.x,p.y))throw Error('normal038 actual paid placement');
-      const b=GV.tile(p.x,p.y)?.bld,spent=before-GV.devMoney556B();if(spent!==quote||spent<=0)throw Error('normal038 native fee');placements.push({...p,v:b.v,spent});
+      const b=GV.tile(p.x,p.y)?.bld,spent=before-GV.devMoney516B();if(spent!==quote||spent<=0)throw Error('normal038 native fee');placements.push({...p,v:b.v,spent});
     }
     GV.selectTool434('pan');const checkpoints=[];
     for(const ticks of[0,1,3]){if(ticks)GV.step(ticks);GV.save();checkpoints.push({ticks,state:JSON.parse(GV.rawSave()),stats:GV.stats()});}
     if(useNew){
-      const cash=GV.devMoney556B();GV.capabilitySetMoney506(cash-1);GV.save();const damaged=JSON.parse(GV.rawSave());
+      const cash=GV.devMoney516B();GV.capabilitySetMoney506(cash-1);GV.save();const damaged=JSON.parse(GV.rawSave());
       GV.capabilitySetMoney506(cash);GV.save();const restored=JSON.parse(GV.rawSave());
       controls.push({seed,original:checkpoints.at(-1).state,damaged,restored});
     }
     out.push({seed,placements,checkpoints});
   }
-  const early=out[0].checkpoints[0].state,key='glimmerville.v1.s3.sandbox556b';
+  const early=out[0].checkpoints[0].state,key='glimmerville.v1.s3.sandbox516b';
   localStorage.setItem(key,JSON.stringify(early));if(!GV.load())throw Error('normal038 original pre-update constructor load');GV.save();
   const bootstrap={input:early,output:JSON.parse(GV.rawSave())};
   // Match the failing native job's ten paid lots and real undo/redo/ref actions
   // on the independent BASE too. The earlier three-lot fixture did not reproduce
   // that particular lazy policy state, and is retained as separate evidence.
-  GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   const tenRows=useNew?GV.britishWave038.rows():Array.from({length:10},()=>null),tenLots=[];
   for(let j=0;j<10;j++){
     let p;for(let y=4;y<66&&!p;y+=3)for(let x=4;x<66;x+=3)if(GV.placePreview459('landmark',x,y)?.ok){let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;if(clear){p={x,y};break;}}

@@ -7,7 +7,7 @@ async function measure038(baseSHA){
   const wait=async test=>{const end=Date.now()+120000;while(Date.now()<end){if(test())return;await new Promise(r=>setTimeout(r,100));}throw Error('perf038 BASE iframe native boot timeout');};
   await wait(()=>frame.contentWindow?.__bootDone453&&frame.contentWindow.GV);const old=frame.contentWindow;old.localStorage.setItem('glimmerville.v1.slot','3');old.GV.newWorldSeeded(87);old.GV.setSpeed(0);await wait(()=>old.__t519Roof>0&&old.__bootDone453);await new Promise(r=>setTimeout(r,3000));
   function setup(w,special){
-    const G=w.GV;G.newWorldSeeded(87);G.setSpeed(0);if(!G.dev556B().sandbox)G.enterSandbox556B();G.setGod556B(true);G.setOverride556B('unlockAll',true);G.capabilitySetMoney506(1000000);G.setDiff(1);
+    const G=w.GV;G.newWorldSeeded(87);G.setSpeed(0);if(!G.dev516B().sandbox)G.enterSandbox516B();G.setGod516B(true);G.setOverride516B('unlockAll',true);G.capabilitySetMoney506(1000000);G.setDiff(1);
     const rows=special?G.britishWave038.rows():Array.from({length:10},()=>null),placed=[];
     for(let j=0;j<10;j++){
       let p;for(let y=4;y<66&&!p;y+=3)for(let x=4;x<66;x+=3)if(G.placePreview459('landmark',x,y)?.ok){let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(G.tile(x+dx,y+dy)?.tree)clear=false;if(clear){p={x,y};break;}}

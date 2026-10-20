@@ -5,7 +5,7 @@ if(!process.env.GITHUB_ACTIONS)throw Error('wave038 game guards run on GitHub Ac
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const {withGame,ROOT}=require('./harness.js'),OUT=path.join(ROOT,'shots','wave038','pedestrians'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 function setup038(rows){
-  GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   for(const q of rows){if(!GV.britishWave038.select(q.id)||!GV.place('landmark',q.x,q.y))throw Error('ped038 native placement '+q.id);GV.testAge635(q.x,q.y,2,2,30);}
   const actors=[];for(const x of[60,62]){GV.place('doze',x,60);GV.place('tland',x,60);const r=GV.testInjectResident534(x,60);if(!r?.c)throw Error('ped038 T534 test actor');actors.push(r);}
   window.__pedActors038=actors;GV.selectTool434('pan');window.__waterF695=0;

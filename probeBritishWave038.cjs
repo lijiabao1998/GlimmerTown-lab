@@ -95,21 +95,21 @@ function nativeChecks(){
       if(clear)return{x,y};
     }
     const samples=[];for(const [x,y]of[[4,4],[16,16],[32,32],[48,48]])samples.push({x,y,preview:GV.placePreview459('landmark',x,y)});
-    throw Error('wave038 no legal native lot: '+JSON.stringify({phase,money:GV.useScales021.world().money,dev:GV.dev556B(),samples}));
+    throw Error('wave038 no legal native lot: '+JSON.stringify({phase,money:GV.useScales021.world().money,dev:GV.dev516B(),samples}));
   };
   const lockedMoney=GV.useScales021.world().money;
-  if(GV.devUnlocked556B('landmark')||a.select('leedsCorn')||GV.useScales021.world().money!==lockedMoney)throw Error('wave038 unchanged native lock');
-  const unlock=()=>{if(!GV.dev556B().sandbox)GV.enterSandbox556B();if(!GV.setGod556B(true)||!GV.setOverride556B('unlockAll',true))throw Error('wave038 explicit isolated native unlock fixture');};
+  if(GV.devUnlocked516B('landmark')||a.select('leedsCorn')||GV.useScales021.world().money!==lockedMoney)throw Error('wave038 unchanged native lock');
+  const unlock=()=>{if(!GV.dev516B().sandbox)GV.enterSandbox516B();if(!GV.setGod516B(true)||!GV.setOverride516B('unlockAll',true))throw Error('wave038 explicit isolated native unlock fixture');};
   unlock();
   const fee=(before,expected,after)=>{const spent=before-after;if(!Number.isFinite(before)||spent!==expected||spent<=0)throw Error('wave038 fee '+spent+' expected '+expected);return spent;};
   // Mutate the public native placement API with valid live source, then require
   // the same fee assertion used below to be the first failure. Reset world after.
   GV.setDiff(1);GV.newWorldSeeded(87);GV.setSpeed(0);unlock();GV.capabilitySetMoney506(1000000);GV.setDiff(1);
-  const fp=lot(),cash=GV.devMoney556B(),quote=GV.placePreview459('landmark',fp.x,fp.y).cost,place=GV.place;let feeRed;
+  const fp=lot(),cash=GV.devMoney516B(),quote=GV.placePreview459('landmark',fp.x,fp.y).cost,place=GV.place;let feeRed;
   try{
-    GV.place=function(id,x,y){const ok=place(id,x,y);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney556B()-1);return ok;};
+    GV.place=function(id,x,y){const ok=place(id,x,y);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney516B()-1);return ok;};
     if(!GV.place('landmark',fp.x,fp.y))throw Error('wave038 fee negative fixture placement failed');
-    try{fee(cash,quote,GV.devMoney556B());}catch(e){feeRed=e.message;}
+    try{fee(cash,quote,GV.devMoney516B());}catch(e){feeRed=e.message;}
     if(!feeRed?.startsWith('wave038 fee '))throw Error('wave038 fee negative missed target');
   }finally{GV.place=place;}
   red.push({name:'valid live source overcharges one native dollar',first:feeRed});
@@ -139,21 +139,21 @@ function nativeChecks(){
     if(!GV.placeUndo('landmark',p.x,p.y))throw Error('wave038 native place '+q.id);
     const b=a.read(p.x,p.y),spent=fee(money,expected,GV.useScales021.world().money);
     if(b.v!==q.v||b.k!==24||b.sz!==2)throw Error('wave038 paid identity '+q.id);
-    const paid=GV.devMoney556B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(p.x+dx,p.y+dy)===null));
-    if(!GV.undo()||!empty()||GV.devMoney556B()!==paid+spent)throw Error('wave038 every-form undo and exact refund '+q.id);
-    if(!GV.redo()||a.read(p.x,p.y)?.v!==q.v||GV.devMoney556B()!==paid)throw Error('wave038 every-form redo and exact fee '+q.id);
+    const paid=GV.devMoney516B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(p.x+dx,p.y+dy)===null));
+    if(!GV.undo()||!empty()||GV.devMoney516B()!==paid+spent)throw Error('wave038 every-form undo and exact refund '+q.id);
+    if(!GV.redo()||a.read(p.x,p.y)?.v!==q.v||GV.devMoney516B()!==paid)throw Error('wave038 every-form redo and exact fee '+q.id);
     if(!GV.placeUndo('doze',p.x+1,p.y+1)||!empty())throw Error('wave038 every-form reference demolition '+q.id);
-    if(!GV.undo()||a.read(p.x,p.y)?.v!==q.v||GV.devMoney556B()!==paid)throw Error('wave038 every-form demolition undo '+q.id);
+    if(!GV.undo()||a.read(p.x,p.y)?.v!==q.v||GV.devMoney516B()!==paid)throw Error('wave038 every-form demolition undo '+q.id);
     placed.push({...p,id:q.id,v:q.v,spent});
   }
-  const last=placed.at(-1),paidMoney=GV.devMoney556B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(last.x+dx,last.y+dy)===null));
-  if(!GV.undo()||!empty()||GV.devMoney556B()!==paidMoney+last.spent)throw Error('wave038 new appearance undo, footprint and refund');
-  const redoCheck=()=>{if(!GV.redo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney556B()!==paidMoney)throw Error('wave038 new appearance redo, identity and fee');};
+  const last=placed.at(-1),paidMoney=GV.devMoney516B(),empty=()=>[0,1].every(dy=>[0,1].every(dx=>a.read(last.x+dx,last.y+dy)===null));
+  if(!GV.undo()||!empty()||GV.devMoney516B()!==paidMoney+last.spent)throw Error('wave038 new appearance undo, footprint and refund');
+  const redoCheck=()=>{if(!GV.redo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave038 new appearance redo, identity and fee');};
   const redo=GV.redo;let redoRed;
   try{GV.redo=()=>false;try{redoCheck();}catch(e){redoRed=e.message;}if(!redoRed?.startsWith('wave038 new appearance redo'))throw Error('wave038 transaction negative missed target');}finally{GV.redo=redo;}
   red.push({name:'valid live redo API fails to restore new appearance',first:redoRed});redoCheck();
   if(!GV.placeUndo('doze',last.x+1,last.y+1)||!empty())throw Error('wave038 new appearance reference demolition');
-  if(!GV.undo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney556B()!==paidMoney)throw Error('wave038 undo reference demolition restores new appearance');
+  if(!GV.undo()||a.read(last.x,last.y)?.v!==last.v||GV.devMoney516B()!==paidMoney)throw Error('wave038 undo reference demolition restores new appearance');
   const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
   // Exercise the normal first native simulation update before the persistence
   // reference. The pre-update constructor has optional legacy subsystems absent;

@@ -38,12 +38,12 @@ function frames038(lots,near=false){
   return out;
 }
 function loadOld038(raw){
-  delete window.__noBritishWave038;const key='glimmerville.v1.s3.sandbox556b';localStorage.setItem(key,raw);const states=[];
+  delete window.__noBritishWave038;const key='glimmerville.v1.s3.sandbox516b';localStorage.setItem(key,raw);const states=[];
   for(let i=0;i<2;i++){if(!GV.load())throw Error('partial038 old native load');GV.save();states.push(JSON.parse(GV.rawSave()));}
   if(GV.britishWave038.selection()!==null)throw Error('partial038 load clears selected appearance');return states;
 }
 function saveFault038(){
-  const cash=GV.devMoney556B();GV.save();const before=JSON.parse(GV.rawSave());GV.capabilitySetMoney506(cash-1);GV.save();const damaged=JSON.parse(GV.rawSave());GV.capabilitySetMoney506(cash);GV.save();return{before,damaged,restored:JSON.parse(GV.rawSave())};
+  const cash=GV.devMoney516B();GV.save();const before=JSON.parse(GV.rawSave());GV.capabilitySetMoney506(cash-1);GV.save();const damaged=JSON.parse(GV.rawSave());GV.capabilitySetMoney506(cash);GV.save();return{before,damaged,restored:JSON.parse(GV.rawSave())};
 }
 async function session(source,fn){fs.writeFileSync(index,source);const r=await withGame(opt,async({cdp})=>{const out=await fn(cdp);assert.equal(cdp.errors.length,0,cdp.errors.join('; '));return out;});assert(r.ok&&r.result,'partial038 actual native Chrome session: '+r.fails.join('; '));return r.result;}
 (async()=>{

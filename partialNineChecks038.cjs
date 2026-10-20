@@ -55,26 +55,26 @@ function partialNineChecks038(){
   const rotationFirst=fixture.frozenRotationNegative(rotations);need(rotationFirst.startsWith('partial038 actual rotation'),'partial038 private rotation mutation first RED');rotations();red.push({name:'actual private selector frozen',first:rotationFirst,restored:true});
   // Faults run after the independent normal-model pair. Create a real locked
   // native fixture without carrying an earlier unlock override into this check.
-  GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);GV.setGod556B(false);GV.setOverride556B('unlockAll',false);GV.setDiff(1);
-  const beforeMoney=GV.devMoney556B();need(!api.select('leedsCorn')&&!GV.devUnlocked556B('landmark')&&GV.devMoney556B()===beforeMoney,'partial038 unchanged native locked selection');
-  const reset=()=>{GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);};reset();
+  GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);GV.setGod516B(false);GV.setOverride516B('unlockAll',false);GV.setDiff(1);
+  const beforeMoney=GV.devMoney516B();need(!api.select('leedsCorn')&&!GV.devUnlocked516B('landmark')&&GV.devMoney516B()===beforeMoney,'partial038 unchanged native locked selection');
+  const reset=()=>{GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);};reset();
   api.open();const buttons=[...document.querySelectorAll('[data-wave038]')],silver=document.querySelector('[data-wave038="silver"]');
   need(buttons.length===10&&buttons.filter(b=>!b.disabled).length===9&&silver?.disabled,'partial038 ten catalog rows, nine enabled, Silver disabled');
   need(!silver.closest('article').querySelector('img'),'partial038 unavailable Silver has no fake image');
-  const money=GV.devMoney556B();need(!api.select('silver')&&api.selection()===null&&GV.devMoney556B()===money,'partial038 missing Silver selection refuses without side effects');
+  const money=GV.devMoney516B();need(!api.select('silver')&&api.selection()===null&&GV.devMoney516B()===money,'partial038 missing Silver selection refuses without side effects');
   const findLot=()=>{for(let y=4;y<66;y+=3)for(let x=4;x<66;x+=3)if(GV.placePreview459('landmark',x,y)?.ok){let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;if(clear)return{x,y};}throw Error('partial038 legal native lot');};const lot=findLot();
-  need(!!lot&&!fixture.unavailablePrivateSelection(lot.x,lot.y)&&GV.devMoney556B()===money,'partial038 private missing-model placement refuses before charging');
+  need(!!lot&&!fixture.unavailablePrivateSelection(lot.x,lot.y)&&GV.devMoney516B()===money,'partial038 private missing-model placement refuses before charging');
   need(api.select('leedsCorn'),'partial038 available selection');window.__noBritishWave038=true;
-  need(!api.select('darlington')&&!GV.placeUndo('landmark',lot.x,lot.y)&&GV.devMoney556B()===money,'partial038 live valve blocks selected new placement and fee');
+  need(!api.select('darlington')&&!GV.placeUndo('landmark',lot.x,lot.y)&&GV.devMoney516B()===money,'partial038 live valve blocks selected new placement and fee');
   for(const[id,v]of rows)need(GV.art574.vdraw({x:10,y:10},{k:24,lv:1,v})===0,'partial038 live valve resolves ordinary landmark');delete window.__noBritishWave038;
   need(api.select('leedsCorn')&&GV.britishWave037.select('belfast')&&api.selection()===null,'partial038 older catalog clears new selection');
   need(api.select('leedsCorn'),'partial038 selection for ordinary reset');api.open();document.getElementById('waveDefault038').click();need(api.selection()===null,'partial038 ordinary catalog reset');
   need(api.select('leedsCorn'),'partial038 fee fixture selection');
-  const place=GV.place,cash=GV.devMoney556B(),quote=GV.placePreview459('landmark',lot.x,lot.y).cost;let feeFirst='';need(quote===2000,'partial038 native unchanged2000 quote');
-  try{GV.place=function(id,x,y){const ok=place(id,x,y);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney556B()-1);return ok;};need(GV.place('landmark',lot.x,lot.y),'partial038 fee fault actual placement');try{need(cash-GV.devMoney556B()===quote,'partial038 native fee mismatch');}catch(e){feeFirst=e.message;}}
+  const place=GV.place,cash=GV.devMoney516B(),quote=GV.placePreview459('landmark',lot.x,lot.y).cost;let feeFirst='';need(quote===2000,'partial038 native unchanged2000 quote');
+  try{GV.place=function(id,x,y){const ok=place(id,x,y);if(ok&&id==='landmark')GV.capabilitySetMoney506(GV.devMoney516B()-1);return ok;};need(GV.place('landmark',lot.x,lot.y),'partial038 fee fault actual placement');try{need(cash-GV.devMoney516B()===quote,'partial038 native fee mismatch');}catch(e){feeFirst=e.message;}}
   finally{GV.place=place;}need(feeFirst==='partial038 native fee mismatch','partial038 fee first RED');red.push({name:'real paid placement overcharges1',first:feeFirst,restored:true});
-  reset();const p=findLot();need(api.select('leedsCorn')&&GV.placeUndo('landmark',p.x,p.y),'partial038 redo fixture paid placement');const paid=GV.devMoney556B();need(GV.undo()&&GV.devMoney556B()===paid+2000,'partial038 undo exact refund');
-  const redo=GV.redo,redoCheck=()=>need(GV.redo()&&api.read(p.x,p.y)?.v===520&&GV.devMoney556B()===paid,'partial038 native redo mismatch');let redoFirst='';
+  reset();const p=findLot();need(api.select('leedsCorn')&&GV.placeUndo('landmark',p.x,p.y),'partial038 redo fixture paid placement');const paid=GV.devMoney516B();need(GV.undo()&&GV.devMoney516B()===paid+2000,'partial038 undo exact refund');
+  const redo=GV.redo,redoCheck=()=>need(GV.redo()&&api.read(p.x,p.y)?.v===520&&GV.devMoney516B()===paid,'partial038 native redo mismatch');let redoFirst='';
   try{GV.redo=()=>false;try{redoCheck();}catch(e){redoFirst=e.message;}}finally{GV.redo=redo;}need(redoFirst==='partial038 native redo mismatch','partial038 redo first RED');redoCheck();red.push({name:'real native redo fails',first:redoFirst,restored:true});
   need(GV.britishWave037.selftest().ok&&GV.heritage024.selftest().ok,'partial038 prior native architecture selftests unchanged');
   api.close();GV.selectTool434('pan');

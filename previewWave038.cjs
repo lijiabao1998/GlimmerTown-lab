@@ -7,14 +7,14 @@ if(!process.env.GITHUB_ACTIONS)throw Error('Run native previews only on GitHub A
 function transfer(name,b){console.log('WAVE038_FILE_BEGIN '+JSON.stringify({name,head:process.env.GITHUB_SHA,bytes:b.length,sha256:hash(b)}));const s=b.toString('base64');for(let i=0;i<s.length;i+=4096)console.log('WAVE038_FILE_DATA '+s.slice(i,i+4096));console.log('WAVE038_FILE_END '+name);}
 function capture038(){
   GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);
-  if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   const api=GV.britishWave038,rows=api.rows(),placed=[];
   const lot=()=>{for(let y=4;y<66;y+=3)for(let x=4;x<66;x+=3){if(!GV.placePreview459('landmark',x,y)?.ok)continue;let clear=true;for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)if(GV.tile(x+dx,y+dy)?.tree)clear=false;if(clear)return{x,y};}throw Error('No native preview lot');};
   for(const q of rows){
     const p=lot();api.open();const b=document.querySelector('[data-wave038="'+q.id+'"]');if(!b||b.disabled)throw Error('Preview native catalog unavailable '+q.id);b.click();
-    const before=GV.devMoney556B(),cost=GV.placePreview459('landmark',p.x,p.y).cost;
+    const before=GV.devMoney516B(),cost=GV.placePreview459('landmark',p.x,p.y).cost;
     if(!GV.placeUndo('landmark',p.x,p.y)||api.read(p.x,p.y)?.v!==q.v)throw Error('Preview native placement '+q.id);
-    const spent=before-GV.devMoney556B();if(spent!==cost||spent<=0)throw Error('Preview native finite-money fee '+q.id);
+    const spent=before-GV.devMoney516B();if(spent!==cost||spent<=0)throw Error('Preview native finite-money fee '+q.id);
     GV.testAge635(p.x,p.y,2,2,30);placed.push({...p,id:q.id,v:q.v,spent});
   }
   api.close();GV.selectTool434('pan');const game=document.getElementById('game');game.dispatchEvent(new PointerEvent('pointermove',{clientX:-100000,clientY:-100000,pointerId:99,pointerType:'mouse'}));

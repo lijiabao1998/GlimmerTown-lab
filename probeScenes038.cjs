@@ -12,8 +12,8 @@ function transfer(name,bytes){const b64=bytes.toString('base64');console.log('WA
 function write(name,url){const bytes=Buffer.from(url.split(',')[1],'base64');fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,name),bytes);return{file:name,bytes:bytes.length,sha256:hash(bytes)};}
 function legacyFixture038(reference){
   GV.setSpeed(0);GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);
-  if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
-  const p={x:7,y:4},key='glimmerville.v1.s3.sandbox556b';let initial;
+  if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  const p={x:7,y:4},key='glimmerville.v1.s3.sandbox516b';let initial;
   if(reference){localStorage.setItem(key,reference);if(!GV.load())throw Error('scene038 first real legacy migration load');GV.save();}
   else{
     if(!GV.place('landmark',p.x,p.y))throw Error('scene038 legacy native fixture');GV.testAge635(p.x,p.y,2,2,30);GV.save();initial=JSON.parse(localStorage.getItem(key));
@@ -39,7 +39,7 @@ function oldFrames038(valve){
   return frames;
 }
 function installScene038(rows){
-  delete window.__noBritishWave038;GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev556B().sandbox)GV.enterSandbox556B();GV.setGod556B(true);GV.setOverride556B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
+  delete window.__noBritishWave038;GV.setDiff(3);GV.newWorldSeeded(87);GV.setSpeed(0);if(!GV.dev516B().sandbox)GV.enterSandbox516B();GV.setGod516B(true);GV.setOverride516B('unlockAll',true);GV.capabilitySetMoney506(1000000);GV.setDiff(1);
   for(const q of rows){if(!GV.britishWave038.select(q.id)||!GV.place('landmark',q.x,q.y))throw Error('scene038 native catalog placement '+q.id);GV.testAge635(q.x,q.y,2,2,30);}
   GV.britishWave038.close();GV.selectTool434('pan');
   return rows.map(q=>({id:q.id,variant:GV.britishWave038.read(q.x,q.y).v}));

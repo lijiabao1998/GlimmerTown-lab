@@ -94,3 +94,12 @@
 - 局部原生驗收預定：十列九啟用、Silver真缺席；九款72安裝原PNG逐byte等於已審f530；實際目錄click／每款$2000、undo退款／redo／參照格拆除恢復／四向／舊輯與普通切換／load重設；正常BASE與局部HEAD在seeds31／71／103三checkpoint全serialize與stats，僅實際root b.v明列差異、fieldExclusions=[]；九款匹配交易與正常首次update／市長options惰性欄位、舊檔／新檔兩輪保存；8張完整BASE／閥關canvas byte等值；真像素／夜漏光／克隆／私有旋轉／$1／redo及source越界負控制復原；桌面及390px響應式目錄、8張實際原生四向日夜／9張實景近景。這些是九款局部證據，絕不當完整十款、93原圖、113場景或21工作通過；實機手機／Safari／觸控未測。
 - 完整十款10份既有私有guard／preview來源與先前封存SHA逐byte相同，原十款／40葉／至少12首紅、全部欄位、17行人、40組交錯效能及30延遲負例門檻未動；embed只重整成可證明三塊來源隔離的純文字compose。smoke僅追加038自檢註冊：實際HTML有038塊時必須API自檢成功，局部36葉仍失敗；刪掉這個新增註冊後整份舊smoke與BASE逐byte相同。完整21工作模板在docs以.yml.txt保存，未啟用；Silver與真正完整安裝前不跑出假綠。現有workflow移除已完成參考重抓工作，僅候選靜態及九款局部原生兩工作，仍本分支／contents:read／無部署推送。
 - 本地僅19份JS／CJS語法、JSON／SHA與來源組裝／剝離、既有source byte核對及兩個source首紅／復原，未開遊戲／Chrome／smoke／fp。首次來源核對因本地沒有遠端C1 Git物件而失敗；本地改用明確傳入原C1檔並硬核e59c1317…934eb7，CI仍必須直接讀C1 Git物件，不准走本地檔替代。C9實際遊戲與標準CI結果待推送後核實，不先填通過。Silver依賴的繪製與整波合併發布仍暫停。
+
+
+## C10 — 原生 API 呼叫修正，保留 C9 失敗證據
+
+C9 `30ee6a320cdc5f2fa6684d7826f5f12ad68a8754` 的來源隔離檢查及九款靜態圖 job 通過，但原生局部 job 118729301511／run 39452099195 在 BASE session 首次呼叫時失敗：`TypeError: GV.dev556B is not a function`。因此 C9 並未取得九款玩法驗收。已保留完整原始失敗日誌及官方 artifact 12278323115（ZIP digest `bb4eed9dec9c3dc1115f66f9435d1a9aa0b10dbd9d5f92559bcbd659b7ce5aab`）；沒有盲重跑。
+
+查閱精確 BASE 原始碼及已通過的 wave037 探針後，確認既有 developer API 固定為 `516B`、sandbox 存檔尾碼固定為 `.sandbox516b`。修正九款局部程式及預備完整守衛中錯誤遷移為 556 的這些原生 API／key 字串；完整十款計數、判斷式、負控制及門檻不變。來源靜態檢查新增對獨立 BASE 中 API 名稱與原生 sandbox key 的核對，完整守衛 metadata 保留 C9 草稿 SHA 並明記本次原生呼叫修正。
+
+美術、runtime、CSS、正式 index、凍結卡原文、版本／T／日誌、fp/style 及共用骨架均不改。Silver 仍缺後側實照且沒有模型；新 CI 仍只准證明九款局部，完整十款、完整21 jobs、實機與發布均未取得通過。
