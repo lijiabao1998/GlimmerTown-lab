@@ -1,0 +1,525 @@
+{
+  "inspection": "Actual original files delivered one or two per call and visually inspected; no thumbnail-only claim",
+  "count": 16,
+  "images": [
+    {
+      "file": "references-9ea887f/abingdon-0.jpg",
+      "sha256": "70809f2882ff281a43f091b4b7c354b32a02ee1939b6444a24ebff281b137c72",
+      "bytes": 175876,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Whole exterior with open four-by-two arcades, tall rounded upper windows, dormers, cupola; accepted before modelling"
+    },
+    {
+      "file": "references-9ea887f/middlesex-0.jpg",
+      "sha256": "16cc2b75b688de76ad6f15d543237870301ca29ca21941699f0e12f8cc6ed95c",
+      "bytes": 157744,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Exterior stone facade, entry sculptural band, oriel, parapet and dormers; accepted before modelling"
+    },
+    {
+      "file": "references-9ea887f/belfast-0.png",
+      "sha256": "bb31205f45360d7d4de096e592d2f4a5524982fe8e6c5b7e54d18340b6c9c453",
+      "bytes": 105321,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": false,
+      "reason": "Abstract graphic background; no building"
+    },
+    {
+      "file": "references-9ea887f/holyrood-0.jpg",
+      "sha256": "4ef7cf23c3ec8c48f20e71c5cd7aa6f152f6bde6961d0f0c0fc25421d2ba0484",
+      "bytes": 385457,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": false,
+      "reason": "Debating-chamber interior; not exterior evidence"
+    },
+    {
+      "file": "references-9ea887f/rcj-0.png",
+      "sha256": "ff4b5bcaf6871e280239201a45da0a67bf405d8f3aabbbb5f8f9ad0ca3ceeceb",
+      "bytes": 3164058,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Strand main facade and high side roof visible; podcast overlay hides left upper portion; listing used for right clock tower and unseen-plan description"
+    },
+    {
+      "file": "references-fd20754/london-0.jpg",
+      "sha256": "5172facb5679848b6659cb2cd093746a5a2e9c0625476ae0dbd44c66e65e9602",
+      "bytes": 88395,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Whole historic 2002 South Bank glass modified sphere, stepped inclined floorplates and diagonal glazing; 2007 photo is historical evidence"
+    },
+    {
+      "file": "references-fd20754/holyrood-0.jpg",
+      "sha256": "f606209c6413c552d4179582cadd4f30c4cec3fdbb879516f789d45c28dc07a3",
+      "bytes": 396997,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": false,
+      "reason": "Lobby interior; no exterior silhouette"
+    },
+    {
+      "file": "references-fd20754/holyrood-1.jpg",
+      "sha256": "debeb16b2909810597229104dbf244b09c7fae6e5313a3cbf1dcee5171ce3b3b",
+      "bytes": 789791,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Actual external courtyard view: white committee tower facades, irregular slate side panels and protruding windows; curved tower roof tops and multi-ridged glazed courtyard rooflights. Only this characteristic building group is translated, not an asserted measured whole site"
+    },
+    {
+      "file": "references-fd20754/holyrood-2.jpg",
+      "sha256": "16b24e82e47f5ff33e2227a278fbed4222c03a64ed33ba24ba73caf817bf09ba",
+      "bytes": 777349,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": false,
+      "reason": "Interior display window"
+    },
+    {
+      "file": "references-fd20754/holyrood-3.jpg",
+      "sha256": "305799e9f5bf91f028b7f05a117e4ab6f0040c441fa9e7a34246fc014d887e61",
+      "bytes": 671432,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": false,
+      "reason": "Interior staircase"
+    },
+    {
+      "file": "references-fd20754/holyrood-4.jpg",
+      "sha256": "1113defe5f035d43b9c6479ae08c5dbd3ae5650cb8b3fafae925c1f9948aa62c",
+      "bytes": 188713,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": false,
+      "reason": "Committee-room interior"
+    },
+    {
+      "file": "references-fd20754/belfast-0.jpg",
+      "sha256": "070e6f4c02504c06207541fe45acb322c8c22b5fa4d158f41ef9e4f7556cceb9",
+      "bytes": 80201,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Portico and drum detail only: Corinthian/Ionic columns, stone entablature and Baroque sculpture. Whole quadrangle/dome/corner masses derive from council text, not a claim this close photo shows them."
+    },
+    {
+      "file": "references-fd20754/manchester-0.jpg",
+      "sha256": "87bafe3e6895c6a2daaae5831a6fa4225ec1784e4bbd2a19ac8d232c74749ada",
+      "bytes": 62444,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Historic rear range and secondary tower seen behind cenotaph. Clock tower and triangular court derive from council architectural text; not a claim the photographed rear tower is the main clock tower."
+    },
+    {
+      "file": "references-fd20754/thaxted-0.jpg",
+      "sha256": "d649194088e619d409d87fa6e2c5dba907317ca0d22b7dcac028e049c3e05968",
+      "bytes": 61496,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Whole current exterior: open column ground level, two jettied pale timber upper storeys, double hipped red tile roofs."
+    },
+    {
+      "file": "references-fd20754/leeds-0.jpg",
+      "sha256": "04d2044cd3778098f9864fecbf83791797dff8f9d6c3bd6b6bdd7898e7ffc17f",
+      "bytes": 476845,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Complete Civic Hall facade: twin multi-stage Wren towers with finials, pedimented four-column portico, two facade storeys and return wing visible."
+    },
+    {
+      "file": "references-fd20754/newcastle-0.jpg",
+      "sha256": "43f158943a9afd8746df16d1f18f5f123ed993a084c48ecbfba33bc224e6c4d0",
+      "bytes": 44988,
+      "actuallyViewedOriginal": true,
+      "acceptedExterior": true,
+      "reason": "Actual exterior of elliptical chamber on slim columns and office wing on heavy supports. Office slab and west carillon placement corroborated by council HER."
+    }
+  ],
+  "gameArtOriginalsReviewed": 0,
+  "limits": [
+    "Belfast whole massing is text-derived; exterior photo is a close detail",
+    "Manchester image is the rear range, not the clock tower itself",
+    "Holyrood translates inspected committee towers and courtyard rooflights; semicircular chamber is not modelled",
+    "RCJ podcast overlay hides part of the exterior",
+    "No mobile hardware/Safari/touch validation"
+  ],
+  "localPhotoDownloadDenial": {
+    "action": "Read the eleven explicitly verified public exterior photo URLs directly from this container",
+    "targetURLs": [
+      "https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg",
+      "https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg",
+      "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg",
+      "https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW",
+      "https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg",
+      "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+      "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+      "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+      "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+      "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg",
+      "https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg"
+    ],
+    "outcome": "denied by connection tunnel; zero image bytes obtained",
+    "availableResponse": "URLError(OSError('Tunnel connection failed: 403 Forbidden'))",
+    "fullAvailableResponsesFile": "scratchpad/wave037/references-supplement-local-read/manifest-local-read.json",
+    "proxyHTTPBodyOrHeadersExposed": false,
+    "stopped": true,
+    "noRetryOrProxyTLSPrivilegeChanges": true,
+    "independentWork": "C3 fd20754 GitHub Actions reference run 39398627988 was already submitted and queued before this local denial; only its existing execution is observed. Three working art models and private acceptance copies remain local, uncommitted, untested."
+  },
+  "sourcePackets": [
+    {
+      "photos": [
+        {
+          "url": "https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "belfast-0.jpg",
+          "finalURL": "https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg",
+          "bytes": 80201,
+          "sha256": "070e6f4c02504c06207541fe45acb322c8c22b5fa4d158f41ef9e4f7556cceb9",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 0
+        },
+        {
+          "url": "https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "manchester-0.jpg",
+          "finalURL": "https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg",
+          "bytes": 62444,
+          "sha256": "87bafe3e6895c6a2daaae5831a6fa4225ec1784e4bbd2a19ac8d232c74749ada",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 0
+        },
+        {
+          "url": "https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "thaxted-0.jpg",
+          "finalURL": "https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg",
+          "bytes": 61496,
+          "sha256": "d649194088e619d409d87fa6e2c5dba907317ca0d22b7dcac028e049c3e05968",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 3
+        }
+      ],
+      "records": [
+        {
+          "id": "belfast",
+          "page": "https://www.geograph.org.uk/photo/3896040",
+          "images": [
+            {
+              "url": "https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "belfast-0.jpg",
+              "finalURL": "https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg",
+              "bytes": 80201,
+              "sha256": "070e6f4c02504c06207541fe45acb322c8c22b5fa4d158f41ef9e4f7556cceb9",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 0
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        },
+        {
+          "id": "manchester",
+          "page": "https://www.geograph.org.uk/photo/4184035",
+          "images": [
+            {
+              "url": "https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "manchester-0.jpg",
+              "finalURL": "https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg",
+              "bytes": 62444,
+              "sha256": "87bafe3e6895c6a2daaae5831a6fa4225ec1784e4bbd2a19ac8d232c74749ada",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 0
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        },
+        {
+          "id": "thaxted",
+          "page": "https://www.geograph.org.uk/photo/845293",
+          "images": [
+            {
+              "url": "https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "thaxted-0.jpg",
+              "finalURL": "https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg",
+              "bytes": 61496,
+              "sha256": "d649194088e619d409d87fa6e2c5dba907317ca0d22b7dcac028e049c3e05968",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 3
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "photos": [
+        {
+          "url": "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "leeds-0.jpg",
+          "finalURL": "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg",
+          "bytes": 476845,
+          "sha256": "04d2044cd3778098f9864fecbf83791797dff8f9d6c3bd6b6bdd7898e7ffc17f",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 1
+        },
+        {
+          "url": "https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "newcastle-0.jpg",
+          "finalURL": "https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW",
+          "bytes": 44988,
+          "sha256": "43f158943a9afd8746df16d1f18f5f123ed993a084c48ecbfba33bc224e6c4d0",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 1
+        }
+      ],
+      "records": [
+        {
+          "id": "leeds",
+          "page": "https://www.geograph.org.uk/photo/3485351",
+          "images": [
+            {
+              "url": "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "leeds-0.jpg",
+              "finalURL": "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg",
+              "bytes": 476845,
+              "sha256": "04d2044cd3778098f9864fecbf83791797dff8f9d6c3bd6b6bdd7898e7ffc17f",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 1
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        },
+        {
+          "id": "newcastle",
+          "page": "https://www.theciviccentre.co.uk/about",
+          "images": [
+            {
+              "url": "https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "newcastle-0.jpg",
+              "finalURL": "https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW",
+              "bytes": 44988,
+              "sha256": "43f158943a9afd8746df16d1f18f5f123ed993a084c48ecbfba33bc224e6c4d0",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 1
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "photos": [
+        {
+          "url": "https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "london-0.jpg",
+          "finalURL": "https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg",
+          "bytes": 88395,
+          "sha256": "5172facb5679848b6659cb2cd093746a5a2e9c0625476ae0dbd44c66e65e9602",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 2
+        },
+        {
+          "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "holyrood-0.jpg",
+          "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+          "bytes": 396997,
+          "sha256": "f606209c6413c552d4179582cadd4f30c4cec3fdbb879516f789d45c28dc07a3",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 2
+        },
+        {
+          "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "holyrood-1.jpg",
+          "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+          "bytes": 789791,
+          "sha256": "debeb16b2909810597229104dbf244b09c7fae6e5313a3cbf1dcee5171ce3b3b",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 2
+        },
+        {
+          "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "holyrood-2.jpg",
+          "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+          "bytes": 777349,
+          "sha256": "16b24e82e47f5ff33e2227a278fbed4222c03a64ed33ba24ba73caf817bf09ba",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 2
+        },
+        {
+          "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "holyrood-3.jpg",
+          "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+          "bytes": 671432,
+          "sha256": "305799e9f5bf91f028b7f05a117e4ab6f0040c441fa9e7a34246fc014d887e61",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 2
+        },
+        {
+          "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg",
+          "alt": "Published primary photo URL verified in source page",
+          "file": "holyrood-4.jpg",
+          "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg",
+          "bytes": 188713,
+          "sha256": "1113defe5f035d43b9c6479ae08c5dbd3ae5650cb8b3fafae925c1f9948aa62c",
+          "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+          "part": 2
+        }
+      ],
+      "records": [
+        {
+          "id": "london",
+          "page": "https://www.geograph.org.uk/photo/569516",
+          "images": [
+            {
+              "url": "https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "london-0.jpg",
+              "finalURL": "https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg",
+              "bytes": 88395,
+              "sha256": "5172facb5679848b6659cb2cd093746a5a2e9c0625476ae0dbd44c66e65e9602",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 2
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        },
+        {
+          "id": "holyrood",
+          "page": "https://www.mirallestagliabue.com/project/scottish-parliament-building/",
+          "images": [
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "holyrood-0.jpg",
+              "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+              "bytes": 396997,
+              "sha256": "f606209c6413c552d4179582cadd4f30c4cec3fdbb879516f789d45c28dc07a3",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 2
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "holyrood-1.jpg",
+              "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+              "bytes": 789791,
+              "sha256": "debeb16b2909810597229104dbf244b09c7fae6e5313a3cbf1dcee5171ce3b3b",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 2
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "holyrood-2.jpg",
+              "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+              "bytes": 777349,
+              "sha256": "16b24e82e47f5ff33e2227a278fbed4222c03a64ed33ba24ba73caf817bf09ba",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 2
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "holyrood-3.jpg",
+              "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+              "bytes": 671432,
+              "sha256": "305799e9f5bf91f028b7f05a117e4ab6f0040c441fa9e7a34246fc014d887e61",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 2
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg",
+              "alt": "Published primary photo URL verified in source page",
+              "file": "holyrood-4.jpg",
+              "finalURL": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg",
+              "bytes": 188713,
+              "sha256": "1113defe5f035d43b9c6479ae08c5dbd3ae5650cb8b3fafae925c1f9948aa62c",
+              "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+              "part": 2
+            }
+          ],
+          "errors": [],
+          "candidates": [
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            },
+            {
+              "url": "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg",
+              "alt": "Published primary photo URL verified in source page"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "referenceCI": {
+    "head": "fd20754b5f8eb86c6045669503bf2b40ac7d763b",
+    "run": 39398627988,
+    "attempt": 1,
+    "success": true,
+    "artifactIDsByPart": [
+      12254305967,
+      12254671128,
+      12254790755,
+      12254970863,
+      12253526403
+    ]
+  }
+}

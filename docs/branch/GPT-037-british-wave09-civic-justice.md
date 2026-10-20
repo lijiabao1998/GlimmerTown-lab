@@ -44,7 +44,7 @@
 
 - [x] 本卡首筆遠端提交0dcafb7已確認，且相對BASE只新增本卡；確認之前沒有繪製。
 - [ ] 第九波正常模型、保存、整幀、場景、行人、效能、首紅、fp、smoke及財務均未跑；第八波結果只作BASE，不算本波通過。
-- [ ] 十款文字來源初核，原照片尚待實際取得與作者觀看；沒有已完成新美術或新原圖的聲稱。
+- [x] 十款原型已有原照／文字考據並實看16張參考檔，照片覆蓋限制詳施工紀錄；初稿實作已寫，遊戲原圖及獨立圖審仍未完成。
 - [ ] 必要獨立程式／安全／視覺覆核待本波精確產物；另103場景及實機手機／Safari／觸控不提前勾選。
 - [x] 本地已用GitHub原簽章payload及signature精確恢復e195002物件、SHA相符，從該main建立乾淨GPT-037分支；第八波歷史分支／原圖／發布回執都保留，沒有覆蓋他人未提交檔。
 - [x] 正式仍8／20、80座；目前完成的是基準核對／排重與卡面，沒有把計畫記成實作。
@@ -63,3 +63,10 @@
 - C2首失敗保留：Manchester議會展示頁403（6007 bytes，SHA256 afc37f9889269e51db08afd07ca45c5b34e1a9e9524d9d88590f6cb08591419c）、Leeds HE照片403（6126 bytes，b1531c6c1b8c56e43185d54ebfcd823c7925200549f9a7c5b88c42397912c441）、Foster CityHall項目頁403（5502 bytes，855d87d198a09d4af604d8df8d7084b55e8c368b57e9c4ccfb3d5b5ec0cc7b43），以及Thaxted頁面相對路徑誤解造成兩個404，完整headers／body保留原artifact；上述目標停止重試，沒有解挑戰或改UA／proxy／TLS。Web對Geograph7966252、3812167及未確認的Thaxted/the-guildhall頁回Internal Error也保留原工具回應，不重試這些目標。
 - 作者本次實看C2五張原檔：abingdon-0（四乘二拱廊、巨壁柱、老虎窗及頂亭）與middlesex-0（入口雕帶、石立面、女兒牆及老虎窗）可作外形依據；belfast-0是抽象背景，holyrood-0是室內議事廳，排除兩者作外觀依據；rcj-0確有清楚Strand正立面、中央玫瑰窗／入口及右側高頂，但海報遮住左上部分，不宣稱完整屋頂可見。未實看的徽章、內景與podcast icon依來源標題排除，不冒稱已看。沒有繪製未有外景的候選。
 - C3只補七個未滿足外觀證據的原型，重用C2 Abingdon／Middlesex／RCJ既有bytes，不重跑它們。已實際點開原作者頁圖片連結：[Belfast Eric Jones](https://www.geograph.org.uk/photo/3896040)、[Manchester Gerald England](https://www.geograph.org.uk/photo/4184035)、[Leeds David Dixon](https://www.geograph.org.uk/photo/3485351)、[London Oxyman](https://www.geograph.org.uk/photo/569516)、[Thaxted Richard Croft](https://www.geograph.org.uk/photo/845293)，均為獨立攝影者公開原照，不是重取被403擋的原站資源；保留原官方文字考據，London採2007歷史照片、不採其已過時的總部現況敘述。Newcastle用原頁實際存在的Civic Centre 2外景連結；Holyrood只取原建築師頁已點開的五張其他實照。純照片collector增明列subject過濾及最多六張明列direct候選，沒有改任何遊戲測試或原判準。C3取得且作者實看前，仍不算十款照片已核齊。
+
+- C3 [fd20754](https://github.com/lijiabao1998/GlimmerTown-lab/commit/fd20754b5f8eb86c6045669503bf2b40ac7d763b) 的純參考run [39398627988](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39398627988) attempt1五工作全success；part4是明列不重取已完成subject的空manifest，不能說又抓兩款。parts0/1/2/3實有11張新原照、共3,638,651 bytes，原logs完整還原後逐檔核bytes／SHA256。原ZIP artifacts按part為12254305967、12254671128、12254790755、12254970863、12253526403。C2既有三款與C3補七款合計十個原型各有外景證據；作者實看總共16張參考原檔，並非16張建築遊戲原圖。
+- 參考範圍限制保留給獨立審稿者：Belfast照片只看清門廊／鼓座細節，四合院／中央穹頂／四角塔亭依市議會文字，未宣稱照片涵蓋全貌；Manchester照片是後側翼與次塔，主鐘塔／三角院落另依市議會建築說明，未把照片次塔當主鐘塔。Leeds完整正立面、Newcastle橢圓議事廳架柱及辦公翼、London完整歷史南岸卵形外觀、Thaxted完整現況均已實看。Holyrood五張補照只有DUCCIO-MALAGAMBA-29是庭院外景，其餘四張內景排除；本稿選取該外景可辨的委員會塔／弧形塔頂／斜折飾板／玻璃天窗，不聲稱已畫未由本外景核實的半圓議事廳。RCJ海報遮擋仍披露，鐘塔右置與雙面突出鐘、中央五扇窗依HE1264258文字核對。十款原型／40新鍵／唯一bld／原驗收門檻不變；這些限制待獨立圖審判定，作者不自行把來源不足算通過。
+- 本容器曾嘗試純唯讀直取十一個已確認公開原照URL，全部在連線代理返回完整可見`URLError(OSError('Tunnel connection failed: 403 Forbidden'))`，零圖片bytes；每個URL及原錯誤保存在scratchpad/wave037/references-supplement-local-read/manifest-local-read.json與reference-local-network-stop.json。該本地下載行動已停止，未改代理／TLS／沙箱／權限、未重試；HTTP代理body／headers未由urllib曝露，不能聲稱已取得。上述C3早已提交且排隊於本地拒絕之前，本次只讀其既有CI工作產物，沒有為繞過此拒絕另外觸發取照。
+- 已完成十款新私有世界幾何的**初稿實作**、40原生向的037 runtime／CSS及原生目錄、037私有驗收副本；不是只有卡片。Belfast院落穹頂、Manchester三角院落高塔、Leeds雙塔山花、Newcastle架柱橢圓廳與辦公板樓、London傾移玻璃樓板、Holyrood塔群及船形天窗、Thaxted雙懸挑四坡頂、Abingdon拱廊頂亭、Middlesex入口凸窗與雕帶、RCJ中央高廳玫瑰窗與右側鐘各有獨立新幾何，未複製舊款模型函式或只換色。
+- 來源／語法核對實際通過：95 inline blocks parse，037 source/CSS/runtime embedding逐byte對齊；只剝本波三段及唯一install尾端即等於獨立main e195002完整index。index 11,294,100 bytes／SHA256 7c4297e4f1cdc4b979e86c50b886b5fa5e62d39207ba22e4ea9baddf513950fc。三版本字仍v14.55／T762；未改root fp/style、主線日誌或方向。smoke.js只加本波selftest一列，既有斷言完整保留；共享守衛、035／036原檔及各原判準不變。未在本地跑遊戲、瀏覽器、fp或效能。
+- 下一筆實作提交將實際跑完整21工作（原13＋8個實際index原bytes來源傳輸），不再重取照片。來源helper從首個完整原生run就包括，供獨立審稿者核完整原檔／Git blob／遠端tree／native indexSHA，避免收尾才加而缺覆核。舊／新對照起始v明列480→444（Chelsea）、484→388（Glasgow）、488→220（Birmingham）、492→396（RogerStevens）、496→268（Willis）、500→368（Falmer）、504→104（Moreton）、508→344（LynnCustoms）、512→448（StCross）、516→388（Glasgow），均取真舊圖0／2向。原像素、原生86checks／首紅、正常完整模型、保存、整幀、場景、行人、效能與fp七軸此刻仍待本波CI，尚未通過、尚無建築遊戲原圖可交獨立審稿。
