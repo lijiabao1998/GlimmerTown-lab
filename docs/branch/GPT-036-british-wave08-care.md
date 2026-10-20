@@ -44,7 +44,7 @@
 
 ## §8 開工狀態／沒做成的事
 
-- [ ] 本卡尚未推成功，確認成功後才繪製；動手前驗收不改鬆。
+- [x] 本卡首提交21b91a4已在美術動手前推成功；動手前驗收不改鬆。
 - [ ] 第八波原生圖、交易、正常配對、保存、像素、場景、行人、效能、故障控制與fp均尚未執行，沒有本波通過結果。
 - [ ] 尚無第八波PR或獨立覆核；第一次artifact與精確head出現就提早交接，不等收尾才安排。
 - [x] 正式計數仍7／20、70座；第七波原圖、獨立覆核、主線／Pages／公站證據均保留。另87場景及實機／Safari／觸控未測的限制不轉寫成通過。
@@ -58,3 +58,7 @@
 - 首卡已在新美術前單獨推送[21b91a4](https://github.com/lijiabao1998/GlimmerTown-lab/commit/21b91a4ef8d74b5ce5f072a2ad2fb1a393e9139d)，root tree b8df6869a630c098bbe85c599750516a1fa12d50；相對main只新增本卡，唯一凍結家族仍bld。遠端分支從精確main50d0d52建立並以head lease快進，沒有重寫歷史。
 - 本地原簽章物件首次重建少了尾端gpgsig續行而SHA不符，assert在寫入前停止；之後switch因物件未入庫失敗，原檔未覆蓋。讀取已核父物件確認真實序列化後，唯一一次修正重建得到精確50d0d52，從該物件開乾淨分支。錯誤保留scratchpad/wave036/opening-local-import-error.txt。
 - 容器對十個考據頁的CONNECT均被proxy403阻擋，沒有取得原站回覆／照片，完整可得錯誤逐項存scratchpad/wave036/references；未改proxy／憑證／TLS或擴張權限。依既有唯讀分支CI讀已由網頁工具核對的公開一手照片，沒有本地遊戲測試；取得與人工看圖之前不繪製。HE／機構文字已初核，來源日期不混稱現況；Bath舊院址2019已遷出，畫歷史建築外觀，不宣稱仍在舊址提供醫療。
+
+- 考據CI來源head ac72f1437afab21984dca278ec5c947d9ac7486f／[run39377941318](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39377941318)：parts0／1／3／4成功，part2對Trinity的HE頁遇Cloudflare403，完整5,571 bytes HTML、headers、SHA256e70073413f94fddeef684f45c20b902d6cf31304b13be1467001bb5178a41645保存在原始附件；探針因Trinity照片0張如實紅，沒有改門檻或重跑舊run。其餘來源取得影像不是本波原生遊戲驗收；13張被選作建築參考的原照片已取回逐byte-count／SHA核實，排除會議室／標誌／箭頭等非外部幾何依據。
+- Trinity改用已核實的獨立原攝影[N Chadwick／Geograph8136282](https://www.geograph.org.uk/photo/8136282)，2024-07-22實拍、作者頁標CC BY-SA2.0；只看原照片作建築考據，不嵌入遊戲，不把照片頁附述當建築主史料，建築細節仍以HE1078961為準。沒有重試／解挑戰／偽造UA存取被擋HE照片。新提交只讓CI補part2兩款，其他已取資料保留；Mineral明選BPT實際正立面照片，圖示不列建築依據。
+- 人工看原照片發現首張Leeds為室內，不以它臆測外牆；同一未推修正加入part3，從Maggie's Yorkshire原頁的實際exterior1連結補外觀照片，Dundee同part的照片保留核對。Trinity原失敗附件12243833613／digest f0f49ed79d0b4a4a5751cf4a1f853391a5b05c1b8631785de6761f8e9b94f5a1、完整job118480205097 log均保留；來源head ac72標準smoke工作流39377941224已success。

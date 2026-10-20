@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        part: [0, 1, 2, 3, 4]
+        part: [2, 3]
     steps:
       - uses: actions/checkout@v4
       - name: Read bounded primary architectural photographs, no game execution

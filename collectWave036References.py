@@ -20,10 +20,10 @@ SOURCES = [
     ('chelsea', 'https://chelsea-pensioners.co.uk/venue-hire', []),
     ('stcross', 'https://hospitalofstcross.co.uk/', []),
     ('fords', 'https://www.coventry.gov.uk/directory-record/49568/ford-s-hospital', ['https://www.coventry.gov.uk/images/Ford_s_Hospital_1.jpg']),
-    ('trinity', 'https://historicengland.org.uk/listing/the-list/list-entry/1078961', []),
-    ('mineral', 'https://www.bath-preservation-trust.org.uk/advocacy-campaigns/planning/campaigning-sites/the-mineral-hospital/', []),
+    ('trinity', 'https://www.geograph.org.uk/photo/8136282', ['https://s0.geograph.org.uk/geophotos/08/13/62/8136282_27bf631f.jpg']),
+    ('mineral', 'https://www.bath-preservation-trust.org.uk/advocacy-campaigns/planning/campaigning-sites/the-mineral-hospital/', ['https://www.bath-preservation-trust.org.uk/wp-content/uploads/2022/07/Royal-Mineral-Water-Hospital-281x500.jpg']),
     ('dundee', 'https://www.maggies.org/about-us/buildings-and-architecture/dundee/', ['https://www.maggies.org/media/filer_public_thumbnails/filer_public/57/a5/57a52028-a8a2-4cf8-aa42-1d668a480a2f/gallery_dundee_exterior1.png__600x450_crop_progressive_subsampling-2_upscale.png']),
-    ('leeds', 'https://heatherwick.com/studio/news/completion-maggies-leeds/', ['https://heatherwick.com/wp-content/uploads/heatherwick-News-stories-16101_1958x2000_acf_cropped.jpg']),
+    ('leeds', 'https://www.maggies.org/about-us/buildings-and-architecture/yorkshire/', ['https://www.maggies.org/media/filer_public_thumbnails/filer_public/c7/51/c75113aa-a762-42ba-ac7f-190643d7220c/gallery_leeds_exterior1.png__600x450_q80_crop_progressive_subsampling-2_upscale.jpg']),
     ('manchester', 'https://www.maggies.org/about-us/buildings-and-architecture/manchester/', ['https://www.maggies.org/media/filer_public_thumbnails/filer_public/74/24/7424d6e1-8c8d-4ab3-8a56-cdf1f47d2cea/gallery_manchester_exterior1.png__600x450_crop_progressive_subsampling-2_upscale.png']),
     ('oxford', 'https://www.maggies.org/about-us/buildings-and-architecture/oxford/', ['https://www.maggies.org/media/filer_public_thumbnails/filer_public/57/ee/57ee1927-5edd-44c4-80ea-43e1b46b1484/gallery_oxford_exterior1.png__600x450_crop_progressive_subsampling-2_upscale.png']),
 ]
