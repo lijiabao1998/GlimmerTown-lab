@@ -1781,6 +1781,11 @@ table.dtab tr:hover td{background:#1b2334}
     // The truncated rear stage wall is not filled through the audience opening.
     const rear=ellipse(cx,cy,8.2,6.8,40).filter((_,j)=>j>=20);
     for(let j=0;j<rear.length-1;j++)S.wall(rear[j],rear[j+1],2.8,17.8,A.mat('plaster',rear[j][0]-cx,rear[j][1]-cy));
+    // The owner's reference photo shows a dark stage backing behind the four
+    // light columns. Give that physical inner surface its own recessed curve;
+    // the cream exterior remains outside it and wins the rear-view z buffer.
+    const backing=ellipse(cx,cy,8.02,6.62,40).filter((_,j)=>j>=20);
+    for(let j=0;j<backing.length-1;j++)S.wall(backing[j],backing[j+1],2.9,17.65,(x,y,z)=>K.mod(Math.atan2(y-cy,x-cx)*18,1)<.15?P.ironD:P.greenD);
     lathe(A,cx,cy,[[18.8,9.2],[19.4,9.7],[20.1,9.7],[20.4,8.7],[21.2,8.7],[23.2,1.1]],'zinc',40);
     for(const z of[19.4,20.7]){
       const r=z<20?9.73:8.73,pts=ellipse(cx,cy,r,r,40);
