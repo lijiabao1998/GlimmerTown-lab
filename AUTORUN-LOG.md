@@ -15,6 +15,14 @@
 
 ---
 
+## r209 — T762 第八波十座有考據英式醫療與照護建築（原GPT-036；發布準備）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r209 | [T762](docs/T762-british-wave08-care.md) | Finsbury、Chelsea、StCross、Fords、Trinity、Mineral、Dundee、Leeds、Manchester、Oxford，10款×4真幾何向／80日夜PNG，僅bld新增440..479共40葉；原生k24有費目錄／保存／模擬不變；v14.55，僅隨PR44合入且公站核實後才計8／20波80座 | 發布head252b2ce的39387488865原13項＋8來源工作首次21／21綠；push39387488820真smoke3／fp零差／財務53＋10綠，PR39387497977明確重用同次push；刪workflow後最後head標準CI與獨立差異覆核另待 | #44 | 新原圖12247834176／場景12248356341，93原圖逐byte等於獨立已看651adf1；實際index11237126 bytes、SHA256dcf504d8…984aed、Git blob493758b7與遠端tree／native manifest綁定，詳卡及release-source-binding | 尚未Ready／合併／發布；新來源helper與最後差異獨立覆核待回報。原獨立程式審查為來源／日誌而非獨立跑測；場景ZIP113張只看10、另103未審，實機手機／Safari／觸控未測；圖審未獨立重算大檔index，本次作者確已取回重算。main／Pages／公站另實核；bld total0.9651→0.9655，七軸詳卡，原fp/style metadata不改 |
+
+---
+
 ## r208 — T761 第七波十座有考據英式休閒與遊樂建築（原GPT-035；既有20波授權）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |

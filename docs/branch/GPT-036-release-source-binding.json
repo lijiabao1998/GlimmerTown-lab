@@ -1,0 +1,946 @@
+{
+  "schema": 1,
+  "evidenceHead": "252b2cedf7c556691a45d7a06fe591270febe0d7",
+  "evidenceTree": "73b627cadc44d906cb821dd6b6f1798022f9d0e1",
+  "evidenceRun": 39387488865,
+  "base": "50d0d52b2617460670f180dbaafa0a89bc806a5b",
+  "reviewedImageHead": "651adf1d901d0ccecadd005bada5ab30cc4e9cda",
+  "index": {
+    "head": "252b2cedf7c556691a45d7a06fe591270febe0d7",
+    "tree": "73b627cadc44d906cb821dd6b6f1798022f9d0e1",
+    "gitBlob": "493758b7165174db2592a2113a9f9baa9f0d5b1a",
+    "bytes": 11237126,
+    "sha256": "dcf504d8530751e1f77e0be4145b26c4ab2d3d3c43fb55865ce939900d984aed",
+    "committedObjectBytesEqual": true
+  },
+  "remoteTreeIndex": {
+    "path": "index.html",
+    "mode": "100644",
+    "type": "blob",
+    "sha": "493758b7165174db2592a2113a9f9baa9f0d5b1a",
+    "size": 11237126,
+    "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/git/blobs/493758b7165174db2592a2113a9f9baa9f0d5b1a"
+  },
+  "actualFullIndexRecovered": true,
+  "fullIndexSHA256AndCanonicalGitBlobRecomputedLocally": true,
+  "matchesIndependentlyReadRemoteTreeEntry": true,
+  "onlyThreeReleaseLabelChangesToReviewedIndex": true,
+  "reviewedIndexSHA256": "b0d0c4cc67a1cdde60a155e360e8ae3934fa76b22acb606a06e6fc776213b4de",
+  "sourceJobs": [
+    118511331627,
+    118511331612,
+    118511331571,
+    118511331588,
+    118511331613,
+    118511331589,
+    118511331726,
+    118511331746
+  ],
+  "nativeJob": 118510708352,
+  "sceneEvidenceJobs": [
+    118511567574,
+    118511567490,
+    118511567711,
+    118511567562,
+    118511567543
+  ],
+  "artifacts": [
+    {
+      "id": 12248356341,
+      "name": "wave036-scenes-252b2cedf7c556691a45d7a06fe591270febe0d7",
+      "size_in_bytes": 61483895,
+      "digest": "sha256:b8770fa6fceda0147e28184de08858ccfeddadf33445d4c14a6ed3bdca2170f8",
+      "workflow_run": {
+        "id": 39387488865,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave08-036",
+        "head_sha": "252b2cedf7c556691a45d7a06fe591270febe0d7"
+      }
+    },
+    {
+      "id": 12248077090,
+      "name": "wave036-normal-pairs-252b2cedf7c556691a45d7a06fe591270febe0d7",
+      "size_in_bytes": 75601,
+      "digest": "sha256:adca84eb9059b480b1f79d94075282b12cb9140b76e845dc8275fbb351374123",
+      "workflow_run": {
+        "id": 39387488865,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave08-036",
+        "head_sha": "252b2cedf7c556691a45d7a06fe591270febe0d7"
+      }
+    },
+    {
+      "id": 12247834176,
+      "name": "wave036-native-252b2cedf7c556691a45d7a06fe591270febe0d7",
+      "size_in_bytes": 1156799,
+      "digest": "sha256:d0e4b9736e51dfa829749ca1c7bf3d8bffb5b7829b6a572aed845a814f0f922f",
+      "workflow_run": {
+        "id": 39387488865,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave08-036",
+        "head_sha": "252b2cedf7c556691a45d7a06fe591270febe0d7"
+      }
+    },
+    {
+      "id": 12247804164,
+      "name": "wave036-pedestrians-252b2cedf7c556691a45d7a06fe591270febe0d7",
+      "size_in_bytes": 22044345,
+      "digest": "sha256:a8fec9d174dd2438efe22326a9ae78dff0fa0f236c293ae841363da2852e73ab",
+      "workflow_run": {
+        "id": 39387488865,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave08-036",
+        "head_sha": "252b2cedf7c556691a45d7a06fe591270febe0d7"
+      }
+    },
+    {
+      "id": 12247664755,
+      "name": "wave036-performance-252b2cedf7c556691a45d7a06fe591270febe0d7",
+      "size_in_bytes": 1208,
+      "digest": "sha256:a29f70022771cabc9e6262599d2585a2a455dd9f51077d4be71e7906a0093077",
+      "workflow_run": {
+        "id": 39387488865,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave08-036",
+        "head_sha": "252b2cedf7c556691a45d7a06fe591270febe0d7"
+      }
+    },
+    {
+      "id": 12247129297,
+      "name": "fp-252b2cedf7c556691a45d7a06fe591270febe0d7",
+      "size_in_bytes": 3754895,
+      "digest": "sha256:892fe366e3a8e546b98019d851ca6862481bc6c41a7914d605c7113a69b4024d",
+      "workflow_run": {
+        "id": 39387488865,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave08-036",
+        "head_sha": "252b2cedf7c556691a45d7a06fe591270febe0d7"
+      }
+    }
+  ],
+  "ci": {
+    "runs": [
+      {
+        "id": 39387488865,
+        "event": "push",
+        "head": "252b2cedf7c556691a45d7a06fe591270febe0d7",
+        "attempt": 1,
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39387488865"
+      },
+      {
+        "id": 39387488820,
+        "event": "push",
+        "head": "252b2cedf7c556691a45d7a06fe591270febe0d7",
+        "attempt": 1,
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39387488820"
+      },
+      {
+        "id": 39387497977,
+        "event": "pull_request",
+        "head": "252b2cedf7c556691a45d7a06fe591270febe0d7",
+        "attempt": 1,
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39387497977"
+      }
+    ],
+    "checks": {
+      "smokeRuns": 3,
+      "fiscal": {
+        "ok": true,
+        "checks": 53,
+        "negative": 10,
+        "failures": []
+      },
+      "fpSummary": [
+        "2026-10-20T07:36:34.8521093Z   相對 base（T760 14.53）：新增 40 / 變更 0 / 移除 0 葉，觸及家族 1",
+        "2026-10-20T07:36:34.8557734Z     觸及：bld",
+        "2026-10-20T07:36:34.8720335Z   與 fp.json（T761 14.54）相比：",
+        "2026-10-20T07:36:34.8721191Z     新增 0 / 變更 0 / 移除 0 / 觸及家族 0（其餘 166 族零變動）",
+        "2026-10-20T07:36:34.8723896Z     與基線一致",
+        "2026-10-20T07:36:34.8724754Z   風格分相對 base：沒有家族下降",
+        "2026-10-20T07:36:34.8784773Z   style.json 與這次算出的逐族相同（165 族）"
+      ],
+      "fpEnvWarningPresent": false,
+      "prSources": [
+        {
+          "job": "pr-smoke",
+          "sourceConfirmed": true
+        },
+        {
+          "job": "pr-fp",
+          "sourceConfirmed": true
+        },
+        {
+          "job": "pr-fiscal",
+          "sourceConfirmed": true
+        }
+      ]
+    },
+    "mode": "Push smoke/fp/fiscal executed afresh; pull_request uses T759 exact-head complete push 39387488820, not three additional smoke runs."
+  },
+  "images": [
+    {
+      "name": "24_1_440-day.png",
+      "bytes": 5944,
+      "sha256": "3c43063635f135faf045d6987af4cc4a8d4696e896ca475bbe2c76c537389204",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_440-night.png",
+      "bytes": 2149,
+      "sha256": "f71d1f6098bb66e2f04f54bc9d6c7d093ed14bcd9ba901b9cd64cd2d957fa013",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_441-day.png",
+      "bytes": 5520,
+      "sha256": "d213c602ebd52ebbd8716446a86e31c88d03aafa3dec8ed194ee1afaa855b87e",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_441-night.png",
+      "bytes": 2050,
+      "sha256": "9723fe32e5cec4d714d0c16b982390febb9340c4d46ea924dd34b168d5a7ef16",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_442-day.png",
+      "bytes": 5214,
+      "sha256": "4077c493d57cbaf6f5022c75910f99441b04ad8bc182e37d4d9682b514ae5267",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_442-night.png",
+      "bytes": 2060,
+      "sha256": "12b6da3936f4fa86cc0fb3ec336698e632b51167a637ab40be709c8574964028",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_443-day.png",
+      "bytes": 5684,
+      "sha256": "c593dbfc127738cbdcf3632f9d4aa5f182fd7948bb2b41c1448105853a0c6504",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_443-night.png",
+      "bytes": 2109,
+      "sha256": "35e2201bf72fba01760b485d2cb307cc33508ea0d81bb3562757b7c430e139fd",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_444-day.png",
+      "bytes": 8657,
+      "sha256": "74b8af262133a4c9dd45af486e91078c1ae862fb019d1c58593bfd0ba0bf3e16",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_444-night.png",
+      "bytes": 2096,
+      "sha256": "80706e4815b9c599509356efcf4fc7f6c15ffe75f44355f349f9061e7d51dc5b",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_445-day.png",
+      "bytes": 7429,
+      "sha256": "fcccd8268322bcd4214f5fa9a3e679868ed57033228e5c82cbd07f95355fb744",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_445-night.png",
+      "bytes": 2109,
+      "sha256": "d37758473888549be940006c688d04dd2a12432b337d0c50bebe1171ed88fa06",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_446-day.png",
+      "bytes": 7744,
+      "sha256": "fa757664875a4c92f618728fb6b8f3e4b7c1f6f70a2ce489542ce12d1f6c3582",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_446-night.png",
+      "bytes": 2072,
+      "sha256": "bed3b0f400e3239941c21c9c8687bca5750cec9da4397e7f2c7e190378dfee67",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_447-day.png",
+      "bytes": 7540,
+      "sha256": "a15e62764e70802222b6fdf7e2010087d4a8b76f8df7ece03120fe204edf8e26",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_447-night.png",
+      "bytes": 2139,
+      "sha256": "c7722d5407b5c1f7eae3a2a1e866c9d7cfd4cfa8af093a15c599acaecd305f68",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_448-day.png",
+      "bytes": 6038,
+      "sha256": "58f833274bb64287c5ef2600ee2d9e9425fcf9f813f4a9d8862ac19ee53aec49",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_448-night.png",
+      "bytes": 1776,
+      "sha256": "b65dc25cdc2dc7011d6476e407ac919d7ed4af5161529364388469d84749c768",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_449-day.png",
+      "bytes": 5395,
+      "sha256": "3bc4817d53e3fafb5feb08abd88340069a82dce1ce0319afd3be9ecb024f6099",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_449-night.png",
+      "bytes": 1673,
+      "sha256": "d2fafaf76b9b7a01e6f1602a0fb3a7fbe208cd46cbe1fb6e35b1a689ab4136cf",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_450-day.png",
+      "bytes": 5313,
+      "sha256": "05ab1c108ec99380cef3f0f3d2946133adaafbad3b815b3c90298e30b41b378d",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_450-night.png",
+      "bytes": 1729,
+      "sha256": "065f16b3ece91912d14735475426dfbec472484f6711c35dc7cce404b63308cc",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_451-day.png",
+      "bytes": 5575,
+      "sha256": "1f77d34ea5eabdb09f13889a7d2314a1e7f0e01b9e87bf08a5120e99300eb72b",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_451-night.png",
+      "bytes": 1874,
+      "sha256": "e03927c0c6db7e6cb3e8fd89b61bcf7abadccf91dfa8c7ca4c1a2e4a2e9c9f07",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_452-day.png",
+      "bytes": 6282,
+      "sha256": "c0a11cd9124ff9b2e49bdc9bab4e3419a85b2fe7010b2eb510fb0a8e8850397e",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_452-night.png",
+      "bytes": 1742,
+      "sha256": "e3523db8cfd76b6d495747b8a72615996b66f8fb79037e8db5e709184a7314fa",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_453-day.png",
+      "bytes": 6101,
+      "sha256": "67645fc7d814d25868f349ff375eed6b5eda8d966aa779e93d427a6da27b0dbe",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_453-night.png",
+      "bytes": 1757,
+      "sha256": "2fa1c30e76c93affa4c3207f5015a8064452f2d2c3aa42c4e96d656eef2fd4ba",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_454-day.png",
+      "bytes": 5837,
+      "sha256": "93b97cf1dae3417f8dfb0cf80ab2ce12a9c397a2888a416424fbee26cc8e0b0e",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_454-night.png",
+      "bytes": 1712,
+      "sha256": "28ebfc00afdd33e2079ca490e1f0eaecf1098d7cd94721ed54c3eefb969a5718",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_455-day.png",
+      "bytes": 5987,
+      "sha256": "0ba256da92957f396552e1df225f6c2fb866c463a7040a0a8d9a4ad3224522f0",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_455-night.png",
+      "bytes": 1708,
+      "sha256": "3b345f407f5d48bc1e9bf8b0acb9e152f6f774c904f51dcc0a98637e546767cf",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_456-day.png",
+      "bytes": 6243,
+      "sha256": "e8ca76fc9ef520e45e7e488300661210b55a178802d30255074438746d921013",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_456-night.png",
+      "bytes": 1903,
+      "sha256": "fb828a04a793f41e7341f707ca82ea84e21819d92691a30f44722423b2e1eabd",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_457-day.png",
+      "bytes": 6013,
+      "sha256": "dea91ceeea22ff69a6865323950e69843be1027f2e3333818adc01e5853a2ea2",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_457-night.png",
+      "bytes": 1902,
+      "sha256": "db7f229d89e660c829170083eb7bd8e5e33532d572c5b4864ad4cea8f691c200",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_458-day.png",
+      "bytes": 6074,
+      "sha256": "b5e70cf307444a3a0c1bf0e75e26cd731dd5efefeed9a79c07bfc0662b1ee4dc",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_458-night.png",
+      "bytes": 1888,
+      "sha256": "b0fc878d6fba821204295b7771aa7c2ef0f58b4711b7571b1ff415cd96b3fdab",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_459-day.png",
+      "bytes": 5981,
+      "sha256": "c2aee9c03a6c9c4d8c1151e5f7d81588147b13b3dd662908e1ddfb82521ebe37",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_459-night.png",
+      "bytes": 1908,
+      "sha256": "8f0f5672e3096f944488f7a14b391adf696e726cb950b26f0b791ba0e48e553a",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_460-day.png",
+      "bytes": 5864,
+      "sha256": "02932be5eb892dee6c2728a4b23a626d61c427ada7307b9801c78e4cb761cb58",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_460-night.png",
+      "bytes": 1971,
+      "sha256": "86697af21aeb33c67a0d9fbf5a78e604533a804003e482173da3bea1e9a34671",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_461-day.png",
+      "bytes": 5288,
+      "sha256": "2da0f9eec8d308df74607e07799044282e7f8a48bbe8c05131b7b8c45a8aa774",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_461-night.png",
+      "bytes": 2024,
+      "sha256": "f7674ddf046ec5bd3e43dbb0b5680d995302ac0c8376c27258553966902fe786",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_462-day.png",
+      "bytes": 5413,
+      "sha256": "e2b273c98c155afb2a3f2831d20ccd4af42aefec9e9ad1feb697a204b6e0a4bc",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_462-night.png",
+      "bytes": 2054,
+      "sha256": "142e8e163d8c89c8672aa3241a7b8f709635f22c00fd6f54c9769b975673da9a",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_463-day.png",
+      "bytes": 5375,
+      "sha256": "44f1702c51ab60a6c6e1b5fb2b8d1e3d43debb86eb47b77510db336f62886bb5",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_463-night.png",
+      "bytes": 1960,
+      "sha256": "56fc76bdb620024c73b4b4510c48629d0613124b58072a09b5f1f3c214ef19c5",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_464-day.png",
+      "bytes": 5279,
+      "sha256": "9ea0c6698a5594747db1be6a23aa477f99ceebf7396a154c2ae04d4fdfd2dd7d",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_464-night.png",
+      "bytes": 1815,
+      "sha256": "b0f09af9feaddff1de9b211db36be367a54f93506cfdaa1a6dc0c1aee7db5d89",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_465-day.png",
+      "bytes": 4644,
+      "sha256": "4591457727a6174ef6a772fb74de672b7c6eaf8f7320e7d48c2496ddf38184bc",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_465-night.png",
+      "bytes": 1858,
+      "sha256": "af2d5190d291125d2d8590b88d230016910f2e6658ae62f9969b419fe7105df0",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_466-day.png",
+      "bytes": 4359,
+      "sha256": "894df380008b074137cc341081b2e34aac1cafb1f1767f3724275049cb161af5",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_466-night.png",
+      "bytes": 1827,
+      "sha256": "616f17efddf47d8b5fae44a7ae33671620166748c8fe7b7509fa1cf2bc4e26e6",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_467-day.png",
+      "bytes": 4958,
+      "sha256": "d0737f75cdb7a4ef8453b8cc4d70e01a3f7c2489dbce0fe4ec92fbbdfa647f81",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_467-night.png",
+      "bytes": 1792,
+      "sha256": "3061b7661f17627fcd6303af216accb825f87f7e77c9960163e8b32ab8d3f168",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_468-day.png",
+      "bytes": 6523,
+      "sha256": "c474832349d204ddfa41be069193bbb917c1bfb6e4e37c3f6fe09901d722f6d2",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_468-night.png",
+      "bytes": 1716,
+      "sha256": "c63a04ddff36b33c1a4b0535d53bd69b50bfb3ac7267b23e6fd6da9e3348636b",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_469-day.png",
+      "bytes": 6001,
+      "sha256": "65e16bbd9c646e241e6a09ce19908b258a81ebc0b6dc39c0b072ed13bec33103",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_469-night.png",
+      "bytes": 1704,
+      "sha256": "01d2c3ecdc8a3041908f64694fbd9351b09c2bd0e1c33eb287c0d52d59f2ef45",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_470-day.png",
+      "bytes": 5245,
+      "sha256": "2ce23eb718c182948da3f28d9a2eb5b570f4f66b368c5c9355d8cb07cc94c97e",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_470-night.png",
+      "bytes": 1632,
+      "sha256": "5c363abc710b0c8888b42e8a86df52aef71706e775add8ff8d73ad4424eaee8f",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_471-day.png",
+      "bytes": 6015,
+      "sha256": "2464d716cb9de5a275803252a253090ad39e17166360e3ac2d18cc31300a779d",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_471-night.png",
+      "bytes": 1715,
+      "sha256": "fc5f20659ea074875677800f8801250f7fefa4cbb96760d5566d3f09a55d2668",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_472-day.png",
+      "bytes": 5215,
+      "sha256": "a73fe8407d3d95aa94f1f516bfae2cb997310658221cd8c9a839360ed947d78e",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_472-night.png",
+      "bytes": 2106,
+      "sha256": "99e4766f01b2370ae0d6a601386826f37f5bcb8a1470a637f02f59a134830cb2",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_473-day.png",
+      "bytes": 4950,
+      "sha256": "643c44fcac726186b53fca72689e0ca780d585dac5974d2149e979a8c94e0362",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_473-night.png",
+      "bytes": 2097,
+      "sha256": "a54ccafbcf7200ee2d14e615fd1a073b138fa3d6412b793a3642ee67205bcfb8",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_474-day.png",
+      "bytes": 4746,
+      "sha256": "9388e73f8aa5126763a530cad9f1d66f5dec8301e6b304918364028891e2d46c",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_474-night.png",
+      "bytes": 2086,
+      "sha256": "99245f349ca47852084c01c8dfaa25caec3f5ef7c7b647c808a74847a9934176",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_475-day.png",
+      "bytes": 5083,
+      "sha256": "ce83e293ef66c5741f8f6bd3e28484e7dbfab5f4ad95b4b806c2e53806a67021",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_475-night.png",
+      "bytes": 2079,
+      "sha256": "2d303eb8cdddffab30cebeeeb81094dfa6c2af44bc88a04a3038c8066fa4d2f1",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_476-day.png",
+      "bytes": 5280,
+      "sha256": "12514ac150705d33bbabd18918c81066ef01c3df1cbd7c3b4ce021440dc1d90d",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_476-night.png",
+      "bytes": 1993,
+      "sha256": "1046480ad19c293f7358797f32d8d9c9af302e47e7b4a1f9c97674ee8447fdc9",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_477-day.png",
+      "bytes": 4556,
+      "sha256": "6c52b97bea7788d3e711b6c9980bace0d4ad6059e9ddb74f49b4d7b5aec72296",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_477-night.png",
+      "bytes": 1937,
+      "sha256": "749773c3691affaebfac028cba7d1623f1718028286a8deeb4988e830539005c",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_478-day.png",
+      "bytes": 4032,
+      "sha256": "c52fc73d5d420c8051c13ed43a9d95f296126f3953586b5c780f3128f74f7189",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_478-night.png",
+      "bytes": 1467,
+      "sha256": "690a285855e3cbc1bbb014a2007ce1148fe9572acf5dcc44fa543d58ac86d04f",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_479-day.png",
+      "bytes": 4748,
+      "sha256": "1b43aa4a12782926a3647da4be5b23cdf0f3e15c3ac9dfef8a1e2cf4450d4ad5",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "24_1_479-night.png",
+      "bytes": 1924,
+      "sha256": "24c240686f4ddfa3a03306054312226cc2cfc31be4393e029d332640a215a3e5",
+      "width": 160,
+      "height": 196,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "contact-comparison.png",
+      "bytes": 390057,
+      "sha256": "717679d55c01ba8ad8665274127ac839460bfd52c5c784b650f756b51d1b07cd",
+      "width": 1536,
+      "height": 3600,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "contact-day.png",
+      "bytes": 284227,
+      "sha256": "646fcadec8e022967d2989b613bf722de03f4332277c2feb4180f884e53d566b",
+      "width": 1040,
+      "height": 2400,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "contact-night.png",
+      "bytes": 287231,
+      "sha256": "2ea7e9e1106251e4c61ce41cff20436ac676c104ae4b16dc5d8b74012811646f",
+      "width": 1040,
+      "height": 2400,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-chelsea.png",
+      "bytes": 489622,
+      "sha256": "adfad166f9778b4f4629b859e569f024814440f3da08adfb9358123b32df0583",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-dundee.png",
+      "bytes": 417698,
+      "sha256": "65d79a0ff4fa03daa5321070037127d5de8399694f789d8df674719cd551c97a",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-finsbury.png",
+      "bytes": 521256,
+      "sha256": "2383053a4884b9a1f85e223c359a378470cb7e79bea16ce7cf0ef2f49bb5e380",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-fords.png",
+      "bytes": 415367,
+      "sha256": "0f6f6234b90835f293fc10669f6d4f0778c99de589cde87ada491697ea2ac7ce",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-leeds.png",
+      "bytes": 405290,
+      "sha256": "f6db47118bcb464a35eb769f37d1aa948b0777a7e097ed1380b3f40d587e1591",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-manchester.png",
+      "bytes": 392697,
+      "sha256": "edcd1478df0c02de2661eddd1b054d94114d04d09691ebd202058a8cee6c98f3",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-mineral.png",
+      "bytes": 426159,
+      "sha256": "862a3b9acd4a2c2f503d7584e54c469077ded602fb7b1ada7f3cb69d28756e48",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-oxford.png",
+      "bytes": 427464,
+      "sha256": "155e9b02876309f19534ebfd82ae1a1d4a405a47db2cbf46272752329a5dfcab",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-stcross.png",
+      "bytes": 451755,
+      "sha256": "6fb2fbf7101c98370d1ab236a153bb02754c8b667f1c2b1d486def7572759d84",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    },
+    {
+      "name": "scenes/near-trinity.png",
+      "bytes": 422105,
+      "sha256": "17c420f42f8e80304b7282984ac4261ace9963652706704db5730466d51d56f2",
+      "width": 1280,
+      "height": 657,
+      "byteIdenticalToReviewed651adf1": true
+    }
+  ],
+  "limits": {
+    "sceneZIPImages": 113,
+    "viewedScenes": 10,
+    "unreviewedScenes": 103,
+    "physicalMobileSafariTouch": false,
+    "independentNewHeadDifferenceReview": "pending"
+  },
+  "status": "Evidence recovered and source-bound. Independent release/final-head difference review pending. Not merged or published."
+}
