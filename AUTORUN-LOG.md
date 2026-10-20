@@ -15,6 +15,14 @@
 
 ---
 
+## r210 — T763 第九波十座有考據英式市政與司法建築（原GPT-037；發布準備）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r210 | [T763](docs/T763-british-wave09-civic-justice.md) | Belfast、Manchester、Leeds Civic、Newcastle、歷史London City Hall、Holyrood委員會塔群、Thaxted、Abingdon、Middlesex、RCJ，10款×4真幾何向／80日夜PNG，僅bld新增480..519四十葉；原生地標價格容量／保存模擬不變；準備v14.56，僅PR45合入且真公站核實後才計9／20波90座，此前仍8／20 | 發布0420b21完整39414702723首次21／21；push39414702730真smoke3／fp零差／財務53＋10，PR39414707924逐job確認重用同次push；刪workflow後最後head標準CI與最終差異覆核另以PR45回執為準 | #45 | 93原圖已由作者及獨立圖審實看C8；發布新原生12260667046／場景12261295612逐byte相同，八段完整index11296190 bytes／SHA2b959e01…7cef60／Git blob69a3851f與producer／native／remote tree實核，詳T763／release-source-binding | 尚未Ready／合併／第九波部署；發布0420b21完整CI與93原bytes／完整index已核；純刪037workflow、刪後最後標準CI及最終差異獨立覆核另待，main／自動Pages與公站另核。London夜玻璃偏亮、Middlesex雕塑與Thaxted木構細節偏弱、Holyrood僅委員會塔群及參考照片限制保留；另103場景與實機手機／Safari／觸控未人工驗證。bld total0.9655→0.9658，七軸無下降，raw基線metadata不改 |
+
+---
+
 ## r209 — T762 第八波十座有考據英式醫療與照護建築（原GPT-036；發布準備）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
