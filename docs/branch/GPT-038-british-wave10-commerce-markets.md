@@ -118,3 +118,10 @@ C9 `30ee6a320cdc5f2fa6684d7826f5f12ad68a8754` 的來源隔離檢查及九款靜�
 5. 實際移除首款本波 night 作負控制，同一可見性斷言第一紅必須落在 powered-window visibility；還原 canonical sprite 後畫布必須逐byte恢復。全程檢查無 console error、slot3／其他 slot 不變；正式生成頁仍只剝三塊與唯一 fixture tail 可回到獨立 BASE。全部 actual PNG、原 HTML、來源 SHA／Git blob、保存原檔及 manifest 由 artifact 保存；小量明列原圖與完整 manifest 另經日誌傳回，避免上一輪過大日誌中斷。未實看圖明說，Ubuntu Chrome不推論手機／Safari／觸控。
 
 此卡只補九款局部夜景供電證據；Silver 仍無足夠後側照片且暫停繪製，完整十款與合併／發布維持禁止。
+
+
+## C12 — 原生通電夜景補證實作
+
+依已先推的 C11 計畫（f89665c6c70bc08db14a540fbe44d8f4587bf829）新增 partialNinePower038.cjs／probeNightPower038.cjs 和本分支第三個只讀 night-power-nine job。測試以真付費填土／道路／九地標／核電源建設；獨立 BFS 留道路見證，原生 step 結算供電與夜間 dispatch，實際拆橋／拆電源／原生undo復原。沒有夜間供電 hook、直接 pw／容量／供電率賦值。BASE／HEAD 同操作、完整保存／stats／供電 snapshot 比較，僅九款 b.v 差；新鍵夜圖真故障的首紅與精確復原、九款四向 actual canvas 投影窗光守衛保留 C11 的3像素／6 RGB總差門檻。
+
+來源檢查只把兩個新測試檔加入既有 BASE API 名稱核對；未修改原守衛斷言。全部已審美術／runtime／CSS／正式index／完整十款守衛來源與雜湊不動。語法與純文字 source strip 檢查通過；本地未跑遊戲，夜景驗證仍待本提交真 CI，不能先寫成功。完整原圖與保存放 artifact，明列小量原PNG和 manifest 從日誌送回；原 C9 首紅與 C10 產物／新獨立覆核分開保留，不覆蓋。

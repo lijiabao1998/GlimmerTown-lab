@@ -28,7 +28,7 @@ for(const file of['fp.js','fp.json','style.json','harness.js','gallery.js','brit
 const guardPreparation=JSON.parse(fs.readFileSync('docs/branch/GPT-038-full-guard-preparation.json','utf8'));
 for(const entry of guardPreparation.fullGuardPreparedSources)assert.equal(hash(fs.readFileSync(entry.file)),entry.expectedSHA256,'source038 exact prepared full ten-model guard '+entry.file);
 const nativeReferences=new Set();
-for(const file of [...guardPreparation.fullGuardPreparedSources.map(x=>x.file),'partialNinePairs038.cjs','partialNineChecks038.cjs','probePartialNative038.cjs']){
+for(const file of [...guardPreparation.fullGuardPreparedSources.map(x=>x.file),'partialNinePairs038.cjs','partialNineChecks038.cjs','probePartialNative038.cjs','partialNinePower038.cjs','probeNightPower038.cjs']){
   const text=fs.readFileSync(file,'utf8');assert(!text.includes('sandbox556b'),'source038 original native sandbox save key '+file);
   for(const [,name]of text.matchAll(/GV\.([A-Za-z_$][A-Za-z0-9_$]*)/g))if(name!=='britishWave038'){
     assert(original.includes(Buffer.from(name)),'source038 reference exists in independent native source '+file+': '+name);nativeReferences.add(name);
