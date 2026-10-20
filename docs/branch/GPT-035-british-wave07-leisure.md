@@ -88,6 +88,20 @@
 
 - 新push d347d9d298710f297315c8ca7a41e692d9c2283c 含精確main d5a357e，root tree10045a8be6967ff90a7479afcecdff1814c67625，index／runtime／全部美術與已圖審c9d35d8逐位相同。追加的manifest只加強來源核對，沒有改fp命令或退出碼。
 - [run39369262640／job118453169415](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39369262640/job/118453169415)已成功上傳實際附件[fp-d347d9d／12241170620](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39369262640/artifacts/12241170620)，69,837 bytes，ZIP digest29af8bac59c444ccb48aa535aa710c34a41b02b572c7c3a5dfe763a59c3dacf8。仍因root舊基線而fp預期紅，沒有冒稱本run整體全綠。
-- 附件包含原始fp.json、style.json與provenance-wave035.json。取回方法是同一producer的逐位元console傳輸；依實際附件內的manifest核對head、tree、byte-count、SHA256，再把原始bytes寫入root，沒有重新serialize或改metadata。fp.json399623 bytes／SHA256e75d77e53ee586457ac43836223d2af54b70f6bc30b963411cb92651f5d129fe；style.json73166 bytes／SHA25614cc8bd36f84a8d933b5470a3afdee1aad6fc20c756ba8c78643e33ba9dcdd6d。並非使用前head失敗附件、不是把Library下載連結當本地文件。
+- 附件包含原始fp.json、style.json與provenance-wave035.json。取回方法是同一producer的逐位元console傳輸；核對同一producer寫入待上傳附件的manifest及console所載head、tree、byte-count、SHA256，並核實隨後成功上傳該fp-rebake目錄的回執，再把原始bytes寫入root，沒有重新serialize或改metadata。ZIP未在本容器直接下載／解開，沒有宣稱做了本地ZIP內容檢查。fp.json399623 bytes／SHA256e75d77e53ee586457ac43836223d2af54b70f6bc30b963411cb92651f5d129fe；style.json73166 bytes／SHA25614cc8bd36f84a8d933b5470a3afdee1aad6fc20c756ba8c78643e33ba9dcdd6d。並非使用前head失敗附件、不是把Library下載連結當本地文件。
 - 原始subs集合差精確為bld.24_1_400..439、40葉，舊3623 entries逐值相等、其餘165家族與style逐族相等、blocks全相等、env相等。七軸與上表相同，bld CRC6fe6e361；來源原文留scratchpad/wave035/adopt-baselines。
 - 下一head僅原始基線及本紀錄變動；完整原生／煙霧三次／fp／原財務53+10仍待新的實際回執。未開PR、未配T／版本／日誌、未移除臨時workflow、獨立覆核未完成；仍6/20已發布。
+
+### 4887720 完整驗收與開PR前§8自檢（2026-10-20 04:33 UTC）
+
+- [完整原生run39369554933](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39369554933)為13/13 success、attempt1，來源head488772045b002ebef0bc58f0052b4a4c045b5c3d／tree5af7b0e4bfd289705a4bfe8aabaddaf9428c3e6a。原生job118454095464十二真負控制全部首紅/恢復通過；重新產生的80PNG+三接觸表83個SHA全等於已實看c9d35d8原件。
+- [常規push39369554944](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39369554944)全部必要job success、attempt1。smoke118454316239真實三次，各0 console error（04:29:05、04:30:43、04:32:22 UTC結果）；fp118454316061與本分支基線新增0/變更0/移除0，與base僅bld新增40，無env警告，七軸下降仍照上表披露；fiscal118454316294真回執ok:true、checks53、negative10、failures[]。T759 push模式未重用PR證據。
+- [x] 首卡美術前單獨推送，驗收與第一commit唯一家族bld未改鬆。
+- [x] 正常三種子九checkpoint全欄與stats、十款新舊檔二輪皆有CI實證；只放行實際b.v與明列的三版本宣告，不用閥、不刪欄。
+- [x] fp只動宣告bld40新葉，其他165族／既有3623葉／blocks/env零變；8/8完整1280×657閥關與獨立BASE逐位相同，1px及$1故障首紅/恢復通過。
+- [ ] 原全97場景逐張人工實看未跑（AGENTS第3節允許的狀態例外，保持限制）。CI已實跑57+40全部原生狀態，作者實看80單圖／3接觸表／10近景／舊款比較；其餘87未逐張人工、實體手機／Safari／觸控未測。獨立圖審尚未完成，作者不是獨立審稿者。
+- [x] 新守衛皆有真故障目標首紅與恢復，原生十二項、場景完整欄位/完整畫布、行人遮擋、效能實延遲及暖畫均保留，不以字串比對代替行為驗證。
+- [x] 當下來源head煙霧三次、fp、財務53/10全綠，CI連結與真次數如上；沒有rerun舊紅run。
+- [x] 沒有把未跑、來源樣張、本地、commit、Ready、merge、Pages或public混稱通過／發布。
+
+本筆只補文件自檢與傳輸方法敘述精確度，產品／探針／fp/style與4887720逐位不變；開Draft PR後CI依實際head/tree驗證，最新發布head仍須重新完整全綠。待T/版本/日誌/方向、獨立程式安全與視覺、臨時workflow最後綠與獨立只刪、最終CI後才可Ready及合併。
