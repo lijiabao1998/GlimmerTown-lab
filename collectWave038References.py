@@ -33,10 +33,11 @@ SOURCES = [
     ],
     [
         "halifax",
-        "https://commons.wikimedia.org/wiki/File:Borough_Market,_Halifax_-_geograph.org.uk_-_2836415.jpg",
+        "https://www.geograph.org.uk/photo/3778916",
         [
-            "https://upload.wikimedia.org/wikipedia/commons/6/6b/Borough_Market%2C_Halifax_-_geograph.org.uk_-_2836415.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org",
-            "https://upload.wikimedia.org/wikipedia/commons/b/b0/Halifax_Borough_Market_roof_%282265020733%29.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org"
+            "https://s0.geograph.org.uk/geophotos/03/77/89/3778916_0f287673.jpg",
+            "https://www.calderdalenextchapter.co.uk/sites/default/files/2025-08/54721596117_de8a2c300c_c.jpg",
+            "https://www.calderdalenextchapter.co.uk/sites/default/files/2025-08/54722643424_de25d7b753_o%20resized.jpg"
         ]
     ],
     [
@@ -58,17 +59,18 @@ SOURCES = [
     ],
     [
         "silver",
-        "https://leicestershirepress.com/2025/03/10/leicesters-silver-arcade-welcomes-new-stores-it-feels-like-a-revival/?amp=1",
+        "https://www.maber.co.uk/projects/silver-arcade/",
         [
-            "https://i0.wp.com/leicestershirepress.com/wp-content/uploads/2025/03/Silver-Arcade-2.jpg?resize=1024%2C768&ssl=1",
-            "https://www.maber.co.uk/app/uploads/2019/09/2895_N8_medium.jpg"
+            "https://www.maber.co.uk/app/uploads/2019/09/2895_N4_medium.jpg",
+            "https://www.maber.co.uk/app/uploads/2019/02/silver-arcade-final-1-of-5-1.jpg",
+            "https://www.maber.co.uk/app/uploads/2019/02/0000-silver-arcade-office-final-11-of-7.jpg"
         ]
     ],
     [
         "harrods",
-        "https://www.geograph.org.uk/photo/3262298",
+        "https://www.makearchitects.com/media/news-events/make-rolls-out-first-stage-of-work-on-harrods-historic-facades-as-retractable-awnings-installed/",
         [
-            "https://s0.geograph.org.uk/geophotos/03/26/22/3262298_b87129ea.jpg"
+            "https://www.makearchitects.com/wp-content/uploads/2021/12/Full-facade-Brompton-Road-with-new-awnings-scaled.jpg"
         ]
     ],
     [
@@ -96,7 +98,7 @@ SOURCES = [
 PART = int(os.environ['WAVE038_REFERENCE_PART'])
 if PART not in range(5):
     raise ValueError('Exactly five bounded reference parts')
-REQUESTED = set(filter(None, os.environ.get('WAVE038_REFERENCE_IDS', 'leedsCorn,darlington,halifax,bishoplloyd,burlington,silver,harrods,liberty,danum').split(',')))
+REQUESTED = set(filter(None, os.environ.get('WAVE038_REFERENCE_IDS', 'halifax,silver,harrods').split(',')))
 if REQUESTED - {s[0] for s in SOURCES}:
     raise ValueError('Unknown reference subject')
 
