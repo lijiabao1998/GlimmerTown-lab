@@ -14,18 +14,7 @@ if os.environ.get('GITHUB_ACTIONS') != 'true':
 
 OUT = Path('shots/wave035/references')
 OUT.mkdir(parents=True, exist_ok=True)
-SOURCES = [
-    ('landmarktheatre', 'https://www.timronalds.co.uk/landmark-ilfracombe'),
-    ('dreamland', 'https://historicengland.org.uk/listing/the-list/list-entry/1260315'),
-    ('eastbourne', 'https://historicengland.org.uk/listing/the-list/list-entry/1385904'),
-    ('alexandra', 'https://historicengland.org.uk/listing/the-list/list-entry/1268256'),
-    ('jubilee', 'https://historicengland.org.uk/listing/the-list/list-entry/1221190'),
-    ('dudley', 'https://historicengland.org.uk/listing/the-list/list-entry/1216535'),
-    ('penguin', 'https://historicengland.org.uk/listing/the-list/list-entry/1225665'),
-    ('globe', 'https://www.shakespearesglobe.com/discover/shakespeares-world/the-third-globe/'),
-    ('royalshakespeare', 'https://historicengland.org.uk/listing/the-list/list-entry/1207396'),
-    ('wintergardens', 'https://historicengland.org.uk/listing/the-list/list-entry/1072007'),
-]
+SOURCES = [('dreamland', 'https://www.thanet.gov.uk/dreamland-freehold-sale-completes-today/'), ('eastbourne', 'https://www.eastbournebandstand.co.uk/'), ('alexandra', 'https://www.alexandrapalace.com/blog/1875-the-second-palace/'), ('jubilee', 'https://jubileepool.co.uk/about-jubilee-pool/history/'), ('dudley', 'https://tectons.dudleyzoo.org.uk/repairs/shop-entrance-building/'), ('penguin', 'https://www.londonzoo.org/zoo-stories/history-of-london-zoo/lubetkin-penguin-pool'), ('royalshakespeare', 'https://www.bennettsassociates.com/projects/royal-shakespeare-theatre/'), ('wintergardens', 'https://www.wintergardensblackpool.co.uk/wg-heritage/our-story/')]
 
 
 class Images(HTMLParser):
@@ -69,7 +58,7 @@ for name, page in SOURCES:
             if urlparse(u).scheme == 'https':
                 unique.setdefault(u, item)
         record['candidates'] = list(unique.values())
-        for j, item in enumerate(record['candidates'][:3]):
+        for j, item in enumerate(record['candidates'][:5]):
             try:
                 image, mime, final_url = read(item['url'], 8 * 1024 * 1024)
                 if mime not in ('image/jpeg', 'image/png', 'image/webp'):
