@@ -21,6 +21,7 @@ jobs:
       - name: Read bounded original reference photographs before drawing
         env:
           WAVE037_REFERENCE_PART: ${{ matrix.part }}
+          WAVE037_REFERENCE_IDS: belfast,manchester,leeds,newcastle,london,holyrood,thaxted
         run: python collectWave037References.py
       - name: Preserve real reference bytes and any complete error responses
         if: always()

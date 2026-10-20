@@ -18,40 +18,46 @@ OUT.mkdir(parents=True, exist_ok=True)
 SOURCES = [
     [
         "belfast",
-        "https://www.belfastcity.gov.uk/things-to-do/city-hall/history-of-belfast-city-hall",
-        []
+        "https://www.geograph.org.uk/photo/3896040",
+        ["https://s0.geograph.org.uk/geophotos/03/89/60/3896040_74db3b15.jpg"]
     ],
     [
         "manchester",
-        "https://www.manchester.gov.uk/the-council-and-democracy/town-hall-complex/our-town-hall/our-town-hall-project-the-transformation/our-town-hall-project-on-display",
-        []
+        "https://www.geograph.org.uk/photo/4184035",
+        ["https://s0.geograph.org.uk/geophotos/04/18/40/4184035_9ac6cd1e.jpg"]
     ],
     [
         "leeds",
-        "https://historicengland.org.uk/listing/the-list/list-entry/1255781",
+        "https://www.geograph.org.uk/photo/3485351",
         [
-            "https://historicengland.org.uk/etl/1255781/eef62c23-a5e7-4123-a40a-28de58e0c610.JPG?autorotate=true&format=webp&height=500&quality=80&rmode=max&upscale=false"
+            "https://s0.geograph.org.uk/geophotos/03/48/53/3485351_f356df0f.jpg"
         ]
     ],
     [
         "newcastle",
         "https://www.theciviccentre.co.uk/about",
-        []
+        ["https://www.theciviccentre.co.uk/sites/default/files/styles/large_3_2_768x512/public/images/Civic%20Centre%202.jpg?itok=-UVvu2hW"]
     ],
     [
         "london",
-        "https://www.fosterandpartners.com/projects/city-hall",
-        []
+        "https://www.geograph.org.uk/photo/569516",
+        ["https://s0.geograph.org.uk/photos/56/95/569516_dad1c0a3.jpg"]
     ],
     [
         "holyrood",
         "https://www.mirallestagliabue.com/project/scottish-parliament-building/",
-        []
+        [
+            "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-26.jpg",
+            "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-29.jpg",
+            "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-28.jpg",
+            "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/DUCCIO-MALAGAMBA-25.jpg",
+            "https://www.mirallestagliabue.com/wp-content/uploads/2004/06/SCOTTISH-PARLIAMENT-22.jpg"
+        ]
     ],
     [
         "thaxted",
-        "https://thaxted-pc.gov.uk/tourism/short-history-of-thaxted/",
-        []
+        "https://www.geograph.org.uk/photo/845293",
+        ["https://s0.geograph.org.uk/photos/84/52/845293_b3ac16fa.jpg"]
     ],
     [
         "abingdon",
@@ -74,6 +80,9 @@ SOURCES = [
 PART = int(os.environ['WAVE037_REFERENCE_PART'])
 if PART not in range(5):
     raise ValueError('Exactly five bounded reference parts')
+REQUESTED = set(filter(None, os.environ.get('WAVE037_REFERENCE_IDS', '').split(',')))
+if REQUESTED - {s[0] for s in SOURCES}:
+    raise ValueError('Unknown reference subject')
 
 
 class Images(HTMLParser):
@@ -113,6 +122,8 @@ def error_record(error, name):
 
 records = []
 for name, page, direct in SOURCES[PART * 2:PART * 2 + 2]:
+    if REQUESTED and name not in REQUESTED:
+        continue
     rec = {'id': name, 'page': page, 'images': [], 'errors': []}
     candidates = [{'url': u, 'alt': 'Published primary photo URL verified in source page'} for u in direct]
     if not direct:
@@ -134,7 +145,7 @@ for name, page, direct in SOURCES[PART * 2:PART * 2 + 2]:
         if urlparse(u).scheme == 'https' and not re.search(r'logo|icon|dummy|placeholder|spinner|avatar|sprite|cookie|facebook|twitter', u, re.I):
             unique.setdefault(u, item)
     rec['candidates'] = list(unique.values())
-    selected = sorted(unique.values(), key=lambda x: (not re.search(r'exterior|figure|court|building|front|slide.home', x['url'] + x['alt'], re.I), x['alt'] != 'page primary photo'))[:2]
+    selected = list(unique.values())[:6] if direct else sorted(unique.values(), key=lambda x: (not re.search(r'exterior|figure|court|building|front|slide.home', x['url'] + x['alt'], re.I), x['alt'] != 'page primary photo'))[:2]
     for j, item in enumerate(selected):
         try:
             b, mime, final = read(item['url'], 8 * 1024 * 1024)
