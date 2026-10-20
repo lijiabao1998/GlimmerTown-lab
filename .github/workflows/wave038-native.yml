@@ -9,26 +9,25 @@ concurrency:
   group: wave038-native
   cancel-in-progress: true
 jobs:
-  references:
-    strategy:
-      fail-fast: false
-      matrix:
-        part: [0, 1, 2, 3, 4]
+  candidates-nine:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Read bounded public reference photographs
-        env:
-          WAVE038_REFERENCE_PART: ${{ matrix.part }}
-        run: python3 collectWave038References.py
-      - name: Preserve original photos, HTTP error bodies and byte manifests
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
+      - name: Nine direct native-kit candidates, Silver remains absent
+        run: node previewWave038Candidates.cjs
+      - name: Preserve actual candidate originals and source-bound manifest
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wave038-references-part${{ matrix.part }}-${{ github.sha }}
-          path: shots/wave038/references/
+          name: wave038-nine-candidates-${{ github.sha }}
+          path: shots/wave038/candidates/
           retention-days: 14
           if-no-files-found: error

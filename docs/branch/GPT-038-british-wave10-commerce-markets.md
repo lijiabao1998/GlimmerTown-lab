@@ -70,3 +70,7 @@
 
 - C4 [ef6227e](https://github.com/lijiabao1998/GlimmerTown-lab/commit/ef6227eb72781d30e5211d688493953cc9ee6270) 參考run39431957051成功；三個有明列目標的parts取七張新原bytes，另兩part無目標只保存空manifest。七張逐SHA核對並實看：Halifax的Chris Allen街景與Council兩空拍清楚顯示石店屋外立面／多坡交叉玻璃屋面／中央八角燈亭；Harrods的Make日景補米粉赤陶與肋穹頂細節；Silver2895_N4是真玻璃頂／多層鐵廊照，另兩張只拍辦公室，不作外景補齊。現在24原檔實看＝23真照片＋1排除渲染，十款均有外景，仍不等於全部外部辨識點齊備。
 - C5只新增Stephen Richards於2018拍攝的Burlington Piccadilly外景一個明列URL，以核上層loggia，不重取已保存的其他23照片或渲染；Silver後側Cank Street方亭尚無足夠實看外照，不繪製該不足款式、不改原建築或要求。Commons猜定類別頁not-accessible不重試；Leicester Civic舊campaign連結實際轉新News列表，沒有假稱已讀舊圖。原錯誤／發現頁保留，七原圖出處與可見限制記inspection-C4。尚未開始本波美術。
+
+- C6依本次接續指示先完成有充分考據的九款候選，Silver540..543仍無模型，build(silver)與完整buildAll必須因其證據不足而拒絕；不偷補替代圖、不刪首卡第十款或40向門檻。新美術只在british-wave10-art038.js，以既有原生kit／rasterizer的世界幾何真旋轉，九款36向；index、遊戲registry、玩法、保存及標準守門全部不動。25原檔及逐圖實看紀錄完整保存C2-C5合併ledger與既有不可變ZIP。
+- 候選驗證獨立於完整21工作：新增previewWave038Candidates.cjs，只在Actions真Chrome直接烘焙九款，預定72日夜原PNG＋3完整contact＋9近景；檢查原生尺寸／anchor、硬像素、非空、不裁切、夜光實體覆蓋、去鋪地九款輪廓互異及舊SPR／世界stats未變。沒有catalog付費安裝，不冒稱完整玩法／保存／場景／效能或全波驗收。原full038守衛草稿門檻與首卡均保留，最後仍須十款40向／93原圖／全部21工作與獨立覆核。
+- 本地只做語法及來源／雜湊核對；依AGENTS§5不在本地執行遊戲／Chrome／smoke／fp，實際渲染由Actions。workflow仍只綁038分支、contents:read；候選階段停止重取已保存參考照，待新合法Silver來源確定再另補。候選成功並實看後交獨立圖審，未達整波門檻不發布。
