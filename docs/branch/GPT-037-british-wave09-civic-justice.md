@@ -89,3 +89,23 @@
 - 完整四向檢視另發現**阻擋圖審的Manchester斜牆腰線錯誤**：新模型在非軸對齊的ridgeRange牆面用了F.block，它形成軸對齊包圍盒，在實際側背向與near出現大平板。此前初檢沒有抓到；C6明列「需修改」，沒有作者或獨立視覺通過。其餘九款與十個真舊款0／2向對照均已實看，沒有只換色或挪用舊款的聲稱。
 - C7只新增私有orientedBand實體：取F.point四個真世界角，封頂／底及四側，按世界法線明暗，在Manchester三角院落範圍三層腰線使用；舊band及其他九款不動。另刪正Thaxted舊陰面註解，不再把不可見陰面當可見修正。所有原生／來源／財務／fp／效能守衛與數值完全不動；新圖、source／93檔與新基線仍需此新提交的真CI及再觀看。不是宣稱C6有圖審通過。
 - C6官方native artifact12256833628、scenes12257957043、fp12257433093（ZIP digest821d6ff3d3d7cb7c1e22d8efe3d92f8be98f93197bc4e5ea2f6d22b7b7d4878b）與8個source原log已恢復完整index11,295,498 bytes／SHA2d584064f49f9f747d1ea4a2832a0932495ef7308d24a84e63d68cfcd508ccf8／Git blob e2cecbdf6b9c39a2800caafb63c753a10698cc5a，核遠端tree與native manifest。raw fp408024 bytes／018ced4aefde8a18b9c089390516f6b8ab872aaa7595d8f1ff1e74cdfda4d7fe、style73171 bytes／e23cf7624e1bc0ae5e8105d9323efc14b965f4f241e5e490cae8685d6171f87a仍未採入，因Manchester尚需修正。C6七軸與C5相同、total0.9656；最終版本另據新成功CI如實列七軸。
+
+### C7 實際驗收／C8 原樣採入基線（2026-10-20）
+
+- 遠端C7 **392c7cb90b824a3ce8341ced1a1b8ef214d96d29**／tree **9a4b9ec73e027700044ee09be247ae3ddad64bc3** 已確認；[完整run 39409181526](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39409181526) attempt1真實完成21／21成功。原生86 checks、12真首紅／恢復；三同種子正常模型、十次匹配付費操作、原生舊／新兩輪保存／載入、undo／redo／ref demolition；57場景＋40邊緣＋16BASE／閥圖＝113PNG，8張1280×657完整BASE／閥關逐byte相同；17行人情境、效能40交錯對、30實延遲負控制均通過，沒有放寬原判準。效能BASE median10.950000000000728／p90 20.524999999997817 ms，HEAD median2.375／p90 21.150000000001455 ms，warm new build0。
+- 原生官方artifact **12258796427**（ZIP SHA256 1d1761dec4f69e370b2b23efbbb5a0dc06311f6c8b35c7be8d37d49929dd5787）、場景 **12258336919**（86276d60c2e552251ddf28d3bf1909c1873fbc8d4f063bd6223f6d37c699f564）、原始fp **12257664836**（a8f9b1f86685d9373cb727a7684954aff94387899020cda81e459a6c45e786ac）均同一成功run／head。已完整恢復8段實際CI index **11,296,190 bytes**／SHA256 **0a0b0841fda05831a563281c5f53659a03488438568546141d28136003089611**／Git blob **d159dbd97ebdd76e2251399f3c340430d903bc18**，producer逐byte核HEAD:index；接收端重算bytes／SHA／canonical Git blob、核遠端tree／native manifest及本地原檔完全一致，沒有把重組JSON或樣板當來源。
+- 作者已實看本C7 **80單圖＋3完整接觸表＋10近景＝93原檔**，逐檔SHA及觀察記在原始證據包author-review-c7-93-originals.json。Manchester四向及真近景不再有側背面大平板；腰線沿真斜牆排列。與十個最近舊款0／2向對照，輪廓／結構不同。London歷史2002南岸玻璃樓夜間亮面很強，但只在實體玻璃內；Middlesex雕飾在160×196仍壓縮，保留獨立忠實度判定。Belfast／Manchester參考照片非全貌、Holyrood選取塔群、RCJ海報遮擋等限制不取消。這是**作者自審完成，不是獨立圖審批准**；其餘103場景／守衛原圖與實機手機／Safari／觸控仍未宣稱人工看過或測過。
+- 只在本C8原封不動採入該次CI fp-rebake原始bytes：fp.json **408024 bytes／71ba078a6ad781ece3575fb9172e0e92e966d7fb4af1d6ebbac9f0994a6ef5e7**；style.json **73171 bytes／008429d332b3c2fd1ec9a56a7dd3801f8146f93e955c2386a5947f314341db13**。沒有重序列化、手改meta／數字；C4／C5／C6原基線均保留作歷史而未採用。舊3703葉／其餘165族／blocks1728 CRC5ef6eb67／env全部不變，只增bld.24_1_480..519四十葉，bld1339→1379，總3703→3743。
+- 最終七軸（BASE e195002→C7）：palette **1→1**；hardEdge **0.9505050520005902→0.9517610664359899**；lightDir **0.8192681105302465→0.8201595358955766**；shade **1→1**；density **1→1**；nightRule **0.9885339952207213→0.9888712718250431**；variants **1→1**；total **0.9655→0.9658**。七軸皆無下降；不抹去前版lightDir曾下降的歷史。
+- C7標準[run39409181499](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39409181499)為smoke真3次成功，fp／fiscal仍因尚未採入新根基線而紅；fiscal實際**52／53＋10負控制**，唯一失敗為「scoped serialization, settlement, cadence and guard source integrity」下的current renderer fingerprints match the committed baselines。這不是53／53，未重跑賭綠。C8採入後的全新標準CI／完整21工作仍待實際執行，不預先記綠。
+- 公開站探針在C7核到的仍為main **e195002**／v14.55／T762／8輯，HTTP及sandboxed Chrome全文SHA dcf504d8530751e1f77e0be4145b26c4ab2d3d3c43fb55865ce939900d984aed。此結果**不是第九波已部署**。037 workflow此時仍在本分支；必須先完成必要獨立程式／安全／圖審及後續發布準備，最後完整21綠先記錄，再另作只刪workflow提交。尚無Draft PR、Ready、T／版本／日誌／方向發布提交、合併或第九波公開發布。
+
+### §8 Draft 前最新自檢（保留前述開工／失敗歷史）
+
+- [x] 卡面首筆0dcafb7在任何新美術之前已推；四十新鍵／唯一bld／原驗收不改鬆。
+- [x] C7三同種子完整正常模型與原生兩輪保存／載入已由專用CI實跑；只有宣告的新外觀b.v允許不同。
+- [x] C7相對獨立BASE只有宣告bld四十新葉，8張完整閥關畫布逐byte相等；根基線採入後零差異仍待C8全新標準CI。
+- [ ] 美術各狀態全面人工看過：本版93原檔已看；另103張冬／四季／遠景／邊緣／疊層等場景與守衛圖未人工全看，標「未跑，待Claude／Codex補跑」，不假勾；實機手機／Safari／觸控亦未測。
+- [x] 新守衛真首紅及恢復已在C7完整CI實跑；未改舊斷言／pins／共享守衛。
+- [x] C7標準smoke真連跑3次成功，沒有靠重跑；C8根fp及財務完整綠仍待實際CI，開PR前核對。
+- [x] 卡上所有「通過」均綁實際版本／run／原產物；作者93觀看不冒充獨立審稿。必要獨立程式／安全／視覺報告仍待，不能Ready或合併。
