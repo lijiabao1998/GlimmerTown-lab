@@ -167,3 +167,17 @@ C14 68ff1d880801d4d4b293d0960cb3bddc12e0a772／run39460187998 有兩個獨立首
 官方證據：core artifact12283197335（GitHub ZIP digest adefe08febbcaf305caa26574c58ab103a14deaa95b72ad023815e028bdfb9c3）；on12284020425；road-cut12284110259；source-off12284080367；restored12283856194。名稱不代表全部HEAD phase完成：本次在HEAD phase0中途紅，四圖片分件僅是已走完的BASE16整景；HEAD後續四向／斷電／復原尚未完成，也未產生成功manifest-night-power038.json，249原圖硬門檻尚未達。HEAD三張首紅原圖在core診斷JSON中保留且已解碼原bytes。上述ZIP digest是GitHub metadata，作者沒有本地下載ZIP重算。既有局部整合artifact12283811208及靜態artifact12282183994另存，全部綁同d651頭。
 
 C12／C13／C14所有原始首紅、失敗程式副本、新舊供電診斷和C15實際原圖／hash均另封存；沒有賭重跑、刪欄、套容差、關號誌來冒稱通過、改pw／供電率或降低十款守衛。old-only pool8/9量化限制仍未修復。Silver缺後側實照仍沒有模型；正式index、runtime／CSS、美術與完整十款守衛不改，main仍3e335233，沒有合併或發布第十波。此最後一筆只追加卡面結果，實測來源仍d651，docs-only本身不是一次新CI通過。
+
+
+## C17 — CI交通動畫相位控制計畫（先凍結再實作）
+
+父任務已獨立實核 C15 的179像素差異全屬路口交通燈黃→紅，Bishop 605/605投影夜窗變亮、九root通電；同時核實 draw(dt)推進trafClock，forceDraw呼叫draw(.016)，setVisT只改晝夜，相鄰穩定兩張不足以約束跨抑制／復原的交通相位。父任務明確要求只在測試fixture固定可重現交通動畫相位、保留嚴格全畫面等值及正負控制，先凍結驗證再改測試。本段在任何相位控制程式動手前單獨推送核實；C12～C16全部原證據保留。
+
+1. production index／美術／runtime／CSS／wave038-nine-fixture.js及正常embed工具、原生draw／sigPhase／forceDraw／電力／交通／夜燈規則一律不改。新控制只存在新 Actions runner 組裝的CI測試頁中；正式完整compose不得含控制橋。原十款／40葉／完整守衛、3窗光像素／6RGB總差與完整PNG逐byte相等均不變，不能遮罩或加容差。
+2. 新CI-only bridge在原生trafClock／sigPhase詞法作用域暴露只供fixture用的有限相位讀取及drawAt(clock)。每次drawAt先保存原trafClock、暫置明列clock、呼叫原GV.forceDraw，再讀實際post-draw時鐘與sigPhase(signalSeed)證據，finally精確還原原counter；不得覆寫draw／sigPhase／forceDraw，不關號誌，不修改SPR或保存，不寫pw／dispatch／容量／供電率。原生draw仍確實加.016，故固定輸入0時每張實際繪製相位必須精確0.016；還原counter及day／完整保存不變另驗。
+3. 所有BASE／HEAD的供電、拆橋、拆電源、復原及四向／原圖／夜圖抑制控制的每一次forceDraw都經同一bridge drawAt(0)，每次斷言實際post-draw clock===0+.016且外部counter精確恢復。每張留下觀察到的原生號誌座標／實際sigPhase結果，抑制前／抑制中／復原後的交通相位證據必須相同；依父任務補充的最小修復要求，移除依相鄰畫面相等而重試的stableFrame迴圈；僅做固定次數、相同clock的原生capture一致性檢查，不能用重試／追加暖機掩蓋原因或替代相位控制及全幀等值。
+4. 真負向檢查：在Bishop view0、供電保持正常且所有精靈不動時，只把CI phase輸入改為2.7，原生5.7秒號誌週期必須實際變色；用同一個完整畫布復原斷言比較clock0與2.7，第一個紅燈必須落在原night038 whole-frame restoration mismatch。保存實際錯相位原PNG、實際clock及signal phases，然後回0全幀必須逐byte復原、原counter／完整原生保存／SPR鍵與引用不變。既有本波單一night移除的真首紅／復原仍照跑，不以相位負例替代。
+5. BASE測試頁＝獨立Git BASE原bytes加一個明列CI交通橋，剝此唯一橋後必須逐byte還原BASE；HEAD將同一橋放在原038 CI runtime區塊內，照舊剝三區塊及唯一fixture install尾端逐byte還原BASE。分別記錄原Git BASE、BASE測試頁、HEAD測試頁的bytes／SHA，不能把生成頁當提交的index。source-provenance在測試前就保存，失敗亦留原HTML／完整訊息／原圖。
+6. 新head重跑原候選／完整欄位九款局部整合及新增夜景job，完成九款×四向供電、道路斷開、電源拆除、原生undo復原全部矩陣；BASE／HEAD正常操作、全serialize／stats／utility比較仍fieldExclusions=[]、只允許九款真b.v差。額外保留相位負例及其復原原圖，原249幅之外新增2幅相位原圖，總數251硬驗；所有原PNG、hash、完整保存和source由分件artifact保留，小量原圖／manifest從日誌傳回。最新smoke3／fp零變／財務53+10及獨立差異覆核仍必要；未全過如實報紅。
+
+此授權只接續測試fixture，不重畫九款、不修production時鐘或old-only pool量化限制、不補Silver假模型；Silver與完整十款／21工作仍缺，禁止合併發布。
