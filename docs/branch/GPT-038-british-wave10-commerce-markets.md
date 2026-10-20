@@ -56,3 +56,7 @@
 ## 施工紀錄（首卡後追加，原範圍與門檻保留）
 
 - 尚未開始新美術。待先核首卡的實際遠端commit／tree及唯一差異，再完成原照考據。
+
+- C1首卡[95373e6](https://github.com/lijiabao1998/GlimmerTown-lab/commit/95373e6e6222cfa54830323adc8e9b0fba24120f)／tree4b33ea78c865f41ca2be804c38ac4a27fcbb1155已在新遠端分支核實，唯一父main3e335233；compare唯一差異為新增本卡，沒有先繪製。環境斷線通知後已用真exec讀取確認工作樹／卡檔與原SHA完整，沒有把通知當已恢復或丟檔。
+- 一手文字核實後逐一點開九個HE頁實際photo link、Leeds營運者頁照片，以及Richard Sutcliffe在Geograph7360104的217 Sauchiehall Street外景。四個NTS imgix圖片在web工具Internal Error、Geograph architect tag頁not accessible，完整回應本地保存，不重試這些URL；沒有把錯誤猜成403或登入。Geograph2264810文字指向Buchanan Street，是別處的Willow Tea Rooms，排除而不作本原型依據。十款原照仍未實看、未開始新美術。
+- C2只新增有界038參考collector、只讀且僅綁本分支的五個參考工作與此施工紀錄；不改index或任何遊戲／判準。collector只讀已在來源頁點開的明列公開圖片，保留原bytes／headers錯誤／SHA與官方artifact；不取上一輪已失敗目標、不改proxy／TLS／sandbox／權限、不登入。圖片是否真外觀及證據涵蓋程度仍待實際取回、實看；成功前不宣稱考據完成。

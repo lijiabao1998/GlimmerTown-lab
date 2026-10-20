@@ -1,0 +1,34 @@
+name: wave038-native
+on:
+  push:
+    branches: ['gpt/british-wave10-038']
+    paths-ignore: ['docs/**', '**.md']
+permissions:
+  contents: read
+concurrency:
+  group: wave038-native
+  cancel-in-progress: true
+jobs:
+  references:
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Read bounded public reference photographs
+        env:
+          WAVE038_REFERENCE_PART: ${{ matrix.part }}
+        run: python3 collectWave038References.py
+      - name: Preserve original photos, HTTP error bodies and byte manifests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-references-part${{ matrix.part }}-${{ github.sha }}
+          path: shots/wave038/references/
+          retention-days: 14
+          if-no-files-found: error
