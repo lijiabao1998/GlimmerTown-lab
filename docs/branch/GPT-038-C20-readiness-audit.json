@@ -1,0 +1,106 @@
+{
+  "codeHead": "e2f197bd5a10307fd8697ededb517aa51fe89a7f",
+  "currentDocumentationTip": "1e2318d2923988cde5022b1bccf1a017d71bc193",
+  "fullGuardSourcesVerifiedUnchanged": [
+    {
+      "file": "probeBritishWave038.cjs",
+      "sha256": "7dc601da42856ed8438cdb3613791f53a6a7a616f987ffd80718e551affd33bf",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "probeNativePairs038.cjs",
+      "sha256": "d3d199b8d14130d94c757112497e5ce5c7e9b960840353ab14157f0fcfbfd5a0",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "probeScenes038.cjs",
+      "sha256": "75c7ef0cab6975f6d327c7a4c8449be0afd28f6cac2b497f2867e7dc451776b1",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "probePedestrians038.cjs",
+      "sha256": "9b41e1f29c7b97097e99dc4c1f30aca7bed01f95e717b96c41456d000b291d50",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "probePerformance038.cjs",
+      "sha256": "68a1496efb5d95a62b60f026e8540bf663261c4917852cc571477d9cbb4f39e8",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "previewWave038.cjs",
+      "sha256": "5613141f7d43808403642afd14a4edd7d2ab081ae057a02fd80b136040803326",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "proveWave038Baseline.cjs",
+      "sha256": "0304753cc44dcb94fb74b49567a6332660f44b83033d5fc544356b47a49615c2",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "transferWave038Source.cjs",
+      "sha256": "a05d5a534eac20c8b312cbc7e8c9080937cfe7eba8cc90a4dfaf3f8d14a79ffb",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "transferWave038Scenes.cjs",
+      "sha256": "34bfc1f9b1b82ba7c4b19580eda9bf0cab516f3933fa43ce92f62bf77d455737",
+      "expectedUnchanged": true
+    },
+    {
+      "file": "probePublicSite038.cjs",
+      "sha256": "98bf00cf0235b7663cccb4933bf5ce11d3924affbafd753c88425980396b8510",
+      "expectedUnchanged": true
+    }
+  ],
+  "expandedFullJobs": [
+    {
+      "job": "public-site",
+      "expanded": 1
+    },
+    {
+      "job": "preview",
+      "expanded": 1
+    },
+    {
+      "job": "native",
+      "expanded": 1
+    },
+    {
+      "job": "scenes",
+      "expanded": 1
+    },
+    {
+      "job": "pedestrians",
+      "expanded": 1
+    },
+    {
+      "job": "normal-pairs",
+      "expanded": 1
+    },
+    {
+      "job": "performance",
+      "expanded": 1
+    },
+    {
+      "job": "baseline-evidence",
+      "expanded": 1
+    },
+    {
+      "job": "scene-evidence",
+      "expanded": 5
+    },
+    {
+      "job": "source-evidence",
+      "expanded": 8
+    }
+  ],
+  "expandedCount": 21,
+  "fullWorkflowEnabled": false,
+  "indexSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+  "localIndexTreeBeforeNewDocs": "23c85fbf9dc8dd1531e0c33fa9a425463edcb925",
+  "newSilverModelImplemented": false,
+  "newSilverImageViewedByThisTask": false,
+  "localGameExecuted": false,
+  "timeUTC": "2026-10-21T06:29:47.163488+00:00"
+}

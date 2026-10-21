@@ -1,0 +1,55 @@
+{
+  "sourcePage": "https://www.britainfromabove.org.uk/en/image/EAW024239",
+  "directNormalPublicImage": "https://www.britainfromabove.org.uk/sites/default/files/styles/ugc_large_600_wide/public/P1120514.JPG?itok=n7oAWoG1",
+  "creatorOnSourcePage": "Class31",
+  "photoDateOnCaption": "2015-05-04",
+  "postedOnSourcePage": "2015-05-05 12:55:07 PM",
+  "sourcePageActuallyRead": true,
+  "sourceKind": "2015 Cank Street street-photo pin; not the1949 aerial main image",
+  "expectedImageFromParent": {
+    "width": 600,
+    "height": 337,
+    "bytes": 42108
+  },
+  "parentReportedActuallyViewed": true,
+  "parentReportedFeatures": [
+    "central rear arch",
+    "projecting oriel",
+    "grey timber attic",
+    "open square cupola with pointed cap"
+  ],
+  "authorActuallyViewedOriginal": false,
+  "authorImageResolutionAssessment": "pending actual image bytes; no unseen architectural details inferred",
+  "originalDownload": {
+    "method": "standard urllib HTTPS GET with normal system proxy and TLS verification",
+    "target": "https://www.britainfromabove.org.uk/sites/default/files/styles/ugc_large_600_wide/public/P1120514.JPG?itok=n7oAWoG1",
+    "attempts": 1,
+    "outcome": "denied by environment HTTPS proxy CONNECT",
+    "observedErrorExact": "urllib.error.URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+    "proxyCONNECTStatus": 403,
+    "siteHTTPResponseStatus": null,
+    "originalBytesReceived": 0,
+    "originalFileWritten": false,
+    "operationStopped": true,
+    "alternateURLOrToolRetry": false,
+    "proxyOrTLSOrSandboxChanged": false,
+    "directoryCreationUTC": "2026-10-21T06:27:34.050714+00:00"
+  },
+  "flickrRetried": false,
+  "referenceUsage": "Public page attribution verified; no open photo license inferred; reference only, no original photo included in game",
+  "pendingTransferExactFile": {
+    "name": "P1120514.JPG",
+    "width": 600,
+    "height": 337,
+    "bytes": 42108,
+    "requiredTextInformation": "Library file ID or actual readable environment path for the already obtained original; no guessed URL"
+  },
+  "drawingImplemented": false,
+  "integrationImplemented": false,
+  "newCandidateOrIntegrationPreviewCreated": false,
+  "newGameTestsRun": false,
+  "completeTenAcceptance": false,
+  "mergeAttempted": false,
+  "publishAttempted": false,
+  "recordedUTC": "2026-10-21T06:30:49.492922+00:00"
+}
