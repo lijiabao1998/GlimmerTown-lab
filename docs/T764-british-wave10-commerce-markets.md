@@ -39,3 +39,20 @@ C27父任務獨立覆核八官方ZIP digest、298 manifest檔／275 PNG bytes與
 本地組裝有一次workflow標題substring計數錯把artifact前綴算入，已停下並改為完整行比對；沒有跑過新CI、改渲染門檻或放寬native判準。原錯誤保留發布來源紀錄。
 
 沒做成／待辦：此刻尚未Ready、合併或發布。最後完整CI綠後保留精確run／原圖與來源證據，再純刪release workflow並核最新標準／PR；合前核main／T號／方向／審查與ancestry，以expected-head操作。同PR合入後追mainCI、既有自動Pages、公開HTTP與沙箱Chrome完整SHA／三版本字／第十輯十列四十葉／slot3活畫布，成功才計第十波。不手觸Pages；新平台拒絕即停該動作、報精確目標及已執行狀態。Silver600×337細雕／隱屋頂限制、Bishopgallery原生細節較弱及未全人工審閱限制照留。
+
+
+## C32 — T764發布head首次完整綠；純刪release workflow之前紀錄
+
+發布producer head `5a619e00c75513aeee2b229d158ec65d3037d336`／tree `54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e` 的[完整39588718300](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39588718300) attempt1已實際21／21成功。native step中的發布來源守衛、原生catalog／保存／至少12首紅及十款實供電矩陣都success；160案例／275 PNG仍為原guard硬斷言，沒有改pw／dispatch／夜光或交通語義。完整來源與模型原bytes核對；錯版本、合法額外HTML、duplicate／missing label及原來源／基線首紅均恢復。新版本完整57場景＋40edge、8組全幀BASE／閥關、正常三種子九checkpoint／舊新保存、17行人及2負例、40組效能／30延遲負例均成功，原判準不改。
+
+[標準push39588718155](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39588718155) attempt1真smoke三次／fp零差／財務53＋10、failures=[]；[PR39588724152](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39588724152)四工作成功，reuse及三confirm的真log均核實同一完整push39588718155，不當新跑三次。fp只有首卡bld40新葉，七軸及rawC26基線保持上述數值。
+
+八個source-evidence成功job已真取回原始log，每段嚴格base64／bytes／SHA驗過，接收端合為11370954bytes／完整SHA256 `9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852`，canonical Git blob `5bf4c0982249d1c1a6d7c9fbd9e67204484e231d`；與本地release原bytes／producer實際HEAD:index／遠端tree相符。三發布label逆回C27完整bytes，剝038再逆label完整等於3e335233，沒有用manifest數字代替實際原文重算。
+
+本次preview manifest25107bytes／SHA `c23933a62e69fba6247fc54255ab52af0667d1fe48f4ef040944d936a88ed310`已取回原bytes並重算；91原PNG（80native日夜＋3contact＋8native frame）每個SHA與長度皆等於已核C27。scenes manifest57032bytes／SHA `3bd5d6724a8e6ff036354ca94ed767ba182576e99d01f015ea96cb6a29ca3b7a`真取回：55／57一般場景、40／40edge及8／8閥關pair SHA相同；construction-middle／construction-late兩PNG的SHA不同，未取回這兩張原圖做人看，不猜原因、不宣稱全部113張一致。全部新CI場景判準通過，未逐張人工看範圍照留。舊檔首次實際遷移恰gameVer14.56→14.57，所有其他欄位嚴格不變，failures／unrun均空；$1與真1px首紅／恢復保留。
+
+官方core artifact12340479069與on12340868823／road-cut12340259128／source-off12340628965／restored12340518950均成功保存；完整native12340394053、preview12339574216、scenes12339719179及其他13份metadata／ZIP digest詳來源綁定。完整native rawlog讀取一次Transport closed後已停；官方core下載工具正常交付檔案參照，但本地取得原ZIP被proxy tunnel403拒絕，未寫檔且已停止該下載，不換路徑／proxy／TLS重試。**沒有宣稱本地獨立重算本次core ZIP或重新逐項核275 PNG**；該矩陣依真CI成功步驟及原硬斷言記錄，C27原獨立圖證仍保留且只繼承已綁定不變的來源／影像範圍。
+
+最終有界核對：實際product diff只有4ASCII版號字，原production／美術／runtime／CSS及十frozen guards不變；新release入口是CI-only、精確literal逆變換，原normal保存比較／native供電／負控body原bytes不變，沒有加入fieldExclusions、容差或像素遮罩。這是作者靜態與真CI核對，不冒稱新的獨立模型審查或獨立遊戲重跑。C27父任務已審部分經原文與91PNG SHA重綁，未看完275圖、實機手機／Safari／觸控與照片／細節限制照留。
+
+此C32只更新T卡、來源綁定、主線日誌與方向結果；release workflow仍在分支，刪前最後完整run確為上述C31／39588718300首次21綠。下一筆必須只刪wave038-release.yml；035／036／037及wave038-native保持缺席，刪後每個commit持續確認，最新標準及PR仍全綠才Ready／依expected-head合併。此刻尚未Ready／合併／main或Pages部署；真公開核實後才計10波100棟，不手動Pages。

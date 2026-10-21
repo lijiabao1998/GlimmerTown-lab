@@ -47,8 +47,140 @@
       "sha256": "c8a193abb43d49994d9c4812e3704e0f35512161818faa4b8c54c09a958fbd06"
     }
   },
-  "nativeCI": "pending new release head",
-  "finalStandardCI": "pending",
+  "nativeCI": {
+    "run": 39588718300,
+    "attempt": 1,
+    "status": "success21/21",
+    "jobs": [
+      {
+        "id": 119184008100,
+        "name": "preview",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008395,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008427,
+        "name": "normal-pairs",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008552,
+        "name": "pedestrians",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008628,
+        "name": "scenes",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008659,
+        "name": "public-site",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008869,
+        "name": "baseline-evidence",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119184008966,
+        "name": "performance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172044,
+        "name": "source-evidence (1)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172059,
+        "name": "source-evidence (4)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172074,
+        "name": "source-evidence (3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172110,
+        "name": "source-evidence (2)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172159,
+        "name": "source-evidence (5)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172181,
+        "name": "source-evidence (0)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172379,
+        "name": "source-evidence (7)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185172742,
+        "name": "source-evidence (6)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185528696,
+        "name": "scene-evidence (0)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185528757,
+        "name": "scene-evidence (4)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185528779,
+        "name": "scene-evidence (3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185528897,
+        "name": "scene-evidence (1)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119185528972,
+        "name": "scene-evidence (2)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "finalStandardCI": "pending after pure deletion",
   "merged": false,
   "deployed": false,
   "localPreparationFirstError": {
@@ -58,5 +190,293 @@
     "fix": "Match complete title/group lines; artifact names and all model/test criteria unchanged.",
     "newCIStarted": false,
     "firstErrorPreserved": true
-  }
+  },
+  "producerHead": "5a619e00c75513aeee2b229d158ec65d3037d336",
+  "producerTree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+  "standardCI": {
+    "pushRun": 39588718155,
+    "PRRun": 39588724152,
+    "smoke3": true,
+    "fpZeroAgainstRawBaseline": true,
+    "fiscal": {
+      "ok": true,
+      "checks": 53,
+      "negative": 10,
+      "failures": []
+    },
+    "PRActuallyConfirmedFullPush": true
+  },
+  "actualSourceReceiver": {
+    "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+    "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+    "bytes": 11370954,
+    "sha256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852",
+    "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+    "actualCISourceParts": [
+      {
+        "name": "index.html.part0",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 0,
+        "parts": 8,
+        "offset": 0,
+        "bytes": 1500000,
+        "sha256": "a9b945d628ebc51d484eb3922b2e125126c63ffb2d98bb9bb2a98059f574829f",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part1",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 1,
+        "parts": 8,
+        "offset": 1500000,
+        "bytes": 1500000,
+        "sha256": "7946acebde5f26b239578c348754ddff661cf266c08cc7e0861b98a29d2bbc81",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part2",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 2,
+        "parts": 8,
+        "offset": 3000000,
+        "bytes": 1500000,
+        "sha256": "36c50eb9b9093bed5e63dd4fbd07fd173c39e30c7d765402ee42778b6a7a3d90",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part3",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 3,
+        "parts": 8,
+        "offset": 4500000,
+        "bytes": 1500000,
+        "sha256": "6bd69299437642f967eccf9af6b780fa794d332879d8da25665406638d19f45f",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part4",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 4,
+        "parts": 8,
+        "offset": 6000000,
+        "bytes": 1500000,
+        "sha256": "8ce70240ffd2d45e24a200c79661e9991efc39b309fc2b34076b427a7213a1bb",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part5",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 5,
+        "parts": 8,
+        "offset": 7500000,
+        "bytes": 1500000,
+        "sha256": "48e923ca68b3c1826106ab32f86631805c50553484859cc579e36341055fbb80",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part6",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 6,
+        "parts": 8,
+        "offset": 9000000,
+        "bytes": 1500000,
+        "sha256": "6e33c6d02c2d416586d0d9fc3f3dedb5d22ca5ae11efdf90db58625fee64054b",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      },
+      {
+        "name": "index.html.part7",
+        "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+        "tree": "54a73aadfaf0e3dbaa88e7dcadfc08ffb21dbe6e",
+        "gitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+        "part": 7,
+        "parts": 8,
+        "offset": 10500000,
+        "bytes": 870954,
+        "sha256": "7ff95f2547ed6b315d520b403d5afbeb18517196a6022ad62825b693de468dff",
+        "totalBytes": 11370954,
+        "fullSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852"
+      }
+    ],
+    "receiverStrictBase64LengthAndSHA256PerPart": true,
+    "receiverFullSourceReconstructedAndRehashed": true,
+    "receiverCanonicalGitBlobRecomputed": true,
+    "byteEqualLocalReleaseSource": true
+  },
+  "manifestImageBinding": {
+    "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+    "comparedTo": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+    "previewPNGs91SHAAndBytesEqual": true,
+    "scenes": {
+      "frames": {
+        "count": 57,
+        "sameHashBytes": 55,
+        "changed": [
+          "construction-middle.png",
+          "construction-late.png"
+        ]
+      },
+      "edge": {
+        "count": 40,
+        "sameHashBytes": 40,
+        "changed": []
+      },
+      "valve": {
+        "count": 8,
+        "sameHashBytes": 8,
+        "changed": []
+      }
+    },
+    "allEightWholeCanvasPairsEqual": true,
+    "oldSaveMigration": [
+      {
+        "path": "gameVer",
+        "before": "14.56",
+        "after": "14.57"
+      }
+    ],
+    "actuallyDownloaded275PowerPNGs": false
+  },
+  "actualManifestReceipts": [
+    {
+      "name": "manifest-preview038.json",
+      "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 25107,
+      "sha256": "c23933a62e69fba6247fc54255ab52af0667d1fe48f4ef040944d936a88ed310"
+    },
+    {
+      "name": "scenes/manifest-scenes.json",
+      "head": "5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 57032,
+      "sha256": "3bd5d6724a8e6ff036354ca94ed767ba182576e99d01f015ea96cb6a29ca3b7a"
+    }
+  ],
+  "officialArtifacts": [
+    {
+      "id": 12340918646,
+      "name": "wave038-performance-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 1184,
+      "githubZIPDigest": "sha256:cac15263f9c96137fbc0fffe002adb6f4df1c99fef4a3424e81d3ae6efeeda83"
+    },
+    {
+      "id": 12340868823,
+      "name": "wave038-ten-power-on-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 55865530,
+      "githubZIPDigest": "sha256:77df8dff38c47988799f26c43783e89f6a941de6e0c2b6276759e0f1fd958907"
+    },
+    {
+      "id": 12340713562,
+      "name": "wave038-pedestrians-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 22119880,
+      "githubZIPDigest": "sha256:07791ad6ff9f5f4324d03dea3eb8718c15a670cc52e0ecf2ffb79a8142359074"
+    },
+    {
+      "id": 12340628965,
+      "name": "wave038-ten-power-source-off-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 24744382,
+      "githubZIPDigest": "sha256:709c3623ccb08ef140baac8a612daff0a0a71388c54326aecf9a456d1d43d7a2"
+    },
+    {
+      "id": 12340518950,
+      "name": "wave038-ten-power-restored-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 54695663,
+      "githubZIPDigest": "sha256:8759d7c4829e8a17fb602ec4821f3322d0230d2db27639bd92040d39efa29fad"
+    },
+    {
+      "id": 12340479069,
+      "name": "wave038-ten-power-core-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 14991365,
+      "githubZIPDigest": "sha256:bc2ebccc1335f21e69f464e2b4178d92bfc7f6ddef23c87f067b02795bd429f6"
+    },
+    {
+      "id": 12340394053,
+      "name": "wave038-native-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 1292523,
+      "githubZIPDigest": "sha256:f6b9ddce820c18346494ae4067a9b29714c4d1d7b69562fff8af5a764bb09bc3"
+    },
+    {
+      "id": 12340259128,
+      "name": "wave038-ten-power-road-cut-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 25195155,
+      "githubZIPDigest": "sha256:54121df4a21a2f917a44154ca705dd0c3bf4204dc7f0625467375e201948f674"
+    },
+    {
+      "id": 12339769132,
+      "name": "fp-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 3793844,
+      "githubZIPDigest": "sha256:f86736c1be9b8e280641f8ad426221e78709b6c96ad4fe4353d6e0f2d7c90f58"
+    },
+    {
+      "id": 12339719179,
+      "name": "wave038-scenes-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 61710358,
+      "githubZIPDigest": "sha256:0f87dac516d0f3151802f69fc8d80ceba54aebea91166496e5bf50ed2672de29"
+    },
+    {
+      "id": 12339679035,
+      "name": "wave038-public-site-5a619e00c75513aeee2b229d158ec65d3037d336-attempt-1",
+      "bytes": 2041934,
+      "githubZIPDigest": "sha256:da9300294190b8254622fff729622a74e11763e1c43a9243a19f4ef5e582af3d"
+    },
+    {
+      "id": 12339574216,
+      "name": "wave038-preview-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 5584009,
+      "githubZIPDigest": "sha256:66072408254b08a365be5f9e829638ffee55675858ff4596f22f88b97b5aff95"
+    },
+    {
+      "id": 12339544244,
+      "name": "wave038-normal-pairs-5a619e00c75513aeee2b229d158ec65d3037d336",
+      "bytes": 75610,
+      "githubZIPDigest": "sha256:ffe64d36d1b99bcf1e82bfc3d1a3dae297685c7d74c9820035309da32f057155"
+    }
+  ],
+  "coreLocalRead": {
+    "artifact": 12340479069,
+    "status": "stopped_no_retry",
+    "error": "URLError: Tunnel connection failed:403 Forbidden",
+    "bytesWritten": false,
+    "officialDownloadToolResult": "success; original file reference retained privately",
+    "locallyRehashedZIP": false,
+    "locallyParsed275Manifest": false
+  },
+  "nativeFullLogRead": {
+    "job": 119184008395,
+    "status": "read_stopped",
+    "error": "Transport closed",
+    "attempts": 1,
+    "testStepStatus": "success"
+  },
+  "boundedReleaseDiffReview": {
+    "authorStaticAndActualCI": true,
+    "productionDifference": "exactly3literal labels,4ASCIIbytes;reverse byte-equal actual reviewedC27Git source",
+    "originalFrozenTenGuardsAndCandidateSourcePowerCoreByteUnchanged": true,
+    "releaseSourceGuard": "candidate source checker exact clone except pinned reversible release-label proof and report;actualC27Git source compared;4first-red/restore controls",
+    "releasePowerGuard": "only independentGitBASE declared3labels and provenance/source binding;compare/session/native pass/fault/restore bodies byte-identical toC27",
+    "workflow": "exactC27body exceptname/concurrency and2entrypoints;21jobs;onlyownbranch/contentsread/no deploymentpush",
+    "TlogDirection": "onlyownT764/r211/#46/directiontodoandcompletedrow;switch and original direction exact",
+    "freshIndependentReleaseReviewClaim": false,
+    "candidateIndependentScopePropagation": "C27 only; carried forward for unchanged production/art via exact reversed source and current PNG hash bindings; do not claim a new independent game rerun."
+  },
+  "workflowRemoval": "next separate pure-delete commit after recorded successful last full release run;all prior deleted workflows stay absent"
 }
