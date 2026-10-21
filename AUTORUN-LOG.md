@@ -15,6 +15,14 @@
 
 ---
 
+## r211 — T764 第十波十座有考據英式商貿與市集建築（原GPT-038；發布準備）
+
+| 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |
+|---|---|---|---|---|---|---|
+| r211 | [T764](docs/T764-british-wave10-commerce-markets.md) | Leeds Corn、Darlington、Halifax、Bishop Lloyd、Burlington、Silver、Harrods、Liberty、Danum、Willow十款／40真向，僅bld新增520..559；原生k24付費／保存／模擬不變。業主已接受Silver三圖並明確批准本PR發布；v14.57僅隨PR46合入且公站精確核實後才計10／20波100棟，此前仍9／20波90棟 | 候選C27完整39568705215首次21／21，標準39568705293及C29push39575059922真smoke3／fp／財務53＋10；C29PR39575641479明確重用同次push。新T764發布head完整CI、最後純刪workflow後CI待驗，不挪用候選綠燈 | #46 | C27官方preview12331450844／native12330964307／scenes12332090595／power-core12332191349及四phase；完整來源與93原圖／275供電圖重綁待新CI，詳T764與release-source-binding | 尚未Ready／合併／部署。發布新頭21工作、來源與圖像綁定、最後差異／workflow純刪CI、公站HTTP與Chrome另核；作者93靜態與父任務32選圖不稱全275人工審閱，實機手機／Safari／觸控未測。Silver後照600×337與Bishop細節限制保留；bld total0.9658→0.966但lightDir略降，七軸詳卡，raw基線不手改 |
+
+---
+
 ## r210 — T763 第九波十座有考據英式市政與司法建築（原GPT-037；發布準備）
 
 | 輪次 | 卡號 | 做了什麼 | 煙霧測試 | commit | 樣張 | 沒做成的事 |

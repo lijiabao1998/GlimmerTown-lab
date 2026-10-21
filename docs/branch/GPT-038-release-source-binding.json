@@ -1,0 +1,62 @@
+{
+  "baseMain": "3e33523305401ea258e24204ea7218345a6dc268",
+  "reviewedCandidateHead": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+  "lastCandidateHead": "d48e33316ef53837d8da6860a3bf3eb5b710944b",
+  "release": {
+    "version": "14.57",
+    "anchor": "T764",
+    "round": 211,
+    "indexBytes": 11370954,
+    "indexSHA256": "9583cb3890d07d8e536cb804efa620ade885ea29b10778ac7c6405bfaa201852",
+    "indexGitBlob": "5bf4c0982249d1c1a6d7c9fbd9e67204484e231d",
+    "changedASCIIBytes": 4,
+    "uniqueLabels": [
+      [
+        "const GAME_VER='14.56';",
+        "const GAME_VER='14.57';"
+      ],
+      [
+        "const GAME_ANCHOR='T763';",
+        "const GAME_ANCHOR='T764';"
+      ],
+      [
+        "id=\"startVersion456\">v14.56 · T763</span>",
+        "id=\"startVersion456\">v14.57 · T764</span>"
+      ]
+    ]
+  },
+  "sameArtSHA256": "6e31446ea77c97ba4467ee59e32d698115e0d6e1e8392bdaa06c2e1aeb9dac72",
+  "originalCandidateGuardRetained": true,
+  "originalPowerAndCoreRetained": true,
+  "releaseProbeFullCompareAndNativeRunBodyByteEqual": true,
+  "newFiles": {
+    "wave038-release-labels.cjs": {
+      "bytes": 2810,
+      "sha256": "f97374526c19bfc5d89ccc3f8cf330e724eb4fe832550a7da42497173c95a3c4"
+    },
+    "checkWave038ReleaseSources.cjs": {
+      "bytes": 12946,
+      "sha256": "520c3988379c0d9b46b0b0ee17c34814c27c78829ce1ef251a9c22a7eb3c1615"
+    },
+    "probeTenPowerRelease038.cjs": {
+      "bytes": 11295,
+      "sha256": "3ea2354d7d98c2458dad8dc23de2dcd9be81e05f8556e0861f73b92147b6079d"
+    },
+    ".github/workflows/wave038-release.yml": {
+      "bytes": 12953,
+      "sha256": "c8a193abb43d49994d9c4812e3704e0f35512161818faa4b8c54c09a958fbd06"
+    }
+  },
+  "nativeCI": "pending new release head",
+  "finalStandardCI": "pending",
+  "merged": false,
+  "deployed": false,
+  "localPreparationFirstError": {
+    "scope": "local source assembly only;no game or CI",
+    "error": "AssertionError in workflow title uniqueness check",
+    "reason": "Substring count also matched the unchanged artifact name:wave038-native-${{ github.sha }}",
+    "fix": "Match complete title/group lines; artifact names and all model/test criteria unchanged.",
+    "newCIStarted": false,
+    "firstErrorPreserved": true
+  }
+}
