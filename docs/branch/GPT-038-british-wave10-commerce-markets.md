@@ -221,3 +221,12 @@ manifest內1804次實際capture witness已逐項核對：正常／抑制／復�
 接續範圍保持首卡：實看原圖後只補Silver540..543的原創世界幾何四向，不憑低解析度未見部位增加裝飾；既有九款保留原bytes。完整十款候選須交付80原生日夜＋3完整接觸表＋10近景共93原圖及新Silver／原生整合預覽，先交付可檢視的新款。完整十款／40葉、正常模型完整保存、全畫面精確等值、首紅／復原、場景／行人／效能與來源要求均不改。可獨立做的readiness稽核已完成：10個完整守衛來源逐檔SHA仍等於凍結metadata，未啟用完整workflow模板展開仍21工作，正式index SHA仍2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60；詳GPT-038-C20-readiness-audit.json。這是純文字／hash／YAML稽核，不是新遊戲CI通過；未放假模型、未放寬九款或十款守衛、未把來源頁成功等同拿到圖片。
 
 此筆僅保存新參照與準備／失敗紀錄；Silver建模、完整十款候選、整合預覽與新驗收尚未執行。實測code head仍C18，C20 docs-only提交不冒充新CI。完整驗收前不合併或發布；main／版本／T／正式日誌／fp／style／正式index／production runtime／九款美術未改。C12～C19證據及封存包保持不動。
+
+
+## C21 — 現成Library原圖交接已解析，原檔傳輸失敗（尚未實看像素）
+
+父任務已提供現成lab-bfa-cank.jpg，600×337／42108bytes，預期原檔SHA471ea0bd86fe598e0092aa49918b581a23ea51cbd29a5483226ef0953e9824ec；Library ID已正常解析，不再等待重發ID或重找來源。已按Library技能以目前官方helper及同版companion處理唯一原檔，prepare成功返回該檔授權傳輸；本地helper實際執行一次exit1，唯一原錯誤為 `library file transfer failed: download failed`，沒有返回底層HTTP狀態，不能把它推定成403或授權拒絕，原圖目的路徑不存在。沒有改helper、proxy、TLS或sandbox，沒有重試網站／Flickr或猜下載地址。
+
+同一現成檔的Library原生image_file讀取成功確認檔名、image/jpeg、42108bytes及600×337 image asset pointer，但工具只交付指標與產生的caption，沒有MCP圖片像素。本執行者仍未實際看到原圖、未獨立重算原檔SHA，不用caption冒充圖審或照描述虛構Silver細節。私有Library身分／版本與原結果保留本地交接證據，未把短期傳輸URL或其他敏感傳輸欄位寫進公開倉庫；公開狀態詳GPT-038-C21-library-original-transfer.json。
+
+目前需要的是這份已取得原檔的實際bytes交到本環境、可讀本機路徑或直接原圖附件，不是再一次Library ID，也不是重試被拒網址。Silver模型、十款候選／新款整合預覽、完整十款CI尚未執行；舊九款確認、C18已核實測試與全部守衛保留。此筆僅追加交接／失敗紀錄，沒有新美術、正式index變更、合併或發布。

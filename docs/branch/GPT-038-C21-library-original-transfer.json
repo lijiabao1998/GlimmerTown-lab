@@ -1,0 +1,43 @@
+{
+  "filename": "lab-bfa-cank.jpg",
+  "metadataSource": "normal authenticated Library record",
+  "expectedOriginal": {
+    "bytes": 42108,
+    "width": 600,
+    "height": 337,
+    "sha256": "471ea0bd86fe598e0092aa49918b581a23ea51cbd29a5483226ef0953e9824ec"
+  },
+  "libraryRecordMetadataConfirmed": {
+    "name": "lab-bfa-cank.jpg",
+    "bytes": 42108,
+    "mime_type": "image/jpeg"
+  },
+  "materialization": {
+    "attempts": 1,
+    "helper": "current official Library transfer helper and companion, unchanged",
+    "exitCode": 1,
+    "observedErrorExact": "library file transfer failed: download failed",
+    "underlyingHTTPStatus": null,
+    "denialConfirmed": false,
+    "status": "failed; exact cause not returned",
+    "localOriginalExists": false,
+    "originalBytesAvailableToLocalTools": 0,
+    "repeated": false
+  },
+  "nativeImageRead": {
+    "attempts": 1,
+    "status": "returned metadata,600x337 image asset pointer and generated caption; no MCP image pixels",
+    "actualPixelsDelivered": false,
+    "captionUsedAsVisualReview": false
+  },
+  "photoActuallyViewedByThisTask": false,
+  "originalSHA256IndependentlyRecomputed": false,
+  "newSilverModelImplemented": false,
+  "newTenCandidatePreviewCreated": false,
+  "newGameCI": false,
+  "fullTenAcceptance": false,
+  "websiteOrFlickrRetried": false,
+  "proxyTLSOrSandboxChanged": false,
+  "requiredNextInput": "actual already obtained original bytes delivered to this environment, readable local path, or direct image attachment; Library ID already resolved and need not be repeated",
+  "recordedUTC": "2026-10-21T06:40:44.383549+00:00"
+}
