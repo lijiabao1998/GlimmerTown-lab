@@ -265,3 +265,16 @@ C25實作head `78f9280abb0b9f5f006a1aba5619bdd06c29b355`已遠端核實，原生
 活躍workflow採原凍結模板展開21工作，原10個full guard每一byte保留。native工作另加checkWave038FullSources來源守衛及probeTenPower038十款實供電補驗；工作timeout20→45分鐘只容納新增矩陣，不改任何像素／效能／保存判準。nativeTenPower038從已覆核C18測試複製，原九款實體座標不移，Silver加第四列，真道路增加第四列連接；BASE／HEAD同十個付費地標、既有圖書館及核電源，原首紅／精確復原／相位見證與3像素／6 RGB總差窗光門檻保留。硬要求160案例／275實際PNG，四phase拆路、斷源及undo復原均為原生操作，沒有pw／容量／dispatch／rate直接賦值。phase橋僅CI來源，剝除回完整BASE與正式HEAD均精確；核心與四phase原圖分五artifact保存。
 
 這一提交啟動完整十款驗收，並非事先聲稱21工作或160案例通過。新head的正常全欄保存、undo／redo、97狀態／113PNG、全幀閥關、首紅／復原、行人、效能、fp來源及獨立覆核仍待結果。保留C18既有九款確認與全部歷史首紅，不盲重跑、不削弱守衛、不合併或發布。
+
+
+## C27 — C26首紅完整保留；原始CI基線採用與精確近景名稱傳輸修正
+
+C26 head250b6e9原生run39565654849實際20／21成功，不能稱全綠。preview、native（含十款160案例／275 PNG硬斷言的供電步驟）、normal-pairs、scenes、pedestrians、performance、public-site、baseline-evidence及八組source-evidence成功；scene-evidence(0) job119109381538首紅為 `wave038 known scene filename`。已取回完整失敗log：原傳輸器regex只准near-[a-z]+，與首卡既定id leedsCorn及實際near-leedsCorn不相容；同一manifest已成功保留57場景＋40edge＝97狀態、8組BASE／閥關全畫布精確等值及failures=[]。修正只處理傳輸已存在的照片，不重新命名圖、不重畫、不掩蓋渲染差異。
+
+動手前固定修正條件：原transferWave038Scenes.cjs及十個凍結full guard來源原bytes全部保留，新增transferWave038CloseScenes.cjs。新傳輸器要逐字核對首卡十個完整名稱、有序且恰十項，不以較寬regex放行；仍是五組×兩張，輸出每張原bytes、原SHA。另要求57場景／40edge／8閥關比較、manifest無failures／unrun、PNG1280×657、檔名及長度／hash一致；真大小寫誤拼、路徑穿越、重複／缺名的metadata負控制須首紅並復原。它們是新增傳輸檢查，不混算為12個原生遊戲負控制。workflow只把該傳輸step改呼叫新精確清單檔，展開工作總數仍21，不略過失敗組。
+
+標準run39565654771煙霧三次成功，fp119107170976及fiscal119107170330紅。財務log完整保存：52財務檢查＋10真負控制通過，唯一失敗在staticChecks呼叫fp.js --check要求目前渲染符合已提交基線；舊fp／style尚未含本輪40新葉，非新增財務規則或存檔差異。baseline-evidence119107170248的獨立完整原生fp工作成功，已從同head原始CI傳輸逐byte取回fp.json412224bytes／SHA0ed9f5f2…52cb3、style.json73167bytes／SHA3fd45e3c…8ccdbb，官方artifact12329642494保存原產物。原3743葉、165其他族、blocks1728／CRC5ef6eb67、env完全相同，僅新增520..559的40bld葉；風格bld總分0.9658→0.966，無家族下降。按首卡與AGENTS§7採用這兩份原bytes，含generatedAt亦不編輯。
+
+checkWave038FullSources只將候選階段的「fp／style仍等於BASE」要求轉為「逐byte等於這次C26官方CI產物」，固定兩個SHA與producer commit／run／job，並增查全部舊葉／165族／blocks／env及兩個真1-byte首紅。既有fp.js、財務守衛、smoke舊斷言、十個full guard、模型、美術、runtime／CSS及完整index均未改。這是既定基線採用階段，不放寬任何渲染／財務判準。新head將重新跑完整21工作及標準CI，不能靠重跑舊紅燈。
+
+原生job119107171106各測試及五份官方power附件均成功；完整job log兩次讀取均Transport closed後已停止該讀取，非測試重跑／平台拒絕。官方下載工具已取得core檔案參照，但本環境沒有讀入ZIP或獨立重算其ZIP SHA，尚未實看275供電原圖或獨立逐項核manifest；不得把CI成功擴稱已完成這些圖審。全部失敗log、C25／C26來源與原圖證據、先前獨立九款確認保持保留。新Silver及最新整合仍待獨立覆核；不合併或發布，T／版本／正式日誌不動。

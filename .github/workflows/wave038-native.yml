@@ -295,7 +295,7 @@ jobs:
       - name: Transfer two byte-exact already captured close scenes
         env:
           WAVE038_SCENE_PART: ${{ matrix.part }}
-        run: node transferWave038Scenes.cjs
+        run: node transferWave038CloseScenes.cjs
 
   source-evidence:
     needs: baseline-evidence

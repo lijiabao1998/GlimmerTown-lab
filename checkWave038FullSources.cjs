@@ -51,7 +51,30 @@ assert(fs.readFileSync(card,'utf8').startsWith(first),'wave038 first-card criter
 const smoke=fs.readFileSync('smoke.js','utf8'),smokeStart=smoke.indexOf('    // GPT-038 NEW SELFTEST START'),smokeEnd=smoke.indexOf('    // GPT-038 NEW SELFTEST END\n',smokeStart);
 assert(smokeStart>=0&&smokeEnd>smokeStart,'source038 unique appended smoke hook');
 assert.equal(smoke.slice(0,smokeStart)+smoke.slice(smokeEnd+'    // GPT-038 NEW SELFTEST END\n'.length),cp.execFileSync('git',['show',BASE+':smoke.js'],{encoding:'utf8'}),'source038 every previous smoke assertion byte unchanged');
-for(const file of['fp.js','fp.json','style.json','harness.js','gallery.js','british-use-scales-kit021.js','british-complex-primitives014.js'])assert(fs.readFileSync(file).equals(cp.execFileSync('git',['show',BASE+':'+file],{maxBuffer:8*1024*1024})),'source038 unchanged shared source '+file);
+for(const file of['fp.js','harness.js','gallery.js','british-use-scales-kit021.js','british-complex-primitives014.js'])assert(fs.readFileSync(file).equals(cp.execFileSync('git',['show',BASE+':'+file],{maxBuffer:8*1024*1024})),'source038 unchanged shared source '+file);
+// Adopt only exact bytes produced by the independently bound C26 CI run.
+// This is the frozen baseline workflow, not permission for a manual rebake.
+const baselinePins={
+  'fp.json':{bytes:412224,sha256:'0ed9f5f286500950c2a58b386c21ce1406bd2e62b8770e887f8cc38956e52cb3'},
+  'style.json':{bytes:73167,sha256:'3fd45e3c0e5f3f5e55dd7da203e9cce8aeadd1e7621e05c23f95f985fa8ccdbb'}
+};
+function baselineBytes(file,b){const pin=baselinePins[file];assert(b.length===pin.bytes&&hash(b)===pin.sha256,'source038 exact C26 CI-produced baseline bytes '+file);}
+for(const file of Object.keys(baselinePins)){
+  const b=fs.readFileSync(file);baselineBytes(file,b);const wrong=Buffer.from(b);wrong[wrong.length-1]^=1;
+  expect('one genuine raw baseline byte mutation '+file,()=>baselineBytes(file,wrong),'source038 exact C26 CI-produced baseline bytes '+file);baselineBytes(file,b);
+}
+const baselineProof=JSON.parse(fs.readFileSync('docs/branch/GPT-038-C27-raw-CI-baseline-adoption.json'));
+assert.equal(baselineProof.producerHead,'250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08');assert.equal(baselineProof.run,39565654849);assert.equal(baselineProof.job,119107170248);
+const oldFP=JSON.parse(cp.execFileSync('git',['show',BASE+':fp.json'],{maxBuffer:5*1024*1024})),oldStyle=JSON.parse(cp.execFileSync('git',['show',BASE+':style.json'],{maxBuffer:5*1024*1024}));
+const newFP=JSON.parse(fs.readFileSync('fp.json')),newStyle=JSON.parse(fs.readFileSync('style.json'));
+assert.equal(Object.keys(oldFP.subs).length,3743,'source038 independent original leaf count');
+for(const[key,value]of Object.entries(oldFP.subs))assert.deepEqual(newFP.subs[key],value,'source038 every old baseline leaf exact '+key);
+assert.deepEqual(Object.keys(newFP.subs).filter(k=>!Object.hasOwn(oldFP.subs,k)).sort(),Array.from({length:40},(_,i)=>'bld.24_1_'+(520+i)).sort(),'source038 exact declared new forty baseline leaves');
+assert.equal(Object.keys(newFP.subs).length,3783);assert.equal(newFP.families.bld.leaves,1419);
+assert.deepEqual(Object.keys(newFP.families).sort(),Object.keys(oldFP.families).sort());
+for(const key of Object.keys(oldFP.families))if(key!=='bld'){assert.deepEqual(newFP.families[key],oldFP.families[key],'source038 other baseline family exact '+key);assert.deepEqual(newStyle.families[key],oldStyle.families[key],'source038 other style family exact '+key);}
+assert.deepEqual(newFP.blocks,oldFP.blocks,'source038 baseline blocks exact');assert.deepEqual(newFP.envLeaves,oldFP.envLeaves,'source038 environment registrations exact');
+assert(newStyle.families.bld.total>=oldStyle.families.bld.total,'source038 no bld family style drop');
 const guardPreparation=JSON.parse(fs.readFileSync('docs/branch/GPT-038-full-guard-preparation.json','utf8'));
 for(const entry of guardPreparation.fullGuardPreparedSources)assert.equal(hash(fs.readFileSync(entry.file)),entry.expectedSHA256,'source038 exact prepared full ten-model guard '+entry.file);
 const nativeReferences=new Set();
@@ -61,6 +84,6 @@ for(const file of [...guardPreparation.fullGuardPreparedSources.map(x=>x.file),'
     assert(original.includes(Buffer.from(name)),'source038 reference exists in independent native source '+file+': '+name);nativeReferences.add(name);
   }
 }
-const report={base:BASE,head:process.env.GITHUB_SHA||null,scope:'static complete-ten production source boundaries, not native whole-wave acceptance',committedIndexSHA256:hash(current),artSourceSHA256:hash(Buffer.from(sources.art)),approvedNineRetainedByteExact:true,approvedNineArtSourceSHA256:hash(Buffer.from(approved)),runtimeSHA256:hash(Buffer.from(sources.runtime)),cssSHA256:hash(Buffer.from(sources.css)),fixtureSHA256:hash(Buffer.from(fixture)),fullFutureCompositionSHA256:hash(Buffer.from(full)),partialFixtureSHA256:hash(Buffer.from(partial)),phaseBaseFixtureSHA256:hash(Buffer.from(phaseBase)),phaseHeadFixtureSHA256:hash(Buffer.from(phaseHead)),trafficBridgeSHA256:hash(Buffer.from(phaseBridge)),phaseBaseInlineBlocks:parse(phaseBase),phaseHeadInlineBlocks:parse(phaseHead),productionTrafficBridgeAbsent:true,fullInlineBlocks:parse(full),partialInlineBlocks:parse(partial),sourceBoundaryNegative:negative,fullSourceStripByteEqual:true,partialSourceStripByteEqual:true,gameExecuted:false,fullWaveAcceptance:false};
+const report={base:BASE,head:process.env.GITHUB_SHA||null,scope:'static complete-ten production source boundaries, not native whole-wave acceptance',committedIndexSHA256:hash(current),artSourceSHA256:hash(Buffer.from(sources.art)),approvedNineRetainedByteExact:true,baselineProducerHead:baselineProof.producerHead,exactRawCIBaselineBytes:true,activeSceneTransport:'transferWave038CloseScenes.cjs',activeSceneTransportSHA256:hash(fs.readFileSync('transferWave038CloseScenes.cjs')),oldBaselineLeavesExact:3743,newBaselineLeaves:40,approvedNineArtSourceSHA256:hash(Buffer.from(approved)),runtimeSHA256:hash(Buffer.from(sources.runtime)),cssSHA256:hash(Buffer.from(sources.css)),fixtureSHA256:hash(Buffer.from(fixture)),fullFutureCompositionSHA256:hash(Buffer.from(full)),partialFixtureSHA256:hash(Buffer.from(partial)),phaseBaseFixtureSHA256:hash(Buffer.from(phaseBase)),phaseHeadFixtureSHA256:hash(Buffer.from(phaseHead)),trafficBridgeSHA256:hash(Buffer.from(phaseBridge)),phaseBaseInlineBlocks:parse(phaseBase),phaseHeadInlineBlocks:parse(phaseHead),productionTrafficBridgeAbsent:true,fullInlineBlocks:parse(full),partialInlineBlocks:parse(partial),sourceBoundaryNegative:negative,fullSourceStripByteEqual:true,partialSourceStripByteEqual:true,gameExecuted:false,fullWaveAcceptance:false};
 if(process.env.GITHUB_ACTIONS==='true'){fs.mkdirSync('shots/wave038/source-preparation',{recursive:true});fs.writeFileSync('shots/wave038/source-preparation/manifest.json',JSON.stringify(report,null,2)+'\n');}
 console.log('WAVE038_SOURCE_PREPARATION '+JSON.stringify(report));
