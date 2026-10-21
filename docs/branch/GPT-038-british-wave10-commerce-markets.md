@@ -305,3 +305,16 @@ fp相對BASE唯一家族仍為首卡bld：原3743葉與165其他族、1728blocks
 本筆只追加驗收與圖片接受紀錄。接著按AGENTS§3另做一筆只刪`.github/workflows/wave038-native.yml`的提交：刪前最後完整21工作已綠並附上述精確C27連結，刪後每一commit保持它及035／036／037舊臨時workflow缺席，再驗最新標準CI並開`[等業主]` PR。此處尚未把後續刪除或新頭CI寫成已執行。
 
 沒做成／待決：未合併、未發布，第十波尚未計入正式波次；main仍3e335233／v14.56／T763／9波90棟。T號／三版本字／AUTORUN-LOG／方向已完成表依倉庫規則只在獲准合併那一步處理。後續需明確合併／發布批准，並在配版本後重新完整驗證、純刪workflow規則及最後CI／獨立差異覆核，合入後再追mainCI、既有Pages與精確公開bytes；現在不手觸Pages。
+
+
+## C30 — PR46發布已明確批准；T764／v14.57／r211動手前收尾計畫
+
+業主2026-10-21 09:55 UTC已明確批准：完成本PR46第十波版本收尾與最後CI，通過後按規則合入GlimmerTown-lab main，由既有GitHub Pages自動發布並驗證；範圍僅已接受十款。09:03 UTC的Silver三圖接受維持，不重問九款或Silver。這次批准不涵蓋3D，不能把批准當已提交／合併／部署。
+
+開工重新讀規則並核遠端：main仍3e335233，PR46仍Draft、head d48e333、無衝突／無新review或留言；C29標準39575059922真smoke3／fp／財務53＋10及PR39575641479四工作成功。T檔名／日誌／main歷史核號以T763及r210為最新，預備T764／v14.57／r211，合前再核。
+
+本計畫先推再改版本與新驗收來源。正式index只改GAME_VER、GAME_ANCHOR、startVersion456三處唯一字串，反向還原須完整等於已審C27／C29 index；原模型／runtime／CSS／fp／style／財務及十個full guards全部不改。原GPT-038 branch卡作不可變驗收prefix與歷史證據保留，新增T764發布卡；r211日誌commit欄寫#46，方向只動待辦／完成表且公開成功前仍9波90棟。
+
+已純刪的wave038-native.yml及035／036／037保持缺席。發布版本需重新跑完整保存與真供電矩陣：新增只綁本分支、contents:read的wave038-release.yml，沿C27原21工作，只選新release source／power entrypoints；不是恢復已刪native檔。版本標籤先唯一精確變換、反向逐byte證明，再讓未改的native renderer與完整欄位守衛執行；不放寬閥關全幀、保存、12首紅、97場景、17行人、40組效能或160案例／275PNG／1920相位見證。原source／power／十個full guard來源保持原bytes，新入口有明列label／extraHTML／來源首紅與復原。詳細固定條件見GPT-038-C30-release-plan.json。
+
+release workflow最後完整綠才留精確run／head證據，再另作只刪該workflow提交；之後所有臨時workflow保持缺席，最後標準及PR檢查仍全綠，最終有界差異覆核成立才Ready／按expected-head合併。之後追精確mainCI與既有自動Pages、公開HTTP／完整SHA／版本字／第十輯十列40葉及slot3活畫布；不手動觸發Pages。現在此筆只有計畫，尚未改版本、跑新CI或合併發布。
