@@ -1,0 +1,415 @@
+{
+  "candidateCodeHead": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+  "candidateTree": "90d6c73c2ef5b2369db905463f7917907cc1a735",
+  "baseMain": "3e33523305401ea258e24204ea7218345a6dc268",
+  "firstCard": "95373e6e6222cfa54830323adc8e9b0fba24120f",
+  "frozenFamily": "bld",
+  "scope": "Complete ten researched commercial/market building appearances,40 native rotations; native k24/lv1/2x2/$2000 carrier. No simulation or save-format changes.",
+  "fullNativeCI": {
+    "run": 39568705215,
+    "url": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39568705215",
+    "attempt": 1,
+    "jobs": [
+      {
+        "id": 119117220540,
+        "name": "native",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220545,
+        "name": "normal-pairs",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220565,
+        "name": "pedestrians",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220598,
+        "name": "baseline-evidence",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220610,
+        "name": "performance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220672,
+        "name": "public-site",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220719,
+        "name": "preview",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117220836,
+        "name": "scenes",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571126,
+        "name": "source-evidence (1)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571146,
+        "name": "source-evidence (0)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571194,
+        "name": "source-evidence (4)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571252,
+        "name": "source-evidence (6)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571255,
+        "name": "source-evidence (5)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571257,
+        "name": "source-evidence (3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571326,
+        "name": "source-evidence (2)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119118571519,
+        "name": "source-evidence (7)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119121391137,
+        "name": "scene-evidence (3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119121391163,
+        "name": "scene-evidence (4)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119121391167,
+        "name": "scene-evidence (0)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119121391228,
+        "name": "scene-evidence (1)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119121391253,
+        "name": "scene-evidence (2)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "conclusion": "success"
+  },
+  "standardCI": {
+    "run": 39568705293,
+    "url": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39568705293",
+    "attempt": 1,
+    "smokeExecutions": 3,
+    "fiscalChecks": 53,
+    "fiscalNegativeControls": 10,
+    "jobs": [
+      {
+        "id": 119117221039,
+        "name": "fp",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117221359,
+        "name": "fiscal-load",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117221665,
+        "name": "smoke",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119117222676,
+        "name": "reuse-push",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "conclusion": "success"
+  },
+  "fullAcceptance": {
+    "models": 10,
+    "nativeRotations": 40,
+    "staticOriginalPNGs": 93,
+    "normalSeeds": [
+      31,
+      71,
+      103
+    ],
+    "checkpointsPerSeed": 3,
+    "serializeFieldExclusions": [],
+    "normalAndSave": "complete old/new save roundtrips, native paid/undo/redo and reference demolition/restore passed in CI",
+    "nativeFirstRed": "at least12 frozen native fault/restore controls passed; exact-name metadata negatives are additional, not substituted",
+    "sceneStates": 97,
+    "scenePNGs": 113,
+    "wholeCanvasBaseValvePairs": 8,
+    "wholeCanvasEquality": "byte-exact full1280x657, no mask/crop/tolerance",
+    "pedestrianCases": 17,
+    "pedestrianNegativeControls": 2,
+    "alternatingPerformanceGroups": 40,
+    "delayNegatives": 30,
+    "warmGeometryBuilds": 0,
+    "powerCases": 160,
+    "powerPNGs": 275,
+    "phaseWitnesses": 1920,
+    "productionTrafficOrPowerSemanticsChanged": false
+  },
+  "index": {
+    "indexSHA256": "6e2684807542f6441ca110488d03dd418845103a7ad486b3f928a80b41fc8a6e",
+    "indexGitBlob": "ec2a155c4fca9d061641989d60520fcc98ecbc6f",
+    "indexBytes": 11370954,
+    "artSHA256": "6e31446ea77c97ba4467ee59e32d698115e0d6e1e8392bdaa06c2e1aeb9dac72",
+    "artGitBlob": "a7a12aee7ff715481031b3a8404c70275c67e676"
+  },
+  "manifests": [
+    {
+      "name": "manifest-preview038.json",
+      "head": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 25107,
+      "sha256": "a4de9bbcf94d05d2a295428585c0951ce9408de78c3c6f38391651d66bd9f3ad"
+    },
+    {
+      "name": "scenes/manifest-scenes.json",
+      "head": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 56944,
+      "sha256": "2b88bf84186eb580c56a4e093d5643492e9daa88d8da536cc8bebae055a7e335"
+    },
+    {
+      "name": "public-site-verification.json",
+      "head": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 6603,
+      "sha256": "3b7dba29a5af2b3e2d010f9a4dfedfab8b6dba6a6e1fd4ac65b2ad5921da3c88"
+    }
+  ],
+  "powerManifest": {
+    "artifact": 12332191349,
+    "file": "manifest-night-power038.json",
+    "gzip": "manifest-night-power038.json.gz",
+    "perFileSHA256": null,
+    "reason": "Do not invent a per-file SHA; parent verified the official core ZIP and manifest files."
+  },
+  "artifacts": [
+    {
+      "id": 12332270296,
+      "name": "wave038-ten-power-road-cut-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 25195610,
+      "githubZIPDigest": "sha256:e948a93a511cb036ea887af1bc187b8ba734b4c195cf4738ba7fb9380f040b54",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12332270296"
+    },
+    {
+      "id": 12332191349,
+      "name": "wave038-ten-power-core-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 11290809,
+      "githubZIPDigest": "sha256:93aba8c038b0c7aefced379a88d055b9e6502e3adda20a28d9d18686387cb65a",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12332191349"
+    },
+    {
+      "id": 12332090595,
+      "name": "wave038-scenes-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 61717628,
+      "githubZIPDigest": "sha256:a480bbb00ef7cc53d54b87284af48f506714050131458e94f7829fe6dda41d90",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12332090595"
+    },
+    {
+      "id": 12332005846,
+      "name": "wave038-ten-power-restored-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 54694990,
+      "githubZIPDigest": "sha256:4c3284142d4d560aa789bca4b8237834228a971d1b82d9fec9eaa5cf5b13bf45",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12332005846"
+    },
+    {
+      "id": 12331990897,
+      "name": "wave038-ten-power-source-off-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 24743044,
+      "githubZIPDigest": "sha256:2c728f3904426cb914254bad06640f4edd5018b0ac38b40027649662f27515d4",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12331990897"
+    },
+    {
+      "id": 12331990888,
+      "name": "wave038-ten-power-on-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 55865479,
+      "githubZIPDigest": "sha256:3430f9293c4aee2b8f5e2a8c7b9539a25b152ef83e4035835030126b34cc015e",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12331990888"
+    },
+    {
+      "id": 12331450844,
+      "name": "wave038-preview-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 5584008,
+      "githubZIPDigest": "sha256:9128897771c7319babed7e90bef3128d19eff17103a736ff924afda99742c324",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12331450844"
+    },
+    {
+      "id": 12331231465,
+      "name": "wave038-normal-pairs-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 75560,
+      "githubZIPDigest": "sha256:2c2c72ac3b0d333c87bef36c96e4fe2fd839e322ef6b6954662f049b80066379",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12331231465"
+    },
+    {
+      "id": 12330964307,
+      "name": "wave038-native-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 1292219,
+      "githubZIPDigest": "sha256:0fa7fb5b3bffb2204078e03eb5cbd5bbd81c6f08f73ae0227abd7e5b6e2dc984",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12330964307"
+    },
+    {
+      "id": 12330739691,
+      "name": "wave038-performance-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 1178,
+      "githubZIPDigest": "sha256:eee67527533c31ab69810091461be66d6f738f98b22a8d0e688daa12d58719b4",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12330739691"
+    },
+    {
+      "id": 12330639283,
+      "name": "wave038-public-site-101547c59b94c5a5e98ec454ed8da04171a8ff30-attempt-1",
+      "bytes": 1898632,
+      "githubZIPDigest": "sha256:fd470ac0b2f728c231a1db8bdac3f6c1922928d3155223b50bbbbe0ab28b3898",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12330639283"
+    },
+    {
+      "id": 12330589228,
+      "name": "wave038-pedestrians-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 22119880,
+      "githubZIPDigest": "sha256:0811a7447d79ede5795f515b330dcf19a59f281e7f7fa3f30e717a51b2e1467d",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12330589228"
+    },
+    {
+      "id": 12330579459,
+      "name": "fp-101547c59b94c5a5e98ec454ed8da04171a8ff30",
+      "bytes": 3793846,
+      "githubZIPDigest": "sha256:6fce71d2be98432ce48db46f6bcae73d88239624187e0142febe4f2fdabbe38f",
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12330579459"
+    }
+  ],
+  "fingerprint": {
+    "oldLeaves": 3743,
+    "newLeaves": 40,
+    "changedOldLeaves": 0,
+    "removedOldLeaves": 0,
+    "otherFamilies": 165,
+    "blocks": 1728,
+    "blocksCRC": "5ef6eb67",
+    "envChanged": false,
+    "bldAxesBefore": {
+      "palette": 1,
+      "hardEdge": 0.9517610664359899,
+      "lightDir": 0.8201595358955766,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9888712718250431,
+      "variants": 1
+    },
+    "bldAxesAfter": {
+      "palette": 1,
+      "hardEdge": 0.9529472614093789,
+      "lightDir": 0.8195912614517266,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9891894285953,
+      "variants": 1
+    },
+    "bldTotalBefore": 0.9658,
+    "bldTotalAfter": 0.966,
+    "lightDirDeclined": true,
+    "allAxesImproved": false,
+    "fpSHA256": "0ed9f5f286500950c2a58b386c21ce1406bd2e62b8770e887f8cc38956e52cb3",
+    "styleSHA256": "3fd45e3c0e5f3f5e55dd7da203e9cce8aeadd1e7621e05c23f95f985fa8ccdbb",
+    "baselineProducer": "Unedited raw C26 CI artifacts; see GPT-038-C27-raw-CI-baseline-adoption.json"
+  },
+  "independentReview": {
+    "status": "no blocker in reviewed scope",
+    "officialZIPDigestsVerified": 8,
+    "manifestFilesVerified": 298,
+    "powerPNGBytesAndSHA256Verified": 275,
+    "casesVerified": 160,
+    "phaseWitnessesVerified": 1920,
+    "oldNineNativePNGHashesVerified": 72,
+    "actualSelectedPNGViews": 32,
+    "all275ManuallyViewed": false,
+    "nineHelpersAndRowsUnchangedAfterRemovingSilver": true,
+    "C27ProductionIndexAndFiscalAssertionsAndFPJSAndFrozenGuardsUnchangedFromC26": true,
+    "note": "Source/log/artifact review; no claim of independent execution of the whole game suite."
+  },
+  "userSilverPictures": {
+    "status": "accepted",
+    "acceptedUTC": "2026-10-21T09:03:00Z",
+    "scope": "day, powered and unpowered pictures; only image acceptance, no merge/release authorization"
+  },
+  "authorVisualReview": {
+    "staticOriginalsActuallyOpened": 93,
+    "currentNativeCloseScenesRecoveredAndHashed": 10,
+    "all275PowerPNGManualInspectionClaim": false
+  },
+  "release": {
+    "merged": false,
+    "deployed": false,
+    "authorized": false,
+    "publishedWaves": 9,
+    "publishedBuildings": 90,
+    "publishedVersion": "14.56",
+    "publishedAnchor": "T763",
+    "TAndVersionAndMainLogDeferredToApprovedMerge": true
+  },
+  "nextPureWorkflowDeletion": {
+    "path": ".github/workflows/wave038-native.yml",
+    "preDeletionFullNativeRun": 39568705215,
+    "preDeletionRunHead": "101547c59b94c5a5e98ec454ed8da04171a8ff30",
+    "preDeletionStatus": "success21/21",
+    "scope": "A separate commit deletes only this branch-exclusive workflow. It must stay absent from all later commits. Latest standard smoke3/fp/fiscal and PR evidence remain to be verified."
+  },
+  "limits": [
+    "Physical phone/Safari/touch not tested.",
+    "Selected actual image review is not a manual review of all275 power frames.",
+    "600x337 rear photograph cannot resolve fine carving, exact rear window counts or hidden roof details; no invented details or photo texture.",
+    "Bishop Rows native gallery detail remains weak but nonblocking in the accepted review.",
+    "CI desktop performance is not a physical-device performance claim.",
+    "C26 first-red logs remain preserved; C27 fixes did not relax fiscal, fingerprint or full-game criteria."
+  ]
+}

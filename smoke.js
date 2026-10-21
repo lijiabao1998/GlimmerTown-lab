@@ -196,6 +196,12 @@ const KEEP = process.argv.includes('--keep');
       ['auditGeo709', `(window.GV && window.GV.auditGeoSelftest709) ? window.GV.auditGeoSelftest709() : {ok:false,checks:['API 不存在']}`],
       ['treeSeasonDSK1', `(window.GV && window.GV.treeSeasonSelftestDSK1) ? window.GV.treeSeasonSelftestDSK1() : {ok:false,checks:['API 不存在']}`],
     ];
+    // GPT-038 NEW SELFTEST START: only an embedded038 source owes this API.
+    // A partial36-leaf fixture still fails the exact ten-model/40-leaf check.
+    if(fs.readFileSync(path.join(ROOT,'index.html'),'utf8').includes('<!-- GPT-038 PURE ART START -->')){
+      selftests.push(['britishWave038', `(window.GV && window.GV.britishWave038) ? window.GV.britishWave038.selftest() : {ok:false,checks:['API 不存在']}`]);
+    }
+    // GPT-038 NEW SELFTEST END
     // T617：沒有 LOCALAPPDATA（Linux）時改寫系統暫存目錄；原本會落進倉庫裡的 Temp/。
     const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Temp') : require('os').tmpdir(), 'grok-goal-c80f16d61c81', 'implementer');
     const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json', hud598: 'hud-realtime-selftest.json', panel599: 'panel-live-selftest.json', workshop600: 'workshop-selftest.json' };

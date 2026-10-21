@@ -1,0 +1,87 @@
+{
+  "producerHead": "250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+  "producerTree": "0d6327794d3f2cf5fdef8d0ded1f681a8161efbb",
+  "run": 39565654849,
+  "job": 119107170248,
+  "artifact": 12329642494,
+  "officialArtifactZIPDigest": "c60068a990aa4a6123e7037f6c4d15c55866085c51c5458015fe2027f7696273",
+  "transport": "Exact original bytes from completed producer job bounded base64; each declared SHA256/length verified before copying",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 412224,
+      "sha256": "0ed9f5f286500950c2a58b386c21ce1406bd2e62b8770e887f8cc38956e52cb3"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73167,
+      "sha256": "3fd45e3c0e5f3f5e55dd7da203e9cce8aeadd1e7621e05c23f95f985fa8ccdbb"
+    }
+  ],
+  "independentBase": "3e33523305401ea258e24204ea7218345a6dc268",
+  "sourceIndexSHA256": "6e2684807542f6441ca110488d03dd418845103a7ad486b3f928a80b41fc8a6e",
+  "oldLeavesExact": 3743,
+  "newLeaves": [
+    "bld.24_1_520",
+    "bld.24_1_521",
+    "bld.24_1_522",
+    "bld.24_1_523",
+    "bld.24_1_524",
+    "bld.24_1_525",
+    "bld.24_1_526",
+    "bld.24_1_527",
+    "bld.24_1_528",
+    "bld.24_1_529",
+    "bld.24_1_530",
+    "bld.24_1_531",
+    "bld.24_1_532",
+    "bld.24_1_533",
+    "bld.24_1_534",
+    "bld.24_1_535",
+    "bld.24_1_536",
+    "bld.24_1_537",
+    "bld.24_1_538",
+    "bld.24_1_539",
+    "bld.24_1_540",
+    "bld.24_1_541",
+    "bld.24_1_542",
+    "bld.24_1_543",
+    "bld.24_1_544",
+    "bld.24_1_545",
+    "bld.24_1_546",
+    "bld.24_1_547",
+    "bld.24_1_548",
+    "bld.24_1_549",
+    "bld.24_1_550",
+    "bld.24_1_551",
+    "bld.24_1_552",
+    "bld.24_1_553",
+    "bld.24_1_554",
+    "bld.24_1_555",
+    "bld.24_1_556",
+    "bld.24_1_557",
+    "bld.24_1_558",
+    "bld.24_1_559"
+  ],
+  "otherFamiliesExact": 165,
+  "blocks": {
+    "fam": "5ef6eb67",
+    "count": 1728
+  },
+  "envExact": true,
+  "bldFamilyTotal": [
+    0.9658,
+    0.966
+  ],
+  "reason": "C26 standard fp and fiscal static renderer-integrity gate reject pending new art baseline, while financial53rd check itself invokes strict fp.js --check; no fiscal assertion is changed",
+  "previousStandardRun": 39565654771,
+  "previousFiscalJob": 119107170330,
+  "previousFiscalResult": {
+    "ok": false,
+    "checks": 52,
+    "negative": 10,
+    "onlyFailure": "scoped serialization, settlement, cadence and guard source integrity: current renderer fingerprints match the committed baselines; 1 !== 0"
+  },
+  "sourceGuardChange": "Pin exact CI bytes plus full independent old-leaf/family/block/env checks, replacing temporary candidate-stage requirement that raw baseline files remain BASE. fp.js, fiscal guards, all10 frozen full guard programs and every threshold unchanged.",
+  "release": false
+}

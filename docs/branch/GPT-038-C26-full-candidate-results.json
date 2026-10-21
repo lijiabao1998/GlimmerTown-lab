@@ -1,0 +1,304 @@
+{
+  "head": "250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+  "nativeRun": 39565654849,
+  "standardRun": 39565654771,
+  "nativeJobs": [
+    {
+      "id": 119107170043,
+      "name": "preview",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170133,
+      "name": "pedestrians",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170173,
+      "name": "normal-pairs",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170248,
+      "name": "baseline-evidence",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170296,
+      "name": "public-site",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170341,
+      "name": "scenes",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170422,
+      "name": "performance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107171106,
+      "name": "native",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951499,
+      "name": "source-evidence (4)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951524,
+      "name": "source-evidence (5)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951534,
+      "name": "source-evidence (1)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951614,
+      "name": "source-evidence (0)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951666,
+      "name": "source-evidence (6)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951693,
+      "name": "source-evidence (7)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951740,
+      "name": "source-evidence (3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119108951767,
+      "name": "source-evidence (2)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119109381289,
+      "name": "scene-evidence (2)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119109381339,
+      "name": "scene-evidence (4)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119109381474,
+      "name": "scene-evidence (3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119109381538,
+      "name": "scene-evidence (0)",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 119109381559,
+      "name": "scene-evidence (1)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "standardJobs": [
+    {
+      "id": 119107170330,
+      "name": "fiscal-load",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 119107170934,
+      "name": "smoke",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 119107170976,
+      "name": "fp",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 119107171941,
+      "name": "reuse-push",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12330416042,
+      "name": "wave038-ten-power-road-cut-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 25195567,
+      "githubZIPDigest": "sha256:5154366cd7362d409f76517b5d65e126878a54003c6f390a28a7e843ce10107a"
+    },
+    {
+      "id": 12330361274,
+      "name": "wave038-ten-power-source-off-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 24743393,
+      "githubZIPDigest": "sha256:5578622fa685384cb9e506524b33c208b96e46bb038e5a28fc96a60374898ec9"
+    },
+    {
+      "id": 12330346214,
+      "name": "wave038-ten-power-on-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 55865479,
+      "githubZIPDigest": "sha256:a77ddf6785ac518a56ed6071e6bd47c36ac8c1f6b16abbcc1c00007750fd91a3"
+    },
+    {
+      "id": 12330186351,
+      "name": "wave038-ten-power-restored-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 54694507,
+      "githubZIPDigest": "sha256:99a599f53e321f4c29747f9c1e27e9b71efbd0da023939971c5ec2e3624c377f"
+    },
+    {
+      "id": 12329981702,
+      "name": "wave038-native-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 1292007,
+      "githubZIPDigest": "sha256:890256b26801bcc012019f441c9dd7934c13ce863dfe7e6f1f25cb72f75fe9ce"
+    },
+    {
+      "id": 12329821571,
+      "name": "wave038-scenes-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 61716812,
+      "githubZIPDigest": "sha256:2f08b945eca8148210a2a471493e1fc591243209b14ca5be77d9082c2c974268"
+    },
+    {
+      "id": 12329786867,
+      "name": "wave038-ten-power-core-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 11291122,
+      "githubZIPDigest": "sha256:b8c3c861064571103f25b4facda100141db6e732ad34d4db9d4a482131a2588e"
+    },
+    {
+      "id": 12329642494,
+      "name": "fp-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 3793848,
+      "githubZIPDigest": "sha256:c60068a990aa4a6123e7037f6c4d15c55866085c51c5458015fe2027f7696273"
+    },
+    {
+      "id": 12329444781,
+      "name": "wave038-normal-pairs-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 75558,
+      "githubZIPDigest": "sha256:615f39710ef889589bf3956a324837702a134405a146cff02c62f49bace2d863"
+    },
+    {
+      "id": 12329419520,
+      "name": "wave038-pedestrians-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 22119880,
+      "githubZIPDigest": "sha256:d5f5af0d6653bf1e0311e73992015726df85ecba51a4ffe2e9cb62b992bf13e6"
+    },
+    {
+      "id": 12329394819,
+      "name": "wave038-preview-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 5584007,
+      "githubZIPDigest": "sha256:95e8deed11fd3e932e9a773dff7f00d9322ced05b4285f73d1fbe184c192f6f4"
+    },
+    {
+      "id": 12329239549,
+      "name": "wave038-public-site-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08-attempt-1",
+      "bytes": 1976168,
+      "githubZIPDigest": "sha256:875d55caa944880fadfb5d69ca447b8a0d69b99df48c6c364dc6ef0d8039ab28"
+    },
+    {
+      "id": 12329234560,
+      "name": "wave038-performance-250b6e9e7b3c8482a9cd695b5e8a6951f07f4f08",
+      "bytes": 1215,
+      "githubZIPDigest": "sha256:ffb34d50f341fac2e95f2bed05b9039fe7467873a5d6c0d15b4dcd7d132ca8df"
+    }
+  ],
+  "nativeFullLogReadAttempts": [
+    {
+      "isError": true,
+      "error": [
+        "tool call error: tool call failed for `codex_apps/github.fetch_workflow_job_logs`\n\nCaused by:\n    Transport closed"
+      ]
+    },
+    {
+      "isError": true,
+      "error": [
+        "tool call error: tool call failed for `codex_apps/github.fetch_workflow_job_logs`\n\nCaused by:\n    Transport closed"
+      ]
+    }
+  ],
+  "independentNightManifestRead": false,
+  "nightMatrixCIHardAssertions": {
+    "cases": 160,
+    "originalPNG": 275,
+    "stepConclusion": "success"
+  },
+  "release": false,
+  "nativeWorkflowSuccesses": 20,
+  "nativeWorkflowFailures": [
+    {
+      "job": 119109381538,
+      "name": "scene-evidence (0)",
+      "firstRed": "wave038 known scene filename",
+      "cause": "Lowercase-only regex rejects the frozen near-leedsCorn ID; actual scenes already captured and hashed."
+    }
+  ],
+  "standardFailureDiagnosis": {
+    "fp": "Exactly40 new declared bld leaves, no old changes; old baseline pending adoption.",
+    "fiscal": "52 checks and10 negatives pass. Only final static renderer-fingerprint-baseline integrity gate fails, same missing baseline."
+  },
+  "scenes": {
+    "native": 57,
+    "edge": 40,
+    "states": 97,
+    "valvePairs": 8,
+    "allWholeCanvasExact": true,
+    "failures": [],
+    "unrun": []
+  },
+  "pedestrians": {
+    "cases": 17,
+    "actualNegative": 2
+  },
+  "performance": {
+    "interleavedGroups": 40,
+    "baseMedian": 13.174999999999272,
+    "headMedian": 3.0750000000007276,
+    "baseP90": 27.600000000002183,
+    "headP90": 28.5,
+    "warmBuilds": 0,
+    "negativeTimingSamples": 30,
+    "scope": "GitHub Actions desktop, not mobile; no claim of product performance improvement"
+  },
+  "public": {
+    "version": "14.56",
+    "anchor": "T763",
+    "main": "3e33523305401ea258e24204ea7218345a6dc268",
+    "indexSHA256": "2b959e01196cb55dd8a0fc1eca5f2a4d7c9e952acd90de04a7ba76e7dc7cef60",
+    "wave10NotPublished": true,
+    "sandboxNamespacesAndSeccompBPF": "Yes"
+  }
+}
