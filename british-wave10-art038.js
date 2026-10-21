@@ -1,5 +1,5 @@
 /* GPT-038 wave10 original photo-supported commerce and market geometry.
- * Nine candidates only; frozen Silver540..543 has no model while rear evidence is pending.
+ * Ten source-supported candidates; Silver rear massing is bounded by the600x337 Cank Street reference.
  * Same native kit and rasterizer, true world rotations. No game/save/registry access. */
 (function(root){
   'use strict';
@@ -98,21 +98,24 @@
     "nm": "萊斯特銀拱廊",
     "en": "Silver Arcade Leicester",
     "v": 540,
-    "shape": "frozen-prototype-awaiting-cank-street-rear-square-pavilion-photo",
+    "shape": "four-storey-stone-arcade-splayed-bays-broken-curved-pediments-grey-rear-attic-open-square-cupola",
     "url": "https://historicengland.org.uk/listing/the-list/list-entry/1074775",
-    "note": "後側方亭尚缺外照；保持暫停，沒有模型或替代圖。",
+    "note": "原創四向像素轉譯；後立面依已實看600×337街景，只畫可辨量體，照片不嵌入遊戲。",
     "inspectedReferenceSHA256": [
       "55f543a73db4125f6ffeba4b587802461c213056c551eb2c72b0c4cf424f8186",
       "c362fe6c395d5a55b2953e5e78831bfa1a6adc4f9c306276a3aaddaeb019d307",
       "ced445f80b7fde23cd22c4dc3ba8d88031e5d7667c54938b9e2a7597f5664e74",
       "1a5bd0225dc0e71c92ed1e7e3e0c968399783eb690f14c61965dd97d43eb4e81",
-      "83fb99d437eb0f8ad656eb47a4601e6b3ca0ad143a5956e709e1b9429150710a"
+      "83fb99d437eb0f8ad656eb47a4601e6b3ca0ad143a5956e709e1b9429150710a",
+      "471ea0bd86fe598e0092aa49918b581a23ea51cbd29a5483226ef0953e9824ec"
     ],
     "referenceLimitations": [
-      "Cank Street rear square pavilion lacks inspected exterior reference; do not draw this insufficient subject yet",
-      "C3 cutaway is explicitly excluded as a real photograph; C4 office portraits are not exterior evidence"
+      "Cank Street photo is600x337: fine carving, exact rear window counts and hidden roof are unresolved; restrained massing only",
+      "Front and interior roof photos support their own visible features; interior galleries are not claimed fully visible from outside",
+      "C3 computer cutaway excluded as photograph; C4 office portraits excluded as exterior evidence",
+      "Photographs are reference-only; no open image reuse license inferred"
     ],
-    "evidenceStatus": "pending-no-model"
+    "evidenceStatus": "front-interior-and-cank-rear-photos-with-declared-resolution-limits"
   },
   {
     "id": "harrods",
@@ -537,7 +540,7 @@
     }
   }
 
-  // Nine photo-supported candidates. Silver's frozen slot is deliberately absent.
+  // Photo-supported frozen candidates; original nine authored functions remain unchanged.
   function ellipseDome(A,cx,cy,rx,ry,z,h,northLight=false){
     const {S,P,K}=A,n=40,bands=12;
     for(let k=0;k<bands;k++)for(let j=0;j<n;j++){
@@ -711,6 +714,130 @@
     S.box(8,24,3.7,4.4,22.5,23.8,P.stoneHi,P.stoneR,P.stoneHi);
     return{...A.finish(),details:{narrowDoubleShopRows:true,tentLikeGlazedRooflights:true,transverseArches:9,piccadillyOpenLoggiaArches:3,distinctPlainBurlingtonGardensPortal:true,fullUpperEntrancePhotoVerified:true,noGenericBarrelVault:true}};
   }
+  // Silver alone: photographed front and newly inspected Cank Street rear.
+  // Hidden service-roof detail and illegible carving are intentionally unresolved.
+  function silver(row,view){
+    const A=context(row,view),{S,P,Q,K}=A;
+    const x0=4.6,x1=27.4,y0=5.2,y1=27.0,innerL=12.5,innerR=19.5;
+    // Two shop ranges bound a genuine central void, not a capped solid box.
+    for(const [a,b]of[[x0,innerL],[innerR,x1]]){
+      const wing=A.volume(a,b,y0,y1,.6,47,'stone',false),inner=a<16?wing.right:wing.left,outer=a<16?wing.left:wing.right;
+      shopFront(A,inner,5,1.1,8.0);
+      for(const F of[inner,outer]){
+        A.windows(F,3,5,13,10.2,2.2,6.8,'rect');
+        for(const z of[10.8,21.2,31.6,44.8])orientedBand(A,F,z,.4);
+      }
+      A.roof(a-.15,b+.15,y0+.3,y1-.4,47,3.6,'y','stone');
+    }
+    S.flat(innerL,innerR,y0,y1,.58,K.paving);
+    // Stacked gallery slabs and railings have physical support at each level.
+    // The glazing/end openings govern what is actually visible in each view.
+    for(const z of[11.2,21.6,32])for(const [a,b,edge]of[[innerL,innerL+1.2,innerL+1.2],[innerR-1.2,innerR,innerR-1.2]]){
+      slab(A,[[a,y0+.8],[b,y0+.8],[b,y1-.7],[a,y1-.7]],z,.4,P.stoneHi);
+      rail(A,[[edge,y0+.8],[edge,y1-.7]],z,1.9,false,P.ironD);
+    }
+    for(const x of[innerL+.15,innerR-.15])for(let j=0;j<6;j++){
+      const y=y0+1+j*3.8;S.beam([x,y,.7],[x,y,43.5],P.ironD,.22);
+    }
+    // Curved transverse iron roof frames with triangular spandrels, observed
+    // in the real interior photograph; they do not become a fictitious cutaway.
+    for(let j=0;j<7;j++){
+      const y=6.2+j*3.1,F=face(A,[innerL,y],[innerR,y],0,1);
+      const at=t=>F.point(F.length*t,0,42.3+3.8*Math.sqrt(Math.max(0,1-(2*t-1)**2)));
+      for(let k=0;k<14;k++)S.beam(at(k/14),at((k+1)/14),P.frame,.18);
+      S.beam([innerL,y,46.3],[16,y,50.0],P.frame,.2);S.beam([16,y,50.0],[innerR,y,46.3],P.frame,.2);
+      for(const x of[innerL,innerR])S.beam([x,y,42.3],[x,y,46.3],P.frame,.21);
+    }
+    glassRoof(A,innerL-.1,innerR+.1,6.0,25.3,46.3,3.8,13);
+    const front=face(A,[x0,27.2],[x1,27.2],0,1),rear=face(A,[x1,4.9],[x0,4.9],0,-1);
+    // The central round arch extends through the ground and first storey.
+    // Nothing fills the opening with a flat dark decal.
+    for(const F of[front,rear]){
+      archWall(A,F,.6,32.0,[{u:F.length/2-3.1,w:6.2,bottom:.6,spring:15.9,rise:3.1}],'stone',.9,'stone');
+      F.panel(0,F.length,10.5,11.15,P.stoneHi,.3);
+      for(const u of[.1,7.2,15.1,F.length-.5])F.panel(u,u+.4,.7,46.8,A.mat('stone',F.nx,F.ny),.5);
+      for(const z of[31.4,45.7,47])orientedBand(A,F,z,.5);
+      const portal=F.length/2;
+      // Open iron entry gate: bars and rails, with a real empty area behind.
+      for(let u=portal-2.9;u<=portal+2.9;u+=.48){
+        const h=15.9+3.0*Math.sqrt(Math.max(0,1-((u-portal)/3.0)**2));
+        S.beam(F.point(u,-.35,.8),F.point(u,-.35,h),P.ironD,.11);
+      }
+      for(const z of[7.1,13.2])S.beam(F.point(portal-3,-.35,z),F.point(portal+3,-.35,z),P.ironD,.13);
+    }
+    // Silver Street's two splayed bays, actual world-space faceted solids.
+    for(const cx of[8.25,23.75]){
+      const pts=[[cx-3.45,25.7],[cx+3.45,25.7],[cx+3.45,27.6],[cx+2.35,28.65],[cx-2.35,28.65],[cx-3.45,27.6]];
+      const bay=planBlock(A,pts,11.3,44.8,'stone');
+      for(const F of bay)if(F.ny>0){
+        for(const z of[12.6,24,35])A.pane(F,.25,z,F.length-.5,7.8,'mullion',true);
+        for(const z of[22.4,33.4,44.4])orientedBand(A,F,z,.4);
+      }
+      slab(A,pts,45.7,.55,P.stoneHi);
+      const attic=A.volume(cx-3.2,cx+3.2,25.4,27.6,45.7,54.3,'stone');
+      A.windows(attic.front,1,3,47,0,1.25,6.1,'rect');
+      for(const u of[.1,attic.front.length-.4])attic.front.panel(u,u+.3,46,54,P.stoneHi,.35);
+    }
+    // Central projecting oriel on visible stone corbels, distinct from bays.
+    function oriel(cx,y,ny,z0,z1,width){
+      const back=y-ny*.9,tip=y+ny*1.3,near=y+ny*.7;
+      let pts=[[cx-width/2,back],[cx+width/2,back],[cx+width/2,near],[cx+width/2-.7,tip],[cx-width/2+.7,tip],[cx-width/2,near]];
+      if(ny<0)pts=pts.toReversed();
+      const fs=planBlock(A,pts,z0,z1,'stone');
+      for(const F of fs)if(F.ny*ny>0){A.pane(F,.2,z0+1,F.length-.4,z1-z0-2,'mullion',true);}
+      slab(A,pts,z1+.5,.55,P.stoneHi);
+      for(const x of[cx-width*.31,cx+width*.31]){
+        S.poly([[x-.36,back,z0-2],[x+.36,back,z0-2],[x+.36,tip-.2*ny,z0],[x-.36,tip-.2*ny,z0]],P.stoneR);
+        S.beam([x,back,z0-2],[x,tip-.2*ny,z0],P.stoneHi,.4);
+      }
+    }
+    const centre=A.volume(12.55,19.45,25.2,27.2,32,56.8,'stone');
+    oriel(16,27.2,1,24.1,34.3,6.2);A.windows(centre.front,2,2,36.1,10.8,1.65,6.9,'rect');
+    // Three broken curved pediments, built as extruded curved stone bands.
+    // There is an open central break, not a complete triangular gable.
+    function brokenCurve(cx,y,z,r){
+      const inside=r-.48,depth=.8,at=(rad,t,d)=>[cx+rad*Math.cos(t),y-d,z+rad*.84*Math.sin(t)];
+      for(let j=0;j<30;j++){
+        const a=j*Math.PI/30,b=(j+1)*Math.PI/30;if(a<1.87&&b>1.27)continue;
+        for(const d of[0,depth])S.poly([at(r,a,d),at(r,b,d),at(inside,b,d),at(inside,a,d)],d?P.stoneD:P.stoneHi);
+        S.poly([at(r,a,0),at(r,b,0),at(r,b,depth),at(r,a,depth)],A.mat('stone',0,1));
+        S.poly([at(inside,a,0),at(inside,b,0),at(inside,b,depth),at(inside,a,depth)],P.stoneR);
+      }
+      S.box(cx-.48,cx+.48,y-.8,y+.05,z+.75,z+1.9,P.stone,P.stoneR,P.stoneHi);
+      const low=[[cx-.4,y-.68,z+1.9],[cx+.4,y-.68,z+1.9],[cx+.4,y-.05,z+1.9],[cx-.4,y-.05,z+1.9]],peak=[cx,y-.36,z+6.1];
+      for(let k=0;k<4;k++)S.poly([low[k],low[(k+1)%4],peak],k<2?P.stoneHi:P.stoneR);
+    }
+    for(const [cx,z,r]of[[8.25,54.3,3.8],[16,56.8,3.1],[23.75,54.3,3.8]])brokenCurve(cx,28.0,z,r);
+    for(const x of[4.9,12.05,19.95,27.1]){
+      S.box(x-.35,x+.35,26.5,27.4,48,50.8,P.stone,P.stoneR,P.stoneHi);
+      A.cone(x,26.95,.37,.05,50.8,54.6,4,'stone');
+    }
+    // Cank Street: only rear features resolved by the600x337 photograph.
+    const rearUpper=A.volume(x0,x1,4.9,7.0,32,48,'stone');
+    for(const u of[1.3,5.7,15.7,19.9])A.pane(rearUpper.back,u,34.2,1.7,10.4,'rect',true);
+    oriel(16,4.9,-1,24.1,35,6.1);
+    const attic=A.volume(10.7,21.3,5.0,10.9,48,58.9,'lead');
+    // Grey boarding is local to this attic; shared materials are untouched.
+    for(const F of Object.values(attic)){
+      S.wall(F.point(0,0,0),F.point(F.length,0,0),48,58.9,(x,y,z)=>K.mod(z,1.25)<.12?P.lead:(A.dark(F.nx,F.ny)?Q.steelD:Q.steel));
+      for(let j=1;j<Math.floor(F.length/1.4);j++)F.panel(j*1.4-.06,j*1.4+.06,48.3,58.6,P.lead,.06);
+    }
+    A.windows(attic.back,1,3,50.0,0,2.0,6.8,'rect');A.roof(10.3,21.7,4.65,11.2,58.9,3.0,'y','lead');
+    S.box(12.8,19.2,5.0,10.8,61.5,62.15,P.lead,P.ironD,Q.steel);
+    // Open square cupola: four posts and rails, no enclosing infill walls.
+    const cx=16,cy=7.9,lo=1.62,hi=2.05;
+    for(const x of[cx-lo,cx+lo])for(const y of[cy-lo,cy+lo]){
+      S.box(x-.22,x+.22,y-.22,y+.22,62.1,69.4,P.lead,P.ironD,Q.steelHi);
+      S.box(x-.35,x+.35,y-.35,y+.35,68.6,69.3,Q.steel,Q.steelD,Q.steelHi);
+    }
+    rail(A,[[cx-lo,cy-lo],[cx+lo,cy-lo],[cx+lo,cy+lo],[cx-lo,cy+lo]],62.5,1.5,true,P.lead);
+    for(const y of[cy-lo,cy+lo])S.beam([cx-lo,y,69.25],[cx+lo,y,69.25],P.lead,.3);
+    for(const x of[cx-lo,cx+lo])S.beam([x,cy-lo,69.25],[x,cy+lo,69.25],P.lead,.3);
+    const base=[[cx-hi,cy-hi,69.5],[cx+hi,cy-hi,69.5],[cx+hi,cy+hi,69.5],[cx-hi,cy+hi,69.5]],tip=[cx,cy,75.1];
+    for(let j=0;j<4;j++)S.poly([base[j],base[(j+1)%4],tip],j<2?Q.steelD:Q.steel);
+    S.beam(tip,[cx,cy,78.3],P.ironD,.17);
+    return{...A.finish(),details:{fourStoreyStoneArcade:true,centralRoundEntryApertures:2,splayedFrontBays:2,centralProjectingOrielOnCorbels:true,brokenCurvedPediments:3,obeliskFinials:true,glazedCentralRoofAndVoid:true,supportedIronGalleries:true,rearGreyBoardedAttic:true,rearOpenSquareCupola:true,rearPhotoDimensions:[600,337],rearFineCarvingUnresolved:true,notInteriorCutaway:true,noPhotographicTexture:true}};
+  }
   function harrods(row,view){
     const A=context(row,view),{S,P}=A,body=A.volume(3,29,5,27,.6,54,'terracotta');
     for(const [i,F]of Object.values(body).entries()){
@@ -820,7 +947,7 @@
     S.flat(12.6,19.4,5.8,9.2,18,P.lead);
     return{...A.finish(),details:{correctAddress217SauchiehallStreet:true,narrowWhiteFourStoreyFront:true,unevenUpperSashGroups:true,bowedLeadedFirstFloorWindow:true,squareBorderDetails:true,deepCornice:true,partGlazedHippedRearAnnexTextDerived:true,notBuchananStreetTearooms:true}};
   }
-  const MODELS=Object.freeze({leedsCorn,darlington,halifax,bishoplloyd,burlington,harrods,liberty,danum,willow});
+  const MODELS=Object.freeze({leedsCorn,darlington,halifax,bishoplloyd,burlington,silver,harrods,liberty,danum,willow});
   function build(id,view){const row=ROWS.find(q=>q.id===id);if(!row)throw Error('wave038 unknown frozen prototype '+id);if(!MODELS[id])throw Error('wave038 exterior evidence pending; model deliberately absent: '+id);return MODELS[id](row,view);}
   function buildAll(){return ROWS.flatMap(row=>[0,1,2,3].map(view=>({row,view,sprite:build(row.id,view)})));}
   const candidateRows=()=>ROWS.filter(row=>Object.hasOwn(MODELS,row.id));

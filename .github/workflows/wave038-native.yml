@@ -9,9 +9,9 @@ concurrency:
   group: wave038-native
   cancel-in-progress: true
 jobs:
-  candidates-nine:
+  candidates-ten:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,103 +19,41 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Native font environment
+      - name: Same native font environment as reviewed nine
         run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
-      - name: Nine direct native-kit candidates, Silver remains absent
-        run: node previewWave038Candidates.cjs
-      - name: Preserve actual candidate originals and source-bound manifest
+      - name: Exact approved nine bytes and full candidate source boundaries
+        run: node checkWave038FullCandidates.cjs
+      - name: Ten direct native-kit candidates,93 originals and81 reviewed PNG matches
+        run: node previewWave038FullCandidates.cjs
+      - name: Preserve complete candidate originals and source evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wave038-nine-candidates-${{ github.sha }}
-          path: shots/wave038/candidates/
-          retention-days: 14
-          if-no-files-found: error
-
-  night-power-nine:
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Native font environment
-        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
-      - name: Real native generation, bridge/source disconnection and visible night windows
-        run: node probeNightPower038.cjs
-      - name: Preserve exact night source, manifests, full saves and dispatch witnesses
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wave038-night-power-core-${{ github.sha }}
+          name: wave038-ten-candidates-${{ github.sha }}
           path: |
-            shots/wave038/night-power/*.json
-            shots/wave038/night-power/*.gz
-            shots/wave038/night-power/*.html
-            shots/wave038/night-power/*.txt
-          retention-days: 14
-          if-no-files-found: error
-      - name: Preserve powered originals and actual missing-night controls
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wave038-night-power-on-${{ github.sha }}
-          path: |
-            shots/wave038/night-power/*-on-*.png
-            shots/wave038/night-power/head-negative-missing-new-night.png
-          retention-days: 14
-          if-no-files-found: warn
-      - name: Preserve actual road-disconnected originals
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wave038-night-power-road-cut-${{ github.sha }}
-          path: shots/wave038/night-power/*-road-cut-*.png
-          retention-days: 14
-          if-no-files-found: warn
-      - name: Preserve actual source-off originals
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wave038-night-power-source-off-${{ github.sha }}
-          path: shots/wave038/night-power/*-source-off-*.png
-          retention-days: 14
-          if-no-files-found: warn
-      - name: Preserve actually restored originals and controls
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wave038-night-power-restored-${{ github.sha }}
-          path: shots/wave038/night-power/*-restored-*.png
-          retention-days: 14
-          if-no-files-found: warn
-
-  partial-native-nine:
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Native font environment
-        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
-      - name: Source-only boundaries and complete guard preparation
-        run: node checkWave038Sources.cjs
-      - name: Explicit nine-candidate native integration, full ten-model gates remain blocked
-        run: node probePartialNative038.cjs
-      - name: Preserve actual partial native source, states, images and precise limits
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wave038-partial-native-nine-${{ github.sha }}
-          path: |
-            shots/wave038/partial-native/
+            shots/wave038/candidates/
             shots/wave038/source-preparation/
+          retention-days: 14
+          if-no-files-found: error
+  native-preview-ten:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native font environment
+        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
+      - name: Early ten-model paid native integration preview, full acceptance separate
+        run: node previewWave038.cjs
+      - name: Preserve actual preview source-bound originals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wave038-ten-native-preview-${{ github.sha }}
+          path: shots/wave038/preview/
           retention-days: 14
           if-no-files-found: error

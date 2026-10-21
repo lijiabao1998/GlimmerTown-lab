@@ -241,3 +241,14 @@ manifest內1804次實際capture witness已逐項核對：正常／抑制／復�
 先交完整十款純候選：80原生日夜＋3完整接觸表＋10近景＝93原PNG，保留原尺寸／硬alpha／夜光支撐／無裁切／去共同鋪地十款互異等嚴格判斷；九款81張個別PNG須等於已覆核f53009d，三接觸表因新增列可變。新Silver預覽必須交檢視。分支workflow由歷史九款限定測試轉為完整候選階段；九款歷史測試檔保留，完整21工作模板與十個full guard原SHA不改。來源檢查繼續守完整BASE剝除逐byte相同、原smoke／共享來源／首卡凍結prefix與真來源首紅，不能用舊整檔art SHA禁止合法Silver新增，改以已批准九款函式及實際PNG逐一綁定。
 
 候選後的整合仍必須完成原十款／40葉、完整正常保存／undo／全畫布／97狀態／113 PNG／行人／效能及全部首紅門檻。既有144供電矩陣擴至十款×四向×四phase＝160案例／275 PNG，BASE與HEAD同策略、fixture相位控制只在CI，嚴格復原／未通電全幀相等及窗光／號誌真負控制保留，不改pw／dispatch／交通production語義。正式index在純候選階段維持BASE。此筆沒有模型、遊戲CI或整合通過宣稱；沒有新合併／發布授權，不配T／改版本／正式日誌／fp／style／Pages。
+
+
+## C25 — Silver完整候選實作；候選CI與原生預覽待執行
+
+依已先推C24 `231bec5d00725865489867d60aebe2e18d99fe27`新增Silver540..543的真世界幾何與照片限制metadata：中央兩端實體圓拱開口、折角窗灣、石托中央凸窗、三組有中央開口的曲線山花／方尖飾、中央玻璃頂／真中空廊道及支撐鐵廊，後側灰木閣樓與四柱開放方亭尖帽。沒有照片貼圖，也未聲稱低解析度細雕或隱蔽屋頂已考據。四向仍交原生Scene旋轉，既有context/helper和其他九款每一來源byte均由獨立C18 Git來源比對保留；局部Source修改真負控制確實首紅再恢復。
+
+新增previewWave038FullCandidates.cjs，要求固定10款／40向、buildAll完整40且等於逐款直接烘焙、80原生日夜＋3contact＋10near＝93原圖、去鋪地後10種不同幾何；原硬alpha／夜光支撐／非空／無裁切門檻不改。另對81張已覆核九款個別PNG核原bytes長度和SHA；接觸表完整新增Silver列。歷史九款runner與所有C18供電來源未改，不能拿它們的舊pass冒充本新款pass。
+
+新增checkWave038FullCandidates.cjs：原九款及helper以C18原Git物件精確綁定，只放行新增Silver函式／該row及registry宣告；原C1prefix、十個full guard SHA、共享來源／smoke原斷言／完整BASE三區塊剝除、phase helper不得進production、合法來源越界首紅均保持嚴格。局部靜態檢查實過（沒有執行遊戲）；正式index仍完整BASE SHA2b959e01…7cef60。
+
+活躍分支workflow現在明確為兩個候選階段job：完整十款候選/source，以及原封未改previewWave038.cjs的十款實付費原生預覽。這不是全波21工作的替代；21工作凍結模板與既有十款守衛不改，等候選新款預覽交付後再做完整驗收。CI與圖證在本筆提交後才執行，現在均待驗，不提前打勾。未在本機跑Chrome／遊戲，未合併、未發布、未改版本／T／正式日誌／fp／style。
