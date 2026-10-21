@@ -278,3 +278,30 @@ C26 head250b6e9原生run39565654849實際20／21成功，不能稱全綠。previ
 checkWave038FullSources只將候選階段的「fp／style仍等於BASE」要求轉為「逐byte等於這次C26官方CI產物」，固定兩個SHA與producer commit／run／job，並增查全部舊葉／165族／blocks／env及兩個真1-byte首紅。既有fp.js、財務守衛、smoke舊斷言、十個full guard、模型、美術、runtime／CSS及完整index均未改。這是既定基線採用階段，不放寬任何渲染／財務判準。新head將重新跑完整21工作及標準CI，不能靠重跑舊紅燈。
 
 原生job119107171106各測試及五份官方power附件均成功；完整job log兩次讀取均Transport closed後已停止該讀取，非測試重跑／平台拒絕。官方下載工具已取得core檔案參照，但本環境沒有讀入ZIP或獨立重算其ZIP SHA，尚未實看275供電原圖或獨立逐項核manifest；不得把CI成功擴稱已完成這些圖審。全部失敗log、C25／C26來源與原圖證據、先前獨立九款確認保持保留。新Silver及最新整合仍待獨立覆核；不合併或發布，T／版本／正式日誌不動。
+
+
+## C28 — 完整十款實際驗收、獨立覆核與 Silver 圖片接受；僅交審、不發布
+
+完整候選精確head `101547c59b94c5a5e98ec454ed8da04171a8ff30`／tree `90d6c73c2ef5b2369db905463f7917907cc1a735` 的 [原生39568705215](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39568705215) 首次21／21成功；[標準39568705293](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/39568705293) 首次真smoke3／fp／財務53＋10均成功，reuse-push在push事件按原workflow略過，不算遊戲測試。C26首紅及其修復紀錄保留；沒有重跑賭綠。
+
+完整十款40真幾何向、93靜態原圖、十款實付費／undo／redo／參照拆除復原、三種子各三checkpoint全欄位（fieldExclusions=[]）、舊新檔完整roundtrip、至少12個原生真首紅／恢復、97狀態／113 PNG、8組BASE／即時閥關全畫布逐byte相同、17行人及兩負例、40組交錯效能／30延遲負例、暖幾何烘焙0已由該原生CI執行。十款供電／拆路／斷源／undo復原矩陣為160案例／275原PNG，1920相位見證；traffic phase helper僅CI，production供電與交通語義未變。作者已實看93靜態原圖及已明列原生場景，未宣稱人工逐張審完275供電圖。
+
+父任務獨立核對八官方ZIP digest、298 manifest檔／275 PNG bytes及SHA、160案例／1920見證、舊九款72日夜圖hash；剝除Silver新增後原九款模型／helper／row不變。新metadata精確十名及四負控也獨立核實。實看32張新款日夜／供電／近景／邊界／contact，已審範圍未見裁切或浮空窗光阻擋；不是全275逐張圖審，也不是在獨立機器再跑整套遊戲。C27相對C26沒有改完整production index、財務斷言、fp.js或十個full guards。精確來源／manifest／13官方artifact／限制及逐job見GPT-038-C28-complete-ten-acceptance.json。
+
+2026-10-21 09:03 UTC，業主已明確接受Lab Silver Arcade日景、通電與熄燈三張圖。新款圖片待答已解除，既有九款也不重問；此接受只限圖片，沒有新增合併或發布授權。原樣張不重畫、不重發確認。Silver後側原實照600×337／42108bytes限制、Bishop gallery原生細節偏弱、實體手機／Safari／觸控未測及未逐張看完275圖均保留，不因接受圖片美化為已測。
+
+fp相對BASE唯一家族仍為首卡bld：原3743葉與165其他族、1728blocks／CRC5ef6eb67、env零變，只增520..559共40葉。bld七軸：palette1→1、hardEdge0.9517610664359899→0.9529472614093789、lightDir0.8201595358955766→0.8195912614517266、shade1→1、density1→1、nightRule0.9888712718250431→0.9891894285953、variants1→1；total0.9658→0.966。lightDir略降，不能說所有軸都上升；raw CI fp／style bytes與generatedAt未手改。
+
+§8逐條收工：
+
+- [x] 首卡95373e6在美術之前遠端核實，唯一bld／40葉及凍結十款要求未改鬆；C24新款補完計畫先推。
+- [x] 三種子九checkpoint正常模型／完整舊新保存及全欄位比較由C27原生CI通過，未用逃生閥代證正常玩法。
+- [x] C27 fp相對倉庫零差、相對BASE只新增明列bld40葉；8組完整BASE／閥關畫布逐byte相同，原圖與manifest保存。
+- [ ] 全部美術狀態人工逐張覆核未完成：CI實際涵蓋97狀態，作者逐張實看93靜態原圖，父任務實看32張選定整合／供電／邊界圖。保留此未逐張項，PR只交審，不自行合併；實機手機／Safari／觸控未測。
+- [x] 凍結原生故障、供電窗光／號誌負控及新增精確metadata／baseline來源負控制均首紅並恢復；沒有像素遮罩、容差或財務門檻放寬。
+- [x] C27真smoke三次首次全綠，附上述CI；失敗C26另存原始log，未用重跑抹去。
+- [x] 所有通過聲明均明列精確CI／實看／父任務來源及範圍；未跑／未審不假勾。
+
+本筆只追加驗收與圖片接受紀錄。接著按AGENTS§3另做一筆只刪`.github/workflows/wave038-native.yml`的提交：刪前最後完整21工作已綠並附上述精確C27連結，刪後每一commit保持它及035／036／037舊臨時workflow缺席，再驗最新標準CI並開`[等業主]` PR。此處尚未把後續刪除或新頭CI寫成已執行。
+
+沒做成／待決：未合併、未發布，第十波尚未計入正式波次；main仍3e335233／v14.56／T763／9波90棟。T號／三版本字／AUTORUN-LOG／方向已完成表依倉庫規則只在獲准合併那一步處理。後續需明確合併／發布批准，並在配版本後重新完整驗證、純刪workflow規則及最後CI／獨立差異覆核，合入後再追mainCI、既有Pages與精確公開bytes；現在不手觸Pages。
