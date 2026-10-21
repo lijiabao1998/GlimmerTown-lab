@@ -1,0 +1,61 @@
+{
+  "head": "78f9280abb0b9f5f006a1aba5619bdd06c29b355",
+  "tree": "8eae636969ccf69f58d36ae3d29978d320d76f31",
+  "candidateRun": 39563717236,
+  "standardRun": 39563717230,
+  "jobs": {
+    "candidates-ten": {
+      "id": 119100827755,
+      "conclusion": "success"
+    },
+    "native-preview-ten": {
+      "id": 119100828074,
+      "conclusion": "success"
+    },
+    "smoke": {
+      "id": 119100828280,
+      "conclusion": "success"
+    },
+    "fp": {
+      "id": 119100828528,
+      "conclusion": "success"
+    },
+    "fiscal-load": {
+      "id": 119100828802,
+      "conclusion": "success"
+    }
+  },
+  "candidateProof": {
+    "modelCount": 10,
+    "views": 40,
+    "rawPNG": 93,
+    "distinctGeometryWithoutSharedPaving": 10,
+    "oldNineIndividualPNGBytesEqual": 81,
+    "rawFilesRecoveredAndSHA256Verified": 94,
+    "artSourceSHA256": "6e31446ea77c97ba4467ee59e32d698115e0d6e1e8392bdaa06c2e1aeb9dac72"
+  },
+  "nativePreview": {
+    "actualPaidPlacements": 10,
+    "feeEach": 2000,
+    "installedLeaves": 40,
+    "fullAcceptance": false
+  },
+  "artifacts": [
+    {
+      "id": 12328607952,
+      "bytes": 1567695,
+      "githubZIPDigest": "c8b16ec16358f6d8438b7d36b812fc86868b05ebd36747883c0540fd53788555"
+    },
+    {
+      "id": 12329146271,
+      "bytes": 5584043,
+      "githubZIPDigest": "8e0a7fada679f8514439cda4ada8d3aeb31e143b31a6a79d83b1a926e8af2467"
+    }
+  ],
+  "archiveClaim": "Artifact ZIP digests are official GitHub metadata; author independently hashed recovered original files, not ZIP downloads.",
+  "notClaimed": [
+    "whole-wave21 jobs pass",
+    "Silver independent approval",
+    "new release or public deployment"
+  ]
+}

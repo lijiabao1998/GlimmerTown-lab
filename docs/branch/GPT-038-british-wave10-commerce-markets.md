@@ -252,3 +252,16 @@ manifest內1804次實際capture witness已逐項核對：正常／抑制／復�
 新增checkWave038FullCandidates.cjs：原九款及helper以C18原Git物件精確綁定，只放行新增Silver函式／該row及registry宣告；原C1prefix、十個full guard SHA、共享來源／smoke原斷言／完整BASE三區塊剝除、phase helper不得進production、合法來源越界首紅均保持嚴格。局部靜態檢查實過（沒有執行遊戲）；正式index仍完整BASE SHA2b959e01…7cef60。
 
 活躍分支workflow現在明確為兩個候選階段job：完整十款候選/source，以及原封未改previewWave038.cjs的十款實付費原生預覽。這不是全波21工作的替代；21工作凍結模板與既有十款守衛不改，等候選新款預覽交付後再做完整驗收。CI與圖證在本筆提交後才執行，現在均待驗，不提前打勾。未在本機跑Chrome／遊戲，未合併、未發布、未改版本／T／正式日誌／fp／style。
+
+
+## C26 — C25候選實過；啟用完整十款整合驗收（待新頭CI）
+
+C25實作head `78f9280abb0b9f5f006a1aba5619bdd06c29b355`已遠端核實，原生候選run39563717236的candidates-ten119100827755與native-preview-ten119100828074均成功。真烘焙固定十款40向、93原圖、去共同鋪地10個不同輪廓；九款81張單圖／near全部長度與SHA等於已獨立核查f53009d。作者從完成job原始log逐檔恢復93原圖＋manifest，全部雜湊吻合，並已逐張實開80原生單圖、10near、3完整contact；新Silver靜態未見裁切／缺件／漂移夜光，細雕限制照留。這是作者檢視，不冒稱新Silver已獨立通過。native preview實選十款、各實扣$2000、安裝40葉，作者另實看一張1280×657遊戲日景；night PNG仍只是靜態overlay。官方artifact12328607952（ZIP digest c8b16ec1…88555）與12329146271（8e0a7fad…f2467）保存原證據；ZIP digest只是官方metadata，未宣稱本地獨立下載重算ZIP。詳細逐檔索引、限制見C25-author93-review.json／C25-candidate-results.json。
+
+同head標準run39563717230三工作smoke119100828280、fp119100828528、fiscal-load119100828802均成功；此階段正式index當時仍BASE，所以這個fp綠只是零舊圖變動，不冒稱正式40新葉驗收。
+
+新款預覽與原生場景已交付後，現在按首卡把同一62976bytes美術（SHA6e31446e…dac72）、原有runtime／CSS透過未改composer接入完整生產index。僅三宣告區塊及唯一install點，完整剝除逐byte還原3e335233 index；不是發布、沒有版本字／T／主線日誌改動，沒有CI phase helper或nine fixture進入production。新index SHA `6e2684807542f6441ca110488d03dd418845103a7ad486b3f928a80b41fc8a6e`；96個inline script靜態parse及來源真首紅／復原實過，沒有本地遊戲執行。
+
+活躍workflow採原凍結模板展開21工作，原10個full guard每一byte保留。native工作另加checkWave038FullSources來源守衛及probeTenPower038十款實供電補驗；工作timeout20→45分鐘只容納新增矩陣，不改任何像素／效能／保存判準。nativeTenPower038從已覆核C18測試複製，原九款實體座標不移，Silver加第四列，真道路增加第四列連接；BASE／HEAD同十個付費地標、既有圖書館及核電源，原首紅／精確復原／相位見證與3像素／6 RGB總差窗光門檻保留。硬要求160案例／275實際PNG，四phase拆路、斷源及undo復原均為原生操作，沒有pw／容量／dispatch／rate直接賦值。phase橋僅CI來源，剝除回完整BASE與正式HEAD均精確；核心與四phase原圖分五artifact保存。
+
+這一提交啟動完整十款驗收，並非事先聲稱21工作或160案例通過。新head的正常全欄保存、undo／redo、97狀態／113PNG、全幀閥關、首紅／復原、行人、效能、fp來源及獨立覆核仍待結果。保留C18既有九款確認與全部歷史首紅，不盲重跑、不削弱守衛、不合併或發布。
