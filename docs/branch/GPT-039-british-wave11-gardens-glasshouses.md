@@ -76,3 +76,12 @@ C1已實際先推為57df89d3081cf645847e33999b2c9e604d4c0510，只加本卡，pa
 本來源腳本首次紅是git ls-tree在被忽略子目錄回0項，已診斷並加--full-tree取得實際1261項，原相等／hash／數量門檻未變。首回工具輸出被截斷，不冒稱完整；相同未修來源的完整診斷重現stderr194758bytes／SHA f66be1b5479c14488ff7a7fc7d872fdd92dcc855a780001fc18a58a65b3f8550另存。其他抽取／返回格式錯誤及代理403照startup audit記錄，無盲重試。
 
 下一步仍需這十款真正可讀原圖與出處以通過既定來源門檻，才繪製十款並接續原生整合／原標準全套測試／實景預覽。本次標準CI若綠，只表示未改動的主線遊戲回歸，不能冒充第11波已實作。沒有合併／發布動作或待平台寫入卡片。
+
+
+## Commons 替代來源核對（2026-10-23；仍未通過像素門檻）
+
+新增 `GPT-039-commons-reference-candidates.json`，逐頁核對十款的具體 Commons File、作者、照片授權與日期／宣告解析度，另列 Syon 後側候選。這是書目／授權索引，不是照片驗收；全部 `pixelsActuallyViewed=false`、`imageSHA256=null`。Syon 的一個同名候選在 File 頁列為室內圖，未當作外觀主參照。Sefton 是作者 PD-self 釋放，不誤記 CC0；Wrest／Stowe／Pagoda 的照片 CC0 已分別核對。
+
+Bicton 新原圖（Adrian Platt，CC BY-SA 2.0，Geograph 1979683）的官方網頁開圖只回 ImageDisplayed 字串、實際 ImageContent=0；另一原生 web open 回 URL 不可由該工具存取。對該新 Commons 原檔作一次正常 GET，得到 `URLError: Tunnel connection failed: 403 Forbidden`，寫入0 bytes，已停止；沒有對它重試或轉取縮圖，也沒有重試先前被拒的 Kew／Library 路線。其他九款原圖尚未下載，不將這一張的拒絕泛稱為全部來源不可讀；File 頁文字可讀也不算圖片 bytes 交付。此錯誤不等於 Historic England／Cloudflare 錯誤，也未解除既有官方工具服務的 CONNECT403。
+
+本次只新增來源索引與本段：模型0／10、精靈0／40、照片實看0／10、真預覽與接觸表0；產品 HTML、舊美術／守衛／規則、基線與工作流均未改。既有準備CI不代表本波美術／原生驗收通過。本段不改 C1 凍結條件；仍需取得合法原圖 bytes／SHA、實看足夠角度，才繪製及執行全部原驗收與適用預覽確認。

@@ -1,0 +1,413 @@
+{
+  "schema": "GPT-039.commons-reference-candidates.v1",
+  "reviewDateUTC": "2026-10-23",
+  "repository": "lijiabao1998/GlimmerTown-lab",
+  "branch": "gpt/british-wave11-039",
+  "baseMain": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "previousHead": "277bc0b1518797426110abf5db38a14a4559a58c",
+  "frozenCard": "57df89d3081cf645847e33999b2c9e604d4c0510",
+  "status": "10 bibliographic/license candidates reviewed; 0 image bytes received; 0 photos visually inspected; not a source acceptance pass",
+  "modelsImplemented": 0,
+  "newSpriteLeaves": 0,
+  "newPreviews": 0,
+  "referenceContactSheetGenerated": false,
+  "references": [
+    {
+      "id": "temperate",
+      "name": "Kew Temperate House",
+      "fileTitle": "Temperate House, Kew Gardens.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Temperate_House%2C_Kew_Gardens.jpg",
+      "author": "JRennocks",
+      "license": {
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes"
+        ]
+      },
+      "photoDateDeclared": "2019-03-05",
+      "dimensionsDeclared": [
+        4032,
+        2268
+      ],
+      "fileSizeDeclared": "8.87 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File Summary and Licensing, retrieved through official web tool",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence"
+    },
+    {
+      "id": "syon",
+      "name": "Syon Great Conservatory",
+      "fileTitle": "Syon House Conservatory, London.JPG",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Syon_House_Conservatory%2C_London.JPG",
+      "author": "Penny Hamer",
+      "license": {
+        "id": "CC-BY-SA-3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes",
+          "ShareAlike applies to adaptations"
+        ]
+      },
+      "photoDateDeclared": "2010-05-31",
+      "dimensionsDeclared": [
+        3716,
+        2292
+      ],
+      "fileSizeDeclared": "3.54 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File Summary and Licensing; CC BY-SA 3.0 selected from dual CC/GFDL licensing",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence",
+      "otherLicenseOptions": [
+        "GFDL 1.2 or later"
+      ],
+      "captionCoverage": "File description identifies a view of the Great Conservatory; angles not visually verified"
+    },
+    {
+      "id": "bicton",
+      "name": "Bicton Palm House",
+      "fileTitle": "The Palm House, Bicton Gardens Geograph-1979683-by-Adrian-Platt.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:The_Palm_House%2C_Bicton_Gardens_Geograph-1979683-by-Adrian-Platt.jpg",
+      "author": "Adrian Platt",
+      "license": {
+        "id": "CC-BY-SA-2.0",
+        "url": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes",
+          "ShareAlike applies to adaptations"
+        ]
+      },
+      "photoDateDeclared": "2010-07-01",
+      "dimensionsDeclared": [
+        1024,
+        683
+      ],
+      "fileSizeDeclared": "137 KB",
+      "sourceDeclared": "https://www.geograph.org.uk/photo/1979683",
+      "metadataEvidence": "File Summary and Licensing",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "one new original request denied by environment CONNECT403; zero bytes; stopped",
+      "sourceRole": "exterior reference candidate; not accepted model evidence"
+    },
+    {
+      "id": "sefton",
+      "name": "Sefton Park Palm House",
+      "fileTitle": "Palm House Sefton Park.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Palm_House_Sefton_Park.jpg",
+      "author": "Imcall",
+      "license": {
+        "id": "PD-self",
+        "url": "https://commons.wikimedia.org/wiki/File:Palm_House_Sefton_Park.jpg#Licensing",
+        "requirements": [
+          "copyright holder's worldwide public-domain release/fallback permission as stated on File page; source credit retained"
+        ]
+      },
+      "photoDateDeclared": null,
+      "dimensionsDeclared": [
+        3199,
+        1984
+      ],
+      "fileSizeDeclared": "3.41 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File Summary, PD-self Licensing and file history",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence",
+      "dateLimit": "Description date absent; EXIF says 2008-01-12; uploaded 2008-01-20. EXIF is not independently verified.",
+      "declaredSHA1": "d801e6703d65c3ce0a8684cbf0fd1a6b69e3397d",
+      "declaredSHA1IndependentlyVerified": false
+    },
+    {
+      "id": "sheffield",
+      "name": "Sheffield Winter Garden",
+      "fileTitle": "Sheffield, the Winter Garden from St. Paul’s Place - geograph.org.uk - 3966677.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Sheffield%2C_the_Winter_Garden_from_St._Paul%E2%80%99s_Place_-_geograph.org.uk_-_3966677.jpg",
+      "author": "Chris Downer",
+      "license": {
+        "id": "CC-BY-SA-2.0",
+        "url": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes",
+          "ShareAlike applies to adaptations"
+        ]
+      },
+      "photoDateDeclared": "2014-05-02",
+      "dimensionsDeclared": [
+        640,
+        480
+      ],
+      "fileSizeDeclared": "89 KB",
+      "sourceDeclared": "https://www.geograph.org.uk/photo/3966677",
+      "metadataEvidence": "File Summary and Licensing",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence",
+      "attributionRequestedByFile": "Sheffield: the Winter Garden from St. Paul’s Place by Chris Downer",
+      "resolutionLimit": "File metadata declares 640x480; detailed rear/roof evidence still requires real pixels and potentially additional references"
+    },
+    {
+      "id": "hestercombe",
+      "name": "Hestercombe Orangery",
+      "fileTitle": "Hestercombe, Orangery on right.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Hestercombe%2C_Orangery_on_right.jpg",
+      "author": "Scott Zona",
+      "license": {
+        "id": "CC-BY-2.0",
+        "url": "https://creativecommons.org/licenses/by/2.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes"
+        ]
+      },
+      "photoDateDeclared": "2008-09-13",
+      "dimensionsDeclared": [
+        1884,
+        1413
+      ],
+      "fileSizeDeclared": "2.93 MB",
+      "sourceDeclared": "https://www.flickr.com/photos/12017190@N06/2870655134/",
+      "metadataEvidence": "File Summary, Licensing and historical Flickr license review",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence",
+      "captionCoverage": "File title places the Orangery on the right; scale, unobstructed coverage and rear detail remain unknown"
+    },
+    {
+      "id": "wrest",
+      "name": "Wrest Park Archer Pavilion",
+      "fileTitle": "Archer Pavilion - Wrest Park - Bedfordshire, England - DSC08123.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Archer_Pavilion_-_Wrest_Park_-_Bedfordshire%2C_England_-_DSC08123.jpg",
+      "author": "Daderot",
+      "license": {
+        "id": "CC0-1.0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "requirements": [
+          "public-domain dedication as stated by the File page; source credit retained for traceability"
+        ]
+      },
+      "photoDateDeclared": "2016-06-09",
+      "dimensionsDeclared": [
+        5472,
+        3648
+      ],
+      "fileSizeDeclared": "11.91 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File Summary and photo CC0 Licensing; not just the building's public-domain status",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence"
+    },
+    {
+      "id": "stowegothic",
+      "name": "Stowe Gothic Temple",
+      "fileTitle": "Gothic Temple, Stowe - Buckinghamshire, England - DSC06550.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Gothic_Temple%2C_Stowe_-_Buckinghamshire%2C_England_-_DSC06550.jpg",
+      "author": "Daderot",
+      "license": {
+        "id": "CC0-1.0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "requirements": [
+          "public-domain dedication as stated by the File page; source credit retained for traceability"
+        ]
+      },
+      "photoDateDeclared": "2016-06-06",
+      "dimensionsDeclared": [
+        5472,
+        3648
+      ],
+      "fileSizeDeclared": "9.55 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File Summary and CC0 Licensing",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence"
+    },
+    {
+      "id": "apollo",
+      "name": "Stourhead Temple of Apollo",
+      "fileTitle": "Temple of Apollo, Stourhead.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Temple_of_Apollo%2C_Stourhead.jpg",
+      "author": "Nessy-Pic",
+      "license": {
+        "id": "CC-BY-SA-4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes",
+          "ShareAlike applies to adaptations"
+        ]
+      },
+      "photoDateDeclared": "2011-09-19",
+      "dimensionsDeclared": [
+        4752,
+        3168
+      ],
+      "fileSizeDeclared": "11.62 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File Summary and Licensing",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence",
+      "captionCoverage": "File describes a view from the Shades; distance and detail not visually verified"
+    },
+    {
+      "id": "pagoda",
+      "name": "Kew Great Pagoda",
+      "fileTitle": "Great Pagoda at Kew Gardens 1.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:Great_Pagoda_at_Kew_Gardens_1.jpg",
+      "author": "Mx. Granger",
+      "license": {
+        "id": "CC0-1.0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "requirements": [
+          "public-domain dedication as stated by the File page; source credit retained for traceability"
+        ]
+      },
+      "photoDateDeclared": "2021-07-17",
+      "dimensionsDeclared": [
+        2458,
+        2925
+      ],
+      "fileSizeDeclared": "2.56 MB",
+      "sourceDeclared": "Own work; current File revision is an uploader crop",
+      "metadataEvidence": "File Summary, CC0 Licensing and crop history",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "exterior reference candidate; not accepted model evidence",
+      "dateLimit": "2021 capture is later than the known 2018 restoration, but no restored dragon detail is verified without pixels"
+    }
+  ],
+  "supplementary": [
+    {
+      "id": "syon-rear",
+      "name": "Syon rear/side supplementary candidate",
+      "fileTitle": "File-observatory syonpark.jpg",
+      "filePage": "https://commons.wikimedia.org/wiki/File:File-observatory_syonpark.jpg",
+      "author": "Extraordinary at English Wikipedia (Ed Sexton)",
+      "license": {
+        "id": "CC-BY-SA-3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "requirements": [
+          "credit author and source",
+          "link license",
+          "indicate changes",
+          "ShareAlike applies to adaptations"
+        ]
+      },
+      "photoDateDeclared": "2008-05-05",
+      "dimensionsDeclared": [
+        2592,
+        1944
+      ],
+      "fileSizeDeclared": "1.28 MB",
+      "sourceDeclared": "Own work",
+      "metadataEvidence": "File description explicitly identifies side view of the back; Summary and Licensing checked",
+      "metadataReviewed": true,
+      "imageBytesAcquired": false,
+      "imageSHA256": null,
+      "pixelsActuallyViewed": false,
+      "exteriorCoverageAdequate": null,
+      "coverageStatus": "unverified until actual pixels are inspected",
+      "downloadStatus": "not attempted",
+      "sourceRole": "supplementary rear/side candidate; not visually verified",
+      "otherLicenseOptions": [
+        "GFDL 1.2 or later"
+      ]
+    }
+  ],
+  "rejectedAsPrimaryExterior": [
+    {
+      "filePage": "https://commons.wikimedia.org/wiki/File:Syon_House_-_the_Great_Conservatory.JPG",
+      "author": "John Chapman",
+      "reason": "File page places it in Interior of the Syon House Great Conservatory; not accepted as a primary exterior reference. Pixels have not been viewed."
+    }
+  ],
+  "observedImageAcquisition": {
+    "newCommonsOriginalURL": "https://upload.wikimedia.org/wikipedia/commons/f/f4/The_Palm_House%2C_Bicton_Gardens_Geograph-1979683-by-Adrian-Platt.jpg?utm_campaign=index&utm_content=original&utm_source=commons.wikimedia.org",
+    "webOriginalClick": "official web tool returned only ImageDisplayed text; zero MCP ImageContent blocks",
+    "nativeWebOpen": "Internal Error: URL is not accessible via this tool; zero image payload",
+    "ordinaryOriginalGETAttempts": 1,
+    "result": "URLError: Tunnel connection failed: 403 Forbidden",
+    "bytesWritten": 0,
+    "retryAfterThisDenial": false,
+    "otherNineOriginalDownloadsAttempted": false,
+    "earlierKewOrLibraryDeniedRouteRetried": false,
+    "proxyCredentialsOrSecurityChanged": false,
+    "alternateEnvironmentUsed": false,
+    "distinction": "This is a new Commons original request failure in the environment proxy. It does not establish a Commons File-page/Cloudflare failure, and is not evidence that the earlier hosted-app tools/list CONNECT denial has been lifted."
+  },
+  "existingReferenceIndex": {
+    "previousPrivatelySuppliedReferencesAlreadyInventoried": true,
+    "oldPrivateArchiveContentsActuallyRead": false,
+    "localKnownReferenceIndexReviewed": true,
+    "priorExactCommonsFileURLsInKnownAuditJSON": 0,
+    "duplicateCheckLimit": "Private archive bytes and manifest are unavailable; cross-bundle image deduplication is not claimed."
+  },
+  "reusePlan": "Private architectural research only until actual bytes are lawfully delivered and visually inspected. Any later reference-sheet reuse must preserve each File's author/source/license and applicable change/ShareAlike notices. No original photograph is embedded in the game or committed here.",
+  "frozenGate": "Do not draw from text-only metadata, invent hidden geometry, substitute nine models, or weaken the ten/four-view/native/power/save/scene/performance/fingerprint gates.",
+  "next": "Resume actual pixel intake only through a supported authorized route with relevant recovery evidence; validate original bytes/hash/provenance, inspect angles, then build the frozen ten models and complete all original acceptance and applicable preview review before conditional release."
+}
