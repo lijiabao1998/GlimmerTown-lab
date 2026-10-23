@@ -85,3 +85,7 @@ C1已實際先推為57df89d3081cf645847e33999b2c9e604d4c0510，只加本卡，pa
 Bicton 新原圖（Adrian Platt，CC BY-SA 2.0，Geograph 1979683）的官方網頁開圖只回 ImageDisplayed 字串、實際 ImageContent=0；另一原生 web open 回 URL 不可由該工具存取。對該新 Commons 原檔作一次正常 GET，得到 `URLError: Tunnel connection failed: 403 Forbidden`，寫入0 bytes，已停止；沒有對它重試或轉取縮圖，也沒有重試先前被拒的 Kew／Library 路線。其他九款原圖尚未下載，不將這一張的拒絕泛稱為全部來源不可讀；File 頁文字可讀也不算圖片 bytes 交付。此錯誤不等於 Historic England／Cloudflare 錯誤，也未解除既有官方工具服務的 CONNECT403。
 
 本次只新增來源索引與本段：模型0／10、精靈0／40、照片實看0／10、真預覽與接觸表0；產品 HTML、舊美術／守衛／規則、基線與工作流均未改。既有準備CI不代表本波美術／原生驗收通過。本段不改 C1 凍結條件；仍需取得合法原圖 bytes／SHA、實看足夠角度，才繪製及執行全部原驗收與適用預覽確認。
+
+## 2026-10-23 原創範圍取代說明
+
+使用者改為「那你设计新的，然后完成第11轮」。現行凍結卡改為 `GPT-039-original-wave11-scope.md`、精確十款為 `wave039-original-scope.json`。本舊卡／來源清單及照片阻點僅作歷史；不再是原創美術開工門檻，也不代表本波模型已完成。仍適用的遊戲／整合／供電／品質與負控制不變。

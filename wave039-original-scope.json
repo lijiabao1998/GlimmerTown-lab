@@ -1,0 +1,172 @@
+{
+  "schema": "GPT-039.original-wave11-scope.v1",
+  "revision": "original-2026-10-23",
+  "supersedes": "Only the real-landmark recreation/photo dependency of the earlier GPT-039 gardens/glasshouses preparation; historical evidence retained.",
+  "authorization": {
+    "dateUTC": "2026-10-23",
+    "userQuote": "那你设计新的，然后完成第11轮"
+  },
+  "baseCommit": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "branch": "gpt/british-wave11-039",
+  "pr": 47,
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      560,
+      599
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "brackenread",
+      "nm": "蕨庭閱覽屋",
+      "en": "Bracken Fold Reading House",
+      "v": 560,
+      "shape": "L-plan-unequal-cross-gables-five-sided-oriel-recessed-corner-porch",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "L形低層磚木量體、兩條不等高交叉山牆、五面凸窗、內角退縮門廊、成組煙囪",
+      "distinctionFromPublished100": "Cragside: 本款為低矮L形閱覽館，半木上層、凸窗與真實內角門廊；不沿用其不對稱高石宅模型"
+    },
+    {
+      "id": "ferncourt",
+      "nm": "銅溪蕨室",
+      "en": "Copperbrook Fern Court",
+      "v": 564,
+      "shape": "unequal-hexagonal-glazed-pavilions-angled-link-pointed-roofs",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "兩座不等高六角玻璃館、斜向低廊、尖形分片玻璃頂、放射窗梃",
+      "distinctionFromPublished100": "所有既有穹頂館: 本款兩個六角尖頂與斜接廊，無圓頂或矩形溫室替換"
+    },
+    {
+      "id": "rookhall",
+      "nm": "鴉木會館",
+      "en": "Rookwood Lantern Hall",
+      "v": 568,
+      "shape": "cranked-T-plan-jerkinhead-clerestory-rear-apse",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "錯位T形會館、兩端截角山牆、短高側窗帶、背面半圓後殿與成組圓拱窗",
+      "distinctionFromPublished100": "Campden/Globe: 非多山牆市場或開放多角劇場；本款封閉T形量體與截角屋頂"
+    },
+    {
+      "id": "cobblefold",
+      "nm": "石褶交易亭",
+      "en": "Cobblefold Exchange Pavilion",
+      "v": 572,
+      "shape": "triangular-open-arcade-three-fold-roof-offset-triangular-lantern",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "三角開放拱廊、三片折板石板屋面、偏置三角採光亭、低矮售亭",
+      "distinctionFromPublished100": "Stowe未實作且不再復刻；既有三角遊池/市政廳: 本款為通透三角拱廊、折板屋頂"
+    },
+    {
+      "id": "mossgate",
+      "nm": "苔門展亭",
+      "en": "Mossgate Ticket Lodge",
+      "v": 576,
+      "shape": "unequal-gate-piers-real-pointed-passage-ogee-and-saddle-caps",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "不等高石門樓、真正貫通的尖拱通道、凹脊連頂、一高一低異形塔帽",
+      "distinctionFromPublished100": "Sissinghurst/StAlbans: 不做方塔／鐘塔；本款雙門墩之間明確可見貫通拱道"
+    },
+    {
+      "id": "orchardcraft",
+      "nm": "果巷工藝館",
+      "en": "Orchardcross Workshop",
+      "v": 580,
+      "shape": "three-short-sawtooth-monitors-brick-range-fanlight-stair-drum",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "三條短鋸齒採光頂、低磚長屋、圓形樓梯鼓筒與扇形窗",
+      "distinctionFromPublished100": "Darlington/Leicester: 非五條百葉山脊或斜網玻璃高塔；本款三短監視頂和獨立低圓鼓"
+    },
+    {
+      "id": "pennyfen",
+      "nm": "芬澤船屋展亭",
+      "en": "Pennyfen Boathouse Pavilion",
+      "v": 584,
+      "shape": "inverted-keel-curved-roof-timber-bay-stone-stair-annex",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "上揚倒船底曲屋頂、露木桁架與大窗、偏置石階門房、低側翼",
+      "distinctionFromPublished100": "Cromer: 本款陸地k24展亭無棧橋，曲頂尖脊和木架及偏置門房，不複製圓筒救生船站"
+    },
+    {
+      "id": "willowmusic",
+      "nm": "柳澤樂亭",
+      "en": "Willowmere Music Lodge",
+      "v": 588,
+      "shape": "cranked-V-plan-butterfly-valley-roofs-staggered-wings",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "折轉V形兩翼、內低外高蝴蝶谷頂、交錯高低簷、深色木窗屏",
+      "distinctionFromPublished100": "Saltdean/Eastbourne: 無半圓流線外牆或碟形頂；本款折轉直線V平面、兩段谷頂"
+    },
+    {
+      "id": "hawthornloom",
+      "nm": "山楂織屋",
+      "en": "Hawthorn Loom House",
+      "v": 592,
+      "shape": "brick-anchor-rooms-raised-timber-loft-bridge-gambrel-roof",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "兩端磚基房托起木構跨院樓、複折馬廄頂、偏置小坡頂老虎窗、菱形高窗",
+      "distinctionFromPublished100": "Thaxted/Faversham: 非柱托單一歇山市場；本款雙磚錨房、真實穿院、複折屋頂"
+    },
+    {
+      "id": "briarwatch",
+      "nm": "荊井瞭望屋",
+      "en": "Briarwell Beacon House",
+      "v": 596,
+      "shape": "tapered-hexagonal-timber-lookout-external-stair-two-stage-cap",
+      "note": "原創英式外觀，不對應具名真實建築。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original in-repository world geometry using the existing art634 palette, projection, materials and rasterizer.",
+      "design": "收分六角木瞭望室、外繞台階與護欄、雙層矮帽、低弓頂附房",
+      "distinctionFromPublished100": "Cley/PortlandBill: 無風車葉或燈塔燈室；本款六角木樓、外階、分層帽與弓頂附房"
+    }
+  ],
+  "acceptance": {
+    "completeTen": true,
+    "fourWorldRotations": true,
+    "sameArt634Style": true,
+    "nativeOpaqueWindowPowerSemantics": true,
+    "strictFullFrameValveAndBaselinePairs": true,
+    "sameSeedSaveUndoFiscal": true,
+    "sourceBindingStripExact": true,
+    "old100AndOtherFamiliesUnchanged": true,
+    "negativeControlsPreserved": true,
+    "gameContextPreviewsRequired": true,
+    "visualReviewBeforePublication": true,
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true
+  }
+}
