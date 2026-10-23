@@ -1,0 +1,91 @@
+{
+  "schema": "GPT-039.full-guard-preparation.v1",
+  "base": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "scope": "retarget complete previous native acceptance to original ten; no partial candidate pass",
+  "fullGuardPreparedSources": [
+    {
+      "template": "probeBritishWave038.cjs",
+      "templateSHA256": "7dc601da42856ed8438cdb3613791f53a6a7a616f987ffd80718e551affd33bf",
+      "file": "probeBritishWave039.cjs",
+      "expectedSHA256": "23067daf3d162508d00dc7d984044905d9dd230e21dd6139876b1c62b882d576",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "probeNativePairs038.cjs",
+      "templateSHA256": "d3d199b8d14130d94c757112497e5ce5c7e9b960840353ab14157f0fcfbfd5a0",
+      "file": "probeNativePairs039.cjs",
+      "expectedSHA256": "0f3cef463bf388247396410538d2337f2300c18a0986ee9bb8a7f6876324317a",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "probeTenPower038.cjs",
+      "templateSHA256": "1aaf472c6865f6df4da41a0326f0cb21009b8232d6debbe985bd6a70999a0e8f",
+      "file": "probeTenPower039.cjs",
+      "expectedSHA256": "387512db6f1be484a80dd29183fbf501e69eeb4d0687af69ae2f3fd2660872d0",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "nativeTenPower038.cjs",
+      "templateSHA256": "8687e680b3c48a63fd165a4510eeeb3e1f1aed0daba63600f081b3aa3b58dd9b",
+      "file": "nativeTenPower039.cjs",
+      "expectedSHA256": "6bf04c4ababa04f9f3e7d8ee46e96415db161b9f3ea1b70b3dd5231bd567daab",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "probeScenes038.cjs",
+      "templateSHA256": "75c7ef0cab6975f6d327c7a4c8449be0afd28f6cac2b497f2867e7dc451776b1",
+      "file": "probeScenes039.cjs",
+      "expectedSHA256": "039324c3eddbd2646a4711b13f3ad559ef6ad32222828efbc6995cd568d102ec",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "probePedestrians038.cjs",
+      "templateSHA256": "9b41e1f29c7b97097e99dc4c1f30aca7bed01f95e717b96c41456d000b291d50",
+      "file": "probePedestrians039.cjs",
+      "expectedSHA256": "0990368701f95359b23ef0e9f1f132961de03d24ebc2372152044543a492a5c2",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "probePerformance038.cjs",
+      "templateSHA256": "68a1496efb5d95a62b60f026e8540bf663261c4917852cc571477d9cbb4f39e8",
+      "file": "probePerformance039.cjs",
+      "expectedSHA256": "5991c72172563452bdbc5e6e48138b5988911b616248f374bee49f8843099ede",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "proveWave038Baseline.cjs",
+      "templateSHA256": "0304753cc44dcb94fb74b49567a6332660f44b83033d5fc544356b47a49615c2",
+      "file": "proveWave039Baseline.cjs",
+      "expectedSHA256": "76ba193c2a65916bbfff95945999495d5cb08b515a2422680ffddbeee15f7d15",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "previewWave038.cjs",
+      "templateSHA256": "5613141f7d43808403642afd14a4edd7d2ab081ae057a02fd80b136040803326",
+      "file": "previewWave039.cjs",
+      "expectedSHA256": "c286a19536a5d2a369be784f600129f9693b6479f50ad0c2f215a125598b0917",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "transferWave038CloseScenes.cjs",
+      "templateSHA256": "dba7954c288f8168a9f5c40063070322cb93b6ecb4ce42fe05f9b41a16555d02",
+      "file": "transferWave039CloseScenes.cjs",
+      "expectedSHA256": "dd6e8c4dff984b10a20889c0a1f2ecc966e85c4e3f336c57518e15a13ddac1f9",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "transferWave038Source.cjs",
+      "templateSHA256": "a05d5a534eac20c8b312cbc7e8c9080937cfe7eba8cc90a4dfaf3f8d14a79ffb",
+      "file": "transferWave039Source.cjs",
+      "expectedSHA256": "b7f9721deaddcfb01c51b2572896613c72fe204ffbf81078b7f1759f91cb12ec",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    },
+    {
+      "template": "wave038-traffic-phase-fixture.js",
+      "templateSHA256": "2f1e36a21a866f6221205785c9587ff97592fb721f12011fd5fbc485e6be4572",
+      "file": "wave039-traffic-phase-fixture.js",
+      "expectedSHA256": "ee5bcfea4c701f9fbfe85d23e365b0a57d1c3117a91f1553df9d5007d2cd076f",
+      "changes": "new wave/BASE/ten IDs/variant indices; unchanged game predicates and negative controls; added old wave10 selftest/selection; original-design comparisons"
+    }
+  ]
+}

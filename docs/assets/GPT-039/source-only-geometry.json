@@ -1,0 +1,893 @@
+{
+  "ok": true,
+  "kind": "source-only-recording-stub-audit",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedSprites": 0,
+  "models": 10,
+  "authoredViewPaths": 40,
+  "negativeControls": 3,
+  "sourceSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+  "summaries": [
+    {
+      "id": "brackenread",
+      "view": 0,
+      "polygons": 273,
+      "beams": 31,
+      "pairedMaterials": 31,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38.5
+        ]
+      ],
+      "geometrySHA256": "a03eb8d69a0cacf27ec2eca8f5542e477904ad2e53d3aa1992bebc3f51d189cb"
+    },
+    {
+      "id": "brackenread",
+      "view": 1,
+      "polygons": 273,
+      "beams": 31,
+      "pairedMaterials": 31,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38.5
+        ]
+      ],
+      "geometrySHA256": "a03eb8d69a0cacf27ec2eca8f5542e477904ad2e53d3aa1992bebc3f51d189cb"
+    },
+    {
+      "id": "brackenread",
+      "view": 2,
+      "polygons": 273,
+      "beams": 31,
+      "pairedMaterials": 31,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38.5
+        ]
+      ],
+      "geometrySHA256": "a03eb8d69a0cacf27ec2eca8f5542e477904ad2e53d3aa1992bebc3f51d189cb"
+    },
+    {
+      "id": "brackenread",
+      "view": 3,
+      "polygons": 273,
+      "beams": 31,
+      "pairedMaterials": 31,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38.5
+        ]
+      ],
+      "geometrySHA256": "a03eb8d69a0cacf27ec2eca8f5542e477904ad2e53d3aa1992bebc3f51d189cb"
+    },
+    {
+      "id": "ferncourt",
+      "view": 0,
+      "polygons": 132,
+      "beams": 50,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          35
+        ]
+      ],
+      "geometrySHA256": "69041dec42323d1247250c4d25e50e54053380a5f7a7b472acc7b2125eaf452f"
+    },
+    {
+      "id": "ferncourt",
+      "view": 1,
+      "polygons": 132,
+      "beams": 50,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          35
+        ]
+      ],
+      "geometrySHA256": "69041dec42323d1247250c4d25e50e54053380a5f7a7b472acc7b2125eaf452f"
+    },
+    {
+      "id": "ferncourt",
+      "view": 2,
+      "polygons": 132,
+      "beams": 50,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          35
+        ]
+      ],
+      "geometrySHA256": "69041dec42323d1247250c4d25e50e54053380a5f7a7b472acc7b2125eaf452f"
+    },
+    {
+      "id": "ferncourt",
+      "view": 3,
+      "polygons": 132,
+      "beams": 50,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          35
+        ]
+      ],
+      "geometrySHA256": "69041dec42323d1247250c4d25e50e54053380a5f7a7b472acc7b2125eaf452f"
+    },
+    {
+      "id": "rookhall",
+      "view": 0,
+      "polygons": 240,
+      "beams": 16,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          36
+        ]
+      ],
+      "geometrySHA256": "63fcf2a7869399a98cc023172faac1a2602314bf1006cf1322e5a26a95d65a4e"
+    },
+    {
+      "id": "rookhall",
+      "view": 1,
+      "polygons": 240,
+      "beams": 16,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          36
+        ]
+      ],
+      "geometrySHA256": "63fcf2a7869399a98cc023172faac1a2602314bf1006cf1322e5a26a95d65a4e"
+    },
+    {
+      "id": "rookhall",
+      "view": 2,
+      "polygons": 240,
+      "beams": 16,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          36
+        ]
+      ],
+      "geometrySHA256": "63fcf2a7869399a98cc023172faac1a2602314bf1006cf1322e5a26a95d65a4e"
+    },
+    {
+      "id": "rookhall",
+      "view": 3,
+      "polygons": 240,
+      "beams": 16,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          36
+        ]
+      ],
+      "geometrySHA256": "63fcf2a7869399a98cc023172faac1a2602314bf1006cf1322e5a26a95d65a4e"
+    },
+    {
+      "id": "cobblefold",
+      "view": 0,
+      "polygons": 495,
+      "beams": 7,
+      "pairedMaterials": 6,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "e2fec7086622939cc74c900ba13e689ccbd41f813d2a34d96f158710a49a5315"
+    },
+    {
+      "id": "cobblefold",
+      "view": 1,
+      "polygons": 495,
+      "beams": 7,
+      "pairedMaterials": 6,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "e2fec7086622939cc74c900ba13e689ccbd41f813d2a34d96f158710a49a5315"
+    },
+    {
+      "id": "cobblefold",
+      "view": 2,
+      "polygons": 495,
+      "beams": 7,
+      "pairedMaterials": 6,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "e2fec7086622939cc74c900ba13e689ccbd41f813d2a34d96f158710a49a5315"
+    },
+    {
+      "id": "cobblefold",
+      "view": 3,
+      "polygons": 495,
+      "beams": 7,
+      "pairedMaterials": 6,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "e2fec7086622939cc74c900ba13e689ccbd41f813d2a34d96f158710a49a5315"
+    },
+    {
+      "id": "mossgate",
+      "view": 0,
+      "polygons": 150,
+      "beams": 21,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37.2
+        ]
+      ],
+      "geometrySHA256": "0db6f177ad33d33fb27aeed72b2b06b2c743358edc243a23617a5926e41e1dbd"
+    },
+    {
+      "id": "mossgate",
+      "view": 1,
+      "polygons": 150,
+      "beams": 21,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37.2
+        ]
+      ],
+      "geometrySHA256": "0db6f177ad33d33fb27aeed72b2b06b2c743358edc243a23617a5926e41e1dbd"
+    },
+    {
+      "id": "mossgate",
+      "view": 2,
+      "polygons": 150,
+      "beams": 21,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37.2
+        ]
+      ],
+      "geometrySHA256": "0db6f177ad33d33fb27aeed72b2b06b2c743358edc243a23617a5926e41e1dbd"
+    },
+    {
+      "id": "mossgate",
+      "view": 3,
+      "polygons": 150,
+      "beams": 21,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37.2
+        ]
+      ],
+      "geometrySHA256": "0db6f177ad33d33fb27aeed72b2b06b2c743358edc243a23617a5926e41e1dbd"
+    },
+    {
+      "id": "orchardcraft",
+      "view": 0,
+      "polygons": 215,
+      "beams": 21,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.6
+        ]
+      ],
+      "geometrySHA256": "dfd0674754717188cf89e2b9ffd85db1d9389423a57c4e4cd4cfab3c7ee547ad"
+    },
+    {
+      "id": "orchardcraft",
+      "view": 1,
+      "polygons": 215,
+      "beams": 21,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.6
+        ]
+      ],
+      "geometrySHA256": "dfd0674754717188cf89e2b9ffd85db1d9389423a57c4e4cd4cfab3c7ee547ad"
+    },
+    {
+      "id": "orchardcraft",
+      "view": 2,
+      "polygons": 215,
+      "beams": 21,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.6
+        ]
+      ],
+      "geometrySHA256": "dfd0674754717188cf89e2b9ffd85db1d9389423a57c4e4cd4cfab3c7ee547ad"
+    },
+    {
+      "id": "orchardcraft",
+      "view": 3,
+      "polygons": 215,
+      "beams": 21,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.6
+        ]
+      ],
+      "geometrySHA256": "dfd0674754717188cf89e2b9ffd85db1d9389423a57c4e4cd4cfab3c7ee547ad"
+    },
+    {
+      "id": "pennyfen",
+      "view": 0,
+      "polygons": 178,
+      "beams": 118,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          31
+        ]
+      ],
+      "geometrySHA256": "9814334c915041d7d5b69c5938a4e65e2bc2bdb3cc48e8c836a7a43606140365"
+    },
+    {
+      "id": "pennyfen",
+      "view": 1,
+      "polygons": 178,
+      "beams": 118,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          31
+        ]
+      ],
+      "geometrySHA256": "9814334c915041d7d5b69c5938a4e65e2bc2bdb3cc48e8c836a7a43606140365"
+    },
+    {
+      "id": "pennyfen",
+      "view": 2,
+      "polygons": 178,
+      "beams": 118,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          31
+        ]
+      ],
+      "geometrySHA256": "9814334c915041d7d5b69c5938a4e65e2bc2bdb3cc48e8c836a7a43606140365"
+    },
+    {
+      "id": "pennyfen",
+      "view": 3,
+      "polygons": 178,
+      "beams": 118,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          31
+        ]
+      ],
+      "geometrySHA256": "9814334c915041d7d5b69c5938a4e65e2bc2bdb3cc48e8c836a7a43606140365"
+    },
+    {
+      "id": "willowmusic",
+      "view": 0,
+      "polygons": 120,
+      "beams": 14,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          21
+        ]
+      ],
+      "geometrySHA256": "8c7ee968683fd2c8c13284765ee80fead6ad7523d887c49fa7427b6e621dcae8"
+    },
+    {
+      "id": "willowmusic",
+      "view": 1,
+      "polygons": 120,
+      "beams": 14,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          21
+        ]
+      ],
+      "geometrySHA256": "8c7ee968683fd2c8c13284765ee80fead6ad7523d887c49fa7427b6e621dcae8"
+    },
+    {
+      "id": "willowmusic",
+      "view": 2,
+      "polygons": 120,
+      "beams": 14,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          21
+        ]
+      ],
+      "geometrySHA256": "8c7ee968683fd2c8c13284765ee80fead6ad7523d887c49fa7427b6e621dcae8"
+    },
+    {
+      "id": "willowmusic",
+      "view": 3,
+      "polygons": 120,
+      "beams": 14,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          21
+        ]
+      ],
+      "geometrySHA256": "8c7ee968683fd2c8c13284765ee80fead6ad7523d887c49fa7427b6e621dcae8"
+    },
+    {
+      "id": "hawthornloom",
+      "view": 0,
+      "polygons": 182,
+      "beams": 55,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38
+        ]
+      ],
+      "geometrySHA256": "17e89d5c3f072df5bab6b6d777f14e72b6e9337834c26f6bb35a93fb636c69a2"
+    },
+    {
+      "id": "hawthornloom",
+      "view": 1,
+      "polygons": 182,
+      "beams": 55,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38
+        ]
+      ],
+      "geometrySHA256": "17e89d5c3f072df5bab6b6d777f14e72b6e9337834c26f6bb35a93fb636c69a2"
+    },
+    {
+      "id": "hawthornloom",
+      "view": 2,
+      "polygons": 182,
+      "beams": 55,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38
+        ]
+      ],
+      "geometrySHA256": "17e89d5c3f072df5bab6b6d777f14e72b6e9337834c26f6bb35a93fb636c69a2"
+    },
+    {
+      "id": "hawthornloom",
+      "view": 3,
+      "polygons": 182,
+      "beams": 55,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          38
+        ]
+      ],
+      "geometrySHA256": "17e89d5c3f072df5bab6b6d777f14e72b6e9337834c26f6bb35a93fb636c69a2"
+    },
+    {
+      "id": "briarwatch",
+      "view": 0,
+      "polygons": 240,
+      "beams": 227,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          42
+        ]
+      ],
+      "geometrySHA256": "d42446cd81198a61ab70bb1a5a2b416ff7203dae9bdfdee0edc098107f7f833d"
+    },
+    {
+      "id": "briarwatch",
+      "view": 1,
+      "polygons": 240,
+      "beams": 227,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          42
+        ]
+      ],
+      "geometrySHA256": "d42446cd81198a61ab70bb1a5a2b416ff7203dae9bdfdee0edc098107f7f833d"
+    },
+    {
+      "id": "briarwatch",
+      "view": 2,
+      "polygons": 240,
+      "beams": 227,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          42
+        ]
+      ],
+      "geometrySHA256": "d42446cd81198a61ab70bb1a5a2b416ff7203dae9bdfdee0edc098107f7f833d"
+    },
+    {
+      "id": "briarwatch",
+      "view": 3,
+      "polygons": 240,
+      "beams": 227,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          42
+        ]
+      ],
+      "geometrySHA256": "d42446cd81198a61ab70bb1a5a2b416ff7203dae9bdfdee0edc098107f7f833d"
+    }
+  ]
+}
