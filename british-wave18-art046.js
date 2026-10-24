@@ -506,8 +506,11 @@
 
   function marjoramkitchen(row,view){
     const A=context(row,view),{S,P}=A,f=A.volume(5,27,4,26,.6,16.8,'brick',false),q=[[5,4,17.2],[27,4,17.2],[27,26,17.2],[5,26,17.2]],drain=[16,15,11.2];
-    for(let i=0;i<4;i++){const n=[[0,-1],[1,0],[0,1],[-1,0]][i];sheet(A,[q[i],q[(i+1)%4],drain],A.dark(...n)?P.slateHi:P.lead);fascia(A,q[i],q[(i+1)%4]);S.beam(q[i],drain,P.lead,.16);}
-    S.flat(15.75,16.25,14.75,15.25,11.22,P.ironD);
+    // Inward-draining faces have inward horizontal normals, opposite the walls.
+    // Keep the frozen four closed planes and exact low drain; visible standing
+    // lead seams are real world-space hardware, never a painted screen outline.
+    for(let i=0;i<4;i++){const n=[[0,-1],[1,0],[0,1],[-1,0]][i];sheet(A,[q[i],q[(i+1)%4],drain],A.dark(-n[0],-n[1])?P.slateHi:P.lead);fascia(A,q[i],q[(i+1)%4]);S.beam(q[i],drain,P.slateR,.36);}
+    S.flat(15.3,16.7,14.3,15.7,11.22,P.ironD);
     for(const F of[f.left,f.right]){A.pane(F,2.3,3.8,7.4,4.9,'mullion',true);for(const u of[13,17])A.pane(F,u,8.8,2,2.2,'ribbon',true);}
     A.windows(f.back,1,3,3.7,0,4.8,5.1,'mullion');A.pane(f.front,1.2,3.7,4.7,5.1,'mullion',true);A.pane(f.front,16,2.2,3.8,6.5,'rect',true);
     const pantry=A.volume(12,20,26,30,.6,7.4,'brick',false);shell(A,[[12,26,7.8],[20,26,7.8],[20,30,7.8],[12,30,7.8]],P.lead);solidDoor(A,pantry.front,1.3,.65,5.4,6.2);
