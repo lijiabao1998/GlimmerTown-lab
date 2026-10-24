@@ -64,3 +64,20 @@
 
 - 首輪財務job120883674872完整結果：52成功／10負控，唯一失敗為source integrity內current renderer fingerprints不等於尚未採用的baseline；不是交易、結算、供電或存檔功能回歸。原始artifact12561935868及完整job log保留。此次只採指紋原檔，不修改財務模擬。
 - 首輪完整native run40097825319已成功，包含完整供電矩陣及證據運送；常規smoke也成功。保留首紅後才提交基線收束；不是重跑同一版本賭綠。作者補看全部10張近景、3接觸表、Heather r1/r3原圖及Elm/Flint反向原圖；真連廊與屋頂交接在該視角未見穿洞。獨立審閱範圍如圖片manifest，未冒充業主看圖。
+
+## C2 完整驗收與第8節逐條自檢（2026-10-24 13:37 UTC）
+
+- [x] 首卡39fdb449先於程式；凍結原文完整前綴及全部驗收條件不變。
+- [x] 三種子31／71／103、九checkpoint正常原生配對、完整舊檔roundtrip，C2 native run [40098455409](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40098455409)全27工作成功；全欄位及原生交易／供電真值不排除。
+- [x] C2常規 [40098455453](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40098455453) fp零倉庫差異、相對獨立BASE僅bld40新增葉；165其他族及全部3863舊葉不變。8組逃生閥整幀逐位相等由真Chromium通過，非靜態來源替代。
+- [ ] 美術全狀態自動驗收完成（57場景、40邊緣、113PNG及160供電案例／275PNG），人工實看3接觸表、10原生近景、Heather r1/r3、Elm r2、Flint r3，以及夏夜／冬雪／遠景／施工／hover；未人工逐看全部PNG，保留AGENTS允許的未跑人工審閱部分，不假勾。近景與四向在原圖可查；遠景沿用原生LOD，不能以小色點宣稱精細造型已看清。夜間藍色光柱是既有地標燈效，不是本波新增。未測實體手機／Safari／觸控。
+- [x] 原生86斷言／12負控、來源／指紋／全存檔／窗光移除／交通相位擾動／行人／延遲注入都有實際首紅與精確恢復，結果見同次native附件。原始fp/fiscal首紅40097825233保留。
+- [x] C2 smoke連跑3次、fp、財務53項／10負控全綠；沒有無變更重跑賭綠。
+- [x] 所有已通過均為上述精確C2或明標C1的實際結果；本地來源解析明標不是Chrome。PR [#51](https://github.com/lijiabao1998/GlimmerTown-lab/pull/51)仍Draft，發布新head、合併與上線未完成。
+
+## 發布契約v2準備，不改寫候選契約
+
+- C2 Git物件8ec594aebb31bec1ef718620315f7be83c06fcb2保持；原始checkWave041FullSources／probeBritishWave041／probeTenPower041及全部040守衛原文不變。
+- 新release契約只允許首卡已列的三版本字14.59/T766→14.60/T767，逆變換後整個index SHA必須等於精確C2 e5d9a139d40145e396673b7891aae0a78559a71e85f9fd3031b93ae0ca5700d2；新版完整SHA d572c96289a67889ec09e2845675717f58d8e84ca78218623fca34f41fde1064。另限AUTORUN-LOG及方向檔指定插入，不接受任意替換、刪文、額外HTML或重複插入。
+- 來源-only：1347舊檔逐byte + 2指定metadata檔嚴格校驗；4版本負控、15來源／metadata／原始基線負控通過。舊契約保存，沒有把本地檢查當新head的完整瀏覽器驗收。
+- 新power契約僅將同三標籤套到獨立BASE並可逆證明；所有完整畫布、完整存檔、stats／utility、160案例、交通相位首紅維持，不加入欄位豁免或容差。新版真Chromium及最終CI仍待。
