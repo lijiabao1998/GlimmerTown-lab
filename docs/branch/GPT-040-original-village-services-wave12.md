@@ -50,3 +50,27 @@
 本機僅語法／來源／記錄stub：20份JS解析、98個inline解析、40條世界幾何路徑／十個不同幾何序列、7個來源／完整性首紅與恢復、1303份既有檔逐byte相同；新區塊剝除完整回main e06c928。守衛沿前波全部判準，另加舊Wave11自檢及目錄切換回歸。無原始守衛／規則／fp基線變更；原night600秒timeout維持，未進production的交通fixture保留。臨時唯讀workflow有12個定義、matrix展開27工作，僅本分支contents:read。
 
 準備中曾抓到自動換槽誤將新wrapper的timeout600改成640，已在首次CI之前恢復600；來源hash綁定在pin未更新時真實報紅。另本地路徑及matrix定義數／展開數核對出錯已修，無遠端或遊戲動作，不把它們當產品bug或預期負控。所有真正原生、圖片、供電、效能、財務與新fp仍待CI；本波尚未合併或發布。
+
+
+## C3 原始指紋基線修復（2026-10-24 UTC）
+
+重新 fetch 核 main e06c928、候選517db6e5，沒有開放 PR；最近完成 main smoke40078958810與Pages40079298098均success。獨立工作樹保留原還原目錄及其他作者，沒有改歷史。
+
+首紅保留於 https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40081848662 。smoke成功；fp報恰好bld新增40葉及風格基線不符；fiscal-load 52成功、1失敗，失敗為已提交指紋來源完整性，未證明財務模擬缺陷，因此不改任何財務邏輯或斷言。
+
+本提交逐byte採用同一次正式push的fp附件12555616917內fp-rebake/fp.json及style.json。ZIP SHA256 583bcb53f86f43e2c928c28764e42123475d9e32054ad6dcd51885c8b3fadd4e。不是交接包native baseline-evidence產物：兩者只有generatedAt不同，但本次仍完整使用規約指定的正式fp附件，不手改metadata。檔案bytes/SHA及來源綁定見GPT-040-raw-CI-baseline-adoption.json。
+
+獨立JSON核對：3823舊葉全部不變、其餘165家族不變、僅bld.24_1_600..639新增40葉、block1728/5ef6eb67與env完全相同。依連續方向第二波起授權如實披露bld：
+
+| 軸 | 前 | 後 |
+|---|---:|---:|
+| palette | 1 | 1 |
+| hardEdge | 0.9537353338914052 | 0.9544647253272348 |
+| lightDir | 0.8176833447566827 | 0.8132088058705804 |
+| shade | 1 | 1 |
+| density | 1 | 1 |
+| nightRule | 0.9894837454988741 | 0.989761505745322 |
+| variants | 1 | 1 |
+| total | 0.9658 | 0.9653 |
+
+lightDir及total下降，不宣稱七軸全升；無改評分、環境登記、門檻或既有負控。已重新執行本機來源守衛7項首紅與恢復、幾何記錄stub3負控，均通過；這不是瀏覽器驗收。新基線加入兩個逐byte破壞負控，由來源守衛驗證。正式fp/fiscal是否轉綠以本提交新CI為準，目前未宣稱修復成功、未合併或發布。

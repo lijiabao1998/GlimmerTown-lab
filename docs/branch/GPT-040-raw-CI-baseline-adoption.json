@@ -1,0 +1,21 @@
+{
+  "schema": "GPT-040.official-fp-artifact-adoption.v1",
+  "producerHead": "517db6e53a75403fb0abd565f5e017c937dc51df",
+  "run": 40081848662,
+  "job": 120836854998,
+  "artifact": 12555616917,
+  "artifactDigest": "sha256:583bcb53f86f43e2c928c28764e42123475d9e32054ad6dcd51885c8b3fadd4e",
+  "artSourceSHA256": "a29490242d85a590a66f0b0ee7e66389929710c10c01c13108d9ba88d8ade67b",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 420624,
+      "sha256": "8a7c7864e6ef890b77e012fc443ed9f3968987a78d135d67f278823e6d2a6ed8"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73169,
+      "sha256": "c9bd617ac3f6184b629cc606a65fa5509df25560d5c8a104c11e269df3b419b3"
+    }
+  ]
+}
