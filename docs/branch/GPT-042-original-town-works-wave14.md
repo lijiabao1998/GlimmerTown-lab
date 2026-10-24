@@ -1,0 +1,83 @@
+# GPT-042：第14波十款原創英式鎮務與工坊建築
+
+## 動手前範圍（首commit凍結，不改鬆）
+
+- 分支 `gpt/british-wave14-042`，最新main `b867e8879267049c224aafc1ebb1044a5012e0ed`。該提交只更新方向；正式遊戲T767／14.60／r214，第13波已發行，13／20波130座。第13波main 2422e951的CI40101009240與自動Pages40101499998成功；公開Chromium run40099783601 attempt2／job120896715118的HTTP／browser完整11534663bytes，SHA256 d572c96289a67889ec09e2845675717f58d8e84ca78218623fca34f41fde1064，16負控制、sandbox啟用、runtimeErrors空；原始menu、city及wave13原生目錄PNG已實看。
+- 第一個commit宣告要動的fp家族：**bld**。只新增原生24_1_680..719共40葉。既有3903葉（bld1539）、其他165家族、block1728／5ef6eb67與env不得變。原生k24／Lv1／2×2／$2000維持，不改容量、價格、存檔、RNG、模擬、密度與全局觀感。
+- 本波全部原創英式外觀，不聲稱真實地標復刻、外部照片或新遊戲服務。原創建築名稱只解釋造型；前13波及更早英式家族保留不重做，不把舊15座計入200座。
+- 全部施工於助手自有雲端隔離工作樹，不使用業主電腦或saved Codex環境。已fetch、核對未提交改動與所有open PR（0）；保留舊還原工作樹及所有其他作者分支。不能改寫任何已推歷史；先單獨推本卡，才開始模型施工。
+- 原始第13波全部來源、守衛與歷史證據保留。新wave042守衛版本化綁定本波獨立Git BASE，不能拿新模型輸出作自己的基準。候選與發布階段的三個精確版本label及兩個文件精確插入要有明列版本契約和真負控，不以動態寬鬆替換掩蓋超範圍變動。
+
+## 十款凍結身份、世界幾何與差異
+
+| id | 名稱（原創） | v（四向） | 必須實作的結構 | 最近既有結構的不同點 |
+|---|---|---:|---|---|
+| alderjoinery | 榿溪木作院／Alderbrook Joinery Court | 680..683 | 低E形、後四坡辦公脊、三根不等長山牆工房、兩個真開放院、高側窗及寬材料門 | Crossness封閉三跨及樺庭H形雙桶拱不同 |
+| mereweigh | 米爾稱量所／Mereford Weigh House | 684..687 | 低長觀測室雙前削角、寬四坡簷與繞角窗、窄高後帳房陡單坡、低室外秤台 | 非Settle架高信號樓或翠菀入口小五角 |
+| rushfordlav | 蘆橋公共盥洗亭／Rushford Public Conveniences | 688..691 | 低十字四短翼、兩處凹入入口、向外單坡翼頂、中央矮方百葉四坡帽、高縫窗 | 非榆岬高Y形及八角育苗房 |
+| beckvalve | 溪石閥房／Beckstone Valve House | 692..695 | 低矩形石機房、兩側各兩階梯扶壁、單一寬淺鉛桶拱、低四坡端門房、高圓端窗及深通風口 | 非露岸四條平行桶拱或Cromer架高滑道 |
+| woldswitch | 原丘配電小站／Woldwick Electricity House | 696..699 | 斜錯位高低矩形磚樓、寬低實設備連接、高樓陡四坡、低樓平女兒牆、深百葉設備門 | 非雙圓鼓、外張方塔或細玻璃橋 |
+| elmstone | 榆原石匠棚／Elmfield Mason’s Lodge | 700..703 | 四粗石柱支承真開放前棚、寬四坡板岩頂、低封閉後工具帶單坡、兩矮窗及側門 | 非Penshaw無頂柱廊、Campden山牆拱廊、Dunster八角棚 |
+| fencooper | 芬溝箍桶坊／Fenditch Cooperage | 704..707 | 窄高兩層木板庫雙折坡、後斜錯低蒸汽工房單坡與短方煙道、真開口間隙無橋、上卸料口下百葉 | 非Net Shops三山牆或山楂架高雙折橋 |
+| larkprint | 雲雀印刷所／Larkfield Printing Rooms | 708..711 | 寬矮兩層平女兒牆前排字房、深後中央單層印刷廳成倒T、高山牆與短矩形屋頂燈、密短前窗及寬紙門 | 非rookhall後殿削角或榛乳四坡與筒罐 |
+| rowdenmortuary | 羅登鎮殮房／Rowden Mortuary Lodge | 712..715 | 低三段磚屋、不等深兩方亭陡四坡、凹入更低平鉛中央入口、高三連窄拱窗與實雙門扇窗 | 非樺庭長工房雙院或蕨庭玻璃六角亭 |
+| cressice | 水芥儲冰舍／Cresswick Ice Store | 716..719 | 低半埋庫、模型自身厚側後土岸與覆土低拱、磚拱前臉、小矩形板岩山牆收貨房、短方頂通風口 | 非Castle Cary外露蜂巢或Lime Kilns多開孔；不改地形及冷藏模擬 |
+
+## 凍結驗收（保留前波全部適用門檻與真反例）
+
+1. 本卡單檔先推；同一原始main Git物件作獨立BASE。新增三個明確art／CSS／runtime區塊與原生安裝尾；剝除後完整index逐byte回BASE。舊smoke只新增自己的自檢，舊斷言、fp.js、harness、gallery、probe既有判準、pins、規則與其他已發布來源都保持原文。發布時僅明列三版本標籤與日誌／方向紀錄的嚴格插入例外；每個例外均須真破壞首紅。
+2. 十款各四向＝40日／40night原生160×196／ax80／ay194／sz2精靈，無缺項、半透明軟邊、裁切或光漏；夜光只在白天可見實體窗及燈具。去共用鋪地後十個結構剪影必須不同，四向是世界幾何旋轉，實際安裝像素等於獨立建模；不得用換名或換色填數。保留缺葉、重複幾何、錯尺寸、裁切、天空夜光、軟像素、空圖與錯安裝等首紅及精確恢復。
+3. CI真Chrome、原生目錄與付費建造，十款選取／40向、完整root與ref、扣款、undo／redo／拆除及refund、slot3存讀與歷史完整欄位不變。三種子31／71／103、九checkpoint的正常BASE／HEAD決定性比較；至少86原生斷言與12類真首紅。失鎖／缺項時不可選，逃生閥保留，不改既有儲存語義。
+4. 原生供電on／斷道路／關電源／恢復四態，各十款四向＝160案例、275遊戲PNG、1920固定交通相位見證。保留全畫布嚴格相等、窗光移除與交通相位擾動負控、未通電精確相等與供電恢復；不遮罩、不裁切比較、不改容忍、不賦pw／capacity／dispatch／nightPowerRate真值，不把fixture帶進production，不排除存檔欄位。
+5. 日夜、四季含冬雪／無雪、四向、遠景、邊緣、施工、懸停與疊層，保留57場景與40實際邊緣案例、至少113場景PNG、8組BASE／valve整幀逐位相等、兩次完整舊檔roundtrip及實際一元／單像素破壞負控。保留17行人深度遮擋案例及兩負控，不能拿靜態圖代遊戲驗收。
+6. 同runner、同視窗、交錯BASE／HEAD各40組原生效能樣本；保暖draw新增幾何0，原門檻不變。保留30樣本實際延遲注入負控與恢復，列median／p90，不宣稱真機手機效能。
+7. 常規push／PR最後head smoke3連綠、fp零差、財務53項／10負控全綠。首次預期美術fp紅保留完整結果；僅採同一精確CI的原始fp／style附件，核恰bld新增40且舊葉／其他族／block／env不變。任何分數下降列前後七軸及total，在卡／PR／方向表依連續授權披露；不手改分數、基線metadata或門檻，不重跑賭綠。
+8. 留80單圖、3接觸表、10近景、真實遊戲預覽與manifest／SHA／producer head／artifact；作者與獨立看圖、實際檢視與產物存在分開。原PNG用已核可訪問專案連結交付，不無限重試Library。沒有實看不能說看過；實機手機／Safari／觸控沒有測就保持未測。適用圖片審閱沿用方向與AGENTS，不逐波重問同一製作授權。
+9. 臨時workflow僅本分支、contents:read，無部署或遠端寫入；最後run全綠後只刪workflow的獨立commit，之後它保持不存在。最新head所有必要CI及第8節自檢如實記錄；T／版本／r取當時main最大+1。符合規則才合併，核main CI、既有自動Pages、實際公開完整HTML SHA／版本與瀏覽器；不手動觸發Pages。正式發布才計本波140座，然後依序第15～20波。
+
+## 初始狀態與第8節自檢
+
+- [x] 重新fetch、main／Pages已綠、方向運行且上一波真公開驗證完成；本波家族及十款結構已在施工前明列。
+- [ ] 本卡尚未首推；本波模型0／10、實際渲染0／40、沒有本波遊戲或CI驗收，不冒稱前波結果就是本波通過。
+- [ ] 同種子、存檔、fp、整幀、美術狀態、真負控、smoke3及財務均待本波實作後由CI執行；不在本機跑遊戲或像素。
+- [x] 沒有放寬門檻、修改舊守衛、改規則、覆寫其他施工者或把候選算正式成果。
+
+## 沒做成的事
+
+尚未開始模型施工、未生成任何本波PNG、未開PR、未合併或發布；本卡只凍結實作範圍及驗收條件。
+
+## C1 首紅與原始指紋採用（2026-10-24 UTC；以上首卡原文保留）
+
+- 首卡已於 dfe1e494 單檔先推；模型 C1 661351c9324bd51187d33a4ff17e4099246324b6 已實作十款及四十方向，尚未發布。
+- 常規 CI 40104078292：smoke成功；fp job120902015286首紅僅bld新增40葉，舊3903葉全等、其他165族及block1728／5ef6eb67全等。原始fp／style採官方artifact12564141656同一次完整原檔，SHA與七軸原值見raw-CI-baseline-adoption.json，不手改分數或metadata。
+- bld total 0.9647→0.9648，七軸palette 1→1、hardEdge 0.9552323566926975→0.9559013242882268、lightDir 0.8076673164392463→0.8074730842305257、shade 1→1、density 1→1、nightRule 0.9900276945969144→0.9902756873333572、variants 1→1；全家族grand 0.6633→0.6633。光向子軸微降如實披露，無家族total下降，不改門檻或全局外觀。
+- fiscal-load job120902015418為52成功／10負控，唯一紅燈為來源完整性中的未採新指紋；所有交易、完整存讀、每日結算與負控成功。保留首紅artifact12564600152與原始日誌，不改財務程式。
+- 分支原生CI40104078357共27jobs成功，含native／power／scenes／pedestrians／performance。這不是最終head或發布成功；必要新head CI仍待跑。
+- 原始PNG已下載核manifest；作者實看day／night接觸表及五張近景（木作院、閥房、石匠棚、箍桶坊、儲冰舍），屋頂／牆接點與土岸未見明顯穿孔或裁切。獨立review已實看兩張接觸表；更多近景／場景仍在review。不冒稱業主已看圖或全PNG人工檢視。
+- 尚未做成：最後head零差CI、版本發布契約、全量審閱結論、正式PR／合併／Pages及公網複驗。正式仍13波130座。
+
+## C3 嚴格發布契約準備（尚未發布）
+
+- PR #53，T768／14.61／r215；最新main仍b867e887，最大T767。只三個精確版本label及日誌／方向兩文件插入。新checkWave042ReleaseSources／release-labels／metadata逐byte逆回C2，保留所有042候選與歷史守衛；不改原準則。
+- 042候選normal及scene刻意凍結14.60。新增獨立Release版本，正常配對只把獨立Git BASE三個精確label改到14.61後比較完整欄位；場景先真瀏覽器生成原BASE歷史檔，再在只改label的獨立BASE真載入產生預期，再與HEAD每欄全等。唯一明列legacy writer 14.60→14.61仍有錯label首紅，沒有刪欄或動態猜版本。
+- C2宣告遺漏artSourceSHA256欄位，嚴格source guard會拒絕；C3補上實際已凍結美術SHA d8a60ea1326244b8be9c34f990befed531886e0381670232b581fb9f7daaa2c2，原始fp／style不變。不是放寬guard。
+- 獨立review實看57張原始CI PNG，精確檔單及限制見independent-visual-review；五個其餘近景、20邊緣、日夜四向、三施工階段及rain。未見新穿模／裁切，雪與夜景解析度不支持全角度微細接縫保證，既有藍光柱保留。作者已實看五近景與日夜接觸表；所有13張交付圖維持CI原byte。
+- 最後head原生Chrome、常規CI、臨時workflow移除及正式整合／發布仍待，不計140座。
+
+## C3 完整驗收與第8節收工自檢（2026-10-24 UTC）
+
+發布候選07e420853872d1eaa9bd4d131a89f517847efd79，完整index 11,593,556bytes／SHA256 2da67e4b29c7ffcab10523b0897637a276adb28de5ce40816ba43ccfd0c329ea。
+
+- [x] 首卡dfe1e494先於模型，原凍結前綴SHA252a379c…保留；標準及歷史契約未放寬，C2遺漏來源pin已由真紅查明並修正。
+- [x] 真Chrome三種子31／71／103、九checkpoint、原生十款交易與bootstrap、完整舊檔來回；發布版獨立BASE僅三label，沒有state-field排除。scene真實14.60→14.61唯一writer遷移，兩次roundtrip其餘欄位全等，8組BASE／valve完整畫布全等，全部負控有首紅與恢復。
+- [x] 常規push40105444375：fp零差／smoke三連／fiscal-load成功。fp相對BASE新增40／變更0／移除0，觸及bld唯一家族，block1728／5ef6eb67不變，style逐族相同，沒有家族total下降或env變動。來源原始fp／style不手改。
+- [x] 原生run40105444391首次27／27jobs成功：86nativechecks／12negative、power160案例275PNG四實際物理供電態，供電與完整存檔／stats全等獨立BASE；traffic-phase與缺夜光真首紅仍存在。
+- [x] 每條新guard以真錯來源／label／metadata／幾何／原生錢款／像素／夜光／效能延遲負控驗過，沒有刪既有斷言。source-only本機檢查不冒充Chrome；遊戲只在CI跑。
+- [ ] 圖片產物全部存在且SHA核對，不等於全人工逐看。作者實看3接觸表、五近景、三張供電／斷路夜景，以及三組C1/C3場景差異原圖；獨立另看57張（詳獨立清單），日夜／冬雪／四旋轉／邊緣／施工／雨夜已抽看。補看C3 far-day／far-night、winter-bare-day-r1、spring-day-r2、autumn-night-r3、hover-rushfordlav；遠景只可見既有LOD色塊，不能算近景外觀驗收。未列的其他PNG沒有全部逐張人工審，依既有規則保留未跑，不假勾。
+- [x] 91 preview PNG全部逐byte等於C1；113 scene中110張相同，edge-alderjoinery-r0差104px、construction-middle差7px、construction-late差4743px。三組均實看，未見新裁切；既有stageGet使用performance.now幀烘焙額度，額度用完沿用前圖，施工未烘全表面可能不同。全部production除三label外等C1，記錄此限制，不把113張全等或全審寫成通過；守門的8完整畫布對拍全綠且不放寬。
+- [x] 40+40同runner1280×657桌機樣本，median BASE12.65ms／HEAD2.625ms、p90 BASE24.925ms／HEAD26.625ms，warm-draw新增幾何0，30樣本真延遲負控首紅／恢復；門檻未改。非真機手機，不能解讀為通用效能倍增。
+- [x] 沒有虛報：未測實體手機、Safari、觸控；未改全局夜色、密度或玩法；業主沒有新增逐張圖審聲明。
+
+原PNG可從[本PR目錄](../assets/GPT-042/)下載，13交付PNG與producer／artifact／SHA在manifest。此文件commit只記結果，後續另純刪分支workflow，再核最後head push/PR CI；尚未合併、main／自動Pages／公網Chrome未核，正式仍130座。
+
+遠景來源證據：z<0.5 的T107原生lodMini分支逐byte存在於獨立BASE與本head，SHA256 2914f238b94fe0164f5cc7fb442ffb7228c6d5bc76fd8829c6e8293fca17270e；刻意退化2~4px色塊及夜窗，沒有修改此系統。遠景圖只驗既有LOD保留，不冒稱十款遠景可辨識。

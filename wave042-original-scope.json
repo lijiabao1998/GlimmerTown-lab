@@ -1,0 +1,177 @@
+{
+  "schema": "GPT-042.original-wave14-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "b867e8879267049c224aafc1ebb1044a5012e0ed",
+  "branch": "gpt/british-wave14-042",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      680,
+      719
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "alderjoinery",
+      "nm": "榿溪木作院",
+      "en": "Alderbrook Joinery Court",
+      "v": 680,
+      "shape": "low-E-plan-hip-office-three-unequal-gable-fingers-two-open-courts",
+      "design": "低E形、後四坡辦公脊、三根不等長山牆工房、兩個真開放院、高側窗及寬材料門",
+      "distinctionFromPublished130": "Crossness封閉三跨及樺庭H形雙桶拱不同",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "mereweigh",
+      "nm": "米爾稱量所",
+      "en": "Mereford Weigh House",
+      "v": 684,
+      "shape": "low-double-chamfer-weigh-room-wide-hip-tall-rear-monopitch-ledger",
+      "design": "低長觀測室雙前削角、寬四坡簷與繞角窗、窄高後帳房陡單坡、低室外秤台",
+      "distinctionFromPublished130": "非Settle架高信號樓或翠菀入口小五角",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "rushfordlav",
+      "nm": "蘆橋公共盥洗亭",
+      "en": "Rushford Public Conveniences",
+      "v": 688,
+      "shape": "low-cruciform-four-outward-monopitch-wings-square-louver-hip",
+      "design": "低十字四短翼、兩處凹入入口、向外單坡翼頂、中央矮方百葉四坡帽、高縫窗",
+      "distinctionFromPublished130": "非榆岬高Y形及八角育苗房",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "beckvalve",
+      "nm": "溪石閥房",
+      "en": "Beckstone Valve House",
+      "v": 692,
+      "shape": "single-shallow-lead-barrel-stone-hall-four-stepped-buttresses",
+      "design": "低矩形石機房、兩側各兩階梯扶壁、單一寬淺鉛桶拱、低四坡端門房、高圓端窗及深通風口",
+      "distinctionFromPublished130": "非露岸四條平行桶拱或Cromer架高滑道",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "woldswitch",
+      "nm": "原丘配電小站",
+      "en": "Woldwick Electricity House",
+      "v": 696,
+      "shape": "staggered-high-hip-and-low-parapet-brick-blocks-solid-equipment-link",
+      "design": "斜錯位高低矩形磚樓、寬低實設備連接、高樓陡四坡、低樓平女兒牆、深百葉設備門",
+      "distinctionFromPublished130": "非雙圓鼓、外張方塔或細玻璃橋",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "elmstone",
+      "nm": "榆原石匠棚",
+      "en": "Elmfield Mason’s Lodge",
+      "v": 700,
+      "shape": "four-stone-pier-open-cutting-shed-wide-hip-rear-monopitch-tool-strip",
+      "design": "四粗石柱支承真開放前棚、寬四坡板岩頂、低封閉後工具帶單坡、兩矮窗及側門",
+      "distinctionFromPublished130": "非Penshaw無頂柱廊、Campden山牆拱廊、Dunster八角棚",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "fencooper",
+      "nm": "芬溝箍桶坊",
+      "en": "Fenditch Cooperage",
+      "v": 704,
+      "shape": "tall-single-gambrel-stave-store-offset-low-steam-shed-open-gap",
+      "design": "窄高兩層木板庫雙折坡、後斜錯低蒸汽工房單坡與短方煙道、真開口間隙無橋、上卸料口下百葉",
+      "distinctionFromPublished130": "非Net Shops三山牆或山楂架高雙折橋",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "larkprint",
+      "nm": "雲雀印刷所",
+      "en": "Larkfield Printing Rooms",
+      "v": 708,
+      "shape": "inverted-T-flat-parapet-typesetting-block-rear-gabled-press-hall",
+      "design": "寬矮兩層平女兒牆前排字房、深後中央單層印刷廳成倒T、高山牆與短矩形屋頂燈、密短前窗及寬紙門",
+      "distinctionFromPublished130": "非rookhall後殿削角或榛乳四坡與筒罐",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "rowdenmortuary",
+      "nm": "羅登鎮殮房",
+      "en": "Rowden Mortuary Lodge",
+      "v": 712,
+      "shape": "unequal-square-hip-pavilions-recessed-low-lead-entrance",
+      "design": "低三段磚屋、不等深兩方亭陡四坡、凹入更低平鉛中央入口、高三連窄拱窗與實雙門扇窗",
+      "distinctionFromPublished130": "非樺庭長工房雙院或蕨庭玻璃六角亭",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "cressice",
+      "nm": "水芥儲冰舍",
+      "en": "Cresswick Ice Store",
+      "v": 716,
+      "shape": "half-buried-earth-banked-vault-brick-arch-small-gabled-receiving-room",
+      "design": "低半埋庫、模型自身厚側後土岸與覆土低拱、磚拱前臉、小矩形板岩山牆收貨房、短方頂通風口",
+      "distinctionFromPublished130": "非Castle Cary外露蜂巢或Lime Kilns多開孔；不改地形及冷藏模擬",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English town-works design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "completeTen": true,
+    "fourWorldRotations": true,
+    "sameArt634Style": true,
+    "nativeOpaqueWindowPowerSemantics": true,
+    "strictFullFrameValveAndBaselinePairs": true,
+    "sameSeedSaveUndoFiscal": true,
+    "sourceBindingStripExact": true,
+    "negativeControlsPreserved": true,
+    "gameContextPreviewsRequired": true,
+    "visualReviewBeforePublication": true,
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true,
+    "old130AndOtherFamiliesUnchanged": true
+  },
+  "firstCard": {
+    "commit": "dfe1e4947998523f42a9ef253a07c305f3a32657",
+    "path": "docs/branch/GPT-042-original-town-works-wave14.md",
+    "status": "frozen-scope-pushed-before-model-authoring",
+    "visualApprovalClaim": false
+  }
+}
