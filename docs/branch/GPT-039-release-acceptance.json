@@ -1,0 +1,855 @@
+{
+  "schema": "GPT-039.release-acceptance.v1",
+  "head": "fb8cd7be433eadeff5adab6779a6822639c71e4a",
+  "release": {
+    "T": "T765",
+    "version": "14.58",
+    "round": 212,
+    "indexSHA256": "378eba7af7c2cdff7e2cd1cb02ef0ba1ea219c921260a622be5bf35d200e9fb3"
+  },
+  "runs": [
+    {
+      "id": 40077064339,
+      "jobs": [
+        {
+          "id": 120822598710,
+          "name": "performance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598783,
+          "name": "public-site",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598797,
+          "name": "normal-pairs",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598799,
+          "name": "pedestrians",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598838,
+          "name": "preview",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598839,
+          "name": "native",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598844,
+          "name": "baseline-evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822598871,
+          "name": "scenes",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822755234,
+          "name": "sprite-evidence (3)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822755240,
+          "name": "sprite-evidence (2)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822755261,
+          "name": "sprite-evidence (4)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822755276,
+          "name": "sprite-evidence (1)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822755277,
+          "name": "sprite-evidence (0)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822928623,
+          "name": "scene-evidence (2)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822928632,
+          "name": "scene-evidence (3)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822928637,
+          "name": "scene-evidence (0)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822928651,
+          "name": "scene-evidence (4)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822928663,
+          "name": "scene-evidence (1)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945389,
+          "name": "source-evidence (5)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945406,
+          "name": "source-evidence (4)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945409,
+          "name": "source-evidence (0)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945412,
+          "name": "source-evidence (7)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945415,
+          "name": "source-evidence (1)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945416,
+          "name": "source-evidence (2)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945476,
+          "name": "source-evidence (3)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822945482,
+          "name": "source-evidence (6)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120823586912,
+          "name": "power-evidence",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 40077064402,
+      "jobs": [
+        {
+          "id": 120822599390,
+          "name": "fp",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822599616,
+          "name": "fiscal-load",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822599656,
+          "name": "smoke",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120822599913,
+          "name": "reuse-push",
+          "status": "completed",
+          "conclusion": "skipped"
+        }
+      ]
+    },
+    {
+      "id": 40077067128,
+      "jobs": [
+        {
+          "id": 120822606996,
+          "name": "reuse-push",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120824012694,
+          "name": "fiscal-load",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120824012709,
+          "name": "smoke",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120824012710,
+          "name": "fp",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12554150196,
+      "name": "wave039-ten-power-restored-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 55399320,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12554150196",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12554150196/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:16:19Z",
+      "expires_at": "2026-11-07T08:16:17Z",
+      "updated_at": "2026-10-24T08:16:19Z",
+      "digest": "sha256:86c787b900ebfbbd891ac8ec6e4ffa42bda23f580b7e6f49235bfa9b5b77c6cf",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12554145235,
+      "name": "wave039-ten-power-source-off-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 24989472,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12554145235",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12554145235/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:16:16Z",
+      "expires_at": "2026-11-07T08:16:14Z",
+      "updated_at": "2026-10-24T08:16:16Z",
+      "digest": "sha256:49b13f446eaa1ed8a7a1dc2a4c5d4e19f6a4957d91c536b589c964052b365368",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12554075487,
+      "name": "wave039-ten-power-road-cut-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 25444648,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12554075487",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12554075487/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:16:13Z",
+      "expires_at": "2026-11-07T08:16:11Z",
+      "updated_at": "2026-10-24T08:16:13Z",
+      "digest": "sha256:409bffc7befa6f9160252fbca7c42d17fe2ef149ad31ad18b1b3f0805f3c9fae",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553965957,
+      "name": "wave039-performance-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 1206,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553965957",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553965957/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:13:07Z",
+      "expires_at": "2026-11-07T08:13:06Z",
+      "updated_at": "2026-10-24T08:13:07Z",
+      "digest": "sha256:e21a4db3946fc3d8a2034b515f0eccdb5a2792c8cf7a28c72a08c8b49017719d",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553896250,
+      "name": "wave039-scenes-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 61084650,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553896250",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553896250/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:13:05Z",
+      "expires_at": "2026-11-07T08:13:04Z",
+      "updated_at": "2026-10-24T08:13:05Z",
+      "digest": "sha256:91c0613778ceeb1539041d1ccc9ba5577fa053833d9d5ea282953aecda214308",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553558124,
+      "name": "wave039-public-site-fb8cd7be433eadeff5adab6779a6822639c71e4a-attempt-1",
+      "size_in_bytes": 1998180,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553558124",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553558124/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:12:41Z",
+      "expires_at": "2026-11-07T08:12:40Z",
+      "updated_at": "2026-10-24T08:12:41Z",
+      "digest": "sha256:c0116a7c8347401a592b9e95ea442a693b35457454fa057908babf6ae4b43017",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553369261,
+      "name": "wave039-ten-power-core-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 11352003,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553369261",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553369261/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:16:08Z",
+      "expires_at": "2026-11-07T08:16:05Z",
+      "updated_at": "2026-10-24T08:16:08Z",
+      "digest": "sha256:c6d447eced779d956f458e1955c2b8f6cf59fade2e0464cd3766e4db91ced2b5",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553342627,
+      "name": "wave039-normal-pairs-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 75604,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553342627",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553342627/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:13:26Z",
+      "expires_at": "2026-11-07T08:13:26Z",
+      "updated_at": "2026-10-24T08:13:26Z",
+      "digest": "sha256:f724f970333c29fb2a192491ae16f96216fe72d16f79a3bd4df1be9891f6c765",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553277627,
+      "name": "wave039-preview-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 5222691,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553277627",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553277627/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:12:13Z",
+      "expires_at": "2026-11-07T08:12:12Z",
+      "updated_at": "2026-10-24T08:12:13Z",
+      "digest": "sha256:e087a53d19a813955cb20707dc8bc638d24329a5ce4d3bb56fe197881a3ca075",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553269423,
+      "name": "wave039-native-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 1042917,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553269423",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553269423/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:16:05Z",
+      "expires_at": "2026-11-07T08:16:04Z",
+      "updated_at": "2026-10-24T08:16:05Z",
+      "digest": "sha256:2ec9b2e68c150be08d63ef8fd02e392621cbe612749c0ce9d8a91c9a794418a6",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553204517,
+      "name": "wave039-pedestrians-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 21738041,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553204517",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553204517/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:13:21Z",
+      "expires_at": "2026-11-07T08:13:18Z",
+      "updated_at": "2026-10-24T08:13:21Z",
+      "digest": "sha256:b4769645ab8c28ba4cefb2e2df776cf139945e0347257f05621ad4777ad9134c",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553189758,
+      "name": "wave039-ten-power-on-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 56555365,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553189758",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553189758/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:16:11Z",
+      "expires_at": "2026-11-07T08:16:08Z",
+      "updated_at": "2026-10-24T08:16:11Z",
+      "digest": "sha256:e44854ad816d114cfe18b09bf7034f53148ba99a010f18c89b20fa6ba1a92860",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    },
+    {
+      "id": 12553014993,
+      "name": "fp-fb8cd7be433eadeff5adab6779a6822639c71e4a",
+      "size_in_bytes": 3810280,
+      "url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553014993",
+      "archive_download_url": "https://api.github.com/repos/lijiabao1998/GlimmerTown-lab/actions/artifacts/12553014993/zip",
+      "expired": false,
+      "created_at": "2026-10-24T08:13:10Z",
+      "expires_at": "2026-11-07T08:13:09Z",
+      "updated_at": "2026-10-24T08:13:10Z",
+      "digest": "sha256:423e76f29d2b03dd62962f77991809603b9b6e6351bde933387c426b26ad8492",
+      "workflow_run": {
+        "id": 40077064339,
+        "repository_id": 1385034362,
+        "head_repository_id": 1385034362,
+        "head_branch": "gpt/british-wave11-039",
+        "head_sha": "fb8cd7be433eadeff5adab6779a6822639c71e4a"
+      }
+    }
+  ],
+  "powerManifestVerification": {
+    "head": "fb8cd7be433eadeff5adab6779a6822639c71e4a",
+    "cases": 160,
+    "phaseWitnesses": 1920,
+    "actualGamePNGCount": 275,
+    "manifestFiles": 298,
+    "phases": [
+      {
+        "phase": "on",
+        "powered": true,
+        "cases": 40,
+        "visibleWindowPixels": [
+          38,
+          952
+        ]
+      },
+      {
+        "phase": "road-cut",
+        "powered": false,
+        "cases": 40,
+        "visibleWindowPixels": [
+          0,
+          0
+        ]
+      },
+      {
+        "phase": "source-off",
+        "powered": false,
+        "cases": 40,
+        "visibleWindowPixels": [
+          0,
+          0
+        ]
+      },
+      {
+        "phase": "restored",
+        "powered": true,
+        "cases": 40,
+        "visibleWindowPixels": [
+          38,
+          952
+        ]
+      }
+    ],
+    "negativeControlsExecutedInOnPhaseOnly": true,
+    "trafficNegativePixels": 226,
+    "fullWaveAcceptanceInPowerSupplement": false,
+    "PNGBytesIndividuallyDownloaded": false
+  },
+  "sceneManifestVerification": {
+    "head": "fb8cd7be433eadeff5adab6779a6822639c71e4a",
+    "nativeSceneFrames": 57,
+    "edgePlacementsAndViews": 40,
+    "wholeCanvasBASEValveExact": 8,
+    "negativeControls": [
+      {
+        "name": "real slot3 load/save loses one dollar",
+        "first": "scene039 old save roundtrip all fields expected 1dcb8858ee829af13f99cba494c7371e8f3c3c892c7920abf212447cf4266025 got 62fb84af1c485f75c6cd69bcbff740a7ac4f1ac0feb469e56888fe2c665860a6"
+      },
+      {
+        "name": "real native canvas one-pixel corruption",
+        "first": "scene039 base/valve whole native frame"
+      }
+    ],
+    "oldSaveAllFieldsEqualTwice": true,
+    "unrun": [],
+    "notApplicable": {
+      "waterReflection": "Existing reflectSprite rejects all size>=2 native buildings; unchanged for these 2x2 appearances.",
+      "smoke": "All ten native sprites intentionally have smoke:[]; heritage display chimneys are inactive.",
+      "neonSigns": "Existing animated neon applies to k=2 commercial buildings, not unchanged k=24 landmark appearances."
+    },
+    "pixelViewScope": "Separate author-review record; manifest verification does not mean all frames visually inspected."
+  },
+  "performance": {
+    "stats": {
+      "base": {
+        "n": 40,
+        "median": 15.599999999998545,
+        "p90": 26.55000000000291,
+        "min": 6.625,
+        "max": 29.400000000001455
+      },
+      "head": {
+        "n": 40,
+        "median": 2.900000000001455,
+        "p90": 27.27499999999418,
+        "min": 2.4499999999970896,
+        "max": 31.299999999995634
+      }
+    },
+    "sample": {
+      "base": [
+        12.275000000001455,
+        27.150000000001455,
+        11.349999999998545,
+        24.07499999999709,
+        9.25,
+        26.55000000000291,
+        11.224999999998545,
+        25.849999999998545,
+        15.599999999998545,
+        29.400000000001455,
+        8.375,
+        25.27499999999418,
+        7.475000000005821,
+        25.075000000004366,
+        7.5,
+        8.30000000000291,
+        24.650000000001455,
+        8.150000000001455,
+        23.450000000004366,
+        8.450000000004366,
+        25.549999999995634,
+        8.275000000001455,
+        24.89999999999418,
+        8.349999999998545,
+        23.5,
+        7.75,
+        25.75,
+        8.674999999995634,
+        25.025000000001455,
+        6.625,
+        8.125,
+        27.200000000004366,
+        10.94999999999709,
+        25.5,
+        9.150000000001455,
+        24.799999999995634,
+        9.05000000000291,
+        24.57499999999709,
+        8.05000000000291,
+        24.299999999995634
+      ],
+      "head": [
+        27.44999999999709,
+        2.7000000000043656,
+        4.67500000000291,
+        26.30000000000291,
+        2.650000000001455,
+        2.5749999999970896,
+        26.55000000000291,
+        2.6999999999970896,
+        2.7000000000043656,
+        3.125,
+        27.27499999999418,
+        2.4750000000058208,
+        2.7999999999956344,
+        26,
+        2.6499999999941792,
+        2.525000000001455,
+        26.02499999999418,
+        2.5,
+        2.599999999998545,
+        31.299999999995634,
+        2.6000000000058208,
+        2.474999999998545,
+        3.2000000000043656,
+        27.5,
+        2.525000000001455,
+        2.4499999999970896,
+        26.30000000000291,
+        3.474999999998545,
+        2.650000000001455,
+        26.099999999998545,
+        2.5500000000029104,
+        2.5499999999956344,
+        3.724999999998545,
+        26.400000000001455,
+        2.9499999999970896,
+        2.6000000000058208,
+        27.099999999998545,
+        2.525000000001455,
+        2.900000000001455,
+        26.849999999998545
+      ]
+    },
+    "restoredStats": {
+      "base": {
+        "n": 40,
+        "median": 9.849999999998545,
+        "p90": 25.775000000001455,
+        "min": 6.57499999999709,
+        "max": 26.950000000004366
+      },
+      "head": {
+        "n": 40,
+        "median": 2.599999999998545,
+        "p90": 27.27499999999418,
+        "min": 2.4499999999970896,
+        "max": 31.224999999998545
+      }
+    },
+    "newGeometryBuildsDuringWarmDraw": 0,
+    "cacheLeaves": 40,
+    "firstRed": "perf039 normal redraw rebaked new geometry",
+    "timingFirstRed": "perf039 repeatable native redraw regression {\"base\":{\"n\":40,\"median\":15.599999999998545,\"p90\":26.55000000000291,\"min\":6.625,\"max\":29.400000000001455},\"head\":{\"n\":30,\"median\":76.89999999999418,\"p90\":78.60000000000582,\"min\":76.70000000001164,\"max\":181.39999999999418}}",
+    "timingNegativeSamples": 30,
+    "timingInjectedDelayMs": 74,
+    "timingNegativeSampleMs": [
+      76.89999999999418,
+      76.89999999999418,
+      76.70000000001164,
+      76.89999999999418,
+      76.80000000001746,
+      76.79999999998836,
+      76.89999999999418,
+      76.89999999999418,
+      77.40000000002328,
+      76.79999999998836,
+      181.39999999999418,
+      76.89999999999418,
+      76.80000000001746,
+      76.79999999998836,
+      76.89999999999418,
+      77,
+      77.40000000002328,
+      76.79999999998836,
+      76.89999999999418,
+      78.60000000000582,
+      76.79999999998836,
+      77.10000000000582,
+      76.89999999999418,
+      176.5,
+      77,
+      76.80000000001746,
+      76.89999999999418,
+      77.20000000001164,
+      78.39999999999418,
+      76.89999999999418
+    ],
+    "restoredGreen": true,
+    "interleaved": true,
+    "nativeBaselineSource": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+    "viewport": {
+      "head": [
+        1280,
+        657
+      ],
+      "base": [
+        1280,
+        657
+      ]
+    },
+    "hardware": "GitHub Actions Ubuntu desktop Chromium; not real mobile hardware"
+  },
+  "nativeSteps": {
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2
+      },
+      {
+        "name": "Run actions/setup-node@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3
+      },
+      {
+        "name": "Native Chinese fonts",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4
+      },
+      {
+        "name": "Original-ten provenance and unchanged published sources",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 5
+      },
+      {
+        "name": "Native catalog, paid transactions, save-load and first-RED controls",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 6
+      },
+      {
+        "name": "Complete ten-model native powered/off/restored matrix and strict phase controls",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 8
+      },
+      {
+        "name": "Preserve complete ten power core evidence",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 9
+      },
+      {
+        "name": "Preserve complete ten power on evidence",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 10
+      },
+      {
+        "name": "Preserve complete ten power road-cut evidence",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 11
+      },
+      {
+        "name": "Preserve complete ten power source-off evidence",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 12
+      },
+      {
+        "name": "Preserve complete ten power restored evidence",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 13
+      },
+      {
+        "name": "Post Run actions/setup-node@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 25
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 26
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 27
+      }
+    ]
+  },
+  "fiscal": {
+    "ok": true,
+    "checks": 53,
+    "negative": 10,
+    "failures": []
+  },
+  "fp": {
+    "newLeaves": 40,
+    "changedOldLeaves": 0,
+    "removedLeaves": 0,
+    "families": [
+      "bld"
+    ],
+    "repositoryBaselineDifference": 0,
+    "otherFamiliesUnchanged": 165,
+    "rawProducerRun": 40030610173,
+    "rawProducerHead": "790ad112166d0c6968b610285274df1e32edfbb7",
+    "scoreDropDisclosedUnderContinuousAuthorization": true
+  },
+  "artifactDigests": "Reported by official Actions API and job logs; not falsely claimed locally recomputed ZIP digests",
+  "lastWorkflowRunGreen": true,
+  "workflowDeletion": "next pure deletion commit, not yet executed",
+  "merged": false,
+  "published": false
+}

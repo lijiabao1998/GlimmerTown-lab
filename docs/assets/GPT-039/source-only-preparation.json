@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "kind": "source-only-complete-original-ten",
+  "base": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "baseObjectRead": "60cc34a20b6fb420b70bc107ecb993fa471d7e19",
+  "head": null,
+  "sourceSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+  "committedIndexSHA256": "532e4782af3a703e66428e8a1892756a2fa8a38a39fca4e7408ab06606397fd8",
+  "retainedPublishedFiles": 1257,
+  "firstScopeCardSHA256": "18fb2a8104af895eae870f357d03ca8ce5f14e68ff1f8c9214f674d924b5ccd9",
+  "sourceStripExact": true,
+  "sharedGuardsUnchanged": true,
+  "productionPhaseBridgeAbsent": true,
+  "inlineScripts": 97,
+  "negativeControls": [
+    {
+      "name": "valid HTML outside source boundary",
+      "first": "source039 source-boundary mismatch",
+      "restored": true
+    },
+    {
+      "name": "CI phase helper leaked outside runtime boundary",
+      "first": "source039 source-boundary mismatch",
+      "restored": true
+    },
+    {
+      "name": "missing complete installer",
+      "first": "wave039 unique declared installation tail",
+      "restored": true
+    },
+    {
+      "name": "one omitted original",
+      "first": "source039 exact original ten",
+      "restored": true
+    },
+    {
+      "name": "reordered originals",
+      "first": "source039 exact ordered original identities",
+      "restored": true
+    },
+    {
+      "name": "wrong variant range",
+      "first": "source039 exact forty variant slots",
+      "restored": true
+    },
+    {
+      "name": "false photograph claim",
+      "first": "source039 original provenance, no borrowed photo claim",
+      "restored": true
+    }
+  ],
+  "baselineStage": "unchanged published baseline; candidate CI rebake still required",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedNewSprites": 0,
+  "fullWaveAcceptance": false
+}

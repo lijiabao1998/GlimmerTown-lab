@@ -1,0 +1,136 @@
+{
+  "schema": "GPT-039.exact-CI-baseline-adoption.v1",
+  "producerHead": "790ad112166d0c6968b610285274df1e32edfbb7",
+  "producerTree": "d9afb06cb705c2b56bd659c11801176f1425d21e",
+  "run": 40030610173,
+  "job": 120677661492,
+  "artifact": 12534632560,
+  "officialArtifactZIPDigest": "sha256:7c7a343689b3c2066be52ffe6ab1f67a82078d20342d210e04f2797edf8a15d5",
+  "zipDigestIndependentlyRecomputed": false,
+  "transport": "Exact fp-rebake bytes from completed producer job; lengths and SHA256 independently verified",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 416424,
+      "sha256": "4ab464b1cf378a222850e199cc7ec7d0af19516ef3492e9dd41bc1e82f00e0e4"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73170,
+      "sha256": "6b1fb5d440151aa91f28c3375e200af985f96f0cbaa16ce73e2685e552a286e8"
+    }
+  ],
+  "independentBase": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "artSourceSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+  "oldLeavesExact": 3783,
+  "addedLeaves": [
+    "bld.24_1_560",
+    "bld.24_1_561",
+    "bld.24_1_562",
+    "bld.24_1_563",
+    "bld.24_1_564",
+    "bld.24_1_565",
+    "bld.24_1_566",
+    "bld.24_1_567",
+    "bld.24_1_568",
+    "bld.24_1_569",
+    "bld.24_1_570",
+    "bld.24_1_571",
+    "bld.24_1_572",
+    "bld.24_1_573",
+    "bld.24_1_574",
+    "bld.24_1_575",
+    "bld.24_1_576",
+    "bld.24_1_577",
+    "bld.24_1_578",
+    "bld.24_1_579",
+    "bld.24_1_580",
+    "bld.24_1_581",
+    "bld.24_1_582",
+    "bld.24_1_583",
+    "bld.24_1_584",
+    "bld.24_1_585",
+    "bld.24_1_586",
+    "bld.24_1_587",
+    "bld.24_1_588",
+    "bld.24_1_589",
+    "bld.24_1_590",
+    "bld.24_1_591",
+    "bld.24_1_592",
+    "bld.24_1_593",
+    "bld.24_1_594",
+    "bld.24_1_595",
+    "bld.24_1_596",
+    "bld.24_1_597",
+    "bld.24_1_598",
+    "bld.24_1_599"
+  ],
+  "otherFamiliesExact": 165,
+  "blocks": {
+    "fam": "5ef6eb67",
+    "count": 1728
+  },
+  "environmentRegistrationUnchanged": true,
+  "styleBefore": {
+    "leaves": 1419,
+    "op": 10656978,
+    "raw": {
+      "leaves": 1419,
+      "px": 48157952,
+      "op": 10656978,
+      "semi": 25072,
+      "colors": 869017,
+      "buckets": 18582,
+      "leftLit": 1163,
+      "nightLeaves": 1389,
+      "nightOp": 602719,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9529472614093789,
+      "lightDir": 0.8195912614517266,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9891894285953,
+      "variants": 1
+    },
+    "total": 0.966
+  },
+  "styleAfter": {
+    "leaves": 1459,
+    "op": 10838509,
+    "raw": {
+      "leaves": 1459,
+      "px": 49412352,
+      "op": 10838509,
+      "semi": 25072,
+      "colors": 870161,
+      "buckets": 19004,
+      "leftLit": 1193,
+      "nightLeaves": 1429,
+      "nightOp": 614266,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9537353338914052,
+      "lightDir": 0.8176833447566827,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9894837454988741,
+      "variants": 1
+    },
+    "total": 0.9658
+  },
+  "styleRule": "AGENTS section7 continuation second item onward: disclose all axes; no criterion or score edits",
+  "fiscalFirstRed": {
+    "run": 40030610272,
+    "job": 120677661738,
+    "checks": 52,
+    "negative": 10,
+    "failedGate": "scoped serialization, settlement, cadence and guard source integrity",
+    "cause": "unchanged assertion invokes fp.js --check before baseline adoption"
+  },
+  "notYetValidatedOnNewHead": true
+}

@@ -1,0 +1,504 @@
+{
+  "schema": "GPT-039.author-visual-review.v1",
+  "head": "fb8cd7be433eadeff5adab6779a6822639c71e4a",
+  "reviewer": "Implementing GPT author; not an independent human or agent review",
+  "nativeSpritePixelsViewed": 80,
+  "images": [
+    {
+      "file": "sprites/brackenread-r0-day.png",
+      "bytes": 6137,
+      "sha256": "ecfadc0b2855c2f50a336e7b57f83fbabca5675e1fa4bfb8318ea23e6b2bb824",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r0-night.png",
+      "bytes": 1768,
+      "sha256": "c7a906793df6cb78ac8fda645df75f1422b984d63ec7a0d94ce8dd65d6b08c22",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r1-day.png",
+      "bytes": 5598,
+      "sha256": "46758703d4ba9e337b8b634d00332b72ad60ff2a3404b6d5b5f0d274a01580dd",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r1-night.png",
+      "bytes": 1749,
+      "sha256": "381158cc964c5b1fecd759265b79d4df29d57f543bcd9f6c56eae2028c1e904e",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r2-day.png",
+      "bytes": 5499,
+      "sha256": "a4e525ab4934888513045683b5c9bc8438add2edac670d2744b247e250591481",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r2-night.png",
+      "bytes": 1729,
+      "sha256": "f1d8ad1aa783e789464eb03453afcb9b762773c674b3851bb478289ba8ec6d98",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r3-day.png",
+      "bytes": 5245,
+      "sha256": "1e9c2cbdf062f72fd1ec058fcaf391491244e2967c5de53673aba838971365af",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/brackenread-r3-night.png",
+      "bytes": 1802,
+      "sha256": "281644a5a4a8b345c98494eb62e8651c8952dcbedf62e913a071ca64ec5f87d1",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r0-day.png",
+      "bytes": 4999,
+      "sha256": "6b1f0b1245591cf3aed30298e0545691fcbbf2e0ba875cbd512f1cebc5e2526e",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r0-night.png",
+      "bytes": 1872,
+      "sha256": "775f94cc5f25f1ad8b0a313513ce4028dbb32fd4f36d2cb5bf7466f3cb271075",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r1-day.png",
+      "bytes": 4603,
+      "sha256": "f32ed4a88a55375aa5d8746468f43b6e51995b425210055562dbbb50788d190f",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r1-night.png",
+      "bytes": 1868,
+      "sha256": "efc8195f8364fe34f452660f47fcc820a1db8e0a7e8c8d2f97c36c8a2861ff0d",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r2-day.png",
+      "bytes": 4105,
+      "sha256": "ed8bf6b7f9d0f17f85b928123f01a589cc389fda9dcc664e93e96e9003110557",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r2-night.png",
+      "bytes": 1739,
+      "sha256": "2e02b74deb5dbf9620770b44202a58432c3c0f0956bf5f2029f2c638c794f6f3",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r3-day.png",
+      "bytes": 4583,
+      "sha256": "b2db1240377ca3dedfaaf871f7793d20dc98b10b25b7bcb236662632e1983986",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/ferncourt-r3-night.png",
+      "bytes": 1893,
+      "sha256": "77801daf85ca3b84bd7a3383302e994e3dad5e04eea7646e089b308866149385",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r0-day.png",
+      "bytes": 6190,
+      "sha256": "38151c99321d7ea077d98c0eb60da159031df1522c336b59ebffc1b122ffd510",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r0-night.png",
+      "bytes": 1801,
+      "sha256": "4f736f979504ca65d5fd17908c65c1b18e8a533fd1de5b547bd9e733b3996494",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r1-day.png",
+      "bytes": 5401,
+      "sha256": "c56b1d0c4ab5242c4e69ff8a95b8a1e1aa8a4a041df3c0d3abaa7064c2c0995d",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r1-night.png",
+      "bytes": 1844,
+      "sha256": "7a4b2f519c036743807839b311d873affec7b485e825608fbfc80ff8619d5853",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r2-day.png",
+      "bytes": 5241,
+      "sha256": "f250f14d39a52b745b22070d7e1d31d9245dcf1ea9a708e3ef8b3abceef41c59",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r2-night.png",
+      "bytes": 1854,
+      "sha256": "8540f8877c3a4ec674e8a0e7a6f06ed2ca04f6e2d59a2bfb3cb98e5b34d569db",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r3-day.png",
+      "bytes": 5482,
+      "sha256": "802d32f106ef0ca1c9148449dd10d2ef09ade364378e4e5fe140216d54645184",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/rookhall-r3-night.png",
+      "bytes": 1797,
+      "sha256": "298dafd18ce1c7c419ffa0a0b79b58bc6ed590d82e867909253738d410425bc7",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r0-day.png",
+      "bytes": 5076,
+      "sha256": "ca0834debf1d929427208a88c91dbc0b0dd02950e5c0339806c31ebe8c5fbfb5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r0-night.png",
+      "bytes": 1551,
+      "sha256": "b7a4d7243bafaa61e297c1193805d886c9d588060bcf3f3df108c8a41a618816",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r1-day.png",
+      "bytes": 4981,
+      "sha256": "3189f69f7db7a0ee779b44a0673688aa98798ac61c92517bb98e9d49663a54e2",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r1-night.png",
+      "bytes": 1649,
+      "sha256": "feb7f28b18f256c6a04f0f509db2fe4787e25476f3f769ccde7b0ab2ed607be4",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r2-day.png",
+      "bytes": 4880,
+      "sha256": "7a87dee0bfaa5eeb46461c690e5e569d7812c3274e89622a6b7f237a1d8bc16d",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r2-night.png",
+      "bytes": 1618,
+      "sha256": "d43da5b33d0e666829b29a3d8dfba310226624fc61d492dd23288b50eb149f7c",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r3-day.png",
+      "bytes": 4762,
+      "sha256": "1fffd47f6b509a640fe6d8dd67b0ea518274861749b38d13b9c5ec93e9ef2d22",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/cobblefold-r3-night.png",
+      "bytes": 1528,
+      "sha256": "212411a7c4fad3e8404d28db70298b11193cb2d75119e2913afb1fe2e5456891",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r0-day.png",
+      "bytes": 5021,
+      "sha256": "5b70779acb4d0ba44ec1aa0d5770b4fb780b592e7dd522ff62d0e2731d074bb6",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r0-night.png",
+      "bytes": 1615,
+      "sha256": "be7482a65996679913a9b8d36537643f4c9051df42680d1ba6d82a856e4196cd",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r1-day.png",
+      "bytes": 4587,
+      "sha256": "3b6cdfdf78c72884d2d2dfd5c8d804bd794e6e521eac789d94353a7a625a3bfe",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r1-night.png",
+      "bytes": 1591,
+      "sha256": "fd04c0cbba3b8f775c42bd53c16431bd82ae40db96431715bda247bba53a41d7",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r2-day.png",
+      "bytes": 4306,
+      "sha256": "abbeb48bd820dfb6b2574812716f9d3e8eb7037f2e590aff6296d89b152bc69f",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r2-night.png",
+      "bytes": 1589,
+      "sha256": "a3c23345cc65b5c845204c739f5e30aaffa417b723a9c554722ec7476edddb78",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r3-day.png",
+      "bytes": 4661,
+      "sha256": "293288db263548cb0097fd2edc42710e7cdbdeb3084c8f1373a21691b8d4813d",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/mossgate-r3-night.png",
+      "bytes": 1630,
+      "sha256": "d8200b403fc8c70802d64bb39392dbca980af31851bbff86eabcdf7285fdc84f",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r0-day.png",
+      "bytes": 5651,
+      "sha256": "154e9008a0069585823200cea22fff5cb488251cec94ff3ae7f79927f7cbf7ab",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r0-night.png",
+      "bytes": 2459,
+      "sha256": "ab45cc046ebbfb50cd3b78557da4837765a371737d0d62759daee3b0323dac9a",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r1-day.png",
+      "bytes": 4626,
+      "sha256": "478e46b4bc34180013b20bd54247754cc900c1c4039af727e81e15d0cad69647",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r1-night.png",
+      "bytes": 2340,
+      "sha256": "dfe195af7fda963e1cac1526412b84b07c94f1447d4f1e1ed6024735dd65b1a4",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r2-day.png",
+      "bytes": 4983,
+      "sha256": "508c22ea8c70df3255b97d393ead47900dbd358f4e6510f39f515961e4740446",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r2-night.png",
+      "bytes": 1729,
+      "sha256": "c46a59ee3a24e7bf77b8df20600dbee2845f6924dec86497f1b2e7ef00dd98c5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r3-day.png",
+      "bytes": 5524,
+      "sha256": "7601900d2986accb17dce1d0a5d3c655a75edc72924dae3af9d01485e383caf2",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/orchardcraft-r3-night.png",
+      "bytes": 1832,
+      "sha256": "d4762c415fac9db6190154fc389a4a6d3e111ac96dc115921b6c4643514fd4b5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r0-day.png",
+      "bytes": 5025,
+      "sha256": "f9aa4ebde03861efbcf0ddc09b044aedcb593e7655250442bc07760a0c3429fd",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r0-night.png",
+      "bytes": 1803,
+      "sha256": "2e87cd3495ec8de6a45be77fed51e98f662d1323e837ed484bc5b60b23277c84",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r1-day.png",
+      "bytes": 4442,
+      "sha256": "f5b054e9626e376c48ca2b86048dc1a7a8013f4ef2e9e4efb36520a2ceb13dc5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r1-night.png",
+      "bytes": 1742,
+      "sha256": "27d329feb35af8ea0baf6fcc87677bac869090da36743ecf4f45a639a2968a0d",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r2-day.png",
+      "bytes": 4406,
+      "sha256": "cfdd64a119b4d63175c45467e2aef40748633865f51990c2b3edc16ba2cd05e5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r2-night.png",
+      "bytes": 1701,
+      "sha256": "fc239230b4708bbed3653691c9dfa52e69eefca7bc3d41ea942de772e708554c",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r3-day.png",
+      "bytes": 4475,
+      "sha256": "ea92f8fb3a51460c038191b8f2a593a9e5cce627c100eaeb5f0e8591e0344bc5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/pennyfen-r3-night.png",
+      "bytes": 1728,
+      "sha256": "4fa8d78ee82638a34a1ad269cf117589308ec90db7636fbc5b0b26f86c5b96b1",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r0-day.png",
+      "bytes": 4483,
+      "sha256": "b53da0577e349efffce0583ffa17b47cd72433894848474a3aee0b302e9b036a",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r0-night.png",
+      "bytes": 1625,
+      "sha256": "935f508eacd9977fb767cc8ff58663b4b190733cf881b497958871e73855e968",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r1-day.png",
+      "bytes": 3686,
+      "sha256": "1ac837d89fdaf8396100e162d9b7918a7348f74ca2b9a073d3d4f6d259c70c21",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r1-night.png",
+      "bytes": 1640,
+      "sha256": "be7d3349448e6a30d576ca35ccb31968f3408fab15d68aac79e52256cb191330",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r2-day.png",
+      "bytes": 3669,
+      "sha256": "a27b1fc5e6a2ce777c2ddd2e213615378bf690316b36a6e61960361d159a2711",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r2-night.png",
+      "bytes": 1550,
+      "sha256": "4f7557e7e8a29a0799971c654ff60bb625bf3f14804d79bf8eb7911b2a84c622",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r3-day.png",
+      "bytes": 3832,
+      "sha256": "78b29849524fd5bb38fad3d46e84be3abcce9ed922ffaf3e17a2e220009e3132",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/willowmusic-r3-night.png",
+      "bytes": 1682,
+      "sha256": "de7ea154d0a154ab332c290360c55e4f6b8ec447281faa8545d5a36cdcd6744f",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r0-day.png",
+      "bytes": 6185,
+      "sha256": "6e986d04b7fde73a2081aed20b6fc3f159bd3560de37a1c4323743921d0791bb",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r0-night.png",
+      "bytes": 1880,
+      "sha256": "21e63b5a29ead9d5bb86372eb63e8477e06060aef0ec0f923b0971e9d37fd400",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r1-day.png",
+      "bytes": 5571,
+      "sha256": "f93c0cf88fd4d37a7084d64eb590b281a93a14dff934da99f8e8f0dfa6ae24b3",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r1-night.png",
+      "bytes": 1825,
+      "sha256": "a80c1e1d2a155bdc3f814889b8dd896d25e2c485c224c4755d34bdeddf5750d5",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r2-day.png",
+      "bytes": 5787,
+      "sha256": "91fcabc201726e9a0d9c4b9b87125c3e49ed4aee47a7e16069245fae4c4903e1",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r2-night.png",
+      "bytes": 1808,
+      "sha256": "65cf82b119c055af3d72a0e0bc27b06c3d63654dda725301d7faca66a3ab257e",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r3-day.png",
+      "bytes": 5699,
+      "sha256": "0a8c9872da6b0c33a54157160477918473166b0da0f31d4f44bc1a9d9715e88c",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/hawthornloom-r3-night.png",
+      "bytes": 1896,
+      "sha256": "534489d158a8aa18cec6115e1b3a745392e2601dc7db0b154e2138ab67c46033",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r0-day.png",
+      "bytes": 5834,
+      "sha256": "442253cbcd933fd4e26e4300498557fe58114868b37a7e9841b7413f35dff937",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r0-night.png",
+      "bytes": 1756,
+      "sha256": "dce02ac5f84873eefdfa7fb6aca1cb688dc8219f18ae93e0e1c9d31ecc301684",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r1-day.png",
+      "bytes": 5144,
+      "sha256": "667d90ce4cc93afc95b6147da710e0befeef505d78a6e68b800c972ca3478678",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r1-night.png",
+      "bytes": 1682,
+      "sha256": "055ebbfdae068677aa94d49f9697f951c4638e53a2d1139d2c76ab5ab308706e",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r2-day.png",
+      "bytes": 5119,
+      "sha256": "16609e5d7f911474ca6492e60bb642a6d65b2d60a3fb000a24c3569fbcf9a59b",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r2-night.png",
+      "bytes": 1726,
+      "sha256": "d57bb09791db54f371d10f492e81ad89a5d6c544bd618fa423d97e06e51c893e",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r3-day.png",
+      "bytes": 5296,
+      "sha256": "6dba94b225e5d23a140a38fa25f4230d952b1cbcab333527f30aa49549a4b83b",
+      "pixelsActuallyOpened": true
+    },
+    {
+      "file": "sprites/briarwatch-r3-night.png",
+      "bytes": 1772,
+      "sha256": "4095c9e96d7f0217d8cec7560bf342e26a2254c85039baeb8b917ea17991ca73",
+      "pixelsActuallyOpened": true
+    }
+  ],
+  "otherActualPixelsViewed": {
+    "producerHead": "790ad112166d0c6968b610285274df1e32edfbb7",
+    "nativeNearViews": 10,
+    "contactSheets": 3,
+    "nativeDayStreet": 1,
+    "nativeSummerScene": 1,
+    "nativeWinterSnowScene": 1
+  },
+  "observations": "Ten distinct volumes, roofs and window structures; no blocking clipping, missing geometry or floating night overlays seen in inspected images. Static night sprites are light overlays, not complete game night captures.",
+  "limitations": [
+    "Not all 275 powered-night PNGs visually inspected",
+    "Not all 57 scene and 40 edge PNGs visually inspected",
+    "No physical mobile, Safari or touch test",
+    "Viewing pixels does not mean owner has seen them"
+  ],
+  "reRenderedLocally": false
+}

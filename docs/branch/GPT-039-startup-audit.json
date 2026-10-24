@@ -1,0 +1,394 @@
+{
+  "schema": "GPT-039.C2.actual-startup.v1",
+  "startedUTC": "2026-10-21T14:26:10Z",
+  "baseMain": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "baseTree": "60cc34a20b6fb420b70bc107ecb993fa471d7e19",
+  "firstCardCommit": "57df89d3081cf645847e33999b2c9e604d4c0510",
+  "firstCardRemoteBytesMatched": true,
+  "baseFilesActuallyVerified": 1261,
+  "publishedModelsInventoried": 100,
+  "historical15AlsoChecked": true,
+  "rejectedDuplicateCandidates": [
+    "Kew Palm House already k63/T702",
+    "Dunmore Pineapple already heritage024/T748"
+  ],
+  "otherWriterBranches": [
+    {
+      "branch": "claude/blissful-cori-o3364f",
+      "head": "f6d626c04c2979e8b2855f0f4a9e9ab1eef35654",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 88,
+      "files": []
+    },
+    {
+      "branch": "claude/dual-agent-coordination-a24cyi",
+      "head": "d23c18d8e24ecb1f7b9223907484729eebe9b3a0",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 250,
+      "files": []
+    },
+    {
+      "branch": "claude/jolly-clarke-tf6oqm",
+      "head": "9e3cf77bced0930aae753bd52b45c7e7f28b9e19",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 23,
+      "files": []
+    },
+    {
+      "branch": "dsk/bookshop",
+      "head": "cf2e7233d359a73e9bc4c0fa9c42e8216c8266bb",
+      "status": "diverged",
+      "ahead_by": 4,
+      "behind_by": 162,
+      "files": [
+        "docs/branch/DSK-015-英式書店.md",
+        "docs/branch/DSK-016-英式書店近景.md",
+        "index.html",
+        "probeDSK15.js",
+        "shotsDSK15/near_day_zoom.png",
+        "shotsDSK15/near_night_zoom.png",
+        "shotsDSK15/sprite_day.png",
+        "shotsDSK15/sprite_night.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/chippy",
+      "head": "3080392ea0c52f4d4183174ac6f1d4f9cdd1a320",
+      "status": "diverged",
+      "ahead_by": 3,
+      "behind_by": 162,
+      "files": [
+        "docs/branch/DSK-009-炸魚薯條店.md",
+        "docs/branch/DSK-013-炸魚薯條店近景.md",
+        "index.html",
+        "probeDSK9.js",
+        "shotsDSK9/near_day_zoom.png",
+        "shotsDSK9/near_night_zoom.png",
+        "shotsDSK9/place_night_zoom.png",
+        "shotsDSK9/place_zoom.png",
+        "shotsDSK9/sprite_day.png",
+        "shotsDSK9/sprite_night.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/corner-pub",
+      "head": "5f3c89ea96c6a937758b1fd5dbcbdf7131a0f4c4",
+      "status": "diverged",
+      "ahead_by": 2,
+      "behind_by": 162,
+      "files": [
+        "docs/branch/DSK-011-轉角酒館.md",
+        "docs/branch/DSK-012-轉角酒館近景.md",
+        "index.html",
+        "probeDSK11.js",
+        "shotsDSK11/near_day.png",
+        "shotsDSK11/near_day_zoom.png",
+        "shotsDSK11/near_night.png",
+        "shotsDSK11/near_night_zoom.png",
+        "shotsDSK11/place_night_zoom.png",
+        "shotsDSK11/place_zoom.png",
+        "shotsDSK11/sprite_day.png",
+        "shotsDSK11/sprite_night.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/galleried-inn",
+      "head": "9041ab3450d1130d06de59a5f11fc70b2a74625f",
+      "status": "diverged",
+      "ahead_by": 3,
+      "behind_by": 162,
+      "files": [
+        "docs/branch/DSK-006-有廊客棧.md",
+        "docs/branch/DSK-008-有廊客棧近景.md",
+        "index.html",
+        "probeDSK6.js",
+        "shotsDSK6/near_day.png",
+        "shotsDSK6/near_day_zoom.png",
+        "shotsDSK6/near_night.png",
+        "shotsDSK6/near_night_zoom.png",
+        "shotsDSK6/place_night_zoom.png",
+        "shotsDSK6/place_zoom.png",
+        "shotsDSK6/sprite_day.png",
+        "shotsDSK6/sprite_night.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/oval-hall",
+      "head": "cb59783e896dd0ba09b1f5b0a79c53e747f0b974",
+      "status": "diverged",
+      "ahead_by": 4,
+      "behind_by": 162,
+      "files": [
+        "docs/branch/DSK-005-皇家音樂廳.md",
+        "docs/branch/DSK-007-皇家音樂廳近景.md",
+        "index.html",
+        "probeDSK5.js",
+        "shotsDSK5/near_day.png",
+        "shotsDSK5/near_day_zoom.png",
+        "shotsDSK5/near_night.png",
+        "shotsDSK5/near_night_zoom.png",
+        "shotsDSK5/place_night_zoom.png",
+        "shotsDSK5/place_zoom.png",
+        "shotsDSK5/sprite_day.png",
+        "shotsDSK5/sprite_night.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/tearoom",
+      "head": "e2fbc6b300727b911085fc9230d0a0d022a57f76",
+      "status": "diverged",
+      "ahead_by": 2,
+      "behind_by": 162,
+      "files": [
+        "docs/branch/DSK-010-英式茶室.md",
+        "docs/branch/DSK-014-英式茶室近景.md",
+        "index.html",
+        "probeDSK10.js",
+        "shotsDSK10/near_day_zoom.png",
+        "shotsDSK10/near_night_zoom.png",
+        "shotsDSK10/place_night_zoom.png",
+        "shotsDSK10/place_zoom.png",
+        "shotsDSK10/sprite_day.png",
+        "shotsDSK10/sprite_night.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/tree-season-climate",
+      "head": "1d7b3e3701813169622f62ce2d5a990ddecde439",
+      "status": "diverged",
+      "ahead_by": 3,
+      "behind_by": 214,
+      "files": [
+        ".github/workflows/smoke.yml",
+        "docs/branch/DSK-001-冬季樹相.md",
+        "index.html",
+        "probeDSK1.js",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "dsk/uk-cathedral",
+      "head": "1faba1fa2ab951b89730cf5f674c3b44deeb89eb",
+      "status": "diverged",
+      "ahead_by": 22,
+      "behind_by": 214,
+      "files": [
+        ".github/workflows/smoke.yml",
+        "docs/branch/DSK-002-聖保羅座堂.md",
+        "docs/branch/DSK-003-白塔城堡主樓.md",
+        "docs/branch/DSK-004-巴特西發電站.md",
+        "index.html",
+        "probeDSK2.js",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "glm/alleys-riverside",
+      "head": "6bb1aae66845996765cfa019bae817f92b1874a2",
+      "status": "diverged",
+      "ahead_by": 5,
+      "behind_by": 214,
+      "files": [
+        "docs/branch/GLM-001-灣城自然岸線.md",
+        "docs/branch/GLM-002-工業舊牆廣告.md",
+        "docs/branch/GLM-003-疊畫浮空稽核.md",
+        "docs/branch/GLM-004-繫岸小舟與浮標.md",
+        "fp.js",
+        "index.html",
+        "probe-look.js",
+        "probeGLM1.js",
+        "probeGLM2.js",
+        "probeGLM4.js",
+        "probeGLM4u.js",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "grok/grove-mix",
+      "head": "3a4b5f5016bd9d6f1f62b5c540642d77f3d7f7c9",
+      "status": "diverged",
+      "ahead_by": 1,
+      "behind_by": 214,
+      "files": [
+        "docs/branch/GROK-001-平地成林.md",
+        "index.html",
+        "probeGROK1.js",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "grok/london-mews",
+      "head": "c7d9d3f5cd0ef04052dc978e027934c9d2dc2fcb",
+      "status": "diverged",
+      "ahead_by": 2,
+      "behind_by": 214,
+      "files": [
+        "docs/branch/GROK-002-倫敦馬廄.md",
+        "index.html",
+        "probeGROK2.js",
+        "shotsGROK2/mews-city.png",
+        "shotsGROK2/mews-sprite.png",
+        "smoke.js"
+      ]
+    },
+    {
+      "branch": "grok/uk-rest",
+      "head": "4fa470b379618e98bea003846b3f30ced7f20bea",
+      "status": "diverged",
+      "ahead_by": 6,
+      "behind_by": 91,
+      "files": [
+        "docs/branch/GROK-003-uk-rest.md",
+        "docs/branch/GROK-004-uk-rest.md",
+        "docs/branch/GROK-005-uk-rest.md",
+        "index.html",
+        "probeGROK3.js",
+        "probeGROK4.js",
+        "probeGROK5.js",
+        "smoke.js"
+      ]
+    }
+  ],
+  "openPRsAtStart": 0,
+  "sourcePinsReady": true,
+  "productionAndPrior1261FilesUnchanged": true,
+  "scope": "source/preparation only; model reference gate still blocked",
+  "photographsActuallyViewed": 0,
+  "modelsImplemented": 0,
+  "newInstalledSpriteLeaves": 0,
+  "gameChromeSmokeFPPowerSaveSceneTestsExecuted": false,
+  "fullWaveAcceptance": false,
+  "newArtPreviewsGenerated": false,
+  "mergeOrPublicationAttempted": false,
+  "remaining": [
+    {
+      "action": "Terminal git fetch from origin main",
+      "target": "https://github.com/lijiabao1998/GlimmerTown-lab.git",
+      "result": "CONNECT tunnel failed, response403",
+      "classification": "proxy denial; stopped",
+      "exit_code": 128,
+      "retried": false,
+      "mainMetadataReadViaExistingOfficialGitHubToolSucceeded": true,
+      "existingMainTreeLocalBytesVerified": true
+    },
+    {
+      "action": "Read original Kew Temperate interior photograph bytes",
+      "target": "https://www.kew.org/sites/default/files/styles/header_style/public/2019-02/Inside%20TH_0.jpg.webp?itok=dQ5LbV_t",
+      "result": "URLError: Tunnel connection failed:403 Forbidden",
+      "classification": "proxy denial; stopped",
+      "bytesWritten": 0,
+      "retried": false,
+      "noAlternateTransportForDeniedImage": true
+    },
+    {
+      "action": "Get actual photo pixel payload from public web image/screenshot output",
+      "result": "Image opens and successful screenshot refs returned text/citation only; no ImageContent or local image bytes accessible; separate MCP PDF resolver reported content-type/not-enabled error",
+      "classification": "technical tool payload/resolver limitation, not image inspection",
+      "pixelsActuallyViewed": false
+    }
+  ],
+  "localDiagnostics": [
+    {
+      "operation": "initial static ROWS extraction",
+      "error": "SyntaxError: Unexpected end of input",
+      "cause": "non-greedy bracket regex crossed .map ROWS ending into later code",
+      "repair": "balanced bracket/string/comment scan; exactly100 metadata rows; no game execution"
+    },
+    {
+      "operation": "parse C1 contents readback",
+      "error": "SyntaxError: Unexpected token '#'",
+      "cause": "successful GitHub contents fetch returned raw Markdown rather than JSON wrapper",
+      "repair": "inspect actual structuredContent.content and compare exact saved C1 string; no duplicate write"
+    },
+    {
+      "operation": "first source-preparation run",
+      "error": "AssertionError: wave039 complete independently pinned Git tree file set",
+      "cause": "git ls-tree invoked inside ignored nested directory defaulted to current subtree and returned0entries",
+      "repair": "add --full-tree to query the actual independent root;1261entries; no hash/count/equality relaxation",
+      "originalToolOutputTruncated": true,
+      "completeDiagnosticReproduction": {
+        "stderrBytes": 194758,
+        "sha256": "f66be1b5479c14488ff7a7fc7d872fdd92dcc855a780001fc18a58a65b3f8550",
+        "remoteFile": "docs/branch/GPT-039-C2-first-red-reproduced.log"
+      },
+      "restoredResult": "source-only self-test9negative controls passed; actual old1261filebytes preserved"
+    }
+  ],
+  "pendingCards": false,
+  "unknownWrites": false,
+  "sourceOnlySelfTest": {
+    "preparationOK": true,
+    "modelsDeclared": 10,
+    "newLeavesDeclared": 40,
+    "independentBaseFiles": 1261,
+    "baseBytesVerified": 1261,
+    "baseMain": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+    "baseTree": "60cc34a20b6fb420b70bc107ecb993fa471d7e19",
+    "negativeControls": [
+      {
+        "name": "missing tenth prototype",
+        "firstRed": "wave039 exact ten complete scope",
+        "target": "wave039 exact ten complete scope"
+      },
+      {
+        "name": "replace with already used heritage identity",
+        "firstRed": "wave039 exact frozen ordered identity/geometry/source",
+        "target": "wave039 exact frozen ordered identity/geometry/source"
+      },
+      {
+        "name": "same-length duplicate native allocation",
+        "firstRed": "wave039 exact frozen ordered identity/geometry/source",
+        "target": "wave039 exact frozen ordered identity/geometry/source"
+      },
+      {
+        "name": "lower original complete power floor",
+        "firstRed": "wave039 original full acceptance floor",
+        "target": "wave039 original full acceptance floor"
+      },
+      {
+        "name": "omit one old file from protected set",
+        "firstRed": "wave039 complete independently pinned Git tree file set",
+        "target": "wave039 complete independently pinned Git tree file set"
+      },
+      {
+        "name": "rewrite first-card requirement",
+        "firstRed": "wave039 immutable first-card prefix",
+        "target": "wave039 immutable first-card prefix"
+      },
+      {
+        "name": "one real byte drift index.html",
+        "firstRed": "wave039 base file blob index.html",
+        "target": "wave039 base file blob index.html"
+      },
+      {
+        "name": "one real byte drift probeTenPower038.cjs",
+        "firstRed": "wave039 base file blob probeTenPower038.cjs",
+        "target": "wave039 base file blob probeTenPower038.cjs"
+      },
+      {
+        "name": "one real byte drift .github/workflows/smoke.yml",
+        "firstRed": "wave039 base file blob .github/workflows/smoke.yml",
+        "target": "wave039 base file blob .github/workflows/smoke.yml"
+      }
+    ],
+    "scope": "static first-card/main-source protection only",
+    "modelReferenceGate": "BLOCKED: actual original photograph pixels not yet available",
+    "photographsActuallyViewed": 0,
+    "newModelsImplemented": 0,
+    "newNativeSpriteLeaves": 0,
+    "gameOrChromeExecuted": false,
+    "nativeAcceptanceRun": false,
+    "fullWaveAcceptance": false,
+    "publicationVerified": false
+  },
+  "recordedUTC": "2026-10-21T14:52:05.164290+00:00"
+}
