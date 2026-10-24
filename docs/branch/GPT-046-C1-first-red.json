@@ -1,0 +1,88 @@
+{
+  "schema": "GPT-046.C1-first-red.v1",
+  "head": "39c72e3a20c122e6c42e2de314c5819379f40541",
+  "standardRun": 40135008761,
+  "nativeRun": 40135008820,
+  "standard": {
+    "smoke": "success three runs",
+    "fp": {
+      "job": 120994563219,
+      "firstRed": "undeclared40 added bld leaves840..879 and derived style; no changed old leaves, other165families, or block1728",
+      "artifact": 12576857403
+    },
+    "fiscal": {
+      "job": 120994563516,
+      "passed": 52,
+      "negativeControlsPassed": 10,
+      "soleFailure": "current renderer fingerprints match committed baselines"
+    }
+  },
+  "native": {
+    "passed": 86,
+    "negative": 12,
+    "sceneFrames": 57,
+    "edgeCases": 40,
+    "exactBaseValvePairs": 8,
+    "sceneNegative": 2,
+    "powerCases": 160,
+    "powerPNG": 275,
+    "phaseWitnesses": 1920,
+    "performance": {
+      "base": {
+        "n": 40,
+        "median": 9.950000000000728,
+        "p90": 21.125,
+        "min": 5.55000000000291,
+        "max": 29.07499999999709
+      },
+      "head": {
+        "n": 40,
+        "median": 2.375,
+        "p90": 19.700000000000728,
+        "min": 2,
+        "max": 24.775000000001455
+      }
+    },
+    "warmBuilds": 0,
+    "constructionOK": true,
+    "baselineEvidenceFirstRed": "same undeclared fingerprint; own temporary workflow sentinel erroneously referenced already published800 rather than current840, corrected independently without changing checks",
+    "public": "passed actual prior170 only, notwave18 publication"
+  },
+  "rawLogs": [
+    {
+      "file": "job-120994563516.log",
+      "bytes": 37110,
+      "sha256": "7d995875e4efb38bededce610a5f14b9c3f97ab979c72cf0f7444d39a4213e5d"
+    },
+    {
+      "file": "job-120994563219.log",
+      "bytes": 31963,
+      "sha256": "ca9cccc0e049d67c4090b5c349e77dd437cf5d8113d07c197307f5431148ffb8"
+    },
+    {
+      "file": "job-120994563472.log",
+      "bytes": 733671,
+      "sha256": "8226ceb9c8141abc62b81a387168967b441d4c9562ebaca9907de6a7289d0089"
+    }
+  ],
+  "repair": {
+    "rawStandardArtifactFilesOnly": [
+      "fp.json",
+      "style.json"
+    ],
+    "temporaryWorkflowSentinel": "bld.24_1_800→bld.24_1_840",
+    "artworkChanged": false,
+    "productionChanged": false,
+    "historicalGuardChanged": false,
+    "thresholdChanged": false
+  },
+  "visualReview": "Day/night four-view contacts and selected original near/individual PNGs inspected; remaining full-scene/edge/power evidence review still required. No owner review claimed.",
+  "uncompleted": [
+    "C2 final official tests",
+    "complete visual evidence review",
+    "release labels and separate release contracts",
+    "PR and main CI",
+    "Pages and exact public verification"
+  ],
+  "formalCount": 170
+}

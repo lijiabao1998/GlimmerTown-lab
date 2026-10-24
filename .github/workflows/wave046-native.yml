@@ -264,7 +264,7 @@ jobs:
           set -euo pipefail
           git show "$(git merge-base origin/main HEAD):fp.json" > "$RUNNER_TEMP/fp-base.json"
           git show "$(git merge-base origin/main HEAD):style.json" > "$RUNNER_TEMP/style-base.json"
-          if node -e "const f=require('./fp.json');process.exit(Object.hasOwn(f.subs,'bld.24_1_800')?1:0)"; then
+          if node -e "const f=require('./fp.json');process.exit(Object.hasOwn(f.subs,'bld.24_1_840')?1:0)"; then
             node fp.js --check --expect=bld --report-base="$RUNNER_TEMP/fp-base.json" --report-base-style="$RUNNER_TEMP/style-base.json" --dump=fp-rebake
           else
             node fp.js --check --report-base="$RUNNER_TEMP/fp-base.json" --report-base-style="$RUNNER_TEMP/style-base.json" --dump=fp-rebake
