@@ -1,21 +1,21 @@
 {
   "schema": "GPT-046.raw-CI-baseline-adoption.v1",
-  "producerHead": "39c72e3a20c122e6c42e2de314c5819379f40541",
-  "run": 40135008761,
-  "job": 120994563219,
-  "artifact": 12576857403,
-  "artifactZIP_SHA256": "ad8d42c4f819c2230cfd25b891892856e7ee02862a26b48bef12053abce52ab7",
+  "producerHead": "2ea63d518a1efbb4baee597157c3f8aab6900d91",
+  "run": 40138059294,
+  "job": 121003715368,
+  "artifact": 12577738028,
+  "artifactZIP_SHA256": "30afefe9ac1f6f6481b01b4182eebc38e964495a5002c8956427032fbfbec1e4",
   "source": "Unedited original standard push fp artifact files; metadata preserved; not native rebake",
   "files": [
     {
       "name": "fp.json",
       "bytes": 445824,
-      "sha256": "ad70c761af1b2ccc2fcb26174b491a597d76af72cb91a13f7725e2dcd66480d9"
+      "sha256": "98ef37d7af6e8a92d132d05035b5684385ebbe92563ae9e5edc4d61b0af88594"
     },
     {
       "name": "style.json",
-      "bytes": 73170,
-      "sha256": "cdd48ba72a12fea31a19f1e201d83787f8ccde00eb1adc604cf1dde5903d83ea"
+      "bytes": 73168,
+      "sha256": "20746fbe5bac554b064281d41817aed74fab1259e8a84645f5207d571b18872a"
     }
   ],
   "unchangedOldLeaves": 4063,
@@ -95,6 +95,34 @@
   },
   "styleAfter": {
     "leaves": 1739,
+    "op": 12079298,
+    "raw": {
+      "leaves": 1739,
+      "px": 58193152,
+      "op": 12079298,
+      "semi": 25072,
+      "colors": 877866,
+      "buckets": 22003,
+      "leftLit": 1399,
+      "nightLeaves": 1709,
+      "nightOp": 667197,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9584876538355126,
+      "lightDir": 0.80448533640023,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.991157775364051,
+      "variants": 1
+    },
+    "total": 0.9649
+  },
+  "artSourceSHA256": "9c14cd2661399492ede5bf8fb9fa79c3252d9763dd78880b298063c55bbca213",
+  "firstRedPreserved": "C1 original undeclared40 and C2 green-but-visual-failure retained. C4 repaired only856..859; official fp fails old baseline and same-family style ratchet. Fiscal and strict source-pin failures recorded separately, not waived. New raw files are exact standard push artifact bytes. Continuous-art authorization permits disclosed score change; all original thresholds and negative controls remain unchanged.",
+  "styleBeforeRepair": {
+    "leaves": 1739,
     "op": 12079290,
     "raw": {
       "leaves": 1739,
@@ -119,6 +147,11 @@
     },
     "total": 0.9652
   },
-  "artSourceSHA256": "a2d6afd29da0b63e62feb55ebd2a86f780529375bac0810c1ab60b8cbec2b988",
-  "firstRedPreserved": "Standard fp undeclared40 leaves and derived style. Fiscal52 checks and10 negative controls passed; sole source-integrity failure is same undeclared fingerprint. Native baseline-evidence used prior-wave800 sentinel and must use current840; no frozen guard, budget or renderer changed. New final CI remains mandatory."
+  "changedFromC2": [
+    "bld.24_1_856",
+    "bld.24_1_857",
+    "bld.24_1_858",
+    "bld.24_1_859"
+  ],
+  "visualStatus": "Actual C4 product PNG review required independently; baseline declaration is not owner approval or publication."
 }

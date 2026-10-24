@@ -1,0 +1,51 @@
+{
+  "head": "8f2baa13768a8e2e3a1ae781c8f1214d7b0663d7",
+  "standard": 40135760840,
+  "PR": 40135910560,
+  "nativeRun": 40135760868,
+  "nativeJobCount": 28,
+  "allCIGreen": true,
+  "fiscal": {
+    "checks": 53,
+    "negative": 10,
+    "failures": []
+  },
+  "native": {
+    "checks": 86,
+    "negative": 12,
+    "ok": true
+  },
+  "power": {
+    "cases": 160,
+    "PNG": 275,
+    "phaseWitnesses": 1920,
+    "fieldExclusions": [],
+    "utilityTruthAssigned": false,
+    "restored": true
+  },
+  "scenes": {
+    "frames": 57,
+    "edges": 40,
+    "wholeFramePairs": 8,
+    "failures": []
+  },
+  "construction": {
+    "ok": true,
+    "failures": [],
+    "contract": {
+      "age": 7,
+      "seed": 87,
+      "rot": 0,
+      "zoom": 1,
+      "at": [
+        21,
+        4.5
+      ],
+      "naturalObservations": 12,
+      "flushedObservations": 66
+    }
+  },
+  "visualStatus": "Not accepted: Marjoram inward-draining roof not visibly concave. Green tests do not override first-card visual criteria.",
+  "published": false,
+  "formalInventory": 170
+}
