@@ -62,3 +62,14 @@ C3官方preview12559572055含84原PNG逐byte等同C2。80精靈原圖逐張以1:
 公開交付：docs/assets/GPT-040保存三接觸表、honeygrocer原生日／夜PNG與原始近景，manifest記producer、artifact、SHA。檔案原封複製，不重新出圖或變更美術；完整其他PNG在官方CI附件。
 
 作者之外的獨立來源覆核已檢查精確三標籤反轉、兩文件插入及供電完整保存判準未放寬；該覆核不替代真Chrome或未人工看過的圖片。
+
+
+## C5 最後完整原生綠燈（2026-10-24）
+
+3d0b733c6f5b9e062b3747dd6a4f33e41f5770c8 的分支專屬完整原生run40094352758全27工作成功：https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40094352758 。同head的index／美術／遊戲／完整原生判準與C4逐byte相同，僅metadata嚴格完成表披露、原圖交付與紀錄；所有新契約source、真Chromium／供電／場景／效能重新實跑。這是刪workflow前最後完整原生綠燈，不以舊head替代。
+
+四個已提交原圖公開HTTPS逐byte下載核對200：contact-day、contact-night、contact-comparison及near-honeygrocer，來源與SHA詳docs/assets/GPT-040/manifest.json。這不代表業主已看圖，也不重新要求已授權連續波次批准。
+
+接續僅純刪自己的.github/workflows/wave040-native.yml；刪除後每一commit保持不存在，仍須最終push／PR標準CI全綠、最新main／版本號再核、合法合併、自動Pages及公開HTTPS核實。尚未宣稱發布。
+
+C5同head push標準40094352743的smoke、fp、fiscal-load均已成功；PR40094356500仍以GitHub實際終態為準。最後純刪workflow commit尚需自己的push／PR標準CI，不能拿本段替代。
