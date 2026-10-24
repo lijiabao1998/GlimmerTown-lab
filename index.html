@@ -116832,7 +116832,7 @@ function britishOpen045(){
   if(!d.open)d.showModal();
 }
 function britishSelftest045(){
-  const checks=[],add=(name,ok)=>checks.push([name,!!ok]),keys=Object.keys(SPR.bld).filter(k=>/^24_1_(?:7[6-9][0-9])$/.test(k));
+  const checks=[],add=(name,ok)=>checks.push([name,!!ok]),keys=Object.keys(SPR.bld).filter(k=>/^24_1_(?:8[0-3][0-9])$/.test(k));
   const result=()=>({ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗'))});
   add('wave045 count and unique identity',keys.length===40&&britishRowsValid045()&&new Set(BRITISH045.map(q=>q.id)).size===10);
   if(!checks[0][1])return result();
