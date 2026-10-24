@@ -1,0 +1,48 @@
+{
+  "schema": "GPT-040.raw-image-delivery.v1",
+  "files": [
+    {
+      "name": "contact-day.png",
+      "bytes": 234834,
+      "sha256": "c5ea768c395ce7430f8cd04b8bcffb781db8890f668ec0c9201741feb3932192",
+      "producerHead": "78efea58bde8afa598b2588fd61754af6123585c",
+      "artifact": 12559584482
+    },
+    {
+      "name": "contact-night.png",
+      "bytes": 236903,
+      "sha256": "22304443efd19261e304cb55a193bc7d865619761a2a11f2e9895d91da9712b5",
+      "producerHead": "78efea58bde8afa598b2588fd61754af6123585c",
+      "artifact": 12559584482
+    },
+    {
+      "name": "contact-comparison.png",
+      "bytes": 371908,
+      "sha256": "cfbd6cfda8a4646bf30dc4324fb90d37133ec55c52dfb1ba877197a47416b3ef",
+      "producerHead": "78efea58bde8afa598b2588fd61754af6123585c",
+      "artifact": 12559584482
+    },
+    {
+      "name": "honeygrocer-r0-day.png",
+      "bytes": 5715,
+      "sha256": "19f102909d3ac8db312b19dc6535889f0b9a8c86106dc719b41ce6e2e2847292",
+      "producerHead": "78efea58bde8afa598b2588fd61754af6123585c",
+      "artifact": 12559584482
+    },
+    {
+      "name": "honeygrocer-r0-night.png",
+      "bytes": 1839,
+      "sha256": "36e3566875a9106e50c9b0633cc8903456a4564c23e78b9b53d68dc5a0e03b55",
+      "producerHead": "78efea58bde8afa598b2588fd61754af6123585c",
+      "artifact": 12559584482
+    },
+    {
+      "name": "near-honeygrocer.png",
+      "bytes": 446652,
+      "sha256": "0553b31fda0390b95b7ddd475719d8628dd67c081276c9ce19e92c3aabeb5f67",
+      "producerHead": "517db6e53a75403fb0abd565f5e017c937dc51df",
+      "artifact": 12555841362
+    }
+  ],
+  "note": "Byte-exact CI-produced PNG copies, no resize or re-render. Complete 80 sprite and scene/power originals remain in linked official Actions artifacts. Near scene is original C2, artwork unchanged in C3/C4."
+}

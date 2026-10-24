@@ -211,5 +211,40 @@
     "unchanged": true,
     "policy": "T107 z<0.5 intentionally uses 2-4px MINI_BLD_PAL blocks; not used as detailed art acceptance"
   },
-  "contactComparisonViewed": true
+  "contactComparisonViewed": true,
+  "releaseNativeViews": [
+    {
+      "file": "native-day-r0.png",
+      "sha256": "967790d2c110d8774e674ba4bf18303cc217c1fff884da3834e1c61ddca8047c"
+    },
+    {
+      "file": "native-day-r1.png",
+      "sha256": "b1e9b7a242ea8d28d9fc198ae0a5a8fafa3bc7083abcdd3661b5089aea5ce636"
+    },
+    {
+      "file": "native-day-r2.png",
+      "sha256": "fee8a216f8d035510080b3ecc2a9c7256e510c0941fbf08a88a8941713a23ee8"
+    },
+    {
+      "file": "native-day-r3.png",
+      "sha256": "4e270ae500dd5e87e3d6d9e506aca09f0630045f5624200c9fb271c0d9b78823"
+    },
+    {
+      "file": "native-night-r0.png",
+      "sha256": "eca708f2fc7834feac5952164ff0ae84e8e470bd4445738dbc1f4abc3c23e3d2"
+    },
+    {
+      "file": "native-night-r1.png",
+      "sha256": "e69a4f857fe5ec804c4d78b151375a1f24800eedae9e47c87e6785e7c5b6b4e2"
+    },
+    {
+      "file": "native-night-r2.png",
+      "sha256": "0cab077b76469f8e779e817e1b19ad1964b5d38901a45d2a6258721d2401a1e4"
+    },
+    {
+      "file": "native-night-r3.png",
+      "sha256": "6fc619be73da3086e14a350d92abc3b8997352e02097ad28586976fb2eb3cf97"
+    }
+  ],
+  "releaseNativeViewNote": "All eight native day/night rotation views actually viewed at 1280x657; viewport clips the outermost lots, so ten separate close-ups and full overview provide full-model coverage. Existing upward spotlight layer remains."
 }
