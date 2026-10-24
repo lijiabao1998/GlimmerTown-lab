@@ -1,0 +1,1413 @@
+{
+  "ok": true,
+  "kind": "source-only-recording-stub-audit",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedSprites": 0,
+  "models": 10,
+  "authoredViewPaths": 40,
+  "negativeControls": 20,
+  "structuralNegativeControls": [
+    {
+      "name": "flatten-one-cross-vault-head",
+      "firstRed": "structural:lindenmaps",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-cross-vault-underside",
+      "firstRed": "structural:lindenmaps",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "flatten-conoid-front",
+      "firstRed": "structural:wrenumbrella",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "cut-one-herbarium-lobe-wall",
+      "firstRed": "structural:meadowsweetherb",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "open-glovers-solid-waist",
+      "firstRed": "structural:sorrelglove",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "break-one-continuous-stone-rib",
+      "firstRed": "structural:tamargauge",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "balloon-gauge-collar",
+      "firstRed": "structural:tamargauge",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fan-fill-kidney-entrance",
+      "firstRed": "structural:rookspiano",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "float-currier-brace-off-spine",
+      "firstRed": "structural:hartcurrier",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "delete-fifth-wax-house-plane",
+      "firstRed": "structural:sainwax",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "detach-lastmakers-corbel",
+      "firstRed": "structural:brackenlast",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-wax-roof-closure-band",
+      "firstRed": "structural:sainwax",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-lastmakers-floor-fascia",
+      "firstRed": "structural:brackenlast",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "unembed-passage-high-end",
+      "firstRed": "structural:harecase",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "invert-narrow-passage-pane",
+      "firstRed": "structural:harecase",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fill-instrument-case-wedge",
+      "firstRed": "structural:harecase",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "duplicate-roof-geometry",
+      "firstRed": "roof-partition",
+      "restored": true,
+      "sourceOnly": true
+    }
+  ],
+  "structuralChecks": {
+    "actualRecordedGeometry": true,
+    "allTenFrozenIdentities": true,
+    "fourWorldViewPaths": true,
+    "crossedBarrelHeads": true,
+    "closedConoid": true,
+    "continuousQuatrefoil": true,
+    "solidBowTieWaist": true,
+    "sixGroundedGaugeRibs": true,
+    "solidConcaveKidney": true,
+    "groundedLoftSpineAndBraces": true,
+    "fiveRealPlanesPerWaxTier": true,
+    "octagonToRectangleWithCorbels": true,
+    "separatedPerpendicularBlocksAndBowedLink": true,
+    "sourceOnly": true
+  },
+  "sourceSHA256": "36c41c02e37a3222d10c0035ea92f53800f64fd5ca44b127f7714456010fed28",
+  "summaries": [
+    {
+      "id": "lindenmaps",
+      "view": 0,
+      "projectedBounds": [
+        [
+          32.800000000000004,
+          127.19999999999999
+        ],
+        [
+          123.52620981231759,
+          184.6
+        ]
+      ],
+      "polygons": 1283,
+      "beams": 32,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.2,
+          27.8
+        ],
+        [
+          4.2,
+          29
+        ],
+        [
+          0.42,
+          22
+        ]
+      ],
+      "geometrySHA256": "8750d5e251f28f5eb5dd2eff2a92e9b590e9a990f00db80f0ad992130d87e368"
+    },
+    {
+      "id": "lindenmaps",
+      "view": 1,
+      "projectedBounds": [
+        [
+          32.800000000000004,
+          127.19999999999999
+        ],
+        [
+          123.52620981231759,
+          184.6
+        ]
+      ],
+      "polygons": 1283,
+      "beams": 32,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.2,
+          27.8
+        ],
+        [
+          4.2,
+          29
+        ],
+        [
+          0.42,
+          22
+        ]
+      ],
+      "geometrySHA256": "8750d5e251f28f5eb5dd2eff2a92e9b590e9a990f00db80f0ad992130d87e368"
+    },
+    {
+      "id": "lindenmaps",
+      "view": 2,
+      "projectedBounds": [
+        [
+          32.800000000000004,
+          127.19999999999999
+        ],
+        [
+          123.52620981231759,
+          184.6
+        ]
+      ],
+      "polygons": 1283,
+      "beams": 32,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.2,
+          27.8
+        ],
+        [
+          4.2,
+          29
+        ],
+        [
+          0.42,
+          22
+        ]
+      ],
+      "geometrySHA256": "8750d5e251f28f5eb5dd2eff2a92e9b590e9a990f00db80f0ad992130d87e368"
+    },
+    {
+      "id": "lindenmaps",
+      "view": 3,
+      "projectedBounds": [
+        [
+          32.800000000000004,
+          127.19999999999999
+        ],
+        [
+          123.52620981231759,
+          184.6
+        ]
+      ],
+      "polygons": 1283,
+      "beams": 32,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.2,
+          27.8
+        ],
+        [
+          4.2,
+          29
+        ],
+        [
+          0.42,
+          22
+        ]
+      ],
+      "geometrySHA256": "8750d5e251f28f5eb5dd2eff2a92e9b590e9a990f00db80f0ad992130d87e368"
+    },
+    {
+      "id": "wrenumbrella",
+      "view": 0,
+      "projectedBounds": [
+        [
+          33.67401082486716,
+          115.21908683008336
+        ],
+        [
+          130.92,
+          184.1
+        ]
+      ],
+      "polygons": 890,
+      "beams": 89,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.661689771742309,
+          27.33831022825769
+        ],
+        [
+          3.9699999999999998,
+          28.12
+        ],
+        [
+          0.55,
+          24.4
+        ]
+      ],
+      "geometrySHA256": "27bca2aca5303be9a7583978ffb8657a2d346ba12c51d3292971a82720787ff1"
+    },
+    {
+      "id": "wrenumbrella",
+      "view": 1,
+      "projectedBounds": [
+        [
+          33.67401082486717,
+          115.21908683008337
+        ],
+        [
+          120.76628530792509,
+          178.5
+        ]
+      ],
+      "polygons": 890,
+      "beams": 89,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.661689771742309,
+          27.33831022825769
+        ],
+        [
+          3.9699999999999998,
+          28.12
+        ],
+        [
+          0.55,
+          24.4
+        ]
+      ],
+      "geometrySHA256": "27bca2aca5303be9a7583978ffb8657a2d346ba12c51d3292971a82720787ff1"
+    },
+    {
+      "id": "wrenumbrella",
+      "view": 2,
+      "projectedBounds": [
+        [
+          44.780913169916644,
+          126.32598917513283
+        ],
+        [
+          120.76628530792512,
+          178.5
+        ]
+      ],
+      "polygons": 890,
+      "beams": 89,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.661689771742309,
+          27.33831022825769
+        ],
+        [
+          3.9699999999999998,
+          28.12
+        ],
+        [
+          0.55,
+          24.4
+        ]
+      ],
+      "geometrySHA256": "27bca2aca5303be9a7583978ffb8657a2d346ba12c51d3292971a82720787ff1"
+    },
+    {
+      "id": "wrenumbrella",
+      "view": 3,
+      "projectedBounds": [
+        [
+          44.78091316991664,
+          126.32598917513282
+        ],
+        [
+          130.92,
+          184.1
+        ]
+      ],
+      "polygons": 890,
+      "beams": 89,
+      "pairedMaterials": 12,
+      "bbox": [
+        [
+          4.661689771742309,
+          27.33831022825769
+        ],
+        [
+          3.9699999999999998,
+          28.12
+        ],
+        [
+          0.55,
+          24.4
+        ]
+      ],
+      "geometrySHA256": "27bca2aca5303be9a7583978ffb8657a2d346ba12c51d3292971a82720787ff1"
+    },
+    {
+      "id": "meadowsweetherb",
+      "view": 0,
+      "projectedBounds": [
+        [
+          49.78733151146454,
+          110.21266848853547
+        ],
+        [
+          134.67878173032548,
+          176.1267027304759
+        ]
+      ],
+      "polygons": 1740,
+      "beams": 1,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          0.55,
+          22.5
+        ]
+      ],
+      "geometrySHA256": "2ae811d95852b0b1420b1e477091cc96388e655b8d4623fbeebfede6e252cb3d"
+    },
+    {
+      "id": "meadowsweetherb",
+      "view": 1,
+      "projectedBounds": [
+        [
+          49.78733151146452,
+          110.21266848853548
+        ],
+        [
+          134.67878173032548,
+          176.1267027304759
+        ]
+      ],
+      "polygons": 1740,
+      "beams": 1,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          0.55,
+          22.5
+        ]
+      ],
+      "geometrySHA256": "2ae811d95852b0b1420b1e477091cc96388e655b8d4623fbeebfede6e252cb3d"
+    },
+    {
+      "id": "meadowsweetherb",
+      "view": 2,
+      "projectedBounds": [
+        [
+          49.78733151146453,
+          110.21266848853548
+        ],
+        [
+          134.67878173032548,
+          176.12670273047587
+        ]
+      ],
+      "polygons": 1740,
+      "beams": 1,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          0.55,
+          22.5
+        ]
+      ],
+      "geometrySHA256": "2ae811d95852b0b1420b1e477091cc96388e655b8d4623fbeebfede6e252cb3d"
+    },
+    {
+      "id": "meadowsweetherb",
+      "view": 3,
+      "projectedBounds": [
+        [
+          49.78733151146453,
+          110.21266848853548
+        ],
+        [
+          134.67878173032548,
+          176.12670273047587
+        ]
+      ],
+      "polygons": 1740,
+      "beams": 1,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          3.5315599822456667,
+          28.46844001775434
+        ],
+        [
+          0.55,
+          22.5
+        ]
+      ],
+      "geometrySHA256": "2ae811d95852b0b1420b1e477091cc96388e655b8d4623fbeebfede6e252cb3d"
+    },
+    {
+      "id": "sorrelglove",
+      "view": 0,
+      "projectedBounds": [
+        [
+          36.52,
+          123.47999999999999
+        ],
+        [
+          126.20000000000002,
+          182.7
+        ]
+      ],
+      "polygons": 241,
+      "beams": 0,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          2.9699999999999998,
+          29.029999999999998
+        ],
+        [
+          7.0930227988459125,
+          24.90697720115409
+        ],
+        [
+          0.55,
+          19.1
+        ]
+      ],
+      "geometrySHA256": "7fe65b32d2e07cc9ff02517e227fbd4da05abbaf8cfab4921408ea1b487f1463"
+    },
+    {
+      "id": "sorrelglove",
+      "view": 1,
+      "projectedBounds": [
+        [
+          36.519999999999996,
+          123.47999999999999
+        ],
+        [
+          126.20000000000002,
+          182.7
+        ]
+      ],
+      "polygons": 241,
+      "beams": 0,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          2.9699999999999998,
+          29.029999999999998
+        ],
+        [
+          7.0930227988459125,
+          24.90697720115409
+        ],
+        [
+          0.55,
+          19.1
+        ]
+      ],
+      "geometrySHA256": "7fe65b32d2e07cc9ff02517e227fbd4da05abbaf8cfab4921408ea1b487f1463"
+    },
+    {
+      "id": "sorrelglove",
+      "view": 2,
+      "projectedBounds": [
+        [
+          36.52,
+          123.47999999999999
+        ],
+        [
+          126.20000000000002,
+          182.7
+        ]
+      ],
+      "polygons": 241,
+      "beams": 0,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          2.9699999999999998,
+          29.029999999999998
+        ],
+        [
+          7.0930227988459125,
+          24.90697720115409
+        ],
+        [
+          0.55,
+          19.1
+        ]
+      ],
+      "geometrySHA256": "7fe65b32d2e07cc9ff02517e227fbd4da05abbaf8cfab4921408ea1b487f1463"
+    },
+    {
+      "id": "sorrelglove",
+      "view": 3,
+      "projectedBounds": [
+        [
+          36.52,
+          123.48000000000002
+        ],
+        [
+          126.20000000000002,
+          182.7
+        ]
+      ],
+      "polygons": 241,
+      "beams": 0,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          2.9699999999999998,
+          29.029999999999998
+        ],
+        [
+          7.0930227988459125,
+          24.90697720115409
+        ],
+        [
+          0.55,
+          19.1
+        ]
+      ],
+      "geometrySHA256": "7fe65b32d2e07cc9ff02517e227fbd4da05abbaf8cfab4921408ea1b487f1463"
+    },
+    {
+      "id": "tamargauge",
+      "view": 0,
+      "projectedBounds": [
+        [
+          53.641212152132,
+          106.35878784786799
+        ],
+        [
+          110.19634200735408,
+          173.279393923934
+        ]
+      ],
+      "polygons": 328,
+      "beams": 24,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          7.2362230591718255,
+          24.763776940828173
+        ],
+        [
+          7.236223059171827,
+          24.763776940828173
+        ],
+        [
+          0.55,
+          43.3
+        ]
+      ],
+      "geometrySHA256": "f19e1dad4aac9952f6c063e26a68b29da7f123f1a2952b5f0de72c727c3acdf4"
+    },
+    {
+      "id": "tamargauge",
+      "view": 1,
+      "projectedBounds": [
+        [
+          55.39268401470815,
+          104.60731598529185
+        ],
+        [
+          110.19634200735408,
+          174.88395236516115
+        ]
+      ],
+      "polygons": 328,
+      "beams": 24,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          7.2362230591718255,
+          24.763776940828173
+        ],
+        [
+          7.236223059171827,
+          24.763776940828173
+        ],
+        [
+          0.55,
+          43.3
+        ]
+      ],
+      "geometrySHA256": "f19e1dad4aac9952f6c063e26a68b29da7f123f1a2952b5f0de72c727c3acdf4"
+    },
+    {
+      "id": "tamargauge",
+      "view": 2,
+      "projectedBounds": [
+        [
+          53.64121215213201,
+          106.358787847868
+        ],
+        [
+          110.19634200735408,
+          173.279393923934
+        ]
+      ],
+      "polygons": 328,
+      "beams": 24,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          7.2362230591718255,
+          24.763776940828173
+        ],
+        [
+          7.236223059171827,
+          24.763776940828173
+        ],
+        [
+          0.55,
+          43.3
+        ]
+      ],
+      "geometrySHA256": "f19e1dad4aac9952f6c063e26a68b29da7f123f1a2952b5f0de72c727c3acdf4"
+    },
+    {
+      "id": "tamargauge",
+      "view": 3,
+      "projectedBounds": [
+        [
+          55.392684014708145,
+          104.60731598529185
+        ],
+        [
+          110.19634200735408,
+          174.88395236516115
+        ]
+      ],
+      "polygons": 328,
+      "beams": 24,
+      "pairedMaterials": 30,
+      "bbox": [
+        [
+          7.2362230591718255,
+          24.763776940828173
+        ],
+        [
+          7.236223059171827,
+          24.763776940828173
+        ],
+        [
+          0.55,
+          43.3
+        ]
+      ],
+      "geometrySHA256": "f19e1dad4aac9952f6c063e26a68b29da7f123f1a2952b5f0de72c727c3acdf4"
+    },
+    {
+      "id": "rookspiano",
+      "view": 0,
+      "projectedBounds": [
+        [
+          41.88391303278602,
+          117.90066779038509
+        ],
+        [
+          131.825,
+          179.75
+        ]
+      ],
+      "polygons": 415,
+      "beams": 1,
+      "pairedMaterials": 28,
+      "bbox": [
+        [
+          3.090031231191154,
+          28.69436627471912
+        ],
+        [
+          4.528801673342896,
+          25.731295498964656
+        ],
+        [
+          0.55,
+          26.599999999999998
+        ]
+      ],
+      "geometrySHA256": "ed955ccca69a186c68afd6d3a5eed91c70717bdb61568d70325709198729adc2"
+    },
+    {
+      "id": "rookspiano",
+      "view": 1,
+      "projectedBounds": [
+        [
+          42.67032089741804,
+          118.07604814273614
+        ],
+        [
+          131.5640625,
+          180.03750000000002
+        ]
+      ],
+      "polygons": 415,
+      "beams": 1,
+      "pairedMaterials": 28,
+      "bbox": [
+        [
+          3.090031231191154,
+          28.69436627471912
+        ],
+        [
+          4.528801673342896,
+          25.731295498964656
+        ],
+        [
+          0.55,
+          26.599999999999998
+        ]
+      ],
+      "geometrySHA256": "ed955ccca69a186c68afd6d3a5eed91c70717bdb61568d70325709198729adc2"
+    },
+    {
+      "id": "rookspiano",
+      "view": 2,
+      "projectedBounds": [
+        [
+          42.0993322096149,
+          118.11608696721399
+        ],
+        [
+          129.6,
+          179.97500000000002
+        ]
+      ],
+      "polygons": 415,
+      "beams": 1,
+      "pairedMaterials": 28,
+      "bbox": [
+        [
+          3.090031231191154,
+          28.69436627471912
+        ],
+        [
+          4.528801673342896,
+          25.731295498964656
+        ],
+        [
+          0.55,
+          26.599999999999998
+        ]
+      ],
+      "geometrySHA256": "ed955ccca69a186c68afd6d3a5eed91c70717bdb61568d70325709198729adc2"
+    },
+    {
+      "id": "rookspiano",
+      "view": 3,
+      "projectedBounds": [
+        [
+          41.92395185726386,
+          117.32967910258196
+        ],
+        [
+          122.39999999999998,
+          180.2359375
+        ]
+      ],
+      "polygons": 415,
+      "beams": 1,
+      "pairedMaterials": 28,
+      "bbox": [
+        [
+          3.090031231191154,
+          28.69436627471912
+        ],
+        [
+          4.528801673342896,
+          25.731295498964656
+        ],
+        [
+          0.55,
+          26.599999999999998
+        ]
+      ],
+      "geometrySHA256": "ed955ccca69a186c68afd6d3a5eed91c70717bdb61568d70325709198729adc2"
+    },
+    {
+      "id": "hartcurrier",
+      "view": 0,
+      "projectedBounds": [
+        [
+          38.76,
+          121.24
+        ],
+        [
+          112.7,
+          176.20000000000002
+        ]
+      ],
+      "polygons": 171,
+      "beams": 13,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.4,
+          28.6
+        ],
+        [
+          3.7800000000000002,
+          28.220000000000002
+        ],
+        [
+          0.55,
+          34.7
+        ]
+      ],
+      "geometrySHA256": "e35962da2f89e9ab6284d4cb8515b1b441674a4c8d04b3a0cdd423d14e34d0ad"
+    },
+    {
+      "id": "hartcurrier",
+      "view": 1,
+      "projectedBounds": [
+        [
+          38.760000000000005,
+          121.24000000000001
+        ],
+        [
+          112.7,
+          176.20000000000002
+        ]
+      ],
+      "polygons": 171,
+      "beams": 13,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.4,
+          28.6
+        ],
+        [
+          3.7800000000000002,
+          28.220000000000002
+        ],
+        [
+          0.55,
+          34.7
+        ]
+      ],
+      "geometrySHA256": "e35962da2f89e9ab6284d4cb8515b1b441674a4c8d04b3a0cdd423d14e34d0ad"
+    },
+    {
+      "id": "hartcurrier",
+      "view": 2,
+      "projectedBounds": [
+        [
+          38.760000000000005,
+          121.24
+        ],
+        [
+          112.7,
+          176.20000000000002
+        ]
+      ],
+      "polygons": 171,
+      "beams": 13,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.4,
+          28.6
+        ],
+        [
+          3.7800000000000002,
+          28.220000000000002
+        ],
+        [
+          0.55,
+          34.7
+        ]
+      ],
+      "geometrySHA256": "e35962da2f89e9ab6284d4cb8515b1b441674a4c8d04b3a0cdd423d14e34d0ad"
+    },
+    {
+      "id": "hartcurrier",
+      "view": 3,
+      "projectedBounds": [
+        [
+          38.76,
+          121.24000000000001
+        ],
+        [
+          112.7,
+          176.20000000000002
+        ]
+      ],
+      "polygons": 171,
+      "beams": 13,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          3.4,
+          28.6
+        ],
+        [
+          3.7800000000000002,
+          28.220000000000002
+        ],
+        [
+          0.55,
+          34.7
+        ]
+      ],
+      "geometrySHA256": "e35962da2f89e9ab6284d4cb8515b1b441674a4c8d04b3a0cdd423d14e34d0ad"
+    },
+    {
+      "id": "sainwax",
+      "view": 0,
+      "projectedBounds": [
+        [
+          42.1466591153129,
+          114.14799213915973
+        ],
+        [
+          120.63845969657476,
+          179.92715020067786
+        ]
+      ],
+      "polygons": 534,
+      "beams": 0,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          3.1131842042006674,
+          28.88681579579933
+        ],
+        [
+          2.4499999999999993,
+          26.96218027378054
+        ],
+        [
+          0.55,
+          36
+        ]
+      ],
+      "geometrySHA256": "3d2798dc6371ae6a750a6273af573f2c832e642f43c48b537d82e25438175be4"
+    },
+    {
+      "id": "sainwax",
+      "view": 1,
+      "projectedBounds": [
+        [
+          42.1466591153129,
+          114.14799213915973
+        ],
+        [
+          119.63350348699447,
+          178.312304646791
+        ]
+      ],
+      "polygons": 534,
+      "beams": 0,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          3.1131842042006674,
+          28.88681579579933
+        ],
+        [
+          2.4499999999999993,
+          26.96218027378054
+        ],
+        [
+          0.55,
+          36
+        ]
+      ],
+      "geometrySHA256": "3d2798dc6371ae6a750a6273af573f2c832e642f43c48b537d82e25438175be4"
+    },
+    {
+      "id": "sainwax",
+      "view": 2,
+      "projectedBounds": [
+        [
+          45.85200786084027,
+          117.8533408846871
+        ],
+        [
+          119.63350348699447,
+          178.312304646791
+        ]
+      ],
+      "polygons": 534,
+      "beams": 0,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          3.1131842042006674,
+          28.88681579579933
+        ],
+        [
+          2.4499999999999993,
+          26.96218027378054
+        ],
+        [
+          0.55,
+          36
+        ]
+      ],
+      "geometrySHA256": "3d2798dc6371ae6a750a6273af573f2c832e642f43c48b537d82e25438175be4"
+    },
+    {
+      "id": "sainwax",
+      "view": 3,
+      "projectedBounds": [
+        [
+          45.85200786084027,
+          117.85334088468711
+        ],
+        [
+          120.63845969657476,
+          179.92715020067786
+        ]
+      ],
+      "polygons": 534,
+      "beams": 0,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          3.1131842042006674,
+          28.88681579579933
+        ],
+        [
+          2.4499999999999993,
+          26.96218027378054
+        ],
+        [
+          0.55,
+          36
+        ]
+      ],
+      "geometrySHA256": "3d2798dc6371ae6a750a6273af573f2c832e642f43c48b537d82e25438175be4"
+    },
+    {
+      "id": "brackenlast",
+      "view": 0,
+      "projectedBounds": [
+        [
+          38.36,
+          121.64000000000001
+        ],
+        [
+          109.55999999999999,
+          178.4
+        ]
+      ],
+      "polygons": 228,
+      "beams": 19,
+      "pairedMaterials": 24,
+      "bbox": [
+        [
+          2.5,
+          29.5
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          38.3
+        ]
+      ],
+      "geometrySHA256": "dead6899547f5dd37003024c37a04bb4b71945e9f488a064b406711422783bef"
+    },
+    {
+      "id": "brackenlast",
+      "view": 1,
+      "projectedBounds": [
+        [
+          38.35999999999999,
+          121.64
+        ],
+        [
+          109.55999999999999,
+          178.4
+        ]
+      ],
+      "polygons": 228,
+      "beams": 19,
+      "pairedMaterials": 24,
+      "bbox": [
+        [
+          2.5,
+          29.5
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          38.3
+        ]
+      ],
+      "geometrySHA256": "dead6899547f5dd37003024c37a04bb4b71945e9f488a064b406711422783bef"
+    },
+    {
+      "id": "brackenlast",
+      "view": 2,
+      "projectedBounds": [
+        [
+          38.359999999999985,
+          121.64000000000001
+        ],
+        [
+          109.55999999999999,
+          178.4
+        ]
+      ],
+      "polygons": 228,
+      "beams": 19,
+      "pairedMaterials": 24,
+      "bbox": [
+        [
+          2.5,
+          29.5
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          38.3
+        ]
+      ],
+      "geometrySHA256": "dead6899547f5dd37003024c37a04bb4b71945e9f488a064b406711422783bef"
+    },
+    {
+      "id": "brackenlast",
+      "view": 3,
+      "projectedBounds": [
+        [
+          38.36,
+          121.64000000000001
+        ],
+        [
+          109.55999999999999,
+          178.4
+        ]
+      ],
+      "polygons": 228,
+      "beams": 19,
+      "pairedMaterials": 24,
+      "bbox": [
+        [
+          2.5,
+          29.5
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          38.3
+        ]
+      ],
+      "geometrySHA256": "dead6899547f5dd37003024c37a04bb4b71945e9f488a064b406711422783bef"
+    },
+    {
+      "id": "harecase",
+      "view": 0,
+      "projectedBounds": [
+        [
+          61.8,
+          116
+        ],
+        [
+          123.31,
+          187.5
+        ]
+      ],
+      "polygons": 378,
+      "beams": 58,
+      "pairedMaterials": 45,
+      "bbox": [
+        [
+          3.3,
+          29.5
+        ],
+        [
+          4.1,
+          29.4
+        ],
+        [
+          0.55,
+          27.5
+        ]
+      ],
+      "geometrySHA256": "c65644070ec1d215b3ffa755407516588e8a8a30f0a915a89732838c11bbc17e"
+    },
+    {
+      "id": "harecase",
+      "view": 1,
+      "projectedBounds": [
+        [
+          26.200000000000003,
+          129.20000000000002
+        ],
+        [
+          130.11,
+          178.6
+        ]
+      ],
+      "polygons": 378,
+      "beams": 58,
+      "pairedMaterials": 45,
+      "bbox": [
+        [
+          3.3,
+          29.5
+        ],
+        [
+          4.1,
+          29.4
+        ],
+        [
+          0.55,
+          27.5
+        ]
+      ],
+      "geometrySHA256": "c65644070ec1d215b3ffa755407516588e8a8a30f0a915a89732838c11bbc17e"
+    },
+    {
+      "id": "harecase",
+      "view": 2,
+      "projectedBounds": [
+        [
+          44,
+          98.2
+        ],
+        [
+          111.00999999999999,
+          185.20000000000002
+        ]
+      ],
+      "polygons": 378,
+      "beams": 58,
+      "pairedMaterials": 45,
+      "bbox": [
+        [
+          3.3,
+          29.5
+        ],
+        [
+          4.1,
+          29.4
+        ],
+        [
+          0.55,
+          27.5
+        ]
+      ],
+      "geometrySHA256": "c65644070ec1d215b3ffa755407516588e8a8a30f0a915a89732838c11bbc17e"
+    },
+    {
+      "id": "harecase",
+      "view": 3,
+      "projectedBounds": [
+        [
+          30.800000000000004,
+          133.8
+        ],
+        [
+          126.01000000000002,
+          169.70000000000002
+        ]
+      ],
+      "polygons": 378,
+      "beams": 58,
+      "pairedMaterials": 45,
+      "bbox": [
+        [
+          3.3,
+          29.5
+        ],
+        [
+          4.1,
+          29.4
+        ],
+        [
+          0.55,
+          27.5
+        ]
+      ],
+      "geometrySHA256": "c65644070ec1d215b3ffa755407516588e8a8a30f0a915a89732838c11bbc17e"
+    }
+  ]
+}
