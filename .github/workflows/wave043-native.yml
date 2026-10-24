@@ -68,11 +68,11 @@ jobs:
       - name: Source-only world geometry and real structural negative controls
         run: node checkOriginalGeometry043.cjs
       - name: Original-ten provenance and unchanged published sources
-        run: node checkWave043FullSources.cjs
+        run: node checkWave043ReleaseSources.cjs
       - name: Native catalog, paid transactions, save-load and first-RED controls
-        run: node probeBritishWave043.cjs
+        run: node probeBritishWaveRelease043.cjs
       - name: Complete ten-model native powered/off/restored matrix and strict phase controls
-        run: node probeTenPower043.cjs
+        run: node probeTenPowerRelease043.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -151,7 +151,7 @@ jobs:
       - name: Record independently placed scene coordinates
         run: node previewWave043.cjs
       - name: Exact old-save and whole-frame guard, seasons, edges and layers
-        run: node probeScenes043.cjs
+        run: node probeScenesRelease043.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -195,7 +195,7 @@ jobs:
       - name: Native Chinese fonts
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Independent BASE-HEAD same-seed complete native states
-        run: node probeNativePairs043.cjs
+        run: node probeNativePairsRelease043.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

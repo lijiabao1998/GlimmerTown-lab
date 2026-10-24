@@ -70,3 +70,13 @@
 - bld七軸百分比：palette 100→100、hardEdge 95.590132→95.657568、lightDir 80.747308→80.296479、shade 100→100、density 100→100、nightRule 99.027569→99.051184、variants 100→100；total **96.48→96.43%**，全族grand 66.33→66.33%。光向分下降如實披露，依既有第二波起連續美術授權採精確新資產增量，不降低任何原始門檻、不改既有美術或全局照明。來源證實只加新模型，不能將此描述為無分數下降。
 - 作者實看日／夜40向接觸表、十款遊戲近景、summer-night-r0、winter-snow-day-r2、far-day、construction-middle、hover-holtscout。近景屋面／牆角無明顯裂口；Pondwick鞍形、Fennel真內院、Teasel三角楔、Withe連續S、Rill上升缺口可辨。夜間藍束是既有k24疊層，遠景只顯地塊屬保留既有LOD，不能拿遠景當建築細節驗收；沒有為本波修改它們。獨立審閱仍另存，不冒稱業主看圖。
 - 此次只宣告原始CI基線與保存證據，模型、runtime、index及全部PNG生產源不變。仍待此變更後fp／財務全綠與獨立發布契約／正式head CI；正式仍140座，沒有合併或發布。
+
+### C2 核實與獨立發布契約準備（非正式發布）
+
+- C2 `9a27fd2bff5f53eb772af5a2d358a776185c0b04` 官方push `40114481776` smoke／fp／fiscal全部成功，native `40114481767` 27／27成功。91張真preview PNG與已看C1逐byte完全一致，沒有因採baseline重畫圖片。
+- 獨立圖審實看145張原始PNG：20張優先結構四向精靈、101張場景、24張供電狀態樣本。涵蓋全部40邊緣、40四季日夜旋轉、10近景、施工／懸停／雨／遠景與r0歷史BASE／valve；優先Pondwick、Fennel、Teasel、Rill、Gorse四向未見阻塞級缺面／穿孔。113場景、91預覽、80原生sprite、298供電manifest項SHA全等；275個供電PNG並非全數人工實看，樣本與完整自動守衛明確分開。夜藍束在BASE亦存在；遠景只見地塊標記是既有LOD，不稱遠景建築可辨。
+- 最新main仍 `5f546bc1`，T最大768；準備T769／14.62／r216。完整發布index SHA256 `cabdaac455033c076df88cf9c8f12e45bb4d661a101fac52e810dc507b86c1b8`，相對C2只變三個精確版本標籤。新增release043契約以不可變C2與BASE固定SHA作雙向逆驗；舊043候選與所有舊波守衛保留不改。
+- 歷史存檔以原始BASE真Chrome先穩定，再獨立宣告版本BASE實際讀入；只允許具體gameVer14.61→14.62，完整所有其他欄位仍比對，不排除、遮罩、事後正規化。供電仍160案例、完整save／stats／utility、固定相位及真負控；只是BASE與HEAD皆同版本標籤，原始BASE另存。
+- 日誌與方向只有兩檔精確插入契約，原字節不可改；來源實測1437檔逐byte不變＋2檔逐byte驗證明列插入，10版本負控與22來源負控。這是來源測試，不代替下一次發布版完整ChromeCI。
+- 13張原始PNG（三接觸表＋十近景）及producer／SHA manifest加入docs/assets/GPT-043，可直接在PR下載；原始80單圖與全場景／供電完整圖仍在官方Actions附件，未用假場景或生成圖取代。
+- 仍待發布版完整CI、最後head守衛、純刪臨時workflow、合法整合及公網確認。沒有把T編號、圖片生成、來源綠燈或此前CI寫成已上線；正式仍140／200。
