@@ -81,3 +81,10 @@
 - 新release契約只允許首卡已列的三版本字14.59/T766→14.60/T767，逆變換後整個index SHA必須等於精確C2 e5d9a139d40145e396673b7891aae0a78559a71e85f9fd3031b93ae0ca5700d2；新版完整SHA d572c96289a67889ec09e2845675717f58d8e84ca78218623fca34f41fde1064。另限AUTORUN-LOG及方向檔指定插入，不接受任意替換、刪文、額外HTML或重複插入。
 - 來源-only：1347舊檔逐byte + 2指定metadata檔嚴格校驗；4版本負控、15來源／metadata／原始基線負控通過。舊契約保存，沒有把本地檢查當新head的完整瀏覽器驗收。
 - 新power契約僅將同三標籤套到獨立BASE並可逆證明；所有完整畫布、完整存檔、stats／utility、160案例、交通相位首紅維持，不加入欄位豁免或容差。新版真Chromium及最終CI仍待。
+
+## 發布head C3真實驗收與公開檢查覆蓋補齊
+
+- 819ce8af 的完整native [40099300754](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40099300754)全部成功，新版來源／原生操作／160供電／全狀態／效能／同種子及舊存檔均真Chromium通過。原始preview artifact12562470637的91張PNG逐byte等於C1原圖，三標籤發布遷移沒有改美術。
+- C3 fp job120887955391原始摘要：「相對 base：新增40／變更0／移除0葉，觸及bld」；「與fp.json相比：新增0／變更0／移除0／觸及家族0」；七軸下降仍如上披露。原始基線內舊版本標籤不手動改寫，實際Git來源仍以SHA核對。
+- 補齊公開驗證覆蓋：原probePublicSite038原文凍結不改。新增probePublicWave041保留完整HTTP／瀏覽器／sandbox／canvas證據，在獨立最新main的發布存在性之上，額外驗證第11～13波原生rows及40sprite確切槽位，並開啟最新已發布波次目錄。每個已發布波次增加缺row／錯variant／缺sprite三負控；未發布波次必須真的不存在。這不是放寬歷史probe或以本地網頁替代公網。
+- 此補齊需要新head真實CI；最終native綠後再純刪臨時workflow，仍不可把候選算正式發布。

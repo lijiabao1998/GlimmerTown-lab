@@ -22,13 +22,13 @@ jobs:
       - name: Native Chinese fonts
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Read actual public Pages HTML and render the real online city
-        run: node probePublicSite038.cjs
+        run: node probePublicWave041.cjs
       - name: Preserve actual HTTP, browser and screenshot evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: wave041-public-site-${{ github.sha }}-attempt-${{ github.run_attempt }}
-          path: shots/wave038/public-site/
+          path: shots/wave041/public-site/
           retention-days: 14
           if-no-files-found: error
   preview:
