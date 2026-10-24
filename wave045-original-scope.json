@@ -1,0 +1,169 @@
+{
+  "schema": "GPT-045.original-wave17-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "3d2220d26ec0e132491280932edb13fdbae5852a",
+  "branch": "gpt/british-wave17-045",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      800,
+      839
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "knapmediation",
+      "nm": "矢車菊公共調解館",
+      "en": "Knapwell Civic Mediation Rooms",
+      "v": 800,
+      "shape": "two-unequal-triangular-brick-pavilions-diagonal-open-court-low-end-link-three-plane-hip-roofs",
+      "design": "兩個不等高的低三角磚調解室分置近方形地塊兩側，中間保留真斜向露天靜院，只在一端以更低的實入口廊相連；各有三片可讀板岩坡面及不同高頂點，外側成對上下拉窗、院側高窄窗與木門，表達分開的安靜會談空間。",
+      "distinctionFromPublished160": "Teaselhat是單一窄高三層實三角楔，Sorrelglove是封閉領結腰，Harecase是直角矩形工房加曲玻璃廊；本款是低雙三角、完整斜向真空院及一端低實連接，無中央實腰、玻璃彎橋、塔或整圈內院。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "adderlens",
+      "nm": "蛇舌蕨光學工房",
+      "en": "Adderwick Optical Works",
+      "v": 804,
+      "shape": "solid-long-biconvex-lens-plan-workhall-two-pointed-ends-straight-ridge-faceted-slate-roof",
+      "design": "單一細長雙凸透鏡形磚工房，兩端真收尖而兩側向外鼓出，沒有凹口或附塔；直線長屋脊配向兩側及尖端落下的分面板岩坡頂，長側寬橫分格工作窗、尖端兩側窄豎窗、側面小凹木門；用途為鏡片研磨與光學器具工藝展示。",
+      "distinctionFromPublished160": "LeedsCorn是橢圓鈍端大廳加圓拱穹頂，Rookspiano是深凹腎形加高音室，Teaselhat是三面窄高楔；本款低長雙凸、兩個清楚尖端及直脊分坡屋頂，不能退化成橢圓鼓樓、單三角盒或改色腎形。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "yarrowbraille",
+      "nm": "蓍草點字工房",
+      "en": "Yarrowfen Braille House",
+      "v": 808,
+      "shape": "single-long-two-height-brick-workhall-split-pitch-slate-roof-continuous-vertical-clerestory-step",
+      "design": "低前室與較高後工作室沿全長相貼成一個長矩形封閉館，兩個相向但不同標高的板岩坡面在中線留下連續直立採光窗帶；前排低寬木格窗、後室高窄成對窗、側面一大一小實木材料門，無外院或附塔；用途為點字轉錄與觸讀材料製作。",
+      "distinctionFromPublished160": "Orchardcraft為三段鋸齒和圓樓梯鼓，Flintchart為放射三鋸齒，Willowmusic為分開V翼蝴蝶谷，Sedgephoto為單陡玻璃坡加低橢圓；本款只有一條完整直線採光高差及低前高後兩級實牆，不做鋸齒串、V平面或玻璃楔頂。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "elderdebate",
+      "nm": "接骨木辯論會堂",
+      "en": "Elderwick Debating Hall",
+      "v": 812,
+      "shape": "apseless-basilican-brick-hall-high-long-gabled-centre-two-low-continuous-lean-to-aisles",
+      "design": "高窄長中央辯論廳兩側各接一條明顯較矮的連續側廊，中央陡板岩山牆頂與兩側向外落低的單坡頂形成真正三級剖面；中央兩側有高成排窄窗，低廊有小圓頭雙窗，正面深石框木門和三聯高窗；無後殿、鐘塔或宗教符號。",
+      "distinctionFromPublished160": "Crossness是三個平行近同高山牆跨，Rookhall是錯T截角山牆加後殿，Larkprint是前寬後窄倒T，RCJ有哥德式側塔與複合翼；本款是一條高中央空間夾兩條連續低側廊的清楚剖面，不是普通三山牆排屋或教堂換名。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "osieroral",
+      "nm": "柳溪口述歷史館",
+      "en": "Osierbrook Oral History Hall",
+      "v": 816,
+      "shape": "low-rectangular-hall-two-full-length-brick-sidewalls-single-concave-lead-trough-roof",
+      "design": "低矩形口述歷史錄音館，兩道完整長磚側牆承托一片淺單向下凹鉛曲頂，屋面只橫向下垂、縱向等截面；正面寬木格玻璃工作窗上緣隨曲頂下降，側牆高窄窗、兩端實木門與石門框，端部明確收水簷；無架空、無附塔。",
+      "distinctionFromPublished160": "Willowmusic為兩翼平面V形蝴蝶谷頂，Pondbadminton為對角高低鞍面，Wrenumbrella為一端高拱一端低直的凸conoid；本款平行落地實側牆間一片單向凹曲屋面，不能改成兩塊平斜板、鞍面或凸桶拱。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "cloudmereweather",
+      "nm": "雲澤氣象學舍",
+      "en": "Cloudmere Weather School",
+      "v": 820,
+      "shape": "low-decagonal-brick-classroom-shallow-faceted-slate-dome-real-small-central-oculus",
+      "design": "低寬十邊磚氣象學舍，淺分面板岩穹頂中央留真開放觀天孔，孔緣厚鉛翻邊及低環梁，孔下只有相應小型露天觀測空間；外牆交替寬平頂雙窗與實牆、單一石框凹入口；開孔有真內側厚度與可見深度，不用黑色圓貼片，無儀器動畫或氣象模擬。",
+      "distinctionFromPublished160": "Alaronde為十六邊住宅及分面尖頂菱窗，Roundhouse為實心蜂巢石穹，Fennelhoney為大露天院的厚環形工房，Thistlenursery有高採光亭和雙後殿；本款是低薄穹頂上的小真觀天孔，無塔、中央高亭、外伸翼或大院。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "coppicelecture",
+      "nm": "萌林自然講習館",
+      "en": "Coppicefield Nature Lecture Rooms",
+      "v": 824,
+      "shape": "single-grounded-raked-auditorium-wedge-high-rear-foyer-one-unbroken-sloping-slate-roof",
+      "design": "單一落地磚講堂，側影由低前端直升高後端，連續板岩大坡頂下容納同寬高後廳，沒有另外加高盒；厚石基及轉角石框、兩側沿斜剖面上升的三組短豎窗、低前端一組寬窗和偏置木門，表達階梯式自然講習室；無架空步道或附塔。",
+      "distinctionFromPublished160": "Leicester及Rogerstevens為多塊階梯講堂、塔和架空連廊組合，Sedgephoto是陡玻璃楔加低橢圓接待室，Brooktools是折轉三段單坡；本款僅一個落地、實板岩頂、無凹轉與附樓的長斜楔，不以小坡屋頂普通方盒代替整體斜剖面。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "shellwickpetitions",
+      "nm": "貝原市民陳情室",
+      "en": "Shellwick Civic Petition Rooms",
+      "v": 828,
+      "shape": "solid-D-plan-civic-room-straight-brick-back-semicircular-front-single-radial-half-hip-roof",
+      "design": "實心低D形市民陳情館，筆直後牆與寬半圓前牆合成一間完整房體，單一半扇形板岩屋面由直背中央高點向弧簷落下；弧面五組窄長平頂木格窗、直背偏置石門，後端不另加塔或接待翼，沒有內院或開放車棚。",
+      "distinctionFromPublished160": "Bramblewheel是高直後工房加低半圓開放車棚及真院，LeedsCorn為完整橢圓穹頂，Honeygrocer為四分圓角店加階梯後翼；本款是低寬實心半圓室與直背、無附樓的放射平面坡頂，不能複製空D院、整橢圓或只把角店屋面放大。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "velvetcostume",
+      "nm": "絨谷戲服修護亭",
+      "en": "Velvetcombe Costume Pavilion",
+      "v": 832,
+      "shape": "low-square-stone-workroom-dominant-four-sided-ogee-slate-roof-flared-eaves-short-truncated-ridge",
+      "design": "低方形石基戲服修護亭，屋頂占整體高度過半，四面真正連續反曲板岩主頂由下部外張簷收至上部短截脊；四角不加塔，兩側成對高橢圓窗、正面三聯矩形工窗及偏置木門，曲面以有厚度的分段屋面表達，無塔身或上下疊帽。",
+      "distinctionFromPublished160": "Asterpost為長身折簷截角頂加五邊郵亭，Brassbell為高方鑄房雙層四坡帽，Guildford和Lynncustoms僅在高塔頂有小曲帽；本款整座低寬工作亭以單一四面反曲主屋頂構成，不能把普通金字塔畫曲線或放大既有塔帽充數。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "broomtranslations",
+      "nm": "金雀翻譯事務所",
+      "en": "Broomfield Translation Rooms",
+      "v": 836,
+      "shape": "three-contiguous-staggered-brick-room-ranges-two-real-front-recesses-unequal-complete-hip-roofs",
+      "design": "三條沿同一軸相貼的低磚工作室，街面逐間前後錯開並形成兩個真凹角，中間較高而兩側低，三個各自完整的四坡板岩頂清楚分離；前窗分別為寬三聯平窗、成對高上下拉窗和短橫窗，兩凹角內設石框門；沒有院落、指狀空隙、架空或外部連橋，用途為市民文件翻譯。",
+      "distinctionFromPublished160": "Netshops是分離窄高尖山牆網屋，Crossness為齊平三跨山牆，Alderjoinery為真院E形指廊，Brooktools為Z形逐級單坡，Woldswitch為雙錯位方塊配寬設備連接和不同頂類；本款低、相貼、中央高的三段折退街面，真凹門與三個完整四坡頂共同辨識，不能只多複製一個Wold方盒或把Brook換頂。",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English civic and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "originalFrozenCriteria": "docs/branch/GPT-045-original-civic-specialists-wave17.md",
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true,
+    "old160AndOtherFamiliesUnchanged": true
+  },
+  "firstCard": {
+    "commit": "cb564c72836dc84e69c3d3d84c61e1ba48061926",
+    "path": "docs/branch/GPT-045-original-civic-specialists-wave17.md",
+    "sha256": "63b34ccb74caa9d0820f66e8f5f5284b5d442173c5fe73b83e79fc4800022659",
+    "status": "frozen-scope-pushed-before-model-authoring",
+    "visualApprovalClaim": false
+  }
+}

@@ -50,3 +50,12 @@
 ## 沒做成的事
 
 只有施工前範圍與驗收凍結，沒有本波程式、圖片、CI、PR或正式發布。第17波須真正發布後才計170座，接續18～20波。
+
+## C1 actual implementation and source preparation · 2026-10-24 UTC
+
+- Implemented ten original bodies and forty native world rotations, unchanged art634 material/depth/projection helpers, canonical 800..839 native landmark registration, paid placement/undo/save integration and catalog. No simulation rule, carrier cost or old art changed.
+- Authored art SHA256: `28a1757e08e5a07bad76cab5b394c8b75c34cdcd33c0dab14db6194738b51e25`. Source-only recording audit exercised forty paths, thirty deliberate structural first-red/recovery cases and three invalid-input controls. This is not raster or browser acceptance.
+- Independently pinned published BASE `3d2220d26ec0e132491280932edb13fdbae5852a`; all 1,547 non-declared published files remain byte-exact. Three new product blocks strip back to the complete BASE index; prior smoke assertions unchanged. New source contract includes nine negative controls, including stale first-card metadata and false provenance.
+- Fifteen new candidate native guards retain full strict scenarios and independent BASE comparisons. New construction guard uses the first-card-fixed natural12 endpoint and separate fixed66 single-flush fixture; no product budget change or adaptive waiting. Historical guards, original first card, main workflows and repository rules remain unchanged.
+- Dedicated branch-only read-only workflow now requests real Chromium preview, native/financial/power/state/scene/pedestrian/performance/construction and raw fingerprint evidence. No local game, Chrome, fingerprint or raster execution. `fp.json` and `style.json` still exactly match published BASE until official CI evidence is available.
+- Unfinished: all official CI runs, actual PNG inspection, raw fingerprint declaration, release-contract validation, final head CI, PR integration and public release verification. No wave17 building is counted as published.
