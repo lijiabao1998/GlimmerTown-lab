@@ -1,0 +1,30 @@
+{
+  "base": "8fd1d5e0ec98c729369bebffdd329e93cead93ba",
+  "candidateHead": "dae4595f9f08177db39d5579d49987f18662f771",
+  "release": {
+    "T": "T765",
+    "version": "14.58",
+    "round": 212,
+    "changedASCIIBytes": 4,
+    "candidateIndexSHA256": "532e4782af3a703e66428e8a1892756a2fa8a38a39fca4e7408ab06606397fd8",
+    "releaseIndexSHA256": "378eba7af7c2cdff7e2cd1cb02ef0ba1ea219c921260a622be5bf35d200e9fb3",
+    "bytes": 11425465
+  },
+  "unchangedArtSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+  "originalGuardSHA256": "cf58ba36ef7e9aff17c57ace1d02e20fd44c14a0672833478ba8d0c3eee3ed5b",
+  "originalPowerWrapperSHA256": "387512db6f1be484a80dd29183fbf501e69eeb4d0687af69ae2f3fd2660872d0",
+  "powerMainBodyExact": true,
+  "metadataDeclarationFiles": [
+    "AUTORUN-LOG.md",
+    "docs/GPT-方向.md"
+  ],
+  "C6": {
+    "native": 40073360079,
+    "push": 40073360142,
+    "PR": 40073363620,
+    "allSuccess": true
+  },
+  "releaseCI": "not started",
+  "merged": false,
+  "deployed": false
+}
