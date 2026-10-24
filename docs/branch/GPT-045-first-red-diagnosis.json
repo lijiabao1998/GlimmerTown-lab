@@ -1,0 +1,47 @@
+{
+  "head": "5f34786879b2941186bbb08448ced3a46b4d74d9",
+  "standardRun": 40128726135,
+  "nativeRun": 40128726164,
+  "smoke": {
+    "job": 120975651302,
+    "failure": "new045 selftest retained760..799 selector then read undefined new800..839 row.id"
+  },
+  "native": {
+    "job": 120975651028,
+    "sameFirstRed": true,
+    "powerExecuted": false,
+    "powerArtifactMissing": "downstream of aborted native step, not an independent power result"
+  },
+  "fingerprint": {
+    "job": 120975651080,
+    "failure": "exact40 added bld leaves and derived style undeclared",
+    "artifact": 12574725468
+  },
+  "fiscal": {
+    "job": 120975651217,
+    "checksPassed": 52,
+    "negativeControlsPassed": 10,
+    "soleFailure": "current renderer fingerprints match committed baselines"
+  },
+  "repair": "onlynew045 selector\u2192800..839, exact synthetic1000-key regression and old-selector firstRED; officialrawfp/style unchanged bytes adopted",
+  "artworkChanged": false,
+  "historicalGuardChanged": false,
+  "thresholdRelaxed": false,
+  "rawLogs": [
+    {
+      "name": "job-120975651080.log",
+      "bytes": 31725,
+      "sha256": "29d5197ec2f72eec5c421bb79220d4469c32becc8fb10c100f6de984aeea6034"
+    },
+    {
+      "name": "job-120975651217.log",
+      "bytes": 36869,
+      "sha256": "b78782e55a6f53b64085274eafdabf1adfa8844692a67028671298772453c245"
+    },
+    {
+      "name": "job-120975651302.log",
+      "bytes": 87384,
+      "sha256": "6047534e3208fe6fd0b5765630cd9628a5265d8c00b68b7a4c50b04cf396f9a8"
+    }
+  ]
+}

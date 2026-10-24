@@ -1,0 +1,373 @@
+﻿2026-10-24T20:12:15.4094970Z Current runner version: '2.338.0'
+2026-10-24T20:12:15.4120322Z ##[group]Runner Image Provisioner
+2026-10-24T20:12:15.4121329Z Hosted Compute Agent
+2026-10-24T20:12:15.4121944Z Version: 20261021.618
+2026-10-24T20:12:15.4122666Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-24T20:12:15.4123396Z Build Date: 2026-10-21T00:45:21Z
+2026-10-24T20:12:15.4124079Z Worker ID: {c459ceae-8daa-44aa-bc83-935e165c196e}
+2026-10-24T20:12:15.4124894Z Region: westus
+2026-10-24T20:12:15.4125453Z Cloud: Azure
+2026-10-24T20:12:15.4126280Z ##[endgroup]
+2026-10-24T20:12:15.4127815Z ##[group]Operating System
+2026-10-24T20:12:15.4128471Z Ubuntu
+2026-10-24T20:12:15.4129106Z 24.04.5
+2026-10-24T20:12:15.4129628Z LTS
+2026-10-24T20:12:15.4130624Z ##[endgroup]
+2026-10-24T20:12:15.4131311Z ##[group]Runner Image
+2026-10-24T20:12:15.4131985Z Image: ubuntu-24.04
+2026-10-24T20:12:15.4132732Z Version: 20261012.334.1
+2026-10-24T20:12:15.4134051Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-24T20:12:15.4135947Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-24T20:12:15.4137025Z ##[endgroup]
+2026-10-24T20:12:15.4138289Z ##[group]GITHUB_TOKEN Permissions
+2026-10-24T20:12:15.4140473Z Contents: read
+2026-10-24T20:12:15.4141313Z Metadata: read
+2026-10-24T20:12:15.4141995Z ##[endgroup]
+2026-10-24T20:12:15.4144547Z Secret source: Actions
+2026-10-24T20:12:15.4145968Z Cache mode: write
+2026-10-24T20:12:15.4146751Z Prepare workflow directory
+2026-10-24T20:12:15.4529919Z Prepare all required actions
+2026-10-24T20:12:15.4592016Z Getting action download info
+2026-10-24T20:12:15.8072076Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-24T20:12:15.9132881Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-24T20:12:16.0522529Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-24T20:12:16.3115355Z Complete job name: fiscal-load
+2026-10-24T20:12:16.4124846Z ##[group]Run actions/checkout@v4
+2026-10-24T20:12:16.4126093Z with:
+2026-10-24T20:12:16.4126539Z   fetch-depth: 0
+2026-10-24T20:12:16.4127018Z   repository: lijiabao1998/GlimmerTown-lab
+2026-10-24T20:12:16.4130790Z   token: ***
+2026-10-24T20:12:16.4131275Z   ssh-strict: true
+2026-10-24T20:12:16.4131767Z   ssh-user: git
+2026-10-24T20:12:16.4132272Z   persist-credentials: true
+2026-10-24T20:12:16.4132823Z   clean: true
+2026-10-24T20:12:16.4133371Z   sparse-checkout-cone-mode: true
+2026-10-24T20:12:16.4133952Z   fetch-tags: false
+2026-10-24T20:12:16.4134450Z   show-progress: true
+2026-10-24T20:12:16.4134910Z   lfs: false
+2026-10-24T20:12:16.4135314Z   submodules: false
+2026-10-24T20:12:16.4135896Z   set-safe-directory: true
+2026-10-24T20:12:16.4136410Z   allow-unsafe-pr-checkout: false
+2026-10-24T20:12:16.4137244Z ##[endgroup]
+2026-10-24T20:12:16.5237672Z Syncing repository: lijiabao1998/GlimmerTown-lab
+2026-10-24T20:12:16.5240276Z ##[group]Getting Git version info
+2026-10-24T20:12:16.5241598Z Working directory is '/home/runner/work/GlimmerTown-lab/GlimmerTown-lab'
+2026-10-24T20:12:16.5243336Z [command]/usr/bin/git version
+2026-10-24T20:12:16.5348977Z git version 2.55.0
+2026-10-24T20:12:16.5388267Z ##[endgroup]
+2026-10-24T20:12:16.5394914Z Temporarily overriding HOME='/home/runner/work/_temp/0e01870e-822f-43d8-86a2-ae921da22b66' before making global git config changes
+2026-10-24T20:12:16.5401874Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-24T20:12:16.5403942Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/GlimmerTown-lab/GlimmerTown-lab
+2026-10-24T20:12:16.5456053Z Deleting the contents of '/home/runner/work/GlimmerTown-lab/GlimmerTown-lab'
+2026-10-24T20:12:16.5459745Z ##[group]Initializing the repository
+2026-10-24T20:12:16.5465287Z [command]/usr/bin/git init /home/runner/work/GlimmerTown-lab/GlimmerTown-lab
+2026-10-24T20:12:16.5574673Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-24T20:12:16.5576848Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-24T20:12:16.5578437Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-24T20:12:16.5579668Z hint: call:
+2026-10-24T20:12:16.5580328Z hint:
+2026-10-24T20:12:16.5581272Z hint: 	git config --global init.defaultBranch <name>
+2026-10-24T20:12:16.5582331Z hint:
+2026-10-24T20:12:16.5583267Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-24T20:12:16.5584818Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-24T20:12:16.5586422Z hint:
+2026-10-24T20:12:16.5587109Z hint: 	git branch -m <name>
+2026-10-24T20:12:16.5587877Z hint:
+2026-10-24T20:12:16.5588882Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-24T20:12:16.5596324Z Initialized empty Git repository in /home/runner/work/GlimmerTown-lab/GlimmerTown-lab/.git/
+2026-10-24T20:12:16.5608242Z [command]/usr/bin/git remote add origin https://github.com/lijiabao1998/GlimmerTown-lab
+2026-10-24T20:12:16.5679347Z ##[endgroup]
+2026-10-24T20:12:16.5680845Z ##[group]Disabling automatic garbage collection
+2026-10-24T20:12:16.5681776Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-24T20:12:16.5745205Z ##[endgroup]
+2026-10-24T20:12:16.5747001Z ##[group]Setting up auth
+2026-10-24T20:12:16.5748512Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-24T20:12:16.5776187Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-24T20:12:16.6158219Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-24T20:12:16.6194201Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-24T20:12:16.6426610Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-24T20:12:16.6464912Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-24T20:12:16.6693063Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-24T20:12:16.6734373Z ##[endgroup]
+2026-10-24T20:12:16.6735239Z ##[group]Fetching the repository
+2026-10-24T20:12:16.6744560Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-10-24T20:12:27.8399601Z From https://github.com/lijiabao1998/GlimmerTown-lab
+2026-10-24T20:12:27.8401457Z  * [new branch]      claude/blissful-cori-o3364f -> origin/claude/blissful-cori-o3364f
+2026-10-24T20:12:27.8403466Z  * [new branch]      claude/dual-agent-coordination-a24cyi -> origin/claude/dual-agent-coordination-a24cyi
+2026-10-24T20:12:27.8405289Z  * [new branch]      claude/jolly-clarke-tf6oqm -> origin/claude/jolly-clarke-tf6oqm
+2026-10-24T20:12:27.8407658Z  * [new branch]      dsk/bookshop            -> origin/dsk/bookshop
+2026-10-24T20:12:27.8409465Z  * [new branch]      dsk/chippy              -> origin/dsk/chippy
+2026-10-24T20:12:27.8411025Z  * [new branch]      dsk/corner-pub          -> origin/dsk/corner-pub
+2026-10-24T20:12:27.8412632Z  * [new branch]      dsk/galleried-inn       -> origin/dsk/galleried-inn
+2026-10-24T20:12:27.8414356Z  * [new branch]      dsk/oval-hall           -> origin/dsk/oval-hall
+2026-10-24T20:12:27.8416295Z  * [new branch]      dsk/tearoom             -> origin/dsk/tearoom
+2026-10-24T20:12:27.8417969Z  * [new branch]      dsk/tree-season-climate -> origin/dsk/tree-season-climate
+2026-10-24T20:12:27.8419587Z  * [new branch]      dsk/uk-cathedral        -> origin/dsk/uk-cathedral
+2026-10-24T20:12:27.8421497Z  * [new branch]      glm/alleys-riverside    -> origin/glm/alleys-riverside
+2026-10-24T20:12:27.8423743Z  * [new branch]      gpt/bld-fingerprint-capacity-032 -> origin/gpt/bld-fingerprint-capacity-032
+2026-10-24T20:12:27.8427216Z  * [new branch]      gpt/british-building-integration -> origin/gpt/british-building-integration
+2026-10-24T20:12:27.8430653Z  * [new branch]      gpt/british-central-station -> origin/gpt/british-central-station
+2026-10-24T20:12:27.8433056Z  * [new branch]      gpt/british-four-complexes-014 -> origin/gpt/british-four-complexes-014
+2026-10-24T20:12:27.8436037Z  * [new branch]      gpt/british-garden-life-016 -> origin/gpt/british-garden-life-016
+2026-10-24T20:12:27.8438824Z  * [new branch]      gpt/british-heritage-fifteen-024 -> origin/gpt/british-heritage-fifteen-024
+2026-10-24T20:12:27.8441433Z  * [new branch]      gpt/british-high-street -> origin/gpt/british-high-street
+2026-10-24T20:12:27.8444223Z  * [new branch]      gpt/british-natural-history-museum010 -> origin/gpt/british-natural-history-museum010
+2026-10-24T20:12:27.8447352Z  * [new branch]      gpt/british-prototypes  -> origin/gpt/british-prototypes
+2026-10-24T20:12:27.8449740Z  * [new branch]      gpt/british-public-life -> origin/gpt/british-public-life
+2026-10-24T20:12:27.8452572Z  * [new branch]      gpt/british-quayside-details-017 -> origin/gpt/british-quayside-details-017
+2026-10-24T20:12:27.8456299Z  * [new branch]      gpt/british-residential-streets -> origin/gpt/british-residential-streets
+2026-10-24T20:12:27.8459764Z  * [new branch]      gpt/british-riverside-market-012 -> origin/gpt/british-riverside-market-012
+2026-10-24T20:12:27.8463716Z  * [new branch]      gpt/british-station-street-life -> origin/gpt/british-station-street-life
+2026-10-24T20:12:27.8468350Z  * [new branch]      gpt/british-station-street-life-recovery -> origin/gpt/british-station-street-life-recovery
+2026-10-24T20:12:27.8471660Z  * [new branch]      gpt/british-streetscape-015 -> origin/gpt/british-streetscape-015
+2026-10-24T20:12:27.8475052Z  * [new branch]      gpt/british-theatre-quarter-013 -> origin/gpt/british-theatre-quarter-013
+2026-10-24T20:12:27.8478479Z  * [new branch]      gpt/british-use-scales-rebuild-021 -> origin/gpt/british-use-scales-rebuild-021
+2026-10-24T20:12:27.8481651Z  * [new branch]      gpt/british-use-scales-recovery-021 -> origin/gpt/british-use-scales-recovery-021
+2026-10-24T20:12:27.8484792Z  * [new branch]      gpt/british-use-scales-release-021 -> origin/gpt/british-use-scales-release-021
+2026-10-24T20:12:27.8487975Z  * [new branch]      gpt/british-use-scales-source-022 -> origin/gpt/british-use-scales-source-022
+2026-10-24T20:12:27.8491024Z  * [new branch]      gpt/british-waterfront-heritage-018 -> origin/gpt/british-waterfront-heritage-018
+2026-10-24T20:12:27.8493713Z  * [new branch]      gpt/british-wave01-025  -> origin/gpt/british-wave01-025
+2026-10-24T20:12:27.8497146Z  * [new branch]      gpt/british-wave02-027  -> origin/gpt/british-wave02-027
+2026-10-24T20:12:27.8500789Z  * [new branch]      gpt/british-wave03-029  -> origin/gpt/british-wave03-029
+2026-10-24T20:12:27.8504418Z  * [new branch]      gpt/british-wave04-030  -> origin/gpt/british-wave04-030
+2026-10-24T20:12:27.8507399Z  * [new branch]      gpt/british-wave05-031  -> origin/gpt/british-wave05-031
+2026-10-24T20:12:27.8510928Z  * [new branch]      gpt/british-wave06-033  -> origin/gpt/british-wave06-033
+2026-10-24T20:12:27.8515108Z  * [new branch]      gpt/british-wave07-035  -> origin/gpt/british-wave07-035
+2026-10-24T20:12:27.8518386Z  * [new branch]      gpt/british-wave08-036  -> origin/gpt/british-wave08-036
+2026-10-24T20:12:27.8521767Z  * [new branch]      gpt/british-wave09-037  -> origin/gpt/british-wave09-037
+2026-10-24T20:12:27.8524080Z  * [new branch]      gpt/british-wave10-038  -> origin/gpt/british-wave10-038
+2026-10-24T20:12:27.8526484Z  * [new branch]      gpt/british-wave11-039  -> origin/gpt/british-wave11-039
+2026-10-24T20:12:27.8528857Z  * [new branch]      gpt/british-wave12-040  -> origin/gpt/british-wave12-040
+2026-10-24T20:12:27.8531399Z  * [new branch]      gpt/british-wave13-041  -> origin/gpt/british-wave13-041
+2026-10-24T20:12:27.8533586Z  * [new branch]      gpt/british-wave14-042  -> origin/gpt/british-wave14-042
+2026-10-24T20:12:27.8535969Z  * [new branch]      gpt/british-wave15-043  -> origin/gpt/british-wave15-043
+2026-10-24T20:12:27.8538241Z  * [new branch]      gpt/british-wave16-044  -> origin/gpt/british-wave16-044
+2026-10-24T20:12:27.8540392Z  * [new branch]      gpt/british-wave17-045  -> origin/gpt/british-wave17-045
+2026-10-24T20:12:27.8542673Z  * [new branch]      gpt/ci-deduplicate-20261018 -> origin/gpt/ci-deduplicate-20261018
+2026-10-24T20:12:27.8544983Z  * [new branch]      gpt/cold-load-power011  -> origin/gpt/cold-load-power011
+2026-10-24T20:12:27.8547349Z  * [new branch]      gpt/complexes-public014 -> origin/gpt/complexes-public014
+2026-10-24T20:12:27.8550494Z  * [new branch]      gpt/direction-british-twenty-waves-20261016 -> origin/gpt/direction-british-twenty-waves-20261016
+2026-10-24T20:12:27.8553987Z  * [new branch]      gpt/direction-completed-wave01-025 -> origin/gpt/direction-completed-wave01-025
+2026-10-24T20:12:27.8557574Z  * [new branch]      gpt/direction-heritage-fifteen-20261015 -> origin/gpt/direction-heritage-fifteen-20261015
+2026-10-24T20:12:27.8561497Z  * [new branch]      gpt/direction-heritage-fifteen-review-20261015 -> origin/gpt/direction-heritage-fifteen-review-20261015
+2026-10-24T20:12:27.8565038Z  * [new branch]      gpt/direction-wave12-20-20261024 -> origin/gpt/direction-wave12-20-20261024
+2026-10-24T20:12:27.8567949Z  * [new branch]      gpt/fiscal-load-readonly-026 -> origin/gpt/fiscal-load-readonly-026
+2026-10-24T20:12:27.8571473Z  * [new branch]      gpt/four-view-light-repair-023 -> origin/gpt/four-view-light-repair-023
+2026-10-24T20:12:27.8574030Z  * [new branch]      gpt/gardenlife-public016 -> origin/gpt/gardenlife-public016
+2026-10-24T20:12:27.8577698Z  * [new branch]      gpt/museum-cold-load-diagnostic010 -> origin/gpt/museum-cold-load-diagnostic010
+2026-10-24T20:12:27.8580615Z  * [new branch]      gpt/policy-null-load-028 -> origin/gpt/policy-null-load-028
+2026-10-24T20:12:27.8583072Z  * [new branch]      gpt/pr7-game-samples    -> origin/gpt/pr7-game-samples
+2026-10-24T20:12:27.8585211Z  * [new branch]      gpt/quayside-public017  -> origin/gpt/quayside-public017
+2026-10-24T20:12:27.8587674Z  * [new branch]      gpt/riverside-public012 -> origin/gpt/riverside-public012
+2026-10-24T20:12:27.8589948Z  * [new branch]      gpt/streetscape-public015 -> origin/gpt/streetscape-public015
+2026-10-24T20:12:27.8592155Z  * [new branch]      gpt/theatre-public013   -> origin/gpt/theatre-public013
+2026-10-24T20:12:27.8595275Z  * [new branch]      gpt/touch-cancellation-020 -> origin/gpt/touch-cancellation-020
+2026-10-24T20:12:27.8598183Z  * [new branch]      gpt/visual-place-identity -> origin/gpt/visual-place-identity
+2026-10-24T20:12:27.8600895Z  * [new branch]      gpt/waterfront-cultural-quarter-019 -> origin/gpt/waterfront-cultural-quarter-019
+2026-10-24T20:12:27.8604133Z  * [new branch]      gpt/waterfront-edge-diagnostic-018 -> origin/gpt/waterfront-edge-diagnostic-018
+2026-10-24T20:12:27.8607503Z  * [new branch]      gpt/waterfront-public018 -> origin/gpt/waterfront-public018
+2026-10-24T20:12:27.8610689Z  * [new branch]      gpt/waterfront-quarter019-mobile-qa -> origin/gpt/waterfront-quarter019-mobile-qa
+2026-10-24T20:12:27.8613508Z  * [new branch]      gpt/wave12-published-ledger -> origin/gpt/wave12-published-ledger
+2026-10-24T20:12:27.8616756Z  * [new branch]      gpt/wave13-published-receipt -> origin/gpt/wave13-published-receipt
+2026-10-24T20:12:27.8619243Z  * [new branch]      gpt/wave14-release-receipt -> origin/gpt/wave14-release-receipt
+2026-10-24T20:12:27.8621910Z  * [new branch]      gpt/wave15-published-receipt -> origin/gpt/wave15-published-receipt
+2026-10-24T20:12:27.8624615Z  * [new branch]      gpt/wave16-public-release-receipt -> origin/gpt/wave16-public-release-receipt
+2026-10-24T20:12:27.8627134Z  * [new branch]      grok/grove-mix          -> origin/grok/grove-mix
+2026-10-24T20:12:27.8629284Z  * [new branch]      grok/london-mews        -> origin/grok/london-mews
+2026-10-24T20:12:27.8631138Z  * [new branch]      grok/uk-rest            -> origin/grok/uk-rest
+2026-10-24T20:12:27.8632787Z  * [new branch]      main                    -> origin/main
+2026-10-24T20:12:27.8636322Z [command]/usr/bin/git branch --list --remote origin/gpt/british-wave17-045
+2026-10-24T20:12:27.8638199Z   origin/gpt/british-wave17-045
+2026-10-24T20:12:27.8640987Z [command]/usr/bin/git rev-parse refs/remotes/origin/gpt/british-wave17-045
+2026-10-24T20:12:27.8642711Z 5f34786879b2941186bbb08448ced3a46b4d74d9
+2026-10-24T20:12:27.8645925Z ##[endgroup]
+2026-10-24T20:12:27.8647421Z ##[group]Determining the checkout info
+2026-10-24T20:12:27.8722296Z ##[endgroup]
+2026-10-24T20:12:27.8723629Z [command]/usr/bin/git sparse-checkout disable
+2026-10-24T20:12:27.8727120Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-24T20:12:27.8730570Z ##[group]Checking out the ref
+2026-10-24T20:12:27.8732804Z [command]/usr/bin/git checkout --progress --force -B gpt/british-wave17-045 refs/remotes/origin/gpt/british-wave17-045
+2026-10-24T20:12:28.5671975Z Switched to a new branch 'gpt/british-wave17-045'
+2026-10-24T20:12:28.5675605Z branch 'gpt/british-wave17-045' set up to track 'origin/gpt/british-wave17-045'.
+2026-10-24T20:12:28.5706633Z ##[endgroup]
+2026-10-24T20:12:28.5762515Z [command]/usr/bin/git log -1 --format=%H
+2026-10-24T20:12:28.5789722Z 5f34786879b2941186bbb08448ced3a46b4d74d9
+2026-10-24T20:12:28.6052890Z ##[group]Run actions/setup-node@v4
+2026-10-24T20:12:28.6053272Z with:
+2026-10-24T20:12:28.6053535Z   node-version: 22
+2026-10-24T20:12:28.6053816Z   always-auth: false
+2026-10-24T20:12:28.6054111Z   check-latest: false
+2026-10-24T20:12:28.6056918Z   token: ***
+2026-10-24T20:12:28.6057202Z ##[endgroup]
+2026-10-24T20:12:28.7717067Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+2026-10-24T20:12:28.7722351Z (node:2311) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-24T20:12:28.7723805Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-24T20:12:28.7725433Z ##[group]Environment details
+2026-10-24T20:12:31.7138469Z node: v22.23.3
+2026-10-24T20:12:31.7138945Z npm: 10.9.9
+2026-10-24T20:12:31.7139292Z yarn: 1.22.22
+2026-10-24T20:12:31.7141383Z ##[endgroup]
+2026-10-24T20:12:31.7309857Z ##[group]Run sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+2026-10-24T20:12:31.7310760Z [36;1msudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei[0m
+2026-10-24T20:12:31.7633258Z shell: /usr/bin/bash -e {0}
+2026-10-24T20:12:31.7633643Z ##[endgroup]
+2026-10-24T20:12:42.6753502Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-10-24T20:12:42.7538570Z (Reading database ... 
+2026-10-24T20:12:42.7539166Z (Reading database ... 5%
+2026-10-24T20:12:42.7540040Z (Reading database ... 10%
+2026-10-24T20:12:42.7540849Z (Reading database ... 15%
+2026-10-24T20:12:42.7541308Z (Reading database ... 20%
+2026-10-24T20:12:42.7541686Z (Reading database ... 25%
+2026-10-24T20:12:42.7542000Z (Reading database ... 30%
+2026-10-24T20:12:42.7542320Z (Reading database ... 35%
+2026-10-24T20:12:42.7542627Z (Reading database ... 40%
+2026-10-24T20:12:42.7542933Z (Reading database ... 45%
+2026-10-24T20:12:42.7543292Z (Reading database ... 50%
+2026-10-24T20:12:42.8001032Z (Reading database ... 55%
+2026-10-24T20:12:43.1912425Z (Reading database ... 60%
+2026-10-24T20:12:43.5262682Z (Reading database ... 65%
+2026-10-24T20:12:43.8291553Z (Reading database ... 70%
+2026-10-24T20:12:44.2216256Z (Reading database ... 75%
+2026-10-24T20:12:44.6216733Z (Reading database ... 80%
+2026-10-24T20:12:45.2823537Z (Reading database ... 85%
+2026-10-24T20:12:46.0391281Z (Reading database ... 90%
+2026-10-24T20:12:46.6967808Z (Reading database ... 95%
+2026-10-24T20:12:46.6968450Z (Reading database ... 100%
+2026-10-24T20:12:46.6969926Z (Reading database ... 203540 files and directories currently installed.)
+2026-10-24T20:12:46.7014481Z Preparing to unpack .../fonts-wqy-zenhei_0.9.45-8_all.deb ...
+2026-10-24T20:12:46.7136249Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-24T20:12:47.2050412Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-24T20:12:47.2174979Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-10-24T20:12:48.6473236Z 
+2026-10-24T20:12:48.6473874Z Running kernel seems to be up-to-date.
+2026-10-24T20:12:48.6474211Z 
+2026-10-24T20:12:48.6474418Z No services need to be restarted.
+2026-10-24T20:12:48.6474667Z 
+2026-10-24T20:12:48.6474868Z No containers need to be restarted.
+2026-10-24T20:12:48.6475098Z 
+2026-10-24T20:12:48.6475331Z No user sessions are running outdated binaries.
+2026-10-24T20:12:48.6475605Z 
+2026-10-24T20:12:48.6476373Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-24T20:12:49.5860291Z ##[group]Run node probeFiscalLoad026.cjs
+2026-10-24T20:12:49.5860664Z [36;1mnode probeFiscalLoad026.cjs[0m
+2026-10-24T20:12:49.5928668Z shell: /usr/bin/bash -e {0}
+2026-10-24T20:12:49.5928936Z ##[endgroup]
+2026-10-24T20:13:53.5203320Z RED {"name":"scoped serialization, settlement, cadence and guard source integrity","message":"current renderer fingerprints match the committed baselines; see current-fp.txt\n\n1 !== 0\n"}
+2026-10-24T20:14:20.4490913Z    烘焙完成 26.8s
+2026-10-24T20:14:21.9132164Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"fiscal515.history.4","after":{"d":1,"m":"結構餘額 $0｜同步 66%｜壓力 19%","c":"good"}}]}
+2026-10-24T20:14:21.9261154Z GREEN BASE old defect is caught by the exact full-state guard
+2026-10-24T20:14:51.3704266Z    烘焙完成 29.4s
+2026-10-24T20:15:21.3590869Z    烘焙完成 28.5s
+2026-10-24T20:15:28.1877333Z GREEN two native load/save rounds archived-original-normal
+2026-10-24T20:15:28.1932105Z GREEN two native load/save rounds same-release-normal
+2026-10-24T20:15:28.1982677Z GREEN two native load/save rounds empty-normal
+2026-10-24T20:15:28.2069672Z GREEN two native load/save rounds full-normal
+2026-10-24T20:15:28.2146738Z GREEN two native load/save rounds zero-normal
+2026-10-24T20:15:28.2178547Z GREEN two native load/save rounds expired-normal
+2026-10-24T20:15:28.2214799Z GREEN two native load/save rounds future-normal
+2026-10-24T20:15:28.2247465Z GREEN two native load/save rounds archived-original-sandbox
+2026-10-24T20:15:28.2280048Z GREEN two native load/save rounds same-release-sandbox
+2026-10-24T20:15:28.2336692Z GREEN two native load/save rounds empty-sandbox
+2026-10-24T20:15:28.2446333Z GREEN two native load/save rounds full-sandbox
+2026-10-24T20:15:28.2500474Z GREEN two native load/save rounds zero-sandbox
+2026-10-24T20:15:28.2535304Z GREEN two native load/save rounds expired-sandbox
+2026-10-24T20:15:28.2558448Z GREEN two native load/save rounds future-sandbox
+2026-10-24T20:15:28.2559589Z GREEN exact writer and build version metadata
+2026-10-24T20:15:28.2590219Z FISCAL026_MIGRATION {"name":"missing","differences":[{"path":"gameVer","before":"14.43","after":"14.63"}]}
+2026-10-24T20:15:28.2591527Z GREEN legacy missing migration then stable complete fields
+2026-10-24T20:15:28.2619164Z FISCAL026_MIGRATION {"name":"null","differences":[{"path":"gameVer","before":"14.43","after":"14.63"},{"path":"fiscal515","before":null}]}
+2026-10-24T20:15:28.2620809Z GREEN legacy null migration then stable complete fields
+2026-10-24T20:15:28.2632614Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"money","before":998000,"after":997999}]}
+2026-10-24T20:15:28.2665463Z GREEN live saved-state negative and restore money
+2026-10-24T20:15:28.2679104Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"fiscal515.history.4","after":{"d":1,"m":"negative extra row","c":"bad"}}]}
+2026-10-24T20:15:28.2700866Z GREEN live saved-state negative and restore appendHistory
+2026-10-24T20:15:28.2712656Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"fiscal515.history.3","before":{"d":1,"m":"結構餘額 $0｜同步 66%｜壓力 19%","c":"good"}}]}
+2026-10-24T20:15:28.2732718Z GREEN live saved-state negative and restore removeHistory
+2026-10-24T20:15:28.2743980Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"fiscal515.lastAssetScanDay","before":1,"after":0}]}
+2026-10-24T20:15:28.2768704Z GREEN live saved-state negative and restore cursor
+2026-10-24T20:15:28.2807930Z GREEN scoped same-seed world and complete normal fiscal behavior
+2026-10-24T20:15:28.2809911Z GREEN nonzero recurring and completion, same-day deduplication, force remains live
+2026-10-24T20:15:28.2838554Z GREEN load does not lose or duplicate the next normal daily settlement
+2026-10-24T20:15:28.2839526Z GREEN 7-day aggregation and 14-day asset cadence after native load
+2026-10-24T20:15:57.3139955Z    烘焙完成 29.0s
+2026-10-24T20:15:58.4817287Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"fiscal515.history.4","after":{"d":1,"m":"結構餘額 $0｜同步 66%｜壓力 19%","c":"good"}}]}
+2026-10-24T20:15:58.4915248Z GREEN escape valve restores independent BASE full serialized behavior
+2026-10-24T20:15:58.4959862Z GREEN complete native frame day-r0
+2026-10-24T20:15:58.4987207Z GREEN complete native frame day-r1
+2026-10-24T20:15:58.5046931Z GREEN complete native frame day-r2
+2026-10-24T20:15:58.5075471Z GREEN complete native frame day-r3
+2026-10-24T20:15:58.5096997Z GREEN complete native frame night-r0
+2026-10-24T20:15:58.5120578Z GREEN complete native frame night-r1
+2026-10-24T20:15:58.5143097Z GREEN complete native frame night-r2
+2026-10-24T20:15:58.5163742Z GREEN complete native frame night-r3
+2026-10-24T20:15:58.5198164Z GREEN same-version native load preserves all saved fields before rendering
+2026-10-24T20:15:58.5200158Z GREEN same-version native full frame day-r0
+2026-10-24T20:15:58.5201905Z GREEN same-version native full frame day-r1
+2026-10-24T20:15:58.5203285Z GREEN same-version native full frame day-r2
+2026-10-24T20:15:58.5205124Z GREEN same-version native full frame day-r3
+2026-10-24T20:15:58.5206583Z GREEN same-version native full frame night-r0
+2026-10-24T20:15:58.5207976Z GREEN same-version native full frame night-r1
+2026-10-24T20:15:58.5209347Z GREEN same-version native full frame night-r2
+2026-10-24T20:15:58.5210727Z GREEN same-version native full frame night-r3
+2026-10-24T20:16:27.5241279Z    烘焙完成 28.9s
+2026-10-24T20:16:29.6525158Z GREEN native load picture fault first RED at complete same-version frame
+2026-10-24T20:16:58.6596499Z    烘焙完成 28.9s
+2026-10-24T20:16:59.1693734Z FISCAL026_DIFF {"label":"same-HEAD normal load/no-load equality","differences":[{"path":"points.1.snapshot.stats.money","before":10975,"after":10976},{"path":"points.1.snapshot.fiscal.maintenanceBacklog","before":174.92,"after":174.85},{"path":"points.1.snapshot.fiscal.settlements.2","after":{"d":2,"id":"DAY2","recurring":0,"captured":0,"total":1}},{"path":"points.1.snapshot.city.structuralBalance","before":-14.62,"after":-13.62},{"path":"points.1.snapshot.city.reportedNet","before":-12,"after":-11},{"path":"points.1.snapshot.city.maintenanceBacklog","before":174.92,"after":174.85},{"path":"points.1.snapshot.city.serviceContinuity","before":0.9419,"after":0.9455},{"path":"points.1.snapshot.city.serviceCutRisk","before":0.2639,"after":0.2478},{"path":"points.1.duplicate.count","before":2,"after":3},{"path":"points.2.snapshot.stats.money","before":10903,"after":10910},{"path":"points.2.snapshot.fiscal.maintenanceBacklog","before":144.44,"after":143.95},{"path":"points.2.snapshot.fiscal.settlements.2","after":{"d":2,"id":"DAY2","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.settlements.3","after":{"d":3,"id":"DAY3","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.settlements.4","after":{"d":4,"id":"DAY4","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.settlements.5","after":{"d":5,"id":"DAY5","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.settlements.6","after":{"d":6,"id":"DAY6","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.settlements.7","after":{"d":7,"id":"DAY7","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.settlements.8","after":{"d":8,"id":"DAY8","recurring":0,"captured":0,"total":1}},{"path":"points.2.snapshot.fiscal.history.6.m","before":"結構餘額 −$14｜同步 94%｜壓力 42%","after":"結構餘額 −$13｜同步 94%｜壓力 42%"},{"path":"points.2.snapshot.city.structuralBalance","before":-14.17,"after":-13.16},{"path":"points.2.snapshot.city.reportedNet","before":-12,"after":-11},{"path":"points.2.snapshot.city.maintenanceBacklog","before":144.44,"after":143.95},{"path":"points.2.snapshot.city.serviceContinuity","before":0.9489,"after":0.9525},{"path":"points.2.snapshot.city.serviceCutRisk","before":0.2322,"after":0.2157},{"path":"points.2.duplicate.count","before":2,"after":9},{"path":"points.3.snapshot.stats.money","before":10819,"after":10833},{"path":"points.3.snapshot.fiscal.maintenanceBacklog","before":108.88,"after":107.9},{"path":"points.3.snapshot.fiscal.settlements.2","after":{"d":2,"id":"DAY2","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.3","after":{"d":3,"id":"DAY3","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.4","after":{"d":4,"id":"DAY4","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.5","after":{"d":5,"id":"DAY5","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.6","after":{"d":6,"id":"DAY6","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.7","after":{"d":7,"id":"DAY7","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.8","after":{"d":8,"id":"DAY8","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.9","after":{"d":9,"id":"DAY9","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.10","after":{"d":10,"id":"DAY10","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.11","after":{"d":11,"id":"DAY11","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.12","after":{"d":12,"id":"DAY12","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.13","after":{"d":13,"id":"DAY13","recurring":0,"captured":0,"total":1}},{"path":"points.3.snapshot.fiscal.settlements.14","after":{"d":14,"id":"DAY14","recurring":0,"captured":0,"total":1}}]}
+2026-10-24T20:16:59.1886970Z GREEN post-load simulation fault first RED at complete normal guard
+2026-10-24T20:17:28.2416327Z    烘焙完成 29.0s
+2026-10-24T20:17:29.5007132Z GREEN finally cleanup throw
+2026-10-24T20:17:29.5178457Z GREEN finally cleanup false
+2026-10-24T20:17:29.5436857Z GREEN finally cleanup nested
+2026-10-24T20:17:58.8429182Z    烘焙完成 29.2s
+2026-10-24T20:17:59.1157282Z GREEN leaked load scope first RED at cleanup guard
+2026-10-24T20:18:28.1004641Z    烘焙完成 28.9s
+2026-10-24T20:18:28.2355352Z FISCAL026_DIFF {"label":"all serialized fields","differences":[{"path":"gameVer","before":"14.63","after":"14.43"}]}
+2026-10-24T20:18:28.2394943Z GREEN stale writer version first RED at gameVer
+2026-10-24T20:18:57.4290447Z    烘焙完成 29.1s
+2026-10-24T20:19:00.2637643Z GREEN source restoration GREEN
+2026-10-24T20:19:00.2908665Z {"ok":false,"checks":52,"negative":10,"failures":[{"name":"scoped serialization, settlement, cadence and guard source integrity","message":"current renderer fingerprints match the committed baselines; see current-fp.txt\n\n1 !== 0\n"}]}
+2026-10-24T20:19:01.7731996Z ##[error]Process completed with exit code 1.
+2026-10-24T20:19:01.7855009Z ##[group]Run actions/upload-artifact@v4
+2026-10-24T20:19:01.7855329Z with:
+2026-10-24T20:19:01.7855608Z   name: fiscal-load-5f34786879b2941186bbb08448ced3a46b4d74d9
+2026-10-24T20:19:01.7856996Z   path: shots/fiscal026/
+2026-10-24T20:19:01.7857250Z   if-no-files-found: error
+2026-10-24T20:19:01.7857486Z   retention-days: 14
+2026-10-24T20:19:01.7857701Z   compression-level: 6
+2026-10-24T20:19:01.7857917Z   overwrite: false
+2026-10-24T20:19:01.7858130Z   include-hidden-files: false
+2026-10-24T20:19:01.7858600Z ##[endgroup]
+2026-10-24T20:19:01.9536962Z (node:6438) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-24T20:19:01.9538371Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-24T20:19:01.9708181Z With the provided path, there will be 58 files uploaded
+2026-10-24T20:19:01.9715300Z Artifact name is valid!
+2026-10-24T20:19:01.9716549Z Root directory input is valid!
+2026-10-24T20:19:02.3271443Z Beginning upload of artifact content to blob storage
+2026-10-24T20:19:02.6750942Z (node:6438) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-24T20:19:03.6133365Z Uploaded bytes 8388608
+2026-10-24T20:19:03.8109688Z Uploaded bytes 16777216
+2026-10-24T20:19:04.0981223Z Uploaded bytes 25165824
+2026-10-24T20:19:04.3175876Z Uploaded bytes 30025757
+2026-10-24T20:19:04.3891989Z Finished uploading artifact content to blob storage!
+2026-10-24T20:19:04.3893382Z SHA256 digest of uploaded artifact zip is bb3daa621c1c21aba871df361b4a4523819386d137f7e24e02d57a0edffa6e85
+2026-10-24T20:19:04.3894840Z Finalizing artifact upload
+2026-10-24T20:19:04.8734194Z Artifact fiscal-load-5f34786879b2941186bbb08448ced3a46b4d74d9.zip successfully finalized. Artifact ID 12574910893
+2026-10-24T20:19:04.8737271Z Artifact fiscal-load-5f34786879b2941186bbb08448ced3a46b4d74d9 has been successfully uploaded! Final size is 30025757 bytes. Artifact ID is 12574910893
+2026-10-24T20:19:04.8742939Z Artifact download URL: https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40128726135/artifacts/12574910893
+2026-10-24T20:19:04.8987045Z Post job cleanup.
+2026-10-24T20:19:04.9849424Z [command]/usr/bin/git version
+2026-10-24T20:19:04.9890891Z git version 2.55.0
+2026-10-24T20:19:04.9929711Z Temporarily overriding HOME='/home/runner/work/_temp/ab15fb54-dd2d-49e8-ad2e-7deb85a75d4f' before making global git config changes
+2026-10-24T20:19:04.9931303Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-24T20:19:04.9934695Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/GlimmerTown-lab/GlimmerTown-lab
+2026-10-24T20:19:04.9973659Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-24T20:19:05.0009659Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-24T20:19:05.0268771Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-24T20:19:05.0296581Z http.https://github.com/.extraheader
+2026-10-24T20:19:05.0308067Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-24T20:19:05.0377916Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-24T20:19:05.0636423Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-24T20:19:05.0676606Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-24T20:19:05.1086319Z Cleaning up orphan processes
+2026-10-24T20:19:05.1476590Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

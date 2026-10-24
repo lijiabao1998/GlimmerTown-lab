@@ -1,0 +1,124 @@
+{
+  "schema": "GPT-045.raw-CI-baseline-adoption.v1",
+  "producerHead": "5f34786879b2941186bbb08448ced3a46b4d74d9",
+  "run": 40128726135,
+  "job": 120975651080,
+  "artifact": 12574725468,
+  "artifactZIP_SHA256": "004ed2feee134524a0577ba0f2dd483621e4dd4882f0bc95a3cad3076be7b4e5",
+  "source": "Unedited original standard push fp artifact files; metadata preserved; not native rebake",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 441624,
+      "sha256": "75c1f34730b1c003bf357f469ce00553c4ea4894ec09842bd6d75780e3fac884"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73171,
+      "sha256": "1dadd6ccfdb7ef2b987964c34f7f09342480246e3c76783bc122f0f8541b2c2a"
+    }
+  ],
+  "unchangedOldLeaves": 4023,
+  "addedOnly": [
+    "bld.24_1_800",
+    "bld.24_1_801",
+    "bld.24_1_802",
+    "bld.24_1_803",
+    "bld.24_1_804",
+    "bld.24_1_805",
+    "bld.24_1_806",
+    "bld.24_1_807",
+    "bld.24_1_808",
+    "bld.24_1_809",
+    "bld.24_1_810",
+    "bld.24_1_811",
+    "bld.24_1_812",
+    "bld.24_1_813",
+    "bld.24_1_814",
+    "bld.24_1_815",
+    "bld.24_1_816",
+    "bld.24_1_817",
+    "bld.24_1_818",
+    "bld.24_1_819",
+    "bld.24_1_820",
+    "bld.24_1_821",
+    "bld.24_1_822",
+    "bld.24_1_823",
+    "bld.24_1_824",
+    "bld.24_1_825",
+    "bld.24_1_826",
+    "bld.24_1_827",
+    "bld.24_1_828",
+    "bld.24_1_829",
+    "bld.24_1_830",
+    "bld.24_1_831",
+    "bld.24_1_832",
+    "bld.24_1_833",
+    "bld.24_1_834",
+    "bld.24_1_835",
+    "bld.24_1_836",
+    "bld.24_1_837",
+    "bld.24_1_838",
+    "bld.24_1_839"
+  ],
+  "otherFamiliesUnchanged": 165,
+  "blocks": {
+    "fam": "5ef6eb67",
+    "count": 1728
+  },
+  "envLeavesUnchanged": true,
+  "styleBefore": {
+    "leaves": 1659,
+    "op": 11729309,
+    "raw": {
+      "leaves": 1659,
+      "px": 55684352,
+      "op": 11729309,
+      "semi": 25072,
+      "colors": 875770,
+      "buckets": 21165,
+      "leftLit": 1333,
+      "nightLeaves": 1629,
+      "nightOp": 655871,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9572489734902542,
+      "lightDir": 0.8034960819770947,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9907380909650112,
+      "variants": 1
+    },
+    "total": 0.9645
+  },
+  "styleAfter": {
+    "leaves": 1699,
+    "op": 11905238,
+    "raw": {
+      "leaves": 1699,
+      "px": 56938752,
+      "op": 11905238,
+      "semi": 25072,
+      "colors": 876850,
+      "buckets": 21586,
+      "leftLit": 1369,
+      "nightLeaves": 1669,
+      "nightOp": 662354,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9578807244340685,
+      "lightDir": 0.8057680988816951,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9909531159365403,
+      "variants": 1
+    },
+    "total": 0.9649
+  },
+  "artSourceSHA256": "28a1757e08e5a07bad76cab5b394c8b75c34cdcd33c0dab14db6194738b51e25",
+  "firstRedPreserved": "Standard fp undeclared40 leaves; separate smoke/native first red caused only by new045 stale selftest key selector. That new selector is fixed without modifying any old assertion or artwork. New final CI remains mandatory."
+}

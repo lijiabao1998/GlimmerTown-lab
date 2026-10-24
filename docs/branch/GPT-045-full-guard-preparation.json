@@ -1,0 +1,223 @@
+{
+  "schema": "GPT-045.full-guard-preparation.v1",
+  "base": "3d2220d26ec0e132491280932edb13fdbae5852a",
+  "firstCardCommit": "cb564c72836dc84e69c3d3d84c61e1ba48061926",
+  "firstCard": "docs/branch/GPT-045-original-civic-specialists-wave17.md",
+  "firstCardSHA256": "63b34ccb74caa9d0820f66e8f5f5284b5d442173c5fe73b83e79fc4800022659",
+  "branch": "gpt/british-wave17-045",
+  "scope": "Complete immutable candidate044 acceptance ported to frozen wave17 civic and specialist ten; old source/guards unchanged; no release wrapper substitutes candidate checks.",
+  "candidateLabels": {
+    "gameVer": "14.63",
+    "anchor": "T770",
+    "startLabel": "v14.63 · T770",
+    "normalization": false,
+    "fieldExclusions": []
+  },
+  "artSource": {
+    "file": "british-wave17-art045.js",
+    "sha256": "28a1757e08e5a07bad76cab5b394c8b75c34cdcd33c0dab14db6194738b51e25"
+  },
+  "comparisonSources": [
+    {
+      "id": "knapmediation",
+      "v": 800,
+      "oldId": "teaselhat",
+      "publishedSource": "british-wave15-art043.js",
+      "publishedSourceSHA256": "b26c7338bbe815b7239dbcd1fa803cf4ad4a5a80456950c5c7f4afe0c44dee16",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "adderlens",
+      "v": 804,
+      "oldId": "leedsCorn",
+      "publishedSource": "british-wave10-art038.js",
+      "publishedSourceSHA256": "6e31446ea77c97ba4467ee59e32d698115e0d6e1e8392bdaa06c2e1aeb9dac72",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "yarrowbraille",
+      "v": 808,
+      "oldId": "orchardcraft",
+      "publishedSource": "british-wave11-art039.js",
+      "publishedSourceSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "elderdebate",
+      "v": 812,
+      "oldId": "crossness",
+      "publishedSource": "british-wave04-art030.js",
+      "publishedSourceSHA256": "b0fe1c5f8e8687eb12864657e22de4d38a428e7ace4413bdf496b02a1090007d",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "osieroral",
+      "v": 816,
+      "oldId": "wrenumbrella",
+      "publishedSource": "british-wave16-art044.js",
+      "publishedSourceSHA256": "36c41c02e37a3222d10c0035ea92f53800f64fd5ca44b127f7714456010fed28",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "cloudmereweather",
+      "v": 820,
+      "oldId": "alaronde",
+      "publishedSource": "british-wave01-art025.js",
+      "publishedSourceSHA256": "7a3bd4b8dedfa82a256c7e24986124bf09c9f823884fd2d7daab19fb83f2dae1",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "coppicelecture",
+      "v": 824,
+      "oldId": "sedgephoto",
+      "publishedSource": "british-wave13-art041.js",
+      "publishedSourceSHA256": "ad75d885555adcf0cd12369f483f40382430441d59a396bcf0337c442af9ebe8",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "shellwickpetitions",
+      "v": 828,
+      "oldId": "bramblewheel",
+      "publishedSource": "british-wave13-art041.js",
+      "publishedSourceSHA256": "ad75d885555adcf0cd12369f483f40382430441d59a396bcf0337c442af9ebe8",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "velvetcostume",
+      "v": 832,
+      "oldId": "asterpost",
+      "publishedSource": "british-wave12-art040.js",
+      "publishedSourceSHA256": "a29490242d85a590a66f0b0ee7e66389929710c10c01c13108d9ba88d8ade67b",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "broomtranslations",
+      "v": 836,
+      "oldId": "woldswitch",
+      "publishedSource": "british-wave14-art042.js",
+      "publishedSourceSHA256": "d8a60ea1326244b8be9c34f990befed531886e0381670232b581fb9f7daaa2c2",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    }
+  ],
+  "fullGuardPreparedSources": [
+    {
+      "template": "nativeTenPower044.cjs",
+      "templateSHA256": "63f3344df2c3170601bb7a6882ef3dfc6aaf47a73ef24deea5cd06e32a177123",
+      "file": "nativeTenPower045.cjs",
+      "expectedSHA256": "88571030770edc2ff2d2efc4731c595bbf06d59d70be9a5780159600202880db",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "previewWave044.cjs",
+      "templateSHA256": "21a49baa8ab9d8e26611568cbdc052d08f507b365ca0939cff3256f6ac1ffbcf",
+      "file": "previewWave045.cjs",
+      "expectedSHA256": "853b6b8e8979fa78f1cc654949d01ad57f857576f96cfac2ff9f99571df18205",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probeBritishWave044.cjs",
+      "templateSHA256": "b5da5076ac392ec5675007d9780161862714278bc6d26fadd7f812bb47f8c0b7",
+      "file": "probeBritishWave045.cjs",
+      "expectedSHA256": "fc7cb9629e11cafb675adaf77c6766a5a59d227ba1b84ddc1ee5b45e66ed37da",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probeConstruction044.cjs",
+      "templateSHA256": "a501101388e88c96642d2c8496db8ac6b70cbcc787ef1cca6664736f2c436c8a",
+      "file": "probeConstruction045.cjs",
+      "expectedSHA256": "bda14ac76b986db76fbf8629e56c1430f5ea69bba2d8f30ca741f1f9d2496c47",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probeNativePairs044.cjs",
+      "templateSHA256": "3c90e1d55a1f39a34e3fd25408ff0f5ee1bce3dde1f645650740c9e6524c40d2",
+      "file": "probeNativePairs045.cjs",
+      "expectedSHA256": "2a723aad0f6241d141965079d1b7a276ab724ce62f5fe6a6f5bdfb5354d8f89c",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probePedestrians044.cjs",
+      "templateSHA256": "1f183269c096884762284ff09f2cc94baf788a14f403457be5874cbdf949890f",
+      "file": "probePedestrians045.cjs",
+      "expectedSHA256": "63546ad671a9c66d36883b39b66dbd89f18d113dbe8192cdbfc36f3199ca64eb",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probePerformance044.cjs",
+      "templateSHA256": "90f04c61c5f208849c787ff27e9b9481c89de47cf060f0c11a1a51e5545ba948",
+      "file": "probePerformance045.cjs",
+      "expectedSHA256": "715c5b969d39c5382544fa5941608e628402cccc9d666a09ca502fdc5caf8b93",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probePublicWave044.cjs",
+      "templateSHA256": "b14d9d9ec0e4b208d462e0b9780aa7b6bc9b68e0b4a595aeed6af7d446bff8a7",
+      "file": "probePublicWave045.cjs",
+      "expectedSHA256": "aafd19a7880042f42b590e9821e30ebadf784febacfb0fbfa8488e199515e9ee",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probeScenes044.cjs",
+      "templateSHA256": "1c5b2a5a5eb63355c6e9794792a4e372d31ed00390ff46cf9a24efb6f3bc4a5c",
+      "file": "probeScenes045.cjs",
+      "expectedSHA256": "929a2b82b74d401bc9f599d817264ae802c5a762d64305612a3f4611699030b5",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "probeTenPower044.cjs",
+      "templateSHA256": "dda7016b46d014a37abf93950af587182df7d94d0b8ea26f583015e2c929c841",
+      "file": "probeTenPower045.cjs",
+      "expectedSHA256": "0ce92b0b1333f49eca60d9c37a9d5af07ff426ee2b2e2c1db2d11c9551732ce1",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "proveWave044Baseline.cjs",
+      "templateSHA256": "0fd0af7f41b65b69855542e93cc5e26f31e568459c6e2efd983a22137ab569a4",
+      "file": "proveWave045Baseline.cjs",
+      "expectedSHA256": "86f429a51b9e4dd38b2276bf69702b5f3c222478b6a56c7faef6bb185645df50",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "transferWave044CloseScenes.cjs",
+      "templateSHA256": "bff7a074e49591b0ad38675fd586609180c1fba60bce822f955972cd93a863c4",
+      "file": "transferWave045CloseScenes.cjs",
+      "expectedSHA256": "edde627a77508661469388f76793d65eb4e71dfc859393472538ad45c7c75d7d",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "transferWave044Evidence.cjs",
+      "templateSHA256": "1dbe2540cd2d8b0f9890fde20be106e805c0ed8374bcad24778ee9d6cc14a58e",
+      "file": "transferWave045Evidence.cjs",
+      "expectedSHA256": "dc748a452f12e887cf2c6b079575f8ecf5ce467c482bb5ee613ea7a7a42d4c50",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "transferWave044Source.cjs",
+      "templateSHA256": "897d93302a530cf8534733687cc570c4f2309bea6047e64da37b9752b34bc946",
+      "file": "transferWave045Source.cjs",
+      "expectedSHA256": "e050ce83dd92b7e2b0e7694bfdcfb265576fddfa765ef2c8c01b55e720547507",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    },
+    {
+      "template": "wave044-traffic-phase-fixture.js",
+      "templateSHA256": "a92e70e828e8f0c780e40527978f0b0d7b01cb936908f59be7c2e4e54df43193",
+      "file": "wave045-traffic-phase-fixture.js",
+      "expectedSHA256": "5786d8545aa7e414005ad8a4ebf6bca3be97e34ee277f277020b6c800680ccfd",
+      "changes": "New 045 candidate port from immutable 044 template: independently pinned BASE, ten frozen identities and 800..839. Preserve complete state comparisons, thresholds, negative controls and exact restoration. Construction additionally enforces natural fixed12 zero pending/shell/LayerA misses per first card; public independently checks waves11–17."
+    }
+  ],
+  "localValidation": {
+    "kind": "Source-only preparation, not native acceptance.",
+    "syntaxParsedFiles": 15,
+    "independentBaseIndexSHA256": "6a6d7da0a47fbf13f9c629ed2db9602346e401f274d3d41e616e0b31f731c723",
+    "immutable044TemplatesCheckedAgainstBase": true,
+    "allReferencedLegacyNativeAPIsPresentInBase": true,
+    "sourceDiffReviewed": true,
+    "gameExecuted": false,
+    "browserExecuted": false,
+    "fpExecuted": false,
+    "smokeExecuted": false,
+    "renderedNewSprites": 0,
+    "nativeAcceptance": "Required on official CI; not run locally."
+  }
+}

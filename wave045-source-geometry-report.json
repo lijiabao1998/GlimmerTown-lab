@@ -1,0 +1,1493 @@
+{
+  "ok": true,
+  "kind": "source-only-recording-stub-audit",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedSprites": 0,
+  "models": 10,
+  "authoredViewPaths": 40,
+  "negativeControls": 33,
+  "structuralNegativeControls": [
+    {
+      "name": "fill-diagonal-mediation-court",
+      "firstRed": "structural:knapmediation",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-second-triangle-wall",
+      "firstRed": "structural:knapmediation",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "equalize-two-triangular-hip-peaks",
+      "firstRed": "structural:knapmediation",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "blunt-optical-workshop-tip",
+      "firstRed": "structural:adderlens",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "bend-optical-long-ridge",
+      "firstRed": "structural:adderlens",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "split-braille-clerestory-step",
+      "firstRed": "structural:yarrowbraille",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "raise-one-braille-roof-to-sawtooth",
+      "firstRed": "structural:yarrowbraille",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "shorten-braille-glazed-band",
+      "firstRed": "structural:yarrowbraille",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-one-continuous-debate-aisle",
+      "firstRed": "structural:elderdebate",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "tip-debate-aisle-roof-inward",
+      "firstRed": "structural:elderdebate",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "saddle-oral-history-roof",
+      "firstRed": "structural:osieroral",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-oral-hall-bearing-wall",
+      "firstRed": "structural:osieroral",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "open-oral-hall-shaped-end",
+      "firstRed": "structural:osieroral",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "cap-weather-school-oculus",
+      "firstRed": "structural:cloudmereweather",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-weather-oculus-thick-reveal",
+      "firstRed": "structural:cloudmereweather",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "open-weather-rim-underside",
+      "firstRed": "structural:cloudmereweather",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "erase-weather-deep-inner-shaft",
+      "firstRed": "structural:cloudmereweather",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "step-nature-lecture-roof",
+      "firstRed": "structural:coppicelecture",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "float-nature-lecture-sidewall",
+      "firstRed": "structural:coppicelecture",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "make-petition-front-elliptical",
+      "firstRed": "structural:shellwickpetitions",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "move-petition-half-hip-apex",
+      "firstRed": "structural:shellwickpetitions",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "straighten-costume-ogee-profile",
+      "firstRed": "structural:velvetcostume",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "replace-costume-oval-with-triangle",
+      "firstRed": "structural:velvetcostume",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "detach-middle-translation-range",
+      "firstRed": "structural:broomtranslations",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fill-first-translation-door-recess",
+      "firstRed": "structural:broomtranslations",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-one-translation-hip-end",
+      "firstRed": "structural:broomtranslations",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "erase-second-translation-door-return",
+      "firstRed": "structural:broomtranslations",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-ogee-roof-underside",
+      "firstRed": "structural:velvetcostume",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "lift-debate-window-into-sky",
+      "firstRed": "structural:elderdebate",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "duplicate-optical-roof-patch",
+      "firstRed": "roof-partition",
+      "restored": true,
+      "sourceOnly": true
+    }
+  ],
+  "structuralChecks": {
+    "actualRecordedGeometry": true,
+    "frozenTenIdentities": true,
+    "allFortyWorldConstructionPaths": true,
+    "diagonalCourtIsEmpty": true,
+    "twoPointedConvexLensEnds": true,
+    "oneFullLengthClerestory": true,
+    "basilicanThreeLevelSection": true,
+    "concaveSingleAxisLeadRoof": true,
+    "smallOculusHasDepth": true,
+    "singleGroundedLectureWedge": true,
+    "solidDPlanRadialHalfHip": true,
+    "trueFourSidedOgee": true,
+    "threeTouchingOffsetCompleteHips": true,
+    "allGlazingHasRealMasonryBacking": true,
+    "roofUndersidesAndPartitions": true,
+    "sourceOnly": true
+  },
+  "sourceSHA256": "28a1757e08e5a07bad76cab5b394c8b75c34cdcd33c0dab14db6194738b51e25",
+  "summaries": [
+    {
+      "id": "knapmediation",
+      "view": 0,
+      "projectedBounds": [
+        [
+          30,
+          127.99999999999997
+        ],
+        [
+          124,
+          186.85
+        ]
+      ],
+      "polygons": 619,
+      "beams": 6,
+      "pairedMaterials": 33,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "6b84019dd771934b6149f806eefd5e27bcc374f3b4160ef99ed5339d7b7a939d"
+    },
+    {
+      "id": "knapmediation",
+      "view": 1,
+      "projectedBounds": [
+        [
+          28.999999999999993,
+          131
+        ],
+        [
+          122.6,
+          185.35
+        ]
+      ],
+      "polygons": 619,
+      "beams": 6,
+      "pairedMaterials": 33,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "6b84019dd771934b6149f806eefd5e27bcc374f3b4160ef99ed5339d7b7a939d"
+    },
+    {
+      "id": "knapmediation",
+      "view": 2,
+      "projectedBounds": [
+        [
+          32.00000000000001,
+          130
+        ],
+        [
+          121.1,
+          186.85
+        ]
+      ],
+      "polygons": 619,
+      "beams": 6,
+      "pairedMaterials": 33,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "6b84019dd771934b6149f806eefd5e27bcc374f3b4160ef99ed5339d7b7a939d"
+    },
+    {
+      "id": "knapmediation",
+      "view": 3,
+      "projectedBounds": [
+        [
+          28.999999999999993,
+          131
+        ],
+        [
+          125.5,
+          186.4
+        ]
+      ],
+      "polygons": 619,
+      "beams": 6,
+      "pairedMaterials": 33,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "6b84019dd771934b6149f806eefd5e27bcc374f3b4160ef99ed5339d7b7a939d"
+    },
+    {
+      "id": "adderlens",
+      "view": 0,
+      "projectedBounds": [
+        [
+          52.880886525976095,
+          107.11911347402389
+        ],
+        [
+          132.82,
+          174.89213118299486
+        ]
+      ],
+      "polygons": 484,
+      "beams": 1,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          2.6447921363556395,
+          29.35520786364436
+        ],
+        [
+          6.875414897463167,
+          25.124585102536834
+        ],
+        [
+          0.55,
+          22.2
+        ]
+      ],
+      "geometrySHA256": "828bec73766625be6c442de216b926808ec7f60fb286738d7867081a5167f82a"
+    },
+    {
+      "id": "adderlens",
+      "view": 1,
+      "projectedBounds": [
+        [
+          52.880886525976095,
+          107.1191134740239
+        ],
+        [
+          132.82,
+          174.89213118299486
+        ]
+      ],
+      "polygons": 484,
+      "beams": 1,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          2.6447921363556395,
+          29.35520786364436
+        ],
+        [
+          6.875414897463167,
+          25.124585102536834
+        ],
+        [
+          0.55,
+          22.2
+        ]
+      ],
+      "geometrySHA256": "828bec73766625be6c442de216b926808ec7f60fb286738d7867081a5167f82a"
+    },
+    {
+      "id": "adderlens",
+      "view": 2,
+      "projectedBounds": [
+        [
+          52.88088652597609,
+          107.11911347402389
+        ],
+        [
+          132.82,
+          174.89213118299486
+        ]
+      ],
+      "polygons": 484,
+      "beams": 1,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          2.6447921363556395,
+          29.35520786364436
+        ],
+        [
+          6.875414897463167,
+          25.124585102536834
+        ],
+        [
+          0.55,
+          22.2
+        ]
+      ],
+      "geometrySHA256": "828bec73766625be6c442de216b926808ec7f60fb286738d7867081a5167f82a"
+    },
+    {
+      "id": "adderlens",
+      "view": 3,
+      "projectedBounds": [
+        [
+          52.880886525976095,
+          107.1191134740239
+        ],
+        [
+          132.82,
+          174.89213118299486
+        ]
+      ],
+      "polygons": 484,
+      "beams": 1,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          2.6447921363556395,
+          29.35520786364436
+        ],
+        [
+          6.875414897463167,
+          25.124585102536834
+        ],
+        [
+          0.55,
+          22.2
+        ]
+      ],
+      "geometrySHA256": "828bec73766625be6c442de216b926808ec7f60fb286738d7867081a5167f82a"
+    },
+    {
+      "id": "yarrowbraille",
+      "view": 0,
+      "projectedBounds": [
+        [
+          34.6,
+          125.4
+        ],
+        [
+          121.80000000000001,
+          184.05
+        ]
+      ],
+      "polygons": 561,
+      "beams": 1,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          3.38,
+          28.62
+        ],
+        [
+          5.67,
+          26.33
+        ],
+        [
+          0.55,
+          24
+        ]
+      ],
+      "geometrySHA256": "e8b269d9b22314a7dff7eb271fde99f235ab04c682876261837e9b99f339345f"
+    },
+    {
+      "id": "yarrowbraille",
+      "view": 1,
+      "projectedBounds": [
+        [
+          34.599999999999994,
+          125.4
+        ],
+        [
+          125.3,
+          184.05
+        ]
+      ],
+      "polygons": 561,
+      "beams": 1,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          3.38,
+          28.62
+        ],
+        [
+          5.67,
+          26.33
+        ],
+        [
+          0.55,
+          24
+        ]
+      ],
+      "geometrySHA256": "e8b269d9b22314a7dff7eb271fde99f235ab04c682876261837e9b99f339345f"
+    },
+    {
+      "id": "yarrowbraille",
+      "view": 2,
+      "projectedBounds": [
+        [
+          34.6,
+          125.4
+        ],
+        [
+          125.3,
+          184.05
+        ]
+      ],
+      "polygons": 561,
+      "beams": 1,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          3.38,
+          28.62
+        ],
+        [
+          5.67,
+          26.33
+        ],
+        [
+          0.55,
+          24
+        ]
+      ],
+      "geometrySHA256": "e8b269d9b22314a7dff7eb271fde99f235ab04c682876261837e9b99f339345f"
+    },
+    {
+      "id": "yarrowbraille",
+      "view": 3,
+      "projectedBounds": [
+        [
+          34.599999999999994,
+          125.4
+        ],
+        [
+          121.80000000000001,
+          184.05
+        ]
+      ],
+      "polygons": 561,
+      "beams": 1,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          3.38,
+          28.62
+        ],
+        [
+          5.67,
+          26.33
+        ],
+        [
+          0.55,
+          24
+        ]
+      ],
+      "geometrySHA256": "e8b269d9b22314a7dff7eb271fde99f235ab04c682876261837e9b99f339345f"
+    },
+    {
+      "id": "elderdebate",
+      "view": 0,
+      "projectedBounds": [
+        [
+          29.599999999999994,
+          130.4
+        ],
+        [
+          115.66999999999999,
+          186.55
+        ]
+      ],
+      "polygons": 819,
+      "beams": 1,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.4699999999999998,
+          28.62
+        ],
+        [
+          0.55,
+          33.6
+        ]
+      ],
+      "geometrySHA256": "4144073d551c2506b31e977ea74b9cd027bf8665460bdffcaa1313fdc8f042be"
+    },
+    {
+      "id": "elderdebate",
+      "view": 1,
+      "projectedBounds": [
+        [
+          29.6,
+          130.4
+        ],
+        [
+          115.66999999999999,
+          186.55
+        ]
+      ],
+      "polygons": 819,
+      "beams": 1,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.4699999999999998,
+          28.62
+        ],
+        [
+          0.55,
+          33.6
+        ]
+      ],
+      "geometrySHA256": "4144073d551c2506b31e977ea74b9cd027bf8665460bdffcaa1313fdc8f042be"
+    },
+    {
+      "id": "elderdebate",
+      "view": 2,
+      "projectedBounds": [
+        [
+          29.599999999999994,
+          130.4
+        ],
+        [
+          115.67000000000002,
+          186.55
+        ]
+      ],
+      "polygons": 819,
+      "beams": 1,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.4699999999999998,
+          28.62
+        ],
+        [
+          0.55,
+          33.6
+        ]
+      ],
+      "geometrySHA256": "4144073d551c2506b31e977ea74b9cd027bf8665460bdffcaa1313fdc8f042be"
+    },
+    {
+      "id": "elderdebate",
+      "view": 3,
+      "projectedBounds": [
+        [
+          29.6,
+          130.4
+        ],
+        [
+          115.66999999999999,
+          186.55
+        ]
+      ],
+      "polygons": 819,
+      "beams": 1,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.4699999999999998,
+          28.62
+        ],
+        [
+          0.55,
+          33.6
+        ]
+      ],
+      "geometrySHA256": "4144073d551c2506b31e977ea74b9cd027bf8665460bdffcaa1313fdc8f042be"
+    },
+    {
+      "id": "osieroral",
+      "view": 0,
+      "projectedBounds": [
+        [
+          31.999999999999993,
+          128
+        ],
+        [
+          119.46000000000001,
+          185.35
+        ]
+      ],
+      "polygons": 414,
+      "beams": 56,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          4.17,
+          27.83
+        ],
+        [
+          3.58,
+          28.42
+        ],
+        [
+          0.55,
+          18.8
+        ]
+      ],
+      "geometrySHA256": "a61e72e56b00c852f1dc0d84b0b9374fec2d1b86e103aab421921fceb59bf356"
+    },
+    {
+      "id": "osieroral",
+      "view": 1,
+      "projectedBounds": [
+        [
+          31.999999999999993,
+          128
+        ],
+        [
+          119.46000000000001,
+          185.35
+        ]
+      ],
+      "polygons": 414,
+      "beams": 56,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          4.17,
+          27.83
+        ],
+        [
+          3.58,
+          28.42
+        ],
+        [
+          0.55,
+          18.8
+        ]
+      ],
+      "geometrySHA256": "a61e72e56b00c852f1dc0d84b0b9374fec2d1b86e103aab421921fceb59bf356"
+    },
+    {
+      "id": "osieroral",
+      "view": 2,
+      "projectedBounds": [
+        [
+          31.999999999999993,
+          128
+        ],
+        [
+          119.7,
+          185.35
+        ]
+      ],
+      "polygons": 414,
+      "beams": 56,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          4.17,
+          27.83
+        ],
+        [
+          3.58,
+          28.42
+        ],
+        [
+          0.55,
+          18.8
+        ]
+      ],
+      "geometrySHA256": "a61e72e56b00c852f1dc0d84b0b9374fec2d1b86e103aab421921fceb59bf356"
+    },
+    {
+      "id": "osieroral",
+      "view": 3,
+      "projectedBounds": [
+        [
+          31.999999999999993,
+          128
+        ],
+        [
+          119.7,
+          185.35
+        ]
+      ],
+      "polygons": 414,
+      "beams": 56,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          4.17,
+          27.83
+        ],
+        [
+          3.58,
+          28.42
+        ],
+        [
+          0.55,
+          18.8
+        ]
+      ],
+      "geometrySHA256": "a61e72e56b00c852f1dc0d84b0b9374fec2d1b86e103aab421921fceb59bf356"
+    },
+    {
+      "id": "cloudmereweather",
+      "view": 0,
+      "projectedBounds": [
+        [
+          42.67028167147693,
+          117.32971832852309
+        ],
+        [
+          130.8415707933235,
+          180.01485916426154
+        ]
+      ],
+      "polygons": 321,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3.2760031393920235,
+          28.723996860607976
+        ],
+        [
+          2.6528796462364648,
+          29.347120353763536
+        ],
+        [
+          0.55,
+          20.2
+        ]
+      ],
+      "geometrySHA256": "d823136a75bc2f373540f4c53bbfed4d432da26de19771f05c7ac1cdedf60bef"
+    },
+    {
+      "id": "cloudmereweather",
+      "view": 1,
+      "projectedBounds": [
+        [
+          42.67028167147692,
+          117.32971832852309
+        ],
+        [
+          130.84157079332354,
+          180.01485916426154
+        ]
+      ],
+      "polygons": 321,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3.2760031393920235,
+          28.723996860607976
+        ],
+        [
+          2.6528796462364648,
+          29.347120353763536
+        ],
+        [
+          0.55,
+          20.2
+        ]
+      ],
+      "geometrySHA256": "d823136a75bc2f373540f4c53bbfed4d432da26de19771f05c7ac1cdedf60bef"
+    },
+    {
+      "id": "cloudmereweather",
+      "view": 2,
+      "projectedBounds": [
+        [
+          42.670281671476914,
+          117.32971832852307
+        ],
+        [
+          130.8415707933235,
+          180.01485916426154
+        ]
+      ],
+      "polygons": 321,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3.2760031393920235,
+          28.723996860607976
+        ],
+        [
+          2.6528796462364648,
+          29.347120353763536
+        ],
+        [
+          0.55,
+          20.2
+        ]
+      ],
+      "geometrySHA256": "d823136a75bc2f373540f4c53bbfed4d432da26de19771f05c7ac1cdedf60bef"
+    },
+    {
+      "id": "cloudmereweather",
+      "view": 3,
+      "projectedBounds": [
+        [
+          42.67028167147692,
+          117.32971832852309
+        ],
+        [
+          130.84157079332354,
+          180.01485916426154
+        ]
+      ],
+      "polygons": 321,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3.2760031393920235,
+          28.723996860607976
+        ],
+        [
+          2.6528796462364648,
+          29.347120353763536
+        ],
+        [
+          0.55,
+          20.2
+        ]
+      ],
+      "geometrySHA256": "d823136a75bc2f373540f4c53bbfed4d432da26de19771f05c7ac1cdedf60bef"
+    },
+    {
+      "id": "coppicelecture",
+      "view": 0,
+      "projectedBounds": [
+        [
+          31.800000000000004,
+          128.20000000000002
+        ],
+        [
+          111.5,
+          185.45
+        ]
+      ],
+      "polygons": 521,
+      "beams": 0,
+      "pairedMaterials": 21,
+      "bbox": [
+        [
+          4.6,
+          27.4
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "23bdb8cd680282aa9fb133ac1b8acf492a696acc0bb9c8f09e3e2dbb6f3d6d84"
+    },
+    {
+      "id": "coppicelecture",
+      "view": 1,
+      "projectedBounds": [
+        [
+          31.799999999999997,
+          128.20000000000002
+        ],
+        [
+          125.7,
+          185.45
+        ]
+      ],
+      "polygons": 521,
+      "beams": 0,
+      "pairedMaterials": 21,
+      "bbox": [
+        [
+          4.6,
+          27.4
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "23bdb8cd680282aa9fb133ac1b8acf492a696acc0bb9c8f09e3e2dbb6f3d6d84"
+    },
+    {
+      "id": "coppicelecture",
+      "view": 2,
+      "projectedBounds": [
+        [
+          31.800000000000004,
+          128.20000000000002
+        ],
+        [
+          125.7,
+          185.45
+        ]
+      ],
+      "polygons": 521,
+      "beams": 0,
+      "pairedMaterials": 21,
+      "bbox": [
+        [
+          4.6,
+          27.4
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "23bdb8cd680282aa9fb133ac1b8acf492a696acc0bb9c8f09e3e2dbb6f3d6d84"
+    },
+    {
+      "id": "coppicelecture",
+      "view": 3,
+      "projectedBounds": [
+        [
+          31.799999999999997,
+          128.2
+        ],
+        [
+          111.5,
+          185.45
+        ]
+      ],
+      "polygons": 521,
+      "beams": 0,
+      "pairedMaterials": 21,
+      "bbox": [
+        [
+          4.6,
+          27.4
+        ],
+        [
+          3.17,
+          28.92
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "23bdb8cd680282aa9fb133ac1b8acf492a696acc0bb9c8f09e3e2dbb6f3d6d84"
+    },
+    {
+      "id": "shellwickpetitions",
+      "view": 0,
+      "projectedBounds": [
+        [
+          48.354264727423995,
+          112.99999999999997
+        ],
+        [
+          132.425,
+          177.172867636288
+        ]
+      ],
+      "polygons": 350,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          2.680737738735987,
+          29.319262261264015
+        ],
+        [
+          12.580000000000005,
+          26.26381125817125
+        ],
+        [
+          0.55,
+          25.6
+        ]
+      ],
+      "geometrySHA256": "6866463c54558f7d1714572b81718959c163cdd285b6d6f428f9c6fd6d979d70"
+    },
+    {
+      "id": "shellwickpetitions",
+      "view": 1,
+      "projectedBounds": [
+        [
+          48.354264727423995,
+          113
+        ],
+        [
+          133.44041938612872,
+          177.85
+        ]
+      ],
+      "polygons": 350,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          2.680737738735987,
+          29.319262261264015
+        ],
+        [
+          12.580000000000005,
+          26.26381125817125
+        ],
+        [
+          0.55,
+          25.6
+        ]
+      ],
+      "geometrySHA256": "6866463c54558f7d1714572b81718959c163cdd285b6d6f428f9c6fd6d979d70"
+    },
+    {
+      "id": "shellwickpetitions",
+      "view": 2,
+      "projectedBounds": [
+        [
+          47.00000000000001,
+          111.645735272576
+        ],
+        [
+          133.44041938612872,
+          177.84999999999997
+        ]
+      ],
+      "polygons": 350,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          2.680737738735987,
+          29.319262261264015
+        ],
+        [
+          12.580000000000005,
+          26.26381125817125
+        ],
+        [
+          0.55,
+          25.6
+        ]
+      ],
+      "geometrySHA256": "6866463c54558f7d1714572b81718959c163cdd285b6d6f428f9c6fd6d979d70"
+    },
+    {
+      "id": "shellwickpetitions",
+      "view": 3,
+      "projectedBounds": [
+        [
+          47.00000000000001,
+          111.645735272576
+        ],
+        [
+          132.425,
+          177.172867636288
+        ]
+      ],
+      "polygons": 350,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          2.680737738735987,
+          29.319262261264015
+        ],
+        [
+          12.580000000000005,
+          26.26381125817125
+        ],
+        [
+          0.55,
+          25.6
+        ]
+      ],
+      "geometrySHA256": "6866463c54558f7d1714572b81718959c163cdd285b6d6f428f9c6fd6d979d70"
+    },
+    {
+      "id": "velvetcostume",
+      "view": 0,
+      "projectedBounds": [
+        [
+          31.199999999999996,
+          128.8
+        ],
+        [
+          124.39999999999998,
+          183.25
+        ]
+      ],
+      "polygons": 502,
+      "beams": 8,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          0.55,
+          32.7
+        ]
+      ],
+      "geometrySHA256": "b8af1491c18353b956bc88cdfa5aed64c083550d7ae31026c0714837e50bdd20"
+    },
+    {
+      "id": "velvetcostume",
+      "view": 1,
+      "projectedBounds": [
+        [
+          31.199999999999996,
+          128.8
+        ],
+        [
+          124.39999999999998,
+          183.25
+        ]
+      ],
+      "polygons": 502,
+      "beams": 8,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          0.55,
+          32.7
+        ]
+      ],
+      "geometrySHA256": "b8af1491c18353b956bc88cdfa5aed64c083550d7ae31026c0714837e50bdd20"
+    },
+    {
+      "id": "velvetcostume",
+      "view": 2,
+      "projectedBounds": [
+        [
+          31.199999999999996,
+          128.8
+        ],
+        [
+          124.39999999999998,
+          183.25
+        ]
+      ],
+      "polygons": 502,
+      "beams": 8,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          0.55,
+          32.7
+        ]
+      ],
+      "geometrySHA256": "b8af1491c18353b956bc88cdfa5aed64c083550d7ae31026c0714837e50bdd20"
+    },
+    {
+      "id": "velvetcostume",
+      "view": 3,
+      "projectedBounds": [
+        [
+          31.199999999999996,
+          128.8
+        ],
+        [
+          124.39999999999998,
+          183.25
+        ]
+      ],
+      "polygons": 502,
+      "beams": 8,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          3.8000000000000007,
+          28.2
+        ],
+        [
+          0.55,
+          32.7
+        ]
+      ],
+      "geometrySHA256": "b8af1491c18353b956bc88cdfa5aed64c083550d7ae31026c0714837e50bdd20"
+    },
+    {
+      "id": "broomtranslations",
+      "view": 0,
+      "projectedBounds": [
+        [
+          31.999999999999993,
+          122
+        ],
+        [
+          128.1,
+          175.35
+        ]
+      ],
+      "polygons": 1040,
+      "beams": 3,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.67,
+          27.33
+        ],
+        [
+          0.55,
+          22.799999999999997
+        ]
+      ],
+      "geometrySHA256": "65ef1b84e7f8579918063ab4167bfdfc0d669bf999e16953d93443d1b9bfa99c"
+    },
+    {
+      "id": "broomtranslations",
+      "view": 1,
+      "projectedBounds": [
+        [
+          51.99999999999999,
+          122
+        ],
+        [
+          126.1,
+          182.35
+        ]
+      ],
+      "polygons": 1040,
+      "beams": 3,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.67,
+          27.33
+        ],
+        [
+          0.55,
+          22.799999999999997
+        ]
+      ],
+      "geometrySHA256": "65ef1b84e7f8579918063ab4167bfdfc0d669bf999e16953d93443d1b9bfa99c"
+    },
+    {
+      "id": "broomtranslations",
+      "view": 2,
+      "projectedBounds": [
+        [
+          37.99999999999999,
+          128
+        ],
+        [
+          134.1,
+          182.35
+        ]
+      ],
+      "polygons": 1040,
+      "beams": 3,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.67,
+          27.33
+        ],
+        [
+          0.55,
+          22.799999999999997
+        ]
+      ],
+      "geometrySHA256": "65ef1b84e7f8579918063ab4167bfdfc0d669bf999e16953d93443d1b9bfa99c"
+    },
+    {
+      "id": "broomtranslations",
+      "view": 3,
+      "projectedBounds": [
+        [
+          37.99999999999999,
+          108
+        ],
+        [
+          127.7,
+          185.35
+        ]
+      ],
+      "polygons": 1040,
+      "beams": 3,
+      "pairedMaterials": 22,
+      "bbox": [
+        [
+          3.17,
+          28.83
+        ],
+        [
+          3.67,
+          27.33
+        ],
+        [
+          0.55,
+          22.799999999999997
+        ]
+      ],
+      "geometrySHA256": "65ef1b84e7f8579918063ab4167bfdfc0d669bf999e16953d93443d1b9bfa99c"
+    }
+  ]
+}

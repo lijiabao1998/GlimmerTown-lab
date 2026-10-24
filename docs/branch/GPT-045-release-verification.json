@@ -1,0 +1,110 @@
+{
+  "head": "59052963165fe70463329c3adc5edd48f2208faf",
+  "nativeRun": 40130557188,
+  "allNativeJobs": 28,
+  "pushRun": 40130557220,
+  "PRRun": 40130560903,
+  "nativeChecks": 86,
+  "nativeNegatives": 12,
+  "pixels": {
+    "semi": 0,
+    "leak": 0,
+    "crop": 0,
+    "empty": 0,
+    "mismatch": 0
+  },
+  "fiscal": {
+    "checks": 53,
+    "negative": 10,
+    "failures": []
+  },
+  "power": {
+    "trafficPhaseWitnessCount": 1920,
+    "actualGamePNGCount": 275,
+    "fieldExclusions": [],
+    "utilityTruthAssigned": false,
+    "originalIndexRestored": true
+  },
+  "sceneFailures": [],
+  "oldSaveMigration": [
+    {
+      "path": "gameVer",
+      "before": "14.63",
+      "after": "14.64"
+    }
+  ],
+  "construction": {
+    "ok": true,
+    "failures": [],
+    "contract": {
+      "age": 7,
+      "seed": 87,
+      "rot": 0,
+      "zoom": 1,
+      "at": [
+        21,
+        4.5
+      ],
+      "naturalObservations": 12,
+      "flushedObservations": 66
+    }
+  },
+  "performance": {
+    "stats": {
+      "base": {
+        "n": 40,
+        "median": 8.10000000000582,
+        "p90": 14,
+        "min": 4.450000000004366,
+        "max": 18.125
+      },
+      "head": {
+        "n": 40,
+        "median": 1.6500000000014552,
+        "p90": 13.42500000000291,
+        "min": 1.4249999999956344,
+        "max": 14.07499999999709
+      }
+    },
+    "newGeometryBuildsDuringWarmDraw": 0,
+    "timingNegativeSamples": 30,
+    "restoredGreen": true
+  },
+  "PNGIdentity": {
+    "preview": {
+      "old": 91,
+      "new": 91,
+      "same": 91,
+      "changed": [],
+      "missing": []
+    },
+    "scenes": {
+      "old": 113,
+      "new": 113,
+      "same": 112,
+      "changed": [
+        "construction-late.png"
+      ],
+      "missing": []
+    },
+    "construction": {
+      "old": 19,
+      "new": 19,
+      "same": 17,
+      "changed": [
+        "natural-fixed-native-endpoint.png",
+        "explicit-flush-fixed-native-endpoint.png"
+      ],
+      "missing": []
+    }
+  },
+  "visualReview": "All three changed C3 originals and their C2 originals actually inspected. Cold two-draw construction still has pending final body, not full readiness. Both fixed endpoints visibly contain ten bodies; variable ambient animation remains. All preview pixels byte-identical. No owner or physical-device approval claimed.",
+  "remaining": [
+    "delete branch-only workflow in separate commit",
+    "final exact-head standard CI",
+    "merge",
+    "main CI",
+    "automatic Pages",
+    "post-release public HTTPS and Chromium verification"
+  ]
+}
