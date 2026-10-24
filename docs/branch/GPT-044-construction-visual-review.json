@@ -1,0 +1,836 @@
+{
+  "schemaVersion": 1,
+  "reviewType": "Additive read-only review of official Chromium construction-readiness PNG evidence",
+  "reviewedAtUTC": "2026-10-24T19:14:30Z",
+  "producerHead": "e6c8c59d9a72912186a12c15cbce0ddd61fe5a25",
+  "baseHead": "6284b854e18b12188d193652e9aa69cb7022dfea",
+  "run": 40123355347,
+  "job": 120959464067,
+  "artifactId": 12571514495,
+  "indexSHA256": "6a6d7da0a47fbf13f9c629ed2db9602346e401f274d3d41e616e0b31f731c723",
+  "artSHA256": "36c41c02e37a3222d10c0035ea92f53800f64fd5ca44b127f7714456010fed28",
+  "manifest": {
+    "file": "C3/12571514495/files/manifest-construction.json",
+    "sha256": "b1210da0c1e59d51c40232b60d5ae06bf1676bd9945ba2989cad2ba00dd048df",
+    "declaredOk": true,
+    "failures": []
+  },
+  "method": {
+    "viewTool": "tools.view_image",
+    "detail": "original",
+    "localGameExecution": false,
+    "localBrowserExecution": false,
+    "localTestsRun": false,
+    "imagesEditedOrRerendered": false,
+    "pixelAnalysis": "Read-only decoding of original PNGs to compare complete RGBA buffers. No crop, resize, masking, image output, or image mutation.",
+    "oldReviewChanged": false,
+    "repositoryChanged": false
+  },
+  "coverage": {
+    "constructionPNGsActuallyViewed": 19,
+    "constructionPNGsInArtifact": 19,
+    "additionalLindenEdgePNGsViewed": 2,
+    "totalPNGsActuallyViewed": 21
+  },
+  "hashVerification": {
+    "all19MatchManifestSHA256": true,
+    "all19MatchRecordedBytes": true,
+    "files": [
+      {
+        "file": "natural-cold-first-draw.png",
+        "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-cold-second-draw.png",
+        "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-fixed-native-endpoint.png",
+        "sha256": "09e1f57a6463fcafb4fee0984dab0e95e299fc5e3fb9e324187112ffd7503a4e",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-day-repeat-a.png",
+        "sha256": "c11043d494aa2fb700dbffbc7da56c14e91c1a4eef0266784a66ce866e6c338c",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-day-repeat-b.png",
+        "sha256": "c11043d494aa2fb700dbffbc7da56c14e91c1a4eef0266784a66ce866e6c338c",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-day-pixel-negative-restored.png",
+        "sha256": "c11043d494aa2fb700dbffbc7da56c14e91c1a4eef0266784a66ce866e6c338c",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-night-repeat-a.png",
+        "sha256": "7eeeffb018cfa501973f9bce20f5d27446786cb5a26274853039dc7dc1cc1596",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-night-repeat-b.png",
+        "sha256": "7eeeffb018cfa501973f9bce20f5d27446786cb5a26274853039dc7dc1cc1596",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "natural-night-pixel-negative-restored.png",
+        "sha256": "7eeeffb018cfa501973f9bce20f5d27446786cb5a26274853039dc7dc1cc1596",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-cold-first-draw.png",
+        "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-cold-second-draw.png",
+        "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-after-explicit-flush-before-render.png",
+        "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-fixed-native-endpoint.png",
+        "sha256": "4d91ad0eefaece2de19f6dd2b8f66ce486260a53d72a7e11e86666d06b784afd",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-day-repeat-a.png",
+        "sha256": "fa0d5f89e88f775b70d88b48fb4610baa36ba2a42f16251c9606170c47cc4a7e",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-day-repeat-b.png",
+        "sha256": "fa0d5f89e88f775b70d88b48fb4610baa36ba2a42f16251c9606170c47cc4a7e",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-day-pixel-negative-restored.png",
+        "sha256": "fa0d5f89e88f775b70d88b48fb4610baa36ba2a42f16251c9606170c47cc4a7e",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-night-repeat-a.png",
+        "sha256": "091a3328734693392f36df49469ffe2d8f71d66301ef3c937f766e81c5a24ed7",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-night-repeat-b.png",
+        "sha256": "091a3328734693392f36df49469ffe2d8f71d66301ef3c937f766e81c5a24ed7",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      },
+      {
+        "file": "explicit-flush-night-pixel-negative-restored.png",
+        "sha256": "091a3328734693392f36df49469ffe2d8f71d66301ef3c937f766e81c5a24ed7",
+        "manifestHashMatches": true,
+        "recordedBytesMatch": true,
+        "dimensions": [
+          1280,
+          657
+        ]
+      }
+    ]
+  },
+  "contract": {
+    "age": 7,
+    "seed": 87,
+    "rot": 0,
+    "zoom": 1,
+    "at": [
+      21,
+      4.5
+    ],
+    "naturalObservations": 12,
+    "flushedObservations": 66
+  },
+  "ciRoutes": [
+    {
+      "kind": "natural",
+      "flushCalls": 0,
+      "nativeObservationCount": 12,
+      "nativeFrameDelta": 12,
+      "nativeObservationElapsedMs": 524.1999999999825,
+      "pendingSequence": [
+        10,
+        9,
+        7,
+        6,
+        5,
+        4,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "firstZeroPendingObservation": "native-rAF-8",
+      "fixedEndpoint": {
+        "label": "native-rAF-12",
+        "pending": 0,
+        "sites": 10,
+        "shellMiss": 0,
+        "layerAMiss": 0
+      },
+      "endpointSites": [
+        {
+          "id": "lindenmaps",
+          "variant": 760,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "wrenumbrella",
+          "variant": 764,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "meadowsweetherb",
+          "variant": 768,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "sorrelglove",
+          "variant": 772,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "tamargauge",
+          "variant": 776,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "rookspiano",
+          "variant": 780,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "hartcurrier",
+          "variant": 784,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "sainwax",
+          "variant": 788,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "brackenlast",
+          "variant": 792,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "harecase",
+          "variant": 796,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        }
+      ],
+      "ciRepeatPairs": [
+        {
+          "mode": "day",
+          "equal": true,
+          "firstFrame": 173,
+          "secondFrame": 174,
+          "clockInputs": {
+            "visT": 55,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        },
+        {
+          "mode": "night",
+          "equal": true,
+          "firstFrame": 176,
+          "secondFrame": 177,
+          "clockInputs": {
+            "visT": 2.2,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        }
+      ],
+      "ciNegativeControls": [
+        {
+          "name": "withhold cache readiness and capture the real two-draw cold queue",
+          "first": "construction044 readiness pending 10/10",
+          "pending": 10
+        },
+        {
+          "name": "day real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        },
+        {
+          "name": "night real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        }
+      ],
+      "failures": [],
+      "runtimeErrors": {
+        "generic": null,
+        "bespoke": null
+      },
+      "allListedDisableFlagsFalse": true
+    },
+    {
+      "kind": "explicit-flush",
+      "flushCalls": 1,
+      "nativeObservationCount": 66,
+      "nativeFrameDelta": 66,
+      "nativeObservationElapsedMs": 1392.7000000000116,
+      "pendingSequence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "firstZeroPendingObservation": "native-rAF-1",
+      "fixedEndpoint": {
+        "label": "native-rAF-66",
+        "pending": 0,
+        "sites": 10,
+        "shellMiss": 0,
+        "layerAMiss": 0
+      },
+      "endpointSites": [
+        {
+          "id": "lindenmaps",
+          "variant": 760,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "wrenumbrella",
+          "variant": 764,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "meadowsweetherb",
+          "variant": 768,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "sorrelglove",
+          "variant": 772,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "tamargauge",
+          "variant": 776,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "rookspiano",
+          "variant": 780,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "hartcurrier",
+          "variant": 784,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "sainwax",
+          "variant": 788,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "brackenlast",
+          "variant": 792,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        },
+        {
+          "id": "harecase",
+          "variant": 796,
+          "age": 7,
+          "profileReady": true,
+          "shellReady": true,
+          "timberReady": true,
+          "positiveBodyHeight": true
+        }
+      ],
+      "ciRepeatPairs": [
+        {
+          "mode": "day",
+          "equal": true,
+          "firstFrame": 221,
+          "secondFrame": 222,
+          "clockInputs": {
+            "visT": 55,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        },
+        {
+          "mode": "night",
+          "equal": true,
+          "firstFrame": 224,
+          "secondFrame": 225,
+          "clockInputs": {
+            "visT": 2.2,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        }
+      ],
+      "ciNegativeControls": [
+        {
+          "name": "withhold cache readiness and capture the real two-draw cold queue",
+          "first": "construction044 readiness pending 10/10",
+          "pending": 10
+        },
+        {
+          "name": "day real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        },
+        {
+          "name": "night real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        }
+      ],
+      "failures": [],
+      "runtimeErrors": {
+        "generic": null,
+        "bespoke": null
+      },
+      "allListedDisableFlagsFalse": true
+    }
+  ],
+  "independentPixelVerification": {
+    "natural/day": {
+      "dimensions": [
+        1280,
+        657
+      ],
+      "rgba_bytes": 3363840,
+      "pair_equal": true,
+      "restored_equal": true
+    },
+    "natural/night": {
+      "dimensions": [
+        1280,
+        657
+      ],
+      "rgba_bytes": 3363840,
+      "pair_equal": true,
+      "restored_equal": true
+    },
+    "explicit-flush/day": {
+      "dimensions": [
+        1280,
+        657
+      ],
+      "rgba_bytes": 3363840,
+      "pair_equal": true,
+      "restored_equal": true
+    },
+    "explicit-flush/night": {
+      "dimensions": [
+        1280,
+        657
+      ],
+      "rgba_bytes": 3363840,
+      "pair_equal": true,
+      "restored_equal": true
+    }
+  },
+  "findings": [
+    {
+      "id": "natural_late_bodies",
+      "status": "supported_for_declared_fixture",
+      "detail": "The natural fixed-native endpoint visibly contains all ten scaffolded construction bodies, not ten pending foundations. Linden, Wren, Meadowsweet, Sorrel, Tamar, Rook, Hart, Sain, Bracken, and Hare are all present. In particular Sain, Bracken, and Hare are rendered where the older C1/C2 late captures lacked one or more bodies. The natural day/night repeat and restored images retain all ten bodies. No obvious hard clipping, detached major construction body, or absent last-site building was observed."
+    },
+    {
+      "id": "cold_state_preserved",
+      "status": "observed",
+      "detail": "Both natural cold draw PNGs retain ten plain foundation/pending plots. The explicit-flush cold pair and the after-flush-before-render PNG also show the same ten plots. The post-flush-before-render image is not itself evidence that construction bodies were drawn."
+    },
+    {
+      "id": "natural_readiness_timing",
+      "status": "ci_record_with_visual_endpoint_support",
+      "detail": "The natural route records zero flush calls and exactly twelve native observations/frame delta twelve, with a reported observation interval of 524.2 ms. Its pending sequence is 10,9,7,6,5,4,3,0,0,0,0,0. Thus the first recorded zero-pending point is observation 8; observation 12 is the predeclared fixed endpoint, not the first readiness instant. The endpoint has ten sites, zero pending, zero shell misses, and zero Layer A misses. Timing is this CI fixture only, not a startup-performance promise."
+    },
+    {
+      "id": "explicit_flush_diagnostic",
+      "status": "separate_diagnostic_only",
+      "detail": "The separately labelled explicit-flush route also visibly renders all ten bodies at its sixty-six-observation endpoint. CI records exactly one native flush call. Its roofs/cranes/construction appearance differ in some details from the natural endpoint, so no cross-route pixel-equivalence claim is made. This route is diagnostic and must not be presented as ordinary cold-start evidence."
+    },
+    {
+      "id": "repeat_and_negative",
+      "status": "supported_with_provenance_split",
+      "detail": "Read-only full-PNG decoding independently confirms each natural/explicit route day/night repeat pair and its restored image are exactly identical across all 3,363,840 RGBA bytes. The real-canvas one-pixel corruption rejection and withheld-readiness rejection are reported by the official CI manifest; this reviewer did not recreate those browser negative controls locally."
+    },
+    {
+      "id": "occlusion_limits",
+      "status": "retained",
+      "detail": "Scaffolds, cranes, front facades, and roofs occlude fine joins. This evidence establishes presence of ten late-stage bodies in rotation 0, but does not reveal Hare corridor endpoints hidden by its roofs, rear bracket joins, or complete hidden construction topology. Tamar retains the native silhouette construction shell rather than a finished bare roof. No claim is made that these captures reveal every architectural detail."
+    }
+  ],
+  "edgeAddendum": {
+    "oldFile": "C2/12571592050/files/edge-lindenmaps-r0.png",
+    "newFile": "C3/12571659279/files/edge-lindenmaps-r0.png",
+    "oldArtifactId": 12571592050,
+    "newArtifactId": 12571659279,
+    "oldSHA256": "e6f9f8fdd8506f409eaed08f6c22dc8a0b4e2caf059eb9de62dc0592269fb435",
+    "newSHA256": "078b0ec41d839802244a9364da457cf2940fe9da06e3269755ec129a73c2404d",
+    "bothMatchOwnManifest": true,
+    "visuallyObserved": "The Linden roof, stone walls, windows, base, and silhouette show no apparent architectural change. The cross-run images are not identical.",
+    "pixelDifference": {
+      "changed_pixels": 96,
+      "bbox_inclusive": [
+        544,
+        376,
+        739,
+        451
+      ],
+      "components": [
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            544,
+            400,
+            547,
+            403
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            592,
+            376,
+            595,
+            379
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            592,
+            424,
+            595,
+            427
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            640,
+            400,
+            643,
+            403
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            640,
+            448,
+            643,
+            451
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            688,
+            376,
+            691,
+            379
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            688,
+            424,
+            691,
+            427
+          ]
+        },
+        {
+          "pixels": 12,
+          "bbox_inclusive": [
+            736,
+            400,
+            739,
+            403
+          ]
+        }
+      ]
+    },
+    "sourceContext": "Source reading finds doPlace calling spawnDust, transient soil-colored particles, and a dust renderer using alpha (1-k)*.55, color #c9a869, and pixel squares sized round((2+k*3)*z). Tiny ground-patch color differences are consistent with this existing placement-dust mechanism, but individual runtime particles were not mapped to the changed pixels; exact causality is not claimed.",
+    "sourceReferences": [
+      "index.html:87015",
+      "index.html:91975",
+      "index.html:97288-97292"
+    ]
+  },
+  "scopeConclusion": "The specific late-stage missing-body evidence gap is resolved for this declared age-7, seed-87, rotation-0, zoom-1 native construction fixture. The older cold captures and original reports remain valid and unmodified. This does not prove every construction age/rotation or full wave acceptance.",
+  "limitations": [
+    "This is author/reviewer image inspection, not owner approval or release authorization.",
+    "All game execution and negative controls described here were performed by official CI, not this reviewer. The reviewer ran no game, browser, or local tests.",
+    "Age 7 is a declared native test fixture, not evidence that ten buildings progressed seven game days naturally.",
+    "Static PNGs and this CI machine do not prove phone, Safari, touchscreen, real device FPS, dynamic overlap, or performance guarantees.",
+    "The natural and explicit-flush routes remain separate. A flush result does not establish ordinary startup behavior.",
+    "The earlier all-stage/all-rotation, hidden-geometry, and dynamic-interaction limitations are not erased by this additive late-stage artifact."
+  ],
+  "actualViewedFiles": [
+    "C3/12571514495/files/natural-cold-first-draw.png",
+    "C3/12571514495/files/natural-cold-second-draw.png",
+    "C3/12571514495/files/natural-fixed-native-endpoint.png",
+    "C3/12571514495/files/natural-day-repeat-a.png",
+    "C3/12571514495/files/natural-day-repeat-b.png",
+    "C3/12571514495/files/natural-day-pixel-negative-restored.png",
+    "C3/12571514495/files/natural-night-repeat-a.png",
+    "C3/12571514495/files/natural-night-repeat-b.png",
+    "C3/12571514495/files/natural-night-pixel-negative-restored.png",
+    "C3/12571514495/files/explicit-flush-cold-first-draw.png",
+    "C3/12571514495/files/explicit-flush-cold-second-draw.png",
+    "C3/12571514495/files/explicit-flush-after-explicit-flush-before-render.png",
+    "C3/12571514495/files/explicit-flush-fixed-native-endpoint.png",
+    "C3/12571514495/files/explicit-flush-day-repeat-a.png",
+    "C3/12571514495/files/explicit-flush-day-repeat-b.png",
+    "C3/12571514495/files/explicit-flush-day-pixel-negative-restored.png",
+    "C3/12571514495/files/explicit-flush-night-repeat-a.png",
+    "C3/12571514495/files/explicit-flush-night-repeat-b.png",
+    "C3/12571514495/files/explicit-flush-night-pixel-negative-restored.png",
+    "C2/12571592050/files/edge-lindenmaps-r0.png",
+    "C3/12571659279/files/edge-lindenmaps-r0.png"
+  ]
+}

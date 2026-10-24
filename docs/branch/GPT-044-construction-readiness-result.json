@@ -1,0 +1,173 @@
+{
+  "producerHead": "e6c8c59d9a72912186a12c15cbce0ddd61fe5a25",
+  "run": 40123355347,
+  "job": 120959464067,
+  "artifact": 12571514495,
+  "ok": true,
+  "failures": [],
+  "routes": [
+    {
+      "kind": "natural",
+      "flushCalls": 0,
+      "coldPending": 10,
+      "fixedObservations": 12,
+      "firstZeroPendingObservation": 8,
+      "endpointPending": 0,
+      "endpointStats": {
+        "sites": 10,
+        "full": 0,
+        "bakes": 0,
+        "laHit": 56,
+        "laMiss": 0,
+        "frame": 172,
+        "ms": 2.1999999999825377,
+        "msB": 0,
+        "msF": 1.0000000000291038,
+        "msG": 1.1999999999534339,
+        "pend": 0,
+        "miss": 0,
+        "culled": 0,
+        "hid": 1,
+        "fMach": 0.8999999999941792,
+        "fLA": 0.1999999999825377,
+        "fDyn": 0,
+        "fFence": 0,
+        "fCrane": 0.3000000000174623
+      },
+      "nativeFrameDelta": 12,
+      "elapsedObservationMs": 524.1999999999825,
+      "tenPositiveBodies": true,
+      "repeatPairs": [
+        {
+          "mode": "day",
+          "equal": true,
+          "firstFrame": 173,
+          "secondFrame": 174,
+          "clockInputs": {
+            "visT": 55,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        },
+        {
+          "mode": "night",
+          "equal": true,
+          "firstFrame": 176,
+          "secondFrame": 177,
+          "clockInputs": {
+            "visT": 2.2,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        }
+      ],
+      "negative": [
+        {
+          "name": "withhold cache readiness and capture the real two-draw cold queue",
+          "first": "construction044 readiness pending 10/10",
+          "pending": 10
+        },
+        {
+          "name": "day real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        },
+        {
+          "name": "night real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        }
+      ]
+    },
+    {
+      "kind": "explicit-flush",
+      "flushCalls": 1,
+      "coldPending": 10,
+      "fixedObservations": 66,
+      "firstZeroPendingObservation": 1,
+      "endpointPending": 0,
+      "endpointStats": {
+        "sites": 10,
+        "full": 0,
+        "bakes": 0,
+        "laHit": 51,
+        "laMiss": 0,
+        "frame": 220,
+        "ms": 1.3999999999650754,
+        "msB": 0.20000000001164153,
+        "msF": 0.7999999999592546,
+        "msG": 0.39999999999417923,
+        "pend": 0,
+        "miss": 0,
+        "culled": 0,
+        "hid": 0,
+        "fMach": 0.29999999998835847,
+        "fLA": 0.10000000000582077,
+        "fDyn": 0.10000000000582077,
+        "fFence": 0.1999999999825377,
+        "fCrane": 0.1999999999825377
+      },
+      "nativeFrameDelta": 66,
+      "elapsedObservationMs": 1392.7000000000116,
+      "tenPositiveBodies": true,
+      "repeatPairs": [
+        {
+          "mode": "day",
+          "equal": true,
+          "firstFrame": 221,
+          "secondFrame": 222,
+          "clockInputs": {
+            "visT": 55,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        },
+        {
+          "mode": "night",
+          "equal": true,
+          "firstFrame": 224,
+          "secondFrame": 225,
+          "clockInputs": {
+            "visT": 2.2,
+            "waterFrame": 0
+          },
+          "fullCanvasBytes": 3363840
+        }
+      ],
+      "negative": [
+        {
+          "name": "withhold cache readiness and capture the real two-draw cold queue",
+          "first": "construction044 readiness pending 10/10",
+          "pending": 10
+        },
+        {
+          "name": "day real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        },
+        {
+          "name": "night real native canvas one-pixel corruption",
+          "first": "construction044 whole-canvas repeat pixels at byte 0",
+          "restoredEqual": true
+        }
+      ]
+    }
+  ],
+  "sourcePins": {
+    "rendererSHA256": "07484bc08a1748154b76900ea28af248f2dddd3195726b25de42050cf2c43bcc",
+    "rendererBytes": 194667,
+    "exactIndependentBase": true,
+    "pins": {
+      "profileQueue": "if(budget&&!window.__x13SyncProf){if(!PQ.has(s))PQ.set(s,bd);schedPQ();return 'pending';}",
+      "idleBudget": "drainPQ(8)",
+      "idleTimeout": "requestIdleCallback(f,{timeout:150})",
+      "frameBudget": "if(PQ.size){if(++pqWait>=3)drainPQ(3);}else pqWait=0;",
+      "imageBudget": "if(imgN>=2){stats.miss++;return null;}",
+      "staticBudget": "if(bakeN>=6||bakeMs>6){stats.laMiss++;fn(D);return null;}",
+      "nativeFlush": "function flush(){drainPQ(1e9);return PQ.size;}",
+      "pendingPlaceholder": "if(M==='pending'){pending(A);return true;}"
+    }
+  },
+  "originalCollectorUnchanged": true,
+  "limitation": "Age7 fixture, desktop Chromium; natural queue versus explicitflush labeled separately; no mobile hardware claim."
+}

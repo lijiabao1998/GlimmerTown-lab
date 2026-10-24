@@ -1,0 +1,177 @@
+{
+  "schema": "GPT-044.original-wave16-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "6284b854e18b12188d193652e9aa69cb7022dfea",
+  "branch": "gpt/british-wave16-044",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      760,
+      799
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "lindenmaps",
+      "nm": "椴木地圖修護館",
+      "en": "Lindenwick Map Conservation House",
+      "v": 760,
+      "shape": "square-stone-hall-four-arched-heads-true-intersecting-groin-vault-roof",
+      "design": "矮方形厚石牆修護館、兩個垂直相交的淺桶拱構成真交叉拱頂、四面半圓高窗、可見對角屋面交線與角墩；沒有塔或附加院落",
+      "distinctionFromPublished150": "Beckstone只有單一縱向淺桶拱與扶壁，Dewbank為四個平行桶拱；本款四面拱頭與雙方向交叉屋面必須真實成立，不能在單桶拱貼十字線",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "wrenumbrella",
+      "nm": "鷦鷯修傘工房",
+      "en": "Wrenfold Umbrella Works",
+      "v": 764,
+      "shape": "enclosed-tapering-brick-hall-single-conoid-slate-roof-high-arched-front-low-straight-rear",
+      "design": "封閉漸寬磚工房、單一連續板岩曲頂由後方低直簷升至前方高半圓拱頭、可見縱向木肋與實牆承托、前大扇形工作窗及側低橫窗；高前採光端服務修傘工作區",
+      "distinctionFromPublished150": "Sedge是單片陡平玻璃頂加低橢圓接待室，Gorse是真開放梯形折棚，Pennyfen是兩端曲倒船殼；本款只有一個高拱端和一個低直端，連續變截面封閉屋面",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "meadowsweetherb",
+      "nm": "繡線菊植物標本館",
+      "en": "Meadowsweet Herbarium",
+      "v": 768,
+      "shape": "continuous-quatrefoil-brick-lodge-four-half-dome-lobes-low-square-roof-lantern",
+      "design": "連續四葉形低磚館、四個半圓外凸葉瓣而非分離小亭、四片半穹板岩屋面接低方形頂燈、葉瓣三聯拱窗與葉間凹入口；中央為實室而非開院",
+      "distinctionFromPublished150": "Thistle為中央高八角尖頂加兩個不等半圓翼，Fern為雙分離六角玻璃亭；本款四葉等級的連續低輪廓、低方燈與凹接縫，不能化成中央八角加附房",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "sorrelglove",
+      "nm": "酸模製手套館",
+      "en": "Sorrelwick Glovers’ Hall",
+      "v": 772,
+      "shape": "closed-bow-tie-plan-two-flared-polygonal-workrooms-low-solid-waist-twin-hip-roofs",
+      "design": "封閉領結形量體、兩端寬多邊裁剪及整理工房、中間窄矮實接待腰部、兩個向外展開低四坡頂、端面寬三聯窗與腰部窄玻璃；沒有院落或亭間缺口",
+      "distinctionFromPublished150": "Rowden為兩方亭加凹中央入口，Celandine為兩鼓樓及玻璃直橋；本款牆身真向中央收腰、兩端同軸外張，不能只用兩個普通方盒換名",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "tamargauge",
+      "nm": "塔瑪水位量測屋",
+      "en": "Tamar Water-Gauge House",
+      "v": 776,
+      "shape": "shallow-concave-waisted-stone-gauge-tower-six-continuous-grounded-ribs-modest-upper-collar",
+      "design": "淺內收腰石造量測塔、六條從加寬基腳連續承托至上圈的可見石肋、小幅外挑上觀測圈及單層淺板岩帽、腰部錯層窄窗與上圈環列窗；不能細腰懸托巨大頭部",
+      "distinctionFromPublished150": "Briar為直收分六角木瞭望樓與外階雙帽，Heather為向上外張雙方樓；本款單塔中段先收後放且有連續承重肋，無外階、帆葉或雙帽；不新增水務模擬",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "rookspiano",
+      "nm": "鴉井鋼琴工房",
+      "en": "Rookswell Piano Workshop",
+      "v": 780,
+      "shape": "solid-asymmetric-kidney-plan-workshop-curved-hip-apron-offset-raised-sound-room",
+      "design": "不對稱實心腎形低工房、前緣深凹入口咬口而非開院、連續低曲四坡簷及偏置長方高音室、弧面寬工作窗與高音室細縫窗；兩端寬窄與曲率不同",
+      "distinctionFromPublished150": "Ash是開放月牙及偏置犬舍，Withe是連續長S形，Honey是四分圓扇店；本款寬實心腎形、只有一處凹口、沒有兩條S翼或中央庭院",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "hartcurrier",
+      "nm": "鹿谷皮革整飾樓",
+      "en": "Hartcombe Currier’s Loft",
+      "v": 784,
+      "shape": "broad-upper-workroom-over-single-perpendicular-masonry-spine-two-open-side-undercrofts-braced-jetties",
+      "design": "寬矩形上工房跨在一條垂直方向落地厚磚脊上、兩側真開放底廊、清楚由脊牆接上樓的木斜托架、淺橫向山牆頂、上層長木格窗及下脊門；不是漂浮盒體",
+      "distinctionFromPublished150": "Hawthorn為兩端磚錨房托跨院橋，Faversham為柱列托會堂；本款只有一條完整垂直實脊及兩側底廊，跨度與受力由真托架表達，無雙錨穿院或柱市場",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "sainwax",
+      "nm": "紅豆草製蠟屋",
+      "en": "Sainfoin Wax House",
+      "v": 788,
+      "shape": "single-pentagonal-three-tier-setback-workhouse-pentagonal-slate-ledges-truncated-cap",
+      "design": "單體五邊三級退縮工屋、每層真五面實牆、寬五邊板岩層簷與頂部截尖低帽、深窄工作窗和斜面地層門；五邊輪廓與退台不能由方盒加貼片假造",
+      "distinctionFromPublished150": "Brass為單高方鑄造室配雙四坡頂，Norfolk為直角階梯住宅翼，Sissinghurst為多座烘房；本款單一五邊實體逐層退縮，沒有方塔群、住宅階梯翼或環形院",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "brackenlast",
+      "nm": "蕨橋鞋楦工房",
+      "en": "Brackenbridge Lastmakers’ House",
+      "v": 792,
+      "shape": "octagonal-ashlar-ground-shop-rectangular-jettied-timber-upper-room-four-corbel-brackets-steep-gable",
+      "design": "寬八角石造底店、上方真正長方且明顯挑出的半木工房、四組落在石牆上的木托架、單陡橫山牆、上大方木格窗與下各斜面小窗；上下平面輪廓清楚不同",
+      "distinctionFromPublished150": "Arnos為方矮底座上高圓鼓，Briar為通高六角木塔，Bessie為成對高懸挑街屋；本款是八角底店轉長方上工作房的低兩層異形交接，非圓鼓換色或整棟多角屋",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "harecase",
+      "nm": "兔林樂器箱工房",
+      "en": "Harewood Instrument-Case Works",
+      "v": 796,
+      "shape": "separated-perpendicular-unequal-gabled-workshops-low-bowed-glazed-corner-link-open-exterior-wedge",
+      "design": "長低裁切房與短高組裝房兩座磚山牆工房互成直角且真正分離、只在相對角以低弧玻璃廊連接、外側保留真開楔形空地；長屋大方卸料門、高屋成對圓拱工作窗、廊細直窗梃",
+      "distinctionFromPublished150": "Wold為同向錯位高四坡低平頂磚樓配寬實連接，Fen為高雙折庫與低單坡棚且不相連，Fern為玻璃六角亭；本款直角不同高度山牆加低彎廊，不能退化成平行雙盒或院落環",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and specialist-service design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "completeTen": true,
+    "fourWorldRotations": true,
+    "sameArt634Style": true,
+    "nativeOpaqueWindowPowerSemantics": true,
+    "strictFullFrameValveAndBaselinePairs": true,
+    "sameSeedSaveUndoFiscal": true,
+    "sourceBindingStripExact": true,
+    "negativeControlsPreserved": true,
+    "gameContextPreviewsRequired": true,
+    "visualReviewBeforePublication": true,
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true,
+    "old140AndOtherFamiliesUnchanged": true
+  },
+  "firstCard": {
+    "commit": "8a59d41831010faad3096d2c6c4096e606177f06",
+    "path": "docs/branch/GPT-043-original-community-crafts-wave15.md",
+    "status": "frozen-scope-pushed-before-model-authoring",
+    "visualApprovalClaim": false
+  }
+}
