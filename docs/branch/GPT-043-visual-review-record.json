@@ -1,0 +1,929 @@
+{
+  "schema": "GPT-043.visual-review-record.v1",
+  "producerHead": "1daca90092b207c80b2fc4f1d6dff2f7df448804",
+  "indexSHA256": "cabdaac455033c076df88cf9c8f12e45bb4d661a101fac52e810dc507b86c1b8",
+  "reviewedAtUTC": "2026-10-24T17:12:01.516234+00:00",
+  "verdict": "No blocking structural/seam/clipping defect observed within directly viewed originals.",
+  "directlyViewedCount": 145,
+  "directlyViewedByDirectory": {
+    "preview": 20,
+    "scenes": 101,
+    "power-on": 15,
+    "power-road-cut": 3,
+    "power-source-off": 4,
+    "power-restored": 2
+  },
+  "directlyViewed": [
+    {
+      "path": "preview/pondbadminton-r0-day.png",
+      "sha256": "08830d7052ed0badb08775a20b854cf29738fc45ae916879578b9e69c5934b09",
+      "bytes": 4526,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/pondbadminton-r1-day.png",
+      "sha256": "6971164ef1ee61109a980449033f088bfd5e04aac495ff65062f734c92547f4e",
+      "bytes": 4068,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/pondbadminton-r2-day.png",
+      "sha256": "34629064782cdc042a1836e96ee23201c05b3b23bd972f6750b03a36dedde3ba",
+      "bytes": 3763,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/pondbadminton-r3-day.png",
+      "sha256": "76bc1bea3bf28258708936918713ae09e52dcd95bb78a111de90e42320ca0acf",
+      "bytes": 3946,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "scenes/near-pondbadminton.png",
+      "sha256": "b0a0810a967d2edc9c4197fe435104c84f72ba9bf6b49c4b24fc062ec706af36",
+      "bytes": 480224,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-pondbadminton-r0.png",
+      "sha256": "c7920c9a9237a836a1bb3b1573d5e6688f5fb698c2e906455843fcdeb58cfce7",
+      "bytes": 377792,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-pondbadminton-r1.png",
+      "sha256": "72d0ec4c15aa7f67b6ff6b89acbfbf10dfa9db241c09b35af36eaf07d68c9c40",
+      "bytes": 430878,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-pondbadminton-r2.png",
+      "sha256": "e3c24a59d62ff969b3b04f8ef1aac53609a8fdf390c7222f0b3c77437cee36a9",
+      "bytes": 435782,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-pondbadminton-r3.png",
+      "sha256": "9ecbca436d2ac150c7c3c1bfd8e5cf19cdc8941d17f4ff6d18b55ab7f6dca0b8",
+      "bytes": 424683,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "preview/fennelhoney-r0-day.png",
+      "sha256": "4f616b76456795333a1c5de1d01899a24122c9892d0a6e2f645e1b448d86cf67",
+      "bytes": 4921,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/fennelhoney-r1-day.png",
+      "sha256": "2f560c4105dda4d5da5e993d017670cb0dcaf10637035af4fdca26c7916d5da2",
+      "bytes": 4703,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/fennelhoney-r2-day.png",
+      "sha256": "1be83429fe5589926d0e8067d2038e55ad86982833cc3e5d154fadb589c4ca46",
+      "bytes": 4511,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/fennelhoney-r3-day.png",
+      "sha256": "1b483c4460b350c573e53bbbfa2271789663e6fb52fd84168a69fdac3b910bc8",
+      "bytes": 4550,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/teaselhat-r0-day.png",
+      "sha256": "8c52ae44e9ad72a582ce70aadb8995e4c1cb702729ad04dd44f8e0e26eb994d3",
+      "bytes": 6000,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/teaselhat-r1-day.png",
+      "sha256": "8ae1be774deb68bda3b6a54a90cc9429092c8da79535f1766f7813238a378742",
+      "bytes": 6041,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/teaselhat-r2-day.png",
+      "sha256": "3e99e44eeaa0544bc04696df7be720ca2a8070316869f6b164c72a6247cf3a46",
+      "bytes": 6092,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/teaselhat-r3-day.png",
+      "sha256": "04900c5ce642c35a1b4058236907d9c6d578e2717ea4d99bb1138bfe8c5fbf44",
+      "bytes": 5830,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/rillramblers-r0-day.png",
+      "sha256": "d6c455fde0bb4565a6eacf397d256836c5285114e8ba9c97ff0538d295a2a3fa",
+      "bytes": 5459,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/rillramblers-r1-day.png",
+      "sha256": "7e8584421907b6ca9b7734dcc7eb62aec38b6f370d71b76fe1642f654d0f0f0c",
+      "bytes": 4744,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/rillramblers-r2-day.png",
+      "sha256": "8acf652c26f39e0c91d1608651256665dcf1e57c40a14da3566c0913d6e306bd",
+      "bytes": 4624,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/rillramblers-r3-day.png",
+      "sha256": "9d941d242bd407c2e4118144f1131ab5a06c4393f2c1e5b2bed7311722a3816f",
+      "bytes": 4965,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/gorsearchery-r0-day.png",
+      "sha256": "0e1bdc5f766a0711038b3143b30609499dd08ca78db161b1e06cfc2712ab6f8b",
+      "bytes": 5182,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/gorsearchery-r1-day.png",
+      "sha256": "fe27b5e1ddb1fbdb8162299684917666e9539111dee50ec6e8ec057ee5b7c77f",
+      "bytes": 4524,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/gorsearchery-r2-day.png",
+      "sha256": "93b4f94dd06db456a88c4c247376510ce55c3399c8ebbe4459dd0dd88013814a",
+      "bytes": 4577,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "preview/gorsearchery-r3-day.png",
+      "sha256": "8cd5778f558fc60e3d4763f7e395514fa6d38291e1fe85931d097476019f2298",
+      "bytes": 4501,
+      "manifest": "preview/manifest-preview043.json"
+    },
+    {
+      "path": "scenes/near-fennelhoney.png",
+      "sha256": "942b356bfbe7d3ac7c4e95ad993cdeb0aad69af3d18ef96af8ed54577bca10a1",
+      "bytes": 406220,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-teaselhat.png",
+      "sha256": "307c59c5b2520d9acd2b3f4eb9008f29e0fce5989d7316800f3380b2a0b82e4b",
+      "bytes": 414483,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-rillramblers.png",
+      "sha256": "eb7b62c90afb8289b8a79cad14fdc9264828c460a068c4fb280ef21a81e7fd21",
+      "bytes": 426996,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-gorsearchery.png",
+      "sha256": "65f1e39c1077c94d0a533001f96aad1570ed4d2978208909c085979b7173ff97",
+      "bytes": 393740,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-day-r0.png",
+      "sha256": "d3fd10ca073f8aac483e610adb0c7630555626cbfa238c04fc13b0143e492dcf",
+      "bytes": 674469,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-day-r1.png",
+      "sha256": "2f307f7af6d0066cf508be60d19a868801137c8b613833eeb374644cd61ffd73",
+      "bytes": 721517,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-day-r2.png",
+      "sha256": "4b8ad83fcac500aa925567fe2e23b23a97ab995b8d2e9c75ce7c37734713773f",
+      "bytes": 704889,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-day-r3.png",
+      "sha256": "fa768693b9264e688975b22da6c8027af5079ef2e3ffe412d17fdaec4b4bcdba",
+      "bytes": 656926,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-night-r0.png",
+      "sha256": "1966578b38c5050de2c73a09a42074918b96bcd5a58f48b62777ab51195a62a7",
+      "bytes": 697000,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-night-r1.png",
+      "sha256": "ec20784432616cb7dbc841ff8ba674250aa539fef6880d08cb19f1bb11bb478d",
+      "bytes": 720497,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-night-r2.png",
+      "sha256": "416fcdb030b69317faf51d7af300a5a543ca7e148f1ba26ef64da8b22e030a85",
+      "bytes": 709370,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/spring-night-r3.png",
+      "sha256": "33d2a265ac598fdca2ffacc091fcac278cb9cb01bac0d57dfe4dd0a586d82820",
+      "bytes": 690864,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-day-r0.png",
+      "sha256": "9e7e1f5dbe1d3af7c4b59c9d787b8adfb086498bd6fe062e8e5c5707463090c7",
+      "bytes": 684827,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-day-r1.png",
+      "sha256": "eb87eacc113c572e1c8bb869b8592fc9576d090bd62dd6b4b4a94640bd8d8808",
+      "bytes": 733859,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-day-r2.png",
+      "sha256": "f62fdad4558985805954644cb66ed034861b975e7dc52fbc9321aafb3bcbaf02",
+      "bytes": 723362,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-day-r3.png",
+      "sha256": "236c04268e2a00d63c4524bdba7cbc28fe078689c4effcaf330d0716addecdfe",
+      "bytes": 683179,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-night-r0.png",
+      "sha256": "c6623c7720cfdb06dc3a02049189102d8011fa89be3eb91bed40745ffc7f6794",
+      "bytes": 670228,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-night-r1.png",
+      "sha256": "13b1262891c9e49d25c3a2afb962adb9d0cb9ba08f878e9d2befc6d7fae02510",
+      "bytes": 691225,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-night-r2.png",
+      "sha256": "2669d61d9ffe6db89079ca9649f8ce6eac065521f356d2bfd8bd3e7b625c6486",
+      "bytes": 690000,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-snow-night-r3.png",
+      "sha256": "8429a2ac435c923713858f1f98d565f076ee0f75c909223e481f298fc9c6854e",
+      "bytes": 668467,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/far-day.png",
+      "sha256": "3f042c51ac660139ae504481fe8217e66265f5c3e01a5485fa810880f70075b3",
+      "bytes": 376861,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/far-night.png",
+      "sha256": "1b3538d805d1879c122c505173d5fff31b2470032fe9d597e1180be937bdbff0",
+      "bytes": 327511,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/rain-night.png",
+      "sha256": "36392790cafdb03b99f2df6d9a00e57384af21c23ac758fbb94956b241fa9cce",
+      "bytes": 665666,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/hover-holtscout.png",
+      "sha256": "a8792c50f21d83240cc8e3c97e05f378610555e92431af9705c27fcd0cfb0e54",
+      "bytes": 438015,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/construction-early.png",
+      "sha256": "5403319cc0b6889b6c3fcaa5820eec87d424b76533ce82f0936219b637b19a92",
+      "bytes": 671005,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/construction-middle.png",
+      "sha256": "340ed71a9727f0ec91d3cde55037fcb55ae893e2be4fbf3446b46cde7518f3d3",
+      "bytes": 682730,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/construction-late.png",
+      "sha256": "35e518d3f17f4432b18006480aacb86bd35ccfe6fa47673884193407bb30a724",
+      "bytes": 710676,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "power-on/head-on-whole-r0.png",
+      "sha256": "4814887c94ee52881bb1827840ecc52b5e15d63891f8ceb38a8b1a1ac576bbe3",
+      "bytes": 993641,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-whole-r1.png",
+      "sha256": "8b8fb930d4a32a64a6f14fdf4f997a059f9175581ea216fce251d01a1f0fc901",
+      "bytes": 1027447,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-whole-r2.png",
+      "sha256": "9720d73b3fdda6cfb08177d618287256463fa0b0cf727b6b21969b5a34585e9c",
+      "bytes": 1025336,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-whole-r3.png",
+      "sha256": "51f18281e097c81b874b4e03b7fc490e4f799d90e421be318a3ea56239e83cef",
+      "bytes": 993425,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/base-on-whole-r0.png",
+      "sha256": "a32791b4f32cc7868629b7f54d6bfc538ef72fa6b522d700d0950d7da882a726",
+      "bytes": 1013783,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-road-cut/head-road-cut-whole-r0.png",
+      "sha256": "1f535100af5a7a2e8386c42cefdb7fa0871e7ff274cfa77e59b70ba6db667e8c",
+      "bytes": 886389,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-source-off/head-source-off-whole-r0.png",
+      "sha256": "97a09d51bb808a464e426148f4ef65442738ef186576124b8ddb29a39dae3d3d",
+      "bytes": 868867,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-restored/head-restored-whole-r0.png",
+      "sha256": "719f7c100bb7cb49f6179f302f674c10859f070288b12c9d9468197aebc31bb9",
+      "bytes": 993539,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-pondbadminton-r0.png",
+      "sha256": "f6bde37e9b3868a36ef121a40b8e5cef466836f028fb022f66f6a5d260726828",
+      "bytes": 498723,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-road-cut/head-road-cut-pondbadminton-r0.png",
+      "sha256": "e8be6e2580133f46b7de299bdfffbccbaa0f485d573030f2fcd1c180e7e239c5",
+      "bytes": 393287,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-fennelhoney-r0.png",
+      "sha256": "fbbe93e898047e52c2af9ba32981f4933ab35b89c22973c194171a2afb0c2e72",
+      "bytes": 632006,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-source-off/head-source-off-fennelhoney-r0.png",
+      "sha256": "7b93ea14c428be679b95da608ee189d968923b49cc849c7b2ea30c4492b1b658",
+      "bytes": 457935,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-teaselhat-r1.png",
+      "sha256": "2ee1242e468d4ab66bec8ef209232416c56e31f8771703e99957968fc45a89dd",
+      "bytes": 649466,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-road-cut/head-road-cut-teaselhat-r1.png",
+      "sha256": "0f3bbb552e0105a101669c05798be0a18db6d7df1765b92060c507d6a7e19007",
+      "bytes": 491649,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-rillramblers-r2.png",
+      "sha256": "f1b87fc1897b7078a0f3cb199c056d34940ce35d76288c54748b4eff908f9ee8",
+      "bytes": 603650,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-source-off/head-source-off-rillramblers-r2.png",
+      "sha256": "16658481a3be4986c535e958d2767b2f29816e558df464dc9ec06d0e57ca3ed0",
+      "bytes": 484627,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-gorsearchery-r3.png",
+      "sha256": "95b430ecf1e2cf0635697b1371391f9997f5baf37f6c8e2db3843e89c629e613",
+      "bytes": 620239,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-restored/head-restored-gorsearchery-r3.png",
+      "sha256": "3674464bccad70f9f06249e1025b7b8a4fe3d09e1b517befdb80df3daa31b7cf",
+      "bytes": 620646,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "scenes/edge-fennelhoney-r0.png",
+      "sha256": "b886c8a433befc424fc2d7c0a16d489c2b5ac9052f98da4bb741ed764c919c17",
+      "bytes": 378034,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-fennelhoney-r1.png",
+      "sha256": "aa4865f948eac8ea87b853935124ad5f1ec714cefc0fc73465db3286dc800024",
+      "bytes": 431749,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-fennelhoney-r2.png",
+      "sha256": "aa19969485aa5702d5b613592733e2b16e85cd8bf5234210998243008abc7a39",
+      "bytes": 437075,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-fennelhoney-r3.png",
+      "sha256": "41ad6b6971222e2e35457888aa1a1019e10c478e8e3348a95191f981da775ae0",
+      "bytes": 426256,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-teaselhat-r0.png",
+      "sha256": "77ba75a86850dd8faa22f49603f98809eb4d2453bb0cb888ebee6b274dacf2cd",
+      "bytes": 379678,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-teaselhat-r1.png",
+      "sha256": "0a6d4b18d17ad7eafb0fbc7d6f519ec7d7c9c5c1085f0669e8628a1e620f807f",
+      "bytes": 433103,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-teaselhat-r2.png",
+      "sha256": "b463602d2f02c8314014174bb3b42fc317cc9b06e7fe676d9a9e1eedf0347096",
+      "bytes": 438983,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-teaselhat-r3.png",
+      "sha256": "f9e93f18088f55a6f363f3f31768293660e17673fb976c4be831adc626de01b8",
+      "bytes": 427238,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-rillramblers-r0.png",
+      "sha256": "c53090f11e860e30dd2e3749a8897164846300a5f436130aac376857674707e7",
+      "bytes": 378690,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-rillramblers-r1.png",
+      "sha256": "dba65c8a8b0b47f915d842aa141ae4ff47ea4ee8044efc97ee3f982faa75266a",
+      "bytes": 431705,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-rillramblers-r2.png",
+      "sha256": "a7a8cb539af11c51381b1bd04d8358347929cf22847fa862ddf0e9e11118cf5b",
+      "bytes": 437065,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-rillramblers-r3.png",
+      "sha256": "2e7add0c2c83015b91b1fce4eacacbcd7702246ee55617c7e2f06ccb9f8bcb70",
+      "bytes": 426119,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-gorsearchery-r0.png",
+      "sha256": "1b09ee6dd0ca3812e693b2f17810b89280885f60c9069485e812a57408088011",
+      "bytes": 378392,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-gorsearchery-r1.png",
+      "sha256": "e90d1643a1a095e959ef428e4a98e447576ae05bbea7be7f6130f83e83274229",
+      "bytes": 430602,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-gorsearchery-r2.png",
+      "sha256": "624096f31ad9f919225eebbf8cee1b7cd9dfb5ea9e04525ffb036e1769919166",
+      "bytes": 437324,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-gorsearchery-r3.png",
+      "sha256": "4ae45dcf12ea80f9fe1b6adcf0ae55dbccf659ae500f5a81f458139f5c09050c",
+      "bytes": 425262,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-day-r0.png",
+      "sha256": "e95044f7581d49536e95858b51e6c02b6ca4ebcf727386f2f8bb78ea23f7dc53",
+      "bytes": 674654,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-day-r1.png",
+      "sha256": "a3979a59a0851871cef0b3f74b84219f598276bfc58acd6e0a29a0de76998ba4",
+      "bytes": 724200,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-day-r2.png",
+      "sha256": "e9befe0ab681ae6d646e5039ff362ba7ddd0aa8d4afbdbabeab1b56e963d911e",
+      "bytes": 708315,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-day-r3.png",
+      "sha256": "3cc116e445bd0854e71196014711a79028c40283caed3a1d4aa5b2c20deee209",
+      "bytes": 663291,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-night-r0.png",
+      "sha256": "e6bdeec6ef278f5de3b0bd05be0370e2c5c062220658dd22c6596090792c5392",
+      "bytes": 702559,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-night-r1.png",
+      "sha256": "9b799accaa5ac4c2f52d637afb92fb32fc4fec6fd7d01f6ba0b9726e71e1f952",
+      "bytes": 727616,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-night-r2.png",
+      "sha256": "4d5c3e6d3177461ffb4bd6249820131f3e4b7b27129786e776fe0159297ff8e5",
+      "bytes": 718067,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/summer-night-r3.png",
+      "sha256": "02210f53d81ffa7258fd5409267547ca5b1e2f890d5b2bb162e1708a66073aec",
+      "bytes": 698065,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-day-r0.png",
+      "sha256": "d1e64de96a38e89c912a156c3e62d5940c904f7f1ed1ffea497e8796b6f88f09",
+      "bytes": 705347,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-day-r1.png",
+      "sha256": "91dd76c612bb6a943383870cc17e98655bd5b0bb2b16ff9a9a7dcc34e8029eb2",
+      "bytes": 748947,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-day-r2.png",
+      "sha256": "e90e6b03cb9951d1dcc5f041bc76fa703ea1d05cd411de040e8d49333e0a2511",
+      "bytes": 736653,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-day-r3.png",
+      "sha256": "362818d4c7bdafe72530900e8882afb55c9630fce1db11cdebfbc522ebe1d0b0",
+      "bytes": 694520,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-night-r0.png",
+      "sha256": "160ae91029fe744b12a9a900bc90066f2407123d98ad9fd9a6d3e1de1355f637",
+      "bytes": 719717,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-night-r1.png",
+      "sha256": "ccd2fff344ca3e77f155cb52088e56431621ee86629e676bd90cc685a6a04d40",
+      "bytes": 742369,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-night-r2.png",
+      "sha256": "c94681bbdfd19e06aa9d0d699015d3a891bab9e3294146ab3294cb11b835f249",
+      "bytes": 731221,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/autumn-night-r3.png",
+      "sha256": "caee4e41177ce87f05574bd239bac5bbd6428fc88ba390e6b313546d7272d9e2",
+      "bytes": 715429,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-day-r0.png",
+      "sha256": "d52c17f29bf87960e57623b6a4a1c5b1a68bed8bb530494c27d6bef73fc53cfa",
+      "bytes": 621781,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-day-r1.png",
+      "sha256": "883cc59ba6107a64cd8d34f3ffc5e257946e5236ffb3191989da161072983c44",
+      "bytes": 665072,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-day-r2.png",
+      "sha256": "afb1f9b48a37fb3a0de41e76551f1ef9ed76d420b427b11cef64c3c5fc069e9f",
+      "bytes": 656122,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-day-r3.png",
+      "sha256": "6cf37ba68bfaebdf877fdeb6dc2e9d75849d41db3fd6dae63f1f0a520b30082b",
+      "bytes": 613892,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-night-r0.png",
+      "sha256": "6de1bcec579622a5998f34bb759526995bad08c288bdf5ff0bfc7f03d9b9b830",
+      "bytes": 688342,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-night-r1.png",
+      "sha256": "16ae4cee07ffbd54f1b6961dd156a2dc321977245fc43ffa9dd62b01c75c88f1",
+      "bytes": 699547,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-night-r2.png",
+      "sha256": "8b73e4c594f426bdcd57da3d550fe56f371efc0c933b630d3a200ba4adce244b",
+      "bytes": 697281,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/winter-bare-night-r3.png",
+      "sha256": "de08253a8a06c00a3ef48a71d95b178595764dd2230ac495da83c2f4ca94317c",
+      "bytes": 686123,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-reedcider.png",
+      "sha256": "941f5cd7aa9a44e0d31d3ae50c57d9aee65f7179c8a54dfda8fe2702566eb915",
+      "bytes": 513694,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-holtscout.png",
+      "sha256": "ee35376cd1aa1093c93e5986259b47b3afd2ebd46d4df5295ac489fb6dd368ff",
+      "bytes": 441334,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-ashfives.png",
+      "sha256": "39c3613afcff6c19b0cca62a005ab41065c2d00bfdb423b5646414254b73bc5a",
+      "bytes": 413115,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-brassbell.png",
+      "sha256": "9748b3347c1c9359a2b6cd5108c3dbeb8bd1526f70554e7dced8e16fa4b570a3",
+      "bytes": 420968,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/near-withebasket.png",
+      "sha256": "4ac86cfe6ef65e578bd6997161230c512fcc5b20a1c7dc1e894619080a7817b5",
+      "bytes": 403970,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-reedcider-r0.png",
+      "sha256": "314ede8500c3b21e7619bf9e1031178d56c6714f6db6650e8abdd72976911ffd",
+      "bytes": 380135,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-reedcider-r1.png",
+      "sha256": "9fc39213e5275937eaeffa0764006a9c2f51c4489b624ff1df935fa7e80ab67a",
+      "bytes": 431838,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-reedcider-r2.png",
+      "sha256": "ebce132c17b884ac480a00c5f839e1d89c338a46cbe512fe4775f49673ce7f8e",
+      "bytes": 436369,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-reedcider-r3.png",
+      "sha256": "de34bb101b555d41df15f4272cee4763a4d995494f339430879f98130bab14b5",
+      "bytes": 425717,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-holtscout-r0.png",
+      "sha256": "36c6c4198711da060488846fa3c47a6d1aff8b57a24081e0aaf58f6a429971b5",
+      "bytes": 379315,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-holtscout-r1.png",
+      "sha256": "1ec199fb6f5d57e167e4206a012d27f05cb0a5905af59f41db1d29f78d9b8995",
+      "bytes": 432049,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-holtscout-r2.png",
+      "sha256": "c6acf574eab8f2374187dfbb4b31e134a5c79c3663899cbfa00f1d5c424a3fde",
+      "bytes": 436377,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-holtscout-r3.png",
+      "sha256": "ef0d71d8deef454ae399764edbd676e94a3b62e309911e62c4851aeedee4c600",
+      "bytes": 426622,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-ashfives-r0.png",
+      "sha256": "7d57e1c8909ecf4347c7c939c5ab4b1d4ca2132fb55014f41d3e19c688c6c981",
+      "bytes": 376914,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-ashfives-r1.png",
+      "sha256": "331a6fe0cc2847d45a1cac6ec5d7681f82faf6f8c3fd8e36bfed0b030eb7f883",
+      "bytes": 431402,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-ashfives-r2.png",
+      "sha256": "627488d4b5bd6a3443edd6eb40a016d5f6e6867a3883f8118cab654e6b22ef23",
+      "bytes": 436875,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-ashfives-r3.png",
+      "sha256": "ff5434eb90e0839270c52c804786ef687ac7437a65c73a640557f802823cd5ee",
+      "bytes": 424340,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-brassbell-r0.png",
+      "sha256": "d3fb2dca8fc43a539ad74f7078f1ac76cd20746497cc615188c23f0f08c2e509",
+      "bytes": 380295,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-brassbell-r1.png",
+      "sha256": "64bfd986172f881735bc18b669a1231b3c7e605c6804b1ee2d48c89bbf52ba8b",
+      "bytes": 432184,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-brassbell-r2.png",
+      "sha256": "7bff479883c454ee25ddaf7c935abf32e4a64333d2f4b2201381fa74c4dee88c",
+      "bytes": 438876,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-brassbell-r3.png",
+      "sha256": "0fc43b04564c3ca3e718c94f1dab42d8d776cbb599ea32b5084e6004be86c204",
+      "bytes": 426794,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-withebasket-r0.png",
+      "sha256": "deb998f0f4207f031fe495a8bdc9315d96e350588a89a47a092739c9c92f5445",
+      "bytes": 378286,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-withebasket-r1.png",
+      "sha256": "693d06ce1b5c88be994112399c2dfe90cb5881d50b1c76d6305f73ee8e439908",
+      "bytes": 431587,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-withebasket-r2.png",
+      "sha256": "dbff57fd86f22ef3d7f58890b1aec6b297d314a2ee51afacd05fae9e7d0f1309",
+      "bytes": 435196,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/edge-withebasket-r3.png",
+      "sha256": "8f831983b7c5909355a22ade33c2408cb86473ac389521098bfabd1f9c0325c2",
+      "bytes": 425768,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "power-source-off/head-source-off-gorsearchery-r3.png",
+      "sha256": "40bf8901977c4bba6dd7d2ec1fa124b091057cb600a5ed35f3eff882a541a5e4",
+      "bytes": 458331,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-suppressed-pondbadminton-r0.png",
+      "sha256": "4f48607dcc6ef4105b4555f57f31b66aaa6500986ca2b27f871788c5ac579f93",
+      "bytes": 486924,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-suppressed-fennelhoney-r0.png",
+      "sha256": "df00427b6390277c6d5b34d2b688ee990b1c5f42a933f9b3d053e2ceb617283d",
+      "bytes": 624132,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-suppressed-teaselhat-r1.png",
+      "sha256": "f4e1b2af38600535368070c669e3325d4c87c0b1a799a138e2d53c1447a0a739",
+      "bytes": 636849,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-suppressed-rillramblers-r2.png",
+      "sha256": "3cfa697b41828525f166d7c05605618f259a57fc393e0ce5e9dc1b13f4b65ce0",
+      "bytes": 590446,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "power-on/head-on-suppressed-gorsearchery-r3.png",
+      "sha256": "04e3979ac004ab5aacade7bdc3802e73c43b7f43774d24eae89862c97e525522",
+      "bytes": 610978,
+      "manifest": "power/manifest-night-power043.json"
+    },
+    {
+      "path": "scenes/base-legacy-day-r0.png",
+      "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+      "bytes": 593915,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/valve-legacy-day-r0.png",
+      "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+      "bytes": 593915,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/base-legacy-night-r0.png",
+      "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+      "bytes": 467490,
+      "manifest": "scenes/manifest-scenes.json"
+    },
+    {
+      "path": "scenes/valve-legacy-night-r0.png",
+      "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+      "bytes": 467490,
+      "manifest": "scenes/manifest-scenes.json"
+    }
+  ],
+  "hashOnlyPNGCount": 415,
+  "integrity": {
+    "errors": [],
+    "preview": 91,
+    "scenes": 113,
+    "native": 80,
+    "powerUniqueNamedPNG": 275
+  },
+  "limits": [
+    "Static original PNG review is not a runtime rerun or owner approval.",
+    "Only24power originals visually reviewed; all other manifest entries checked by hash, not sight.",
+    "FarLOD frames show ground markers, not detailed building silhouettes.",
+    "Real mobile hardware, Safari, touch and temporal flicker not tested."
+  ],
+  "priorityFindings": [
+    {
+      "id": "pondbadminton",
+      "subject": "Pondwick saddle roof",
+      "result": "All four day preview rotations and all four full edge scenes retain a continuous saddle-like roof surface. The central low sweep and outer eaves show no obvious grass/sky slit, missing face, or detached wall."
+    },
+    {
+      "id": "fennelhoney",
+      "subject": "Fennel inner courtyard",
+      "result": "The roof ring, inner-facing courtyard wall, and visible courtyard floor remain coherent through all four directions. No visible transparent wedge or missing inner wall was found."
+    },
+    {
+      "id": "teaselhat",
+      "subject": "Teasel wedge roof",
+      "result": "The triangular roof footprint closes at both pointed corners and meets its brick elevations. Rotations r1 and r2 expose different wedge faces without an obvious open seam."
+    },
+    {
+      "id": "rillramblers",
+      "subject": "Rill spiral closure",
+      "result": "The rising roof/wall sweep remains continuous. Its high end cap and lower entry end are visible in complementary directions, especially r0/r3, with no obvious missing end face. The open central court/entry is visually distinguishable from an accidental hole."
+    },
+    {
+      "id": "gorsearchery",
+      "subject": "Gorse canopy join",
+      "result": "The broad canopy stays joined to the brick headhouse in all four directions. Its ridges and outer canopy edge do not show a visible background slit or floating roof panel."
+    }
+  ]
+}

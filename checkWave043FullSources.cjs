@@ -1,0 +1,44 @@
+'use strict';
+// Source/byte checks, including deliberately broken controls. No game or canvas.
+const fs=require('node:fs'),cp=require('node:child_process'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {compose,strip,parse}=require('./wave043-source.cjs');
+const BASE='5f546bc1b090982f9d7f51ab5bbf1da15a57e7a6',FIRST='8a59d41831010faad3096d2c6c4096e606177f06';
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),read=f=>fs.readFileSync(f),git=(ref,file)=>cp.execFileSync('git',['show',ref+':'+file],{maxBuffer:32*1024*1024});
+const localBase=process.argv.find(a=>a.startsWith('--local-base-tree='));
+assert(!localBase||process.env.GITHUB_ACTIONS!=='true','source043 CI requires actual main Git commit');
+const baseRef=localBase?localBase.split('=')[1]:BASE,original=git(baseRef,'index.html'),current=read('index.html');
+assert.equal(hash(original),'2da67e4b29c7ffcab10523b0897637a276adb28de5ce40816ba43ccfd0c329ea','source043 independently pinned published main index');
+const sources={art:read('british-wave15-art043.js').toString(),runtime:read('wave043-runtime.js').toString(),css:read('wave043.css').toString()},full=compose(original.toString(),sources);
+assert.equal(current.toString(),full,'source043 complete committed candidate equals exact source composition; release requires separate versioned contract');
+assert.equal(strip(full),original.toString(),'source043 three blocks strip to independent published main bytes');
+assert.equal(compose(full,sources),full,'source043 source composition idempotent');
+const scope=JSON.parse(read('wave043-original-scope.json')),ids=['reedcider','pondbadminton','holtscout','fennelhoney','ashfives','brassbell','teaselhat','withebasket','gorsearchery','rillramblers'];
+function metadata(s){assert.equal(s.schema,'GPT-043.original-wave15-scope.v1');assert.deepEqual(s.families,['bld']);assert.equal(s.baseCommit,BASE);assert.equal(s.rows.length,10,'source043 exact original ten');assert.deepEqual(s.rows.map(r=>r.id),ids,'source043 exact ordered original identities');assert.deepEqual(s.rows.map(r=>r.v),Array.from({length:10},(_,i)=>720+i*4),'source043 exact forty variant slots');assert(s.rows.every(r=>r.evidenceStatus==='original-code-native-design'&&!r.url&&!r.inspectedReferenceSHA256),'source043 original provenance, no borrowed photo claim');assert.equal(s.nativeCarrier.newSpriteCount,40);assert.equal(s.nativeCarrier.cost,2000);}
+metadata(scope);
+const localFirst=process.argv.includes('--local-first-card');assert(!localFirst||process.env.GITHUB_ACTIONS!=='true','source043 CI requires actual original-scope first commit');
+const card='docs/branch/GPT-043-original-community-crafts-wave15.md',first=localFirst?read(card):git(FIRST,card);
+assert.equal(hash(first),'e1ddda14d1f7765a4bf72fdb7db05eb9605eb324fb3d1f94947b4fb78c8f1faa','source043 exact original-scope first-card bytes');assert(read(card).subarray(0,first.length).equals(first),'source043 first original criteria remain exact prefix');
+// Every published file remains byte-exact, apart from the declared index,
+// appended smoke hook and eventual exact CI-produced fingerprint adoption.
+const entries=cp.execFileSync('git',['ls-tree','-r','-z','--full-tree',baseRef],{encoding:'utf8',maxBuffer:2*1024*1024}).split('\0').filter(Boolean);assert.equal(entries.length,1443,'source043 exact independent published file inventory');let retained=0;
+for(const line of entries){const m=line.match(/^\d+ blob ([a-f0-9]{40})\t(.+)$/);if(!m)continue;const [,sha,file]=m;if(['index.html','smoke.js','fp.json','style.json'].includes(file))continue;const b=read(file),blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');assert.equal(blob,sha,'source043 every published source byte unchanged '+file);retained++;}
+assert.equal(retained,1439,'source043 all published non-declared files verified');
+const smoke=read('smoke.js').toString(),a=smoke.indexOf('    // GPT-043 NEW SELFTEST START'),e='    // GPT-043 NEW SELFTEST END\n',b=smoke.indexOf(e,a);assert(a>=0&&b>a,'source043 unique added smoke hook');assert.equal(smoke.slice(0,a)+smoke.slice(b+e.length),git(baseRef,'smoke.js').toString(),'source043 every previous smoke assertion unchanged');
+const phase=read('wave043-traffic-phase-fixture.js').toString(),point='Object.assign(window.GV,{art574:',end='/* GPT-043 RUNTIME END */';assert.equal(original.toString().split(point).length,2);
+const phaseBase=original.toString().replace(point,phase+'\n'+point),phaseHead=full.replace(end,phase+'\n'+end);
+assert.equal(phaseBase.replace(phase+'\n',''),original.toString(),'source043 CI-only BASE phase bridge strip exact');assert.equal(strip(phaseHead),original.toString(),'source043 HEAD phase bridge belongs only in removable CI block');assert(!full.includes('__wave043TrafficPhase'),'source043 production excludes phase helper');assert(!full.includes('installBritishWave043NineFixture'),'source043 production cannot use partial installer');
+const negative=[],expect=(name,fn,target)=>{let first='';try{fn();}catch(e){first=e.message.split('\n')[0];}assert(first.startsWith(target),'source043 intended first RED '+name+': '+first);negative.push({name,first,restored:true});};
+const damaged=full.replace('</head>','<!-- outside043 -->\n</head>');parse(damaged);expect('valid HTML outside source boundary',()=>assert.equal(strip(damaged),original.toString(),'source043 source-boundary mismatch'),'source043 source-boundary mismatch');
+const leaked=full.replace(point,phase+'\n'+point);parse(leaked);expect('CI phase helper leaked outside runtime boundary',()=>assert.equal(strip(leaked),original.toString(),'source043 source-boundary mismatch'),'source043 source-boundary mismatch');
+expect('missing complete installer',()=>strip(full.replace('installBritishWave043();','')),'wave043 unique declared installation tail');
+for(const [name,mutate,target]of[['one omitted original',s=>s.rows.pop(),'source043 exact original ten'],['reordered originals',s=>s.rows.reverse(),'source043 exact ordered original identities'],['wrong variant range',s=>s.rows[0].v=520,'source043 exact forty variant slots'],['false photograph claim',s=>s.rows[0].inspectedReferenceSHA256=['invented'],'source043 original provenance']]){const wrong=structuredClone(scope);mutate(wrong);expect(name,()=>metadata(wrong),target);metadata(scope);}
+let baselineStage='unchanged published baseline; candidate CI rebake still required';
+if(fs.existsSync('docs/branch/GPT-043-raw-CI-baseline-adoption.json')){
+  const p=JSON.parse(read('docs/branch/GPT-043-raw-CI-baseline-adoption.json'));assert.match(p.producerHead,/^[a-f0-9]{40}$/);assert(Number.isSafeInteger(p.run)&&Number.isSafeInteger(p.job));assert.equal(p.artSourceSHA256,hash(Buffer.from(sources.art)),'source043 adopted baseline binds to exact artwork');
+  for(const f of['fp.json','style.json']){const pin=p.files.find(x=>x.name===f);assert(pin&&pin.bytes>0);const bytes=read(f),check=x=>assert(x.length===pin.bytes&&hash(x)===pin.sha256,'source043 exact raw CI baseline bytes '+f);check(bytes);const bad=Buffer.from(bytes);bad[bad.length-1]^=1;expect('one raw baseline byte '+f,()=>check(bad),'source043 exact raw CI baseline bytes '+f);}
+  baselineStage='exact CI artifact bytes adopted; independent native fp proof still required';
+}else for(const f of['fp.json','style.json'])assert(read(f).equals(git(baseRef,f)),'source043 candidate must retain published baseline before CI adoption '+f);
+const guards=JSON.parse(read('docs/branch/GPT-043-full-guard-preparation.json'));for(const entry of guards.fullGuardPreparedSources){const src=read(entry.file);assert.equal(hash(src),entry.expectedSHA256,'source043 exact prepared complete native guard '+entry.file);assert(!src.includes(Buffer.from('sandbox556b')),'source043 retain native sandbox save key');for(const [,name]of src.toString().matchAll(/GV\.([A-Za-z_$][A-Za-z0-9_$]*)/g))if(name!=='britishWave043')assert(original.includes(Buffer.from(name)),'source043 native API exists in independent published main '+entry.file+': '+name);}
+assert.equal(strip(full),original.toString());const report={ok:true,kind:'source-only-complete-original-ten',base:BASE,baseObjectRead:baseRef,head:process.env.GITHUB_SHA||null,sourceSHA256:hash(Buffer.from(sources.art)),committedIndexSHA256:hash(current),retainedPublishedFiles:retained,firstScopeCardSHA256:hash(first),sourceStripExact:true,sharedGuardsUnchanged:true,productionPhaseBridgeAbsent:true,inlineScripts:parse(full),negativeControls:negative,baselineStage,gameExecuted:false,rasterizerExecuted:false,renderedNewSprites:0,fullWaveAcceptance:false};
+if(process.env.GITHUB_ACTIONS==='true'){fs.mkdirSync('shots/wave043/source-preparation',{recursive:true});fs.writeFileSync('shots/wave043/source-preparation/manifest.json',JSON.stringify(report,null,2)+'\n');}
+console.log('WAVE043_SOURCE_PREPARATION '+JSON.stringify(report));

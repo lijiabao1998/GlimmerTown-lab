@@ -1,0 +1,133 @@
+{
+  "schema": "GPT-043.raw-CI-baseline-adoption.v1",
+  "producerHead": "1daca90092b207c80b2fc4f1d6dff2f7df448804",
+  "run": 40113569032,
+  "job": 120930112278,
+  "artifact": 12567542422,
+  "source": "Unedited original standard push fp artifact files; metadata preserved; not native rebake",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 433224,
+      "sha256": "ef44697358a80f782dbd0c8ce2b42ea660c9a6e523a855a592c51388a7b95c94"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73168,
+      "sha256": "91b4e49fbb4571180c1d91c8468c687c102a8ef536f2670a681e4fc1d3b318a7"
+    }
+  ],
+  "unchangedOldLeaves": 3943,
+  "addedOnly": [
+    "bld.24_1_720",
+    "bld.24_1_721",
+    "bld.24_1_722",
+    "bld.24_1_723",
+    "bld.24_1_724",
+    "bld.24_1_725",
+    "bld.24_1_726",
+    "bld.24_1_727",
+    "bld.24_1_728",
+    "bld.24_1_729",
+    "bld.24_1_730",
+    "bld.24_1_731",
+    "bld.24_1_732",
+    "bld.24_1_733",
+    "bld.24_1_734",
+    "bld.24_1_735",
+    "bld.24_1_736",
+    "bld.24_1_737",
+    "bld.24_1_738",
+    "bld.24_1_739",
+    "bld.24_1_740",
+    "bld.24_1_741",
+    "bld.24_1_742",
+    "bld.24_1_743",
+    "bld.24_1_744",
+    "bld.24_1_745",
+    "bld.24_1_746",
+    "bld.24_1_747",
+    "bld.24_1_748",
+    "bld.24_1_749",
+    "bld.24_1_750",
+    "bld.24_1_751",
+    "bld.24_1_752",
+    "bld.24_1_753",
+    "bld.24_1_754",
+    "bld.24_1_755",
+    "bld.24_1_756",
+    "bld.24_1_757",
+    "bld.24_1_758",
+    "bld.24_1_759"
+  ],
+  "otherFamiliesUnchanged": 165,
+  "blocks": {
+    "fam": "5ef6eb67",
+    "count": 1728
+  },
+  "styleBefore": {
+    "leaves": 1579,
+    "op": 11370863,
+    "raw": {
+      "leaves": 1579,
+      "px": 53175552,
+      "op": 11370863,
+      "semi": 25072,
+      "colors": 873665,
+      "buckets": 20295,
+      "leftLit": 1275,
+      "nightLeaves": 1549,
+      "nightOp": 643282,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9559013242882268,
+      "lightDir": 0.8074730842305257,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9902756873333572,
+      "variants": 1
+    },
+    "total": 0.9648
+  },
+  "styleAfter": {
+    "leaves": 1619,
+    "op": 11547445,
+    "raw": {
+      "leaves": 1619,
+      "px": 54429952,
+      "op": 11547445,
+      "semi": 25072,
+      "colors": 874673,
+      "buckets": 20729,
+      "leftLit": 1300,
+      "nightLeaves": 1589,
+      "nightOp": 647454,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.956575675398324,
+      "lightDir": 0.8029647930821495,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9905118397397248,
+      "variants": 1
+    },
+    "total": 0.9643
+  },
+  "allFamilyGrandBefore": 0.6633,
+  "allFamilyGrandAfter": 0.6633,
+  "fiscalFirstRed": {
+    "job": 120930112219,
+    "checksPassed": 52,
+    "negative": 10,
+    "onlyFailure": "current renderer fingerprints match committed baselines",
+    "artifact": 12566739677
+  },
+  "nativeRun": 40113569099,
+  "nativeJobsPassed": 27,
+  "artSourceSHA256": "b26c7338bbe815b7239dbcd1fa803cf4ad4a5a80456950c5c7f4afe0c44dee16",
+  "artifactZIP_SHA256": "fafc1bcd2dc735903790b928838a88110ca1c74859b978b8cab929ec5b50002e"
+}
