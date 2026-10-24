@@ -46,3 +46,11 @@ bld七軸：palette 1→1；hardEdge 0.956575675398324→0.9572489734902542；li
 - [x] 本地僅來源組合、語法、位元組與明列負控檢查；未在本機執行遊戲、Chrome、smoke或fp，不假稱已跑。
 
 沒做成的事：本波尚未正式合併或發布，不計入已完成160座；未完成項與平台限制照上列保留，不以候選證據代替發布核實。
+
+## 發布版C3驗收追加
+
+e6c8c59d的[完整native run40123355347](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40123355347)全28工作成功；[push標準40123355342](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40123355342)smoke3次／fp／fiscal成功。原生86檢查、12負控、160供電案例及全部欄位對照均過；舊檔只出現已聲明gameVer14.62→14.63，沒有隱藏正規化。這仍不替代清理workflow後最終head及main／Pages／公開複驗。
+
+新增[施工就緒結果](branch/GPT-044-construction-readiness-result.json)：自然12幀固定終點十棟均已渲染，第8幀起queue為0。對照[原生冷兩draw](assets/GPT-044/construction/natural-cold-second-draw.png)、[自然就緒終點](assets/GPT-044/construction/natural-fixed-native-endpoint.png)、[夜間](assets/GPT-044/construction/natural-night-repeat-b.png)。單次flushfixture獨立標記，原兩draw證據與產品預算完全不改。完整manifest保留，非只靠Node。
+
+C3的91預覽完全等於C2；原113場景有施工快取及Linden邊緣96個小地面像素差異，沒有宣稱跨run全部相等。八組歷史BASE／HEAD整幀仍完全相等。
