@@ -91,3 +91,11 @@ C2 `c57157c6991aa48325e07bc807f6cfb244eaf8a9`: [standard40129322396](https://git
 Draft [PR59](https://github.com/lijiabao1998/GlimmerTown-lab/pull/59)。新增版本化發布契約只改三個精確版本字，反向必須完整還原C2 index SHA256 `89c3551256b31d3635170fa486d5298496aef0a5681d656a6b267349d433ae70`；獨立BASE也只同樣三字變更。舊045候選契約與所有舊檔原封不動。`AUTORUN-LOG.md`與方向檔僅准明列的新紀錄插入，業主開關與方向原話不變。
 
 未完成：發布版完整原生／標準CI；原生最後全綠後純刪分支workflow、最終push與PR CI、合法合併、mainCI、自動Pages與正式HTTPS＋Chromium逐byte核實。正式仍16波160座，不能提前計入170。
+
+## C3發布版完整驗收追加
+
+發布版 `59052963165fe70463329c3adc5edd48f2208faf` 的 [native40130557188](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40130557188) 全28工作成功；[push40130557220](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40130557220) 與 [PR40130560903](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40130560903) 均綠。原生86檢查／12負控制，財務53項／10負控制，160供電情境／275PNG／1920相位見證及舊檔僅明列gameVer14.63→14.64遷移均通過。候選原始契約與歷史條件未修改，完整結果見 `GPT-045-release-verification.json`。
+
+發布版91預覽PNG完全等於C2；113場景中112完全相同，冷施工晚期僅差1像素。19施工圖中17完全相同，兩固定終點受既有環境動畫影響；三張差異原圖及其C2對照均實際打開檢視，固定自然12幀及單次flush66幀均可見十棟完整量體。原冷兩draw仍有最後一棟pending，保留此限制，不把它冒稱完整建造就緒。效能BASE median8.10ms／p9014.00ms、HEAD median1.65ms／p9013.425ms；同runner40交錯樣本，暖draw零新幾何，原延遲負控制與預算不變。
+
+本追加只保存真實證據，不計作正式170座。專屬workflow最後完整run已綠，下一步獨立純刪該workflow，最終head標準CI／合併／mainCI／自動Pages／發布後真公網Chrome仍須逐項完成。
