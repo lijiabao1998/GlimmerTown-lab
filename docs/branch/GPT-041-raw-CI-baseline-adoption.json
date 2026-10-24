@@ -1,0 +1,121 @@
+{
+  "schema": "GPT-041.raw-CI-baseline-adoption.v1",
+  "producerHead": "d837e99915cd710d24e981e5d15853aaab13dfb9",
+  "run": 40097825233,
+  "job": 120883674637,
+  "artifact": 12561701696,
+  "artifactZIP_SHA256": "f38e23a4123d2801424854166968a67dc4cd5736b18f8c8f620dccb959527d13",
+  "source": "Unedited original files from standard push fp artifact, not native evidence rebake; metadata preserved",
+  "artSourceSHA256": "ad75d885555adcf0cd12369f483f40382430441d59a396bcf0337c442af9ebe8",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 424824,
+      "sha256": "d8ab4946072e471964a4ac2c72fdd0ce8e1ec3680a4f111fb4dc9a5e65de36fb"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73170,
+      "sha256": "80d0d78926f9d3abbc79691565ce8b32fbd108f7dbc41d88b797e3da125f10d8"
+    }
+  ],
+  "unchangedOldLeaves": 3863,
+  "addedOnly": [
+    "bld.24_1_640",
+    "bld.24_1_641",
+    "bld.24_1_642",
+    "bld.24_1_643",
+    "bld.24_1_644",
+    "bld.24_1_645",
+    "bld.24_1_646",
+    "bld.24_1_647",
+    "bld.24_1_648",
+    "bld.24_1_649",
+    "bld.24_1_650",
+    "bld.24_1_651",
+    "bld.24_1_652",
+    "bld.24_1_653",
+    "bld.24_1_654",
+    "bld.24_1_655",
+    "bld.24_1_656",
+    "bld.24_1_657",
+    "bld.24_1_658",
+    "bld.24_1_659",
+    "bld.24_1_660",
+    "bld.24_1_661",
+    "bld.24_1_662",
+    "bld.24_1_663",
+    "bld.24_1_664",
+    "bld.24_1_665",
+    "bld.24_1_666",
+    "bld.24_1_667",
+    "bld.24_1_668",
+    "bld.24_1_669",
+    "bld.24_1_670",
+    "bld.24_1_671",
+    "bld.24_1_672",
+    "bld.24_1_673",
+    "bld.24_1_674",
+    "bld.24_1_675",
+    "bld.24_1_676",
+    "bld.24_1_677",
+    "bld.24_1_678",
+    "bld.24_1_679"
+  ],
+  "unchangedOtherFamilies": 165,
+  "blockUnchanged": true,
+  "envLeavesAbsentBoth": true,
+  "styleBefore": {
+    "leaves": 1499,
+    "op": 11012122,
+    "raw": {
+      "leaves": 1499,
+      "px": 50666752,
+      "op": 11012122,
+      "semi": 25072,
+      "colors": 871445,
+      "buckets": 19441,
+      "leftLit": 1219,
+      "nightLeaves": 1469,
+      "nightOp": 623320,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9544647253272348,
+      "lightDir": 0.8132088058705804,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.989761505745322,
+      "variants": 1
+    },
+    "total": 0.9653
+  },
+  "styleAfter": {
+    "leaves": 1539,
+    "op": 11200947,
+    "raw": {
+      "leaves": 1539,
+      "px": 51921152,
+      "op": 11200947,
+      "semi": 25072,
+      "colors": 872529,
+      "buckets": 19868,
+      "leftLit": 1243,
+      "nightLeaves": 1509,
+      "nightOp": 640183,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9552323566926975,
+      "lightDir": 0.8076673164392463,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9900276945969144,
+      "variants": 1
+    },
+    "total": 0.9647
+  },
+  "disclosure": "Continuous authorized iteration permits disclosed bld score decline; no threshold or computed score was edited"
+}
