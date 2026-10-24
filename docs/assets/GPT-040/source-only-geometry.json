@@ -1,0 +1,893 @@
+{
+  "ok": true,
+  "kind": "source-only-recording-stub-audit",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedSprites": 0,
+  "models": 10,
+  "authoredViewPaths": 40,
+  "negativeControls": 3,
+  "sourceSHA256": "a29490242d85a590a66f0b0ee7e66389929710c10c01c13108d9ba88d8ade67b",
+  "summaries": [
+    {
+      "id": "asterpost",
+      "view": 0,
+      "polygons": 168,
+      "beams": 7,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32
+        ]
+      ],
+      "geometrySHA256": "9c9ecccd94e361ee29416adee2f2c77c4fb0913b658033aaf4c467a7a72da96f"
+    },
+    {
+      "id": "asterpost",
+      "view": 1,
+      "polygons": 168,
+      "beams": 7,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32
+        ]
+      ],
+      "geometrySHA256": "9c9ecccd94e361ee29416adee2f2c77c4fb0913b658033aaf4c467a7a72da96f"
+    },
+    {
+      "id": "asterpost",
+      "view": 2,
+      "polygons": 168,
+      "beams": 7,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32
+        ]
+      ],
+      "geometrySHA256": "9c9ecccd94e361ee29416adee2f2c77c4fb0913b658033aaf4c467a7a72da96f"
+    },
+    {
+      "id": "asterpost",
+      "view": 3,
+      "polygons": 168,
+      "beams": 7,
+      "pairedMaterials": 20,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32
+        ]
+      ],
+      "geometrySHA256": "9c9ecccd94e361ee29416adee2f2c77c4fb0913b658033aaf4c467a7a72da96f"
+    },
+    {
+      "id": "barleybake",
+      "view": 0,
+      "polygons": 381,
+      "beams": 132,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.5
+        ]
+      ],
+      "geometrySHA256": "9fa50ae6bd29999bf39914c8e254a804ea47a8f7c5a480ab49cc7d966316618a"
+    },
+    {
+      "id": "barleybake",
+      "view": 1,
+      "polygons": 381,
+      "beams": 132,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.5
+        ]
+      ],
+      "geometrySHA256": "9fa50ae6bd29999bf39914c8e254a804ea47a8f7c5a480ab49cc7d966316618a"
+    },
+    {
+      "id": "barleybake",
+      "view": 2,
+      "polygons": 381,
+      "beams": 132,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.5
+        ]
+      ],
+      "geometrySHA256": "9fa50ae6bd29999bf39914c8e254a804ea47a8f7c5a480ab49cc7d966316618a"
+    },
+    {
+      "id": "barleybake",
+      "view": 3,
+      "polygons": 381,
+      "beams": 132,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.5
+        ]
+      ],
+      "geometrySHA256": "9fa50ae6bd29999bf39914c8e254a804ea47a8f7c5a480ab49cc7d966316618a"
+    },
+    {
+      "id": "honeygrocer",
+      "view": 0,
+      "polygons": 174,
+      "beams": 18,
+      "pairedMaterials": 25,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23
+        ]
+      ],
+      "geometrySHA256": "baebd924a7b7f8183af4ae561a096359481f5ae2d35568c173d2638bc0780425"
+    },
+    {
+      "id": "honeygrocer",
+      "view": 1,
+      "polygons": 174,
+      "beams": 18,
+      "pairedMaterials": 25,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23
+        ]
+      ],
+      "geometrySHA256": "baebd924a7b7f8183af4ae561a096359481f5ae2d35568c173d2638bc0780425"
+    },
+    {
+      "id": "honeygrocer",
+      "view": 2,
+      "polygons": 174,
+      "beams": 18,
+      "pairedMaterials": 25,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23
+        ]
+      ],
+      "geometrySHA256": "baebd924a7b7f8183af4ae561a096359481f5ae2d35568c173d2638bc0780425"
+    },
+    {
+      "id": "honeygrocer",
+      "view": 3,
+      "polygons": 174,
+      "beams": 18,
+      "pairedMaterials": 25,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23
+        ]
+      ],
+      "geometrySHA256": "baebd924a7b7f8183af4ae561a096359481f5ae2d35568c173d2638bc0780425"
+    },
+    {
+      "id": "foxengine",
+      "view": 0,
+      "polygons": 152,
+      "beams": 56,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37
+        ]
+      ],
+      "geometrySHA256": "84b00a2aef445c4ccbac1eb336be08f09d6ec449d40713ae2c0bfbcbcd602446"
+    },
+    {
+      "id": "foxengine",
+      "view": 1,
+      "polygons": 152,
+      "beams": 56,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37
+        ]
+      ],
+      "geometrySHA256": "84b00a2aef445c4ccbac1eb336be08f09d6ec449d40713ae2c0bfbcbcd602446"
+    },
+    {
+      "id": "foxengine",
+      "view": 2,
+      "polygons": 152,
+      "beams": 56,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37
+        ]
+      ],
+      "geometrySHA256": "84b00a2aef445c4ccbac1eb336be08f09d6ec449d40713ae2c0bfbcbcd602446"
+    },
+    {
+      "id": "foxengine",
+      "view": 3,
+      "polygons": 152,
+      "beams": 56,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          37
+        ]
+      ],
+      "geometrySHA256": "84b00a2aef445c4ccbac1eb336be08f09d6ec449d40713ae2c0bfbcbcd602446"
+    },
+    {
+      "id": "mallowsew",
+      "view": 0,
+      "polygons": 186,
+      "beams": 68,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.5
+        ]
+      ],
+      "geometrySHA256": "5ff0c831a599f8e5f2163506ff0c8544d68d8b12e8b8b77c7b5ae7757847a9e2"
+    },
+    {
+      "id": "mallowsew",
+      "view": 1,
+      "polygons": 186,
+      "beams": 68,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.5
+        ]
+      ],
+      "geometrySHA256": "5ff0c831a599f8e5f2163506ff0c8544d68d8b12e8b8b77c7b5ae7757847a9e2"
+    },
+    {
+      "id": "mallowsew",
+      "view": 2,
+      "polygons": 186,
+      "beams": 68,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.5
+        ]
+      ],
+      "geometrySHA256": "5ff0c831a599f8e5f2163506ff0c8544d68d8b12e8b8b77c7b5ae7757847a9e2"
+    },
+    {
+      "id": "mallowsew",
+      "view": 3,
+      "polygons": 186,
+      "beams": 68,
+      "pairedMaterials": 40,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.5
+        ]
+      ],
+      "geometrySHA256": "5ff0c831a599f8e5f2163506ff0c8544d68d8b12e8b8b77c7b5ae7757847a9e2"
+    },
+    {
+      "id": "dewbankwash",
+      "view": 0,
+      "polygons": 378,
+      "beams": 508,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.5
+        ]
+      ],
+      "geometrySHA256": "bf5c7673d66b8c1bc13c41591dc3ec50637a55c48359472736ee9ee9845240a8"
+    },
+    {
+      "id": "dewbankwash",
+      "view": 1,
+      "polygons": 378,
+      "beams": 508,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.5
+        ]
+      ],
+      "geometrySHA256": "bf5c7673d66b8c1bc13c41591dc3ec50637a55c48359472736ee9ee9845240a8"
+    },
+    {
+      "id": "dewbankwash",
+      "view": 2,
+      "polygons": 378,
+      "beams": 508,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.5
+        ]
+      ],
+      "geometrySHA256": "bf5c7673d66b8c1bc13c41591dc3ec50637a55c48359472736ee9ee9845240a8"
+    },
+    {
+      "id": "dewbankwash",
+      "view": 3,
+      "polygons": 378,
+      "beams": 508,
+      "pairedMaterials": 23,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.5
+        ]
+      ],
+      "geometrySHA256": "bf5c7673d66b8c1bc13c41591dc3ec50637a55c48359472736ee9ee9845240a8"
+    },
+    {
+      "id": "cloverseed",
+      "view": 0,
+      "polygons": 106,
+      "beams": 37,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "geometrySHA256": "f9e2c28c1eef4ef034a0a2d833393c500261d3cfdb3ae5826c40e66b7a947837"
+    },
+    {
+      "id": "cloverseed",
+      "view": 1,
+      "polygons": 106,
+      "beams": 37,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "geometrySHA256": "f9e2c28c1eef4ef034a0a2d833393c500261d3cfdb3ae5826c40e66b7a947837"
+    },
+    {
+      "id": "cloverseed",
+      "view": 2,
+      "polygons": 106,
+      "beams": 37,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "geometrySHA256": "f9e2c28c1eef4ef034a0a2d833393c500261d3cfdb3ae5826c40e66b7a947837"
+    },
+    {
+      "id": "cloverseed",
+      "view": 3,
+      "polygons": 106,
+      "beams": 37,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "geometrySHA256": "f9e2c28c1eef4ef034a0a2d833393c500261d3cfdb3ae5826c40e66b7a947837"
+    },
+    {
+      "id": "thistlenursery",
+      "view": 0,
+      "polygons": 228,
+      "beams": 27,
+      "pairedMaterials": 43,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "1f05a44838db86326f1b022bb7506137157ecd789ca2db87ff8146beb062c307"
+    },
+    {
+      "id": "thistlenursery",
+      "view": 1,
+      "polygons": 228,
+      "beams": 27,
+      "pairedMaterials": 43,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "1f05a44838db86326f1b022bb7506137157ecd789ca2db87ff8146beb062c307"
+    },
+    {
+      "id": "thistlenursery",
+      "view": 2,
+      "polygons": 228,
+      "beams": 27,
+      "pairedMaterials": 43,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "1f05a44838db86326f1b022bb7506137157ecd789ca2db87ff8146beb062c307"
+    },
+    {
+      "id": "thistlenursery",
+      "view": 3,
+      "polygons": 228,
+      "beams": 27,
+      "pairedMaterials": 43,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          30
+        ]
+      ],
+      "geometrySHA256": "1f05a44838db86326f1b022bb7506137157ecd789ca2db87ff8146beb062c307"
+    },
+    {
+      "id": "brooktools",
+      "view": 0,
+      "polygons": 206,
+      "beams": 12,
+      "pairedMaterials": 29,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.5
+        ]
+      ],
+      "geometrySHA256": "5369ccd559adcf2f97c198f5ab44171a5e8349a8b3f1de044f674be38c76545c"
+    },
+    {
+      "id": "brooktools",
+      "view": 1,
+      "polygons": 206,
+      "beams": 12,
+      "pairedMaterials": 29,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.5
+        ]
+      ],
+      "geometrySHA256": "5369ccd559adcf2f97c198f5ab44171a5e8349a8b3f1de044f674be38c76545c"
+    },
+    {
+      "id": "brooktools",
+      "view": 2,
+      "polygons": 206,
+      "beams": 12,
+      "pairedMaterials": 29,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.5
+        ]
+      ],
+      "geometrySHA256": "5369ccd559adcf2f97c198f5ab44171a5e8349a8b3f1de044f674be38c76545c"
+    },
+    {
+      "id": "brooktools",
+      "view": 3,
+      "polygons": 206,
+      "beams": 12,
+      "pairedMaterials": 29,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          28.5
+        ]
+      ],
+      "geometrySHA256": "5369ccd559adcf2f97c198f5ab44171a5e8349a8b3f1de044f674be38c76545c"
+    },
+    {
+      "id": "hazeldairy",
+      "view": 0,
+      "polygons": 333,
+      "beams": 32,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          17.200000000000003
+        ]
+      ],
+      "geometrySHA256": "4350837fd765072954f221c89239821e5a3daace022b3fdeec4b16b6ffd92b56"
+    },
+    {
+      "id": "hazeldairy",
+      "view": 1,
+      "polygons": 333,
+      "beams": 32,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          17.200000000000003
+        ]
+      ],
+      "geometrySHA256": "4350837fd765072954f221c89239821e5a3daace022b3fdeec4b16b6ffd92b56"
+    },
+    {
+      "id": "hazeldairy",
+      "view": 2,
+      "polygons": 333,
+      "beams": 32,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          17.200000000000003
+        ]
+      ],
+      "geometrySHA256": "4350837fd765072954f221c89239821e5a3daace022b3fdeec4b16b6ffd92b56"
+    },
+    {
+      "id": "hazeldairy",
+      "view": 3,
+      "polygons": 333,
+      "beams": 32,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          17.200000000000003
+        ]
+      ],
+      "geometrySHA256": "4350837fd765072954f221c89239821e5a3daace022b3fdeec4b16b6ffd92b56"
+    }
+  ]
+}
