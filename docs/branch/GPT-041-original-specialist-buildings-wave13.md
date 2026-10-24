@@ -88,3 +88,12 @@
 - C3 fp job120887955391原始摘要：「相對 base：新增40／變更0／移除0葉，觸及bld」；「與fp.json相比：新增0／變更0／移除0／觸及家族0」；七軸下降仍如上披露。原始基線內舊版本標籤不手動改寫，實際Git來源仍以SHA核對。
 - 補齊公開驗證覆蓋：原probePublicSite038原文凍結不改。新增probePublicWave041保留完整HTTP／瀏覽器／sandbox／canvas證據，在獨立最新main的發布存在性之上，額外驗證第11～13波原生rows及40sprite確切槽位，並開啟最新已發布波次目錄。每個已發布波次增加缺row／錯variant／缺sprite三負控；未發布波次必須真的不存在。這不是放寬歷史probe或以本地網頁替代公網。
 - 此補齊需要新head真實CI；最終native綠後再純刪臨時workflow，仍不可把候選算正式發布。
+
+## C4 最後完整原生驗收（2026-10-24 13:55 UTC）
+
+- 9bfa15877a9e7f3d4318e3d93834e923cf4a099e，完整native [40099783601](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40099783601)全部27工作成功。這是刪臨時workflow前最後完整run，公開probe已補齊最新波次檢查；原始公共probe逐byte保持，無部署或寫遠端的workflow權限。
+- 原生artifact12562093984：86斷言、12負控、40方向，semi/leak/crop/empty/mismatch全0，slot3，v14.60；source SHA等精確release index d572c96289a67889ec09e2845675717f58d8e84ca78218623fca34f41fde1064。
+- 供電artifact12562218646：on／road-cut／source-off／restored各40案例，總160；275真遊戲PNG；四態完整stats/utility均等獨立BASE，fieldExclusions=[]，utilityTruthAssigned=false。原生存檔全欄位與交通相位真負控保持。場景／舊檔／8整幀／行人／效能亦各有同run獨立成功工作，不以Node或資料存在取代Chrome。
+- C3實測效能40組交錯，BASE median7.425/p90 15.10 ms，HEAD median1.875/p90 14.85 ms；30樣本51ms注入負控確實首紅，恢復綠，暖畫新增幾何0。數字屬C3同runner desktop Chromium，不冒充C4或真手機。
+- C4公開工作此次驗證的是當時正式T766/v14.59，第11/12波各10款40sprite，第13波未發布而正確為空；13負控通過、無runtime error。必須合併及Pages後重新做只讀公開工作，才能算第13波正式發布，不把這次當新版本已上線。
+- 作者增加實看春日r3、秋日r2、無雪冬日r1、冬雪夜r2、夏日r1、Heather邊緣r0、Elm邊緣r3及遠夜；記錄來源／SHA保存，仍未全部113／275圖逐看。當前仍等最後head標準／PR CI與正式發布，Draft不自動合併。
