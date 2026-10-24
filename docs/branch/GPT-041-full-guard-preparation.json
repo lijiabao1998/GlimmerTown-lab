@@ -1,0 +1,98 @@
+{
+  "schema": "GPT-041.full-guard-preparation.v1",
+  "base": "edae7eee48b3d9863086075bbcd0c4f932c1ab27",
+  "scope": "Full existing acceptance ported to frozen original specialist ten; all historical source guards retained byte-exact",
+  "fullGuardPreparedSources": [
+    {
+      "template": "previewWave040.cjs",
+      "templateSHA256": "b4377609f53094b210139b351c008c2e0c51ef92ae8b2063015e33a65ee1660c",
+      "file": "previewWave041.cjs",
+      "expectedSHA256": "618505f476ebafc79e57a97aae4241ed6f4d02df7f4a0a3b4a1a4c7688cb9f6e",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "probeBritishWave040.cjs",
+      "templateSHA256": "cc1d07de9518b57fccb29c8648b3c59f387c6554576eb25407a972991bed66dc",
+      "file": "probeBritishWave041.cjs",
+      "expectedSHA256": "df2f64350de4359579f6ef4b0f29162c53e36dd87f471408c728ee60231d41f2",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "probeNativePairs040.cjs",
+      "templateSHA256": "933ef915a8719b539704dca481a19dc239812cda0ddcbbff1329bcac6fbcb109",
+      "file": "probeNativePairs041.cjs",
+      "expectedSHA256": "ba5786fbd310f5767e6a6a37811a3b1ab17496ad519f788e81f6b57044870433",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "probePedestrians040.cjs",
+      "templateSHA256": "9af0090ef3b7ac086be8c557b9ef24d55c0d650e1c23534248235eff4eb1500e",
+      "file": "probePedestrians041.cjs",
+      "expectedSHA256": "cec0ea41a8f3fa7ac6052c97a1edcb47d712ddd2255f25b8abfdd7e1d4611bd6",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "probePerformance040.cjs",
+      "templateSHA256": "11e736092e0620fddf56b3e0b15730d3a914e24ca19c41b1b644a3a4a9ac5f31",
+      "file": "probePerformance041.cjs",
+      "expectedSHA256": "0f18c62626df507b03fa6ad9acabc9e6981315b27b711074fe4f5345e37085cb",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "probeScenes040.cjs",
+      "templateSHA256": "929264d5858bc86d722da43b3af86e024866a0219e607242a3227d0ccc7bc9b8",
+      "file": "probeScenes041.cjs",
+      "expectedSHA256": "26c4cfa1356c6645a0f72c6c6071c005ebfff620e1db841d0f74d30eb74185cb",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "nativeTenPower040.cjs",
+      "templateSHA256": "67b8c9d7ce9b87a590a665e643fbf502d2e936556e258346883c0173b120889c",
+      "file": "nativeTenPower041.cjs",
+      "expectedSHA256": "ac73480bdeeeb2e955f68e40404425bd8d879e7d071b3f66485c5d13a786047b",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "probeTenPower040.cjs",
+      "templateSHA256": "dc9d2ba8169f55eb7e80d106bf0d05bcea378da75ab88536a9bdb428c4f0f052",
+      "file": "probeTenPower041.cjs",
+      "expectedSHA256": "23149a4f33a0aa2e72c96ffa3d622200cbb96bc81195170ef5cf774a5fd766d5",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "wave040-traffic-phase-fixture.js",
+      "templateSHA256": "1fbe57178eb8d1ac788e461125c144a4d8de3ec8e67b856bf8fb56d269b6e31d",
+      "file": "wave041-traffic-phase-fixture.js",
+      "expectedSHA256": "7f3fd19967b8000684474a0748e485e83c18c69a5beb2bd4e6c6462f8bd02a12",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "proveWave040Baseline.cjs",
+      "templateSHA256": "4394a441f0e15d753c4edf20b6f829ba180af8cc266b4a569bd2e045664919d2",
+      "file": "proveWave041Baseline.cjs",
+      "expectedSHA256": "04a6708f8d864b14f4b0d462bcdc63c2b554ffb56aecca9bef49117e149c9ca9",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "transferWave040Source.cjs",
+      "templateSHA256": "cd37c16327548f57b52d4959805266509297af0c7845dc84c68c22fbcc4cf0e3",
+      "file": "transferWave041Source.cjs",
+      "expectedSHA256": "c7deeb81095e731cc0315333bd58f40e4c01dc44413bb205ff5e561ae48ea71a",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "transferWave040CloseScenes.cjs",
+      "templateSHA256": "350e33a75aaf225d75c4a04b63546d49bf503a39c4fdd03f9566269aaca7a66f",
+      "file": "transferWave041CloseScenes.cjs",
+      "expectedSHA256": "f7dca553a78a899e302d65b071439e1eb5611f6f5cc001151bb2dce115df668a",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    },
+    {
+      "template": "transferWave040Evidence.cjs",
+      "templateSHA256": "69d2b4f5cbd93f4e04ae09536e2bd163f9af1c4924d18edffe7c9ee2074b6b58",
+      "file": "transferWave041Evidence.cjs",
+      "expectedSHA256": "56062c7ed5973fb441acc01b206f6cf40791bbe58816e9ae0c3f1893d486bb9d",
+      "changes": "New namespace, independently pinned published main and first card, ten frozen identities/slots and closest structural comparisons. Existing geometry, full-save, pixel, fee, utility, traffic-phase and performance assertions remain; native guard additionally checks old Wave12 selftest and catalog interaction. Candidate labels must remain exactly BASE; release uses separate versioned contract."
+    }
+  ]
+}

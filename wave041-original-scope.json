@@ -1,0 +1,177 @@
+{
+  "schema": "GPT-041.original-wave13-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "edae7eee48b3d9863086075bbcd0c4f932c1ab27",
+  "branch": "gpt/british-wave13-041",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      640,
+      679
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "birchbind",
+      "nm": "樺庭裝訂所",
+      "en": "Birchfold Bindery",
+      "v": 640,
+      "shape": "H-plan-unequal-twin-barrel-workshops-low-bridge-two-open-courts",
+      "design": "H形雙窄長工房、兩座不等高桶拱屋頂、低平頂中橋、兩個真開放院、長圓拱工窗與矮橋方窗",
+      "distinctionFromPublished120": "露岸洗衣房為四個平行低拱連脊；Finsbury為外張現代翼，本款窄雙拱H形",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "flintchart",
+      "nm": "燧灣測繪所",
+      "en": "Flintbay Survey Rooms",
+      "v": 644,
+      "shape": "fan-wedge-three-radial-northlight-sawtooth-roofs",
+      "design": "扇形楔狀主體、三片沿放射方向展開的北光鋸齒屋頂、削角小入口、梯形高窗與窄縫窗",
+      "distinctionFromPublished120": "既有Orchardcross平行鋸齒和Leicester斜網格塔群均非放射楔形",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "rowanclock",
+      "nm": "花楸鐘錶工房",
+      "en": "Rowanwick Clock House",
+      "v": 648,
+      "shape": "four-storey-stepped-townhouse-deep-M-roof-double-height-box-bay",
+      "design": "四層窄高退台街屋、深M形雙坡谷頂、兩層凸出矩形窗艙、凹入上層露台、錯層上下拉窗",
+      "distinctionFromPublished120": "St Albans為塔樓，錦葵為削角孟莎單屋，本款階梯街屋及M頂",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "sedgephoto",
+      "nm": "莎草攝影室",
+      "en": "Sedgewick Photographic Rooms",
+      "v": 652,
+      "shape": "tall-trapezoid-studio-single-steep-glass-roof-low-oval-reception",
+      "design": "單一高梯形攝影室、單片陡斜玻璃北頂、前方低扁橢圓接待室、後方實牆暗房翼、斜向高窗與舷窗",
+      "distinctionFromPublished120": "Arnos為鼓形車站、Cardington長棚，本款高楔與低橢圓組合",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "elmglass",
+      "nm": "榆岬彩窗工坊",
+      "en": "Elmreach Glass Atelier",
+      "v": 656,
+      "shape": "grounded-Y-three-unequal-hip-wings-triangular-clerestory",
+      "design": "落地Y形三矩形翼、三座不等四坡屋頂、中央高三角採光亭、尖拱分格窗與矮扶壁",
+      "distinctionFromPublished120": "Maggies Oxford為架空分枝，蕨庭雙六角玻璃尖館，薊谷中央八角雙半圓翼",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "bramblewheel",
+      "nm": "黑莓輪匠院",
+      "en": "Bramblewick Wheelwright",
+      "v": 660,
+      "shape": "D-plan-asymmetric-roof-workshop-open-semicircular-cart-shed",
+      "design": "D形直線後工場、偏心不對稱長短坡頂、低半圓開放車棚與真半圓院、寬車口與高側窗",
+      "distinctionFromPublished120": "環球為完整多層環，苜蓿為直線U廊，本款低半環加高直後體",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "heatherdye",
+      "nm": "石楠染整屋",
+      "en": "Heatherfold Dye House",
+      "v": 664,
+      "shape": "two-outward-flared-square-drying-towers-open-louver-link",
+      "design": "兩座不等高外張方形乾燥樓、窄基寬身、平階通風帽、落地低開放百葉連棚、真百葉縫及高窄雙窗",
+      "distinctionFromPublished120": "Sissinghurst為收錐烘爐尖帽，Maggies Leeds植栽碗頂，本款外張方樓平帽",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "hollyrecords",
+      "nm": "冬青檔案館",
+      "en": "Hollymere Record Office",
+      "v": 668,
+      "shape": "high-diamond-core-square-reading-ring-four-triangular-lightwells",
+      "design": "高菱形斜置檔案核心、低方形閱讀環、四角真三角天井、主體低銅四坡頂與環廊平女兒牆、深窄縫與寬下窗",
+      "distinctionFromPublished120": "Piece Hall及四合院學院為中央開院，Rushton實三角，本款中央實菱形與四角開院",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "ashveterinary",
+      "nm": "白蠟獸醫舍",
+      "en": "Ashcombe Veterinary House",
+      "v": 672,
+      "shape": "low-crescent-inward-slope-clinic-offset-rectangular-kennel",
+      "design": "低連續月牙診療翼、向內斜坡頂、沿弧斷續高側窗、偏置矩形低犬舍、內凹門廊與小雙窗",
+      "distinctionFromPublished120": "Saltdean外向兩層泳場、Royal Crescent多層住宅，本款低內向屋頂及犬舍翼",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "celandinewire",
+      "nm": "白屈菜電報局",
+      "en": "Celandine Telegraph Exchange",
+      "v": 676,
+      "shape": "unequal-solid-brick-drums-glass-link-disk-and-eccentric-cone",
+      "design": "高低相差明顯雙實磚鼓樓、窄直玻璃連接、矮鼓寬平圓盤頂、高鼓偏心錐頂與切入天窗、縱縫與環窗帶",
+      "distinctionFromPublished120": "Arnos為單鼓加方底，蕨庭雙玻璃六角尖館，本款不等實鼓與不同頂形",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English specialist-building design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "completeTen": true,
+    "fourWorldRotations": true,
+    "sameArt634Style": true,
+    "nativeOpaqueWindowPowerSemantics": true,
+    "strictFullFrameValveAndBaselinePairs": true,
+    "sameSeedSaveUndoFiscal": true,
+    "sourceBindingStripExact": true,
+    "negativeControlsPreserved": true,
+    "gameContextPreviewsRequired": true,
+    "visualReviewBeforePublication": true,
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true,
+    "old120AndOtherFamiliesUnchanged": true
+  },
+  "firstCard": {
+    "commit": "39fdb449149fb1a4424bf1e8971175e85313a3a5",
+    "path": "docs/branch/GPT-041-original-specialist-buildings-wave13.md",
+    "status": "frozen-scope-pushed-before-model-authoring",
+    "visualApprovalClaim": false
+  }
+}
