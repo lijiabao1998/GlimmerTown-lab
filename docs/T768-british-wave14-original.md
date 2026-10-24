@@ -11,3 +11,7 @@ PR #53，首卡dfe1e494；模型來源d8a60ea1 SHA完整見卡。原始候選661
 建築及驗收明細：[首卡](branch/GPT-042-original-specialist-buildings-wave14.md)。圖片：[日間](assets/GPT-042/contact-day.png)、[夜間](assets/GPT-042/contact-night.png)、[新舊對照](assets/GPT-042/contact-comparison.png)、[原生近景](assets/GPT-042/near-beckvalve.png)，原始manifest含producer及SHA。
 
 未完成與限制：最後版本CI、正式合併與Pages公開驗證仍待；未測實體手機、Safari及觸控；不是全部113場景／275供電圖人工逐看。
+
+## 發布候選實測
+
+07e42085完整原生40105444391共27jobs成功；常規40105444375全部必要工作成功。完整第8節自檢、場景110/113相同與三組差異的真實限制詳首卡追加段。下一步純刪臨時workflow並檢查最終head CI，非正式發布回執。

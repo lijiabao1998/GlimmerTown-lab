@@ -63,3 +63,21 @@
 - C2宣告遺漏artSourceSHA256欄位，嚴格source guard會拒絕；C3補上實際已凍結美術SHA d8a60ea1326244b8be9c34f990befed531886e0381670232b581fb9f7daaa2c2，原始fp／style不變。不是放寬guard。
 - 獨立review實看57張原始CI PNG，精確檔單及限制見independent-visual-review；五個其餘近景、20邊緣、日夜四向、三施工階段及rain。未見新穿模／裁切，雪與夜景解析度不支持全角度微細接縫保證，既有藍光柱保留。作者已實看五近景與日夜接觸表；所有13張交付圖維持CI原byte。
 - 最後head原生Chrome、常規CI、臨時workflow移除及正式整合／發布仍待，不計140座。
+
+## C3 完整驗收與第8節收工自檢（2026-10-24 UTC）
+
+發布候選07e420853872d1eaa9bd4d131a89f517847efd79，完整index 11,593,556bytes／SHA256 2da67e4b29c7ffcab10523b0897637a276adb28de5ce40816ba43ccfd0c329ea。
+
+- [x] 首卡dfe1e494先於模型，原凍結前綴SHA252a379c…保留；標準及歷史契約未放寬，C2遺漏來源pin已由真紅查明並修正。
+- [x] 真Chrome三種子31／71／103、九checkpoint、原生十款交易與bootstrap、完整舊檔來回；發布版獨立BASE僅三label，沒有state-field排除。scene真實14.60→14.61唯一writer遷移，兩次roundtrip其餘欄位全等，8組BASE／valve完整畫布全等，全部負控有首紅與恢復。
+- [x] 常規push40105444375：fp零差／smoke三連／fiscal-load成功。fp相對BASE新增40／變更0／移除0，觸及bld唯一家族，block1728／5ef6eb67不變，style逐族相同，沒有家族total下降或env變動。來源原始fp／style不手改。
+- [x] 原生run40105444391首次27／27jobs成功：86nativechecks／12negative、power160案例275PNG四實際物理供電態，供電與完整存檔／stats全等獨立BASE；traffic-phase與缺夜光真首紅仍存在。
+- [x] 每條新guard以真錯來源／label／metadata／幾何／原生錢款／像素／夜光／效能延遲負控驗過，沒有刪既有斷言。source-only本機檢查不冒充Chrome；遊戲只在CI跑。
+- [ ] 圖片產物全部存在且SHA核對，不等於全人工逐看。作者實看3接觸表、五近景、三張供電／斷路夜景，以及三組C1/C3場景差異原圖；獨立另看57張（詳獨立清單），日夜／冬雪／四旋轉／邊緣／施工／雨夜已抽看。補看C3 far-day／far-night、winter-bare-day-r1、spring-day-r2、autumn-night-r3、hover-rushfordlav；遠景只可見既有LOD色塊，不能算近景外觀驗收。未列的其他PNG沒有全部逐張人工審，依既有規則保留未跑，不假勾。
+- [x] 91 preview PNG全部逐byte等於C1；113 scene中110張相同，edge-alderjoinery-r0差104px、construction-middle差7px、construction-late差4743px。三組均實看，未見新裁切；既有stageGet使用performance.now幀烘焙額度，額度用完沿用前圖，施工未烘全表面可能不同。全部production除三label外等C1，記錄此限制，不把113張全等或全審寫成通過；守門的8完整畫布對拍全綠且不放寬。
+- [x] 40+40同runner1280×657桌機樣本，median BASE12.65ms／HEAD2.625ms、p90 BASE24.925ms／HEAD26.625ms，warm-draw新增幾何0，30樣本真延遲負控首紅／恢復；門檻未改。非真機手機，不能解讀為通用效能倍增。
+- [x] 沒有虛報：未測實體手機、Safari、觸控；未改全局夜色、密度或玩法；業主沒有新增逐張圖審聲明。
+
+原PNG可從[本PR目錄](../assets/GPT-042/)下載，13交付PNG與producer／artifact／SHA在manifest。此文件commit只記結果，後續另純刪分支workflow，再核最後head push/PR CI；尚未合併、main／自動Pages／公網Chrome未核，正式仍130座。
+
+遠景來源證據：z<0.5 的T107原生lodMini分支逐byte存在於獨立BASE與本head，SHA256 2914f238b94fe0164f5cc7fb442ffb7228c6d5bc76fd8829c6e8293fca17270e；刻意退化2~4px色塊及夜窗，沒有修改此系統。遠景圖只驗既有LOD保留，不冒稱十款遠景可辨識。
