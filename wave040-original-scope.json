@@ -1,0 +1,171 @@
+{
+  "schema": "GPT-040.original-wave12-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "e06c928edb588af51b969fed55073dfb2e040965",
+  "branch": "gpt/british-wave12-040",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      600,
+      639
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "asterpost",
+      "nm": "紫菀村郵亭",
+      "en": "Asterwick Post House",
+      "v": 600,
+      "shape": "splayed-five-sided-porch-bellcast-jerkinhead-asymmetric-roof",
+      "design": "五邊退縮郵亭、折簷截角主頂、偏置低山牆與高雙煙囪；斜角成組窄窗",
+      "distinctionFromPublished110": "蕨庭閱覽屋採L形交叉山牆，本款五邊前廳與折簷截角單主頂",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "barleybake",
+      "nm": "麥谷烘焙坊",
+      "en": "Barleycombe Bakehouse",
+      "v": 604,
+      "shape": "two-low-beehive-oven-domes-short-half-hip-bakery",
+      "design": "兩座低蜂巢烤爐量體、短半歇山烘焙屋與長遮雨簷；圓拱店窗",
+      "distinctionFromPublished110": "格拉德斯通為高瓶窯工場，本款兩低穹爐與短店屋、非瓶窯複製",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "honeygrocer",
+      "nm": "蜜溪街角雜貨屋",
+      "en": "Honeybrook Corner Stores",
+      "v": 608,
+      "shape": "quarter-sector-shop-front-radial-hip-stepped-rear-wing",
+      "design": "四分圓街角店面、放射扇頂、階梯後翼與平挑店簷；弧面分格櫥窗",
+      "distinctionFromPublished110": "既有流線泳場為長弧體，本款小扇形角店與明確矩形後翼",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "foxengine",
+      "nm": "狐澤消防亭",
+      "en": "Foxmere Engine Lodge",
+      "v": 612,
+      "shape": "two-engine-bay-gables-open-square-hose-frame",
+      "design": "雙高山牆車庫量體、開放方木架乾管塔與單坡側房；兩個寬半圓車庫窗",
+      "distinctionFromPublished110": "不複製既有消防屋；本款並列尖山牆與真正通透的木架塔",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "mallowsew",
+      "nm": "錦葵裁縫屋",
+      "en": "Mallowridge Sewing Rooms",
+      "v": 616,
+      "shape": "chamfered-mansard-workroom-glazed-wedge-stair",
+      "design": "削角單量體複折四坡頂、楔形玻璃樓梯間與三小坡頂老虎窗；階梯菱格窗",
+      "distinctionFromPublished110": "山楂織屋有架空橋，本款落地削角作坊，無橋與穿院替換",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "dewbankwash",
+      "nm": "露岸洗衣房",
+      "en": "Dewbank Wash House",
+      "v": 620,
+      "shape": "four-low-parallel-barrel-vaults-brick-spine-court",
+      "design": "四段低平行圓筒拱頂、窄磚脊與開放石院；四圓拱窗和洗槽展示",
+      "distinctionFromPublished110": "芬澤為單高倒船底頂，本款四個低圓拱並列與低長屋",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "cloverseed",
+      "nm": "苜蓿種籽屋",
+      "en": "Cloverfold Seed Exchange",
+      "v": 624,
+      "shape": "U-shaped-open-timber-stalls-stepped-gable-store",
+      "design": "U形開放木攤廊、後方三級山牆庫房與低棚頂；方格高窗與攤口",
+      "distinctionFromPublished110": "石褶為三角折板拱廊，本款U形低木廊及階梯後倉",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "thistlenursery",
+      "nm": "薊谷育苗舍",
+      "en": "Thistledene Nursery",
+      "v": 628,
+      "shape": "octagonal-clerestory-pyramid-two-unequal-apsidal-wings",
+      "design": "八角高側窗育苗室、四坡分片尖頂與兩個不等半圓翼；扇形高窗",
+      "distinctionFromPublished110": "銅溪為雙六角玻璃尖館，本款中央八角實牆與不等半圓低翼",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "brooktools",
+      "nm": "溪坳工具借用屋",
+      "en": "Brookhollow Tool Library",
+      "v": 632,
+      "shape": "dog-leg-three-level-skillion-timber-tool-shed",
+      "design": "折轉狗腿三段木石量體、三層錯落單坡頂與外置矮工具罩；長短排窗",
+      "distinctionFromPublished110": "柳澤為V形蝴蝶谷頂，本款折轉Z形階梯單坡，沒有谷頂",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "hazeldairy",
+      "nm": "榛十字乳品坊",
+      "en": "Hazelcross Dairy Parlour",
+      "v": 636,
+      "shape": "T-plan-hipped-dairy-two-squat-tank-domes-canted-cold-room",
+      "design": "低T形乳品展示坊、平脊四坡瓦頂、兩低圓頂罐體及斜角冷室；通風圓窗",
+      "distinctionFromPublished110": "鴉木為高T形截角會館，本款低平四坡、雙低罐與斜角附房",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "completeTen": true,
+    "fourWorldRotations": true,
+    "sameArt634Style": true,
+    "nativeOpaqueWindowPowerSemantics": true,
+    "strictFullFrameValveAndBaselinePairs": true,
+    "sameSeedSaveUndoFiscal": true,
+    "sourceBindingStripExact": true,
+    "old110AndOtherFamiliesUnchanged": true,
+    "negativeControlsPreserved": true,
+    "gameContextPreviewsRequired": true,
+    "visualReviewBeforePublication": true,
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "candidate": "ef426eab27b24c6a9d173e2791794e1e7aed1940",
+  "releaseHead": "78efea58bde8afa598b2588fd61754af6123585c",
+  "artifact": 12559584482,
+  "inventoryExact": true,
+  "byteIdenticalPNGs": [
+    {
+      "file": "mallowsew-r2-day.png",
+      "sha256": "7d9044097a725761cd87f087d7166c6f29c99cab5577c761f4987577a7224776"
+    },
+    {
+      "file": "barleybake-r2-night.png",
+      "sha256": "0d4a1bef05443f738df28cce1e125788456bac765592f023be0c5dff103b824c"
+    },
+    {
+      "file": "brooktools-r2-night.png",
+      "sha256": "40b777d57d22c68bd98005ae7385efc0ed36353e62b843b999da7dd553c906e5"
+    },
+    {
+      "file": "thistlenursery-r0-night.png",
+      "sha256": "a82de461698a4ecda608e4df7aaedbff3a1b54f5619b991a99cb43912b73c13e"
+    },
+    {
+      "file": "brooktools-r0-night.png",
+      "sha256": "f18efea43c4084930697bdeac9831b01e322b1669da747b442d33cbff753b1f5"
+    },
+    {
+      "file": "hazeldairy-r0-day.png",
+      "sha256": "32ae0767b6ef0d73f521fe41c57dafb7030db0e98507691b1d0d6e9f972c2a71"
+    },
+    {
+      "file": "foxengine-r0-night.png",
+      "sha256": "fccedac878f90b9f6478372225b6feee242e83106d2412daef98029590493608"
+    },
+    {
+      "file": "foxengine-r3-day.png",
+      "sha256": "eaabec0424c1b0fe8512ae6d1fae6a04fdf274108899e69f0434f3f87234bd87"
+    },
+    {
+      "file": "thistlenursery-r0-day.png",
+      "sha256": "eed1713c2643b6b5ed6cefc586c81112e000a726316a1cd9192e9d89fcc4837f"
+    },
+    {
+      "file": "cloverseed-r1-night.png",
+      "sha256": "ec17b1b89b1b5e131265d13376291e3dc533febca1b4e5c08ec5633b826cbd2f"
+    },
+    {
+      "file": "thistlenursery-r1-night.png",
+      "sha256": "ce4a93e92dc8af1767d7c60f84b8fe26ae42e42d491471f2821c8dd4f1dbe32b"
+    },
+    {
+      "file": "native-day-r3.png",
+      "sha256": "4e270ae500dd5e87e3d6d9e506aca09f0630045f5624200c9fb271c0d9b78823"
+    },
+    {
+      "file": "hazeldairy-r2-night.png",
+      "sha256": "bea3d09f4a1f83351b87f73853fa76fd0613c72feb7d9cf8719d4a3b0a3f8ab0"
+    },
+    {
+      "file": "hazeldairy-r0-night.png",
+      "sha256": "d3eb38a6b72c414d89c70cc94f6ac6d4c990ea5dc836c6b948d34d1b8f35d4d1"
+    },
+    {
+      "file": "brooktools-r2-day.png",
+      "sha256": "c515bbb147058516e52c22e3ffb086ba05efd19866b2402976bb779ce2600f22"
+    },
+    {
+      "file": "barleybake-r3-day.png",
+      "sha256": "f5ad85e53aa8b4d052e172bb2dbf912ce79fe02a3bae6e43323602e2576c8647"
+    },
+    {
+      "file": "foxengine-r2-day.png",
+      "sha256": "7645c68b868b134de5567ae06d2752ff76e19f79d2c73b9bf5de1ba35dfa5e4d"
+    },
+    {
+      "file": "barleybake-r0-night.png",
+      "sha256": "04ada76e15c20a785c2da592c41cd6c5dc5b61e6f16359d108e1caa017967923"
+    },
+    {
+      "file": "asterpost-r1-night.png",
+      "sha256": "af161d913307c5a9c06fbd6cf0035fd79821ec4f8d43c23ec57ce1e2f59bdfac"
+    },
+    {
+      "file": "cloverseed-r2-night.png",
+      "sha256": "9208cb98476f13bd0e2fb425afdc6348f2633071a948c606a00e9baadb016d31"
+    },
+    {
+      "file": "honeygrocer-r3-day.png",
+      "sha256": "24781f64a3d88daaf56684f51563f685c14040aa446feafaa7dd9224ea404f8c"
+    },
+    {
+      "file": "asterpost-r0-day.png",
+      "sha256": "5e96e282b99a03e6b6219109a395f05d328409e44e6e88dae505014262bf1e9c"
+    },
+    {
+      "file": "dewbankwash-r2-night.png",
+      "sha256": "2bde07ae2ab559d3d81292b1f252c66e2d0632ae89c33d435e4e4b820881d0a1"
+    },
+    {
+      "file": "cloverseed-r3-day.png",
+      "sha256": "79221f373bf04c37f8210f5a529a98350a891e4f525f65d09cecf3f729c1ddb0"
+    },
+    {
+      "file": "brooktools-r1-night.png",
+      "sha256": "a2c7e5f39075c107d6ead1d05182f293e2c4bb8ab8cd99069b85c2827f9a30b5"
+    },
+    {
+      "file": "dewbankwash-r1-night.png",
+      "sha256": "b318626d3e6f7e9f25f3656d3f9e0163ed44c0e59a752cf8e437b16ea474a577"
+    },
+    {
+      "file": "honeygrocer-r0-day.png",
+      "sha256": "19f102909d3ac8db312b19dc6535889f0b9a8c86106dc719b41ce6e2e2847292"
+    },
+    {
+      "file": "thistlenursery-r2-day.png",
+      "sha256": "0c1cd83ca2bf193dcce2f09d9dc043c00de658d88454acc5564dc43fff1b5324"
+    },
+    {
+      "file": "thistlenursery-r3-day.png",
+      "sha256": "a4c190a32a07447ef8ed28421f5a7d0caead59d23cbc7fe72c0cc0e6ddaca7b5"
+    },
+    {
+      "file": "dewbankwash-r1-day.png",
+      "sha256": "bab3271bcb0308170740b97e2aee6708ff2a1cbfde2aca924acd88eaad24ba23"
+    },
+    {
+      "file": "dewbankwash-r0-day.png",
+      "sha256": "55b4f7de6c446acab56eb0a6841f12be7d0fc31c76f4a4d41cbadf0add10c4db"
+    },
+    {
+      "file": "contact-comparison.png",
+      "sha256": "cfbd6cfda8a4646bf30dc4324fb90d37133ec55c52dfb1ba877197a47416b3ef"
+    },
+    {
+      "file": "brooktools-r3-night.png",
+      "sha256": "b3d61b6999566869fdcaabf1d5333ff1f20284f1035231899542c23b839199c4"
+    },
+    {
+      "file": "hazeldairy-r3-day.png",
+      "sha256": "6c75e36208455005a46189f815da0d069f42ecd8589da7e4e8db59878fcf7c1c"
+    },
+    {
+      "file": "cloverseed-r0-day.png",
+      "sha256": "1f01fe2e7907574e1b91e2e1698fedecc8c34928f4a0de1a49bf75e9b4fd2c80"
+    },
+    {
+      "file": "hazeldairy-r1-day.png",
+      "sha256": "e59898c2829fdd8972b9b6bbf475c5f0735d0ffa71dfb741da49cb8acf88960d"
+    },
+    {
+      "file": "brooktools-r3-day.png",
+      "sha256": "0e17ba56029244193527b9b0aa93e5c0f60c92468ac1e9687b5bf1081269e078"
+    },
+    {
+      "file": "dewbankwash-r2-day.png",
+      "sha256": "6709eb421b40832c55c56b7ee3d26f441275574b600df635e1f9813b1185b502"
+    },
+    {
+      "file": "native-night-r0.png",
+      "sha256": "eca708f2fc7834feac5952164ff0ae84e8e470bd4445738dbc1f4abc3c23e3d2"
+    },
+    {
+      "file": "dewbankwash-r3-night.png",
+      "sha256": "727904502aac7509ecb5d8af0b6916a72ea1e6b3496b458bde8f2b4d1997bab0"
+    },
+    {
+      "file": "honeygrocer-r2-day.png",
+      "sha256": "075b02707304b569d42481b3241a6139ac1b22e146850bd12911c351486689bd"
+    },
+    {
+      "file": "hazeldairy-r1-night.png",
+      "sha256": "bc3916e293940c90076bfd8306b960f7b2b33acd38ed60aa7aefc0e94b43bfa3"
+    },
+    {
+      "file": "asterpost-r2-day.png",
+      "sha256": "c641e5b2e6558405494ccdef714df9ba152028725ff1378873d29cd02dd0bc2e"
+    },
+    {
+      "file": "native-night-r1.png",
+      "sha256": "e69a4f857fe5ec804c4d78b151375a1f24800eedae9e47c87e6785e7c5b6b4e2"
+    },
+    {
+      "file": "contact-day.png",
+      "sha256": "c5ea768c395ce7430f8cd04b8bcffb781db8890f668ec0c9201741feb3932192"
+    },
+    {
+      "file": "barleybake-r0-day.png",
+      "sha256": "bd40a45031cd7112cf6ff6d356ef8a4864244b0a0d289ece4798fb5b543c7ad0"
+    },
+    {
+      "file": "brooktools-r0-day.png",
+      "sha256": "b5f071f8d3994322fb26a5bd95701d60f976570764451fd5232c3fa4d5c7310f"
+    },
+    {
+      "file": "barleybake-r1-night.png",
+      "sha256": "8131e064240072278af0993758394ec2e92c23c205dc6367890cc6a5af101115"
+    },
+    {
+      "file": "hazeldairy-r3-night.png",
+      "sha256": "fc56b5e91fa0d32022bb269a3edf066c126cac31952346e4902a9bd375988847"
+    },
+    {
+      "file": "native-day-r1.png",
+      "sha256": "b1e9b7a242ea8d28d9fc198ae0a5a8fafa3bc7083abcdd3661b5089aea5ce636"
+    },
+    {
+      "file": "mallowsew-r3-night.png",
+      "sha256": "eeec4b1c1bd3ba6e9e0d07d71022bd6a5cc8a8b82703a9185ff1e5701a4d0050"
+    },
+    {
+      "file": "mallowsew-r2-night.png",
+      "sha256": "98f73d8e75a368aaf5847d8ce707bb2bf6f102ddf3a76d17a5d692c82fd02cc1"
+    },
+    {
+      "file": "asterpost-r1-day.png",
+      "sha256": "15eec43e336946ddc33f2b9a93eae83b699d6e7875872104e09e61ebdf3618f5"
+    },
+    {
+      "file": "cloverseed-r1-day.png",
+      "sha256": "a4c69a02710d1a5620187378bab2adb180e022d781938dfbfc84209ddaf699d0"
+    },
+    {
+      "file": "barleybake-r1-day.png",
+      "sha256": "0630af037e44ae40b936c49dae34e2922ddb7d32a6f3f53521a4c58c97b1df19"
+    },
+    {
+      "file": "honeygrocer-r1-day.png",
+      "sha256": "7ca80bdd71d762bdcc563f11cb82be0ce16fdd0fe2dcecba501f6fa032b40b0c"
+    },
+    {
+      "file": "cloverseed-r0-night.png",
+      "sha256": "6fb9c62b0d7b358ca810aef98707276b60244c9333aeefa08133cac2f89aebcf"
+    },
+    {
+      "file": "barleybake-r3-night.png",
+      "sha256": "353444cdef997201f38ffdc5dc735e5b54ca00bccf554c8652fa765611f494b6"
+    },
+    {
+      "file": "foxengine-r2-night.png",
+      "sha256": "3e40d9c632c3e347b1a7faf02e6fb2a033fd6a3439cab633543aba4a748c7429"
+    },
+    {
+      "file": "honeygrocer-r0-night.png",
+      "sha256": "36e3566875a9106e50c9b0633cc8903456a4564c23e78b9b53d68dc5a0e03b55"
+    },
+    {
+      "file": "thistlenursery-r1-day.png",
+      "sha256": "62569160572d5cb42011db4070d8042a434245b799b4068e812b617ba6306e0e"
+    },
+    {
+      "file": "mallowsew-r3-day.png",
+      "sha256": "68ca1022ea67592b12825e9a6bbfddb30cfdaf418a58b57379744b35a0f4c5e1"
+    },
+    {
+      "file": "mallowsew-r0-night.png",
+      "sha256": "4327cb6d63fb6cd25ed2b7e3f0d274c286702c782fff8765609eb59051f688c2"
+    },
+    {
+      "file": "foxengine-r0-day.png",
+      "sha256": "9ba40a254a47634acd92fb62a2aa278a531deb1bf48997c657418aef6d523951"
+    },
+    {
+      "file": "foxengine-r1-night.png",
+      "sha256": "ceb2a38a308ff637c0b3d9b1821e01274513c87f17be837f8bd086a0d5835515"
+    },
+    {
+      "file": "dewbankwash-r0-night.png",
+      "sha256": "5515d456fe3b80800476cf23fd71f0598ee871891b9406a0d82932bfc025c635"
+    },
+    {
+      "file": "cloverseed-r3-night.png",
+      "sha256": "f2a4c6c989e04eea982cfec6d139a26a072a79cd5acb615e8ef990ac912596bb"
+    },
+    {
+      "file": "dewbankwash-r3-day.png",
+      "sha256": "5212556ce79459337d39c681c04114891711af431f0383d9a7f0b05d713735cf"
+    },
+    {
+      "file": "mallowsew-r1-day.png",
+      "sha256": "503b9262ef9cfe36c6982a111798d8b7299de47d7b0e978b079d7af1162adb68"
+    },
+    {
+      "file": "mallowsew-r1-night.png",
+      "sha256": "2dabff72daebecda9fb3d504b2dbd5369afb83fb6234b425880d855964948529"
+    },
+    {
+      "file": "thistlenursery-r3-night.png",
+      "sha256": "369404fcc9773f15ab779802a3e4d7a4697f3762bf49274443512bdf76dc4f1d"
+    },
+    {
+      "file": "native-night-r2.png",
+      "sha256": "0cab077b76469f8e779e817e1b19ad1964b5d38901a45d2a6258721d2401a1e4"
+    },
+    {
+      "file": "cloverseed-r2-day.png",
+      "sha256": "a166e71544cc0b7d123079f64d4aa96dbf75a68fcca183928a3fa1d9351797c7"
+    },
+    {
+      "file": "foxengine-r1-day.png",
+      "sha256": "ff109e5c55057f944f84d663d14e84b6bc9071b67300d4938d28b7051ac6ff91"
+    },
+    {
+      "file": "brooktools-r1-day.png",
+      "sha256": "bdcb112b87ce460dfb5b9d6ce76f9fcd24c5b80d517773d882e62ea6715bdc3c"
+    },
+    {
+      "file": "asterpost-r0-night.png",
+      "sha256": "b54b0d9cc86d2c7794b810d297d6397eb835295a904630b9e531720eacdf2470"
+    },
+    {
+      "file": "thistlenursery-r2-night.png",
+      "sha256": "434b909ac09056409a01b9ca822261a0b73a438b42113155e35214adfe28c043"
+    },
+    {
+      "file": "native-day-r0.png",
+      "sha256": "967790d2c110d8774e674ba4bf18303cc217c1fff884da3834e1c61ddca8047c"
+    },
+    {
+      "file": "honeygrocer-r2-night.png",
+      "sha256": "028164a18911d41539675fb3a799dd72b11a661b3373c2be946fa9ab792d3910"
+    },
+    {
+      "file": "mallowsew-r0-day.png",
+      "sha256": "4475b348fd88310cee524040b8a896932e20bdf7fe38b0f73cdf74363ba3c56d"
+    },
+    {
+      "file": "honeygrocer-r1-night.png",
+      "sha256": "6567726c60154ccbc4f36ce2c1f8cf308269b30dfb55fbba5814ddffc1d11079"
+    },
+    {
+      "file": "asterpost-r2-night.png",
+      "sha256": "92003c70f21d61084f3ee0ff604beae2cecd5c5c18740d98bb4a8e18a4a87718"
+    },
+    {
+      "file": "barleybake-r2-day.png",
+      "sha256": "d609c31d5bf3f7c4bc79909e144cbdfbe83e1cd9ca99ca528de10d1720568aff"
+    },
+    {
+      "file": "native-night-r3.png",
+      "sha256": "6fc619be73da3086e14a350d92abc3b8997352e02097ad28586976fb2eb3cf97"
+    },
+    {
+      "file": "asterpost-r3-night.png",
+      "sha256": "8ca91c429c974455860d0ab8b677c9855e1c316bc3add5a90e89317d5704fcfe"
+    },
+    {
+      "file": "foxengine-r3-night.png",
+      "sha256": "431cf72310074cce0dfa9ebf2096a02e2749c651af1ed9959f094fdbf1617846"
+    },
+    {
+      "file": "asterpost-r3-day.png",
+      "sha256": "5b236b0ec67b2fdc9f9b824ecabdad07945bd3918cf260158856268a29c9af3c"
+    },
+    {
+      "file": "contact-night.png",
+      "sha256": "22304443efd19261e304cb55a193bc7d865619761a2a11f2e9895d91da9712b5"
+    },
+    {
+      "file": "honeygrocer-r3-night.png",
+      "sha256": "5b893f4c4568b971394cb3bff54eb8c93e1faa68e0541a5fffb9042d46d4835b"
+    },
+    {
+      "file": "hazeldairy-r2-day.png",
+      "sha256": "fc736f1629f9b34599ca79c7807b490001421b1d5c8658d616240c8ce448a56a"
+    },
+    {
+      "file": "native-day-r2.png",
+      "sha256": "fee8a216f8d035510080b3ecc2a9c7256e510c0941fbf08a88a8941713a23ee8"
+    }
+  ],
+  "count": 91
+}

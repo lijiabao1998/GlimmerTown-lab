@@ -1,0 +1,473 @@
+{
+  "head": "78efea58bde8afa598b2588fd61754af6123585c",
+  "indexSHA256": "cb3bc90bcd55c9b5e65d7389d954eaebb22d21c9eba6fff5bfea72292fdba884",
+  "nativeChecks": {
+    "ok": true,
+    "checks": [
+      "wave040 count and unique identity ✓",
+      "wave040 ten distinct structural silhouettes without shared paving ✓",
+      "wave040 native geometry 24_1_600 ✓",
+      "wave040 native geometry 24_1_601 ✓",
+      "wave040 native geometry 24_1_602 ✓",
+      "wave040 native geometry 24_1_603 ✓",
+      "wave040 native geometry 24_1_604 ✓",
+      "wave040 native geometry 24_1_605 ✓",
+      "wave040 native geometry 24_1_606 ✓",
+      "wave040 native geometry 24_1_607 ✓",
+      "wave040 native geometry 24_1_608 ✓",
+      "wave040 native geometry 24_1_609 ✓",
+      "wave040 native geometry 24_1_610 ✓",
+      "wave040 native geometry 24_1_611 ✓",
+      "wave040 native geometry 24_1_612 ✓",
+      "wave040 native geometry 24_1_613 ✓",
+      "wave040 native geometry 24_1_614 ✓",
+      "wave040 native geometry 24_1_615 ✓",
+      "wave040 native geometry 24_1_616 ✓",
+      "wave040 native geometry 24_1_617 ✓",
+      "wave040 native geometry 24_1_618 ✓",
+      "wave040 native geometry 24_1_619 ✓",
+      "wave040 native geometry 24_1_620 ✓",
+      "wave040 native geometry 24_1_621 ✓",
+      "wave040 native geometry 24_1_622 ✓",
+      "wave040 native geometry 24_1_623 ✓",
+      "wave040 native geometry 24_1_624 ✓",
+      "wave040 native geometry 24_1_625 ✓",
+      "wave040 native geometry 24_1_626 ✓",
+      "wave040 native geometry 24_1_627 ✓",
+      "wave040 native geometry 24_1_628 ✓",
+      "wave040 native geometry 24_1_629 ✓",
+      "wave040 native geometry 24_1_630 ✓",
+      "wave040 native geometry 24_1_631 ✓",
+      "wave040 native geometry 24_1_632 ✓",
+      "wave040 native geometry 24_1_633 ✓",
+      "wave040 native geometry 24_1_634 ✓",
+      "wave040 native geometry 24_1_635 ✓",
+      "wave040 native geometry 24_1_636 ✓",
+      "wave040 native geometry 24_1_637 ✓",
+      "wave040 native geometry 24_1_638 ✓",
+      "wave040 native geometry 24_1_639 ✓",
+      "wave040 opaque physical night ✓",
+      "wave040 hard pixels ✓",
+      "wave040 uncropped nonempty day and night ✓",
+      "wave040 actual rotation asterpost/0 ✓",
+      "wave040 actual rotation asterpost/1 ✓",
+      "wave040 actual rotation asterpost/2 ✓",
+      "wave040 actual rotation asterpost/3 ✓",
+      "wave040 actual rotation barleybake/0 ✓",
+      "wave040 actual rotation barleybake/1 ✓",
+      "wave040 actual rotation barleybake/2 ✓",
+      "wave040 actual rotation barleybake/3 ✓",
+      "wave040 actual rotation honeygrocer/0 ✓",
+      "wave040 actual rotation honeygrocer/1 ✓",
+      "wave040 actual rotation honeygrocer/2 ✓",
+      "wave040 actual rotation honeygrocer/3 ✓",
+      "wave040 actual rotation foxengine/0 ✓",
+      "wave040 actual rotation foxengine/1 ✓",
+      "wave040 actual rotation foxengine/2 ✓",
+      "wave040 actual rotation foxengine/3 ✓",
+      "wave040 actual rotation mallowsew/0 ✓",
+      "wave040 actual rotation mallowsew/1 ✓",
+      "wave040 actual rotation mallowsew/2 ✓",
+      "wave040 actual rotation mallowsew/3 ✓",
+      "wave040 actual rotation dewbankwash/0 ✓",
+      "wave040 actual rotation dewbankwash/1 ✓",
+      "wave040 actual rotation dewbankwash/2 ✓",
+      "wave040 actual rotation dewbankwash/3 ✓",
+      "wave040 actual rotation cloverseed/0 ✓",
+      "wave040 actual rotation cloverseed/1 ✓",
+      "wave040 actual rotation cloverseed/2 ✓",
+      "wave040 actual rotation cloverseed/3 ✓",
+      "wave040 actual rotation thistlenursery/0 ✓",
+      "wave040 actual rotation thistlenursery/1 ✓",
+      "wave040 actual rotation thistlenursery/2 ✓",
+      "wave040 actual rotation thistlenursery/3 ✓",
+      "wave040 actual rotation brooktools/0 ✓",
+      "wave040 actual rotation brooktools/1 ✓",
+      "wave040 actual rotation brooktools/2 ✓",
+      "wave040 actual rotation brooktools/3 ✓",
+      "wave040 actual rotation hazeldairy/0 ✓",
+      "wave040 actual rotation hazeldairy/1 ✓",
+      "wave040 actual rotation hazeldairy/2 ✓",
+      "wave040 actual rotation hazeldairy/3 ✓",
+      "wave040 installed pixels equal independent direct geometry ✓"
+    ],
+    "pixels": {
+      "semi": 0,
+      "leak": 0,
+      "crop": 0,
+      "empty": 0,
+      "mismatch": 0
+    }
+  },
+  "negativeControls": [
+    {
+      "name": "missing installed leaf",
+      "first": "wave040 count and unique identity ✗"
+    },
+    {
+      "name": "wrong native dimensions",
+      "first": "wave040 native geometry 24_1_600 ✗"
+    },
+    {
+      "name": "night light on transparent sky",
+      "first": "wave040 opaque physical night ✗"
+    },
+    {
+      "name": "soft native day pixel",
+      "first": "wave040 hard pixels ✗"
+    },
+    {
+      "name": "native canvas crop",
+      "first": "wave040 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "different names but duplicate geometry",
+      "first": "wave040 ten distinct structural silhouettes without shared paving ✗"
+    },
+    {
+      "name": "installed clone with distinct authors",
+      "first": "wave040 installed pixels equal independent direct geometry ✗"
+    },
+    {
+      "name": "empty native day and night",
+      "first": "wave040 uncropped nonempty day and night ✗"
+    },
+    {
+      "name": "valid live source overcharges one native dollar",
+      "first": "wave040 fee 2001 expected 2000"
+    },
+    {
+      "name": "valid live redo API fails to restore new appearance",
+      "first": "wave040 new appearance redo, identity and fee"
+    },
+    {
+      "name": "valid HTML mutates original source outside declared bounds",
+      "first": "wave040 existing native model and original rendering source byte-identical except exact declared release metadata",
+      "restoredGreen": true
+    },
+    {
+      "name": "valid source freezes private camera selector",
+      "first": "wave040 actual rotation asterpost/1 ✗"
+    }
+  ],
+  "pairedSeeds": [
+    {
+      "seed": 31,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 71,
+      "spent": 2000,
+      "equal": true
+    },
+    {
+      "seed": 103,
+      "spent": 2000,
+      "equal": true
+    }
+  ],
+  "paidPlacements": [
+    {
+      "x": 7,
+      "y": 4,
+      "id": "asterpost",
+      "v": 600,
+      "spent": 2000
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "id": "barleybake",
+      "v": 604,
+      "spent": 2000
+    },
+    {
+      "x": 13,
+      "y": 4,
+      "id": "honeygrocer",
+      "v": 608,
+      "spent": 2000
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "id": "foxengine",
+      "v": 612,
+      "spent": 2000
+    },
+    {
+      "x": 19,
+      "y": 4,
+      "id": "mallowsew",
+      "v": 616,
+      "spent": 2000
+    },
+    {
+      "x": 22,
+      "y": 4,
+      "id": "dewbankwash",
+      "v": 620,
+      "spent": 2000
+    },
+    {
+      "x": 25,
+      "y": 4,
+      "id": "cloverseed",
+      "v": 624,
+      "spent": 2000
+    },
+    {
+      "x": 28,
+      "y": 4,
+      "id": "thistlenursery",
+      "v": 628,
+      "spent": 2000
+    },
+    {
+      "x": 31,
+      "y": 4,
+      "id": "brooktools",
+      "v": 632,
+      "spent": 2000
+    },
+    {
+      "x": 34,
+      "y": 4,
+      "id": "hazeldairy",
+      "v": 636,
+      "spent": 2000
+    }
+  ],
+  "nativeTransactions": {
+    "id": "hazeldairy",
+    "v": 636,
+    "undo": true,
+    "redo": true,
+    "refund": 2000,
+    "refDemolition": true,
+    "undoRefDemolition": true,
+    "allTenForms": true
+  },
+  "power": {
+    "cases": 160,
+    "images": 275,
+    "completeStateComparisons": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "negative": {
+      "first": "night040 powered window pixels visible asterpost view0",
+      "newKey": "24_1_600",
+      "actualNightRemoved": true,
+      "restoredExact": true
+    },
+    "trafficNegative": {
+      "first": "night040 single new night key restoration exact 24_1_612",
+      "requestedNormalPhase": 0,
+      "requestedFaultPhase": 2.7,
+      "actualBefore": [
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        }
+      ],
+      "actualFault": [
+        {
+          "requestedClock": 2.7,
+          "capturedClock": 2.716,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 0
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 2.7,
+          "capturedClock": 2.716,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 0
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 2.7,
+          "capturedClock": 2.716,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 0
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 2.7,
+          "capturedClock": 2.716,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 0
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        }
+      ],
+      "actualRestored": [
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        },
+        {
+          "requestedClock": 0,
+          "capturedClock": 0.016,
+          "signals": [
+            {
+              "x": 7,
+              "y": 14,
+              "manual": false,
+              "seed": 231,
+              "phase": 1
+            }
+          ],
+          "counterBefore": 0.016599999999998546,
+          "counterRestored": 0.016599999999998546
+        }
+      ],
+      "changedRGBPixels": 226,
+      "differenceBox": [
+        391,
+        308,
+        402,
+        332
+      ],
+      "maximumChannelDelta": 173,
+      "restoredExact": true,
+      "spriteReferencesUnchanged": true,
+      "counterRestored": true,
+      "completeSaveUnchanged": true,
+      "beforeSaveSHA256": "15116ae132535b8a75304008b3fd32b77f4292f04b2c104a4b01d4d409bcda9d",
+      "afterSaveSHA256": "15116ae132535b8a75304008b3fd32b77f4292f04b2c104a4b01d4d409bcda9d"
+    }
+  }
+}

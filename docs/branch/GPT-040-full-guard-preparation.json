@@ -1,0 +1,98 @@
+{
+  "schema": "GPT-040.full-guard-preparation.v1",
+  "base": "e06c928edb588af51b969fed55073dfb2e040965",
+  "scope": "Full prior acceptance retargeted to the newly frozen original ten; previous guards unchanged",
+  "fullGuardPreparedSources": [
+    {
+      "template": "previewWave039.cjs",
+      "templateSHA256": "c286a19536a5d2a369be784f600129f9693b6479f50ad0c2f215a125598b0917",
+      "file": "previewWave040.cjs",
+      "expectedSHA256": "b4377609f53094b210139b351c008c2e0c51ef92ae8b2063015e33a65ee1660c",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "probeBritishWave039.cjs",
+      "templateSHA256": "23067daf3d162508d00dc7d984044905d9dd230e21dd6139876b1c62b882d576",
+      "file": "probeBritishWave040.cjs",
+      "expectedSHA256": "cc1d07de9518b57fccb29c8648b3c59f387c6554576eb25407a972991bed66dc",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "probeNativePairs039.cjs",
+      "templateSHA256": "0f3cef463bf388247396410538d2337f2300c18a0986ee9bb8a7f6876324317a",
+      "file": "probeNativePairs040.cjs",
+      "expectedSHA256": "933ef915a8719b539704dca481a19dc239812cda0ddcbbff1329bcac6fbcb109",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "probePedestrians039.cjs",
+      "templateSHA256": "0990368701f95359b23ef0e9f1f132961de03d24ebc2372152044543a492a5c2",
+      "file": "probePedestrians040.cjs",
+      "expectedSHA256": "9af0090ef3b7ac086be8c557b9ef24d55c0d650e1c23534248235eff4eb1500e",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "probePerformance039.cjs",
+      "templateSHA256": "5991c72172563452bdbc5e6e48138b5988911b616248f374bee49f8843099ede",
+      "file": "probePerformance040.cjs",
+      "expectedSHA256": "11e736092e0620fddf56b3e0b15730d3a914e24ca19c41b1b644a3a4a9ac5f31",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "probeScenes039.cjs",
+      "templateSHA256": "039324c3eddbd2646a4711b13f3ad559ef6ad32222828efbc6995cd568d102ec",
+      "file": "probeScenes040.cjs",
+      "expectedSHA256": "929264d5858bc86d722da43b3af86e024866a0219e607242a3227d0ccc7bc9b8",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "nativeTenPower039.cjs",
+      "templateSHA256": "6bf04c4ababa04f9f3e7d8ee46e96415db161b9f3ea1b70b3dd5231bd567daab",
+      "file": "nativeTenPower040.cjs",
+      "expectedSHA256": "67b8c9d7ce9b87a590a665e643fbf502d2e936556e258346883c0173b120889c",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "probeTenPower039.cjs",
+      "templateSHA256": "387512db6f1be484a80dd29183fbf501e69eeb4d0687af69ae2f3fd2660872d0",
+      "file": "probeTenPower040.cjs",
+      "expectedSHA256": "dc9d2ba8169f55eb7e80d106bf0d05bcea378da75ab88536a9bdb428c4f0f052",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "wave039-traffic-phase-fixture.js",
+      "templateSHA256": "ee5bcfea4c701f9fbfe85d23e365b0a57d1c3117a91f1553df9d5007d2cd076f",
+      "file": "wave040-traffic-phase-fixture.js",
+      "expectedSHA256": "1fbe57178eb8d1ac788e461125c144a4d8de3ec8e67b856bf8fb56d269b6e31d",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "proveWave039Baseline.cjs",
+      "templateSHA256": "76ba193c2a65916bbfff95945999495d5cb08b515a2422680ffddbeee15f7d15",
+      "file": "proveWave040Baseline.cjs",
+      "expectedSHA256": "4394a441f0e15d753c4edf20b6f829ba180af8cc266b4a569bd2e045664919d2",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "transferWave039Source.cjs",
+      "templateSHA256": "b7f9721deaddcfb01c51b2572896613c72fe204ffbf81078b7f1759f91cb12ec",
+      "file": "transferWave040Source.cjs",
+      "expectedSHA256": "cd37c16327548f57b52d4959805266509297af0c7845dc84c68c22fbcc4cf0e3",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "transferWave039CloseScenes.cjs",
+      "templateSHA256": "dd6e8c4dff984b10a20889c0a1f2ecc966e85c4e3f336c57518e15a13ddac1f9",
+      "file": "transferWave040CloseScenes.cjs",
+      "expectedSHA256": "350e33a75aaf225d75c4a04b63546d49bf503a39c4fdd03f9566269aaca7a66f",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    },
+    {
+      "template": "transferWave039Evidence.cjs",
+      "templateSHA256": "b2b7ec1ce93a1454faf55ec78c82b232f83d8e6f4339ed685a770f239969d201",
+      "file": "transferWave040Evidence.cjs",
+      "expectedSHA256": "69d2b4f5cbd93f4e04ae09536e2bd163f9af1c4924d18edffe7c9ee2074b6b58",
+      "changes": "Only new namespace, exact current main/card/source pins, ten identities/slots and closest original comparisons; all game assertions, negative controls, full-save and pixel criteria retained; additionally checks old Wave11."
+    }
+  ]
+}
