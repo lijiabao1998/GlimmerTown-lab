@@ -66,11 +66,11 @@ jobs:
       - name: Native Chinese fonts
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Original-ten provenance and unchanged published sources
-        run: node checkWave042FullSources.cjs
+        run: node checkWave042ReleaseSources.cjs
       - name: Native catalog, paid transactions, save-load and first-RED controls
-        run: node probeBritishWave042.cjs
+        run: node probeBritishWaveRelease042.cjs
       - name: Complete ten-model native powered/off/restored matrix and strict phase controls
-        run: node probeTenPower042.cjs
+        run: node probeTenPowerRelease042.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -149,7 +149,7 @@ jobs:
       - name: Record independently placed scene coordinates
         run: node previewWave042.cjs
       - name: Exact old-save and whole-frame guard, seasons, edges and layers
-        run: node probeScenes042.cjs
+        run: node probeScenesRelease042.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -193,7 +193,7 @@ jobs:
       - name: Native Chinese fonts
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Independent BASE-HEAD same-seed complete native states
-        run: node probeNativePairs042.cjs
+        run: node probeNativePairsRelease042.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

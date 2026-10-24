@@ -55,3 +55,11 @@
 - 分支原生CI40104078357共27jobs成功，含native／power／scenes／pedestrians／performance。這不是最終head或發布成功；必要新head CI仍待跑。
 - 原始PNG已下載核manifest；作者實看day／night接觸表及五張近景（木作院、閥房、石匠棚、箍桶坊、儲冰舍），屋頂／牆接點與土岸未見明顯穿孔或裁切。獨立review已實看兩張接觸表；更多近景／場景仍在review。不冒稱業主已看圖或全PNG人工檢視。
 - 尚未做成：最後head零差CI、版本發布契約、全量審閱結論、正式PR／合併／Pages及公網複驗。正式仍13波130座。
+
+## C3 嚴格發布契約準備（尚未發布）
+
+- PR #53，T768／14.61／r215；最新main仍b867e887，最大T767。只三個精確版本label及日誌／方向兩文件插入。新checkWave042ReleaseSources／release-labels／metadata逐byte逆回C2，保留所有042候選與歷史守衛；不改原準則。
+- 042候選normal及scene刻意凍結14.60。新增獨立Release版本，正常配對只把獨立Git BASE三個精確label改到14.61後比較完整欄位；場景先真瀏覽器生成原BASE歷史檔，再在只改label的獨立BASE真載入產生預期，再與HEAD每欄全等。唯一明列legacy writer 14.60→14.61仍有錯label首紅，沒有刪欄或動態猜版本。
+- C2宣告遺漏artSourceSHA256欄位，嚴格source guard會拒絕；C3補上實際已凍結美術SHA d8a60ea1326244b8be9c34f990befed531886e0381670232b581fb9f7daaa2c2，原始fp／style不變。不是放寬guard。
+- 獨立review實看57張原始CI PNG，精確檔單及限制見independent-visual-review；五個其餘近景、20邊緣、日夜四向、三施工階段及rain。未見新穿模／裁切，雪與夜景解析度不支持全角度微細接縫保證，既有藍光柱保留。作者已實看五近景與日夜接觸表；所有13張交付圖維持CI原byte。
+- 最後head原生Chrome、常規CI、臨時workflow移除及正式整合／發布仍待，不計140座。
