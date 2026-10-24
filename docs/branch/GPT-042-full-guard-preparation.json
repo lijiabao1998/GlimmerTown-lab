@@ -1,0 +1,98 @@
+{
+  "schema": "GPT-042.full-guard-preparation.v1",
+  "base": "b867e8879267049c224aafc1ebb1044a5012e0ed",
+  "scope": "Complete inherited acceptance ported to original town-works ten; all prior guard sources immutable",
+  "fullGuardPreparedSources": [
+    {
+      "template": "previewWave041.cjs",
+      "templateSHA256": "618505f476ebafc79e57a97aae4241ed6f4d02df7f4a0a3b4a1a4c7688cb9f6e",
+      "file": "previewWave042.cjs",
+      "expectedSHA256": "404a1a57d53a9d1568f9dbf82f14d410380f960eff02d0b457e6e1a4932d82b5",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "probeBritishWave041.cjs",
+      "templateSHA256": "df2f64350de4359579f6ef4b0f29162c53e36dd87f471408c728ee60231d41f2",
+      "file": "probeBritishWave042.cjs",
+      "expectedSHA256": "1bcb2245edff4df26703fa4d36a6d3d98c26c78c2305a91ecb12905d440e3319",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "probeNativePairs041.cjs",
+      "templateSHA256": "ba5786fbd310f5767e6a6a37811a3b1ab17496ad519f788e81f6b57044870433",
+      "file": "probeNativePairs042.cjs",
+      "expectedSHA256": "9c18e8c6522135606403700fc37c8a42d3e11d34779f013998f9d07c4411731d",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract. Candidate tightened: exact14.60/T767 labels and no gameVer exclusion or state remapping; final release needs a separate exact pinned contract, not a dynamic HEAD-derived allowance."
+    },
+    {
+      "template": "probePedestrians041.cjs",
+      "templateSHA256": "cec0ea41a8f3fa7ac6052c97a1edcb47d712ddd2255f25b8abfdd7e1d4611bd6",
+      "file": "probePedestrians042.cjs",
+      "expectedSHA256": "a78507852fa00413692277096dc5f23e647f91aa7ba87a153fd9c747e3f35c25",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "probePerformance041.cjs",
+      "templateSHA256": "0f18c62626df507b03fa6ad9acabc9e6981315b27b711074fe4f5345e37085cb",
+      "file": "probePerformance042.cjs",
+      "expectedSHA256": "495e351fdcaf68e4b4addf2bfb9e93a55df4da8a074b607c4b24e356886c9ca1",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "probeScenes041.cjs",
+      "templateSHA256": "26c4cfa1356c6645a0f72c6c6071c005ebfff620e1db841d0f74d30eb74185cb",
+      "file": "probeScenes042.cjs",
+      "expectedSHA256": "fb9fda0a6171cf00d61a9a8e3b3bfefb4099202ffc4b714a87abcdd2ef3a1065",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract. Candidate tightened: exact14.60/T767 labels and no gameVer exclusion or state remapping; final release needs a separate exact pinned contract, not a dynamic HEAD-derived allowance."
+    },
+    {
+      "template": "nativeTenPower041.cjs",
+      "templateSHA256": "ac73480bdeeeb2e955f68e40404425bd8d879e7d071b3f66485c5d13a786047b",
+      "file": "nativeTenPower042.cjs",
+      "expectedSHA256": "d0091afe61168caec7dc58baea6a65f8639d9d00fd12570ded027023ee597e9f",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "probeTenPower041.cjs",
+      "templateSHA256": "23149a4f33a0aa2e72c96ffa3d622200cbb96bc81195170ef5cf774a5fd766d5",
+      "file": "probeTenPower042.cjs",
+      "expectedSHA256": "ca77547fb2c4aeadd495da543ec4a64d3c6659f706d4722e219eb799cfba5d48",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "wave041-traffic-phase-fixture.js",
+      "templateSHA256": "7f3fd19967b8000684474a0748e485e83c18c69a5beb2bd4e6c6462f8bd02a12",
+      "file": "wave042-traffic-phase-fixture.js",
+      "expectedSHA256": "6a8e56c428fa1c87d303de20af3126562d83ae697cbe4b9271ebb63aeabca296",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "proveWave041Baseline.cjs",
+      "templateSHA256": "04a6708f8d864b14f4b0d462bcdc63c2b554ffb56aecca9bef49117e149c9ca9",
+      "file": "proveWave042Baseline.cjs",
+      "expectedSHA256": "3d73878afd3eb3f581e51a130e905fb8399acd417fe557c6b3c51bc4e7924875",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "transferWave041Source.cjs",
+      "templateSHA256": "c7deeb81095e731cc0315333bd58f40e4c01dc44413bb205ff5e561ae48ea71a",
+      "file": "transferWave042Source.cjs",
+      "expectedSHA256": "a23542d51479e72520dfea1d921d1d4a0153865ae5be26fc7a8f78fd89caea6d",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "transferWave041CloseScenes.cjs",
+      "templateSHA256": "f7dca553a78a899e302d65b071439e1eb5611f6f5cc001151bb2dce115df668a",
+      "file": "transferWave042CloseScenes.cjs",
+      "expectedSHA256": "c41b7f886feb0d788207751e88cd3b73461513e4deff135775334f9e6c22f0b4",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    },
+    {
+      "template": "transferWave041Evidence.cjs",
+      "templateSHA256": "56062c7ed5973fb441acc01b206f6cf40791bbe58816e9ae0c3f1893d486bb9d",
+      "file": "transferWave042Evidence.cjs",
+      "expectedSHA256": "da318784ea2c3dded40fd9a836da918967748a5d76eee18e968e492a767ab0ed",
+      "changes": "New namespace, exact independent published BASE and first card, frozen ten identities680..719 and nearest existing comparisons. Original pixel, transaction, full-save, utility, phase, performance thresholds and real negatives retained. Added wave13 catalog/selftest regression. Candidate labels remain BASE; release requires separate exact versioned contract."
+    }
+  ]
+}
