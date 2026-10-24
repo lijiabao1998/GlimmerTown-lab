@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wave039-public-site-${{ github.sha }}-attempt-${{ github.run_attempt }}
-          path: shots/wave039/public-site/
+          path: shots/wave038/public-site/
           retention-days: 14
           if-no-files-found: error
   preview:

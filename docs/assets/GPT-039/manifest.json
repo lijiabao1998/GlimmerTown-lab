@@ -1,0 +1,45 @@
+{
+  "schema": "GPT-039.project-original-PNG-delivery.v1",
+  "images": [
+    {
+      "file": "native-day-r0.png",
+      "source": "preview/native-day-r0.png",
+      "label": "實際日間遊戲街景",
+      "bytes": 504636,
+      "sha256": "2cb09e7d939ddc446b15a6979856cd5fd0b3b2a1e6e24f9924ed958b347486d3",
+      "producerHead": "790ad112166d0c6968b610285274df1e32edfbb7",
+      "run": 40030610173,
+      "artifact": 12534402552,
+      "pixelsActuallyOpened": true,
+      "reRendered": false,
+      "edited": false
+    },
+    {
+      "file": "contact-day.png",
+      "source": "preview/contact-day.png",
+      "label": "十款四向日間接觸表",
+      "bytes": 222527,
+      "sha256": "9718cdbe11c84163bdbf955773750351dbb3e6f578068e47a420c0cb8c5a2403",
+      "producerHead": "790ad112166d0c6968b610285274df1e32edfbb7",
+      "run": 40030610173,
+      "artifact": 12534402552,
+      "pixelsActuallyOpened": true,
+      "reRendered": false,
+      "edited": false
+    },
+    {
+      "file": "near-mossgate.png",
+      "source": "scenes/near-mossgate.png",
+      "label": "Mossgate Ticket Lodge 遊戲近景",
+      "bytes": 413046,
+      "sha256": "96f3480882024552ec321618091ced562dc3c7645967d5664d8d3eaacb2a484b",
+      "producerHead": "790ad112166d0c6968b610285274df1e32edfbb7",
+      "run": 40030610173,
+      "artifact": 12535570156,
+      "pixelsActuallyOpened": true,
+      "reRendered": false,
+      "edited": false
+    }
+  ],
+  "scope": "Unedited actual CI candidate PNGs; not proof of owner acceptance or deployment."
+}
