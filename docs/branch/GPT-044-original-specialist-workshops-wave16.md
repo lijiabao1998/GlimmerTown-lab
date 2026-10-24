@@ -58,3 +58,12 @@
 - 未完成：本候選完整CI、真實圖片作者審查、原生回歸、正式合併與發布。第16波仍不計入已完成數。
 
 - C1來源結果：10款／40個世界旋轉建造路徑、20個真實記錄幾何反例及7個來源邊界反例通過；1488個非宣告已發布檔案逐位元組不變。新美術SHA256為36c41c02e37a3222d10c0035ea92f53800f64fd5ca44b127f7714456010fed28。這些結果不是瀏覽器或像素驗收成功。
+
+## C1 首紅診斷與 C2 原始基線宣告
+
+- C1實際head：662373713ea635b1819f2d7c38dd38961758bfac。標準CI：https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40121228689 。smoke三次成功；fp首紅是新增40葉未宣告；fiscal-load是52項成功、10個負控制成功，唯一失敗為同一來源指紋完整性，沒有財務行為故障，因此不修改財政模擬。
+- 完整原生CI：https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40121228711 。原生建造、供電160案例、場景、行人、全欄位存讀、效能及實際預覽成功。但本分支臨時workflow錯把第15波720葉作為「本波基線是否已宣告」指標，使baseline-evidence選到嚴格未宣告模式而失敗，後續8份source-evidence未執行。C2僅把這個本波標記改為760；保留首紅，不改fp.js或任何判準。C1不能稱27/27全綠。
+- C2採用標準push之fp工作120952983671、附件12571366394內fp-rebake的原始fp.json及style.json，逐位元組保留generatedAt等原始欄位，不取另一工作重烘檔、不改分數。來源及SHA詳見GPT-044-raw-CI-baseline-adoption.json。
+- 獨立JSON核對：原3983葉全部相同，只增760..799共40個bld葉；其餘165家族與風格、block1728／5ef6eb67及環境註冊不變。bld總分96.43%→96.45%；七軸palette1→1、hardEdge0.956575675398324→0.9572489734902542、lightDir0.8029647930821495→0.8034960819770947、shade1→1、density1→1、nightRule0.9905118397397248→0.9907380909650112、variants1→1。沒有下降，不需下降例外。
+- C1效能原始40對交錯樣本：BASE median8.40ms／p9015.55ms、候選median1.825ms／p9014.825ms；warm重建0，30次注入延遲負控制成功並還原。僅是Actions桌機Chromium，不是真手機效能。
+- 作者目前已查看原始日／夜接觸表及Linden、Meadowsweet、Hare、Bracken實景近照，仍繼續逐圖審查；不把CI成功或圖片生成當業主看過。新一輪完整CI尚待確認，未合併／未發布。
