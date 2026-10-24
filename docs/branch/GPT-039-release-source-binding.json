@@ -24,7 +24,15 @@
     "PR": 40073363620,
     "allSuccess": true
   },
-  "releaseCI": "not started",
+  "releaseCI": {
+    "head": "fb8cd7be433eadeff5adab6779a6822639c71e4a",
+    "native": 40077064339,
+    "nativeJobsSuccess": 27,
+    "push": 40077064402,
+    "PR": 40077067128,
+    "allSuccess": true,
+    "details": "GPT-039-release-acceptance.json"
+  },
   "merged": false,
   "deployed": false
 }

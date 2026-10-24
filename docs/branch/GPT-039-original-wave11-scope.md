@@ -44,3 +44,8 @@
 - 財務首紅52成功／10負控制，唯一失敗為來源完整性呼叫fp --check。本次不改財務斷言，待新head驗53＋10。
 - 三張已實看且SHA吻合原PNG放docs/assets/GPT-039；不再重試聊天Library，未冒稱業主已看圖。
 - 尚未完成：本修正head完整驗收、發布T／版本／日誌、最後CI、刪臨時workflow、合併與自動Pages／公開核實。只計已發布10／20波100座。
+
+
+## C8驗收交接（2026-10-24 UTC）
+
+C7 fb8cd7be發布候選原生27／27、push及PR全部成功。80原生日夜精靈逐張實看且逐檔hash吻合；10近景、3接觸表、街景、夏／雪景已實看。供電160案例／1920見證、275遊戲PNG manifest及57場景／40邊緣／8全畫布證據另行核實，未謊稱275圖逐張看過。精確來源、artifact及限制見T765、GPT-039-release-acceptance.json與GPT-039-author-visual-review.json。仍待純刪臨時workflow、最後CI、合併與公開精確版本。
