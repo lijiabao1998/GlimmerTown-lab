@@ -1,0 +1,314 @@
+{
+  "head": "ef9efc5292584aa62e15e5a7f899946fb753d1d0",
+  "nativeRun": 40121953495,
+  "nativeJobs": 27,
+  "standardRun": 40121953536,
+  "smoke": "success-three-passes",
+  "fp": "success-zero-committed-difference-40-new-bld-only-no-family-drop",
+  "fiscal": {
+    "checks": 53,
+    "negative": 10,
+    "failures": []
+  },
+  "native": {
+    "checks": 86,
+    "negative": 12,
+    "placed": 10,
+    "pixels": {
+      "semi": 0,
+      "leak": 0,
+      "crop": 0,
+      "empty": 0,
+      "mismatch": 0
+    }
+  },
+  "scenes": {
+    "frames": 57,
+    "edges": 40,
+    "failures": [],
+    "unrun": [],
+    "oldSave": {
+      "slot": 3,
+      "sandbox": true,
+      "passes": 2,
+      "matchesBase": true,
+      "allFieldsEqual": true,
+      "differences": [
+        {
+          "pass": 1,
+          "differences": []
+        },
+        {
+          "pass": 2,
+          "differences": []
+        }
+      ],
+      "baseSHA256": "ded88fc417e9bfb07fff39d83cea7ddb21767fa2c804cb39d5ed5cf4b8287613"
+    },
+    "valve": [
+      {
+        "name": "legacy-day-r0.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+        "equal": true
+      },
+      {
+        "name": "legacy-day-r1.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60",
+        "equal": true
+      },
+      {
+        "name": "legacy-day-r2.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300",
+        "equal": true
+      },
+      {
+        "name": "legacy-day-r3.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363",
+        "equal": true
+      },
+      {
+        "name": "legacy-night-r0.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+        "equal": true
+      },
+      {
+        "name": "legacy-night-r1.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf",
+        "equal": true
+      },
+      {
+        "name": "legacy-night-r2.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c",
+        "equal": true
+      },
+      {
+        "name": "legacy-night-r3.png",
+        "w": 1280,
+        "h": 657,
+        "sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040",
+        "equal": true
+      }
+    ]
+  },
+  "power": {
+    "fullWaveAcceptance": false,
+    "actualGamePNGCount": 275,
+    "fieldExclusions": []
+  },
+  "performance": {
+    "head": "ef9efc5292584aa62e15e5a7f899946fb753d1d0",
+    "stats": {
+      "base": {
+        "n": 40,
+        "median": 8,
+        "p90": 14.899999999997817,
+        "min": 4.325000000000728,
+        "max": 17.575000000000728
+      },
+      "head": {
+        "n": 40,
+        "median": 1.75,
+        "p90": 14.275000000001455,
+        "min": 1.4749999999985448,
+        "max": 16.649999999997817
+      }
+    },
+    "sample": {
+      "base": [
+        8,
+        14.475000000002183,
+        5.625,
+        15.299999999999272,
+        7.274999999997817,
+        14.25,
+        6.25,
+        14.299999999999272,
+        5.75,
+        14.450000000000728,
+        5.5,
+        14.450000000000728,
+        5.475000000002183,
+        14.799999999999272,
+        5.674999999999272,
+        6.474999999998545,
+        15.75,
+        5.549999999999272,
+        13.375,
+        5.475000000002183,
+        13.849999999998545,
+        5.525000000001455,
+        14.899999999997817,
+        5.775000000001455,
+        13.375,
+        5.150000000001455,
+        17.575000000000728,
+        5.799999999999272,
+        14.174999999999272,
+        4.325000000000728,
+        5.274999999997817,
+        14.149999999997817,
+        5.625,
+        14.125,
+        5.375,
+        13.174999999999272,
+        5.42500000000291,
+        13.700000000000728,
+        5.224999999998545,
+        14
+      ],
+      "head": [
+        14.850000000002183,
+        1.7249999999985448,
+        2.9249999999992724,
+        14.125,
+        2.2000000000007276,
+        2.599999999998545,
+        14.150000000001455,
+        1.625,
+        1.9000000000014552,
+        1.6749999999992724,
+        14.274999999997817,
+        1.4750000000021828,
+        1.6749999999992724,
+        13.575000000000728,
+        1.75,
+        1.5250000000014552,
+        15.049999999999272,
+        2.900000000001455,
+        1.6749999999992724,
+        13.5,
+        1.6500000000014552,
+        1.5999999999985448,
+        1.7999999999992724,
+        14.275000000001455,
+        1.6749999999992724,
+        1.4749999999985448,
+        16.649999999997817,
+        1.7000000000007276,
+        1.6500000000014552,
+        13.174999999999272,
+        1.6749999999992724,
+        1.4750000000021828,
+        1.7000000000007276,
+        13.975000000002183,
+        1.6499999999978172,
+        1.5,
+        14.19999999999709,
+        1.5750000000007276,
+        1.7250000000021828,
+        13.424999999999272
+      ]
+    },
+    "restoredStats": {
+      "base": {
+        "n": 40,
+        "median": 5.724999999998545,
+        "p90": 14.450000000000728,
+        "min": 4.225000000002183,
+        "max": 14.524999999997817
+      },
+      "head": {
+        "n": 40,
+        "median": 1.7249999999985448,
+        "p90": 13.799999999999272,
+        "min": 1.4749999999985448,
+        "max": 14.600000000002183
+      }
+    },
+    "newGeometryBuildsDuringWarmDraw": 0,
+    "cacheLeaves": 40,
+    "firstRed": "perf044 normal redraw rebaked new geometry",
+    "timingFirstRed": "perf044 repeatable native redraw regression {\"base\":{\"n\":40,\"median\":8,\"p90\":14.899999999997817,\"min\":4.325000000000728,\"max\":17.575000000000728},\"head\":{\"n\":30,\"median\":51.89999999999418,\"p90\":52.80000000000291,\"min\":51.59999999999127,\"max\":99.79999999998836}}",
+    "timingNegativeSamples": 30,
+    "timingInjectedDelayMs": 50,
+    "timingNegativeSampleMs": [
+      51.59999999999127,
+      51.89999999999418,
+      51.70000000001164,
+      51.89999999999418,
+      51.80000000000291,
+      51.69999999999709,
+      51.69999999999709,
+      51.90000000000873,
+      51.89999999999418,
+      51.89999999999418,
+      99.5,
+      52,
+      51.90000000000873,
+      51.80000000000291,
+      51.79999999998836,
+      51.90000000000873,
+      51.89999999999418,
+      51.90000000000873,
+      52,
+      51.79999999998836,
+      51.90000000000873,
+      51.89999999999418,
+      51.90000000000873,
+      99.79999999998836,
+      52.5,
+      52.80000000000291,
+      51.80000000000291,
+      52,
+      51.89999999999418,
+      51.80000000000291
+    ],
+    "restoredGreen": true,
+    "interleaved": true,
+    "nativeBaselineSource": "6284b854e18b12188d193652e9aa69cb7022dfea",
+    "viewport": {
+      "head": [
+        1280,
+        657
+      ],
+      "base": [
+        1280,
+        657
+      ]
+    },
+    "hardware": "GitHub Actions Ubuntu desktop Chromium; not real mobile hardware"
+  },
+  "stillPending": [
+    "release-head full CI",
+    "manual scene review and construction readiness diagnosis",
+    "merge/main/Pages/public production verification"
+  ],
+  "publishedCount": 150,
+  "schema": "GPT-044.candidate-verification.v1",
+  "firstRed": {
+    "standardRun": 40121228689,
+    "nativeRun": 40121228711,
+    "nativeFailure": "baseline-evidence stale wave15 presence literal720, source evidence dependants skipped; not all-green",
+    "repair": "exact original standard fp artifact12571366394 adoption; own-workflow current-wave presence760; no product/fiscal/guard change"
+  },
+  "imageComparison": {
+    "12570644429": {
+      "count": 91,
+      "changed": [],
+      "missing": []
+    },
+    "12571592050": {
+      "count": 113,
+      "changed": [
+        "construction-late.png"
+      ],
+      "missing": []
+    }
+  },
+  "constructionObservation": "Original two synchronous draws can capture pending native construction profiles. construction-late differs between C1/C2; not declared visually equivalent. Additional readiness diagnosis required before release.",
+  "scope": "Candidate evidence only; original manifests and raw logs retained in Actions artifacts. Release/public acceptance pending."
+}
