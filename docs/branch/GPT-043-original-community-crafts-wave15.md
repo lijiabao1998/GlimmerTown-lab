@@ -80,3 +80,21 @@
 - 日誌與方向只有兩檔精確插入契約，原字節不可改；來源實測1437檔逐byte不變＋2檔逐byte驗證明列插入，10版本負控與22來源負控。這是來源測試，不代替下一次發布版完整ChromeCI。
 - 13張原始PNG（三接觸表＋十近景）及producer／SHA manifest加入docs/assets/GPT-043，可直接在PR下載；原始80單圖與全場景／供電完整圖仍在官方Actions附件，未用假場景或生成圖取代。
 - 仍待發布版完整CI、最後head守衛、純刪臨時workflow、合法整合及公網確認。沒有把T編號、圖片生成、來源綠燈或此前CI寫成已上線；正式仍140／200。
+
+### C3 發布版真實驗收與第8節逐條自檢
+
+- 發布候選 `87cca4fdf0be21fdb4d7faec820ccae63060389d`，完整native [40115105323](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40115105323) 27／27成功；常規push [40115105305](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40115105305) smoke三連、fp及財務53項／10負控全部成功。PR事件聚合另外等待，不能稱最後合併head已綠。
+- 直接讀下載的發布版manifest：86原生斷言／12負控、160供電案例／275原PNG、完整save與utility無排除、production無相位橋、原index精確還原；兩次舊檔往返所有欄位全等，唯一遷移為14.61→14.62寫入版本。完整場景failures與unrun均空，8組完整畫布仍嚴格全等。正常三種子／九checkpoint全欄位及3負控通過。
+- C3效能同runner各40組：median12.675→2.625ms、p90 25.175→26.950ms，熱繪幾何0；30樣本延遲負控真紅後恢復。非手機真機，不將不同圖形複雜度的測量聲稱全遊戲提速。
+- 91預覽PNG逐byte等於已看C1；113場景111相同，另兩組原圖已成對實看。edge-reedcider-r0相差32像素、範圍(544,376)..(739,452)，散列於地塊小標記／腳印周邊，未見建築屋面裂縫；construction-late相差2466像素、範圍(738,325)..(896,492)，可見既有施工架／建築快取階段差異。後者既有施工繪製含每幀6張／6ms與閒置profile排程；32像素的精確時間原因尚未獨立定位，**沒有宣稱兩張完全相同**、沒有改容差或重跑賭一致。三版本標籤之外production源完全不變，80單sprite亦由完整原生契約驗證，8張守門BASE／valve全幀必須並已逐位相等。
+- 真圖片入口：[白天](../assets/GPT-043/contact-day.png)、[夜間](../assets/GPT-043/contact-night.png)、[前後對照](../assets/GPT-043/contact-comparison.png)、[十款近景與SHA](../assets/GPT-043/manifest.json)。完整原圖：[C1場景artifact12567452820](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40113569099/artifacts/12567452820)、[C3場景artifact12567978489](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40115105323/artifacts/12567978489)、[C3preview12567579997](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40115105323/artifacts/12567579997)。獨立實看與hash-only清單見同目錄GPT-043-visual-review-record.json，不把560條PNG路徑hash核對冒稱560圖人工看過。
+
+- [x] 卡面在動手前推上去；8a59d418原始8718bytes／SHA保持前綴；沒有事後改鬆凍結條件。版本遷移另建精確新契約，原候選留存。
+- [x] 同種子31／71／103九checkpoint、十款交易及舊檔2roundtrip已由上述真Chromium執行；全部欄位比較，版本遷移唯一且明列，不改存檔格式或模擬。
+- [x] fp相對main僅首卡明列bld新增40葉，3943舊葉／165其他族／block／env保留；採同次原始附件後fp綠；8組逃生閥完整畫布逐位相等。
+- [x] 日／夜、雪有無、四季、四向、近景、遠景、40邊緣、施工／懸停／雨／夜疊層原圖實看，對照與清單可核。遠景LOD、藍束、2跨run差異及未全275供電人工看均已披露；不是業主看圖或真機驗收。
+- [x] 新幾何8、來源22／版本10、原生12、正常3、場景2、行人2、效能延遲／重烘、供電窗光／交通等負控制真紅在目標後恢復；沒有刪除負控制或降低門檻。
+- [x] 此發布候選官方smoke連跑3次全綠；fp綠、財務53／10全綠，附精確run。非重跑同一必敗CI；首紅仍可查。
+- [x] 所有「通過」均對應真實來源檢查或官方CI，來源與Chrome、公網、手機、圖審分開；沒有把尚未執行的最後head／main／Pages／公網寫成成功。
+
+下一步僅獨立刪除本分支臨時workflow，等待最後head全部必要CI並重新核對main、方向與PR限制，符合原規則才正式整合。尚未發布，正式140／200；後續第16～20波仍未施工。

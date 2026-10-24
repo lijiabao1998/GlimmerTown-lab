@@ -11,3 +11,7 @@ PR #55；首卡8a59d418，候選1daca900、原始CI基線宣告9a27fd2b。三個
 建築與驗收：[首卡](branch/GPT-043-original-community-crafts-wave15.md)。圖片：[日間](assets/GPT-043/contact-day.png)、[夜間](assets/GPT-043/contact-night.png)、[新舊對照](assets/GPT-043/contact-comparison.png)、[原生近景](assets/GPT-043/near-rillramblers.png)，原始manifest含producer及SHA。
 
 未完成與限制：發布版完整CI、正式合併與Pages公開驗證仍待；未測實體手機、Safari及觸控；不是全部113場景／275供電圖人工逐看。
+
+## 發布候選實測
+
+87cca4fd完整原生40115105323共27jobs成功，常規40115105305 smoke三連／fp／財務53項10負控全綠。91預覽與C1逐byte相同；113場景111同，兩組實看差異與未定位的32像素細節已在首卡披露。第8節逐條自檢、實看145張清單、全SHA核對與所有真負控詳首卡。下一步純刪臨時workflow、最後head CI及正式發布驗證；本段不是公開發布回執。
