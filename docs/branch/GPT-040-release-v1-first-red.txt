@@ -1,0 +1,27 @@
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: source040 every published source byte unchanged AUTORUN-LOG.md
++ actual - expected
+
++ 'e53c93996bbd44647324e1990a95b93fcbffecb0'
+- 'dfb2bb6958940355ab8f73f890bc142e591de9a2'
+
+    at Object.<anonymous> (/workspace/shared/own-cloud-migration-20261024/GlimmerTown-lab-wave12-repair/checkWave040FullSources.cjs:27:326)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'e53c93996bbd44647324e1990a95b93fcbffecb0',
+  expected: 'dfb2bb6958940355ab8f73f890bc142e591de9a2',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
