@@ -138,3 +138,12 @@
 ## 沒做成的事
 
 只有施工前範圍與驗收凍結，沒有本波程式、圖片、CI、PR或正式發布。第18波須真正發布後才計180座，接續19～20波。
+
+## C1 actual implementation and source preparation · 2026-10-24 UTC
+
+- Ten independent world-space models and forty native rotations are implemented, with original English brick/stone forms, existing art634/021 materials/depth, native catalogue and unchanged paid landmark rules. Real twin bellcote openings, diagonal N courts, closed inverted roof, C-wrap porch, gambrel joins and curved thatch eyebrow cuts have recorded geometric checks. Source review corrected bellcote support, glazing overlaps and thatch soffit joins before this candidate.
+- Artwork SHA256 `a2d6afd29da0b63e62feb55ebd2a86f780529375bac0810c1ab60b8cbec2b988`. Source-only recording audit:10 bodies,40 construction paths,55 negatives (35 structural,3 actual source mutations,17 invalid inputs), all restored. No rendered sprites or browser claim.
+- Complete candidate HTML11830857bytes, SHA256 `e3eb5a8375ca9d68b78d9013292a69e0fc14563ca3dcedf409e4c729b7f2a58f`. Three new blocks and installer strip exactly to independent BASE a5154857; all1604 non-declared published files and old smoke assertions remain exact. Source contract has11 negative controls, including stale range/card/acceptance metadata. Versions remain T771/v14.64 pending real candidate acceptance.
+- Fifteen additive candidate guards preserve native86/12, power160/275PNG/1920 witnesses,57 scenes/40 edges/8 full-frame pairs,17 pedestrian cases,40 interleaved performance samples/30 delay negatives, original cold two-draw captures and fixed natural12/separate flush66 construction endpoints. The unchanged historical renderer and budgets remain pinned. No acceptance thresholds or financial simulation were changed.
+- Branch-only read-only workflow requests official Chromium evidence and raw CI fingerprint output. `fp.json` and `style.json` remain exact published files until the same official first-red raw artifact is examined. No local game, browser, fp, smoke or raster execution occurred.
+- Unfinished: every official C1 test, original image inspection, raw fingerprint declaration, release-contract validation, final head CI, PR/merge/main/Pages and precise public verification. Formal count remains170; candidate work is not published180.
