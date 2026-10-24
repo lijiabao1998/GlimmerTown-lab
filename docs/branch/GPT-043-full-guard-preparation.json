@@ -1,0 +1,209 @@
+{
+  "schema": "GPT-043.full-guard-preparation.v1",
+  "base": "5f546bc1b090982f9d7f51ab5bbf1da15a57e7a6",
+  "firstCardCommit": "8a59d41831010faad3096d2c6c4096e606177f06",
+  "firstCard": "docs/branch/GPT-043-original-community-crafts-wave15.md",
+  "firstCardSHA256": "e1ddda14d1f7765a4bf72fdb7db05eb9605eb324fb3d1f94947b4fb78c8f1faa",
+  "branch": "gpt/british-wave15-043",
+  "scope": "Complete candidate 042 acceptance ported to the frozen original community-crafts ten. All previously published source and guard files are immutable; no release wrapper replaces candidate checks.",
+  "candidateLabels": {
+    "gameVer": "14.61",
+    "anchor": "T768",
+    "startLabel": "v14.61 · T768",
+    "normalization": false,
+    "fieldExclusions": []
+  },
+  "artSource": {
+    "file": "british-wave15-art043.js",
+    "sha256": "b26c7338bbe815b7239dbcd1fa803cf4ad4a5a80456950c5c7f4afe0c44dee16"
+  },
+  "comparisonSources": [
+    {
+      "id": "reedcider",
+      "v": 720,
+      "oldId": "coxwell",
+      "publishedSource": "british-heritage-art024.js",
+      "publishedSourceSHA256": "84b5d83bacdb14f11102a7028ea3da040827ce3ac0251b2a6aef75553b4e8b9c",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "pondbadminton",
+      "v": 724,
+      "oldId": "willowmusic",
+      "publishedSource": "british-wave11-art039.js",
+      "publishedSourceSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "holtscout",
+      "v": 728,
+      "oldId": "pennyfen",
+      "publishedSource": "british-wave11-art039.js",
+      "publishedSourceSHA256": "728b7ed86e24a1a413fcb3a12b40a7bd168881d602be6239a74bb227b98f3652",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "fennelhoney",
+      "v": 732,
+      "oldId": "globe",
+      "publishedSource": "british-wave07-art035.js",
+      "publishedSourceSHA256": "f8983faa48da789d6a2e3fe7d29c831cb0cba74afafabbafd5393827452f6f44",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "ashfives",
+      "v": 736,
+      "oldId": "penshaw",
+      "publishedSource": "british-wave02-art027.js",
+      "publishedSourceSHA256": "0c8d01b396e3ebd6975b346509efc6a966d7868678a8f6e36c05337e1165305f",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "brassbell",
+      "v": 740,
+      "oldId": "sissinghurst",
+      "publishedSource": "british-wave04-art030.js",
+      "publishedSourceSHA256": "b0fe1c5f8e8687eb12864657e22de4d38a428e7ace4413bdf496b02a1090007d",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "teaselhat",
+      "v": 744,
+      "oldId": "rushton",
+      "publishedSource": "british-heritage-art024.js",
+      "publishedSourceSHA256": "84b5d83bacdb14f11102a7028ea3da040827ce3ac0251b2a6aef75553b4e8b9c",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "withebasket",
+      "v": 748,
+      "oldId": "ashveterinary",
+      "publishedSource": "british-wave13-art041.js",
+      "publishedSourceSHA256": "ad75d885555adcf0cd12369f483f40382430441d59a396bcf0337c442af9ebe8",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "gorsearchery",
+      "v": 752,
+      "oldId": "preston",
+      "publishedSource": "british-wave02-art027.js",
+      "publishedSourceSHA256": "0c8d01b396e3ebd6975b346509efc6a966d7868678a8f6e36c05337e1165305f",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    },
+    {
+      "id": "rillramblers",
+      "v": 756,
+      "oldId": "ashveterinary",
+      "publishedSource": "british-wave13-art041.js",
+      "publishedSourceSHA256": "ad75d885555adcf0cd12369f483f40382430441d59a396bcf0337c442af9ebe8",
+      "verification": "Exact literal identity in independent published BASE source; actual installed sprite lookup remains a CI assertion."
+    }
+  ],
+  "fullGuardPreparedSources": [
+    {
+      "template": "previewWave042.cjs",
+      "templateSHA256": "404a1a57d53a9d1568f9dbf82f14d410380f960eff02d0b457e6e1a4932d82b5",
+      "file": "previewWave043.cjs",
+      "expectedSHA256": "9da2b4926e3fe8d22c725253f8b3dc161ad37858f345983eb84988a91ed709c3",
+      "changes": "Advance the preview namespace and independent BASE, collect exactly 720..759, retain every published catalog through 041 and add 042, and use source-verified closest-structure comparison IDs. Preview still explicitly does not claim final acceptance; native paid-placement, sprite dimensions and evidence provenance checks are unchanged."
+    },
+    {
+      "template": "probeBritishWave042.cjs",
+      "templateSHA256": "1bcb2245edff4df26703fa4d36a6d3d98c26c78c2305a91ecb12905d440e3319",
+      "file": "probeBritishWave043.cjs",
+      "expectedSHA256": "f6d3e2a1ee0354317633b25c163cb39c8ceaf3ec429f92e384f78beaf6f61e92",
+      "changes": "Advance to frozen wave15 identities and 720..759; strip only new 043 blocks and the final installer while preserving 039,040,041,042. Retain all historical selftests and catalog regressions through 041, add 042, and update original comparison IDs from published sources. Preserve every pixel, fee, root/ref, undo/redo, full-save, rotation and first-RED/restoration criterion."
+    },
+    {
+      "template": "probeNativePairs042.cjs",
+      "templateSHA256": "9c18e8c6522135606403700fc37c8a42d3e11d34779f013998f9d07c4411731d",
+      "file": "probeNativePairs043.cjs",
+      "expectedSHA256": "d1c6d60440ed67706615a5ba6ad2694ca4c36774aeb3dbc20251a1723d52bfec",
+      "changes": "Use independent BASE with exact frozen 14.61/T768 candidate labels and a real 14.62 corruption negative; no release-label normalization or field exclusions. Change only selected identities/variants to 720,732,740 and ten 720+4*i roots; retain three seeds, nine checkpoints, both complete old/new constructor and transaction states, two stable save rounds, and real one-dollar negatives."
+    },
+    {
+      "template": "probePedestrians042.cjs",
+      "templateSHA256": "a78507852fa00413692277096dc5f23e647f91aa7ba87a153fd9c747e3f35c25",
+      "file": "probePedestrians043.cjs",
+      "expectedSHA256": "55496a685f2c87305858c761abdde968990d28dae0c590211a8f1b5cf9b33e87",
+      "changes": "Namespace-only port to 043 and its same-head preview manifest; retain the original 17 native depth/occlusion cases, independent geometric overlap selection including the inherited quarter-tile lattice, every exact pixel criterion, and both live drop/order negatives with restoration."
+    },
+    {
+      "template": "probePerformance042.cjs",
+      "templateSHA256": "495e351fdcaf68e4b4addf2bfb9e93a55df4da8a074b607c4b24e356886c9ca1",
+      "file": "probePerformance043.cjs",
+      "expectedSHA256": "8b34918f6b9d3010c254a84f04f57c168de40e002014f605e1f71250a77a6d93",
+      "changes": "Advance namespace and independent BASE only. Retain native identical layout, same viewport, interleaved 40 samples per arm, zero warm-build criterion, median <= 1.5*BASE+2ms and p90 <= 1.5*BASE+3ms, actual 30-sample injected-delay negative, cache negative, and 40-per-arm restored samples."
+    },
+    {
+      "template": "probeScenes042.cjs",
+      "templateSHA256": "fb9fda0a6171cf00d61a9a8e3b3bfefb4099202ffc4b714a87abcdd2ef3a1065",
+      "file": "probeScenes043.cjs",
+      "expectedSHA256": "3f92836f798f3d6c583f7ce5820c9f01a9822d3f3e21867fe09de0b6acbf51aa",
+      "changes": "Advance namespace, independent BASE, frozen scene identity and exact candidate writer 14.61. Retain all fields in two old-save roundtrips, zero migration, 57 native scenes, 40 actual edge cases, eight byte-exact whole-canvas BASE/valve pairs, and real one-dollar/single-pixel negatives with exact restoration."
+    },
+    {
+      "template": "nativeTenPower042.cjs",
+      "templateSHA256": "d0091afe61168caec7dc58baea6a65f8639d9d00fd12570ded027023ee597e9f",
+      "file": "nativeTenPower043.cjs",
+      "expectedSHA256": "c40d233d0a6141c0ecb61a5b63279354851d550181e82fad4335648dacaf01cf",
+      "changes": "Substitute only the frozen ten identities and their 720..759 slots, preserving the inherited physical ten-lot order and all four power phases. Retain actual paid placement, independent topology, exact complete saves, no utility-truth assignment, 160 view/phase cases, visibility thresholds, fixed traffic witnesses, and real missing-night/wrong-phase negatives; the same physical wrong-phase target is now fennelhoney."
+    },
+    {
+      "template": "probeTenPower042.cjs",
+      "templateSHA256": "ca77547fb2c4aeadd495da543ec4a64d3c6659f706d4722e219eb799cfba5d48",
+      "file": "probeTenPower043.cjs",
+      "expectedSHA256": "54c1877c25db193f9688ddb177476e06b5d6d7b3321d64e529050b8221f66846",
+      "changes": "Advance namespace, independent BASE and exact source filenames, pin the final authored 043 art SHA256, and retarget selected evidence names. Retain committed-source equality, exact three-block source strip, CI-only capture bridge, complete BASE/HEAD state and utility comparisons, 160 cases, 275 PNGs, source provenance, real negatives and exact source restoration."
+    },
+    {
+      "template": "wave042-traffic-phase-fixture.js",
+      "templateSHA256": "6a8e56c428fa1c87d303de20af3126562d83ae697cbe4b9271ebb63aeabca296",
+      "file": "wave043-traffic-phase-fixture.js",
+      "expectedSHA256": "a8b28d54df913681ba45b503da317ce9d9fee2f22207e399e904f10718c58754",
+      "changes": "Namespace-only port of the CI capture fixture. Preserve finite phase bounds, original native sigPhase renderer, requested/captured clock evidence, signal lists and finally-restored traffic counter; not production runtime."
+    },
+    {
+      "template": "proveWave042Baseline.cjs",
+      "templateSHA256": "3d73878afd3eb3f581e51a130e905fb8399acd417fe557c6b3c51bc4e7924875",
+      "file": "proveWave043Baseline.cjs",
+      "expectedSHA256": "1cab2d7759330d6fac4520fbfb4efdd6774917d406c2cdeef738943e0ab22b30",
+      "changes": "Pin independent published BASE counts 3943 total / bld 1579 and CRC 4ea50469; require exactly 40 new 720..759 leaves for totals 3983 / bld 1619. Preserve all old leaf bytes, unchanged other 165 families and their style axes, block 1728 / 5ef6eb67 and exact environment registrations."
+    },
+    {
+      "template": "transferWave042Source.cjs",
+      "templateSHA256": "a23542d51479e72520dfea1d921d1d4a0153865ae5be26fc7a8f78fd89caea6d",
+      "file": "transferWave043Source.cjs",
+      "expectedSHA256": "ca7614c3559ce59357f1fe0e071215e99a42f53ca19b6a7c13d970722be357aa",
+      "changes": "Namespace-only evidence transport port. Preserve exactly eight bounded 1500000-byte source parts, exact producer head/tree/Git blob, complete-source SHA256 and byte count, per-part hashes and no game execution."
+    },
+    {
+      "template": "transferWave042CloseScenes.cjs",
+      "templateSHA256": "c41b7f886feb0d788207751e88cd3b73461513e4deff135775334f9e6c22f0b4",
+      "file": "transferWave043CloseScenes.cjs",
+      "expectedSHA256": "c11889984df62f6555167093bcba657345d093597b7a15e676d7a0629b402005",
+      "changes": "Freeze the ten new ordered near-scene names and case/path/duplicate/missing metadata negatives. Preserve exact same-head source checks, 57 scenes, 40 edges, eight complete 1280x657 whole-canvas pairs, five parts/two original PNGs each, byte hashes and PNG dimensions."
+    },
+    {
+      "template": "transferWave042Evidence.cjs",
+      "templateSHA256": "da318784ea2c3dded40fd9a836da918967748a5d76eee18e968e492a767ab0ed",
+      "file": "transferWave043Evidence.cjs",
+      "expectedSHA256": "88a30a594cfa1345ebd6f9bf5dcc379056014180920e842a5c271282ff626abd",
+      "changes": "Namespace-only same-run evidence transport port. Preserve exact producer head, sixteen original sprites per part and 80 total sprites, hashes/bytes, and complete 160-case/275-PNG/four-phase power manifest; never render or modify evidence."
+    }
+  ],
+  "localValidation": {
+    "kind": "Source-only preparation, not native acceptance.",
+    "syntaxParsedFiles": 13,
+    "independentBaseIndexSHA256": "2da67e4b29c7ffcab10523b0897637a276adb28de5ce40816ba43ccfd0c329ea",
+    "immutable042TemplatesCheckedAgainstBase": true,
+    "allReferencedLegacyNativeAPIsPresentInBase": true,
+    "sourceDiffReviewed": true,
+    "gameExecuted": false,
+    "browserExecuted": false,
+    "fpExecuted": false,
+    "smokeExecuted": false,
+    "renderedNewSprites": 0,
+    "nativeAcceptance": "Not run here; required on official CI."
+  }
+}

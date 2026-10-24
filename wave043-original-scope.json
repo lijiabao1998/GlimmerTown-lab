@@ -1,0 +1,177 @@
+{
+  "schema": "GPT-043.original-wave15-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "5f546bc1b090982f9d7f51ab5bbf1da15a57e7a6",
+  "branch": "gpt/british-wave15-043",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      720,
+      759
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "reedcider",
+      "nm": "蘆谷果酒壓榨屋",
+      "en": "Reedcombe Cider House",
+      "v": 720,
+      "shape": "asymmetric-saltbox-stone-two-storey-core-real-recessed-press-veranda",
+      "design": "兩層後石屋、一體強不對稱saltbox長斜屋面遮蓋真開放凹壓榨廊；高三聯窗、低橫窗",
+      "distinctionFromPublished140": "非D院車輪坊或Coxwell穿廊穀倉，不是普通山牆加小棚",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "pondbadminton",
+      "nm": "池原羽球會館",
+      "en": "Pondwick Badminton Hall",
+      "v": 724,
+      "shape": "grounded-diamond-hall-opposite-high-corners-closed-saddle-roof",
+      "design": "落地菱形會堂、相對兩高角兩低角真鞍形屋面、封閉屋簷及底面；低磚牆、梯形高側窗",
+      "distinctionFromPublished140": "非兩翼V形蝴蝶頂或架高六角帳篷",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "holtscout",
+      "nm": "林丘童軍會舍",
+      "en": "Holtbank Scout Lodge",
+      "v": 728,
+      "shape": "steep-near-ground-A-shell-timber-ribs-triangular-glazing-skew-entry",
+      "design": "陡A形主殼屋頂近地、可見木肋、三角端窗、斜錯低入口盒",
+      "distinctionFromPublished140": "非曲倒船殼或樹枝架高樹屋，不以普通方屋上貼木條充數",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "fennelhoney",
+      "nm": "茴庭蜂蜜工房",
+      "en": "Fennelfold Honey House",
+      "v": 732,
+      "shape": "low-dodecagonal-ring-open-hexagonal-court-inward-sloping-roof",
+      "design": "低十二邊外環、真開放六邊內院、向內斜環頂和內檐；外六組雙窗、內門",
+      "distinctionFromPublished140": "非三層外斜茅頂Globe或實心菱形檔案室，內院不可黑塗偽造",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "ashfives",
+      "nm": "白蠟手球院",
+      "en": "Ashwick Fives Court",
+      "v": 736,
+      "shape": "roofless-three-wall-court-stepped-raking-sides-narrow-roofed-rear-club",
+      "design": "高無頂三面完整球牆、階梯斜側牆、窄後有頂會所及高窗，正面真開放",
+      "distinctionFromPublished140": "非無頂古蹟柱廊或廢墟，不加球場模擬，空院不發光",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "brassbell",
+      "nm": "銅原鑄鐘坊",
+      "en": "Brassfield Bell Foundry",
+      "v": 740,
+      "shape": "high-square-foundry-chamfered-buttresses-two-stage-hip-wide-vent",
+      "design": "單一高方鑄造室、削角階梯扶壁、兩段四坡高頂及寬方通風帽、低側模具帶、深成對圓窗",
+      "distinctionFromPublished140": "非瓶窯、重複方烘房或大鍛造院，不加煙／產業",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "teaselhat",
+      "nm": "川續斷製帽樓",
+      "en": "Teaselwick Hatters’ House",
+      "v": 744,
+      "shape": "narrow-scalene-three-storey-wedge-slanted-ridge-four-hip-roof",
+      "design": "窄三層不等邊三角楔、單斜脊四坡屋頂、尖角垂直窗、側錯位深窗與凹門",
+      "distinctionFromPublished140": "非等邊三山牆Rushton或三角中庭，不能靠招牌辨識",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "withebasket",
+      "nm": "柳條編籃工房",
+      "en": "Withebrook Basket House",
+      "v": 748,
+      "shape": "continuous-low-S-plan-workshop-S-ridge-convex-bays-concave-doors",
+      "design": "連續低S形兩反向彎折工房、同S形連續坡屋脊、凸窗灣與凹乾燥門交錯",
+      "distinctionFromPublished140": "非單彎新月獸醫院、角折工具店或分離S棚；屋頂不可自交",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "gorsearchery",
+      "nm": "荊原射藝會舍",
+      "en": "Gorsewick Archery Lodge",
+      "v": 752,
+      "shape": "trapezoid-open-viewing-wedge-rear-supported-folded-canopy",
+      "design": "明顯梯形觀景楔、單片後柱支承寬折棚、後窄兩層封閉會所高窗、前真開棚",
+      "distinctionFromPublished140": "非多層停車樓或舊板球／草地滾球亭；不加場地或服務數值",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    },
+    {
+      "id": "rillramblers",
+      "nm": "溪環健行客舍",
+      "en": "Rillmere Ramblers’ Lodge",
+      "v": 756,
+      "shape": "open-near-ring-ascending-spiral-lodge-continuously-rising-slate-roof",
+      "design": "近環形開口螺旋屋列、低入口逐段升至高末端、一體升高分段板岩屋面、遞升窗、清楚入口缺口",
+      "distinctionFromPublished140": "非等高新月或封閉環；四向須可見高度遞增與真缺口",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English craft and community-lodge design using the unchanged in-repository art634 kit; no external image or real-landmark claim.",
+      "note": "原創英式展示外觀，沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "completeTen": true,
+    "fourWorldRotations": true,
+    "sameArt634Style": true,
+    "nativeOpaqueWindowPowerSemantics": true,
+    "strictFullFrameValveAndBaselinePairs": true,
+    "sameSeedSaveUndoFiscal": true,
+    "sourceBindingStripExact": true,
+    "negativeControlsPreserved": true,
+    "gameContextPreviewsRequired": true,
+    "visualReviewBeforePublication": true,
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true,
+    "old140AndOtherFamiliesUnchanged": true
+  },
+  "firstCard": {
+    "commit": "8a59d41831010faad3096d2c6c4096e606177f06",
+    "path": "docs/branch/GPT-043-original-community-crafts-wave15.md",
+    "status": "frozen-scope-pushed-before-model-authoring",
+    "visualApprovalClaim": false
+  }
+}

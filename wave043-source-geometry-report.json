@@ -1,0 +1,909 @@
+{
+  "ok": true,
+  "kind": "source-only-recording-stub-audit",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedSprites": 0,
+  "models": 10,
+  "authoredViewPaths": 40,
+  "negativeControls": 8,
+  "structuralChecks": {
+    "nonintersectingConvexRoofPartitions": [
+      "pondbadminton",
+      "fennelhoney",
+      "withebasket",
+      "rillramblers"
+    ],
+    "realOpenCourtyard": true,
+    "realRooflessCourt": true,
+    "realSpiralGap": true,
+    "closedSaddleUndersideAndFascia": true,
+    "unitWallNormals": true,
+    "inwardCourtyardNormals": true,
+    "outwardSAndSpiralEndNormals": true,
+    "sourceOnly": true
+  },
+  "sourceSHA256": "b26c7338bbe815b7239dbcd1fa803cf4ad4a5a80456950c5c7f4afe0c44dee16",
+  "summaries": [
+    {
+      "id": "reedcider",
+      "view": 0,
+      "polygons": 164,
+      "beams": 6,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.52708333333334
+        ]
+      ],
+      "geometrySHA256": "3e92f28b6cd542c0c77c1bcf0db013de0ff81f1b2fab695f46d9019b4fe14463"
+    },
+    {
+      "id": "reedcider",
+      "view": 1,
+      "polygons": 164,
+      "beams": 6,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.52708333333334
+        ]
+      ],
+      "geometrySHA256": "3e92f28b6cd542c0c77c1bcf0db013de0ff81f1b2fab695f46d9019b4fe14463"
+    },
+    {
+      "id": "reedcider",
+      "view": 2,
+      "polygons": 164,
+      "beams": 6,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.52708333333334
+        ]
+      ],
+      "geometrySHA256": "3e92f28b6cd542c0c77c1bcf0db013de0ff81f1b2fab695f46d9019b4fe14463"
+    },
+    {
+      "id": "reedcider",
+      "view": 3,
+      "polygons": 164,
+      "beams": 6,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          33.52708333333334
+        ]
+      ],
+      "geometrySHA256": "3e92f28b6cd542c0c77c1bcf0db013de0ff81f1b2fab695f46d9019b4fe14463"
+    },
+    {
+      "id": "pondbadminton",
+      "view": 0,
+      "polygons": 465,
+      "beams": 44,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.299999999999997
+        ]
+      ],
+      "geometrySHA256": "e948e62ec8a02c62344ac5d4b33f7fa22b1bb027c5128b19883f18d3aac13271"
+    },
+    {
+      "id": "pondbadminton",
+      "view": 1,
+      "polygons": 465,
+      "beams": 44,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.299999999999997
+        ]
+      ],
+      "geometrySHA256": "e948e62ec8a02c62344ac5d4b33f7fa22b1bb027c5128b19883f18d3aac13271"
+    },
+    {
+      "id": "pondbadminton",
+      "view": 2,
+      "polygons": 465,
+      "beams": 44,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.299999999999997
+        ]
+      ],
+      "geometrySHA256": "e948e62ec8a02c62344ac5d4b33f7fa22b1bb027c5128b19883f18d3aac13271"
+    },
+    {
+      "id": "pondbadminton",
+      "view": 3,
+      "polygons": 465,
+      "beams": 44,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.299999999999997
+        ]
+      ],
+      "geometrySHA256": "e948e62ec8a02c62344ac5d4b33f7fa22b1bb027c5128b19883f18d3aac13271"
+    },
+    {
+      "id": "holtscout",
+      "view": 0,
+      "polygons": 78,
+      "beams": 25,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32.2
+        ]
+      ],
+      "geometrySHA256": "805825aa08ebbc068fc9511bb1bd167919877d8a2ce321602010e3f3a8d7ca1e"
+    },
+    {
+      "id": "holtscout",
+      "view": 1,
+      "polygons": 78,
+      "beams": 25,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32.2
+        ]
+      ],
+      "geometrySHA256": "805825aa08ebbc068fc9511bb1bd167919877d8a2ce321602010e3f3a8d7ca1e"
+    },
+    {
+      "id": "holtscout",
+      "view": 2,
+      "polygons": 78,
+      "beams": 25,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32.2
+        ]
+      ],
+      "geometrySHA256": "805825aa08ebbc068fc9511bb1bd167919877d8a2ce321602010e3f3a8d7ca1e"
+    },
+    {
+      "id": "holtscout",
+      "view": 3,
+      "polygons": 78,
+      "beams": 25,
+      "pairedMaterials": 10,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          32.2
+        ]
+      ],
+      "geometrySHA256": "805825aa08ebbc068fc9511bb1bd167919877d8a2ce321602010e3f3a8d7ca1e"
+    },
+    {
+      "id": "fennelhoney",
+      "view": 0,
+      "polygons": 323,
+      "beams": 12,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.7
+        ]
+      ],
+      "geometrySHA256": "2c497a86c0a31ade578438d6d394f2586f73b9abf92d9811d9f8c1bb729e6bb3"
+    },
+    {
+      "id": "fennelhoney",
+      "view": 1,
+      "polygons": 323,
+      "beams": 12,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.7
+        ]
+      ],
+      "geometrySHA256": "2c497a86c0a31ade578438d6d394f2586f73b9abf92d9811d9f8c1bb729e6bb3"
+    },
+    {
+      "id": "fennelhoney",
+      "view": 2,
+      "polygons": 323,
+      "beams": 12,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.7
+        ]
+      ],
+      "geometrySHA256": "2c497a86c0a31ade578438d6d394f2586f73b9abf92d9811d9f8c1bb729e6bb3"
+    },
+    {
+      "id": "fennelhoney",
+      "view": 3,
+      "polygons": 323,
+      "beams": 12,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.7
+        ]
+      ],
+      "geometrySHA256": "2c497a86c0a31ade578438d6d394f2586f73b9abf92d9811d9f8c1bb729e6bb3"
+    },
+    {
+      "id": "ashfives",
+      "view": 0,
+      "polygons": 150,
+      "beams": 3,
+      "pairedMaterials": 9,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.55
+        ]
+      ],
+      "geometrySHA256": "0f81f659599387d5594c875fd7b3c421a9008c801fa847088461733d4a52745b"
+    },
+    {
+      "id": "ashfives",
+      "view": 1,
+      "polygons": 150,
+      "beams": 3,
+      "pairedMaterials": 9,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.55
+        ]
+      ],
+      "geometrySHA256": "0f81f659599387d5594c875fd7b3c421a9008c801fa847088461733d4a52745b"
+    },
+    {
+      "id": "ashfives",
+      "view": 2,
+      "polygons": 150,
+      "beams": 3,
+      "pairedMaterials": 9,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.55
+        ]
+      ],
+      "geometrySHA256": "0f81f659599387d5594c875fd7b3c421a9008c801fa847088461733d4a52745b"
+    },
+    {
+      "id": "ashfives",
+      "view": 3,
+      "polygons": 150,
+      "beams": 3,
+      "pairedMaterials": 9,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          23.55
+        ]
+      ],
+      "geometrySHA256": "0f81f659599387d5594c875fd7b3c421a9008c801fa847088461733d4a52745b"
+    },
+    {
+      "id": "brassbell",
+      "view": 0,
+      "polygons": 424,
+      "beams": 29,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.75
+        ]
+      ],
+      "geometrySHA256": "e541ac6eb11538492fd562fa1b07c7a3f22e6c778b595af0f266ab22a263692d"
+    },
+    {
+      "id": "brassbell",
+      "view": 1,
+      "polygons": 424,
+      "beams": 29,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.75
+        ]
+      ],
+      "geometrySHA256": "e541ac6eb11538492fd562fa1b07c7a3f22e6c778b595af0f266ab22a263692d"
+    },
+    {
+      "id": "brassbell",
+      "view": 2,
+      "polygons": 424,
+      "beams": 29,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.75
+        ]
+      ],
+      "geometrySHA256": "e541ac6eb11538492fd562fa1b07c7a3f22e6c778b595af0f266ab22a263692d"
+    },
+    {
+      "id": "brassbell",
+      "view": 3,
+      "polygons": 424,
+      "beams": 29,
+      "pairedMaterials": 15,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.75
+        ]
+      ],
+      "geometrySHA256": "e541ac6eb11538492fd562fa1b07c7a3f22e6c778b595af0f266ab22a263692d"
+    },
+    {
+      "id": "teaselhat",
+      "view": 0,
+      "polygons": 491,
+      "beams": 1,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.4
+        ]
+      ],
+      "geometrySHA256": "cb63a2b249df48e3446c9b14d42032fe35d912ee88a62616e62c23ad99600bd0"
+    },
+    {
+      "id": "teaselhat",
+      "view": 1,
+      "polygons": 491,
+      "beams": 1,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.4
+        ]
+      ],
+      "geometrySHA256": "cb63a2b249df48e3446c9b14d42032fe35d912ee88a62616e62c23ad99600bd0"
+    },
+    {
+      "id": "teaselhat",
+      "view": 2,
+      "polygons": 491,
+      "beams": 1,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.4
+        ]
+      ],
+      "geometrySHA256": "cb63a2b249df48e3446c9b14d42032fe35d912ee88a62616e62c23ad99600bd0"
+    },
+    {
+      "id": "teaselhat",
+      "view": 3,
+      "polygons": 491,
+      "beams": 1,
+      "pairedMaterials": 35,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          40.4
+        ]
+      ],
+      "geometrySHA256": "cb63a2b249df48e3446c9b14d42032fe35d912ee88a62616e62c23ad99600bd0"
+    },
+    {
+      "id": "withebasket",
+      "view": 0,
+      "polygons": 322,
+      "beams": 60,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.9
+        ]
+      ],
+      "geometrySHA256": "8e1524852454890e45fef46d2814fbc4e812952c62e93380de5ab2983932accc"
+    },
+    {
+      "id": "withebasket",
+      "view": 1,
+      "polygons": 322,
+      "beams": 60,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.9
+        ]
+      ],
+      "geometrySHA256": "8e1524852454890e45fef46d2814fbc4e812952c62e93380de5ab2983932accc"
+    },
+    {
+      "id": "withebasket",
+      "view": 2,
+      "polygons": 322,
+      "beams": 60,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.9
+        ]
+      ],
+      "geometrySHA256": "8e1524852454890e45fef46d2814fbc4e812952c62e93380de5ab2983932accc"
+    },
+    {
+      "id": "withebasket",
+      "view": 3,
+      "polygons": 322,
+      "beams": 60,
+      "pairedMaterials": 18,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          12.9
+        ]
+      ],
+      "geometrySHA256": "8e1524852454890e45fef46d2814fbc4e812952c62e93380de5ab2983932accc"
+    },
+    {
+      "id": "gorsearchery",
+      "view": 0,
+      "polygons": 122,
+      "beams": 6,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.8
+        ]
+      ],
+      "geometrySHA256": "56a85b35f933999dcc33dbf74c8a06856f6244ac17ef61483c382daa9cad51ff"
+    },
+    {
+      "id": "gorsearchery",
+      "view": 1,
+      "polygons": 122,
+      "beams": 6,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.8
+        ]
+      ],
+      "geometrySHA256": "56a85b35f933999dcc33dbf74c8a06856f6244ac17ef61483c382daa9cad51ff"
+    },
+    {
+      "id": "gorsearchery",
+      "view": 2,
+      "polygons": 122,
+      "beams": 6,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.8
+        ]
+      ],
+      "geometrySHA256": "56a85b35f933999dcc33dbf74c8a06856f6244ac17ef61483c382daa9cad51ff"
+    },
+    {
+      "id": "gorsearchery",
+      "view": 3,
+      "polygons": 122,
+      "beams": 6,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          19.8
+        ]
+      ],
+      "geometrySHA256": "56a85b35f933999dcc33dbf74c8a06856f6244ac17ef61483c382daa9cad51ff"
+    },
+    {
+      "id": "rillramblers",
+      "view": 0,
+      "polygons": 417,
+      "beams": 75,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.8
+        ]
+      ],
+      "geometrySHA256": "f2744bfda1124810ba217f8f0da00fb8818c35287a59406ee42664f6d775108a"
+    },
+    {
+      "id": "rillramblers",
+      "view": 1,
+      "polygons": 417,
+      "beams": 75,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.8
+        ]
+      ],
+      "geometrySHA256": "f2744bfda1124810ba217f8f0da00fb8818c35287a59406ee42664f6d775108a"
+    },
+    {
+      "id": "rillramblers",
+      "view": 2,
+      "polygons": 417,
+      "beams": 75,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.8
+        ]
+      ],
+      "geometrySHA256": "f2744bfda1124810ba217f8f0da00fb8818c35287a59406ee42664f6d775108a"
+    },
+    {
+      "id": "rillramblers",
+      "view": 3,
+      "polygons": 417,
+      "beams": 75,
+      "pairedMaterials": 36,
+      "bbox": [
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0.65,
+          31.35
+        ],
+        [
+          0,
+          26.8
+        ]
+      ],
+      "geometrySHA256": "f2744bfda1124810ba217f8f0da00fb8818c35287a59406ee42664f6d775108a"
+    }
+  ]
+}
