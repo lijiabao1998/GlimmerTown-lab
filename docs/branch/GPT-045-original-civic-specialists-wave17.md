@@ -68,3 +68,26 @@
 - Separate fp job120975651080 reported exactly40 added bld leaves with no other family decline. Adopted only its raw artifact12574725468 bytes after ZIP SHA256 validation,4023 old leaves exact,165 other families exact, old block count1728/CRC5ef6eb67 exact. Both old/new raw files omit envLeaves, with no environment-registration warning; no invented registration data added. Full provenance is `GPT-045-raw-CI-baseline-adoption.json`.
 - bld total96.45%→96.49%; seven axes: palette1→1, hardEdge0.9572489734902542→0.9578807244340685, lightDir0.8034960819770947→0.8057680988816951, shade1→1, density1→1, nightRule0.9907380909650112→0.9909531159365403, variants1→1. No score edited or threshold lowered.
 - Actually inspected original day/night contact sheets: ten distinct bodies and four rotations, localized night windows, no obvious cropping at contact scale. Detailed near/scenes/edge inspection is still in progress. New CI must confirm the selftest fix, complete native power and fiscal behavior; old success does not substitute final head verification.
+
+## C2 complete candidate verification and release preparation
+
+C2 `c57157c6991aa48325e07bc807f6cfb244eaf8a9`: [standard40129322396](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40129322396) smoke三次／fp／fiscal-load均成功；財務53項、10負控制、零失敗。[native40129322522](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40129322522)全部28工作成功。86原生檢查、12負控制，160供電情境／275PNG／1920相位證據，57完整場景＋40邊緣＋8歷史整幀對拍均成功。沒有刪減財務、存讀或像素欄位。
+
+同種子對比及完整舊檔回歸見原生normal-pairs/scenes附件與 `GPT-045-candidate-verification.json`。40交錯效能樣本：BASE median11.4ms／p9026.525ms，HEAD median2.675ms／p9026.8ms；既有預算不變，暖快取不重烘，30延遲負控制保留。自然12幀與獨立一次flush66幀建造路徑均成功，冷兩次draw畫面仍如實保留，不冒稱瞬間全部完成。
+
+原始接觸表與全部十款近景永久交付於 [docs/assets/GPT-045](../assets/GPT-045/manifest.json)。圖片逐byte複製原生CI產物，producer/head/artifact/SHA完整保存。實際人工檢視157張原圖：148張C1及9張有差異的C2，含全部57場景、40邊緣、16歷史對拍與19建造圖；精確清單及差異解釋見 `GPT-045-visual-review.md`。C2接觸表／單精靈91張全部與C1逐byte相同；場景112/113相同，建造11/19相同，差異原圖已覆核。遠景為既有LOD方塊，不當近景美術通過；不是275供電PNG全數人工逐看，也不冒稱業主圖審、實體手機或Safari。
+
+### 不改壞標準§8，候選證據逐項自檢
+- [x] 第一張卡在施工前凍結，完整原文保持前綴；沒有放寬驗收。
+- [x] 同種子逐欄比較及舊存檔回歸成功；發布版將另驗精確gameVer14.63→14.64遷移，不排除其他欄位。
+- [x] fp僅首卡bld家族增加40葉，4023舊葉／165其他家族不變；逃生閥8整幀對拍成功。
+- [x] 原生全部日夜、四季、有無雪、四向、邊緣、遠景、疊層與施工圖已實看，原圖及對照圖可核；LOD限制如上。
+- [x] 新守衛保留實際破壞的首紅與恢復：33幾何／來源範圍／原生12／供電／行人2／延遲30及像素、舊檔負控制。新增045錯selector回歸不改歷史判準。
+- [x] C2 smoke連跑三次成功，附上同headCI，不靠重跑賭綠。
+- [x] 沒有把source-only當Chrome；沒有把候選、已授權或CI成功當正式發布。
+
+### T771／v14.64／r218 發布準備
+
+Draft [PR59](https://github.com/lijiabao1998/GlimmerTown-lab/pull/59)。新增版本化發布契約只改三個精確版本字，反向必須完整還原C2 index SHA256 `89c3551256b31d3635170fa486d5298496aef0a5681d656a6b267349d433ae70`；獨立BASE也只同樣三字變更。舊045候選契約與所有舊檔原封不動。`AUTORUN-LOG.md`與方向檔僅准明列的新紀錄插入，業主開關與方向原話不變。
+
+未完成：發布版完整原生／標準CI；原生最後全綠後純刪分支workflow、最終push與PR CI、合法合併、mainCI、自動Pages與正式HTTPS＋Chromium逐byte核實。正式仍16波160座，不能提前計入170。
