@@ -103,6 +103,16 @@ palette1→1；hardEdge0.9578807244340685→0.9584876538355126；lightDir0.80576
 
 實看原始PNG的逐檔清單、原圖SHA及限制見GPT-046-visual-review.md。C2雖CI綠但廚房倒錐頂外觀未達首卡，C3仍歧義，C4僅修該四向真實搭接／排水標記及內向受光；原始四坡面座標、另九款與全部歷史guard不動。遠景LOD不當近景細節，未冒稱275供電圖全部人工看過、業主圖審、手機硬體或Safari。
 
+### 第十九波發布準備（T773／PR #63；2026-10-25）
+
+第19波十款原創英式村鎮結構／40向，bld880..919。既有180座、價格、供電、財務、模擬、RNG、存檔結構和全局密度完全保留。
+
+原半球 C1–C7 的可見深腔不足與所有首紅保留；業主03:34明確選B，僅 Vervain 改較高較淺的真半橢球，保持2×2、低台、用途與其他九款。B1原生40159313479全28工作成功，B2採用標準push40159313379/artifact12586045331的逐byte官方fp/style。最新B2完整結果另附，不用舊頭冒充。原圖／SHA／實看範圍見docs/assets/GPT-047/manifest.json及GPT-047-visual-review.md；未宣稱全275張人工檢視、真手機或Safari。
+
+palette1→1；hardEdge0.9584876538355126→0.9590887522134695；lightDir0.80448533640023→0.8026981450252951；shade1→1；density1→1；nightRule0.991157775364051→0.9913522165367163；variants1→1；total0.9649→0.9647。受光下降依連續方向第二項起例外如實披露，不改權重或門檻。
+
+發布準備，待發布版完整 CI、最後全綠後刪自有分支 workflow、最終 head CI、合法合併、main CI、自動 Pages 與真實公網 Chromium；正式仍18波180座，尚不能計190。 [PR63](https://github.com/lijiabao1998/GlimmerTown-lab/pull/63)。
+
 ## 待辦（「修補」排最前面，其餘依方向排；每輪做最上面一項）
 
 | 序 | 項目 | 對應方向的哪一句 | 美術／玩法 | 要動的 fp 家族 | 備註 |
@@ -120,6 +130,7 @@ palette1→1；hardEdge0.9578807244340685→0.9584876538355126；lightDir0.80576
 
 | 項目 | T 號 | PR | 完成日 | 未跑守衛（Claude／Codex 補跑後劃掉） |
 |---|---|---|---|---|
+| 第十九波10座原創英式村鎮結構（GPT-047，核實發布後才計190） | [T773](T773-british-wave19-original.md) | [#63](https://github.com/lijiabao1998/GlimmerTown-lab/pull/63) | 待正式發布核實 | 發布準備，待發布版完整 CI、最後全綠後刪自有分支 workflow、最終 head CI、合法合併、main CI、自動 Pages 與真實公網 Chromium；正式仍18波180座，尚不能計190。 palette1→1；hardEdge0.9584876538355126→0.9590887522134695；lightDir0.80448533640023→0.8026981450252951；shade1→1；density1→1；nightRule0.991157775364051→0.9913522165367163；variants1→1；total0.9649→0.9647。受光下降依連續方向第二項起例外如實披露，不改權重或門檻。 |
 | 第十八波10座原創英式社區館舍（GPT-046；18／20波180座，已發布） | [T772](T772-british-wave18-original.md) | [#61](https://github.com/lijiabao1998/GlimmerTown-lab/pull/61) | 2026-10-25 | PR61正常squash為 `a2718a7a3ee17445d4a23ea40d22398fb4e12295`，T772／v14.65／r219；最後純刪workflow head e68a30c 的push40148605227及PR40148608072全綠，main40149354922與既有自動Pages40149830935成功。發布後唯讀真HTTPS／Chromium run40148042386 attempt2／job121039349056成功，artifact12582083285；HTTP200及瀏覽器均11831402bytes、SHA256 `0ec9f7cbe03139dd93d607e7b343911dce4024028b40a16a4c88439dca23390c`，T772／14.65，第11～18波各10款40sprite，31負控、零runtime／network錯誤；公開menu／city／第18波目錄原PNG已實看，無本地server。C6完整28原生工作成功，86項／12負控、供電160案例／275PNG／1920相位、57場景／40邊緣／8整幀，詳卡。原始cold兩次draw的施工末圖仍有Chamomile與Myrtle兩裸墊，保留非同步烘焙限制；預定12自然幀與66明確flush另驗，不替換首圖。C2／C3屋頂視覺失敗保留，C4真實搭接排水幾何修正；bld total0.9649→0.9649，lightDir0.8057680988816951→0.80448533640023下降，全部七軸與官方原始基線詳PR／卡。不冒稱275供電圖全數人工、業主圖審、實體手機或Safari。 |
 | 第十七波10座原創英式公共館舍與專門工房（GPT-045；17／20波170座，已發布） | [T771](T771-british-wave17-original.md) | [#59](https://github.com/lijiabao1998/GlimmerTown-lab/pull/59) | 2026-10-24 | 已正式發布，累計17／20波、170／200座。PR #59 squash為 `3b123dbe0cb2f635a1051b398604f8b49c9b0a25`，T771／v14.64／r218；最後純刪workflow head963b64c5的push40131342921、PR40131345691全綠，main40131928075與自動Pages40132432643成功。發布後唯讀公網Chrome run40130557188 attempt2／job120987555334成功，artifact12575163694；HTTP200及Chrome均11,761,122bytes、SHA256 `c4797f3f1898af5dc51080f2a19eae072e21cbd8e8b03d6ffd54a0759bb7d6ff`，T771／14.64，第11～17波各10款40sprite，28負控、零runtime／network錯誤。公開menu／city／第17波目錄原圖已實看，不使用本地server。 C2全驗收成功；157張原圖已實看，完整清單與原PNG／SHA見T771；遠景LOD不當近景細節，275供電PNG未全數人工逐看，不冒稱業主批准、實體手機或Safari。 bld total0.9645→0.9649，七軸無下降。 |
 | 第十六波10座原創英式專門工房與服務建築（GPT-044；16／20波160座，已發布） | [T770](T770-british-wave16-original.md) | [#57](https://github.com/lijiabao1998/GlimmerTown-lab/pull/57) | 2026-10-24 | 已正式發布，累計16／20波、160／200座。PR #57 squash為 `64c78c9a2bad16fd191430525f4abaf4f7226717`，T770／v14.63／r217；最後head1f4eb6a0的push40124782625與PR40124785577全綠。main40125688839、自動Pages40126187059成功。發布後唯讀public-site40123355347 attempt2／job120968827141成功，artifact12573522220；實際HTTP200及sandbox Chromium均11,705,418bytes、SHA256 `6a6d7da0a47fbf13f9c629ed2db9602346e401f274d3d41e616e0b31f731c723`，T770／14.63，第11～16波各10款40sprite，25負控、零runtime／network error。公開menu／city／第16波目錄原PNG已實看，未用本地server。 完整native28成功，bld七軸詳T770，無軸下降；91預覽／113場景／19施工圖已實看，不稱275供電圖全人工或實體手機／Safari／觸控測試。 |

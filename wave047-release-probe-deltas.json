@@ -1,0 +1,86 @@
+[
+  {
+    "original": "probeBritishWaveJunction047.cjs",
+    "release": "probeBritishWaveRelease047.cjs",
+    "originalSHA256": "f61c4ec526ec040ba64f9a3f8382d9bec2a8b187a8ada45a104f9cd38b0100c4",
+    "releaseSHA256": "a6d0c85e04ecbf43ddbd114866151fa52cb76d379ba9c63ff8610a6a36c07c70",
+    "changes": [
+      {
+        "before": "",
+        "after": "const release047=require('./wave047-release-labels.cjs');release047.toCandidate(committedSource);\n"
+      },
+      {
+        "before": "return stripped;}\nconst sourceCheck047=text=>assert(nativeSource047(text)===original,'wave047 existing native model and original rendering source byte-identical with candidate labels unchanged');\n",
+        "after": "return release047.swap(stripped,true);}\nconst sourceCheck047=text=>assert(nativeSource047(text)===original,'wave047 existing native model and original rendering source byte-identical after exact inverse of the three declared release labels');\n"
+      }
+    ]
+  },
+  {
+    "original": "probeNativePairs047.cjs",
+    "release": "probeNativePairsRelease047.cjs",
+    "originalSHA256": "fc71287847c3352e3ac9415e23850b43a8b3c88e2b4fa392d7519b30a4394117",
+    "releaseSHA256": "1a8169e1967d1c24cf2a0fa8ffec3a49f2e1d785c9226e67366135893df062d8",
+    "changes": [
+      {
+        "before": "// Candidate contract: no version-label normalization or save-field exclusion.\n// Release must use a separately pinned exact three-label contract.\nconst baseRelease={ver:'14.65',anchor:'T772'},headRelease={...baseRelease},labelPairs=[];\nconst frozenLabels=[\"const GAME_VER='14.65';\",\"const GAME_ANCHOR='T772';\",'id=\"startVersion456\">v14.65 · T772</span>'];\nfunction candidateLabels(text){for(const label of frozenLabels)assert.equal(text.split(label).length,2,'normal047 exact frozen candidate label '+label);}\ncandidateLabels(originalBase.toString());candidateLabels(head.toString());\nlet labelRed;try{candidateLabels(head.toString().replace(\"const GAME_VER='14.65';\",\"const GAME_VER='14.66';\"));}catch(e){labelRed=e.message.split('\\n')[0];}assert(labelRed?.startsWith('normal047 exact frozen candidate label'),'normal047 real version-label first RED');candidateLabels(head.toString());\nconst base=originalBase,sourceHash=x=>crypto.createHash('sha256').update(x).digest('hex');\n",
+        "after": "// Separate immutable release contract: exact three source labels, no state-field exclusions.\nconst release047=require('./wave047-release-labels.cjs');release047.toCandidate(head.toString());\nconst baseRelease={ver:'14.65',anchor:'T772'},headRelease={ver:'14.66',anchor:'T773'},labelPairs=release047.PAIRS;\nconst base=Buffer.from(release047.baseToRelease(originalBase.toString())),sourceHash=x=>crypto.createHash('sha256').update(x).digest('hex');\nassert.equal(release047.restoreBase(base.toString()),originalBase.toString(),'normal047 release BASE reverses to exact Git bytes');\nconst releaseLabelNegatives=release047.negatives(head.toString());\n"
+      },
+      {
+        "before": "  fs.writeFileSync(path.join(OUT,'base-source-provenance.json'),JSON.stringify({source:BASE,originalSHA256:sourceHash(originalBase),declaredSHA256:sourceHash(base),originalRelease:baseRelease,declaredRelease:headRelease,onlySourceChanges:labelPairs,allModelSourceExact:true,stateNormalization:false,fieldExclusions:[]},null,2)+'\\n');\n",
+        "after": "  fs.writeFileSync(path.join(OUT,'base-source-provenance.json'),JSON.stringify({source:BASE,originalSHA256:sourceHash(originalBase),declaredSHA256:sourceHash(base),originalRelease:baseRelease,declaredRelease:headRelease,onlySourceChanges:labelPairs,releaseLabelNegatives,allModelSourceExact:true,stateNormalization:false,fieldExclusions:[]},null,2)+'\\n');\n"
+      }
+    ]
+  },
+  {
+    "original": "probeScenes047.cjs",
+    "release": "probeScenesRelease047.cjs",
+    "originalSHA256": "c34b7aebc5808ed9c997c0c35c5ae97a816a0fcfb63ec8b065b611c2df3745cb",
+    "releaseSHA256": "1fd422524eff76e196ef34e0caebb9819ff31c8ca85985613a908148042b520c",
+    "changes": [
+      {
+        "before": "",
+        "after": "const release047=require('./wave047-release-labels.cjs');release047.toCandidate(head.toString());\nconst declaredBase=Buffer.from(release047.baseToRelease(base.toString()));\nassert.equal(release047.restoreBase(declaredBase.toString()),base.toString(),'scene047 release baseline exact inverse');\nconst releaseLabelNegatives=release047.negatives(head.toString());\n"
+      },
+      {
+        "before": "",
+        "after": "  let declaredOld;\n  try{\n    fs.writeFileSync(index,declaredBase);\n    const migrated=await withGame(opt,async({cdp})=>{\n      const fixture=await cdp.evalJs('('+legacyFixture047.toString()+')('+JSON.stringify(old.fixture.raw)+')');\n      assert.equal(fixture.states[0].gameVer,'14.66','scene047 declared BASE exact release writer');\n      assert.deepEqual(stateDiff(fixture.input,fixture.states[0]),[{path:'gameVer',before:'14.65',after:'14.66'}],'scene047 declared BASE only exact legacy writer migration');\n      if(cdp.errors.length)throw Error(cdp.errors.join('; '));return fixture;\n    });assert(migrated.ok&&migrated.result,'scene047 independent declared BASE migration');declaredOld=migrated.result;\n  }finally{fs.writeFileSync(index,head);}\n  report.releaseContract={labelPairs:release047.PAIRS,releaseLabelNegatives,originalBaseSHA256:hash(base),declaredBaseSHA256:hash(declaredBase),actualBrowserMigration:true,stateFieldExclusions:[]};\n"
+      },
+      {
+        "before": "    assert.equal(fixture.states[0].gameVer,'14.65','scene047 exact frozen candidate writer');\n",
+        "after": "    assert.equal(fixture.states[0].gameVer,'14.66','scene047 exact release writer');\n"
+      },
+      {
+        "before": "    assert.deepEqual(migration,[],'scene047 candidate legacy load changes no field');report.oldSaveMigration=migration;\n    const matchesBase=strict(()=>stateCheck(fixture.states,old.fixture.states,'scene047 complete old-save behavior matches baseline, every field without exclusions'));\n",
+        "after": "    assert.deepEqual(migration,[{path:'gameVer',before:'14.65',after:'14.66'}],'scene047 release legacy load changes only exact writer label');report.oldSaveMigration=migration;\n    const matchesBase=strict(()=>stateCheck(fixture.states,declaredOld.states,'scene047 complete old-save behavior matches baseline, every field without exclusions'));\n"
+      }
+    ]
+  },
+  {
+    "original": "probeTenPowerEllipsoid047.cjs",
+    "release": "probeTenPowerRelease047.cjs",
+    "originalSHA256": "428a18b67713a9bbf194258d314a93d7263c240f8d3103bec379f9852c30378e",
+    "releaseSHA256": "4b6f3b6c2cd16d9cc515743e6124ca414f425dcaf7cc693270f5459cab1f9f67",
+    "changes": [
+      {
+        "before": "assert.equal(strip(head.toString()),original.toString(),'night047 complete committed HEAD strips exactly to independent BASE');\n",
+        "after": "const release047=require('./wave047-release-labels.cjs');release047.toCandidate(head.toString());\nconst declaredBase=Buffer.from(release047.baseToRelease(original.toString()));assert.equal(release047.restoreBase(declaredBase.toString()),original.toString(),'night047 release BASE reverses exactly to independent Git');\nassert.equal(strip(head.toString()),declaredBase.toString(),'night047 full HEAD strips exactly to declared release BASE');\n"
+      },
+      {
+        "before": "",
+        "after": "sourceNames.push('probeTenPowerEllipsoid047.cjs','wave047-ellipsoid-repair-contract.cjs');\nsourceNames.push('probeTenPowerRelease047.cjs','wave047-release-labels.cjs');\n"
+      },
+      {
+        "before": "const baseFixture=Buffer.from(original.toString().replace(point,bridge+'\\n'+point));assert.equal(baseFixture.toString().split(bridge+'\\n').length,2,'night047 unique BASE traffic phase bridge');assert.equal(baseFixture.toString().replace(bridge+'\\n',''),original.toString(),'night047 BASE removes only CI bridge to exact independent Git bytes');\nconst production=compose(original.toString(),composition);\n",
+        "after": "const baseFixture=Buffer.from(declaredBase.toString().replace(point,bridge+'\\n'+point));assert.equal(baseFixture.toString().split(bridge+'\\n').length,2,'night047 unique BASE traffic phase bridge');assert.equal(baseFixture.toString().replace(bridge+'\\n',''),declaredBase.toString(),'night047 BASE removes only CI bridge to exact declared release bytes');\nconst production=compose(declaredBase.toString(),composition);\n"
+      },
+      {
+        "before": "assert.equal(strip(fixture.toString()),original.toString(),'night047 HEAD exact three-block BASE source boundary');\n",
+        "after": "assert.equal(strip(fixture.toString()),declaredBase.toString(),'night047 HEAD exact three-block BASE source boundary');\n"
+      },
+      {
+        "before": "(async()=>{const report={head:process.env.GITHUB_SHA,base:BASE,scope:'complete ten-model native powered-night supplement; whole-wave guards remain separate',sourceFiles:sources,committedIndexSHA256:hash(head),independentGitBaseSHA256:hash(original),baseClockFixtureSHA256:hash(baseFixture),baseClockFixtureIsGitBASE:false,fixtureIndexSHA256:hash(fixture),fixtureIsCommittedIndex:false,baseFixtureStripsToIndependentGitBytes:true,headThreeBlocksStripToIndependentGitBytes:true,productionHasPhaseBridge:false,trafficPhasePolicy:'CI-only drawAt0; native draw advances.016; native counter restored finally; no adaptive capture retries',fieldExclusions:[],utilityTruthAssigned:false,fullWaveAcceptance:false};write('index-independent-base.html',original);write('index-base-clock-fixture.html',baseFixture);write('index-night-fixture.html',fixture);json('source-provenance-night047.json',report);\n",
+        "after": "(async()=>{const report={head:process.env.GITHUB_SHA,base:BASE,scope:'complete ten-model native powered-night supplement; whole-wave guards remain separate',sourceFiles:sources,committedIndexSHA256:hash(head),independentGitBaseSHA256:hash(original),baseClockFixtureSHA256:hash(baseFixture),baseClockFixtureIsGitBASE:false,fixtureIndexSHA256:hash(fixture),fixtureIsCommittedIndex:false,baseFixtureStripsToDeclaredReleaseBytes:true,headThreeBlocksStripToDeclaredReleaseBytes:true,declaredBaseInverseRestoresIndependentGitBytes:true,declaredBaseSHA256:hash(declaredBase),releaseLabelPairs:release047.PAIRS,productionHasPhaseBridge:false,trafficPhasePolicy:'CI-only drawAt0; native draw advances.016; native counter restored finally; no adaptive capture retries',fieldExclusions:[],utilityTruthAssigned:false,fullWaveAcceptance:false};write('index-independent-base.html',original);write('index-base-clock-fixture.html',baseFixture);write('index-night-fixture.html',fixture);json('source-provenance-night047.json',report);\n"
+      }
+    ]
+  }
+]
