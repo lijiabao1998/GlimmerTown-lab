@@ -1,0 +1,17 @@
+# Wave19 original native image review
+
+Current artwork source: B1 `0c377c28a177903737cd933ee3c7b60ec0de9892`. Owner explicitly selected higher/shallower half-ellipsoid B at 2026-10-25 03:34 UTC; the original hemisphere card and C1–C7 sources remain historical and unchanged. This is not an owner approval of unshown future release evidence.
+
+C1–C7 failures are retained: Hops cone curvature, Tansy long post-mill body/tail, Vervain flat appearance/incorrect constant inner-wall material, Campion arch interiors and Woodruff visible short supports were not counted successful merely because source tests or CI passed. C4 resolved Campion/Woodruff locally; C7 still failed stable deep-cavity readability. The retained C7 original scene is delivered beside B1.
+
+B1 exact original PNGs were opened, without regeneration/crop/edit: contact-day and contact-comparison, all four Vervain day and night sprites, near-vervainrecital, near-woodruffgrain, near-catmintbridge, winter-snow-day-r0 and far-day. Contact sheets show all40 native day views and nearest older-design comparisons; they are not claims that every standalone frame/power screenshot was individually examined. Earlier C1–C7 focused reviews remain associated with their exact original images, not silently relabelled B1.
+
+B1 visibly separates the low timber stage from the higher curved interior wall/shell; front r0/r3 now read as an open recital shell rather than a filled brown arch. Back r1/r2 retain true curved outer skin and real side walls. No screen-space shadow, mask or new palette was introduced. Campion's three deep front arches, Woodruff's short capped supports/airgap and Catmint's roof/stair descent remain distinct in the official near scene. Other nine bodies are frozen. Source proof establishes exact geometry beyond what small sprites alone can show.
+
+B1 versus C7 byte comparison: all80 individual sprites checked. Six Vervain files change (four day plus r1/r2 night), other74 match, including all72 files of the other nine products. Night emission sheets only show physical original edge lights; they do not prove an illuminated cavity. Shapes may occlude these lights; no new artistic night light is claimed. Far LOD remains existing flat plot markers, not recognizable near architecture. Winter uses existing snow rendering and does not warrant altering the global weather appearance.
+
+Original-file manifest and SHA256: `docs/assets/GPT-047/manifest.json`. Preview artifact12585569807 ZIP SHA256 `593a642d38825b01e3acd281f01704d8997a6bf53e64385b9bfee3432c3d80b5`; scene artifact12585724238 ZIP SHA256 `d4f1c9e9f62f8b7b0a268107daf6835af856b6313f93f4433b6cefdb218f245f`. These are candidate artifacts, not proof of public release.
+
+Performance same-condition40 interleaved desktop Chromium pairs: median9.55→2.1ms, p9019.25→19.7ms; restored7.225→2.05ms, p9018.9→19.1ms. Warm draw rebakes0;30 injected59ms delay samples fail then restore GREEN. Median improves but p90 rises slightly; not universally faster, not real mobile hardware or Safari.
+
+Remaining release gates: complete latest-head CI and exact official raw fingerprint adoption, release label/metadata verification, branch-workflow cleanup then final-head CI, lawful merge, main CI, automatic Pages and independent public Chromium SHA/version proof. Count remains published180 until those succeed. No claim of275 manually viewed power images, owner sign-off on every image, real mobile hardware, or complete research certification.

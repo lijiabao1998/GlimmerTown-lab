@@ -1,0 +1,7 @@
+{
+  "c4Commit": "13ae5404e9e9fd7d6bdb3e2dfcae28a1353a445d",
+  "c4ArtSHA256": "af17f374bea0463f12e12a7d1a3ee7106b4071f4580b55ce53996e5be27b264b",
+  "c5ArtSHA256": "3e2c8469996e32e9b0f72d00424ccad023788cb56eefb70111725fe34d7a9c75",
+  "before": "const stageTimber=(x,y,z)=>A.K.mod(x,1.5)<.12?P.woodD:P.woodR;",
+  "after": "const stageTimber=(x,y,z)=>A.K.mod(x,1.5)<.30?P.woodD:P.woodR;"
+}

@@ -1,0 +1,124 @@
+{
+  "head": "be23840f9a8306ed879f0b08d9700ef1bb81d594",
+  "nativeRun": 40160465127,
+  "nativeChecks": 86,
+  "nativeNegatives": 12,
+  "power": {
+    "trafficPhaseWitnessCount": 1920,
+    "actualGamePNGCount": 275,
+    "originalIndexRestored": true,
+    "fieldExclusions": [],
+    "utilityTruthAssigned": false,
+    "baseFixtureStripsToDeclaredReleaseBytes": true,
+    "headThreeBlocksStripToDeclaredReleaseBytes": true,
+    "declaredBaseInverseRestoresIndependentGitBytes": true,
+    "releaseLabelPairs": [
+      [
+        "const GAME_VER='14.65';",
+        "const GAME_VER='14.66';"
+      ],
+      [
+        "const GAME_ANCHOR='T772';",
+        "const GAME_ANCHOR='T773';"
+      ],
+      [
+        "id=\"startVersion456\">v14.65 · T772</span>",
+        "id=\"startVersion456\">v14.66 · T773</span>"
+      ]
+    ]
+  },
+  "sceneCount": 57,
+  "edges": 40,
+  "oldSave": {
+    "slot": 3,
+    "sandbox": true,
+    "passes": 2,
+    "matchesBase": true,
+    "allFieldsEqual": true,
+    "differences": [
+      {
+        "pass": 1,
+        "differences": []
+      },
+      {
+        "pass": 2,
+        "differences": []
+      }
+    ],
+    "baseSHA256": "246acf0e36aaf58bf13f02abef406afabeccfc40a001d62fcd245b2ac690a3dd"
+  },
+  "migration": [
+    {
+      "path": "gameVer",
+      "before": "14.65",
+      "after": "14.66"
+    }
+  ],
+  "fallback": [
+    {
+      "name": "legacy-day-r0.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+      "equal": true
+    },
+    {
+      "name": "legacy-day-r1.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60",
+      "equal": true
+    },
+    {
+      "name": "legacy-day-r2.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300",
+      "equal": true
+    },
+    {
+      "name": "legacy-day-r3.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r0.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r1.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r2.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c",
+      "equal": true
+    },
+    {
+      "name": "legacy-night-r3.png",
+      "w": 1280,
+      "h": 657,
+      "sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040",
+      "equal": true
+    }
+  ],
+  "formalPublishedCount": 180,
+  "nativeRunURL": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40160465127",
+  "standardRunURL": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40160465195",
+  "nativeJobsSuccess": 28,
+  "standardSuccess": true,
+  "branchWorkflowCleanupCommit": "64ebf239f8ae36a87fe7aea756bf3346de979642",
+  "finalHeadCI": "pending; exact final head must be green before legal merge",
+  "releaseIndexSHA256": "3ec1acaea20088ee66130c5ae03a647f191279756894f1b0d377919444d3eb63",
+  "unchangedSpritePNGsVsB1": 80
+}
