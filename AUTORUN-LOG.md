@@ -15,6 +15,20 @@
 
 ---
 
+## r221 — T774 第20波原創英式村鎮工藝（GPT-048；發布準備）
+
+第20波十款原創工藝公共建築／40向 bld920..959，既有190座及舊4143葉完全保留；價格、地塊、財務、供電、存檔結構、RNG、全局密度不變。C1原生[40164900539](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40164900539)全29工作成功，含9份source運輸而非29種產品驗收。C2從官方標準artifact12587668760採用逐byte原始fp/style，未製造分數。詳細首紅、86原生檢查、160供電案例、57場景、40邊緣與40組效能A/B見[原始驗收](branch/GPT-048-C2-CI-evidence.md)。
+
+palette1→1；hardEdge0.9590887522134695→0.9596755126848755；lightDir0.8026981450252951→0.8020890599230346；shade1→1；density1→1；nightRule0.9913522165367163→0.9915410895109031；variants1→1；total0.9647→0.9648。受光軸微降依連續方向第二項起例外如實披露，未改光照／權重／門檻。
+
+本節是T774／14.67發布準備，尚未計200：須發布版全套原生CI、獨立刪分支workflow、最後head標準CI、合法合併、main CI、自動Pages及公網真Chromium均完成。原圖人工審閱範圍據實記錄，真手機／Safari／觸控未驗證。不擅開第21波。
+
+commit：#64。沒做成的事：C1初始官方fp尚未採用導致標準fp／財務指紋首紅，已保留；未實測手機及Safari。正式公網尚為190。
+
+第19波已於2026-10-25正式發布190座：PR63合併4346a96543b01ffd47ac3696480661b5de8638ae；[main CI40162795551](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40162795551)及[自動Pages40163187956](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40163187956)成功。原[公網Chromium40160465127](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40160465127)第二次job121079351468成功；HTTP／Chrome均200，11933765bytes、SHA256 3ec1acaea20088ee66130c5ae03a647f191279756894f1b0d377919444d3eb63與正式build逐byte相同。T773／14.66、11–19波各10款40向、34負控制、零runtime/network錯誤。此前發布準備記錄保留為歷史，不再當待辦。
+
+---
+
 ## r220 — T773 第十九波原創英式村鎮結構（GPT-047；發布準備）
 
 第19波十款原創英式村鎮結構／40向，bld880..919。既有180座、價格、供電、財務、模擬、RNG、存檔結構和全局密度完全保留。
