@@ -1,0 +1,25 @@
+{
+  "schema": "GPT-048.raw-CI-baseline-adoption.v1",
+  "producerHead": "c7537d08b25685e5f5855a7c923f5bff0fcc3419",
+  "run": 40164900403,
+  "job": 121083838046,
+  "artifact": 12587668760,
+  "artifactSHA256": "a632f006eef7e7b5d9b0bfa5036c4aa7863865057e86c086f29ee43cf324fd52",
+  "artSourceSHA256": "585c4bd2633650c7706ae1c0926ec7ffdf7f20c5ddd7dc438eb508f839872b4c",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 454224,
+      "sha256": "1e06a0477aa5cfcf1241af648b8fea6fb69af67f9834eb9b15022d5ccba0dfe1"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73169,
+      "sha256": "2a4f9075531b313bbd1af0e0dedfefc055923f9677a8336f79e17d8320584013"
+    }
+  ],
+  "byteEdited": false,
+  "independentNativeRun": 40164900539,
+  "independentNativeArtifact": 12588061292,
+  "independentComparison": "All JSON fields equal except original generatedAt timestamps. Adopt standard artifact bytes unchanged, including original metadata."
+}
