@@ -1,0 +1,19 @@
+{
+  "c6Commit": "2ed1a3f73597d0f13a373c3cf9ebdb883010b17b",
+  "c6ArtSHA256": "fa57627774683bf34d3ed15321177a481caa16b79ae9962cecbf64ba749d100e",
+  "c7ArtSHA256": "8e26d0ee7a9035bf1410c212e89124d1b3f383344d2c913dc1a32d8f6aeb1603",
+  "changes": [
+    {
+      "before": "",
+      "after": "  // C7: true inward surface normals under the unchanged upper-left light.\n  // Quantize only existing stone palette levels; no screen-space shadow/mask.\n  const inwardStone=(nx,ny,nz)=>{\n    const rx=view===1?-ny:view===2?-nx:view===3?ny:nx,ry=view===1?nx:view===2?-ny:view===3?-nx:ny;\n    const light=(-rx+ry+nz)/Math.sqrt(3);\n    return light<=0?P.stoneD:light<=1/3?P.stoneR:light<=2/3?P.stone:P.stoneHi;\n  };\n"
+    },
+    {
+      "before": "S.poly(ins,A.mat('stone',-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n)))",
+      "after": "S.poly(ins,inwardStone(-nx,-ny,-nz))"
+    },
+    {
+      "before": "S.wall(ib.slice(0,2),ia.slice(0,2),.6,zc,P.stoneR)",
+      "after": "S.wall(ib.slice(0,2),ia.slice(0,2),.6,zc,inwardStone(-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n),0))"
+    }
+  ]
+}

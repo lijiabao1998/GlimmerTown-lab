@@ -278,3 +278,15 @@ Frozen first-card section5 requires a true thick half-dome, substantial side che
 C6 source preflight retained one honest first RED: the original stage guard treats every grounded front-plane face above4.5 as a mouth closure, so the two legitimate narrow side-cheek front faces at the new height triggered it. The original checker is immutable. Its new version excludes ONLY the exact two previously existing0.65-wide cheek quads atx4.5..5.15 and26.85..27.5,y22,z.6..9.4. It does not raise the4.5 rejection threshold or allow a broad wall below the new springline. Original24 negative checks remain, with8 additional four-view low-mouth-panelz5 and widened-cheek negatives:32 total. Full source111, curved-member20 and actual-material8 controls remain, with only exact declared coordinate anchors in versioned copies. Source contracts preserve C5→C4→C3→C2→C1 and all160 power cases. Final acceptance still requires actual four-view/full-scene native images.
 
 Finite actual-facet proof now supplements the source tests:16 selected front-view rays (r0/r3,8 each) change from genuine C5 stage-top first hits to C6 curved rear-inner-wall first hits. Native solid beam geometry is included from its exact construction function. Four additional centre rays instead meet the pre-existing pole/rib bundle and are reported, not miscounted as visible inner wall. Four deliberate low-springline/raised-floor/mouth-panel/missing-inner-wall faults fail at the correct first guard and restore. These are selected geometric witnesses, not a pixel map, percentage or visual acceptance.
+
+## C7：單次真內表面法向修復，保留 C6 未通過圖審
+
+C6 `2ed1a3f73597d0f13a373c3cf9ebdb883010b17b` 已產生官方四向與整景。artifact 12584757101 SHA256 `029a58733eb12795e9b09557345d73cb028a03ef4e57bbe69cb396461824421b`；scenes 12585157233 SHA256 `43e200264b9fbc0f0a4c2caa140c7fcec9c18a73cbe5945add4e178ae795efdc`。後內壁帶確實可見，但仍未能穩定辨識深腔；不以解析射線代替圖審。80 張精靈逐 byte 核對只有 Vervain 四日圖改變，其餘76張完全相同。
+
+具體根因：24段後內壁全用固定 stoneR，與外牆暗面主色相同；內半球原材質忽略向下 nz。木地坪與後壁已有色差，不再升高、改地坪、加紋理。C7 僅真後內壁與真內半球依 inward normal 旋轉後對既有上左光 `(-rx+ry+nz)/sqrt(3)`，量化既有四個石材色，不增加顏色、不改全局光照、不加假陰影或罩片。C6 幾何、地坪、其他九款與全部舊模型凍結。
+
+新增版本契約精確逆還原 C7→C6→C5→C4→C3→C2→C1；160供電案例全文保留。源碼記錄器四向逐頂點／梁／面框架核對完全相同，只允許288內殼及24後內壁材質，其他材質不變。負控制涵蓋遺失負nz、固定後壁、反向法向、光方向錯誤、地坪抬升，保留各首紅；不是渲染測試。
+
+C6 同條件40對桌面 Chromium：median 12.2→2.725ms，p90 26.15→27.3ms；恢復組8.4→2.55ms及24.95→26.7ms；暖繪製新幾何0，30次73ms延遲負控確實紅。明確保留尾延遲增加，不宣稱所有百分位改善，未驗真手機。
+
+C7 尚待官方四向／完整場景與完整驗收。這是一個收束候選；若仍不清晰，記錄實際限制及最小必要業主裁決，不再連串試飾。不新增發布授權、不提前計190。

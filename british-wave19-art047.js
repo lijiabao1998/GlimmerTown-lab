@@ -509,6 +509,13 @@ function tansymill(row,view){
 }
 function vervainrecital(row,view){
   const A=context(row,view),{S,P}=A,cx=16,cy=22,zc=9.4,r=11.5,inner=10.85,n=24,m=12;
+  // C7: true inward surface normals under the unchanged upper-left light.
+  // Quantize only existing stone palette levels; no screen-space shadow/mask.
+  const inwardStone=(nx,ny,nz)=>{
+    const rx=view===1?-ny:view===2?-nx:view===3?ny:nx,ry=view===1?nx:view===2?-ny:view===3?-nx:ny;
+    const light=(-rx+ry+nz)/Math.sqrt(3);
+    return light<=0?P.stoneD:light<=1/3?P.stoneR:light<=2/3?P.stone:P.stoneHi;
+  };
   // The half hemisphere curves in BOTH principal axes. Two radial skins plus
   // cut-rim and spring closures make a thick shell around a genuinely empty room.
   const pt=(rad,i,j)=>{const theta=i*Math.PI/(2*m),phi=j*Math.PI/n;return[cx+rad*Math.sin(theta)*Math.cos(phi),cy-rad*Math.sin(theta)*Math.sin(phi),zc+rad*Math.cos(theta)];};
@@ -520,7 +527,7 @@ function vervainrecital(row,view){
     const theta=(i+.5)*Math.PI/(2*m),phi=(j+.5)*Math.PI/n;
     const nx=Math.sin(theta)*Math.cos(phi),ny=-Math.sin(theta)*Math.sin(phi),nz=Math.cos(theta);
     const rx=view===1?-ny:view===2?-nx:view===3?ny:nx,ry=view===1?nx:view===2?-ny:view===3?-nx:ny;
-    S.poly(out,(-rx+ry+nz)<0?P.lead:P.slateHi);S.poly(ins,A.mat('stone',-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n)));
+    S.poly(out,(-rx+ry+nz)<0?P.lead:P.slateHi);S.poly(ins,inwardStone(-nx,-ny,-nz));
   }
   // Genuine shallow radial ribs sit within the curved inner skin, not a flat disc.
   for(const j of[4,8,12,16,20])for(let i=0;i<m;i++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i+1,j),P.stoneHi,.22);
@@ -537,7 +544,7 @@ function vervainrecital(row,view){
     const a=pt(r,m,j),b=pt(r,m,j+1),ia=pt(inner,m,j),ib=pt(inner,m,j+1);
     S.poly([a,b,ib,ia],P.stoneR);
     S.wall(a.slice(0,2),b.slice(0,2),.6,zc,A.mat('stone',Math.cos((j+.5)*Math.PI/n),-Math.sin((j+.5)*Math.PI/n)));
-    S.wall(ib.slice(0,2),ia.slice(0,2),.6,zc,P.stoneR);
+    S.wall(ib.slice(0,2),ia.slice(0,2),.6,zc,inwardStone(-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n),0));
     S.poly([[...a.slice(0,2),.6],[...b.slice(0,2),.6],[...ib.slice(0,2),.6],[...ia.slice(0,2),.6]],P.stoneR);
   }
   for(const x of[cx-r,cx+inner])A.volume(x,x+(r-inner),cy-.65,cy,.6,zc,'stone');
