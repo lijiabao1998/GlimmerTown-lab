@@ -242,6 +242,11 @@ const KEEP = process.argv.includes('--keep');
       selftests.push(['britishWave046', `(window.GV && window.GV.britishWave046) ? window.GV.britishWave046.selftest() : {ok:false,checks:['API 不存在']}`]);
     }
     // GPT-046 NEW SELFTEST END
+    // GPT-047 NEW SELFTEST START: complete original ten/four-view source.
+    if(fs.readFileSync(path.join(ROOT,'index.html'),'utf8').includes('<!-- GPT-047 PURE ART START -->')){
+      selftests.push(['britishWave047', `(window.GV && window.GV.britishWave047) ? window.GV.britishWave047.selftest() : {ok:false,checks:['API 不存在']}`]);
+    }
+    // GPT-047 NEW SELFTEST END
     // T617：沒有 LOCALAPPDATA（Linux）時改寫系統暫存目錄；原本會落進倉庫裡的 Temp/。
     const scratch = process.env.GOAL_SCRATCH || path.join(process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Temp') : require('os').tmpdir(), 'grok-goal-c80f16d61c81', 'implementer');
     const scratchMap = { overlay596: 'overlay-selftest.json', ukStyle596: 'uk-style-selftest.json', roadPixel596: 'road-pixel-selftest.json', tree596: 'tree-selftest.json', hud598: 'hud-realtime-selftest.json', panel599: 'panel-live-selftest.json', workshop600: 'workshop-selftest.json' };

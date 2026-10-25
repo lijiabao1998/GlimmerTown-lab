@@ -1,0 +1,127 @@
+{
+  "schema": "GPT-047.full-guard-preparation.v1",
+  "base": "182150fae37c7d95aee352ec6f901316668ad91b",
+  "firstCardCommit": "cdfa8101f18077fd193a8af43da4b7b35e90b3d2",
+  "firstCard": "docs/branch/GPT-047-original-village-structures-wave19.md",
+  "firstCardSHA256": "839c6cad4289e1ac12fd683218bfb4c173ff5437e32ca2064c05a6ae34a597ef",
+  "branch": "gpt/british-wave19-047",
+  "scope": "Complete independent candidate047 acceptance ported from immutable wave18 native guards; all published source and guards unchanged. Newly authored structural assertions inspect actual recorded world surfaces.",
+  "candidateLabels": {
+    "gameVer": "14.65",
+    "anchor": "T772",
+    "startLabel": "v14.65 · T772",
+    "normalization": false,
+    "fieldExclusions": []
+  },
+  "artSource": {
+    "file": "british-wave19-art047.js",
+    "sha256": "65a4870c49468e08e9d3f84d849fc127a07a37b87d5572c004569716358e8395"
+  },
+  "fullGuardPreparedSources": [
+    {
+      "template": "nativeTenPower046.cjs",
+      "templateSHA256": "ab4cc7bcb42e0c206b4d20b93b64f3cee1ba0c7b200c6f53a8e66286a69de245",
+      "file": "nativeTenPower047.cjs",
+      "expectedSHA256": "2bc98e3f3a9d657975a5b4e087720a8d0edc76ba10489686d4c2dca3ebea3a44",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "previewWave046.cjs",
+      "templateSHA256": "335981d92ad0a274b096d5873924bfe01e17a4aa4fe1257be14e7abee1a19c9c",
+      "file": "previewWave047.cjs",
+      "expectedSHA256": "5d89741eec78cd86e9b8dce993a39a9585772211b3c49f32635a79604c2b4755",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probeBritishWave046.cjs",
+      "templateSHA256": "2360717dc6f585202614e23ba9e792191b6abb64911a74506964b3b4f6092fdf",
+      "file": "probeBritishWave047.cjs",
+      "expectedSHA256": "1a2b4d5b1850c9e08fda5f3f30f9e592699fd4a56925d073c13783735f1ef1d1",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probeConstruction046.cjs",
+      "templateSHA256": "e275b5eb48d010b3c559114fedd82ea43251ee44894c0e5407f3455179577d74",
+      "file": "probeConstruction047.cjs",
+      "expectedSHA256": "76a43a4501dc6b3eb7b4df7e0b5300d7a4ea1e74032c509f9301e4a71097d3f4",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probeNativePairs046.cjs",
+      "templateSHA256": "e4608acd45156d46e7d286f679eabb02f7f273c701efd2e6b4303d3e716d9f99",
+      "file": "probeNativePairs047.cjs",
+      "expectedSHA256": "fc71287847c3352e3ac9415e23850b43a8b3c88e2b4fa392d7519b30a4394117",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probePedestrians046.cjs",
+      "templateSHA256": "512b298f054917f4552fe782706cf1ff4c834683863002f9415184d5d25e08fb",
+      "file": "probePedestrians047.cjs",
+      "expectedSHA256": "e07fba3b88dd38686561b4445afcf092515f0c807a012a36b0f5529269100c78",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probePerformance046.cjs",
+      "templateSHA256": "a0a60bc4ea2631d0fb133001918f4f4e64ebd9ef370acaf2c3f8051508a73e0d",
+      "file": "probePerformance047.cjs",
+      "expectedSHA256": "36e6ed9c54f1061aef1418423f0464a546304cdbd548e2758adf4bdbc4f2356a",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probePublicWave046.cjs",
+      "templateSHA256": "bc271c9f2f4102fba3c8a21571c272526a9893514e3ec691c7f0f570e8e2632d",
+      "file": "probePublicWave047.cjs",
+      "expectedSHA256": "4b4fc926af95c291fe08953cc1f51834039e63ea2e8c625a60e78b6430e7fd10",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probeScenes046.cjs",
+      "templateSHA256": "9f3a12647cbde67ae32714472dfecfe79dddb614af7df673e86fe8ae76fe6417",
+      "file": "probeScenes047.cjs",
+      "expectedSHA256": "c34b7aebc5808ed9c997c0c35c5ae97a816a0fcfb63ec8b065b611c2df3745cb",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "probeTenPower046.cjs",
+      "templateSHA256": "4de47b11b86c4e176b20067f1fa74c62f3b857a15384e95a4c53919593145e74",
+      "file": "probeTenPower047.cjs",
+      "expectedSHA256": "c18174627441bc10eae14b7972b96417a216b496fac0b2c84129bbadffa9d137",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "proveWave046Baseline.cjs",
+      "templateSHA256": "08f75430247f399cf20f0fb79d056d8c284c169440e9181f5a3c01d35e320138",
+      "file": "proveWave047Baseline.cjs",
+      "expectedSHA256": "41eed2242a4342ed27470875ddfc42b38d8b627362747da3c7ee0b99ad1a61f4",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "transferWave046CloseScenes.cjs",
+      "templateSHA256": "719a0e16949b6fc167736c098b313355539a435ffd45b6e2ac74baf274411f00",
+      "file": "transferWave047CloseScenes.cjs",
+      "expectedSHA256": "e21757c3e4d22a872dc465180fe7f6f6c1bf9f06cb83c9989a7072e0f410b324",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "transferWave046Evidence.cjs",
+      "templateSHA256": "164f5959c8c1487400976e6ecef4962335f9c3e4e57fd16252f27501760a7838",
+      "file": "transferWave047Evidence.cjs",
+      "expectedSHA256": "c6012b689a16057165092bb5b47207c45868324461552174f26dbc198719cad6",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "transferWave046Source.cjs",
+      "templateSHA256": "10f37bd49842086009eecbaf339c10a4e295ddbbe57f69e33bef20cb2919af17",
+      "file": "transferWave047Source.cjs",
+      "expectedSHA256": "0acef8e6f05cd19e0e5d3f054249fb774f8c3c183aa06bddd2a63e54ee0352f9",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    },
+    {
+      "template": "wave046-traffic-phase-fixture.js",
+      "templateSHA256": "2a36b502e72ac087d77803a91e62e0946650d423304c62f04408087b37bf4054",
+      "file": "wave047-traffic-phase-fixture.js",
+      "expectedSHA256": "45783e547fefd091c3379e5461f6a88346d0e78bb555410127f61497d54169d1",
+      "changes": "New frozen wave19 identities/880..919, exact independent published main source, complete state comparisons and all original thresholds/negative controls. Native catalog includes wave18; public includes wave19. No old guard edits."
+    }
+  ]
+}

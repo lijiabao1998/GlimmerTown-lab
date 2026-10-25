@@ -197,3 +197,14 @@ Shape key: long-two-tier-deep-open-front-seasoning-loft-solid-masonry-back-and-e
 ## 沒做成的事
 
 先前四種草案與既有結構碰撞已淘汰，留下上述理由。首卡不是成品；半穹內腔、架空環和坡穀倉需原生像素檢查，不能以幾何數字綠替代圖審。實體手機／Safari／觸控未測。前波cold施工原圖的非同步烘焙限制保留，不在本波偷改共用排程或延長原閘門。
+
+
+## C1 actual original model implementation, 2026-10-25
+
+- Ten complete new world-space models and forty native view entry paths are now authored in the unchanged native art021 material kit, assembled from explicit new A/B model sources. Existing 180 models remain byte-exact. This is implementation, not a static design sheet; native raster review is still pending official CI.
+- Source-only validation: 105 inline scripts parse; exact inverse composition restores published main; all 1,674 undeclared published files retain their Git object bytes; original smoke gains only the new independent selftest.
+- Actual recording-stub geometry: ten distinct colour-independent shapes, all forty construction paths, finite bounds including beam widths, 40 real drawn-surface sabotage controls, two changed-model-source controls and 17 invalid inputs. No local game, Canvas, Chromium or fingerprints ran.
+- Failures retained: Hops upper loading door initially did not align with its stair landing; the door and physical landing were corrected before submission. First new Spindle cap assertion assumed quads but the shared triangulator emits 56 triangles for 28 solid caps; corrected the new inspection to actual closed cap surfaces without changing geometry. Agrimony's cross-building ray originally counted the explicitly exterior stair; now separately requires an unobstructed full upper-ring footprint, not an impossible stair-free exterior. These are source-preflight findings, not claimed CI failures.
+- Candidate labels remain T772 / v14.65. Published count remains 180. New variants are only 880..919; cost, lot, utility, save, simulation and density remain unchanged.
+- CI plan: original smoke/fiscal/fingerprint plus branch-only contents-read native workflow, full 160-case power and state comparisons, native views/scenes/negative controls/performance, raw baseline provenance and independent public check. The original fingerprint baseline is intentionally retained until genuine official raw outputs can be verified.
+- Not yet passed: true native PNG review, CI, official fingerprint adoption, release/main CI, Pages, public verification. No owner art approval or physical-device verification is claimed.
