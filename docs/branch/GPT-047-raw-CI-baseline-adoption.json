@@ -1,0 +1,78 @@
+{
+  "producerHead": "0c377c28a177903737cd933ee3c7b60ec0de9892",
+  "run": 40159313379,
+  "artifact": 12586045331,
+  "zipSHA256": "ef162a995668aaa85084973d550d844ae1891732f1c2a6fc4c77ab6de11b9963",
+  "oldLeavesUnchanged": 4103,
+  "newLeaves": 40,
+  "otherFamiliesUnchanged": 165,
+  "blocksExact": true,
+  "before": {
+    "leaves": 1739,
+    "op": 12079298,
+    "raw": {
+      "leaves": 1739,
+      "px": 58193152,
+      "op": 12079298,
+      "semi": 25072,
+      "colors": 877866,
+      "buckets": 22003,
+      "leftLit": 1399,
+      "nightLeaves": 1709,
+      "nightOp": 667197,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9584876538355126,
+      "lightDir": 0.80448533640023,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.991157775364051,
+      "variants": 1
+    },
+    "total": 0.9649
+  },
+  "after": {
+    "leaves": 1779,
+    "op": 12256776,
+    "raw": {
+      "leaves": 1779,
+      "px": 59447552,
+      "op": 12256776,
+      "semi": 25072,
+      "colors": 878803,
+      "buckets": 22428,
+      "leftLit": 1428,
+      "nightLeaves": 1749,
+      "nightOp": 668733,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9590887522134695,
+      "lightDir": 0.8026981450252951,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9913522165367163,
+      "variants": 1
+    },
+    "total": 0.9647
+  },
+  "baselineAdopted": true,
+  "artSourceSHA256": "74d6596d496bbcafcdabb2a2da4ed9096f3ebc57e06f3efde67c35ba87065539",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 450024,
+      "sha256": "e694b7159bbbdfaffa71326df80df9f0b281249d9255f11e75b874b37e2b10f3"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73170,
+      "sha256": "ed462615bac2605e5c64f7e604d6762e6665f2dc817624c894fc2a67ce144dad"
+    }
+  ],
+  "job": 121067327373,
+  "adoption": "Exact unedited bytes from official standard push artifact, after B1 native28 jobs and actual original-image review. Not a local rebake."
+}
