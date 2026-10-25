@@ -29,6 +29,26 @@
 
   function catmintbridge(row,view){
     const A=context(row,view),{S,P}=A,x0=10,x1=22,y0=2,join0=12,join1=20,y1=30,low=.65,high=8.65;
+    // Each tread has real contrasting riser faces and a solid projecting nose.
+    // Covered timber stays in the original wood palette; world normals decide
+    // its light/dark face, never screen direction or a score-dependent branch.
+    function stairTread(yz){
+      const L=yz.map(p=>[11,p[0],p[1]]),R=yz.map(p=>[21,p[0],p[1]]);
+      S.poly(L,A.mat('wood',-1,0));S.poly(R.slice().reverse(),A.mat('wood',1,0));
+      for(let k=0;k<yz.length;k++){
+        const j=(k+1)%yz.length,a=yz[k],b=yz[j],dy=b[0]-a[0],dz=b[1]-a[1];
+        const material=Math.abs(dy)<1e-9?(A.dark(0,dz>0?-1:1)?P.woodD:P.woodR):Math.abs(dz)<1e-9?P.woodHi:P.woodD;
+        S.poly([L[k],L[j],R[j],R[k]],material);
+      }
+    }
+    function treadNose(y,z,reverse){
+      const ya=y-(reverse?.16:.20),yb=y+(reverse?.20:.16),bottom=z-.38;
+      S.flat(11,21,ya,yb,z,P.woodHi);S.flat(11,21,ya,yb,bottom,P.woodD);
+      S.wall([11,ya],[21,ya],bottom,z,A.dark(0,-1)?P.woodD:P.woodR);
+      S.wall([11,yb],[21,yb],bottom,z,A.dark(0,1)?P.woodD:P.woodR);
+      S.wall([11,ya],[11,yb],bottom,z,A.dark(-1,0)?P.woodD:P.woodR);
+      S.wall([21,ya],[21,yb],bottom,z,A.dark(1,0)?P.woodD:P.woodR);
+    }
     // Four slender load-bearing piers carry the level central floor. No anchor rooms.
     for(const [xa,xb]of[[10,11.4],[20.6,22]])for(const [ya,yb]of[[12,13.2],[18.8,20]]){
       b47SolidBox(A,xa,xb,ya,yb,.42,8.15,'stone');
@@ -54,7 +74,7 @@
       for(let i=0;i<8;i++){
         const a=i*1.25,b=(i+1)*1.25,za=Z(a),zb=Z(b),ya=Y(a),yb=Y(b);
         const section=ya<yb?[[ya,za-.5],[yb,zb-.5],[yb,zb],[ya,zb]]:[[yb,zb-.5],[ya,za-.5],[ya,zb],[yb,zb]];
-        b47XPrism(A,11,21,section,'wood');
+        stairTread(section);treadNose(ya,zb,reverse);
       }
       // Enclosed descending side walls are finite-thickness sloping prisms.
       const ya=Math.min(Y(0),Y(10)),yb=Math.max(Y(0),Y(10)),za=reverse?high:low,zb=reverse?low:high;
@@ -193,6 +213,16 @@
     const x0=3.5,x1=28.5,y0=16,y1=29.5,floor=8,soffit=7.4;
     const roofY0=15.2,roofY1=30.3,cy=22.75,eave=20.6,rise=6.9,thick=.55;
     const wallTop=eave+rise*(y0-roofY0)/(cy-roofY0)-thick;
+    // Actual sheltered inner masonry faces receive recess shading. No dark
+    // face is placed across an arch mouth: all openings and depths stay empty.
+    function lowerWall(xa,xb,ya,yb,inside){
+      const z0=.65,z1=soffit;
+      S.wall([xa,yb],[xb,yb],z0,z1,inside==='front'?P.stoneD:A.mat('stone',0,1));
+      S.wall([xb,ya],[xa,ya],z0,z1,A.mat('stone',0,-1));
+      S.wall([xa,ya],[xa,yb],z0,z1,inside==='left'?(A.dark(-1,0)?P.stoneD:P.stoneR):A.mat('stone',-1,0));
+      S.wall([xb,yb],[xb,ya],z0,z1,inside==='right'?(A.dark(1,0)?P.stoneD:P.stoneR):A.mat('stone',1,0));
+      S.flat(xa,xb,ya,yb,z0,P.stoneD);S.flat(xa,xb,ya,yb,z1,P.stoneHi);
+    }
     // A closed, asset-owned bank rises 7.55 over 12.7, then has a 1.8-unit
     // level landing. Its entire top meets the upper floor, not the undercroft.
     const earth=(x,y,z)=>K.hash(Math.floor(x*1.8),Math.floor(y*1.8),47061)%13===0?P.woodD:P.soil;
@@ -204,10 +234,10 @@
     }
     // Stone side/rear walls and three thick curved front arches enclose a
     // deep, empty lower room. There is no opaque front rectangle to mask.
-    bSolid(A,x0,x1,y0,y1,.43,.65,'stone',P.paveR);
-    bSolid(A,x0,4.65,y0,y1,.65,soffit,'stone');
-    bSolid(A,27.35,x1,y0,y1,.65,soffit,'stone');
-    bSolid(A,4.65,27.35,y0,17.15,.65,soffit,'stone');
+    bSolid(A,x0,x1,y0,y1,.43,.65,'stone',P.stoneD);
+    lowerWall(x0,4.65,y0,y1,'right');
+    lowerWall(27.35,x1,y0,y1,'left');
+    lowerWall(4.65,27.35,y0,17.15,'front');
     for(const [a,b]of[[3.5,5],[11.3,12.8],[19.2,20.7],[27,28.5]])bSolid(A,a,b,28.25,y1,.65,soffit,'stone');
     for(const [a,b]of[[5,11.3],[12.8,19.2],[20.7,27]])bArchSpandrel(A,a,b,28.25,y1,4.3,2.4,soffit);
     bSolid(A,x0,x1,y0,y1,soffit,floor,'wood',P.woodHi);
@@ -249,12 +279,13 @@
 
   function woodruffgrain(row,view){
     const A=context(row,view),{S,P}=A;
-    const x0=7.5,x1=24.5,y0=4.5,y1=27,floor=4,underside=3.1,eave=15.4,wallTop=14.85;
-    // Nine restrained staddles. The cap is a real tapered stone solid with
-    // 1.42 radius, over twice the .62 stem-neck radius, bearing on the floor.
-    for(const x of[8.95,16,23.05])for(const y of[6.1,15.6,25.35]){
-      bRoundSolid(A,x,y,.45,2.35,.82,.62,12);
-      bRoundSolid(A,x,y,2.35,underside,1.42,1.18,12);
+    const x0=7.5,x1=24.5,y0=4.5,y1=27,floor=5.7,underside=4.6,eave=15.4,wallTop=14.85;
+    // Nine SHORT staddles, with wider actual caps projecting past the wall
+    // footprint. Their exposed ledges and 4.15-unit gap must read at native scale.
+    // They remain much shorter than the squat 9.15-unit timber room above.
+    for(const x of[8.4,16,23.6])for(const y of[5.4,15.6,26.1]){
+      bRoundSolid(A,x,y,.45,3.5,.9,.68,12);
+      bRoundSolid(A,x,y,3.5,underside,2,1.65,12);
     }
     bSolid(A,x0,x1,y0,y1,underside,floor,'wood',P.woodHi);
     // Full low air gap survives beneath the entire store. No plinth, hidden

@@ -2,7 +2,7 @@
 function spindlefruit(row,view){
   const A=context(row,view),{S,P}=A;
   const lodge=A.volume(23,30,6,27,.6,14.6,'brick');gableBodyRoof(A,22.5,30.5,5.5,27.5,14.6,5.8,'y','brick');
-  solidDoor(A,lodge.front,1.5,.7,3.1,5.8);A.windows(lodge.right,2,3,3.2,6.1,2.2,3.4,'mullion');A.windows(lodge.left,1,2,7.5,0,2.4,3.8,'rect');
+  solidDoor(A,lodge.front,1.5,.7,3.1,5.8);A.windows(lodge.right,2,3,3.2,6.1,2.2,3.4,'mullion');A.windows(lodge.left,1,2,7.5,0,2.4,3.8,'rect');solidDoor(A,lodge.left,16,.7,3,5.8);
   const line=[];for(let i=0;i<=28;i++){const x=2+21*i/28;line.push([x,14+4*Math.sin((x-2)*Math.PI*2/21)]);}
   // Two real faces and a solid coping, not a thin drawn S-line.
   for(let i=0;i<line.length-1;i++){
@@ -13,8 +13,8 @@ function spindlefruit(row,view){
   // One planar lean-to over the second bay; its clipped back follows the actual wall.
   const edge=line.slice(14).map(p=>[p[0],p[1]+.58]);const outline=[...edge,[23,22],[12.5,22]];
   roofShell(A,outline.map(p=>[p[0],p[1],10.5-(p[1]-10)*.19]),.45);
-  for(const x of[13.2,22.2])A.volume(x-.45,x+.45,21.2,22,.6,8.45,'wood');
-  S.beam([12.5,21.6,8.5],[23,21.6,8.5],P.woodR,.6);
+  for(const x of[13.2,22.2])A.volume(x-.45,x+.45,21.2,22,.6,7.85,'wood');
+  S.beam([12.5,21.6,7.55],[23,21.6,7.55],P.woodR,.6);
   // The other bay intentionally stays open to the sky; no common floor/roof fills it.
   return {...A.finish(),details:{originalDesign:true,newModelBody:true,thickSerpentineWall:true,onePlanarBayShelter:true}};
 }
@@ -42,12 +42,15 @@ function hopdrying(row,view){
   const A=context(row,view),{S,P}=A;
   // The kiln overlaps the sorting range by a finite chord; no zero-width tangent joint.
   const f=A.volume(3,16,5,28,.6,16.6,'brick');gableBodyRoof(A,2.5,16.5,4.5,28.5,16.6,6.2,'y','brick');
-  A.windows(f.left,2,4,3,6.9,2.4,3.8,'rect');A.windows(f.front,1,3,10,0,2.3,3.8,'rect');solidDoor(A,f.front,3,.7,6,6.5);
-  const faces=A.polygon(21,11,7.7,.6,23,28,'brick',0);A.cone(21,11,8.1,0,23,36.2,28,'slate');
+  for(let l=0;l<2;l++)for(let b=0;b<4;b++)if(!(l===0&&b===2)&&!(l===1&&b===1))A.pane(f.left,f.left.length*(b+.5)/4-1.2,3+l*6.9,2.4,3.8,'rect',true);solidDoor(A,f.left,13,.7,3,6);A.windows(f.front,1,3,10,0,2.3,3.8,'rect');solidDoor(A,f.front,3,.7,6,6.5);
+  const faces=A.polygon(21,11,7.7,.6,23,28,'brick',0);A.cone(21,11,8.1,0,23,43.2,28,'slate');
+  // Complete physical underside closes the projecting cone eave around the kiln cap.
+  for(let i=0;i<28;i++){const a=i*Math.PI*2/28,b=(i+1)*Math.PI*2/28;S.poly([[21,11,23],[21+8.1*Math.cos(b),11+8.1*Math.sin(b),23],[21+8.1*Math.cos(a),11+8.1*Math.sin(a),23]],P.slateR);}
   for(const i of[0,3,5,7,9,11,13,15,17,19,21,23,25,27]){
     const F=faces[i],mid=F.point(F.length/2,0,0);
     if(mid[0]>16.3||mid[1]<4.7)A.pane(F,(F.length-1.1)/2,7.2,1.1,3.6,'rect',true);
   }
+  solidDoor(A,faces[0],(faces[0].length-1.1)/2,.7,1.1,5.5);
   // A real upper loading landing and simple external stair on the west long wall.
   for(let i=0;i<9;i++)A.volume(.7,2.7,25-i*1.5,26.5-i*1.5,.6,.6+(i+1)*8/9,'stone');
   A.volume(.7,3,11.3,14.5,.6,8.6,'stone');solidDoor(A,f.left,6.5,8.6,2.2,5.4);
@@ -62,17 +65,18 @@ function tansymill(row,view){
     S.beam([x,y,1.6],[15,15,11.8],P.woodR,1.35);
   }
   S.beam([5.5,5.5,1.6],[24.5,24.5,1.6],P.wood,1.2);S.beam([24.5,5.5,1.6],[5.5,24.5,1.6],P.wood,1.2);
-  const f=A.volume(7,23,7,23,12.5,23.8,'wood');S.flat(7,23,7,23,12.5,P.woodR);gableBodyRoof(A,6.5,23.5,6.5,23.5,23.8,6.2,'y','wood');
-  A.windows(f.left,1,2,17,0,2.7,3.7,'rect');A.windows(f.back,1,1,17.4,0,3,3.7,'rect');
+  const f=A.volume(8,22,7,26,12.5,23.8,'wood');S.flat(8,22,7,26,12.5,P.woodR);gableBodyRoof(A,7.5,22.5,6.5,26.5,23.8,6.2,'y','wood');
+  A.windows(f.left,1,2,17,0,2.7,3.7,'rect');A.windows(f.front,1,1,17.4,0,3,3.7,'rect');
   // Tail porch is carried by substantial braces; the stair reaches exactly its floor.
-  A.volume(23,28,16,21,12.1,12.7,'wood');S.flat(23,28,16,21,12.1,P.woodR);
-  S.beam([16.2,16.2,8.5],[27,20,12.1],P.woodR,.9);
-  for(let i=0;i<15;i++)A.volume(24,28,30-(i+1)*.65,30-i*.65,.6,.6+(i+1)*12.1/15,'wood');
-  solidDoor(A,f.right,2.5,12.7,3,6);S.beam([28,20,13],[28,30,1.3],P.wood,.35);
+  A.volume(11,20,2,7,12.1,12.7,'wood');S.flat(11,20,2,7,12.1,P.woodR);
+  S.beam([15,13.8,8.5],[15,3,12.1],P.woodR,.9);
+  for(let i=0;i<15;i++)A.volume(28.75-(i+1)*.65,28.75-i*.65,2,6,.6,.6+(i+1)*12.1/15,'wood');
+  solidDoor(A,f.back,4,12.7,3,6);S.beam([19,2,13],[28.75,2,1.3],P.wood,.35);
   // Static crossed lattice sails on the front, not wind/power simulation.
-  const centre=[15,24.2,23.4];for(const [dx,dz]of[[1,1],[-1,1],[1,-1],[-1,-1]]){
-    const end=[15+dx*9,24.2,23.4+dz*9];S.beam(centre,end,P.woodR,.55);
-    for(let i=3;i<=8;i+=1.5){const x=15+dx*i,z=23.4+dz*i;S.beam([x-.7,24.2,z+.7],[x+.7,24.2,z-.7],P.wood,.17);}
+  S.beam([15,25.5,23.4],[15,27.2,23.4],P.ironD,.8);
+  const centre=[15,27.2,23.4];for(const [dx,dz]of[[1,1],[-1,1],[1,-1],[-1,-1]]){
+    const end=[15+dx*9,27.2,23.4+dz*9];S.beam(centre,end,P.woodR,.55);
+    for(let i=3;i<=8;i+=1.5){const x=15+dx*i,z=23.4+dz*i;S.beam([x-.7,27.2,z+.7],[x+.7,27.2,z-.7],P.wood,.17);}
   }
   return {...A.finish(),details:{originalDesign:true,newModelBody:true,singlePostDiagonalTrestle:true,staticSailsOnly:true}};
 }
@@ -84,8 +88,11 @@ function vervainrecital(row,view){
   for(let i=0;i<m;i++)for(let j=0;j<n;j++){
     const out=i===0?[pt(r,0,j),pt(r,1,j),pt(r,1,j+1)]:[pt(r,i,j),pt(r,i+1,j),pt(r,i+1,j+1),pt(r,i,j+1)];
     const ins=i===0?[pt(inner,0,j),pt(inner,1,j+1),pt(inner,1,j)]:[pt(inner,i,j),pt(inner,i,j+1),pt(inner,i+1,j+1),pt(inner,i+1,j)];
-    S.poly(out,A.dark(Math.cos((j+.5)*Math.PI/n),-Math.sin((j+.5)*Math.PI/n))?P.lead:P.slateHi);S.poly(ins,P.stoneR);
+    S.poly(out,A.dark(Math.cos((j+.5)*Math.PI/n),-Math.sin((j+.5)*Math.PI/n))?P.lead:P.slateHi);S.poly(ins,A.mat('stone',-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n)));
   }
+  // Genuine shallow radial ribs sit within the curved inner skin, not a flat disc.
+  for(const j of[4,8,12,16,20])for(let i=0;i<m;i++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i+1,j),P.stoneHi,.22);
+  for(const i of[4,8])for(let j=0;j<n;j++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i,j+1),P.stoneHi,.18);
   for(const j of[0,n])for(let i=0;i<m;i++)S.poly([pt(r,i,j),pt(r,i+1,j),pt(inner,i+1,j),pt(inner,i,j)],P.stoneHi);
   for(let j=0;j<n;j++){
     const a=pt(r,m,j),b=pt(r,m,j+1),ia=pt(inner,m,j),ib=pt(inner,m,j+1);

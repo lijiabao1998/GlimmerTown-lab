@@ -429,7 +429,7 @@ const ROWS=Object.freeze([
 function spindlefruit(row,view){
   const A=context(row,view),{S,P}=A;
   const lodge=A.volume(23,30,6,27,.6,14.6,'brick');gableBodyRoof(A,22.5,30.5,5.5,27.5,14.6,5.8,'y','brick');
-  solidDoor(A,lodge.front,1.5,.7,3.1,5.8);A.windows(lodge.right,2,3,3.2,6.1,2.2,3.4,'mullion');A.windows(lodge.left,1,2,7.5,0,2.4,3.8,'rect');
+  solidDoor(A,lodge.front,1.5,.7,3.1,5.8);A.windows(lodge.right,2,3,3.2,6.1,2.2,3.4,'mullion');A.windows(lodge.left,1,2,7.5,0,2.4,3.8,'rect');solidDoor(A,lodge.left,16,.7,3,5.8);
   const line=[];for(let i=0;i<=28;i++){const x=2+21*i/28;line.push([x,14+4*Math.sin((x-2)*Math.PI*2/21)]);}
   // Two real faces and a solid coping, not a thin drawn S-line.
   for(let i=0;i<line.length-1;i++){
@@ -440,8 +440,8 @@ function spindlefruit(row,view){
   // One planar lean-to over the second bay; its clipped back follows the actual wall.
   const edge=line.slice(14).map(p=>[p[0],p[1]+.58]);const outline=[...edge,[23,22],[12.5,22]];
   roofShell(A,outline.map(p=>[p[0],p[1],10.5-(p[1]-10)*.19]),.45);
-  for(const x of[13.2,22.2])A.volume(x-.45,x+.45,21.2,22,.6,8.45,'wood');
-  S.beam([12.5,21.6,8.5],[23,21.6,8.5],P.woodR,.6);
+  for(const x of[13.2,22.2])A.volume(x-.45,x+.45,21.2,22,.6,7.85,'wood');
+  S.beam([12.5,21.6,7.55],[23,21.6,7.55],P.woodR,.6);
   // The other bay intentionally stays open to the sky; no common floor/roof fills it.
   return {...A.finish(),details:{originalDesign:true,newModelBody:true,thickSerpentineWall:true,onePlanarBayShelter:true}};
 }
@@ -469,12 +469,15 @@ function hopdrying(row,view){
   const A=context(row,view),{S,P}=A;
   // The kiln overlaps the sorting range by a finite chord; no zero-width tangent joint.
   const f=A.volume(3,16,5,28,.6,16.6,'brick');gableBodyRoof(A,2.5,16.5,4.5,28.5,16.6,6.2,'y','brick');
-  A.windows(f.left,2,4,3,6.9,2.4,3.8,'rect');A.windows(f.front,1,3,10,0,2.3,3.8,'rect');solidDoor(A,f.front,3,.7,6,6.5);
-  const faces=A.polygon(21,11,7.7,.6,23,28,'brick',0);A.cone(21,11,8.1,0,23,36.2,28,'slate');
+  for(let l=0;l<2;l++)for(let b=0;b<4;b++)if(!(l===0&&b===2)&&!(l===1&&b===1))A.pane(f.left,f.left.length*(b+.5)/4-1.2,3+l*6.9,2.4,3.8,'rect',true);solidDoor(A,f.left,13,.7,3,6);A.windows(f.front,1,3,10,0,2.3,3.8,'rect');solidDoor(A,f.front,3,.7,6,6.5);
+  const faces=A.polygon(21,11,7.7,.6,23,28,'brick',0);A.cone(21,11,8.1,0,23,43.2,28,'slate');
+  // Complete physical underside closes the projecting cone eave around the kiln cap.
+  for(let i=0;i<28;i++){const a=i*Math.PI*2/28,b=(i+1)*Math.PI*2/28;S.poly([[21,11,23],[21+8.1*Math.cos(b),11+8.1*Math.sin(b),23],[21+8.1*Math.cos(a),11+8.1*Math.sin(a),23]],P.slateR);}
   for(const i of[0,3,5,7,9,11,13,15,17,19,21,23,25,27]){
     const F=faces[i],mid=F.point(F.length/2,0,0);
     if(mid[0]>16.3||mid[1]<4.7)A.pane(F,(F.length-1.1)/2,7.2,1.1,3.6,'rect',true);
   }
+  solidDoor(A,faces[0],(faces[0].length-1.1)/2,.7,1.1,5.5);
   // A real upper loading landing and simple external stair on the west long wall.
   for(let i=0;i<9;i++)A.volume(.7,2.7,25-i*1.5,26.5-i*1.5,.6,.6+(i+1)*8/9,'stone');
   A.volume(.7,3,11.3,14.5,.6,8.6,'stone');solidDoor(A,f.left,6.5,8.6,2.2,5.4);
@@ -489,17 +492,18 @@ function tansymill(row,view){
     S.beam([x,y,1.6],[15,15,11.8],P.woodR,1.35);
   }
   S.beam([5.5,5.5,1.6],[24.5,24.5,1.6],P.wood,1.2);S.beam([24.5,5.5,1.6],[5.5,24.5,1.6],P.wood,1.2);
-  const f=A.volume(7,23,7,23,12.5,23.8,'wood');S.flat(7,23,7,23,12.5,P.woodR);gableBodyRoof(A,6.5,23.5,6.5,23.5,23.8,6.2,'y','wood');
-  A.windows(f.left,1,2,17,0,2.7,3.7,'rect');A.windows(f.back,1,1,17.4,0,3,3.7,'rect');
+  const f=A.volume(8,22,7,26,12.5,23.8,'wood');S.flat(8,22,7,26,12.5,P.woodR);gableBodyRoof(A,7.5,22.5,6.5,26.5,23.8,6.2,'y','wood');
+  A.windows(f.left,1,2,17,0,2.7,3.7,'rect');A.windows(f.front,1,1,17.4,0,3,3.7,'rect');
   // Tail porch is carried by substantial braces; the stair reaches exactly its floor.
-  A.volume(23,28,16,21,12.1,12.7,'wood');S.flat(23,28,16,21,12.1,P.woodR);
-  S.beam([16.2,16.2,8.5],[27,20,12.1],P.woodR,.9);
-  for(let i=0;i<15;i++)A.volume(24,28,30-(i+1)*.65,30-i*.65,.6,.6+(i+1)*12.1/15,'wood');
-  solidDoor(A,f.right,2.5,12.7,3,6);S.beam([28,20,13],[28,30,1.3],P.wood,.35);
+  A.volume(11,20,2,7,12.1,12.7,'wood');S.flat(11,20,2,7,12.1,P.woodR);
+  S.beam([15,13.8,8.5],[15,3,12.1],P.woodR,.9);
+  for(let i=0;i<15;i++)A.volume(28.75-(i+1)*.65,28.75-i*.65,2,6,.6,.6+(i+1)*12.1/15,'wood');
+  solidDoor(A,f.back,4,12.7,3,6);S.beam([19,2,13],[28.75,2,1.3],P.wood,.35);
   // Static crossed lattice sails on the front, not wind/power simulation.
-  const centre=[15,24.2,23.4];for(const [dx,dz]of[[1,1],[-1,1],[1,-1],[-1,-1]]){
-    const end=[15+dx*9,24.2,23.4+dz*9];S.beam(centre,end,P.woodR,.55);
-    for(let i=3;i<=8;i+=1.5){const x=15+dx*i,z=23.4+dz*i;S.beam([x-.7,24.2,z+.7],[x+.7,24.2,z-.7],P.wood,.17);}
+  S.beam([15,25.5,23.4],[15,27.2,23.4],P.ironD,.8);
+  const centre=[15,27.2,23.4];for(const [dx,dz]of[[1,1],[-1,1],[1,-1],[-1,-1]]){
+    const end=[15+dx*9,27.2,23.4+dz*9];S.beam(centre,end,P.woodR,.55);
+    for(let i=3;i<=8;i+=1.5){const x=15+dx*i,z=23.4+dz*i;S.beam([x-.7,27.2,z+.7],[x+.7,27.2,z-.7],P.wood,.17);}
   }
   return {...A.finish(),details:{originalDesign:true,newModelBody:true,singlePostDiagonalTrestle:true,staticSailsOnly:true}};
 }
@@ -511,8 +515,11 @@ function vervainrecital(row,view){
   for(let i=0;i<m;i++)for(let j=0;j<n;j++){
     const out=i===0?[pt(r,0,j),pt(r,1,j),pt(r,1,j+1)]:[pt(r,i,j),pt(r,i+1,j),pt(r,i+1,j+1),pt(r,i,j+1)];
     const ins=i===0?[pt(inner,0,j),pt(inner,1,j+1),pt(inner,1,j)]:[pt(inner,i,j),pt(inner,i,j+1),pt(inner,i+1,j+1),pt(inner,i+1,j)];
-    S.poly(out,A.dark(Math.cos((j+.5)*Math.PI/n),-Math.sin((j+.5)*Math.PI/n))?P.lead:P.slateHi);S.poly(ins,P.stoneR);
+    S.poly(out,A.dark(Math.cos((j+.5)*Math.PI/n),-Math.sin((j+.5)*Math.PI/n))?P.lead:P.slateHi);S.poly(ins,A.mat('stone',-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n)));
   }
+  // Genuine shallow radial ribs sit within the curved inner skin, not a flat disc.
+  for(const j of[4,8,12,16,20])for(let i=0;i<m;i++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i+1,j),P.stoneHi,.22);
+  for(const i of[4,8])for(let j=0;j<n;j++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i,j+1),P.stoneHi,.18);
   for(const j of[0,n])for(let i=0;i<m;i++)S.poly([pt(r,i,j),pt(r,i+1,j),pt(inner,i+1,j),pt(inner,i,j)],P.stoneHi);
   for(let j=0;j<n;j++){
     const a=pt(r,m,j),b=pt(r,m,j+1),ia=pt(inner,m,j),ib=pt(inner,m,j+1);
@@ -559,6 +566,26 @@ function vervainrecital(row,view){
 
   function catmintbridge(row,view){
     const A=context(row,view),{S,P}=A,x0=10,x1=22,y0=2,join0=12,join1=20,y1=30,low=.65,high=8.65;
+    // Each tread has real contrasting riser faces and a solid projecting nose.
+    // Covered timber stays in the original wood palette; world normals decide
+    // its light/dark face, never screen direction or a score-dependent branch.
+    function stairTread(yz){
+      const L=yz.map(p=>[11,p[0],p[1]]),R=yz.map(p=>[21,p[0],p[1]]);
+      S.poly(L,A.mat('wood',-1,0));S.poly(R.slice().reverse(),A.mat('wood',1,0));
+      for(let k=0;k<yz.length;k++){
+        const j=(k+1)%yz.length,a=yz[k],b=yz[j],dy=b[0]-a[0],dz=b[1]-a[1];
+        const material=Math.abs(dy)<1e-9?(A.dark(0,dz>0?-1:1)?P.woodD:P.woodR):Math.abs(dz)<1e-9?P.woodHi:P.woodD;
+        S.poly([L[k],L[j],R[j],R[k]],material);
+      }
+    }
+    function treadNose(y,z,reverse){
+      const ya=y-(reverse?.16:.20),yb=y+(reverse?.20:.16),bottom=z-.38;
+      S.flat(11,21,ya,yb,z,P.woodHi);S.flat(11,21,ya,yb,bottom,P.woodD);
+      S.wall([11,ya],[21,ya],bottom,z,A.dark(0,-1)?P.woodD:P.woodR);
+      S.wall([11,yb],[21,yb],bottom,z,A.dark(0,1)?P.woodD:P.woodR);
+      S.wall([11,ya],[11,yb],bottom,z,A.dark(-1,0)?P.woodD:P.woodR);
+      S.wall([21,ya],[21,yb],bottom,z,A.dark(1,0)?P.woodD:P.woodR);
+    }
     // Four slender load-bearing piers carry the level central floor. No anchor rooms.
     for(const [xa,xb]of[[10,11.4],[20.6,22]])for(const [ya,yb]of[[12,13.2],[18.8,20]]){
       b47SolidBox(A,xa,xb,ya,yb,.42,8.15,'stone');
@@ -584,7 +611,7 @@ function vervainrecital(row,view){
       for(let i=0;i<8;i++){
         const a=i*1.25,b=(i+1)*1.25,za=Z(a),zb=Z(b),ya=Y(a),yb=Y(b);
         const section=ya<yb?[[ya,za-.5],[yb,zb-.5],[yb,zb],[ya,zb]]:[[yb,zb-.5],[ya,za-.5],[ya,zb],[yb,zb]];
-        b47XPrism(A,11,21,section,'wood');
+        stairTread(section);treadNose(ya,zb,reverse);
       }
       // Enclosed descending side walls are finite-thickness sloping prisms.
       const ya=Math.min(Y(0),Y(10)),yb=Math.max(Y(0),Y(10)),za=reverse?high:low,zb=reverse?low:high;
@@ -723,6 +750,16 @@ function vervainrecital(row,view){
     const x0=3.5,x1=28.5,y0=16,y1=29.5,floor=8,soffit=7.4;
     const roofY0=15.2,roofY1=30.3,cy=22.75,eave=20.6,rise=6.9,thick=.55;
     const wallTop=eave+rise*(y0-roofY0)/(cy-roofY0)-thick;
+    // Actual sheltered inner masonry faces receive recess shading. No dark
+    // face is placed across an arch mouth: all openings and depths stay empty.
+    function lowerWall(xa,xb,ya,yb,inside){
+      const z0=.65,z1=soffit;
+      S.wall([xa,yb],[xb,yb],z0,z1,inside==='front'?P.stoneD:A.mat('stone',0,1));
+      S.wall([xb,ya],[xa,ya],z0,z1,A.mat('stone',0,-1));
+      S.wall([xa,ya],[xa,yb],z0,z1,inside==='left'?(A.dark(-1,0)?P.stoneD:P.stoneR):A.mat('stone',-1,0));
+      S.wall([xb,yb],[xb,ya],z0,z1,inside==='right'?(A.dark(1,0)?P.stoneD:P.stoneR):A.mat('stone',1,0));
+      S.flat(xa,xb,ya,yb,z0,P.stoneD);S.flat(xa,xb,ya,yb,z1,P.stoneHi);
+    }
     // A closed, asset-owned bank rises 7.55 over 12.7, then has a 1.8-unit
     // level landing. Its entire top meets the upper floor, not the undercroft.
     const earth=(x,y,z)=>K.hash(Math.floor(x*1.8),Math.floor(y*1.8),47061)%13===0?P.woodD:P.soil;
@@ -734,10 +771,10 @@ function vervainrecital(row,view){
     }
     // Stone side/rear walls and three thick curved front arches enclose a
     // deep, empty lower room. There is no opaque front rectangle to mask.
-    bSolid(A,x0,x1,y0,y1,.43,.65,'stone',P.paveR);
-    bSolid(A,x0,4.65,y0,y1,.65,soffit,'stone');
-    bSolid(A,27.35,x1,y0,y1,.65,soffit,'stone');
-    bSolid(A,4.65,27.35,y0,17.15,.65,soffit,'stone');
+    bSolid(A,x0,x1,y0,y1,.43,.65,'stone',P.stoneD);
+    lowerWall(x0,4.65,y0,y1,'right');
+    lowerWall(27.35,x1,y0,y1,'left');
+    lowerWall(4.65,27.35,y0,17.15,'front');
     for(const [a,b]of[[3.5,5],[11.3,12.8],[19.2,20.7],[27,28.5]])bSolid(A,a,b,28.25,y1,.65,soffit,'stone');
     for(const [a,b]of[[5,11.3],[12.8,19.2],[20.7,27]])bArchSpandrel(A,a,b,28.25,y1,4.3,2.4,soffit);
     bSolid(A,x0,x1,y0,y1,soffit,floor,'wood',P.woodHi);
@@ -779,12 +816,13 @@ function vervainrecital(row,view){
 
   function woodruffgrain(row,view){
     const A=context(row,view),{S,P}=A;
-    const x0=7.5,x1=24.5,y0=4.5,y1=27,floor=4,underside=3.1,eave=15.4,wallTop=14.85;
-    // Nine restrained staddles. The cap is a real tapered stone solid with
-    // 1.42 radius, over twice the .62 stem-neck radius, bearing on the floor.
-    for(const x of[8.95,16,23.05])for(const y of[6.1,15.6,25.35]){
-      bRoundSolid(A,x,y,.45,2.35,.82,.62,12);
-      bRoundSolid(A,x,y,2.35,underside,1.42,1.18,12);
+    const x0=7.5,x1=24.5,y0=4.5,y1=27,floor=5.7,underside=4.6,eave=15.4,wallTop=14.85;
+    // Nine SHORT staddles, with wider actual caps projecting past the wall
+    // footprint. Their exposed ledges and 4.15-unit gap must read at native scale.
+    // They remain much shorter than the squat 9.15-unit timber room above.
+    for(const x of[8.4,16,23.6])for(const y of[5.4,15.6,26.1]){
+      bRoundSolid(A,x,y,.45,3.5,.9,.68,12);
+      bRoundSolid(A,x,y,3.5,underside,2,1.65,12);
     }
     bSolid(A,x0,x1,y0,y1,underside,floor,'wood',P.woodHi);
     // Full low air gap survives beneath the entire store. No plinth, hidden
