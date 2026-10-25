@@ -237,12 +237,12 @@
     bSolid(A,x0,x1,y0,y1,.43,.65,'stone',P.stoneD);
     // Closed stone flags sit ON the real lower floor. Their finite raised edges
     // and narrow recessed joints reveal the floor's depth through the tall
-    // openings; no colour or opaque geometry is placed across an arch mouth.
+    // openings. These are dark slate flags, not shading painted across an arch mouth.
     for(let i=0;i<6;i++)for(let j=0;j<4;j++){
       const xa=4.85+i*3.7,xb=xa+3.5,ya=17.35+j*2.95,yb=ya+2.65;
-      S.flat(xa,xb,ya,yb,.65,P.stoneD);S.flat(xa,xb,ya,yb,.9,P.stoneR);
-      S.wall([xa,ya],[xb,ya],.65,.9,P.stoneD);S.wall([xa,yb],[xb,yb],.65,.9,P.stoneD);
-      S.wall([xa,ya],[xa,yb],.65,.9,P.stoneD);S.wall([xb,ya],[xb,yb],.65,.9,P.stoneD);
+      S.flat(xa,xb,ya,yb,.65,P.slateD);S.flat(xa,xb,ya,yb,.9,P.slateR);
+      S.wall([xa,ya],[xb,ya],.65,.9,P.slateD);S.wall([xa,yb],[xb,yb],.65,.9,P.slateD);
+      S.wall([xa,ya],[xa,yb],.65,.9,P.slateD);S.wall([xb,ya],[xb,yb],.65,.9,P.slateD);
     }
     lowerWall(x0,4.65,y0,y1,'right');
     lowerWall(27.35,x1,y0,y1,'left');
@@ -292,9 +292,23 @@
     // Nine SHORT staddles lie on the actual outer wall lines. Exposed half-caps
     // keep their necks readable instead of hiding below an inset floor edge.
     // They remain much shorter than the squat 9.15-unit timber room above.
+    // Same closed twelve-facet supports, with sheltered dark-grey stone stems
+    // and lighter actual caps. Face normals rotate with the world; the adjacent
+    // paving, air gap and all support vertices are unchanged.
+    function staddleStone(cx,cy,z0,z1,r0,r1,cap){
+      const lo=[],hi=[],n=12;
+      for(let i=0;i<n;i++){
+        const a=i*2*Math.PI/n,b=(i+1)*2*Math.PI/n,m=(a+b)/2;
+        const p=[cx+r0*Math.cos(a),cy+r0*Math.sin(a),z0],q=[cx+r0*Math.cos(b),cy+r0*Math.sin(b),z0];
+        const r=[cx+r1*Math.cos(b),cy+r1*Math.sin(b),z1],s=[cx+r1*Math.cos(a),cy+r1*Math.sin(a),z1];
+        const shaded=A.dark(Math.cos(m),Math.sin(m));
+        S.poly([p,q,r,s],cap?(shaded?P.stoneD:P.stoneR):(shaded?P.slateR:P.stoneD));lo.push(p);hi.push(s);
+      }
+      S.poly(lo,P.slateD);S.poly(hi,cap?P.stoneHi:P.stoneD);
+    }
     for(const x of[7.5,16,24.5])for(const y of[4.5,15.6,27]){
-      bRoundSolid(A,x,y,.45,3.5,.95,.8,12);
-      bRoundSolid(A,x,y,3.5,underside,1.65,1.45,12);
+      staddleStone(x,y,.45,3.5,.95,.8,false);
+      staddleStone(x,y,3.5,underside,1.65,1.45,true);
     }
     // The same closed timber floor has actual shaded bearing edges and soffit.
     // Nothing is drawn below its underside or across the open ventilation gap.
