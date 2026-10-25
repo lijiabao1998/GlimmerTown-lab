@@ -167,3 +167,25 @@ C3 local artwork repair preserves the exact four closed roof planes, high eaves1
 C3 `0e2528a96735ee304628ce811dfc38eac15d4645`, native run40137365599 preview artifact12577487429, ZIP SHA256910e38f1a366ba2f7c913c493d63eca38dffcdedd9be1784a787d60c57aaec1d: actual contact and all four day originals reviewed. Correcting inward normals alone still leaves a two-tone ambiguous roof. Do not call it accepted. Standard raw artifact12577646927 confirms only856..859 changed from C2; old4063 and other165 families unchanged. Total .9652→.9649, lightDir .8067855089131685→.80448533640023, unchanged shade/palette/density/variants/nightRule; not adopted because actual visual gate remains open.
 
 C4 retains the same four roof planes and exact corner/centre coordinates. Adds two narrow real lead-sheet overlap courses along the existing slopes, whose nested contours descend toward the drain; existing diagonal seams now end before the drain rather than covering it. No coloured quadrants, screen-space overlay, global lighting or new model shape. Original geometry55 negative controls still pass source-only; all original guards remain unchanged. Official native image review and fresh raw fingerprint are still required; prior green C2 and failed C3 original PNGs remain evidence. No local game/raster/browser execution.
+
+## C5 complete candidate verification and T772 release preparation
+
+C5 b5e1fcf4bb29d99f50f4f07bdc3fc60e31deeae9：[標準40139356236](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40139356236) smoke三次／fp／fiscal-load成功；財務53項、10負控制、零失敗。[原生40139356199](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40139356199)全部28工作成功。完整數據與原始附件見 GPT-046-candidate-verification.json，不以來源檢查冒充Chrome。
+
+實看原始PNG的逐檔清單、原圖SHA及限制見GPT-046-visual-review.md。C2雖CI綠但廚房倒錐頂外觀未達首卡，C3仍歧義，C4僅修該四向真實搭接／排水標記及內向受光；原始四坡面座標、另九款與全部歷史guard不動。遠景LOD不當近景細節，未冒稱275供電圖全部人工看過、業主圖審、手機硬體或Safari。
+
+bld七軸：palette1→1；hardEdge0.9578807244340685→0.9584876538355126；lightDir0.8057680988816951→0.80448533640023；shade1→1；density1→1；nightRule0.9909531159365403→0.991157775364051；variants1→1；total0.9649→0.9649。相對未發布C2總分0.9652→0.9649。受光軸下降明確披露，採用同次官方原始檔案，不調權重或門檻。
+
+### 不改壞標準§8自檢
+- [x] 首卡dd47ad4d早於施工，完整前綴及原幾何／畫面判準保留。
+- [x] 同種子全部欄位、舊檔、交易、供電與負控制驗收；發布版另驗唯一writer14.64→14.65，不排除欄位。
+- [x] 新增首卡bld40葉，4063既有葉／165其他家族／1728blocks不變；八組歷史整幀對拍。
+- [x] 日夜、四向、四季有無雪、場景、邊緣、疊層、建造、遠近景原圖實看，逐檔清單與誠實限制保留。
+- [x] 首紅保留，原55幾何負控、完整來源、原生12、160供電案例、行人、效能延遲負控仍有效；新增roof逆向契約與160→159拒絕。
+- [x] C5 smoke三次綠，完整同headCI，不重跑賭綠。
+- [x] 候選與已授權不計發布；圖片已生成不代表業主看過。
+
+### 精確發布遷移
+新增版本化發布契約只更改GAME_VER、GAME_ANCHOR、startVersion456三處精確標籤，反向必須還原C5整份index；獨立BASE同樣三處，舊檔只允許gameVer14.64→14.65。原候選、屋頂與歷史契約全數保留。AUTORUN-LOG及方向檔只新增下述發布紀錄，不改開關與既有方向。
+
+發布準備：待發布版完整CI、最後綠後純刪分支workflow、最終headCI、合法合併與main／自動Pages／真實公網Chrome核實；正式仍17波170座。
