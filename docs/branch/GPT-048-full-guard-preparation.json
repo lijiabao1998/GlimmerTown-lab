@@ -1,0 +1,78 @@
+{
+  "schema": "GPT-048.full-guard-preparation.v1",
+  "base": "4346a96543b01ffd47ac3696480661b5de8638ae",
+  "candidateLabels": {
+    "gameVer": "14.66",
+    "anchor": "T773",
+    "normalization": false,
+    "fieldExclusions": []
+  },
+  "fullGuardPreparedSources": [
+    {
+      "template": "probeBritishWaveJunction047.cjs",
+      "templateSHA256": "f61c4ec526ec040ba64f9a3f8382d9bec2a8b187a8ada45a104f9cd38b0100c4",
+      "file": "probeBritishWave048.cjs",
+      "expectedSHA256": "9f199b2b5428b965594783c3282fd864363941c28a118c6b6e720c72d5a95780",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "previewWaveJunction047.cjs",
+      "templateSHA256": "34e6122ea45d9782ade06a18dd7a01f071f68e68fb1d1887f09eb951d5dece24",
+      "file": "previewWave048.cjs",
+      "expectedSHA256": "00aacb95af5b24428771e0f88910d59d4cb100e3ed2ca1bc130b7d92491140d7",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "probeConstruction047.cjs",
+      "templateSHA256": "76a43a4501dc6b3eb7b4df7e0b5300d7a4ea1e74032c509f9301e4a71097d3f4",
+      "file": "probeConstruction048.cjs",
+      "expectedSHA256": "b96764e07d369ca698ca75b60adf6392480ab693784373bc5db3185a53878584",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "probeNativePairs047.cjs",
+      "templateSHA256": "fc71287847c3352e3ac9415e23850b43a8b3c88e2b4fa392d7519b30a4394117",
+      "file": "probeNativePairs048.cjs",
+      "expectedSHA256": "d773072af1798ab9c6c2b3436902086a8d29396179a6a4b1fd20a6c7124f2ec6",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "probeScenes047.cjs",
+      "templateSHA256": "c34b7aebc5808ed9c997c0c35c5ae97a816a0fcfb63ec8b065b611c2df3745cb",
+      "file": "probeScenes048.cjs",
+      "expectedSHA256": "28d933205ee5455f9986755e368cd665a42c998acd701fe988b8458ad95d18c3",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "probePerformance047.cjs",
+      "templateSHA256": "36e6ed9c54f1061aef1418423f0464a546304cdbd548e2758adf4bdbc4f2356a",
+      "file": "probePerformance048.cjs",
+      "expectedSHA256": "c90f74de236db0bf923023aed709272eb7b347e36293fb73819c89645b7d7e75",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "probePedestrians047.cjs",
+      "templateSHA256": "e07fba3b88dd38686561b4445afcf092515f0c807a012a36b0f5529269100c78",
+      "file": "probePedestrians048.cjs",
+      "expectedSHA256": "5db2dd55ca5f91fff4cdf756e709757cb69173c85710426303e6ed4f6a27638d",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "nativeTenPower047.cjs",
+      "templateSHA256": "2bc98e3f3a9d657975a5b4e087720a8d0edc76ba10489686d4c2dca3ebea3a44",
+      "file": "nativeTenPower048.cjs",
+      "expectedSHA256": "c1ef92435fc50a1d19d1420dd17de45826ecd54b433afc29bb8a198737594902",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    },
+    {
+      "template": "probeTenPower047.cjs",
+      "templateSHA256": "c18174627441bc10eae14b7972b96417a216b496fac0b2c84129bbadffa9d137",
+      "file": "probeTenPower048.cjs",
+      "expectedSHA256": "d94e8791f10045cb03315c0516b57a8469565d952d644ccdccba6c657718c0e6",
+      "changes": "Declared wave20 identity/source pins; all native cases and existing thresholds retained. Native guard adds historical wave18/19 selftests and wave19 selection clear."
+    }
+  ],
+  "gameExecutedLocally": false,
+  "rasterizerExecutedLocally": false,
+  "officialCIStatus": "not yet run"
+}

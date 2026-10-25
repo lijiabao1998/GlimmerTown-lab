@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('fs'),assert=require('assert/strict'),vm=require('vm');
+const rows=JSON.parse(fs.readFileSync('wave048-original-scope.json')).rows;
+assert.equal(rows.length,10);
+const names=rows.map(r=>r.id),parts=['wave048-kit.js','wave048-solid.js','wave048-models-a.js','wave048-models-b.js'].map(f=>fs.readFileSync(f,'utf8'));
+for(const name of names)assert.equal(parts.join('\n').split('function '+name+'(').length,2,'one complete new model '+name);
+const source=`/* GPT-048 ten original English village structures; no historical model calls. */\n(function(root){\n'use strict';\nconst ROWS=Object.freeze(${JSON.stringify(rows,null,2)}.map(Object.freeze));\n`+parts.join('\n')+`\nconst MODELS=Object.freeze({${names.join(',')}});\nfunction build(id,view){const row=ROWS.find(q=>q.id===id);if(!row)throw Error('wave048 unknown frozen original '+id);if(!Number.isInteger(view)||view<0||view>3)throw Error('wave048 four world rotations only');return MODELS[id](row,view);}\nfunction buildAll(){return ROWS.flatMap(row=>[0,1,2,3].map(view=>({row,view,sprite:build(row.id,view)})));}\nroot.BritishWaveArchitecture048=Object.freeze({rows:ROWS,build,buildAll,candidateRows:()=>ROWS});\n})(typeof window==='undefined'?globalThis:window);\n`;
+new vm.Script(source);
+if(process.argv.includes('--check'))assert.equal(fs.readFileSync('british-wave20-art048.js','utf8'),source,'complete assembled original source exact');else fs.writeFileSync('british-wave20-art048.js',source);
+console.log('wave048 source assembled, no canvas/raster execution');
