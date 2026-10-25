@@ -88,11 +88,23 @@ function vervainrecital(row,view){
   for(let i=0;i<m;i++)for(let j=0;j<n;j++){
     const out=i===0?[pt(r,0,j),pt(r,1,j),pt(r,1,j+1)]:[pt(r,i,j),pt(r,i+1,j),pt(r,i+1,j+1),pt(r,i,j+1)];
     const ins=i===0?[pt(inner,0,j),pt(inner,1,j+1),pt(inner,1,j)]:[pt(inner,i,j),pt(inner,i,j+1),pt(inner,i+1,j+1),pt(inner,i+1,j)];
-    S.poly(out,A.dark(Math.cos((j+.5)*Math.PI/n),-Math.sin((j+.5)*Math.PI/n))?P.lead:P.slateHi);S.poly(ins,A.mat('stone',-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n)));
+    // Local full spherical face normal under the existing upper-left light:
+    // rotate world xy exactly like the native view; preserve upward nz.
+    const theta=(i+.5)*Math.PI/(2*m),phi=(j+.5)*Math.PI/n;
+    const nx=Math.sin(theta)*Math.cos(phi),ny=-Math.sin(theta)*Math.sin(phi),nz=Math.cos(theta);
+    const rx=view===1?-ny:view===2?-nx:view===3?ny:nx,ry=view===1?nx:view===2?-ny:view===3?-nx:ny;
+    S.poly(out,(-rx+ry+nz)<0?P.lead:P.slateHi);S.poly(ins,A.mat('stone',-Math.cos((j+.5)*Math.PI/n),Math.sin((j+.5)*Math.PI/n)));
   }
   // Genuine shallow radial ribs sit within the curved inner skin, not a flat disc.
   for(const j of[4,8,12,16,20])for(let i=0;i<m;i++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i+1,j),P.stoneHi,.22);
   for(const i of[4,8])for(let j=0;j<n;j++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i,j+1),P.stoneHi,.18);
+  // C3: real raised standing seams and load-bearing inner ribs follow the
+  // unchanged two-axis shell. Their widths remain readable at native scale.
+  for(const j of[4,8,12,16,20])for(let i=0;i<m;i++){
+    S.beam(pt(r+.18,i,j),pt(r+.18,i+1,j),P.slateR,.8);
+    S.beam(pt(inner-.28,i,j),pt(inner-.28,i+1,j),P.stoneD,1.0);
+  }
+  for(const i of[4,8])for(let j=0;j<n;j++)S.beam(pt(r+.18,i,j),pt(r+.18,i,j+1),P.slateR,.65);
   for(const j of[0,n])for(let i=0;i<m;i++)S.poly([pt(r,i,j),pt(r,i+1,j),pt(inner,i+1,j),pt(inner,i,j)],P.stoneHi);
   for(let j=0;j<n;j++){
     const a=pt(r,m,j),b=pt(r,m,j+1),ia=pt(inner,m,j),ib=pt(inner,m,j+1);

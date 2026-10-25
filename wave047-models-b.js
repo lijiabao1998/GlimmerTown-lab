@@ -210,7 +210,7 @@
 
   function campionbarn(row,view){
     const A=context(row,view),{S,K,P}=A;
-    const x0=3.5,x1=28.5,y0=16,y1=29.5,floor=8,soffit=7.4;
+    const x0=3.5,x1=28.5,y0=16,y1=29.5,floor=10,soffit=9.4;
     const roofY0=15.2,roofY1=30.3,cy=22.75,eave=20.6,rise=6.9,thick=.55;
     const wallTop=eave+rise*(y0-roofY0)/(cy-roofY0)-thick;
     // Actual sheltered inner masonry faces receive recess shading. No dark
@@ -223,7 +223,7 @@
       S.wall([xb,yb],[xb,ya],z0,z1,inside==='right'?(A.dark(1,0)?P.stoneD:P.stoneR):A.mat('stone',1,0));
       S.flat(xa,xb,ya,yb,z0,P.stoneD);S.flat(xa,xb,ya,yb,z1,P.stoneHi);
     }
-    // A closed, asset-owned bank rises 7.55 over 12.7, then has a 1.8-unit
+    // A closed, asset-owned bank rises 9.55 over 12.7, then has a 1.8-unit
     // level landing. Its entire top meets the upper floor, not the undercroft.
     const earth=(x,y,z)=>K.hash(Math.floor(x*1.8),Math.floor(y*1.8),47061)%13===0?P.woodD:P.soil;
     bSlopedSolid(A,7,25,1.5,14.2,.43,.45,floor,'stone',earth);
@@ -235,13 +235,22 @@
     // Stone side/rear walls and three thick curved front arches enclose a
     // deep, empty lower room. There is no opaque front rectangle to mask.
     bSolid(A,x0,x1,y0,y1,.43,.65,'stone',P.stoneD);
+    // Closed stone flags sit ON the real lower floor. Their finite raised edges
+    // and narrow recessed joints reveal the floor's depth through the tall
+    // openings; no colour or opaque geometry is placed across an arch mouth.
+    for(let i=0;i<6;i++)for(let j=0;j<4;j++){
+      const xa=4.85+i*3.7,xb=xa+3.5,ya=17.35+j*2.95,yb=ya+2.65;
+      S.flat(xa,xb,ya,yb,.65,P.stoneD);S.flat(xa,xb,ya,yb,.9,P.stoneR);
+      S.wall([xa,ya],[xb,ya],.65,.9,P.stoneD);S.wall([xa,yb],[xb,yb],.65,.9,P.stoneD);
+      S.wall([xa,ya],[xa,yb],.65,.9,P.stoneD);S.wall([xb,ya],[xb,yb],.65,.9,P.stoneD);
+    }
     lowerWall(x0,4.65,y0,y1,'right');
     lowerWall(27.35,x1,y0,y1,'left');
     lowerWall(4.65,27.35,y0,17.15,'front');
-    for(const [a,b]of[[3.5,5],[11.3,12.8],[19.2,20.7],[27,28.5]])bSolid(A,a,b,28.25,y1,.65,soffit,'stone');
-    for(const [a,b]of[[5,11.3],[12.8,19.2],[20.7,27]])bArchSpandrel(A,a,b,28.25,y1,4.3,2.4,soffit);
+    for(const [a,b]of[[3.5,5],[11.3,12.8],[19.2,20.7],[27,28.5]])bSolid(A,a,b,27.25,y1,.65,soffit,'stone');
+    for(const [a,b]of[[5,11.3],[12.8,19.2],[20.7,27]])bArchSpandrel(A,a,b,27.25,y1,5.4,3.4,soffit);
     bSolid(A,x0,x1,y0,y1,soffit,floor,'wood',P.woodHi);
-    for(const x of[8.15,16,23.85])bSolid(A,x-.24,x+.24,17.15,28.25,6.95,soffit,'wood',P.woodR);
+    for(const x of[8.15,16,23.85])bSolid(A,x-.24,x+.24,17.15,27.25,8.95,soffit,'wood',P.woodR);
     // The upper barn is enclosed by real 0.75-unit timber walls, with an
     // actual framed rear loading aperture closed by a solid timber leaf.
     const front=bSolid(A,x0,x1,28.75,y1,floor,wallTop,'wood',P.woodHi).front;
@@ -249,13 +258,13 @@
     const right=bSolid(A,27.75,x1,y0,28.75,floor,wallTop,'wood',P.woodHi).right;
     bSolid(A,4.25,12.2,y0,16.75,floor,wallTop,'wood',P.woodHi);
     bSolid(A,19.8,27.75,y0,16.75,floor,wallTop,'wood',P.woodHi);
-    bSolid(A,12.2,19.8,y0,16.75,17.8,wallTop,'wood',P.woodHi);
+    bSolid(A,12.2,19.8,y0,16.75,19.8,wallTop,'wood',P.woodHi);
     const back=face(A,[x1,16.35],[x0,16.35],0,-1);
-    bDoor(A,back,8.7,16.3,floor,17.8);
-    bSolid(A,11.85,12.2,15.75,16.75,floor,18.15,'wood',P.woodHi);
-    bSolid(A,19.8,20.15,15.75,16.75,floor,18.15,'wood',P.woodHi);
-    bSolid(A,11.85,20.15,15.75,16.75,17.8,18.15,'wood',P.woodHi);
-    bSolid(A,11.85,20.15,15.7,16.75,7.7,floor,'stone',P.stoneHi);
+    bDoor(A,back,8.7,16.3,floor,19.8);
+    bSolid(A,11.85,12.2,15.75,16.75,floor,20.15,'wood',P.woodHi);
+    bSolid(A,19.8,20.15,15.75,16.75,floor,20.15,'wood',P.woodHi);
+    bSolid(A,11.85,20.15,15.75,16.75,19.8,20.15,'wood',P.woodHi);
+    bSolid(A,11.85,20.15,15.7,16.75,9.7,floor,'stone',P.stoneHi);
     for(const u of[3.5,10.9,18.3])A.pane(front,u,15.9,3.2,2.75,'rect',true);
     A.pane(left,4.2,14.5,3.2,3.5,'rect',true);
     A.pane(right,4.2,14.5,3.2,3.5,'rect',true);
@@ -280,14 +289,20 @@
   function woodruffgrain(row,view){
     const A=context(row,view),{S,P}=A;
     const x0=7.5,x1=24.5,y0=4.5,y1=27,floor=5.7,underside=4.6,eave=15.4,wallTop=14.85;
-    // Nine SHORT staddles, with wider actual caps projecting past the wall
-    // footprint. Their exposed ledges and 4.15-unit gap must read at native scale.
+    // Nine SHORT staddles lie on the actual outer wall lines. Exposed half-caps
+    // keep their necks readable instead of hiding below an inset floor edge.
     // They remain much shorter than the squat 9.15-unit timber room above.
-    for(const x of[8.4,16,23.6])for(const y of[5.4,15.6,26.1]){
-      bRoundSolid(A,x,y,.45,3.5,.9,.68,12);
-      bRoundSolid(A,x,y,3.5,underside,2,1.65,12);
+    for(const x of[7.5,16,24.5])for(const y of[4.5,15.6,27]){
+      bRoundSolid(A,x,y,.45,3.5,.95,.8,12);
+      bRoundSolid(A,x,y,3.5,underside,1.65,1.45,12);
     }
-    bSolid(A,x0,x1,y0,y1,underside,floor,'wood',P.woodHi);
+    // The same closed timber floor has actual shaded bearing edges and soffit.
+    // Nothing is drawn below its underside or across the open ventilation gap.
+    S.flat(x0,x1,y0,y1,underside,P.woodD);S.flat(x0,x1,y0,y1,floor,P.woodHi);
+    S.wall([x0,y0],[x1,y0],underside,floor,A.dark(0,-1)?P.woodD:P.woodR);
+    S.wall([x0,y1],[x1,y1],underside,floor,A.dark(0,1)?P.woodD:P.woodR);
+    S.wall([x0,y0],[x0,y1],underside,floor,A.dark(-1,0)?P.woodD:P.woodR);
+    S.wall([x1,y0],[x1,y1],underside,floor,A.dark(1,0)?P.woodD:P.woodR);
     // Full low air gap survives beneath the entire store. No plinth, hidden
     // lower room, continuous skirt or tall generic piles fill this gap.
     const left=bSolid(A,x0,8.15,y0,y1,floor,wallTop,'wood',P.woodHi).left;
