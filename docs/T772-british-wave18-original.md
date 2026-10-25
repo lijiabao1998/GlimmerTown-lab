@@ -193,3 +193,15 @@ bld七軸：palette1→1；hardEdge0.9578807244340685→0.9584876538355126；lig
 新增版本化發布契約只更改GAME_VER、GAME_ANCHOR、startVersion456三處精確標籤，反向必須還原C5整份index；獨立BASE同樣三處，舊檔只允許gameVer14.64→14.65。原候選、屋頂與歷史契約全數保留。AUTORUN-LOG及方向檔只新增下述發布紀錄，不改開關與既有方向。
 
 發布準備：待發布版完整CI、最後綠後純刪分支workflow、最終headCI、合法合併與main／自動Pages／真實公網Chrome核實；正式仍17波170座。
+
+## C6 actual release verification · 2026-10-25 UTC
+
+C6 `b5b8833ecfade741914789034a3d61125021384d`: native[40148042386](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40148042386) all28 jobs successful, no rerun. Standard[40148042390](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40148042390) smoke3/fp/fiscal53+10 successful. Full native86/12, power160/275PNG/1920phase witnesses,57scenes/40edges/8wholeframe pairs and normal-state pairs pass. Exact independent old-save Chrome migration changes onlygameVer14.64→14.65; both later complete roundtrips match. All original candidate/roof guards and failure records retained.
+
+Release originalHTML is11831402bytes SHA256 `0ec9f7cbe03139dd93d607e7b343911dce4024028b40a16a4c88439dca23390c`, exact official raw source artifact12581715264. Preview91/91 equalsC5; scenes111/113 equalsC5, two changed originals actually inspected;14 changed construction originals inspected. Exact manifests and filenames in GPT-046-release-verification.json and GPT-046-C6-original-image-review.md/json. This is not an owner visual approval.
+
+The frozen original two-draw construction-late image shows TWO bare final pads, Chamomile and Myrtle. Preserve it. Separate fixed12natural/fixed66explicit-flush endpoints show allten native scaffold/body masses; no adaptive waiting, budget alteration or substitute full-building claim. Nativeghostgray/crane variance remains visible.
+
+40interleaved timing: BASE median13.1/p9026.525ms, HEAD median3.35/p9027.6ms, warmgeometry0;30real delay-injection negatives, restoredgreen. Existing criteria unchanged; not physical mobile/Safari.
+
+Remaining: finish exact-head PR checks, deletion-only temporaryworkflow commit and finalCI, normal legal merge, main CI/automaticPages and exact liveHTTPS/Chromium. Formal remains170 until all release receipts succeed.
