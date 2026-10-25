@@ -207,3 +207,18 @@ Shelter eave around9.5, apex16; roof planes and posts remain below the barn eave
 ## 沒做成的事
 
 已淘汰兩個近似舊模型草案，保留原因，不把湊數當成果。本波尚未實作或原生驗證；第08三山牆接縫、第09斜交屋谷及第02入口切面須真幾何和原圖雙驗，不能只看解析綠。實體手機、Safari、觸控未驗證。原冷啟動與非同步烘焙限制不隱藏、不改共用排程或延長原閘門取得綠燈。
+
+## C3 全套正式候選驗收收束（2026-10-25 06:25 UTC）
+
+本節追加當前結果；上方首卡與初始狀態保留，不能再把歷史0/10當成現況。C3 `5fc1718845a97b74fea3c325bb5343ed904c2db5` 的完整原生 [40166524238](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40166524238) 已於06:19:52 UTC完成，29/29工作成功；標準push [40166524277](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40166524277) 與PR [40166527305](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40166527305) 成功。29工作含20個來源／圖片／manifest運輸工作，不冒稱29種不同產品測試。完整來源、版本、圖像與性能數字見 [C3最終證據](GPT-048-C3-final-evidence.md)。
+
+第8節自檢更新：
+- [x] 首卡002f14f在施工前推；本附錄不改任何凍結驗收、量體或門檻。
+- [x] C3三種子原生交易及完整正常前後比較成功；兩輪舊存檔完整欄位比較成功，原生writer唯一明列遷移gameVer14.66→14.67。
+- [x] C3常規fp與倉庫葉子零變動，與獨立main相比只bld新增40／改0／刪0；8組關閥整幀嚴格相等，沒有envLeaves警告；七軸下降仍據實列出。
+- [x] 原生四向／日夜／四季／雪有無／遠近／邊緣／疊層矩陣完成。人工範圍仍依visual-review，不冒稱275供電圖全部人工看過；C1/C3唯一不同construction-late原圖另成對實看，保留非同步施工瞬間，固定12自然幀終點十棟完整可見。
+- [x] C3原生86檢查／12負控、52幾何負控、160供電案例／275PNG／1920相位、完整場景與原有財務負控成功；性能負控本次實際注入61ms（不是C1歷史59ms），精確紅後恢復綠。
+- [x] C3煙霧三次／fp／財務及完整native全綠，保留全部首紅，未重跑賭綠。
+- [x] 未測的實體手機／Safari／觸控仍明列；尚未合併／部署，正式仍190，不把候選寫成200。
+
+只在上述完整native最後run成功後，另以獨立提交刪除本分支專屬`.github/workflows/wave048-native.yml`；再等待刪除後最新head標準push／PR CI。T774／v14.67／r221已配置，main仍4346a965且main CI／自動Pages全綠。符合全部規則才Ready／合併，接著驗main CI／既有自動Pages／實際公網完整HTML及Chromium；全部成功才正式20/20、200座。不手動觸發Pages，不開第21波。
