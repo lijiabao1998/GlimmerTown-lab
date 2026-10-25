@@ -1,0 +1,126 @@
+{
+  "head": "2ea63d518a1efbb4baee597157c3f8aab6900d91",
+  "standardRun": 40138059294,
+  "nativeRun": 40138059218,
+  "firstRed": {
+    "fpJob": 121003715368,
+    "fp": "Only856..859 changed; bld baseline mismatch and same-family score ratchet. Other165 families unchanged.",
+    "fiscalJob": 121003715462,
+    "fiscal": {
+      "checks": 52,
+      "negative": 10,
+      "soleFailure": "current renderer fingerprints match the committed baselines; see current-fp.txt"
+    },
+    "nativeJob": 121003716471,
+    "native": "source046 adopted baseline binds to exact artwork",
+    "baselineJob": 121003716650,
+    "baseline": "same undeclared four leaves, style mismatch and ratchet; native raw not adopted"
+  },
+  "allAxes": {
+    "changedFromC2": [
+      "bld.24_1_856",
+      "bld.24_1_857",
+      "bld.24_1_858",
+      "bld.24_1_859"
+    ],
+    "oldLeavesUnchanged": 4063,
+    "otherFamiliesUnchanged": 165,
+    "beforePublished": {
+      "leaves": 1699,
+      "op": 11905238,
+      "raw": {
+        "leaves": 1699,
+        "px": 56938752,
+        "op": 11905238,
+        "semi": 25072,
+        "colors": 876850,
+        "buckets": 21586,
+        "leftLit": 1369,
+        "nightLeaves": 1669,
+        "nightOp": 662354,
+        "nightViol": 289
+      },
+      "axes": {
+        "palette": 1,
+        "hardEdge": 0.9578807244340685,
+        "lightDir": 0.8057680988816951,
+        "shade": 1,
+        "density": 1,
+        "nightRule": 0.9909531159365403,
+        "variants": 1
+      },
+      "total": 0.9649
+    },
+    "beforeRepair": {
+      "leaves": 1739,
+      "op": 12079290,
+      "raw": {
+        "leaves": 1739,
+        "px": 58193152,
+        "op": 12079290,
+        "semi": 25072,
+        "colors": 877862,
+        "buckets": 22003,
+        "leftLit": 1403,
+        "nightLeaves": 1709,
+        "nightOp": 667197,
+        "nightViol": 289
+      },
+      "axes": {
+        "palette": 1,
+        "hardEdge": 0.9584876263422768,
+        "lightDir": 0.8067855089131685,
+        "shade": 1,
+        "density": 1,
+        "nightRule": 0.991157775364051,
+        "variants": 1
+      },
+      "total": 0.9652
+    },
+    "afterRepair": {
+      "leaves": 1739,
+      "op": 12079298,
+      "raw": {
+        "leaves": 1739,
+        "px": 58193152,
+        "op": 12079298,
+        "semi": 25072,
+        "colors": 877866,
+        "buckets": 22003,
+        "leftLit": 1399,
+        "nightLeaves": 1709,
+        "nightOp": 667197,
+        "nightViol": 289
+      },
+      "axes": {
+        "palette": 1,
+        "hardEdge": 0.9584876538355126,
+        "lightDir": 0.80448533640023,
+        "shade": 1,
+        "density": 1,
+        "nightRule": 0.991157775364051,
+        "variants": 1
+      },
+      "total": 0.9649
+    },
+    "files": [
+      {
+        "name": "fp.json",
+        "bytes": 445824,
+        "sha256": "98ef37d7af6e8a92d132d05035b5684385ebbe92563ae9e5edc4d61b0af88594"
+      },
+      {
+        "name": "style.json",
+        "bytes": 73168,
+        "sha256": "20746fbe5bac554b064281d41817aed74fab1259e8a84645f5207d571b18872a"
+      }
+    ]
+  },
+  "visualReview": {
+    "productOriginalPNGs": 24,
+    "details": "15 preview originals (four Marjoram day sprites, three contacts, eight native day/night frames); actual near-Marjoram and eight winter-snow day/night by four rotations. Inward nested courses and central drain remain visible. No claim of physical drainage engineering validation or owner approval. Existing night landmark beams unchanged.",
+    "priorEvidence": "C1/C2 175 originals reviewed; C2 green but visual failure retained. C3 attempt remained ambiguous.",
+    "status": "C4 visual local repair accepted by author; complete C5 native, release, final CI and public HTTPS verification still required"
+  },
+  "immutable": "Original geometry guard, original probeTenPower046, all160 case comparisons, state fields, original budgets and firstcard retained. New additive contract inverses exactC2 art plus power guard and rejects threshold160→159."
+}

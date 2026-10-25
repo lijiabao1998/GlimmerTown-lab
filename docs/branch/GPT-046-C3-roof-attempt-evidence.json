@@ -1,0 +1,128 @@
+{
+  "head": "0e2528a96735ee304628ce811dfc38eac15d4645",
+  "standardRun": 40137365584,
+  "fpJob": 121001632494,
+  "fiscalJob": 121001632717,
+  "nativeRun": 40137365599,
+  "nativeJob": 121001632635,
+  "fpFailure": "Only856..859 differ from adopted C2; style family delta and same-family ratchet. Raw original not adopted because visual requirement remains open.",
+  "fiscal": {
+    "checks": 52,
+    "negative": 10,
+    "failures": [
+      "scoped serialization, settlement, cadence and guard source integrity: current renderer fingerprints match the committed baselines; see current-fp.txt"
+    ]
+  },
+  "nativeFirstFailure": "source046 adopted baseline binds to exact artwork",
+  "noWaiver": true,
+  "exactRawInspection": {
+    "changedFromC2": [
+      "bld.24_1_856",
+      "bld.24_1_857",
+      "bld.24_1_858",
+      "bld.24_1_859"
+    ],
+    "oldLeavesUnchanged": 4063,
+    "otherFamiliesUnchanged": 165,
+    "beforePublished": {
+      "leaves": 1699,
+      "op": 11905238,
+      "raw": {
+        "leaves": 1699,
+        "px": 56938752,
+        "op": 11905238,
+        "semi": 25072,
+        "colors": 876850,
+        "buckets": 21586,
+        "leftLit": 1369,
+        "nightLeaves": 1669,
+        "nightOp": 662354,
+        "nightViol": 289
+      },
+      "axes": {
+        "palette": 1,
+        "hardEdge": 0.9578807244340685,
+        "lightDir": 0.8057680988816951,
+        "shade": 1,
+        "density": 1,
+        "nightRule": 0.9909531159365403,
+        "variants": 1
+      },
+      "total": 0.9649
+    },
+    "beforeRepair": {
+      "leaves": 1739,
+      "op": 12079290,
+      "raw": {
+        "leaves": 1739,
+        "px": 58193152,
+        "op": 12079290,
+        "semi": 25072,
+        "colors": 877862,
+        "buckets": 22003,
+        "leftLit": 1403,
+        "nightLeaves": 1709,
+        "nightOp": 667197,
+        "nightViol": 289
+      },
+      "axes": {
+        "palette": 1,
+        "hardEdge": 0.9584876263422768,
+        "lightDir": 0.8067855089131685,
+        "shade": 1,
+        "density": 1,
+        "nightRule": 0.991157775364051,
+        "variants": 1
+      },
+      "total": 0.9652
+    },
+    "afterRepair": {
+      "leaves": 1739,
+      "op": 12079298,
+      "raw": {
+        "leaves": 1739,
+        "px": 58193152,
+        "op": 12079298,
+        "semi": 25072,
+        "colors": 877866,
+        "buckets": 22003,
+        "leftLit": 1399,
+        "nightLeaves": 1709,
+        "nightOp": 667197,
+        "nightViol": 289
+      },
+      "axes": {
+        "palette": 1,
+        "hardEdge": 0.9584876538355126,
+        "lightDir": 0.80448533640023,
+        "shade": 1,
+        "density": 1,
+        "nightRule": 0.991157775364051,
+        "variants": 1
+      },
+      "total": 0.9649
+    },
+    "files": [
+      {
+        "name": "fp.json",
+        "bytes": 445824,
+        "sha256": "8c4be4a6059846c9ae1f053fa8795446fd549d0a87f7c6f992542eda9bdc9b5a"
+      },
+      {
+        "name": "style.json",
+        "bytes": 73168,
+        "sha256": "03b86ea869ec17919a91731f4978a97052c1e548f10c2d96f2747feda86b8ebf"
+      }
+    ]
+  },
+  "visual": {
+    "kind": "Unaccepted intermediate actual native screenshot, not retouched",
+    "head": "0e2528a96735ee304628ce811dfc38eac15d4645",
+    "run": 40137365599,
+    "artifact": 12577852495,
+    "file": "near-marjoramkitchen.png",
+    "sha256": "e5f990a93f97e6b543eb4880e1045b7d0dc0125e72eb639aea74d8ee88c5174d",
+    "bytes": 417606,
+    "finding": "Inward normals and diagonal seam hardware alone remain visually ambiguous; four individual day sprites/contact and this near full scene inspected. C4 adds physical overlap courses without changing original roof surface coordinates."
+  }
+}

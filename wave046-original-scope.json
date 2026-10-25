@@ -1,0 +1,169 @@
+{
+  "schema": "GPT-046.original-wave18-scope.v1",
+  "revision": "original-2026-10-24",
+  "authorization": {
+    "dateUTC": "2026-10-24",
+    "directionPR": 48,
+    "userQuote": "建築不可以只換色充數，要有真正不同的量體、屋頂、門窗、立面和建築用途；若使用原創設計，明確標示原創，不冒稱真實古蹟復刻。"
+  },
+  "baseCommit": "a5154857887ecf1c6e21b049da6c6d19fe117c4e",
+  "branch": "gpt/british-wave18-046",
+  "families": [
+    "bld"
+  ],
+  "nativeCarrier": {
+    "k": 24,
+    "lv": 1,
+    "bw": 2,
+    "bh": 2,
+    "cost": 2000,
+    "variants": [
+      840,
+      879
+    ],
+    "newModelCount": 10,
+    "viewsPerModel": 4,
+    "newSpriteCount": 40
+  },
+  "provenance": {
+    "kind": "original-code-native",
+    "externalPhotosUsed": false,
+    "externalPhotosEmbedded": false,
+    "realBuildingReproductionClaim": false
+  },
+  "rows": [
+    {
+      "id": "merememorial",
+      "nm": "澤花追思館",
+      "en": "Merebloom Memorial Hall",
+      "v": 840,
+      "shape": "single-aisleless-stone-memorial-nave-twin-open-front-bellcote-narrow-five-sided-apse-low-side-vestry",
+      "design": "one aisleless, long stone hall with a steep slate gable; a substantially narrower five-sided rear apse; one low rectangular side vestry/records room under an outward lean-to. A thin but physically thick stone bellcote rises from the front gable, with two genuinely open round-headed apertures and a short shared saddle cap. No tower body or long side aisles. a recessed pointed front double door below a three-light lancet; paired narrow pointed side windows between low stepped buttresses; smaller square vestry lights. Apse windows follow its actual angled faces. the nave dominates the footprint; the apse is about half its width and clearly lower; the bellcote adds a narrow vertical accent rather than becoming a clock tower. Suggested total height around 34–38 world units, within the existing sprite envelope.",
+      "distinctionFromPublished170": "Rookwood Lantern Hall, wave11, `rookhall`, v568: broad transverse clipped-gable T, clerestory and half-round apse; Elderwick Debating Hall, wave17, `elderdebate`, v812: high centre with two full-length low aisles; Hospital of St Cross, wave08, `stcross`, v448: compound cruciform church and tower. Reject if: it becomes Elderdebate with a decorative bell, copies Rookhall's T plan, hides a filled bellcote behind dark paint, or relies on crosses/signage to read differently. The narrow polygonal rear extension, single nave, open front bellcote and one-sided low vestry must remain substantive geometry.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "guelderlace",
+      "nm": "莢蒾蕾絲學舍",
+      "en": "Guelderfield Lace School",
+      "v": 844,
+      "shape": "parallel-unequal-gabled-brick-ranges-low-diagonal-enclosed-link-two-true-triangular-courts-N-plan",
+      "design": "a true N plan made from two parallel, unequal-height long brick classroom ranges joined by a lower, enclosed diagonal classroom/gallery at opposite ends. The remaining two triangular outside courts stay open to the sky. Main ranges have complete, ordinary slate gables; the diagonal link has its own low straight mono-pitch roof, physically meeting both ranges. long sides have broad three-light work windows; end gables have paired upper sashes; two court-facing timber entrances are set in the angled link. No faux gap painted onto a solid rectangle. roughly 7-unit-wide ranges separated by a 10–12-unit clear band; the diagonal enclosed link is wide enough to read as a room, not a wire or screen-space bridge. Its roof stays below both main eaves.",
+      "distinctionFromPublished170": "Birchfold Bindery, wave13, `birchbind`, v640: H plan with perpendicular central bridge and barrel roofs; Alderbrook Joinery, wave14, `alderjoinery`, v680: E plan with three gabled fingers and a rear spine; Knapwell Mediation, wave17, `knapmediation`, v800: two solid triangles around one diagonal court. Reject if: the diagonal is straightened into an H crossbar, the side bars collapse into two triangular Knapwell rooms, or the courtyards are filled by a hidden common roof/floor above ground. N topology plus three different actual roof alignments is essential.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "gorsepicture",
+      "nm": "金雀溪映畫館",
+      "en": "Gorsebrook Picture House",
+      "v": 848,
+      "shape": "keyhole-plan-narrow-tall-gabled-foyer-wide-low-clipped-octagonal-auditorium-single-shallow-hip",
+      "design": "a narrow, taller two-storey brick street foyer joins the centre of a much wider, lower clipped-octagonal auditorium. This produces a clear keyhole plan. The foyer has a steep short gable; the auditorium has one shallow, broad hipped slate roof over its clipped corners, not a dome, sawtooth or tiered lecture wedge. The neck is enclosed and grounded. the foyer has two entrance doors under one shallow stone canopy and a large upper fanlight over three narrow lights; the auditorium has sparse small high side windows and a separate plain rear service door, leaving its broad walls solid. No giant sign substitutes for architecture. auditorium width about 23–25 units; foyer about 9–10; auditorium roof apex below foyer ridge. The broad low rear mass must remain obvious from rear and side views.",
+      "distinctionFromPublished170": "Dreamland, wave07, `dreamland`, v404: L compound with very tall blade, glass-block cube and low restaurant wing; Coppicefield Lecture Rooms, wave17, `coppicelecture`, v824: one uninterrupted raked wedge; Rookswell Piano Workshop, wave16, `rookspiano`, v780: kidney plan and raised sound room; Royal Shakespeare Theatre, wave07, `royalshakespeare`, v432: bowed foyer and separate large stage/viewing towers. Reject if: it becomes a simple gabled rectangle with a sign, duplicates the Dreamland fin, or uses an oval/kidney auditorium. The wider clipped-octagon body and narrow front neck must be actual plan geometry.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "comfreyambulance",
+      "nm": "聚合草救護車舍",
+      "en": "Comfreyford Ambulance House",
+      "v": 852,
+      "shape": "single-high-wall-barrel-carriage-garage-rear-side-two-storey-hipped-keeper-house-low-recessed-entry",
+      "design": "one broad brick carriage garage with high straight side walls and a single full-width curved metal barrel roof. Attach a compact two-storey keeper/dispatch house at one rear side, with its own complete hipped slate roof. The house and garage meet through a low enclosed recessed entry bay, leaving a genuinely open front apron next to the garage. a single extra-wide, round-headed timber double carriage door with a fanlight; high horizontal garage side lights; the keeper house has small vertically paired sashes and a separate ordinary pedestrian door. Do not add an ambulance sprite or medical emblem to carry identity. garage walls about 12–15 units before its 6–8-unit roof rise; keeper house visibly narrower, with a higher domestic eave/ridge. This differs sharply from the near-ground shell in item10.",
+      "distinctionFromPublished170": "Foxmere Engine Lodge, wave12, `foxengine`, v612: two parallel gabled engine bays plus a tall open hose frame; Beckstone Valve House, wave14, `beckvalve`, v692: squat single shallow barrel and four stepped buttresses with a low front porch; Cromer Lifeboat Station, wave05, `cromer`, v356: multiple shallow tiered barrels, piles and slipway. Reject if: the keeper house becomes a hose tower, the garage is split into Foxmere's two gables, or the whole structure is simply Beckvalve plus signage. Require the side house, low recessed neck and unequal domestic/garage window scales.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "marjoramkitchen",
+      "nm": "馬鬱蘭社區廚房",
+      "en": "Marjoram Community Kitchen",
+      "v": 856,
+      "shape": "low-square-brick-kitchen-closed-four-plane-inverted-pyramid-lead-roof-low-flat-pantry-entry",
+      "design": "a low square brick hall with a closed, four-plane inward-draining lead roof: four high eaves slope to one visibly lower central drain point. The roof is a real inverted pyramid, not a bowl, hole, open court, flat slab or longitudinal valley. Add only one low, narrow projecting rectangular pantry/entrance box with a flat lead cap. alternating broad low kitchen windows and two narrow high ventilation windows; a solid wide pantry door and a separate glazed public entrance. Corner brick piers and a real perimeter fascia make support legible. Drainage is static small hardware, not water simulation. the centre roof stays comfortably above occupied floor height; the diagonal roof creases and central low point must survive native scale. Avoid exaggerated sculptural fins or coloured roof quadrants.",
+      "distinctionFromPublished170": "Osierbrook Oral History, wave17, `osieroral`, v816: one-axis concave trough constant along length; Willowmere Music, wave11, `willowmusic`, v588: V plan with planar butterfly valleys; Fennelfold Honey, wave15, `fennelhoney`, v732: annular roof around a large true open court; Pondwick Badminton, wave15, `pondbadminton`, v724: saddle with two high and two low corners. Reject if: any central roof opening appears, the geometry reduces to two planar slopes/one trough, or only shading implies the dip. All four eaves must be high and all four planes meet at one lower closed point.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "boragedental",
+      "nm": "琉璃苣牙科診所",
+      "en": "Borage Dental Rooms",
+      "v": 860,
+      "shape": "compact-square-two-storey-hipped-core-three-sided-low-wrap-rooms-true-recessed-front-porch",
+      "design": "a compact two-storey square consultation house with a complete four-sided hipped roof. A substantially lower C-shaped wrap gallery runs continuously around its front and both sides, turning both corners. Its side wings are enclosed waiting/support rooms; the central front is a genuinely recessed open covered porch with masonry piers. The back of the high house is exposed, not a complete outer ring or court. two paired upper sashes per exposed high face; low side rooms have broad horizontal three-light windows; the front porch contains the real recessed public door, with distinct solid service door at one side end. the high square core is shorter than Elderdebate's long central nave; the low wrap returns across the front, which Elderdebate does not do. Lower roofs sit well below the high eaves and visibly turn both corners.",
+      "distinctionFromPublished170": "Elderwick Debating Hall, wave17, `elderdebate`, v812: long high nave and only two parallel full-length low aisles; Brassfield Foundry, wave15, `brassbell`, v740: tall single chamfered hall, two-stage roof and tiny one-sided mould strip; Chiswick House, wave01, `chiswick`, v180: domed villa, portico and exterior stair. Reject if: it becomes a scaled Elderdebate with a changed main roof, Brassbell with its tower cap removed, or a single box with painted lower lines. The C-shaped grounded low rooms, two turned roof corners and actual front porch recess are the defining compound.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "hyssopupholstery",
+      "nm": "牛膝草軟墊工房",
+      "en": "Hyssop Upholstery Works",
+      "v": 864,
+      "shape": "grounded-L-two-unequal-perpendicular-gambrel-brick-workranges-open-rectangular-loading-yard",
+      "design": "two unequal, perpendicular grounded brick ranges make an L around a clear rectangular loading yard. Both have genuinely double-pitch gambrel roofs, one broad and low and the other narrow and taller. They join only at the rear corner, with a physically resolved lower-to-higher roof junction. No loft bridge, detached shed or projecting oriel. the broad low range has wide segmental-headed work windows and one large double loading door into the yard; the narrow taller wing has tall two-light windows, small attic lights in its gambrel end, and an ordinary side entrance. Main yard door is not elevated behind an unusable stair. neither roof is an incidental small cap. Their perpendicular ridges, two break-of-slope lines and the open right-angled yard must be readable as the main silhouette in four views.",
+      "distinctionFromPublished170": "Fenditch Cooperage, wave14, `fencooper`, v704: one very tall narrow timber gambrel store and detached low mono-pitch steam shed separated by a gap; Hawthorn Loom House, wave11, `hawthornloom`, v592: one raised gambrel bridge on two anchors; Bracken Fold Reading House, wave11, `brackenread`, v560: L with unequal ordinary gables, tall oriel and separate porch. Reject if: it is Fencooper with a nominal connecting strip, Brackenread with only roof textures changed, or Hawthorn brought to ground. Both large double-pitch roof masses, the right-angle yard and industrial door/window organisation are mandatory.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "dittanygeology",
+      "nm": "白鮮地質會舍",
+      "en": "Dittany Geological Society Rooms",
+      "v": 868,
+      "shape": "single-round-stone-reading-room-centred-cone-opposed-unequal-rectangular-gabled-specimen-wings",
+      "design": "one central round stone reading room with a moderately steep centred conical slate roof. Two rectangular sample wings extend in opposite directions along one straight axis, one longer and lower, the other short and higher. Each wing has its own ordinary gable; both are grounded and visibly abut the round wall, rather than forming a low rectangular pedestal under it. The exposed front arc houses the entrance. the rotunda uses four widely spaced round-headed window groups and one deep stone door; the long specimen wing has several small high paired windows; the short wing has one broad mullioned work window and a side loading door. No roof lantern above the cone. use one drum only. The wings are straight and long enough to read as separate bars, not rounded lobes. Do not let an oversized cone consume the entire footprint.",
+      "distinctionFromPublished170": "Thistledene Nursery, wave12, `thistlenursery`, v628: octagonal core, raised clerestory and two half-round wings; Celandine Telegraph, wave13, `celandinewire`, v676: two separated unequal drums joined by glazing with disc/eccentric-cone caps; Arnos Grove, wave02, `arnos`, v208: elevated drum on a low square block and oversailing flat disc. Reject if: the wings become apses, the cone becomes a high lantern on an octagon, a second drum appears, or a full rectangular base fills beneath the rotunda. The one round central room plus opposed unequal straight gabled bars is essential.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "chamomilestory",
+      "nm": "洋甘菊故事小屋",
+      "en": "Chamomile Story Cottage",
+      "v": 872,
+      "shape": "low-long-stone-cottage-dominant-thick-convex-rounded-hip-thatch-two-real-eyebrow-eave-window-cuts",
+      "design": "a low elongated stone cottage beneath one thick, fully rounded hipped thatch roof. Both end hips and the two long roof slopes are genuinely convex curved surfaces with a soft broad ridge, not flat hips, an ogee inflection or a pointed keel. Two eyebrow window openings locally raise and cut the front eave, with real window heads and roof thickness. One short squat stone chimney is offset near the rear, not a tower or second roof body. a central low timber door, two small paired front casements under the eyebrow cuts, and very small end-wall windows. The wall is visibly low beneath the dominant wide roof. long-to-wide footprint around 1.4–1.7, low wall height around 8–10 units, rounded roof rise around 10–12. Eyebrows must alter geometry, not be painted arcs. Reuse existing approved straw/wood palette values; no global material or lighting changes.",
+      "distinctionFromPublished170": "Pennyfen Boathouse, wave11, `pennyfen`, v584: tall pointed, concave-sided inverted-keel section, straight vertical ends and stone side stair annex; Asterwick Post House, wave12, `asterpost`, v600: planar bellcast clipped roof, five-sided entrance and extra gabled wing; Globe, wave07, `globe`, v428: three-storey polygonal annular thatch around open courtyard; Velvetcombe, wave17, `velvetcostume`, v832: square four-sided inflected ogee taper. Reject if: only changing slate to straw distinguishes it, the roof remains a flat hip, its cross-section duplicates Pennyfen, or eyebrows are tiny decorative dormers. Convex rounded end hips, thick low eaves and two true roof-head cuts must carry the identity without colour.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    },
+    {
+      "id": "myrtlewireless",
+      "nm": "香桃木無線電會舍",
+      "en": "Myrtlefield Wireless Club",
+      "v": 876,
+      "shape": "single-full-semicylindrical-corrugated-shell-low-brick-plinth-closed-round-ends-offset-low-brick-entry",
+      "design": "one long full semicylindrical corrugated metal shell whose spring line begins at a low brick plinth, with no normal-height long side walls. Its ends are closed masonry semicircles. A small off-axis rectangular brick vestibule with a flat lead roof attaches to one end, below the shell's midpoint. No tower, second barrel, buttress battery or piles. the semicircular front has a broad rectangular three-light window following below the curved wall head; a smaller circular rear light; the vestibule contains the actual ordinary timber entrance and one narrow side light. Small side rooflights sit flush in the real curved shell, not floating above it. shell spring line at about 1.5–2.5 units; radius around 10–11 and length around 23–26. Thus the roof constitutes almost the whole side elevation. This is intentionally distinct from item4's high brick garage walls and hipped keeper house.",
+      "distinctionFromPublished170": "Beckstone Valve House, wave14, `beckvalve`, v692: high masonry walls (source eave11.2) under a shallow roof (rise5.1), four buttresses and a centred hipped porch; Cromer, wave05, `cromer`, v356: shallow roof tiers, piles and slipway; Dewbank Wash House, wave12, `dewbankwash`, v620: four narrow low barrels above brick rooms and a rear spine; Pennyfen, wave11, `pennyfen`, v584: tall pointed keel and normal walls. Reject if: it becomes Beckvalve without buttresses, a compressed four-barrel wash house, or item4 without its keeper house. Require the near-ground semicircular spring, absence of tall long walls, single continuous shell and off-axis low entry volume.",
+      "evidenceStatus": "original-code-native-design",
+      "designSource": "Original fictional English village community architecture using unchanged in-repository art634 kit; no external photo or real-landmark claim.",
+      "note": "原創英式展示外觀，非具名真實古蹟復刻；沿用原生2×2地標規則。"
+    }
+  ],
+  "acceptance": {
+    "originalFrozenCriteria": "docs/branch/GPT-046-original-village-community-wave18.md",
+    "CIOnlyForGameRendering": true,
+    "noManualPagesDispatch": true,
+    "old170AndOtherFamiliesUnchanged": true
+  },
+  "firstCard": {
+    "commit": "dd47ad4decb753c8efbdf4e295513d295236b24f",
+    "path": "docs/branch/GPT-046-original-village-community-wave18.md",
+    "sha256": "48411079453a62accbe9b8037c6e80cbfc85fdfc023d2507e1cc6d8a2b5f6ce2",
+    "status": "frozen-scope-pushed-before-model-authoring",
+    "visualApprovalClaim": false
+  }
+}

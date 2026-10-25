@@ -1,0 +1,157 @@
+{
+  "schema": "GPT-046.raw-CI-baseline-adoption.v1",
+  "producerHead": "2ea63d518a1efbb4baee597157c3f8aab6900d91",
+  "run": 40138059294,
+  "job": 121003715368,
+  "artifact": 12577738028,
+  "artifactZIP_SHA256": "30afefe9ac1f6f6481b01b4182eebc38e964495a5002c8956427032fbfbec1e4",
+  "source": "Unedited original standard push fp artifact files; metadata preserved; not native rebake",
+  "files": [
+    {
+      "name": "fp.json",
+      "bytes": 445824,
+      "sha256": "98ef37d7af6e8a92d132d05035b5684385ebbe92563ae9e5edc4d61b0af88594"
+    },
+    {
+      "name": "style.json",
+      "bytes": 73168,
+      "sha256": "20746fbe5bac554b064281d41817aed74fab1259e8a84645f5207d571b18872a"
+    }
+  ],
+  "unchangedOldLeaves": 4063,
+  "addedOnly": [
+    "bld.24_1_840",
+    "bld.24_1_841",
+    "bld.24_1_842",
+    "bld.24_1_843",
+    "bld.24_1_844",
+    "bld.24_1_845",
+    "bld.24_1_846",
+    "bld.24_1_847",
+    "bld.24_1_848",
+    "bld.24_1_849",
+    "bld.24_1_850",
+    "bld.24_1_851",
+    "bld.24_1_852",
+    "bld.24_1_853",
+    "bld.24_1_854",
+    "bld.24_1_855",
+    "bld.24_1_856",
+    "bld.24_1_857",
+    "bld.24_1_858",
+    "bld.24_1_859",
+    "bld.24_1_860",
+    "bld.24_1_861",
+    "bld.24_1_862",
+    "bld.24_1_863",
+    "bld.24_1_864",
+    "bld.24_1_865",
+    "bld.24_1_866",
+    "bld.24_1_867",
+    "bld.24_1_868",
+    "bld.24_1_869",
+    "bld.24_1_870",
+    "bld.24_1_871",
+    "bld.24_1_872",
+    "bld.24_1_873",
+    "bld.24_1_874",
+    "bld.24_1_875",
+    "bld.24_1_876",
+    "bld.24_1_877",
+    "bld.24_1_878",
+    "bld.24_1_879"
+  ],
+  "otherFamiliesUnchanged": 165,
+  "blocks": {
+    "fam": "5ef6eb67",
+    "count": 1728
+  },
+  "envLeavesUnchanged": true,
+  "styleBefore": {
+    "leaves": 1699,
+    "op": 11905238,
+    "raw": {
+      "leaves": 1699,
+      "px": 56938752,
+      "op": 11905238,
+      "semi": 25072,
+      "colors": 876850,
+      "buckets": 21586,
+      "leftLit": 1369,
+      "nightLeaves": 1669,
+      "nightOp": 662354,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9578807244340685,
+      "lightDir": 0.8057680988816951,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.9909531159365403,
+      "variants": 1
+    },
+    "total": 0.9649
+  },
+  "styleAfter": {
+    "leaves": 1739,
+    "op": 12079298,
+    "raw": {
+      "leaves": 1739,
+      "px": 58193152,
+      "op": 12079298,
+      "semi": 25072,
+      "colors": 877866,
+      "buckets": 22003,
+      "leftLit": 1399,
+      "nightLeaves": 1709,
+      "nightOp": 667197,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9584876538355126,
+      "lightDir": 0.80448533640023,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.991157775364051,
+      "variants": 1
+    },
+    "total": 0.9649
+  },
+  "artSourceSHA256": "9c14cd2661399492ede5bf8fb9fa79c3252d9763dd78880b298063c55bbca213",
+  "firstRedPreserved": "C1 original undeclared40 and C2 green-but-visual-failure retained. C4 repaired only856..859; official fp fails old baseline and same-family style ratchet. Fiscal and strict source-pin failures recorded separately, not waived. New raw files are exact standard push artifact bytes. Continuous-art authorization permits disclosed score change; all original thresholds and negative controls remain unchanged.",
+  "styleBeforeRepair": {
+    "leaves": 1739,
+    "op": 12079290,
+    "raw": {
+      "leaves": 1739,
+      "px": 58193152,
+      "op": 12079290,
+      "semi": 25072,
+      "colors": 877862,
+      "buckets": 22003,
+      "leftLit": 1403,
+      "nightLeaves": 1709,
+      "nightOp": 667197,
+      "nightViol": 289
+    },
+    "axes": {
+      "palette": 1,
+      "hardEdge": 0.9584876263422768,
+      "lightDir": 0.8067855089131685,
+      "shade": 1,
+      "density": 1,
+      "nightRule": 0.991157775364051,
+      "variants": 1
+    },
+    "total": 0.9652
+  },
+  "changedFromC2": [
+    "bld.24_1_856",
+    "bld.24_1_857",
+    "bld.24_1_858",
+    "bld.24_1_859"
+  ],
+  "visualStatus": "Actual C4 product PNG review required independently; baseline declaration is not owner approval or publication."
+}

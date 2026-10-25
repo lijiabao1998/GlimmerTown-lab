@@ -1,0 +1,1678 @@
+{
+  "ok": true,
+  "kind": "source-only-recording-stub-audit",
+  "gameExecuted": false,
+  "rasterizerExecuted": false,
+  "renderedSprites": 0,
+  "models": 10,
+  "authoredViewPaths": 40,
+  "nativeCanvasContract": {
+    "w": 160,
+    "h": 196,
+    "sz": 2,
+    "ax": 80,
+    "ay": 194,
+    "verifiedBy": "source/stub contract; no local raster"
+  },
+  "negativeControls": 55,
+  "structuralNegativeControls": [
+    {
+      "name": "paint-over-first-bellcote-opening",
+      "firstRed": "structural:merememorial",
+      "target": "twin real through-open",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-bellcote-grounded-support",
+      "firstRed": "structural:merememorial",
+      "target": "solid base intersects gable",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "distort-round-bellcote-intrados",
+      "firstRed": "structural:merememorial",
+      "target": "round aperture heads",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fill-recessed-memorial-door",
+      "firstRed": "structural:merememorial",
+      "target": "door is not hidden",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "roof-over-N-plan-court",
+      "firstRed": "structural:guelderlace",
+      "target": "two triangular sky courts",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "straighten-lace-diagonal-link",
+      "firstRed": "structural:guelderlace",
+      "target": "actual diagonal enclosed link",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "tilt-lace-link-roof-off-its-pitch",
+      "firstRed": "structural:guelderlace",
+      "target": "own straight slope",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "erase-cinema-clipped-corner",
+      "firstRed": "structural:gorsepicture",
+      "target": "eight clipped auditorium walls",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "detach-cinema-foyer-masonry",
+      "firstRed": "structural:gorsepicture",
+      "target": "narrow tall grounded foyer",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "bend-cinema-hip-ridge",
+      "firstRed": "structural:gorsepicture",
+      "target": "shallow hip short central ridge",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "float-garage-long-bearing-wall",
+      "firstRed": "structural:comfreyambulance",
+      "target": "high garage masonry walls",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-ambulance-domestic-house",
+      "firstRed": "structural:comfreyambulance",
+      "target": "compact two-storey keeper house",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "flatten-high-garage-barrel",
+      "firstRed": "structural:comfreyambulance",
+      "target": "high-wall elliptical barrel profile",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "raise-inverted-kitchen-drain",
+      "firstRed": "structural:marjoramkitchen",
+      "target": "four high eaves meet single lower closed drain",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-one-inverted-kitchen-plane",
+      "firstRed": "structural:marjoramkitchen",
+      "target": "exactly four inward roof planes",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "hide-inverted-roof-under-flat-cap",
+      "firstRed": "structural:marjoramkitchen",
+      "target": "true closed low centre",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fill-dental-open-covered-porch",
+      "firstRed": "structural:boragedental",
+      "target": "actual deep open front porch",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-dental-wrap-corner",
+      "firstRed": "structural:boragedental",
+      "target": "seven turned C-wrap roof patches",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "close-dental-exposed-rear-ring",
+      "firstRed": "structural:boragedental",
+      "target": "rear stays exposed",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fill-upholstery-loading-yard",
+      "firstRed": "structural:hyssopupholstery",
+      "target": "real rectangular loading yard",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "erase-low-gambrel-break-line",
+      "firstRed": "structural:hyssopupholstery",
+      "target": "low actual gambrel break lines",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "bend-perpendicular-high-gambrel",
+      "firstRed": "structural:hyssopupholstery",
+      "target": "high actual perpendicular gambrel break lines",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "make-geology-drum-elliptical",
+      "firstRed": "structural:dittanygeology",
+      "target": "truly circular central room",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "move-geology-cone-off-centre",
+      "firstRed": "structural:dittanygeology",
+      "target": "single centred cone apex",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "fill-geology-rectangular-pedestal",
+      "firstRed": "structural:dittanygeology",
+      "target": "no filled rectangular pedestal",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "flatten-convex-thatch-cross-section",
+      "firstRed": "structural:chamomilestory",
+      "target": "convex rounded long slope",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "flatten-rounded-thatch-end-hip",
+      "firstRed": "structural:chamomilestory",
+      "target": "true convex rounded end hip",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "paint-only-thatch-eyebrows",
+      "firstRed": "structural:chamomilestory",
+      "target": "both eyebrow heads actually raise",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-thatch-bearing-soffit",
+      "firstRed": "structural:chamomilestory",
+      "target": "complete overhang soffit joins",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "remove-thatch-roof-thickness",
+      "firstRed": "structural:chamomilestory",
+      "target": "exact matching triangulated underside",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "raise-wireless-semicylinder-spring",
+      "firstRed": "structural:myrtlewireless",
+      "target": "near-ground full semicircle",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "open-wireless-masonry-end",
+      "firstRed": "structural:myrtlewireless",
+      "target": "both complete closed round masonry ends",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "erase-wireless-offset-entry",
+      "firstRed": "structural:myrtlewireless",
+      "target": "offset low flat vestibule",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "float-wireless-rooflight",
+      "firstRed": "structural:myrtlewireless",
+      "target": "opaque glazing is backed",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "duplicate-real-N-roof-facet",
+      "firstRed": "roof-partition",
+      "restored": true,
+      "sourceOnly": true
+    }
+  ],
+  "sourceMutationControls": [
+    {
+      "name": "source-fill-open-bellcote",
+      "firstRed": "source-model:merememorial",
+      "target": "twin real through-open",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "source-raise-inverted-drain",
+      "firstRed": "source-model:marjoramkitchen",
+      "target": "four high eaves meet single lower closed drain",
+      "restored": true,
+      "sourceOnly": true
+    },
+    {
+      "name": "source-flatten-eyebrow-cut",
+      "firstRed": "source-model:chamomilestory",
+      "target": "both eyebrow heads actually raise",
+      "restored": true,
+      "sourceOnly": true
+    }
+  ],
+  "invalidInputs": [
+    {
+      "kind": "invalid-view",
+      "value": "-1",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "4",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "1.5",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "NaN",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "Infinity",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "-Infinity",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "0",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "null",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "undefined",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-view",
+      "value": "true",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "not-frozen",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "__proto__",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "constructor",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "null",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "undefined",
+      "rejected": true
+    },
+    {
+      "kind": "invalid-id",
+      "value": "840",
+      "rejected": true
+    }
+  ],
+  "structuralChecks": {
+    "actualRecordedPolygons": true,
+    "independentFrozenRows": true,
+    "allFortyWorldConstructionPaths": true,
+    "tenUniqueColourIndependentGeometryHashes": true,
+    "bellcoteThroughOpenAndSupported": true,
+    "realNPlanCourtsAndJoins": true,
+    "keyholeOctagonalAuditorium": true,
+    "highWallBarrelAndKeeperHouse": true,
+    "closedFourPlaneInvertedPyramid": true,
+    "CWrapWithRecessedPorch": true,
+    "perpendicularCompleteGambrels": true,
+    "oneRoundRoomAndUnequalStraightWings": true,
+    "convexThatchHipsAndRealEyebrowCuts": true,
+    "nearGroundSemicylinderAndFlushRooflights": true,
+    "allGlazingHasActualOpaqueBacking": true,
+    "roofUndersidesClosedEdgesAndPartitions": true,
+    "hardMaterialsOnly": true,
+    "noPreviousModelCalls": true,
+    "sourceOnly": true
+  },
+  "sourceSHA256": "9c14cd2661399492ede5bf8fb9fa79c3252d9763dd78880b298063c55bbca213",
+  "summaries": [
+    {
+      "id": "merememorial",
+      "view": 0,
+      "projectedBounds": [
+        [
+          41.00000000000001,
+          114
+        ],
+        [
+          124.52000000000001,
+          180.85
+        ]
+      ],
+      "polygons": 503,
+      "beams": 5,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          8.1,
+          29.33
+        ],
+        [
+          2.2,
+          29.1
+        ],
+        [
+          0.55,
+          36.6
+        ]
+      ],
+      "geometrySHA256": "777e5c784ca4f0a5d23e65b2eb2c63caaa9e6a225b428d5d43c9036f75abc621"
+    },
+    {
+      "id": "merememorial",
+      "view": 1,
+      "projectedBounds": [
+        [
+          40.99999999999999,
+          111
+        ],
+        [
+          108.62,
+          178.4
+        ]
+      ],
+      "polygons": 503,
+      "beams": 5,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          8.1,
+          29.33
+        ],
+        [
+          2.2,
+          29.1
+        ],
+        [
+          0.55,
+          36.6
+        ]
+      ],
+      "geometrySHA256": "777e5c784ca4f0a5d23e65b2eb2c63caaa9e6a225b428d5d43c9036f75abc621"
+    },
+    {
+      "id": "merememorial",
+      "view": 2,
+      "projectedBounds": [
+        [
+          46,
+          119
+        ],
+        [
+          108.62,
+          176.9
+        ]
+      ],
+      "polygons": 503,
+      "beams": 5,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          8.1,
+          29.33
+        ],
+        [
+          2.2,
+          29.1
+        ],
+        [
+          0.55,
+          36.6
+        ]
+      ],
+      "geometrySHA256": "777e5c784ca4f0a5d23e65b2eb2c63caaa9e6a225b428d5d43c9036f75abc621"
+    },
+    {
+      "id": "merememorial",
+      "view": 3,
+      "projectedBounds": [
+        [
+          48.99999999999999,
+          119
+        ],
+        [
+          124.52000000000001,
+          180.85
+        ]
+      ],
+      "polygons": 503,
+      "beams": 5,
+      "pairedMaterials": 16,
+      "bbox": [
+        [
+          8.1,
+          29.33
+        ],
+        [
+          2.2,
+          29.1
+        ],
+        [
+          0.55,
+          36.6
+        ]
+      ],
+      "geometrySHA256": "777e5c784ca4f0a5d23e65b2eb2c63caaa9e6a225b428d5d43c9036f75abc621"
+    },
+    {
+      "id": "guelderlace",
+      "view": 0,
+      "projectedBounds": [
+        [
+          28.999999999999993,
+          131
+        ],
+        [
+          118.82000000000001,
+          186.85
+        ]
+      ],
+      "polygons": 880,
+      "beams": 2,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          3.67,
+          28.33
+        ],
+        [
+          0.55,
+          25
+        ]
+      ],
+      "geometrySHA256": "3b6521d8765235a69dfca962d02bf38aa0d50c6c91e25052a52612aa38356b52"
+    },
+    {
+      "id": "guelderlace",
+      "view": 1,
+      "projectedBounds": [
+        [
+          28.999999999999993,
+          131
+        ],
+        [
+          118.82000000000001,
+          186.85
+        ]
+      ],
+      "polygons": 880,
+      "beams": 2,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          3.67,
+          28.33
+        ],
+        [
+          0.55,
+          25
+        ]
+      ],
+      "geometrySHA256": "3b6521d8765235a69dfca962d02bf38aa0d50c6c91e25052a52612aa38356b52"
+    },
+    {
+      "id": "guelderlace",
+      "view": 2,
+      "projectedBounds": [
+        [
+          28.999999999999993,
+          131
+        ],
+        [
+          115.02000000000001,
+          186.85
+        ]
+      ],
+      "polygons": 880,
+      "beams": 2,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          3.67,
+          28.33
+        ],
+        [
+          0.55,
+          25
+        ]
+      ],
+      "geometrySHA256": "3b6521d8765235a69dfca962d02bf38aa0d50c6c91e25052a52612aa38356b52"
+    },
+    {
+      "id": "guelderlace",
+      "view": 3,
+      "projectedBounds": [
+        [
+          28.999999999999993,
+          131
+        ],
+        [
+          115.02000000000001,
+          186.85
+        ]
+      ],
+      "polygons": 880,
+      "beams": 2,
+      "pairedMaterials": 26,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          3.67,
+          28.33
+        ],
+        [
+          0.55,
+          25
+        ]
+      ],
+      "geometrySHA256": "3b6521d8765235a69dfca962d02bf38aa0d50c6c91e25052a52612aa38356b52"
+    },
+    {
+      "id": "gorsepicture",
+      "view": 0,
+      "projectedBounds": [
+        [
+          40.6,
+          125
+        ],
+        [
+          127.6,
+          179.85
+        ]
+      ],
+      "polygons": 1086,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          3.646446609406726,
+          28.353553390593273
+        ],
+        [
+          2.58,
+          30.2
+        ],
+        [
+          0.55,
+          29.200000000000003
+        ]
+      ],
+      "geometrySHA256": "0ff5ea1eb285c2409852ccc8805cdbfa13c45a97489722404e7dac4e5fd89e26"
+    },
+    {
+      "id": "gorsepicture",
+      "view": 1,
+      "projectedBounds": [
+        [
+          40.599999999999994,
+          125
+        ],
+        [
+          119.32000000000001,
+          183.85
+        ]
+      ],
+      "polygons": 1086,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          3.646446609406726,
+          28.353553390593273
+        ],
+        [
+          2.58,
+          30.2
+        ],
+        [
+          0.55,
+          29.200000000000003
+        ]
+      ],
+      "geometrySHA256": "0ff5ea1eb285c2409852ccc8805cdbfa13c45a97489722404e7dac4e5fd89e26"
+    },
+    {
+      "id": "gorsepicture",
+      "view": 2,
+      "projectedBounds": [
+        [
+          34.99999999999999,
+          119.4
+        ],
+        [
+          119.32000000000001,
+          183.85
+        ]
+      ],
+      "polygons": 1086,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          3.646446609406726,
+          28.353553390593273
+        ],
+        [
+          2.58,
+          30.2
+        ],
+        [
+          0.55,
+          29.200000000000003
+        ]
+      ],
+      "geometrySHA256": "0ff5ea1eb285c2409852ccc8805cdbfa13c45a97489722404e7dac4e5fd89e26"
+    },
+    {
+      "id": "gorsepicture",
+      "view": 3,
+      "projectedBounds": [
+        [
+          34.99999999999999,
+          119.4
+        ],
+        [
+          127.6,
+          179.85
+        ]
+      ],
+      "polygons": 1086,
+      "beams": 2,
+      "pairedMaterials": 14,
+      "bbox": [
+        [
+          3.646446609406726,
+          28.353553390593273
+        ],
+        [
+          2.58,
+          30.2
+        ],
+        [
+          0.55,
+          29.200000000000003
+        ]
+      ],
+      "geometrySHA256": "0ff5ea1eb285c2409852ccc8805cdbfa13c45a97489722404e7dac4e5fd89e26"
+    },
+    {
+      "id": "comfreyambulance",
+      "view": 0,
+      "projectedBounds": [
+        [
+          29.000000000000007,
+          133
+        ],
+        [
+          122.39184327460906,
+          176.85
+        ]
+      ],
+      "polygons": 935,
+      "beams": 149,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          2.68,
+          30.33
+        ],
+        [
+          3.67,
+          28.38
+        ],
+        [
+          0.55,
+          27.4
+        ]
+      ],
+      "geometrySHA256": "fcc163ad19c23675d437d4dc1151230c86fdf4552ce34cee4a5366b667d645a6"
+    },
+    {
+      "id": "comfreyambulance",
+      "view": 1,
+      "projectedBounds": [
+        [
+          48.99999999999999,
+          127
+        ],
+        [
+          120.39184327460906,
+          187.85
+        ]
+      ],
+      "polygons": 935,
+      "beams": 149,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          2.68,
+          30.33
+        ],
+        [
+          3.67,
+          28.38
+        ],
+        [
+          0.55,
+          27.4
+        ]
+      ],
+      "geometrySHA256": "fcc163ad19c23675d437d4dc1151230c86fdf4552ce34cee4a5366b667d645a6"
+    },
+    {
+      "id": "comfreyambulance",
+      "view": 2,
+      "projectedBounds": [
+        [
+          26.999999999999993,
+          131
+        ],
+        [
+          126.8,
+          184.85
+        ]
+      ],
+      "polygons": 935,
+      "beams": 149,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          2.68,
+          30.33
+        ],
+        [
+          3.67,
+          28.38
+        ],
+        [
+          0.55,
+          27.4
+        ]
+      ],
+      "geometrySHA256": "fcc163ad19c23675d437d4dc1151230c86fdf4552ce34cee4a5366b667d645a6"
+    },
+    {
+      "id": "comfreyambulance",
+      "view": 3,
+      "projectedBounds": [
+        [
+          32.99999999999999,
+          111
+        ],
+        [
+          113.8,
+          186.85
+        ]
+      ],
+      "polygons": 935,
+      "beams": 149,
+      "pairedMaterials": 19,
+      "bbox": [
+        [
+          2.68,
+          30.33
+        ],
+        [
+          3.67,
+          28.38
+        ],
+        [
+          0.55,
+          27.4
+        ]
+      ],
+      "geometrySHA256": "fcc163ad19c23675d437d4dc1151230c86fdf4552ce34cee4a5366b667d645a6"
+    },
+    {
+      "id": "marjoramkitchen",
+      "view": 0,
+      "projectedBounds": [
+        [
+          36.99999999999999,
+          127
+        ],
+        [
+          121.25999999999999,
+          182.85
+        ]
+      ],
+      "polygons": 464,
+      "beams": 13,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          4.67,
+          27.33
+        ],
+        [
+          3.67,
+          30.42
+        ],
+        [
+          0.55,
+          17.2
+        ]
+      ],
+      "geometrySHA256": "58a8f2c8aa7b385d897379e3cd022328aa2744cf71112a41e08a871bba4dea6f"
+    },
+    {
+      "id": "marjoramkitchen",
+      "view": 1,
+      "projectedBounds": [
+        [
+          36.99999999999999,
+          127
+        ],
+        [
+          123.25999999999999,
+          184.85
+        ]
+      ],
+      "polygons": 464,
+      "beams": 13,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          4.67,
+          27.33
+        ],
+        [
+          3.67,
+          30.42
+        ],
+        [
+          0.55,
+          17.2
+        ]
+      ],
+      "geometrySHA256": "58a8f2c8aa7b385d897379e3cd022328aa2744cf71112a41e08a871bba4dea6f"
+    },
+    {
+      "id": "marjoramkitchen",
+      "view": 2,
+      "projectedBounds": [
+        [
+          32.99999999999999,
+          123
+        ],
+        [
+          123.25999999999999,
+          184.85
+        ]
+      ],
+      "polygons": 464,
+      "beams": 13,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          4.67,
+          27.33
+        ],
+        [
+          3.67,
+          30.42
+        ],
+        [
+          0.55,
+          17.2
+        ]
+      ],
+      "geometrySHA256": "58a8f2c8aa7b385d897379e3cd022328aa2744cf71112a41e08a871bba4dea6f"
+    },
+    {
+      "id": "marjoramkitchen",
+      "view": 3,
+      "projectedBounds": [
+        [
+          32.99999999999999,
+          123
+        ],
+        [
+          121.25999999999999,
+          182.85
+        ]
+      ],
+      "polygons": 464,
+      "beams": 13,
+      "pairedMaterials": 11,
+      "bbox": [
+        [
+          4.67,
+          27.33
+        ],
+        [
+          3.67,
+          30.42
+        ],
+        [
+          0.55,
+          17.2
+        ]
+      ],
+      "geometrySHA256": "58a8f2c8aa7b385d897379e3cd022328aa2744cf71112a41e08a871bba4dea6f"
+    },
+    {
+      "id": "boragedental",
+      "view": 0,
+      "projectedBounds": [
+        [
+          37.00000000000001,
+          123
+        ],
+        [
+          125.6,
+          182.85
+        ]
+      ],
+      "polygons": 395,
+      "beams": 1,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          3.67,
+          28.33
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          27.9
+        ]
+      ],
+      "geometrySHA256": "f1e0757d9f3bf317e53655f1460febe19d9c00099e06d284671affb2937fa85f"
+    },
+    {
+      "id": "boragedental",
+      "view": 1,
+      "projectedBounds": [
+        [
+          36.99999999999999,
+          123
+        ],
+        [
+          131,
+          182.85
+        ]
+      ],
+      "polygons": 395,
+      "beams": 1,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          3.67,
+          28.33
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          27.9
+        ]
+      ],
+      "geometrySHA256": "f1e0757d9f3bf317e53655f1460febe19d9c00099e06d284671affb2937fa85f"
+    },
+    {
+      "id": "boragedental",
+      "view": 2,
+      "projectedBounds": [
+        [
+          37.00000000000001,
+          123
+        ],
+        [
+          131,
+          182.85
+        ]
+      ],
+      "polygons": 395,
+      "beams": 1,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          3.67,
+          28.33
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          27.9
+        ]
+      ],
+      "geometrySHA256": "f1e0757d9f3bf317e53655f1460febe19d9c00099e06d284671affb2937fa85f"
+    },
+    {
+      "id": "boragedental",
+      "view": 3,
+      "projectedBounds": [
+        [
+          36.99999999999999,
+          123
+        ],
+        [
+          125.6,
+          182.85
+        ]
+      ],
+      "polygons": 395,
+      "beams": 1,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          3.67,
+          28.33
+        ],
+        [
+          6.67,
+          25.42
+        ],
+        [
+          0.55,
+          27.9
+        ]
+      ],
+      "geometrySHA256": "f1e0757d9f3bf317e53655f1460febe19d9c00099e06d284671affb2937fa85f"
+    },
+    {
+      "id": "hyssopupholstery",
+      "view": 0,
+      "projectedBounds": [
+        [
+          27.000000000000007,
+          133
+        ],
+        [
+          120.12,
+          171.85
+        ]
+      ],
+      "polygons": 446,
+      "beams": 6,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          2.67,
+          29.33
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "da1de6eb08af45313edfd30da75cae4b38aa09e7d15af6c1b63eba4833ede508"
+    },
+    {
+      "id": "hyssopupholstery",
+      "view": 1,
+      "projectedBounds": [
+        [
+          58.99999999999999,
+          133
+        ],
+        [
+          112.52000000000001,
+          187.85
+        ]
+      ],
+      "polygons": 446,
+      "beams": 6,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          2.67,
+          29.33
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "da1de6eb08af45313edfd30da75cae4b38aa09e7d15af6c1b63eba4833ede508"
+    },
+    {
+      "id": "hyssopupholstery",
+      "view": 2,
+      "projectedBounds": [
+        [
+          26.999999999999993,
+          133
+        ],
+        [
+          130.52,
+          187.85
+        ]
+      ],
+      "polygons": 446,
+      "beams": 6,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          2.67,
+          29.33
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "da1de6eb08af45313edfd30da75cae4b38aa09e7d15af6c1b63eba4833ede508"
+    },
+    {
+      "id": "hyssopupholstery",
+      "view": 3,
+      "projectedBounds": [
+        [
+          27.000000000000014,
+          101
+        ],
+        [
+          120.12,
+          187.85
+        ]
+      ],
+      "polygons": 446,
+      "beams": 6,
+      "pairedMaterials": 13,
+      "bbox": [
+        [
+          2.67,
+          29.33
+        ],
+        [
+          2.67,
+          29.33
+        ],
+        [
+          0.55,
+          27
+        ]
+      ],
+      "geometrySHA256": "da1de6eb08af45313edfd30da75cae4b38aa09e7d15af6c1b63eba4833ede508"
+    },
+    {
+      "id": "dittanygeology",
+      "view": 0,
+      "projectedBounds": [
+        [
+          44.400000000000006,
+          113.6
+        ],
+        [
+          132.32,
+          178.20000000000002
+        ]
+      ],
+      "polygons": 517,
+      "beams": 2,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          1.87,
+          30.220000000000002
+        ],
+        [
+          8.176461303143846,
+          23.83548060260057
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "38a1ea795304a6c0a95dbcb3253fc1b5297804fc7bc4c1122b969c446bdd8ea5"
+    },
+    {
+      "id": "dittanygeology",
+      "view": 1,
+      "projectedBounds": [
+        [
+          46.4,
+          115.6
+        ],
+        [
+          132.32,
+          178.20000000000002
+        ]
+      ],
+      "polygons": 517,
+      "beams": 2,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          1.87,
+          30.220000000000002
+        ],
+        [
+          8.176461303143846,
+          23.83548060260057
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "38a1ea795304a6c0a95dbcb3253fc1b5297804fc7bc4c1122b969c446bdd8ea5"
+    },
+    {
+      "id": "dittanygeology",
+      "view": 2,
+      "projectedBounds": [
+        [
+          46.400000000000006,
+          115.6
+        ],
+        [
+          130.51999999999998,
+          179.20000000000002
+        ]
+      ],
+      "polygons": 517,
+      "beams": 2,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          1.87,
+          30.220000000000002
+        ],
+        [
+          8.176461303143846,
+          23.83548060260057
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "38a1ea795304a6c0a95dbcb3253fc1b5297804fc7bc4c1122b969c446bdd8ea5"
+    },
+    {
+      "id": "dittanygeology",
+      "view": 3,
+      "projectedBounds": [
+        [
+          44.4,
+          113.6
+        ],
+        [
+          130.51999999999998,
+          179.20000000000002
+        ]
+      ],
+      "polygons": 517,
+      "beams": 2,
+      "pairedMaterials": 17,
+      "bbox": [
+        [
+          1.87,
+          30.220000000000002
+        ],
+        [
+          8.176461303143846,
+          23.83548060260057
+        ],
+        [
+          0.55,
+          25.2
+        ]
+      ],
+      "geometrySHA256": "38a1ea795304a6c0a95dbcb3253fc1b5297804fc7bc4c1122b969c446bdd8ea5"
+    },
+    {
+      "id": "chamomilestory",
+      "view": 0,
+      "projectedBounds": [
+        [
+          46.66547622084393,
+          113.33452377915607
+        ],
+        [
+          132.1132467631853,
+          176.5823376490863
+        ]
+      ],
+      "polygons": 1732,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3,
+          29
+        ],
+        [
+          7.5,
+          24.5
+        ],
+        [
+          0.55,
+          22.62
+        ]
+      ],
+      "geometrySHA256": "4547ce9b5279cfc70bfe21983b3d28a57c4455369f76408ad0aa08284af4005c"
+    },
+    {
+      "id": "chamomilestory",
+      "view": 1,
+      "projectedBounds": [
+        [
+          46.665476220843935,
+          113.33452377915607
+        ],
+        [
+          132.1132467631853,
+          176.5823376490863
+        ]
+      ],
+      "polygons": 1732,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3,
+          29
+        ],
+        [
+          7.5,
+          24.5
+        ],
+        [
+          0.55,
+          22.62
+        ]
+      ],
+      "geometrySHA256": "4547ce9b5279cfc70bfe21983b3d28a57c4455369f76408ad0aa08284af4005c"
+    },
+    {
+      "id": "chamomilestory",
+      "view": 2,
+      "projectedBounds": [
+        [
+          46.66547622084393,
+          113.33452377915607
+        ],
+        [
+          132,
+          176.5823376490863
+        ]
+      ],
+      "polygons": 1732,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3,
+          29
+        ],
+        [
+          7.5,
+          24.5
+        ],
+        [
+          0.55,
+          22.62
+        ]
+      ],
+      "geometrySHA256": "4547ce9b5279cfc70bfe21983b3d28a57c4455369f76408ad0aa08284af4005c"
+    },
+    {
+      "id": "chamomilestory",
+      "view": 3,
+      "projectedBounds": [
+        [
+          46.66547622084393,
+          113.33452377915606
+        ],
+        [
+          126.6,
+          176.58233764908627
+        ]
+      ],
+      "polygons": 1732,
+      "beams": 0,
+      "pairedMaterials": 8,
+      "bbox": [
+        [
+          3,
+          29
+        ],
+        [
+          7.5,
+          24.5
+        ],
+        [
+          0.55,
+          22.62
+        ]
+      ],
+      "geometrySHA256": "4547ce9b5279cfc70bfe21983b3d28a57c4455369f76408ad0aa08284af4005c"
+    },
+    {
+      "id": "myrtlewireless",
+      "view": 0,
+      "projectedBounds": [
+        [
+          36,
+          127
+        ],
+        [
+          132.1507575950825,
+          182.9
+        ]
+      ],
+      "polygons": 257,
+      "beams": 167,
+      "pairedMaterials": 7,
+      "bbox": [
+        [
+          5.5,
+          26.5
+        ],
+        [
+          2.76,
+          30.42
+        ],
+        [
+          0.55,
+          12.5
+        ]
+      ],
+      "geometrySHA256": "f2db5eb83f8d5f7426c649fbdd971b80f5f103995699879aa1496feceff1c166"
+    },
+    {
+      "id": "myrtlewireless",
+      "view": 1,
+      "projectedBounds": [
+        [
+          37,
+          127
+        ],
+        [
+          134,
+          184.9
+        ]
+      ],
+      "polygons": 257,
+      "beams": 167,
+      "pairedMaterials": 7,
+      "bbox": [
+        [
+          5.5,
+          26.5
+        ],
+        [
+          2.76,
+          30.42
+        ],
+        [
+          0.55,
+          12.5
+        ]
+      ],
+      "geometrySHA256": "f2db5eb83f8d5f7426c649fbdd971b80f5f103995699879aa1496feceff1c166"
+    },
+    {
+      "id": "myrtlewireless",
+      "view": 2,
+      "projectedBounds": [
+        [
+          33,
+          124
+        ],
+        [
+          134.1507575950825,
+          184.9
+        ]
+      ],
+      "polygons": 257,
+      "beams": 167,
+      "pairedMaterials": 7,
+      "bbox": [
+        [
+          5.5,
+          26.5
+        ],
+        [
+          2.76,
+          30.42
+        ],
+        [
+          0.55,
+          12.5
+        ]
+      ],
+      "geometrySHA256": "f2db5eb83f8d5f7426c649fbdd971b80f5f103995699879aa1496feceff1c166"
+    },
+    {
+      "id": "myrtlewireless",
+      "view": 3,
+      "projectedBounds": [
+        [
+          33,
+          123
+        ],
+        [
+          132.1507575950825,
+          183.4
+        ]
+      ],
+      "polygons": 257,
+      "beams": 167,
+      "pairedMaterials": 7,
+      "bbox": [
+        [
+          5.5,
+          26.5
+        ],
+        [
+          2.76,
+          30.42
+        ],
+        [
+          0.55,
+          12.5
+        ]
+      ],
+      "geometrySHA256": "f2db5eb83f8d5f7426c649fbdd971b80f5f103995699879aa1496feceff1c166"
+    }
+  ]
+}

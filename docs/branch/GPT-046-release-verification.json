@@ -1,0 +1,333 @@
+{
+  "head": "b5b8833ecfade741914789034a3d61125021384d",
+  "nativeRun": 40148042386,
+  "nativeJobsSuccess": 28,
+  "standardRun": 40148042390,
+  "fiscal": {
+    "ok": true,
+    "checks": 53,
+    "negative": 10,
+    "failures": []
+  },
+  "native": {
+    "checks": 86,
+    "negative": 12,
+    "pixels": {
+      "semi": 0,
+      "leak": 0,
+      "crop": 0,
+      "empty": 0,
+      "mismatch": 0
+    }
+  },
+  "power": {
+    "cases": 160,
+    "PNG": 275,
+    "witnesses": 1920,
+    "fieldExclusions": []
+  },
+  "scenes": {
+    "frames": 57,
+    "edges": 40,
+    "valvePairs": 8,
+    "failures": [],
+    "oldSave": {
+      "slot": 3,
+      "sandbox": true,
+      "passes": 2,
+      "matchesBase": true,
+      "allFieldsEqual": true,
+      "differences": [
+        {
+          "pass": 1,
+          "differences": []
+        },
+        {
+          "pass": 2,
+          "differences": []
+        }
+      ],
+      "baseSHA256": "710eade43902c4c18cb4187430d4553885a3f6f2e8719c96db9676db0aceeeab"
+    },
+    "oldSaveMigration": [
+      {
+        "path": "gameVer",
+        "before": "14.64",
+        "after": "14.65"
+      }
+    ],
+    "releaseContract": {
+      "labelPairs": [
+        [
+          "const GAME_VER='14.64';",
+          "const GAME_VER='14.65';"
+        ],
+        [
+          "const GAME_ANCHOR='T771';",
+          "const GAME_ANCHOR='T772';"
+        ],
+        [
+          "id=\"startVersion456\">v14.64 · T771</span>",
+          "id=\"startVersion456\">v14.65 · T772</span>"
+        ]
+      ],
+      "releaseLabelNegatives": [
+        {
+          "name": "missing exact release label const GAME_VER='14.65';",
+          "first": "release046 unique exact declared label const GAME_VER='14.65';"
+        },
+        {
+          "name": "duplicate exact release label const GAME_VER='14.65';",
+          "first": "release046 unique exact declared label const GAME_VER='14.65';"
+        },
+        {
+          "name": "stale candidate label const GAME_VER='14.64';",
+          "first": "release046 unique exact declared label const GAME_VER='14.65';"
+        },
+        {
+          "name": "missing exact release label const GAME_ANCHOR='T772';",
+          "first": "release046 unique exact declared label const GAME_ANCHOR='T772';"
+        },
+        {
+          "name": "duplicate exact release label const GAME_ANCHOR='T772';",
+          "first": "release046 unique exact declared label const GAME_ANCHOR='T772';"
+        },
+        {
+          "name": "stale candidate label const GAME_ANCHOR='T771';",
+          "first": "release046 unique exact declared label const GAME_ANCHOR='T772';"
+        },
+        {
+          "name": "missing exact release label id=\"startVersion456\">v14.65 · T772</span>",
+          "first": "release046 unique exact declared label id=\"startVersion456\">v14.65 · T772</span>"
+        },
+        {
+          "name": "duplicate exact release label id=\"startVersion456\">v14.65 · T772</span>",
+          "first": "release046 unique exact declared label id=\"startVersion456\">v14.65 · T772</span>"
+        },
+        {
+          "name": "stale candidate label id=\"startVersion456\">v14.64 · T771</span>",
+          "first": "release046 unique exact declared label id=\"startVersion456\">v14.65 · T772</span>"
+        },
+        {
+          "name": "extra valid HTML",
+          "first": "release046 reverse exact C5 candidate source"
+        }
+      ],
+      "originalBaseSHA256": "c4797f3f1898af5dc51080f2a19eae072e21cbd8e8b03d6ffd54a0759bb7d6ff",
+      "declaredBaseSHA256": "d684eb3f9d1e5b5c7964e350c4bbd630d6594e29df4f54824e8540c97b75369a",
+      "actualBrowserMigration": true,
+      "stateFieldExclusions": []
+    }
+  },
+  "performance": {
+    "head": "b5b8833ecfade741914789034a3d61125021384d",
+    "stats": {
+      "base": {
+        "n": 40,
+        "median": 13.099999999998545,
+        "p90": 26.525000000001455,
+        "min": 7.600000000005821,
+        "max": 30.474999999998545
+      },
+      "head": {
+        "n": 40,
+        "median": 3.3500000000058208,
+        "p90": 27.599999999998545,
+        "min": 2.4500000000043656,
+        "max": 30.80000000000291
+      }
+    },
+    "sample": {
+      "base": [
+        13.099999999998545,
+        26.424999999995634,
+        10.10000000000582,
+        27.19999999999709,
+        10.72500000000582,
+        26.525000000001455,
+        12.150000000001455,
+        24.60000000000582,
+        8.57499999999709,
+        25.80000000000291,
+        8.349999999998545,
+        25.5,
+        8.25,
+        26,
+        10.099999999998545,
+        9.69999999999709,
+        27.17500000000291,
+        11.099999999998545,
+        25.775000000001455,
+        10.549999999995634,
+        30.474999999998545,
+        10.599999999998545,
+        25.525000000001455,
+        9.849999999998545,
+        24.275000000001455,
+        7.600000000005821,
+        25.52499999999418,
+        9.07499999999709,
+        24.75,
+        7.700000000004366,
+        8.299999999995634,
+        24.69999999999709,
+        9,
+        25.349999999998545,
+        8.150000000001455,
+        23.625,
+        8.19999999999709,
+        26.07499999999709,
+        8.05000000000291,
+        24.325000000004366
+      ],
+      "head": [
+        27.474999999998545,
+        2.7000000000043656,
+        3.0499999999956344,
+        26.400000000001455,
+        3.9249999999956344,
+        3.5,
+        27.474999999998545,
+        3.9499999999970896,
+        2.650000000001455,
+        2.724999999998545,
+        27.599999999998545,
+        2.474999999998545,
+        2.5500000000029104,
+        26.799999999995634,
+        3.150000000001455,
+        2.4500000000043656,
+        29.02499999999418,
+        2.9250000000029104,
+        3.4250000000029104,
+        27.125,
+        3.3500000000058208,
+        3.7999999999956344,
+        3.150000000001455,
+        28.17500000000291,
+        2.5499999999956344,
+        2.474999999998545,
+        26.575000000004366,
+        2.849999999998545,
+        2.5750000000043656,
+        26.174999999995634,
+        2.525000000001455,
+        2.650000000001455,
+        3.4500000000043656,
+        26.549999999995634,
+        2.6750000000029104,
+        2.75,
+        30.80000000000291,
+        2.5,
+        2.525000000001455,
+        26.39999999999418
+      ]
+    },
+    "restoredStats": {
+      "base": {
+        "n": 40,
+        "median": 9.424999999995634,
+        "p90": 25.75,
+        "min": 6.474999999998545,
+        "max": 29.974999999998545
+      },
+      "head": {
+        "n": 40,
+        "median": 2.525000000001455,
+        "p90": 27.474999999998545,
+        "min": 2.400000000001455,
+        "max": 29.625
+      }
+    },
+    "newGeometryBuildsDuringWarmDraw": 0,
+    "cacheLeaves": 40,
+    "firstRed": "perf046 normal redraw rebaked new geometry",
+    "timingFirstRed": "perf046 repeatable native redraw regression {\"base\":{\"n\":40,\"median\":13.099999999998545,\"p90\":26.525000000001455,\"min\":7.600000000005821,\"max\":30.474999999998545},\"head\":{\"n\":30,\"median\":76.89999999999418,\"p90\":78.60000000000582,\"min\":76.5,\"max\":186.19999999998254}}",
+    "timingNegativeSamples": 30,
+    "timingInjectedDelayMs": 74,
+    "timingNegativeSampleMs": [
+      77,
+      76.80000000001746,
+      77.79999999998836,
+      76.80000000001746,
+      76.80000000001746,
+      76.89999999999418,
+      77,
+      76.89999999999418,
+      76.80000000001746,
+      76.89999999999418,
+      172.29999999998836,
+      76.89999999999418,
+      76.90000000002328,
+      76.69999999998254,
+      76.89999999999418,
+      76.60000000000582,
+      76.60000000000582,
+      77.60000000000582,
+      76.69999999998254,
+      76.80000000001746,
+      76.5,
+      76.5,
+      78.60000000000582,
+      186.19999999998254,
+      77.30000000001746,
+      76.5,
+      78.59999999997672,
+      76.80000000001746,
+      76.5,
+      76.79999999998836
+    ],
+    "restoredGreen": true,
+    "interleaved": true,
+    "nativeBaselineSource": "a5154857887ecf1c6e21b049da6c6d19fe117c4e",
+    "viewport": {
+      "head": [
+        1280,
+        657
+      ],
+      "base": [
+        1280,
+        657
+      ]
+    },
+    "hardware": "GitHub Actions Ubuntu desktop Chromium; not real mobile hardware"
+  },
+  "construction": {
+    "ok": true,
+    "contract": {
+      "age": 7,
+      "seed": 87,
+      "rot": 0,
+      "zoom": 1,
+      "at": [
+        21,
+        4.5
+      ],
+      "naturalObservations": 12,
+      "flushedObservations": 66
+    },
+    "failures": [],
+    "originalColdTwoDrawLimitation": "Chamomile and Myrtle final pads are bare in this exact run; separate readiness endpoints are not substituted"
+  },
+  "fullHTML": {
+    "bytes": 11831402,
+    "sha256": "0ec9f7cbe03139dd93d607e7b343911dce4024028b40a16a4c88439dca23390c",
+    "officialArtifact": 12581715264,
+    "officialBytesEqualCommitted": true
+  },
+  "previewIdentity": {
+    "artifact": 12581660256,
+    "PNGs": 91,
+    "allExactC5": true
+  },
+  "sceneIdentity": {
+    "artifact": 12581425906,
+    "PNGs": 113,
+    "exactC5": 111,
+    "changedOriginalsViewed": [
+      "edge-merememorial-r0.png",
+      "construction-late.png"
+    ]
+  },
+  "notPublishedYet": true
+}

@@ -1,0 +1,719 @@
+{
+  "head": "b5b8833ecfade741914789034a3d61125021384d",
+  "nativeRun": 40148042386,
+  "source": "https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40148042386",
+  "actualNewOriginalPNGsViewed": 16,
+  "C5SceneReferenceReopens": 2,
+  "groups": [
+    {
+      "group": "construction",
+      "artifact": 12581269562,
+      "zipSHA256": "ab403710f813d68ba3298f3f4b894195d0b17e85794d3088d9944c6aa2c5ab26",
+      "originalPNGCount": 19,
+      "changedOriginalsActuallyViewed": [
+        {
+          "file": "explicit-flush-day-pixel-negative-restored.png",
+          "sha256": "ae0660ab6131f4388bfd838c568cebb750a70050502146c948211925b31ada37",
+          "C5sha256": "6935679be40400335517f5e9474a7bd8c024127d01f50f55f88d42f14f5b1f94"
+        },
+        {
+          "file": "explicit-flush-day-repeat-a.png",
+          "sha256": "ae0660ab6131f4388bfd838c568cebb750a70050502146c948211925b31ada37",
+          "C5sha256": "6935679be40400335517f5e9474a7bd8c024127d01f50f55f88d42f14f5b1f94"
+        },
+        {
+          "file": "explicit-flush-day-repeat-b.png",
+          "sha256": "ae0660ab6131f4388bfd838c568cebb750a70050502146c948211925b31ada37",
+          "C5sha256": "6935679be40400335517f5e9474a7bd8c024127d01f50f55f88d42f14f5b1f94"
+        },
+        {
+          "file": "explicit-flush-fixed-native-endpoint.png",
+          "sha256": "cfedefcc631aeff309e5bd5a5a80da62d183892b84b9b2fbc88eb104d92aef46",
+          "C5sha256": "3d5af7fd61e051fbd600dd9212eef36c45e2979bf5899b85bdbc2ec9c68b8d8d"
+        },
+        {
+          "file": "explicit-flush-night-pixel-negative-restored.png",
+          "sha256": "26157e7f005f0a35372a8d9f1a29caf8cc4c88f1dd23e72eeab3dc8078abc166",
+          "C5sha256": "e18c1ff1e2d37cc7b2771f962ce8971a03d1cf3a8d4944eaef61fadd83d4dd64"
+        },
+        {
+          "file": "explicit-flush-night-repeat-a.png",
+          "sha256": "26157e7f005f0a35372a8d9f1a29caf8cc4c88f1dd23e72eeab3dc8078abc166",
+          "C5sha256": "e18c1ff1e2d37cc7b2771f962ce8971a03d1cf3a8d4944eaef61fadd83d4dd64"
+        },
+        {
+          "file": "explicit-flush-night-repeat-b.png",
+          "sha256": "26157e7f005f0a35372a8d9f1a29caf8cc4c88f1dd23e72eeab3dc8078abc166",
+          "C5sha256": "e18c1ff1e2d37cc7b2771f962ce8971a03d1cf3a8d4944eaef61fadd83d4dd64"
+        },
+        {
+          "file": "natural-day-pixel-negative-restored.png",
+          "sha256": "9d78a92d128c6a9270de33ff1023dccc5c1fe9129b861efc3408e207c46d55e5",
+          "C5sha256": "ae0660ab6131f4388bfd838c568cebb750a70050502146c948211925b31ada37"
+        },
+        {
+          "file": "natural-day-repeat-a.png",
+          "sha256": "9d78a92d128c6a9270de33ff1023dccc5c1fe9129b861efc3408e207c46d55e5",
+          "C5sha256": "ae0660ab6131f4388bfd838c568cebb750a70050502146c948211925b31ada37"
+        },
+        {
+          "file": "natural-day-repeat-b.png",
+          "sha256": "9d78a92d128c6a9270de33ff1023dccc5c1fe9129b861efc3408e207c46d55e5",
+          "C5sha256": "ae0660ab6131f4388bfd838c568cebb750a70050502146c948211925b31ada37"
+        },
+        {
+          "file": "natural-fixed-native-endpoint.png",
+          "sha256": "8ec2b456ed414dc14858a8048cf5241e535bd453f8e71a819efa2b8fbf621e71",
+          "C5sha256": "039f9f5166e4dfce435202d64916256aaff942439d94e7ed7da9600cb1f9d762"
+        },
+        {
+          "file": "natural-night-pixel-negative-restored.png",
+          "sha256": "ca40e38c09a4bdbdb2ef24b4481a8277403c498d4e27551d2dfa7bc68895ac07",
+          "C5sha256": "26157e7f005f0a35372a8d9f1a29caf8cc4c88f1dd23e72eeab3dc8078abc166"
+        },
+        {
+          "file": "natural-night-repeat-a.png",
+          "sha256": "ca40e38c09a4bdbdb2ef24b4481a8277403c498d4e27551d2dfa7bc68895ac07",
+          "C5sha256": "26157e7f005f0a35372a8d9f1a29caf8cc4c88f1dd23e72eeab3dc8078abc166"
+        },
+        {
+          "file": "natural-night-repeat-b.png",
+          "sha256": "ca40e38c09a4bdbdb2ef24b4481a8277403c498d4e27551d2dfa7bc68895ac07",
+          "C5sha256": "26157e7f005f0a35372a8d9f1a29caf8cc4c88f1dd23e72eeab3dc8078abc166"
+        }
+      ],
+      "unchangedNotNewlyViewed": [
+        {
+          "file": "explicit-flush-after-explicit-flush-before-render.png",
+          "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+          "C5sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918"
+        },
+        {
+          "file": "explicit-flush-cold-first-draw.png",
+          "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+          "C5sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918"
+        },
+        {
+          "file": "explicit-flush-cold-second-draw.png",
+          "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+          "C5sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918"
+        },
+        {
+          "file": "natural-cold-first-draw.png",
+          "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+          "C5sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918"
+        },
+        {
+          "file": "natural-cold-second-draw.png",
+          "sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918",
+          "C5sha256": "72ef6079a0e1fde383b5ccaf5ecaf462e58258505180d67d1afc00010be76918"
+        }
+      ]
+    },
+    {
+      "group": "scenes",
+      "artifact": 12581425906,
+      "zipSHA256": "b44a70912a1d07035355d184f252d4aa96179932e69a734be2c17597db406f63",
+      "originalPNGCount": 113,
+      "changedOriginalsActuallyViewed": [
+        {
+          "file": "construction-late.png",
+          "sha256": "b63b79107bd51aefcaba4ef4b288012d73167205a5a2cb9275ad9df28db50b59",
+          "C5sha256": "78c2c22156ac995fe19ad211820b73af67685a7a59d1d9df0b45999733c38fc2"
+        },
+        {
+          "file": "edge-merememorial-r0.png",
+          "sha256": "7a670d3c52b55573030d8e169a36d9ca1e832fee8d4ec2d1cbc7ee108382e0fe",
+          "C5sha256": "c4e29aa5afbeeaafdd0e1c30f45575e4d91d8802fda1f72e89ca3adb3a9d73c4"
+        }
+      ],
+      "unchangedNotNewlyViewed": [
+        {
+          "file": "autumn-day-r0.png",
+          "sha256": "265f68d450c6181de144e20fb9d6563f22d9d44e4a4a747828cd702ff3d756c2",
+          "C5sha256": "265f68d450c6181de144e20fb9d6563f22d9d44e4a4a747828cd702ff3d756c2"
+        },
+        {
+          "file": "autumn-day-r1.png",
+          "sha256": "2c749dd690bde74c5bd46accae0ee7c8213e44ba989e6c2a39b2450adf9816f1",
+          "C5sha256": "2c749dd690bde74c5bd46accae0ee7c8213e44ba989e6c2a39b2450adf9816f1"
+        },
+        {
+          "file": "autumn-day-r2.png",
+          "sha256": "010fc920acbbbab7abf12ddc4aa1ac4dc6ec05e3e61036c22ee157983d662ba8",
+          "C5sha256": "010fc920acbbbab7abf12ddc4aa1ac4dc6ec05e3e61036c22ee157983d662ba8"
+        },
+        {
+          "file": "autumn-day-r3.png",
+          "sha256": "2410c702c6c24ef54734b486409c57586c8eb414923bdfb3f1c4948bbf7486f9",
+          "C5sha256": "2410c702c6c24ef54734b486409c57586c8eb414923bdfb3f1c4948bbf7486f9"
+        },
+        {
+          "file": "autumn-night-r0.png",
+          "sha256": "ba51c627f0b1a97a32426835d7095b6289787e002d12ca5c0e7d2a9cd796731d",
+          "C5sha256": "ba51c627f0b1a97a32426835d7095b6289787e002d12ca5c0e7d2a9cd796731d"
+        },
+        {
+          "file": "autumn-night-r1.png",
+          "sha256": "7afc6459946876b05cfa25a14b638d90db8427a43b8abb38fd79d46029a39b6f",
+          "C5sha256": "7afc6459946876b05cfa25a14b638d90db8427a43b8abb38fd79d46029a39b6f"
+        },
+        {
+          "file": "autumn-night-r2.png",
+          "sha256": "9c7a66df6d27169178f06acb61a7edf69b05a1ca51adef55a7fa740480b902a7",
+          "C5sha256": "9c7a66df6d27169178f06acb61a7edf69b05a1ca51adef55a7fa740480b902a7"
+        },
+        {
+          "file": "autumn-night-r3.png",
+          "sha256": "016d8e608ec5e657446b4d3625fb8e522adc2029cd5055d5eb4216b8a65f6bdf",
+          "C5sha256": "016d8e608ec5e657446b4d3625fb8e522adc2029cd5055d5eb4216b8a65f6bdf"
+        },
+        {
+          "file": "base-legacy-day-r0.png",
+          "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+          "C5sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2"
+        },
+        {
+          "file": "base-legacy-day-r1.png",
+          "sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60",
+          "C5sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60"
+        },
+        {
+          "file": "base-legacy-day-r2.png",
+          "sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300",
+          "C5sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300"
+        },
+        {
+          "file": "base-legacy-day-r3.png",
+          "sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363",
+          "C5sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363"
+        },
+        {
+          "file": "base-legacy-night-r0.png",
+          "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+          "C5sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d"
+        },
+        {
+          "file": "base-legacy-night-r1.png",
+          "sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf",
+          "C5sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf"
+        },
+        {
+          "file": "base-legacy-night-r2.png",
+          "sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c",
+          "C5sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c"
+        },
+        {
+          "file": "base-legacy-night-r3.png",
+          "sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040",
+          "C5sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040"
+        },
+        {
+          "file": "construction-early.png",
+          "sha256": "5403319cc0b6889b6c3fcaa5820eec87d424b76533ce82f0936219b637b19a92",
+          "C5sha256": "5403319cc0b6889b6c3fcaa5820eec87d424b76533ce82f0936219b637b19a92"
+        },
+        {
+          "file": "construction-middle.png",
+          "sha256": "530733734f6db08750db16ae575baf7d29ef9d888d42beb49ff0e60381c9641e",
+          "C5sha256": "530733734f6db08750db16ae575baf7d29ef9d888d42beb49ff0e60381c9641e"
+        },
+        {
+          "file": "edge-boragedental-r0.png",
+          "sha256": "50dd13cf17b6644357248b5029bc3683f59e3ff15ff139984d01c44070fe1ba2",
+          "C5sha256": "50dd13cf17b6644357248b5029bc3683f59e3ff15ff139984d01c44070fe1ba2"
+        },
+        {
+          "file": "edge-boragedental-r1.png",
+          "sha256": "a0335719377ad957079619a71448b616841ca453514d4eddc17d9b28eea4334b",
+          "C5sha256": "a0335719377ad957079619a71448b616841ca453514d4eddc17d9b28eea4334b"
+        },
+        {
+          "file": "edge-boragedental-r2.png",
+          "sha256": "f95bb2cde11ef335da01eec594df7b7b649494740dceef6839376a48ed00de3e",
+          "C5sha256": "f95bb2cde11ef335da01eec594df7b7b649494740dceef6839376a48ed00de3e"
+        },
+        {
+          "file": "edge-boragedental-r3.png",
+          "sha256": "106ca80cd2ebb9319303cbeb19fffe8fa1852de401e319aa7be2f489d9a0225c",
+          "C5sha256": "106ca80cd2ebb9319303cbeb19fffe8fa1852de401e319aa7be2f489d9a0225c"
+        },
+        {
+          "file": "edge-chamomilestory-r0.png",
+          "sha256": "69b82a37e4a4cb927d0e98b354f2bb2047731ec67998b53cc2d9ed54a5d6b379",
+          "C5sha256": "69b82a37e4a4cb927d0e98b354f2bb2047731ec67998b53cc2d9ed54a5d6b379"
+        },
+        {
+          "file": "edge-chamomilestory-r1.png",
+          "sha256": "92378702f052c84f8738256ef2b1b0e148944914d7dc732bb49f4babd1e44c3b",
+          "C5sha256": "92378702f052c84f8738256ef2b1b0e148944914d7dc732bb49f4babd1e44c3b"
+        },
+        {
+          "file": "edge-chamomilestory-r2.png",
+          "sha256": "9d279f6c62f5cad9e9d0e200e091902746a7615485e0d77796e2b555a502e9e3",
+          "C5sha256": "9d279f6c62f5cad9e9d0e200e091902746a7615485e0d77796e2b555a502e9e3"
+        },
+        {
+          "file": "edge-chamomilestory-r3.png",
+          "sha256": "4c7ffbdd1d31a4844152068e6a15fa4d5d4719fe37e5ff734bdbab5b9d598291",
+          "C5sha256": "4c7ffbdd1d31a4844152068e6a15fa4d5d4719fe37e5ff734bdbab5b9d598291"
+        },
+        {
+          "file": "edge-comfreyambulance-r0.png",
+          "sha256": "fad7923165423b6f2705315ea524f9d5aeca13b2df038c6ecdb6900d029da965",
+          "C5sha256": "fad7923165423b6f2705315ea524f9d5aeca13b2df038c6ecdb6900d029da965"
+        },
+        {
+          "file": "edge-comfreyambulance-r1.png",
+          "sha256": "07f36f5f15aeb14f7b5a471d1a29649c5c4c50d9783bf4cc1c4d0b6628d38053",
+          "C5sha256": "07f36f5f15aeb14f7b5a471d1a29649c5c4c50d9783bf4cc1c4d0b6628d38053"
+        },
+        {
+          "file": "edge-comfreyambulance-r2.png",
+          "sha256": "ff58c7cf54bd16dbeaaf5e590b7720dec27c801929a8e1cfceabd5ac3edaa516",
+          "C5sha256": "ff58c7cf54bd16dbeaaf5e590b7720dec27c801929a8e1cfceabd5ac3edaa516"
+        },
+        {
+          "file": "edge-comfreyambulance-r3.png",
+          "sha256": "5d74bc1bf9c77534e4f04a372fb9ca0c7074ebde03559fc45e0d7cb50dfc940c",
+          "C5sha256": "5d74bc1bf9c77534e4f04a372fb9ca0c7074ebde03559fc45e0d7cb50dfc940c"
+        },
+        {
+          "file": "edge-dittanygeology-r0.png",
+          "sha256": "14a823dd0ea0c1a2583fd4f0939cc2baf244450e84ecdbaddae898a882bc0909",
+          "C5sha256": "14a823dd0ea0c1a2583fd4f0939cc2baf244450e84ecdbaddae898a882bc0909"
+        },
+        {
+          "file": "edge-dittanygeology-r1.png",
+          "sha256": "0a85cbedb25a284caf4cae6d6c015ea1ed2cb8bbf958e8067054606f6caa341e",
+          "C5sha256": "0a85cbedb25a284caf4cae6d6c015ea1ed2cb8bbf958e8067054606f6caa341e"
+        },
+        {
+          "file": "edge-dittanygeology-r2.png",
+          "sha256": "c1ba4257530a1132ce91a047ae6f8006e39d83122609155f1938d5b7af55b794",
+          "C5sha256": "c1ba4257530a1132ce91a047ae6f8006e39d83122609155f1938d5b7af55b794"
+        },
+        {
+          "file": "edge-dittanygeology-r3.png",
+          "sha256": "76590bf00e0fe8832b510cb93dcb1a7043acb8ca78ea574f861693da065bf250",
+          "C5sha256": "76590bf00e0fe8832b510cb93dcb1a7043acb8ca78ea574f861693da065bf250"
+        },
+        {
+          "file": "edge-gorsepicture-r0.png",
+          "sha256": "5c4de6a3666479642a8d28677449091f9a1e9c772f1b5649e04d267f728c9ef3",
+          "C5sha256": "5c4de6a3666479642a8d28677449091f9a1e9c772f1b5649e04d267f728c9ef3"
+        },
+        {
+          "file": "edge-gorsepicture-r1.png",
+          "sha256": "4d3396e09daa25a851ea6b0fa8b780ec5ec498936e61c3143559b81dece3dee2",
+          "C5sha256": "4d3396e09daa25a851ea6b0fa8b780ec5ec498936e61c3143559b81dece3dee2"
+        },
+        {
+          "file": "edge-gorsepicture-r2.png",
+          "sha256": "9ac2dfd7a2007f84bfcadc59cf2c3509e9004657a1a2f82f366424a00bde6d1b",
+          "C5sha256": "9ac2dfd7a2007f84bfcadc59cf2c3509e9004657a1a2f82f366424a00bde6d1b"
+        },
+        {
+          "file": "edge-gorsepicture-r3.png",
+          "sha256": "e45da2f25056cabb952958355dd52921d8ff7ba0b80c3ab282031a569b8eb3de",
+          "C5sha256": "e45da2f25056cabb952958355dd52921d8ff7ba0b80c3ab282031a569b8eb3de"
+        },
+        {
+          "file": "edge-guelderlace-r0.png",
+          "sha256": "7b9fea3ea7f14d9f65d38e15a9bb8f4ef42111200c5c84a55b8e38d79e94a603",
+          "C5sha256": "7b9fea3ea7f14d9f65d38e15a9bb8f4ef42111200c5c84a55b8e38d79e94a603"
+        },
+        {
+          "file": "edge-guelderlace-r1.png",
+          "sha256": "02538583562ffa4c49e0c3a1f21ca15e9d2c695e404da4a0a4e1ad9114fa4790",
+          "C5sha256": "02538583562ffa4c49e0c3a1f21ca15e9d2c695e404da4a0a4e1ad9114fa4790"
+        },
+        {
+          "file": "edge-guelderlace-r2.png",
+          "sha256": "3a406651360d58498541a6b284a206fa4b2009f1868ca9a4d7f9f31572ddecb4",
+          "C5sha256": "3a406651360d58498541a6b284a206fa4b2009f1868ca9a4d7f9f31572ddecb4"
+        },
+        {
+          "file": "edge-guelderlace-r3.png",
+          "sha256": "4004538d2075dbf3ed339e53f31e55e302058ff307ca23e435acc73f7cc3b484",
+          "C5sha256": "4004538d2075dbf3ed339e53f31e55e302058ff307ca23e435acc73f7cc3b484"
+        },
+        {
+          "file": "edge-hyssopupholstery-r0.png",
+          "sha256": "ea5cee411bbf881ffa21058166284a586233e0116fe9487762063e20e5536f9d",
+          "C5sha256": "ea5cee411bbf881ffa21058166284a586233e0116fe9487762063e20e5536f9d"
+        },
+        {
+          "file": "edge-hyssopupholstery-r1.png",
+          "sha256": "83bc4e634c32d892b3e65044c609afe47510b95a431b3c453d6dfc5b734ec765",
+          "C5sha256": "83bc4e634c32d892b3e65044c609afe47510b95a431b3c453d6dfc5b734ec765"
+        },
+        {
+          "file": "edge-hyssopupholstery-r2.png",
+          "sha256": "adaede1b4fd131b229c8cec017ea429f1f3fb04af3e910fa21151708198e9e1a",
+          "C5sha256": "adaede1b4fd131b229c8cec017ea429f1f3fb04af3e910fa21151708198e9e1a"
+        },
+        {
+          "file": "edge-hyssopupholstery-r3.png",
+          "sha256": "36c168e127b686dcbd5183ad491874400061520f482cbb1cff17068fb2346e25",
+          "C5sha256": "36c168e127b686dcbd5183ad491874400061520f482cbb1cff17068fb2346e25"
+        },
+        {
+          "file": "edge-marjoramkitchen-r0.png",
+          "sha256": "f7501522828ba3bcaec5bfe2fcad1f71bf2c7bb9c8404cd517334e9f0096a044",
+          "C5sha256": "f7501522828ba3bcaec5bfe2fcad1f71bf2c7bb9c8404cd517334e9f0096a044"
+        },
+        {
+          "file": "edge-marjoramkitchen-r1.png",
+          "sha256": "413c2422f8f769bf67e39660c7d0f521cd7929f7afdcc914e2edc57225aacb32",
+          "C5sha256": "413c2422f8f769bf67e39660c7d0f521cd7929f7afdcc914e2edc57225aacb32"
+        },
+        {
+          "file": "edge-marjoramkitchen-r2.png",
+          "sha256": "8e073bc47b6b30fd81e3c8d02a5560d92a1ef54fd6bc806a57e1a79a68c97501",
+          "C5sha256": "8e073bc47b6b30fd81e3c8d02a5560d92a1ef54fd6bc806a57e1a79a68c97501"
+        },
+        {
+          "file": "edge-marjoramkitchen-r3.png",
+          "sha256": "4930d79ba2cc2cdd63338e0a145cf93ab1c7941fad6a7fed66487c36b8f31f0b",
+          "C5sha256": "4930d79ba2cc2cdd63338e0a145cf93ab1c7941fad6a7fed66487c36b8f31f0b"
+        },
+        {
+          "file": "edge-merememorial-r1.png",
+          "sha256": "7f017212e30b608065a2c8ca1ce33a7b1419dcf7f7c28ad3161402522fabf8b6",
+          "C5sha256": "7f017212e30b608065a2c8ca1ce33a7b1419dcf7f7c28ad3161402522fabf8b6"
+        },
+        {
+          "file": "edge-merememorial-r2.png",
+          "sha256": "05951f5096df3255c2d15e2f55936dd2d4d24ec9ff7e34e6a3e101b879095f7c",
+          "C5sha256": "05951f5096df3255c2d15e2f55936dd2d4d24ec9ff7e34e6a3e101b879095f7c"
+        },
+        {
+          "file": "edge-merememorial-r3.png",
+          "sha256": "b6e25a33cda51274abfcd1701f0ff160b292f0c96344ebc4f18346fbc28048c7",
+          "C5sha256": "b6e25a33cda51274abfcd1701f0ff160b292f0c96344ebc4f18346fbc28048c7"
+        },
+        {
+          "file": "edge-myrtlewireless-r0.png",
+          "sha256": "d97ea33b7d3348e4bc155d9ddfa4573397444dd45a488d8a6bcc7ef1a0150fba",
+          "C5sha256": "d97ea33b7d3348e4bc155d9ddfa4573397444dd45a488d8a6bcc7ef1a0150fba"
+        },
+        {
+          "file": "edge-myrtlewireless-r1.png",
+          "sha256": "bcf7ff61197ea57c7b06ce3139ac1d18a264a4cd0d4387ee3f0185cce6f2d222",
+          "C5sha256": "bcf7ff61197ea57c7b06ce3139ac1d18a264a4cd0d4387ee3f0185cce6f2d222"
+        },
+        {
+          "file": "edge-myrtlewireless-r2.png",
+          "sha256": "d113839f2e82d8ee2a5028300fc7334fafda5a6190bf4a57ff2f5e0bc0752173",
+          "C5sha256": "d113839f2e82d8ee2a5028300fc7334fafda5a6190bf4a57ff2f5e0bc0752173"
+        },
+        {
+          "file": "edge-myrtlewireless-r3.png",
+          "sha256": "367ed4dc9cb3135b69ee8ea2f8cc93af1e7a3f91b51fd7ca43ce7ce3d710e5c2",
+          "C5sha256": "367ed4dc9cb3135b69ee8ea2f8cc93af1e7a3f91b51fd7ca43ce7ce3d710e5c2"
+        },
+        {
+          "file": "far-day.png",
+          "sha256": "3f042c51ac660139ae504481fe8217e66265f5c3e01a5485fa810880f70075b3",
+          "C5sha256": "3f042c51ac660139ae504481fe8217e66265f5c3e01a5485fa810880f70075b3"
+        },
+        {
+          "file": "far-night.png",
+          "sha256": "1b3538d805d1879c122c505173d5fff31b2470032fe9d597e1180be937bdbff0",
+          "C5sha256": "1b3538d805d1879c122c505173d5fff31b2470032fe9d597e1180be937bdbff0"
+        },
+        {
+          "file": "hover-gorsepicture.png",
+          "sha256": "e3350a9ce98f2606a50be250629bf352535018cb3675ef17c2ef242257e01138",
+          "C5sha256": "e3350a9ce98f2606a50be250629bf352535018cb3675ef17c2ef242257e01138"
+        },
+        {
+          "file": "near-boragedental.png",
+          "sha256": "dd8207ab3280c911916aedc9181be44970fcd0d3e27145fffbe6c76ce0654e2a",
+          "C5sha256": "dd8207ab3280c911916aedc9181be44970fcd0d3e27145fffbe6c76ce0654e2a"
+        },
+        {
+          "file": "near-chamomilestory.png",
+          "sha256": "5b884147820bf68d854a1ba91593e4d8dc9c68cf186da34e352b58e3a39e482d",
+          "C5sha256": "5b884147820bf68d854a1ba91593e4d8dc9c68cf186da34e352b58e3a39e482d"
+        },
+        {
+          "file": "near-comfreyambulance.png",
+          "sha256": "21efb8035ddc2cdcf982d2dd124728d75c5a04ba9014a761660e8c55192694df",
+          "C5sha256": "21efb8035ddc2cdcf982d2dd124728d75c5a04ba9014a761660e8c55192694df"
+        },
+        {
+          "file": "near-dittanygeology.png",
+          "sha256": "a68fdb4b7862f2509d33c09a5247ec3a17782c807eecb37da912dd7ea4e3be46",
+          "C5sha256": "a68fdb4b7862f2509d33c09a5247ec3a17782c807eecb37da912dd7ea4e3be46"
+        },
+        {
+          "file": "near-gorsepicture.png",
+          "sha256": "e5c3684d77b315eb09d3e92a7658eca1bc367caf8dfdf4a805e4a6ff439a736d",
+          "C5sha256": "e5c3684d77b315eb09d3e92a7658eca1bc367caf8dfdf4a805e4a6ff439a736d"
+        },
+        {
+          "file": "near-guelderlace.png",
+          "sha256": "04dfa89b2ff9dfedcfedbc390041c45ee46e18f492831ba7557fe3e4ef1a5f5e",
+          "C5sha256": "04dfa89b2ff9dfedcfedbc390041c45ee46e18f492831ba7557fe3e4ef1a5f5e"
+        },
+        {
+          "file": "near-hyssopupholstery.png",
+          "sha256": "3f3b70d3eb156a73b7a8c49e85264dff5c9b887e8d99f808baeab7fa94698543",
+          "C5sha256": "3f3b70d3eb156a73b7a8c49e85264dff5c9b887e8d99f808baeab7fa94698543"
+        },
+        {
+          "file": "near-marjoramkitchen.png",
+          "sha256": "d398eb30320ffe62b34b6194ff0e3cbdd8107afdf430c389539a0d141142938d",
+          "C5sha256": "d398eb30320ffe62b34b6194ff0e3cbdd8107afdf430c389539a0d141142938d"
+        },
+        {
+          "file": "near-merememorial.png",
+          "sha256": "dddb4515392ad906dbf80c7bc9b56a15da34d269356dc83f63c9189dad80bab2",
+          "C5sha256": "dddb4515392ad906dbf80c7bc9b56a15da34d269356dc83f63c9189dad80bab2"
+        },
+        {
+          "file": "near-myrtlewireless.png",
+          "sha256": "083167400fed774af89c62b473e78c3bc83f674c238f0a294ad9e9753a6ac94b",
+          "C5sha256": "083167400fed774af89c62b473e78c3bc83f674c238f0a294ad9e9753a6ac94b"
+        },
+        {
+          "file": "rain-night.png",
+          "sha256": "be4e800eb9efae08b08f3547fad2143ab2818847511eb881fad06e5754075962",
+          "C5sha256": "be4e800eb9efae08b08f3547fad2143ab2818847511eb881fad06e5754075962"
+        },
+        {
+          "file": "spring-day-r0.png",
+          "sha256": "97300789c525375f76b08b833c1005c66058616cc97f5a61d3e01ddad52a3ede",
+          "C5sha256": "97300789c525375f76b08b833c1005c66058616cc97f5a61d3e01ddad52a3ede"
+        },
+        {
+          "file": "spring-day-r1.png",
+          "sha256": "42f3c99f0c293fe08ed9ab71bb0c5d1499c6d0987dd9f8277cd945ac2800f102",
+          "C5sha256": "42f3c99f0c293fe08ed9ab71bb0c5d1499c6d0987dd9f8277cd945ac2800f102"
+        },
+        {
+          "file": "spring-day-r2.png",
+          "sha256": "5c4067ae7f8714cd7a78ca2f938abc72bd3c8153b09612f4c0fc24f0e5870807",
+          "C5sha256": "5c4067ae7f8714cd7a78ca2f938abc72bd3c8153b09612f4c0fc24f0e5870807"
+        },
+        {
+          "file": "spring-day-r3.png",
+          "sha256": "d0b04875db32e82282588f6f2066303a3c274b76a99634d10b064b65b2934343",
+          "C5sha256": "d0b04875db32e82282588f6f2066303a3c274b76a99634d10b064b65b2934343"
+        },
+        {
+          "file": "spring-night-r0.png",
+          "sha256": "9a4b071ab363c76f1425a174ab39c9d358847e76c09b94ae75bfce3ffaeccbd1",
+          "C5sha256": "9a4b071ab363c76f1425a174ab39c9d358847e76c09b94ae75bfce3ffaeccbd1"
+        },
+        {
+          "file": "spring-night-r1.png",
+          "sha256": "7e082d714c378f52c6bd5513a5a6c07230dc6431a7f9bcc83cb76513219efca5",
+          "C5sha256": "7e082d714c378f52c6bd5513a5a6c07230dc6431a7f9bcc83cb76513219efca5"
+        },
+        {
+          "file": "spring-night-r2.png",
+          "sha256": "baf878364689ff9959594bbe404d872b01663b977ec891a33d3a07d06dff8907",
+          "C5sha256": "baf878364689ff9959594bbe404d872b01663b977ec891a33d3a07d06dff8907"
+        },
+        {
+          "file": "spring-night-r3.png",
+          "sha256": "591e7d7a08f95375bca8125dd9555cb382cdce1cd0d726f102883515e7fd2be9",
+          "C5sha256": "591e7d7a08f95375bca8125dd9555cb382cdce1cd0d726f102883515e7fd2be9"
+        },
+        {
+          "file": "summer-day-r0.png",
+          "sha256": "7ff7c75d0ca1ddfc0cfdbd127d8a99bff9cb5f52a5d797174b226fb9f2281ca3",
+          "C5sha256": "7ff7c75d0ca1ddfc0cfdbd127d8a99bff9cb5f52a5d797174b226fb9f2281ca3"
+        },
+        {
+          "file": "summer-day-r1.png",
+          "sha256": "fa307cda67ca5b3ebf84ad2b70d39a402669ec032b88b8954081405f09efbb7a",
+          "C5sha256": "fa307cda67ca5b3ebf84ad2b70d39a402669ec032b88b8954081405f09efbb7a"
+        },
+        {
+          "file": "summer-day-r2.png",
+          "sha256": "e56d7333aa537d903023fbd251caf967b59f43608e1239f9b560f7b9c2282f9c",
+          "C5sha256": "e56d7333aa537d903023fbd251caf967b59f43608e1239f9b560f7b9c2282f9c"
+        },
+        {
+          "file": "summer-day-r3.png",
+          "sha256": "73d360cc836634c735b4d6de078277fdb3626394da8d82db0dd47bd366bc823e",
+          "C5sha256": "73d360cc836634c735b4d6de078277fdb3626394da8d82db0dd47bd366bc823e"
+        },
+        {
+          "file": "summer-night-r0.png",
+          "sha256": "e8416a54accd17ce491946f0ab6a5c240422f717803bc6203c606f36374cac4d",
+          "C5sha256": "e8416a54accd17ce491946f0ab6a5c240422f717803bc6203c606f36374cac4d"
+        },
+        {
+          "file": "summer-night-r1.png",
+          "sha256": "2fe7aa9a02e3b2eb627172c1d6bbfabec8932dcc2122b124dbdc4b31bd0431a2",
+          "C5sha256": "2fe7aa9a02e3b2eb627172c1d6bbfabec8932dcc2122b124dbdc4b31bd0431a2"
+        },
+        {
+          "file": "summer-night-r2.png",
+          "sha256": "5c85b2da6127c55de34111a787d64fbcf8148f836ac611a71ecc5fc2f237d3f1",
+          "C5sha256": "5c85b2da6127c55de34111a787d64fbcf8148f836ac611a71ecc5fc2f237d3f1"
+        },
+        {
+          "file": "summer-night-r3.png",
+          "sha256": "384ca4f6aadb50fc45c6662d493bb414436bd29b5e0f5f708fdacb97c6a08f25",
+          "C5sha256": "384ca4f6aadb50fc45c6662d493bb414436bd29b5e0f5f708fdacb97c6a08f25"
+        },
+        {
+          "file": "valve-legacy-day-r0.png",
+          "sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2",
+          "C5sha256": "da1ee064bc7c8c54ea484ead35435e183bec16b79447faa792769a5e3fdb2de2"
+        },
+        {
+          "file": "valve-legacy-day-r1.png",
+          "sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60",
+          "C5sha256": "6c2d202f8913f70aa599ded0176311703d317118e529997d8f268c02f48daf60"
+        },
+        {
+          "file": "valve-legacy-day-r2.png",
+          "sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300",
+          "C5sha256": "d1122695bcd990486802aa9c930f12325e47269965b4fc016875b0b93eaab300"
+        },
+        {
+          "file": "valve-legacy-day-r3.png",
+          "sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363",
+          "C5sha256": "28a08ae778f2348cc237f6bcb5f31202114ef45cdd2ea1655fb61411c6a6d363"
+        },
+        {
+          "file": "valve-legacy-night-r0.png",
+          "sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d",
+          "C5sha256": "a44275d1d99b081b41a18758607cb64365c73d608b9a72f86124d874552d960d"
+        },
+        {
+          "file": "valve-legacy-night-r1.png",
+          "sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf",
+          "C5sha256": "c7f00d31756829645c58101fd279b7024308224edaa5e341c3f031ce0e0cc8bf"
+        },
+        {
+          "file": "valve-legacy-night-r2.png",
+          "sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c",
+          "C5sha256": "d1a136038d049a60430fafd415a30fe24876f1ef595066392b80de380142d55c"
+        },
+        {
+          "file": "valve-legacy-night-r3.png",
+          "sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040",
+          "C5sha256": "b78da4a2b3e52632c8bb0e20d42471d4e2d003036310c7dbc35209fe363fd040"
+        },
+        {
+          "file": "winter-bare-day-r0.png",
+          "sha256": "6809b66b0ffe96373d919fc82799c4d4551fc9b81fe015233470fa88c11c4bf8",
+          "C5sha256": "6809b66b0ffe96373d919fc82799c4d4551fc9b81fe015233470fa88c11c4bf8"
+        },
+        {
+          "file": "winter-bare-day-r1.png",
+          "sha256": "87f3ee4d61f72a506d5ea08721e93f00903c88c4ce130f3377f75eb892bbe5f1",
+          "C5sha256": "87f3ee4d61f72a506d5ea08721e93f00903c88c4ce130f3377f75eb892bbe5f1"
+        },
+        {
+          "file": "winter-bare-day-r2.png",
+          "sha256": "8e5fe2e847b936e2f909b47dabe6a80dcf87f0d5b164101c185b23b0c3579c55",
+          "C5sha256": "8e5fe2e847b936e2f909b47dabe6a80dcf87f0d5b164101c185b23b0c3579c55"
+        },
+        {
+          "file": "winter-bare-day-r3.png",
+          "sha256": "cf88eadc7acb367f3697c7f97f2f0b6a2ed5ddf8f574b0a4020f9312a16fed46",
+          "C5sha256": "cf88eadc7acb367f3697c7f97f2f0b6a2ed5ddf8f574b0a4020f9312a16fed46"
+        },
+        {
+          "file": "winter-bare-night-r0.png",
+          "sha256": "3dbcb83c637ed2b40583bb80ecc2416d6f35b2ef1588476c763925ed175e909e",
+          "C5sha256": "3dbcb83c637ed2b40583bb80ecc2416d6f35b2ef1588476c763925ed175e909e"
+        },
+        {
+          "file": "winter-bare-night-r1.png",
+          "sha256": "5c676b6f9372a7807415e2f027598aede73c9513a85610cc9a1bc6b9ef4b905e",
+          "C5sha256": "5c676b6f9372a7807415e2f027598aede73c9513a85610cc9a1bc6b9ef4b905e"
+        },
+        {
+          "file": "winter-bare-night-r2.png",
+          "sha256": "396752c67496719398a5014519d5409703dd00e765dafca9b1bec44cf559f03d",
+          "C5sha256": "396752c67496719398a5014519d5409703dd00e765dafca9b1bec44cf559f03d"
+        },
+        {
+          "file": "winter-bare-night-r3.png",
+          "sha256": "32b42930a5876c0a5ecede2b583fdcb93456de75d11fab884922986eaea6247a",
+          "C5sha256": "32b42930a5876c0a5ecede2b583fdcb93456de75d11fab884922986eaea6247a"
+        },
+        {
+          "file": "winter-snow-day-r0.png",
+          "sha256": "4ec3fecfaa05e408c88b131e62fcc1d656f9615c76e934d3628ac5db63aa9b29",
+          "C5sha256": "4ec3fecfaa05e408c88b131e62fcc1d656f9615c76e934d3628ac5db63aa9b29"
+        },
+        {
+          "file": "winter-snow-day-r1.png",
+          "sha256": "91020352920cebe7e6e37c45b0ce2e431db990b4f8a3129bbdd2cc9a2173a3fb",
+          "C5sha256": "91020352920cebe7e6e37c45b0ce2e431db990b4f8a3129bbdd2cc9a2173a3fb"
+        },
+        {
+          "file": "winter-snow-day-r2.png",
+          "sha256": "04a650b6f78cfe7dc067a5ec10de7a24304448d5d67bb5dc685fa28142be8804",
+          "C5sha256": "04a650b6f78cfe7dc067a5ec10de7a24304448d5d67bb5dc685fa28142be8804"
+        },
+        {
+          "file": "winter-snow-day-r3.png",
+          "sha256": "dd44621daaf0490a53400ff94b0fb8879a73b798fbedd2b2a858cdd229a8c2c7",
+          "C5sha256": "dd44621daaf0490a53400ff94b0fb8879a73b798fbedd2b2a858cdd229a8c2c7"
+        },
+        {
+          "file": "winter-snow-night-r0.png",
+          "sha256": "776959737c069be41bc1a319bdfed225fc7057f7f17e012da418b3da5acd17fc",
+          "C5sha256": "776959737c069be41bc1a319bdfed225fc7057f7f17e012da418b3da5acd17fc"
+        },
+        {
+          "file": "winter-snow-night-r1.png",
+          "sha256": "5062973a19452115011398d0aeb68c2e0797539131008f4917035eb94241dbeb",
+          "C5sha256": "5062973a19452115011398d0aeb68c2e0797539131008f4917035eb94241dbeb"
+        },
+        {
+          "file": "winter-snow-night-r2.png",
+          "sha256": "fe3a825a5e031c105835ce556b27c1c3f44adec02ae8f774b1238327546f55f1",
+          "C5sha256": "fe3a825a5e031c105835ce556b27c1c3f44adec02ae8f774b1238327546f55f1"
+        },
+        {
+          "file": "winter-snow-night-r3.png",
+          "sha256": "1f077a18defd418638fbeb426424d784e64a590aae96ed686e2924aac17dcde0",
+          "C5sha256": "1f077a18defd418638fbeb426424d784e64a590aae96ed686e2924aac17dcde0"
+        }
+      ]
+    }
+  ],
+  "constructionManifest": {
+    "head": "b5b8833ecfade741914789034a3d61125021384d",
+    "contract": {
+      "age": 7,
+      "seed": 87,
+      "rot": 0,
+      "zoom": 1,
+      "at": [
+        21,
+        4.5
+      ],
+      "naturalObservations": 12,
+      "flushedObservations": 66
+    },
+    "ok": true,
+    "failures": []
+  },
+  "findings": [
+    "All fourteen changed construction-readiness originals were individually opened, not replaced by a reconstructed contact sheet. Natural fixed12 and independent explicit-flush fixed66 endpoints both show all ten scaffold/body masses. Day/night repeat and restored-negative frames retain that visibility. These are construction-stage images, with native ghost-gray and crane changes, not completed-architecture images.",
+    "Five cold/before-render construction images are byte-identical to C5 and not newly counted as viewed. They retain the known cold-draw limitations.",
+    "C6 scene edge-merememorial-r0 retains intact memorial roof/body/edge placement. Exact cause of the small byte difference was not independently isolated visually.",
+    "C6 frozen construction-late has TWO bare end pads: Chamomile and Myrtle, compared with only the last Myrtle pad in C5. Earlier rows retain scaffolded bodies and some ghost-gray surfaces/crane variation. This original two-draw frame remains evidence and is not replaced by later readiness frames.",
+    "111 other scene PNGs are byte-identical to C5. Identity inherits only previously established visual review, not a claim that every file was newly viewed."
+  ],
+  "limitations": [
+    "No conclusion on final native job completion from these pictures. Parent was still awaiting native-power completion.",
+    "No final branch CI, main CI, Pages or Wave18 live-public release approval from this image audit.",
+    "No local Chrome/game/raster/fp/probe execution; no repository modification.",
+    "No owner approval, phone hardware, Safari, all275 power-image human review, or physical drainage certification."
+  ]
+}
