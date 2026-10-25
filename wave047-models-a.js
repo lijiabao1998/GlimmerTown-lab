@@ -116,7 +116,7 @@ function vervainrecital(row,view){
   for(const x of[cx-r,cx+inner])A.volume(x,x+(r-inner),cy-.65,cy,.6,zc,'stone');
   // C4: a genuine timber stage extends throughout the open half-round room.
   // The camera can see its world-space boards through the arch; no mouth mask.
-  const stageTimber=(x,y,z)=>A.K.mod(x,1.5)<.12?P.woodD:P.woodR;
+  const stageTimber=(x,y,z)=>A.K.mod(x,1.5)<.30?P.woodD:P.woodR;
   const floorPt=(j,z)=>[cx+(inner-.1)*Math.cos(j*Math.PI/n),cy-(inner-.1)*Math.sin(j*Math.PI/n),z];
   for(let j=0;j<n;j++){
     S.poly([[cx,cy,1.2],floorPt(j,1.2),floorPt(j+1,1.2)],stageTimber);
