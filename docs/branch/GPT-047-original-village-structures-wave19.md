@@ -329,3 +329,12 @@ B2 `06ced363` 標準40159894986（smoke3／fp／fiscal）與原生40159894991全
 - [x] 新增守衛各負控制首紅與恢復證據保留；歷史C7幾何驗收與當前B真變形驗收明確分開。
 - [x] B2標準smoke三次成功，未以重跑賭綠；最終發布頭CI尚待。
 - [x] 未測的硬體、未完成的合併／Pages／公開版本不寫通過。C1–C7沒做成深腔的原圖、首紅與根因保留；B新方向只解決此真幾何可見性，不美化受光分下降。
+
+
+## B3 完整發布驗收與 B4 專屬 workflow 收束
+
+發布候選 be23840f 的[原生40160465127](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40160465127)全部28工作成功；[標準40160465195](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40160465195) smoke3／fp／財務全綠。B4 64ebf239僅刪本分支wave047-native.yml，沒有其他變更；最後專屬workflow確實全綠才刪。B3 PR workflow仍在跑時被新頭取代，不冒稱該舊PR run全綠。最終head標準／PR仍需全綠。
+
+實際發布版：86原生檢查／12負控；160供電案例、275真PNG、1920相位、零欄位排除；57場景、40邊緣、8組回退整幀相同；舊存檔唯一gameVer14.65→14.66，獨立BASE／HEAD都實際驗證，後續2次往返全部欄位相同。B1→B3共80張精靈原PNG逐byte相同。
+
+40對A/B median11.9→3.05ms、p9030.15→29.6ms；恢復組8.8→2.725ms、p9026.025→26.55ms，尾升保留，不宣稱全百分位改善。暖幾何0，30×81ms延遲負控紅後恢復綠。原始版本證據摘要wave047-release-evidence.json；不是main／Pages發布收據，正式仍180。
