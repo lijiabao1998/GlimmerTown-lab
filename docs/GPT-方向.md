@@ -113,12 +113,22 @@ palette1→1；hardEdge0.9584876538355126→0.9590887522134695；lightDir0.80448
 
 發布準備，待發布版完整 CI、最後全綠後刪自有分支 workflow、最終 head CI、合法合併、main CI、自動 Pages 與真實公網 Chromium；正式仍18波180座，尚不能計190。 [PR63](https://github.com/lijiabao1998/GlimmerTown-lab/pull/63)。
 
+### 第19波正式收據與第20波發布準備（2026-10-25）
+
+第19波已於2026-10-25正式發布190座：PR63合併4346a96543b01ffd47ac3696480661b5de8638ae；[main CI40162795551](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40162795551)及[自動Pages40163187956](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40163187956)成功。原[公網Chromium40160465127](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40160465127)第二次job121079351468成功；HTTP／Chrome均200，11933765bytes、SHA256 3ec1acaea20088ee66130c5ae03a647f191279756894f1b0d377919444d3eb63與正式build逐byte相同。T773／14.66、11–19波各10款40向、34負控制、零runtime/network錯誤。此前發布準備記錄保留為歷史，不再當待辦。
+
+第20波十款原創工藝公共建築／40向 bld920..959，既有190座及舊4143葉完全保留；價格、地塊、財務、供電、存檔結構、RNG、全局密度不變。C1原生[40164900539](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40164900539)全29工作成功，含9份source運輸而非29種產品驗收。C2從官方標準artifact12587668760採用逐byte原始fp/style，未製造分數。詳細首紅、86原生檢查、160供電案例、57場景、40邊緣與40組效能A/B見[原始驗收](branch/GPT-048-C2-CI-evidence.md)。
+
+palette1→1；hardEdge0.9590887522134695→0.9596755126848755；lightDir0.8026981450252951→0.8020890599230346；shade1→1；density1→1；nightRule0.9913522165367163→0.9915410895109031；variants1→1；total0.9647→0.9648。受光軸微降依連續方向第二項起例外如實披露，未改光照／權重／門檻。
+
+本節是T774／14.67發布準備，尚未計200：須發布版全套原生CI、獨立刪分支workflow、最後head標準CI、合法合併、main CI、自動Pages及公網真Chromium均完成。原圖人工審閱範圍據實記錄，真手機／Safari／觸控未驗證。不擅開第21波。
+
 ## 待辦（「修補」排最前面，其餘依方向排；每輪做最上面一項）
 
 | 序 | 項目 | 對應方向的哪一句 | 美術／玩法 | 要動的 fp 家族 | 備註 |
 |---|---|---|---|---|---|
 
-| 19 | 第十九波十座原創英式建築，先核既有180款及舊歷史資產並凍結十個不重複結構 | 「每波 10 座，共 20 波」 | 美術 | bld | 第18波已正式發布；先推GPT-047首卡，保留原生載體與全部門檻，不動全局密度或玩法 |
+| 20 | 第20波十款原創英式村鎮工藝建築（GPT-048／PR64）已施工，待最後發布驗收 | 「每波 10 座，共 20 波」 | 美術 | bld | 第19波已核實正式190；本輪完成公網驗收才計200，之後停止不擅開21 |
 
 ## 卡住／等業主看圖
 
@@ -130,7 +140,8 @@ palette1→1；hardEdge0.9584876538355126→0.9590887522134695；lightDir0.80448
 
 | 項目 | T 號 | PR | 完成日 | 未跑守衛（Claude／Codex 補跑後劃掉） |
 |---|---|---|---|---|
-| 第十九波10座原創英式村鎮結構（GPT-047，核實發布後才計190） | [T773](T773-british-wave19-original.md) | [#63](https://github.com/lijiabao1998/GlimmerTown-lab/pull/63) | 待正式發布核實 | 發布準備，待發布版完整 CI、最後全綠後刪自有分支 workflow、最終 head CI、合法合併、main CI、自動 Pages 與真實公網 Chromium；正式仍18波180座，尚不能計190。 palette1→1；hardEdge0.9584876538355126→0.9590887522134695；lightDir0.80448533640023→0.8026981450252951；shade1→1；density1→1；nightRule0.991157775364051→0.9913522165367163；variants1→1；total0.9649→0.9647。受光下降依連續方向第二項起例外如實披露，不改權重或門檻。 |
+| 第20波10款原創工藝建築（GPT-048，發布核實後才計200） | [T774](T774-british-wave20-original.md) | [#64](https://github.com/lijiabao1998/GlimmerTown-lab/pull/64) | 待正式發布核實 | 發布準備，完整最新版CI／main／Pages／公網仍待收尾。palette1→1；hardEdge0.9590887522134695→0.9596755126848755；lightDir0.8026981450252951→0.8020890599230346；shade1→1；density1→1；nightRule0.9913522165367163→0.9915410895109031；variants1→1；total0.9647→0.9648。受光軸微降依連續方向第二項起例外如實披露，未改光照／權重／門檻。 |
+| 第十九波10座原創英式村鎮結構（GPT-047，已正式190） | [T773](T773-british-wave19-original.md) | [#63](https://github.com/lijiabao1998/GlimmerTown-lab/pull/63) | 2026-10-25 | main CI40162795551／Pages40163187956／公網Chromium40160465127 job121079351468均成功，正式4346a965來源逐byte核實；真手機／Safari未驗證。 palette1→1；hardEdge0.9584876538355126→0.9590887522134695；lightDir0.80448533640023→0.8026981450252951；shade1→1；density1→1；nightRule0.991157775364051→0.9913522165367163；variants1→1；total0.9649→0.9647。受光下降依連續方向第二項起例外如實披露，不改權重或門檻。 |
 | 第十八波10座原創英式社區館舍（GPT-046；18／20波180座，已發布） | [T772](T772-british-wave18-original.md) | [#61](https://github.com/lijiabao1998/GlimmerTown-lab/pull/61) | 2026-10-25 | PR61正常squash為 `a2718a7a3ee17445d4a23ea40d22398fb4e12295`，T772／v14.65／r219；最後純刪workflow head e68a30c 的push40148605227及PR40148608072全綠，main40149354922與既有自動Pages40149830935成功。發布後唯讀真HTTPS／Chromium run40148042386 attempt2／job121039349056成功，artifact12582083285；HTTP200及瀏覽器均11831402bytes、SHA256 `0ec9f7cbe03139dd93d607e7b343911dce4024028b40a16a4c88439dca23390c`，T772／14.65，第11～18波各10款40sprite，31負控、零runtime／network錯誤；公開menu／city／第18波目錄原PNG已實看，無本地server。C6完整28原生工作成功，86項／12負控、供電160案例／275PNG／1920相位、57場景／40邊緣／8整幀，詳卡。原始cold兩次draw的施工末圖仍有Chamomile與Myrtle兩裸墊，保留非同步烘焙限制；預定12自然幀與66明確flush另驗，不替換首圖。C2／C3屋頂視覺失敗保留，C4真實搭接排水幾何修正；bld total0.9649→0.9649，lightDir0.8057680988816951→0.80448533640023下降，全部七軸與官方原始基線詳PR／卡。不冒稱275供電圖全數人工、業主圖審、實體手機或Safari。 |
 | 第十七波10座原創英式公共館舍與專門工房（GPT-045；17／20波170座，已發布） | [T771](T771-british-wave17-original.md) | [#59](https://github.com/lijiabao1998/GlimmerTown-lab/pull/59) | 2026-10-24 | 已正式發布，累計17／20波、170／200座。PR #59 squash為 `3b123dbe0cb2f635a1051b398604f8b49c9b0a25`，T771／v14.64／r218；最後純刪workflow head963b64c5的push40131342921、PR40131345691全綠，main40131928075與自動Pages40132432643成功。發布後唯讀公網Chrome run40130557188 attempt2／job120987555334成功，artifact12575163694；HTTP200及Chrome均11,761,122bytes、SHA256 `c4797f3f1898af5dc51080f2a19eae072e21cbd8e8b03d6ffd54a0759bb7d6ff`，T771／14.64，第11～17波各10款40sprite，28負控、零runtime／network錯誤。公開menu／city／第17波目錄原圖已實看，不使用本地server。 C2全驗收成功；157張原圖已實看，完整清單與原PNG／SHA見T771；遠景LOD不當近景細節，275供電PNG未全數人工逐看，不冒稱業主批准、實體手機或Safari。 bld total0.9645→0.9649，七軸無下降。 |
 | 第十六波10座原創英式專門工房與服務建築（GPT-044；16／20波160座，已發布） | [T770](T770-british-wave16-original.md) | [#57](https://github.com/lijiabao1998/GlimmerTown-lab/pull/57) | 2026-10-24 | 已正式發布，累計16／20波、160／200座。PR #57 squash為 `64c78c9a2bad16fd191430525f4abaf4f7226717`，T770／v14.63／r217；最後head1f4eb6a0的push40124782625與PR40124785577全綠。main40125688839、自動Pages40126187059成功。發布後唯讀public-site40123355347 attempt2／job120968827141成功，artifact12573522220；實際HTTP200及sandbox Chromium均11,705,418bytes、SHA256 `6a6d7da0a47fbf13f9c629ed2db9602346e401f274d3d41e616e0b31f731c723`，T770／14.63，第11～16波各10款40sprite，25負控、零runtime／network error。公開menu／city／第16波目錄原PNG已實看，未用本地server。 完整native28成功，bld七軸詳T770，無軸下降；91預覽／113場景／19施工圖已實看，不稱275供電圖全人工或實體手機／Safari／觸控測試。 |
