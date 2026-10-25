@@ -509,9 +509,21 @@ function tansymill(row,view){
 }
 function vervainrecital(row,view){
   const A=context(row,view),{S,P}=A,cx=16,cy=22,zc=9.4,r=11.5,inner=10.85,n=24,m=12;
+  // Owner B (2026-10-25): higher, shallower genuine half-ellipsoid.
+  // Transform real world geometry only. Ground/stage height stays unchanged.
+  const depthScale=.55,heightScale=1.5,spring=9.4;
+  const T=p=>[p[0],22+(p[1]-22)*depthScale,p[2]<=spring?p[2]:spring+(p[2]-spring)*heightScale];
+  const normal=(x,y,z)=>{const n=[x,y/depthScale,z/heightScale],l=Math.hypot(...n);return n.map(v=>v/l);};
+  const original={poly:S.poly,wall:S.wall,flat:S.flat,box:S.box,beam:S.beam};
+  S.poly=(q,c,...rest)=>original.poly(q.map(T),c,...rest);
+  S.wall=(a,b,z0,z1,c)=>original.poly([T([...a,z0]),T([...b,z0]),T([...b,z1]),T([...a,z1])],c);
+  S.flat=(x0,x1,y0,y1,z,c)=>original.poly([[x0,y0,z],[x1,y0,z],[x1,y1,z],[x0,y1,z]].map(T),c);
+  S.box=(x0,x1,y0,y1,z0,z1,...m)=>{const a=T([x0,y0,z0]),b=T([x1,y1,z1]);return original.box(a[0],b[0],a[1],b[1],a[2],b[2],...m);};
+  S.beam=(a,b,c,w)=>original.beam(T(a),T(b),c,w);
   // C7: true inward surface normals under the unchanged upper-left light.
   // Quantize only existing stone palette levels; no screen-space shadow/mask.
   const inwardStone=(nx,ny,nz)=>{
+    [nx,ny,nz]=normal(nx,ny,nz);
     const rx=view===1?-ny:view===2?-nx:view===3?ny:nx,ry=view===1?nx:view===2?-ny:view===3?-nx:ny;
     const light=(-rx+ry+nz)/Math.sqrt(3);
     return light<=0?P.stoneD:light<=1/3?P.stoneR:light<=2/3?P.stone:P.stoneHi;
@@ -525,9 +537,9 @@ function vervainrecital(row,view){
     // Local full spherical face normal under the existing upper-left light:
     // rotate world xy exactly like the native view; preserve upward nz.
     const theta=(i+.5)*Math.PI/(2*m),phi=(j+.5)*Math.PI/n;
-    const nx=Math.sin(theta)*Math.cos(phi),ny=-Math.sin(theta)*Math.sin(phi),nz=Math.cos(theta);
+    const [nx,ny,nz]=normal(Math.sin(theta)*Math.cos(phi),-Math.sin(theta)*Math.sin(phi),Math.cos(theta));
     const rx=view===1?-ny:view===2?-nx:view===3?ny:nx,ry=view===1?nx:view===2?-ny:view===3?-nx:ny;
-    S.poly(out,(-rx+ry+nz)<0?P.lead:P.slateHi);S.poly(ins,inwardStone(-nx,-ny,-nz));
+    S.poly(out,(-rx+ry+nz)<0?P.lead:P.slateHi);S.poly(ins,inwardStone(-Math.sin(theta)*Math.cos(phi),Math.sin(theta)*Math.sin(phi),-Math.cos(theta)));
   }
   // Genuine shallow radial ribs sit within the curved inner skin, not a flat disc.
   for(const j of[4,8,12,16,20])for(let i=0;i<m;i++)S.beam(pt(inner-.13,i,j),pt(inner-.13,i+1,j),P.stoneHi,.22);
@@ -561,7 +573,8 @@ function vervainrecital(row,view){
   A.volume(5,27,19,28,.6,1.2,'stone',false);S.flat(5,27,19,28,1.2,stageTimber);
   // Small front stair and real stage; no dark disc across the open arch.
   A.volume(7,25,28,30,.6,.9,'stone');
-  return {...A.finish(),details:{originalDesign:true,newModelBody:true,radiallyThickHalfDome:true,openDeepInterior:true}};
+  Object.assign(S,original); // Preserve unchanged native ground-edge lantern positions.
+  return {...A.finish(),details:{originalDesign:true,newModelBody:true,ownerApprovedHalfEllipsoid:true,openDeepInterior:true}};
 }
 
   // Wave047 B: new authored structural bodies, not historical model dispatches.
