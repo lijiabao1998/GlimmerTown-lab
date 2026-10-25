@@ -508,7 +508,7 @@ function tansymill(row,view){
   return {...A.finish(),details:{originalDesign:true,newModelBody:true,singlePostDiagonalTrestle:true,staticSailsOnly:true}};
 }
 function vervainrecital(row,view){
-  const A=context(row,view),{S,P}=A,cx=16,cy=22,zc=4.4,r=11.5,inner=10.85,n=24,m=12;
+  const A=context(row,view),{S,P}=A,cx=16,cy=22,zc=9.4,r=11.5,inner=10.85,n=24,m=12;
   // The half hemisphere curves in BOTH principal axes. Two radial skins plus
   // cut-rim and spring closures make a thick shell around a genuinely empty room.
   const pt=(rad,i,j)=>{const theta=i*Math.PI/(2*m),phi=j*Math.PI/n;return[cx+rad*Math.sin(theta)*Math.cos(phi),cy-rad*Math.sin(theta)*Math.sin(phi),zc+rad*Math.cos(theta)];};

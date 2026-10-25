@@ -1,0 +1,21 @@
+{
+  "c5Commit": "46fd34314e82efa176d5b45140421753da6ee039",
+  "c5ArtSHA256": "3e2c8469996e32e9b0f72d00424ccad023788cb56eefb70111725fe34d7a9c75",
+  "c6ArtSHA256": "fa57627774683bf34d3ed15321177a481caa16b79ae9962cecbf64ba749d100e",
+  "before": "cx=16,cy=22,zc=4.4,r=11.5",
+  "after": "cx=16,cy=22,zc=9.4,r=11.5",
+  "springline": {
+    "before": 4.4,
+    "after": 9.4
+  },
+  "outerRadius": 11.5,
+  "innerRadius": 10.85,
+  "stageHeight": 1.2,
+  "stageChecker": {
+    "baseFile": "checkWave047StageGeometry.cjs",
+    "candidateFile": "checkWave047ClearanceStage.cjs",
+    "baseSHA256": "54155d0ab6401ea838e9fdde04966c8a3f2afff7dfec9a8f13bedff19331b70f",
+    "candidateSHA256": "fce214b3171af0a0f40f05bd0765aa62b614dd6db635d67ea9146d91d1c867c7",
+    "reason": "Only exact two pre-existing narrow masonry cheek front faces are recognized at their declared new height; original .4.5 mask rejection threshold is unchanged; low panel and widened cheek negatives added in all four views."
+  }
+}
