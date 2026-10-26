@@ -63,3 +63,13 @@ PR68 c32 的 push40313006243、PR40313012748 均 cancelled，取消約落於15�
 - [ ] 新 timeout 守衛真首紅＋恢復：待實作驗證。
 - [ ] 同 runner smoke 三連綠與最終 PR CI：待驗證。
 - [x] 未跑未寫通過；沒做成的事：目前只有凍結卡，尚未實作、未驗收、未合併。
+
+### 2026-10-26 15:48 UTC 實作／純 helper 驗收
+
+- 首卡 [a0b60118](https://github.com/lijiabao1998/GlimmerTown-lab/commit/a0b60118cb9f74142b43197d7e5bb2f8f5379e82) 已在分支可讀，然後才改工程檔。最初誤用 update_ref 建立不存在 ref 收到 GitHub422（未建立），改用正式 create_branch 成功；非權限拒絕、未繞過限制、無歷史重寫。
+- 兩工程檔施工完成；workflow 逐 bytes 反向替換唯一 smoke30→15 後等於 main。helper 本體完全相同；其餘產品及遊戲測試不在變更集合。
+- 純 Node helper 基準126 pass／0 fail；候選137 pass／0 fail／0 skipped（原126＋新父測試1＋10個負控子測試）。本機未跑遊戲／Chrome／smoke／fp／probe。Git fixture 為原有臨時測試資料，結束清除。
+- 十項 actual workflow 來源變異：四 job 各錯值、smoke缺限／重複限／step層級、重複job／缺job、隱藏額外timeout。每一項先由目標 `GPT-051 approved job timeout map` 斷言拒絕，再對未變原始候選重驗成功；不把 assertion 例外當正常產品通過。
+- 精確 expected map 寫在測試函式常數，與讀取的 YAML 分離；保留原 helper 決策及其他 workflow 結構斷言。保留25分鐘等待及27分鐘 gate，不需要變更helper。
+- §8 更新：卡面先推、新守衛真首紅＋恢復已完成；fp及完整三輪／PR CI仍 **未跑完，待 GitHub 最終 head**。尚未獨立覆核；內部 reviewer 未能啟動（並發上限），不冒稱審查通過。
+- 沒做成的事：本機純 helper 不是完整 CI；遠端候選、full push／PR最終收據待取得。本卡未包含050，不代表PR68通過，未合併部署。
