@@ -142,8 +142,9 @@ async function browser() {
       assert.ok((await run("document.getElementById('shadowWarehouse050InA').textContent")).includes('10'),'W10-full-state quantity derived, not fixed7');
     });
 
-    async function click(id) {
-      const p=await run(`(()=>{const e=document.getElementById(${JSON.stringify(id)}),r=e.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+    async function click(id,selector=false) {
+      const p=await run(`(()=>{const e=document.${selector?'querySelector':'getElementById'}(${JSON.stringify(id)}),r=e.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))};})()`);
+      assert.equal(p.hit,true,'W10 actual click target visible '+id);
       await cdp.send('Input.dispatchMouseEvent',{type:'mousePressed',x:p.x,y:p.y,button:'left',clickCount:1});
       await cdp.send('Input.dispatchMouseEvent',{type:'mouseReleased',x:p.x,y:p.y,button:'left',clickCount:1});
       await sleep(40);
@@ -181,10 +182,12 @@ async function browser() {
         if(name==='B-wait') {
           await run(`document.getElementById('shadowWarehouse050Details').open=true;document.getElementById('shadowWarehouse050Scroll').scrollTop=10000;true`);
           const cam=await run('GV.camera436()');
-          const rect=await run(`(()=>{const e=document.getElementById('shadowWarehouse050JSON'),r=e.getBoundingClientRect();return{x:Math.min(innerWidth-20,r.left+30),y:Math.min(innerHeight-180,Math.max(r.top+20,80))};})()`);
+          const rect=await run(`(()=>{const e=document.getElementById('shadowWarehouse050JSON'),p=document.getElementById('shadowWarehouse050Scroll'),r=e.getBoundingClientRect(),q=p.getBoundingClientRect();e.scrollTop=0;const top=Math.max(r.top,q.top,0),bottom=Math.min(r.bottom,q.bottom,innerHeight),x=r.left+30,y=(top+bottom)/2;return{x,y,visible:bottom>top,hit:e.contains(document.elementFromPoint(x,y)),before:e.scrollTop};})()`);
+          assert.equal(rect.visible,true,'W10 JSON visible wheel target');assert.equal(rect.hit,true,'W10 wheel target hits JSON');assert.equal(rect.before,0,'W10 JSON starts at zero');
           await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});await sleep(80);
-          const scroll=await run(`(()=>{const j=document.getElementById('shadowWarehouse050JSON'),p=document.getElementById('shadowWarehouse050Scroll');return{jsonOverflow:j.scrollHeight>j.clientHeight,scrolled:j.scrollTop>0||p.scrollTop>0,cam:GV.camera436()};})()`);
-          assert.equal(scroll.jsonOverflow,true,'W10 expandable diagnostic JSON');assert.equal(scroll.scrolled,true,'W10 scroll works');assert.equal(scroll.cam.z,cam.z,'W10 panel wheel does not zoom city');
+          const scroll=await run(`(()=>{const j=document.getElementById('shadowWarehouse050JSON');return{jsonOverflow:j.scrollHeight>j.clientHeight,after:j.scrollTop,cam:GV.camera436()};})()`);
+          assert.equal(scroll.jsonOverflow,true,'W10 expandable diagnostic JSON');assert.ok(scroll.after>rect.before,'W10 actual wheel increases JSON scroll');assert.equal(scroll.cam.z,cam.z,'W10 panel wheel does not zoom city');
+          console.log('WAREHOUSE050 REAL_SCROLL '+JSON.stringify({layout,light,before:rect.before,after:scroll.after,hit:rect.hit,cameraUnchanged:scroll.cam.z===cam.z}));
           await run("document.getElementById('shadowWarehouse050Details').open=false;document.getElementById('shadowWarehouse050Scroll').scrollTop=0;true");
         }
       }
@@ -206,9 +209,15 @@ async function browser() {
       add('W09 pure warehouse does not claim native binding',a.snapshot().ledger.batches.length===2);a.end();GV.save();
       const keys=Object.keys(localStorage).filter(k=>/^glimmerville\\.v1\\.s3(?:\\.sandbox516b)?$/.test(k)),saved=keys.map(k=>[k,localStorage.getItem(k)]);
       const restore=()=>{for(const[k,v]of saved)localStorage.setItem(k,v);};add('slot3 fixture only',keys.length>0);
-      add('control load',GV.load());GV.setSpeed(0);const expected=__nativeCapture050();
-      restore();start('normal load');add('enabled load',GV.load());GV.setSpeed(0);
-      add('W09 native load control equality',expected===__nativeCapture050());add('W08 load cancellation',!a.snapshot().active&&!document.getElementById('shadowWarehouse050Panel'));
+      const read=()=>JSON.parse(__nativeCapture050()),controlBefore=read();
+      add('control load',GV.load());GV.setSpeed(0);const expected=read(),controlVersionDelta=expected.amVersion502-controlBefore.amVersion502;
+      restore();start('normal load');const enabledBefore=read();add('enabled load',GV.load());GV.setSpeed(0);const actual=read(),enabledVersionDelta=actual.amVersion502-enabledBefore.amVersion502;
+      add('W09 native load version delta equality',controlVersionDelta>0&&enabledVersionDelta===controlVersionDelta);
+      // Native activeMobilityLoad502 always increments this one counter. Compare its exact delta;
+      // every other copied field remains in the strict equality, and synchronous W09 stays byte-exact.
+      delete expected.amVersion502;delete actual.amVersion502;
+      const loadDifferences=Object.keys(expected).filter(k=>JSON.stringify(expected[k])!==JSON.stringify(actual[k]));
+      add('W09 native load control equality '+JSON.stringify(loadDifferences),loadDifferences.length===0);add('W08 load cancellation',!a.snapshot().active&&!document.getElementById('shadowWarehouse050Panel'));
       const corrupt=()=>{for(const[k,v]of saved){const raw=JSON.parse(v);raw.rd=null;localStorage.setItem(k,JSON.stringify(raw));}};
       const attempt=()=>{try{return{returned:GV.load()};}catch(e){return{thrown:String(e.message||e)};}};
       corrupt();const failedControl=attempt();restore();add('recover failed control',GV.load());GV.setSpeed(0);
@@ -224,7 +233,7 @@ async function browser() {
       start('empty queue kill');window.__noShadowWarehouse050=true;document.getElementById('shadowWarehouse050Retry').click();window.__noShadowWarehouse050=false;add('W08 empty-head action checks valve',!a.snapshot().active&&!document.getElementById('shadowWarehouse050Panel'));
       start('pagehide');dispatchEvent(new Event('pagehide'));add('W08 pagehide clears',!a.snapshot().active);
       start('end argument safety');const cyclic={};cyclic.self=cyclic;a.end(cyclic);add('W08 public end ignores caller object',!a.snapshot().active);add('W08 end cannot poison native delegate',GV.load());GV.setSpeed(0);
-      start('reload');return{checks,oldSession:a.snapshot().ledger.sessionId,legacyVersion:JSON.parse(__legacy050).gameVer,failedControl,failedEnabled};
+      return{checks,loadVersionDeltas:{control:controlVersionDelta,enabled:enabledVersionDelta},legacyVersion:JSON.parse(__legacy050).gameVer,failedControl,failedEnabled};
     })()`);
     console.log('WAREHOUSE050 LIFECYCLE '+JSON.stringify(lifecycle));
     await run('GV.shadowWarehouse050.end();true');await cdp.send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
@@ -233,13 +242,18 @@ async function browser() {
     const cam1=await run('GV.camera436()');assert.notEqual(cam1.z,cam0.z,'W10 native wheel after close');
     const tools=await run(`(()=>{const e=document.getElementById('tools');return{exists:!!e,buttons:e?.querySelectorAll('button').length||0,display:e?getComputedStyle(e).display:null};})()`);
     assert.equal(tools.exists,true,'W10 native toolbar exists');assert.notEqual(tools.display,'none','W10 toolbar still displayed');
-    console.log('WAREHOUSE050 NATIVE_INPUT '+JSON.stringify({cam0,cam1,tools}));
-    await run('GV.shadowWarehouse050.demo();GV.shadowWarehouse050.open();true');
+    await click('.catalog458Btn',true);
+    assert.equal(await run("document.getElementById('buildCatalog458').classList.contains('show')"),true,'W10 native catalog button opens after research close');
+    await click('catalogClose458');
+    assert.equal(await run("document.getElementById('buildCatalog458').classList.contains('show')"),false,'W10 native catalog button closes');
+    console.log('WAREHOUSE050 NATIVE_INPUT '+JSON.stringify({cam0,cam1,tools,nativeCatalogOpenedAndClosed:true}));
+    const beforeReload=await run(`(()=>{const a=GV.shadowWarehouse050,demo=a.demo(),opened=a.open(),s=a.snapshot();return{demo:demo.ok,opened:opened.ok,active:s.active,session:s.ledger?.sessionId,panel:!!document.getElementById('shadowWarehouse050Panel')};})()`);
+    assert.equal(beforeReload.demo,true,'W08 reload actual demo');assert.equal(beforeReload.opened,true);assert.equal(beforeReload.active,true);assert.equal(beforeReload.panel,true);assert.ok(beforeReload.session,'W08 reload actual live session token');
     await cdp.send('Page.reload',{ignoreCache:true});
     assert.equal(await waitFor(cdp,'!!window.__bootDone453 && !!window.GV?.shadowWarehouse050',120000),true);
     const reloaded=await run(`({state:GV.shadowWarehouse050.snapshot(),panel:!!document.getElementById('shadowWarehouse050Panel')})`);
     assert.equal(reloaded.state.active,false,'W08 reload no autorestore');assert.equal(reloaded.state.ledger,null);assert.equal(reloaded.panel,false);
-    console.log('WAREHOUSE050 RELOAD '+JSON.stringify({oldSession:lifecycle.oldSession,...reloaded}));
+    console.log('WAREHOUSE050 RELOAD '+JSON.stringify({beforeReload,...reloaded}));
     console.log('WAREHOUSE050 BROWSER_ERRORS '+JSON.stringify({errors:cdp.errors,knownHarnessBenign:cdp.benign}));
     assert.equal(cdp.errors.length,0,'W10 native Chrome errors');
     return{ok:true,screenshots:screenshots.length,head:process.env.GITHUB_SHA||null,claims:'isolated native Chrome desktop/mobile viewport; no hardware phone/Safari or released integration'};

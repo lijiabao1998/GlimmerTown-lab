@@ -123,3 +123,11 @@ manifest food20；A7、B8、unissued5；warehouse research-warehouse-A容量10�
 - 新守衛含獨立數量／owner sum、真source mutants及原文還原，UI另有真Chrome來源變異；不接受語法錯誤當負控制成功，不以任意異常包裝冒稱目標首紅。
 - 所有新數字是指定研究fixture／有限記憶體上界；原生計算、save、RNG、道路鐵路、美術、性能及原CI門檻未改。
 - 目前只有靜態語法與來源字節檢查；遊戲／Chrome／smoke／fp／native回歸尚未跑，下一步由既有分支CI驗證。
+
+## 施工紀錄 C2（修正新增QA控制，保留C1紅燈）
+
+- C1 head 979b1b1cb29769c2f3dd6a79fc9f51119f18d6e0；CI run 40286067184 的 smoke 首次失敗於新 W09 normal-load 控制比較，未重跑賭過。原生 activeMobilityLoad502（index 106312）經 activeMobilityMarkDirty502（106309）每次遞增 amVersion502，故不同 load 次的此累積counter本來不相等。
+- 修正僅在這個新 load 控制：完整observer每個其他欄位仍逐值嚴格相等，amVersion502改比無研究／有研究的實際增量且須正數相同；輸出差異欄位與增量。原同步 native/canvas/RNG/storage 零副作用守衛完全不放寬，原有049/native CI檢查不改。
+- C1已實跑：26個pure/VM守衛與40個來源變異、W01 lineage變異、7個Chrome UI變異均首紅並還原；A精確049與B相容組合各完整原049含Chrome通過；C已走完24張desktop/mobile日夜六狀態，容量0→7→7→0→8。上述不能代稱整體CI通過。
+- 內部唯讀靜態覆核另補強兩處測試：JSON必須hit-test到可見區且真滾輪後offset由0增加（不再把預先定位外層scroll誤當成功）；reload前新建的實際session須demo/open成功且active/panel/token存在，輸出實際token。
+- native toolbar不只看存在：研究關閉後真Chrome滑鼠點原生目錄開啟與關閉，保留原生縮放驗證。此commit不改任何warehouse產品候選程式。
