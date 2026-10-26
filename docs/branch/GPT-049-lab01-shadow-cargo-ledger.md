@@ -131,3 +131,16 @@ GPT不得本機跑遊戲、smoke、fp或pixel probes；依repo交CI。新負控�
 - 原圖預期由既有smoke artifact的`shots/smoke-shadow049-*.png`收集，既有workflow完全不改；精確候選SHA、CI結果及任何首次失敗後續補列。沒有本機跑game／smoke／fp／probe。
 - 本機git push因無HTTPS認證失敗，沒有提取憑證；後續分支fetch遇shared shallow parent缺物件。改用已連接Primary的正常blob/tree/commit/expected-ref操作，整個index單一blob返回`de9c5e1331295fdc8a9127ffff2c45c44b33bd5f`與本機Git物件hash一致；不force、不改main、不拆錯Git blob。
 - 沒做成／未驗：目前CI及圖片尚未取得；真硬體觸控／Safari未測。無真倉容、背壓、道路配送、貨列車、旅客OD、商店補貨或持久保存。容量／正式玩法數值／存檔／發布仍待業主。
+
+### 後續靜態覆核補強（測試更嚴，不改首卡）
+
+- 每個native load/save/newWorld、disable、kill、pagehide與reload刺激之前，測試必先證明start成功且session真的active，避免空session也能過取消檢查。
+- 真Chrome測試另檢查既有harness收集的`cdp.errors`必為0；沿用既有良性PWA附屬404分類，不新增白名單。
+- 大小上限約束**接受及保留的帳資料**，不宣稱防禦任意JavaScript的硬暫態記憶體沙箱：property descriptor反射可能先配置輸入資料，Proxy反射也能執行呼叫方trap。此API沒有網路入口，且不是隔離同origin任意程式的安全邊界。普通資料accessor會在讀取value前被拒絕；UI一律textContent，不解譯貨單HTML。
+- 此小幅測試補強將使用新的精確head驗收；前一head的通過不得冒充新head。
+
+### 第一候選真CI收據
+
+- `26fbdaa698ed3e4a91eb01990362465e1f2f557a`：[push run 40273103854](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40273103854)，smoke×3、fp、fiscal-load全部success。fp：新增／變更／移除葉均0，觸及家族0，style無下降，block/env零變動；未提交任何重烘基線。
+- 此結果是第一候選的真執行，不是後續測試補強head的驗收。沒有失敗run洗綠／重跑；後續只增加active前置、browser error及同turn原生完整canvas bytes比較，保留既有判準。
+- 第一create_commit曾被平台以「原確認卡仍待點擊」拒絕；確認原卡已不再pending／本thread不可用後，同一create_commit只重試一次成功。這不代表曾觀察到按鈕批准。隨後核對parent/tree/ref再正常expected-head/nonforce更新自己分支，無替代運輸／force／Ready／合併／部署。

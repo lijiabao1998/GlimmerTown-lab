@@ -249,7 +249,7 @@ check('L09 each new guard catches its actual-source mutant', () => {
       const storage=()=>JSON.stringify(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]));
       window.__shadowCapture049=()=>{const n=a.nativeObservation().N;return JSON.stringify({stats:GV.stats(),txn:GV.txn460(),mobility:GV.mobility491(),tiles:Array.from({length:n},(_,y)=>Array.from({length:n},(_,x)=>GV.tile(x,y)))});};
       add('default inactive, no DOM',!a.snapshot().active&&!document.getElementById('shadowCargo049Panel'));
-      const beforeStorage=storage(),before=__shadowCapture049();
+      const beforeStorage=storage(),before=__shadowCapture049(),canvas=document.getElementById('game'),frameBefore=canvas.toDataURL();
       const st=a.selftest();add('enabled native state selftest',st.ok);
       add('selftest no storage write',storage()===beforeStorage);
       add('selftest native public state unchanged',__shadowCapture049()===before);
@@ -257,6 +257,7 @@ check('L09 each new guard catches its actual-source mutant', () => {
       const c={eventId:'browser-create',sessionId:s.sessionId,batchId:'batch-A',type:'CREATE',expectedRevision:0,payload:{commodityId:'food',qty:7,source:'research-source',destination:'research-destination'}};
       add('browser CREATE',a.command(c).ok);add('browser open',a.open().ok);add('browser repeated open singleton',a.open().ok&&document.querySelectorAll('#shadowCargo049Panel').length===1);
       add('enabled API/panel no storage write',storage()===beforeStorage);add('enabled API/panel public native state unchanged',__shadowCapture049()===before);
+      add('same-turn full native canvas bytes unchanged by enabled API/panel',canvas.toDataURL()===frameBefore);
       window.__shadowOldCommand049=c;
       return {checks,selftest:st,snapshot:a.snapshot(),observation:a.nativeObservation()};
     })()`);
@@ -278,25 +279,27 @@ check('L09 each new guard catches its actual-source mutant', () => {
       }
     }
     const closed=await cdp.evalJs(`(()=>{
+      const canvas=document.getElementById('game'),before=canvas.toDataURL();
       const p=document.querySelector('#shadowCargo049Panel pre');p.scrollTop=p.scrollHeight;
       const canScroll=p.scrollHeight>p.clientHeight&&p.scrollTop>0;
       document.getElementById('shadowCargo049Refresh').click();
       document.getElementById('shadowCargo049End').click();
       const a=GV.shadowCargo049,s=a.snapshot();
-      return {canScroll,noPanel:!document.getElementById('shadowCargo049Panel'),s,oldRejected:!a.command(__shadowOldCommand049).ok};
+      return {canScroll,noPanel:!document.getElementById('shadowCargo049Panel'),sameTurnCanvasBytes:canvas.toDataURL()===before,s,oldRejected:!a.command(__shadowOldCommand049).ok};
     })()`);
-    assert.equal(closed.canScroll,true);assert.equal(closed.noPanel,true);assert.equal(closed.s.active,false);assert.equal(closed.s.ended.cancelled,20);assert.equal(closed.oldRejected,true);
+    assert.equal(closed.canScroll,true);assert.equal(closed.noPanel,true);assert.equal(closed.sameTurnCanvasBytes,true);assert.equal(closed.s.active,false);assert.equal(closed.s.ended.cancelled,20);assert.equal(closed.oldRejected,true);
     console.log('SHADOW049 CLOSE '+JSON.stringify(closed));await shot('mobile-night-closed');
     await cdp.send('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
     const native=await cdp.evalJs(`(()=>{
       const a=GV.shadowCargo049,checks=[],add=(name,ok)=>{checks.push({name,ok:!!ok});if(!ok)throw new Error(name);};
+      const startResearch=name=>{const r=a.start(__shadowManifest049);add(name+' starts an active session',r.ok&&a.snapshot().active);return r;};
       GV.setSpeed(0);GV.newWorldSeeded(491);GV.setSpeed(0);
-      const seeded=__shadowCapture049();a.start(__shadowManifest049);a.open();a.refresh();a.end();
+      const seeded=__shadowCapture049();startResearch('same-seed');a.open();a.refresh();a.end();
       add('same-seed native state unchanged by enabled research',seeded===__shadowCapture049());
       let place=null;const n=a.nativeObservation().N;
       for(let y=5;y<n-5&&!place;y++)for(let x=5;x<n-5&&!place;x++){const t=GV.tile(x,y);if(t.t===2&&!t.bld&&!t.road&&!t.rail&&!t.tram&&!t.ruin)place={x,y};}
       add('native free land fixture exists',!!place);
-      a.start(__shadowManifest049);
+      startResearch('construction');
       add('native road placement',GV.placeUndo('road',place.x,place.y)&&GV.tile(place.x,place.y).road===1);
       GV.undo();add('native Undo',!GV.tile(place.x,place.y).road);
       GV.redo();add('native Redo',GV.tile(place.x,place.y).road===1);
@@ -306,7 +309,7 @@ check('L09 each new guard catches its actual-source mutant', () => {
       const keys=Object.keys(localStorage).filter(k=>/^glimmerville\\.v1\\.s3(?:\\.sandbox516b)?$/.test(k));add('only disposable slot fixture selected',keys.length>0);
       const saved=keys.map(k=>[k,localStorage.getItem(k)]),restore=()=>{for(const[k,v]of saved)localStorage.setItem(k,v);};
       add('baseline unchanged-schema native load',GV.load());GV.setSpeed(0);const expected=__shadowCapture049();
-      restore();const start=a.start(__shadowManifest049);add('research before native load',start.ok);
+      restore();startResearch('native load');
       add('native load result preserved',GV.load());GV.setSpeed(0);
       add('native load equivalent to no-session control',__shadowCapture049()===expected);
       add('load ends research',!a.snapshot().active&&!document.getElementById('shadowCargo049Panel'));
@@ -316,23 +319,23 @@ check('L09 each new guard catches its actual-source mutant', () => {
       const corrupt=()=>{for(const[k,v]of saved){const raw=JSON.parse(v);raw.rd=null;localStorage.setItem(k,JSON.stringify(raw));}};
       const attempt=()=>{try{return {returned:GV.load()};}catch(e){return {thrown:String(e.message||e)};}};
       corrupt();const failedControl=attempt();restore();add('recover control corrupt load',GV.load());GV.setSpeed(0);
-      a.start(__shadowManifest049);corrupt();const failedEnabled=attempt(),endedAfterPartial=!a.snapshot().active;
+      startResearch('partial load');corrupt();const failedEnabled=attempt(),endedAfterPartial=!a.snapshot().active;
       restore();add('recover enabled corrupt load',GV.load());GV.setSpeed(0);
       add('partial-load native outcome unchanged',JSON.stringify(failedControl)===JSON.stringify(failedEnabled)&&failedEnabled.returned!==true);
       add('partial-load invalidates research before failure',endedAfterPartial);
       const legacyKey=keys.find(k=>k==='glimmerville.v1.s3');add('legacy test uses normal slot3',!!legacyKey);
       localStorage.setItem(legacyKey,__shadowLegacy049);add('archived v14.43 control load',GV.load());GV.setSpeed(0);GV.save();
       const legacyExpected=localStorage.getItem(legacyKey);
-      localStorage.setItem(legacyKey,__shadowLegacy049);a.start(__shadowManifest049);
+      localStorage.setItem(legacyKey,__shadowLegacy049);startResearch('archived load');
       add('archived v14.43 enabled load',GV.load());GV.setSpeed(0);add('legacy load cancels research',!a.snapshot().active);
-      a.start(__shadowManifest049);GV.save();add('archived save roundtrip equal to no-session native control',localStorage.getItem(legacyKey)===legacyExpected);a.end();
-      const fresh=a.start(__shadowManifest049);GV.save();
+      startResearch('archived save');GV.save();add('archived save roundtrip equal to no-session native control',localStorage.getItem(legacyKey)===legacyExpected);a.end();
+      const fresh=startResearch('current save and new world');GV.save();
       add('native save does not persist session token',keys.every(k=>!localStorage.getItem(k).includes(fresh.sessionId)&&!localStorage.getItem(k).includes('shadowCargo049')));
       GV.newWorldSeeded(492);GV.setSpeed(0);add('new world ends research',!a.snapshot().active);
-      a.start(__shadowManifest049);a.disable();add('explicit disable ends immediately',!a.snapshot().active);window.__noShadowCargo049=false;
-      a.start(__shadowManifest049);window.__noShadowCargo049=true;add('kill checked at read boundary',!a.snapshot().active);window.__noShadowCargo049=false;
-      a.start(__shadowManifest049);dispatchEvent(new Event('pagehide'));add('pagehide ends research',!a.snapshot().active);
-      a.start(__shadowManifest049);window.__shadowBeforeReload049=a.snapshot().ledger.sessionId;
+      startResearch('disable');a.disable();add('explicit disable ends immediately',!a.snapshot().active);window.__noShadowCargo049=false;
+      startResearch('kill switch');window.__noShadowCargo049=true;add('kill checked at read boundary',!a.snapshot().active);window.__noShadowCargo049=false;
+      startResearch('pagehide');dispatchEvent(new Event('pagehide'));add('pagehide ends research',!a.snapshot().active);
+      startResearch('reload');window.__shadowBeforeReload049=a.snapshot().ledger.sessionId;
       return {checks,place,slotKeys:keys,failedControl,failedEnabled,reloadOldSession:__shadowBeforeReload049};
     })()`);
     console.log('SHADOW049 NATIVE_LIFECYCLE '+JSON.stringify(native));
@@ -342,10 +345,12 @@ check('L09 each new guard catches its actual-source mutant', () => {
     const cam1=await cdp.evalJs('GV.camera436()');assert.notEqual(cam1.z,cam0.z,'native zoom blocked after panel close');
     console.log('SHADOW049 NATIVE_INPUT '+JSON.stringify({wheelBefore:cam0,wheelAfter:cam1}));await shot('desktop-native-after-close');
     await cdp.send('Page.reload',{ignoreCache:true});
-    assert.equal(await waitFor(cdp,'!!window.GV?.shadowCargo049',120000),true);
+    assert.equal(await waitFor(cdp,'!!window.__bootDone453 && !!window.GV?.shadowCargo049',120000),true);
     const reload=await cdp.evalJs(`({state:GV.shadowCargo049.snapshot(),panel:!!document.getElementById('shadowCargo049Panel')})`);
     assert.equal(reload.state.active,false);assert.equal(reload.state.ledger,null);assert.equal(reload.panel,false);
     console.log('SHADOW049 RELOAD '+JSON.stringify({oldSession:native.reloadOldSession,...reload,claim:'no restore or automatic re-ingestion; old token unusable'}));
+    console.log('SHADOW049 BROWSER_ERRORS '+JSON.stringify({errors:cdp.errors,knownHarnessBenign:cdp.benign}));
+    assert.equal(cdp.errors.length,0,'native Chrome console/uncaught errors: '+JSON.stringify(cdp.errors));
     return {ok:true,assertions,head:process.env.GITHUB_SHA||null,claims:'native Chrome emulated desktop/mobile; not hardware Safari; research custody only'};
   });
   console.log('SHADOW049 RESULT '+JSON.stringify({ok:result.ok,fails:result.fails,result:result.result,seconds:result.seconds}));
