@@ -1,0 +1,19 @@
+{
+  "schema": "lab049-release-source-v1",
+  "release": {
+    "version": "14.68",
+    "anchor": "T775",
+    "round": 222,
+    "pr": 67
+  },
+  "approvedMain": "020e3c096974be64680142297423de9a51d4bb8b",
+  "ownerApproval": "Sentinel_bfd6bc2d37648191824dd44b68f0fef7",
+  "historical": {
+    "head": "ff4a767a10502378b8e1bb387d2a5ed3b608ecbb",
+    "version": "14.67",
+    "anchor": "T774",
+    "nativeSha256": "debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624",
+    "blockSha256": "2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb",
+    "testSha256": "276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b"
+  }
+}
