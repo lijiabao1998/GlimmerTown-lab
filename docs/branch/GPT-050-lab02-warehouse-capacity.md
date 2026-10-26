@@ -111,3 +111,15 @@ manifest food20；A7、B8、unissued5；warehouse research-warehouse-A容量10�
 - 未完成：尚未施工／跑CI／真Chrome／看圖，沒有通過聲明。
 - 功能正式接入、容量數值批准、LAB01/02合併、保存、發布仍[等業主]。本卡沒有Ready/merge/Pages授權。
 - 收工按不改壞標準§8逐條補真證據；沒有已跑結果不打勾。卡面首commit的family/allowlist/驗收不改鬆，只追加施工記錄。
+
+
+## 施工紀錄 C1（候選，尚未執行CI）
+
+- 首卡獨立commit：d6825324502f316bab312552b8750f046ee53335；其後才施工。
+- 正式index未改、沒有引用050檔；新增獨立source-derived factory和暫態操作面板。配置warehouse時用單ledger新增WAREHOUSED及WH_*事件；未配置時保留049相容契約。
+- 不消費或遷移既有live PR67 session。QA比較同manifest/session命令下初始A/B與精確049 factory結果、貨物、事件逐值相等，再測050擴充；不能把此比較宣稱跨session續運。
+- QA分開A精確049、B衍生factory compatibility、C原生main＋精確049參考＋050候選／QA observer。A/B各執行原049 test完整原文（含Chrome），C執行新整合；不將050藏入049區塊來繞原index守衛。B明示只替換pure factory作相容驗證。
+- 內部靜態覆核修正：缺第三接收者配置、等待原因隨目前容量更新；public end不接收任意物件，取消摘要失敗不能攔native delegate；空隊列Retry/Cancel仍先查逃生閥；滿倉文字、實際batch qty按鈕、render失敗不改已提交命令結果。
+- 新守衛含獨立數量／owner sum、真source mutants及原文還原，UI另有真Chrome來源變異；不接受語法錯誤當負控制成功，不以任意異常包裝冒稱目標首紅。
+- 所有新數字是指定研究fixture／有限記憶體上界；原生計算、save、RNG、道路鐵路、美術、性能及原CI門檻未改。
+- 目前只有靜態語法與來源字節檢查；遊戲／Chrome／smoke／fp／native回歸尚未跑，下一步由既有分支CI驗證。
