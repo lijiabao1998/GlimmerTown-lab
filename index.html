@@ -1199,7 +1199,7 @@ table.dtab tr:hover td{background:#1b2334}
       <button class="secondary456" id="bSettings456">⚙️ 設定</button>
     </div>
     <div id="startSave456">尚無可續玩的城市</div>
-    <div class="startFooter456"><span id="startVersion456">v14.67 · T774</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
+    <div class="startFooter456"><span id="startVersion456">v14.69 · T776</span><span class="dot456">•</span><span>主選單</span></div><!-- T482A：與 GAME_VER/GAME_ANCHOR 同步；JS 載入後由 syncHome456 以常數覆寫，此處僅首幀 -->
   </div>
 
   <div id="startOverlay456" aria-hidden="true">
@@ -74185,8 +74185,8 @@ const COMMUTE_PEN_UNREACH=.30;   // T141：不可達（孤島，無路網連到�
 const COMMUTE_TRIP_W=1;          // T141：每叢集代表每天沿快取路徑貢獻的通勤 trip 權重（累加進 roadPass/commutePass，同 T129 尺度）
 const COST={road:15,bridge:60,zone:8,park:60,plant:550,water:400,wpipe:10,doze:2,fire:400,police:500,hospital:600,clinic:250,school:350,library:280,post:320,cemetery:350,dump:300,rdec:25,hwy:45,hwyBridge:180,stad:1200,tree:5,fill:20,bus:80,rail:40,railBridge:160,station:900,port:1100,dock:80,airport:3500,parking:150,parkMeter:15,busLane:35,tram:70,tramStation:700,officeZone:12,farm:120,ranch:180,landmark:2000,solar:450,wind:600,sewage:500,ambulance:550,recycling:350,fireStation2:800,prison:900,university:1200,levee:60,tdig:40,tland:60,traise:50,museum:1400,theater:1100,aquarium:1700,zoo:2300,amuse:2700,cinema:550,grandlib:1900,civicHall:2000,court:900,convention:3200,institute:1600,wstation:700,botanical:2200,megahosp:2800,oilwell:1300,mine:1500,megaproject:4500,policeBox:250,bigFarm:750,bigCemetery:1400,grandStation:2200,sportsComplex:2600,foodPlant:1800,nuclear:5000,hydro:2200,geo:900,fireHQ:1600,wasteIncinerator:1800,greenhouse:950,warehouse:1200,grandMall:3000,faithCenter:1600,clockTower:1100,observatory:2400,windmill:900,skytower:1300,ancienttree:600,harborlm:900,carousel:1700,pavilion:800,lighthouse:1400,fountain:700,monument:1600,archway:1500,ferriswheel:2000,watertowerlm:1100,guesthouse:380,hotel:1500,resort:3800,kindergarten:420,seniorCenter:450,bank:1300,market:950,compost:550,tvtower:2200,marina:1700,tradepost:1100,dogpark:320,icerink:900,skatepark:550,firewatch:180,pool:650,fishpier:520,hostel:600,chapel:1250,brewery:1350,waterpark:2400,vetclinic:480,skyrest:1900,cgarden:260,crematorium:900,highschool:1600,techpark:4200,freight:1800,upcycle:1900,centralpark:2200,unicampus:6800,megaport:9500,civiccenter:3000,datacenter:3600,gaswell:1400,fertplant:1700,kitchen:1500,fishfarm:700}; // T290：大型購物中心 4×4 商業旗艦 // T280：溫室 $950（2×2 全年恆溫食物+金幣，冬季免疫） // T265：焚化發電 2×2／$1800／垃圾容量100／供電60+8/級／高污染 // T257：核電 $5000（3×3 容量250+40/級）／水力 $2200（2×2 鄰水 100+15/級）／地熱 $900（1×1 45+8/級）／消防總局 $1600（3×3 fireHQ 半徑16） // T254：食品加工廠 $1800（3×3，農場加工鏈：食物盈餘轉金幣/就業25/維護14/可升級加工容量） // T241：體育園區 $2600（3×3，就業40/幸福半徑16/維護18） // T234：中央車站 $2200（3×3，就業30/維護15/列車上限+1） // T233：大墓園 $1400（3×3，容量24/半徑16/維護8） // T228：大農場 $750（5×5，食物20/就業18/維護6） // T222：派出所 $250（警察局 $500 的小型分型，半徑 5<10、維護 1.5<4） // T95：ambulance 400→550（原價+維護皆低於醫院、效果卻等同醫院且多送5就業，數值失衡，微調拉近但仍小於醫院600、保留半徑10<12的合理折價）；T121：tdig=挖水 tland=填土 traise=抬升削平（地形筆刷，$/格）；T138：museum博物館/theater劇院/aquarium水族館/zoo動物園/amuse遊樂園/cinema電影院/grandlib圖書總館（k=35-41）；T139：civicHall市政廳/court法院/convention會展中心/institute研究院/wstation氣象站/botanical植物園/megahosp綜合醫院（k=42-48，megahosp 比照 T95 教訓：造價2800/維護16 遠高於醫院600/5，避免以超大半徑碾壓既有醫療建築）；T140：oilwell油井/mine礦場（k=49-50，需對應資源格）/megaproject太空研究中心（k=51，終局消耗supplies大型建築，比照T95教訓造價4500/維護高於一般服務建築）
 
-const GAME_VER='14.67'; // T738 效能③：夜間建築影子與水面倒影改畫快取黑剪影，不再逐格跑畫布濾鏡（業主選 A：允許最大差 2 色階）。前：T736 紅燈收拾②：拿掉三個必定 404 的 PWA 請求（manifest.json、icon.svg、sw.js）。前：T735 效能②：開機兩個共用熱點加速（outlineSprite、makeIso575().hard，像素不變）。前：T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
-const GAME_ANCHOR='T774'; // T580：目前施工版本錨；母本 T578
+const GAME_VER='14.69'; // T738 效能③：夜間建築影子與水面倒影改畫快取黑剪影，不再逐格跑畫布濾鏡（業主選 A：允許最大差 2 色階）。前：T736 紅燈收拾②：拿掉三個必定 404 的 PWA 請求（manifest.json、icon.svg、sw.js）。前：T735 效能②：開機兩個共用熱點加速（outlineSprite、makeIso575().hard，像素不變）。前：T715 精靈普查修正⑦：園區路網、重工業煙囪、實心夜圖、車廠軌道。前：T711 精靈普查修正③：太陽能園區、離岸風電、抽蓄水力重畫。前：T713 精靈普查修正⑤：舊式正面精靈重畫（上半）。前：T710 精靈普查修正②：四種電廠重畫。前：T712 精靈普查修正④：公共設施第一個變體重畫。前：T714 精靈普查修正⑥：舊式正面精靈重畫（下半）。前：T709 精靈普查修正①：尺寸錯與浮空構件。前：T704 白塔改蓋 3×3 倫敦塔（k200）。前：T703 聖保羅座堂改蓋 2×2（k199）。前：T702 溫室 k63 v1／v2 重畫（等距、佔滿地塊）。前：T708 英國名勝：巨石陣、羅馬浴場、皇家新月樓、溫莎城堡、愛丁堡城堡。前：T705 英國名勝：西敏寺、倫敦眼、白金漢宮、特拉法加廣場。前：T706 英國名勝：大英博物館、自然史博物館、聖潘克拉斯車站、格林威治。前：T707 英國名勝：碎片大廈、小黃瓜、拉德克利夫圓樓、國王學院禮拜堂、布萊頓英皇閣。前：T701 地標專屬施工：巴特西、大笨鐘（決策單第十三批 1C 的地標部分）。前：T700 通用分階段施工（決策單第十三批 1C 的通用部分＋1-2B1、1-3b、1-4③、1-5a）。前：T699 英美立面街屋加風化 B（決策單第十二批 12-2 B）。前：T698 塔橋塔窗夜光跟著夜間供電降載（T693 遺留）。前：T697 多格地標排序改用佔地中線：前面的鄰居不再被地標蓋掉（外擴圈判斷跟著改）。前：T696 地標外擴前庭、周界綠籬不再蓋到前面的建築（業主回報「空的格子非法疊在建築上面」）。前：T695 英式地標近距細節層 C 重（k188、k190、k191、k192）＋鐘會走 hm（決策單第十二批 12-3 C、3-3 hm）。前：T694 白塔夜燈修正（N）＋伊莉莎白塔鐘盤方框圓盤、指針 3:00（D）（決策單第十二批 12-3 C、3-2 L）。前：T693 倫敦塔橋：夠長的直線水橋自動長成塔橋（仍是路；決策單第十二批 12-1 C、1-2 B、1-3 A）。前：T692 英式書店 k198 1×1（合併 DeepSeek 分支 dsk/bookshop 的 DSK-015；近景層 DSK-016 驗收事後補、先不合，T693 保留）。前：T690–T691 英式轉角酒館 k197 2×2＋近景疊層（合併 DeepSeek 分支 dsk/corner-pub，DSK-011／012，一次 squash，13.94 沒有單獨的版）
+const GAME_ANCHOR='T776'; // T580：目前施工版本錨；母本 T578
 /* ===== T496 Truth Convergence & Product Integrity Seal =====
    T488–T495 已把人口、住房、企業、景氣、交通、韌性、事故與公共服務升級成權威 truth，
    但部分 HUD／Inspector／指南仍在顯示早期名目公式。T496 不新增玩法，專門收束玩家可見資訊：
@@ -119462,6 +119462,368 @@ window.GV.britishWave048={rows:()=>BRITISH048.map(q=>({...q})),ready:id=>british
   read:(x,y)=>{const b=inMap(x,y)?tiles[idx(x,y)]?.bld:null;return b?JSON.parse(JSON.stringify(b)):null;},
   sprite:(x,y)=>{const b=inMap(x,y)?tiles[idx(x,y)]?.bld:null;return b&&!b.ref?SPR.bld['24_1_'+vdraw574({x,y},b)]:null;}};
 /* GPT-048 RUNTIME END */
+/* GPT-049 LAB01 BEGIN */
+/* Research custody only: no physical delivery, native inventory or persistence. */
+/* GPT-049 PURE FACTORY BEGIN */
+function createShadowCargo049(sessionId, inputManifest, inputLimits) {
+  'use strict';
+  const fail = code => ({ok:false,code});
+  const idOK = value => typeof value==='string' && /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$/.test(value);
+  const positive = value => Number.isSafeInteger(value) && value>0;
+  const exact = (value, keys) => !!value && !Array.isArray(value) &&
+    Object.keys(value).sort().join('|')===keys.slice().sort().join('|');
+  // Copy JSON data without invoking getters/toJSON or retaining caller references.
+  // Cross-realm plain records are accepted; accessors, symbols and sparse arrays are not.
+  function copyData(value,maxNodes=4096) {
+    let nodes=0;
+    const visit=(v,depth)=>{
+      if(++nodes>maxNodes || depth>10)throw new Error('data-bound');
+      if(v===null || typeof v==='boolean')return v;
+      if(typeof v==='string') { if(v.length>1024)throw new Error('string-bound');return v; }
+      if(typeof v==='number') { if(!Number.isFinite(v))throw new Error('finite-data');return v; }
+      if(typeof v!=='object')throw new Error('plain-data');
+      if(Object.getOwnPropertySymbols(v).length)throw new Error('symbol-data');
+      const descriptors=Object.getOwnPropertyDescriptors(v);
+      if(Array.isArray(v)) {
+        if(v.length>512 || Object.keys(descriptors).length!==v.length+1)throw new Error('array-bound');
+        const out=[];
+        for(let i=0;i<v.length;i++) {
+          const d=descriptors[String(i)];
+          if(!d || !Object.hasOwn(d,'value') || !d.enumerable)throw new Error('array-data');
+          out.push(visit(d.value,depth+1));
+        }
+        return out;
+      }
+      const proto=Object.getPrototypeOf(v);
+      if(proto!==null && Object.getPrototypeOf(proto)!==null)throw new Error('record-data');
+      const out=Object.create(null),keys=Object.keys(descriptors).sort();
+      if(keys.length>32)throw new Error('record-bound');
+      for(const key of keys) {
+        const d=descriptors[key];
+        if(!Object.hasOwn(d,'value') || !d.enumerable || key==='__proto__' || key==='prototype' || key==='constructor')throw new Error('record-data');
+        out[key]=visit(d.value,depth+1);
+      }
+      return out;
+    };
+    return visit(value,0);
+  }
+  function freezeData(value) {
+    if(value && typeof value==='object') {
+      for(const v of Object.values(value))freezeData(v);
+      Object.freeze(value);
+    }
+    return value;
+  }
+  let manifest,limitInput;
+  try { manifest=copyData(inputManifest);limitInput=inputLimits===undefined?{}:copyData(inputLimits); }
+  catch(_) { return fail('invalid-data'); }
+  if(!idOK(sessionId))return fail('invalid-session-id');
+  if(manifest?.provenance==='production-receipt')return fail('unsupported-production-receipt');
+  if(!exact(manifest,['manifestId','provenance','commodityId','total','source','custodians']))return fail('invalid-manifest');
+  if(!idOK(manifest.manifestId) || !['research-manifest','qa-fixture'].includes(manifest.provenance))return fail('invalid-provenance');
+  if(manifest.commodityId!=='food')return fail('unsupported-commodity');
+  if(!positive(manifest.total))return fail('invalid-quantity');
+  const defaults={maxBatches:32,maxEvents:128,maxCustodians:8},limits={...defaults};
+  if(!limitInput || typeof limitInput!=='object' || Array.isArray(limitInput))return fail('invalid-limits');
+  for(const key of Object.keys(limitInput)) {
+    const n=limitInput[key];
+    if(!Object.hasOwn(defaults,key) || !positive(n) || n>defaults[key] || (key==='maxCustodians' && n<2))return fail('invalid-limits');
+    limits[key]=n;
+  }
+  if(!Array.isArray(manifest.custodians) || manifest.custodians.length<2 || manifest.custodians.length>limits.maxCustodians)return fail('invalid-custodians');
+  const custodians=new Map(),locations=new Set();
+  for(const c of manifest.custodians) {
+    if(!exact(c,['id','location']) || !idOK(c.id) || !idOK(c.location) || custodians.has(c.id) || locations.has(c.location))return fail('invalid-custodians');
+    custodians.set(c.id,c);locations.add(c.location);
+  }
+  if(!idOK(manifest.source) || !custodians.has(manifest.source))return fail('source-unavailable');
+  freezeData(manifest);Object.freeze(limits);
+  let ledger={revision:0,unissued:manifest.total,batches:new Map(),events:new Map()};
+  function conservation(state) {
+    let live=0,terminal=0,valid=Number.isSafeInteger(state.unissued)&&state.unissued>=0;
+    valid=valid && state.revision===state.events.size && state.events.size<=limits.maxEvents && state.batches.size<=limits.maxBatches;
+    for(const [key,b] of state.batches) {
+      const custodian=custodians.get(b.owner),done=b.state==='COMPLETED';
+      valid=valid && key===b.batchId && positive(b.qty) && b.commodityId==='food' &&
+        b.source===manifest.source && custodians.has(b.destination) && b.destination!==b.source &&
+        !!custodian && custodian.location===b.location && [b.source,b.destination].includes(b.owner) &&
+        ['SOURCE_READY','HELD','FROZEN','COMPLETED'].includes(b.state) &&
+        (b.state!=='SOURCE_READY' || b.owner===b.source) &&
+        (b.state!=='HELD' || b.owner===b.destination) &&
+        (!done || b.owner===b.destination) &&
+        b.terminalStatus===(done?'research-completed':null) &&
+        idOK(b.creationEvent) && state.events.get(b.creationEvent)?.command.type==='CREATE' &&
+        state.events.get(b.creationEvent)?.command.batchId===key &&
+        Number.isSafeInteger(b.eventSeq) && b.eventSeq>0 && b.eventSeq<=state.revision;
+      if(done)terminal+=b.qty;else live+=b.qty;
+    }
+    const accounted=state.unissued+live+terminal;
+    valid=valid && Number.isSafeInteger(live) && Number.isSafeInteger(terminal) && Number.isSafeInteger(accounted) && accounted===manifest.total;
+    return {ok:!!valid,total:manifest.total,unissued:state.unissued,live,terminal,accounted};
+  }
+  function snapshot() {
+    return copyData({sessionId,revision:ledger.revision,manifest,unissued:ledger.unissued,
+      batches:[...ledger.batches.values()],
+      events:[...ledger.events.values()].map(e=>({eventId:e.command.eventId,command:e.command,result:e.result})),
+      conservation:conservation(ledger),limits},32768);
+  }
+  function command(input) {
+    let c;
+    try { c=copyData(input); }catch(_) { return fail('invalid-data'); }
+    if(!exact(c,['eventId','sessionId','batchId','type','expectedRevision','payload']) || !idOK(c.eventId) || !idOK(c.batchId))return fail('invalid-command');
+    const signature=JSON.stringify(c),previous=ledger.events.get(c.eventId);
+    if(previous)return previous.signature===signature?copyData(previous.result):fail('event-conflict');
+    if(c.sessionId!==sessionId)return fail('stale-session');
+    if(!Number.isSafeInteger(c.expectedRevision) || c.expectedRevision<0)return fail('invalid-revision');
+    if(c.expectedRevision!==ledger.revision)return fail('stale-revision');
+    if(ledger.events.size>=limits.maxEvents)return fail('event-limit');
+    const p=c.payload,old=ledger.batches.get(c.batchId);
+    let batch;
+    if(c.type==='CREATE') {
+      if(!exact(p,['commodityId','qty','source','destination']))return fail('invalid-payload');
+      if(old)return fail('duplicate-batch');
+      if(ledger.batches.size>=limits.maxBatches)return fail('batch-limit');
+      if(p.commodityId!=='food')return fail('unsupported-commodity');
+      if(!positive(p.qty))return fail('invalid-quantity');
+      if(p.source!==manifest.source || !custodians.has(p.source))return fail('source-unavailable');
+      if(!custodians.has(p.destination) || p.destination===p.source)return fail('destination-unavailable');
+      if(p.qty>ledger.unissued)return fail('source-exhausted');
+      batch={batchId:c.batchId,commodityId:'food',qty:p.qty,source:p.source,destination:p.destination,
+        creationEvent:c.eventId,owner:p.source,location:custodians.get(p.source).location,
+        state:'SOURCE_READY',eventSeq:ledger.revision+1,terminalStatus:null,provenance:manifest.provenance,frozenReason:null};
+    } else {
+      const fields=c.type==='HANDOFF'?['owner','location','to']:c.type==='FREEZE'?['owner','location','reason']:c.type==='COMPLETE'?['owner','location']:null;
+      if(!fields)return fail('unsupported-command');
+      if(!exact(p,fields))return fail('invalid-payload');
+      if(!old)return fail('batch-unavailable');
+      if(old.terminalStatus)return fail('terminal-batch');
+      if(p.owner!==old.owner || p.location!==old.location)return fail('custody-conflict');
+      if(old.state==='FROZEN')return fail('frozen-batch');
+      batch=copyData(old);
+      if(c.type==='HANDOFF') {
+        if(old.state!=='SOURCE_READY')return fail('invalid-transition');
+        if(!custodians.has(p.to) || p.to!==old.destination || p.to===old.owner)return fail('destination-unavailable');
+        batch.owner=p.to;batch.location=custodians.get(p.to).location;batch.state='HELD';
+      } else if(c.type==='FREEZE') {
+        if(typeof p.reason!=='string' || !p.reason.trim() || p.reason.length>160)return fail('invalid-reason');
+        batch.state='FROZEN';batch.frozenReason=p.reason;
+      } else {
+        if(old.state!=='HELD' || old.owner!==old.destination)return fail('invalid-transition');
+        batch.state='COMPLETED';batch.terminalStatus='research-completed';
+      }
+      batch.eventSeq=ledger.revision+1;
+    }
+    const next={revision:ledger.revision+1,unissued:ledger.unissued-(c.type==='CREATE'?batch.qty:0),
+      batches:new Map(ledger.batches),events:new Map(ledger.events)};
+    const result={ok:true,eventId:c.eventId,sessionId,batchId:c.batchId,type:c.type,revision:next.revision,
+      state:batch.state,owner:batch.owner,location:batch.location,qty:batch.qty};
+    next.batches.set(c.batchId,freezeData(batch));
+    next.events.set(c.eventId,freezeData({signature,command:c,result}));
+    if(!conservation(next).ok)return fail('conservation-violation');
+    ledger=next;
+    return copyData(result);
+  }
+  return {ok:true,engine:Object.freeze({command,snapshot})};
+}
+/* GPT-049 PURE FACTORY END */
+(function installShadowCargo049(){
+  'use strict';
+  const baselineSha049='020e3c096974be64680142297423de9a51d4bb8b';
+  const nativeIndexBlob049='f049d7e5724e7567cc73e1af0d8fcda0a4a3b64b';
+  const warning049='研究貨單；不影響正式經濟；未保存，重載即遺失。';
+  let engine049=null,world049=null,lastEnd049=null,documentNonce049=null,sessionSeq049=0;
+  let panel049=null,panelText049=null,panelHandlers049=[],pagehide049=null;
+  const clone049=value=>JSON.parse(JSON.stringify(value));
+  function removePanel049() {
+    for(const [node,type,handler] of panelHandlers049)try{node.removeEventListener(type,handler);}catch(_){}
+    panelHandlers049=[];
+    if(panel049)try{panel049.remove();}catch(_){}
+    panel049=null;panelText049=null;
+  }
+  function end049(reason) {
+    const ending=engine049;
+    engine049=null;world049=null;
+    if(pagehide049)try{window.removeEventListener('pagehide',pagehide049);}catch(_){}
+    pagehide049=null;removePanel049();
+    if(ending) {
+      // Only totals and a reason survive. No manifest, batch or event can resume.
+      try {
+        const c=ending.snapshot().conservation;
+        lastEnd049={reason,total:c.total,unissued:c.unissued,live:c.live,completed:c.terminal,
+          cancelled:c.unissued+c.live,persisted:false,retainedLedger:false};
+      } catch(_) {
+        lastEnd049={reason,total:null,cancelled:null,persisted:false,retainedLedger:false};
+      }
+    }
+    return {ok:true,active:false,ended:lastEnd049?clone049(lastEnd049):null};
+  }
+  function guard049() {
+    if(window.__noShadowCargo049===true){end049('feature-disabled-research-cancelled');return 'disabled';}
+    if(engine049 && world049!==tiles){end049('world-replaced-research-cancelled');return 'stale-world';}
+    return null;
+  }
+  function observation049() {
+    const e=economy482,food=e?.commodities?.food,nativeReady=e?.ready===true,stale=nativeReady&&e.day!==day;
+    const ready=!!(tiles && nativeReady && !stale && food && food.id==='food');
+    return {baselineSha:baselineSha049,nativeIndexBlob:nativeIndexBlob049,provenanceRole:'verified-native-baseline-not-candidate-head',
+      day,seed,N,version:GAME_VER,observedDay:Number.isFinite(e?.day)?e.day:null,ready,stale,
+      status:ready?'available':stale?'stale':'unavailable',granularity:'city-rounded-daily-flow',
+      eligibleForMint:false,productionReceiptSupported:false,food:ready?clone049(food):null};
+  }
+  function snapshot049() {
+    const blocked=guard049();
+    return {ok:!blocked,...(blocked?{code:blocked}:{}),active:!!engine049,persisted:false,
+      ledger:engine049?engine049.snapshot():null,ended:lastEnd049?clone049(lastEnd049):null};
+  }
+  function start049(manifest) {
+    const blocked=guard049();if(blocked)return {ok:false,code:blocked};
+    if(engine049)return {ok:false,code:'session-already-active'};
+    if(!Array.isArray(tiles) || !tiles.length)return {ok:false,code:'world-unavailable'};
+    if(sessionSeq049>=Number.MAX_SAFE_INTEGER)return {ok:false,code:'session-limit'};
+    // Validate before requesting independent WebCrypto bytes. No native RNG is used.
+    const checked=createShadowCargo049('validation-only',manifest);
+    if(!checked.ok)return checked;
+    if(!documentNonce049) {
+      try {
+        if(!window.crypto || typeof window.crypto.getRandomValues!=='function')return {ok:false,code:'secure-document-identity-unavailable'};
+        const bytes=new Uint8Array(12);window.crypto.getRandomValues(bytes);
+        documentNonce049=[...bytes].map(n=>n.toString(16).padStart(2,'0')).join('');
+      } catch(_) { return {ok:false,code:'secure-document-identity-unavailable'}; }
+    }
+    const sessionId='lab049:'+documentNonce049+':'+(sessionSeq049+1);
+    const built=createShadowCargo049(sessionId,checked.engine.snapshot().manifest);
+    if(!built.ok)return built;
+    const hide=()=>end049('pagehide-research-cancelled');
+    try { window.addEventListener('pagehide',hide); }
+    catch(_) { return {ok:false,code:'lifecycle-listener-unavailable'}; }
+    sessionSeq049++;engine049=built.engine;world049=tiles;pagehide049=hide;lastEnd049=null;
+    return {ok:true,sessionId,ledger:engine049.snapshot(),warning:warning049};
+  }
+  function command049(input) {
+    const blocked=guard049();if(blocked)return {ok:false,code:blocked};
+    if(!engine049)return {ok:false,code:'session-unavailable'};
+    return engine049.command(input);
+  }
+  function nativeObservation049() {
+    const blocked=guard049();if(blocked)return {ok:false,code:blocked,ready:false,eligibleForMint:false};
+    return {ok:true,...observation049()};
+  }
+  function refresh049() {
+    const blocked=guard049();if(blocked)return {ok:false,code:blocked};
+    if(!engine049)return {ok:false,code:'session-unavailable'};
+    if(!panel049)return {ok:false,code:'panel-not-open'};
+    const data={warning:warning049,kind:'research-custody-not-transport',ledger:engine049.snapshot(),nativeObservation:observation049()};
+    panelText049.textContent=JSON.stringify(data,null,2);
+    return {ok:true,active:true,revision:data.ledger.revision};
+  }
+  function open049() {
+    const blocked=guard049();if(blocked)return {ok:false,code:blocked};
+    if(!engine049)return {ok:false,code:'session-unavailable'};
+    if(panel049)return refresh049();
+    try {
+    const p=document.createElement('section');p.id='shadowCargo049Panel';p.setAttribute('role','dialog');
+    p.setAttribute('aria-labelledby','shadowCargo049Title');p.setAttribute('aria-modal','false');
+    Object.assign(p.style,{position:'fixed',right:'12px',bottom:'12px',width:'min(420px, calc(100vw - 24px))',
+      maxHeight:'min(70vh, 620px)',boxSizing:'border-box',display:'flex',flexDirection:'column',gap:'8px',
+      padding:'12px',border:'2px solid #b4d0c4',borderRadius:'8px',background:'#15251f',color:'#f1f6f3',
+      font:'14px/1.45 system-ui, sans-serif',zIndex:'10000'});
+    const h=document.createElement('h2');h.id='shadowCargo049Title';h.textContent='LAB-01 影子貨物研究';h.style.margin='0';h.style.fontSize='18px';
+    const note=document.createElement('p');note.textContent=warning049;note.style.margin='0';
+    const pre=document.createElement('pre');pre.style.margin='0';pre.style.overflow='auto';pre.style.whiteSpace='pre-wrap';pre.style.overflowWrap='anywhere';pre.style.font='12px/1.4 monospace';pre.style.minHeight='0';
+    const buttons=document.createElement('div');buttons.style.display='flex';buttons.style.flexWrap='wrap';buttons.style.gap='8px';
+    const refresh=document.createElement('button');refresh.id='shadowCargo049Refresh';refresh.type='button';refresh.textContent='重新讀取（唯讀）';
+    const finish=document.createElement('button');finish.id='shadowCargo049End';finish.type='button';finish.textContent='結束研究（未保存）';
+    for(const b of [refresh,finish]){b.style.minHeight='44px';b.style.cursor='pointer';buttons.appendChild(b);}
+    p.append(h,note,pre,buttons);panel049=p;panelText049=pre;
+    const on=(node,type,fn)=>{node.addEventListener(type,fn);panelHandlers049.push([node,type,fn]);};
+    on(refresh,'click',()=>refresh049());on(finish,'click',()=>end049('panel-ended-research-cancelled'));
+    for(const type of ['pointerdown','pointerup','click','dblclick','wheel'])on(p,type,e=>e.stopPropagation());
+    on(p,'keydown',e=>{e.stopPropagation();if(e.key==='Escape'){e.preventDefault();end049('panel-ended-research-cancelled');}});
+    document.body.appendChild(p);return refresh049();
+    }
+    catch(_) { removePanel049();return {ok:false,code:'panel-unavailable'}; }
+  }
+  function selftest049() {
+    const blocked=guard049();if(blocked)return {ok:false,checks:['feature disabled or stale world'],code:blocked};
+    if(engine049)return {ok:false,checks:['selftest requires no active research session; existing session was not modified']};
+    const checks=[],add=(name,ok)=>checks.push([name,!!ok]);
+    const manifest={manifestId:'selftest-manifest',provenance:'qa-fixture',commodityId:'food',total:7,source:'source',
+      custodians:[{id:'source',location:'research:source'},{id:'receiver',location:'research:receiver'}]};
+    const made=createShadowCargo049('selftest-session',manifest);
+    add('finite research manifest accepted',made.ok);
+    if(!made.ok)return {ok:false,checks:checks.map(c=>c[0]+': '+c[1])};
+    const e=made.engine,cmd=(eventId,type,payload,expectedRevision=e.snapshot().revision,batchId='batch')=>
+      ({eventId,sessionId:'selftest-session',batchId,type,expectedRevision,payload});
+    const create=cmd('create','CREATE',{commodityId:'food',qty:7,source:'source',destination:'receiver'});
+    const first=e.command(create),before=JSON.stringify(e.snapshot());
+    add('CREATE consumes finite source and conserves',first.ok && e.snapshot().unissued===0 && e.snapshot().conservation.ok);
+    add('identical event is exact replay',JSON.stringify(first)===JSON.stringify(e.command(create)) && JSON.stringify(e.snapshot())===before);
+    for(const changed of [{sessionId:'other-session'},{type:'COMPLETE'},{batchId:'other'},{expectedRevision:1},{payload:{...create.payload,qty:6}}]) {
+      const r=e.command({...create,...changed});add('full semantic event conflict '+Object.keys(changed)[0],r.code==='event-conflict' && JSON.stringify(e.snapshot())===before);
+    }
+    const bad=e.command(cmd('wrong-owner','HANDOFF',{owner:'receiver',location:'research:receiver',to:'receiver'}));
+    add('wrong custody rejects atomically',bad.code==='custody-conflict' && JSON.stringify(e.snapshot())===before);
+    const hand=e.command(cmd('handoff','HANDOFF',{owner:'source',location:'research:source',to:'receiver'}));
+    add('handoff has exactly one recipient owner and location',hand.ok && e.snapshot().batches.length===1 && e.snapshot().batches[0].owner==='receiver' && e.snapshot().conservation.ok);
+    const done=e.command(cmd('complete','COMPLETE',{owner:'receiver',location:'research:receiver'}));
+    const terminal=JSON.stringify(e.snapshot());
+    add('research completion conserves terminal quantity',done.ok && e.snapshot().conservation.terminal===7 && e.snapshot().conservation.live===0);
+    add('terminal cannot revive',!e.command(cmd('again','HANDOFF',{owner:'receiver',location:'research:receiver',to:'source'})).ok && JSON.stringify(e.snapshot())===terminal);
+    manifest.total=99;const view=e.snapshot();view.manifest.total=999;view.batches[0].owner='tampered';create.payload.qty=1;
+    add('input and output copies cannot mutate ledger',JSON.stringify(e.snapshot())===terminal);
+    add('production receipt is not supported',createShadowCargo049('test',{...manifest,provenance:'production-receipt'}).code==='unsupported-production-receipt');
+    const f=createShadowCargo049('freeze-session',{...manifest,total:7}).engine;
+    f.command({...create,payload:{commodityId:'food',qty:3,source:'source',destination:'receiver'},sessionId:'freeze-session'});
+    const frozen=f.command({eventId:'freeze',sessionId:'freeze-session',batchId:'batch',type:'FREEZE',expectedRevision:1,payload:{owner:'source',location:'research:source',reason:'research interruption'}});
+    add('freeze retains quantity and location',frozen.ok && f.snapshot().conservation.live===3 && f.snapshot().unissued===4 && f.snapshot().batches[0].location==='research:source');
+    const readA=JSON.stringify(observation049()),readB=JSON.stringify(observation049());
+    add('observation never authorizes mint',readA===readB && observation049().eligibleForMint===false);
+    // This direct-copy audit deliberately calls no native getter, dispatch, save,
+    // ensure or RNG. It runs synchronously, so no simulation step intervenes.
+    const nativeState=()=>JSON.stringify({
+      tiles,economy482,economy481,logistics485,fin,money,pop,jobs,day,seed,N,goods,fuel,steel,supplies,
+      citizens,cars,trains,tramCars,metroCars477,buses,rbuses,roadLoad,roadPass,
+      mobility491,transit468,railOps463,transitOps501,transitOpsLast501,amAccessLast502,
+      enterprise489,enterpriseRoot489,enterpriseGrace489,spatialLaborRoot491,publicLaborRoot495,publicStaffRoot495,civic495,
+      power471,waterCycle472,MOB_ROAD_COMP462,MOB_RAIL_COMP462,MOB_TRAM_COMP462,ACCESS468,PARKING_PRESSURE491,
+      dirty:{mobilityDirty462,railOpsDirty463,mobility491Dirty,amDirty502,powerDirty450,powerHVDirty471,waterDirty449,
+        waterCycleDirty472,sewerDirty451,sanDirty445,drainDirty454,emergencyDirty455,landDirty,groundDirty,
+        resilienceDirty492,incidentDirty493,junctionDirty503,nightTierDirty413},
+      busRiders463,railOpsCost463,busOpsCost468,transitRidership,parkingRevenue491,amVersion502,
+      undoStack,redoStack,txnHistory460,undoGroup
+    },(_key,value)=>value instanceof Map?[...value.entries()]:value instanceof Set?[...value.values()]:
+      ArrayBuffer.isView(value)?Array.from(value):value);
+    const beforeNative=nativeState(),rngReference=R;
+    let cycleOK=false,cycleError=null;
+    try {
+      const started=start049({manifestId:'runtime-selftest',provenance:'qa-fixture',commodityId:'food',total:2,source:'source',
+        custodians:[{id:'source',location:'research:source'},{id:'receiver',location:'research:receiver'}]});
+      if(!started.ok)throw new Error('start:'+started.code);
+      const command=(eventId,type,payload,expectedRevision)=>({eventId,sessionId:started.sessionId,batchId:'runtime-batch',type,payload,expectedRevision});
+      const created=command049(command('runtime-create','CREATE',{commodityId:'food',qty:2,source:'source',destination:'receiver'},0));
+      const handed=command049(command('runtime-handoff','HANDOFF',{owner:'source',location:'research:source',to:'receiver'},1));
+      const opened=open049(),refreshed=refresh049(),observed=nativeObservation049();
+      cycleOK=created.ok&&handed.ok&&opened.ok&&refreshed.ok&&observed.ok&&snapshot049().ledger.conservation.ok;
+    } catch(error) { cycleError=String(error?.message||error); }
+    finally { end049('selftest-ended-research-cancelled'); }
+    add('enabled runtime start CREATE HANDOFF open refresh end',cycleOK);
+    add('enabled runtime protected native state byte-identical',nativeState()===beforeNative);
+    add('native RNG function unchanged (no cursor claim)',R===rngReference);
+    add('end removes panel and session listener and retains cancellation totals only',!engine049&&!world049&&!panel049&&!pagehide049&&panelHandlers049.length===0&&lastEnd049?.cancelled===2);
+    return {ok:checks.every(c=>c[1]),checks:checks.map(c=>c[0]+(c[1]?' ✓':' ✗')),
+      runtimeError:cycleError,
+      scope:'pure reducer plus synchronous enabled-runtime native-state comparison; storage/RNG-call traps, native lifecycle equivalence, save-roundtrip and screenshots require separate CI evidence'};
+  }
+  const originalLoad049=load,originalWorld049=newWorld;
+  load=function(...args){end049('native-load-attempt-research-cancelled');return originalLoad049.apply(this,args);};
+  newWorld=function(...args){end049('native-new-world-research-cancelled');return originalWorld049.apply(this,args);};
+  window.GV.shadowCargo049=Object.freeze({start:start049,command:command049,snapshot:snapshot049,
+    nativeObservation:nativeObservation049,open:open049,refresh:refresh049,
+    end:()=>end049('explicit-end-research-cancelled'),
+    disable:()=>{window.__noShadowCargo049=true;return end049('feature-disabled-research-cancelled');},
+    selftest:selftest049});
+})();
+/* GPT-049 LAB01 END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。

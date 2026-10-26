@@ -35,7 +35,10 @@ const KEEP = process.argv.includes('--keep');
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'probeLightSide745.js'), '--valve'], {stdio:'inherit'});
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'light-repair023.test.js')], {stdio:'inherit'});
 
-  // GPT-050: independent capacity contracts plus exact-upstream/native QA; original assertions unchanged.
+  // GPT-049: additional isolated ledger contracts and native Chrome evidence.
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'shadow-cargo049.test.js')], {stdio:'inherit'});
+
+  // GPT-050: additive standalone warehouse contracts and disposable native QA.
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'shadow-warehouse050.test.js')], {stdio:'inherit'});
 
   const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
@@ -52,6 +55,7 @@ const KEEP = process.argv.includes('--keep');
 
     log('4b 功能自我測試 …');
     const selftests = [
+      ['shadowCargo049', `(window.GV && window.GV.shadowCargo049) ? window.GV.shadowCargo049.selftest() : {ok:false,checks:['API missing']}`],
       ['british004', `(window.GV && window.GV.britishSelftest004) ? window.GV.britishSelftest004() : {ok:false,checks:['API missing']}`],
       ['highStreet005', `(window.GV && window.GV.highStreetSelftest005) ? window.GV.highStreetSelftest005() : {ok:false,checks:['API missing']}`],
       ['residential006', `(window.GV && window.GV.residentialSelftest006) ? window.GV.residentialSelftest006() : {ok:false,checks:['API missing']}`],

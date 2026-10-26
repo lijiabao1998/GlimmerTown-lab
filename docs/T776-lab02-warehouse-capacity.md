@@ -36,3 +36,8 @@ A 原文：
 
 ## 回滾與初始狀態
 尚未施工／新CI未跑。正式產品仍T775；050原head與全部證據保留。合前失敗則不合；合後按AGENTS既有紅燈／revert批准程序，不自行強推或改部署流程。
+
+
+## C1 靜態施工記錄（尚未取得新版 CI）
+首卡13ca6ed先推。產品index SHA256 459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67；對c0產品只差三個發布metadata。050 core SHA256 0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e不變；原6d test完整另存，SHA256 067de16ccca48cc08fb07d3f6ba8668ec6cbf6a04d7dc9519d4040b372fcf0ad。
+W01新增31個來源／組合真變異：3 metadata、5原檔hash、5已發布049／native來源、12描述欄位、6組合故障。既有050 browser／pure／runtime／lineage測試主體逐byte不變；C僅移除重複的上游049插入。main049保留15來源mutants，原本會等於新tuple的3個破壞值改為14.99／999，確保仍為真故障而非自動放行。沒有本機執行遊戲／harness／測試；只有語法與來源靜態核對。

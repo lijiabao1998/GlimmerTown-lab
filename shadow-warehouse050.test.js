@@ -13,11 +13,126 @@ const native=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
 const anchor='Object.assign(window.GV,{art574:';
 const pure=textBetween(source,'/* GPT-050 PURE FACTORY BEGIN */','/* GPT-050 PURE FACTORY END */');
 function textBetween(s,a,b){assert.equal(s.split(a).length,2);assert.equal(s.split(b).length,2);return s.split(a)[1].split(b)[0];}
-assert.equal(hash(native),provenance.nativeIndexSha256,'W01 native main bytes must be untouched');
-assert.equal(hash(upstreamBlock),provenance.files['lab01-ff4a-runtime.js'].sha256,'W01 exact upstream runtime');
-assert.equal(hash(upstreamTest),provenance.files['shadow-cargo049.test.js'].sha256,'W01 exact upstream tests');
-assert.equal(native.split(anchor).length,2,'W01 unique QA insertion anchor');
-console.log('WAREHOUSE050 SOURCE '+JSON.stringify({head:process.env.GITHUB_SHA||null,nativeHash:hash(native),candidateHash:hash(source),...provenance}));
+// T776: preserve historical fixtures; prove current native and QA-only composition separately.
+const release050=JSON.parse(fs.readFileSync(path.join(Q,'release-source.json'),'utf8'));
+const provenanceText050=fs.readFileSync(path.join(Q,'source.json'),'utf8');
+const archive050=fs.readFileSync(path.join(Q,'original-6d544c2.test.js'),'utf8');
+const expectedRelease050={
+  "schema": "lab050-release-source-v1",
+  "release": {
+    "version": "14.69",
+    "anchor": "T776",
+    "round": 223,
+    "pr": 68
+  },
+  "approvedMain": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
+  "ownerApproval": "Sentinel_bfd6bc2d37648191824dd44b68f0fef7",
+  "productRole": "standalone-core-not-imported-by-index",
+  "candidateIndexSha256": "459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67",
+  "published049": {
+    "pr": 67,
+    "merge": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
+    "indexSha256": "32e3adb65370fd63cf33302c0005996978b3d97d2edd9b52dc17de35e1245e50"
+  },
+  "historical": {
+    "nativeMain": "020e3c096974be64680142297423de9a51d4bb8b",
+    "nativeIndexSha256": "debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624",
+    "lab01Head": "ff4a767a10502378b8e1bb387d2a5ed3b608ecbb",
+    "lab01BlockSha256": "2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb",
+    "lab01TestSha256": "276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b",
+    "lab02Head": "6d544c2fee82d92cf6cf5563db52fb241885a058",
+    "lab02CoreSha256": "0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e",
+    "lab02TestSha256": "067de16ccca48cc08fb07d3f6ba8668ec6cbf6a04d7dc9519d4040b372fcf0ad",
+    "provenanceSha256": "83a750bc17167e36a9eb69bc16f110840782fb9e673cbec03612f0ab7d804968"
+  }
+};
+const releaseStrings050=[
+  ["const GAME_VER='14.69';","const GAME_VER='14.67';",'W01 release GAME_VER'],
+  ["const GAME_ANCHOR='T776';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
+  ['<span id="startVersion456">v14.69 · T776</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
+];
+function verifyRelease050(candidate,overrides={}) {
+  const inputs={descriptor:release050,provenance:provenanceText050,block:upstreamBlock,test:upstreamTest,core:source,archive:archive050,...overrides};
+  assert.deepEqual(inputs.descriptor,expectedRelease050,'W01 approved release descriptor');
+  for(const [key,sha,guard] of [
+    ['provenance',expectedRelease050.historical.provenanceSha256,'W01 original provenance'],
+    ['block',expectedRelease050.historical.lab01BlockSha256,'W01 exact upstream runtime'],
+    ['test',expectedRelease050.historical.lab01TestSha256,'W01 exact upstream tests'],
+    ['core',expectedRelease050.historical.lab02CoreSha256,'W01 unchanged standalone core'],
+    ['archive',expectedRelease050.historical.lab02TestSha256,'W01 exact archived 6d test']
+  ])assert.equal(hash(inputs[key]),sha,guard);
+  let canonical=candidate;
+  for(const [current,historical,guard] of releaseStrings050){
+    assert.equal(canonical.split(current).length,2,guard);
+    canonical=canonical.replace(current,historical);
+  }
+  const begin='/* GPT-049 LAB01 BEGIN */',end='/* GPT-049 LAB01 END */';
+  assert.equal(canonical.split(begin).length,2,'W01 unique published049 begin');
+  assert.equal(canonical.split(end).length,2,'W01 unique published049 end');
+  const block=begin+canonical.split(begin)[1].split(end)[0]+end;
+  assert.equal(hash(block),expectedRelease050.historical.lab01BlockSha256,'W01 unchanged published049 block');
+  assert.equal(canonical.split(block+'\n').length,2,'W01 exact published049 boundary');
+  canonical=canonical.replace(block+'\n','');
+  assert.equal(hash(canonical),expectedRelease050.historical.nativeIndexSha256,'W01 native main bytes must be untouched');
+  return canonical;
+}
+const historicalNative050=verifyRelease050(native);
+console.log('WAREHOUSE050 RELEASE_SOURCE '+JSON.stringify({head:process.env.GITHUB_SHA||null,release:release050,currentIndexHash:hash(native),historicalNativeHash:hash(historicalNative050),role:'standalone-core-not-imported-by-product'}));
+function releaseMutant050(guard,candidate=native,overrides={}){
+  let red;try{verifyRelease050(candidate,overrides);}catch(e){red=e;}
+  assert.ok(red?.code==='ERR_ASSERTION'&&red.message.includes(guard),'W01 source mutant wrong first guard '+guard+' '+red?.message);
+  console.log('WAREHOUSE050 RELEASE_EXPECTED_RED '+JSON.stringify({guard,candidateHash:hash(candidate),overrideHashes:Object.fromEntries(Object.entries(overrides).map(([k,v])=>[k,hash(typeof v==='string'?v:JSON.stringify(v))])),firstFailure:red.message.split('\n')[0]}));
+  verifyRelease050(native);console.log('WAREHOUSE050 RELEASE_RESTORED '+guard);
+}
+for(const [current,,guard] of releaseStrings050)releaseMutant050(guard,native.replace(current,current+current));
+for(const [key,guard] of [['provenance','W01 original provenance'],['block','W01 exact upstream runtime'],['test','W01 exact upstream tests'],['core','W01 unchanged standalone core'],['archive','W01 exact archived 6d test']]){
+  const value={provenance:provenanceText050,block:upstreamBlock,test:upstreamTest,core:source,archive:archive050}[key];
+  releaseMutant050(guard,native,{[key]:value+'\n/* unauthorized mutation */'});
+}
+releaseMutant050('W01 unique published049 begin',native+'\n/* GPT-049 LAB01 BEGIN */');
+releaseMutant050('W01 unique published049 end',native+'\n/* GPT-049 LAB01 END */');
+releaseMutant050('W01 unchanged published049 block',native.replace('/* GPT-049 LAB01 BEGIN */','/* GPT-049 LAB01 BEGIN */\n/* mutation */'));
+releaseMutant050('W01 exact published049 boundary',native.replace('/* GPT-049 LAB01 END */\n','/* GPT-049 LAB01 END */\r\n'));
+releaseMutant050('W01 native main bytes must be untouched',native+'\n<!-- undeclared native change -->');
+for(const mutate of [d=>d.schema='wrong',d=>d.release.version='14.99',d=>d.release.anchor='T999',d=>d.release.round=999,d=>d.release.pr=999,
+  d=>d.approvedMain='wrong',d=>d.ownerApproval='wrong',d=>d.productRole='integrated',d=>d.candidateIndexSha256='wrong',
+  d=>d.published049.merge='wrong',d=>d.published049.indexSha256='wrong',d=>d.historical.nativeIndexSha256='wrong']){
+  const descriptor=JSON.parse(JSON.stringify(release050));mutate(descriptor);
+  releaseMutant050('W01 approved release descriptor',native,{descriptor});
+}
+function verifyComposition050(label,base,insert,composed){
+  assert.ok(['A-exact-upstream','B-derived-compatibility','C-native-warehouse'].includes(label),'W01 declared QA role');
+  assert.equal(base.split(anchor).length,2,'W01 unique QA insertion anchor');
+  const expectedBase=label==='C-native-warehouse'?expectedRelease050.candidateIndexSha256:expectedRelease050.historical.nativeIndexSha256;
+  assert.equal(hash(base),expectedBase,'W01 exact QA base bytes');
+  assert.equal(composed.split('/* GPT-049 LAB01 BEGIN */').length,2,'W01 single049 QA composition');
+  assert.equal(composed.split('/* GPT-049 LAB01 END */').length,2,'W01 single049 QA composition');
+  assert.equal(composed,base.replace(anchor,insert+'\n'+anchor),'W01 exact QA insertion only');
+  return composed;
+}
+function compose050(label,insert){
+  const base=label==='C-native-warehouse'?native:historicalNative050;
+  return verifyComposition050(label,base,insert,base.replace(anchor,insert+'\n'+anchor));
+}
+function compositionMutants050(){
+  const label='C-native-warehouse',insert=source,composed=native.replace(anchor,insert+'\n'+anchor);
+  verifyComposition050(label,native,insert,composed);
+  for(const [guard,args] of [
+    ['W01 declared QA role',['undeclared',native,insert,composed]],
+    ['W01 unique QA insertion anchor',[label,native+anchor,insert,composed]],
+    ['W01 exact QA base bytes',[label,native+'\n<!-- extra -->',insert,composed]],
+    ['W01 single049 QA composition',[label,native,upstreamBlock+'\n'+insert,native.replace(anchor,upstreamBlock+'\n'+insert+'\n'+anchor)]],
+    ['W01 single049 QA composition',[label,native,insert,composed+'\n/* GPT-049 LAB01 END */']],
+    ['W01 exact QA insertion only',[label,native,insert,composed+'\n<!-- extra QA mutation -->']]
+  ]){
+    let red;try{verifyComposition050(...args);}catch(e){red=e;}
+    assert.ok(red?.code==='ERR_ASSERTION'&&red.message.includes(guard),'W01 composition wrong first guard '+guard+' '+red?.message);
+    console.log('WAREHOUSE050 RELEASE_EXPECTED_RED '+JSON.stringify({guard,baseHash:hash(args[1]),composedHash:hash(args[3]),firstFailure:red.message.split('\n')[0]}));
+    verifyComposition050(label,native,insert,composed);console.log('WAREHOUSE050 RELEASE_RESTORED '+guard);
+  }
+}
+compositionMutants050();
+
 const originalPure=textBetween(upstreamBlock,'/* GPT-049 PURE FACTORY BEGIN */','/* GPT-049 PURE FACTORY END */');
 const compatibilityBlock=upstreamBlock.replace(originalPure,pure.replace('function createWarehouseCargo050(','function createShadowCargo049('));
 const roots=[];
@@ -29,11 +144,10 @@ function qaRoot(label,insert) {
     fs.symlinkSync(path.join(ROOT,f),path.join(dir,f),fs.statSync(path.join(ROOT,f)).isDirectory()?'dir':'file');
   }
   fs.copyFileSync(path.join(ROOT,'harness.js'),path.join(dir,'harness.js'));
-  const composed=native.replace(anchor,insert+'\n'+anchor);
-  assert.equal(hash(composed.replace(insert+'\n','')),hash(native),'W01 removing only declared QA insertions restores native bytes');
+  const composed=compose050(label,insert);
   fs.writeFileSync(path.join(dir,'index.html'),composed);
   fs.writeFileSync(path.join(dir,'shadow-cargo049.test.js'),upstreamTest);
-  console.log('WAREHOUSE050 COMPOSITION '+JSON.stringify({label,htmlHash:hash(composed),harnessHash:hash(fs.readFileSync(path.join(dir,'harness.js'))),role:'disposable-QA-not-product'}));
+  console.log('WAREHOUSE050 COMPOSITION '+JSON.stringify({label,htmlHash:hash(composed),harnessHash:hash(fs.readFileSync(path.join(dir,'harness.js'))),role:label==='C-native-warehouse'?'current-native-single049-plus-QA050-not-product':'historical-T774-contract-fixture-not-current-product',baseHash:hash(label==='C-native-warehouse'?native:historicalNative050)}));
   return dir;
 }
 function legacy(label,block) {
@@ -75,7 +189,7 @@ window.__installVariant050=text=>{
 /* GPT-050 QA OBSERVER ONLY END */
 `;
 async function browser() {
-  const dir=qaRoot('C-native-warehouse',upstreamBlock+'\nconst qaLoadBase050=load,qaWorldBase050=newWorld;\n'+source+'\n'+observer);
+  const dir=qaRoot('C-native-warehouse','const qaLoadBase050=load,qaWorldBase050=newWorld;\n'+source+'\n'+observer);
   const {withGame,sleep,waitFor}=require(path.join(dir,'harness.js'));
   const result=await withGame({port:8199,timeout:300,fresh:true,log:s=>console.log('WAREHOUSE050 CHROME '+s)},async({cdp})=>{
     await cdp.evalJs('GV.setSpeed(0); true');
@@ -636,7 +750,7 @@ function runPureAndRuntimeTests({source, upstreamBlock, assert = require('node:a
   legacy('A-exact-upstream',upstreamBlock);
   legacy('B-derived-compatibility',compatibilityBlock);
   await browser();
-  console.log('WAREHOUSE050 ALL_PASS '+JSON.stringify({head:process.env.GITHUB_SHA||null,nativeProductUnchanged:true,published:false}));
+  console.log('WAREHOUSE050 ALL_PASS '+JSON.stringify({head:process.env.GITHUB_SHA||null,nativeProductUnchangedOutsideReleaseMetadata:true,productWarehouseIntegrated:false,capacityEvidence:'isolated-QA-only'}));
 })().catch(e=>{console.error('WAREHOUSE050 FAIL',e.stack||e);process.exitCode=1;}).finally(()=>{
   for(const dir of roots)try{fs.rmSync(dir,{recursive:true,force:true});}catch(_){}
 });

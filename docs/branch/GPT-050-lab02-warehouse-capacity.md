@@ -166,3 +166,9 @@ manifest food20；A7、B8、unissued5；warehouse research-warehouse-A容量10�
 - k169展示關聯未做，避免Undo物件替換／生命週期假綁定。沒有原生單倉庫庫存、實體道路、貨車、列車、產業生產、T482/T490寫入、存檔schema或RNG變動。
 - 真手機硬體與Safari未測；研究容量10與上界不是正式平衡批准。
 - PR67仍Draft；本卡只交[等業主]Draft，不Ready／merge／deploy。兩張待審即停止，不開LAB03、不占下張卡號。
+
+
+## 2026-10-26 業主 A：T776 有界發布準備（新 head 待驗）
+業主明確選A批准PR67→68依序適配、完整重驗後正常合併與自動Pages；首卡[T776](../T776-lab02-warehouse-capacity.md)於commit13ca6ed61bfd5d335d0972dbc69a90e34a5bcf3b先推。上方6d候選收據保留，不代表這次新組合已驗。
+接入main c0d4a039／T775的049之後，本檔核心與歷史source.json／ff4a fixtures均不改。A/B還原T774 native做原契約；C使用已含唯一049的現在native、只插050及既有QA觀測。新發布描述釘定完整獨立tuple及原始hash；新增31種來源／組合真變異須首紅與還原，原049與050的行為、UI、保存隔離與性能門檻不減。
+產品index只有14.69/T776三個metadata變動，050沒有import／接線；容量10仍是隔離研究fixture，不是k169或正式倉容。後續單一研究帳接線需另卡Draft，沒有自動合併權。原核與全部舊失敗證據保存；本階段只有靜態語法與byte proof，CI尚未跑。
