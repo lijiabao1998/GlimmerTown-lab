@@ -128,11 +128,72 @@ check('L01 memory admission refuses without evicting cargo', () => {
 // Runtime integration, source mutants and Chrome evidence are below. No local
 // execution receipt is claimed: this file is wired only additively into CI.
 
+// T775 owner-approved release projection; the historical SHA and exact ff4a test remain pinned.
+const release049 = JSON.parse(fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/release-source.json'),'utf8'));
+const archive049 = fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/original-ff4a.test.js'),'utf8');
+const sha049 = text => crypto.createHash('sha256').update(text).digest('hex');
+const expectedRelease049={
+  schema:'lab049-release-source-v1',
+  release:{version:'14.68',anchor:'T775',round:222,pr:67},
+  approvedMain:'020e3c096974be64680142297423de9a51d4bb8b',
+  ownerApproval:'Sentinel_bfd6bc2d37648191824dd44b68f0fef7',
+  historical:{head:'ff4a767a10502378b8e1bb387d2a5ed3b608ecbb',version:'14.67',anchor:'T774',
+    nativeSha256:'debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624',
+    blockSha256:'2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb',
+    testSha256:'276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b'}
+};
+assert.deepEqual(release049,expectedRelease049,'R06 approved release descriptor');
+const releaseStrings049=[
+  ["const GAME_VER='"+release049.release.version+"';","const GAME_VER='14.67';",'R06 GAME_VER'],
+  ["const GAME_ANCHOR='"+release049.release.anchor+"';","const GAME_ANCHOR='T774';",'R06 GAME_ANCHOR'],
+  ['<span id="startVersion456">v'+release049.release.version+' · '+release049.release.anchor+'</span>',
+   '<span id="startVersion456">v14.67 · T774</span>','R06 startVersion456']
+];
+function verifyReleaseSource049(candidate,archive=archive049,descriptor=release049) {
+  assert.deepEqual(descriptor,expectedRelease049,'R06 approved release descriptor');
+  assert.equal(sha049(archive),release049.historical.testSha256,'R06 exact archived ff4a test');
+  let canonical=candidate;
+  for(const [current,historical,guard] of releaseStrings049) {
+    assert.equal(canonical.split(current).length,2,guard+' exact unique approved metadata');
+    canonical=canonical.replace(current,historical);
+  }
+  const begin='/* GPT-049 LAB01 BEGIN */',end='/* GPT-049 LAB01 END */';
+  assert.equal(canonical.split(begin).length,2,'R06 unique research begin');
+  assert.equal(canonical.split(end).length,2,'R06 unique research end');
+  const whole=begin+canonical.split(begin)[1].split(end)[0]+end;
+  assert.equal(sha049(whole),release049.historical.blockSha256,'R06 unchanged research block');
+  assert.equal(canonical.split(whole+'\n').length,2,'R06 exact insertion boundary');
+  canonical=canonical.replace(whole+'\n','');
+  assert.equal(sha049(canonical),release049.historical.nativeSha256,'R06 unchanged canonical native bytes');
+  return {release:release049.release,candidateSha256:sha049(candidate),canonicalSha256:sha049(canonical),blockSha256:sha049(whole)};
+}
 check('L06 original index bytes unchanged outside declared insertion', () => {
-  const whole='/* GPT-049 LAB01 BEGIN */'+block+'/* GPT-049 LAB01 END */\n';
-  const original=html.replace(whole,'');
-  assert.equal(crypto.createHash('sha256').update(original).digest('hex'),'debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624');
+  console.log('SHADOW049 RELEASE_SOURCE '+JSON.stringify(verifyReleaseSource049(html)));
 });
+function sourceMutant049(name,candidate,archive=archive049,descriptor=release049) {
+  check(name,()=>{
+    let failure;
+    try {verifyReleaseSource049(candidate,archive,descriptor);}catch(e){failure=e;}
+    assert.ok(failure,name+' mutant escaped');
+    assert.equal(failure.code,'ERR_ASSERTION',name+' must fail its assertion, not another exception');
+    assert.ok(failure.message.includes(name),name+' wrong first guard: '+failure.message);
+    console.log('SHADOW049 RELEASE_EXPECTED_RED '+JSON.stringify({guard:name,sourceHash:sha049(candidate),archiveHash:sha049(archive),descriptorHash:sha049(JSON.stringify(descriptor)),firstFailure:failure.message.split('\n')[0]}));
+    verifyReleaseSource049(html);
+    console.log('SHADOW049 RELEASE_RESTORED '+name);
+  });
+}
+for(const [current,,guard] of releaseStrings049)sourceMutant049(guard,html.replace(current,current+'/* undeclared duplicate */'+current));
+sourceMutant049('R06 unique research begin',html+'\n/* GPT-049 LAB01 BEGIN */');
+sourceMutant049('R06 unchanged research block',html.replace('/* GPT-049 LAB01 BEGIN */','/* GPT-049 LAB01 BEGIN */\n/* unauthorized research mutation */'));
+sourceMutant049('R06 unchanged canonical native bytes',html+'\n<!-- unauthorized native mutation -->');
+sourceMutant049('R06 exact archived ff4a test',html,archive049+'\n// unauthorized archive mutation\n');
+for(const change of [d=>d.release.version='14.69',d=>d.release.anchor='T999',d=>d.release.round=223,d=>d.release.pr=68,
+  d=>d.approvedMain='unapproved-main',d=>d.ownerApproval='unapproved-message',d=>d.schema='unapproved-schema',
+  d=>d.historical.nativeSha256='unapproved-baseline']) {
+  const corrupt=JSON.parse(JSON.stringify(release049));change(corrupt);
+  sourceMutant049('R06 approved release descriptor',html,archive049,corrupt);
+}
+
 check('L01 admitted maximum remains readable without data loss', () => {
   const e=makeEngine({total:32});
   for(let i=0;i<32;i++) {

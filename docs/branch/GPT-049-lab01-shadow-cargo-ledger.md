@@ -144,3 +144,12 @@ GPT不得本機跑遊戲、smoke、fp或pixel probes；依repo交CI。新負控�
 - `26fbdaa698ed3e4a91eb01990362465e1f2f557a`：[push run 40273103854](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40273103854)，smoke×3、fp、fiscal-load全部success。fp：新增／變更／移除葉均0，觸及家族0，style無下降，block/env零變動；未提交任何重烘基線。
 - 此結果是第一候選的真執行，不是後續測試補強head的驗收。沒有失敗run洗綠／重跑；後續只增加active前置、browser error及同turn原生完整canvas bytes比較，保留既有判準。
 - 第一create_commit曾被平台以「原確認卡仍待點擊」拒絕；確認原卡已不再pending／本thread不可用後，同一create_commit只重試一次成功。這不代表曾觀察到按鈕批准。隨後核對parent/tree/ref再正常expected-head/nonforce更新自己分支，無替代運輸／force／Ready／合併／部署。
+
+
+## 2026-10-26 09:03 業主 A 與 T775 發布準備（追加，不重寫首卡）
+
+業主直接回覆合併／整合決策問題「A」（Sentinel_bfd6bc2d37648191824dd44b68f0fef7），批准PR67/68有界基底適配、版本／日誌及全驗後67→68正常合併、自動Pages；不含後續整合PR或正式經濟／容量平衡／schema。
+
+本PR67新增[T775凍結發布準備卡](../T775-lab01-shadow-cargo.md)，先推857f139936eab6aeca9be385e4a5c13131d86e40再動手。049實作逐byte不變，僅index三個發布metadata升14.68/T775；來源guard嚴格投影回歷史T774並保留原ff4a test與SHA，新增7種來源故障負控制；不放寬原行為或性能／CI門檻。原卡「不得合併」是當時未批准狀態，已由上述精確PR批准補充，不外推後續卡。
+
+本追加尚未宣稱新head已跑CI，最後驗收與發布收據見T775／PR67；舊ff4a成功不能冒充本次版本已驗。
