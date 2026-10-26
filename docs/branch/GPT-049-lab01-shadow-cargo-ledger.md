@@ -120,3 +120,14 @@ GPT不得本機跑遊戲、smoke、fp或pixel probes；依repo交CI。新負控�
 - [ ] 每新guard首紅正確（未跑）。
 - [ ] smoke×3真CI全綠（未跑）。
 - [x] 沒有把未跑／設計／Draft／shadow寫成已通過／已發布／正式經濟。
+
+## 11. 2026-10-26 隔離候選施工紀錄（不改動首卡驗收）
+
+- 首卡已先推並核實：`ba75cd936304c5a0f0e03965db22309e224b92df`；Draft PR67，`[等業主]`，尚未Ready／合併／發布。
+- 候選新增一段362行LAB01區塊、`shadow-cargo049.test.js`與smoke兩個附加入口。移除整段新增區後，原index SHA256仍逐byte等於`debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624`。沒有改原生函式本體、save、T482/T490、RNG、art、CI或性能閾值。
+- Runtime只做研究保管權帳，沒有物理運輸。native observation標示`verified-native-baseline-not-candidate-head`，`eligibleForMint:false`；不拿基準SHA冒充候選驗收SHA。所有production-receipt建立請求拒絕。
+- 內部靜態review修正：輸入4096-node上限與最大帳快照上限分開，避免合法滿帳無法讀；完整command簽名先查重複事件；day截圖相位改為55／night90；newWorld補this/args/throw契約；持久化及ensure traps計數；舊檔另使用repo已存`fixtures/fiscal-load026/legacy.json`（v14.43），不把剛產生的檔冒稱歷史檔。
+- 附加CI測試包括真factory契約、三種源碼副本負控制、完整wrapper代理、enabled native state同步前後比較、計數RNG／storage／ensure traps、session取消／關閥／pagehide／reload、native建拆UndoRedo、當前及既存v14.43讀存對照、真Chrome桌面及mobile viewport日夜圖。這是**待執行測試內容，不是通過收據**。
+- 原圖預期由既有smoke artifact的`shots/smoke-shadow049-*.png`收集，既有workflow完全不改；精確候選SHA、CI結果及任何首次失敗後續補列。沒有本機跑game／smoke／fp／probe。
+- 本機git push因無HTTPS認證失敗，沒有提取憑證；後續分支fetch遇shared shallow parent缺物件。改用已連接Primary的正常blob/tree/commit/expected-ref操作，整個index單一blob返回`de9c5e1331295fdc8a9127ffff2c45c44b33bd5f`與本機Git物件hash一致；不force、不改main、不拆錯Git blob。
+- 沒做成／未驗：目前CI及圖片尚未取得；真硬體觸控／Safari未測。無真倉容、背壓、道路配送、貨列車、旅客OD、商店補貨或持久保存。容量／正式玩法數值／存檔／發布仍待業主。
