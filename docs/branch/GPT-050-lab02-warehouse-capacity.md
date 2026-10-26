@@ -131,3 +131,38 @@ manifest food20；A7、B8、unissued5；warehouse research-warehouse-A容量10�
 - C1已實跑：26個pure/VM守衛與40個來源變異、W01 lineage變異、7個Chrome UI變異均首紅並還原；A精確049與B相容組合各完整原049含Chrome通過；C已走完24張desktop/mobile日夜六狀態，容量0→7→7→0→8。上述不能代稱整體CI通過。
 - 內部唯讀靜態覆核另補強兩處測試：JSON必須hit-test到可見區且真滾輪後offset由0增加（不再把預先定位外層scroll誤當成功）；reload前新建的實際session須demo/open成功且active/panel/token存在，輸出實際token。
 - native toolbar不只看存在：研究關閉後真Chrome滑鼠點原生目錄開啟與關閉，保留原生縮放驗證。此commit不改任何warehouse產品候選程式。
+
+## C2驗收收據與收工自檢（2026-10-26）
+
+證據head：d643e127296a671a14d1cbb38b2aed039b8f6984；[完整push CI 40286966513](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40286966513) success（smoke3、fp、fiscal-load）。本次補卡後仍須最後head由原CI驗證，結果見本PR；不得把此收據冒稱後續未跑head已通過。
+
+- [x] 卡面動手前獨立推送：d6825324502f316bab312552b8750f046ee53335。家族「無」及固定序列不變。C1新測試錯誤與C2正確原生counter控制已完整保留，非放鬆既有判準。
+- [x] 同seed491啟用／結束研究的完整native觀測相同；建立road／拆除／Undo／Redo實跑正常。舊v14.43存檔來回字串與無研究控制相同；正常／部分失敗load皆清研究帳，返回值與控制相同。正常load每次原生amVersion502增量皆1；其他完整observer欄位零差。
+- [x] fp相對main基線新增0／變更0／移除0、觸及家族0；風格無下降。未改fp/style基線。C原生Chrome同步啟用與OFF週期完整canvas相同、native欄位相同、RNG0、storage writes0；不是用OFF代替啟用驗證。
+- [x] 美術完整季節／旋轉／疊層新圖清單不適用：沒有新資產、renderer、Canvas或正式index改動。研究面板以真Chrome desktop1280×900、mobile390×844，day55／night90，各六狀態實跑；72張C原PNG已產生於上述artifact。手機JSON收合，容量／等待與按鈕viewport守衛通過；原圖人工檢視與交付結果另列最終review。
+- [x] 新26個pure/VM具名守衛、40個真源碼mutants＋W01 lineage1個＋Chrome UI7個，每次48次首紅／原文還原綠，3次共144。原049未改原文測試A（精確上游）、B（只替換衍生factory的相容模式）各3輪全過，含原Chrome與原負控制；不是只有靜態字串。
+- [x] 原smoke3次連綠、fp綠、完整財務fiscal-load 53 checks／10 negative／0 failures；沒有rerun賭過、沒有改既有斷言或性能／CI門檻。C1紅燈另保留於run40286067184。
+- [x] 卡上歷史「尚未跑」保持當時事實，以上通過均有C2原始CI收據。不宣稱正式產品整合、硬體手機、Safari或合併發布通過。
+
+### 容量與真實操作結果
+
+- 每輪相同20=未發行5＋活躍A7+B8；used依序0、7、7、0、8。B等待仍在source，A出庫仍在receiver，沒有split／mint／雙計。
+- 剛好滿倉10/10、11單批超限拒絕、超額等待、FIFO阻塞、重試、取消、倉庫失效、frozen保貨、eventId重放／衝突、過期revision／錯保管權、queue／event bounds皆由獨立oracle驗證。
+- 真滑鼠按鈕完成六狀態；details真滾輪每次0→420，城市camera z不變。結束後無panel／ledger、cancelled20；原生縮放1→1.4與原生建造目錄開／關成功。reload前確有active session，reload後active=false、ledger=null、panel=false。
+
+### 原圖與原始報告入口
+
+[smoke原附件12634483706](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40286966513/artifacts/12634483706)：42,735,239 bytes，SHA256 1f6bd68bcca2039497efb273a13fabb594addfc827909ad2d27eae68fb9c45ef。內含全部C六狀態PNG、原049 PNG與三次原始smoke文字；不是拼接重畫。
+
+[fiscal原附件12634817126](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40286966513/artifacts/12634817126)；[fp原附件12635090257](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40286966513/artifacts/12635090257)。最終交付將釘最後head的CI／原圖hash；不把短期GitHub附件當永久Library交付。
+
+### C3最小QA定位與待驗狀態
+
+內部唯讀覆核指出原生toolcats橫向可捲動。C2三次真點均已成功，但為使驗收前置明確，僅在新測試的原生目錄點擊前scrollIntoView到可見區，仍保留hit-test與真CDP點擊，不用element.click代替、不刪判準；產品候選shadow-warehouse050.js逐byte未改。本次最後head仍由原有完整CI驗證，未跑前不補通過聲明。
+
+### 沒做成／沒有做／仍待業主
+
+- 沒有將LAB01或LAB02接入正式index／Pages；沒有消費PR67既有live session或保存後續運，只有明示衍生擴充、同初始帳逐值比對與精確上游隔離QA。
+- k169展示關聯未做，避免Undo物件替換／生命週期假綁定。沒有原生單倉庫庫存、實體道路、貨車、列車、產業生產、T482/T490寫入、存檔schema或RNG變動。
+- 真手機硬體與Safari未測；研究容量10與上界不是正式平衡批准。
+- PR67仍Draft；本卡只交[等業主]Draft，不Ready／merge／deploy。兩張待審即停止，不開LAB03、不占下張卡號。

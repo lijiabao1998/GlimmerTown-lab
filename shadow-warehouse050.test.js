@@ -242,6 +242,8 @@ async function browser() {
     const cam1=await run('GV.camera436()');assert.notEqual(cam1.z,cam0.z,'W10 native wheel after close');
     const tools=await run(`(()=>{const e=document.getElementById('tools');return{exists:!!e,buttons:e?.querySelectorAll('button').length||0,display:e?getComputedStyle(e).display:null};})()`);
     assert.equal(tools.exists,true,'W10 native toolbar exists');assert.notEqual(tools.display,'none','W10 toolbar still displayed');
+    // The native category strip is scrollable; establish a visible target, never bypass the hit-test.
+    await run("document.querySelector('.catalog458Btn').scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});true");
     await click('.catalog458Btn',true);
     assert.equal(await run("document.getElementById('buildCatalog458').classList.contains('show')"),true,'W10 native catalog button opens after research close');
     await click('catalogClose458');
