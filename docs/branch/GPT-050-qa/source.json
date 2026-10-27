@@ -1,0 +1,22 @@
+{
+  "repository": "lijiabao1998/GlimmerTown-lab",
+  "role": "exact-upstream-QA-only-not-main-dependency",
+  "upstreamPR": 67,
+  "upstreamHead": "ff4a767a10502378b8e1bb387d2a5ed3b608ecbb",
+  "nativeMain": "020e3c096974be64680142297423de9a51d4bb8b",
+  "nativeIndexSha256": "debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624",
+  "files": {
+    "lab01-ff4a-runtime.js": {
+      "sha256": "2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb",
+      "extraction": "inclusive unique GPT-049 LAB01 markers, no trailing newline"
+    },
+    "shadow-cargo049.test.js": {
+      "sha256": "276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b",
+      "extraction": "whole exact file"
+    }
+  },
+  "upstreamGitBlobs": {
+    "index.html": "de9c5e1331295fdc8a9127ffff2c45c44b33bd5f",
+    "shadow-cargo049.test.js": "e30c7896b9c8261d4e588a5e5aeca72c70c55788"
+  }
+}

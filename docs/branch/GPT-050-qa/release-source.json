@@ -1,0 +1,29 @@
+{
+  "schema": "lab050-release-source-v1",
+  "release": {
+    "version": "14.69",
+    "anchor": "T776",
+    "round": 223,
+    "pr": 68
+  },
+  "approvedMain": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
+  "ownerApproval": "Sentinel_bfd6bc2d37648191824dd44b68f0fef7",
+  "productRole": "standalone-core-not-imported-by-index",
+  "candidateIndexSha256": "459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67",
+  "published049": {
+    "pr": 67,
+    "merge": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
+    "indexSha256": "32e3adb65370fd63cf33302c0005996978b3d97d2edd9b52dc17de35e1245e50"
+  },
+  "historical": {
+    "nativeMain": "020e3c096974be64680142297423de9a51d4bb8b",
+    "nativeIndexSha256": "debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624",
+    "lab01Head": "ff4a767a10502378b8e1bb387d2a5ed3b608ecbb",
+    "lab01BlockSha256": "2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb",
+    "lab01TestSha256": "276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b",
+    "lab02Head": "6d544c2fee82d92cf6cf5563db52fb241885a058",
+    "lab02CoreSha256": "0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e",
+    "lab02TestSha256": "067de16ccca48cc08fb07d3f6ba8668ec6cbf6a04d7dc9519d4040b372fcf0ad",
+    "provenanceSha256": "83a750bc17167e36a9eb69bc16f110840782fb9e673cbec03612f0ab7d804968"
+  }
+}

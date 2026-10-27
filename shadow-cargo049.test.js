@@ -128,14 +128,14 @@ check('L01 memory admission refuses without evicting cargo', () => {
 // Runtime integration, source mutants and Chrome evidence are below. No local
 // execution receipt is claimed: this file is wired only additively into CI.
 
-// T775 owner-approved release projection; the historical SHA and exact ff4a test remain pinned.
+// T776 owner-approved release projection; the historical SHA and exact ff4a test remain pinned.
 const release049 = JSON.parse(fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/release-source.json'),'utf8'));
 const archive049 = fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/original-ff4a.test.js'),'utf8');
 const sha049 = text => crypto.createHash('sha256').update(text).digest('hex');
 const expectedRelease049={
   schema:'lab049-release-source-v1',
-  release:{version:'14.68',anchor:'T775',round:222,pr:67},
-  approvedMain:'020e3c096974be64680142297423de9a51d4bb8b',
+  release:{version:'14.69',anchor:'T776',round:223,pr:68},
+  approvedMain:'c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992',
   ownerApproval:'Sentinel_bfd6bc2d37648191824dd44b68f0fef7',
   historical:{head:'ff4a767a10502378b8e1bb387d2a5ed3b608ecbb',version:'14.67',anchor:'T774',
     nativeSha256:'debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624',
@@ -187,7 +187,7 @@ sourceMutant049('R06 unique research begin',html+'\n/* GPT-049 LAB01 BEGIN */');
 sourceMutant049('R06 unchanged research block',html.replace('/* GPT-049 LAB01 BEGIN */','/* GPT-049 LAB01 BEGIN */\n/* unauthorized research mutation */'));
 sourceMutant049('R06 unchanged canonical native bytes',html+'\n<!-- unauthorized native mutation -->');
 sourceMutant049('R06 exact archived ff4a test',html,archive049+'\n// unauthorized archive mutation\n');
-for(const change of [d=>d.release.version='14.69',d=>d.release.anchor='T999',d=>d.release.round=223,d=>d.release.pr=68,
+for(const change of [d=>d.release.version='14.99',d=>d.release.anchor='T999',d=>d.release.round=999,d=>d.release.pr=999,
   d=>d.approvedMain='unapproved-main',d=>d.ownerApproval='unapproved-message',d=>d.schema='unapproved-schema',
   d=>d.historical.nativeSha256='unapproved-baseline']) {
   const corrupt=JSON.parse(JSON.stringify(release049));change(corrupt);

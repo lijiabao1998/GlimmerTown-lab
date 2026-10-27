@@ -38,6 +38,9 @@ const KEEP = process.argv.includes('--keep');
   // GPT-049: additional isolated ledger contracts and native Chrome evidence.
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'shadow-cargo049.test.js')], {stdio:'inherit'});
 
+  // GPT-050: additive standalone warehouse contracts and disposable native QA.
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'shadow-warehouse050.test.js')], {stdio:'inherit'});
+
   const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
     log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙' +
       (chromeMs ? `（Chrome 冷啟動 ${(chromeMs.ms / 1000).toFixed(1)}s${chromeMs.attempt > 1 ? '，第 2 次才成功' : ''}）` : ''));   // T627：runner 上的冷啟動時間留在紀錄裡
