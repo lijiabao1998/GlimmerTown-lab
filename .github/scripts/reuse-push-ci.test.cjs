@@ -261,6 +261,29 @@ test('trailing workflow-byte difference rejects reuse', () => rejected(f => {
   f.gitValues.set(`show ${H}:${WORKFLOW}`, 'same workflow\n\n');
 }));
 
+// GPT-051: owner-approved CI wall-clock exception, not a game performance limit.
+// Keep an independent exact job map: counting global occurrences can miss swaps,
+// missing limits, duplicate YAML keys, or step-level limits masquerading as jobs.
+function assertApprovedJobTimeouts(workflow) {
+  const label = 'GPT-051 approved job timeout map';
+  const jobsMarkers = [...workflow.matchAll(/^jobs:\s*$/gm)];
+  assert.equal(jobsMarkers.length, 1, `${label}: one jobs mapping`);
+  const jobs = workflow.slice(jobsMarkers[0].index + jobsMarkers[0][0].length);
+  const headers = [...jobs.matchAll(/^  ([a-z][a-z0-9-]*):\s*$/gm)];
+  const actual = headers.map((header, i) => {
+    const block = jobs.slice(header.index, headers[i + 1]?.index ?? jobs.length);
+    // Record all timeout declarations, including wrong indentation/value forms.
+    const limits = [...block.matchAll(/^( +)timeout-minutes:([^\n]*)$/gm)]
+      .map(match => [match[1].length, match[2].trim()]);
+    return [header[1], limits];
+  });
+  assert.deepEqual(actual, [
+    ['reuse-push', [[4, '27']]], ['smoke', [[4, '30']]],
+    ['fp', [[4, '15']]], ['fiscal-load', [[4, '25']]],
+  ], label);
+  assert.equal((workflow.match(/timeout-minutes:/g) || []).length, 4, `${label}: no hidden or duplicate limits`);
+}
+
 test('workflow keeps original commands, artifacts, limits, triggers and permission scope', () => {
   const workflow = fs.readFileSync(path.join(__dirname, '..', 'workflows', 'smoke.yml'), 'utf8');
   const originalCommands = [
@@ -278,8 +301,7 @@ test('workflow keeps original commands, artifacts, limits, triggers and permissi
   assert.equal((workflow.match(/paths-ignore: \['\*\*\.md', 'docs\/\*\*'\]/g) || []).length, 2);
   assert.equal((workflow.match(/permissions:/g) || []).length, 1);
   assert.ok(workflow.includes('permissions:\n      contents: read'));
-  assert.equal((workflow.match(/timeout-minutes: 15/g) || []).length, 2);
-  assert.equal((workflow.match(/timeout-minutes: 25/g) || []).length, 1);
+  assertApprovedJobTimeouts(workflow);
   assert.equal((workflow.match(/retention-days: 14/g) || []).length, 3);
   assert.ok(workflow.includes('group: smoke-${{ github.ref }}\n  cancel-in-progress: true'));
   assert.equal((workflow.match(/if: always\(\) && steps\.reuse\.outputs\.reuse != 'true'/g) || []).length, 3);
@@ -287,4 +309,31 @@ test('workflow keeps original commands, artifacts, limits, triggers and permissi
   assert.ok(!workflow.includes('pull_request_target'));
   assert.ok(!workflow.includes('actions: read'));
   assert.ok(!workflow.includes('gh run cancel'));
+});
+
+test('GPT-051 real workflow timeout mutations first-red at target and restore', async t => {
+  const source = fs.readFileSync(path.join(__dirname, '..', 'workflows', 'smoke.yml'), 'utf8');
+  assertApprovedJobTimeouts(source);
+  const scoped = (job, transform) => source.replace(
+    new RegExp(`(^  ${job}:\\n[\\s\\S]*?)(?=^  [a-z][a-z0-9-]*:|$(?![\\s\\S]))`, 'm'), transform);
+  const mutants = [
+    ...[['reuse-push', 27], ['smoke', 30], ['fp', 15], ['fiscal-load', 25]].map(([job, value]) => [
+      `wrong ${job} timeout`, scoped(job, block => block.replace(`timeout-minutes: ${value}`, `timeout-minutes: ${value + 1}`)),
+    ]),
+    ['missing smoke timeout', scoped('smoke', block => block.replace('    timeout-minutes: 30\n', ''))],
+    ['duplicate smoke timeout', scoped('smoke', block => block.replace('    timeout-minutes: 30', '    timeout-minutes: 30\n    timeout-minutes: 30'))],
+    ['step-level smoke timeout', scoped('smoke', block => block.replace('    timeout-minutes: 30', '      timeout-minutes: 30'))],
+    ['duplicate smoke job', source.replace('  fp:\n', '  smoke:\n    timeout-minutes: 30\n  fp:\n')],
+    ['missing smoke job', scoped('smoke', () => '')],
+    ['hidden extra timeout', source + 'timeout-minutes: 30\n'],
+  ];
+  for (const [name, mutated] of mutants) await t.test(name, () => {
+    assert.notEqual(mutated, source, `${name}: must really mutate workflow source`);
+    let firstRed;
+    try { assertApprovedJobTimeouts(mutated); } catch (error) { firstRed = error; }
+    assert.ok(firstRed instanceof assert.AssertionError, `${name}: target guard must reject`);
+    assert.match(firstRed.message, /GPT-051 approved job timeout map/);
+    assertApprovedJobTimeouts(source);
+    t.diagnostic(`${name}: first-red=${firstRed.message.split('\n')[0]}; restored=PASS`);
+  });
 });
