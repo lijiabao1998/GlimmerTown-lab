@@ -9,7 +9,9 @@ const source=fs.readFileSync(path.join(ROOT,'shadow-warehouse050.js'),'utf8');
 const upstreamBlock=fs.readFileSync(path.join(Q,'lab01-ff4a-runtime.js'),'utf8');
 const upstreamTest=fs.readFileSync(path.join(Q,'shadow-cargo049.test.js'),'utf8');
 const provenance=JSON.parse(fs.readFileSync(path.join(Q,'source.json'),'utf8'));
-const native=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+const candidate052=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+const native=require('./single-research052-source.cjs').projectCandidate052(candidate052);
+console.log('WAREHOUSE050 HISTORICAL_INPUT_ONLY '+JSON.stringify({candidate052Hash:hash(candidate052),validatedT776Hash:hash(native),coverage:'All W01, 26 pure guards, 48 lineage/behavior/UI controls, 31 source negatives and A/B/C below cover historical T776 compositions. Current candidate is covered independently by original049 runtime and single-research052.test.js.'}));
 const anchor='Object.assign(window.GV,{art574:';
 const pure=textBetween(source,'/* GPT-050 PURE FACTORY BEGIN */','/* GPT-050 PURE FACTORY END */');
 function textBetween(s,a,b){assert.equal(s.split(a).length,2);assert.equal(s.split(b).length,2);return s.split(a)[1].split(b)[0];}

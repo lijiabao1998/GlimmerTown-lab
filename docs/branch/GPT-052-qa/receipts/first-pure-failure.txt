@@ -1,0 +1,85 @@
+SINGLE052 SOURCE {"head":null,"candidateIndexSha256":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","blockHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615","baseline":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","provenance":{"schema":"single-ledger052-source-v1","baseMain":"dde12ada3d72110d6a0bef3132eef86b871472ea","designHead":"690df786d65c6795a33a1d91d6d3b5cab07247c7","baselineIndexSha256":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","core050Sha256":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","pure050Sha256":"d91e79e1716887ef535f8fc29cc3be962093dbc16899c069b7b4c9aaba988dfb","historical049RuntimeSha256":"2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb","role":"transient-single-research-ledger-not-native-economy","block052Sha256":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615","insertion":{"before":"/* GPT-049 LAB01 END */\n","after":"Object.assign(window.GV,{art574:"}},"historical049Test":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","historical050Test":"067de16ccca48cc08fb07d3f6ba8668ec6cbf6a04d7dc9519d4040b372fcf0ad"}
+SINGLE052 EXPECTED_RED {"name":"missing","guard":"S01","firstFailure":"S01 unique052 begin","mutantHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67"}
+SINGLE052 RESTORED S01 missing
+SINGLE052 EXPECTED_RED {"name":"duplicate","guard":"S01","firstFailure":"S01 unique052 begin","mutantHash":"89aca033be622b81da72697d9b8886e069ebcabbb2f831d4d38d998eac8d06c9"}
+SINGLE052 RESTORED S01 duplicate
+SINGLE052 EXPECTED_RED {"name":"modified","guard":"S01","firstFailure":"S01 unchanged052 block","mutantHash":"3397bbf5354d5374131ca91e9bb517154adb12a3e9fb9eca5168ca9f039f3441"}
+SINGLE052 RESTORED S01 modified
+SINGLE052 EXPECTED_RED {"name":"moved","guard":"S01","firstFailure":"S01 exact052 insertion boundary","mutantHash":"f74fd80efc55cc58814d72fd5bdce25aa1e0e5483b811b5f5cf65bf7accd734c"}
+SINGLE052 RESTORED S01 moved
+SINGLE052 EXPECTED_RED {"name":"boundary","guard":"S01","firstFailure":"S01 exact052 insertion boundary","mutantHash":"6142b7c0409c64db1c63ad90c675dd15450aff4a878612a3c47abdf56363b2b0"}
+SINGLE052 RESTORED S01 boundary
+SINGLE052 EXPECTED_RED {"name":"outside","guard":"S01","firstFailure":"S01 byte-exact T776 native input","mutantHash":"9fe6ede9db41cd527b30ff7fe3aa89ce0d430554f79b4381338702d8e5aa5c04"}
+SINGLE052 RESTORED S01 outside
+SINGLE052 GREEN S02_OFF
+SINGLE052 GREEN S03_single
+SINGLE052 GREEN S04_capacity
+SINGLE052 GREEN S05_compat
+SINGLE052 GREEN S06_token
+SINGLE052 GREEN S07_load
+SINGLE052 GREEN S08_world
+SINGLE052 GREEN S09_cleanup
+SINGLE052 GREEN S10_pagehide
+SINGLE052 GREEN S11_disable
+SINGLE052 GREEN S12_valve
+SINGLE052 GREEN S13_identity
+SINGLE052 GREEN S14_observation
+SINGLE052 GREEN S15_copy
+SINGLE052 GREEN S16_isolation
+SINGLE052 GREEN S17_render
+SINGLE052 GREEN S18_input
+SINGLE052 GREEN S19_UI
+SINGLE052 GREEN S20_bounds
+SINGLE052 EXPECTED_RED {"name":"aliases","guard":"S03_single","firstFailure":"S03_single 050 alias","mutantHash":"b37f265db569a20e0462a8b073d9bed3beb3fcc8228ce127052c5c563f1301ab","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S03_single aliases
+SINGLE052 EXPECTED_RED {"name":"capacity","guard":"S04_capacity","firstFailure":"S04_capacity exact sequence","mutantHash":"b226ebfe648e2d892feca902478c46c35ff0e8b02df60b998653d93bf382f753","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S04_capacity capacity
+SINGLE052 EXPECTED_RED {"name":"replay","guard":"S05_compat","firstFailure":"S05_compat exact replay","mutantHash":"fc65188ef3de0a358f1829b5f4e4cdfe2fdffb5955412440331b6f29f77af20e","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S05_compat replay
+SINGLE052 EXPECTED_RED {"name":"token","guard":"S06_token","firstFailure":"S06_token stale rejects","mutantHash":"0104cdacda6553fcc28b04d6c0dfd407a3f44a5784839ede7f91e9095592a194","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S06_token token
+SINGLE052 EXPECTED_RED {"name":"load","guard":"S07_load","firstFailure":"S07_load invalidates before native","mutantHash":"0120ac7bc676ccf774bd4c7c7017504b0d60f94a84e6e2e2479d228a4ba7345f","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S07_load load
+SINGLE052 EXPECTED_RED {"name":"world","guard":"S08_world","firstFailure":"S08_world before native","mutantHash":"0345f723509ea7a722340d632713a7fc673dc5021ca8892c388ddaffc16c7d45","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S08_world world
+SINGLE052 EXPECTED_RED {"name":"pagehide","guard":"S10_pagehide","firstFailure":"S10_pagehide invalidates","mutantHash":"9342bdc1aa62679b60232d3ccd437a08e4ea5c9a9d9e754552d59c377716144b","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S10_pagehide pagehide
+SINGLE052 EXPECTED_RED {"name":"disable-compatibility","guard":"S11_disable","firstFailure":"S11_disable original049 flag restores","mutantHash":"f4164c591cb861386d14fd90f7dde1c403457422bcb0eb65dd926b0a01d7b288","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S11_disable disable-compatibility
+SINGLE052 EXPECTED_RED {"name":"world-identity","guard":"S13_identity","firstFailure":"S13_identity tile identity invalidates","mutantHash":"8cd030a85fb3c9261ce30c2dca4cd1c2826675dfe42bf4d10b3abd1737766102","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S13_identity world-identity
+SINGLE052 EXPECTED_RED {"name":"observation","guard":"S14_observation","firstFailure":"S14_observation never mint","mutantHash":"94cb8485d9b87c09a02b7238f6fb3b20cc2b4fbe398229d916449abd42ee4c0b","restoredHash":"038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615"}
+SINGLE052 RESTORED S14_observation observation
+node:internal/assert/utils:77
+    throw err;
+    ^
+
+AssertionError [ERR_ASSERTION]: S00 semantic first assertion output-copy TypeError: Cannot assign to read only property 'ok' of object '[object Object]'
+    at Object.S15_copy (/workspace/GlimmerTown-lab/single-research052.test.js:74:389)
+    at negative (/workspace/GlimmerTown-lab/single-research052.test.js:84:25)
+    at Object.<anonymous> (/workspace/GlimmerTown-lab/single-research052.test.js:106:3)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+    at negative (/workspace/GlimmerTown-lab/single-research052.test.js:85:10)
+    at Object.<anonymous> (/workspace/GlimmerTown-lab/single-research052.test.js:106:3)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

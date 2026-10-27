@@ -1,0 +1,15 @@
+{
+  "schema": "single-ledger052-source-v1",
+  "baseMain": "dde12ada3d72110d6a0bef3132eef86b871472ea",
+  "designHead": "690df786d65c6795a33a1d91d6d3b5cab07247c7",
+  "baselineIndexSha256": "459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67",
+  "core050Sha256": "0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e",
+  "pure050Sha256": "d91e79e1716887ef535f8fc29cc3be962093dbc16899c069b7b4c9aaba988dfb",
+  "historical049RuntimeSha256": "2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb",
+  "role": "transient-single-research-ledger-not-native-economy",
+  "block052Sha256": "038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615",
+  "insertion": {
+    "before": "/* GPT-049 LAB01 END */\n",
+    "after": "Object.assign(window.GV,{art574:"
+  }
+}

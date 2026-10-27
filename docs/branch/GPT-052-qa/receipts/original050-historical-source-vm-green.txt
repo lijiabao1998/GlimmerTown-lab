@@ -1,0 +1,172 @@
+WAREHOUSE050 HISTORICAL_INPUT_ONLY {"candidate052Hash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","validatedT776Hash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","coverage":"All W01, 26 pure guards, 48 lineage/behavior/UI controls, 31 source negatives and A/B/C below cover historical T776 compositions. Current candidate is covered independently by original049 runtime and single-research052.test.js."}
+WAREHOUSE050 RELEASE_SOURCE {"head":null,"release":{"schema":"lab050-release-source-v1","release":{"version":"14.69","anchor":"T776","round":223,"pr":68},"approvedMain":"c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992","ownerApproval":"Sentinel_bfd6bc2d37648191824dd44b68f0fef7","productRole":"standalone-core-not-imported-by-index","candidateIndexSha256":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","published049":{"pr":67,"merge":"c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992","indexSha256":"32e3adb65370fd63cf33302c0005996978b3d97d2edd9b52dc17de35e1245e50"},"historical":{"nativeMain":"020e3c096974be64680142297423de9a51d4bb8b","nativeIndexSha256":"debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624","lab01Head":"ff4a767a10502378b8e1bb387d2a5ed3b608ecbb","lab01BlockSha256":"2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb","lab01TestSha256":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","lab02Head":"6d544c2fee82d92cf6cf5563db52fb241885a058","lab02CoreSha256":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","lab02TestSha256":"067de16ccca48cc08fb07d3f6ba8668ec6cbf6a04d7dc9519d4040b372fcf0ad","provenanceSha256":"83a750bc17167e36a9eb69bc16f110840782fb9e673cbec03612f0ab7d804968"}},"currentIndexHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","historicalNativeHash":"debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624","role":"standalone-core-not-imported-by-product"}
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 release GAME_VER","candidateHash":"db3897beceb28af7a5741b1a2ca687a869a2a44e95e20d59e1a47375894ffe69","overrideHashes":{},"firstFailure":"W01 release GAME_VER"}
+WAREHOUSE050 RELEASE_RESTORED W01 release GAME_VER
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 release GAME_ANCHOR","candidateHash":"a070abc28410239106d2399f0f46595c750b6f68b466c938a0d960dc2c264aa2","overrideHashes":{},"firstFailure":"W01 release GAME_ANCHOR"}
+WAREHOUSE050 RELEASE_RESTORED W01 release GAME_ANCHOR
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 release startVersion456","candidateHash":"418949fb1e18f18c36693abdc9d7862caf8bd8e078415168bec8c065ac275ee9","overrideHashes":{},"firstFailure":"W01 release startVersion456"}
+WAREHOUSE050 RELEASE_RESTORED W01 release startVersion456
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 original provenance","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"provenance":"3b0092ac0e9f1dce2e4344cc535f6d2e095b05be3a9fb06cdee04e5511dcf6e7"},"firstFailure":"W01 original provenance"}
+WAREHOUSE050 RELEASE_RESTORED W01 original provenance
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 exact upstream runtime","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"block":"82905811321f04510bfd60f0fa08126439d99a41364b9b1809a47412039515ca"},"firstFailure":"W01 exact upstream runtime"}
+WAREHOUSE050 RELEASE_RESTORED W01 exact upstream runtime
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 exact upstream tests","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"test":"d120b9b43537dc2c4301154f748ec08152b23416fb1238a61a8d2d9e2b7198ff"},"firstFailure":"W01 exact upstream tests"}
+WAREHOUSE050 RELEASE_RESTORED W01 exact upstream tests
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 unchanged standalone core","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"core":"2cc5c3929c5dba78e792331750d232db12ef764005685798e85a0accf94eeac0"},"firstFailure":"W01 unchanged standalone core"}
+WAREHOUSE050 RELEASE_RESTORED W01 unchanged standalone core
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 exact archived 6d test","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"archive":"83faed9a9059c8c3b56959d9e21a257d4d129d9658f54ead0ec8d181b77f27be"},"firstFailure":"W01 exact archived 6d test"}
+WAREHOUSE050 RELEASE_RESTORED W01 exact archived 6d test
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 unique published049 begin","candidateHash":"893a03281ec73b1174b7a240a5db9b3aea53993fd0a91a6471dd913d20bad3b7","overrideHashes":{},"firstFailure":"W01 unique published049 begin"}
+WAREHOUSE050 RELEASE_RESTORED W01 unique published049 begin
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 unique published049 end","candidateHash":"a619ce600366196ead585dec8c44a9fc78c726982892ef287cfd8ee17f6eb13a","overrideHashes":{},"firstFailure":"W01 unique published049 end"}
+WAREHOUSE050 RELEASE_RESTORED W01 unique published049 end
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 unchanged published049 block","candidateHash":"b3116cf526cabc2f28cd53e146ba3bbf7ef3ff919b826a5400d4ca2e73626d71","overrideHashes":{},"firstFailure":"W01 unchanged published049 block"}
+WAREHOUSE050 RELEASE_RESTORED W01 unchanged published049 block
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 exact published049 boundary","candidateHash":"b3d2a1cca6a521cf71ef5e69e03bea923e0c2f25fc57a0b2e2e3520708d445ea","overrideHashes":{},"firstFailure":"W01 exact published049 boundary"}
+WAREHOUSE050 RELEASE_RESTORED W01 exact published049 boundary
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 native main bytes must be untouched","candidateHash":"a683ab5030ef57e6f92eebc251062d7c87337ba74295bf26270d35c7a24841ce","overrideHashes":{},"firstFailure":"W01 native main bytes must be untouched"}
+WAREHOUSE050 RELEASE_RESTORED W01 native main bytes must be untouched
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"f43726c903c4a175ea42f872d86f6f7003204f63d6cb3caec4a7a3c518507702"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"11222f6a5b008eeb87c5bf06ee3e030557b49745dfe80e4a3c6fb14d276ff6f8"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"a5d26eba09ed522c3afa3dd7d097f03bdda59d814a7290272800476ad51559af"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"057f8f252ab42e04997dfcd4ef4acafe7d1e2668d4d39b6a9a7d391795a6811d"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"109d9df78085b6b27a962139bc94a53753996f4e2057936dfd0d6a9f899152c4"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"559729d2fa2b40b2cddfb0b437e1175c64f0888f22d91d65c9acb6d3a684c209"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"111bdaf65f8b42677e126d52c6b1f771d8329f12973de57b464d19ef8e823786"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"f9ea4695201e6f26c771eb0302ba6b0a8e5ce9ac1ed382f588020156fa7e68e5"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"1600647ec6dfa794a70c1563242bf09d28e0853d2bca52ef31bcf3b8b538e487"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"c7e907d490f796f4a792ff21263bade650cc947de84ca43629ec4d60ccf46ccd"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"69f804521291ef15e543dabc7a558eebeb9a67979f46fcbde4c710ccc4c70d29"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 approved release descriptor","candidateHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","overrideHashes":{"descriptor":"95075966928201d04068b94fe6568b8066e03a87f1693b111e0b5bdc3a617be9"},"firstFailure":"W01 approved release descriptor"}
+WAREHOUSE050 RELEASE_RESTORED W01 approved release descriptor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 declared QA role","baseHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","composedHash":"b76ad9038f027a1da29504c2a09792408e841f2d2e29ce1f819e648b79a0206c","firstFailure":"W01 declared QA role"}
+WAREHOUSE050 RELEASE_RESTORED W01 declared QA role
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 unique QA insertion anchor","baseHash":"226952127bad90b80a9074798e1b0f8f5af14c68139e2276dd5bd13e7c25c8a8","composedHash":"b76ad9038f027a1da29504c2a09792408e841f2d2e29ce1f819e648b79a0206c","firstFailure":"W01 unique QA insertion anchor"}
+WAREHOUSE050 RELEASE_RESTORED W01 unique QA insertion anchor
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 exact QA base bytes","baseHash":"b246da4d6bb12eda79ac582d56d7f91551920b75de4306d83852d5dfd5c0aed3","composedHash":"b76ad9038f027a1da29504c2a09792408e841f2d2e29ce1f819e648b79a0206c","firstFailure":"W01 exact QA base bytes"}
+WAREHOUSE050 RELEASE_RESTORED W01 exact QA base bytes
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 single049 QA composition","baseHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","composedHash":"f7b81d56a61ce60afe789874fd1942c12a63f9f18c1409680c9c5bc769e8c752","firstFailure":"W01 single049 QA composition"}
+WAREHOUSE050 RELEASE_RESTORED W01 single049 QA composition
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 single049 QA composition","baseHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","composedHash":"08a93cf73236786585bc3c3134c6671f5c7f089d31a0cbc2dbdf8c0b3eebdfe3","firstFailure":"W01 single049 QA composition"}
+WAREHOUSE050 RELEASE_RESTORED W01 single049 QA composition
+WAREHOUSE050 RELEASE_EXPECTED_RED {"guard":"W01 exact QA insertion only","baseHash":"459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67","composedHash":"b815be1e1bc38f6150c707a3ec447261ef67d823a1c54b66c4e9def157aee3d4","firstFailure":"W01 exact QA insertion only"}
+WAREHOUSE050 RELEASE_RESTORED W01 exact QA insertion only
+WAREHOUSE050 EXPECTED_RED {"guard":"W01-lineage","firstFailure":"W01-lineage inherited CREATE result equality"}
+WAREHOUSE050 RESTORED W01-lineage
+WAREHOUSE050 GREEN W02_capacity
+WAREHOUSE050 GREEN W02_oversize
+WAREHOUSE050 GREEN W03_custody
+WAREHOUSE050 GREEN W03_atomic
+WAREHOUSE050 GREEN W04_events
+WAREHOUSE050 GREEN W05_fifo
+WAREHOUSE050 GREEN W05_bounds
+WAREHOUSE050 GREEN W06_cancel
+WAREHOUSE050 GREEN W06_frozen
+WAREHOUSE050 GREEN W06_invalid
+WAREHOUSE050 GREEN W07_copy
+WAREHOUSE050 GREEN W07_getters
+WAREHOUSE050 GREEN W07_conservation
+WAREHOUSE050 GREEN W08_load
+WAREHOUSE050 GREEN W08_world
+WAREHOUSE050 GREEN W08_pagehide
+WAREHOUSE050 GREEN W08_disable
+WAREHOUSE050 GREEN W08_flag
+WAREHOUSE050 GREEN W08_tiles
+WAREHOUSE050 GREEN W08_end
+WAREHOUSE050 GREEN W08_buttons
+WAREHOUSE050 GREEN W09_isolation
+WAREHOUSE050 GREEN W10_vmButtons
+WAREHOUSE050 GREEN W02_config
+WAREHOUSE050 GREEN W05_eventBound
+WAREHOUSE050 GREEN W10_renderAtomic
+WAREHOUSE050 EXPECTED_RED {"name":"config-capacity","guard":"W02_config","firstAssertion":"W02_config invalid bounded config {\"capacity\":0}","sourceHash":"d789149be3bf5f4610a15f025252a36c78e6716bf763b8a06f322d14a14560d4","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"!positive(warehouse.capacity) ||","to":"","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN config-capacity W02_config
+WAREHOUSE050 EXPECTED_RED {"name":"event-bound","guard":"W05_eventBound","firstAssertion":"W05_eventBound must reject","sourceHash":"70dec7de2189a1f65b9095e5b11650280fb70a54b0edc0b62d81c0ae1fab76e2","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(ledger.events.size>=limits.maxEvents)return fail('event-limit');","to":"","occurrence":0},{"from":"state.events.size<=limits.maxEvents","to":"true","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN event-bound W05_eventBound
+WAREHOUSE050 EXPECTED_RED {"name":"render-atomic","guard":"W10_renderAtomic","firstAssertion":"Got unwanted exception: W10_renderAtomic render failure cannot turn committed event into thrown failure","sourceHash":"2280917287702701966db726407d459c9f2a70dca94412c6f48d12ecd414d4f0","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(panel)try{refresh();}catch(_){removePanel();}","to":"if(panel)refresh();","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN render-atomic W10_renderAtomic
+WAREHOUSE050 EXPECTED_RED {"name":"capacity","guard":"W02_capacity","firstAssertion":"W02_capacity capacity shortage accepts a waiting request","sourceHash":"f9890d47625406f98053d98530cf523c3315977781d0b9681a263ff3249dcd61","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const mayEnter=old.qty<=room && (c.type==='WH_RETRY' || whNext.waiting.length===0);","to":"const mayEnter=true;","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN capacity W02_capacity
+WAREHOUSE050 EXPECTED_RED {"name":"used","guard":"W02_capacity","firstAssertion":"W02_capacity 7/10","sourceHash":"32c7cf69f6793a2d21a1408c0dd31af050ea66b3f7ab0520dc8c7190ca2913c5","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const storedQuantity=state=>warehouse?[...state.batches.values()].filter(b=>b.owner===warehouse.id).reduce((n,b)=>n+b.qty,0):0;","to":"const storedQuantity=state=>0;","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN used W02_capacity
+WAREHOUSE050 EXPECTED_RED {"name":"oversized-wait","guard":"W02_oversize","firstAssertion":"W02_oversize must reject","sourceHash":"24b29af8e4174e801a88a982c57e8a87367220e45cc805a49ed80fbc0428bbdd","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(old.qty>warehouse.capacity)return fail('batch-exceeds-capacity');","to":"","occurrence":0},{"from":"b.qty<=warehouse.capacity && state.events.get(q.requestId)?.command.type==='WH_IN'","to":"true && state.events.get(q.requestId)?.command.type==='WH_IN'","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN oversized-wait W02_oversize
+WAREHOUSE050 EXPECTED_RED {"name":"custody","guard":"W03_custody","firstAssertion":"W03_custody must reject","sourceHash":"3be3ed8245059e0287e808f90f7e487956ee06f887faf6cf020b350091d4d0a3","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(old.owner!==p.owner || old.location!==p.location)return fail('custody-conflict');","to":"","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN custody W03_custody
+WAREHOUSE050 EXPECTED_RED {"name":"outbound-location","guard":"W03_custody","firstAssertion":"W03_custody legitimate outbound","sourceHash":"d3cd122852f90ce991deeb7ce86f284f1edad84e8a73498de426256e203ece1f","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"batch={...copyData(old),owner:p.to,location:custodians.get(p.to).location,state:'HELD',eventSeq:ledger.revision+1};","to":"batch={...copyData(old),owner:p.to,location:old.location,state:'HELD',eventSeq:ledger.revision+1};","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN outbound-location W03_custody
+WAREHOUSE050 EXPECTED_RED {"name":"atomic-final-validation","guard":"W03_atomic","firstAssertion":"W03_atomic final validation failure must not commit","sourceHash":"e9467f4ff8f966993c15ea38fefb070e22759ed5eff867ad4631b0b901806c4d","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(!conservation(next).ok)return fail('conservation-violation');\n    ledger=next;","to":"ledger=next;\n    if(!conservation(next).ok)return fail('conservation-violation');","occurrence":0},{"from":"unissued:ledger.unissued-(c.type==='CREATE'?batch.qty:0)","to":"unissued:ledger.unissued","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN atomic-final-validation W03_atomic
+WAREHOUSE050 EXPECTED_RED {"name":"replay","guard":"W04_events","firstAssertion":"W04_events exact replay","sourceHash":"e0092c08c90789ebd195543ff08619cd1572e8fb124581cc2c8286a597abb82e","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(previous)return previous.signature===signature?copyData(previous.result):fail('event-conflict');","to":"if(previous)return fail('broken-replay');","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN replay W04_events
+WAREHOUSE050 EXPECTED_RED {"name":"event-conflict","guard":"W04_events","firstAssertion":"W04_events must reject","sourceHash":"89a34214e71612bc510fa47d3aed192efd4e8a9815c6ec871395543fee53eb44","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(previous)return previous.signature===signature?copyData(previous.result):fail('event-conflict');","to":"if(previous)return copyData(previous.result);","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN event-conflict W04_events
+WAREHOUSE050 EXPECTED_RED {"name":"stale-revision","guard":"W04_events","firstAssertion":"W04_events must reject","sourceHash":"893806509cb6eb7d9e90c11158ced20593f60a517f72cc1e3a8045fac0a20d28","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(c.expectedRevision!==ledger.revision)return fail('stale-revision');","to":"","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN stale-revision W04_events
+WAREHOUSE050 EXPECTED_RED {"name":"fifo-new-arrival","guard":"W05_fifo","firstAssertion":"W05_fifo fitting new arrival cannot jump head","sourceHash":"64f96c4a24d6a15e1f5b6710f5d40c257ff69b9996717b34092321ef485ffc95","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const mayEnter=old.qty<=room && (c.type==='WH_RETRY' || whNext.waiting.length===0);","to":"const mayEnter=old.qty<=room;","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN fifo-new-arrival W05_fifo
+WAREHOUSE050 EXPECTED_RED {"name":"fifo-retry","guard":"W05_fifo","firstAssertion":"W05_fifo must reject","sourceHash":"6f811b40c0edb140e31e31f452d63f15a29ca94611d6cdf1dc829edea5b8cd4b","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(whNext.waiting[0]!==queued)return fail('fifo-head-required');","to":"","occurrence":0},{"from":"if(queued)whNext.waiting.shift();","to":"if(queued)whNext.waiting=whNext.waiting.filter(q=>q!==queued);","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN fifo-retry W05_fifo
+WAREHOUSE050 EXPECTED_RED {"name":"duplicate-queue","guard":"W05_bounds","firstAssertion":"W05_bounds must reject","sourceHash":"2150714baabe42f9275c810affda362bc22035aa77642d5737de139b103c0cbb","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(c.type==='WH_IN' && queued)return fail('duplicate-waiting');","to":"","occurrence":0},{"from":"valid=valid && !ids.has(q.batchId) && !!b","to":"valid=valid && true && !!b","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN duplicate-queue W05_bounds
+WAREHOUSE050 EXPECTED_RED {"name":"queue-bound","guard":"W05_bounds","firstAssertion":"W05_bounds must reject","sourceHash":"fdf12d1d718a867b11616597ce14e55c43c27832b6e3e093aaaf57c728e3f0c8","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(whNext.waiting.length>=warehouse.maxWaiting)return fail('waiting-limit');","to":"","occurrence":0},{"from":"w.waiting.length<=warehouse.maxWaiting","to":"true","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN queue-bound W05_bounds
+WAREHOUSE050 EXPECTED_RED {"name":"cancelled-readmission","guard":"W06_cancel","firstAssertion":"W06_cancel must reject","sourceHash":"81a4f26fca389e17451721f3b8a63553ff0be14292888ad7eb99ac543b2bce10","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(whNext.cancelled.some(q=>q.batchId===c.batchId))return fail('request-cancelled');","to":"","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN cancelled-readmission W06_cancel
+WAREHOUSE050 EXPECTED_RED {"name":"frozen-capacity","guard":"W06_frozen","firstAssertion":"W06_frozen actual custody determines used","sourceHash":"de8faf477050e2606ceacbcff1f547be077a8c0aade55c0958b87764a5e7fbf3","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const storedQuantity=state=>warehouse?[...state.batches.values()].filter(b=>b.owner===warehouse.id).reduce((n,b)=>n+b.qty,0):0;","to":"const storedQuantity=state=>warehouse?[...state.batches.values()].filter(b=>b.owner===warehouse.id && b.state!=='FROZEN').reduce((n,b)=>n+b.qty,0):0;","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN frozen-capacity W06_frozen
+WAREHOUSE050 EXPECTED_RED {"name":"frozen-outbound","guard":"W06_frozen","firstAssertion":"W06_frozen must reject","sourceHash":"c4f0f2e397c93b44d9b59d84dfe8df7b48e53ff065a44468d51d624fd795d3c8","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(old.state==='FROZEN')return fail('frozen-batch');","to":"","occurrence":0},{"from":"if(old.state!=='WAREHOUSED' || old.owner!==warehouse.id)return fail('invalid-transition');","to":"if(!['WAREHOUSED','FROZEN'].includes(old.state) || old.owner!==warehouse.id)return fail('invalid-transition');","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN frozen-outbound W06_frozen
+WAREHOUSE050 EXPECTED_RED {"name":"invalid-warehouse","guard":"W06_invalid","firstAssertion":"W06_invalid must reject","sourceHash":"dbda98a9e17d1a14b56495b2a6d338878826a73ae770cad3a729b5513e25e5a3","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(!whNext.operational)return fail('warehouse-unavailable');","to":"","occurrence":1}]}
+WAREHOUSE050 RESTORED_GREEN invalid-warehouse W06_invalid
+WAREHOUSE050 EXPECTED_RED {"name":"unissued","guard":"W07_conservation","firstAssertion":"W07_conservation CREATE A","sourceHash":"9eca7db6c7bfcc4ae3237fb65f4afdb31ebedb231e8d9000ebd3369e802049f0","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"unissued:ledger.unissued-(c.type==='CREATE'?batch.qty:0)","to":"unissued:ledger.unissued","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN unissued W07_conservation
+WAREHOUSE050 EXPECTED_RED {"name":"result-not-copy","guard":"W07_copy","firstAssertion":"W07_copy returned copies are independently mutable","sourceHash":"c162c32f129b3c50c558d4da74a0c07324fe60a06505c658a6a8c1a8c0928a79","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"return copyData(result);","to":"return result;","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN result-not-copy W07_copy
+WAREHOUSE050 EXPECTED_RED {"name":"getter-input","guard":"W07_getters","firstAssertion":"W07_getters must reject","sourceHash":"0340825c7e0c8ee4f29ace2a1d32572d9b9cc8e69d8b12e2ee0a2c46f75a2a4d","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"try { c=copyData(input); }","to":"try { c=input; }","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN getter-input W07_getters
+WAREHOUSE050 EXPECTED_RED {"name":"load-cancel","guard":"W08_load","firstAssertion":"W08_load invalidated BEFORE delegate","sourceHash":"f27b8cae80ece2e35cd083fe1b708b53cb91b69c93b2388cc9f7243b7b240332","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"load=function(...args){end('load-entry-research-cancelled');return nativeLoad050.apply(this,args);};","to":"load=function(...args){return nativeLoad050.apply(this,args);};","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN load-cancel W08_load
+WAREHOUSE050 EXPECTED_RED {"name":"world-cancel","guard":"W08_world","firstAssertion":"W08_world before delegate","sourceHash":"d750f89ed00ec146ed42799df945db1f6ee77b49e3d5401e8365374fc2d0824d","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"newWorld=function(...args){end('new-world-entry-research-cancelled');return nativeNewWorld050.apply(this,args);};","to":"newWorld=function(...args){return nativeNewWorld050.apply(this,args);};","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN world-cancel W08_world
+WAREHOUSE050 EXPECTED_RED {"name":"pagehide","guard":"W08_pagehide","firstAssertion":"W08_pagehide session removed","sourceHash":"7be0b563ce379df6905edc9abcad03318465bf9cc1a82d21c3cee7f43e45377d","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const hide=()=>end('pagehide-research-cancelled');","to":"const hide=()=>{};","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN pagehide W08_pagehide
+WAREHOUSE050 EXPECTED_RED {"name":"disable-immediate","guard":"W08_disable","firstAssertion":"W08_disable immediate DOM removal before read","sourceHash":"518d2ef3f1aee57513f5d9f281517a8414ca1600af2bd5ab3d99677b39ed5f34","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"disable(){window.__noShadowWarehouse050=true;return end('explicit-disable-research-cancelled');}","to":"disable(){window.__noShadowWarehouse050=true;return {ok:true};}","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN disable-immediate W08_disable
+WAREHOUSE050 EXPECTED_RED {"name":"kill-flag","guard":"W08_flag","firstAssertion":"W08_flag session removed","sourceHash":"c404d2e374e6f04d8cae6f3bb4013f20f66cb080c370bea15981301f2b78158e","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(window.__noShadowWarehouse050===true){end('feature-disabled-research-cancelled');return 'disabled';}","to":"","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN kill-flag W08_flag
+WAREHOUSE050 EXPECTED_RED {"name":"world-identity","guard":"W08_tiles","firstAssertion":"W08_tiles session removed","sourceHash":"49ca1b61702c5ddc95ee917a56161faa792cded3e457ea04843496097245f6d3","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"if(engine && world!==tiles){end('world-replaced-research-cancelled');return 'stale-world';}","to":"","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN world-identity W08_tiles
+WAREHOUSE050 EXPECTED_RED {"name":"end-reason-injection","guard":"W08_end","firstAssertion":"Got unwanted exception: W08_end hostile end input must not throw","sourceHash":"374bb2978ae30ffa2eb9f889393a27311d75586995f98a7078f807851b2c5856","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"end:()=>end('explicit-research-cancelled'),selftest","to":"end,selftest","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN end-reason-injection W08_end
+WAREHOUSE050 EXPECTED_RED {"name":"retry-empty-guard","guard":"W08_buttons","firstAssertion":"W08_buttons empty Retry invalidates at flag boundary","sourceHash":"6f166b7e44ac08504d484d3b6daf2e3cb176e51c25f034db9bca307959fad0ad","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"()=>{if(guard())return;const q=engine?.snapshot().warehouse.waitingInbound[0];if(q)operation('WH_RETRY',q.batchId);}","to":"()=>{const q=engine?.snapshot().warehouse.waitingInbound[0];if(q)operation('WH_RETRY',q.batchId);}","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN retry-empty-guard W08_buttons
+WAREHOUSE050 EXPECTED_RED {"name":"cancel-empty-guard","guard":"W08_buttons","firstAssertion":"W08_buttons empty Cancel invalidates at flag boundary","sourceHash":"4f5e22578acb1e104526b09455e6a775da3802e65a9fbb4e3894346d2bb95dd3","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"()=>{if(guard())return;const q=engine?.snapshot().warehouse.waitingInbound[0];if(q)operation('WH_CANCEL',q.batchId);}","to":"()=>{const q=engine?.snapshot().warehouse.waitingInbound[0];if(q)operation('WH_CANCEL',q.batchId);}","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN cancel-empty-guard W08_buttons
+WAREHOUSE050 EXPECTED_RED {"name":"native-write","guard":"W09_isolation","firstAssertion":"W09_isolation enabled protected native values unchanged","sourceHash":"730ac2ba3b5e3a7a54ac9ca9276b8a29c45cc7a3cd71398aef58bb7371360981","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const r=engine.command(input);","to":"money+=1;const r=engine.command(input);","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN native-write W09_isolation
+WAREHOUSE050 EXPECTED_RED {"name":"native-rng","guard":"W09_isolation","firstAssertion":"W09_isolation zero rng calls","sourceHash":"c3f3807f1eebb6d718552904a1b06d12e18b47d4617ea1011b38f0011ce3128b","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const r=engine.command(input);","to":"R();const r=engine.command(input);","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN native-rng W09_isolation
+WAREHOUSE050 EXPECTED_RED {"name":"native-storage","guard":"W09_isolation","firstAssertion":"W09_isolation zero storage calls","sourceHash":"041d80dff8dd90a88e29fa8a754e0d25a4bc2b577794a3c6e72faa300c06f9fc","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const r=engine.command(input);","to":"void window.localStorage;const r=engine.command(input);","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN native-storage W09_isolation
+WAREHOUSE050 EXPECTED_RED {"name":"native-ensure","guard":"W09_isolation","firstAssertion":"W09_isolation zero native calls","sourceHash":"a85c9efe02b480dde5f55a5f082af515aaa65e3fa9583b8dc2e09002acefd125","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"const r=engine.command(input);","to":"rebuildRailOps463();const r=engine.command(input);","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN native-ensure W09_isolation
+WAREHOUSE050 EXPECTED_RED {"name":"dom-cleanup","guard":"W09_isolation","firstAssertion":"W09_isolation DOM removed","sourceHash":"b304c106688b0e79635f19c45f4bd55cdea52aaf9cf06c868eb3488eed2d58c5","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"handlers=[];if(panel)try{panel.remove();}catch(_){}panel=null;view=null;","to":"handlers=[];panel=null;view=null;","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN dom-cleanup W09_isolation
+WAREHOUSE050 EXPECTED_RED {"name":"capacity-text","guard":"W10_vmButtons","firstAssertion":"W10_vmButtons displayed capacity matches real ledger","sourceHash":"437349a2d560ef3daec8892a0a3c92b9f5e7cda9b53d43c1d9d1be113d4227c2","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"view.capacity.textContent='容量：'+w.used","to":"view.capacity.textContent='容量：'+0","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN capacity-text W10_vmButtons
+WAREHOUSE050 EXPECTED_RED {"name":"inbound-button","guard":"W10_vmButtons","firstAssertion":"W10_vmButtons real InA transition","sourceHash":"79ee09142e44c823ba6c4bfc9c6a9362416b1123293535e512ad2d2628d31014","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"()=>operation('WH_IN','batch-A')","to":"()=>operation('WH_IN','batch-B')","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN inbound-button W10_vmButtons
+WAREHOUSE050 EXPECTED_RED {"name":"end-button","guard":"W10_vmButtons","firstAssertion":"W10_vmButtons session removed","sourceHash":"ec63f3ff4ee089a0f8387bd7b5e5e5d2d6298918ce3837943780a09454bd5373","restoredHash":"0f028fb31c1a7d84ec1076758e46809110a031e5f96a9a167b16cc3863e1ec5e","edits":[{"from":"()=>end('panel-ended-research-cancelled')","to":"()=>{}","occurrence":0}]}
+WAREHOUSE050 RESTORED_GREEN end-button W10_vmButtons

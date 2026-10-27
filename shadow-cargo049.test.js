@@ -129,6 +129,8 @@ check('L01 memory admission refuses without evicting cargo', () => {
 // execution receipt is claimed: this file is wired only additively into CI.
 
 // T776 owner-approved release projection; the historical SHA and exact ff4a test remain pinned.
+const {stripPinned052,projectCandidate052}=require('./single-research052-source.cjs');
+projectCandidate052(html); // Actual baseline once; R06 mutants retain their original first-failure order.
 const release049 = JSON.parse(fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/release-source.json'),'utf8'));
 const archive049 = fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/original-ff4a.test.js'),'utf8');
 const sha049 = text => crypto.createHash('sha256').update(text).digest('hex');
@@ -152,7 +154,7 @@ const releaseStrings049=[
 function verifyReleaseSource049(candidate,archive=archive049,descriptor=release049) {
   assert.deepEqual(descriptor,expectedRelease049,'R06 approved release descriptor');
   assert.equal(sha049(archive),release049.historical.testSha256,'R06 exact archived ff4a test');
-  let canonical=candidate;
+  let canonical=stripPinned052(candidate);
   for(const [current,historical,guard] of releaseStrings049) {
     assert.equal(canonical.split(current).length,2,guard+' exact unique approved metadata');
     canonical=canonical.replace(current,historical);

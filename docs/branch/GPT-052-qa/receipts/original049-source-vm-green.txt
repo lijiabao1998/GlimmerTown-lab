@@ -1,0 +1,63 @@
+SHADOW049 PASS L01 sealed manifest and creation
+SHADOW049 PASS L01 provenance, commodity and finite limits
+SHADOW049 PASS L02 whole-command idempotency and conflicts
+SHADOW049 PASS L02 ownership/location and atomic handoff
+SHADOW049 PASS L03 freeze retains quantity and terminal cannot resurrect
+SHADOW049 PASS L04 caller data and returned copies cannot mutate ledger
+SHADOW049 PASS L01 memory admission refuses without evicting cargo
+SHADOW049 RELEASE_SOURCE {"release":{"version":"14.69","anchor":"T776","round":223,"pr":68},"candidateSha256":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","canonicalSha256":"debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624","blockSha256":"2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb"}
+SHADOW049 PASS L06 original index bytes unchanged outside declared insertion
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 GAME_VER","sourceHash":"acbe5708fbeffcd7d801e6d73a0e8dda74bfc1262913c43224043748af808d46","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 GAME_VER exact unique approved metadata"}
+SHADOW049 RELEASE_RESTORED R06 GAME_VER
+SHADOW049 PASS R06 GAME_VER
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 GAME_ANCHOR","sourceHash":"96ccb6fc918b94abe727d50edac9c09e42a2408d938185a70bbc1b781dbf66cf","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 GAME_ANCHOR exact unique approved metadata"}
+SHADOW049 RELEASE_RESTORED R06 GAME_ANCHOR
+SHADOW049 PASS R06 GAME_ANCHOR
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 startVersion456","sourceHash":"6f013ca26af1721dfc650d1e016f8cde68fe9115d5cfc3b48be0fdf386c94271","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 startVersion456 exact unique approved metadata"}
+SHADOW049 RELEASE_RESTORED R06 startVersion456
+SHADOW049 PASS R06 startVersion456
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 unique research begin","sourceHash":"87e92b6abbc56e5cd0c39a70506fb579bc939a8ce9f869a6f11559e7107ec88b","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 unique research begin"}
+SHADOW049 RELEASE_RESTORED R06 unique research begin
+SHADOW049 PASS R06 unique research begin
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 unchanged research block","sourceHash":"7b8f7bb72ffc5e698fcf7378652428ab3c7905599d8694ed238ab4bf53d1c145","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 unchanged research block"}
+SHADOW049 RELEASE_RESTORED R06 unchanged research block
+SHADOW049 PASS R06 unchanged research block
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 unchanged canonical native bytes","sourceHash":"907e92dc26118288ae362493581ac6895ff09ee7dcc7ff1962cb985baaa8638b","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 unchanged canonical native bytes"}
+SHADOW049 RELEASE_RESTORED R06 unchanged canonical native bytes
+SHADOW049 PASS R06 unchanged canonical native bytes
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 exact archived ff4a test","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"9d37b7f5aac8afb23bf07d53135355bb6bfbc5c235fbc11eda5bf7af171fcee9","descriptorHash":"6c4ea46fedce6ed1ccd83ecf1f0a07b58680fdb9f9e962e3c374b2d8e44929ea","firstFailure":"R06 exact archived ff4a test"}
+SHADOW049 RELEASE_RESTORED R06 exact archived ff4a test
+SHADOW049 PASS R06 exact archived ff4a test
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"a9d609cfc5d39a21880bbef0d1fa8876f998a27a691e66ea2b514b4b21b70f96","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"4b780142c59eff26498075ba5b05fba4e25acb4867ec1445a744ce7fdd68be85","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"89d060695f9f2471ed9d586ac064b65f378f4a650254494fede36eff8067a4d7","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"ae244ef6bfd6a431c55506d828412f50728c4d61cbf7395228dae7f93d118f4e","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"66de43de2b7420a7401c526c28c1e55ef5c825b705bc79230d3c66d349065708","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"3206a9890c7f428346c59d5ea58d9ce9fcb6f5e2bd001e0b0e5594e31c531b28","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"42e80c8b469813d0c3c526c2eb7ab2bc25d70836fdde16f4500e26c609a3a150","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 RELEASE_EXPECTED_RED {"guard":"R06 approved release descriptor","sourceHash":"7e8d7c39eaa68a810515ddd60cb5a4490750acd105d20133cd3d4db45c0ab9d2","archiveHash":"276355b2f979fc52c9ebf581531dacd9079718aea39596c6ca74d6f9d5e7ee2b","descriptorHash":"e15c76be4892004d39ddcbe32a418fc0678115d5be1633cb1f856834bcff4253","firstFailure":"R06 approved release descriptor"}
+SHADOW049 RELEASE_RESTORED R06 approved release descriptor
+SHADOW049 PASS R06 approved release descriptor
+SHADOW049 PASS L01 admitted maximum remains readable without data loss
+SHADOW049 PASS L04 accessors and non-data payloads reject before side effects
+SHADOW049 PASS L05/L07 runtime defaults, nonce, exact native delegates and exceptions
+SHADOW049 PASS L05/L08 pagehide, identity replacement and kill cleanup
+SHADOW049 PASS L01/L06 native observation never mints, stale is unavailable
+SHADOW049 EXPECTED_RED idempotency idempotency guard
+SHADOW049 EXPECTED_RED owner {"batchId":"batch-A","eventId":"event-1","location":"research-shelf-B","ok":true,"owner":"research-destination","qty":7,"revision":2,"sessionId":"qa-session-049","state":"HELD","type":"HANDOFF"}
+SHADOW049 EXPECTED_RED conservation conservation transition guard
+SHADOW049 PASS L09 each new guard catches its actual-source mutant
