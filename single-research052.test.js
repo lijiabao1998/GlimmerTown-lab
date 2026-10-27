@@ -174,18 +174,28 @@ async function baselineOffBrowser(){
  const dir=qaRoot052(true),{withGame}=require(path.join(dir,'harness.js'));
  const result=await withGame({port:8199,timeout:300,fresh:true,log:s=>console.log('SINGLE052 OFF_AB '+s)},async({cdp})=>{
   await cdp.evalJs('GV.setSpeed(0);GV.newWorldSeeded(491);GV.setSpeed(0);GV.setVisT(55);GV.forceDraw();true');
-  const proof=await cdp.evalJs(`__protected052(()=>{
+  const observedSeed=await cdp.evalJs('GV.shadowCargo049.nativeObservation().seed');
+  const probe=async code=>cdp.evalJs(`__protected052(()=>{
    const beforeDOM=document.body.innerHTML,oldAdd=window.addEventListener,oldRemove=window.removeEventListener;let added=0,removed=0;
    window.addEventListener=function(...args){added++;return oldAdd.apply(this,args);};window.removeEventListener=function(...args){removed++;return oldRemove.apply(this,args);};
-   try{__installVariant052(${JSON.stringify(source)});window.__noSingleResearch052=true;
-    const s=GV.singleResearch052.snapshot();return {active:s.active,ledger:s.ledger,noDOM:document.body.innerHTML===beforeDOM,added,removed,seed:GV.shadowCargo049.nativeObservation().seed};
+   const seed=${JSON.stringify(observedSeed)};try{__installVariant052(${JSON.stringify(code)});window.__noSingleResearch052=true;
+    const s=GV.singleResearch052.snapshot();return {active:s.active,ledger:s.ledger,noDOM:document.body.innerHTML===beforeDOM,added,removed,seed};
    }finally{window.addEventListener=oldAdd;window.removeEventListener=oldRemove;}
   })`);
+  const validate=proof=>{
   assert.equal(proof.nativeEqual,true,'S23_OFF_AB T776 and newly installed full052 native state equal');
   assert.equal(proof.canvasEqual,true,'S23_OFF_AB T776 and full052 entire canvas bytes equal');
   assert.equal(proof.rng,0,'S23_OFF_AB no RNG');assert.equal(proof.storage,0,'S23_OFF_AB no storage');
   assert.equal(proof.result.active,false);assert.equal(proof.result.ledger,null);assert.equal(proof.result.noDOM,true,'S23_OFF_AB no DOM');
   assert.equal(proof.result.added,0,'S23_OFF_AB no event registration');assert.equal(proof.result.removed,0,'S23_OFF_AB no event removal');
+  };
+  const from='window.GV.shadowCargo049=api;';assert.equal(source.split(from).length,2,'S23_OFF_AB exact mutation');
+  const broken=source.replace(from,"const faultNode=document.createElement('aside');faultNode.id='off052Mutant';document.body.appendChild(faultNode);"+from);new vm.Script(broken);
+  const bad=await probe(broken);let red;try{validate(bad);}catch(e){red=e;}
+  assert.ok(red?.code==='ERR_ASSERTION'&&red.message.includes('S23_OFF_AB no DOM'),'S23_OFF_AB semantic first failure '+red?.message);
+  console.log('SINGLE052 EXPECTED_RED '+JSON.stringify({guard:'S23_OFF_AB',firstFailure:red.message.split('\n')[0],mutantHash:hash(broken),restoredHash:hash(source)}));
+  await cdp.evalJs("document.getElementById('off052Mutant').remove();true");
+  const proof=await probe(source);validate(proof);console.log('SINGLE052 RESTORED S23_OFF_AB');
   console.log('SINGLE052 OFF_AB_RESULT '+JSON.stringify({baselineHash:baseline,candidateHash:hash(html),mode:'same seeded live native page, synchronous exact052 installation, OFF; avoids clocks between pages',proof}));
   assert.equal(cdp.errors.length,0,'S23_OFF_AB clean console');return {ok:true};
  });
