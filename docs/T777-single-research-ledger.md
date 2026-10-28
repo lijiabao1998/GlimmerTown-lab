@@ -170,3 +170,22 @@ AssertionError [ERR_ASSERTION]: S01 byte-exact T776 native input
 
 - 合併前任何一條紅：不合，PR #70 與分支原樣保留，紅的原文照錄。
 - 合併後：照 AGENTS 既有紅燈／revert 程序；revert 這次 squash 會把 052 區、重釘與三處版本字一起退回 T776。不強推、不手動觸發 Pages。
+
+### 9. 合併與發布收據（2026-10-28，Claude 補記）
+
+- **合併**：GitHub squash，產生 `63c80c63d4160240773c27bb48458089de365fea`，父提交是 `dde12ad`。合併時把 head 綁定在 `93a65c4`。合併後的 tree `05f6e4d66f8e9fd636eea50b37594453047172d3` 跟 PR head 相同。
+- **合併前的新 head CI（93a65c4）**：
+  - push run [40639837501](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40639837501)：smoke 三輪全綠（58.4s／56.8s／56.8s），fp 綠，fiscal-load 綠。smoke artifact SHA256 `43a4ac9b87f3d30e25a7ce6ce0d32572f2b00a410ca6366a2a67dff189d9afd8`。
+  - PR run [40639842682](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40639842682)：reuse-push、smoke、fp、fiscal-load 都綠。
+- **本機，同一棵樹 05f6e4d6**：
+  - 煙霧 3 連綠（89.1s／96.8s／97.3s），三輪都沒有 Frame interruption。
+  - `fp.js --check` exit 0，耗時 72s。版本 14.70／T777，葉子、超街區指紋、棘輪、style.json 全部零變動。
+- **Codex**：程式審查與安全審查，在 93a65c4 都沒有發現。
+- **合併後的 main**：
+  - smoke run [40643985055](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40643985055) 綠。
+  - 自動 Pages run [40644947134](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/40644947134) 綠。
+- **公開網址**：`https://game.lijiabao.uk/GlimmerTown-lab/` 回 HTTP 200，顯示 `v14.70 · T777`，`GAME_VER='14.70'`，`GAME_ANCHOR='T777'`。整頁 SHA256 `6ee59d6834e5227fe919f3ca7b301d6d72ce8a35fadaab128632677dfa9f5cf6`，跟 63c80c6 的 `index.html` 逐位元組相同。`lijiabao1998.github.io/GlimmerTown-lab/` 會 301 轉到這裡。
+- **沒做成的事**：
+  - 方向檔 LAB-02 的待辦列與卡住列，照 `docs/GPT-方向.md` 的維護規則，留給 GPT 下一個 PR 更新狀態。
+  - 真手機和 Safari 照舊沒測。
+  - 正式倉容、經濟與存檔照舊要另外批准。
