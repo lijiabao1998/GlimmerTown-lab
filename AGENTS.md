@@ -57,7 +57,7 @@
 - **自檢**：卡上 `docs/迭代不改壞標準.md` 第 8 節逐條處理，做到的打勾，不准假勾；驗收條件是動手前寫的。GPT 不能在本機跑遊戲，**只有兩條**可以寫「未跑，待 Claude／Codex 補跑」而仍自己合：「逃生閥關時整幀相同」、「美術各狀態（日／夜／冬／四季／旋轉／遠景／邊緣／疊層）都看過」。其餘各條要做到，或寫「不適用＋理由」（不適用必須真的不適用，例如沒改玩法就沒有同種子對比）。
 - **接在最新 `main`**：合之前 `git fetch`，落後就先更新分支（`fp.json`／`style.json` 衝突一律取 `main` 的版本，推上去讓 CI 重烘，再照第 7 節第 3 步重新核對、提交新的基線），等最後一個 commit 的 CI 再綠。
 - **不准自己合的 PR**（開著、標題寫 `[等業主]`，交給業主或 main 寫入者）：
-  - 動到守門的東西：`.github/` 底下任何改動（唯一例外：刪掉自己的分支專屬 workflow）；`fp.js`、`harness.js`、`gallery.js`；`smoke.js` 與 `*.test.js` 的既有斷言（只准新增自檢）；`probe*.js` 的既有判準與 `*.pins.json`；`index.html` 裡守衛用的函式（`fp536`、`style536`、`blockFp536`、`sheet536`、各 `*Selftest*`、`useScales021.selftest`）的既有判斷；
+  - 動到守門的東西：`.github/` 底下任何改動（唯一例外：刪掉自己的分支專屬 workflow）；`fp.js`、`harness.js`、`gallery.js`；`smoke.js` 與 `*.test.js` 的既有斷言（只准新增自檢；例外：發布時照 `docs/DECISIONS.md` 2026-10-28 的發布釘值常設規則，只重釘 049／050／052 三支測試與其釘值檔裡描述這一次發布的字面值，不算動到既有斷言——業主 2026-10-28「這個允許」，範圍與條件見 DECISIONS 同日那兩列）；`probe*.js` 的既有判準與 `*.pins.json`；`index.html` 裡守衛用的函式（`fp536`、`style536`、`blockFp536`、`sheet536`、各 `*Selftest*`、`useScales021.selftest`）的既有判斷；
   - 動到規則：`AGENTS.md`、`CLAUDE.md`、`AUTORUN.md`、`docs/迭代不改壞標準.md`、`docs/DECISIONS.md`、`docs/AGENT-PROMPTS.md`；
   - 判準放寬（標準 5.4）；
   - 第 7 節第 1 步列為「要業主看圖」的題（全局觀感、模擬數值、存檔格式等）；「業主授權連續做」的方向另有規定，見第 7 節；
