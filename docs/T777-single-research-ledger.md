@@ -55,10 +55,10 @@ PR68已收納獨立050核心，但index未接050。開工查無其他open PR；�
 
 ### 1. 業主決定（2026-10-28，逐字）
 
-業主 2026-10-28 回答 Claude 的兩個提問，選了下面兩個選項。選項原文照發問的 Claude session 轉錄，原樣保留，沒有翻譯或改寫：
+業主 2026-10-28 回答 Claude 的兩個提問，選了下面兩個選項。選項原文照發問的 Claude session 對話紀錄逐字抄錄，沒有翻譯或改寫（`d026da4` 把 PR #70 那一項誤植成英文轉述，`T777` 第三個 commit 改回中文原文）：
 
-- **PR #70：「合」**
-  > Claude first checks the card acceptance and CI originals item by item; only if there is no problem, squash on latest main, smoke 3 consecutive greens, fp.js --check, assign T number and version, write the log, push main; if there is a problem, stop and report
+- **PR #70：「合」**（2026-10-28 01:03 UTC；提問原文：「Lab PR70（GPT-052 單一暫態研究帳，預設關閉、明示開啟、不影響正式經濟與存檔）：要合進 Lab main 嗎？」）
+  > 我照 Lab 規則先逐條核卡面驗收與 CI 原件，沒問題才在最新 main 上 squash、煙霧 3 連綠、fp.js --check、配 T 號與版本、寫日誌、推 main；有問題就停下回報
 - **發布重釘：「授權並定為常設規則」**
   > 這次和以後每次發布，main 寫入者都可以重釘這些測試裡的版本字串、index 雜湊與 release 描述。只改釘值，每條斷言與負控制都保留，寫進 T 卡與 DECISIONS。PR70 改完要先跑完整 CI 3 輪綠才合
 
@@ -106,7 +106,7 @@ PR68已收納獨立050核心，但index未接050。開工查無其他open PR；�
 - 所有歷史釘值：049 `historical`、050 `published049`／`historical`、14.67／T774 字串、052 區雜湊 `038dca73…`、050 核心雜湊、provenance 的 `baseMain`／`designHead` 與其餘欄位。
 - 所有負控制與變異值（14.99、T999、999、`'wrong'`、`'integrated'`、`'unapproved-*'`，以及 S01／R06／W01 的來源變異）：一個都沒動；新值沒有一個等於它們，所以每個負控制仍是真故障。
 
-**機械核對**：重釘 diff 只動 `.js`／`.cjs` 的 16 行與 3 個 JSON 的 15 個鍵。把每一改動行的字串、數字字面值與註解遮掉後，改前改後逐字相同（`literal-only` 檢查；同一支檢查遇到 `assert.equal`→`assert.notEqual` 會報 NON-LITERAL）。負控制清單、守衛名、斷言訊息所在的行都不在改動行裡。
+**機械核對**：重釘 diff 只動 `.js`／`.cjs` 的 16 行與 3 個 JSON 的 15 個鍵。把每一改動行的字串、數字字面值與註解遮掉後，改前改後逐字相同（`literal-only` 檢查；同一支檢查遇到 `assert.equal`→`assert.notEqual` 會報 NON-LITERAL）。負控制清單與斷言訊息所在的行都不在改動行裡；`shadow-warehouse050.test.js` 第 52–54 行是改動行，同一列的第三個字串就是守衛名（`'W01 release GAME_VER'` 等），守衛名字面值逐字沒變，只換了第一個字串（重釘表 #10）。
 
 **commit A（`d026da4`）上的首紅，原文照錄**：三支都在載入時紅在同一句，實際值正是上面推出的 T777 原生基準。
 
@@ -155,6 +155,8 @@ AssertionError [ERR_ASSERTION]: S01 byte-exact T776 native input
 
 ### 7. 揭露（不美化）
 
+- `docs/branch/GPT-052-implementation.md` 第 17 行「剝掉 052 區重建 T776 index `459f5802…`」只對 PR head `9753e49` 成立；T777 的候選剝掉 052 區後是 `6e140781…6fe476`（T776 index 只換三處版本字）。施工收據是 GPT 的歷史紀錄，照原樣不改。
+- `ownerApproval` 新值 `DECISIONS-2026-10-28-PR70-merge` 是 Claude 定的指標字串，不是業主訊息 ID；`docs/DECISIONS.md` 2026-10-28 PR #70 那一列已寫入同一個字串，可以用 `git grep` 機械回查。
 1. **049 對完整候選的 Chrome selftest 換成了 052 的 8 項**：`GV.shadowCargo049` 現在是 052 的別名，所以 049 Chrome 階段的 `enabled native state selftest`，以及 `smoke.js` 4b 的 `shadowCargo049`，跑的是 052 的 8 項 selftest（CI `9753e49`：`shadowCargo049 OK（8 項）`；T776 main 是 20 項）。原 049 的 20 項只在 050 的歷史 A／B 組合裡跑（CI 每輪兩次、各 20 項）。語意覆蓋還在 050 純核 W02–W10 與 052 S02–S22；沒有刪任何斷言。
 2. **050 有幾個日誌標籤描述的是歷史輸入，不是發出去的產品**：`ALL_PASS` 行的 `productWarehouseIntegrated:false`、`nativeProductUnchangedOutsideReleaseMetadata:true`，C 組合的 `current-native-single049-plus-QA050-not-product`，`RELEASE_SOURCE` 行的 `standalone-core-not-imported-by-product`。它們只是 `console.log` 字串、不是釘值，照常設規則「只改釘值」不改；T777 起產品其實帶著 052（內含 050 純核心副本），這幾個字要讀成「050 歷史組合」的描述。
 3. **斷言訊息與日誌裡的 T776 字樣照舊**：`S01 byte-exact T776 native input`（也是 052 `outside` 負控制預期的首紅）、`S23_OFF_AB T776 and …`，日誌標籤 `validatedT776Hash`、`byte-exact T776 baseline plus observer…`。它們是預期首紅訊息或非釘值，不改；T777 起意思是「T776 的原生程式碼＋T777 的三處版本字」。
