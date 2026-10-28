@@ -9,7 +9,9 @@ const source=fs.readFileSync(path.join(ROOT,'shadow-warehouse050.js'),'utf8');
 const upstreamBlock=fs.readFileSync(path.join(Q,'lab01-ff4a-runtime.js'),'utf8');
 const upstreamTest=fs.readFileSync(path.join(Q,'shadow-cargo049.test.js'),'utf8');
 const provenance=JSON.parse(fs.readFileSync(path.join(Q,'source.json'),'utf8'));
-const native=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+const candidate052=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
+const native=require('./single-research052-source.cjs').projectCandidate052(candidate052);
+console.log('WAREHOUSE050 HISTORICAL_INPUT_ONLY '+JSON.stringify({candidate052Hash:hash(candidate052),validatedT776Hash:hash(native),coverage:'All W01, 26 pure guards, 48 lineage/behavior/UI controls, 31 source negatives and A/B/C below cover historical T776 compositions. Current candidate is covered independently by original049 runtime and single-research052.test.js.'}));
 const anchor='Object.assign(window.GV,{art574:';
 const pure=textBetween(source,'/* GPT-050 PURE FACTORY BEGIN */','/* GPT-050 PURE FACTORY END */');
 function textBetween(s,a,b){assert.equal(s.split(a).length,2);assert.equal(s.split(b).length,2);return s.split(a)[1].split(b)[0];}
@@ -20,15 +22,15 @@ const archive050=fs.readFileSync(path.join(Q,'original-6d544c2.test.js'),'utf8')
 const expectedRelease050={
   "schema": "lab050-release-source-v1",
   "release": {
-    "version": "14.69",
-    "anchor": "T776",
-    "round": 223,
-    "pr": 68
+    "version": "14.70",
+    "anchor": "T777",
+    "round": 224,
+    "pr": 70
   },
-  "approvedMain": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
-  "ownerApproval": "Sentinel_bfd6bc2d37648191824dd44b68f0fef7",
-  "productRole": "standalone-core-not-imported-by-index",
-  "candidateIndexSha256": "459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67",
+  "approvedMain": "dde12ada3d72110d6a0bef3132eef86b871472ea",
+  "ownerApproval": "DECISIONS-2026-10-28-PR70-merge",
+  "productRole": "exact-pure-factory-copy-inside-default-off-single-research052-not-native-economy; standalone-file-not-imported-by-index",
+  "candidateIndexSha256": "6e14078123fc3b90d885d30a4cad0b5886a58f9dd392449930f9496c566fe476",
   "published049": {
     "pr": 67,
     "merge": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
@@ -47,9 +49,9 @@ const expectedRelease050={
   }
 };
 const releaseStrings050=[
-  ["const GAME_VER='14.69';","const GAME_VER='14.67';",'W01 release GAME_VER'],
-  ["const GAME_ANCHOR='T776';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
-  ['<span id="startVersion456">v14.69 · T776</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
+  ["const GAME_VER='14.70';","const GAME_VER='14.67';",'W01 release GAME_VER'],
+  ["const GAME_ANCHOR='T777';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
+  ['<span id="startVersion456">v14.70 · T777</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
 ];
 function verifyRelease050(candidate,overrides={}) {
   const inputs={descriptor:release050,provenance:provenanceText050,block:upstreamBlock,test:upstreamTest,core:source,archive:archive050,...overrides};
