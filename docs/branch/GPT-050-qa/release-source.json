@@ -1,15 +1,15 @@
 {
   "schema": "lab050-release-source-v1",
   "release": {
-    "version": "14.69",
-    "anchor": "T776",
-    "round": 223,
-    "pr": 68
+    "version": "14.70",
+    "anchor": "T777",
+    "round": 224,
+    "pr": 70
   },
-  "approvedMain": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
-  "ownerApproval": "Sentinel_bfd6bc2d37648191824dd44b68f0fef7",
-  "productRole": "standalone-core-not-imported-by-index",
-  "candidateIndexSha256": "459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67",
+  "approvedMain": "dde12ada3d72110d6a0bef3132eef86b871472ea",
+  "ownerApproval": "DECISIONS-2026-10-28-PR70-merge",
+  "productRole": "exact-pure-factory-copy-inside-default-off-single-research052-not-native-economy; standalone-file-not-imported-by-index",
+  "candidateIndexSha256": "6e14078123fc3b90d885d30a4cad0b5886a58f9dd392449930f9496c566fe476",
   "published049": {
     "pr": 67,
     "merge": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",

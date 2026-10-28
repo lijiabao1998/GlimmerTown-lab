@@ -77,7 +77,56 @@ PR68已收納獨立050核心，但index未接050。開工查無其他open PR；�
 
 ### 4. 發布適配：重釘表（常設規則第一次使用）
 
-（commit B 填：每個改到的釘值的檔案、欄位、舊值、新值、怎麼推出來的；以及沒改的和理由。）
+**新值怎麼來的**（獨立腳本：只用 `git show` 取原物件、做字串替換與 SHA-256，不載入被測程式碼）：
+
+- T776 index（`dde12ad:index.html`，12043120 位元組）SHA-256 `459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67`；PR #70 index（`9753e49`）＝T776 index＋釘死邊界上唯一一段 052 區，逐位元相等。
+- T776 index 只把三處版本字換成 v14.70／T777 ⇒ **T777 原生基準** SHA-256 `6e14078123fc3b90d885d30a4cad0b5886a58f9dd392449930f9496c566fe476`。跟 T776 index 等長，只差 6 個位元組（`cmp -l`：208422 `6→7`、208423 `9→0`、208431 `6→7` 在開始畫面字；6335292 `6→7`、6335293 `9→0` 在 `GAME_VER`；6338130 `6→7` 在 `GAME_ANCHOR`）。
+- 同樣三處換在 PR #70 index 上 ⇒ T777 候選 index `6ee59d6834e5227fe919f3ca7b301d6d72ce8a35fadaab128632677dfa9f5cf6`，就是 commit A 的 `index.html`；它剝掉那一段 052 區後，逐位元等於上面的 T777 原生基準。commit A 上測試自己算出來的實際值也是 `6e140781…6fe476`（見下方首紅）。
+
+| # | 檔案:行 | 欄位 | 舊值 | 新值 | 推導／理由 |
+|---|---|---|---|---|---|
+| 1 | `single-research052-source.cjs`:5 | `baseline` | `459f5802…bfda67` | `6e140781…6fe476` | T777 原生基準（上面推導）。S01 `byte-exact T776 native input` 檢查「候選剝掉 052 區」的雜湊等於它 |
+| 2 | `docs/branch/GPT-052-qa/provenance.json` | `baselineIndexSha256` | 同 #1 舊值 | 同 #1 新值 | `single-research052.test.js`:15 斷言它等於 `baseline`。同檔 `baseMain` 仍是 `dde12ad`（PR #70 接上的 main），所以這個欄位現在讀作「`baseMain` 的 index＋T777 三處版本字」 |
+| 3 | `shadow-cargo049.test.js`:139、`docs/branch/GPT-049-qa/release-source.json` | `release` | `{version:'14.69', anchor:'T776', round:223, pr:68}` | `{version:'14.70', anchor:'T777', round:224, pr:70}` | 本次發布：`GAME_VER`／`GAME_ANCHOR`、日誌 r224、PR #70。R06 用它在 index 找「目前」的三處版本字，再投影回 14.67／T774 驗歷史原生 |
+| 4 | 同上:140 | `approvedMain` | `c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992`（T775 合併，PR68 接上的 main） | `dde12ada3d72110d6a0bef3132eef86b871472ea`（T776 合併，PR70 接上的 main） | 照 T776 先例：批准的 main＝這個 PR 接上、業主同意合進去的那個 main |
+| 5 | 同上:141 | `ownerApproval` | `Sentinel_bfd6bc2d37648191824dd44b68f0fef7`（業主 2026-10-26 選 A，只批 PR67／68） | `DECISIONS-2026-10-28-PR70-merge` | 舊值那則訊息不含 PR70（T776 卡：單帳接線另卡、不含其合併），留著不實。2026-10-28 的回答沒有訊息 ID 可抄，新值指向 `docs/DECISIONS.md` 2026-10-28 PR70 那一列 |
+| 6 | `shadow-cargo049.test.js`:131 | 註解 | `// T776 owner-approved release projection; …` | `// T777 owner-approved release projection; …` | 只是註解，不影響執行；T776 發布時同一行也跟著改（先例） |
+| 7 | `shadow-warehouse050.test.js`:25–31、`docs/branch/GPT-050-qa/release-source.json` | `release`、`approvedMain`、`ownerApproval` | 同 #3–#5 | 同 #3–#5 | 同 #3–#5；W01 `approved release descriptor` 要求檔案與測試內的預期值整個相等 |
+| 8 | 同上:32 | `productRole` | `standalone-core-not-imported-by-index` | `exact-pure-factory-copy-inside-default-off-single-research052-not-native-economy; standalone-file-not-imported-by-index` | 舊字在 T777 不再是實情：index 的 052 區帶著 050 純核心逐字副本（`S01 exact050 pure factory provenance`），預設關閉、不是原生經濟（provenance `role`）；`shadow-warehouse050.js` 這個檔在 index 裡 0 處引用。程式只拿它做整個描述的 deepEqual，不解讀內容，所以斷言檢查的東西沒變；負控制 `productRole='integrated'` 仍是真故障（新值不等於它） |
+| 9 | 同上:33 | `candidateIndexSha256` | 同 #1 舊值 | 同 #1 新值 | C-native-warehouse 組合的基底是 `projectCandidate052(index)`（W01 `exact QA base bytes`），就是 #1 的值。欄位名是斷言用的鍵，沿用；T777 起它的意思是「候選 index 剝掉 052 區」，不是含 052 的完整 index（`6ee59d68…`） |
+| 10 | 同上:52–54 | `releaseStrings050` 每列第一個字串（目前值） | `const GAME_VER='14.69';`、`const GAME_ANCHOR='T776';`、`<span id="startVersion456">v14.69 · T776</span>` | 同字串換成 `14.70`／`T777` | index 的三處版本字。每列第二個字串（歷史 14.67／T774）與第三個（守衛名）沒動 |
+
+**沒有重釘的（與理由）**
+
+- `single-research052.test.js`:47 VM 沙盒裡的 `GAME_VER:'14.69'`：沙盒假值，沒有任何斷言比對（052 只把它放進 `nativeObservation().version`，沒有守衛讀）；049 的沙盒值從 T775 起一直是歷史的 `'14.67'`。不是釘值。
+- `docs/branch/GPT-052-qa/baseline-t776.sha256`：記的是 T776 index 的雜湊，仍是事實；沒有任何程式讀它。檔名就叫 t776，改了反而不實。
+- 預期首紅訊息與斷言訊息：`S01 byte-exact T776 native input`（052 `outside` 負控制就是等這一句）、`S23_OFF_AB T776 and …`。改了就動到斷言／負控制，不准。
+- 日誌字串（不是釘值）：`validatedT776Hash`、`byte-exact T776 baseline plus observer…`、`standalone-core-not-imported-by-product`、`current-native-single049-plus-QA050-not-product`、`nativeProductUnchangedOutsideReleaseMetadata:true`、`productWarehouseIntegrated:false`——記成歷史輸入用語（第 7 節第 2、3 條）。
+- `shadow-warehouse050.test.js`:18 註解 `// T776: preserve historical fixtures; …`：說的是 T776 那次加轉接，仍是實情。
+- 所有歷史釘值：049 `historical`、050 `published049`／`historical`、14.67／T774 字串、052 區雜湊 `038dca73…`、050 核心雜湊、provenance 的 `baseMain`／`designHead` 與其餘欄位。
+- 所有負控制與變異值（14.99、T999、999、`'wrong'`、`'integrated'`、`'unapproved-*'`，以及 S01／R06／W01 的來源變異）：一個都沒動；新值沒有一個等於它們，所以每個負控制仍是真故障。
+
+**機械核對**：重釘 diff 只動 `.js`／`.cjs` 的 16 行與 3 個 JSON 的 15 個鍵。把每一改動行的字串、數字字面值與註解遮掉後，改前改後逐字相同（`literal-only` 檢查；同一支檢查遇到 `assert.equal`→`assert.notEqual` 會報 NON-LITERAL）。負控制清單、守衛名、斷言訊息所在的行都不在改動行裡。
+
+**commit A（`d026da4`）上的首紅，原文照錄**：三支都在載入時紅在同一句，實際值正是上面推出的 T777 原生基準。
+
+```
+AssertionError [ERR_ASSERTION]: S01 byte-exact T776 native input
++ actual - expected
+
++ '6e14078123fc3b90d885d30a4cad0b5886a58f9dd392449930f9496c566fe476'
+- '459f580274773bd229f1322474f2db1d42048e31d4a7b66ad40512e1a3bfda67'
+```
+
+- `node single-research052.test.js --pure`：紅在 `single-research052.test.js:7`（`projectCandidate052(html)`），之前沒有任何輸出。
+- `node shadow-cargo049.test.js`：先印 7 行 `SHADOW049 PASS`（L01–L04 純帳），再紅在 `shadow-cargo049.test.js:133`。
+- `node shadow-warehouse050.test.js`：紅在 `shadow-warehouse050.test.js:13`，之前沒有任何輸出。
+
+再往下一層（只在工作樹暫時把 #1 換成新值、不提交，跑完已還原）：
+
+- 052 `--pure`：`AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:`（`single-research052.test.js:15`，`provenance.baselineIndexSha256` 還是舊值）→ #2。
+- 049：`AssertionError [ERR_ASSERTION]: R06 GAME_VER exact unique approved metadata`，`1 !== 2`（`shadow-cargo049.test.js:159`）→ #3–#5。
+- 050：`AssertionError [ERR_ASSERTION]: W01 release GAME_VER`，`1 !== 2`（`shadow-warehouse050.test.js:68`）→ #7–#10。
 
 ### 5. 原 8 條硬驗收逐條對照（上方原框不改、不補勾）
 
