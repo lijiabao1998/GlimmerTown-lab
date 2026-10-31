@@ -143,3 +143,5 @@ C5 local pure verification: 34 composed historical/C1–C5/fixed-work tests pass
 唯讀 GitHub API 和 GraphQL 查詢均回覆 `Forbidden`；本地 Git tree 沒有原始 CPU profile、Long Tasks、GC、trace 或原圖附件，未改用其他路徑繞過 API 拒絕。卡內舊量測記述 8988e7b 的有人口固定工作量中 AI executive、fresh snapshot、rail rebuild 分別約 71%、35%、19% 的 inclusive sample，三者重疊而非可加的 CPU 時間。`rebuildRailOps463` 站點統計逐站掃街區值得進一步剖析，但子函數佔比、GC、長幀與大人口未有本次可驗原件；snapshot 重算有模型副作用，不能略過。C4 固定工作量曾慢約 1.44%，不掩蓋負結果。未據此猜做 C6，也未更改負載、速度、RNG、財務、決策或存檔。
 
 未完成：遠端 PR 最新 CI／原圖與附件核驗、成熟大城市 profile/Long Tasks/GC、可證明同工作量與實際吞吐的 C6、原生回歸與 50% p95 目標；實體手機/Safari 未測。需要有權限的維護者實際接單後，提供／檢查相應原始附件並接續驗證；本次未確認任何人接單。遠端推送及其結果另記錄，不能把本地 merge 當已同步 PR。
+
+同日遠端回執：在再次 fetch 並確認 main／PR 原 head 仍為上述 SHA 後，正常快進推送 `5d461784…` → `e024f05d1aca2c1e1a9edc81a4bb12fbe43c9fac` 到 `origin/gpt/lab-ai-speed-20261030` 成功；此回執以後續文件提交記載。未強推、未推 main。最後 head 的 CI 狀態、原圖及實際維護者接單仍無法核實；沒有宣稱已接單或完成。
