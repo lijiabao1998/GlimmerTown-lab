@@ -6,3 +6,5 @@ test('exact old and exact C1 both retain pinned historical native input',()=>{as
 test('each bounded segment altered/removed/duplicated first fails unchanged historical source hash',()=>{for(const c of changes)for(const replacement of [c.after+' ',c.after.replace('053','054'),'',c.after+c.after]){if(replacement===c.after)continue;const mutant=candidate.replace(c.after,replacement);assert.throws(()=>projectCandidate052(mutant),/S01 byte-exact T776 native input/);}});
 test('unrelated additions and native function mutation are not discarded',()=>{for(const mutant of [candidate+'\n<!-- mutation -->',candidate.replace('function mulberry32(a){','function mulberry32(a){/* unexpected */')])assert.throws(()=>projectCandidate052(mutant),/S01 byte-exact T776 native input/);});
 test('original052 block/boundary controls remain ahead of new projection',()=>{assert.throws(()=>projectCandidate052(candidate.replace('/* GPT-052 SINGLE LEDGER BEGIN */','/* corrupted */')),/S01 unique052 begin/);});
+
+require('./policy-admin053.test.cjs');

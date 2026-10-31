@@ -94,3 +94,16 @@ C1 run 41159604731：13個原生checkpoint的RNG、精確財務、人口、事�
 業主新訊息 `Sentinel_ace4b1b7014081918822fb7136c5de79` 回覆「明確允許」，針對「只在八處變更完全吻合時還原投影，再沿用原本的歷史雜湊與負向測試；其他任何未預期變更仍須失敗」的限定提案。故只在 `stripPinned052` 原四條檢查之後接八塊精確逆轉投影；歷史SHA、原斷言運算、負控清單、預期首紅文字完全未動。投影manifest本身固定SHA256 `dd8489dd4ffaa747e0506d752fc5f26844155d02d5d4e0314ba0d88c5fae5e35`，缺塊／重複／變異不逆轉、仍由原歷史hash拒絕。原生測試仍跑shipping候選。新增測試加法掛入smoke；保持Draft、不能自行合併／發布。
 
 本地4項轉接測試及既有052 pure完整21guards、22semantic negatives、6source negatives通過；不是原生全綠。CI原始smoke首紅保留。ABBA small p95改善14.29%、medium27.76%，仍未達50%。dense定時新增受卡頓影響，baseline成功34/34次、C1 69/59次；不是匹配工作量，42.10%描述值不當驗收。large原版30秒僅24幀護欄拒絕，延至90秒而不降低30有效幀門檻。成熟有人口城市／Town實測／完整速度矩陣仍未完成。
+
+
+### 2026-10-31 C2: populated-profile driven administrative building count (pending native proof)
+
+Explicit owner approvals Sentinel_398c0f17e6248191abf8ca2509d16c8d and Sentinel_a881586e3c1881919f5867b84f99c1d1 cover synchronous count reuse, bounded exact historical adapter extension, negative controls and #71 Ubuntu verification. No merge/release.
+
+Populated medium native CPU profile at0c4c377 has16014samples and0negative deltas; policyAdminCapacity504 accounts for2010self samples, with repeated social/capability calls nested under per-firm innovation. Do NOT remove repeated calls: they evolve stocks, so doing so would alter semantics. C2 instead shares only the read-only42/115/137-building count inside each synchronous socialStep505/capabilityStep506 call, scoped with try/finally; independent nested calls have distinct scopes. Staff, fiscal, money and all stock updates remain per-call, unchanged. Escape valve __noPolicyAdminReuse053 retains scanning. No cross-tick cache, gameplay thresholds, RNG, frame suppression, art or save-format change.
+
+C2 exact inverse has two pinned segments, composed before unchanged C1 eight-segment normalization and unchanged historical SHA assertions. Missing/changed/duplicated C2 and unrelated changes must still fail the historical guard.14unique pure tests including old C1 pass locally; native game not run locally. Added native medium populated6checkpoint equality includes exact social/capability stocks and city state, RNG, money, events, tiles and complete save; pending Ubuntu. Existing13checkpoint and roundtrip assertions remain. Populated C2 performance comparison uses independent committed C1 baseline89c10c4, not a mutated in-memory oracle. All original unoptimized/C1 results and red logs retained.
+
+No final acceptance: populated C1 p95 gains10–25% and blocking near0–5%; large90s profile run had29frames and failed30gate, extended180s without loosening. RAF first timestamp is observed before capture start (1.8–8s), so boundary-crossing first interval remains disclosed, not silently deleted for favorable p95. Next raw logs retain timestamps. Smoke at0c4c377 was cancelled when superseded by89c10c4; do not claim its3×pass.
+
+Independent review caught a partial-scan exception hazard before publication: caught scan failures now return partial count without caching, so a subsequent call retries exactly as before. Added transient throwing-read recovery test passes. No remote failure was hidden.
