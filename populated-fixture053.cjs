@@ -26,14 +26,19 @@ async function paired(){
   const r=await withGame({port:8199,fresh:true,timeout:600,log:console.log},async({cdp})=>{
    await cdp.send('Emulation.setDeviceMetricsOverride',{width:1280,height:800,deviceScaleFactor:1,mobile:false});
    write(prefix+'-browser.json',await cdp.send('Browser.getVersion'));
-   const fixture=await cdp.evalJs('('+setup053.toString()+')('+JSON.stringify({scene,seed:87,ai:true})+')');
-   const connections=await cdp.evalJs('('+connectFixture053.toString()+')()');
-   await cdp.evalJs('GV.step(20);GV.setSpeed(0)');await sleep(3000);
-   const before=await cdp.evalJs('('+snapshot053.toString()+')()');write(prefix+'-before.json',{fixture,connections,before});
+   // Warm the browser before creating the population. Paused rendering still spawns
+   // random cars: never yield between native maturation, exact-start gate and timing.
+   await sleep(3000);
+   const memoryBefore=await cdp.send('Runtime.getHeapUsage');
+   const start=await cdp.evalJs('('+atomicStart053.toString()+')('+[
+    setup053.toString(),connectFixture053.toString(),snapshot053.toString(),begin053.toString(),
+    JSON.stringify({scene,seed:87,ai:true,speed:5}),JSON.stringify(expectedStart??null)
+   ].join(',')+')');
+   const {fixture,connections,before}=start;write(prefix+'-before.json',{fixture,connections,before});
    assert.ok(before.stats.pop>0,'must have native population before timing');assert.equal(before.diff,1);assert.ok(!before.developer?.sandbox&&!before.developer?.god);
    const stableStart=JSON.stringify({stats:before.stats,exactMoney:before.exactMoney,roots:before.roots,connections});
    if(expectedStart===undefined)expectedStart=stableStart;else assert.equal(stableStart,expectedStart,'all ABBA arms require identical native starting state');
-   const memoryBefore=await cdp.send('Runtime.getHeapUsage');await cdp.evalJs('('+begin053.toString()+')('+JSON.stringify({scene,speed:5})+')');await sleep(90000);
+   await sleep(90000);
    const raw=await cdp.evalJs('('+end053.toString()+')()'),memoryAfter=await cdp.send('Runtime.getHeapUsage'),after=await cdp.evalJs('('+snapshot053.toString()+')()');
    write(prefix+'-frames.json',raw);write(prefix+'-after.json',after);write(prefix+'-memory.json',{before:memoryBefore,after:memoryAfter,note:'Live V8 heap only, not forced GC/process/GPU memory'});write(prefix+'-console.json',{errors:cdp.errors,benign:cdp.benign});
    const png=await cdp.send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(out,prefix+'.png'),Buffer.from(png.data,'base64'));
@@ -45,4 +50,15 @@ async function paired(){
  const a=rows.filter(x=>x.label==='baseline'),b=rows.filter(x=>x.label==='candidate'),mean=(r,f)=>r.reduce((s,x)=>s+f(x),0)/r.length;
  const result={scene,rows,meanP95Reduction:1-mean(b,x=>x.metrics.frames.p95Ms)/mean(a,x=>x.metrics.frames.p95Ms),meanBlockingReduction:1-mean(b,x=>x.metrics.longTasks.totalBlockingMs)/mean(a,x=>x.metrics.longTasks.totalBlockingMs),acceptancePassed:false,note:'Populated native ABBA only; full speed/AI matrix, mature city and Town comparison pending. No acceptance from a single pair of windows.'};write('summary.json',result);console.log('POPULATED ABBA',JSON.stringify(result));
  }catch(e){write('first-failure.json',{error:e.stack,rows});throw e;}finally{fs.writeFileSync(file,candidate);}
+}
+
+// The exact same native construction and 20-day evolution; no synthetic state/reset,
+ // RNG replacement, frame suppression, or omission of the cars field from equality.
+function atomicStart053(setup,connect,snapshot,begin,config,expected){
+ const fixture=setup(config),connections=connect();GV.step(20);GV.setSpeed(0);
+ const before=snapshot();
+ const stable=JSON.stringify({stats:before.stats,exactMoney:before.exactMoney,roots:before.roots,connections});
+ if(!(before.stats.pop>0)||before.diff!==1||before.developer?.sandbox||before.developer?.god)throw Error('native population/difficulty gate');
+ if(expected!==null&&stable!==expected)throw Error('all ABBA arms require identical native starting state');
+ begin(config);return{fixture,connections,before};
 }
