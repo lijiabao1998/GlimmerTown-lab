@@ -1,0 +1,14 @@
+✔ nearest-rank quantiles use independent hand-written expected values and never mutate raw (1.717692ms)
+✔ FPS uses measured span rather than nominal timer or artificial 60 cap (0.216196ms)
+✔ long tasks distinguish unsupported, no tasks, and blocking excess (0.223978ms)
+✔ throughput and placement counts are actual—not requested speed (0.408556ms)
+✔ bad/missing measurements fail closed, not zero-filled (1.700025ms)
+✔ negative controls first fail at deliberately corrupted metric, then restored helper is green (1.08656ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.761811

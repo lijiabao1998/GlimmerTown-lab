@@ -1,0 +1,42 @@
+[
+  {
+    "name": "pure footprint helper",
+    "before": "",
+    "after": "/* GPT-053: share pure decorative footprint reads only within one canPlace call.\n   No cross-call/tick cache; aliases get distinct entries; original wrapper order wins. */\nlet placementConflictContext053=null;\nfunction placementConflictMask053(id,x,y){\n  if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return 0;\n  const ctx=placementConflictContext053;\n  if(ctx&&ctx.id===id&&ctx.x===x&&ctx.y===y&&ctx.mask!==undefined)return ctx.mask;\n  let mask=0;\n  const visit=(xx,yy)=>{if(!inMap(xx,yy))return;const t=tiles[idx(xx,yy)];if(t?.am502!==1)return;\n    if(theatreTheme013(t))mask|=1;if(complexTheme014(t))mask|=2;if(streetscapeTheme015(t))mask|=4;\n    if(gardenLifeTheme016(t))mask|=8;if(quaysideTheme017(t))mask|=16;if(quarterTheme019(t))mask|=32;};\n  if(['tdig','tland','traise'].includes(id)&&terraBrush===3){for(const [xx,yy]of terraCells(x,y))visit(xx,yy);}\n  else{const size=Math.max(1,toolSize458(id)||1);for(let dy=0;dy<size;dy++)for(let dx=0;dx<size;dx++)visit(x+dx,y+dy);}\n  if(ctx&&ctx.id===id&&ctx.x===x&&ctx.y===y)ctx.mask=mask;\n  return mask;\n}\n"
+  },
+  {
+    "name": "theatrePathConflict013",
+    "before": "function theatrePathConflict013(id,x,y){",
+    "after": "function theatrePathConflict013(id,x,y){if(window.__noPlacementReuse053)return theatrePathConflict013Legacy053(id,x,y);return placementConflictMask053(id,x,y)&1?'先拆除劇院街區步道':null;}\nfunction theatrePathConflict013Legacy053(id,x,y){"
+  },
+  {
+    "name": "complexPathConflict014",
+    "before": "function complexPathConflict014(id,x,y){",
+    "after": "function complexPathConflict014(id,x,y){if(window.__noPlacementReuse053)return complexPathConflict014Legacy053(id,x,y);return placementConflictMask053(id,x,y)&2?'先拆除英式園區步道':null;}\nfunction complexPathConflict014Legacy053(id,x,y){"
+  },
+  {
+    "name": "streetscapeConflict015",
+    "before": "function streetscapeConflict015(id,x,y){",
+    "after": "function streetscapeConflict015(id,x,y){if(window.__noPlacementReuse053)return streetscapeConflict015Legacy053(id,x,y);return placementConflictMask053(id,x,y)&4?'先拆除英式街區配景步道':null;}\nfunction streetscapeConflict015Legacy053(id,x,y){"
+  },
+  {
+    "name": "gardenLifeConflict016",
+    "before": "function gardenLifeConflict016(id,x,y){",
+    "after": "function gardenLifeConflict016(id,x,y){if(window.__noPlacementReuse053)return gardenLifeConflict016Legacy053(id,x,y);return placementConflictMask053(id,x,y)&8?'先拆除英式花園配景步道':null;}\nfunction gardenLifeConflict016Legacy053(id,x,y){"
+  },
+  {
+    "name": "quaysideConflict017",
+    "before": "function quaysideConflict017(id,x,y){",
+    "after": "function quaysideConflict017(id,x,y){if(window.__noPlacementReuse053)return quaysideConflict017Legacy053(id,x,y);return placementConflictMask053(id,x,y)&16?'先拆除英式碼頭配景步道':null;}\nfunction quaysideConflict017Legacy053(id,x,y){"
+  },
+  {
+    "name": "quarterConflict019",
+    "before": "function quarterConflict019(id,x,y){",
+    "after": "function quarterConflict019(id,x,y){if(window.__noPlacementReuse053)return quarterConflict019Legacy053(id,x,y);return placementConflictMask053(id,x,y)&32?'先拆除水岸街區步道':null;}\nfunction quarterConflict019Legacy053(id,x,y){"
+  },
+  {
+    "name": "invocation scope",
+    "before": "",
+    "after": "// GPT-053: scoped lifetime and exception/reentrant restoration; never retained across placements.\nconst placementCanPlaceLegacy053=canPlace;\ncanPlace=function(id,x,y){\n if(window.__noPlacementReuse053)return placementCanPlaceLegacy053(id,x,y);\n const previous=placementConflictContext053;placementConflictContext053={id,x,y};\n try{return placementCanPlaceLegacy053(id,x,y);}finally{placementConflictContext053=previous;}\n};\n"
+  }
+]

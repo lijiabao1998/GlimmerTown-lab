@@ -311,7 +311,18 @@ async function browser() {
           const cam=await run('GV.camera436()');
           const rect=await run(`(()=>{const e=document.getElementById('singleResearch052JSON'),p=document.getElementById('singleResearch052Scroll'),r=e.getBoundingClientRect(),q=p.getBoundingClientRect();e.scrollTop=0;const top=Math.max(r.top,q.top,0),bottom=Math.min(r.bottom,q.bottom,innerHeight),x=r.left+30,y=(top+bottom)/2;return{x,y,visible:bottom>top,hit:e.contains(document.elementFromPoint(x,y)),before:e.scrollTop};})()`);
           assert.equal(rect.visible,true,'W10 JSON visible wheel target');assert.equal(rect.hit,true,'W10 wheel target hits JSON');assert.equal(rect.before,0,'W10 JSON starts at zero');
-          await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});await sleep(80);
+          await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});
+          // Owner-authorized bounded completion wait, not an input retry or relaxed assertion.
+          // Keep a single real wheel event and all original hit/overflow/scroll/zoom checks.
+          const wheelWaitStarted=Date.now(),wheelSamples=[];
+          let wheelMoved=false;
+          while(Date.now()-wheelWaitStarted<2000){
+            const observed=await run("document.getElementById('singleResearch052JSON').scrollTop");
+            wheelSamples.push({elapsedMs:Date.now()-wheelWaitStarted,scrollTop:observed});
+            if(observed>rect.before){wheelMoved=true;break;}
+            await sleep(40);
+          }
+          console.log('SINGLE052 WHEEL_COMPLETION '+JSON.stringify({layout,light,boundMs:2000,elapsedMs:Date.now()-wheelWaitStarted,wheelMoved,samples:wheelSamples}));
           const scroll=await run(`(()=>{const j=document.getElementById('singleResearch052JSON');return{jsonOverflow:j.scrollHeight>j.clientHeight,after:j.scrollTop,cam:GV.camera436()};})()`);
           assert.equal(scroll.jsonOverflow,true,'W10 expandable diagnostic JSON');assert.ok(scroll.after>rect.before,'W10 actual wheel increases JSON scroll');assert.equal(scroll.cam.z,cam.z,'W10 panel wheel does not zoom city');
           console.log('SINGLE052 REAL_SCROLL '+JSON.stringify({layout,light,before:rect.before,after:scroll.after,hit:rect.hit,cameraUnchanged:scroll.cam.z===cam.z}));

@@ -73428,7 +73428,24 @@ function theatrePathLight013(x,y){
 function theatreTheme013(t){const theme=t?.amx502?.british013;return t?.am502===1&&['ticket','plaza','rail','bench','planter','lamp'].includes(theme)?theme:null;}
 // New-theme ownership only: old tools retain exact behavior on every other tile.
 // Underground services can coexist, while replacing surface uses requires doze.
-function theatrePathConflict013(id,x,y){
+/* GPT-053: share pure decorative footprint reads only within one canPlace call.
+   No cross-call/tick cache; aliases get distinct entries; original wrapper order wins. */
+let placementConflictContext053=null;
+function placementConflictMask053(id,x,y){
+  if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return 0;
+  const ctx=placementConflictContext053;
+  if(ctx&&ctx.id===id&&ctx.x===x&&ctx.y===y&&ctx.mask!==undefined)return ctx.mask;
+  let mask=0;
+  const visit=(xx,yy)=>{if(!inMap(xx,yy))return;const t=tiles[idx(xx,yy)];if(t?.am502!==1)return;
+    if(theatreTheme013(t))mask|=1;if(complexTheme014(t))mask|=2;if(streetscapeTheme015(t))mask|=4;
+    if(gardenLifeTheme016(t))mask|=8;if(quaysideTheme017(t))mask|=16;if(quarterTheme019(t))mask|=32;};
+  if(['tdig','tland','traise'].includes(id)&&terraBrush===3){for(const [xx,yy]of terraCells(x,y))visit(xx,yy);}
+  else{const size=Math.max(1,toolSize458(id)||1);for(let dy=0;dy<size;dy++)for(let dx=0;dx<size;dx++)visit(x+dx,y+dy);}
+  if(ctx&&ctx.id===id&&ctx.x===x&&ctx.y===y)ctx.mask=mask;
+  return mask;
+}
+function theatrePathConflict013(id,x,y){if(window.__noPlacementReuse053)return theatrePathConflict013Legacy053(id,x,y);return placementConflictMask053(id,x,y)&1?'先拆除劇院街區步道':null;}
+function theatrePathConflict013Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73523,7 +73540,8 @@ function complexPathLight014(x,y){
   for(const [dx,dy]of[[0,1],[1,0],[0,-1],[-1,0]]){const xx=x+dx,yy=y+dy;if(!inMap(xx,yy))continue;const i=idx(xx,yy),d=POWER_DIST450?.[i]??-1;if(!tiles[i]?.road||!powerCarrierLive475(i)||d<0||!powerDistricts450[d])continue;const service=nightLightServiceAt487(xx,yy);if(!out.source||service>out.service){out.source={x:xx,y:yy,i};out.district=d;out.service=service;}}
   return out;
 }
-function complexPathConflict014(id,x,y){
+function complexPathConflict014(id,x,y){if(window.__noPlacementReuse053)return complexPathConflict014Legacy053(id,x,y);return placementConflictMask053(id,x,y)&2?'先拆除英式園區步道':null;}
+function complexPathConflict014Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73597,7 +73615,8 @@ const STREETSCAPE_THEME015=Object.freeze(Object.fromEntries(Object.values(STREET
 let streetscapeArtCanonical015=null;
 function streetscapeTheme015(t){const theme=t?.amx502?.british015;return t?.am502===1&&Object.prototype.hasOwnProperty.call(STREETSCAPE_THEME015,theme)?theme:null;}
 function streetscapeDescription015(q){return '獨立付費原生步道，步行成本 0.72；'+q.nm+'為可拆除的街區配景。建造時朝四格內最近直線道路對齊並保存方向。'+(q.lit?'燈具只讀取一格相鄰道路的原生夜間供電。':'此配景不發光。')+'不提供額外職位、收入、服務或觀光容量。';}
-function streetscapeConflict015(id,x,y){
+function streetscapeConflict015(id,x,y){if(window.__noPlacementReuse053)return streetscapeConflict015Legacy053(id,x,y);return placementConflictMask053(id,x,y)&4?'先拆除英式街區配景步道':null;}
+function streetscapeConflict015Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73659,7 +73678,8 @@ const GARDENLIFE_THEME016=Object.freeze(Object.fromEntries(Object.values(GARDENL
 let gardenLifeArtCanonical016=null;
 function gardenLifeTheme016(t){const theme=t?.amx502?.british016;return t?.am502===1&&Object.prototype.hasOwnProperty.call(GARDENLIFE_THEME016,theme)?theme:null;}
 function gardenLifeDescription016(q){return '獨立付費原生步道，步行成本 0.72；'+q.nm+'為可拆除的花園配景。建造時朝四格內最近直線道路對齊並保存方向。'+(q.lit?'燈具只讀取一格相鄰道路的原生夜間供電。':'此配景不發光。')+'不提供水源、產物、棋局或額外職位、收入、服務與觀光容量。';}
-function gardenLifeConflict016(id,x,y){
+function gardenLifeConflict016(id,x,y){if(window.__noPlacementReuse053)return gardenLifeConflict016Legacy053(id,x,y);return placementConflictMask053(id,x,y)&8?'先拆除英式花園配景步道':null;}
+function gardenLifeConflict016Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73721,7 +73741,8 @@ const QUAYSIDE_THEME017=Object.freeze(Object.fromEntries(Object.values(QUAYSIDE_
 let quaysideArtCanonical017=null;
 function quaysideTheme017(t){const theme=t?.amx502?.british017;return t?.am502===1&&Object.prototype.hasOwnProperty.call(QUAYSIDE_THEME017,theme)?theme:null;}
 function quaysideDescription017(q){return '可獨立購買與拆除的碼頭街景步道；'+q.nm+'保留正常步行通行，建造時朝附近直線道路對齊並保存方向。此配景不發光，不新增船隻、泊位、捕撈產物、運輸、救援服務或額外收入。';}
-function quaysideConflict017(id,x,y){
+function quaysideConflict017(id,x,y){if(window.__noPlacementReuse053)return quaysideConflict017Legacy053(id,x,y);return placementConflictMask053(id,x,y)&16?'先拆除英式碼頭配景步道':null;}
+function quaysideConflict017Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73865,7 +73886,8 @@ function quarterMeta019(t){return t?.am502===1?window.WaterfrontQuarterLogic019.
 function quarterTheme019(t){return quarterMeta019(t)?.theme||null;}
 function quarterDescription019(q){return q.nm+'是獨立付費的陸上步道，沿用正常步行及原生造價。與相鄰水岸構件連接鋪面，岸邊構件優先朝相鄰水面，其餘朝附近道路保存方向；'+(q.lit?'實體港燈只使用一格相鄰道路的原生供電。':'本構件不發光。')+'附近訪客僅呈現展館營運狀態，沒有新增遊客經濟、收入或服務容量。';}
 function quarterTurn019(theme,x,y){if(theme==='quayEdgeWalk'||theme==='quayCorner')for(let d=0;d<4;d++){const [dx,dy]=window.WaterfrontQuarterLogic019.DIRS[d],xx=x+dx,yy=y+dy;if(inMap(xx,yy)&&tiles[idx(xx,yy)]?.t===0)return(d+1)&3;}return complexRoadTurn014(x,y);}
-function quarterConflict019(id,x,y){
+function quarterConflict019(id,x,y){if(window.__noPlacementReuse053)return quarterConflict019Legacy053(id,x,y);return placementConflictMask053(id,x,y)&32?'先拆除水岸街區步道':null;}
+function quarterConflict019Legacy053(id,x,y){
  if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
  const cells=[];if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));else{const size=Math.max(1,toolSize458(id)||1);for(let dy=0;dy<size;dy++)for(let dx=0;dx<size;dx++)cells.push([x+dx,y+dy]);}
  for(const [xx,yy]of cells)if(inMap(xx,yy)&&quarterTheme019(tiles[idx(xx,yy)]))return '先拆除水岸街區步道';return null;
@@ -103188,12 +103210,23 @@ function generalizedPair491(o,d,services,complexes,purpose='work'){
 }
 function purposeCapacity491(b,p){return Math.max(0,p==='work'?b.jobs:p==='shopping'?b.shopping:p==='education'?b.education:p==='services'?b.services:b.leisure);}
 function purposeBudget491(b,p){const pop=Math.max(0,b.pop||0),pp=economy481?.ready?clamp(economy481.consumption?.purchasingPower||1,.45,1.45):1,happy=clamp(typeof cityHappy==='number'?cityHappy:.72,0,1),nightAct=nightCity487?.ready?clamp(nightCity487.commerce?.activity||0,0,1):.55;if(p==='work')return b.workers*.30;if(p==='shopping')return pop*.065*clamp(.72+pp*.28,.72,1.16);if(p==='education')return pop*.035;if(p==='services')return pop*.025*(.94+happy*.08);let v=pop*.040*(.78+happy*.30)*(.82+nightAct*.28);if(pol?.nightMarket)v*=1.12;if(pol?.curfew)v*=.72;return v;}
+// GPT-053 C5: stable bounded ranking; candidate evaluation stays in original order.
+function mobilityTopK053(rows,k){
+  if(window.__noMobilityTopK053||rows.length<=k||rows.some(q=>!Number.isFinite(q.w)))return rows.sort((a,b)=>b.w-a.w).slice(0,k);
+  const heap=[],worse=(a,b)=>a.q.w<b.q.w||(a.q.w===b.q.w&&a.i>b.i);
+  for(let i=0;i<rows.length;i++){
+    const e={q:rows[i],i};
+    if(heap.length<k){let j=heap.length;heap.push(e);while(j>0){const p=(j-1)>>1;if(!worse(heap[j],heap[p]))break;[heap[j],heap[p]]=[heap[p],heap[j]];j=p;}}
+    else if(worse(heap[0],e)){heap[0]=e;let j=0;while(true){const l=j*2+1,r=l+1;let b=j;if(l<heap.length&&worse(heap[l],heap[b]))b=l;if(r<heap.length&&worse(heap[r],heap[b]))b=r;if(b===j)break;[heap[j],heap[b]]=[heap[b],heap[j]];j=b;}}
+  }
+  return heap.sort((a,b)=>b.q.w-a.q.w||a.i-b.i).map(e=>e.q);
+}
 function transitOD491(blocks,services,complexes){
   const generated=[],latent=Object.fromEntries(TRIP_PURPOSES491.map(k=>[k,0])),made=Object.fromEntries(TRIP_PURPOSES491.map(k=>[k,0])),represented=Object.fromEntries(TRIP_PURPOSES491.map(k=>[k,0])),origins=blocks.filter(b=>b.pop>0).sort((a,b)=>b.pop-a.pop).slice(0,N<=216?150:180),destByPurpose={},rowCaps={work:160,shopping:100,education:90,services:80,leisure:90};
   for(const p of TRIP_PURPOSES491)destByPurpose[p]=blocks.filter(b=>purposeCapacity491(b,p)>0).sort((a,b)=>purposeCapacity491(b,p)-purposeCapacity491(a,p)).slice(0,N<=216?80:100);
   for(const p of TRIP_PURPOSES491){
     const dests=destByPurpose[p],remain=new Map(dests.map(d=>[d.key,purposeCapacity491(d,p)*(p==='work'?.38:p==='education'?.55:1.15)]));
-    for(const o of origins){let budget=purposeBudget491(o,p);latent[p]+=budget;if(budget<=.05||!dests.length)continue;const cheap=dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy),cap=purposeCapacity491(d,p),same=d.key===o.key,w=cap*(same?1.32:1)/(4+dist*.42);return{d,dist,w};}).filter(q=>(remain.get(q.d.key)||0)>.02&&q.w>0).sort((a,b)=>b.w-a.w).slice(0,12),cand=[];for(const q of cheap){const g=generalizedPair491(o,q.d,services,complexes,p),same=q.d.key===o.key,w=(g.reachable||same)?purposeCapacity491(q.d,p)/Math.pow(4+(same?1:g.best),1.22):0;if(w>0)cand.push({d:q.d,g,w});}cand.sort((a,b)=>b.w-a.w);cand.length=Math.min(cand.length,7);const sw=cand.reduce((a,q)=>a+q.w,0)||1;let used=0;for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),want=budget*q.w/sw,take=Math.min(avail,want);if(take<=.02)continue;remain.set(q.d.key,avail-take);used+=take;generated.push({purpose:p,o,d:q.d,trips:+take.toFixed(3),dist:q.g.dist});}if(used<budget*.72){for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),take=Math.min(avail,budget-used);if(take<=.02)continue;remain.set(q.d.key,avail-take);used+=take;generated.push({purpose:p,o,d:q.d,trips:+take.toFixed(3),dist:q.g.dist});if(used>=budget-.02)break;}}made[p]+=used;}
+    for(const o of origins){let budget=purposeBudget491(o,p);latent[p]+=budget;if(budget<=.05||!dests.length)continue;const cheap=mobilityTopK053(dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy),cap=purposeCapacity491(d,p),same=d.key===o.key,w=cap*(same?1.32:1)/(4+dist*.42);return{d,dist,w};}).filter(q=>(remain.get(q.d.key)||0)>.02&&q.w>0),12),cand=[];for(const q of cheap){const g=generalizedPair491(o,q.d,services,complexes,p),same=q.d.key===o.key,w=(g.reachable||same)?purposeCapacity491(q.d,p)/Math.pow(4+(same?1:g.best),1.22):0;if(w>0)cand.push({d:q.d,g,w});}cand.sort((a,b)=>b.w-a.w);cand.length=Math.min(cand.length,7);const sw=cand.reduce((a,q)=>a+q.w,0)||1;let used=0;for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),want=budget*q.w/sw,take=Math.min(avail,want);if(take<=.02)continue;remain.set(q.d.key,avail-take);used+=take;generated.push({purpose:p,o,d:q.d,trips:+take.toFixed(3),dist:q.g.dist});}if(used<budget*.72){for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),take=Math.min(avail,budget-used);if(take<=.02)continue;remain.set(q.d.key,avail-take);used+=take;generated.push({purpose:p,o,d:q.d,trips:+take.toFixed(3),dist:q.g.dist});if(used>=budget-.02)break;}}made[p]+=used;}
   }
   const merged=new Map();for(const q of generated){const k=q.purpose+'|'+q.o.key+'|'+q.d.key,old=merged.get(k);if(old)old.trips=+(old.trips+q.trips).toFixed(3);else merged.set(k,{...q});}
   const out=[];for(const p of TRIP_PURPOSES491){const rows=[...merged.values()].filter(q=>q.purpose===p).sort((a,b)=>b.trips-a.trips).slice(0,rowCaps[p]);for(const q of rows){out.push(q);represented[p]+=q.trips;}}
@@ -103203,7 +103236,7 @@ function transitOD468(blocks,services=[],complexes=[]){return transitOD491(block
 function buildParking491(blocks,ods){ensureMobilityArrays491();PARKING_PRESSURE491.fill(0);parkingBlock491=new Map();const demand=new Map();for(const q of ods){const mul=q.purpose==='work'?.42:q.purpose==='shopping'?.56:q.purpose==='leisure'?.48:.34;demand.set(q.d.key,(demand.get(q.d.key)||0)+q.trips*mul);}let supply=0,dem=0,saturated=0,weighted=0;const B=mobilityBlockSize491(),turnover=pol?.parkingManagement?1.12:1;for(const b of blocks){const s=Math.max(5,b.parkingSupply||0)*turnover,d=Math.max(0,demand.get(b.key)||0),p=clamp(d/s,0,2.5);parkingBlock491.set(b.key,{supply:s,demand:d,pressure:p,managed:!!pol?.parkingManagement});supply+=s;dem+=d;weighted+=p*Math.max(1,d);if(p>=1)saturated++;for(let y=b.gy*B;y<Math.min(N,(b.gy+1)*B);y++)for(let x=b.gx*B;x<Math.min(N,(b.gx+1)*B);x++)PARKING_PRESSURE491[idx(x,y)]=Math.round(clamp(p/2,0,1)*255);}return{supply:+supply.toFixed(1),demand:+dem.toFixed(1),pressure:dem?+(weighted/Math.max(1,dem)).toFixed(3):0,saturatedBlocks:saturated,managed:!!pol?.parkingManagement};}
 function spatialLaborDispatch491(blocks,services,complexes){
   const originsAll=blocks.filter(b=>b.workers>0),destsAll=blocks.filter(b=>b.jobs>0),origins=originsAll.slice().sort((a,b)=>b.workers-a.workers).slice(0,N<=216?150:180),dests=destsAll.slice().sort((a,b)=>b.jobs-a.jobs).slice(0,N<=216?100:120),remain=new Map(destsAll.map(d=>[d.key,d.jobs])),assigned=new Map(),workers=originsAll.reduce((a,o)=>a+o.workers,0),totalJobs=destsAll.reduce((a,d)=>a+d.jobs,0);let used=0,selectedWorkerBudget=0;
-  for(const o of origins){let budget=o.workers;selectedWorkerBudget+=budget;const cheap=dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,dist,w:d.jobs/(5+dist*.5)};}).filter(q=>(remain.get(q.d.key)||0)>.02).sort((a,b)=>b.w-a.w).slice(0,14),cand=[];for(const q of cheap){const g=generalizedPair491(o,q.d,services,complexes,'work'),w=g.reachable?q.d.jobs/Math.pow(5+g.best,1.18):0;if(w>0)cand.push({d:q.d,g,w});}cand.sort((a,b)=>b.w-a.w);cand.length=Math.min(cand.length,9);const sw=cand.reduce((a,q)=>a+q.w,0)||1;let got=0;for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),take=Math.min(avail,budget*q.w/sw);if(take<=.02)continue;remain.set(q.d.key,avail-take);assigned.set(q.d.key,(assigned.get(q.d.key)||0)+take);got+=take;used+=take;}if(got<budget*.78){for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),take=Math.min(avail,budget-got);if(take<=.02)continue;remain.set(q.d.key,avail-take);assigned.set(q.d.key,(assigned.get(q.d.key)||0)+take);got+=take;used+=take;if(got>=budget-.02)break;}}}
+  for(const o of origins){let budget=o.workers;selectedWorkerBudget+=budget;const cheap=mobilityTopK053(dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,dist,w:d.jobs/(5+dist*.5)};}).filter(q=>(remain.get(q.d.key)||0)>.02),14),cand=[];for(const q of cheap){const g=generalizedPair491(o,q.d,services,complexes,'work'),w=g.reachable?q.d.jobs/Math.pow(5+g.best,1.18):0;if(w>0)cand.push({d:q.d,g,w});}cand.sort((a,b)=>b.w-a.w);cand.length=Math.min(cand.length,9);const sw=cand.reduce((a,q)=>a+q.w,0)||1;let got=0;for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),take=Math.min(avail,budget*q.w/sw);if(take<=.02)continue;remain.set(q.d.key,avail-take);assigned.set(q.d.key,(assigned.get(q.d.key)||0)+take);got+=take;used+=take;}if(got<budget*.78){for(const q of cand){const avail=Math.max(0,remain.get(q.d.key)||0),take=Math.min(avail,budget-got);if(take<=.02)continue;remain.set(q.d.key,avail-take);assigned.set(q.d.key,(assigned.get(q.d.key)||0)+take);got+=take;used+=take;if(got>=budget-.02)break;}}}
   let pool=Math.max(0,workers-selectedWorkerBudget),weights=[];for(const d of destsAll){const rem=Math.max(0,remain.get(d.key)||0);if(rem<=.02)continue;const ai=idx(clamp(Math.round(d.cx),0,N-1),clamp(Math.round(d.cy),0,N-1)),access=(OPPORTUNITY_ACCESS491.job[ai]||0)/100,w=rem*(access>0?.15+.85*access:0);if(w>0)weights.push({d,rem,w});}let sw=weights.reduce((a,q)=>a+q.w,0)||1;for(const q of weights){const take=Math.min(q.rem,pool*q.w/sw);if(take<=.02)continue;remain.set(q.d.key,q.rem-take);assigned.set(q.d.key,(assigned.get(q.d.key)||0)+take);used+=take;}pool=Math.max(0,workers-used);if(pool>.02){for(const q of weights){const rem=Math.max(0,remain.get(q.d.key)||0),take=Math.min(rem,pool);if(take<=.02)continue;remain.set(q.d.key,rem-take);assigned.set(q.d.key,(assigned.get(q.d.key)||0)+take);used+=take;pool-=take;if(pool<=.02)break;}}
   const next=new Map(),nextPublic=new Map(),grace=mobility491.grace||0,cityFill=totalJobs?clamp(used/totalJobs,0,1):1;let isolated=0,isolatedPublic=0;
   for(const d of destsAll){const totalAssigned=assigned.get(d.key)||0;
@@ -103217,7 +103250,7 @@ function spatialLaborAccess491(root){if(window.__noMobility491||!mobility491.rea
 function spatialLaborFill491(root,globalFill=1){return Math.min(clamp(globalFill,0,1),spatialLaborAccess491(root));}
 function rebuildOpportunityAccess491(blocks,services,complexes){
   ensureMobilityArrays491();for(const a of Object.values(OPPORTUNITY_ACCESS491))a.fill(0);const B=mobilityBlockSize491(),raw=Object.fromEntries(TRIP_PURPOSES491.map(k=>[k,new Map()])),destByPurpose={},totalCap={};for(const p of TRIP_PURPOSES491){const all=blocks.filter(d=>purposeCapacity491(d,p)>0).sort((a,b)=>purposeCapacity491(b,p)-purposeCapacity491(a,p));totalCap[p]=all.reduce((a,d)=>a+purposeCapacity491(d,p),0);destByPurpose[p]=all.slice(0,N<=216?60:80);}
-  for(const o of blocks){for(const p of TRIP_PURPOSES491){const cheap=destByPurpose[p].map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,w:purposeCapacity491(d,p)/(1+dist*.28)};}).sort((a,b)=>b.w-a.w).slice(0,14);let v=0;for(const q of cheap){const d=q.d,g=generalizedPair491(o,d,services,complexes,p);if(!g.reachable&&d.key!==o.key)continue;const c=d.key===o.key?1:g.best;v+=purposeCapacity491(d,p)*Math.exp(-c/28);}raw[p].set(o.key,v);}}
+  for(const o of blocks){for(const p of TRIP_PURPOSES491){const cheap=mobilityTopK053(destByPurpose[p].map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,w:purposeCapacity491(d,p)/(1+dist*.28)};}),14);let v=0;for(const q of cheap){const d=q.d,g=generalizedPair491(o,d,services,complexes,p);if(!g.reachable&&d.key!==o.key)continue;const c=d.key===o.key?1:g.best;v+=purposeCapacity491(d,p)*Math.exp(-c/28);}raw[p].set(o.key,v);}}
   let popW=0,avg={job:0,shopping:0,education:0,services:0,leisure:0,all:0};for(const o of blocks){const score=p=>{const v=raw[p].get(o.key)||0,scale=Math.max(p==='work'?18:10,(totalCap[p]||0)*.18);return Math.round(clamp(1-Math.exp(-v/scale),0,1)*100);},vals={job:score('work'),shopping:score('shopping'),education:score('education'),services:score('services'),leisure:score('leisure')};vals.all=Math.round(vals.job*.35+vals.shopping*.20+vals.education*.15+vals.services*.15+vals.leisure*.15);for(let y=o.gy*B;y<Math.min(N,(o.gy+1)*B);y++)for(let x=o.gx*B;x<Math.min(N,(o.gx+1)*B);x++){const i=idx(x,y);for(const k of Object.keys(vals))OPPORTUNITY_ACCESS491[k][i]=vals[k];}const w=Math.max(1,o.pop||0);popW+=w;for(const k of Object.keys(avg))avg[k]+=vals[k]*w;}for(const k of Object.keys(avg))avg[k]=popW?+(avg[k]/popW).toFixed(1):0;return avg;
 }
 function opportunityAccessAt491(i){ensureMobilityArrays491();if(i<0||i>=N*N)return{job:0,shopping:0,education:0,services:0,leisure:0,all:0};return Object.fromEntries(Object.entries(OPPORTUNITY_ACCESS491).map(([k,a])=>[k,a[i]||0]));}
@@ -106329,7 +106362,7 @@ function activeMobilityRebuild502(){if(!tiles)return;const n=N*N;if(WALK_COST502
 function ensureActiveMobility502(){if(amDirty502||WALK_COST502.length!==N*N)activeMobilityRebuild502();return true;}
 function amWeatherFactor502(mode,code){if(window.__noActiveMobility502)return 1;const lv=typeof weatherLevels499==='function'?weatherLevels499():{wet:weather===2?1:weather===1?.5:0,snow:blizzard?.type==='snow'?1:0,dry:drought?1:0};let f=1+(lv.wet||0)*(mode==='bike'?.28:.10)+(lv.snow||0)*(mode==='bike'?.52:.28);if(code===5||code===6)f*=.92;if(pol?.completeStreets)f*=mode==='bike'?.91:.88;return f;}
 function amNodeCost502(i,mode){ensureActiveMobility502();const base=mode==='bike'?BIKE_COST502[i]:WALK_COST502[i];if(!base)return 0;return base*amWeatherFactor502(mode,tiles[i].am502|0);}
-function amNearestNodes502(x,y,mode,rad=4){const out=[];for(let r=0;r<=rad;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.abs(dx)+Math.abs(dy)!==r)continue;const xx=Math.round(x)+dx,yy=Math.round(y)+dy;if(!inMap(xx,yy))continue;const i=idx(xx,yy),c=amNodeCost502(i,mode);if(c>0)out.push({i,d:r,c});}out.sort((a,b)=>a.d-b.d||a.i-b.i);return out.slice(0,8);}
+function amNearestNodes502(x,y,mode,rad=4){const out=[];for(let r=0;r<=rad;r++)for(let dy=-r;dy<=r;dy++){const edge=r-Math.abs(dy);for(let dx=-edge;dx<=edge;dx+=edge?edge*2:1){const xx=Math.round(x)+dx,yy=Math.round(y)+dy;if(!inMap(xx,yy))continue;const i=idx(xx,yy),c=amNodeCost502(i,mode);if(c>0)out.push({i,d:r,c});}}out.sort((a,b)=>a.d-b.d||a.i-b.i);return out.slice(0,8);}
 function amHeapPush502(h,n){let i=h.length;h.push(n);while(i>0){const p=(i-1)>>1;if(h[p][0]<=n[0])break;h[i]=h[p];i=p;}h[i]=n;}
 function amHeapPop502(h){if(!h.length)return null;const root=h[0],last=h.pop();if(h.length){let i=0;while(true){let l=i*2+1,r=l+1;if(l>=h.length)break;let c=r<h.length&&h[r][0]<h[l][0]?r:l;if(h[c][0]>=last[0])break;h[i]=h[c];i=c;}h[i]=last;}return root;}
 function amDijkstra502(seeds,mode,maxCost=70){ensureActiveMobility502();const dist=new Map(),heap=[];for(const q of seeds){const d=q.d||0;if(!dist.has(q.i)||d<dist.get(q.i)){dist.set(q.i,d);amHeapPush502(heap,[d,q.i]);}}while(heap.length){const cur=amHeapPop502(heap),d=cur[0],i=cur[1];if(d!==dist.get(i)||d>maxCost)continue;const x=i%N,y=(i/N)|0;for(const[dx,dy]of DIRV){const xx=x+dx,yy=y+dy;if(!inMap(xx,yy))continue;const j=idx(xx,yy),c=amNodeCost502(j,mode);if(!c)continue;const nd=d+(c+amNodeCost502(i,mode))*.5;if(nd>maxCost)continue;const old=dist.get(j);if(old===undefined||nd<old){dist.set(j,nd);amHeapPush502(heap,[nd,j]);}}}return dist;}
@@ -106864,7 +106897,23 @@ function policyLedger504(type,text,programId='',tone=''){policyState504.ledger.p
 function policyProgramList504(){return Object.values(policyState504.programs).sort((a,b)=>(b.created||0)-(a.created||0)||(b.id||'').localeCompare(a.id||''));}
 function policyLiveProgram504(key){return policyProgramList504().find(p=>p.key===key&&!POLICY_TERMINAL504.has(p.status)&&p.status!=='grandfathered')||null;}
 function policyFamily504(p){return p?.family||(p?.kind==='package'?POLICY_PACKAGES504[p.key]?.family:POLICY_META504[p?.key]?.family)||'';}
-function policyAdminCapacity504(){let admin=0;try{for(const i of tickBld){const b=tiles[i]?.bld;if(b&&!b.ref&&[42,115,137].includes(b.k))admin+=b.k===137?2:1;}}catch(_e){}const staff=civic495?.ready?clamp(civic495.staffFill||0,0,1):.78,fiscal=money<0?.55:fin?.net<0?.82:1,cap=clamp(.34+staff*.42+Math.min(.18,admin*.045)+fiscal*.06,.28,1.12);return{capacity:+cap.toFixed(3),staff:+staff.toFixed(3),adminAssets:admin,fiscal:+fiscal.toFixed(2)};}
+/* GPT-053 C2 ADMIN COUNT BEGIN */
+// Only an invocation-local pure building count is reused; fiscal/staff reads remain live.
+let policyAdminScope053=null;
+function policyAdminAssets053(){
+  const scope=window.__noPolicyAdminReuse053?null:policyAdminScope053;
+  if(scope&&scope.ready)return scope.admin;
+  let admin=0;try{for(const i of tickBld){const b=tiles[i]?.bld;if(b&&!b.ref&&[42,115,137].includes(b.k))admin+=b.k===137?2:1;}}catch(_e){return admin;}
+  if(scope){scope.admin=admin;scope.ready=true;}
+  return admin;
+}
+function withPolicyAdminScope053(fn,self,args){
+  if(window.__noPolicyAdminReuse053)return fn.apply(self,args);
+  const previous=policyAdminScope053;policyAdminScope053={ready:false,admin:0};
+  try{return fn.apply(self,args);}finally{policyAdminScope053=previous;}
+}
+/* GPT-053 C2 ADMIN COUNT END */
+function policyAdminCapacity504(){const admin=policyAdminAssets053();const staff=civic495?.ready?clamp(civic495.staffFill||0,0,1):.78,fiscal=money<0?.55:fin?.net<0?.82:1,cap=clamp(.34+staff*.42+Math.min(.18,admin*.045)+fiscal*.06,.28,1.12);return{capacity:+cap.toFixed(3),staff:+staff.toFixed(3),adminAssets:admin,fiscal:+fiscal.toFixed(2)};}
 function policyShockActive504(gate){if(!gate)return false;if(gate==='storm')return weather===2||rainDays>=3||floodTiles.length>0;if(gate==='disaster')return !!(tornado||riot||plague||drought||blizzard||quakeRecover>0||floodTiles.length);if(gate==='shortage'){const q=economy482?.commodities||{};return Object.values(q).some(x=>(x.shortageRatio||0)>.12)||(resilience492?.ready&&(resilience492.reserves?.shortage||0)>.1);}return false;}
 function policyJunctionAverage504(ids,key){junctionStep503(false);const rows=(ids||[]).map(i=>{const id=JUNCTION_ID503[i];return id>=0?junctions503[id]:null;}).filter(Boolean);if(!rows.length)return key.includes('Safety')?1:0;const field={Safety:'safety',Delay:'delay',TransitDelay:'transitDelay',PedWait:'pedWait',EmergencyDelay:'emergencyDelay',Conflict:'conflict'}[key.replace(/^(target|control)/,'')]||'delay';return rows.reduce((a,j)=>a+(j.current?.[field]??0),0)/rows.length;}
 function policyMetricSnapshot504(program=null){const s=mayorBuildSnapshot470(true),r=s.roots||{},m=s.transit?.modeShare||{},trips=Math.max(1,s.transit?.totalTrips||transit468?.totalTrips||0),ops=[...(s.ops?.bus||[]),...(s.ops?.tram||[]),...(s.ops?.metro||[]),...(s.ops?.rail||[])],relRows=ops.map(q=>q.reliability501?.onTime).filter(Number.isFinite),W=typeof ensureWaterCycle472==='function'?ensureWaterCycle472():{},R=typeof resilienceSnapshot492==='function'?resilienceSnapshot492():{},C=economy482?.commodities||{},resv=R.reserves||{},H=s.housing||{},BC=s.cycle?.indicators||{},N=nightCity487||{},J=junctionStep503(false),jRows=junctions503||[];const jAvg=k=>jRows.length?jRows.reduce((a,q)=>a+(q.current?.[k]||0),0)/jRows.length:0,affCap=(H.affordableCapacity||0)/Math.max(1,H.effectiveCapacity||H.capacity||1),transAccess=H.markets?HOUSING_BANDS488.reduce((a,id)=>a+(H.markets[id]?.transitAccess||0),0)/HOUSING_BANDS488.length:0,stockVals=[resv.goodsDays,resv.fuelDays].filter(Number.isFinite),flowRates=[resv.foodFlow?.supplyRate,resv.gasFlow?.supplyRate].filter(Number.isFinite);const o={
@@ -107239,9 +107288,10 @@ function capProgramStrength506(k){const p=capProgram506(k);if(!p)return 0;return
 function capProgramDaily506(){if(window.__noCapability506)return 0;let n=0;for(const p of policyProgramList504())if(p.kind==='cap506'&&['implementing','active','review','adjusted'].includes(p.status))n+=(p.daily||0)*(.35+.65*(p.progress??1));return Math.round(n);}
 function capProgramToggle506(k,on){const m=CAPABILITY_PROGRAM_META506[k];if(!m)return false;const live=capProgram506(k);on=on===undefined?!live:!!on;if(on){if(live)return false;if(diff!==3&&money<m.setup){toast('資金不足，無法送審「'+m.name+'」','bad');return false;}if(diff!==3)money-=m.setup;const p=policyCreateProgram504({kind:'cap506',key:k,name:m.name,family:m.family,source:'player',reason:m.theory,scope:'city',implementationDays:m.implementationDays,reviews:m.reviews,cost:m.setup,daily:m.daily});if(!p){if(diff!==3)money+=m.setup;return false;}capability506.history.push({d:day,m:'送審「'+m.name+'」',c:'gold'});toast('⏳ 已核准「'+m.name+'」，進入能力建設','gold');}else{if(!live)return false;policyDecision504(live.id,live.status==='implementing'?'cancel':'sunset');capability506.history.push({d:day,m:'退場「'+m.name+'」',c:'warn'});}if(capability506.history.length>100)capability506.history.splice(0,capability506.history.length-100);capabilityStep506(true);return true;}
 
-function authoritySnapshot506(refresh=true){
-  if(refresh&&typeof socialStep505==='function')socialStep505(true);
-  const blocks=typeof mobilityBlocks491==='function'?mobilityBlocks491().filter(q=>(q.pop||0)>0):[],roots=new Set();
+/* GPT-053 C3 LOCAL BLOCK REUSE BEGIN */
+if(typeof window.__noMobilityBlockReuse053==='undefined')window.__noMobilityBlockReuse053=false;
+function authorityBlocks053(blocks){
+  const roots=new Set();
   let mobilityPopulation=0,rootPopulation=0;
   for(const q of blocks){mobilityPopulation+=q.pop||0;for(const r of q.resRoots||[])roots.add(r);}
   for(const r of roots){const b=tiles[r]?.bld;rootPopulation+=residentPopulation488(r,b);}
@@ -107252,6 +107302,13 @@ function authoritySnapshot506(refresh=true){
   if(Math.abs(stagePopulation-socialPopulation)>eps)issues.push('T505-stage:'+stagePopulation+'/'+socialPopulation);
   return{day,signature:[day,rootPopulation.toFixed(2),mobilityPopulation.toFixed(2),socialPopulation.toFixed(2)].join(':'),rootPopulation:+rootPopulation.toFixed(3),mobilityPopulation:+mobilityPopulation.toFixed(3),socialPopulation:+socialPopulation.toFixed(3),incomePopulation:+incomePopulation.toFixed(3),stagePopulation:+stagePopulation.toFixed(3),blocks:blocks.length,roots:roots.size,ok:issues.length===0,issues};
 }
+
+function authoritySnapshot506(refresh=true){
+  if(refresh&&typeof socialStep505==='function')socialStep505(true);
+  const blocks=typeof mobilityBlocks491==='function'?mobilityBlocks491().filter(q=>(q.pop||0)>0):[];
+  return authorityBlocks053(blocks);
+}
+/* GPT-053 C3 LOCAL BLOCK REUSE END */
 
 function capNormalize506(o,total){const keys=Object.keys(o),sum=keys.reduce((a,k)=>a+Math.max(0,+o[k]||0),0);if(sum<=0){o.independent=total;return o;}const m=total/sum;for(const k of keys)o[k]=Math.max(0,o[k]*m);return o;}
 function capHouseholds506(q){const P=Math.max(0,q.pop||0),child=(q.stages?.child||0)/Math.max(1,P),student=(q.stages?.student||0)/Math.max(1,P),ret=(q.stages?.retired||0)/Math.max(1,P),low=q.shares?.low||0;const o={independent:P*(.46-child*.25-ret*.10),youngCare:P*(child*.62+low*.025),schoolCare:P*(student*.38+child*.18),elderCare:P*(ret*.55),sandwich:P*Math.min(.16,(child+student)*ret*1.8)};return capNormalize506(o,P);}
@@ -107272,7 +107329,12 @@ function capabilityDistrictRaw506(q,block,prev){const households=capHouseholds50
 function capGrade506(v){return v>=.78?'A':v>=.65?'B':v>=.52?'C':'D';}
 function capAggregate506(rows,authority){const city=emptyCapabilityCity506(),P=rows.reduce((a,q)=>a+q.pop,0);city.population=+P.toFixed(3);if(P<=0){city.authority=authority;return city;}const wavg=fn=>rows.reduce((a,q)=>a+fn(q)*q.pop,0)/P;for(const k of Object.keys(city.households))city.households[k]=+rows.reduce((a,q)=>a+(q.households[k]||0),0).toFixed(2);for(const k of ['poverty','autonomy','free','sleep','commute'])city.time[k]=+wavg(q=>q.time[k]||0).toFixed(4);for(const inc of CAP_INCOME506){const den=rows.reduce((a,q)=>a+q.pop*(q.shares?.[inc]||0),0);city.time.byIncome[inc]=den?Object.fromEntries(['timePoverty','autonomy','sleep','commute','leisure','social'].map(k=>[k,+((rows.reduce((a,q)=>a+(q.time.byIncome?.[inc]?.[k]||0)*q.pop*(q.shares?.[inc]||0),0)/den).toFixed(4))])):{};}
   for(const k of ['demand','formal','informal','served'])city.care[k]=+rows.reduce((a,q)=>a+(q.care[k]||0),0).toFixed(3);for(const k of ['deficit','childDeficit','elderDeficit','healthDeficit'])city.care[k]=+wavg(q=>q.care[k]||0).toFixed(4);for(const k of ['quality','duration','timing','variability','predictability','control'])city.schedule[k]=+wavg(q=>q.schedule[k]||0).toFixed(4);for(const k of Object.keys(city.health))city.health[k]=+wavg(q=>q.health[k]||0).toFixed(4);for(const k of Object.keys(city.serviceUse))city.serviceUse[k]=+wavg(q=>q.serviceUse[k]||0).toFixed(4);for(const k of Object.keys(city.children))city.children[k]=+wavg(q=>q.children[k]||0).toFixed(4);city.labor.workingAge=+rows.reduce((a,q)=>a+q.labor.workingAge,0).toFixed(3);city.labor.effective=+rows.reduce((a,q)=>a+q.labor.effective,0).toFixed(3);city.labor.availability=city.labor.workingAge?+(city.labor.effective/city.labor.workingAge).toFixed(4):0;for(const k of Object.keys(city.exposure))city.exposure[k]=+wavg(q=>q.exposure[k]||0).toFixed(4);const capability=clamp((1-city.time.poverty)*.17+city.time.autonomy*.13+(1-city.care.deficit)*.16+city.schedule.quality*.12+city.health.functional*.18+city.serviceUse.use*.10+city.children.stability*.08+city.labor.availability*.06,0,1);city.grade=capGrade506(capability);city.capability=+capability.toFixed(4);city.authority=authority;return city;}
-function capabilityStep506(force=false){if(window.__noCapability506||!tiles){capability506.ready=false;return capability506;}if(!force&&(capability506.lastDay===day||day%5!==0))return capability506;const t0=typeof performance!=='undefined'?performance.now():0;socialStep505(true);const authority=authoritySnapshot506(false),blocks=mobilityBlocks491().filter(q=>q.pop>0),byBlock=new Map(blocks.map(q=>[String(q.key),q])),rows=[],old=capability506.stocks||{};capRootDistrict506=new Map();for(const q of social505.districts||[]){const block=byBlock.get(String(q.key));if(!block)continue;const prev=old[q.key]||{},row=capabilityDistrictRaw506(q,block,prev);old[q.key]={physical:row.health.physical,mental:row.health.mental,recovery:row.health.recovery,functional:row.health.functional,childStability:row.children.stability,lastDay:day};for(const r of [...(block.resRoots||[]),...(block.enterpriseRoots||[]),...(block.publicRoots||[])])capRootDistrict506.set(r,q.key);rows.push(row);}const active=new Set(rows.map(q=>String(q.key)));for(const k of Object.keys(old))if(!active.has(String(k)))delete old[k];capability506.stocks=old;capability506.districts=rows;capDistrictMap506=new Map(rows.map(q=>[String(q.key),q]));capability506.city=capAggregate506(rows,authority);capability506.authoritySnapshot=authority;capability506.ready=true;capability506.day=day;capability506.lastDay=day;capability506.performance.runs++;capability506.performance.lastMs=+(Math.max(0,(typeof performance!=='undefined'?performance.now():t0)-t0)).toFixed(3);window.__t506Capability={day,city:JSON.parse(JSON.stringify(capability506.city)),districts:rows.length};return capability506;}
+function capabilityStep506(force=false){if(window.__noCapability506||!tiles){capability506.ready=false;return capability506;}if(!force&&(capability506.lastDay===day||day%5!==0))return capability506;const t0=typeof performance!=='undefined'?performance.now():0;socialStep505(true);/* GPT-053 C3 CAPABILITY PRELUDE BEGIN */let authority,blocks;if(window.__noMobilityBlockReuse053){authority=authoritySnapshot506(false);blocks=mobilityBlocks491().filter(q=>q.pop>0);}else{blocks=mobilityBlocks491().filter(q=>(q.pop||0)>0);authority=authorityBlocks053(blocks);}const byBlock=new Map(blocks.map(q=>[String(q.key),q])),rows=[],old=capability506.stocks||{};/* GPT-053 C3 CAPABILITY PRELUDE END */capRootDistrict506=new Map();for(const q of social505.districts||[]){const block=byBlock.get(String(q.key));if(!block)continue;const prev=old[q.key]||{},row=capabilityDistrictRaw506(q,block,prev);old[q.key]={physical:row.health.physical,mental:row.health.mental,recovery:row.health.recovery,functional:row.health.functional,childStability:row.children.stability,lastDay:day};for(const r of [...(block.resRoots||[]),...(block.enterpriseRoots||[]),...(block.publicRoots||[])])capRootDistrict506.set(r,q.key);rows.push(row);}const active=new Set(rows.map(q=>String(q.key)));for(const k of Object.keys(old))if(!active.has(String(k)))delete old[k];capability506.stocks=old;capability506.districts=rows;capDistrictMap506=new Map(rows.map(q=>[String(q.key),q]));capability506.city=capAggregate506(rows,authority);capability506.authoritySnapshot=authority;capability506.ready=true;capability506.day=day;capability506.lastDay=day;capability506.performance.runs++;capability506.performance.lastMs=+(Math.max(0,(typeof performance!=='undefined'?performance.now():t0)-t0)).toFixed(3);window.__t506Capability={day,city:JSON.parse(JSON.stringify(capability506.city)),districts:rows.length};return capability506;}
+/* GPT-053 C2 SCOPE WRAPPERS BEGIN */
+const policySocialStep053=socialStep505,policyCapabilityStep053=capabilityStep506;
+socialStep505=function(force=false){return withPolicyAdminScope053(policySocialStep053,this,arguments);};
+capabilityStep506=function(force=false){return withPolicyAdminScope053(policyCapabilityStep053,this,arguments);};
+/* GPT-053 C2 SCOPE WRAPPERS END */
 function capabilityAt506(x,y){if(!capability506.ready)capabilityStep506(true);if(!inMap(x,y))return null;const B=mobilityBlockSize491(),key=((y/B)|0)*10000+((x/B)|0);return capDistrictMap506.get(String(key))||capDistrictMap506.get(key)||null;}
 function capabilityLaborMultiplier506(root){if(window.__noCapability506||window.__noLaborFeedback506||!capability506.ready)return 1;const key=capRootDistrict506.get(root),q=key==null?null:(capDistrictMap506.get(String(key))||capDistrictMap506.get(key));if(!q)return 1;return clamp(.92+(q.labor.availability-.72)*.28,.90,1.055);}
 function capabilityDistributionSnapshot506(){if(!capability506.ready)capabilityStep506(true);const c=capability506.city,low=c.time.byIncome.low||{};return{day,timePoverty:c.time.poverty,lowTimePoverty:low.timePoverty??c.time.poverty,temporalAutonomy:c.time.autonomy,careDeficit:c.care.deficit,scheduleQuality:c.schedule.quality,health:c.health.functional,recovery:c.health.recovery,presenteeism:c.health.presenteeism,absence:c.health.absence,serviceUse:c.serviceUse.use,childStability:c.children.stability,laborAvailability:c.labor.availability,heatExposure:c.exposure.heat};}
@@ -108992,6 +109054,13 @@ function britishGameplayProbe004(groupFilter){
   return{ok:details.every(q=>q.ok)&&exceptions.length===0,checks,details,exceptions,slot:3,disposable:true,elapsedMs:+(performance.now()-started).toFixed(2),assertions:details.length};
 }
 
+// GPT-053: scoped lifetime and exception/reentrant restoration; never retained across placements.
+const placementCanPlaceLegacy053=canPlace;
+canPlace=function(id,x,y){
+ if(window.__noPlacementReuse053)return placementCanPlaceLegacy053(id,x,y);
+ const previous=placementConflictContext053;placementConflictContext053={id,x,y};
+ try{return placementCanPlaceLegacy053(id,x,y);}finally{placementConflictContext053=previous;}
+};
 window.GV={
   museumSelftest010,museumSpecs010,museumAt010,museumEvidence010,
   quarterSelftest019,quarterSpecs019,quarterAt019,quarterEvidence019,quarterConnection019,
