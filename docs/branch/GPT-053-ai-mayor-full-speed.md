@@ -133,3 +133,13 @@ Latest owner instruction explicitly authorizes architecture-level performance wo
 Next experiment changes the repeated destination ranking in transport/labor/opportunity allocation from full sorting to bounded stable top-k selection. Preserve every candidate, score calculation, capacity check, tie order, downstream callback and assignment operation. Exact non-finite comparator cases fall back to original stable sort. No cross-tick cache or skipped simulation. Frozen p95 target remains at least 50%; this experiment is not claimed sufficient before native measurement. Historical guards require exact pinned inverse plus independent baseline, mutations, ties and boundary tests. Existing populated ABBA, exact native state/save/RNG and fixed-work diagnostics remain mandatory. No merge or release.
 
 C5 local pure verification: 34 composed historical/C1–C5/fixed-work tests passed; independent review requested an additional exhausted-capacity behavioral negative and workflow path coverage, now included. Three ranking sites retain original map/filter evaluation, selected row identities and stable ties. Candidate native verification is pending; old guards not weakened and no p95 claim. C4-vs-C5 exact-work is a separate read-only Ubuntu job; existing C3-vs-candidate diagnostics and unoptimized ABBA remain.
+
+## 2026-10-31 接續施工與阻擋紀錄
+
+業主明確授權恢復本 PR 施工，保留歷史與全部守衛、不強推、不直推 main、不繞過拒絕，未批准合併或部署。本次正常 Git fetch 得到 PR 分支 head `5d461784d7ba4b8efcc71a48383a6c7765227800` 與 main `01c2249cbcf9561b4d5df74de65748fa3b75cb86`；以 merge commit `7186c061e25be6c52b0ac0c55961f636e4f2c247` 將 main 合入本地分支，原有分支歷史保留。該 main 差異只增加 `AGENTS.md` 四行。checkout 內沒有 `.agents/skills`。
+
+純 Node 守衛 `node --test *053*.test.cjs`：70 pass、0 fail；包括 C1–C5 反投影、排序／計數、例外及負控制。這不是瀏覽器、同種子、存檔或吞吐驗收。此次未修改產品或既有守衛。業主提供「C1–C5 CI 成功、C5 有居民中城 p95 改善約 1.9%」；本次無法核驗該結果對應的 run、原始數值與 head，故保留為業主提供的資訊，不宣稱 50% 達標。
+
+唯讀 GitHub API 和 GraphQL 查詢均回覆 `Forbidden`；本地 Git tree 沒有原始 CPU profile、Long Tasks、GC、trace 或原圖附件，未改用其他路徑繞過 API 拒絕。卡內舊量測記述 8988e7b 的有人口固定工作量中 AI executive、fresh snapshot、rail rebuild 分別約 71%、35%、19% 的 inclusive sample，三者重疊而非可加的 CPU 時間。`rebuildRailOps463` 站點統計逐站掃街區值得進一步剖析，但子函數佔比、GC、長幀與大人口未有本次可驗原件；snapshot 重算有模型副作用，不能略過。C4 固定工作量曾慢約 1.44%，不掩蓋負結果。未據此猜做 C6，也未更改負載、速度、RNG、財務、決策或存檔。
+
+未完成：遠端 PR 最新 CI／原圖與附件核驗、成熟大城市 profile/Long Tasks/GC、可證明同工作量與實際吞吐的 C6、原生回歸與 50% p95 目標；實體手機/Safari 未測。需要有權限的維護者實際接單後，提供／檢查相應原始附件並接續驗證；本次未確認任何人接單。遠端推送及其結果另記錄，不能把本地 merge 當已同步 PR。
