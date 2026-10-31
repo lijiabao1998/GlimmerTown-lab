@@ -18,9 +18,10 @@ async function paired(){
  const {snapshot053,begin053,end053}=require('./benchmark053.cjs'),{summarizeRun}=require('./performance-metrics053.cjs'),{sleep,findChrome}=require('./harness.js');
  if(!process.env.GITHUB_ACTIONS)throw Error('Native paired populated test is GitHub Actions only');
  const scene=process.argv.find(x=>x.startsWith('--scene='))?.slice(8)||'small';assert.ok(['small','medium','large'].includes(scene));
+ const seconds=scene==='large'?180:90;
  const out=path.resolve('shots/populated-paired053/'+scene),file=path.join(__dirname,'index.html'),candidate=fs.readFileSync(file),base=cp.execFileSync('git',['show','a20713a509270f8ce6e37859c1fafe330372b952:index.html'],{maxBuffer:32e6});fs.mkdirSync(out,{recursive:true});
  const write=(name,x)=>fs.writeFileSync(path.join(out,name),JSON.stringify(x,null,2)),rows=[];let expectedStart;
- write('identity.json',{head:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),base:'a20713a509270f8ce6e37859c1fafe330372b952',scene,seed:87,seconds:90,speed:5,ai:true,runId:process.env.GITHUB_RUN_ID,node:process.version,cpu:os.cpus()[0]?.model,cpuCount:os.cpus().length,memory:os.totalmem(),browser:findChrome(),note:'Native Chromium Ubuntu; not physical mobile; 2 independent windows per arm; controlled newly populated fixture, not mature city.'});
+ write('identity.json',{head:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),base:'a20713a509270f8ce6e37859c1fafe330372b952',scene,seed:87,seconds,speed:5,ai:true,runId:process.env.GITHUB_RUN_ID,node:process.version,cpu:os.cpus()[0]?.model,cpuCount:os.cpus().length,memory:os.totalmem(),browser:findChrome(),note:'Native Chromium Ubuntu; not physical mobile; 2 independent windows per arm; controlled newly populated fixture, not mature city.'});
  try{for(const [i,label]of ['baseline','candidate','candidate','baseline'].entries()){
   fs.writeFileSync(file,label==='baseline'?base:candidate);const prefix=i+'-'+label;
   const r=await withGame({port:8199,fresh:true,timeout:600,log:console.log},async({cdp})=>{
@@ -38,7 +39,7 @@ async function paired(){
    assert.ok(before.stats.pop>0,'must have native population before timing');assert.equal(before.diff,1);assert.ok(!before.developer?.sandbox&&!before.developer?.god);
    const stableStart=JSON.stringify({stats:before.stats,exactMoney:before.exactMoney,roots:before.roots,connections});
    if(expectedStart===undefined)expectedStart=stableStart;else assert.equal(stableStart,expectedStart,'all ABBA arms require identical native starting state');
-   await sleep(90000);
+   await sleep(seconds*1000);
    const raw=await cdp.evalJs('(()=>{const r=('+end053.toString()+')();r.frameTimestamps=window.__benchmarkCapture053.frameTimestamps;return r;})()'),memoryAfter=await cdp.send('Runtime.getHeapUsage'),after=await cdp.evalJs('('+snapshot053.toString()+')()');
    write(prefix+'-frames.json',raw);write(prefix+'-after.json',after);write(prefix+'-memory.json',{before:memoryBefore,after:memoryAfter,note:'Live V8 heap only, not forced GC/process/GPU memory'});write(prefix+'-console.json',{errors:cdp.errors,benign:cdp.benign});
    const png=await cdp.send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(out,prefix+'.png'),Buffer.from(png.data,'base64'));
