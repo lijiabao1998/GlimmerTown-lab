@@ -86,3 +86,5 @@ Ubuntu run https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41158048
 原CPU profile有負 timeDelta（on 81/off 522個），不把它換算成可靠CPU毫秒。原件保留；以sample命中數定位 AI site search→canPlace→六組裝飾步道 conflict 的重複 footprint 建立/掃描。C1僅在單次 canPlace 同步呼叫內共用純讀 footprint conflict mask，離開／例外即清；別名另算、不跨tick/放置快取；保留原 wrapper順序、原衝突字串、原演算法逃生路徑。RNG、財務、AI 次數、模擬速度、模型、美術、保存格式不改。
 
 純函式與精確基線31,104組對照通過、scope重置讀到新狀態通過、故意漏quarter bit負控制命中。首次測試只在總數手算誤植32832≠31104而紅，原件保留後修算術計數；不能把這當行為首紅或原生回歸。下一個Ubuntu run量候選並做13個原生RNG/精確財務/事件/tiles/save逐checkpoint配對；未跑前不勾通過。尚未達50%門檻、尚無最終效能候選。
+
+C1 run 41159604731：13個原生checkpoint的RNG、精確財務、人口、事件／actions、tiles與save與原版全等。但原版與候選的load→save同樣正規化 `aiv470/h488/gov513`；嚴格「所有欄位不變」**未過**，不能以配對全等取代該門檻。先導C1 p95 150.1ms、p99 283.4ms，未達50%。不同run只作初步方向，不當收益驗收。下一步同runner ABBA四窗、四種fixture最高倍速；原始檔全保留，只有兩個獨立時間窗／arm，不冒稱30次獨立run。

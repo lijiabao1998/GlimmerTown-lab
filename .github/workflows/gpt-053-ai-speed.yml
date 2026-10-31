@@ -78,3 +78,29 @@ jobs:
           name: GPT053-native-regression-${{ github.sha }}
           path: shots/regression053/**
           if-no-files-found: error
+
+  paired:
+    if: github.ref == 'refs/heads/gpt/lab-ai-speed-20261030'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        scene: ['small', 'medium', 'large', 'dense']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Same-runner original-candidate ABBA highest speed native measurements
+        run: node benchmark053-paired.cjs ${{ matrix.scene }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GPT053-paired-${{ matrix.scene }}-${{ github.sha }}
+          path: shots/paired053/**
+          if-no-files-found: error
