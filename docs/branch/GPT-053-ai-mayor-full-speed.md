@@ -39,10 +39,42 @@
 
 ## §8 收工自檢（保持真實；Draft 不代表完成）
 
-- [ ] 卡面在動手前推上去了，驗收條件沒有事後改鬆（等待推送回執）
+- [x] 卡面在動手前推上去了，驗收條件沒有事後改鬆（遠端 first commit `a5366e73b9dd01ddc9f4fc81b7e7028f929822f3`；Draft #71）
 - [ ] 同種子前後對比／舊存檔來回（未跑；產品未改）
 - [ ] fp 與逃生閥整幀（基線啟動失敗；產品未改）
 - [ ] 各美術狀態實看（未跑；無美術改動）
 - [ ] 新守衛故意改壞首紅（尚無新守衛）
 - [ ] smoke 三連綠（未跑）
 - [x] 卡上沒有任何未跑的「通過」
+
+### 2026-10-30 21:24 UTC — GitHub 測試路徑明示授權
+
+業主在得知 Chrome socket 阻礙後明示：**「你使用GitHub來驗」**。因此僅在本分支新增 `permissions: contents: read`、不可部署的專項 workflow，先實際驗證 small/5×/AI on-off 的原生執行流程，再擴展原凍結矩陣。不得把此先導 run 當完整驗收，也不把 Linux headless 結果稱為真機。
+
+Git CLI 推送因沒有 HTTPS credential 未執行（`could not read Username`），正式已連接 GitHub connector 已建立 first commit／分支／[Draft #71](https://github.com/lijiabao1998/GlimmerTown-lab/pull/71)。沒有登入或規避權限拒絕。
+
+量測工具依據：[Chrome DevTools CPU Profiler](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/)、[Tracing](https://chromedevtools.github.io/devtools-protocol/tot/Tracing/)、[W3C Long Tasks API 工作草案](https://w3c.github.io/longtasks/)。CPU/trace 另窗，不把 profiler 額外成本混進主 FPS 窗。Long Tasks 不支援時回報 null；阻塞時間是各 task 超過 50ms 的部分，原 duration 另留。
+
+純統計 helper 六項單元檢查已本地通過，涵蓋獨立手算分位數／實際吞吐／缺量拒絕／故意錯算首紅；這**只證明統計算術，不是遊戲/效能通過**。
+
+### 首輪測量界線
+
+先導只量原始 `index.html`、小型新建受控 fixture、5×、AI on/off，各30秒，另接10秒診斷 profile/trace。不是自然成熟城市、不是完整32格矩陣、不是候選收益驗收。`index.html` SHA-256 `6ee59d6834e5227fe919f3ca7b301d6d72ce8a35fadaab128632677dfa9f5cf6`；產品與既有 harness/guard 逐byte未變。
+
+獨立審查找出 artifact 路徑不一致與重複統計實作，已在首次 CI 前修正；採樣外明示保存slot3快照，完整AI放置／RNG狀態尚無現成介面時輸出null。fixture、frame原件、memory、CPU、trace、PNG、console、第一失敗均收附件。不能以六項算術綠燈取代真瀏覽器量測。
+
+### 2026-10-30 21:30 UTC — 專項 CI 提交遭平台拒絕，停止相依工作
+
+建立第二個 GitHub commit 被 auto-review 明確拒絕、未執行。理由原文：「建立 GitHub commit 會修改遠端儲存庫；目前排程明確要求施工暫停且僅限只讀回報，故未授權此寫入操作。」完整請求身份與回執在 `evidence/ai-speed-053/remote-write-blocker.json`。
+
+已知業主21:23「你使用GitHub來驗」早於此拒絕，不能重複引用它當新證據而無限重試。**沒有重試、沒有換工具／帳號／執行器繞過。** 第二份tree物件已建立但沒有commit/ref；專項測試沒有進入遠端分支，沒有觸發。遠端仍是第一卡 `a5366e7`，Draft #71 的內容並非完整量測工具或效能修正。
+
+可獨立完成的本地成果：原生先導benchmark、read-only專項workflow、六項算術測試及首紅負控制、來源/契約審核。程式語法與六項Node測試通過，**不等於任何遊戲場景通過**。產品index仍逐byte等於main。沒有profile則不猜改產品。
+
+未完成：所有真實效能量測、成熟小中大城、完整倍速矩陣、RNG/full-placement instrumentation、同工作量Town runtime比較、profile驅動優化、50%目標及產品回歸。先前第一卡觸發的正常smoke/fp/財務CI僅唯讀追蹤，不算效能驗收。
+
+### 2026-10-31 — V66 明確續工，保留前次拒絕
+
+新授權訊息 `Sentinel_062133b2bca48191b8dfb565afa6d2ff`（2026-10-31）明示：「其餘六線不再只做狀態追蹤。請讓有權限的遠端開發工作者根據現有 Repo、PR、實際阻擋和已授權方向，持續施工直到各線當前完整功能閉環完成、測試證據齊全並達到可供業主驗收的狀態。」Lab 指定「請立即使用已授權的 GitHub Ubuntu 環境」「實際修改並優化程式」。這是前次拒絕後的新明示授權，不是重用 21:23 的舊授權。
+
+本次接續既有 Draft #71，隔離 worktree `lab-ai-speed-v66-20261031`，保留前次 staged 工作與首紅，不碰 FPV、Town 寫入、main、Pages、正式部署。先提交先導量測，再依真 profile 選窄改；凍結門檻不變。新遠端寫入若仍被拒絕，停止相依工作並保留精確回執，不改工具繞過。
