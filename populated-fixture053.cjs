@@ -31,7 +31,7 @@ async function paired(){
    await sleep(3000);
    const memoryBefore=await cdp.send('Runtime.getHeapUsage');
    const start=await cdp.evalJs('('+atomicStart053.toString()+')('+[
-    setup053.toString(),connectFixture053.toString(),snapshot053.toString(),begin053.toString(),
+    setup053.toString(),connectFixture053.toString(),snapshot053.toString(),`function(c){const start=(${begin053.toString()})(c),b=window.__benchmarkCapture053;b.frameTimestamps=[];function observe(t){if(!b.active)return;b.frameTimestamps.push({raf:t,observed:performance.now()});requestAnimationFrame(observe);}requestAnimationFrame(observe);return start;}`,
     JSON.stringify({scene,seed:87,ai:true,speed:5}),JSON.stringify(expectedStart??null)
    ].join(',')+')');
    const {fixture,connections,before}=start;write(prefix+'-before.json',{fixture,connections,before});
@@ -39,11 +39,21 @@ async function paired(){
    const stableStart=JSON.stringify({stats:before.stats,exactMoney:before.exactMoney,roots:before.roots,connections});
    if(expectedStart===undefined)expectedStart=stableStart;else assert.equal(stableStart,expectedStart,'all ABBA arms require identical native starting state');
    await sleep(90000);
-   const raw=await cdp.evalJs('('+end053.toString()+')()'),memoryAfter=await cdp.send('Runtime.getHeapUsage'),after=await cdp.evalJs('('+snapshot053.toString()+')()');
+   const raw=await cdp.evalJs('(()=>{const r=('+end053.toString()+')();r.frameTimestamps=window.__benchmarkCapture053.frameTimestamps;return r;})()'),memoryAfter=await cdp.send('Runtime.getHeapUsage'),after=await cdp.evalJs('('+snapshot053.toString()+')()');
    write(prefix+'-frames.json',raw);write(prefix+'-after.json',after);write(prefix+'-memory.json',{before:memoryBefore,after:memoryAfter,note:'Live V8 heap only, not forced GC/process/GPU memory'});write(prefix+'-console.json',{errors:cdp.errors,benign:cdp.benign});
    const png=await cdp.send('Page.captureScreenshot',{format:'png'});fs.writeFileSync(path.join(out,prefix+'.png'),Buffer.from(png.data,'base64'));
    const days=after.stats.day-before.stats.day,metrics=summarizeRun({frameMs:raw.frameMs,elapsedMs:raw.elapsedMs,days,placements:null,longTasks:raw.longTasks});
    assert.ok(raw.frameMs.length>=30&&days>0,'unchanged >=30 native frames and positive simulated days gate');assert.equal(cdp.errors.length,0,'native console errors');
+   // Separate continued-world CPU diagnostic; never mix profiler overhead into ABBA metrics.
+   if(i===1){
+    const profileBefore=await cdp.evalJs('('+snapshot053.toString()+')()');
+    await cdp.send('Profiler.enable');await cdp.send('Profiler.start');
+    await cdp.evalJs('GV.setSpeed(5)');await sleep(15000);await cdp.evalJs('GV.setSpeed(0)');
+    const profile=await cdp.send('Profiler.stop');
+    write(prefix+'-cpu-profile.json',profile);
+    write(prefix+'-profile-window.json',{before:profileBefore,after:await cdp.evalJs('('+snapshot053.toString()+')()'),requestedSeconds:15,note:'Separate continued populated-world diagnostic after main timing. Sample counts only if timeDeltas invalid; not matched CPU-ms proof.'});
+    await cdp.send('Profiler.disable');
+   }
    return{label,indexSha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex'),metrics,startStateSha256:crypto.createHash('sha256').update(stableStart).digest('hex'),populationBefore:before.stats.pop,populationAfter:after.stats.pop,rootsBefore:before.roots.length,rootsAfter:after.roots.length,daysPerSecond:days*1000/raw.elapsedMs,elapsedMs:raw.elapsedMs};
   });write(prefix+'-receipt.json',{ok:r.ok,fails:r.fails,seconds:r.seconds,result:r.result});assert.ok(r.ok,r.fails.join(';'));rows.push(r.result);
  }
