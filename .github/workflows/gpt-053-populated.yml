@@ -4,6 +4,7 @@ on:
     branches: ['gpt/lab-ai-speed-20261030']
     paths:
       - 'populated-fixture053.cjs'
+      - 'index.html'
       - '.github/workflows/gpt-053-populated.yml'
 permissions:
   contents: read

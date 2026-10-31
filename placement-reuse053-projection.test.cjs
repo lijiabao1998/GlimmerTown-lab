@@ -12,3 +12,5 @@ require('./policy-admin053.test.cjs');
 require('./mobility-blocks053.test.cjs');
 
 require('./nearest-nodes053.test.cjs');
+
+require('./mobility-topk053.test.cjs');

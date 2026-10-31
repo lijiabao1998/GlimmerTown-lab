@@ -9,6 +9,9 @@ on:
       - 'index.html'
       - 'placement-reuse053*'
       - 'regression053*'
+      - 'mobility-topk053*'
+      - 'fixed-work*053*'
+      - 'nearest-nodes053*'
   workflow_dispatch:
 permissions:
   contents: read
@@ -103,4 +106,25 @@ jobs:
         with:
           name: GPT053-paired-${{ matrix.scene }}-${{ github.sha }}
           path: shots/paired053/**
+          if-no-files-found: error
+
+  c5-fixed-work:
+    if: github.ref == 'refs/heads/gpt/lab-ai-speed-20261030'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Independent C4-C5 exact-work native ABBA and separate CPU profiles
+        run: node fixed-work-c5053.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GPT053-C5-fixed-work-${{ github.sha }}
+          path: shots/regression053/fixed-work-c5053/**
           if-no-files-found: error

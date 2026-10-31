@@ -28,13 +28,13 @@ function summarizeFixedProfile053(profile){
  assert.ok(selectedSamples>0,'profile must observe fixedWorkMeasured053 subtree');
  return {totalSamples:profile.samples.length,selectedSamples,excludedSamples:profile.samples.length-selectedSamples,unattributedGcSamples,invalidDeltas,selectedSampleDeltaMs:invalidDeltas?null:selectedDeltaUs/1000,topSelfSamples:Object.entries(self).sort((a,b)=>b[1]-a[1]).slice(0,30),note:'Sampled deltas beneath named work function, not OS CPU time; profile contains setup outside selected subtree; profiler-on elapsed is separate from unprofiled ABBA.'};
 }
-async function runFixedWork053({candidate,instrument}){
+async function runFixedWork053({candidate,instrument,baselineSha=BASELINE053,outSuffix='fixed-work053'}){
  if(!process.env.GITHUB_ACTIONS)throw Error('Native fixed-work diagnostic is GitHub Actions only');
  const {withGame,findChrome}=require('./harness.js'),{setup053}=require('./benchmark053.cjs'),{connectFixture053}=require('./populated-fixture053.cjs'),os=require('node:os');
- const file=path.join(__dirname,'index.html'),out=path.join(__dirname,'shots/regression053/fixed-work053');fs.mkdirSync(out,{recursive:true});
- const base=cp.execFileSync('git',['show',BASELINE053+':index.html'],{cwd:__dirname,maxBuffer:32e6,encoding:'utf8'}),rows=[];let reference;
+ const file=path.join(__dirname,'index.html'),out=path.join(__dirname,'shots/regression053/'+outSuffix);fs.mkdirSync(out,{recursive:true});
+ const base=cp.execFileSync('git',['show',baselineSha+':index.html'],{cwd:__dirname,maxBuffer:32e6,encoding:'utf8'}),rows=[];let reference;
  const write=(name,value)=>fs.writeFileSync(path.join(out,name),JSON.stringify(value,null,2));
- write('identity.json',{head:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),baseline:BASELINE053,baselineProductHash:hash053(base),candidateProductHash:hash053(candidate),plan:PLAN053,order:['baseline','candidate','candidate','baseline'],profileOrder:['baseline','candidate'],node:process.version,cpu:os.cpus()[0]?.model,browser:findChrome(),run:process.env.GITHUB_RUN_ID,note:'Independent synchronous fixed native simulation work; no frame rendering/pacing acceptance; all previous wall-window ABBA and guards unchanged.'});
+ write('identity.json',{head:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),baseline:baselineSha,baselineProductHash:hash053(base),candidateProductHash:hash053(candidate),plan:PLAN053,order:['baseline','candidate','candidate','baseline'],profileOrder:['baseline','candidate'],node:process.version,cpu:os.cpus()[0]?.model,browser:findChrome(),run:process.env.GITHUB_RUN_ID,note:'Independent synchronous fixed native simulation work; no frame rendering/pacing acceptance; all previous wall-window ABBA and guards unchanged.'});
  try{
   for(const [index,label,profiled]of [[0,'baseline',false],[1,'candidate',false],[2,'candidate',false],[3,'baseline',false],[4,'baseline',true],[5,'candidate',true]]){
    const prefix=index+'-'+label+(profiled?'-profiled':'');fs.writeFileSync(file,instrument(label==='baseline'?base:candidate));
