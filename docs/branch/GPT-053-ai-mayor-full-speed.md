@@ -78,3 +78,11 @@ Git CLI 推送因沒有 HTTPS credential 未執行（`could not read Username`�
 新授權訊息 `Sentinel_062133b2bca48191b8dfb565afa6d2ff`（2026-10-31）明示：「其餘六線不再只做狀態追蹤。請讓有權限的遠端開發工作者根據現有 Repo、PR、實際阻擋和已授權方向，持續施工直到各線當前完整功能閉環完成、測試證據齊全並達到可供業主驗收的狀態。」Lab 指定「請立即使用已授權的 GitHub Ubuntu 環境」「實際修改並優化程式」。這是前次拒絕後的新明示授權，不是重用 21:23 的舊授權。
 
 本次接續既有 Draft #71，隔離 worktree `lab-ai-speed-v66-20261031`，保留前次 staged 工作與首紅，不碰 FPV、Town 寫入、main、Pages、正式部署。先提交先導量測，再依真 profile 選窄改；凍結門檻不變。新遠端寫入若仍被拒絕，停止相依工作並保留精確回執，不改工具繞過。
+
+### V66 首個真瀏覽器基線與候選 C1（未驗收）
+
+Ubuntu run https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41158048956，精確 head `b608d627b15c304086ae559fce6b82f80dd7990a`，原生小型16住宅 fixture／5×／30秒：AI on 13.83 FPS、p95 166.7ms、p99 266.7ms、178 long tasks、阻塞16.482秒；AI off 50.94 FPS、p95 33.4ms、p99 50ms、19 tasks、阻塞0.307秒。實際吞吐各約5.55遊戲日/秒。人口仍0，不能冒稱成熟城市或完整矩陣。
+
+原CPU profile有負 timeDelta（on 81/off 522個），不把它換算成可靠CPU毫秒。原件保留；以sample命中數定位 AI site search→canPlace→六組裝飾步道 conflict 的重複 footprint 建立/掃描。C1僅在單次 canPlace 同步呼叫內共用純讀 footprint conflict mask，離開／例外即清；別名另算、不跨tick/放置快取；保留原 wrapper順序、原衝突字串、原演算法逃生路徑。RNG、財務、AI 次數、模擬速度、模型、美術、保存格式不改。
+
+純函式與精確基線31,104組對照通過、scope重置讀到新狀態通過、故意漏quarter bit負控制命中。首次測試只在總數手算誤植32832≠31104而紅，原件保留後修算術計數；不能把這當行為首紅或原生回歸。下一個Ubuntu run量候選並做13個原生RNG/精確財務/事件/tiles/save逐checkpoint配對；未跑前不勾通過。尚未達50%門檻、尚無最終效能候選。

@@ -7,6 +7,8 @@ on:
       - 'benchmark053*'
       - 'performance-metrics053*'
       - 'index.html'
+      - 'placement-reuse053*'
+      - 'regression053*'
   workflow_dispatch:
 permissions:
   contents: read
@@ -36,6 +38,8 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
       - name: Metrics helper independent arithmetic and first-red controls
         run: node --test performance-metrics053.test.cjs
+      - name: Exact pure placement conflict parity and injected first-red
+        run: node --test placement-reuse053.test.cjs
       - name: Native live AI and simulation baseline; no product mutation
         env:
           GPT053_RUN: ${{ github.run_id }}
@@ -53,3 +57,24 @@ jobs:
             benchmark053-run.log
           if-no-files-found: error
           retention-days: 30
+
+  regression:
+    if: github.ref == 'refs/heads/gpt/lab-ai-speed-20261030'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Native original-candidate checkpoints and existing save roundtrip
+        run: node regression053.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GPT053-native-regression-${{ github.sha }}
+          path: shots/regression053/**
+          if-no-files-found: error

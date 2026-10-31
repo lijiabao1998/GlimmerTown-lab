@@ -73428,7 +73428,24 @@ function theatrePathLight013(x,y){
 function theatreTheme013(t){const theme=t?.amx502?.british013;return t?.am502===1&&['ticket','plaza','rail','bench','planter','lamp'].includes(theme)?theme:null;}
 // New-theme ownership only: old tools retain exact behavior on every other tile.
 // Underground services can coexist, while replacing surface uses requires doze.
-function theatrePathConflict013(id,x,y){
+/* GPT-053: share pure decorative footprint reads only within one canPlace call.
+   No cross-call/tick cache; aliases get distinct entries; original wrapper order wins. */
+let placementConflictContext053=null;
+function placementConflictMask053(id,x,y){
+  if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return 0;
+  const ctx=placementConflictContext053;
+  if(ctx&&ctx.id===id&&ctx.x===x&&ctx.y===y&&ctx.mask!==undefined)return ctx.mask;
+  let mask=0;
+  const visit=(xx,yy)=>{if(!inMap(xx,yy))return;const t=tiles[idx(xx,yy)];if(t?.am502!==1)return;
+    if(theatreTheme013(t))mask|=1;if(complexTheme014(t))mask|=2;if(streetscapeTheme015(t))mask|=4;
+    if(gardenLifeTheme016(t))mask|=8;if(quaysideTheme017(t))mask|=16;if(quarterTheme019(t))mask|=32;};
+  if(['tdig','tland','traise'].includes(id)&&terraBrush===3){for(const [xx,yy]of terraCells(x,y))visit(xx,yy);}
+  else{const size=Math.max(1,toolSize458(id)||1);for(let dy=0;dy<size;dy++)for(let dx=0;dx<size;dx++)visit(x+dx,y+dy);}
+  if(ctx&&ctx.id===id&&ctx.x===x&&ctx.y===y)ctx.mask=mask;
+  return mask;
+}
+function theatrePathConflict013(id,x,y){if(window.__noPlacementReuse053)return theatrePathConflict013Legacy053(id,x,y);return placementConflictMask053(id,x,y)&1?'先拆除劇院街區步道':null;}
+function theatrePathConflict013Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73523,7 +73540,8 @@ function complexPathLight014(x,y){
   for(const [dx,dy]of[[0,1],[1,0],[0,-1],[-1,0]]){const xx=x+dx,yy=y+dy;if(!inMap(xx,yy))continue;const i=idx(xx,yy),d=POWER_DIST450?.[i]??-1;if(!tiles[i]?.road||!powerCarrierLive475(i)||d<0||!powerDistricts450[d])continue;const service=nightLightServiceAt487(xx,yy);if(!out.source||service>out.service){out.source={x:xx,y:yy,i};out.district=d;out.service=service;}}
   return out;
 }
-function complexPathConflict014(id,x,y){
+function complexPathConflict014(id,x,y){if(window.__noPlacementReuse053)return complexPathConflict014Legacy053(id,x,y);return placementConflictMask053(id,x,y)&2?'先拆除英式園區步道':null;}
+function complexPathConflict014Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73597,7 +73615,8 @@ const STREETSCAPE_THEME015=Object.freeze(Object.fromEntries(Object.values(STREET
 let streetscapeArtCanonical015=null;
 function streetscapeTheme015(t){const theme=t?.amx502?.british015;return t?.am502===1&&Object.prototype.hasOwnProperty.call(STREETSCAPE_THEME015,theme)?theme:null;}
 function streetscapeDescription015(q){return '獨立付費原生步道，步行成本 0.72；'+q.nm+'為可拆除的街區配景。建造時朝四格內最近直線道路對齊並保存方向。'+(q.lit?'燈具只讀取一格相鄰道路的原生夜間供電。':'此配景不發光。')+'不提供額外職位、收入、服務或觀光容量。';}
-function streetscapeConflict015(id,x,y){
+function streetscapeConflict015(id,x,y){if(window.__noPlacementReuse053)return streetscapeConflict015Legacy053(id,x,y);return placementConflictMask053(id,x,y)&4?'先拆除英式街區配景步道':null;}
+function streetscapeConflict015Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73659,7 +73678,8 @@ const GARDENLIFE_THEME016=Object.freeze(Object.fromEntries(Object.values(GARDENL
 let gardenLifeArtCanonical016=null;
 function gardenLifeTheme016(t){const theme=t?.amx502?.british016;return t?.am502===1&&Object.prototype.hasOwnProperty.call(GARDENLIFE_THEME016,theme)?theme:null;}
 function gardenLifeDescription016(q){return '獨立付費原生步道，步行成本 0.72；'+q.nm+'為可拆除的花園配景。建造時朝四格內最近直線道路對齊並保存方向。'+(q.lit?'燈具只讀取一格相鄰道路的原生夜間供電。':'此配景不發光。')+'不提供水源、產物、棋局或額外職位、收入、服務與觀光容量。';}
-function gardenLifeConflict016(id,x,y){
+function gardenLifeConflict016(id,x,y){if(window.__noPlacementReuse053)return gardenLifeConflict016Legacy053(id,x,y);return placementConflictMask053(id,x,y)&8?'先拆除英式花園配景步道':null;}
+function gardenLifeConflict016Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73721,7 +73741,8 @@ const QUAYSIDE_THEME017=Object.freeze(Object.fromEntries(Object.values(QUAYSIDE_
 let quaysideArtCanonical017=null;
 function quaysideTheme017(t){const theme=t?.amx502?.british017;return t?.am502===1&&Object.prototype.hasOwnProperty.call(QUAYSIDE_THEME017,theme)?theme:null;}
 function quaysideDescription017(q){return '可獨立購買與拆除的碼頭街景步道；'+q.nm+'保留正常步行通行，建造時朝附近直線道路對齊並保存方向。此配景不發光，不新增船隻、泊位、捕撈產物、運輸、救援服務或額外收入。';}
-function quaysideConflict017(id,x,y){
+function quaysideConflict017(id,x,y){if(window.__noPlacementReuse053)return quaysideConflict017Legacy053(id,x,y);return placementConflictMask053(id,x,y)&16?'先拆除英式碼頭配景步道':null;}
+function quaysideConflict017Legacy053(id,x,y){
   if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
   const cells=[];
   if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));
@@ -73865,7 +73886,8 @@ function quarterMeta019(t){return t?.am502===1?window.WaterfrontQuarterLogic019.
 function quarterTheme019(t){return quarterMeta019(t)?.theme||null;}
 function quarterDescription019(q){return q.nm+'是獨立付費的陸上步道，沿用正常步行及原生造價。與相鄰水岸構件連接鋪面，岸邊構件優先朝相鄰水面，其餘朝附近道路保存方向；'+(q.lit?'實體港燈只使用一格相鄰道路的原生供電。':'本構件不發光。')+'附近訪客僅呈現展館營運狀態，沒有新增遊客經濟、收入或服務容量。';}
 function quarterTurn019(theme,x,y){if(theme==='quayEdgeWalk'||theme==='quayCorner')for(let d=0;d<4;d++){const [dx,dy]=window.WaterfrontQuarterLogic019.DIRS[d],xx=x+dx,yy=y+dy;if(inMap(xx,yy)&&tiles[idx(xx,yy)]?.t===0)return(d+1)&3;}return complexRoadTurn014(x,y);}
-function quarterConflict019(id,x,y){
+function quarterConflict019(id,x,y){if(window.__noPlacementReuse053)return quarterConflict019Legacy053(id,x,y);return placementConflictMask053(id,x,y)&32?'先拆除水岸街區步道':null;}
+function quarterConflict019Legacy053(id,x,y){
  if(['doze','wpipe','waterMain','sewerMain','udline','ugcable'].includes(id))return null;
  const cells=[];if(['tdig','tland','traise'].includes(id)&&terraBrush===3)cells.push(...terraCells(x,y));else{const size=Math.max(1,toolSize458(id)||1);for(let dy=0;dy<size;dy++)for(let dx=0;dx<size;dx++)cells.push([x+dx,y+dy]);}
  for(const [xx,yy]of cells)if(inMap(xx,yy)&&quarterTheme019(tiles[idx(xx,yy)]))return '先拆除水岸街區步道';return null;
@@ -108992,6 +109014,13 @@ function britishGameplayProbe004(groupFilter){
   return{ok:details.every(q=>q.ok)&&exceptions.length===0,checks,details,exceptions,slot:3,disposable:true,elapsedMs:+(performance.now()-started).toFixed(2),assertions:details.length};
 }
 
+// GPT-053: scoped lifetime and exception/reentrant restoration; never retained across placements.
+const placementCanPlaceLegacy053=canPlace;
+canPlace=function(id,x,y){
+ if(window.__noPlacementReuse053)return placementCanPlaceLegacy053(id,x,y);
+ const previous=placementConflictContext053;placementConflictContext053={id,x,y};
+ try{return placementCanPlaceLegacy053(id,x,y);}finally{placementConflictContext053=previous;}
+};
 window.GV={
   museumSelftest010,museumSpecs010,museumAt010,museumEvidence010,
   quarterSelftest019,quarterSpecs019,quarterAt019,quarterEvidence019,quarterConnection019,
