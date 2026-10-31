@@ -1,0 +1,28 @@
+name: GPT-053 native populated fixture feasibility
+on:
+  push:
+    branches: ['gpt/lab-ai-speed-20261030']
+    paths:
+      - 'populated-fixture053.cjs'
+      - '.github/workflows/gpt-053-populated.yml'
+permissions:
+  contents: read
+jobs:
+  native-population:
+    if: github.ref == 'refs/heads/gpt/lab-ai-speed-20261030'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-zenhei
+      - name: Connect native water and electricity and require real population growth
+        run: node populated-fixture053.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GPT053-populated-${{ github.sha }}
+          path: shots/populated053/**
+          if-no-files-found: error
