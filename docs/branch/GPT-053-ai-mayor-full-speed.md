@@ -88,3 +88,9 @@ Ubuntu run https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41158048
 純函式與精確基線31,104組對照通過、scope重置讀到新狀態通過、故意漏quarter bit負控制命中。首次測試只在總數手算誤植32832≠31104而紅，原件保留後修算術計數；不能把這當行為首紅或原生回歸。下一個Ubuntu run量候選並做13個原生RNG/精確財務/事件/tiles/save逐checkpoint配對；未跑前不勾通過。尚未達50%門檻、尚無最終效能候選。
 
 C1 run 41159604731：13個原生checkpoint的RNG、精確財務、人口、事件／actions、tiles與save與原版全等。但原版與候選的load→save同樣正規化 `aiv470/h488/gov513`；嚴格「所有欄位不變」**未過**，不能以配對全等取代該門檻。先導C1 p95 150.1ms、p99 283.4ms，未達50%。不同run只作初步方向，不當收益驗收。下一步同runner ABBA四窗、四種fixture最高倍速；原始檔全保留，只有兩個獨立時間窗／arm，不冒稱30次獨立run。
+
+### 明確批准的限定守衛轉接層（不是重釘／放寬）
+
+業主新訊息 `Sentinel_ace4b1b7014081918822fb7136c5de79` 回覆「明確允許」，針對「只在八處變更完全吻合時還原投影，再沿用原本的歷史雜湊與負向測試；其他任何未預期變更仍須失敗」的限定提案。故只在 `stripPinned052` 原四條檢查之後接八塊精確逆轉投影；歷史SHA、原斷言運算、負控清單、預期首紅文字完全未動。投影manifest本身固定SHA256 `dd8489dd4ffaa747e0506d752fc5f26844155d02d5d4e0314ba0d88c5fae5e35`，缺塊／重複／變異不逆轉、仍由原歷史hash拒絕。原生測試仍跑shipping候選。新增測試加法掛入smoke；保持Draft、不能自行合併／發布。
+
+本地4項轉接測試及既有052 pure完整21guards、22semantic negatives、6source negatives通過；不是原生全綠。CI原始smoke首紅保留。ABBA small p95改善14.29%、medium27.76%，仍未達50%。dense定時新增受卡頓影響，baseline成功34/34次、C1 69/59次；不是匹配工作量，42.10%描述值不當驗收。large原版30秒僅24幀護欄拒絕，延至90秒而不降低30有效幀門檻。成熟有人口城市／Town實測／完整速度矩陣仍未完成。

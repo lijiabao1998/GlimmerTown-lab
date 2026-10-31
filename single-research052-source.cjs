@@ -14,7 +14,7 @@ function stripPinned052(candidate){
   assert.equal(candidate.split(end).length,2,'S01 unique052 end');
   assert.equal(candidate.split(block).length,2,'S01 unchanged052 block');
   assert.equal(candidate.split(left+block+right).length,2,'S01 exact052 insertion boundary');
-  return candidate.replace(block,'');
+  return require('./placement-reuse053-projection.cjs').normalizePlacement053(candidate.replace(block,''));
 }
 function projectCandidate052(candidate){
   const projected=stripPinned052(candidate);
