@@ -8,3 +8,5 @@ test('unrelated additions and native function mutation are not discarded',()=>{f
 test('original052 block/boundary controls remain ahead of new projection',()=>{assert.throws(()=>projectCandidate052(candidate.replace('/* GPT-052 SINGLE LEDGER BEGIN */','/* corrupted */')),/S01 unique052 begin/);});
 
 require('./policy-admin053.test.cjs');
+
+require('./mobility-blocks053.test.cjs');
