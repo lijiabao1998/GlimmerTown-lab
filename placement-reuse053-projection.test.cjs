@@ -10,3 +10,5 @@ test('original052 block/boundary controls remain ahead of new projection',()=>{a
 require('./policy-admin053.test.cjs');
 
 require('./mobility-blocks053.test.cjs');
+
+require('./nearest-nodes053.test.cjs');

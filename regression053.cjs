@@ -95,4 +95,60 @@ async function c3NativeParity053(){
  fs.writeFileSync(out+'/c3-native-parity.json',JSON.stringify({ok:true,baseline,candidateHash:hash(original),checkpoints:6,startPopulation:arms[0].checkpoints[0].state.pop,counts,note:'Atomic native task per arm; exact state/save/AM arrays and cache contents; existing native dirty invalidator only; timing excluded.'},null,2));
 }
 
-(async()=>{if(!process.env.GITHUB_ACTIONS)throw Error('Native regression is GitHub Actions only');try{cp.execFileSync(process.execPath,['--test','placement-reuse053-projection.test.cjs'],{cwd:__dirname,stdio:'inherit'});const a=await run('baseline',base),b=await run('candidate',original);assert.deepEqual(b.records,a.records,'native state/RNG/finance/events/tiles/save mismatch');assert.deepEqual(b.roundtrip,a.roundtrip,'native roundtrip differs from baseline');await populatedParity053();await c3NativeParity053();const normalization=Object.keys(a.roundtrip.a).filter(k=>JSON.stringify(a.roundtrip.a[k])!==JSON.stringify(a.roundtrip.b[k]));fs.writeFileSync(out+'/receipt.json',JSON.stringify({ok:true,checkpoints:13,baseSha256:hash(base),candidateSha256:hash(original),instrumentation:'RNG getter only; original RNG arithmetic unchanged; read-only closure snapshot; excluded from performance timing',baselineRoundtripChangedFields:normalization,fullRoundtripUnchanged:normalization.length===0},null,2));}finally{fs.writeFileSync(file,original);}})().catch(e=>{fs.writeFileSync(out+'/first-failure.json',JSON.stringify({error:e.stack},null,2));console.error(e);process.exitCode=1;});
+
+// C4 keeps all historical and C3 checks, and independently exercises native node-cost read order.
+function instrumentC4053(source){
+ const marker='window.GV={';
+ const observer=`
+ window.__c4Native053=()=>{
+  const road=tickRoad.find(i=>tiles[i]?.road),points=[
+   [0,0],[N-1,N-1],[0,N-1],[N-1,0],
+   [N/2+.5,N/2-.5],[-.5,1.5],[N-.5,N/2],[0,N/2]
+  ];
+  if(road!=null)points.push([road%N,(road/N)|0]);
+  const cases=[],originalCost=amNodeCost502;
+  let trace=null;
+  amNodeCost502=function(i,mode){const c=originalCost.apply(this,arguments);if(trace)trace.push({i,mode,c});return c;};
+  try{
+   for(const [x,y] of points)for(const mode of ['walk','bike'])for(const radius of [null,0,1,2,4,6,8]){
+    trace=[];
+    const nodes=radius===null?amNearestNodes502(x,y,mode):amNearestNodes502(x,y,mode,radius);
+    cases.push({x,y,mode,radius,nodes,trace});trace=null;
+   }
+  }finally{amNodeCost502=originalCost;}
+  return {cases,am:{dirty:amDirty502,version:amVersion502,walk:Array.from(WALK_COST502),bike:Array.from(BIKE_COST502),cells:amCells502.slice()}};
+ };
+ `;
+ return instrument(source).replace(marker,observer+marker);
+}
+async function c4NativeParity053(){
+ const {connectFixture053}=require('./populated-fixture053.cjs');
+ const baseline='facbc9b4d2d4b39be35680141212c68d9e59f0c6';
+ const c3=cp.execFileSync('git',['show',baseline+':index.html'],{maxBuffer:32e6,encoding:'utf8'}),arms=[];
+ for(const [label,source] of [['c4-baseline-c3',c3],['c4-candidate',original]]){
+  fs.writeFileSync(file,instrumentC4053(source));
+  const r=await withGame({port:8199,fresh:true,timeout:600,log:console.log},async({cdp})=>{
+   const result=await cdp.evalJs('('+function(setup,connect){
+    setup({scene:'medium',seed:87,ai:true});connect();GV.step(20);GV.setSpeed(0);
+    const snapshot=()=>{GV.setSpeed(0);GV.save();return JSON.parse(JSON.stringify({state:window.__state053(),save:JSON.parse(localStorage.getItem('glimmerville.v1.s3'))}));};
+    const checkpoints=[];for(let i=0;i<=5;i++){if(i)GV.step(1);checkpoints.push(snapshot());}
+    if(!(checkpoints[0].state.pop>0))throw Error('C4 requires native populated parity');
+    const before=snapshot(),diagnostics=window.__c4Native053(),after=snapshot();
+    return {checkpoints,before,diagnostics,after};
+   }.toString()+')('+setup053.toString()+','+connectFixture053.toString()+')');
+   assert.equal(cdp.errors.length,0);return result;
+  });
+  fs.writeFileSync(out+'/'+label+'.json',JSON.stringify({ok:r.ok,fails:r.fails,result:r.result??null}));
+  assert.ok(r.ok,r.fails.join(';'));arms.push(r.result);
+ }
+ for(const arm of arms){
+  assert.deepEqual(arm.after,arm.before,'C4 native nearest-node observations must not change game state/save');
+  assert.ok(arm.diagnostics.cases.length>=112,'C4 must exercise all boundary/interior/radius/mode cases');
+  assert.ok(arm.diagnostics.cases.some(q=>q.nodes.length>0),'C4 fixture must include traversable native nodes');
+  assert.ok(arm.diagnostics.cases.some(q=>q.trace.length>8),'C4 must exercise more than eight native node-cost reads');
+ }
+ assert.deepEqual(arms[1],arms[0],'C4 exact populated native state/save, nearest-node outputs or node-cost call order mismatch');
+ fs.writeFileSync(out+'/c4-native-parity.json',JSON.stringify({ok:true,baseline,candidateHash:hash(original),checkpoints:6,startPopulation:arms[0].checkpoints[0].state.pop,cases:arms[0].diagnostics.cases.length,costCalls:arms[0].diagnostics.cases.reduce((n,q)=>n+q.trace.length,0),note:'Atomic medium20+5 native fixture per arm; no synthetic model edits; temporarily observed real amNodeCost502 calls, restored in finally; exact output and ordered cost trace; no timing claim.'},null,2));
+}
+
+(async()=>{if(!process.env.GITHUB_ACTIONS)throw Error('Native regression is GitHub Actions only');try{cp.execFileSync(process.execPath,['--test','placement-reuse053-projection.test.cjs'],{cwd:__dirname,stdio:'inherit'});const a=await run('baseline',base),b=await run('candidate',original);assert.deepEqual(b.records,a.records,'native state/RNG/finance/events/tiles/save mismatch');assert.deepEqual(b.roundtrip,a.roundtrip,'native roundtrip differs from baseline');await populatedParity053();await c3NativeParity053();await c4NativeParity053();const normalization=Object.keys(a.roundtrip.a).filter(k=>JSON.stringify(a.roundtrip.a[k])!==JSON.stringify(a.roundtrip.b[k]));fs.writeFileSync(out+'/receipt.json',JSON.stringify({ok:true,checkpoints:13,baseSha256:hash(base),candidateSha256:hash(original),instrumentation:'RNG getter only; original RNG arithmetic unchanged; read-only closure snapshot; excluded from performance timing',baselineRoundtripChangedFields:normalization,fullRoundtripUnchanged:normalization.length===0},null,2));}finally{fs.writeFileSync(file,original);}})().catch(e=>{fs.writeFileSync(out+'/first-failure.json',JSON.stringify({error:e.stack},null,2));console.error(e);process.exitCode=1;});

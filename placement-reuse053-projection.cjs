@@ -6,6 +6,7 @@ const raw=fs.readFileSync(__dirname+'/placement-reuse053-projection.json','utf8'
 assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),'dd8489dd4ffaa747e0506d752fc5f26844155d02d5d4e0314ba0d88c5fae5e35','GPT053 exact projection manifest');
 const changes=JSON.parse(raw);assert.equal(changes.length,8,'GPT053 eight bounded segments');
 function normalizePlacement053(source){
+  source=require('./nearest-nodes053-projection.cjs').normalizeNearestNodes053(source);
   source=require('./mobility-blocks053-projection.cjs').normalizeMobilityBlocks053(source);
   source=require('./policy-admin053-projection.cjs').normalizePolicyAdmin053(source);
   // All-or-nothing. Missing, duplicated or changed segments remain unprojected,

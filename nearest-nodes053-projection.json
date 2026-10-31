@@ -1,0 +1,6 @@
+[
+  {
+    "before": "function amNearestNodes502(x,y,mode,rad=4){const out=[];for(let r=0;r<=rad;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.abs(dx)+Math.abs(dy)!==r)continue;const xx=Math.round(x)+dx,yy=Math.round(y)+dy;if(!inMap(xx,yy))continue;const i=idx(xx,yy),c=amNodeCost502(i,mode);if(c>0)out.push({i,d:r,c});}out.sort((a,b)=>a.d-b.d||a.i-b.i);return out.slice(0,8);}",
+    "after": "function amNearestNodes502(x,y,mode,rad=4){const out=[];for(let r=0;r<=rad;r++)for(let dy=-r;dy<=r;dy++){const edge=r-Math.abs(dy);for(let dx=-edge;dx<=edge;dx+=edge?edge*2:1){const xx=Math.round(x)+dx,yy=Math.round(y)+dy;if(!inMap(xx,yy))continue;const i=idx(xx,yy),c=amNodeCost502(i,mode);if(c>0)out.push({i,d:r,c});}}out.sort((a,b)=>a.d-b.d||a.i-b.i);return out.slice(0,8);}"
+  }
+]

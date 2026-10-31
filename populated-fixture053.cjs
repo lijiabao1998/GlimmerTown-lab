@@ -19,9 +19,9 @@ async function paired(){
  if(!process.env.GITHUB_ACTIONS)throw Error('Native paired populated test is GitHub Actions only');
  const scene=process.argv.find(x=>x.startsWith('--scene='))?.slice(8)||'small';assert.ok(['small','medium','large'].includes(scene));
  const seconds=scene==='large'?180:90;
- const out=path.resolve('shots/populated-paired053/'+scene),file=path.join(__dirname,'index.html'),candidate=fs.readFileSync(file),base=cp.execFileSync('git',['show','07955fad574e31ccf34c3e6904247c8998b8cde2:index.html'],{maxBuffer:32e6});fs.mkdirSync(out,{recursive:true});
+ const out=path.resolve('shots/populated-paired053/'+scene),file=path.join(__dirname,'index.html'),candidate=fs.readFileSync(file),base=cp.execFileSync('git',['show','facbc9b4d2d4b39be35680141212c68d9e59f0c6:index.html'],{maxBuffer:32e6});fs.mkdirSync(out,{recursive:true});
  const write=(name,x)=>fs.writeFileSync(path.join(out,name),JSON.stringify(x,null,2)),rows=[];let expectedStart;
- write('identity.json',{head:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),base:'07955fad574e31ccf34c3e6904247c8998b8cde2',scene,seed:87,seconds,speed:5,ai:true,runId:process.env.GITHUB_RUN_ID,node:process.version,cpu:os.cpus()[0]?.model,cpuCount:os.cpus().length,memory:os.totalmem(),browser:findChrome(),note:'C3 compared against independently committed C2 baseline 07955fa. Native Chromium Ubuntu; not physical mobile; 2 independent windows per arm; controlled newly populated fixture, not mature city.'});
+ write('identity.json',{head:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),base:'facbc9b4d2d4b39be35680141212c68d9e59f0c6',scene,seed:87,seconds,speed:5,ai:true,runId:process.env.GITHUB_RUN_ID,node:process.version,cpu:os.cpus()[0]?.model,cpuCount:os.cpus().length,memory:os.totalmem(),browser:findChrome(),note:'C4 compared against independently committed C3 baseline facbc9b4. Native Chromium Ubuntu; not physical mobile; 2 independent windows per arm; controlled newly populated fixture, not mature city.'});
  try{for(const [i,label]of ['baseline','candidate','candidate','baseline'].entries()){
   fs.writeFileSync(file,label==='baseline'?base:candidate);const prefix=i+'-'+label;
   const r=await withGame({port:8199,fresh:true,timeout:600,log:console.log},async({cdp})=>{
