@@ -46,7 +46,38 @@
 
 只新增檔案，`git revert`。
 
-## 6. 施工紀錄（待補）
+## 6. 施工紀錄
 
-- （待補）probe 實測
-- （待補）結論與沒做成的事
+### 6.1 probe 實測（`node probeCommuteOd08.cjs` → PASS，exit 0）
+
+```json
+{"t468Keys":["version","assignment","busOps","accessMax","audit"],
+ "odShape":{"present":true,"type":"array","length":0},
+ "topODShape":{"type":"array","length":0},
+ "hasExplicitOdMatrix":true,
+ "odFieldsInAssignment":["modeShare","od","topOD"],
+ "stable":{"t468":true,"t491":true},
+ "storage":{"before":3,"after":3,"unchanged":true},
+ "afterRun":{"day":4,"totalTrips":0,"auditOk":true}}
+```
+
+- **唯讀成立**：連讀兩次 `t468`／`t491` 完全一致；讀取前後 `localStorage` 長度都是 3；probe 原始碼沒有任何 `recomputeCommute()` 呼叫（probe 自己會掃字串）。
+- **新城市 0 運量**：fresh 城市沒有住戶／工作，`totalTrips:0` 是預期；本卡依邊界**不造人口**，所以不硬把數字做出來。
+
+### 6.2 結論：原生 OD 是「區塊級」不是「格級」
+
+從 `index.html` 的實際建構與 UI 讀法可確認（`transitOD468(blocks)`、`mobility491` 的 `odRows`／`topOD`）：
+
+- OD 列的形狀是 **`{origin, destination, purpose, trips, walk, transit, car}`**，`origin`／`destination` 是**街區（block）編號**，不是單格。
+- 另有 `odMeta:{latent, generated, represented, dropped}`（T491）記錄需求生成／代表的落差。
+- 對外可讀：`GV.t468().assignment.{od,topOD,modeShare,purpose}`、`GV.t491().mobility`、`GV.commuteLoad()`、`GV.commuteAt(x,y)`（該格衰減式通勤負載）。
+- **沒有**格級 OD 公開介面。
+
+對 LAB-09 的意義：影子客運可以直接吃「區塊級 OD ＋每格通勤負載」，不需要逼原生重算；細到格級的配對則要另開設計、且属 [等業主]。
+
+### 6.3 沒做成的事（照實）
+
+1. **看不到非零 OD 的執行期樣本**：fresh 城市沒有住戶／工作；要看真資料需要業主的存檔（本卡不動業主存檔），所以 OD 元素的欄位是從程式碼與 UI 讀出來的，不是 runtime 抽樣。
+2. **沒有自己做 OD 生成模型**：`transitOD468` 的生成邏輯只讀不寫；重建一套生成器會踩「不強制原生重算」的邊界。
+3. **格級 OD 不存在**：結論就是「原生只到區塊級」，本卡不改產品去補。
+4. **真手機／Safari 未測**。
