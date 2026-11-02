@@ -140,11 +140,22 @@ RAIL_BLOCK_055 {"checks":9,"ok":true}
 - `node fp.js --check` → **exit 0、FP_OK**，44.6s，165 族零變動。
 - `node probeRailBlock055.cjs` → PASS。
 
-### 7.7 沒做成的事（照實）
+### 7.8 分支 CI 紅燈說明（2026-11-02，run 41411483015）
+
+- 分支 CI：[run 41411483015](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41411483015) — `fp`、`fiscal-load`、`reuse-push` 都 **success**，只有 `smoke` job 的「煙霧第 2、3 次」紅。
+- 紅的內容：`SINGLE052 FAIL AssertionError ["執行期錯誤: W10 actual wheel increases JSON scroll"]`（`single-research052.test.js` 既有的 wheel 捲動斷言，不是本卡新增的守衛）。
+- 已做的判斷（不靠重跑）：
+  1. 同一個 052 測試在本分支**本機連跑 3 次**全部 `BROWSER_RESULT ok:true`、exit 0；
+  2. 同一支測試在 #75（只多 054 區塊）的 CI **success**；
+  3. 本地 `node smoke.js` 0 FAIL。
+- 依 `AGENTS.md`「煙霧或 fp 步驟本身紅了不准重跑」，**沒有重跑**。這一條交業主／main 寫入者判定是 runner 時序 flake 還是真回歸。
+
+### 7.9 沒做成的事（照實）
 
 1. **只有單一閉塞區間**：整條路線同一時間一列；多區間閉塞、側線會車都不在本卡。
 2. **沒有號誌／時刻表**：等待只是 FIFO，不是真實班表或路權優先序。
 3. **斷軌是「格不見了」**：用 `tile.rail` 判定；沒有模擬施工中的軌道修復時間。
-4. **堆疊分支**：本 PR 依賴 PR #75；兩者都動 `single-research052-source.cjs`，合併時要在 main 上把 052+053+054+055 四塊按順序接好（#74 的 053 也要一起）。
+4. **堆疊分支**：本 PR 依賴 PR #75；兩者都動 `single-research052-source.cjs`，合併時要在 main 上把 052+054+055 三塊按順序接好。
 5. **推進是命令式的**：`advance()` 由面板／API 呼叫，沒綁 tick。
-6. **真手機／Safari 未測**。
+6. **分支 CI 紅在 052 既有 wheel 斷言**：見 §7.8，沒有重跑、沒有改判準、沒有放寬。
+7. **真手機／Safari 未測**。
