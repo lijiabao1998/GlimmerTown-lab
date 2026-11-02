@@ -33,6 +33,7 @@
     const demandScale = isNum(opts.demandScale) && opts.demandScale > 0 ? opts.demandScale : 1;
     const maxShops = Number.isSafeInteger(opts.maxShops) && opts.maxShops > 0 ? opts.maxShops : 2000;
     const maxStations = Number.isSafeInteger(opts.maxStations) && opts.maxStations > 0 ? opts.maxStations : 500;
+    const walkDistance = typeof opts.walkDistance === 'function' ? opts.walkDistance : null;
 
     const sv = validateList(opts.stations, 'stations', maxStations);
     if (!sv.ok) return fail(sv.reason, sv.detail);
@@ -58,8 +59,8 @@
       let connected = 0;
       const sources = [];
       for (const st of stations) {
-        const d = Math.abs(st.x - shop.x) + Math.abs(st.y - shop.y);
-        if (d > radius) continue;
+        const d = walkDistance ? Number(walkDistance(st.x, st.y, shop.x, shop.y)) : Math.abs(st.x - shop.x) + Math.abs(st.y - shop.y);
+        if (!Number.isFinite(d) || d < 0 || d > radius) continue;
         connected += 1;
         const w = 1 - d / radius;
         if (w <= EPS) continue;
