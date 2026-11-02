@@ -94,6 +94,7 @@
 
 - `node smoke.js` 連跑 3 次：**3 次都 exit 0、0 條 FAIL**（`SMOKE_RUN_1_EXIT:0`／`SMOKE_RUN_2_EXIT:0`／`SMOKE_RUN_3_EXIT:0`，整份日誌 253.9 KB，0 筆 `FAIL`）。
 - `node fp.js --check`：**exit 0**，74.6s，165 族逐族相同、`style.json` 與算出值相同、葉子／超街區指紋／七軸全部零變動。
+- 分支 CI（push `ceea8bb`）：[smoke 41388683326](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41388683326)、[reuse-push 41388687759](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41388687759) 均 **success**。
 
 ### 7.5 執行紀錄
 
