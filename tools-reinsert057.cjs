@@ -1,0 +1,17 @@
+'use strict';
+const fs = require('node:fs');
+const crypto = require('node:crypto');
+const block = fs.readFileSync('intermodal057-runtime.js', 'utf8').trim();
+const h = crypto.createHash('sha256').update(block).digest('hex');
+const BEGIN = '/* DSK-025 INTERMODAL 057 BEGIN */';
+const END = '/* DSK-025 INTERMODAL 057 END */';
+let html = fs.readFileSync('index.html', 'utf8');
+const i = html.indexOf(BEGIN), j = html.indexOf(END);
+if (i < 0 || j < 0) throw new Error('markers not found');
+html = html.slice(0, i) + BEGIN + '\n' + block + '\n' + END + html.slice(j + END.length);
+fs.writeFileSync('index.html', html);
+let src = fs.readFileSync('single-research052-source.cjs', 'utf8');
+const re = /blockHash057='[0-9a-f]{64}'/;
+if (!re.test(src)) throw new Error('blockHash057 not found');
+fs.writeFileSync('single-research052-source.cjs', src.replace(re, "blockHash057='" + h + "'"));
+console.log('reinserted hash=' + h);

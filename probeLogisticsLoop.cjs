@@ -55,9 +55,18 @@ const PAGE = `(() => {
     for (let i = 0; i < r2.roadSteps; i++) GV.intermodal057.advance();
     GV.intermodal057.transfer();
 
-    // Gap (documented, not asserted): the rail leg still does not consult
-    // GV.railBlock055 — 055's per-train authority model is not wired into 057 yet.
-    out.facts.blockEnforcement = 'not wired: intermodal057 rail leg ignores railBlock055 authority';
+    // 055 exposes no canAdvance helper; the authoritative facts are holder + broken list.
+    const beforeGrant = GV.intermodal057.advance();
+    out.facts.noAuthority = { ok: beforeGrant.ok, reason: beforeGrant.reason };
+    if (beforeGrant.ok || beforeGrant.reason !== 'authority:no-authority') fail('rail moved without block authority');
+
+    GV.railBlock055.request(TRAIN);
+    const nextTile = idx(rail.x, rail.y + 1);
+    GV.railBlock055.breakTile(nextTile);
+    const broken = GV.intermodal057.advance();
+    out.facts.broken = { ok: broken.ok, reason: broken.reason };
+    if (broken.ok || broken.reason !== 'authority:track-broken') fail('broken rail did not stop the train');
+    GV.railBlock055.repairTile(nextTile);
 
     for (let i = 0; i < r2.railSteps; i++) GV.intermodal057.advance();
     const s2 = GV.intermodal057.snapshot();

@@ -120881,9 +120881,19 @@ window.GV.shadowCargo049=api;window.GV.shadowWarehouse050=api;window.GV.singleRe
       refresh();
       return { ok: true, snapshot: snapshot() };
     }
-    // NOTE (V67): block-authority enforcement for the rail leg is NOT wired yet.
-    // The 055 authority is a separate per-train model; connecting it here needs its own
-    // card and an equivalence proof. Declared as a gap in DSK-028 §6.
+    // Rail leg: when an authority id is declared, only the 055 holder may move, and a
+    // broken next tile must stop the train. 055 exposes state through snapshot()
+    // (it has no canAdvance helper) — holder + broken list are the authoritative facts.
+    if (trip.authorityId && window.GV && window.GV.railBlock055 && typeof window.GV.railBlock055.snapshot === 'function') {
+      const blk = window.GV.railBlock055.snapshot();
+      const nextRail = trip.railPath[Math.min(trip.railCursor + 1, trip.railPath.length - 1)];
+      if (blk && blk.holder !== trip.authorityId) {
+        return { ok: false, reason: 'authority:no-authority', snapshot: snapshot() };
+      }
+      if (blk && Array.isArray(blk.broken) && blk.broken.indexOf(nextRail) >= 0) {
+        return { ok: false, reason: 'authority:track-broken', snapshot: snapshot() };
+      }
+    }
     if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; settleOnDeliver(); refresh(); return { ok: true, snapshot: snapshot() }; }
     trip.railCursor += 1;
     if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; settleOnDeliver(); }
