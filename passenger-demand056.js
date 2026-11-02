@@ -13,7 +13,7 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  const EPS = 1e-6;
+  const EPS = 0.35; /* native OD rounds each mode to 0.1: up to 3 modes can overshoot trips by ~0.3 */
   const REASONS = Object.freeze({ BAD_INPUT: 'bad-input', NEGATIVE: 'negative', OVERFLOW: 'overflow', NOT_OBJECT: 'not-object' });
 
   const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -36,9 +36,11 @@
         if (!isNum(row[k])) return fail(REASONS.BAD_INPUT, 'field:' + k);
         if (row[k] < 0) return fail(REASONS.NEGATIVE, 'field:' + k);
       }
-      const served = row.walk + row.transit + row.car;
+      const bike = (typeof row.bike === 'number' && Number.isFinite(row.bike) && row.bike >= 0) ? row.bike : 0;
+      const served = row.walk + row.transit + row.car + bike;
+      const declaredUnserved = (typeof row.unserved === 'number' && Number.isFinite(row.unserved) && row.unserved >= 0) ? row.unserved : null;
       if (served - row.trips > EPS) return fail(REASONS.OVERFLOW, 'served>trips');
-      const unserved = Math.max(0, row.trips - served);
+      const unserved = declaredUnserved !== null ? declaredUnserved : Math.max(0, row.trips - served);
       rows.push({
         origin: row.origin === undefined ? null : row.origin,
         destination: row.destination === undefined ? null : row.destination,
