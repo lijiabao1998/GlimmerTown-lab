@@ -124,6 +124,15 @@ PR #71 的 36 個檔、20 個 commit 裡，`index.html` 只改了 19 行（C5：
 - `node fp.js --check` → **exit 0、63.3s、165 族零變動**
 - 完整 `node smoke.js` 3 連綠 → 交給分支 CI（本機只跑到守衛段）
 
+## 7.7 候選 C-054b：`canPlace` 世代 memo（已套用）
+
+- 做法：原 `canPlace` 改名 `canPlace054Core`，前面加一層 memo（key＝tool+x+y，帶 generation）；`aiStep` 進入時與 `doPlace` 執行前 `canPlace054Bump()` 清空。同一 AI step 內、地圖沒改動時，重複查詢直接命中。
+- 守門：`perf-patch054.json` 升為 v2（四組字面補丁、各雙向 SHA-256），投影器逐組反演；`shadow-cargo049`／`single-research052` 皆 exit 0。
+- 等價性：`GV.step(5)` × 200 後 hash 仍為 **`282968898`**（與 main、prune-only 相同）。
+- ABBA（30 s）：mean **−46.3%**、p95 **−40.0%**、p99 −12.4%。
+- ABBA（60 s）：mean **−60.4%**、p95 **−33.5%**、p99 −48.4%。
+- 三次 ABBA 的 p95 是 −40.0%／−33.5%（prune-only 60 s 為 −42.6%），**仍未達 −50%**；而且 baseline p95 在三次之間從 1291 到 9283 ms 劇烈變動——量測變異大於真實差異，不宣稱達標。
+
 ## 8. 沒做成的事（照實）
 
 - **p95 −50% 尚未達成**：目前最好的一輪是 −14.7%／−66%（兩個窗口差很大），樣本太少、變異太大，不能宣稱達標。

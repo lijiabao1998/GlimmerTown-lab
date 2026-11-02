@@ -15,12 +15,22 @@ assert.ok(block.startsWith(begin+'\n')&&block.endsWith(end+'\n'),'S01 exact052 d
  * 同一個 T776 baseline。兩個字串都各自有獨立 SHA-256，任何變動都會在 P01 首紅。
  * 這是守門檔變更，需要業主／main 寫入者批准；本分支不自行合併。 */
 const perfPatch=JSON.parse(fs.readFileSync(path.join(__dirname,'perf-patch054.json'),'utf8'));
+function perfPatchList054(){
+  if(Array.isArray(perfPatch.patches))return perfPatch.patches;
+  return [{from:perfPatch.from,to:perfPatch.to,fromSha256:perfPatch.fromSha256,toSha256:perfPatch.toSha256}];
+}
 function unapplyPerfPatch054(candidate){
-  assert.equal(hash(perfPatch.from),perfPatch.fromSha256,'P01 pinned054 original snippet');
-  assert.equal(hash(perfPatch.to),perfPatch.toSha256,'P01 pinned054 candidate snippet');
-  if(candidate.indexOf(perfPatch.to)<0)return candidate;   // native input: nothing to reverse
-  assert.equal(candidate.split(perfPatch.to).length,2,'P01 unique054 candidate snippet');
-  return candidate.replace(perfPatch.to,perfPatch.from);
+  const list=perfPatchList054();
+  for(const pt of list){
+    assert.equal(hash(pt.from),pt.fromSha256,'P01 pinned054 original snippet');
+    assert.equal(hash(pt.to),pt.toSha256,'P01 pinned054 candidate snippet');
+  }
+  for(const pt of list.slice().reverse()){
+    if(candidate.indexOf(pt.to)<0)continue;   // native (or already reversed) for this hunk
+    assert.equal(candidate.split(pt.to).length,2,'P01 unique054 candidate hunk');
+    candidate=candidate.replace(pt.to,pt.from);
+  }
+  return candidate;
 }
 function stripPinned052(input){
   const candidate=unapplyPerfPatch054(input);

@@ -1,8 +1,32 @@
 {
-  "schema": "dsk-054-reverse-patch-v1",
-  "reason": "AI mayor site scan: exact blocked-footprint prefix prune",
-  "from": "function mayorFindSite470A(tool,s){const sz=toolSize458(tool),ctr=s.center||aiCenter(),rad=Math.min(52,Math.max(20,aiR+14)),step=sz>=4?2:1;let best=null,bs=-1e9;for(let y=Math.max(1,ctr[1]-rad);y<=Math.min(N-sz-1,ctr[1]+rad);y+=step)for(let x=Math.max(1,ctr[0]-rad);x<=Math.min(N-sz-1,ctr[0]+rad);x+=step){if(canPlace(tool,x,y)!==null)continue;const sc=mayorSiteScore470A(tool,x,y,s);if(sc>bs){bs=sc;best={x,y,score:sc};}}return best;}\n",
-  "to": "let MAYOR_PS054=null,MAYOR_PSW054=0;/* DSK-054 exact prune */ function mayorBldPrefix054(){const n=N,w=n+1;if(!MAYOR_PS054||MAYOR_PSW054!==w){MAYOR_PS054=new Int32Array(w*w);MAYOR_PSW054=w;}const ps=MAYOR_PS054;ps.fill(0);for(let y=0;y<n;y++){let r=0;const row=y*n,base=(y+1)*w,up=y*w;for(let x=0;x<n;x++){const t=tiles[row+x];if(t.bld||t.road||t.rail||t.tram||(t.t!==1&&t.t!==2))r++;ps[base+x+1]=ps[up+x+1]+r;}}return ps;} function mayorFindSite470A(tool,s){const sz=toolSize458(tool),ctr=s.center||aiCenter(),rad=Math.min(52,Math.max(20,aiR+14)),step=sz>=4?2:1;let best=null,bs=-1e9;const ps=mayorBldPrefix054(),W=N+1;for(let y=Math.max(1,ctr[1]-rad);y<=Math.min(N-sz-1,ctr[1]+rad);y+=step)for(let x=Math.max(1,ctr[0]-rad);x<=Math.min(N-sz-1,ctr[0]+rad);x+=step){if(ps[(y+sz)*W+(x+sz)]-ps[y*W+(x+sz)]-ps[(y+sz)*W+x]+ps[y*W+x]>0)continue;if(canPlace(tool,x,y)!==null)continue;const sc=mayorSiteScore470A(tool,x,y,s);if(sc>bs){bs=sc;best={x,y,score:sc};}}return best;}\n",
-  "fromSha256": "2d6b7d1076c5ca1e706be0c2ba2ebb9cafc8ec99c0d65fdac93b7553a93316bc",
-  "toSha256": "97152a9b13af13acdc1e74a5ff526e7ff5034896d218dc4e2a9a8b980858ab51"
+  "schema": "dsk-054-reverse-patch-v2",
+  "reason": "AI mayor: exact blocked-footprint prune + generation-scoped canPlace memo",
+  "patches": [
+    {
+      "schema": "dsk-054-reverse-patch-v1",
+      "reason": "AI mayor site scan: exact blocked-footprint prefix prune",
+      "from": "function mayorFindSite470A(tool,s){const sz=toolSize458(tool),ctr=s.center||aiCenter(),rad=Math.min(52,Math.max(20,aiR+14)),step=sz>=4?2:1;let best=null,bs=-1e9;for(let y=Math.max(1,ctr[1]-rad);y<=Math.min(N-sz-1,ctr[1]+rad);y+=step)for(let x=Math.max(1,ctr[0]-rad);x<=Math.min(N-sz-1,ctr[0]+rad);x+=step){if(canPlace(tool,x,y)!==null)continue;const sc=mayorSiteScore470A(tool,x,y,s);if(sc>bs){bs=sc;best={x,y,score:sc};}}return best;}\n",
+      "to": "let MAYOR_PS054=null,MAYOR_PSW054=0;/* DSK-054 exact prune */ function mayorBldPrefix054(){const n=N,w=n+1;if(!MAYOR_PS054||MAYOR_PSW054!==w){MAYOR_PS054=new Int32Array(w*w);MAYOR_PSW054=w;}const ps=MAYOR_PS054;ps.fill(0);for(let y=0;y<n;y++){let r=0;const row=y*n,base=(y+1)*w,up=y*w;for(let x=0;x<n;x++){const t=tiles[row+x];if(t.bld||t.road||t.rail||t.tram||(t.t!==1&&t.t!==2))r++;ps[base+x+1]=ps[up+x+1]+r;}}return ps;} function mayorFindSite470A(tool,s){const sz=toolSize458(tool),ctr=s.center||aiCenter(),rad=Math.min(52,Math.max(20,aiR+14)),step=sz>=4?2:1;let best=null,bs=-1e9;const ps=mayorBldPrefix054(),W=N+1;for(let y=Math.max(1,ctr[1]-rad);y<=Math.min(N-sz-1,ctr[1]+rad);y+=step)for(let x=Math.max(1,ctr[0]-rad);x<=Math.min(N-sz-1,ctr[0]+rad);x+=step){if(ps[(y+sz)*W+(x+sz)]-ps[y*W+(x+sz)]-ps[(y+sz)*W+x]+ps[y*W+x]>0)continue;if(canPlace(tool,x,y)!==null)continue;const sc=mayorSiteScore470A(tool,x,y,s);if(sc>bs){bs=sc;best={x,y,score:sc};}}return best;}\n",
+      "fromSha256": "2d6b7d1076c5ca1e706be0c2ba2ebb9cafc8ec99c0d65fdac93b7553a93316bc",
+      "toSha256": "97152a9b13af13acdc1e74a5ff526e7ff5034896d218dc4e2a9a8b980858ab51"
+    },
+    {
+      "from": "function canPlace(toolId,x,y){",
+      "to": "let __cp054Gen=0,__cp054Cache=new Map();\nfunction canPlace054Bump(){__cp054Gen++;__cp054Cache.clear();}\nfunction canPlace(toolId,x,y){const __k=toolId+'\\u0000'+x+'\\u0000'+y;const __e=__cp054Cache.get(__k);if(__e&&__e.g===__cp054Gen)return __e.v;const __v=canPlace054Core(toolId,x,y);__cp054Cache.set(__k,{g:__cp054Gen,v:__v});return __v;}\nfunction canPlace054Core(toolId,x,y){",
+      "fromSha256": "e710cccb89f157798675bf8e1466810b00ff36318bc77dee8323832750356f99",
+      "toSha256": "a334e751faf04d1869175b240cebbda0290fd21851806a459e56af3f62999f65"
+    },
+    {
+      "from": "function aiStep(){",
+      "to": "function aiStep(){canPlace054Bump();",
+      "fromSha256": "302dc1808f342ca56a61499aef595e3099cf8e189e67dc1ab96db0fb92288f23",
+      "toSha256": "485cfef73893bbdb590604498dca86f83242df4e9f39d1a5072657ef137f8da9"
+    },
+    {
+      "from": "function doPlace(toolId,x,y,silent){",
+      "to": "function doPlace(toolId,x,y,silent){canPlace054Bump();",
+      "fromSha256": "73377d1436194d150ca588dd32ee320b57cd5e96def83c8f33e7c9f3d44aaf5a",
+      "toSha256": "9b473edf0c5dd84dab349c78a613e591f678281c4a974ff667466bdda9af406d"
+    }
+  ]
 }

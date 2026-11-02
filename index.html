@@ -88473,7 +88473,10 @@ function canPlaceHighStreet005(q,x,y){
   for(let dy=0;dy<q.sz;dy++)for(let dx=0;dx<q.sz;dx++)if(T(idx(x+dx,y+dy)).crater)return '隕石坑需先剷除';
   return null;
 }
-function canPlace(toolId,x,y){
+let __cp054Gen=0,__cp054Cache=new Map();
+function canPlace054Bump(){__cp054Gen++;__cp054Cache.clear();}
+function canPlace(toolId,x,y){const __k=toolId+'\u0000'+x+'\u0000'+y;const __e=__cp054Cache.get(__k);if(__e&&__e.g===__cp054Gen)return __e.v;const __v=canPlace054Core(toolId,x,y);__cp054Cache.set(__k,{g:__cp054Gen,v:__v});return __v;}
+function canPlace054Core(toolId,x,y){
   if(COMPLEX_TOOL014[toolId])return canPlaceComplex014(COMPLEX_TOOL014[toolId],x,y);
   if(THEATRE_TOOL013[toolId])return canPlaceTheatre013(THEATRE_TOOL013[toolId],x,y);
   if(RIVERSIDE_TOOL012[toolId])return canPlaceRiverside012(RIVERSIDE_TOOL012[toolId],x,y);
@@ -88879,7 +88882,7 @@ function placeCost(toolId,x,y){
   if(toolId!=='doze'&&toolId!=='stad'&&toolId!=='tdig'&&toolId!=='tland'&&toolId!=='traise'&&t.tree)c+=COST.doze; // 順手清樹（體育場定價 $1200 一次，4 格自動清不另收；T121 地形筆刷已在上方分支自行 flat 計價，不疊加此費）
   return c*tq('B5',.95,1)*tq('C8',.95,1)*tq('D4a',.90,1)*sq('hub',1.05,1);
 }
-function doPlace(toolId,x,y,silent){
+function doPlace(toolId,x,y,silent){canPlace054Bump();
   markLandDirty(x,y,20); // T315：只標記受影響框（半徑20 覆蓋最大覆蓋場18/污染5）；T292：任何建造/拆除都可能改 COV/POL/公園景觀→地價靜態基準需在下一 tick 重建（doPlace 亦處理 doze 拆除 case）
   const err=canPlace(toolId,x,y);
   if(err){if(!silent){toast(err,'bad');sErr();}return false;}
@@ -91763,7 +91766,7 @@ function aiCenter(){
   for(let i=0;i<N*N;i++){const b=tiles[i].bld;if(b&&!b.ref){sx+=i%N;sy+=(i/N)|0;n++;}}
   return n?[Math.round(sx/n),Math.round(sy/n)]:[N>>1,N>>1];
 }
-function aiStep(){
+function aiStep(){canPlace054Bump();
   if(!aiMode)return;
   if(money<80&&day>3)return; // 破產線：僅剩零錢時完全停工等紓困/稅收
   const poor=money<800; // 財政分級（血淚：一刀切 money<400 全停＝小稅基收入只夠打平→永遠攢不到門檻→永久死鎖）：
