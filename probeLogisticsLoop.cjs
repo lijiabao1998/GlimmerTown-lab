@@ -56,6 +56,17 @@ const PAGE = `(() => {
     out.facts.intermodalDone = { status: s2.status, qty: s2.qty, batchId: s2.batchId };
     if (s2.qty !== qty || s2.batchId !== batchId) fail('intermodal changed batch identity/quantity');
 
+    // --- settlement attempt: hand the batch to the receiver in the shadow ledger ---
+    let settle = null;
+    try {
+      settle = L.command({
+        eventId: 'settle-1', sessionId: snap.ledger.sessionId, batchId,
+        type: 'HANDOFF', expectedRevision: snap.ledger.revision,
+        payload: { owner: 'research-receiver', location: 'research-receiver-shelf' }
+      });
+    } catch (e) { settle = { error: String((e && e.message) || e) }; }
+    out.facts.settle = settle;
+
     // --- ledger still consistent, but NOT settled by the legs ---
     const after = L.snapshot();
     const ab = (after.ledger && after.ledger.batches) || [];
