@@ -145,6 +145,7 @@ ROAD_DELIVERY_053 {"checks":12,"ok":true}
 - `node smoke.js` → **0 FAIL、SMOKE_OK**（119.5 KB 日誌）。
 - `node fp.js --check` → **exit 0、FP_OK**，56.9s，165 族零變動、`style.json` 相同。
 - `node probeRoadDelivery053.cjs` → PASS。
+- **分支 CI（push `a396ea3`）全綠**：[smoke 41405495904](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41405495904)（smoke／fp／fiscal-load 皆 success）、[reuse-push 41405501110](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41405501110)（success）。
 
 ### 7.8 沒做成的事（照實）
 
