@@ -120287,6 +120287,184 @@ const api=Object.freeze({start,command,snapshot,nativeObservation,demo,open,refr
 window.GV.shadowCargo049=api;window.GV.shadowWarehouse050=api;window.GV.singleResearch052=api;
 })();
 /* GPT-052 SINGLE LEDGER END */
+/* DSK-018 ROAD DELIVERY 053 BEGIN */
+/* DSK-018 / LAB-03 階段 B：真道路配送的執行期接線（會被原封不動內嵌進 index.html）。
+ * 邊界：只讀道路格、只在影子任務裡推進批次；不寫金錢／商品／人口／客流／存檔。
+ * 逃生閥：window.__noRoadDelivery053（任何時候關掉，任務立刻不能再開始／推進）。
+ */
+(function installRoadDelivery053() {
+  'use strict';
+  const RS = Object.freeze({
+    BAD_INPUT: 'bad-input',
+    ORIGIN_NOT_ROAD: 'origin-not-road',
+    DESTINATION_NOT_ROAD: 'destination-not-road',
+    UNREACHABLE: 'unreachable',
+    TOO_FAR: 'too-far',
+    DISABLED: 'disabled',
+    NO_TASK: 'no-task'
+  });
+  const off = () => !!window.__noRoadDelivery053;
+  let task = null;
+  let panel = null;
+
+  function isRoadIdx(i) { return !!(tiles[i] && tiles[i].road); }
+
+  /* 4 鄰 BFS；鄰居順序固定（上、右、下、左），保證同一座城市同一對端點永遠同一條路。 */
+  function plan(origin, destination, maxSteps) {
+    const limit = (maxSteps === undefined || maxSteps === null) ? Infinity : maxSteps;
+    if (!Number.isInteger(origin) || !Number.isInteger(destination)) return { ok: false, path: [], steps: -1, reason: RS.BAD_INPUT };
+    if (origin < 0 || origin >= N * N || destination < 0 || destination >= N * N) return { ok: false, path: [], steps: -1, reason: RS.BAD_INPUT };
+    if (!isRoadIdx(origin)) return { ok: false, path: [], steps: -1, reason: RS.ORIGIN_NOT_ROAD };
+    if (!isRoadIdx(destination)) return { ok: false, path: [], steps: -1, reason: RS.DESTINATION_NOT_ROAD };
+    if (origin === destination) return { ok: true, path: [origin], steps: 0, reason: null };
+    const total = N * N;
+    const prev = new Int32Array(total).fill(-1);
+    const seen = new Uint8Array(total);
+    const queue = new Int32Array(total);
+    let head = 0, tail = 0, found = false;
+    queue[tail++] = origin; seen[origin] = 1;
+    while (head < tail) {
+      const cur = queue[head++];
+      if (cur === destination) { found = true; break; }
+      const cx = cur % N, cy = (cur / N) | 0;
+      const nb = [cy > 0 ? cur - N : -1, cx < N - 1 ? cur + 1 : -1, cy < N - 1 ? cur + N : -1, cx > 0 ? cur - 1 : -1];
+      for (let k = 0; k < 4; k++) {
+        const n = nb[k];
+        if (n < 0 || seen[n] || !isRoadIdx(n)) continue;
+        seen[n] = 1; prev[n] = cur; queue[tail++] = n;
+      }
+    }
+    if (!found) return { ok: false, path: [], steps: -1, reason: RS.UNREACHABLE };
+    const path = [];
+    for (let at = destination; at !== -1; at = prev[at]) path.push(at);
+    path.reverse();
+    const steps = path.length - 1;
+    if (steps > limit) return { ok: false, path: [], steps, reason: RS.TOO_FAR };
+    return { ok: true, path, steps, reason: null };
+  }
+
+  function snapshot() {
+    if (!task) return { ok: false, reason: RS.NO_TASK, active: false, disabled: off() };
+    return {
+      ok: true, active: task.status !== 'DELIVERED' && task.status !== 'CANCELLED', disabled: off(),
+      status: task.status, batchId: task.batchId, commodityId: task.commodityId, qty: task.qty,
+      cursor: task.cursor, pathLength: task.path.length, steps: task.steps,
+      delivered: task.status === 'DELIVERED', cancelledReason: task.cancelledReason,
+      provenance: task.provenance
+    };
+  }
+
+  function start(origin, destination, batch) {
+    if (off()) return { ok: false, reason: RS.DISABLED, path: [] };
+    batch = batch || {};
+    const qty = Number.isSafeInteger(batch.qty) && batch.qty > 0 ? batch.qty : 1;
+    const p = plan(origin, destination, batch.maxSteps);
+    if (!p.ok) { refresh(); return p; }
+    task = {
+      status: p.path.length === 1 ? 'DELIVERED' : 'PENDING',
+      path: p.path, cursor: 0, steps: 0, qty,
+      batchId: typeof batch.batchId === 'string' && batch.batchId ? batch.batchId : ('lab053-' + (origin + '-' + destination)),
+      commodityId: typeof batch.commodityId === 'string' ? batch.commodityId : 'food',
+      cancelledReason: null,
+      deliveredAt: p.path.length === 1 ? { cursor: 0, step: 0 } : null,
+      provenance: { version: typeof GAME_VER === 'string' ? GAME_VER : null, anchor: typeof GAME_ANCHOR === 'string' ? GAME_ANCHOR : null, module: 'road-delivery053' }
+    };
+    refresh();
+    return { ok: true, path: p.path.slice(), steps: p.steps, reason: null };
+  }
+
+  function step() {
+    if (off()) return { ok: false, reason: RS.DISABLED, snapshot: snapshot() };
+    if (!task) return { ok: false, reason: RS.NO_TASK, snapshot: snapshot() };
+    if (task.status === 'DELIVERED' || task.status === 'CANCELLED') return { ok: true, snapshot: snapshot() };
+    if (task.status === 'PENDING') task.status = 'MOVING';
+    task.cursor += 1;
+    task.steps += 1;
+    if (task.cursor >= task.path.length - 1) {
+      task.cursor = task.path.length - 1;
+      task.status = 'DELIVERED';
+      task.deliveredAt = { cursor: task.cursor, step: task.steps };
+    }
+    refresh();
+    return { ok: true, snapshot: snapshot() };
+  }
+
+  function cancel(reason) {
+    if (!task) return snapshot();
+    if (task.status !== 'DELIVERED' && task.status !== 'CANCELLED') {
+      task.status = 'CANCELLED';
+      task.cancelledReason = typeof reason === 'string' && reason ? reason : 'cancelled';
+    }
+    refresh();
+    return snapshot();
+  }
+
+  function end() {
+    task = null;
+    if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
+    panel = null;
+    return { ok: true, ended: true };
+  }
+
+  function disable() {
+    window.__noRoadDelivery053 = true;
+    return end();
+  }
+
+  /* 面板：預設不存在；只有明確 open() 才會建立 DOM，關閉即移除。 */
+  function ensurePanel() {
+    if (panel || typeof document === 'undefined') return panel;
+    panel = document.createElement('div');
+    panel.id = 'lab053Panel';
+    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:250px;padding:10px 12px;' +
+      'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
+      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
+    panel.innerHTML = '<div style="font-weight:700;color:#8fc2ff;letter-spacing:.5px">LAB-03 影子配送</div>' +
+      '<div id="lab053Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
+      '<div style="display:flex;gap:6px">' +
+      '<button id="lab053Step" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #46608f;background:#1b2740;color:#cfe0ff;cursor:pointer">前進一格</button>' +
+      '<button id="lab053Cancel" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #6b4a4a;background:#2a1d20;color:#ffd6d6;cursor:pointer">取消</button>' +
+      '<button id="lab053Close" style="padding:4px 8px;border-radius:6px;border:1px solid #46608f;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
+      '</div>';
+    document.body.appendChild(panel);
+    panel.querySelector('#lab053Step').addEventListener('click', () => step());
+    panel.querySelector('#lab053Cancel').addEventListener('click', () => cancel('panel-cancel'));
+    panel.querySelector('#lab053Close').addEventListener('click', () => end());
+    return panel;
+  }
+
+  function refresh() {
+    if (!panel) return;
+    const body = panel.querySelector('#lab053Body');
+    if (!body) return;
+    if (off()) { body.textContent = '（逃生閥 __noRoadDelivery053 已關閉）'; return; }
+    if (!task) { body.textContent = '目前沒有配送任務。'; return; }
+    const s = snapshot();
+    body.textContent = '批次 ' + s.batchId + '（' + s.qty + ' 件 ' + s.commodityId + '）\n' +
+      '狀態 ' + s.status + '　進度 ' + s.cursor + '/' + (s.pathLength - 1) + '\n' +
+      (s.status === 'DELIVERED' ? '已送達（影子帳，未寫入正式經濟）' : (s.status === 'CANCELLED' ? '已取消：' + s.cancelledReason : '沿真道路前進中'));
+  }
+
+  function open() { ensurePanel(); refresh(); return snapshot(); }
+
+  /* 生命週期：載入存檔／開新城市／離開頁面都會取消任務，不讓它跨城市活著。 */
+  if (typeof load === 'function') {
+    const nativeLoad053 = load;
+    load = function () { try { cancel('load'); } catch (e) {} return nativeLoad053.apply(this, arguments); };
+  }
+  if (typeof newWorld === 'function') {
+    const nativeWorld053 = newWorld;
+    newWorld = function () { try { cancel('new-world'); } catch (e) {} return nativeWorld053.apply(this, arguments); };
+  }
+  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { cancel('pagehide'); } catch (e) {} });
+
+  const api = Object.freeze({
+    plan, start, step, cancel, snapshot, open, refresh, end, disable,
+    provenance: { module: 'road-delivery053', lab: 'LAB-03', isolation: 'shadow-only' }
+  });
+  window.GV.roadDelivery053 = api;
+})();
+/* DSK-018 ROAD DELIVERY 053 END */
 /* DSK-019 RAIL FREIGHT 054 BEGIN */
 /* DSK-019 / LAB-05 階段 B：兩站實載貨運鐵路的執行期接線（會被原封不動內嵌進 index.html）。
  * 邊界：只讀鐵軌格、只在影子任務裡推進列車；不寫金錢／商品／人口／客流／存檔。
@@ -120626,6 +120804,164 @@ window.GV.shadowCargo049=api;window.GV.shadowWarehouse050=api;window.GV.singleRe
   window.GV.railBlock055 = api;
 })();
 /* DSK-020 RAIL BLOCK 055 END */
+/* DSK-025 INTERMODAL 057 BEGIN */
+/* DSK-025 / LAB-07：公鐵聯運全程交付（執行期接線）。會被原封不動內嵌進 index.html。
+ *
+ * 依賴：GV.roadDelivery053.plan()（公路）與 GV.railFreight054.plan()（鐵路）——只借規劃，狀態自己管。
+ * 邊界：同一批次、數量守恆；不寫金錢／商品／人口／客流／存檔。
+ * 逃生閥：window.__noIntermodal057。
+ */
+(function installIntermodal057() {
+  'use strict';
+  const RS = Object.freeze({
+    DISABLED: 'disabled', NO_PLANNER: 'planner-unavailable', BAD_INPUT: 'bad-input',
+    NO_TRIP: 'no-trip', ROAD_NOT_DONE: 'road-not-done', WRONG_STATE: 'wrong-state',
+    OVER_CAPACITY: 'over-capacity', DONE: 'already-delivered'
+  });
+  const off = () => !!window.__noIntermodal057;
+  let trip = null;
+  let panel = null;
+
+  const roadPlanner = () => (window.GV && window.GV.roadDelivery053 && typeof window.GV.roadDelivery053.plan === 'function') ? window.GV.roadDelivery053 : null;
+  const railPlanner = () => (window.GV && window.GV.railFreight054 && typeof window.GV.railFreight054.plan === 'function') ? window.GV.railFreight054 : null;
+
+  function snapshot() {
+    if (!trip) return { ok: false, reason: RS.NO_TRIP, active: false, disabled: off() };
+    return {
+      ok: true, active: trip.status !== 'DELIVERED' && trip.status !== 'CANCELLED', disabled: off(),
+      status: trip.status, batchId: trip.batchId, commodityId: trip.commodityId, qty: trip.qty, capacity: trip.capacity,
+      roadCursor: trip.roadCursor, roadLength: trip.roadPath.length,
+      railCursor: trip.railCursor, railLength: trip.railPath.length,
+      cancelledReason: trip.cancelledReason
+    };
+  }
+
+  function start(opts) {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    const rd = roadPlanner();
+    const rl = railPlanner();
+    if (!rd || !rl) return { ok: false, reason: RS.NO_PLANNER };
+    opts = opts || {};
+    const cargo = opts.cargo || {};
+    const qty = Number.isSafeInteger(cargo.qty) && cargo.qty > 0 ? cargo.qty : 1;
+    const cap = Number.isSafeInteger(opts.capacity) && opts.capacity > 0 ? opts.capacity : 12;
+    if (qty > cap) return { ok: false, reason: RS.OVER_CAPACITY, qty, capacity: cap };
+
+    const road = rd.plan(opts.roadFrom, opts.roadTo);
+    if (!road.ok) return { ok: false, reason: 'road:' + road.reason, leg: 'road' };
+    const rail = rl.plan(opts.railFrom, opts.railTo);
+    if (!rail.ok) return { ok: false, reason: 'rail:' + rail.reason, leg: 'rail' };
+
+    trip = {
+      status: 'ROAD', batchId: typeof cargo.batchId === 'string' && cargo.batchId ? cargo.batchId : 'lab057-' + (opts.roadFrom + '-' + opts.railTo),
+      commodityId: typeof cargo.commodityId === 'string' ? cargo.commodityId : 'food',
+      qty, capacity: cap,
+      roadPath: road.path, roadCursor: 0,
+      railPath: rail.path, railCursor: 0,
+      cancelledReason: null
+    };
+    refresh();
+    return { ok: true, roadSteps: road.steps, railSteps: rail.steps, status: trip.status };
+  }
+
+  function advance() {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    if (!trip) return { ok: false, reason: RS.NO_TRIP };
+    if (trip.status === 'DELIVERED') return { ok: false, reason: RS.DONE, snapshot: snapshot() };
+    if (trip.status !== 'ROAD' && trip.status !== 'RAIL') return { ok: false, reason: RS.WRONG_STATE, snapshot: snapshot() };
+    if (trip.status === 'ROAD') {
+      if (trip.roadCursor >= trip.roadPath.length - 1) { trip.status = 'TRANSFER'; refresh(); return { ok: true, snapshot: snapshot() }; }
+      trip.roadCursor += 1;
+      if (trip.roadCursor >= trip.roadPath.length - 1) trip.status = 'TRANSFER';
+      refresh();
+      return { ok: true, snapshot: snapshot() };
+    }
+    if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; refresh(); return { ok: true, snapshot: snapshot() }; }
+    trip.railCursor += 1;
+    if (trip.railCursor >= trip.railPath.length - 1) trip.status = 'DELIVERED';
+    refresh();
+    return { ok: true, snapshot: snapshot() };
+  }
+
+  function transfer() {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    if (!trip) return { ok: false, reason: RS.NO_TRIP };
+    if (trip.status !== 'TRANSFER') return { ok: false, reason: trip.status === 'ROAD' ? RS.ROAD_NOT_DONE : RS.WRONG_STATE };
+    trip.status = 'RAIL';
+    refresh();
+    return { ok: true, snapshot: snapshot() };
+  }
+
+  function cancel(reason) {
+    if (!trip) return snapshot();
+    if (trip.status !== 'DELIVERED') {
+      trip.status = 'CANCELLED';
+      trip.cancelledReason = typeof reason === 'string' && reason ? reason : 'cancelled';
+    }
+    refresh();
+    return snapshot();
+  }
+
+  function end() {
+    trip = null;
+    if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
+    panel = null;
+    return { ok: true, ended: true };
+  }
+  function disable() { window.__noIntermodal057 = true; return end(); }
+
+  function ensurePanel() {
+    if (panel || typeof document === 'undefined') return panel;
+    panel = document.createElement('div');
+    panel.id = 'lab057Panel';
+    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:260px;padding:10px 12px;' +
+      'background:rgba(14,20,34,.94);border:1px solid rgba(90,190,160,.6);border-radius:10px;' +
+      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
+    panel.innerHTML = '<div style="font-weight:700;color:#7fe0c0;letter-spacing:.5px">LAB-07 公鐵聯運</div>' +
+      '<div id="lab057Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
+      '<div style="display:flex;gap:6px">' +
+      '<button id="lab057Advance" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #3f7f6a;background:#16251f;color:#cfffe8;cursor:pointer">前進</button>' +
+      '<button id="lab057Transfer" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #5a4a8f;background:#211b30;color:#dcd0ff;cursor:pointer">換裝</button>' +
+      '<button id="lab057Close" style="padding:4px 8px;border-radius:6px;border:1px solid #3f7f6a;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
+      '</div>';
+    document.body.appendChild(panel);
+    panel.querySelector('#lab057Advance').addEventListener('click', () => advance());
+    panel.querySelector('#lab057Transfer').addEventListener('click', () => transfer());
+    panel.querySelector('#lab057Close').addEventListener('click', () => end());
+    return panel;
+  }
+
+  function refresh() {
+    if (!panel) return;
+    const body = panel.querySelector('#lab057Body');
+    if (!body) return;
+    if (off()) { body.textContent = '（逃生閥 __noIntermodal057 已關閉）'; return; }
+    if (!trip) { body.textContent = '目前沒有聯運任務。'; return; }
+    const s = snapshot();
+    body.textContent = '批次 ' + s.batchId + '（' + s.qty + '/' + s.capacity + ' 件 ' + s.commodityId + '）\n' +
+      '狀態 ' + s.status + '\n公路 ' + s.roadCursor + '/' + (s.roadLength - 1) + '　鐵路 ' + s.railCursor + '/' + (s.railLength - 1) +
+      (s.status === 'DELIVERED' ? '\n已交付（影子帳，未寫入正式經濟）' : (s.status === 'CANCELLED' ? '\n已取消：' + s.cancelledReason : ''));
+  }
+
+  function open() { ensurePanel(); refresh(); return snapshot(); }
+
+  if (typeof load === 'function') {
+    const nativeLoad057 = load;
+    load = function () { try { cancel('load'); } catch (e) {} return nativeLoad057.apply(this, arguments); };
+  }
+  if (typeof newWorld === 'function') {
+    const nativeWorld057 = newWorld;
+    newWorld = function () { try { cancel('new-world'); } catch (e) {} return nativeWorld057.apply(this, arguments); };
+  }
+  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { cancel('pagehide'); } catch (e) {} });
+
+  const api = Object.freeze({
+    start, advance, transfer, cancel, snapshot, open, refresh, end, disable,
+    provenance: { module: 'intermodal057', lab: 'LAB-07', isolation: 'shadow-only', legs: ['road', 'rail'] }
+  });
+  window.GV.intermodal057 = api;
+})();
+/* DSK-025 INTERMODAL 057 END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。
