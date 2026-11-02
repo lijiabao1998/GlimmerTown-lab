@@ -120461,6 +120461,171 @@ window.GV.shadowCargo049=api;window.GV.shadowWarehouse050=api;window.GV.singleRe
   window.GV.railFreight054 = api;
 })();
 /* DSK-019 RAIL FREIGHT 054 END */
+/* DSK-020 RAIL BLOCK 055 BEGIN */
+/* DSK-020 / LAB-06 階段 B：單線閉塞區間的路權、等待與斷軌恢復（執行期接線）。
+ * 會被原封不動內嵌進 index.html。
+ *
+ * 依賴 LAB-05 的 `GV.railFreight054.plan()`（只借它的路線規劃，不共用它的單列狀態），
+ * 自己在這裡管兩列車與閉塞權。
+ *
+ * 邊界：只讀鐵軌格、只在影子任務裡推進；不寫金錢／商品／人口／客流／存檔。
+ * 逃生閥：window.__noRailBlock055。
+ */
+(function installRailBlock055() {
+  'use strict';
+  const RS = Object.freeze({
+    BAD_INPUT: 'bad-input', TOO_MANY: 'too-many', DUPLICATE: 'duplicate', NOT_HOLDER: 'not-holder',
+    NO_AUTHORITY: 'no-authority', TRACK_BROKEN: 'track-broken', UNKNOWN: 'unknown-run',
+    NO_PLANNER: 'rail-freight-unavailable', DISABLED: 'disabled', NOT_READY: 'not-ready'
+  });
+  const MAX_TRAINS = 2;
+  const off = () => !!window.__noRailBlock055;
+  let holder = null;
+  const waiting = [];
+  const trains = new Map();
+  const broken = new Set();
+  let panel = null;
+
+  function ensurePlanner() { return window.GV && window.GV.railFreight054 && typeof window.GV.railFreight054.plan === 'function' ? window.GV.railFreight054 : null; }
+
+  function request(id) {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    if (typeof id !== 'string' || !id) return { ok: false, reason: RS.BAD_INPUT };
+    if (id === holder || waiting.includes(id)) return { ok: false, reason: RS.DUPLICATE };
+    if (holder === null) { holder = id; return { ok: true, status: 'GRANTED', id }; }
+    if ((holder === null ? 0 : 1) + waiting.length >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY, maxTrains: MAX_TRAINS };
+    waiting.push(id);
+    return { ok: true, status: 'WAITING', id };
+  }
+
+  function release(id) {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    if (id !== holder) return { ok: false, reason: RS.NOT_HOLDER };
+    holder = waiting.length ? waiting.shift() : null;
+    return { ok: true, granted: holder };
+  }
+
+  function spawn(id, from, to, cargo, capacity) {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    const planner = ensurePlanner();
+    if (!planner) return { ok: false, reason: RS.NO_PLANNER };
+    if (typeof id !== 'string' || !id) return { ok: false, reason: RS.BAD_INPUT };
+    if (trains.has(id)) return { ok: false, reason: RS.DUPLICATE };
+    if (trains.size >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY };
+    const p = planner.plan(from, to);
+    if (!p.ok) return p;
+    const qty = cargo && Number.isSafeInteger(cargo.qty) && cargo.qty > 0 ? cargo.qty : 1;
+    const cap = Number.isSafeInteger(capacity) && capacity > 0 ? capacity : 12;
+    if (qty > cap) return { ok: false, reason: 'over-capacity', qty, capacity: cap };
+    trains.set(id, {
+      id, path: p.path, cursor: 0, steps: 0, qty, capacity: cap,
+      batchId: cargo && typeof cargo.batchId === 'string' ? cargo.batchId : id,
+      status: 'READY'
+    });
+    refresh();
+    return { ok: true, path: p.path.slice(), steps: p.steps };
+  }
+
+  function advance(id) {
+    if (off()) return { ok: false, reason: RS.DISABLED };
+    const t = trains.get(id);
+    if (!t) return { ok: false, reason: RS.UNKNOWN };
+    if (t.status === 'ARRIVED') return { ok: true, snapshot: snapshotTrain(t) };
+    if (id !== holder) return { ok: false, reason: RS.NO_AUTHORITY, snapshot: snapshotTrain(t) };
+    if (t.cursor >= t.path.length - 1) { t.status = 'ARRIVED'; release(id); refresh(); return { ok: true, snapshot: snapshotTrain(t) }; }
+    const nextTile = t.path[t.cursor + 1];
+    if (broken.has(nextTile)) return { ok: false, reason: RS.TRACK_BROKEN, tile: nextTile, snapshot: snapshotTrain(t) };
+    t.cursor += 1; t.steps += 1; t.status = 'RUNNING';
+    if (t.cursor >= t.path.length - 1) { t.status = 'ARRIVED'; release(id); }
+    refresh();
+    return { ok: true, snapshot: snapshotTrain(t) };
+  }
+
+  function breakTile(i) { broken.add(i); refresh(); return { ok: true, broken: [...broken].sort((a, b) => a - b) }; }
+  function repairTile(i) { broken.delete(i); refresh(); return { ok: true, broken: [...broken].sort((a, b) => a - b) }; }
+
+  function snapshotTrain(t) {
+    return { id: t.id, status: t.status, cursor: t.cursor, pathLength: t.path.length, steps: t.steps, qty: t.qty, capacity: t.capacity, batchId: t.batchId };
+  }
+  function snapshot() {
+    return {
+      ok: true, disabled: off(), maxTrains: MAX_TRAINS, holder,
+      waiting: waiting.slice(), broken: [...broken].sort((a, b) => a - b),
+      trains: [...trains.values()].map(snapshotTrain)
+    };
+  }
+
+  function abortAll(reason) {
+    holder = null; waiting.length = 0; trains.clear();
+    refresh();
+    return { ok: true, reason };
+  }
+
+  function end() {
+    abortAll('ended');
+    if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
+    panel = null;
+    return { ok: true, ended: true };
+  }
+
+  function disable() { window.__noRailBlock055 = true; return end(); }
+
+  function ensurePanel() {
+    if (panel || typeof document === 'undefined') return panel;
+    panel = document.createElement('div');
+    panel.id = 'lab055Panel';
+    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:270px;padding:10px 12px;' +
+      'background:rgba(14,20,34,.94);border:1px solid rgba(150,120,220,.6);border-radius:10px;' +
+      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
+    panel.innerHTML = '<div style="font-weight:700;color:#b9a6ff;letter-spacing:.5px">LAB-06 閉塞區間</div>' +
+      '<div id="lab055Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
+      '<div style="display:flex;gap:6px">' +
+      '<button id="lab055Advance" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #5a4a8f;background:#211b30;color:#dcd0ff;cursor:pointer">推進</button>' +
+      '<button id="lab055Break" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #7a4a4a;background:#2a1d20;color:#ffd6d6;cursor:pointer">斷軌</button>' +
+      '<button id="lab055Close" style="padding:4px 8px;border-radius:6px;border:1px solid #5a4a8f;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
+      '</div>';
+    document.body.appendChild(panel);
+    panel.querySelector('#lab055Advance').addEventListener('click', () => { if (holder) advance(holder); });
+    panel.querySelector('#lab055Break').addEventListener('click', () => {
+      const t = holder && trains.get(holder);
+      if (t && t.cursor + 1 < t.path.length) breakTile(t.path[t.cursor + 1]);
+    });
+    panel.querySelector('#lab055Close').addEventListener('click', () => end());
+    return panel;
+  }
+
+  function refresh() {
+    if (!panel) return;
+    const body = panel.querySelector('#lab055Body');
+    if (!body) return;
+    if (off()) { body.textContent = '（逃生閥 __noRailBlock055 已關閉）'; return; }
+    const s = snapshot();
+    const lines = ['持有路權：' + (s.holder || '（無）')];
+    if (s.waiting.length) lines.push('等待中：' + s.waiting.join('、'));
+    for (const t of s.trains) lines.push(t.id + '：' + t.status + '　' + t.cursor + '/' + (t.pathLength - 1));
+    if (s.broken.length) lines.push('斷軌格：' + s.broken.join(','));
+    body.textContent = lines.join('\n');
+  }
+
+  function open() { ensurePanel(); refresh(); return snapshot(); }
+
+  if (typeof load === 'function') {
+    const nativeLoad055 = load;
+    load = function () { try { abortAll('load'); } catch (e) {} return nativeLoad055.apply(this, arguments); };
+  }
+  if (typeof newWorld === 'function') {
+    const nativeWorld055 = newWorld;
+    newWorld = function () { try { abortAll('new-world'); } catch (e) {} return nativeWorld055.apply(this, arguments); };
+  }
+  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { abortAll('pagehide'); } catch (e) {} });
+
+  const api = Object.freeze({
+    request, release, spawn, advance, breakTile, repairTile, snapshot, open, refresh, end, disable,
+    provenance: { module: 'rail-block055', lab: 'LAB-06', isolation: 'shadow-only', maxTrains: MAX_TRAINS }
+  });
+  window.GV.railBlock055 = api;
+})();
+/* DSK-020 RAIL BLOCK 055 END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
 Object.assign(window.GV,{life533:()=>({citizens:citizens.length,alive:citizens.filter(c=>!c.departed).length,logged:citizens.filter(c=>c.log&&c.log.length).length,entries:citizens.reduce((a,c)=>a+((c.log&&c.log.length)||0),0),sample:(()=>{const c=citizens.find(k=>k.log&&k.log.length);return c?{name:c.name,age:c.age,log:c.log.slice(-4)}:null;})()})});
 /* T533 自我測試：純函式、不依賴城市狀態——驗證日誌上限、必要事件種類、已故者欄位。

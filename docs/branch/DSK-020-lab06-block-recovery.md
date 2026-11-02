@@ -97,10 +97,54 @@ ok  壞輸入：空 id／負 tile
 RAIL_BLOCK_055 {"checks":9,"ok":true}
 ```
 
-### 7.3 沒做成的事（照實）
+### 7.3 階段 B（執行期接線）— 已施工
 
-1. **階段 B 還沒接線**：`GV.railBlock055` 尚未裝上；那一步要接 LAB-05 的兩列任務、新增第三個釘死區塊並擴充投影器（需業主確認）。
-2. **只有單一閉塞區間**：整條路線同一時間一列；多區間閉塞、側線會車都不在本卡。
-3. **沒有號誌／時刻表**：等待只是 FIFO，不是真實班表或路權優先序。
-4. **斷軌是「格不見了」**：用 `tile.rail` 判定；沒有模擬施工中的軌道修復時間。
-5. **真手機／Safari 未測**。
+- 新檔 `rail-block055-runtime.js`，內嵌在 `index.html` 的 `DSK-019 RAIL FREIGHT 054 END` 之後（區塊標記 `DSK-020 RAIL BLOCK 055 BEGIN/END`）。
+- **分支是堆疊的**：`dsk/lab-06-block-recovery` 基於 `dsk/lab-05-rail-freight`（PR #75），因為 055 需要 054 的 `plan()`。合併順序：#75 先、#76 後；否則 #76 的 diff 會同時包含 054 區塊。
+- 對外 API：`window.GV.railBlock055.{request,release,spawn,advance,breakTile,repairTile,snapshot,open,refresh,end,disable,provenance}`。
+- 055 自己管兩列車與閉塞權（054 只有單列狀態，故只借它的 `plan()`）。
+- 隔離：不寫經濟／存檔；`__noRailBlock055` 一開所有操作回 `disabled`；`load`／`newWorld`／`pagehide` 清空所有列車。
+- 面板 `open()` 才建 DOM，`end()` 移除。
+
+### 7.4 階段 B 實測（`node probeRailBlock055.cjs` → PASS，exit 0）
+
+真 Chrome、fresh 城市 N=72；x=10、y=8..24 的真鐵軌；t1 南下 (12→20)、t2 北上 (20→12)：
+
+```json
+{"authority":{"t1":"GRANTED","t2":"WAITING"},
+ "waitingBlocked":"no-authority",
+ "t1":{"ok":true,"cursor":2,"status":"RUNNING"},
+ "broken":{"ok":false,"reason":"track-broken"},
+ "handover":{"holder":"t2","t1":"ARRIVED"},
+ "final":{"holder":null,"t1":"ARRIVED","t2":"ARRIVED"},
+ "third":{"ok":false,"reason":"too-many"},
+ "panel":{"open":true,"closed":true},
+ "disabled":{"ok":false,"reason":"disabled"}}
+```
+
+- 兩列同時在區間：一列 `GRANTED`、一列 `WAITING`；等待者推進回 `no-authority`。
+- 斷軌格讓 holder 停在原地（`track-broken`），修好後可繼續。
+- 到站自動釋放，路權 FIFO 交給 t2；全部結束後 `holder:null`。
+- 第三列被擋（`too-many`）；逃生閥與面板都有效。
+
+### 7.5 守衛變更（**需要業主／main 寫入者確認**）
+
+投影器現在要接受 **052＋054＋055 三個釘死區塊**，剝掉後仍必須逐 byte 等於同一個 T776 baseline；055 有字面 SHA `46b1fba8…`；052／054 的 hash、baseline、六個負控制全部沒動。與 PR #74／#75 同一種做法。
+
+### 7.6 守衛收據
+
+- `node rail-block055.test.js` → 9/9。
+- `node shadow-cargo049.test.js` → exit 0。
+- `node single-research052.test.js` → exit 0。
+- `node smoke.js` → **0 FAIL、SMOKE_OK**（119.4 KB 日誌）。
+- `node fp.js --check` → **exit 0、FP_OK**，44.6s，165 族零變動。
+- `node probeRailBlock055.cjs` → PASS。
+
+### 7.7 沒做成的事（照實）
+
+1. **只有單一閉塞區間**：整條路線同一時間一列；多區間閉塞、側線會車都不在本卡。
+2. **沒有號誌／時刻表**：等待只是 FIFO，不是真實班表或路權優先序。
+3. **斷軌是「格不見了」**：用 `tile.rail` 判定；沒有模擬施工中的軌道修復時間。
+4. **堆疊分支**：本 PR 依賴 PR #75；兩者都動 `single-research052-source.cjs`，合併時要在 main 上把 052+053+054+055 四塊按順序接好（#74 的 053 也要一起）。
+5. **推進是命令式的**：`advance()` 由面板／API 呼叫，沒綁 tick。
+6. **真手機／Safari 未測**。
