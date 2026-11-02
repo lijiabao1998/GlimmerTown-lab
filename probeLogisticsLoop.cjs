@@ -41,39 +41,43 @@ const PAGE = `(() => {
     out.facts.roadDone = { status: s1.status, qty: s1.qty, batchId: s1.batchId };
     if (s1.qty !== qty || s1.batchId !== batchId) fail('road leg changed batch identity/quantity');
 
-    // --- leg 2: intermodal (road -> transfer -> rail) with the same identity ---
+    // --- leg 2: intermodal with the same identity, a declared block authority and ledger settlement ---
+    const TRAIN = 'train-057';
+    const BLK = GV.railBlock055;
     const r2 = GV.intermodal057.start({
       roadFrom: idx(road.x, road.y), roadTo: idx(road.x + 3, road.y),
       railFrom: idx(rail.x, rail.y), railTo: idx(rail.x, rail.y + 4),
-      cargo: { batchId, qty }, capacity: 12
+      cargo: { batchId, qty }, capacity: 12,
+      authority: TRAIN, ledger: { sessionId: snap.ledger.sessionId, batchId }
     });
     out.facts.intermodal = { ok: r2.ok, reason: r2.reason, roadSteps: r2.roadSteps, railSteps: r2.railSteps };
     if (!r2.ok) throw new Error('intermodal start: ' + r2.reason);
     for (let i = 0; i < r2.roadSteps; i++) GV.intermodal057.advance();
     GV.intermodal057.transfer();
+
+    // Gap (documented, not asserted): the rail leg still does not consult
+    // GV.railBlock055 — 055's per-train authority model is not wired into 057 yet.
+    out.facts.blockEnforcement = 'not wired: intermodal057 rail leg ignores railBlock055 authority';
+
     for (let i = 0; i < r2.railSteps; i++) GV.intermodal057.advance();
     const s2 = GV.intermodal057.snapshot();
-    out.facts.intermodalDone = { status: s2.status, qty: s2.qty, batchId: s2.batchId };
+    out.facts.intermodalDone = { status: s2.status, qty: s2.qty, batchId: s2.batchId, settlement: s2.settlement };
     if (s2.qty !== qty || s2.batchId !== batchId) fail('intermodal changed batch identity/quantity');
+    if (!s2.settlement || s2.settlement.ok !== true) fail('ledger settlement did not succeed: ' + JSON.stringify(s2.settlement));
 
-    // --- settlement: HANDOFF payload is exactly owner+location+to; owner/location must
-    // equal the batch current custody and to must equal its declared destination.
-    let settle = null;
-    try {
-      settle = L.command({
-        eventId: 'settle-1', sessionId: snap.ledger.sessionId, batchId,
-        type: 'HANDOFF', expectedRevision: snap.ledger.revision,
-        payload: { owner: b.owner, location: b.location, to: b.destination }
-      });
-    } catch (e) { settle = { error: String((e && e.message) || e) }; }
-    out.facts.settle = settle;
-    out.facts.settlePayload = { owner: b.owner, location: b.location, to: b.destination };
-
-    // --- ledger still consistent, but NOT settled by the legs ---
+    // --- ledger after the product-level settlement ---
     const after = L.snapshot();
     const ab = (after.ledger && after.ledger.batches) || [];
-    out.facts.ledgerAfter = { batches: ab.length, batchId: ab[0] && ab[0].batchId, qty: ab[0] && ab[0].qty, unissued: after.ledger && after.ledger.unissued, conserved: after.ledger && after.ledger.conservation && after.ledger.conservation.ok };
-    out.facts.gap = 'delivery legs never call ledger command(); batch state unchanged (no settlement)';
+    const abatch = ab.find((x) => x && x.batchId === batchId);
+    out.facts.ledgerAfter = {
+      batches: ab.length, batchId: abatch && abatch.batchId, qty: abatch && abatch.qty,
+      state: abatch && abatch.state, owner: abatch && abatch.owner,
+      unissued: after.ledger && after.ledger.unissued,
+      conserved: after.ledger && after.ledger.conservation && after.ledger.conservation.ok
+    };
+    if (!abatch) fail('batch disappeared after settlement');
+    if (abatch && abatch.state !== 'HELD') fail('batch not in HELD after settlement: ' + (abatch && abatch.state));
+    if (!out.facts.ledgerAfter.conserved) fail('ledger conservation broken after settlement');
     out.ok = out.fails.length === 0;
     return out;
   } catch (e) {

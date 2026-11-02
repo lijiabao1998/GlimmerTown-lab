@@ -14,6 +14,7 @@
   const off = () => !!window.__noIntermodal057;
   let trip = null;
   let panel = null;
+  let settleSeq = 0;
 
   const roadPlanner = () => (window.GV && window.GV.roadDelivery053 && typeof window.GV.roadDelivery053.plan === 'function') ? window.GV.roadDelivery053 : null;
   const railPlanner = () => (window.GV && window.GV.railFreight054 && typeof window.GV.railFreight054.plan === 'function') ? window.GV.railFreight054 : null;
@@ -25,6 +26,7 @@
       status: trip.status, batchId: trip.batchId, commodityId: trip.commodityId, qty: trip.qty, capacity: trip.capacity,
       roadCursor: trip.roadCursor, roadLength: trip.roadPath.length,
       railCursor: trip.railCursor, railLength: trip.railPath.length,
+      authorityId: trip.authorityId, settlement: trip.settlement,
       cancelledReason: trip.cancelledReason
     };
   }
@@ -51,6 +53,9 @@
       qty, capacity: cap,
       roadPath: road.path, roadCursor: 0,
       railPath: rail.path, railCursor: 0,
+      authorityId: typeof opts.authority === 'string' && opts.authority ? opts.authority : (opts.authority && typeof opts.authority.id === 'string' ? opts.authority.id : null),
+      ledger: opts.ledger && typeof opts.ledger.batchId === 'string' ? { sessionId: opts.ledger.sessionId || null, batchId: opts.ledger.batchId } : null,
+      settlement: null,
       cancelledReason: null
     };
     refresh();
@@ -69,11 +74,37 @@
       refresh();
       return { ok: true, snapshot: snapshot() };
     }
-    if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; refresh(); return { ok: true, snapshot: snapshot() }; }
+    // NOTE (V67): block-authority enforcement for the rail leg is NOT wired yet.
+    // The 055 authority is a separate per-train model; connecting it here needs its own
+    // card and an equivalence proof. Declared as a gap in DSK-028 §6.
+    if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; settleOnDeliver(); refresh(); return { ok: true, snapshot: snapshot() }; }
     trip.railCursor += 1;
-    if (trip.railCursor >= trip.railPath.length - 1) trip.status = 'DELIVERED';
+    if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; settleOnDeliver(); }
     refresh();
     return { ok: true, snapshot: snapshot() };
+  }
+
+  /* Once the batch physically arrives, hand it to its declared destination in the
+   * shadow ledger. Owner/location must equal current custody and `to` the batch's
+   * destination — the ledger rejects anything else atomically. */
+  function settleOnDeliver() {
+    if (!trip.ledger) return;
+    const L = window.GV && window.GV.singleResearch052;
+    if (!L || typeof L.command !== 'function') { trip.settlement = { ok: false, reason: 'ledger-unavailable' }; return; }
+    try {
+      const snap = L.snapshot();
+      const batches = (snap && snap.ledger && snap.ledger.batches) || [];
+      const b = batches.find((x) => x && x.batchId === trip.ledger.batchId);
+      if (!b) { trip.settlement = { ok: false, reason: 'batch-not-found' }; return; }
+      const r = L.command({
+        eventId: 'intermodal057-settle-' + (++settleSeq), sessionId: snap.ledger.sessionId, batchId: b.batchId,
+        type: 'HANDOFF', expectedRevision: snap.ledger.revision,
+        payload: { owner: b.owner, location: b.location, to: b.destination }
+      });
+      trip.settlement = r && r.ok ? { ok: true, revision: r.revision === undefined ? null : r.revision } : { ok: false, reason: (r && r.code) || 'rejected' };
+    } catch (e) {
+      trip.settlement = { ok: false, reason: 'exception' };
+    }
   }
 
   function transfer() {

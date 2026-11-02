@@ -21,7 +21,7 @@ const blockHash055='46b1fba872b6ade86280948122e39c881b0a0d501cdead93d76d20a8459d
 const block055=fs.readFileSync(path.join(__dirname,'rail-block055-runtime.js'),'utf8').trim();
 // DSK-025 / LAB-07：公鐵聯運（057），同樣字面釘死。
 const begin057='/* DSK-025 INTERMODAL 057 BEGIN */',end057='/* DSK-025 INTERMODAL 057 END */';
-const blockHash057='4fe97fbea61d42e0ff737d78f1f80ea3a21648b62a63f13c398477f0b6fdadf3';
+const blockHash057='b6e488c02c3c36d82960040dce32a3f8c19b37d536fe928cff847a890f5840b9';
 const block057=fs.readFileSync(path.join(__dirname,'intermodal057-runtime.js'),'utf8').trim();
 const left='/* GPT-049 LAB01 END */\n',right='Object.assign(window.GV,{art574:';
 const block=fs.readFileSync(path.join(__dirname,'single-research052.js'),'utf8');
