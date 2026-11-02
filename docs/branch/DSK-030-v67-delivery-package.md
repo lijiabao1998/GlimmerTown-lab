@@ -18,8 +18,8 @@
 | #80 | `dsk/lab-12-persistence-proposal` | LAB-12 持久化提案（純文件） | 無 CI |
 | #81 | `dsk/lab-07-intermodal` | LAB-07 公鐵聯運 | ✅ |
 | #82 | `dsk/lab-11-acceptance` | LAB-11 同城 A–F 驗收 | ✅ |
-| #83 | `dsk/ai-speed-054` | C-054 選址剪枝＋ABBA＋守門反向補丁 | 待 CI |
-| #84 | `dsk/lab-integration` | **整合候選**（五個釘死區塊）＋閉環 probe | 待 CI |
+| #83 | `dsk/ai-speed-054` | C-054 選址剪枝＋ABBA＋守門反向補丁 | ✅ success (`771bd2e`) |
+| #84 | `dsk/lab-integration` | **整合候選**（五個釘死區塊）＋閉環 probe | 🔄 進行中 (`4d39fbc`) |
 
 ## 2. 已證明的東西
 
