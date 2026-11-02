@@ -56,16 +56,18 @@ const PAGE = `(() => {
     out.facts.intermodalDone = { status: s2.status, qty: s2.qty, batchId: s2.batchId };
     if (s2.qty !== qty || s2.batchId !== batchId) fail('intermodal changed batch identity/quantity');
 
-    // --- settlement attempt: hand the batch to the receiver in the shadow ledger ---
+    // --- settlement: HANDOFF payload is exactly owner+location+to; owner/location must
+    // equal the batch current custody and to must equal its declared destination.
     let settle = null;
     try {
       settle = L.command({
         eventId: 'settle-1', sessionId: snap.ledger.sessionId, batchId,
         type: 'HANDOFF', expectedRevision: snap.ledger.revision,
-        payload: { owner: 'research-receiver', location: 'research-receiver-shelf' }
+        payload: { owner: b.owner, location: b.location, to: b.destination }
       });
     } catch (e) { settle = { error: String((e && e.message) || e) }; }
     out.facts.settle = settle;
+    out.facts.settlePayload = { owner: b.owner, location: b.location, to: b.destination };
 
     // --- ledger still consistent, but NOT settled by the legs ---
     const after = L.snapshot();
