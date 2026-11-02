@@ -99,10 +99,60 @@ ROAD_DELIVERY_053 {"checks":12,"ok":true}
 - `node smoke.js` ×3／`node fp.js --check`：本卡階段 A 未改 `index.html`（bytes 與 `origin/main` 相同），守衛以分支 CI 為準（push 會跑 smoke 3 輪＋fp）；收據補在 §7.5。
 - `git status`：只有 `docs/branch/DSK-018-lab03-road-delivery.md`、`road-delivery053.js`、`road-delivery053.test.js`。
 
-### 7.4 沒做成的事（照實）
+### 7.4 階段 B（執行期接線）— 已施工，待守衛收據
 
-1. **階段 B 還沒接線**：`index.html` 尚未接上這個核心（研究鏈與 `__noRoadDelivery053` 逃生閥都還沒做）。這是同一張卡的下一段，不是「已交付」。
-2. **沒處理交通規則**：規劃器只看「是不是道路格」，**忽略單行道 `tile.oneway`、車道方向、紅綠燈、塞車權重、容量**。這些正是方向檔標 [等業主] 的「車流／交通規則」——在業主決定之前，本卡不自己定。
-3. **只做 4 鄰 BFS 最短路**：沒有 A*、沒有權重、沒有多批排程；「一條真路、一個有界任務」的刻意上限。
-4. **沒有車輛實體**：任務只是一批貨的狀態機，畫面上還沒有車；車輛屬於 LAB-05（貨運列車）與交通規則那條線。
-5. **沒有真城市道路場景的端到端測試**：階段 A 用合成網格驗證；真城市要等階段 B 接線後才能驗（`mobilityFrontage462`／`sanRoadSeeds445` 的實際前接）。
+- 新檔：`road-delivery053-runtime.js`，**原封不動**內嵌在 `index.html` 的 `/* GPT-052 SINGLE LEDGER END */` 之後（區塊標記 `DSK-018 ROAD DELIVERY 053 BEGIN/END`），與 049／050／052 同一個 `window.GV` 命名空間。
+- 對外 API：`window.GV.roadDelivery053.{plan,start,step,cancel,snapshot,open,refresh,end,disable,provenance}`。
+- 隔離：不寫金錢／商品／人口／客流／存檔；`__noRoadDelivery053` 一開，`start` 立刻回 `disabled`；`load`／`newWorld`／`pagehide` 都會把任務取消（沿用 052 的包裝法）。
+- 面板：只在使用者 `open()` 時才建立 DOM，`end()` 立刻移除；預設不存在，所以不影響既有畫面與 fp。
+
+### 7.5 階段 B 實測（`node probeRoadDelivery053.cjs` → PASS，exit 0）
+
+真 Chrome、fresh 城市 N=72，鋪一條 x=10、y=10..20 的 11 格真道路：
+
+```json
+{"plan":{"ok":true,"steps":10,"head":730,"tail":1450},
+ "initial":{"status":"PENDING","qty":5,"cursor":0,"pathLength":11},
+ "final":{"status":"DELIVERED","cursor":10,"steps":10,"qty":5,"delivered":true},
+ "panel":{"open":true,"closed":true},
+ "disabled":{"ok":false,"reason":"disabled"}}
+```
+
+- 路徑 11 格、10 步，每一步都相鄰且都在真道路上（probe 逐點驗 `tile(x,y).road`）。
+- `PENDING → MOVING → DELIVERED`，`qty` 全程 5，終態再 `step()` 不變。
+- 逃生閥 `__noRoadDelivery053` 有效。
+- 面板開／關都不留 DOM。
+
+### 7.6 守衛變更（**需要業主／main 寫入者確認**）
+
+階段 B 一定會動 `index.html`，而 `single-research052-source.cjs` 的 `projectCandidate052()` 把整份 `index.html` 釘死成「T776 native＋052 區塊」的逐 byte 結構。新增任何區塊都會讓它紅。
+
+本卡的做法（**沒有放寬任何位元比較**）：
+
+| 原本 | 現在 |
+|---|---|
+| `left + block052 + right`，剝掉 052 後必須逐 byte 等於 T776 baseline | `left + block052 + block053 + right`，**剝掉兩個釘死區塊**後仍必須逐 byte 等於**同一個** T776 baseline |
+| 052 區塊有字面 SHA 釘死 | 053 區塊同樣有字面 SHA 釘死（`5193013e…`），且仍然唯一、位置唯一 |
+
+- 這是「多加一個同樣釘死的附加區塊」，不是放寬判準：`baseline` 沒改、052 的 `blockHash` 沒改、負控制（missing／duplicate／modified／moved／boundary／outside）全部保留且仍然各自首紅在原本的守衛上。
+- **但它仍然動到守門檔**（`single-research052-source.cjs`）。照 `AGENTS.md` 第 3 節與《迭代不改壞標準》5.4，這屬於「需要業主點頭」的變更，本 PR 不自行合併。
+
+### 7.7 守衛收據
+
+- `node shadow-cargo049.test.js` → `ok:true`（29 assertions，62.0s）。
+- `node shadow-warehouse050.test.js` → `ALL_PASS`，`productWarehouseIntegrated:false`（70.5s）。
+- `node single-research052.test.js` → `BROWSER_RESULT ok:true`（70.0s）。
+- `node smoke.js` → **0 FAIL、SMOKE_OK**（119.5 KB 日誌）。
+- `node fp.js --check` → **exit 0、FP_OK**，56.9s，165 族零變動、`style.json` 相同。
+- `node probeRoadDelivery053.cjs` → PASS。
+
+### 7.8 沒做成的事（照實）
+
+1. **沒處理交通規則**：規劃器只看「是不是道路格」，**忽略單行道 `tile.oneway`、車道方向、紅綠燈、塞車權重、容量**。這些正是方向檔標 [等業主] 的「車流／交通規則」——在業主決定之前，本卡不自己定。
+2. **只做 4 鄰 BFS 最短路**：沒有 A*、沒有權重、沒有多批排程；「一條真路、一個有界任務」的刻意上限。
+3. **沒有車輛實體**：任務只是一批貨的狀態機，畫面上沒有車；車輛屬 LAB-05（貨運列車）與交通規則那條線。
+4. **推進是命令式的**：`step()` 由面板按鈕／API 呼叫，尚未綁到每日 tick；綁 tick 等於決定「一車一天走幾格」，屬交通規則／數值，列 [等業主]。
+5. **沒有接上 049／050 的影子帳批次**：目前任務自帶 `batchId`／`qty`，沒有從既有 ledger 取貨；「同批身份和帳」是 LAB-07 的範圍。
+6. **內嵌副本與純核心是兩份程式**：`road-delivery053.js` 是可測參考版、`road-delivery053-runtime.js` 是內嵌版；目前靠人工同步，還沒有自動 parity 守衛（下一步要補）。
+7. **改到守門檔**：`single-research052-source.cjs` 的投影器擴充（見 §7.6），需要業主／main 寫入者確認才能合。
+8. **真手機／Safari 未測**。
