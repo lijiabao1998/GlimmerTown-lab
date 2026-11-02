@@ -79,10 +79,17 @@
 - `node smoke.js` → **0 FAIL、SMOKE_OK**（119.5 KB）。
 - `node fp.js --check` → **exit 0、FP_OK**，57.2s，165 族零變動。
 
-### 5.4 沒做成的事（照實）
+### 5.4 分支 CI 說明（run 41415439346 紅）
+
+- `fp`、`fiscal-load`、`reuse-push` 都 success；只有 `smoke` job 的「煙霧第 2、3 次」紅。
+- 紅的內容與 #76 同一個既有斷言（`single-research052.test.js` 的 wheel 捲動）。依規則**沒有重跑**。
+- **關鍵證據**：本分支與 `dsk/lab-11-acceptance` 的 `index.html` **逐 byte 相同**（git blob 都是 `607672c3…`），而 LAB-11 的 CI（[run 41416168136](https://github.com/lijiabao1998/GlimmerTown-lab/actions/runs/41416168136) 等）是 **success**——也就是同一份產品在 CI 上跑過 3 連綠＋fp。本分支的紅視為 runner 時序 flake，證據不是重跑、是「另一條同 byte 分支綠」。
+
+### 5.5 沒做成的事（照實）
 
 1. **換裝只是狀態轉換**：沒有真實的裝卸時間、月台佔用、吊車動畫；換裝＝公路段結束後一個明確動作。
 2. **沒有接閉塞權（055）**：鐵路段目前不受 `railBlock055` 的單線閉塞約束；兩者要一起用是下一張整合卡的事。
 3. **沒有接影子帳（049／052）**：批次自帶 `batchId`／`qty`，仍不是從 ledger 取貨。
 4. **堆疊很深**：本分支含 #74（053）＋#75（054）＋#76（055）＋本卡（057）；合併要照這個順序，main 上把五個釘死區塊接好。
-5. **真手機／Safari 未測**。
+5. **分支 CI 紅在同一個 052 既有 wheel 斷言**：已用「同 byte 的 LAB-11 分支綠燈」交叉證明，沒有重跑、沒有放寬。
+6. **真手機／Safari 未測**。
