@@ -66,9 +66,43 @@
 - 階段 A：只新增檔案，`git revert` 即可。
 - 階段 B：`index.html` 的接線全部掛在 `window.__noRoadDelivery053` 與既有研究鏈開關之後，關閉時與 `origin/main` 逐位相同。
 
-## 7. 施工紀錄（待補）
+## 7. 施工紀錄
 
-- （待補）階段 A 實作與測試結果
-- （待補）階段 B 接線與實測
-- （待補）smoke／fp 收據
-- （待補）沒做成的事
+### 7.1 階段 A（純核心）已完成
+
+- 新檔：`road-delivery053.js`（無 DOM、無 localStorage、雙環境 UMD：Node `module.exports`＋瀏覽器 `globalThis.roadDelivery053`）。
+- API：`planDelivery({roads,w,h,origin,destination,maxSteps})`、`validatePath(path,roads,w,h)`、`createDeliveryTask053(sessionId,plan,batch)`。
+- 拒絕理由：`bad-input`／`origin-not-road`／`destination-not-road`／`unreachable`／`too-far`。
+- 任務狀態機：`PENDING → MOVING → DELIVERED`，任何時候 `cancel(reason) → CANCELLED`；終態冪等；`qty` 全程不變。
+
+### 7.2 測試（`node road-delivery053.test.js`，不用 Chrome）
+
+```
+ok  直線：5×1 全道路，0→4 走 4 步
+ok  轉彎：L 形道路，每一步相鄰且都在路上
+ok  繞障礙：第 0 列中間有缺口，必須繞到第 2 列再回來
+ok  不可達：目的地被非道路格完全隔開
+ok  太遠：maxSteps 不足時回 too-far，不偷偷給路徑
+ok  端點不在路上：origin-not-road／destination-not-road 分別回報
+ok  決定性：多條等長路徑時，同一輸入跑兩次 path 逐元素相同
+ok  狀態機：逐步前進，最後一步才 DELIVERED，qty 全程不變
+ok  冪等：DELIVERED 之後再 step 不改狀態、不重複交付
+ok  取消：MOVING 途中取消 → CANCELLED，之後 step 不再前進
+ok  守衛：validatePath 抓對角線、非道路、空路徑
+ok  端點相同：回單格路徑、0 步
+
+ROAD_DELIVERY_053 {"checks":12,"ok":true}
+```
+
+### 7.3 守衛
+
+- `node smoke.js` ×3／`node fp.js --check`：本卡階段 A 未改 `index.html`（bytes 與 `origin/main` 相同），守衛以分支 CI 為準（push 會跑 smoke 3 輪＋fp）；收據補在 §7.5。
+- `git status`：只有 `docs/branch/DSK-018-lab03-road-delivery.md`、`road-delivery053.js`、`road-delivery053.test.js`。
+
+### 7.4 沒做成的事（照實）
+
+1. **階段 B 還沒接線**：`index.html` 尚未接上這個核心（研究鏈與 `__noRoadDelivery053` 逃生閥都還沒做）。這是同一張卡的下一段，不是「已交付」。
+2. **沒處理交通規則**：規劃器只看「是不是道路格」，**忽略單行道 `tile.oneway`、車道方向、紅綠燈、塞車權重、容量**。這些正是方向檔標 [等業主] 的「車流／交通規則」——在業主決定之前，本卡不自己定。
+3. **只做 4 鄰 BFS 最短路**：沒有 A*、沒有權重、沒有多批排程；「一條真路、一個有界任務」的刻意上限。
+4. **沒有車輛實體**：任務只是一批貨的狀態機，畫面上還沒有車；車輛屬於 LAB-05（貨運列車）與交通規則那條線。
+5. **沒有真城市道路場景的端到端測試**：階段 A 用合成網格驗證；真城市要等階段 B 接線後才能驗（`mobilityFrontage462`／`sanRoadSeeds445` 的實際前接）。
