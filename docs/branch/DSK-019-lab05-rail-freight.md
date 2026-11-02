@@ -65,9 +65,39 @@
 - 階段 A：只新增檔案，`git revert`。
 - 階段 B：接線全在 `__noRailFreight054` 之後，關閉時與 `origin/main` 逐位相同。
 
-## 7. 施工紀錄（待補）
+## 7. 施工紀錄
 
-- （待補）階段 A 實作與測試
-- （待補）階段 B 接線與 probe
-- （待補）smoke／fp／守衛收據
-- （待補）沒做成的事
+### 7.1 階段 A（純核心）已完成
+
+- 新檔 `rail-freight054.js`（UMD：Node `module.exports`＋瀏覽器 `globalThis.railFreight054`）。
+- API：`planRailRoute({rail,w,h,from,to,maxSteps})`、`validateRoute(path,rail,w,h)`、`createFreightRun054(sessionId,route,cargo,capacity)`。
+- 常數：`DEFAULT_CAPACITY = 12`（新玩法常數，列 [等業主] 可調）。
+- 狀態機：`READY → RUNNING → ARRIVED → UNLOADED`；`unload()` 只能在 `ARRIVED`；任何時候 `abort(reason) → ABORTED`；終態冪等；`qty` 全程不變；`qty > capacity` 直接 `over-capacity`（不偷偷截斷）。
+
+### 7.2 測試（`node rail-freight054.test.js`）
+
+```
+ok  直線鐵軌：6×1，0→5 走 5 步
+ok  轉彎鐵軌：L 形，每步相鄰且都在軌上
+ok  繞障礙鐵軌：第 0 列缺口，必須繞第 2 列
+ok  不可達：終點被非鐵軌隔開
+ok  太遠：maxSteps 不足回 too-far
+ok  端點不在鐵軌上：from-not-rail／to-not-rail
+ok  決定性：棋盤式多條等長路線，兩次規劃逐元素相同
+ok  容量：qty==capacity 可用，qty>capacity 回 over-capacity
+ok  狀態機：READY→RUNNING→ARRIVED→UNLOADED，qty 全程不變
+ok  未到站不能卸貨
+ok  中途 abort：ABORTED，之後 step／unload 都不再前進
+ok  終態冪等：UNLOADED 之後 step／abort 不變
+ok  守衛：validateRoute 抓對角線、非鐵軌、空路線
+
+RAIL_FREIGHT_054 {"checks":13,"ok":true}
+```
+
+### 7.3 沒做成的事（照實）
+
+1. **階段 B 還沒接線**：`index.html` 尚未裝上 `GV.railFreight054`；那一步會新增一個釘死區塊，需要同步擴充 `single-research052-source.cjs`（比照 DSK-018），並在卡上標明需要業主確認。
+2. **沒有站別語意**：兩站目前只是兩個貼軌的 k166；k166 不在 T462／T463 的站別集合，本卡不註冊（DSK-017 已列 [等業主]）。
+3. **沒有號誌／路權**：單列獨占整條路線；會車、佔軌、斷軌恢復是 LAB-06 的範圍。
+4. **容量 12 是新玩法常數**：不是正式經濟數值，列 [等業主] 可調。
+5. **真手機／Safari 未測**。
