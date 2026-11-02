@@ -73,8 +73,34 @@
 - 階段 A：只新增檔案，`git revert`。
 - 階段 B：全在 `__noRailBlock055` 之後，關閉時與 `origin/main` 逐位相同。
 
-## 7. 施工紀錄（待補）
+## 7. 施工紀錄
 
-- （待補）階段 A 實作與測試
-- （待補）階段 B 接線與 probe
-- （待補）守衛收據與沒做成的事
+### 7.1 階段 A（純核心）已完成
+
+- 新檔 `rail-block055.js`（UMD：Node `module.exports`＋瀏覽器 `globalThis.railBlock055`）。
+- API：`createBlockAuthority055({maxTrains})` → `{request, release, breakTile, repairTile, isBroken, canAdvance, snapshot}`。
+- 預設 `DEFAULT_MAX_TRAINS = 2`；`request` 回 `GRANTED`／`WAITING`／`too-many`／`duplicate`；`release` 只有 holder 能放，放完 FIFO 遞補。
+
+### 7.2 測試（`node rail-block055.test.js`）
+
+```
+ok  第一列 GRANTED、第二列 WAITING、第三列 too-many
+ok  重複 request 回 duplicate（holder 與等待中都算）
+ok  release 後等待者依 FIFO 取得路權
+ok  非 holder release 被拒（not-holder）
+ok  canAdvance：有路權才准，斷軌格拒絕
+ok  斷軌對其他格沒有影響
+ok  snapshot 形狀穩定：broken 排序、waiting 依 FIFO
+ok  全部釋放後 holder 為 null，可再接受新列
+ok  壞輸入：空 id／負 tile
+
+RAIL_BLOCK_055 {"checks":9,"ok":true}
+```
+
+### 7.3 沒做成的事（照實）
+
+1. **階段 B 還沒接線**：`GV.railBlock055` 尚未裝上；那一步要接 LAB-05 的兩列任務、新增第三個釘死區塊並擴充投影器（需業主確認）。
+2. **只有單一閉塞區間**：整條路線同一時間一列；多區間閉塞、側線會車都不在本卡。
+3. **沒有號誌／時刻表**：等待只是 FIFO，不是真實班表或路權優先序。
+4. **斷軌是「格不見了」**：用 `tile.rail` 判定；沒有模擬施工中的軌道修復時間。
+5. **真手機／Safari 未測**。
