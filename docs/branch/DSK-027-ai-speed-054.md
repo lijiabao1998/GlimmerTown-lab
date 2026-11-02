@@ -42,14 +42,29 @@ PR #71 的 36 個檔、20 個 commit 裡，`index.html` 只改了 19 行（C5：
 
 **沒有收益（在噪音範圍內甚至更慢）→ 撤回**。原因（依 profile 與程式結構）：`mayorFindSite470A` 對每個候選格先呼叫 `canPlace`，**只有通過的少數格才會計分**；所以計分掃描不是熱點，`canPlace` 才是。合併掃描只省到少數格，白付了 Set 查表與函式呼叫成本。
 
-## 5. 下一步（照這個順序做）
+## 5. 第二次量測：AI 成本與 `canPlace` 呼叫數（instrumented，已還原）
 
-1. 在成熟城市上量 `aiStep` 一次的 `canPlace` 呼叫次數與總時間（instrument），確認是不是 O(候選數 × 工具數)。
-2. 對 `mayorFindSite470A` 做**精確剪枝**：footprint 的必要條件（全部在陸地、無建築、無不相容基建）用每 tick 的 prefix-sum／遮罩做 O(1) 否決，必須保證「被否決的格一定是 `canPlace` 會回非 null 的格」。
-3. 若 `canPlace` 內部有重複子查詢（例如多工具共用同一組地形檢查），在同一個 `aiStep` 內做 generation-based memo（map 一改就整批失效）。
+在 `index.html` 臨時插入三個計數器（`canPlace`／`aiStep`／`mayorFindSite470A`），同一座成熟城市、6 秒三段（AI 開 → 關 → 開），量完立刻 `git checkout` 還原（樹上沒有殘留）：
+
+| 階段 | frames | mean | p95 | fps | aiStep | findSite | canPlace |
+|---|---|---|---|---|---|---|---|
+| AI 開 | 9 | **666.6 ms** | 883.3 | 1.50 | 37 | 177 | **504,895** |
+| **AI 關** | 56 | **104.5 ms** | 166.7 | 9.57 | 0 | 0 | **0** |
+| AI 再開 | 7 | 760.9 ms | 1183.3 | 1.31 | 32 | 225 | **676,104** |
+
+換算：
+- **AI 佔了 84% 的幀時間**（666.6 → 104.5 ms；關掉 AI 後只剩渲染＋基礎模擬）。
+- 每秒約 **84,000 次 `canPlace`**；平均每次 `findSite` 約 **2,850 個候選格**（rad≈52、step 2 的量級）。
+- 若 AI 成本約 560 ms/6 s，單次 `canPlace` 約 **9 µs**——這就是要打的目標。
+
+## 6. 下一步（照這個順序做）
+
+1. 對 `mayorFindSite470A` 做**精確剪枝**：footprint 的必要條件（全在陸地、無建築、無道路／軌道）用每 tick 的 prefix-sum 遮罩 O(1) 否決；必須保證「被否決的格一定是 `canPlace` 會回非 null 的格」，否則不算。
+2. 只對**走 `canPlaceMulti` 路徑**的工具開剪枝，其餘（可蓋在水上的港口／碼頭等）保持原樣，避免改變決策。
+3. 若剪枝後仍有大量重複查詢，再做 generation-based `canPlace` memo（map 一改整批失效）。
 4. 每一項都要有「同 seed／同 checkpoint，AI 決策與放置結果全等」的證明，並用同一座成熟城市量 p95。
 
-## 6. 沒做成的事（照實）
+## 7. 沒做成的事（照實）
 
 - **還沒有任何性能改善**：本卡只有量測方法、成熟城市基線與一個被否證的候選。
 - 量測只在 Windows 本機 Chrome（軟體渲染），不是 CI Linux，也不是實體手機／Safari。
