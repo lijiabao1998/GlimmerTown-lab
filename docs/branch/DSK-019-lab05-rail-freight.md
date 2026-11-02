@@ -94,10 +94,52 @@ ok  守衛：validateRoute 抓對角線、非鐵軌、空路線
 RAIL_FREIGHT_054 {"checks":13,"ok":true}
 ```
 
-### 7.3 沒做成的事（照實）
+### 7.3 階段 B（執行期接線）— 已施工
 
-1. **階段 B 還沒接線**：`index.html` 尚未裝上 `GV.railFreight054`；那一步會新增一個釘死區塊，需要同步擴充 `single-research052-source.cjs`（比照 DSK-018），並在卡上標明需要業主確認。
-2. **沒有站別語意**：兩站目前只是兩個貼軌的 k166；k166 不在 T462／T463 的站別集合，本卡不註冊（DSK-017 已列 [等業主]）。
-3. **沒有號誌／路權**：單列獨占整條路線；會車、佔軌、斷軌恢復是 LAB-06 的範圍。
-4. **容量 12 是新玩法常數**：不是正式經濟數值，列 [等業主] 可調。
-5. **真手機／Safari 未測**。
+- 新檔 `rail-freight054-runtime.js`，**原封不動**內嵌進 `index.html` 的 `/* GPT-052 SINGLE LEDGER END */` 之後（區塊標記 `DSK-019 RAIL FREIGHT 054 BEGIN/END`）。
+- 對外 API：`window.GV.railFreight054.{plan,start,step,unload,abort,snapshot,open,refresh,end,disable,provenance}`。
+- 隔離：不寫經濟／存檔；`__noRailFreight054` 一開 `start` 立刻回 `disabled`；`load`／`newWorld`／`pagehide` 一律 `abort`。
+- 面板只在使用者 `open()` 時建立 DOM，`end()` 移除。
+
+### 7.4 階段 B 實測（`node probeRailFreight054.cjs` → PASS，exit 0）
+
+fresh 城市 N=72；鋪 x=10、y=8..24 的真鐵軌，兩棟貼軌 k166 成功放下（`bothPlaced:true`），月台 `(10,13)`→`(10,22)`：
+
+```json
+{"stations":{"a":{"ok":true,"k":166},"b":{"ok":true,"k":166},"bothPlaced":true},
+ "plan":{"ok":true,"steps":9},
+ "arrived":{"status":"ARRIVED","cursor":9,"qty":12},
+ "unloaded":{"status":"UNLOADED","qty":12},
+ "overCapacity":{"ok":false,"reason":"over-capacity"},
+ "panel":{"open":true,"closed":true},
+ "disabled":{"ok":false,"reason":"disabled"}}
+```
+
+- 路線 10 格 9 步，每步相鄰且都在真鐵軌上。
+- `READY → RUNNING → ARRIVED → UNLOADED`，`qty=12` 守恆。
+- 超載 13 > 容量 12 → `over-capacity`，不截斷。
+- 逃生閥與面板開關都有效。
+- 註：這個 fresh 城市是隨機地形，probe 會掃描可用地塊；若兩側都沒有 4×4 陸地，會退回「軌道兩端月台」並在 `facts.stations.bothPlaced` 照實記 `false`（本次是 `true`）。
+
+### 7.5 守衛變更（**需要業主／main 寫入者確認**）
+
+比照 DSK-018：`single-research052-source.cjs` 的投影器由「052 一個釘死區塊」擴充成「052＋054 兩個釘死區塊」，剝掉後仍必須逐 byte 等於**同一個** T776 baseline；054 有自己的字面 SHA `fc187757…`；052 的 hash、baseline 與六個負控制全部沒動。
+
+### 7.6 守衛收據
+
+- `node rail-freight054.test.js` → 13 項全綠。
+- `node shadow-cargo049.test.js` → exit 0。
+- `node single-research052.test.js` → exit 0。
+- `node smoke.js` → **0 FAIL、SMOKE_OK**（119.5 KB 日誌）。
+- `node fp.js --check` → **exit 0、FP_OK**，61.1s，165 族零變動。
+- `node probeRailFreight054.cjs` → PASS。
+
+### 7.7 沒做成的事（照實）
+
+1. **沒有站別語意**：兩站目前只是兩個貼軌的 k166；k166 不在 T462／T463 的站別集合，本卡不註冊（DSK-017 已列 [等業主]）。
+2. **沒有號誌／路權**：單列獨占整條路線；會車、佔軌、斷軌恢復是 LAB-06 的範圍。
+3. **容量 12 是新玩法常數**：不是正式經濟數值，列 [等業主] 可調。
+4. **推進是命令式的**：`step()` 由面板／API 呼叫，沒有綁每日 tick（速度屬交通規則 [等業主]）。
+5. **沒有接 049／050 的影子帳批次**：任務自帶 `batchId`／`qty`；同批身份與帳是 LAB-07。
+6. **改到守門檔**：`single-research052-source.cjs` 投影器擴充（見 §7.5），需要業主／main 寫入者確認才能合。
+7. **真手機／Safari 未測**。
