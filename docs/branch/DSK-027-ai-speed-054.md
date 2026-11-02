@@ -100,6 +100,23 @@ PR #71 的 36 個檔、20 個 commit 裡，`index.html` 只改了 19 行（C5：
 - `single-research052-source.cjs` 在投影前先 `unapplyPerfPatch054()`：候選必須**恰好含一次** `to`，換回 `from` 後整份檔案才會等於同一個 baseline；缺少、重複、變異都在 P01 首紅。
 - 這是「多准許一個明確授權的替換」，不是放寬：baseline、052 blockHash、既有負控制全部沒動。
 
+### 7.6 ABBA 交錯量測（固定起始狀態，60 s × 4 臂）
+
+`dsk054-abba.cjs`：`baseline → candidate → candidate → baseline`，每臂重建同一座 fixture（seed 87），先驗證四臂起始狀態完全相同（`sameStartState: true`），再量 60 秒。
+
+| 臂 | 順序 | mean | p95 | frames |
+|---|---|---|---|---|
+| 0 | baseline | 1563.3 ms | 3050.0 ms | 35 |
+| 1 | candidate | 1599.5 ms | 4783.1 ms | 37 |
+| 2 | candidate | 2373.1 ms | 5866.3 ms | 23 |
+| 3 | baseline | 3052.5 ms | 15516.0 ms | 19 |
+| **平均** | baseline | **2307.9 ms** | **9283.0 ms** | 54 |
+| **平均** | candidate | **1986.3 ms** | **5324.7 ms** | 60 |
+
+- **mean −13.9%、p95 −42.6%、p99 −35.1%**。
+- 各臂變異極大（城市在 60 秒內持續長大，後面的臂天然較慢）；ABBA 只部分抵銷漂移。
+- **結論：p95 有明顯改善（42.6%），但還沒達到 −50% 的門檻**，不能宣稱達標。
+
 ### 7.5 守衛收據
 
 - `node shadow-cargo049.test.js` → exit 0
