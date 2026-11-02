@@ -42,7 +42,28 @@
 - **合併順序**：#73／#77／#78／#79／#80 可獨立先合；#74→#75→#76→#81→#82 依序；**#84 已包含那五張，不要重複合**。
 - **#71 是 gpt 分支**：我沒有權限也沒有動它。
 
-## 5. 下一步
+## 5. 如何自己重跑（在對應分支上）
+
+```bash
+# 守衛（整合候選，五個釘死區塊）
+node shadow-cargo049.test.js
+node single-research052.test.js
+node fp.js --check
+
+# A–F 六情境＋隔離
+node probeAcceptance11.cjs
+
+# 物流閉環（ledger → 公路 → 換裝 → 鐵路 → HANDOFF）
+node probeLogisticsLoop.cjs
+
+# 性能：等價性（固定 ticks）與 ABBA（成熟城市）
+node dsk054-equiv.cjs prune 200 5      # 在 dsk/ai-speed-054
+node dsk054-abba.cjs 60 C:/RUST/abba.json
+```
+
+成熟城市 fixture 由 `populated-fixture053.cjs` 建立（pop 327、seed 87），全程在獨立 profile／slot 3，不碰業主存檔。
+
+## 6. 下一步
 
 1. `logistics058`：把結算與閉塞約束搬進產品層，probe 驗「無路權／斷軌必須失敗」。
 2. 真居民城市接 LAB-08／09／10（pop 327 fixture 已有）。
