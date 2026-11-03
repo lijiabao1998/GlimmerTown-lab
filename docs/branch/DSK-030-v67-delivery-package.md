@@ -85,7 +85,28 @@ node dsk054-abba.cjs 60 C:/RUST/abba.json
 
 成熟城市 fixture 由 `populated-fixture053.cjs` 建立（pop 327、seed 87），全程在獨立 profile／slot 3，不碰業主存檔。
 
+## 5.1 原圖證據（真瀏覽器、1440×900、CDP 直拍）
+
+`probeScreenshots037.cjs` 產生三張，存放於 `C:\RUST\evidence\`：
+
+| 檔案 | 證明什麼 |
+|---|---|
+| `01-populated-city.png` | 測試用的是**真居民城市**（pop 327、day 57、202 格路），不是空圖或示意圖 |
+| `02-intermodal-delivered.png` | LAB-07 面板顯示 `批次 batch-A (7/12 件 food)`、`狀態 DELIVERED`、`公路 3/3`、`鐵路 4/4`，並自述「已交付（影子帳，未寫入正式經濟）」 |
+| `03-shadow-ledger.png` | 影子帳面板的存在與內容，對應 `singleResearch052` 的 session |
+
+重拍方式：`node probeScreenshots037.cjs`（需要本機 Chrome；輸出到 `C:\RUST\evidence`）。
+
+## 5.2 CI 收據
+
+| 分支 | 最新 commit | CI |
+|---|---|---|
+| `dsk/ai-speed-054` | `1c701a6` | 見 PR #83（前一次 `9aa78de` 為 success） |
+| `dsk/lab-integration` | `fd6b3fc` | 見 PR #84（`45fda6c`、`45269c5` 皆 success） |
+| `dsk/lab-persistence-058` | `d30b38d` | ✅ success |
+
 ## 6. 下一步
+
 
 1. `logistics058`：把結算與閉塞約束搬進產品層，probe 驗「無路權／斷軌必須失敗」。
 2. 真居民城市接 LAB-08／09／10（pop 327 fixture 已有）。
