@@ -36,13 +36,15 @@
 
 ## 3. 缺口（還沒做）
 
-> 更新於 2026-11-02 晚間（`45269c5`）：原本的五個缺口有兩個已經補上。
+> 更新於 2026-11-03（`193f945`）：A–F 真城市、持久化四段閉環都已補上。
 
-1. **p95 未達 −50%**：目前 −42.6%，剩餘瓶頸在 `canPlace` 本體與每 tick 重算。
-2. ~~**結算仍在 probe**~~ → **已補**：`intermodal057` 到站自動對 ledger 下 HANDOFF（實測 `revision 3`、`state HELD`、`conserved true`）。
-3. ~~**閉塞路權未強制**~~ → **已補**：聯運鐵路段讀 `railBlock055.snapshot()`，`holder` 不是自己就 `authority:no-authority`、下一格斷軌就 `authority:track-broken`（兩者都實測擋住）。
-4. **LAB-08／09 已在真城市跑通**：pop 327、117 列 OD、51.7 trips；`passenger-demand056` 收斂 51.0 trips、conserved true（原生 0.1 捨入與 `bike` 已納入）。
-5. **LAB-10 已改真道路可達**：原生 OD 街區 demand × 原生高街商店（k=238/239/240）× 道路 BFS；**一間座標距離 9 格的店因走路網不可達變成 0 到訪（isolated）**。
+1. **p95 未達 −50%**：三次 ABBA 落在 −33.5% ~ −42.6%；固定工作量只快 −3.6%／−6.0%。下一個數量級在 `findSite` 同工具重複掃描（量到 55.7%），但需先做 DSK-033 的守門升級。
+2. ~~**結算仍在 probe**~~ → **已補**：`intermodal057` 到站自動對 ledger 下 HANDOFF（`revision 3`、`state HELD`、`conserved true`）。
+3. ~~**閉塞路權未強制**~~ → **已補**：聯運鐵路段讀 `railBlock055.snapshot()`，`holder` 不是自己就 `authority:no-authority`、斷軌就 `authority:track-broken`（實測都擋住；第二台車是**排隊**不是被拒）。
+4. ~~**LAB-08／09／10 仍用合成資料**~~ → **已補**：真城市 118 列 OD、51.4 trips、conserved（逐列判定）、真道路 BFS 到訪（52 次、1 間孤立）。
+5. ~~**A–F 只在測試場景**~~ → **已補**：`probeAcceptanceCity036.cjs` 在 pop 327 的真城市上 A–F 六情境全過。
+6. ~~**持久化只有提案**~~ → **已補**：`persistence058.js` 信封／校驗／原子還原＋`captureShadow058`（12 項自檢），並在真狀態上完成抓取→封裝→驗證→還原四段閉環。
+7. **仍缺**：店家級真實客流（原生只到街區 OD）、正式存檔接線（需業主批准）、真手機／Safari。
 6. **整合候選 CI**：`45269c5` 排隊中（前一個 `e233191` 被新 push 取消）。
 7. **還缺的**：店家級真實客流（原生只到街區 OD）、站點語意（k166 未進 T462 站別集合）、真手機／Safari。
 
