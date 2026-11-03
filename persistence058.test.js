@@ -94,4 +94,39 @@ ok('非物件輸入一律 bad-input', () => {
   }
 });
 
+ok('capture：只保留白名單欄位，正式經濟欄位不會被寫進信封', () => {
+  const c = P.captureShadow058({
+    ledger: { revision: 3, unissued: 5, manifest: { total: 12 }, money: 9999, population: 327,
+      batches: [{ batchId: 'batch-A', qty: 7, state: 'HELD', owner: 'research-receiver', destination: 'research-receiver', secret: 'nope' }] },
+    block: { holder: 'train-057', broken: [1521], internal: 'x' },
+    trips: [{ id: 't1', status: 'DELIVERED', batchId: 'batch-A', qty: 7, revenue: 500 }]
+  });
+  assert.equal(c.ok, true);
+  const text = JSON.stringify(c.payload);
+  for (const banned of ['money', 'population', 'secret', 'internal', 'revenue']) {
+    assert.equal(text.indexOf(banned), -1, banned + ' 不該進信封');
+  }
+  assert.deepEqual(Object.keys(c.payload).sort(), ['block', 'ledger', 'trips', 'warehouse']);
+});
+
+ok('capture→pack→unpack 往返後守恆仍成立', () => {
+  const c = P.captureShadow058({
+    ledger: { revision: 3, unissued: 5, manifest: { total: 12 }, batches: [{ batchId: 'batch-A', qty: 7, state: 'HELD', owner: 'research-receiver', destination: 'research-receiver' }] },
+    block: { holder: 'train-057', broken: [1521] },
+    trips: [{ id: 't1', status: 'DELIVERED', batchId: 'batch-A', qty: 7 }]
+  });
+  assert.equal(c.conservation.ok, true);
+  const r = P.unpack(P.pack(c.payload).envelope, { required: ['ledger', 'warehouse', 'block', 'trips'] });
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.state, c.payload);
+  const sum = r.state.ledger.batches.reduce((s, b) => s + b.qty, 0);
+  assert.equal(sum + r.state.ledger.unissued, r.state.ledger.manifestTotal);
+});
+
+ok('capture：沒有 manifest 總量時守恆回 null（不假裝算過）', () => {
+  const c = P.captureShadow058({ ledger: { revision: 1, unissued: 2, batches: [{ batchId: 'b', qty: 3 }] } });
+  assert.equal(c.conservation.ok, null);
+  assert.equal(c.conservation.sumBatches, 3);
+});
+
 console.log('PERSISTENCE_058 ' + JSON.stringify({ checks, ok: true }));

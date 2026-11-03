@@ -62,7 +62,62 @@
     return { ok: true, code: RS.OK, state: r.state };
   }
 
-  const api = { SCHEMA, VERSION, RS, canon, fnv, pack, unpack, restore, provenance: 'lab058-shadow-persistence-prototype' };
+  /* 從原生 snapshot 抓出「只屬於影子層」的白名單欄位。
+   * 任何不在白名單的欄位都不會被寫進信封，避免把正式經濟或存檔狀態偷渡進來。
+   * 回傳 payload 時同時算守恆：sum(batch.qty) + unissued 應等於 manifest 總量（若有提供）。 */
+  const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+  function captureShadow058(parts) {
+    parts = parts || {};
+    const ledgerSnap = parts.ledger || {};
+    const ledger = ledgerSnap.ledger || ledgerSnap;
+    const batches = Array.isArray(ledger.batches) ? ledger.batches : [];
+    const lw = ledger.warehouse || (parts.warehouse || {});
+    const blk = parts.block || {};
+    const trips = Array.isArray(parts.trips) ? parts.trips : [];
+
+    const payload = {
+      ledger: {
+        revision: num(ledger.revision),
+        unissued: num(ledger.unissued),
+        manifestTotal: num(ledger.manifest && ledger.manifest.total),
+        batches: batches.map((b) => ({
+          batchId: typeof b.batchId === 'string' ? b.batchId : null,
+          qty: num(b.qty),
+          state: typeof b.state === 'string' ? b.state : null,
+          owner: typeof b.owner === 'string' ? b.owner : null,
+          destination: typeof b.destination === 'string' ? b.destination : null
+        }))
+      },
+      warehouse: {
+        capacity: num(lw.capacity),
+        used: num(lw.used),
+        storedBatchIds: Array.isArray(lw.storedBatchIds) ? lw.storedBatchIds.filter((x) => typeof x === 'string') : []
+      },
+      block: {
+        holder: typeof blk.holder === 'string' ? blk.holder : null,
+        broken: Array.isArray(blk.broken) ? blk.broken.filter((x) => Number.isSafeInteger(x)) : []
+      },
+      trips: trips.map((t) => ({
+        id: typeof t.id === 'string' ? t.id : null,
+        status: typeof t.status === 'string' ? t.status : null,
+        batchId: typeof t.batchId === 'string' ? t.batchId : null,
+        qty: num(t.qty)
+      }))
+    };
+
+    const sumBatches = payload.ledger.batches.reduce((s, b) => s + (b.qty || 0), 0);
+    const total = payload.ledger.manifestTotal;
+    const unissued = payload.ledger.unissued;
+    const conservation = {
+      sumBatches,
+      unissued,
+      manifestTotal: total,
+      ok: total === null ? null : sumBatches + (unissued || 0) === total
+    };
+    return { ok: true, payload, conservation };
+  }
+
+  const api = { SCHEMA, VERSION, RS, canon, fnv, pack, unpack, restore, captureShadow058, provenance: 'lab058-shadow-persistence-prototype' };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.persistence058 = api;
   if (root.GV) root.GV.persistence058 = api;
