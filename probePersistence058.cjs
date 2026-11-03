@@ -83,6 +83,26 @@ const RUN = `(() => {
     out.facts.tamper = { ok: bad.ok, code: bad.code, stateUnchanged: P.canon(bad.state) === P.canon(cap.payload) };
     if (bad.ok || bad.code !== P.RS.CHECKSUM || !out.facts.tamper.stateUnchanged) fail('tampered envelope was not rejected atomically');
 
+    // --- restore: take the envelope back out and prove it is unchanged and consistent ---
+    const restored = P.restore(null, packed.envelope, { required: ['ledger', 'warehouse', 'block', 'trips'] });
+    const repacked = restored.ok ? P.pack(restored.state) : null;
+    const restoredSum = restored.ok ? restored.state.ledger.batches.reduce((s, x) => s + (x.qty || 0), 0) : null;
+    const restoredConserved = restored.ok
+      ? restoredSum + (restored.state.ledger.unissued || 0) === restored.state.ledger.manifestTotal
+      : false;
+    out.facts.restore = {
+      ok: !!restored.ok, code: restored.code || null,
+      checksumStable: !!(repacked && repacked.envelope.checksum === packed.envelope.checksum),
+      sumBatches: restoredSum, conserved: restoredConserved,
+      identicalToCapture: !!(restored.ok && P.canon(restored.state) === P.canon(cap.payload))
+    };
+    if (!restored.ok) fail('restore failed: ' + restored.code);
+    else {
+      if (!out.facts.restore.checksumStable) fail('restore→repack changed the checksum');
+      if (!out.facts.restore.conserved) fail('restored state is not conserved');
+      if (!out.facts.restore.identicalToCapture) fail('restored state differs from captured payload');
+    }
+
     // ledger is untouched by the persistence layer
     const after = L.snapshot();
     out.facts.ledgerAfter = { batches: after.ledger.batches.length, conserved: after.ledger.conservation && after.ledger.conservation.ok, qty: after.ledger.batches[0].qty };
