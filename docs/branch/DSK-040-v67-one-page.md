@@ -39,6 +39,16 @@
 | 閉塞強制 | 無路權 `authority:no-authority`、斷軌 `authority:track-broken`、第二台車排隊 |
 | 真城市 A–F | pop 327：A 公路、B 鐵路 ARRIVED、C 閉塞、D 聯運結算、E 118 列 OD 守恆、F 52 次到訪／1 間孤立 |
 | 持久化 | 抓取→封裝→驗證→還原四段閉環；篡改原子拒絕 |
+
+## CI 收據（2026-11-03）
+
+| 分支 | commit | CI |
+|---|---|---|
+| `dsk/lab-integration`（#84） | `2741797` | ✅ **success** |
+| `dsk/ai-speed-054`（#83） | `1c701a6` | ✅ **success** |
+| `dsk/lab-persistence-058`（#85） | `d30b38d` | ✅ **success** |
+
+三套都是完整守衛（煙霧 3 連綠＋fp＋指紋）。`main` 仍是 `01c2249`（與開工時相同，一次都沒推）。
 | 原圖 | `C:\RUST\evidence\01…03.png`（1440×900，CDP 直拍） |
 
 ## 你要決定的事
