@@ -6,7 +6,7 @@
  *   - 兩列在同一區間：一列走、一列等；沒登記的列車要不到路權；路上 release 回 still-running；
  *   - 第一列走到一半，用原生拆除工具（doze）拆掉它前方一格真軌 → track-broken、留在原地；
  *     用原生鐵軌工具鋪回 → 繼續到站；第二列照 FIFO 拿到路權跑完；之後第三列能開；
- *   - 面板有「未保存」提示，桌機與兩種手機視窗下都在右上角、不和其他 LAB 面板重疊；
+ *   - 面板有「未保存」提示，桌機與兩種手機視窗下都在左欄第 3 格（T785 統一四格）、不和其他 LAB 面板重疊；
  *   - 閥門開著時所有變更動作回 disabled；讀檔、開新城、end() 都清空；
  *   - CDP 量 load／newWorld 的包裝鏈與 pagehide 監聽：裡面有 055 這一層（B 段的對照組）。
  * B 段（preScript 在安裝前開閥門）：介面一律 disabled（關閥之後也是）；
@@ -215,8 +215,10 @@ function pagePanel(P) {
   out.overlaps = Object.keys(out.others).filter((id) => ov(out.mine, out.others[id]));
   out.noticeInside = !!(out.mine && out.noticeRect && out.noticeRect.w > 0 && out.noticeRect.h > 0 &&
     out.noticeRect.l >= out.mine.l && out.noticeRect.r <= out.mine.r && out.noticeRect.t >= out.mine.t && out.noticeRect.b <= out.mine.b);
-  out.ok = !!(out.mine && out.count === 1 && out.position === 'fixed' && out.visible && Math.abs(out.vw - out.mine.r - 12) <= 1 && Math.abs(out.mine.t - 84) <= 1 &&
-    out.mine.b <= out.vh / 2 + 0.5 && out.mine.l >= 0 && out.overlaps.length === 0);
+  const slotH = (out.vh - 120) / 4, slotTop = 84 + 2 * (slotH + 8);
+  out.slot = { top: slotTop, height: slotH };
+  out.ok = !!(out.mine && out.count === 1 && out.position === 'fixed' && out.visible && Math.abs(out.mine.l - 12) <= 1 && Math.abs(out.mine.t - slotTop) <= 1 &&
+    Math.abs(out.mine.h - slotH) <= 1 && out.mine.r <= out.vw && out.overlaps.length === 0);
   out.unsavedOk = out.notice === P.unsaved && out.noticeInside;
   for (const [, k] of others) { try { if (GV[k] && typeof GV[k].end === 'function') GV[k].end(); } catch (e) {} }
   return out;
@@ -385,7 +387,7 @@ async function sessionA() {
       const g = await run(cdp, pagePanel, P);
       facts.panel[name] = g;
       if (!g.unsavedOk) fails.push('A21 面板沒有顯示「未保存」提示（' + name + '）：' + JSON.stringify({ notice: g.notice, inside: g.noticeInside }));
-      if (!g.ok) fails.push('A22 面板不在右上角上半部，或和其他 LAB 面板重疊（' + name + '）：' + JSON.stringify({ vw: g.vw, vh: g.vh, mine: g.mine, overlaps: g.overlaps, position: g.position }));
+      if (!g.ok) fails.push('A22 面板不在左欄第 3 格，或和其他 LAB 面板重疊（' + name + '）：' + JSON.stringify({ vw: g.vw, vh: g.vh, mine: g.mine, slot: g.slot, overlaps: g.overlaps, position: g.position }));
     }
     await cdp.send('Emulation.clearDeviceMetricsOverride');
     await H.sleep(400);

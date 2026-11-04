@@ -30,7 +30,7 @@
   const UNSAVED = '未保存：重新整理或讀檔就會消失';
   const PROVENANCE = {
     module: 'rail-block055', lab: 'LAB-06', card: 'T784', isolation: 'shadow-only', maxTrains: MAX_TRAINS,
-    brokenSource: 'tiles[i].rail', planner: 'GV.railFreight054.plan', panel: 'top-right'
+    brokenSource: 'tiles[i].rail', planner: 'GV.railFreight054.plan', panel: 'left-slot-2'
   };
   const disabled = () => ({ ok: false, reason: RS.DISABLED, disabled: true });
 
@@ -294,11 +294,11 @@
     return e;
   }
 
-  /* 面板固定在右上角（HUD 列下方），最高到畫面中線，不會碰到右下角的 LAB-03 面板。 */
+  /* 面板：左欄四格的第 3 格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3；T785 統一），格高與位置只由視窗高決定，四格互不重疊。 */
   function ensurePanel() {
     if (panel || typeof document === 'undefined' || !document.body) return panel;
-    const p = element('div', 'position:fixed;top:84px;right:12px;z-index:9999;box-sizing:border-box;width:270px;' +
-      'max-width:calc(100vw - 24px);max-height:calc(50vh - 90px);overflow:auto;padding:10px 12px;' +
+    const p = element('div', 'position:fixed;left:12px;top:calc(84px + 2 * ((100vh - 120px) / 4 + 8px));z-index:9999;box-sizing:border-box;' +
+      'width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);overflow:auto;padding:10px 12px;' +
       'background:rgba(14,20,34,.94);border:1px solid rgba(150,120,220,.6);border-radius:10px;' +
       'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)');
     p.id = 'lab055Panel';

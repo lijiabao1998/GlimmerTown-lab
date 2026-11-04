@@ -151,6 +151,7 @@ check('V01 安裝：介面齊全、凍結；provenance 寫明斷軌讀 tiles[i].
   assert.equal(api.provenance.brokenSource, 'tiles[i].rail');
   assert.equal(api.provenance.planner, 'GV.railFreight054.plan');
   assert.equal(api.provenance.maxTrains, 2);
+  assert.equal(api.provenance.panel, 'left-slot-2');
   assert.deepEqual(plain(api.snapshot()), { ok: true, installed: true, disabled: false, maxTrains: 2, active: 0, holder: null, waiting: [], broken: [], trains: [] });
 });
 
@@ -560,7 +561,7 @@ check('V23 B4 安裝當下閥門已開：不改寫 load／newWorld、不掛 page
   assert.deepEqual(s, { ok: false, reason: 'disabled', disabled: true, installed: false, maxTrains: 2, active: 0, holder: null, waiting: [], broken: [], trains: [] });
 });
 
-check('V24 B5 面板：右上角固定位置、未保存提示、內容讀快照（含斷軌格座標）', () => {
+check('V24 B5 面板：左欄第 3 格固定位置（T785 統一四格）、未保存提示、內容讀快照（含斷軌格座標）', () => {
   const env = makeEnv();
   const { api } = env;
   assert.equal(env.panel(), null, 'no panel before open()');
@@ -575,9 +576,8 @@ check('V24 B5 面板：右上角固定位置、未保存提示、內容讀快照
   assert.ok(p, 'panel created');
   assert.equal(env.document.body.children.filter((c) => c.id === 'lab055Panel').length, 1);
   const css = p.style.cssText.replace(/\s+/g, '');
-  for (const want of ['position:fixed', 'top:84px', 'right:12px', 'width:270px', 'max-height:calc(50vh-90px)', 'overflow:auto']) assert.ok(css.includes(want), 'css ' + want);
-  assert.ok(!/(^|;)bottom:/.test(css), 'not anchored to the bottom (LAB-03 is bottom-right)');
-  assert.ok(!/(^|;)left:/.test(css), 'not anchored to the left');
+  for (const want of ['position:fixed', 'left:12px', 'top:calc(84px+2*((100vh-120px)/4+8px))', 'width:min(260px,calc(100vw-24px))', 'height:calc((100vh-120px)/4)', 'box-sizing:border-box', 'overflow:auto']) assert.ok(css.includes(want), 'css ' + want);
+  assert.ok(!/(^|;)(right|bottom):/.test(css), 'left column only (the GPT-052 panel is bottom-right)');
   const notice = env.document.getElementById('lab055Unsaved');
   assert.ok(notice && notice.textContent === UNSAVED, 'unsaved notice text');
   const body = env.document.getElementById('lab055Body').textContent;
