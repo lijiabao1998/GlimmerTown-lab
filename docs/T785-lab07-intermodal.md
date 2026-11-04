@@ -200,21 +200,3 @@ W10（滾輪後只等 80 毫秒）是既有的時序紅，業主沒批准改。�
 6. 只有研究介面與面板，遊戲裡沒有選保管人、選建築的操作；探測用的是原生 `demo()` 帳。
 7. GPT-052 研究帳面板在右下角；手機寬度下它是全寬，會跟左欄 LAB 面板重疊。052 區塊是釘死的，這批不動它。
 8. 真手機與 Safari 沒有測。
-
-## 合併與發布收據（2026-11-04，Claude）
-- PR #87：轉 Ready 後以 GitHub squash 合併，釘在驗過的 head 0ad06ca；main 提交 0401801。
-- 合併前：
-  - PR 官方 CI 第一輪 41808423017（ce6bb72）紅在既有 052 守衛的 moved 突變，原因與修正見 R2。
-  - 第二輪 41809617793（0bf4e60）全綠。
-  - 最終 head 0ad06ca 的 41813656201 全綠：smoke 3 輪、fp、fiscal-load；reuse-push 是完整重跑（Full checks）。
-  - 本機 smoke 3 連綠（687／695／709 秒）；`fp.js --check` 零變動。
-- 合併後：
-  - main smoke run 41815457931 成功。
-  - 自動 Pages run 41816384427 第一次失敗：建置成功，部署那一步 GitHub Pages API 回 502（`Failed to create deployment (status: 502)`），跟本次改動無關。
-    - Claude 只重跑一次失敗的部署 job，第 2 次嘗試成功。
-  - 公開網址 `lijiabao1998.github.io/GlimmerTown-lab/`（轉址到 `game.lijiabao.uk/GlimmerTown-lab/`）讀到 `GAME_VER='14.72'`、`GAME_ANCHOR='T785'`、開始畫面 `v14.72 · T785`。
-  - 整頁 SHA-256 `2e6ff9bb…`，與本機和 CI 驗過的候選頁逐位元組相同。
-- 原 PR 處理：
-  - #84 留言並關閉；
-  - #74、#75、#76、#81 留言註明被 #87 取代後關閉；
-  - 分支都保留。
