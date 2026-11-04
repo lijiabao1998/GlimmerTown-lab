@@ -217,3 +217,15 @@
 4. 同一頁的存檔往返不冪等：save→load→save 三份不同，因為讀檔會正規化 `aiv470`、`h488`、`gov513` 等欄位（既有行為）。I3b 比的是兩頁之間逐字相同，同一頁三份只記錄。
 5. 等價探測沒接進 smoke／CI：一次約 6 分鐘，要手動跑。smoke 每輪只跑 6 支 node 對照。
 6. 真手機、Safari 沒測；GPT 的量測在 CI 機器上跑，不是中階 Android。
+
+## 合併與發布收據（2026-11-04，Claude）
+- PR #89：轉 Ready 後以 GitHub squash 合併，釘在驗過的 head 2eede73；main 提交 2b266ea。
+- 合併前：
+  - PR 官方 CI 41857072285（2eede73）全綠：smoke 3 輪、fp、fiscal-load 都是完整執行，沒有沿用推送證據。
+  - 本機第二組 smoke 3 連綠（818／795／796 秒）；`fp.js --check` 零變動。
+  - Codex 安全審查在轉 Ready 時自動開始（15:51:17）；合併（15:51:27）比它跑完早。它 15:54 完成，沒有提出任何發現；這個審查不擋合併（`mergeGateEnabled: false`）。
+- 合併後：
+  - main smoke run 41862049552 成功。
+  - 自動 Pages run 41866362990 成功（排隊約 12 分鐘）。
+  - 公開網址 `lijiabao1998.github.io/GlimmerTown-lab/`（轉址到 `game.lijiabao.uk/GlimmerTown-lab/`）讀到 `GAME_VER='14.73'`、開始畫面 `v14.73 · T786`。
+- #71 留言寫明合併提交、收與不收、等價與速度之後關閉；分支 `gpt/lab-ai-speed-20261030` 保留（量測工具與證據在上面）。
