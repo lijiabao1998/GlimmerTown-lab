@@ -48,6 +48,12 @@ const KEEP = process.argv.includes('--keep');
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'passenger-demand056.test.js')], {stdio:'inherit'});
   // T781（原 DSK-023）: additive pure-core contracts for the LAB-10 shadow-visit model (real walking distance).
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'shadow-visits057.test.js')], {stdio:'inherit'});
+  // T782–T785（原 DSK-018／019／020／025，經整合 PR84）: isolated LAB-03/05/06/07 research blocks —
+  // pure cores, the shipped runtime files in a vm, and the 052 projector's per-block negative controls. No Chrome.
+  for (const t of ['road-delivery053.test.js', 'road-delivery053-runtime.test.js', 'rail-freight054.test.js', 'rail-freight054-runtime.test.js',
+    'rail-block055.test.js', 'rail-block055-runtime.test.js', 'intermodal057-runtime.test.js', 'single-research052-blocks.test.js']) {
+    require('child_process').execFileSync(process.execPath, [path.join(ROOT, t)], {stdio:'inherit'});
+  }
 
   const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
     log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙' +
