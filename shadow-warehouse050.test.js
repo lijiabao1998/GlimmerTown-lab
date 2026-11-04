@@ -22,15 +22,15 @@ const archive050=fs.readFileSync(path.join(Q,'original-6d544c2.test.js'),'utf8')
 const expectedRelease050={
   "schema": "lab050-release-source-v1",
   "release": {
-    "version": "14.74",
-    "anchor": "T788",
-    "round": 228,
-    "pr": 90
+    "version": "14.75",
+    "anchor": "T789",
+    "round": 229,
+    "pr": 91
   },
-  "approvedMain": "2b266eae8b370f36116df739fea52df3039cb59e",
-  "ownerApproval": "DECISIONS-2026-11-04-LAB11-LAB12",
+  "approvedMain": "d10b328319c7a6239c72a3e7325804bfc3686b5b",
+  "ownerApproval": "DECISIONS-2026-11-04-W10-wait",
   "productRole": "exact-pure-factory-copy-inside-default-off-single-research052-not-native-economy; standalone-file-not-imported-by-index",
-  "candidateIndexSha256": "9d57502affe4ad1a56ae3074468b706c18881162d2f02a32271c279e3fb094e1",
+  "candidateIndexSha256": "7e2365c9705833ca6ab4f7c21c5840d42a8ff939a8532022d97075fbbe70911d",
   "published049": {
     "pr": 67,
     "merge": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
@@ -49,9 +49,9 @@ const expectedRelease050={
   }
 };
 const releaseStrings050=[
-  ["const GAME_VER='14.74';","const GAME_VER='14.67';",'W01 release GAME_VER'],
-  ["const GAME_ANCHOR='T788';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
-  ['<span id="startVersion456">v14.74 · T788</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
+  ["const GAME_VER='14.75';","const GAME_VER='14.67';",'W01 release GAME_VER'],
+  ["const GAME_ANCHOR='T789';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
+  ['<span id="startVersion456">v14.75 · T789</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
 ];
 function verifyRelease050(candidate,overrides={}) {
   const inputs={descriptor:release050,provenance:provenanceText050,block:upstreamBlock,test:upstreamTest,core:source,archive:archive050,...overrides};
@@ -300,7 +300,11 @@ async function browser() {
           const cam=await run('GV.camera436()');
           const rect=await run(`(()=>{const e=document.getElementById('shadowWarehouse050JSON'),p=document.getElementById('shadowWarehouse050Scroll'),r=e.getBoundingClientRect(),q=p.getBoundingClientRect();e.scrollTop=0;const top=Math.max(r.top,q.top,0),bottom=Math.min(r.bottom,q.bottom,innerHeight),x=r.left+30,y=(top+bottom)/2;return{x,y,visible:bottom>top,hit:e.contains(document.elementFromPoint(x,y)),before:e.scrollTop};})()`);
           assert.equal(rect.visible,true,'W10 JSON visible wheel target');assert.equal(rect.hit,true,'W10 wheel target hits JSON');assert.equal(rect.before,0,'W10 JSON starts at zero');
-          await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});await sleep(80);
+          await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});
+          // T789（業主 2026-11-04 批准）：同一次真滾輪，有上限地等它生效（每 40 毫秒讀一次，最多 2,000 毫秒）；下面的斷言一字不改。
+          const wheelStart789=Date.now();let wheelReads789=0,wheelMoved789=false;
+          while(Date.now()-wheelStart789<2000){wheelReads789++;if((await run("document.getElementById('shadowWarehouse050JSON').scrollTop"))>rect.before){wheelMoved789=true;break;}await sleep(40);}
+          console.log('WAREHOUSE050 WHEEL_COMPLETION '+JSON.stringify({layout,light,elapsedMs:Date.now()-wheelStart789,reads:wheelReads789,moved:wheelMoved789}));
           const scroll=await run(`(()=>{const j=document.getElementById('shadowWarehouse050JSON');return{jsonOverflow:j.scrollHeight>j.clientHeight,after:j.scrollTop,cam:GV.camera436()};})()`);
           assert.equal(scroll.jsonOverflow,true,'W10 expandable diagnostic JSON');assert.ok(scroll.after>rect.before,'W10 actual wheel increases JSON scroll');assert.equal(scroll.cam.z,cam.z,'W10 panel wheel does not zoom city');
           console.log('WAREHOUSE050 REAL_SCROLL '+JSON.stringify({layout,light,before:rect.before,after:scroll.after,hit:rect.hit,cameraUnchanged:scroll.cam.z===cam.z}));
