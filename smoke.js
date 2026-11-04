@@ -29,6 +29,8 @@ const KEEP = process.argv.includes('--keep');
   console.log('');
   console.log('=== 微光小鎮 煙霧測試 ===');
   const fails = [];
+  // GPT-053: additive exact projection and placement parity controls; original guards unchanged.
+  require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'placement-reuse053-projection.test.cjs'), path.join(ROOT, 'placement-reuse053.test.cjs')], {stdio:'inherit'});
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'touch-cancellation020.test.js')], {stdio:'inherit'});
   // GPT-023: additive only; run the unchanged light/shape/valve contracts.
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'probeLightSide745.js'), '--check'], {stdio:'inherit'});

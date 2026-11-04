@@ -1,0 +1,18 @@
+[
+  {
+    "before": "function transitOD491(blocks,services,complexes){",
+    "after": "// GPT-053 C5: stable bounded ranking; candidate evaluation stays in original order.\nfunction mobilityTopK053(rows,k){\n  if(window.__noMobilityTopK053||rows.length<=k||rows.some(q=>!Number.isFinite(q.w)))return rows.sort((a,b)=>b.w-a.w).slice(0,k);\n  const heap=[],worse=(a,b)=>a.q.w<b.q.w||(a.q.w===b.q.w&&a.i>b.i);\n  for(let i=0;i<rows.length;i++){\n    const e={q:rows[i],i};\n    if(heap.length<k){let j=heap.length;heap.push(e);while(j>0){const p=(j-1)>>1;if(!worse(heap[j],heap[p]))break;[heap[j],heap[p]]=[heap[p],heap[j]];j=p;}}\n    else if(worse(heap[0],e)){heap[0]=e;let j=0;while(true){const l=j*2+1,r=l+1;let b=j;if(l<heap.length&&worse(heap[l],heap[b]))b=l;if(r<heap.length&&worse(heap[r],heap[b]))b=r;if(b===j)break;[heap[j],heap[b]]=[heap[b],heap[j]];j=b;}}\n  }\n  return heap.sort((a,b)=>b.q.w-a.q.w||a.i-b.i).map(e=>e.q);\n}\nfunction transitOD491(blocks,services,complexes){"
+  },
+  {
+    "before": "const cheap=dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy),cap=purposeCapacity491(d,p),same=d.key===o.key,w=cap*(same?1.32:1)/(4+dist*.42);return{d,dist,w};}).filter(q=>(remain.get(q.d.key)||0)>.02&&q.w>0).sort((a,b)=>b.w-a.w).slice(0,12)",
+    "after": "const cheap=mobilityTopK053(dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy),cap=purposeCapacity491(d,p),same=d.key===o.key,w=cap*(same?1.32:1)/(4+dist*.42);return{d,dist,w};}).filter(q=>(remain.get(q.d.key)||0)>.02&&q.w>0),12)"
+  },
+  {
+    "before": "const cheap=dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,dist,w:d.jobs/(5+dist*.5)};}).filter(q=>(remain.get(q.d.key)||0)>.02).sort((a,b)=>b.w-a.w).slice(0,14)",
+    "after": "const cheap=mobilityTopK053(dests.map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,dist,w:d.jobs/(5+dist*.5)};}).filter(q=>(remain.get(q.d.key)||0)>.02),14)"
+  },
+  {
+    "before": "const cheap=destByPurpose[p].map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,w:purposeCapacity491(d,p)/(1+dist*.28)};}).sort((a,b)=>b.w-a.w).slice(0,14)",
+    "after": "const cheap=mobilityTopK053(destByPurpose[p].map(d=>{const dist=Math.abs(o.cx-d.cx)+Math.abs(o.cy-d.cy);return{d,w:purposeCapacity491(d,p)/(1+dist*.28)};}),14)"
+  }
+]

@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),crypto=require('crypto');
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
 // Literal independent pins: changing the descriptor does not authorize new input.
-const baseline='61f3c038cb3ab1d7ceca98cf00178ade89bfba541fe19fa87e7ad9aafe4db001';
+const baseline='fd3e624b2934bdbfaff90c843ccd5a2ac79d47714833c192d5505b005fbfd483';
 const blockHash='038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615';
 const begin='/* GPT-052 SINGLE LEDGER BEGIN */',end='/* GPT-052 SINGLE LEDGER END */';
 // DSK-018 / LAB-03：獨立釘死的附加區塊（053）。
@@ -56,7 +56,9 @@ function stripPinned052(candidate){
   assert.equal(candidate.split(block057).length,2,'S01 unchanged057 block');
   // 邊界先驗：052＋053＋054＋055＋057 五個釘死區塊必須緊接在 left 與 right 之間，順序固定。
   assert.equal(candidate.split(left+block+wrapped053+wrapped054+wrapped055+wrapped057+right).length,2,'S01 exact052 insertion boundary');
-  return candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,'');
+  // T786（原 GPT-053，業主 2026-11-04 批准）：研究區塊全部驗過、剝掉之後，最後才把 #71 的 17 段原生改動逐段換回（C5→C1，
+  // 每一階段全有或全無）；任何別的原生改動都換不回來，由 projectCandidate052 的原生基準雜湊擋下。
+  return require('./placement-reuse053-projection.cjs').normalizePlacement053(candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,''));
 }
 function projectCandidate052(candidate){
   const projected=stripPinned052(candidate);
