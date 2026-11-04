@@ -46,5 +46,28 @@
 ## 不做
 不註冊站別（k166 仍不在 T462／T463 的站別集合，［等業主］）；不改客運統計；號誌與路權在 T784。
 
+## 施工記錄（2026-11-04）
+- 施工：與 T782 同一個代理、同一個工作樹（提交 04912c5、e2530f4、cc3854a、c518253），Claude 收進工作分支後逐項重跑；面板四格統一見 b820cde。
+- B1：`runBetween(originHubRoot, destinationHubRoot, batch, capacity?)`。
+  - 兩端必須是 k166 根格，否則 `not-hub`（`side` 指出哪一端）；
+  - 貼軌格＝佔地四鄰的真軌（走訪順序同原生 `sanRoadSeeds445`），空的回 `hub-not-on-rail`；
+  - 兩端貼軌集合沿真軌做多源 BFS，不在同一個連通分量上就 `unreachable`，超過 `maxSteps` 回 `too-far`；
+  - 路徑第一格貼起點、最後一格貼終點。
+- B2：`validateCargo` 執行期與核心同一份：不合法一律 `bad-input`（`detail` 指出欄位，含 `capacity`），超過容量 `over-capacity`；進行中（READY／RUNNING／ARRIVED）再開回 `busy`。
+- B3、B4：同 T782（安裝期閥門整段不裝；讀檔、開新城、pagehide 中止並移除面板；快照深拷貝）。
+- B5：「未保存」提示；面板在左欄第 2 格。
+- B6：`rail-freight054.test.js` 26 條（另 15 個內建突變）、`rail-freight054-runtime.test.js` 17 條＋19 個內建突變；都接進 `smoke.js`。
+- B7：`probeRailFreight054.cjs` PASS（P054-01…15、21…24；本機 91 秒）。
+  - 固定種子、原生開發者沙盒；四棟 k166 與一棟 k165 都斷言真的放成；
+  - A→B 沿真軌 5 步：READY→RUNNING×4→ARRIVED→UNLOADED，數量 12／容量 12 不變；
+  - `hub-not-on-rail`、`unreachable`、`not-hub` 各自回報；容量與數量的壞輸入都回 `bad-input`；
+  - pagehide、讀檔、開新城都中止（`pagehide`／`load`／`new-world`）；
+  - 安裝期關閥門：呼叫鏈與 pagehide 監聽裡沒有 054。
+- B8：Chrome 突變 20／20、Node 內建突變 34 個，首紅都落在目標（代理回報；Node 那份 Claude 重跑一致）。
+- 整幀比對、fp、smoke、CI、發布：見 T785。
+
 ## 沒做成的事
-尚未施工。
+1. 054 自己的 `step()` 不重讀地格：路線被拆了照走。T784（LAB-06）的 `advance()` 會讀真軌；LAB-07 的鐵路段由 055 判軌、054 只跟著同步。單獨用 054 時沒有這層檢查。
+2. k166 仍不是站別（T462／T463 的站別集合沒動，［等業主］）。
+3. 既有呼叫方式的改變同 T782 第 2 條（`start()` 必須給 `batchId`／`qty`、`commodityId` 不預設等）。
+4. 真手機與 Safari 沒有測。

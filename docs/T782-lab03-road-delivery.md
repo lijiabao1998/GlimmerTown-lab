@@ -49,5 +49,35 @@
 ## 不做
 不改正式經濟、存檔、交通規則（單行道、車流、號誌屬［等業主］）、放置規則；不註冊新站別。
 
+## 施工記錄（2026-11-04）
+- 施工：Claude 派代理在獨立工作樹做 B1–B8（提交 04912c5、e2530f4、0ae73a0、c518253），Claude 收進工作分支後逐項重跑；
+  面板位置在整合時改成四格統一（b820cde）。
+- B1：`startBetween(originRoot, destinationRoot, batch)`。
+  - 兩端必須是 `LOGISTICS_META485` 裡的根格，否則 `not-logistics`（`side` 指出哪一端）；
+  - 前接一律用原生 `sanRoadSeeds445`，空的回 `no-frontage`；
+  - 多源 BFS（上、右、下、左），找不到 `unreachable`，超過 `maxSteps` 回 `too-far`；
+  - 回傳的路徑第一格屬於起點前接、最後一格屬於終點前接。
+- B2：執行期與核心用同一份 `validateBatch`，不合法一律 `bad-input`（`detail` 指出哪一欄），不再靜默改值；進行中再開回 `busy`。
+  - 代理的突變測試抓到一個真 bug：沒給 `commodityId` 時存成 `null`，再驗一次就被拒（`start()` 會丟例外）。已修，`null`＝未指定（e2530f4）。
+- B3：安裝當下閥門已開 → 只裝一律回 `disabled` 的介面，不改寫 `load`／`newWorld`、不掛 `pagehide`。
+- B4：讀檔、開新城、pagehide 取消任務並移除面板；`snapshot()` 深拷貝。
+- B5：「未保存」提示；面板放左欄第 1 格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3），格高 `(100vh-120px)/4`、間隔 8px。
+  - 原本兩個代理各排各的：這張是固定 200px 高，LAB-06 在右上，手機寬度下會疊在一起，所以整合時統一。
+- B6：
+  - `road-delivery053.test.js` 24 條（另 14 個內建突變）；
+  - `road-delivery053-runtime.test.js` 用 `vm` 跑內嵌那份，17 條、18 個內建突變，原生 `sanRoadSeeds445` 從 index.html 取出來用；
+  - 兩支都接進 `smoke.js`。
+- B7：`probeRoadDelivery053.cjs` PASS（P053-01…15、21…24；本機 86 秒）。
+  - 固定種子 20261104、原生開發者沙盒，地圖 72×72；放真建築、鋪真路；
+  - `startBetween` 走 7 步到 `DELIVERED`，數量不變；
+  - `no-frontage`、`unreachable`、`not-logistics` 各自回報；
+  - pagehide、讀檔、開新城都取消（理由 `pagehide`／`load`／`new-world`）；
+  - 安裝期關閥門那一段：`load`／`newWorld` 呼叫鏈裡沒有 053、沒有 053 的 pagehide 監聽。
+- B8：Chrome 突變 20／20、Node 內建突變 32 個，首紅都落在目標（代理回報，Claude 抽查 Node 那份重跑一致）。
+- 整幀比對、fp、smoke、CI、發布：見 T785。
+
 ## 沒做成的事
-尚未施工。
+1. 053 自己的 `step()` 不重讀地格：任務被別的程式推進時，路被拆了也照走。T785（LAB-07）在呼叫 `step()` 之前自己檢查下一格；單獨用 053 時沒有這層檢查。
+2. 這次改了既有呼叫方式：`start()` 必須給 `batchId` 與 `qty`；`commodityId` 不再預設 `'food'`；`plan()`／`open()` 在裝好後才開的閥門下也回 `disabled`；`refresh()` 改回物件。main 上沒有其他呼叫端，但記在這裡。
+3. 手機版面在 Chrome 的手機尺寸模擬下核過，沒有在真手機與 Safari 上測。
+4. 面板高度在 1280×657 只有約 134px，內容超過時要捲動。
