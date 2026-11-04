@@ -117,6 +117,27 @@ function twoTrains(env) {
 }
 const runToEnd = (api, tid) => { let r = null; for (let k = 0; k < 64; k++) { r = api.advance(tid); if (!r.ok || r.arrived) break; } return r; };
 
+/* 放最前面：執行期任何地方用到亂數或現實時間，第一個紅燈就落在這一條（vm 裡的 Math.random／Date 會直接丟例外）。 */
+check('V00 決定性：沒有亂數、沒有現實時間；同一串操作跑兩次逐位相同', () => {
+  const script = (env) => {
+    const { api, id } = env;
+    const log = [];
+    log.push(twoTrains(env));
+    log.push(api.request('t1'), api.request('t2'), api.advance('t1'), api.advance('t2'));
+    env.cut(3, ROW);
+    log.push(api.advance('t1'), api.advance('t1'));
+    env.lay(3, ROW);
+    for (let k = 0; k < 12; k++) log.push(api.advance('t1'));
+    log.push(api.spawn('t3', id(2, ROW), id(7, ROW)), api.request('t3'), api.abort('t3', 'x'));
+    for (let k = 0; k < 12; k++) log.push(api.advance('t2'));
+    log.push(api.spawn('t4', id(7, ROW), id(2, ROW)), api.request('t4'), api.snapshot());
+    return JSON.stringify(log);
+  };
+  const a = script(makeEnv()), b = script(makeEnv());
+  assert.equal(a, b);
+  assert.ok(a.length > 500);
+});
+
 check('V01 安裝：介面齊全、凍結；provenance 寫明斷軌讀 tiles[i].rail、規劃借 054', () => {
   const { api } = makeEnv();
   for (const k of ['spawn', 'request', 'release', 'advance', 'abort', 'breakTile', 'repairTile', 'snapshot', 'open', 'refresh', 'end', 'disable']) assert.equal(typeof api[k], 'function', k);
@@ -158,13 +179,14 @@ check('V03 登記失敗：沒有 054 規劃器、規劃失敗、規劃器丟例�
   assert.equal(env.api.spawn('t1', env.id(0, 0), env.id(3, ROW)).reason, 'from-not-rail');
   const thrower = makeEnv({ planFn: () => { throw new Error('boom'); } });
   assert.equal(thrower.api.spawn('t1', 0, 1).reason, 'rail-freight-unavailable');
+  // 端點都對、只有路線本身壞：跳格、踩到沒軌的格、跨行繞回
   const gap = makeEnv({ planFn: (ctx) => ({ ok: true, path: [ctx.N * ROW, ctx.N * ROW + 2], steps: 1 }) });
-  assert.equal(gap.api.spawn('t1', 0, 1).reason, 'bad-route');
+  assert.equal(gap.api.spawn('t1', gap.id(0, ROW), gap.id(2, ROW)).reason, 'bad-route', 'gap');
   const offRail = makeEnv({ planFn: (ctx) => ({ ok: true, path: [ctx.N * ROW, ctx.N * ROW - ctx.N], steps: 1 }) });
-  assert.equal(offRail.api.spawn('t1', 0, 1).reason, 'bad-route');
+  assert.equal(offRail.api.spawn('t1', offRail.id(0, ROW), offRail.id(0, ROW - 1)).reason, 'bad-route', 'off rail');
   const wrap = makeEnv({ planFn: (ctx) => ({ ok: true, path: [ctx.N * ROW - 1, ctx.N * ROW], steps: 1 }) });
   wrap.lay(wrap.n - 1, ROW - 1);
-  assert.equal(wrap.api.spawn('t1', 0, 1).reason, 'bad-route');
+  assert.equal(wrap.api.spawn('t1', wrap.id(wrap.n - 1, ROW - 1), wrap.id(0, ROW)).reason, 'bad-route', 'row wrap');
   const elsewhere = makeEnv({ planFn: (ctx) => ({ ok: true, path: [ctx.N * ROW + 1, ctx.N * ROW + 2], steps: 1 }) });
   assert.equal(elsewhere.api.spawn('t1', elsewhere.id(1, ROW), elsewhere.id(3, ROW)).reason, 'bad-route', 'route must end where asked');
   assert.equal(elsewhere.api.spawn('t1', elsewhere.id(0, ROW), elsewhere.id(2, ROW)).reason, 'bad-route', 'route must start where asked');
@@ -593,27 +615,7 @@ check('V25 B5 面板按鈕：「推進」推持有者、「×」關閉並清空'
   assert.deepEqual(plain(api.snapshot()), emptySnap);
 });
 
-check('V26 決定性：沒有亂數、沒有現實時間；同一串操作兩次結果逐位相同', () => {
-  const script = (env) => {
-    const { api, id } = env;
-    const log = [];
-    log.push(twoTrains(env));
-    log.push(api.request('t1'), api.request('t2'), api.advance('t1'), api.advance('t2'));
-    env.cut(3, ROW);
-    log.push(api.advance('t1'), api.advance('t1'));
-    env.lay(3, ROW);
-    for (let k = 0; k < 12; k++) log.push(api.advance('t1'));
-    log.push(api.spawn('t3', id(2, ROW), id(7, ROW)), api.request('t3'));
-    for (let k = 0; k < 12; k++) log.push(api.advance('t2'));
-    log.push(api.snapshot());
-    return JSON.stringify(log);
-  };
-  const a = script(makeEnv()), b = script(makeEnv());
-  assert.equal(a, b);
-  assert.ok(a.length > 500);
-});
-
-check('V27 snapshot 與回傳值都是拷貝：改它們不影響內部狀態', () => {
+check('V26 snapshot 與回傳值都是拷貝：改它們不影響內部狀態', () => {
   const env = makeEnv();
   const { api } = env;
   const r = api.spawn('t1', env.id(0, ROW), env.id(4, ROW));
