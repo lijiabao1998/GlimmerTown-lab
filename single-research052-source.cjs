@@ -39,8 +39,7 @@ function stripPinned052(candidate){
   assert.equal(candidate.split(begin).length,2,'S01 unique052 begin');
   assert.equal(candidate.split(end).length,2,'S01 unique052 end');
   assert.equal(candidate.split(block).length,2,'S01 unchanged052 block');
-  // 邊界先驗：052＋053＋054＋055＋057 五個釘死區塊必須緊接在 left 與 right 之間，順序固定。
-  assert.equal(candidate.split(left+block+wrapped053+wrapped054+wrapped055+wrapped057+right).length,2,'S01 exact052 insertion boundary');
+  // T785 R2：各區塊的唯一性與不變檢查先做，改壞哪一塊就紅在那一塊自己的斷言；最後才驗五塊的合併邊界。
   assert.equal(candidate.split(begin053).length,2,'S01 unique053 begin');
   assert.equal(candidate.split(end053).length,2,'S01 unique053 end');
   assert.equal(candidate.split(block053).length,2,'S01 unchanged053 block');
@@ -53,6 +52,8 @@ function stripPinned052(candidate){
   assert.equal(candidate.split(begin057).length,2,'S01 unique057 begin');
   assert.equal(candidate.split(end057).length,2,'S01 unique057 end');
   assert.equal(candidate.split(block057).length,2,'S01 unchanged057 block');
+  // 邊界先驗：052＋053＋054＋055＋057 五個釘死區塊必須緊接在 left 與 right 之間，順序固定。
+  assert.equal(candidate.split(left+block+wrapped053+wrapped054+wrapped055+wrapped057+right).length,2,'S01 exact052 insertion boundary');
   return candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,'');
 }
 function projectCandidate052(candidate){
@@ -60,4 +61,4 @@ function projectCandidate052(candidate){
   assert.equal(hash(projected),baseline,'S01 byte-exact T776 native input');
   return projected;
 }
-module.exports={hash,baseline,blockHash,block,block053,blockHash053,block054,blockHash054,block055,blockHash055,stripPinned052,projectCandidate052};
+module.exports={hash,baseline,blockHash,block,block053,blockHash053,block054,blockHash054,block055,blockHash055,block057,blockHash057,stripPinned052,projectCandidate052};
