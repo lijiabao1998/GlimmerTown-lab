@@ -22,15 +22,15 @@ const archive050=fs.readFileSync(path.join(Q,'original-6d544c2.test.js'),'utf8')
 const expectedRelease050={
   "schema": "lab050-release-source-v1",
   "release": {
-    "version": "14.73",
-    "anchor": "T786",
-    "round": 227,
-    "pr": 89
+    "version": "14.74",
+    "anchor": "T787",
+    "round": 228,
+    "pr": 90
   },
-  "approvedMain": "dfedbb7b43c4e511325dfebdf7fbc0f7c7cbdca5",
-  "ownerApproval": "DECISIONS-2026-11-04-PR71-adapter",
+  "approvedMain": "2b266eae8b370f36116df739fea52df3039cb59e",
+  "ownerApproval": "DECISIONS-2026-11-04-LAB11-same-city",
   "productRole": "exact-pure-factory-copy-inside-default-off-single-research052-not-native-economy; standalone-file-not-imported-by-index",
-  "candidateIndexSha256": "fd3e624b2934bdbfaff90c843ccd5a2ac79d47714833c192d5505b005fbfd483",
+  "candidateIndexSha256": "9a18f60f5c81e43e7e9435d15ebe4fb18101603046e2a49dcaee29ae98a5fd0f",
   "published049": {
     "pr": 67,
     "merge": "c0d4a039c48aebaa1f091fc6ce03d60bd0ca7992",
@@ -49,9 +49,9 @@ const expectedRelease050={
   }
 };
 const releaseStrings050=[
-  ["const GAME_VER='14.73';","const GAME_VER='14.67';",'W01 release GAME_VER'],
-  ["const GAME_ANCHOR='T786';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
-  ['<span id="startVersion456">v14.73 · T786</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
+  ["const GAME_VER='14.74';","const GAME_VER='14.67';",'W01 release GAME_VER'],
+  ["const GAME_ANCHOR='T787';","const GAME_ANCHOR='T774';",'W01 release GAME_ANCHOR'],
+  ['<span id="startVersion456">v14.74 · T787</span>','<span id="startVersion456">v14.67 · T774</span>','W01 release startVersion456']
 ];
 function verifyRelease050(candidate,overrides={}) {
   const inputs={descriptor:release050,provenance:provenanceText050,block:upstreamBlock,test:upstreamTest,core:source,archive:archive050,...overrides};
