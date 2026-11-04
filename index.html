@@ -110672,6 +110672,8 @@ const fiscalCopy515=v=>JSON.parse(JSON.stringify(v));
 const fiscalPct515=v=>Math.round(clamp(+v||0,0,1)*100)+'%';
 const fiscalMoney515=v=>(v<0?'−':'')+'$'+Math.abs(Math.round(+v||0)).toLocaleString();
 function fiscalReset515(){fiscal515=emptyFiscal515();return fiscal515;}
+// T790（業主 2026-11-04）：T514／T515 漏掉 T501–T513 都有的 newWorld 成對重置；開新城後清掉觀測台與財政節奏，上一座城的狀態不留進新城。
+const __newWorld_513=newWorld;newWorld=function(...a){const r=__newWorld_513(...a);observatoryReset514();fiscalReset515();return r;};
 function fiscalLog515(m,c='gold'){fiscal515.history.push({d:day,m:String(m||''),c});fiscal515.history=fiscal515.history.slice(-FISCAL_CADENCE515.maxHistory);}
 function fiscalProgram515(k){return policyProgramList504().find(p=>p.kind==='fiscal515'&&p.key===k&&!POLICY_TERMINAL504.has(p.status)&&p.status!=='grandfathered')||null;}
 function fiscalProgramStrength515(k){const p=fiscalProgram515(k);if(!p)return 0;return clamp((p.progress??1)*(.55+.45*(['active','review','adjusted'].includes(p.status)?1:.72)),0,1);}

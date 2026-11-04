@@ -1,0 +1,6 @@
+[
+  {
+    "before": "function fiscalReset515(){fiscal515=emptyFiscal515();return fiscal515;}\n",
+    "after": "function fiscalReset515(){fiscal515=emptyFiscal515();return fiscal515;}\n// T790（業主 2026-11-04）：T514／T515 漏掉 T501–T513 都有的 newWorld 成對重置；開新城後清掉觀測台與財政節奏，上一座城的狀態不留進新城。\nconst __newWorld_513=newWorld;newWorld=function(...a){const r=__newWorld_513(...a);observatoryReset514();fiscalReset515();return r;};\n"
+  }
+]
