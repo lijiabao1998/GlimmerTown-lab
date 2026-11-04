@@ -31,5 +31,12 @@
 ## 不做
 不改 `index.html` 的玩法，不註冊站別，不改放置規則。原卡 §4 的提案（真前接、站別註冊）照舊列 [等業主]。
 
+## 施工記錄（2026-11-04，Claude）
+- B1、B2：`probeRailTopology04.cjs` 加 `railStations()`（讀 `GV.t462().rail.stations`）與 k17 正對照。本機 Chromium（`/opt/pw-browsers/chromium-1243`）實跑 PASS：`d2Direct = {before:0, afterHub:0, control:{k:17, built:true, after:1, railField:false}}`。
+- B3：verdict 的 `D2_not_a_station` 改由上面兩個數字決定；原卡 §7.6 第 5 條更正寫在原卡 §8。
+- B4：兩次故意改壞都紅在目標（訊息原文見原卡 §8），已還原。
+- 原卡的 D1、D3 判定與 index.html 都沒動。
+
 ## 沒做成的事
-尚未施工。
+- 原卡 §7.6 第 1～4、6 條照舊：沒改放置規則、沒註冊站別、沒有貨運列車、營業判定只有靜態佐證、真手機與 Safari 未測。
+- smoke 3 連綠、fp、CI 見 T781 的發布段。
