@@ -56,6 +56,34 @@
   - 合併用 GitHub squash，釘在驗過的 head；不 force、不 admin、不手動觸發 Pages。
 - R6：合後核對 main CI、自動 Pages、公開網址版本；在 #73、#77、#78、#79 留言寫合併提交與 T 號，然後關閉。
 
+## 發布重釘表（R2，2026-11-04）
+**新值怎麼來的**：只用檔案字串替換與 SHA-256，不載入被測程式碼；推導程式在本機暫存，不提交。
+- 新 index＝main 01c2249 的 index 只換三處版本字串，共 6 個 ASCII 位元組，SHA-256 `bd8a7515…eb8181`。
+- 新原生基準＝新 index 用 `single-research052-source.cjs` 的 `stripPinned052` 剝掉 052 區後的雜湊。
+  - 先核：舊 index 剝完正好等於舊基準 `6e140781…6fe476`。
+  - 新舊兩份原生頁只差那三處（長度同為 11,133,306 位元組）。
+
+| # | 檔案 | 欄位 | 舊值 | 新值 | 推導 |
+|---|---|---|---|---|---|
+| 1 | `single-research052-source.cjs`:5 | `baseline` | `6e140781…6fe476` | `d009cab2…1520570` | 上面的新原生基準；S01 `byte-exact T776 native input` 比的就是它 |
+| 2 | `docs/branch/GPT-052-qa/provenance.json` | `baselineIndexSha256` | 同 #1 舊值 | 同 #1 新值 | 052 測試斷言它等於 `baseline`；`baseMain` 是 PR70 接上的 main，屬歷史，不動 |
+| 3 | `shadow-cargo049.test.js`:139、`docs/branch/GPT-049-qa/release-source.json` | `release` | `{14.70, T777, 224, 70}` | `{14.71, T781, 225, 86}` | 本次發布：GAME_VER、GAME_ANCHOR、AUTORUN-LOG 輪次、PR 號 |
+| 4 | 同上:140 | `approvedMain` | `dde12ad…`（T776 合併） | `01c2249…`（本 PR 接上的 main） | 照 T777 先例：批准的 main＝這次發布接上的 main |
+| 5 | 同上:141 | `ownerApproval` | `DECISIONS-2026-10-28-PR70-merge` | `DECISIONS-2026-11-04-branch-PR-merge` | 本次批准出處：DECISIONS 2026-11-04 那兩列 |
+| 6 | `shadow-cargo049.test.js`:131 | 註解 | `// T777 owner-approved …` | `// T781 owner-approved …` | 只是註解；T776、T777 發布時同一行也跟著改 |
+| 7 | `shadow-warehouse050.test.js`:25–33、`docs/branch/GPT-050-qa/release-source.json` | `release`、`approvedMain`、`ownerApproval`、`candidateIndexSha256` | 同 #3–#5、#1 舊值 | 同 #3–#5、#1 新值 | W01 要求檔案與這份描述逐欄相同 |
+| 8 | `shadow-warehouse050.test.js`:52–54 | `releaseStrings050` 每列第一個字串（目前值） | `14.70`／`T777` | `14.71`／`T781` | 本次三處版本字；每列第二個字串（T774 歷史值）不動 |
+
+**沒有重釘的**：
+- `productRole`：T777 起的描述仍是實情。
+- 所有 `historical.*`、`published049.*`，以及 050 的 `provenanceSha256`（它釘的是 `GPT-050-qa/source.json`，不是 052 的 provenance.json）。
+- 052 區雜湊 `blockHash`、各測試的斷言運算式、控制流程、負控制與變異清單、門檻、預期首紅訊息。
+
+**機械核對**：
+- 三支程式檔共 15 行改動，把字串、數字與註解遮掉後，改前改後逐字相同。
+- 三個 JSON 只動上表的鍵。
+- 新 index 用 `projectCandidate052` 驗過，得到 `d009cab2…`。
+
 ## 已知風險
 既有 052 測試 W10（滾輪後只等 80 毫秒）在別的分支 CI 出現過時序紅。本批若紅在 W10，不靠重跑過關，先查原因、回報業主。
 
