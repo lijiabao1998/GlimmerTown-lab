@@ -39,7 +39,9 @@ function stripPinned052(candidate){
   assert.equal(candidate.split(begin).length,2,'S01 unique052 begin');
   assert.equal(candidate.split(end).length,2,'S01 unique052 end');
   assert.equal(candidate.split(block).length,2,'S01 unchanged052 block');
-  // T785 R2：各區塊的唯一性與不變檢查先做，改壞哪一塊就紅在那一塊自己的斷言；最後才驗五塊的合併邊界。
+  // T785 R2：先確認 052 區仍在原插入點（緊接 049 END 之後），052 被搬走時首紅照舊落在合併邊界；
+  // 接著各區塊的唯一性與不變檢查，改壞哪一塊就紅在那一塊自己的斷言；最後才驗五塊的合併邊界（順序與縫隙）。
+  assert.equal(candidate.split(left+block).length,2,'S01 exact052 insertion boundary');
   assert.equal(candidate.split(begin053).length,2,'S01 unique053 begin');
   assert.equal(candidate.split(end053).length,2,'S01 unique053 end');
   assert.equal(candidate.split(block053).length,2,'S01 unchanged053 block');

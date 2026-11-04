@@ -1,6 +1,7 @@
 'use strict';
 /* T785 R2：052 投影器擴充（業主 2026-11-04 批准）的負控制（不用 Chrome）。
  * 053／054／055／057 每一塊都故意改壞，斷言首紅落在該塊自己的斷言；區塊順序或縫隙改壞，紅在合併邊界；
+ * 052 區被搬離原插入點（不論四塊在不在），紅在合併邊界（既有 052 測試 moved 突變的首紅不能變）；
  * 原樣必須通過，且剝掉五塊後等於原生基準。
  * 用法：node single-research052-blocks.test.js
  */
@@ -48,6 +49,14 @@ ok('053 與 054 對調順序 → 紅在 S01 exact052 insertion boundary', () => 
   const w = (b, e, body) => b + '\n' + body + '\n' + e + '\n';
   const a = w(BLOCKS[0][1], BLOCKS[0][2], BLOCKS[0][4]), b = w(BLOCKS[1][1], BLOCKS[1][2], BLOCKS[1][4]);
   assert.equal(firstRed(once(html, a + b, b + a)), 'S01 exact052 insertion boundary');
+});
+
+ok('052 區搬到檔尾、四塊也不在（既有 052 測試的 moved 突變）→ 紅在 S01 exact052 insertion boundary', () => {
+  assert.equal(firstRed(S.stripPinned052(html) + S.block), 'S01 exact052 insertion boundary');
+});
+
+ok('只把 052 區搬到檔尾、四塊留在原處 → 紅在 S01 exact052 insertion boundary', () => {
+  assert.equal(firstRed(once(html, S.block, '') + S.block), 'S01 exact052 insertion boundary');
 });
 
 ok('兩塊之間塞一個字 → 紅在 S01 exact052 insertion boundary', () => {
