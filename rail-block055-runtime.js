@@ -2,6 +2,7 @@
  * 會被原封不動內嵌進 index.html（DSK-020 RAIL BLOCK 055 區塊）。
  *
  * 登記：spawn() 用 LAB-05 的 `GV.railFreight054.plan(from, to)` 規劃路線（唯讀）；
+ * spawnFor054() 替 LAB-05 目前那一列任務登記（路線、批次、數量、容量都取那一列，T785 LAB-07 用）；
  * 只有這樣登記過的列車能要路權。這裡不建立、不推進 LAB-05 自己那一列的任務，兩列車與路權由這裡管。
  *
  * 斷軌一律讀真地格（原卡定義）：列車每次要前進，先讀前方那一格的 `tiles[i].rail`；
@@ -22,7 +23,7 @@
     UNKNOWN_TRAIN: 'unknown-train', FINISHED: 'already-finished', NOT_HOLDER: 'not-holder',
     STILL_RUNNING: 'still-running', NO_AUTHORITY: 'no-authority', TRACK_BROKEN: 'track-broken',
     OVER_CAPACITY: 'over-capacity', NO_PLANNER: 'rail-freight-unavailable', REAL_TILES_ONLY: 'real-tiles-only',
-    DISABLED: 'disabled'
+    NO_RUN054: 'no-run054', DISABLED: 'disabled'
   });
   const MAX_TRAINS = 2;
   const DEFAULT_CAPACITY = 12;
@@ -39,7 +40,7 @@
       holder: null, waiting: [], broken: [], trains: []
     });
     window.GV.railBlock055 = Object.freeze({
-      reasons: RS, spawn: disabled, request: disabled, release: disabled, advance: disabled, abort: disabled,
+      reasons: RS, spawn: disabled, spawnFor054: disabled, request: disabled, release: disabled, advance: disabled, abort: disabled,
       breakTile: disabled, repairTile: disabled, snapshot: emptySnapshot, open: disabled, refresh: disabled,
       end: disabled, disable: disabled,
       provenance: Object.freeze(Object.assign({}, PROVENANCE, { installed: false }))
@@ -75,6 +76,18 @@
     }
     return true;
   }
+  /* 只看形狀（在圖內、逐格相鄰），不看有沒有軌；spawnFor054 用它把「路線壞了」和「軌被拆了」分開。 */
+  function routeShapeOk(path) {
+    if (!Array.isArray(path) || path.length === 0) return false;
+    for (let k = 0; k < path.length; k++) {
+      if (!inGrid(path[k])) return false;
+      if (k > 0) {
+        const a = at(path[k - 1]), b = at(path[k]);
+        if (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) !== 1) return false;
+      }
+    }
+    return true;
+  }
 
   function trainView(t) {
     const next = isActive(t) && t.cursor < t.path.length - 1 ? t.path[t.cursor + 1] : null;
@@ -84,7 +97,7 @@
       cursor: t.cursor, pathLength: t.path.length, steps: t.steps,
       from: t.path[0], to: t.path[t.path.length - 1], at: t.path[t.cursor], next,
       blockedTile: t.blockedTile, qty: t.qty, capacity: t.capacity, batchId: t.batchId,
-      commodityId: t.commodityId, abortReason: t.abortReason
+      commodityId: t.commodityId, abortReason: t.abortReason, run054: t.run054
     };
   }
 
@@ -140,11 +153,43 @@
       id, path: r.path.slice(), cursor: 0, steps: 0, status: 'READY', qty, capacity: cap,
       batchId: c.batchId === undefined ? id : c.batchId,
       commodityId: validId(c.commodityId) ? c.commodityId : null,
-      blockedTile: null, abortReason: null
+      blockedTile: null, abortReason: null, run054: null
     };
     trains.set(id, t);
     refresh();
     return { ok: true, id, status: 'READY', path: t.path.slice(), steps: t.path.length - 1 };
+  }
+
+  /* T785（LAB-07）：替 LAB-05 目前那一列任務登記一列車，路線就是那一列的路線（不另外規劃，兩邊逐格相同）。
+   * 批次、數量、商品、容量都取那一列任務，呼叫端不能另給。那一列必須在冊而且還沒開（READY）；
+   * 同一列任務只能登記一次。路線上現在缺軌 → track-broken（回報第一格），不登記。 */
+  function spawnFor054(id) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT, field: 'id' };
+    if (trains.has(id)) return { ok: false, reason: RS.DUPLICATE, id };
+    const g = window.GV, f = g && g.railFreight054;
+    if (!f || typeof f.snapshot !== 'function') return { ok: false, reason: RS.NO_PLANNER };
+    let s;
+    try { s = f.snapshot(); } catch (e) { return { ok: false, reason: RS.NO_PLANNER }; }
+    if (!s || s.ok !== true || s.active !== true || s.status !== 'READY' || !validId(s.sessionId)) {
+      return { ok: false, reason: RS.NO_RUN054, status: s && typeof s.status === 'string' ? s.status : null };
+    }
+    for (const t of trains.values()) if (t.run054 === s.sessionId) return { ok: false, reason: RS.DUPLICATE, run054: s.sessionId };
+    if (!validId(s.batchId) || !Number.isSafeInteger(s.qty) || s.qty <= 0 || !Number.isSafeInteger(s.capacity) || s.capacity <= 0) {
+      return { ok: false, reason: RS.BAD_INPUT, field: 'run054' };
+    }
+    if (s.qty > s.capacity) return { ok: false, reason: RS.OVER_CAPACITY, qty: s.qty, capacity: s.capacity };
+    if (activeCount() >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY, maxTrains: MAX_TRAINS };
+    if (!routeShapeOk(s.path)) return { ok: false, reason: RS.BAD_ROUTE, run054: s.sessionId };
+    for (const i of s.path) if (!hasRail(i)) { const p = at(i); return { ok: false, reason: RS.TRACK_BROKEN, tile: i, x: p.x, y: p.y }; }
+    const t = {
+      id, path: s.path.slice(), cursor: 0, steps: 0, status: 'READY', qty: s.qty, capacity: s.capacity,
+      batchId: s.batchId, commodityId: validId(s.commodityId) ? s.commodityId : null,
+      blockedTile: null, abortReason: null, run054: s.sessionId
+    };
+    trains.set(id, t);
+    refresh();
+    return { ok: true, id, status: 'READY', path: t.path.slice(), steps: t.path.length - 1, run054: s.sessionId };
   }
 
   function request(id) {
@@ -293,7 +338,7 @@
   window.addEventListener('pagehide', function () { try { clearAll(); } catch (e) {} });
 
   window.GV.railBlock055 = Object.freeze({
-    reasons: RS, spawn, request, release, advance, abort, breakTile, repairTile, snapshot, open, refresh, end, disable,
+    reasons: RS, spawn, spawnFor054, request, release, advance, abort, breakTile, repairTile, snapshot, open, refresh, end, disable,
     provenance: Object.freeze(Object.assign({}, PROVENANCE, { installed: true }))
   });
 })();

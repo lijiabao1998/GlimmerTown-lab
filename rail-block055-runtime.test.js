@@ -73,7 +73,11 @@ function makeEnv(opts) {
   if (document) ctx.document = document;
   ctx.window = { GV: {}, addEventListener: (type, fn) => listeners.push({ type, fn }) };
   if (o.valve) ctx.window.__noRailBlock055 = true;
-  if (o.planner !== false) ctx.window.GV.railFreight054 = { plan: (from, to) => { calls.plan.push([from, to]); return o.planFn ? o.planFn(ctx, from, to) : bfsPlan(ctx, from, to); } };
+  if (o.planner !== false) ctx.window.GV.railFreight054 = {
+    plan: (from, to) => { calls.plan.push([from, to]); return o.planFn ? o.planFn(ctx, from, to) : bfsPlan(ctx, from, to); },
+    // T785：spawnFor054 讀 054 目前那一列任務的快照；預設沒有任務。
+    snapshot: () => (o.run054Fn ? o.run054Fn(ctx) : { ok: false, reason: 'no-run', active: false, disabled: false })
+  };
   vm.createContext(ctx);
   // 決定性：執行期碰到亂數或現實時間就直接炸
   vm.runInContext('Math.random = function () { throw new Error("Math.random used"); };' +
@@ -93,7 +97,7 @@ function makeEnv(opts) {
 }
 const plain = (v) => JSON.parse(JSON.stringify(v));
 const train = (api, tid) => api.snapshot().trains.find((t) => t.id === tid);
-const MUTATIONS = ['spawn', 'request', 'release', 'advance', 'abort', 'breakTile', 'repairTile', 'open'];
+const MUTATIONS = ['spawn', 'spawnFor054', 'request', 'release', 'advance', 'abort', 'breakTile', 'repairTile', 'open'];
 
 let checks = 0;
 function check(label, fn) {
@@ -140,7 +144,7 @@ check('V00 決定性：沒有亂數、沒有現實時間；同一串操作跑兩
 
 check('V01 安裝：介面齊全、凍結；provenance 寫明斷軌讀 tiles[i].rail、規劃借 054', () => {
   const { api } = makeEnv();
-  for (const k of ['spawn', 'request', 'release', 'advance', 'abort', 'breakTile', 'repairTile', 'snapshot', 'open', 'refresh', 'end', 'disable']) assert.equal(typeof api[k], 'function', k);
+  for (const k of ['spawn', 'spawnFor054', 'request', 'release', 'advance', 'abort', 'breakTile', 'repairTile', 'snapshot', 'open', 'refresh', 'end', 'disable']) assert.equal(typeof api[k], 'function', k);
   assert.equal(Object.isFrozen(api), true);
   assert.equal(Object.isFrozen(api.provenance), true);
   assert.equal(api.provenance.installed, true);
@@ -159,7 +163,7 @@ check('V02 登記：spawn 的路線就是 054 規劃器在真軌上規劃的那�
   assert.deepEqual(plain(train(api, 't1')), {
     id: 't1', status: 'READY', authority: null, cursor: 0, pathLength: 5, steps: 0,
     from: id(1, ROW), to: id(5, ROW), at: id(1, ROW), next: id(2, ROW), blockedTile: null,
-    qty: 4, capacity: 6, batchId: 'lab05-batch', commodityId: 'food', abortReason: null
+    qty: 4, capacity: 6, batchId: 'lab05-batch', commodityId: 'food', abortReason: null, run054: null
   });
   const d = api.spawn('t2', id(5, ROW), id(1, ROW));
   assert.equal(d.ok, true);
@@ -518,7 +522,7 @@ check('V22 B4 閥門開著：所有變更動作回 disabled，狀態不動，面
   api.advance('t1');
   const before = plain(api.snapshot());
   env.ctx.window.__noRailBlock055 = true;
-  const args = { spawn: ['t9', id(0, ROW), id(3, ROW)], request: ['t2'], release: ['t1'], advance: ['t1'], abort: ['t1'], breakTile: [id(2, ROW)], repairTile: [id(2, ROW)], open: [] };
+  const args = { spawn: ['t9', id(0, ROW), id(3, ROW)], spawnFor054: ['t9'], request: ['t2'], release: ['t1'], advance: ['t1'], abort: ['t1'], breakTile: [id(2, ROW)], repairTile: [id(2, ROW)], open: [] };
   for (const k of MUTATIONS) {
     const r = api[k](...args[k]);
     assert.equal(r.ok, false, k);
@@ -545,7 +549,7 @@ check('V23 B4 安裝當下閥門已開：不改寫 load／newWorld、不掛 page
   assert.equal(api.provenance.installed, false);
   assert.equal(Object.isFrozen(api), true);
   delete ctx.window.__noRailBlock055;
-  const args = { spawn: ['t1', id(0, ROW), id(3, ROW)], request: ['t1'], release: ['t1'], advance: ['t1'], abort: ['t1'], breakTile: [1], repairTile: [1], open: [] };
+  const args = { spawn: ['t1', id(0, ROW), id(3, ROW)], spawnFor054: ['t1'], request: ['t1'], release: ['t1'], advance: ['t1'], abort: ['t1'], breakTile: [1], repairTile: [1], open: [] };
   for (const k of MUTATIONS.concat(['end', 'disable', 'refresh'])) {
     const r = api[k](...(args[k] || []));
     assert.equal(r.reason, 'disabled', k);
@@ -629,6 +633,102 @@ check('V26 snapshot 與回傳值都是拷貝：改它們不影響內部狀態', 
   assert.deepEqual([t.cursor, t.status, t.pathLength], [0, 'READY', 5]);
   assert.deepEqual(plain(api.snapshot().waiting), []);
   assert.equal(api.advance('t1').snapshot.cursor, 1);
+});
+
+/* ---------- T785（LAB-07）：spawnFor054 替 054 目前那一列任務登記 ---------- */
+const run054 = (env, over) => Object.assign({
+  ok: true, active: true, disabled: false, sessionId: 'lab054-7', batchId: 'trip-batch', commodityId: 'food', qty: 7, capacity: 12,
+  status: 'READY', cursor: 0, pathLength: 5, steps: 0, mode: 'between',
+  path: [env.id(1, ROW), env.id(2, ROW), env.id(3, ROW), env.id(4, ROW), env.id(5, ROW)]
+}, over || {});
+function envWithRun(over) {
+  let snap = null;
+  const env = makeEnv({ run054Fn: () => JSON.parse(JSON.stringify(snap)) });
+  env.setRun = (o) => { snap = o === null ? { ok: false, reason: 'no-run', active: false, disabled: false } : run054(env, o); };
+  env.setRun(over || {});
+  return env;
+}
+
+check('V27 T785 spawnFor054：路線、批次、數量、商品、容量都取 054 那一列；不呼叫規劃器；之後照常要路權、推進', () => {
+  const env = envWithRun();
+  const { api, id } = env;
+  const r = api.spawnFor054('trip-1');
+  assert.deepEqual(plain(r), { ok: true, id: 'trip-1', status: 'READY', path: [id(1, ROW), id(2, ROW), id(3, ROW), id(4, ROW), id(5, ROW)], steps: 4, run054: 'lab054-7' });
+  assert.equal(env.calls.plan.length, 0, 'the 054 route is used as is, not re-planned');
+  assert.deepEqual(plain(train(api, 'trip-1')), {
+    id: 'trip-1', status: 'READY', authority: null, cursor: 0, pathLength: 5, steps: 0,
+    from: id(1, ROW), to: id(5, ROW), at: id(1, ROW), next: id(2, ROW), blockedTile: null,
+    qty: 7, capacity: 12, batchId: 'trip-batch', commodityId: 'food', abortReason: null, run054: 'lab054-7'
+  });
+  r.path.length = 0;
+  assert.equal(train(api, 'trip-1').pathLength, 5, 'returned path is a copy');
+  assert.equal(api.request('trip-1').status, 'GRANTED');
+  env.cut(3, ROW);
+  api.advance('trip-1');
+  assert.equal(api.advance('trip-1').reason, 'track-broken');
+  env.lay(3, ROW);
+  const last = runToEnd(api, 'trip-1');
+  assert.deepEqual([last.ok, last.arrived, last.snapshot.cursor, last.snapshot.at], [true, true, 4, id(5, ROW)]);
+  assert.equal(api.snapshot().holder, null);
+});
+
+check('V28 T785 spawnFor054 拒絕：沒有 054、讀不到、沒有在冊 READY 任務、同一列登記兩次、壞貨物、超載、名額滿、路線形狀壞、路線缺軌', () => {
+  const none = makeEnv({ planner: false });
+  assert.equal(none.api.spawnFor054('a').reason, 'rail-freight-unavailable');
+  const thrower = makeEnv({ run054Fn: () => { throw new Error('boom'); } });
+  assert.equal(thrower.api.spawnFor054('a').reason, 'rail-freight-unavailable');
+  const env = envWithRun();
+  const { api, id } = env;
+  assert.equal(api.spawnFor054('').reason, 'bad-input');
+  env.setRun(null);
+  assert.deepEqual(plain(api.spawnFor054('a')), { ok: false, reason: 'no-run054', status: null });
+  for (const st of ['RUNNING', 'ARRIVED', 'UNLOADED', 'ABORTED']) {
+    env.setRun({ status: st, active: st === 'RUNNING' || st === 'ARRIVED' });
+    assert.deepEqual(plain(api.spawnFor054('a')), { ok: false, reason: 'no-run054', status: st }, st);
+  }
+  env.setRun({ active: false });
+  assert.equal(api.spawnFor054('a').reason, 'no-run054', 'inactive');
+  env.setRun({ sessionId: '' });
+  assert.equal(api.spawnFor054('a').reason, 'no-run054', 'no session id');
+  for (const [k, v] of [['qty', 0], ['qty', 2.5], ['capacity', 0], ['capacity', null], ['batchId', '']]) {
+    env.setRun({ [k]: v });
+    assert.deepEqual(plain(api.spawnFor054('a')), { ok: false, reason: 'bad-input', field: 'run054' }, k + '=' + v);
+  }
+  env.setRun({ qty: 13, capacity: 12 });
+  assert.deepEqual(plain(api.spawnFor054('a')), { ok: false, reason: 'over-capacity', qty: 13, capacity: 12 });
+  env.setRun({ path: [id(1, ROW), id(3, ROW)] });
+  assert.equal(api.spawnFor054('a').reason, 'bad-route', 'gap');
+  env.setRun({ path: [id(env.n - 1, ROW - 1), id(0, ROW)] });
+  assert.equal(api.spawnFor054('a').reason, 'bad-route', 'row wrap');
+  env.setRun({ path: [] });
+  assert.equal(api.spawnFor054('a').reason, 'bad-route', 'empty');
+  env.setRun({});
+  env.cut(4, ROW); env.cut(2, ROW);
+  assert.deepEqual(plain(api.spawnFor054('a')), { ok: false, reason: 'track-broken', tile: id(2, ROW), x: 2, y: ROW }, 'first missing tile');
+  assert.equal(api.snapshot().trains.length, 0, 'nothing registered so far');
+  env.lay(4, ROW); env.lay(2, ROW);
+  assert.equal(api.spawnFor054('a').ok, true);
+  assert.equal(api.spawnFor054('a').reason, 'duplicate', 'same id');
+  assert.deepEqual(plain(api.spawnFor054('b')), { ok: false, reason: 'duplicate', run054: 'lab054-7' }, 'same 054 run twice');
+  env.setRun({ sessionId: 'lab054-8' });
+  assert.equal(api.spawn('t2', id(0, ROW), id(4, ROW)).ok, true);
+  assert.deepEqual(plain(api.spawnFor054('c')), { ok: false, reason: 'too-many', maxTrains: 2 });
+  assert.equal(api.snapshot().trains.length, 2);
+});
+
+check('V29 T785 spawnFor054 與閥門、生命週期：閥門開著 disabled；讀檔後清空、同一列可重新登記', () => {
+  const env = envWithRun();
+  const { api, ctx } = env;
+  ctx.window.__noRailBlock055 = true;
+  assert.equal(api.spawnFor054('a').reason, 'disabled');
+  delete ctx.window.__noRailBlock055;
+  assert.equal(api.spawnFor054('a').ok, true);
+  ctx.load();
+  assert.equal(api.snapshot().trains.length, 0);
+  env.layRow(ROW, 0, env.n - 1);
+  assert.equal(api.spawnFor054('a').ok, true, 'cleared by load, so the same run can register again');
+  const stub = makeEnv({ valve: true });
+  assert.equal(stub.api.spawnFor054('a').reason, 'disabled');
 });
 
 console.log('\nRAIL_BLOCK055_RUNTIME ' + JSON.stringify({ checks, ok: true }));
