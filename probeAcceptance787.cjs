@@ -19,8 +19,9 @@
  *      原生工具動作（拆、鋪）各自量出差異並記錄；整個情境前後的差異只能出在那幾格，鋪回之後回到拆之前（回不去的欄位照實記）。
  *   I01 原圖：D 到站那一刻（相機不動）；H3 取樣之後再拍場景俯視、四面板（桌機、390×780）、F 的車站與高街。
  * 對照 session（K）：同一套開局、同樣的場景與相機、同樣的拆軌與鋪回（格子由 R 傳過來），不做任何研究呼叫。
- *   H0 兩邊第 61 天（蓋場景之前）的存檔逐字相同；H3 兩邊各再推進 5 天，存檔、t462、t468 立刻比；
- *      GV.stats() 在兩邊都把剛存的同一份檔讀回來之後比（畫面車輛數 cars／buses 逐幀生成、不進存檔；推進後立刻取的那份照實記差異）。
+ *   H0 兩邊第 61 天（蓋場景之前）的存檔逐字相同。
+ *   H3 兩邊各再推進 5 天：沙盒存檔鍵的內容立刻比（並核對正常存檔沒被改寫）；GV.stats()、t462、t468 在兩邊都讀回同一份存檔之後比
+ *      （畫面車輛與它們造成的道路負載逐幀生成、不進存檔；推進後立刻取的那三份照實記差異）。
  *
  * 每條斷言有編號；第一個失敗就停，報告首紅。PROBE_BREAK=<編號> 注入對應的最小破壞（J：證明首紅落在那一條）。
  * 用法：PROBE_PORT=8231 [EXPECT_INDEX_SHA256=…] [PROBE_SHOTS=docs/assets/T787] node probeAcceptance787.cjs
@@ -308,7 +309,7 @@ function pageScenarios(A) {
     const s2 = research('C.snapshot', () => C.B.snapshot());
     need(r2 && r2.arrived === true && s2.holder === null, '第二列沒有跑完', { arrived: r2 && r2.arrived, holder: s2.holder });
     research('C.end', () => C.B.end());
-    if (BREAK === 'C05') nativeTool('C.extra', 'road', at(C.cut)[0], at(C.cut)[1] - 1);  // C05 破壞：多一個沒有復原的原生動作
+    if (BREAK === 'C05') nativeTool('C.extra', 'road', at(C.cut)[0], at(C.cut)[1] + 1);  // C05 破壞：軌道下方多鋪一格路，沒有復原
     return { handoff: r.granted, t2Arrived: r2.arrived };
   });
   go('C05', () => {
@@ -354,7 +355,11 @@ function pageScenarios(A) {
     return { roadSteps: k, cut: [cx, cy], handoff: r.handoff && { ok: r.handoff.ok, type: r.handoff.type, revision: r.handoff.revision } };
   });
   go('D03', () => {
-    if (BREAK === 'D03') research('D.break', () => D.Lg.demo());  // D03 破壞：到站後重開一次帳
+    if (BREAK === 'D03') {  // D03 破壞：到站後用 052 自己的指令把 batch-A 凍結（HELD → FROZEN）
+      const fz = research('D.break', () => { const l = D.Lg.snapshot().ledger, x = l.batches.find((q) => q.batchId === 'batch-A');
+        return D.Lg.command({ eventId: 'probe787-break-freeze', sessionId: l.sessionId, batchId: 'batch-A', type: 'FREEZE', expectedRevision: l.revision, payload: { owner: x.owner, location: x.location, reason: 'probe787-break' } }); });
+      need(fz && fz.ok === true, 'PROBE_BREAK=D03 的凍結指令沒有寫進帳', fz);
+    }
     const led = research('D.ledgerAfter', () => D.Lg.snapshot()).ledger, a = led.batches.find((x) => x.batchId === 'batch-A');
     need(a && a.state === 'HELD' && a.owner === 'research-receiver' && a.qty === 7 && led.conservation.ok === true && led.conservation.accounted === 20, '到站後 batch-A 不是 HELD／數量或守恆不對', { a, conservation: led.conservation });
     need(isClean(), 'D 的研究呼叫改了正式狀態或用了 Math.random', P.dirty);
@@ -452,14 +457,24 @@ function pageAdvance(A) {
   GV.setSpeed(0);
   GV.step(A.more);
   GV.setSpeed(0);
+  // 沙盒裡存檔寫的是 SAVEKEY.sN.sandbox516b（原生「Sidecar fork: normal SAVEKEY.sN is never overwritten」），不是正常的 s3。
+  // 量出這次存檔真的寫了哪個鍵：只准是沙盒鍵（加它的 _bak 備份），正常存檔一字不變；比的就是沙盒鍵的內容。
+  const normal = 'glimmerville.v1.s3', fork = normal + '.sandbox516b';
+  const before = storageAll();
   GV.save();
-  const save = localStorage.getItem('glimmerville.v1.s3') || '';
-  const out = { save, statsAtStep: JSON.stringify(GV.stats()), t462: JSON.stringify(GV.t462()), t468: JSON.stringify(GV.t468()), day: GV.stats().day };
-  // 畫面車輛數（cars／buses）是逐幀生成、不進存檔的畫面狀態，兩個 session 的幀數不同就會不同；
-  // 兩邊都把剛存的同一份檔讀回來（原生讀檔把畫面車輛歸零），再取整份 GV.stats() 比。
+  const after = storageAll();
+  const changed = Object.keys(after).filter((k) => after[k] !== before[k]).sort();
+  need(changed.length >= 1 && changed.every((k) => k === fork || k === fork + '_bak') && changed.includes(fork), '這次存檔寫的不是沙盒鍵', changed);
+  need(after[normal] === before[normal], '沙盒裡的存檔改寫了正常存檔');
+  const save = after[fork] || '';
+  const out = { save, saveKey: fork, changedKeys: changed, day: GV.stats().day,
+    atStep: { stats: JSON.stringify(GV.stats()), t462: JSON.stringify(GV.t462()), t468: JSON.stringify(GV.t468()) } };
+  // 畫面車輛（cars／buses）逐幀生成、不進存檔；它們跑在路上改的 roadLoad／roadPass 也是執行期狀態（原生註解：
+  // newWorld()/load() 尾端一併歸零）。兩個 session 跑過的幀數不同，推進後立刻取的 stats／t462／t468 就可能不同。
+  // 所以存檔在推進後立刻比；stats、t462、t468 在兩邊都把剛存的同一份檔讀回來之後再比；立刻取的那份只記錄差異。
   need(GV.load() === true, '讀回剛存的檔失敗');
   GV.setSpeed(0);
-  out.stats = JSON.stringify(GV.stats());
+  out.stats = JSON.stringify(GV.stats()); out.t462 = JSON.stringify(GV.t462()); out.t468 = JSON.stringify(GV.t468());
   return out;
 }
 
@@ -541,9 +556,13 @@ async function shot(cdp, name, receipts) {
       if (R.save61 !== K.save61) report.fails.push('H0 兩個 session 第 61 天的存檔不同：開局不決定');
       if (!report.fails.length) {
         const same = ['save', 'stats', 't462', 't468'].filter((k) => R.adv[k] !== K.adv[k]);
-        const atStep = R.adv.statsAtStep === K.adv.statsAtStep ? [] : (() => { const a = JSON.parse(R.adv.statsAtStep), b = JSON.parse(K.adv.statsAtStep); return [...new Set([...Object.keys(a), ...Object.keys(b)])].filter((k) => JSON.stringify(a[k]) !== JSON.stringify(b[k])).map((k) => ({ k, R: a[k], K: b[k] })); })();
         const keyDiff = (x, y) => { const a = JSON.parse(x), b = JSON.parse(y); return [...new Set([...Object.keys(a), ...Object.keys(b)])].filter((k) => JSON.stringify(a[k]) !== JSON.stringify(b[k])).map((k) => ({ k, R: JSON.stringify(a[k]).slice(0, 120), K: JSON.stringify(b[k]).slice(0, 120) })); };
-        report.H3 = { day: R.adv.day, saveSha256: hash(R.adv.save), saveBytes: R.adv.save.length, differs: same, statsAtStepDiffers: atStep, detail: same.filter((k) => k !== 'save').map((k) => ({ part: k, keys: keyDiff(R.adv[k], K.adv[k]).slice(0, 12) })) };
+        const atStepPart = (k) => { if (R.adv.atStep[k] === K.adv.atStep[k]) return null; let i = 0; const x = R.adv.atStep[k], y = K.adv.atStep[k]; while (i < x.length && x[i] === y[i]) i++;
+          return { part: k, keys: keyDiff(x, y).map((q) => q.k), at: i, R: x.slice(Math.max(0, i - 200), i + 120), K: y.slice(Math.max(0, i - 200), i + 120) }; };
+        const atStep = ['stats', 't462', 't468'].map(atStepPart).filter(Boolean);
+        const firstDiff = (x, y) => { let i = 0; while (i < x.length && x[i] === y[i]) i++; return { at: i, lengths: [x.length, y.length], R: x.slice(Math.max(0, i - 160), i + 160), K: y.slice(Math.max(0, i - 160), i + 160) }; };
+        report.H3 = { day: R.adv.day, saveKey: R.adv.saveKey, changedKeys: R.adv.changedKeys, saveSha256: hash(R.adv.save), saveBytes: R.adv.save.length, differs: same, atStepDiffers: atStep,
+          detail: same.map((k) => ({ part: k, keys: k === 'save' ? null : keyDiff(R.adv[k], K.adv[k]).map((q) => q.k), first: firstDiff(R.adv[k], K.adv[k]) })) };
         if (same.length) report.fails.push('H3 推進 5 天之後兩邊不同：' + same.join(','));
       }
     }
