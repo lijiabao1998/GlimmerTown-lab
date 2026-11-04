@@ -6,7 +6,8 @@
  *   OFF：四個閥門先開，再同步安裝四個區塊 → 畫布、原生狀態逐位相同；不新增 DOM；
  *        load／newWorld 仍是原生那一支；沒有亂數、沒有 storage 寫入。
  *   DEFAULT：閥門不開、面板不開，同步安裝 → 畫布、原生狀態逐位相同；不新增 DOM；沒有亂數、沒有 storage 寫入。
- * 另外先量「不安裝時連畫兩次」是否逐位相同；相同才把「安裝後強制重繪」也當斷言，不同就照實記錄、只比同步安裝。
+ * 另外先量「不安裝時連畫兩次」是否逐位相同（素材可能還在烘焙，最多等 10 秒、每 250ms 量一次）；
+ * 相同才把「安裝後強制重繪」也當斷言，等不到穩定就照實記錄、只比同步安裝。
  * 觀察器插在 052 區之後、和四個區塊同一個腳本範圍，用直接 eval 安裝（間接 eval 會跑在全域、碰不到遊戲閉包裡的 load）。
  *
  * 用法：node probeLabOffAB785.cjs   （HTTP 埠取 PROBE_PORT，預設 8199）
@@ -20,6 +21,7 @@ const assert = require('node:assert/strict');
 const ROOT = __dirname;
 const PORT = +(process.env.PROBE_PORT || 8199);
 const hash = (s) => crypto.createHash('sha256').update(s).digest('hex');
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const BLOCKS = [
   ['/* DSK-018 ROAD DELIVERY 053 BEGIN */', '/* DSK-018 ROAD DELIVERY 053 END */', '__noRoadDelivery053'],
   ['/* DSK-019 RAIL FREIGHT 054 BEGIN */', '/* DSK-019 RAIL FREIGHT 054 END */', '__noRailFreight054'],
@@ -92,9 +94,10 @@ async function scenario(label, valves) {
     const { withGame } = require(path.join(dir, 'harness.js'));
     const r = await withGame({ port: PORT, timeout: 300, fresh: true, log: () => {} }, async ({ cdp }) => {
       await cdp.evalJs('GV.setSpeed(0);GV.newWorldSeeded(20261104);GV.forceDraw();true');
-      const stable = await cdp.evalJs('__labRedrawStable785()');
+      let stable = false, stableTries = 0;
+      while (!stable && stableTries < 40) { stableTries++; stable = await cdp.evalJs('__labRedrawStable785()'); if (!stable) await sleep(250); }
       const proof = await cdp.evalJs('__labAB785(' + JSON.stringify(texts) + ',' + JSON.stringify(valves) + ',' + JSON.stringify(stable) + ')');
-      return { stable, proof, errors: cdp.errors.slice(0, 5) };
+      return { stable, stableTries, proof, errors: cdp.errors.slice(0, 5) };
     });
     return r && r.result;
   } finally {

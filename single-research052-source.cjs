@@ -11,17 +11,17 @@ const begin='/* GPT-052 SINGLE LEDGER BEGIN */',end='/* GPT-052 SINGLE LEDGER EN
 // 全部與 052 同一處理：字面釘死、逐位元比對；全部剝掉之後，
 // 仍必須逐 byte 等於同一個 T776 native baseline——沒有放寬任何位元比較。
 const begin053='/* DSK-018 ROAD DELIVERY 053 BEGIN */',end053='/* DSK-018 ROAD DELIVERY 053 END */';
-const blockHash053='5193013e7cc005df29aaf075fe3668f1ed4287a852bba508846777be6382ea98';
+const blockHash053='979e68c1245d29bdf0687e44b0b827ed6a31d8c9e0043ba534f84a8b45c81152';
 const block053=fs.readFileSync(path.join(__dirname,'road-delivery053-runtime.js'),'utf8').trim();
 const begin054='/* DSK-019 RAIL FREIGHT 054 BEGIN */',end054='/* DSK-019 RAIL FREIGHT 054 END */';
-const blockHash054='fc187757ecc5cb33d18f6573b2623886993e48f6d13ad22da80408aa044abc51';
+const blockHash054='6567cbec54fcc3bcbb88fe0f5df1ed086e937e337c2dfe2407d983554c1c3316';
 const block054=fs.readFileSync(path.join(__dirname,'rail-freight054-runtime.js'),'utf8').trim();
 const begin055='/* DSK-020 RAIL BLOCK 055 BEGIN */',end055='/* DSK-020 RAIL BLOCK 055 END */';
-const blockHash055='46b1fba872b6ade86280948122e39c881b0a0d501cdead93d76d20a8459d1efb';
+const blockHash055='c9856cc30b4cfd936b2e1746de371e9b8851ff98c554afc3c48254a109c44854';
 const block055=fs.readFileSync(path.join(__dirname,'rail-block055-runtime.js'),'utf8').trim();
 // DSK-025 / LAB-07：公鐵聯運（057），同樣字面釘死。
 const begin057='/* DSK-025 INTERMODAL 057 BEGIN */',end057='/* DSK-025 INTERMODAL 057 END */';
-const blockHash057='4fe97fbea61d42e0ff737d78f1f80ea3a21648b62a63f13c398477f0b6fdadf3';
+const blockHash057='a63a0c8d40fd5dd4b93b02caa5c53d0bc627300bcabd3ee4a071749cc26765cf';
 const block057=fs.readFileSync(path.join(__dirname,'intermodal057-runtime.js'),'utf8').trim();
 const left='/* GPT-049 LAB01 END */\n',right='Object.assign(window.GV,{art574:';
 const block=fs.readFileSync(path.join(__dirname,'single-research052.js'),'utf8');

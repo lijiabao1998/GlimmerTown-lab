@@ -120288,121 +120288,377 @@ window.GV.shadowCargo049=api;window.GV.shadowWarehouse050=api;window.GV.singleRe
 })();
 /* GPT-052 SINGLE LEDGER END */
 /* DSK-018 ROAD DELIVERY 053 BEGIN */
-/* DSK-018 / LAB-03 階段 B：真道路配送的執行期接線（會被原封不動內嵌進 index.html）。
- * 邊界：只讀道路格、只在影子任務裡推進批次；不寫金錢／商品／人口／客流／存檔。
- * 逃生閥：window.__noRoadDelivery053（任何時候關掉，任務立刻不能再開始／推進）。
+/* DSK-018 / LAB-03：真道路配送的執行期接線（階段 B；T782 補齊）。會被原封不動內嵌進 index.html。
+ * 邊界：只讀道路格與建築，只在影子任務裡推進一批貨；不寫金錢／商品／人口／客流／存檔，不用亂數與現實時間。
+ * 規則：「LAB-03 ROAD CORE 053」BEGIN／END 之間是 road-delivery053.js 純核心的原文（逐字相同，測試會比對），
+ *       執行期只補「從真城市取地格、建築與前接」與面板、生命週期，不另寫一份規則。
+ * 逃生閥：window.__noRoadDelivery053。
+ *   - 安裝當下就開著：整段不安裝（不改寫 load／newWorld、不掛 pagehide、不建面板），API 一律回 disabled。
+ *   - 安裝之後才打開：規劃、開始、推進、開面板都回 disabled；取消、結束、快照照常。
+ * 對外：window.GV.roadDelivery053.{plan,start,startBetween,step,cancel,snapshot,open,refresh,end,disable,provenance}
  */
 (function installRoadDelivery053() {
   'use strict';
-  const RS = Object.freeze({
+  const INFO = { module: 'road-delivery053', lab: 'LAB-03', card: 'T782', isolation: 'shadow-only', persisted: false };
+  const DISABLED = 'disabled';
+
+  if (window.__noRoadDelivery053) {
+    // T782 B3：閥門在安裝當下已開 → 什麼都不裝，只留一個一律回 disabled 的 API。
+    const no = () => ({ ok: false, reason: DISABLED, installed: false });
+    const inert = { plan: no, start: no, startBetween: no, step: no, cancel: no, open: no, refresh: no, end: no, disable: no };
+    inert.snapshot = () => ({ ok: false, reason: DISABLED, active: false, disabled: true, installed: false });
+    inert.provenance = Object.freeze(Object.assign({ installed: false }, INFO));
+    window.GV.roadDelivery053 = Object.freeze(inert);
+    return;
+  }
+
+  const core = (function () {
+/* LAB-03 ROAD CORE 053 BEGIN */
+  'use strict';
+
+  const REASONS = Object.freeze({
     BAD_INPUT: 'bad-input',
     ORIGIN_NOT_ROAD: 'origin-not-road',
     DESTINATION_NOT_ROAD: 'destination-not-road',
     UNREACHABLE: 'unreachable',
     TOO_FAR: 'too-far',
-    DISABLED: 'disabled',
-    NO_TASK: 'no-task'
+    NOT_LOGISTICS: 'not-logistics',
+    NO_FRONTAGE: 'no-frontage'
   });
-  const off = () => !!window.__noRoadDelivery053;
-  let task = null;
-  let panel = null;
 
-  function isRoadIdx(i) { return !!(tiles[i] && tiles[i].road); }
+  const isInt = (v) => Number.isInteger(v);
+  const fail = (reason, extra) => Object.assign({ ok: false, path: [], steps: -1, reason }, extra || {});
+  const badInput = (detail) => Object.assign(new Error('bad-input:' + detail), { code: REASONS.BAD_INPUT, detail });
+  // maxSteps：省略（undefined）＝不設上限；給了就必須是 >=0 的安全整數，其他值一律 bad-input，不靜默改值。
+  const stepLimit = (v) => (v === undefined ? Infinity : (Number.isSafeInteger(v) && v >= 0 ? v : null));
 
-  /* 4 鄰 BFS；鄰居順序固定（上、右、下、左），保證同一座城市同一對端點永遠同一條路。 */
-  function plan(origin, destination, maxSteps) {
-    const limit = (maxSteps === undefined || maxSteps === null) ? Infinity : maxSteps;
-    if (!Number.isInteger(origin) || !Number.isInteger(destination)) return { ok: false, path: [], steps: -1, reason: RS.BAD_INPUT };
-    if (origin < 0 || origin >= N * N || destination < 0 || destination >= N * N) return { ok: false, path: [], steps: -1, reason: RS.BAD_INPUT };
-    if (!isRoadIdx(origin)) return { ok: false, path: [], steps: -1, reason: RS.ORIGIN_NOT_ROAD };
-    if (!isRoadIdx(destination)) return { ok: false, path: [], steps: -1, reason: RS.DESTINATION_NOT_ROAD };
-    if (origin === destination) return { ok: true, path: [origin], steps: 0, reason: null };
-    const total = N * N;
+  function normalizeGrid(roads, w, h) {
+    if (!isInt(w) || !isInt(h) || w <= 0 || h <= 0) return null;
+    if (!roads) return null;
+    if (typeof roads.length === 'number' && roads.length === w * h) {
+      return (i) => roads[i] === 1 || roads[i] === true;
+    }
+    if (typeof roads.isRoad === 'function') {
+      return (i) => !!roads.isRoad(i % w, Math.floor(i / w));
+    }
+    return null;
+  }
+
+  /* 多源 4 鄰 BFS：起點集合依給定順序入隊；鄰居順序固定（上、右、下、左）；出隊時碰到終點集合就停。
+   * 同一輸入永遠同一條路徑（決定性）；找不到回 null。path[0] 一定屬於起點集合、最後一格一定屬於終點集合。 */
+  function search(isRoad, w, h, sources, targets) {
+    const total = w * h;
     const prev = new Int32Array(total).fill(-1);
     const seen = new Uint8Array(total);
+    const goal = new Uint8Array(total);
     const queue = new Int32Array(total);
-    let head = 0, tail = 0, found = false;
-    queue[tail++] = origin; seen[origin] = 1;
+    let head = 0, tail = 0;
+    for (const t of targets) goal[t] = 1;
+    for (const s of sources) {
+      if (seen[s]) continue;
+      seen[s] = 1;
+      queue[tail++] = s;
+    }
     while (head < tail) {
       const cur = queue[head++];
-      if (cur === destination) { found = true; break; }
-      const cx = cur % N, cy = (cur / N) | 0;
-      const nb = [cy > 0 ? cur - N : -1, cx < N - 1 ? cur + 1 : -1, cy < N - 1 ? cur + N : -1, cx > 0 ? cur - 1 : -1];
+      if (goal[cur]) {
+        const path = [];
+        for (let at = cur; at !== -1; at = prev[at]) path.push(at);
+        return path.reverse();
+      }
+      const cx = cur % w, cy = (cur / w) | 0;
+      // 上、右、下、左
+      const neighbours = [
+        cy > 0 ? cur - w : -1,
+        cx < w - 1 ? cur + 1 : -1,
+        cy < h - 1 ? cur + w : -1,
+        cx > 0 ? cur - 1 : -1
+      ];
       for (let k = 0; k < 4; k++) {
-        const n = nb[k];
-        if (n < 0 || seen[n] || !isRoadIdx(n)) continue;
-        seen[n] = 1; prev[n] = cur; queue[tail++] = n;
+        const n = neighbours[k];
+        if (n < 0 || seen[n]) continue;
+        if (!isRoad(n)) continue;
+        seen[n] = 1;
+        prev[n] = cur;
+        queue[tail++] = n;
       }
     }
-    if (!found) return { ok: false, path: [], steps: -1, reason: RS.UNREACHABLE };
-    const path = [];
-    for (let at = destination; at !== -1; at = prev[at]) path.push(at);
-    path.reverse();
+    return null;
+  }
+
+  /* 單點對單點：4 鄰 BFS；鄰居順序固定（上、右、下、左）＋固定 tie-break，保證決定性。 */
+  function planDelivery(opts) {
+    opts = opts || {};
+    const { roads, w, h, origin, destination } = opts;
+    const isRoad = normalizeGrid(roads, w, h);
+    if (!isRoad) return fail(REASONS.BAD_INPUT, { detail: 'grid' });
+    if (!isInt(origin) || !isInt(destination)) return fail(REASONS.BAD_INPUT, { detail: 'endpoints' });
+    if (origin < 0 || origin >= w * h || destination < 0 || destination >= w * h) {
+      return fail(REASONS.BAD_INPUT, { detail: 'range' });
+    }
+    const limit = stepLimit(opts.maxSteps);
+    if (limit === null) return fail(REASONS.BAD_INPUT, { detail: 'maxSteps' });
+    if (!isRoad(origin)) return fail(REASONS.ORIGIN_NOT_ROAD);
+    if (!isRoad(destination)) return fail(REASONS.DESTINATION_NOT_ROAD);
+
+    if (origin === destination) return { ok: true, path: [origin], steps: 0, reason: null };
+
+    const path = search(isRoad, w, h, [origin], [destination]);
+    if (!path) return fail(REASONS.UNREACHABLE);
     const steps = path.length - 1;
-    if (steps > limit) return { ok: false, path: [], steps, reason: RS.TOO_FAR };
+    if (steps > limit) return fail(REASONS.TOO_FAR, { steps, limit });
     return { ok: true, path, steps, reason: null };
   }
 
-  function snapshot() {
-    if (!task) return { ok: false, reason: RS.NO_TASK, active: false, disabled: off() };
+  // 前接格清單必須是陣列，且每一格都在圖內、真的是道路；不是就是呼叫端錯誤（bad-input），不偷偷過濾。
+  function cellList(list, total, isRoad) {
+    if (!Array.isArray(list)) return null;
+    for (const c of list) if (!isInt(c) || c < 0 || c >= total || !isRoad(c)) return null;
+    return list.slice();
+  }
+
+  /* 兩棟物流建築之間（T782 B1）。
+   *  - 兩端都必須是物流建築的根格（isLogisticsRoot），否則 not-logistics（side 指出哪一端）；
+   *  - 兩端各用 frontage(root) 取前接道路格（執行期是原生 sanRoadSeeds445），空的就 no-frontage；
+   *  - 起點前接集合 → 終點前接集合做多源 BFS，找不到 unreachable；超過 maxSteps 就 too-far。
+   * 回傳的 path 第一格屬於起點前接、最後一格屬於終點前接。 */
+  function planBetween(opts) {
+    opts = opts || {};
+    const { roads, w, h, origin, destination, isLogisticsRoot, frontage } = opts;
+    const isRoad = normalizeGrid(roads, w, h);
+    if (!isRoad) return fail(REASONS.BAD_INPUT, { detail: 'grid' });
+    if (typeof isLogisticsRoot !== 'function' || typeof frontage !== 'function') return fail(REASONS.BAD_INPUT, { detail: 'world' });
+    if (!isInt(origin) || !isInt(destination)) return fail(REASONS.BAD_INPUT, { detail: 'endpoints' });
+    const total = w * h;
+    if (origin < 0 || origin >= total || destination < 0 || destination >= total) return fail(REASONS.BAD_INPUT, { detail: 'range' });
+    const limit = stepLimit(opts.maxSteps);
+    if (limit === null) return fail(REASONS.BAD_INPUT, { detail: 'maxSteps' });
+    if (!isLogisticsRoot(origin)) return fail(REASONS.NOT_LOGISTICS, { side: 'origin' });
+    if (!isLogisticsRoot(destination)) return fail(REASONS.NOT_LOGISTICS, { side: 'destination' });
+    const sources = cellList(frontage(origin), total, isRoad);
+    const targets = cellList(frontage(destination), total, isRoad);
+    if (!sources || !targets) return fail(REASONS.BAD_INPUT, { detail: 'frontage' });
+    if (!sources.length) return fail(REASONS.NO_FRONTAGE, { side: 'origin' });
+    if (!targets.length) return fail(REASONS.NO_FRONTAGE, { side: 'destination' });
+    const path = search(isRoad, w, h, sources, targets);
+    if (!path) return fail(REASONS.UNREACHABLE);
+    const steps = path.length - 1;
+    if (steps > limit) return fail(REASONS.TOO_FAR, { steps, limit });
     return {
-      ok: true, active: task.status !== 'DELIVERED' && task.status !== 'CANCELLED', disabled: off(),
-      status: task.status, batchId: task.batchId, commodityId: task.commodityId, qty: task.qty,
-      cursor: task.cursor, pathLength: task.path.length, steps: task.steps,
-      delivered: task.status === 'DELIVERED', cancelledReason: task.cancelledReason,
-      provenance: task.provenance
+      ok: true, path, steps, reason: null,
+      originRoot: origin, destinationRoot: destination, originFrontage: sources, destinationFrontage: targets
     };
   }
 
-  function start(origin, destination, batch) {
-    if (off()) return { ok: false, reason: RS.DISABLED, path: [] };
-    batch = batch || {};
-    const qty = Number.isSafeInteger(batch.qty) && batch.qty > 0 ? batch.qty : 1;
-    const p = plan(origin, destination, batch.maxSteps);
-    if (!p.ok) { refresh(); return p; }
+  /* 驗證一條路徑是「真的在道路上、真的每一步相鄰」。守衛用，不是 planner 的替代品。 */
+  function validatePath(path, roads, w, h) {
+    const isRoad = normalizeGrid(roads, w, h);
+    if (!isRoad) return { ok: false, reason: REASONS.BAD_INPUT };
+    if (!Array.isArray(path) || path.length === 0) return { ok: false, reason: 'empty-path' };
+    for (const p of path) {
+      if (!isInt(p) || p < 0 || p >= w * h) return { ok: false, reason: 'out-of-range' };
+      if (!isRoad(p)) return { ok: false, reason: 'not-road' };
+    }
+    for (let i = 1; i < path.length; i++) {
+      const a = path[i - 1], b = path[i];
+      const ax = a % w, ay = (a / w) | 0, bx = b % w, by = (b / w) | 0;
+      if (Math.abs(ax - bx) + Math.abs(ay - by) !== 1) return { ok: false, reason: 'not-adjacent' };
+    }
+    return { ok: true, reason: null };
+  }
+
+  /* 批次輸入（T782 B2）：不合法一律 bad-input（detail 指出哪一欄），不靜默改值。
+   *  - batchId：非空字串；qty：正的安全整數（0、-3、2.5、'5'、null 都拒絕）；
+   *  - commodityId：可省略（undefined 或 null 都記成 null，與快照的寫法一致），給了就必須是非空字串。
+   * 正規化後的 batch 再驗一次結果不變（冪等），所以執行期可以把它直接交給 createDeliveryTask053。
+   * 其他欄位這裡不讀（maxSteps 由規劃函式自己檢查）。回傳的 batch 是新物件，之後改呼叫端的物件不影響任務。 */
+  function validateBatch(batch) {
+    if (!batch || typeof batch !== 'object' || Array.isArray(batch)) return fail(REASONS.BAD_INPUT, { detail: 'batch' });
+    if (typeof batch.batchId !== 'string' || !batch.batchId) return fail(REASONS.BAD_INPUT, { detail: 'batchId' });
+    if (!Number.isSafeInteger(batch.qty) || batch.qty <= 0) return fail(REASONS.BAD_INPUT, { detail: 'qty' });
+    const unspecified = batch.commodityId === undefined || batch.commodityId === null;
+    if (!unspecified && (typeof batch.commodityId !== 'string' || !batch.commodityId)) {
+      return fail(REASONS.BAD_INPUT, { detail: 'commodityId' });
+    }
+    return {
+      ok: true, reason: null,
+      batch: { batchId: batch.batchId, qty: batch.qty, commodityId: unspecified ? null : batch.commodityId }
+    };
+  }
+
+  const TERMINAL = new Set(['DELIVERED', 'CANCELLED']);
+
+  /* 一批貨、一條路徑、一個任務。狀態機：PENDING → MOVING → DELIVERED（或任何時候 CANCELLED）。
+   * 不合法的輸入丟出 code＝'bad-input' 的錯誤（detail 指出哪一欄）。 */
+  function createDeliveryTask053(sessionId, plan, batch) {
+    if (typeof sessionId !== 'string' || !sessionId) throw badInput('sessionId');
+    if (!plan || plan.ok !== true || !Array.isArray(plan.path) || plan.path.length === 0) throw badInput('plan');
+    const checked = validateBatch(batch);
+    if (!checked.ok) throw badInput(checked.detail);
+    const cargo = checked.batch;
+
+    const path = plan.path.slice();
+    const qty = cargo.qty;
+    let status = path.length === 1 ? 'DELIVERED' : 'PENDING';
+    let cursor = 0;
+    let cancelledReason = null;
+    let steps = 0;
+    let deliveredAt = status === 'DELIVERED' ? { cursor: 0, step: 0 } : null;
+
+    function snapshot() {
+      return {
+        sessionId,
+        batchId: cargo.batchId,
+        commodityId: cargo.commodityId,
+        qty,
+        status,
+        cursor,
+        pathLength: path.length,
+        steps,
+        delivered: status === 'DELIVERED',
+        deliveredAt: deliveredAt ? { cursor: deliveredAt.cursor, step: deliveredAt.step } : null,
+        cancelledReason
+      };
+    }
+
+    function step() {
+      if (TERMINAL.has(status)) return snapshot();
+      if (status === 'PENDING') status = 'MOVING';
+      cursor += 1;
+      steps += 1;
+      if (cursor >= path.length - 1) {
+        cursor = path.length - 1;
+        status = 'DELIVERED';
+        deliveredAt = { cursor, step: steps };
+      }
+      return snapshot();
+    }
+
+    function cancel(reason) {
+      if (TERMINAL.has(status)) return snapshot();
+      status = 'CANCELLED';
+      cancelledReason = typeof reason === 'string' && reason ? reason : 'cancelled';
+      return snapshot();
+    }
+
+    return Object.freeze({ snapshot, step, cancel, path: Object.freeze(path.slice()) });
+  }
+
+  return Object.freeze({ REASONS, planDelivery, planBetween, validatePath, validateBatch, createDeliveryTask053 });
+/* LAB-03 ROAD CORE 053 END */
+  })();
+
+  const NO_TASK = 'no-task', BUSY = 'busy';
+  const UNSAVED = '未保存：重新整理或讀檔就會消失';
+  // 面板固定位置（T782 B5；T785 統一四格）：左欄第 1 格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3），
+  // 格高 (100vh-120px)/4、間隔 8px，位置只由視窗高決定，四格互不重疊。
+  const PANEL_CSS = 'position:fixed;left:12px;top:84px;width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);' +
+    'box-sizing:border-box;overflow:auto;z-index:9999;padding:10px 12px;' +
+    'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
+    'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
+  const off = () => !!window.__noRoadDelivery053;
+  const copy = (v) => JSON.parse(JSON.stringify(v));
+  const no = (reason, extra) => Object.assign({ ok: false, path: [], steps: -1, reason }, extra || {});
+  let task = null;   // { run: 核心任務, mode, originRoot, destinationRoot, provenance }
+  let panel = null;  // { root, body }
+  let seq = 0;
+
+  // 真城市的道路視圖：每次規劃都現讀 tiles（不快取；讀檔、開新城之後自然是新地格）。
+  function grid() {
+    if (!Array.isArray(tiles) || !Number.isInteger(N) || N <= 0 || tiles.length !== N * N) return null;
+    return { isRoad: (x, y) => { const t = tiles[y * N + x]; return !!(t && t.road); } };
+  }
+  // 物流建築的根格：k 在原生 LOGISTICS_META485 裡（目前 165–174），而且不是佔地的參照格（ref）。
+  function isLogisticsRoot(i) {
+    const b = tiles[i] && tiles[i].bld;
+    return !!(b && !b.ref && Object.prototype.hasOwnProperty.call(LOGISTICS_META485, b.k));
+  }
+  // 前接道路格：一律用原生 sanRoadSeeds445（與 logisticsOperational485 同一個判定）。
+  const frontage = (i) => sanRoadSeeds445(i);
+
+  function isActive() {
+    if (!task) return false;
+    const s = task.run.snapshot().status;
+    return s !== 'DELIVERED' && s !== 'CANCELLED';
+  }
+  function busy() {
+    const s = task.run.snapshot();
+    return no(BUSY, { sessionId: s.sessionId, batchId: s.batchId, status: s.status });
+  }
+  function begin(p, batch, mode, originRoot, destinationRoot) {
+    const sessionId = 'lab053-' + (++seq);
     task = {
-      status: p.path.length === 1 ? 'DELIVERED' : 'PENDING',
-      path: p.path, cursor: 0, steps: 0, qty,
-      batchId: typeof batch.batchId === 'string' && batch.batchId ? batch.batchId : ('lab053-' + (origin + '-' + destination)),
-      commodityId: typeof batch.commodityId === 'string' ? batch.commodityId : 'food',
-      cancelledReason: null,
-      deliveredAt: p.path.length === 1 ? { cursor: 0, step: 0 } : null,
-      provenance: { version: typeof GAME_VER === 'string' ? GAME_VER : null, anchor: typeof GAME_ANCHOR === 'string' ? GAME_ANCHOR : null, module: 'road-delivery053' }
+      run: core.createDeliveryTask053(sessionId, p, batch), mode, originRoot, destinationRoot,
+      provenance: Object.assign({ version: typeof GAME_VER === 'string' ? GAME_VER : null,
+        anchor: typeof GAME_ANCHOR === 'string' ? GAME_ANCHOR : null }, INFO)
     };
     refresh();
-    return { ok: true, path: p.path.slice(), steps: p.steps, reason: null };
+    return Object.assign(copy(p), { sessionId });
+  }
+
+  /* 單點對單點（道路格 → 道路格）。LAB-07 借它規劃，不建任務。 */
+  function plan(origin, destination, maxSteps) {
+    if (off()) return no(DISABLED);
+    return core.planDelivery({ roads: grid(), w: N, h: N, origin, destination, maxSteps });
+  }
+
+  /* 道路格 → 道路格的一批貨。順序：disabled → busy → bad-input（批次）→ 規劃的理由。 */
+  function start(origin, destination, batch) {
+    if (off()) return no(DISABLED);
+    if (isActive()) return busy();
+    const checked = core.validateBatch(batch);
+    if (!checked.ok) return checked;
+    const p = core.planDelivery({ roads: grid(), w: N, h: N, origin, destination, maxSteps: batch.maxSteps });
+    if (!p.ok) return p;
+    return begin(p, checked.batch, 'tiles', null, null);
+  }
+
+  /* 兩棟物流建築之間的一批貨（T782 B1）：理由 not-logistics／no-frontage／unreachable 各自分開。 */
+  function startBetween(originRoot, destinationRoot, batch) {
+    if (off()) return no(DISABLED);
+    if (isActive()) return busy();
+    const checked = core.validateBatch(batch);
+    if (!checked.ok) return checked;
+    const p = core.planBetween({ roads: grid(), w: N, h: N, origin: originRoot, destination: destinationRoot,
+      isLogisticsRoot, frontage, maxSteps: batch.maxSteps });
+    if (!p.ok) return p;
+    return begin(p, checked.batch, 'between', originRoot, destinationRoot);
+  }
+
+  function snapshot() {
+    if (!task) return { ok: false, reason: NO_TASK, active: false, disabled: off() };
+    const s = task.run.snapshot();
+    // 深拷貝（T782 B4）：呼叫端改回傳值，不會改到任務本身。
+    return copy(Object.assign({ ok: true, active: s.status !== 'DELIVERED' && s.status !== 'CANCELLED', disabled: off() }, s, {
+      path: task.run.path, mode: task.mode, originRoot: task.originRoot, destinationRoot: task.destinationRoot,
+      provenance: task.provenance
+    }));
   }
 
   function step() {
-    if (off()) return { ok: false, reason: RS.DISABLED, snapshot: snapshot() };
-    if (!task) return { ok: false, reason: RS.NO_TASK, snapshot: snapshot() };
-    if (task.status === 'DELIVERED' || task.status === 'CANCELLED') return { ok: true, snapshot: snapshot() };
-    if (task.status === 'PENDING') task.status = 'MOVING';
-    task.cursor += 1;
-    task.steps += 1;
-    if (task.cursor >= task.path.length - 1) {
-      task.cursor = task.path.length - 1;
-      task.status = 'DELIVERED';
-      task.deliveredAt = { cursor: task.cursor, step: task.steps };
-    }
+    if (off()) return { ok: false, reason: DISABLED, snapshot: snapshot() };
+    if (!task) return { ok: false, reason: NO_TASK, snapshot: snapshot() };
+    task.run.step();
     refresh();
     return { ok: true, snapshot: snapshot() };
   }
 
   function cancel(reason) {
     if (!task) return snapshot();
-    if (task.status !== 'DELIVERED' && task.status !== 'CANCELLED') {
-      task.status = 'CANCELLED';
-      task.cancelledReason = typeof reason === 'string' && reason ? reason : 'cancelled';
-    }
+    task.run.cancel(reason);
     refresh();
     return snapshot();
   }
 
+  function removePanel() {
+    const p = panel;
+    panel = null;
+    if (p && p.root.parentNode) p.root.parentNode.removeChild(p.root);
+  }
+
   function end() {
     task = null;
-    if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
-    panel = null;
+    removePanel();
     return { ok: true, ended: true };
   }
 
@@ -120411,555 +120667,1386 @@ window.GV.shadowCargo049=api;window.GV.shadowWarehouse050=api;window.GV.singleRe
     return end();
   }
 
-  /* 面板：預設不存在；只有明確 open() 才會建立 DOM，關閉即移除。 */
+  /* 面板：預設不存在；只有明確 open() 才會建立 DOM，end()、讀檔、開新城、pagehide 都會移除。 */
   function ensurePanel() {
-    if (panel || typeof document === 'undefined') return panel;
-    panel = document.createElement('div');
-    panel.id = 'lab053Panel';
-    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:250px;padding:10px 12px;' +
-      'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
-      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
-    panel.innerHTML = '<div style="font-weight:700;color:#8fc2ff;letter-spacing:.5px">LAB-03 影子配送</div>' +
-      '<div id="lab053Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
-      '<div style="display:flex;gap:6px">' +
-      '<button id="lab053Step" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #46608f;background:#1b2740;color:#cfe0ff;cursor:pointer">前進一格</button>' +
-      '<button id="lab053Cancel" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #6b4a4a;background:#2a1d20;color:#ffd6d6;cursor:pointer">取消</button>' +
-      '<button id="lab053Close" style="padding:4px 8px;border-radius:6px;border:1px solid #46608f;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
-      '</div>';
-    document.body.appendChild(panel);
-    panel.querySelector('#lab053Step').addEventListener('click', () => step());
-    panel.querySelector('#lab053Cancel').addEventListener('click', () => cancel('panel-cancel'));
-    panel.querySelector('#lab053Close').addEventListener('click', () => end());
+    if (panel || typeof document === 'undefined' || !document.body) return panel;
+    const el = (tag, id, text, css) => {
+      const n = document.createElement(tag);
+      if (id) n.id = id;
+      if (text) n.textContent = text;
+      if (css) n.style.cssText = css;
+      return n;
+    };
+    const root = el('div', 'lab053Panel', null, PANEL_CSS);
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-label', 'LAB-03 影子配送');
+    const title = el('div', null, 'LAB-03 影子配送', 'font-weight:700;color:#8fc2ff;letter-spacing:.5px');
+    const unsaved = el('div', 'lab053Unsaved', UNSAVED, 'color:#ffd38a');
+    const body = el('div', 'lab053Body', null, 'margin:6px 0 8px;white-space:pre-wrap');
+    const row = el('div', null, null, 'display:flex;gap:6px');
+    const button = (id, label, css, fn) => {
+      const b = el('button', id, label, 'padding:4px 6px;border-radius:6px;cursor:pointer;' + css);
+      b.type = 'button';
+      b.addEventListener('click', fn);
+      row.appendChild(b);
+    };
+    button('lab053Step', '前進一格', 'flex:1;border:1px solid #46608f;background:#1b2740;color:#cfe0ff', () => step());
+    button('lab053Cancel', '取消', 'flex:1;border:1px solid #6b4a4a;background:#2a1d20;color:#ffd6d6', () => cancel('panel-cancel'));
+    button('lab053Close', '×', 'border:1px solid #46608f;background:#151d2e;color:#9fb4d8', () => end());
+    root.appendChild(title);
+    root.appendChild(unsaved);
+    root.appendChild(body);
+    root.appendChild(row);
+    document.body.appendChild(root);
+    panel = { root, body };
     return panel;
   }
 
   function refresh() {
-    if (!panel) return;
-    const body = panel.querySelector('#lab053Body');
-    if (!body) return;
-    if (off()) { body.textContent = '（逃生閥 __noRoadDelivery053 已關閉）'; return; }
-    if (!task) { body.textContent = '目前沒有配送任務。'; return; }
-    const s = snapshot();
-    body.textContent = '批次 ' + s.batchId + '（' + s.qty + ' 件 ' + s.commodityId + '）\n' +
-      '狀態 ' + s.status + '　進度 ' + s.cursor + '/' + (s.pathLength - 1) + '\n' +
-      (s.status === 'DELIVERED' ? '已送達（影子帳，未寫入正式經濟）' : (s.status === 'CANCELLED' ? '已取消：' + s.cancelledReason : '沿真道路前進中'));
+    if (!panel) return { ok: false, reason: 'panel-not-open' };
+    if (off()) panel.body.textContent = '（逃生閥 __noRoadDelivery053 已關閉）';
+    else if (!task) panel.body.textContent = '目前沒有配送任務。';
+    else {
+      const s = snapshot();
+      panel.body.textContent = '批次 ' + s.batchId + '（' + s.qty + ' 件 ' + (s.commodityId || '未指定') + '）\n' +
+        '狀態 ' + s.status + '　進度 ' + s.cursor + '/' + (s.pathLength - 1) + '\n' +
+        (s.status === 'DELIVERED' ? '已送達（影子帳，未寫入正式經濟）' : (s.status === 'CANCELLED' ? '已取消：' + s.cancelledReason : '沿真道路前進中'));
+    }
+    return { ok: true, open: true };
   }
 
-  function open() { ensurePanel(); refresh(); return snapshot(); }
+  function open() {
+    if (off()) return no(DISABLED);
+    ensurePanel();
+    refresh();
+    return snapshot();
+  }
 
-  /* 生命週期：載入存檔／開新城市／離開頁面都會取消任務，不讓它跨城市活著。 */
+  /* 生命週期（T782 B4）：讀檔、開新城、離開頁面都取消任務並移除面板，不讓它跨城市活著。 */
+  function lifecycle(reason) {
+    if (task) task.run.cancel(reason);
+    removePanel();
+  }
   if (typeof load === 'function') {
     const nativeLoad053 = load;
-    load = function () { try { cancel('load'); } catch (e) {} return nativeLoad053.apply(this, arguments); };
+    load = function load053() { try { lifecycle('load'); } catch (e) {} return nativeLoad053.apply(this, arguments); };
   }
   if (typeof newWorld === 'function') {
     const nativeWorld053 = newWorld;
-    newWorld = function () { try { cancel('new-world'); } catch (e) {} return nativeWorld053.apply(this, arguments); };
+    newWorld = function newWorld053() { try { lifecycle('new-world'); } catch (e) {} return nativeWorld053.apply(this, arguments); };
   }
-  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { cancel('pagehide'); } catch (e) {} });
+  window.addEventListener('pagehide', function pagehide053() { try { lifecycle('pagehide'); } catch (e) {} });
 
-  const api = Object.freeze({
-    plan, start, step, cancel, snapshot, open, refresh, end, disable,
-    provenance: { module: 'road-delivery053', lab: 'LAB-03', isolation: 'shadow-only' }
+  window.GV.roadDelivery053 = Object.freeze({
+    plan, start, startBetween, step, cancel, snapshot, open, refresh, end, disable,
+    provenance: Object.freeze(Object.assign({ installed: true }, INFO))
   });
-  window.GV.roadDelivery053 = api;
 })();
 /* DSK-018 ROAD DELIVERY 053 END */
 /* DSK-019 RAIL FREIGHT 054 BEGIN */
-/* DSK-019 / LAB-05 階段 B：兩站實載貨運鐵路的執行期接線（會被原封不動內嵌進 index.html）。
- * 邊界：只讀鐵軌格、只在影子任務裡推進列車；不寫金錢／商品／人口／客流／存檔。
+/* DSK-019 / LAB-05：兩站實載貨運鐵路的執行期接線（階段 B；T783 補齊）。會被原封不動內嵌進 index.html。
+ * 邊界：只讀鐵軌格與建築，只在影子任務裡推進一列車；不寫金錢／商品／人口／客流／存檔，不用亂數與現實時間。
+ * 規則：「LAB-05 RAIL CORE 054」BEGIN／END 之間是 rail-freight054.js 純核心的原文（逐字相同，測試會比對），
+ *       執行期只補「從真城市取軌道、建築與貼軌格」與面板、生命週期，不另寫一份規則。
+ * 車站＝貼著真軌的 k166（原卡定義）；不註冊站別、不改 T462／T463 的客運統計。
  * 逃生閥：window.__noRailFreight054。
+ *   - 安裝當下就開著：整段不安裝（不改寫 load／newWorld、不掛 pagehide、不建面板），API 一律回 disabled。
+ *   - 安裝之後才打開：規劃、開始、推進、卸貨、開面板都回 disabled；中止、結束、快照照常。
+ * 對外：window.GV.railFreight054.{plan,start,runBetween,step,unload,abort,snapshot,open,refresh,end,disable,provenance}
  */
 (function installRailFreight054() {
   'use strict';
-  const RS = Object.freeze({
-    BAD_INPUT: 'bad-input', FROM_NOT_RAIL: 'from-not-rail', TO_NOT_RAIL: 'to-not-rail',
-    UNREACHABLE: 'unreachable', TOO_FAR: 'too-far', OVER_CAPACITY: 'over-capacity',
-    NOT_ARRIVED: 'not-arrived', DISABLED: 'disabled', NO_RUN: 'no-run'
+  const INFO = { module: 'rail-freight054', lab: 'LAB-05', card: 'T783', isolation: 'shadow-only', persisted: false, defaultCapacity: 12 };
+  const DISABLED = 'disabled';
+
+  if (window.__noRailFreight054) {
+    // T783 B3：閥門在安裝當下已開 → 什麼都不裝，只留一個一律回 disabled 的 API。
+    const no = () => ({ ok: false, reason: DISABLED, installed: false });
+    const inert = { plan: no, start: no, runBetween: no, step: no, unload: no, abort: no, open: no, refresh: no, end: no, disable: no };
+    inert.snapshot = () => ({ ok: false, reason: DISABLED, active: false, disabled: true, installed: false });
+    inert.provenance = Object.freeze(Object.assign({ installed: false }, INFO));
+    window.GV.railFreight054 = Object.freeze(inert);
+    return;
+  }
+
+  const core = (function () {
+/* LAB-05 RAIL CORE 054 BEGIN */
+  'use strict';
+
+  const REASONS = Object.freeze({
+    BAD_INPUT: 'bad-input',
+    FROM_NOT_RAIL: 'from-not-rail',
+    TO_NOT_RAIL: 'to-not-rail',
+    UNREACHABLE: 'unreachable',
+    TOO_FAR: 'too-far',
+    OVER_CAPACITY: 'over-capacity',
+    NOT_ARRIVED: 'not-arrived',
+    NOT_HUB: 'not-hub',
+    HUB_NOT_ON_RAIL: 'hub-not-on-rail'
   });
+
   const DEFAULT_CAPACITY = 12;
-  const off = () => !!window.__noRailFreight054;
-  let run = null;
-  let panel = null;
+  const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+  const isInt = (v) => Number.isInteger(v);
+  const fail = (reason, extra) => Object.assign({ ok: false, path: [], steps: -1, reason }, extra || {});
+  const coded = (code) => Object.assign(new Error(code), { code });
+  const badInput = (detail) => Object.assign(new Error('bad-input:' + detail), { code: REASONS.BAD_INPUT, detail });
+  // maxSteps：省略（undefined）＝不設上限；給了就必須是 >=0 的安全整數，其他值一律 bad-input，不靜默改值。
+  const stepLimit = (v) => (v === undefined ? Infinity : (Number.isSafeInteger(v) && v >= 0 ? v : null));
 
-  const isRailIdx = (i) => !!(tiles[i] && tiles[i].rail);
+  function normalizeRail(rail, w, h) {
+    if (!isInt(w) || !isInt(h) || w <= 0 || h <= 0) return null;
+    if (!rail) return null;
+    if (typeof rail.length === 'number' && rail.length === w * h) {
+      return (i) => rail[i] === 1 || rail[i] === true;
+    }
+    if (typeof rail.isRail === 'function') {
+      return (i) => !!rail.isRail(i % w, Math.floor(i / w));
+    }
+    return null;
+  }
 
-  function plan(from, to, maxSteps) {
-    const limit = (maxSteps === undefined || maxSteps === null) ? Infinity : maxSteps;
-    if (!Number.isInteger(from) || !Number.isInteger(to)) return { ok: false, path: [], steps: -1, reason: RS.BAD_INPUT };
-    if (from < 0 || from >= N * N || to < 0 || to >= N * N) return { ok: false, path: [], steps: -1, reason: RS.BAD_INPUT };
-    if (!isRailIdx(from)) return { ok: false, path: [], steps: -1, reason: RS.FROM_NOT_RAIL };
-    if (!isRailIdx(to)) return { ok: false, path: [], steps: -1, reason: RS.TO_NOT_RAIL };
-    if (from === to) return { ok: true, path: [from], steps: 0, reason: null };
-    const total = N * N;
+  /* 多源 4 鄰 BFS：起點集合依給定順序入隊；鄰居順序固定（上、右、下、左）；出隊時碰到終點集合就停。
+   * 同一輸入永遠同一條路線（決定性）；找不到回 null。path[0] 屬於起點集合、最後一格屬於終點集合。 */
+  function search(isRail, w, h, sources, targets) {
+    const total = w * h;
     const prev = new Int32Array(total).fill(-1);
     const seen = new Uint8Array(total);
+    const goal = new Uint8Array(total);
     const queue = new Int32Array(total);
-    let head = 0, tail = 0, found = false;
-    queue[tail++] = from; seen[from] = 1;
+    let head = 0, tail = 0;
+    for (const t of targets) goal[t] = 1;
+    for (const s of sources) {
+      if (seen[s]) continue;
+      seen[s] = 1;
+      queue[tail++] = s;
+    }
     while (head < tail) {
       const cur = queue[head++];
-      if (cur === to) { found = true; break; }
-      const cx = cur % N, cy = (cur / N) | 0;
-      const nb = [cy > 0 ? cur - N : -1, cx < N - 1 ? cur + 1 : -1, cy < N - 1 ? cur + N : -1, cx > 0 ? cur - 1 : -1];
+      if (goal[cur]) {
+        const path = [];
+        for (let at = cur; at !== -1; at = prev[at]) path.push(at);
+        return path.reverse();
+      }
+      const cx = cur % w, cy = (cur / w) | 0;
+      const nb = [cy > 0 ? cur - w : -1, cx < w - 1 ? cur + 1 : -1, cy < h - 1 ? cur + w : -1, cx > 0 ? cur - 1 : -1];
       for (let k = 0; k < 4; k++) {
         const n = nb[k];
-        if (n < 0 || seen[n] || !isRailIdx(n)) continue;
+        if (n < 0 || seen[n] || !isRail(n)) continue;
         seen[n] = 1; prev[n] = cur; queue[tail++] = n;
       }
     }
-    if (!found) return { ok: false, path: [], steps: -1, reason: RS.UNREACHABLE };
-    const path = [];
-    for (let at = to; at !== -1; at = prev[at]) path.push(at);
-    path.reverse();
+    return null;
+  }
+
+  /* 單點對單點：4 鄰 BFS；鄰居順序固定（上、右、下、左）＋固定 tie-break，保證決定性。 */
+  function planRailRoute(opts) {
+    opts = opts || {};
+    const { rail, w, h, from, to } = opts;
+    const isRail = normalizeRail(rail, w, h);
+    if (!isRail) return fail(REASONS.BAD_INPUT, { detail: 'grid' });
+    if (!isInt(from) || !isInt(to)) return fail(REASONS.BAD_INPUT, { detail: 'endpoints' });
+    if (from < 0 || from >= w * h || to < 0 || to >= w * h) return fail(REASONS.BAD_INPUT, { detail: 'range' });
+    const limit = stepLimit(opts.maxSteps);
+    if (limit === null) return fail(REASONS.BAD_INPUT, { detail: 'maxSteps' });
+    if (!isRail(from)) return fail(REASONS.FROM_NOT_RAIL);
+    if (!isRail(to)) return fail(REASONS.TO_NOT_RAIL);
+    if (from === to) return { ok: true, path: [from], steps: 0, reason: null };
+
+    const path = search(isRail, w, h, [from], [to]);
+    if (!path) return fail(REASONS.UNREACHABLE);
     const steps = path.length - 1;
-    if (steps > limit) return { ok: false, path: [], steps, reason: RS.TOO_FAR };
+    if (steps > limit) return fail(REASONS.TOO_FAR, { steps, limit });
     return { ok: true, path, steps, reason: null };
   }
 
-  function snapshot() {
-    if (!run) return { ok: false, reason: RS.NO_RUN, active: false, disabled: off() };
+  /* 佔地四鄰的某類格（T783 B1「佔地四鄰至少有一格真軌」）：size×size 佔地每一格的上、右、下、左鄰格，
+   * 在圖內且 isKind 為真就收（去重）。走訪順序與原生 sanRoadSeeds445 相同，只是把「道路」換成呼叫端給的判定。
+   * 參數不合法回 null（呼叫端錯誤，不當成「沒有軌」）。 */
+  function footprintSeeds(opts) {
+    opts = opts || {};
+    const { w, h, root, size, isKind } = opts;
+    if (!isInt(w) || !isInt(h) || w <= 0 || h <= 0) return null;
+    if (!isInt(root) || root < 0 || root >= w * h || !isInt(size) || size <= 0 || typeof isKind !== 'function') return null;
+    const rx = root % w, ry = (root / w) | 0, out = [];
+    for (let fy = 0; fy < size; fy++) for (let fx = 0; fx < size; fx++) for (const [dx, dy] of DIRS) {
+      const nx = rx + fx + dx, ny = ry + fy + dy;
+      if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+      const j = ny * w + nx;
+      if (!isKind(j) || out.includes(j)) continue;
+      out.push(j);
+    }
+    return out;
+  }
+
+  // 貼軌格清單必須是陣列，且每一格都在圖內、真的是鐵軌；不是就是呼叫端錯誤（bad-input），不偷偷過濾。
+  function cellList(list, total, isRail) {
+    if (!Array.isArray(list)) return null;
+    for (const c of list) if (!isInt(c) || c < 0 || c >= total || !isRail(c)) return null;
+    return list.slice();
+  }
+
+  /* 兩棟聯運中心（k166）之間（T783 B1）。
+   *  - 兩端都必須是 k166 的根格（isHubRoot），否則 not-hub（side 指出哪一端）；
+   *  - 兩端各取佔地四鄰的真軌格（railFrontage），空的就 hub-not-on-rail；
+   *  - 起點貼軌集合 → 終點貼軌集合沿真軌做多源 BFS；不在同一個鐵軌連通分量上就找不到 → unreachable；
+   *  - 超過 maxSteps 就 too-far。回傳的 path 第一格貼起點、最後一格貼終點。 */
+  function planBetween(opts) {
+    opts = opts || {};
+    const { rail, w, h, origin, destination, isHubRoot, railFrontage } = opts;
+    const isRail = normalizeRail(rail, w, h);
+    if (!isRail) return fail(REASONS.BAD_INPUT, { detail: 'grid' });
+    if (typeof isHubRoot !== 'function' || typeof railFrontage !== 'function') return fail(REASONS.BAD_INPUT, { detail: 'world' });
+    if (!isInt(origin) || !isInt(destination)) return fail(REASONS.BAD_INPUT, { detail: 'endpoints' });
+    const total = w * h;
+    if (origin < 0 || origin >= total || destination < 0 || destination >= total) return fail(REASONS.BAD_INPUT, { detail: 'range' });
+    const limit = stepLimit(opts.maxSteps);
+    if (limit === null) return fail(REASONS.BAD_INPUT, { detail: 'maxSteps' });
+    if (!isHubRoot(origin)) return fail(REASONS.NOT_HUB, { side: 'origin' });
+    if (!isHubRoot(destination)) return fail(REASONS.NOT_HUB, { side: 'destination' });
+    const sources = cellList(railFrontage(origin), total, isRail);
+    const targets = cellList(railFrontage(destination), total, isRail);
+    if (!sources || !targets) return fail(REASONS.BAD_INPUT, { detail: 'frontage' });
+    if (!sources.length) return fail(REASONS.HUB_NOT_ON_RAIL, { side: 'origin' });
+    if (!targets.length) return fail(REASONS.HUB_NOT_ON_RAIL, { side: 'destination' });
+    const path = search(isRail, w, h, sources, targets);
+    if (!path) return fail(REASONS.UNREACHABLE);
+    const steps = path.length - 1;
+    if (steps > limit) return fail(REASONS.TOO_FAR, { steps, limit });
     return {
-      ok: true, active: run.status !== 'UNLOADED' && run.status !== 'ABORTED', disabled: off(),
-      status: run.status, batchId: run.batchId, commodityId: run.commodityId, qty: run.qty,
-      capacity: run.capacity, cursor: run.cursor, pathLength: run.path.length, steps: run.steps,
-      arrived: run.status === 'ARRIVED' || run.status === 'UNLOADED',
-      unloaded: run.status === 'UNLOADED', abortReason: run.abortReason, provenance: run.provenance
+      ok: true, path, steps, reason: null,
+      originRoot: origin, destinationRoot: destination, originFrontage: sources, destinationFrontage: targets
     };
   }
 
-  function start(from, to, cargo, capacity) {
-    if (off()) return { ok: false, reason: RS.DISABLED, path: [] };
-    cargo = cargo || {};
-    const cap = Number.isSafeInteger(capacity) && capacity > 0 ? capacity : DEFAULT_CAPACITY;
-    const qty = Number.isSafeInteger(cargo.qty) && cargo.qty > 0 ? cargo.qty : 1;
-    if (qty > cap) return { ok: false, reason: RS.OVER_CAPACITY, qty, capacity: cap, path: [] };
-    const p = plan(from, to, cargo.maxSteps);
-    if (!p.ok) { refresh(); return p; }
+  function validateRoute(path, rail, w, h) {
+    const isRail = normalizeRail(rail, w, h);
+    if (!isRail) return { ok: false, reason: REASONS.BAD_INPUT };
+    if (!Array.isArray(path) || path.length === 0) return { ok: false, reason: 'empty-path' };
+    for (const p of path) {
+      if (!isInt(p) || p < 0 || p >= w * h) return { ok: false, reason: 'out-of-range' };
+      if (!isRail(p)) return { ok: false, reason: 'not-rail' };
+    }
+    for (let i = 1; i < path.length; i++) {
+      const a = path[i - 1], b = path[i];
+      const ax = a % w, ay = (a / w) | 0, bx = b % w, by = (b / w) | 0;
+      if (Math.abs(ax - bx) + Math.abs(ay - by) !== 1) return { ok: false, reason: 'not-adjacent' };
+    }
+    return { ok: true, reason: null };
+  }
+
+  /* 貨物與容量（T783 B2）：不合法一律 bad-input（detail 指出哪一欄），超過容量 over-capacity，不靜默改值、不截斷。
+   *  - batchId：非空字串；qty：正的安全整數；commodityId：可省略（undefined 或 null 都記成 null），給了就必須是非空字串；
+   *  - capacity：省略（undefined）＝預設 12，給了就必須是正的安全整數（0、-1、'x'、null 都拒絕）。
+   * 其他欄位這裡不讀（maxSteps 由規劃函式自己檢查）。回傳的 cargo 是新物件；正規化後的 cargo＋capacity 再驗一次
+   * 結果不變（冪等），所以執行期可以把它直接交給 createFreightRun054。 */
+  function validateCargo(cargo, capacity) {
+    if (!cargo || typeof cargo !== 'object' || Array.isArray(cargo)) return fail(REASONS.BAD_INPUT, { detail: 'cargo' });
+    if (typeof cargo.batchId !== 'string' || !cargo.batchId) return fail(REASONS.BAD_INPUT, { detail: 'batchId' });
+    if (!Number.isSafeInteger(cargo.qty) || cargo.qty <= 0) return fail(REASONS.BAD_INPUT, { detail: 'qty' });
+    const unspecified = cargo.commodityId === undefined || cargo.commodityId === null;
+    if (!unspecified && (typeof cargo.commodityId !== 'string' || !cargo.commodityId)) {
+      return fail(REASONS.BAD_INPUT, { detail: 'commodityId' });
+    }
+    const cap = capacity === undefined ? DEFAULT_CAPACITY : capacity;
+    if (!Number.isSafeInteger(cap) || cap <= 0) return fail(REASONS.BAD_INPUT, { detail: 'capacity' });
+    if (cargo.qty > cap) return fail(REASONS.OVER_CAPACITY, { qty: cargo.qty, capacity: cap });
+    return {
+      ok: true, reason: null, capacity: cap,
+      cargo: { batchId: cargo.batchId, qty: cargo.qty, commodityId: unspecified ? null : cargo.commodityId }
+    };
+  }
+
+  const TERMINAL = new Set(['UNLOADED', 'ABORTED']);
+
+  /* 一列、一批貨、一條路線。READY → RUNNING → ARRIVED → UNLOADED（或任何時候 ABORTED）。
+   * 不合法的輸入丟出 code＝'bad-input' 的錯誤；超過容量丟出 code＝'over-capacity'。 */
+  function createFreightRun054(sessionId, route, cargo, capacity) {
+    if (typeof sessionId !== 'string' || !sessionId) throw badInput('sessionId');
+    if (!route || route.ok !== true || !Array.isArray(route.path) || route.path.length === 0) throw badInput('route');
+    const checked = validateCargo(cargo, capacity);
+    if (!checked.ok) throw checked.reason === REASONS.OVER_CAPACITY ? coded(REASONS.OVER_CAPACITY) : badInput(checked.detail);
+    const load = checked.cargo;
+    const cap = checked.capacity;
+
+    const path = route.path.slice();
+    const qty = load.qty;
+    let status = 'READY';
+    let cursor = 0;
+    let steps = 0;
+    let abortReason = null;
+    let unloadedAt = null;
+
+    function snapshot() {
+      return {
+        sessionId,
+        batchId: load.batchId,
+        commodityId: load.commodityId,
+        qty, capacity: cap, status, cursor,
+        pathLength: path.length, steps,
+        arrived: status === 'ARRIVED' || status === 'UNLOADED',
+        unloaded: status === 'UNLOADED',
+        unloadedAt: unloadedAt ? { cursor: unloadedAt.cursor, step: unloadedAt.step } : null,
+        abortReason
+      };
+    }
+
+    function step() {
+      if (TERMINAL.has(status) || status === 'ARRIVED') return snapshot();
+      if (status === 'READY') status = 'RUNNING';
+      cursor += 1;
+      steps += 1;
+      if (cursor >= path.length - 1) { cursor = path.length - 1; status = 'ARRIVED'; }
+      return snapshot();
+    }
+
+    function unload() {
+      if (status !== 'ARRIVED') throw coded(REASONS.NOT_ARRIVED);
+      status = 'UNLOADED';
+      unloadedAt = { cursor, step: steps };
+      return snapshot();
+    }
+
+    function abort(reason) {
+      if (TERMINAL.has(status)) return snapshot();
+      status = 'ABORTED';
+      abortReason = typeof reason === 'string' && reason ? reason : 'aborted';
+      return snapshot();
+    }
+
+    return Object.freeze({ snapshot, step, unload, abort, path: Object.freeze(path.slice()) });
+  }
+
+  return Object.freeze({
+    REASONS, DEFAULT_CAPACITY, planRailRoute, planBetween, footprintSeeds, validateRoute, validateCargo, createFreightRun054
+  });
+/* LAB-05 RAIL CORE 054 END */
+  })();
+
+  const NO_RUN = 'no-run', BUSY = 'busy', HUB_K = 166;
+  const UNSAVED = '未保存：重新整理或讀檔就會消失';
+  // 面板固定位置（T783 B5；T785 統一四格）：左欄第 2 格，在 LAB-03 正下方；格高 (100vh-120px)/4、間隔 8px，四格互不重疊。
+  const PANEL_CSS = 'position:fixed;left:12px;top:calc(84px + 1 * ((100vh - 120px) / 4 + 8px));width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);' +
+    'box-sizing:border-box;overflow:auto;z-index:9999;padding:10px 12px;' +
+    'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
+    'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
+  const off = () => !!window.__noRailFreight054;
+  const copy = (v) => JSON.parse(JSON.stringify(v));
+  const no = (reason, extra) => Object.assign({ ok: false, path: [], steps: -1, reason }, extra || {});
+  let run = null;    // { train: 核心任務, mode, originRoot, destinationRoot, provenance }
+  let panel = null;  // { root, body }
+  let seq = 0;
+
+  // 真城市的鐵軌視圖：每次規劃都現讀 tiles（不快取；讀檔、開新城之後自然是新地格）。
+  function grid() {
+    if (!Array.isArray(tiles) || !Number.isInteger(N) || N <= 0 || tiles.length !== N * N) return null;
+    return { isRail: (x, y) => { const t = tiles[y * N + x]; return !!(t && t.rail); } };
+  }
+  // 車站＝k166（鐵公路聯運中心）的根格，不是佔地的參照格（ref）。
+  function isHubRoot(i) {
+    const b = tiles[i] && tiles[i].bld;
+    return !!(b && !b.ref && b.k === HUB_K);
+  }
+  // 貼軌格：k166 佔地四鄰的真軌格（佔地大小取原生寫進建築的 sz，與 sanRoadSeeds445 同一規則）。
+  function railFrontage(i) {
+    const b = tiles[i] && tiles[i].bld;
+    if (!b) return [];
+    return core.footprintSeeds({ w: N, h: N, root: i, size: Math.max(1, b.sz || 1), isKind: (j) => !!(tiles[j] && tiles[j].rail) });
+  }
+
+  function isActive() {
+    if (!run) return false;
+    const s = run.train.snapshot().status;
+    return s !== 'UNLOADED' && s !== 'ABORTED';
+  }
+  function busy() {
+    const s = run.train.snapshot();
+    return no(BUSY, { sessionId: s.sessionId, batchId: s.batchId, status: s.status });
+  }
+  function begin(p, checked, mode, originRoot, destinationRoot) {
+    const sessionId = 'lab054-' + (++seq);
     run = {
-      status: 'READY', path: p.path, cursor: 0, steps: 0, qty, capacity: cap,
-      batchId: typeof cargo.batchId === 'string' && cargo.batchId ? cargo.batchId : ('lab054-' + from + '-' + to),
-      commodityId: typeof cargo.commodityId === 'string' ? cargo.commodityId : 'food',
-      abortReason: null,
-      provenance: { version: typeof GAME_VER === 'string' ? GAME_VER : null, anchor: typeof GAME_ANCHOR === 'string' ? GAME_ANCHOR : null, module: 'rail-freight054' }
+      train: core.createFreightRun054(sessionId, p, checked.cargo, checked.capacity), mode, originRoot, destinationRoot,
+      provenance: Object.assign({ version: typeof GAME_VER === 'string' ? GAME_VER : null,
+        anchor: typeof GAME_ANCHOR === 'string' ? GAME_ANCHOR : null }, INFO)
     };
     refresh();
-    return { ok: true, path: p.path.slice(), steps: p.steps, reason: null };
+    return Object.assign(copy(p), { sessionId, capacity: checked.capacity });
+  }
+
+  /* 單點對單點（軌道格 → 軌道格）。LAB-06／LAB-07 借它規劃，不建任務。 */
+  function plan(from, to, maxSteps) {
+    if (off()) return no(DISABLED);
+    return core.planRailRoute({ rail: grid(), w: N, h: N, from, to, maxSteps });
+  }
+
+  /* 軌道格 → 軌道格的一列車。順序：disabled → busy → bad-input／over-capacity（貨物與容量）→ 規劃的理由。 */
+  function start(from, to, cargo, capacity) {
+    if (off()) return no(DISABLED);
+    if (isActive()) return busy();
+    const checked = core.validateCargo(cargo, capacity);
+    if (!checked.ok) return checked;
+    const p = core.planRailRoute({ rail: grid(), w: N, h: N, from, to, maxSteps: cargo.maxSteps });
+    if (!p.ok) return p;
+    return begin(p, checked, 'tiles', null, null);
+  }
+
+  /* 兩棟貼軌 k166 之間的一列車（T783 B1）：理由 not-hub／hub-not-on-rail／unreachable 各自分開。 */
+  function runBetween(originHubRoot, destinationHubRoot, batch, capacity) {
+    if (off()) return no(DISABLED);
+    if (isActive()) return busy();
+    const checked = core.validateCargo(batch, capacity);
+    if (!checked.ok) return checked;
+    const p = core.planBetween({ rail: grid(), w: N, h: N, origin: originHubRoot, destination: destinationHubRoot,
+      isHubRoot, railFrontage, maxSteps: batch.maxSteps });
+    if (!p.ok) return p;
+    return begin(p, checked, 'between', originHubRoot, destinationHubRoot);
+  }
+
+  function snapshot() {
+    if (!run) return { ok: false, reason: NO_RUN, active: false, disabled: off() };
+    const s = run.train.snapshot();
+    // 深拷貝（T783 B4）：呼叫端改回傳值，不會改到任務本身。
+    return copy(Object.assign({ ok: true, active: s.status !== 'UNLOADED' && s.status !== 'ABORTED', disabled: off() }, s, {
+      path: run.train.path, mode: run.mode, originRoot: run.originRoot, destinationRoot: run.destinationRoot,
+      provenance: run.provenance
+    }));
   }
 
   function step() {
-    if (off()) return { ok: false, reason: RS.DISABLED, snapshot: snapshot() };
-    if (!run) return { ok: false, reason: RS.NO_RUN, snapshot: snapshot() };
-    if (run.status === 'ARRIVED' || run.status === 'UNLOADED' || run.status === 'ABORTED') return { ok: true, snapshot: snapshot() };
-    if (run.status === 'READY') run.status = 'RUNNING';
-    run.cursor += 1;
-    run.steps += 1;
-    if (run.cursor >= run.path.length - 1) { run.cursor = run.path.length - 1; run.status = 'ARRIVED'; }
+    if (off()) return { ok: false, reason: DISABLED, snapshot: snapshot() };
+    if (!run) return { ok: false, reason: NO_RUN, snapshot: snapshot() };
+    run.train.step();
     refresh();
     return { ok: true, snapshot: snapshot() };
   }
 
   function unload() {
-    if (off()) return { ok: false, reason: RS.DISABLED, snapshot: snapshot() };
-    if (!run) return { ok: false, reason: RS.NO_RUN, snapshot: snapshot() };
-    if (run.status !== 'ARRIVED') return { ok: false, reason: RS.NOT_ARRIVED, snapshot: snapshot() };
-    run.status = 'UNLOADED';
+    if (off()) return { ok: false, reason: DISABLED, snapshot: snapshot() };
+    if (!run) return { ok: false, reason: NO_RUN, snapshot: snapshot() };
+    try { run.train.unload(); } catch (e) { return { ok: false, reason: (e && e.code) || core.REASONS.NOT_ARRIVED, snapshot: snapshot() }; }
     refresh();
     return { ok: true, snapshot: snapshot() };
   }
 
   function abort(reason) {
     if (!run) return snapshot();
-    if (run.status !== 'UNLOADED' && run.status !== 'ABORTED') {
-      run.status = 'ABORTED';
-      run.abortReason = typeof reason === 'string' && reason ? reason : 'aborted';
-    }
+    run.train.abort(reason);
     refresh();
     return snapshot();
   }
 
+  function removePanel() {
+    const p = panel;
+    panel = null;
+    if (p && p.root.parentNode) p.root.parentNode.removeChild(p.root);
+  }
+
   function end() {
     run = null;
-    if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
-    panel = null;
+    removePanel();
     return { ok: true, ended: true };
   }
 
   function disable() { window.__noRailFreight054 = true; return end(); }
 
+  /* 面板：預設不存在；只有明確 open() 才會建立 DOM，end()、讀檔、開新城、pagehide 都會移除。 */
   function ensurePanel() {
-    if (panel || typeof document === 'undefined') return panel;
-    panel = document.createElement('div');
-    panel.id = 'lab054Panel';
-    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:250px;padding:10px 12px;' +
-      'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
-      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
-    panel.innerHTML = '<div style="font-weight:700;color:#8fc2ff;letter-spacing:.5px">LAB-05 影子貨運列車</div>' +
-      '<div id="lab054Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
-      '<div style="display:flex;gap:6px">' +
-      '<button id="lab054Step" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #46608f;background:#1b2740;color:#cfe0ff;cursor:pointer">前進一站</button>' +
-      '<button id="lab054Unload" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #4a6b4a;background:#1d2a1d;color:#d6ffd6;cursor:pointer">卸貨</button>' +
-      '<button id="lab054Close" style="padding:4px 8px;border-radius:6px;border:1px solid #46608f;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
-      '</div>';
-    document.body.appendChild(panel);
-    panel.querySelector('#lab054Step').addEventListener('click', () => step());
-    panel.querySelector('#lab054Unload').addEventListener('click', () => unload());
-    panel.querySelector('#lab054Close').addEventListener('click', () => end());
+    if (panel || typeof document === 'undefined' || !document.body) return panel;
+    const el = (tag, id, text, css) => {
+      const n = document.createElement(tag);
+      if (id) n.id = id;
+      if (text) n.textContent = text;
+      if (css) n.style.cssText = css;
+      return n;
+    };
+    const root = el('div', 'lab054Panel', null, PANEL_CSS);
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-label', 'LAB-05 影子貨運列車');
+    const title = el('div', null, 'LAB-05 影子貨運列車', 'font-weight:700;color:#8fc2ff;letter-spacing:.5px');
+    const unsaved = el('div', 'lab054Unsaved', UNSAVED, 'color:#ffd38a');
+    const body = el('div', 'lab054Body', null, 'margin:6px 0 8px;white-space:pre-wrap');
+    const row = el('div', null, null, 'display:flex;gap:6px');
+    const button = (id, label, css, fn) => {
+      const b = el('button', id, label, 'padding:4px 6px;border-radius:6px;cursor:pointer;' + css);
+      b.type = 'button';
+      b.addEventListener('click', fn);
+      row.appendChild(b);
+    };
+    button('lab054Step', '前進一格', 'flex:1;border:1px solid #46608f;background:#1b2740;color:#cfe0ff', () => step());
+    button('lab054Unload', '卸貨', 'flex:1;border:1px solid #4a6b4a;background:#1d2a1d;color:#d6ffd6', () => unload());
+    button('lab054Close', '×', 'border:1px solid #46608f;background:#151d2e;color:#9fb4d8', () => end());
+    root.appendChild(title);
+    root.appendChild(unsaved);
+    root.appendChild(body);
+    root.appendChild(row);
+    document.body.appendChild(root);
+    panel = { root, body };
     return panel;
   }
 
   function refresh() {
-    if (!panel) return;
-    const body = panel.querySelector('#lab054Body');
-    if (!body) return;
-    if (off()) { body.textContent = '（逃生閥 __noRailFreight054 已關閉）'; return; }
-    if (!run) { body.textContent = '目前沒有貨運列車任務。'; return; }
-    const s = snapshot();
-    body.textContent = '批次 ' + s.batchId + '（' + s.qty + '/' + s.capacity + ' 件 ' + s.commodityId + '）\n' +
-      '狀態 ' + s.status + '　進度 ' + s.cursor + '/' + (s.pathLength - 1) + '\n' +
-      (s.status === 'UNLOADED' ? '已卸貨（影子帳，未寫入正式經濟）' : (s.status === 'ABORTED' ? '已中止：' + s.abortReason : '沿真鐵軌前進中'));
-  }
-
-  function open() { ensurePanel(); refresh(); return snapshot(); }
-
-  if (typeof load === 'function') {
-    const nativeLoad054 = load;
-    load = function () { try { abort('load'); } catch (e) {} return nativeLoad054.apply(this, arguments); };
-  }
-  if (typeof newWorld === 'function') {
-    const nativeWorld054 = newWorld;
-    newWorld = function () { try { abort('new-world'); } catch (e) {} return nativeWorld054.apply(this, arguments); };
-  }
-  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { abort('pagehide'); } catch (e) {} });
-
-  const api = Object.freeze({
-    plan, start, step, unload, abort, snapshot, open, refresh, end, disable,
-    provenance: { module: 'rail-freight054', lab: 'LAB-05', isolation: 'shadow-only', defaultCapacity: DEFAULT_CAPACITY }
-  });
-  window.GV.railFreight054 = api;
-})();
-/* DSK-019 RAIL FREIGHT 054 END */
-/* DSK-020 RAIL BLOCK 055 BEGIN */
-/* DSK-020 / LAB-06 階段 B：單線閉塞區間的路權、等待與斷軌恢復（執行期接線）。
- * 會被原封不動內嵌進 index.html。
- *
- * 依賴 LAB-05 的 `GV.railFreight054.plan()`（只借它的路線規劃，不共用它的單列狀態），
- * 自己在這裡管兩列車與閉塞權。
- *
- * 邊界：只讀鐵軌格、只在影子任務裡推進；不寫金錢／商品／人口／客流／存檔。
- * 逃生閥：window.__noRailBlock055。
- */
-(function installRailBlock055() {
-  'use strict';
-  const RS = Object.freeze({
-    BAD_INPUT: 'bad-input', TOO_MANY: 'too-many', DUPLICATE: 'duplicate', NOT_HOLDER: 'not-holder',
-    NO_AUTHORITY: 'no-authority', TRACK_BROKEN: 'track-broken', UNKNOWN: 'unknown-run',
-    NO_PLANNER: 'rail-freight-unavailable', DISABLED: 'disabled', NOT_READY: 'not-ready'
-  });
-  const MAX_TRAINS = 2;
-  const off = () => !!window.__noRailBlock055;
-  let holder = null;
-  const waiting = [];
-  const trains = new Map();
-  const broken = new Set();
-  let panel = null;
-
-  function ensurePlanner() { return window.GV && window.GV.railFreight054 && typeof window.GV.railFreight054.plan === 'function' ? window.GV.railFreight054 : null; }
-
-  function request(id) {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    if (typeof id !== 'string' || !id) return { ok: false, reason: RS.BAD_INPUT };
-    if (id === holder || waiting.includes(id)) return { ok: false, reason: RS.DUPLICATE };
-    if (holder === null) { holder = id; return { ok: true, status: 'GRANTED', id }; }
-    if ((holder === null ? 0 : 1) + waiting.length >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY, maxTrains: MAX_TRAINS };
-    waiting.push(id);
-    return { ok: true, status: 'WAITING', id };
-  }
-
-  function release(id) {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    if (id !== holder) return { ok: false, reason: RS.NOT_HOLDER };
-    holder = waiting.length ? waiting.shift() : null;
-    return { ok: true, granted: holder };
-  }
-
-  function spawn(id, from, to, cargo, capacity) {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    const planner = ensurePlanner();
-    if (!planner) return { ok: false, reason: RS.NO_PLANNER };
-    if (typeof id !== 'string' || !id) return { ok: false, reason: RS.BAD_INPUT };
-    if (trains.has(id)) return { ok: false, reason: RS.DUPLICATE };
-    if (trains.size >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY };
-    const p = planner.plan(from, to);
-    if (!p.ok) return p;
-    const qty = cargo && Number.isSafeInteger(cargo.qty) && cargo.qty > 0 ? cargo.qty : 1;
-    const cap = Number.isSafeInteger(capacity) && capacity > 0 ? capacity : 12;
-    if (qty > cap) return { ok: false, reason: 'over-capacity', qty, capacity: cap };
-    trains.set(id, {
-      id, path: p.path, cursor: 0, steps: 0, qty, capacity: cap,
-      batchId: cargo && typeof cargo.batchId === 'string' ? cargo.batchId : id,
-      status: 'READY'
-    });
-    refresh();
-    return { ok: true, path: p.path.slice(), steps: p.steps };
-  }
-
-  function advance(id) {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    const t = trains.get(id);
-    if (!t) return { ok: false, reason: RS.UNKNOWN };
-    if (t.status === 'ARRIVED') return { ok: true, snapshot: snapshotTrain(t) };
-    if (id !== holder) return { ok: false, reason: RS.NO_AUTHORITY, snapshot: snapshotTrain(t) };
-    if (t.cursor >= t.path.length - 1) { t.status = 'ARRIVED'; release(id); refresh(); return { ok: true, snapshot: snapshotTrain(t) }; }
-    const nextTile = t.path[t.cursor + 1];
-    if (broken.has(nextTile)) return { ok: false, reason: RS.TRACK_BROKEN, tile: nextTile, snapshot: snapshotTrain(t) };
-    t.cursor += 1; t.steps += 1; t.status = 'RUNNING';
-    if (t.cursor >= t.path.length - 1) { t.status = 'ARRIVED'; release(id); }
-    refresh();
-    return { ok: true, snapshot: snapshotTrain(t) };
-  }
-
-  function breakTile(i) { broken.add(i); refresh(); return { ok: true, broken: [...broken].sort((a, b) => a - b) }; }
-  function repairTile(i) { broken.delete(i); refresh(); return { ok: true, broken: [...broken].sort((a, b) => a - b) }; }
-
-  function snapshotTrain(t) {
-    return { id: t.id, status: t.status, cursor: t.cursor, pathLength: t.path.length, steps: t.steps, qty: t.qty, capacity: t.capacity, batchId: t.batchId };
-  }
-  function snapshot() {
-    return {
-      ok: true, disabled: off(), maxTrains: MAX_TRAINS, holder,
-      waiting: waiting.slice(), broken: [...broken].sort((a, b) => a - b),
-      trains: [...trains.values()].map(snapshotTrain)
-    };
-  }
-
-  function abortAll(reason) {
-    holder = null; waiting.length = 0; trains.clear();
-    refresh();
-    return { ok: true, reason };
-  }
-
-  function end() {
-    abortAll('ended');
-    if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
-    panel = null;
-    return { ok: true, ended: true };
-  }
-
-  function disable() { window.__noRailBlock055 = true; return end(); }
-
-  function ensurePanel() {
-    if (panel || typeof document === 'undefined') return panel;
-    panel = document.createElement('div');
-    panel.id = 'lab055Panel';
-    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:270px;padding:10px 12px;' +
-      'background:rgba(14,20,34,.94);border:1px solid rgba(150,120,220,.6);border-radius:10px;' +
-      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
-    panel.innerHTML = '<div style="font-weight:700;color:#b9a6ff;letter-spacing:.5px">LAB-06 閉塞區間</div>' +
-      '<div id="lab055Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
-      '<div style="display:flex;gap:6px">' +
-      '<button id="lab055Advance" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #5a4a8f;background:#211b30;color:#dcd0ff;cursor:pointer">推進</button>' +
-      '<button id="lab055Break" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #7a4a4a;background:#2a1d20;color:#ffd6d6;cursor:pointer">斷軌</button>' +
-      '<button id="lab055Close" style="padding:4px 8px;border-radius:6px;border:1px solid #5a4a8f;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
-      '</div>';
-    document.body.appendChild(panel);
-    panel.querySelector('#lab055Advance').addEventListener('click', () => { if (holder) advance(holder); });
-    panel.querySelector('#lab055Break').addEventListener('click', () => {
-      const t = holder && trains.get(holder);
-      if (t && t.cursor + 1 < t.path.length) breakTile(t.path[t.cursor + 1]);
-    });
-    panel.querySelector('#lab055Close').addEventListener('click', () => end());
-    return panel;
-  }
-
-  function refresh() {
-    if (!panel) return;
-    const body = panel.querySelector('#lab055Body');
-    if (!body) return;
-    if (off()) { body.textContent = '（逃生閥 __noRailBlock055 已關閉）'; return; }
-    const s = snapshot();
-    const lines = ['持有路權：' + (s.holder || '（無）')];
-    if (s.waiting.length) lines.push('等待中：' + s.waiting.join('、'));
-    for (const t of s.trains) lines.push(t.id + '：' + t.status + '　' + t.cursor + '/' + (t.pathLength - 1));
-    if (s.broken.length) lines.push('斷軌格：' + s.broken.join(','));
-    body.textContent = lines.join('\n');
-  }
-
-  function open() { ensurePanel(); refresh(); return snapshot(); }
-
-  if (typeof load === 'function') {
-    const nativeLoad055 = load;
-    load = function () { try { abortAll('load'); } catch (e) {} return nativeLoad055.apply(this, arguments); };
-  }
-  if (typeof newWorld === 'function') {
-    const nativeWorld055 = newWorld;
-    newWorld = function () { try { abortAll('new-world'); } catch (e) {} return nativeWorld055.apply(this, arguments); };
-  }
-  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { abortAll('pagehide'); } catch (e) {} });
-
-  const api = Object.freeze({
-    request, release, spawn, advance, breakTile, repairTile, snapshot, open, refresh, end, disable,
-    provenance: { module: 'rail-block055', lab: 'LAB-06', isolation: 'shadow-only', maxTrains: MAX_TRAINS }
-  });
-  window.GV.railBlock055 = api;
-})();
-/* DSK-020 RAIL BLOCK 055 END */
-/* DSK-025 INTERMODAL 057 BEGIN */
-/* DSK-025 / LAB-07：公鐵聯運全程交付（執行期接線）。會被原封不動內嵌進 index.html。
- *
- * 依賴：GV.roadDelivery053.plan()（公路）與 GV.railFreight054.plan()（鐵路）——只借規劃，狀態自己管。
- * 邊界：同一批次、數量守恆；不寫金錢／商品／人口／客流／存檔。
- * 逃生閥：window.__noIntermodal057。
- */
-(function installIntermodal057() {
-  'use strict';
-  const RS = Object.freeze({
-    DISABLED: 'disabled', NO_PLANNER: 'planner-unavailable', BAD_INPUT: 'bad-input',
-    NO_TRIP: 'no-trip', ROAD_NOT_DONE: 'road-not-done', WRONG_STATE: 'wrong-state',
-    OVER_CAPACITY: 'over-capacity', DONE: 'already-delivered'
-  });
-  const off = () => !!window.__noIntermodal057;
-  let trip = null;
-  let panel = null;
-
-  const roadPlanner = () => (window.GV && window.GV.roadDelivery053 && typeof window.GV.roadDelivery053.plan === 'function') ? window.GV.roadDelivery053 : null;
-  const railPlanner = () => (window.GV && window.GV.railFreight054 && typeof window.GV.railFreight054.plan === 'function') ? window.GV.railFreight054 : null;
-
-  function snapshot() {
-    if (!trip) return { ok: false, reason: RS.NO_TRIP, active: false, disabled: off() };
-    return {
-      ok: true, active: trip.status !== 'DELIVERED' && trip.status !== 'CANCELLED', disabled: off(),
-      status: trip.status, batchId: trip.batchId, commodityId: trip.commodityId, qty: trip.qty, capacity: trip.capacity,
-      roadCursor: trip.roadCursor, roadLength: trip.roadPath.length,
-      railCursor: trip.railCursor, railLength: trip.railPath.length,
-      cancelledReason: trip.cancelledReason
-    };
-  }
-
-  function start(opts) {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    const rd = roadPlanner();
-    const rl = railPlanner();
-    if (!rd || !rl) return { ok: false, reason: RS.NO_PLANNER };
-    opts = opts || {};
-    const cargo = opts.cargo || {};
-    const qty = Number.isSafeInteger(cargo.qty) && cargo.qty > 0 ? cargo.qty : 1;
-    const cap = Number.isSafeInteger(opts.capacity) && opts.capacity > 0 ? opts.capacity : 12;
-    if (qty > cap) return { ok: false, reason: RS.OVER_CAPACITY, qty, capacity: cap };
-
-    const road = rd.plan(opts.roadFrom, opts.roadTo);
-    if (!road.ok) return { ok: false, reason: 'road:' + road.reason, leg: 'road' };
-    const rail = rl.plan(opts.railFrom, opts.railTo);
-    if (!rail.ok) return { ok: false, reason: 'rail:' + rail.reason, leg: 'rail' };
-
-    trip = {
-      status: 'ROAD', batchId: typeof cargo.batchId === 'string' && cargo.batchId ? cargo.batchId : 'lab057-' + (opts.roadFrom + '-' + opts.railTo),
-      commodityId: typeof cargo.commodityId === 'string' ? cargo.commodityId : 'food',
-      qty, capacity: cap,
-      roadPath: road.path, roadCursor: 0,
-      railPath: rail.path, railCursor: 0,
-      cancelledReason: null
-    };
-    refresh();
-    return { ok: true, roadSteps: road.steps, railSteps: rail.steps, status: trip.status };
-  }
-
-  function advance() {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    if (!trip) return { ok: false, reason: RS.NO_TRIP };
-    if (trip.status === 'DELIVERED') return { ok: false, reason: RS.DONE, snapshot: snapshot() };
-    if (trip.status !== 'ROAD' && trip.status !== 'RAIL') return { ok: false, reason: RS.WRONG_STATE, snapshot: snapshot() };
-    if (trip.status === 'ROAD') {
-      if (trip.roadCursor >= trip.roadPath.length - 1) { trip.status = 'TRANSFER'; refresh(); return { ok: true, snapshot: snapshot() }; }
-      trip.roadCursor += 1;
-      if (trip.roadCursor >= trip.roadPath.length - 1) trip.status = 'TRANSFER';
-      refresh();
-      return { ok: true, snapshot: snapshot() };
+    if (!panel) return { ok: false, reason: 'panel-not-open' };
+    if (off()) panel.body.textContent = '（逃生閥 __noRailFreight054 已關閉）';
+    else if (!run) panel.body.textContent = '目前沒有貨運列車任務。';
+    else {
+      const s = snapshot();
+      panel.body.textContent = '批次 ' + s.batchId + '（' + s.qty + '/' + s.capacity + ' 件 ' + (s.commodityId || '未指定') + '）\n' +
+        '狀態 ' + s.status + '　進度 ' + s.cursor + '/' + (s.pathLength - 1) + '\n' +
+        (s.status === 'UNLOADED' ? '已卸貨（影子帳，未寫入正式經濟）' : (s.status === 'ABORTED' ? '已中止：' + s.abortReason : '沿真鐵軌前進中'));
     }
-    if (trip.railCursor >= trip.railPath.length - 1) { trip.status = 'DELIVERED'; refresh(); return { ok: true, snapshot: snapshot() }; }
-    trip.railCursor += 1;
-    if (trip.railCursor >= trip.railPath.length - 1) trip.status = 'DELIVERED';
-    refresh();
-    return { ok: true, snapshot: snapshot() };
+    return { ok: true, open: true };
   }
 
-  function transfer() {
-    if (off()) return { ok: false, reason: RS.DISABLED };
-    if (!trip) return { ok: false, reason: RS.NO_TRIP };
-    if (trip.status !== 'TRANSFER') return { ok: false, reason: trip.status === 'ROAD' ? RS.ROAD_NOT_DONE : RS.WRONG_STATE };
-    trip.status = 'RAIL';
-    refresh();
-    return { ok: true, snapshot: snapshot() };
-  }
-
-  function cancel(reason) {
-    if (!trip) return snapshot();
-    if (trip.status !== 'DELIVERED') {
-      trip.status = 'CANCELLED';
-      trip.cancelledReason = typeof reason === 'string' && reason ? reason : 'cancelled';
-    }
+  function open() {
+    if (off()) return no(DISABLED);
+    ensurePanel();
     refresh();
     return snapshot();
   }
 
-  function end() {
-    trip = null;
+  /* 生命週期（T783 B4）：讀檔、開新城、離開頁面都中止列車並移除面板，不讓它跨城市活著。 */
+  function lifecycle(reason) {
+    if (run) run.train.abort(reason);
+    removePanel();
+  }
+  if (typeof load === 'function') {
+    const nativeLoad054 = load;
+    load = function load054() { try { lifecycle('load'); } catch (e) {} return nativeLoad054.apply(this, arguments); };
+  }
+  if (typeof newWorld === 'function') {
+    const nativeWorld054 = newWorld;
+    newWorld = function newWorld054() { try { lifecycle('new-world'); } catch (e) {} return nativeWorld054.apply(this, arguments); };
+  }
+  window.addEventListener('pagehide', function pagehide054() { try { lifecycle('pagehide'); } catch (e) {} });
+
+  window.GV.railFreight054 = Object.freeze({
+    plan, start, runBetween, step, unload, abort, snapshot, open, refresh, end, disable,
+    provenance: Object.freeze(Object.assign({ installed: true }, INFO))
+  });
+})();
+/* DSK-019 RAIL FREIGHT 054 END */
+/* DSK-020 RAIL BLOCK 055 BEGIN */
+/* DSK-020 / LAB-06（T784 補齊）：單線閉塞區間的路權、等待與斷軌恢復（執行期接線）。
+ * 會被原封不動內嵌進 index.html（DSK-020 RAIL BLOCK 055 區塊）。
+ *
+ * 登記：spawn() 用 LAB-05 的 `GV.railFreight054.plan(from, to)` 規劃路線（唯讀）；
+ * spawnFor054() 替 LAB-05 目前那一列任務登記（路線、批次、數量、容量都取那一列，T785 LAB-07 用）；
+ * 只有這樣登記過的列車能要路權。這裡不建立、不推進 LAB-05 自己那一列的任務，兩列車與路權由這裡管。
+ *
+ * 斷軌一律讀真地格（原卡定義）：列車每次要前進，先讀前方那一格的 `tiles[i].rail`；
+ * 沒軌 → track-broken，列車留在原地；那格重新有軌（原生鐵軌工具鋪回）就能繼續。沒有手動斷軌旗標。
+ *
+ * 路權：單一閉塞區間，最多兩列同時在冊（READY／RUNNING）；第一列走、第二列 FIFO 等。
+ * 到站或中止的列車自動讓出名額與路權；路上 release 回 still-running。
+ *
+ * 邊界：只讀鐵軌格；不寫金錢／商品／人口／客流／存檔；沒有亂數、沒有現實時間。
+ * 讀檔、開新城、pagehide、end() 清掉所有列車、等待隊列與斷軌狀態，並移除面板。
+ * 逃生閥：window.__noRailBlock055。開著時所有變更動作回 disabled；安裝當下就開著 → 整段不安裝
+ *（不改寫 load／newWorld、不掛 pagehide），只留一律回 disabled 的介面。
+ */
+(function installRailBlock055() {
+  'use strict';
+  const RS = Object.freeze({
+    BAD_INPUT: 'bad-input', BAD_ROUTE: 'bad-route', TOO_MANY: 'too-many', DUPLICATE: 'duplicate',
+    UNKNOWN_TRAIN: 'unknown-train', FINISHED: 'already-finished', NOT_HOLDER: 'not-holder',
+    STILL_RUNNING: 'still-running', NO_AUTHORITY: 'no-authority', TRACK_BROKEN: 'track-broken',
+    OVER_CAPACITY: 'over-capacity', NO_PLANNER: 'rail-freight-unavailable', REAL_TILES_ONLY: 'real-tiles-only',
+    NO_RUN054: 'no-run054', DISABLED: 'disabled'
+  });
+  const MAX_TRAINS = 2;
+  const DEFAULT_CAPACITY = 12;
+  const UNSAVED = '未保存：重新整理或讀檔就會消失';
+  const PROVENANCE = {
+    module: 'rail-block055', lab: 'LAB-06', card: 'T784', isolation: 'shadow-only', maxTrains: MAX_TRAINS,
+    brokenSource: 'tiles[i].rail', planner: 'GV.railFreight054.plan', panel: 'left-slot-2'
+  };
+  const disabled = () => ({ ok: false, reason: RS.DISABLED, disabled: true });
+
+  if (window.__noRailBlock055) {
+    const emptySnapshot = () => ({
+      ok: false, reason: RS.DISABLED, disabled: true, installed: false, maxTrains: MAX_TRAINS, active: 0,
+      holder: null, waiting: [], broken: [], trains: []
+    });
+    window.GV.railBlock055 = Object.freeze({
+      reasons: RS, spawn: disabled, spawnFor054: disabled, request: disabled, release: disabled, advance: disabled, abort: disabled,
+      breakTile: disabled, repairTile: disabled, snapshot: emptySnapshot, open: disabled, refresh: disabled,
+      end: disabled, disable: disabled,
+      provenance: Object.freeze(Object.assign({}, PROVENANCE, { installed: false }))
+    });
+    return;
+  }
+
+  const off = () => !!window.__noRailBlock055;
+  const isActive = (t) => t.status === 'READY' || t.status === 'RUNNING';
+  const validId = (v) => typeof v === 'string' && v.length > 0;
+  let holder = null;
+  const waiting = [];
+  const trains = new Map();
+  let panel = null, panelBody = null;
+
+  const inGrid = (i) => Number.isInteger(i) && i >= 0 && i < N * N;
+  const hasRail = (i) => inGrid(i) && !!(tiles && tiles[i] && tiles[i].rail);
+  const at = (i) => ({ x: i % N, y: (i / N) | 0 });
+  const activeCount = () => { let n = 0; for (const t of trains.values()) if (isActive(t)) n++; return n; };
+  const planner = () => {
+    const g = window.GV, p = g && g.railFreight054;
+    return p && typeof p.plan === 'function' ? p : null;
+  };
+
+  function routeOk(path) {
+    if (!Array.isArray(path) || path.length === 0) return false;
+    for (let k = 0; k < path.length; k++) {
+      if (!hasRail(path[k])) return false;
+      if (k > 0) {
+        const a = at(path[k - 1]), b = at(path[k]);
+        if (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) !== 1) return false;
+      }
+    }
+    return true;
+  }
+  /* 只看形狀（在圖內、逐格相鄰），不看有沒有軌；spawnFor054 用它把「路線壞了」和「軌被拆了」分開。 */
+  function routeShapeOk(path) {
+    if (!Array.isArray(path) || path.length === 0) return false;
+    for (let k = 0; k < path.length; k++) {
+      if (!inGrid(path[k])) return false;
+      if (k > 0) {
+        const a = at(path[k - 1]), b = at(path[k]);
+        if (Math.abs(a.x - b.x) + Math.abs(a.y - b.y) !== 1) return false;
+      }
+    }
+    return true;
+  }
+
+  function trainView(t) {
+    const next = isActive(t) && t.cursor < t.path.length - 1 ? t.path[t.cursor + 1] : null;
+    return {
+      id: t.id, status: t.status,
+      authority: holder === t.id ? 'holder' : (waiting.includes(t.id) ? 'waiting' : null),
+      cursor: t.cursor, pathLength: t.path.length, steps: t.steps,
+      from: t.path[0], to: t.path[t.path.length - 1], at: t.path[t.cursor], next,
+      blockedTile: t.blockedTile, qty: t.qty, capacity: t.capacity, batchId: t.batchId,
+      commodityId: t.commodityId, abortReason: t.abortReason, run054: t.run054
+    };
+  }
+
+  /* 斷軌狀態不另存：每次都從在冊列車前方的路線格讀真地格。 */
+  function brokenTiles() {
+    const seen = new Set();
+    for (const t of trains.values()) {
+      if (!isActive(t)) continue;
+      for (let k = t.cursor + 1; k < t.path.length; k++) if (!hasRail(t.path[k])) seen.add(t.path[k]);
+    }
+    return [...seen].sort((a, b) => a - b);
+  }
+
+  function snapshot() {
+    return {
+      ok: true, installed: true, disabled: off(), maxTrains: MAX_TRAINS, active: activeCount(),
+      holder, waiting: waiting.slice(), broken: brokenTiles(), trains: [...trains.values()].map(trainView)
+    };
+  }
+
+  /* 到站或中止：讓出名額；若持有路權，交給等待隊列最前面的一列（FIFO）。 */
+  function finish(t, status, why) {
+    t.status = status;
+    if (status === 'ABORTED') t.abortReason = why;
+    const w = waiting.indexOf(t.id);
+    if (w >= 0) waiting.splice(w, 1);
+    let granted = null;
+    if (holder === t.id) { holder = waiting.length ? waiting.shift() : null; granted = holder; }
+    refresh();
+    return granted;
+  }
+
+  function spawn(id, from, to, cargo, capacity) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT, field: 'id' };
+    if (trains.has(id)) return { ok: false, reason: RS.DUPLICATE, id };
+    const c = cargo === undefined || cargo === null ? {} : cargo;
+    if (typeof c !== 'object') return { ok: false, reason: RS.BAD_INPUT, field: 'cargo' };
+    const qty = c.qty === undefined ? 1 : c.qty;
+    if (!Number.isSafeInteger(qty) || qty <= 0) return { ok: false, reason: RS.BAD_INPUT, field: 'qty' };
+    const cap = capacity === undefined ? DEFAULT_CAPACITY : capacity;
+    if (!Number.isSafeInteger(cap) || cap <= 0) return { ok: false, reason: RS.BAD_INPUT, field: 'capacity' };
+    if (c.batchId !== undefined && !validId(c.batchId)) return { ok: false, reason: RS.BAD_INPUT, field: 'batchId' };
+    if (qty > cap) return { ok: false, reason: RS.OVER_CAPACITY, qty, capacity: cap };
+    if (activeCount() >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY, maxTrains: MAX_TRAINS };
+    const p = planner();
+    if (!p) return { ok: false, reason: RS.NO_PLANNER };
+    let r;
+    try { r = p.plan(from, to); } catch (e) { return { ok: false, reason: RS.NO_PLANNER }; }
+    if (!r || r.ok !== true) return { ok: false, reason: (r && validId(r.reason)) ? r.reason : RS.BAD_ROUTE, planner: true, from, to };
+    if (!routeOk(r.path) || r.path[0] !== from || r.path[r.path.length - 1] !== to) return { ok: false, reason: RS.BAD_ROUTE, from, to };
+    const t = {
+      id, path: r.path.slice(), cursor: 0, steps: 0, status: 'READY', qty, capacity: cap,
+      batchId: c.batchId === undefined ? id : c.batchId,
+      commodityId: validId(c.commodityId) ? c.commodityId : null,
+      blockedTile: null, abortReason: null, run054: null
+    };
+    trains.set(id, t);
+    refresh();
+    return { ok: true, id, status: 'READY', path: t.path.slice(), steps: t.path.length - 1 };
+  }
+
+  /* T785（LAB-07）：替 LAB-05 目前那一列任務登記一列車，路線就是那一列的路線（不另外規劃，兩邊逐格相同）。
+   * 批次、數量、商品、容量都取那一列任務，呼叫端不能另給。那一列必須在冊而且還沒開（READY）；
+   * 同一列任務只能登記一次。路線上現在缺軌 → track-broken（回報第一格），不登記。 */
+  function spawnFor054(id) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT, field: 'id' };
+    if (trains.has(id)) return { ok: false, reason: RS.DUPLICATE, id };
+    const g = window.GV, f = g && g.railFreight054;
+    if (!f || typeof f.snapshot !== 'function') return { ok: false, reason: RS.NO_PLANNER };
+    let s;
+    try { s = f.snapshot(); } catch (e) { return { ok: false, reason: RS.NO_PLANNER }; }
+    if (!s || s.ok !== true || s.active !== true || s.status !== 'READY' || !validId(s.sessionId)) {
+      return { ok: false, reason: RS.NO_RUN054, status: s && typeof s.status === 'string' ? s.status : null };
+    }
+    for (const t of trains.values()) if (t.run054 === s.sessionId) return { ok: false, reason: RS.DUPLICATE, run054: s.sessionId };
+    if (!validId(s.batchId) || !Number.isSafeInteger(s.qty) || s.qty <= 0 || !Number.isSafeInteger(s.capacity) || s.capacity <= 0) {
+      return { ok: false, reason: RS.BAD_INPUT, field: 'run054' };
+    }
+    if (s.qty > s.capacity) return { ok: false, reason: RS.OVER_CAPACITY, qty: s.qty, capacity: s.capacity };
+    if (activeCount() >= MAX_TRAINS) return { ok: false, reason: RS.TOO_MANY, maxTrains: MAX_TRAINS };
+    if (!routeShapeOk(s.path)) return { ok: false, reason: RS.BAD_ROUTE, run054: s.sessionId };
+    for (const i of s.path) if (!hasRail(i)) { const p = at(i); return { ok: false, reason: RS.TRACK_BROKEN, tile: i, x: p.x, y: p.y }; }
+    const t = {
+      id, path: s.path.slice(), cursor: 0, steps: 0, status: 'READY', qty: s.qty, capacity: s.capacity,
+      batchId: s.batchId, commodityId: validId(s.commodityId) ? s.commodityId : null,
+      blockedTile: null, abortReason: null, run054: s.sessionId
+    };
+    trains.set(id, t);
+    refresh();
+    return { ok: true, id, status: 'READY', path: t.path.slice(), steps: t.path.length - 1, run054: s.sessionId };
+  }
+
+  function request(id) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT };
+    const t = trains.get(id);
+    if (!t) return { ok: false, reason: RS.UNKNOWN_TRAIN, id };
+    if (!isActive(t)) return { ok: false, reason: RS.FINISHED, id, status: t.status };
+    if (holder === id || waiting.includes(id)) return { ok: false, reason: RS.DUPLICATE, id };
+    if (holder === null) { holder = id; refresh(); return { ok: true, status: 'GRANTED', id }; }
+    waiting.push(id);
+    refresh();
+    return { ok: true, status: 'WAITING', id, position: waiting.length };
+  }
+
+  /* 到站或中止時已自動讓出；這裡只確認，不會在路上放掉路權。 */
+  function release(id) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT };
+    const t = trains.get(id);
+    if (!t) return { ok: false, reason: RS.UNKNOWN_TRAIN, id };
+    if (!isActive(t)) return { ok: true, id, released: false, alreadyReleased: true, status: t.status, holder };
+    if (holder === id) return { ok: false, reason: RS.STILL_RUNNING, id, status: t.status, cursor: t.cursor, pathLength: t.path.length };
+    return { ok: false, reason: RS.NOT_HOLDER, id, holder };
+  }
+
+  function advance(id) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT };
+    const t = trains.get(id);
+    if (!t) return { ok: false, reason: RS.UNKNOWN_TRAIN, id };
+    if (t.status === 'ARRIVED') return { ok: true, moved: false, arrived: true, granted: null, snapshot: trainView(t) };
+    if (t.status === 'ABORTED') return { ok: false, reason: RS.FINISHED, snapshot: trainView(t) };
+    if (holder !== id) return { ok: false, reason: RS.NO_AUTHORITY, holder, snapshot: trainView(t) };
+    if (t.cursor >= t.path.length - 1) {
+      const granted = finish(t, 'ARRIVED', null);
+      return { ok: true, moved: false, arrived: true, granted, snapshot: trainView(t) };
+    }
+    const next = t.path[t.cursor + 1];
+    if (!hasRail(next)) {
+      t.blockedTile = next;
+      refresh();
+      const p = at(next);
+      return { ok: false, reason: RS.TRACK_BROKEN, tile: next, x: p.x, y: p.y, snapshot: trainView(t) };
+    }
+    t.blockedTile = null;
+    t.cursor += 1;
+    t.steps += 1;
+    t.status = 'RUNNING';
+    let granted = null, arrived = false;
+    if (t.cursor >= t.path.length - 1) { arrived = true; granted = finish(t, 'ARRIVED', null); } else refresh();
+    return { ok: true, moved: true, arrived, granted, snapshot: trainView(t) };
+  }
+
+  function abort(id, why) {
+    if (off()) return disabled();
+    if (!validId(id)) return { ok: false, reason: RS.BAD_INPUT };
+    const t = trains.get(id);
+    if (!t) return { ok: false, reason: RS.UNKNOWN_TRAIN, id };
+    if (!isActive(t)) return { ok: false, reason: RS.FINISHED, id, status: t.status };
+    const granted = finish(t, 'ABORTED', validId(why) ? why : 'aborted');
+    return { ok: true, id, status: 'ABORTED', granted, snapshot: trainView(t) };
+  }
+
+  /* 舊名保留：執行期不收手動斷軌旗標，斷軌與修復都看真地格。 */
+  function breakTile(i) { if (off()) return disabled(); return { ok: false, reason: RS.REAL_TILES_ONLY, tile: i }; }
+  function repairTile(i) { if (off()) return disabled(); return { ok: false, reason: RS.REAL_TILES_ONLY, tile: i }; }
+
+  function clearAll() {
+    holder = null;
+    waiting.length = 0;
+    trains.clear();
     if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
     panel = null;
-    return { ok: true, ended: true };
+    panelBody = null;
   }
-  function disable() { window.__noIntermodal057 = true; return end(); }
 
+  /* end／disable 是收尾，閥門開著也照做（面板的 × 與 disable() 都靠它）。 */
+  function end() { clearAll(); return { ok: true, ended: true }; }
+  function disable() { window.__noRailBlock055 = true; return end(); }
+
+  const tileText = (i) => { const p = at(i); return '(' + p.x + ',' + p.y + ')'; };
+
+  function refresh() {
+    if (!panelBody) return;
+    if (off()) { panelBody.textContent = '（逃生閥 __noRailBlock055 已關閉）'; return; }
+    const s = snapshot();
+    const lines = ['持有路權：' + (s.holder || '（無）'), '等待中：' + (s.waiting.length ? s.waiting.join('、') : '（無）')];
+    for (const t of s.trains) {
+      lines.push(t.id + '：' + t.status + '　' + t.cursor + '/' + (t.pathLength - 1) +
+        (t.blockedTile !== null ? '　前方斷軌 ' + tileText(t.blockedTile) : ''));
+    }
+    lines.push('斷軌格（讀真地格）：' + (s.broken.length ? s.broken.map(tileText).join('、') : '（無）'));
+    lines.push('名額：' + s.active + '/' + s.maxTrains);
+    panelBody.textContent = lines.join('\n');
+  }
+
+  function element(tag, css, text) {
+    const e = document.createElement(tag);
+    if (css) e.style.cssText = css;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  /* 面板：左欄四格的第 3 格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3；T785 統一），格高與位置只由視窗高決定，四格互不重疊。 */
   function ensurePanel() {
-    if (panel || typeof document === 'undefined') return panel;
-    panel = document.createElement('div');
-    panel.id = 'lab057Panel';
-    panel.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;width:260px;padding:10px 12px;' +
-      'background:rgba(14,20,34,.94);border:1px solid rgba(90,190,160,.6);border-radius:10px;' +
-      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
-    panel.innerHTML = '<div style="font-weight:700;color:#7fe0c0;letter-spacing:.5px">LAB-07 公鐵聯運</div>' +
-      '<div id="lab057Body" style="margin:6px 0 8px;white-space:pre-wrap"></div>' +
-      '<div style="display:flex;gap:6px">' +
-      '<button id="lab057Advance" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #3f7f6a;background:#16251f;color:#cfffe8;cursor:pointer">前進</button>' +
-      '<button id="lab057Transfer" style="flex:1;padding:4px 6px;border-radius:6px;border:1px solid #5a4a8f;background:#211b30;color:#dcd0ff;cursor:pointer">換裝</button>' +
-      '<button id="lab057Close" style="padding:4px 8px;border-radius:6px;border:1px solid #3f7f6a;background:#151d2e;color:#9fb4d8;cursor:pointer">×</button>' +
-      '</div>';
-    document.body.appendChild(panel);
-    panel.querySelector('#lab057Advance').addEventListener('click', () => advance());
-    panel.querySelector('#lab057Transfer').addEventListener('click', () => transfer());
-    panel.querySelector('#lab057Close').addEventListener('click', () => end());
+    if (panel || typeof document === 'undefined' || !document.body) return panel;
+    const p = element('div', 'position:fixed;left:12px;top:calc(84px + 2 * ((100vh - 120px) / 4 + 8px));z-index:9999;box-sizing:border-box;' +
+      'width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);overflow:auto;padding:10px 12px;' +
+      'background:rgba(14,20,34,.94);border:1px solid rgba(150,120,220,.6);border-radius:10px;' +
+      'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)');
+    p.id = 'lab055Panel';
+    const notice = element('div', 'margin-top:2px;color:#ffd28a;font-size:11px', UNSAVED);
+    notice.id = 'lab055Unsaved';
+    const body = element('div', 'margin:6px 0 8px;white-space:pre-wrap');
+    body.id = 'lab055Body';
+    const row = element('div', 'display:flex;gap:6px');
+    const step = element('button', 'flex:1;padding:4px 6px;border-radius:6px;border:1px solid #5a4a8f;background:#211b30;color:#dcd0ff;cursor:pointer', '推進');
+    step.id = 'lab055Advance';
+    const close = element('button', 'padding:4px 8px;border-radius:6px;border:1px solid #5a4a8f;background:#151d2e;color:#9fb4d8;cursor:pointer', '×');
+    close.id = 'lab055Close';
+    step.addEventListener('click', () => { if (holder) advance(holder); refresh(); });
+    close.addEventListener('click', () => end());
+    row.appendChild(step);
+    row.appendChild(close);
+    p.appendChild(element('div', 'font-weight:700;color:#b9a6ff;letter-spacing:.5px', 'LAB-06 閉塞區間'));
+    p.appendChild(notice);
+    p.appendChild(body);
+    p.appendChild(row);
+    document.body.appendChild(p);
+    panel = p;
+    panelBody = body;
     return panel;
   }
 
-  function refresh() {
-    if (!panel) return;
-    const body = panel.querySelector('#lab057Body');
-    if (!body) return;
-    if (off()) { body.textContent = '（逃生閥 __noIntermodal057 已關閉）'; return; }
-    if (!trip) { body.textContent = '目前沒有聯運任務。'; return; }
-    const s = snapshot();
-    body.textContent = '批次 ' + s.batchId + '（' + s.qty + '/' + s.capacity + ' 件 ' + s.commodityId + '）\n' +
-      '狀態 ' + s.status + '\n公路 ' + s.roadCursor + '/' + (s.roadLength - 1) + '　鐵路 ' + s.railCursor + '/' + (s.railLength - 1) +
-      (s.status === 'DELIVERED' ? '\n已交付（影子帳，未寫入正式經濟）' : (s.status === 'CANCELLED' ? '\n已取消：' + s.cancelledReason : ''));
-  }
-
-  function open() { ensurePanel(); refresh(); return snapshot(); }
+  function open() { if (off()) return disabled(); ensurePanel(); refresh(); return snapshot(); }
 
   if (typeof load === 'function') {
+    const nativeLoad055 = load;
+    load = function () { try { clearAll(); } catch (e) {} return nativeLoad055.apply(this, arguments); };
+  }
+  if (typeof newWorld === 'function') {
+    const nativeWorld055 = newWorld;
+    newWorld = function () { try { clearAll(); } catch (e) {} return nativeWorld055.apply(this, arguments); };
+  }
+  window.addEventListener('pagehide', function () { try { clearAll(); } catch (e) {} });
+
+  window.GV.railBlock055 = Object.freeze({
+    reasons: RS, spawn, spawnFor054, request, release, advance, abort, breakTile, repairTile, snapshot, open, refresh, end, disable,
+    provenance: Object.freeze(Object.assign({}, PROVENANCE, { installed: true }))
+  });
+})();
+/* DSK-020 RAIL BLOCK 055 END */
+/* DSK-025 INTERMODAL 057 BEGIN */
+/* DSK-025 / LAB-07（T785 重新出卡）：公鐵聯運全程交付（執行期接線）。會被原封不動內嵌進 index.html（DSK-025 INTERMODAL 057 區塊）。
+ *
+ * 一趟＝052 研究帳上的一個批次，走完：
+ *   起點物流建築 →（LAB-03 startBetween，真道路）→ 轉運 k166 →（LAB-06 路權）→（LAB-05 runBetween，真鐵軌）→ 目的 k166。
+ * 帳（A1／A4）：批次、數量、商品都取 052 帳上的值，呼叫端不能另給；到站對 052 帳下 HANDOFF 給目的地保管人；
+ *   中途失敗或取消下 FREEZE（寫原因）；全程不新增、不消失。這是影子研究帳，不是正式經濟。
+ * 轉運（A2）：道路段的終點建築與鐵路段的起點建築必須是同一棟 k166，否則 no-interchange，不准瞬移。
+ * 路權（A3）：鐵路段開跑前用 LAB-06 spawnFor054 登記（路線就是 054 那一列）並要路權；拿不到就在轉運點等；到站或中止就釋放。
+ * 狀態（A5）：進行中再開回 busy；每一步重讀該段的真路／真軌，被拆就停在原地回理由；讀檔、開新城、pagehide、end 取消並 FREEZE。
+ * 邊界：只讀道路、鐵軌與建築；不寫金錢／商品／人口／客流／存檔；沒有亂數、沒有現實時間。
+ * 逃生閥：window.__noIntermodal057。
+ *   - 安裝當下就開著：整段不安裝（不改寫 load／newWorld、不掛 pagehide、不建面板），API 一律回 disabled。
+ *   - 安裝之後才打開：開始、推進、開面板回 disabled；取消（照樣 FREEZE）、結束、快照照常。
+ * 對外：window.GV.intermodal057.{start,advance,cancel,snapshot,open,refresh,end,disable,reasons,provenance}
+ */
+(function installIntermodal057() {
+  'use strict';
+  const RS = Object.freeze({
+    DISABLED: 'disabled', BAD_INPUT: 'bad-input', BUSY: 'busy', NO_TRIP: 'no-trip', FINISHED: 'already-finished',
+    DEPENDENCY: 'dependency-unavailable',
+    LEDGER_UNAVAILABLE: 'ledger-unavailable', BATCH_UNAVAILABLE: 'batch-unavailable', BATCH_NOT_READY: 'batch-not-ready',
+    NOT_AT_SOURCE: 'not-at-source', DESTINATION_MISMATCH: 'destination-mismatch', OVER_CAPACITY: 'over-capacity',
+    NO_INTERCHANGE: 'no-interchange', WAITING_AUTHORITY: 'waiting-authority',
+    ROAD_BROKEN: 'road-broken', TRACK_BROKEN: 'track-broken',
+    CUSTODY_LOST: 'custody-lost', LEG_LOST: 'leg-lost', LEDGER_WRITE_FAILED: 'ledger-write-failed'
+  });
+  const INFO = {
+    module: 'intermodal057', lab: 'LAB-07', card: 'T785', isolation: 'shadow-only', persisted: false,
+    ledger: 'GV.singleResearch052', legs: ['road:GV.roadDelivery053.startBetween', 'rail:GV.railFreight054.runBetween'],
+    authority: 'GV.railBlock055.spawnFor054', interchangeK: 166, panel: 'left-slot-3'
+  };
+  const disabled = () => ({ ok: false, reason: RS.DISABLED, disabled: true });
+
+  if (window.__noIntermodal057) {
+    const inert = { start: disabled, advance: disabled, cancel: disabled, open: disabled, refresh: disabled, end: disabled, disable: disabled };
+    inert.snapshot = () => ({ ok: false, reason: RS.DISABLED, active: false, disabled: true, installed: false });
+    inert.reasons = RS;
+    inert.provenance = Object.freeze(Object.assign({ installed: false }, INFO));
+    window.GV.intermodal057 = Object.freeze(inert);
+    return;
+  }
+
+  const HUB_K = 166;
+  const UNSAVED = '未保存：重新整理或讀檔就會消失';
+  const KEYS = ['batchId', 'originCustodian', 'destinationCustodian', 'roadFrom', 'roadTo', 'railFrom', 'railTo', 'capacity'];
+  const REQUIRED = KEYS.filter((k) => k !== 'capacity');
+  const LEDGER_OWNED = ['qty', 'commodityId', 'cargo', 'batch'];
+  const ACTIVE = ['ROAD', 'INTERCHANGE', 'WAITING_AUTHORITY', 'RAIL'];
+  // 面板：左欄四格的第 4 格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3），格高與位置只由視窗高決定，四格互不重疊。
+  const PANEL_CSS = 'position:fixed;left:12px;top:calc(84px + 3 * ((100vh - 120px) / 4 + 8px));' +
+    'width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);box-sizing:border-box;overflow:auto;z-index:9999;' +
+    'padding:10px 12px;background:rgba(14,20,34,.94);border:1px solid rgba(90,190,160,.6);border-radius:10px;' +
+    'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';
+  const off = () => !!window.__noIntermodal057;
+  const copy = (v) => (v === undefined ? undefined : JSON.parse(JSON.stringify(v)));
+  const no = (reason, extra) => Object.assign({ ok: false, reason }, extra || {});
+  const isId = (v) => typeof v === 'string' && /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$/.test(v);
+  const inGrid = (i) => Number.isInteger(i) && Number.isInteger(N) && i >= 0 && i < N * N;
+  const xy = (i) => ({ x: i % N, y: (i / N) | 0 });
+  const hasRoad = (i) => inGrid(i) && !!(tiles && tiles[i] && tiles[i].road);
+  function isHubRoot(i) {
+    const b = inGrid(i) && tiles && tiles[i] && tiles[i].bld;
+    return !!(b && !b.ref && b.k === HUB_K);
+  }
+
+  let trip = null;      // 進行中或剛結束的一趟
+  let lastEnded = null; // 讀檔／開新城／pagehide／end 收掉的上一趟（只留結果，看得到 FREEZE 有沒有成功）
+  let panel = null;     // { root, body }
+  let seq = 0;
+
+  /* 依賴：052 研究帳、053 道路、054 鐵路、055 路權。少一個就不開始，也不推進。 */
+  function deps() {
+    const g = window.GV || {};
+    const need = {
+      ledger: [g.singleResearch052, ['snapshot', 'command']],
+      road: [g.roadDelivery053, ['startBetween', 'snapshot', 'step', 'cancel']],
+      rail: [g.railFreight054, ['runBetween', 'snapshot', 'step', 'unload', 'abort']],
+      block: [g.railBlock055, ['spawnFor054', 'request', 'advance', 'abort', 'snapshot']]
+    };
+    const out = { ok: true, missing: [] };
+    for (const [name, [api, fns]] of Object.entries(need)) {
+      if (!api || fns.some((f) => typeof api[f] !== 'function')) { out.missing.push(name); out[name] = null; } else out[name] = api;
+    }
+    out.ok = out.missing.length === 0;
+    return out;
+  }
+  function disabledLegs(d) {
+    const out = [];
+    for (const name of ['road', 'rail', 'block']) {
+      const api = d[name];
+      let s = null;
+      try { s = api.snapshot(); } catch (e) { s = null; }
+      if ((api.provenance && api.provenance.installed === false) || !s || s.disabled === true) out.push(name);
+    }
+    return out;
+  }
+
+  function ledgerBatch(d, batchId) {
+    if (!d.ledger) return { ok: false, code: 'ledger-missing' };
+    let s = null;
+    try { s = d.ledger.snapshot(); } catch (e) { s = null; }
+    if (!s || s.ok !== true || s.active !== true || !s.ledger) return { ok: false, code: (s && s.code) || 'session-unavailable' };
+    const b = (s.ledger.batches || []).find((x) => x && x.batchId === batchId) || null;
+    return { ok: true, ledger: s.ledger, batch: b };
+  }
+
+  /* 每一步重核帳：同一個 052 會話、同一個批次、狀態與監管鏈沒被別人動過。 */
+  function custody(d) {
+    const r = ledgerBatch(d, trip.batchId);
+    if (!r.ok) return { ok: false, code: r.code };
+    if (r.ledger.sessionId !== trip.ledger.sessionId) return { ok: false, code: 'session-changed' };
+    const b = r.batch;
+    if (!b) return { ok: false, code: 'batch-missing' };
+    if (b.state !== 'SOURCE_READY' || b.owner !== trip.ledger.owner || b.location !== trip.ledger.location ||
+      b.eventSeq !== trip.ledger.eventSeq || b.qty !== trip.qty || b.commodityId !== trip.commodityId) {
+      return { ok: false, code: 'batch-changed', state: b.state, owner: b.owner };
+    }
+    return { ok: true, revision: r.ledger.revision, conservation: r.ledger.conservation };
+  }
+
+  /* 帳上寫一筆（HANDOFF／FREEZE）：監管鏈照帳上的持有人與位置；會話或批次變了就不寫。 */
+  function ledgerWrite(d, type, extra) {
+    const c = custody(d);
+    if (!c.ok) return { ok: false, code: c.code, written: false };
+    const payload = Object.assign({ owner: trip.ledger.owner, location: trip.ledger.location }, extra);
+    let r;
+    try {
+      r = d.ledger.command({
+        eventId: 'lab057-' + trip.seq + '-' + type.toLowerCase(), sessionId: trip.ledger.sessionId, batchId: trip.batchId,
+        type, expectedRevision: c.revision, payload
+      });
+    } catch (e) { r = { ok: false, code: 'ledger-threw' }; }
+    return Object.assign({ written: !!(r && r.ok) }, copy(r) || { ok: false, code: 'ledger-no-result' });
+  }
+
+  function legSnap(api) { try { return api.snapshot(); } catch (e) { return null; } }
+
+  /* 收掉三段：還在冊的才收；收的理由一律帶 lab057: 前綴。 */
+  function abortLegs(d, why) {
+    const tag = 'lab057:' + why;
+    if (trip.status === 'ROAD' && d.road) {
+      const r = legSnap(d.road);
+      if (r && r.sessionId === trip.road.sessionId && r.active) try { d.road.cancel(tag); } catch (e) {}
+    }
+    const s = d.rail ? legSnap(d.rail) : null;
+    if (s && s.sessionId === trip.rail.sessionId && s.active) try { d.rail.abort(tag); } catch (e) {}
+    if (trip.train.registered && d.block) {
+      const b = legSnap(d.block), t = b && b.trains && b.trains.find((x) => x.id === trip.train.id);
+      if (t && (t.status === 'READY' || t.status === 'RUNNING')) try { d.block.abort(trip.train.id, tag); } catch (e) {}
+    }
+  }
+
+  function finish(status, extra) {
+    trip.status = status;
+    Object.assign(trip, extra || {});
+    refresh();
+  }
+
+  /* 中途失敗：收掉各段，能寫帳就 FREEZE（寫原因），寫不了就照實記下。 */
+  function fail(d, reason, detail, freeze) {
+    abortLegs(d, reason);
+    const f = freeze === false ? { ok: false, code: 'not-attempted', written: false } :
+      ledgerWrite(d, 'FREEZE', { reason: ('lab057:' + reason + (detail ? ':' + detail : '')).slice(0, 160) });
+    trip.ledger.freeze = f;
+    finish('FAILED', { failure: { reason, detail: detail || null } });
+    return no(reason, { detail: detail || null, freeze: copy(f), snapshot: snapshot() });
+  }
+
+  function checkInput(opts) {
+    if (!opts || typeof opts !== 'object' || Array.isArray(opts)) return no(RS.BAD_INPUT, { detail: 'opts' });
+    for (const k of Object.keys(opts)) {
+      if (LEDGER_OWNED.includes(k)) return no(RS.BAD_INPUT, { detail: 'ledger-owned', field: k });
+      if (!KEYS.includes(k)) return no(RS.BAD_INPUT, { detail: 'unknown-field', field: k });
+    }
+    for (const k of REQUIRED) if (!(k in opts)) return no(RS.BAD_INPUT, { detail: 'missing', field: k });
+    for (const k of ['batchId', 'originCustodian', 'destinationCustodian']) if (!isId(opts[k])) return no(RS.BAD_INPUT, { detail: 'id', field: k });
+    for (const k of ['roadFrom', 'roadTo', 'railFrom', 'railTo']) if (!inGrid(opts[k])) return no(RS.BAD_INPUT, { detail: 'tile', field: k });
+    if (opts.capacity !== undefined && (!Number.isSafeInteger(opts.capacity) || opts.capacity <= 0)) return no(RS.BAD_INPUT, { detail: 'capacity', field: 'capacity' });
+    return null;
+  }
+
+  function start(opts) {
+    if (off()) return disabled();
+    if (trip && ACTIVE.includes(trip.status)) return no(RS.BUSY, { tripId: trip.id, status: trip.status });
+    const bad = checkInput(opts);
+    if (bad) return bad;
+    const d = deps();
+    if (!d.ok) return no(RS.DEPENDENCY, { missing: d.missing });
+    const legsOff = disabledLegs(d);
+    if (legsOff.length) return no(RS.DEPENDENCY, { detail: 'disabled', legs: legsOff });
+
+    // A1：同一批次，全部取帳上的值。
+    const lb = ledgerBatch(d, opts.batchId);
+    if (!lb.ok) return no(RS.LEDGER_UNAVAILABLE, { code: lb.code });
+    const b = lb.batch;
+    if (!b) return no(RS.BATCH_UNAVAILABLE, { batchId: opts.batchId });
+    if (b.state !== 'SOURCE_READY') return no(RS.BATCH_NOT_READY, { state: b.state });
+    if (b.owner !== opts.originCustodian || b.owner !== b.source) return no(RS.NOT_AT_SOURCE, { owner: b.owner, source: b.source, originCustodian: opts.originCustodian });
+    if (b.destination !== opts.destinationCustodian) return no(RS.DESTINATION_MISMATCH, { destination: b.destination, destinationCustodian: opts.destinationCustodian });
+    const qty = b.qty, commodityId = b.commodityId;
+    const prov = d.rail.provenance || {};
+    const capacity = opts.capacity !== undefined ? opts.capacity : (Number.isSafeInteger(prov.defaultCapacity) ? prov.defaultCapacity : 12);
+    if (qty > capacity) return no(RS.OVER_CAPACITY, { qty, capacity });
+
+    // A2：轉運點是同一棟 k166。
+    if (opts.roadTo !== opts.railFrom) return no(RS.NO_INTERCHANGE, { detail: 'different-buildings', roadTo: opts.roadTo, railFrom: opts.railFrom });
+    if (!isHubRoot(opts.roadTo)) return no(RS.NO_INTERCHANGE, { detail: 'not-k166', hub: opts.roadTo });
+
+    // 兩段都先排好才出發（不半途）：道路段建任務；鐵路段建任務並保留（READY，到轉運點才登記路權）。
+    const cargo = { batchId: b.batchId, qty, commodityId };
+    let road;
+    try { road = d.road.startBetween(opts.roadFrom, opts.roadTo, cargo); } catch (e) { road = { ok: false, reason: 'road-threw' }; }
+    if (!road || !road.ok) return no(road && road.reason ? road.reason : 'road-refused', { leg: 'road', detail: road ? copy(road) : null });
+    let rail;
+    try { rail = d.rail.runBetween(opts.railFrom, opts.railTo, cargo, capacity); } catch (e) { rail = { ok: false, reason: 'rail-threw' }; }
+    if (!rail || !rail.ok) {
+      try { d.road.cancel('lab057:rail-leg-refused'); } catch (e) {}
+      return no(rail && rail.reason ? rail.reason : 'rail-refused', { leg: 'rail', detail: rail ? copy(rail) : null });
+    }
+    // 道路段終點貼轉運點的前接、鐵路段起點貼轉運點的軌（兩個規劃器各自保證；這裡再核一次，不對就整趟不開始）。
+    const rp = road.path || [], lp = rail.path || [];
+    const joined = road.destinationRoot === opts.roadTo && Array.isArray(road.destinationFrontage) && road.destinationFrontage.includes(rp[rp.length - 1]) &&
+      rail.originRoot === opts.railFrom && Array.isArray(rail.originFrontage) && rail.originFrontage.includes(lp[0]);
+    if (!joined) {
+      try { d.road.cancel('lab057:interchange-mismatch'); } catch (e) {}
+      try { d.rail.abort('lab057:interchange-mismatch'); } catch (e) {}
+      return no(RS.NO_INTERCHANGE, { detail: 'leg-endpoints' });
+    }
+
+    const id = 'lab057-' + (++seq);
+    if (trip) lastEnded = Object.assign({ endedBy: 'replaced' }, view(trip));
+    trip = {
+      id, seq, status: 'ROAD', batchId: b.batchId, qty, commodityId, capacity,
+      custodians: { origin: opts.originCustodian, destination: opts.destinationCustodian },
+      roadFrom: opts.roadFrom, hub: opts.roadTo, railTo: opts.railTo,
+      road: { sessionId: road.sessionId, path: rp.slice(), cursor: 0 },
+      rail: { sessionId: rail.sessionId, path: lp.slice(), cursor: 0 },
+      train: { id, registered: false },
+      ledger: {
+        sessionId: lb.ledger.sessionId, owner: b.owner, location: b.location, eventSeq: b.eventSeq,
+        revisionAtStart: lb.ledger.revision, handoff: null, freeze: null
+      },
+      blocked: null, cancelledReason: null, failure: null
+    };
+    const rs = legSnap(d.road);
+    if (rs && rs.sessionId === trip.road.sessionId && rs.status === 'DELIVERED') trip.status = 'INTERCHANGE';
+    refresh();
+    return {
+      ok: true, tripId: id, status: trip.status, batchId: trip.batchId, qty, commodityId, capacity,
+      roadSteps: rp.length - 1, railSteps: lp.length - 1, road: { sessionId: road.sessionId }, rail: { sessionId: rail.sessionId },
+      ledger: { sessionId: trip.ledger.sessionId, revision: trip.ledger.revisionAtStart }
+    };
+  }
+
+  const stay = (reason, extra) => { trip.blocked = Object.assign({ reason }, extra || {}); refresh(); return no(reason, Object.assign({}, extra || {}, { snapshot: snapshot() })); };
+  const moved = (extra) => { trip.blocked = null; refresh(); return Object.assign({ ok: true }, extra || {}, { snapshot: snapshot() }); };
+
+  /* 各段的紀錄必須還是這一趟的那一筆，而且沒被別人推過（例如 053／054 自己面板的「前進一格」）。 */
+  function legsIntact(d) {
+    if (trip.status === 'ROAD') {
+      const r = legSnap(d.road);
+      if (!r || r.sessionId !== trip.road.sessionId) return 'road';
+      if (r.status === 'CANCELLED') return 'road-cancelled';
+      if (r.cursor !== trip.road.cursor) return 'road-desync';
+    }
+    const s = legSnap(d.rail);
+    if (!s || s.sessionId !== trip.rail.sessionId) return 'rail';
+    if (s.status === 'ABORTED') return 'rail-aborted';
+    if (s.cursor !== trip.rail.cursor) return 'rail-desync';
+    if (trip.train.registered) {
+      const b = legSnap(d.block), t = b && b.trains && b.trains.find((x) => x.id === trip.train.id);
+      if (!t || t.run054 !== trip.rail.sessionId) return 'block';
+      if (t.status === 'ABORTED') return 'block-aborted';
+      if (t.cursor !== trip.rail.cursor) return 'block-desync';
+    }
+    return null;
+  }
+
+  function advance() {
+    if (off()) return disabled();
+    if (!trip) return no(RS.NO_TRIP);
+    if (!ACTIVE.includes(trip.status)) return no(RS.FINISHED, { status: trip.status, snapshot: snapshot() });
+    const d = deps();
+    if (!d.ok) return stay(RS.DEPENDENCY, { missing: d.missing });
+    const legsOff = disabledLegs(d);
+    if (legsOff.length) return stay(RS.DEPENDENCY, { detail: 'disabled', legs: legsOff });
+    const c = custody(d);
+    if (!c.ok) return fail(d, RS.CUSTODY_LOST, c.code, false);
+    const broken = legsIntact(d);
+    if (broken) return fail(d, RS.LEG_LOST, broken);
+
+    if (trip.status === 'ROAD') {
+      const path = trip.road.path, next = path[trip.road.cursor + 1];
+      if (!hasRoad(next)) { const p = xy(next); return stay(RS.ROAD_BROKEN, { leg: 'road', tile: next, x: p.x, y: p.y }); }
+      const r = d.road.step();
+      if (!r || !r.ok || !r.snapshot) return stay(RS.DEPENDENCY, { leg: 'road', detail: r && r.reason });
+      trip.road.cursor = r.snapshot.cursor;
+      if (r.snapshot.status === 'DELIVERED') trip.status = 'INTERCHANGE';
+      return moved({ moved: true, leg: 'road' });
+    }
+
+    if (trip.status === 'INTERCHANGE') {
+      if (!isHubRoot(trip.hub)) return stay(RS.NO_INTERCHANGE, { detail: 'hub-gone', hub: trip.hub });
+      const sp = d.block.spawnFor054(trip.train.id);
+      if (!sp || !sp.ok) {
+        const why = sp && sp.reason;
+        if (why === 'too-many') return stay(RS.WAITING_AUTHORITY, { detail: 'too-many' });
+        if (why === 'track-broken') return stay(RS.TRACK_BROKEN, { leg: 'rail', tile: sp.tile, x: sp.x, y: sp.y });
+        return fail(d, RS.LEG_LOST, 'block-register:' + (why || 'unknown'));
+      }
+      if (!Array.isArray(sp.path) || sp.path.join(',') !== trip.rail.path.join(',') || sp.run054 !== trip.rail.sessionId) {
+        return fail(d, RS.LEG_LOST, 'block-route-mismatch');
+      }
+      trip.train.registered = true;
+      const rq = d.block.request(trip.train.id);
+      if (rq && rq.ok && rq.status === 'GRANTED') { trip.status = 'RAIL'; return moved({ moved: false, leg: 'interchange', authority: 'GRANTED' }); }
+      if (rq && rq.ok && rq.status === 'WAITING') { trip.status = 'WAITING_AUTHORITY'; return moved({ moved: false, leg: 'interchange', authority: 'WAITING', position: rq.position }); }
+      return fail(d, RS.LEG_LOST, 'block-request:' + ((rq && rq.reason) || 'unknown'));
+    }
+
+    if (trip.status === 'WAITING_AUTHORITY') {
+      const b = legSnap(d.block);
+      if (b && b.holder === trip.train.id) { trip.status = 'RAIL'; return moved({ moved: false, leg: 'interchange', authority: 'GRANTED' }); }
+      return stay(RS.WAITING_AUTHORITY, { holder: b ? b.holder : null, position: b && b.waiting ? b.waiting.indexOf(trip.train.id) + 1 : null });
+    }
+
+    // RAIL：055 管路權與每一步的真軌判定；054 那一列跟著同步前進（兩邊同一條路線，逐格相同）。
+    const a = d.block.advance(trip.train.id);
+    if (!a || !a.ok) {
+      const why = a && a.reason;
+      if (why === 'track-broken') return stay(RS.TRACK_BROKEN, { leg: 'rail', tile: a.tile, x: a.x, y: a.y });
+      return fail(d, RS.LEG_LOST, 'block-advance:' + (why || 'unknown'));
+    }
+    let s = null;
+    if (a.moved || (a.arrived && legSnap(d.rail).status !== 'ARRIVED')) {
+      s = d.rail.step();
+      if (!s || !s.ok || !s.snapshot) return fail(d, RS.LEG_LOST, 'rail-step:' + ((s && s.reason) || 'unknown'));
+      trip.rail.cursor = s.snapshot.cursor;
+    }
+    if (!a.arrived) return moved({ moved: true, leg: 'rail' });
+    const rs = legSnap(d.rail);
+    if (!rs || rs.status !== 'ARRIVED' || rs.cursor !== a.snapshot.cursor) return fail(d, RS.LEG_LOST, 'rail-desync');
+    const u = d.rail.unload();
+    if (!u || !u.ok) return fail(d, RS.LEG_LOST, 'rail-unload:' + ((u && u.reason) || 'unknown'));
+    // A4：到站對 052 帳下 HANDOFF，監管鏈照帳上的持有人與位置，交給批次本來的目的地。
+    const h = ledgerWrite(d, 'HANDOFF', { to: trip.custodians.destination });
+    trip.ledger.handoff = h;
+    if (!h.ok) { finish('FAILED', { failure: { reason: RS.LEDGER_WRITE_FAILED, detail: h.code || null } }); return no(RS.LEDGER_WRITE_FAILED, { code: h.code, snapshot: snapshot() }); }
+    trip.blocked = null;
+    finish('DELIVERED');
+    return { ok: true, moved: !!a.moved, leg: 'rail', delivered: true, handoff: copy(h), snapshot: snapshot() };
+  }
+
+  /* 取消（A5）：收掉各段並 FREEZE（寫原因）。閥門開著也照做。 */
+  function cancel(reason) {
+    if (!trip || !ACTIVE.includes(trip.status)) return snapshot();
+    const why = typeof reason === 'string' && reason ? reason : 'cancelled';
+    const d = deps();
+    abortLegs(d, 'cancel:' + why);
+    trip.ledger.freeze = ledgerWrite(d, 'FREEZE', { reason: ('lab057:cancel:' + why).slice(0, 160) });
+    finish('CANCELLED', { cancelledReason: why });
+    return snapshot();
+  }
+
+  function view(t) {
+    if (!t) return null;
+    const at = (leg) => leg.path[Math.min(leg.cursor, leg.path.length - 1)];
+    return {
+      tripId: t.id, status: t.status, active: ACTIVE.includes(t.status), batchId: t.batchId, commodityId: t.commodityId,
+      qty: t.qty, capacity: t.capacity, custodians: t.custodians, roadFrom: t.roadFrom, hub: t.hub, railTo: t.railTo,
+      road: { sessionId: t.road.sessionId, cursor: t.road.cursor, pathLength: t.road.path.length, at: at(t.road), path: t.road.path },
+      rail: { sessionId: t.rail.sessionId, cursor: t.rail.cursor, pathLength: t.rail.path.length, at: at(t.rail), path: t.rail.path },
+      train: t.train, ledger: t.ledger, blocked: t.blocked, cancelledReason: t.cancelledReason, failure: t.failure
+    };
+  }
+
+  function snapshot() {
+    if (!trip) return copy({ ok: false, reason: RS.NO_TRIP, active: false, disabled: off(), lastEnded });
+    return copy(Object.assign({ ok: true, disabled: off(), lastEnded }, view(trip)));
+  }
+
+  function removePanel() {
+    const p = panel;
+    panel = null;
+    if (p && p.root.parentNode) p.root.parentNode.removeChild(p.root);
+  }
+
+  /* 收掉這一趟（還在路上就先取消並 FREEZE），只留結果在 lastEnded。 */
+  function close(why) {
+    if (trip) {
+      if (ACTIVE.includes(trip.status)) cancel(why);
+      lastEnded = Object.assign({ endedBy: why }, view(trip));
+    }
+    trip = null;
+    removePanel();
+  }
+  function end() { close('end'); return { ok: true, ended: true, lastEnded: copy(lastEnded) }; }
+  function disable() { window.__noIntermodal057 = true; return end(); }
+
+  function ensurePanel() {
+    if (panel || typeof document === 'undefined' || !document.body) return panel;
+    const el = (tag, id, text, css) => {
+      const n = document.createElement(tag);
+      if (id) n.id = id;
+      if (text) n.textContent = text;
+      if (css) n.style.cssText = css;
+      return n;
+    };
+    const root = el('div', 'lab057Panel', null, PANEL_CSS);
+    if (root.setAttribute) { root.setAttribute('role', 'dialog'); root.setAttribute('aria-label', 'LAB-07 公鐵聯運'); }
+    const title = el('div', null, 'LAB-07 公鐵聯運', 'font-weight:700;color:#7fe0c0;letter-spacing:.5px');
+    const unsaved = el('div', 'lab057Unsaved', UNSAVED, 'color:#ffd38a');
+    const body = el('div', 'lab057Body', null, 'margin:6px 0 8px;white-space:pre-wrap');
+    const row = el('div', null, null, 'display:flex;gap:6px');
+    const button = (id, label, css, fn) => {
+      const b = el('button', id, label, 'padding:4px 6px;border-radius:6px;cursor:pointer;' + css);
+      b.type = 'button';
+      b.addEventListener('click', fn);
+      row.appendChild(b);
+    };
+    button('lab057Advance', '前進', 'flex:1;border:1px solid #3f7f6a;background:#16251f;color:#cfffe8', () => { advance(); refresh(); });
+    button('lab057Cancel', '取消', 'flex:1;border:1px solid #6b4a4a;background:#2a1d20;color:#ffd6d6', () => cancel('panel-cancel'));
+    button('lab057Close', '×', 'border:1px solid #3f7f6a;background:#151d2e;color:#9fb4d8', () => end());
+    root.appendChild(title);
+    root.appendChild(unsaved);
+    root.appendChild(body);
+    root.appendChild(row);
+    document.body.appendChild(root);
+    panel = { root, body };
+    return panel;
+  }
+
+  const STATUS_TEXT = { ROAD: '公路段', INTERCHANGE: '在轉運點', WAITING_AUTHORITY: '在轉運點等路權', RAIL: '鐵路段', DELIVERED: '已交付', CANCELLED: '已取消', FAILED: '中止' };
+  function refresh() {
+    if (!panel) return { ok: false, reason: 'panel-not-open' };
+    if (off()) panel.body.textContent = '（逃生閥 __noIntermodal057 已關閉）';
+    else if (!trip) panel.body.textContent = '目前沒有聯運任務。';
+    else {
+      const s = view(trip);
+      const lines = [
+        '批次 ' + s.batchId + '（' + s.qty + '/' + s.capacity + ' 件 ' + s.commodityId + '）',
+        '狀態 ' + (STATUS_TEXT[s.status] || s.status) + '　公路 ' + s.road.cursor + '/' + (s.road.pathLength - 1) + '　鐵路 ' + s.rail.cursor + '/' + (s.rail.pathLength - 1)
+      ];
+      if (s.blocked) lines.push('停住：' + s.blocked.reason + (s.blocked.tile !== undefined ? ' (' + s.blocked.x + ',' + s.blocked.y + ')' : ''));
+      if (s.status === 'DELIVERED') lines.push('已交給 ' + s.custodians.destination + '（影子研究帳，未寫入正式經濟）');
+      if (s.status === 'CANCELLED') lines.push('已取消：' + s.cancelledReason + '　帳 ' + (s.ledger.freeze && s.ledger.freeze.ok ? 'FROZEN' : '未寫入'));
+      if (s.status === 'FAILED') lines.push('中止：' + s.failure.reason + (s.failure.detail ? '（' + s.failure.detail + '）' : '') + '　帳 ' + (s.ledger.freeze && s.ledger.freeze.ok ? 'FROZEN' : '未寫入'));
+      panel.body.textContent = lines.join('\n');
+    }
+    return { ok: true, open: true };
+  }
+
+  function open() {
+    if (off()) return disabled();
+    ensurePanel();
+    refresh();
+    return snapshot();
+  }
+
+  /* 生命週期（A5）：讀檔、開新城、離開頁面都取消並 FREEZE，再清掉這一趟與面板，不讓它跨城市活著。 */
+  if (typeof load === 'function') {
     const nativeLoad057 = load;
-    load = function () { try { cancel('load'); } catch (e) {} return nativeLoad057.apply(this, arguments); };
+    load = function load057() { try { close('load'); } catch (e) {} return nativeLoad057.apply(this, arguments); };
   }
   if (typeof newWorld === 'function') {
     const nativeWorld057 = newWorld;
-    newWorld = function () { try { cancel('new-world'); } catch (e) {} return nativeWorld057.apply(this, arguments); };
+    newWorld = function newWorld057() { try { close('new-world'); } catch (e) {} return nativeWorld057.apply(this, arguments); };
   }
-  if (typeof window !== 'undefined') window.addEventListener('pagehide', function () { try { cancel('pagehide'); } catch (e) {} });
+  window.addEventListener('pagehide', function pagehide057() { try { close('pagehide'); } catch (e) {} });
 
-  const api = Object.freeze({
-    start, advance, transfer, cancel, snapshot, open, refresh, end, disable,
-    provenance: { module: 'intermodal057', lab: 'LAB-07', isolation: 'shadow-only', legs: ['road', 'rail'] }
+  window.GV.intermodal057 = Object.freeze({
+    start, advance, cancel, snapshot, open, refresh, end, disable, reasons: RS,
+    provenance: Object.freeze(Object.assign({ installed: true }, INFO))
   });
-  window.GV.intermodal057 = api;
 })();
 /* DSK-025 INTERMODAL 057 END */
 Object.assign(window.GV,{art574:{SPR:()=>SPR,cv,shade,isoBox,outlineSprite,dia,diaEdge,lightFaces549,fillPara547,edgeWall547,paraPt559,roofKit559,lotFill570,winShape570,wallBand565,classicTrim565,modernTrim565,metroPalette516,metroFacade516,metroChimney516,metroRand516,hashLocal479,VARK:()=>[...VARK574],vdraw:vdraw574,plant574:(list)=>{const out=[];for(const q of list){if(q.grid){const[gw,gh]=q.grid;for(let dy=0;dy<gh;dy++)for(let dx=0;dx<gw;dx++){const X=q.x+dx,Y=q.y+dy;if(!inMap(X,Y))continue;const t=tiles[idx(X,Y)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld={k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1,den:(q.den|0)||1,we:(q.we==null?1:q.we)};}out.push({k:q.k,x:q.x,y:q.y,grid:q.grid,lv:(q.lv|0)||1,v:q.v|0});continue;}const sz=(q.sz|0)||1;let ok=true;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++)if(!inMap(q.x+dx,q.y+dy))ok=false;if(!ok)continue;for(let dy=0;dy<sz;dy++)for(let dx=0;dx<sz;dx++){const t=tiles[idx(q.x+dx,q.y+dy)];t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;t.bld=(dx===0&&dy===0)?Object.assign({k:q.k,lv:(q.lv|0)||1,v:(q.v|0),age:30,pw:true,h:1},sz>1?{sz}:{}):{k:q.k,ref:[q.x,q.y]};}out.push({k:q.k,x:q.x,y:q.y,sz,v:vdraw574({x:q.x,y:q.y},tiles[idx(q.x,q.y)].bld)});}return out;},land574:(x,y)=>inMap(x,y)&&tiles[idx(x,y)].t!==0,zoom574:(zz)=>{cam.z=zz;zoomAnim=null;return cam.z;},cycle574:()=>CYCLE,iso575:makeIso575,lerp2:lerp2_547,gableEnd:gableEnd547,pitchPara:pitchPara547,sawtoothPara:sawtoothPara547,tileLines:tileLines557,downpipe:downpipe557,bayDoor:bayDoor557,wallCourse:wallCourse556,shrinkPara:shrinkPara547,blockCorners:blockCorners547,subPara:subPara568,massBox:massBox568,villaYard:villaYard559,outlineSprite,facadeFor:facadeFor577,road577:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcMask(x+dx,y+dy);}return path.length;},tileAt613:(x0,y0,w,h)=>{const F=['road','rail','tram','lv475','ud475','hv471','ug471','wm472','sm472','tree','deco','dock'];const rows=[];for(let y=y0;y<y0+h;y++){const r=[];for(let x=x0;x<x0+w;x++){if(!inMap(x,y)){r.push('  ');continue;}const t=tiles[idx(x,y)];r.push((t.bld?(t.bld.ref?'r':'B'):t.t===0?'~':'.')+(F.filter(f=>t[f]).map(f=>f[0]==='l'?'L':f[0]==='u'?(f==='ud475'?'U':'G'):f[0]==='h'?'H':f[0]==='r'?(f==='rail'?'R':'o'):f[0]==='t'?(f==='tram'?'T':'t'):f[0]==='w'?'W':f[0]==='s'?'S':f[0]==='d'?(f==='dock'?'K':'d'):'?').join('')||' '));}rows.push(r.map(s=>(s+'   ').slice(0,3)).join(''));}return rows.join('\n');},tram613:(path)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.tram=1;t.tramBridge=t.t===0?1:0;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){if(inMap(x+dx,y+dy))recalcRailMask4(x+dx,y+dy);}return path.length;},lines576:(path,kind)=>{for(const[x,y]of path){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(kind==='hv')t.hv471=1;else if(kind==='ug')t.ug471=1;else if(kind==='lv')t.lv475=1;else if(kind==='ud')t.ud475=1;}for(const[x,y]of path)for(const[dx,dy]of[[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(!inMap(X,Y))continue;recalcPowerGridMask471(X,Y);recalcDistributionMask475(X,Y,'lv475','lvMask475');recalcDistributionMask475(X,Y,'ud475','udMask475');}return path.length;},clear574:(x0,y0,w,h)=>{let n=0;for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){if(!inMap(x,y))continue;const t=tiles[idx(x,y)];if(t.t===0)continue;t.bld=null;t.tree=0;t.zone=0;t.deco=0;t.road=0;t.rail=0;t.tram=0;n++;}return n;}},block559:{get:getBlockSprite547,make:makeBlockSprite547,cache:()=>BLOCK_SPR547,kit:roofKit559,origin:rciBlockOrigin547},build534:()=>({...BUILD_META534}),fp536:fpSpr536,sheet536:sheetFetch536,build537:()=>({...BUILD_META537}),style536:style536,blockFp536:blockFp536,build538:()=>({...BUILD_META538}),build539:()=>({...BUILD_META539}),sills539:()=>({sprites:window.__t539sills|0,pixels:window.__t539sillPx|0}),build540:()=>({...BUILD_META540}),life535:()=>({n:LIFE_FEED535.length,unread:LIFE_FEED_UNREAD535,filter:LIFE_FEED_FILTER535,sample:LIFE_FEED535.slice(-4)}),life535Selftest:life535Selftest,testUiFeed535:testUiFeed535,follow588Start:follow588Start,follow588Stop:follow588Stop,follow588Tick:follow588Tick,follow588Selftest:follow588Selftest,consumeTick589:consumeTick589,consume589Selftest:consume589Selftest,payTick590:payTick590,pay590Selftest:pay590Selftest,drawEmptyLot592:drawEmptyLot592,build541:()=>({...BUILD_META541}),halo541:()=>({sprites:window.__t541halo|0,pixels:window.__t541haloPx|0}),build542:()=>({...BUILD_META542}),build543:()=>({...BUILD_META543}),build544:()=>({...BUILD_META544}),build545:()=>({...BUILD_META545}),build546:()=>({...BUILD_META546}),build547:()=>({...BUILD_META547}),build548:()=>({...BUILD_META548}),build549:()=>({...BUILD_META549}),build550:()=>({...BUILD_META550}),build551:()=>({...BUILD_META551}),build552:()=>({...BUILD_META552}),build553:()=>({...BUILD_META553}),build554:()=>({...BUILD_META554}),build555:()=>({...BUILD_META555}),build556:()=>({...BUILD_META556}),build557:()=>({...BUILD_META557})});
