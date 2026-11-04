@@ -279,8 +279,8 @@
 
   const NO_RUN = 'no-run', BUSY = 'busy', HUB_K = 166;
   const UNSAVED = '未保存：重新整理或讀檔就會消失';
-  // 面板固定位置（T783 B5）：LAB-03 面板（left:12px;top:84px;高 200px）的正下方，固定高度、互不重疊。
-  const PANEL_CSS = 'position:fixed;left:12px;top:296px;width:260px;height:200px;max-width:calc(100vw - 24px);' +
+  // 面板固定位置（T783 B5；T785 統一四格）：左欄第 2 格，在 LAB-03 正下方；格高 (100vh-120px)/4、間隔 8px，四格互不重疊。
+  const PANEL_CSS = 'position:fixed;left:12px;top:calc(84px + 1 * ((100vh - 120px) / 4 + 8px));width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);' +
     'box-sizing:border-box;overflow:auto;z-index:9999;padding:10px 12px;' +
     'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
     'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';

@@ -260,8 +260,9 @@
 
   const NO_TASK = 'no-task', BUSY = 'busy';
   const UNSAVED = '未保存：重新整理或讀檔就會消失';
-  // 面板固定位置（T782 B5）：左上、HUD 下方；LAB-05 面板在它正下方（top:296px），兩者固定高度、互不重疊。
-  const PANEL_CSS = 'position:fixed;left:12px;top:84px;width:260px;height:200px;max-width:calc(100vw - 24px);' +
+  // 面板固定位置（T782 B5；T785 統一四格）：左欄第 1 格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3），
+  // 格高 (100vh-120px)/4、間隔 8px，位置只由視窗高決定，四格互不重疊。
+  const PANEL_CSS = 'position:fixed;left:12px;top:84px;width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);' +
     'box-sizing:border-box;overflow:auto;z-index:9999;padding:10px 12px;' +
     'background:rgba(14,20,34,.94);border:1px solid rgba(96,142,220,.55);border-radius:10px;' +
     'color:#c9d6ee;font:12px/1.5 system-ui,sans-serif;box-shadow:0 6px 22px rgba(0,0,0,.45)';

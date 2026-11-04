@@ -221,7 +221,9 @@ const LIVE = `(() => {
       need(p3 && p5, 'both panels must be open');
       const R = (el) => { const r = el.getBoundingClientRect(); return { left: Math.round(r.left), top: Math.round(r.top), width: Math.round(r.width), height: Math.round(r.height) }; };
       const a = R(p3), b = R(p5);
-      need(b.left === 12 && b.top === 296 && b.width === 260 && b.height === 200, 'LAB-05 slot ' + JSON.stringify(b));
+      const slot = (k) => { const h = (innerHeight - 120) / 4; return { left: 12, top: Math.round(84 + k * (h + 8)), width: Math.round(Math.min(260, innerWidth - 24)), height: Math.round(h) }; };
+      const s1 = slot(1), near = (r, s) => ['left', 'top', 'width', 'height'].every((k) => Math.abs(r[k] - s[k]) <= 1);
+      need(near(b, s1), 'LAB-05 slot (T785 left column slot 1) ' + JSON.stringify([b, s1]));
       const overlap = a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height;
       need(!overlap, 'LAB-05 and LAB-03 panels overlap ' + JSON.stringify([a, b]));
       need(a.top + a.height <= innerHeight && b.top + b.height <= innerHeight && a.left + a.width <= innerWidth && b.left + b.width <= innerWidth, 'panel outside the viewport');

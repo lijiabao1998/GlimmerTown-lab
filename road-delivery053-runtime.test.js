@@ -55,9 +55,14 @@ class Node {
 const findId = (node, id) => (node.id === id ? node : node.children.reduce((r, c) => r || findId(c, id), null));
 const textOf = (node) => node.textContent + node.children.map(textOf).join('');
 const click = (node) => { assert.ok(node, 'button exists'); (node.handlers.get('click') || []).forEach((f) => f({ type: 'click' })); };
-const rectOf = (css) => {
-  const px = (k) => { const m = new RegExp('(?:^|;)' + k + ':(\\d+)px').exec(css); assert.ok(m, 'panel css has ' + k); return +m[1]; };
-  return { left: px('left'), top: px('top'), width: px('width'), height: px('height') };
+/* T785 統一：四個 LAB 面板排在左欄四格（LAB-03＝0、LAB-05＝1、LAB-06＝2、LAB-07＝3），格高 (100vh-120px)/4、間隔 8px。
+ * cssText 用 calc／min，這裡照公式把某個視窗大小下的矩形算出來，再比重疊。 */
+const SLOT_CSS = (k) => 'left:12px;top:' + (k === 0 ? '84px' : 'calc(84px + ' + k + ' * ((100vh - 120px) / 4 + 8px))') +
+  ';width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4)';
+const slotRect = (k, vw, vh) => { const h = (vh - 120) / 4; return { left: 12, top: 84 + k * (h + 8), width: Math.min(260, vw - 24), height: h }; };
+const rectOf = (css, vw, vh) => {
+  for (let k = 0; k < 4; k++) if (css.includes(SLOT_CSS(k))) return slotRect(k, vw, vh);
+  assert.fail('panel css is not one of the four left-column slots: ' + css.slice(0, 160));
 };
 const overlap = (a, b) => a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height;
 
@@ -413,15 +418,18 @@ const CHECKS = [
     assert.equal(findId(env.body, 'lab053Panel'), null, 'R053-13 close removes panel');
     assert.equal(J(api.snapshot()).reason, 'no-task', 'R053-13 close ends research');
   }],
-  ['R053-14', '面板固定位置：LAB-03 在左上 (12,84) 260×200，與 LAB-05 面板不重疊', (source) => {
+  ['R053-14', '面板固定位置：LAB-03 在左欄第 1 格（T785 統一四格），桌機與手機視窗下都不和 LAB-05 面板重疊', (source) => {
     const env = handEnv(source, { withRail: true });
     env.api.open();
     env.window.GV.railFreight054.open();
     const p3 = findId(env.body, 'lab053Panel'), p5 = findId(env.body, 'lab054Panel');
     assert.ok(p3 && p5, 'R053-14 both panels open');
-    const r3 = rectOf(p3.style.cssText), r5 = rectOf(p5.style.cssText);
-    assert.deepEqual(r3, { left: 12, top: 84, width: 260, height: 200 }, 'R053-14 LAB-03 slot');
-    assert.ok(!overlap(r3, r5), 'R053-14 no overlap with LAB-05 ' + JSON.stringify([r3, r5]));
+    assert.ok(p3.style.cssText.includes('position:fixed;' + SLOT_CSS(0) + ';'), 'R053-14 LAB-03 slot 0 ' + p3.style.cssText.slice(0, 160));
+    for (const [vw, vh] of [[1280, 657], [390, 780], [360, 640], [844, 390]]) {
+      const r3 = rectOf(p3.style.cssText, vw, vh), r5 = rectOf(p5.style.cssText, vw, vh);
+      assert.deepEqual(r3, slotRect(0, vw, vh), 'R053-14 LAB-03 slot at ' + vw + 'x' + vh);
+      assert.ok(!overlap(r3, r5), 'R053-14 no overlap with LAB-05 at ' + vw + 'x' + vh + ' ' + JSON.stringify([r3, r5]));
+    }
   }],
   ['R053-15', '安裝當下閥門已開：不改寫 load／newWorld、不掛 pagehide、不建 DOM，API 一律回 disabled', (source) => {
     const env = makeEnv(source, { valve: true });
@@ -493,7 +501,7 @@ const MUTANTS = [
   ['R053-11', "newWorld = function newWorld053() { try { lifecycle('new-world'); }", 'newWorld = function newWorld053() { try { void 0; }'],
   ['R053-12', "function pagehide053() { try { lifecycle('pagehide'); }", 'function pagehide053() { try { void 0; }'],
   ['R053-13', "const UNSAVED = '未保存：重新整理或讀檔就會消失';", "const UNSAVED = '未保存';"],
-  ['R053-14', 'left:12px;top:84px;width:260px;height:200px', 'left:12px;top:200px;width:260px;height:200px'],
+  ['R053-14', "left:12px;top:84px;width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 4);", "left:12px;top:84px;width:min(260px, calc(100vw - 24px));height:calc((100vh - 120px) / 3);"],
   ['R053-15', 'if (window.__noRoadDelivery053) {', "if (window.__noRoadDelivery053 === 'never') {"],
   ['R053-15', 'const no = () => ({ ok: false, reason: DISABLED, installed: false });', "const no = () => ({ ok: false, reason: 'off', installed: false });"],
   ['R053-16', 'function plan(origin, destination, maxSteps) {\n    if (off()) return no(DISABLED);\n', 'function plan(origin, destination, maxSteps) {\n'],
