@@ -89,3 +89,11 @@
 
 ## 沒做成的事
 尚未施工。
+
+## 合併與發布收據（2026-11-04，Claude）
+- PR #86：轉 Ready 後以 GitHub squash 合併，釘在驗過的 head 5e16622；main 提交 3f86beb。
+- 合併前：
+  - PR 官方 CI run 41786661929 全綠：smoke 3 輪、fp 零變動且無家族觸及、fiscal-load；reuse-push 為 Full checks，沒有沿用別輪。
+  - 本機 smoke 3 連綠（666s／764s／717s，0 FAIL）；`fp.js --check` 零變動。
+- 合併後：main smoke run 41790875487 成功、自動 Pages run 41791824102 成功；公開網址 `lijiabao1998.github.io/GlimmerTown-lab/` 讀到 `GAME_VER='14.71'`、開始畫面 `v14.71 · T781`。
+- 原 PR #73、#77、#78、#79 已留言（合併提交與 T 號）並關閉，分支保留。
