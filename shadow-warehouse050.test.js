@@ -300,7 +300,11 @@ async function browser() {
           const cam=await run('GV.camera436()');
           const rect=await run(`(()=>{const e=document.getElementById('shadowWarehouse050JSON'),p=document.getElementById('shadowWarehouse050Scroll'),r=e.getBoundingClientRect(),q=p.getBoundingClientRect();e.scrollTop=0;const top=Math.max(r.top,q.top,0),bottom=Math.min(r.bottom,q.bottom,innerHeight),x=r.left+30,y=(top+bottom)/2;return{x,y,visible:bottom>top,hit:e.contains(document.elementFromPoint(x,y)),before:e.scrollTop};})()`);
           assert.equal(rect.visible,true,'W10 JSON visible wheel target');assert.equal(rect.hit,true,'W10 wheel target hits JSON');assert.equal(rect.before,0,'W10 JSON starts at zero');
-          await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});await sleep(80);
+          await cdp.send('Input.dispatchMouseEvent',{type:'mouseWheel',x:rect.x,y:rect.y,deltaX:0,deltaY:420});
+          // T789（業主 2026-11-04 批准）：同一次真滾輪，有上限地等它生效（每 40 毫秒讀一次，最多 2,000 毫秒）；下面的斷言一字不改。
+          const wheelStart789=Date.now();let wheelReads789=0,wheelMoved789=false;
+          while(Date.now()-wheelStart789<2000){wheelReads789++;if((await run("document.getElementById('shadowWarehouse050JSON').scrollTop"))>rect.before){wheelMoved789=true;break;}await sleep(40);}
+          console.log('WAREHOUSE050 WHEEL_COMPLETION '+JSON.stringify({layout,light,elapsedMs:Date.now()-wheelStart789,reads:wheelReads789,moved:wheelMoved789}));
           const scroll=await run(`(()=>{const j=document.getElementById('shadowWarehouse050JSON');return{jsonOverflow:j.scrollHeight>j.clientHeight,after:j.scrollTop,cam:GV.camera436()};})()`);
           assert.equal(scroll.jsonOverflow,true,'W10 expandable diagnostic JSON');assert.ok(scroll.after>rect.before,'W10 actual wheel increases JSON scroll');assert.equal(scroll.cam.z,cam.z,'W10 panel wheel does not zoom city');
           console.log('WAREHOUSE050 REAL_SCROLL '+JSON.stringify({layout,light,before:rect.before,after:scroll.after,hit:rect.hit,cameraUnchanged:scroll.cam.z===cam.z}));
