@@ -35,6 +35,15 @@
 - B5：測試接進 `smoke.js`。
 - B6：故意改壞，各跑一次後還原：walkDistance 回 null 被當成 0 → 測試紅；半徑判斷改成 d＞radius＋1 → 測試紅。
 
+## 施工記錄（2026-11-04，Claude）
+- B1、B2：`shadow-visits057.js` 加 `walkDistance`；`node shadow-visits057.test.js` 12/12（原 8 項不改＋新 4 項）。
+- B3、B4：`probeShadowVisits10.cjs` 改成真場景，本機 Chromium 實跑 PASS。
+  - 接主路三家：步行 7、11.09、16.24，連得上。
+  - 不連通那家：原生步行到不了，曼哈頓 5 會被近似算成連得上。
+  - 讀取階段 `localStorage` 與場景地格不變。
+- B5：`smoke.js` 加一行執行本測試。
+- B6：兩次故意改壞都紅在目標，已還原（訊息見原卡 §6）。
+
 ## 本批發布（T778–T781 一次 squash、一個版本，比照 T690–T691「一次 squash」的先例）
 - R1：產品 `index.html` 只改三處版本字串到 14.71／T781（`GAME_VER`、`GAME_ANCHOR`、開始畫面版本字）。四個 PR 都不動 `index.html` 的其他任何位元組。
 - R2：照 `docs/DECISIONS.md` 2026-10-28 常設規則，重釘 049／050／052 三支測試與四個釘值檔裡描述這次發布的字面值。

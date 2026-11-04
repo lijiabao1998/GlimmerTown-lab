@@ -46,6 +46,8 @@ const KEEP = process.argv.includes('--keep');
 
   // T780（原 DSK-022）: additive pure-core contracts for the LAB-09 unserved-demand study.
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'passenger-demand056.test.js')], {stdio:'inherit'});
+  // T781（原 DSK-023）: additive pure-core contracts for the LAB-10 shadow-visit model (real walking distance).
+  require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'shadow-visits057.test.js')], {stdio:'inherit'});
 
   const session = await withGame({ port: PORT, timeout: TIMEOUT, keep: KEEP, log }, async ({ cdp, chromeMs }) => {
     log('1 載入 index.html … / 2 進入城市（slot=3 保護）/ 3 等素材烘焙' +
