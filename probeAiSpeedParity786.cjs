@@ -7,14 +7,17 @@
  * 插 window.__simRng786 讀模擬亂數 R 的狀態。只多讀取口，不改任何數值。
  * 每個 session 在一次同步呼叫裡做完全部推進與存檔（中間不讓出事件迴圈，免得繪製幀、計時器的時序混進來），
  * 原字串帶回 Node 再比。
+ * 開新城之後先清 obs514／fiscal515：原生 newWorld 不重設這兩塊，頁面載入到探測開始之間實時跑過的天數會留進新城
+ * （例：第 1 天存檔帶 lastBacklogDay=5），讓第 1 天存檔隨載入快慢變。遊戲自己的 T005–T007 夾具開新城後也是這樣補清
+ * （「Same-seed disposable fixtures must not inherit prior fiscal/observatory state」）；兩頁做同一件事，不碰 #71 的程式。
  *   I3b：兩個種子（20261104、87）× 原生 AI 市長開著 × 60 天。
- *        每 5 天比一次：模擬亂數 R 的狀態、整份存檔、GV.stats()（畫面車輛數 cars／buses 只記錄不判）、GV.t462()、GV.t468()。
+ *        每 5 天比一次：模擬亂數 R 的狀態、整份存檔、整份 GV.stats()（含 cars／buses）、GV.t462()、GV.t468()。
  *        結束時做 save→load→save→load，三份存檔在兩頁之間逐字相同。
  *        讀檔本身會正規化幾個欄位，所以同一頁三份不必相同，只記錄。
  *   I3c：用 main dfedbb7 的 v14.72 頁（main 上的提交）跑出一份存檔（種子 20261104、AI 20 天），
  *        分別在舊頁與新頁讀進來、立刻存一次，再各推進 10 天存一次，兩邊逐字相同（含 R 的狀態）。
  *
- * 用法：PROBE_PORT=8231 node probeAiSpeedParity786.cjs   （埠預設 8199；PARITY_DAYS 改天數；PARITY_MUTATE=c3 跑負對照，預期 FAIL）
+ * 用法：PROBE_PORT=8231 node probeAiSpeedParity786.cjs   （埠預設 8199；PARITY_DAYS 改天數；PARITY_MUTATE=c3|c4|c5 跑負對照）
  */
 const fs = require('node:fs');
 const os = require('node:os');
@@ -37,8 +40,13 @@ S.projectCandidate052(NEW); // 原生基準雜湊先過，才把逆轉結果當�
 const OLD = normalizePlacement053(NEW);
 assert.notEqual(OLD, NEW, 'candidate carries the #71 segments');
 assert.equal(normalizePlacement053(OLD), OLD, 'old page is a fixed point of the inverse');
-// 負對照（預設關）：PARITY_MUTATE=c3 只在新頁套 GPT 測試裡同一個 C3 語義突變（拿掉人口篩選），用來證明這支探測抓得到行為差異。
-const MUTANTS = { c3: ['blocks=mobilityBlocks491().filter(q=>(q.pop||0)>0);authority=authorityBlocks053(blocks);', 'blocks=mobilityBlocks491();authority=authorityBlocks053(blocks);'] };
+// 負對照（預設關）：PARITY_MUTATE=c3|c4|c5 只在新頁套 GPT 對照測試裡同一個語義突變，用來證明這支探測抓得到行為差異。
+//   c3 拿掉人口篩選、c4 最近節點少掃一圈（dx<=edge→dx<edge）、c5 拿掉容量篩選（>.02→>=0）。
+const MUTANTS = {
+  c3: ['blocks=mobilityBlocks491().filter(q=>(q.pop||0)>0);authority=authorityBlocks053(blocks);', 'blocks=mobilityBlocks491();authority=authorityBlocks053(blocks);'],
+  c4: ['dx<=edge', 'dx<edge'],
+  c5: ['>.02&&q.w>0', '>=0&&q.w>0']
+};
 const MUTATE = process.env.PARITY_MUTATE || '';
 let NEW_PAGE = NEW;
 if (MUTATE) { const m = MUTANTS[MUTATE]; assert.ok(m, 'unknown PARITY_MUTATE'); assert.equal(NEW.split(m[0]).length, 2, 'mutant anchor once'); NEW_PAGE = NEW.replace(m[0], m[1]); }
@@ -48,7 +56,8 @@ const RNG_OLD = 'function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;
 const RNG_NEW = 'function mulberry32(a){const gen=function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};' +
   'gen.state786=()=>a;return gen;}';
 const ANCHOR = '/* GPT-052 SINGLE LEDGER END */\n';
-const OBSERVER = "window.__simRng786=()=>(typeof R==='function'&&typeof R.state786==='function')?R.state786():null;\n";
+const OBSERVER = "window.__simRng786=()=>(typeof R==='function'&&typeof R.state786==='function')?R.state786():null;" +
+  'window.__fresh786=()=>{observatoryReset514();fiscalReset515();return true;};\n';
 function instrument(page) {
   assert.equal(page.split(RNG_OLD).length, 2, 'mulberry32 definition found exactly once');
   assert.equal(page.split(ANCHOR).length, 2, '052 end anchor found exactly once');
@@ -71,9 +80,9 @@ const PAGE_HELPERS = `
   const sim = () => window.__simRng786();
   const checkpoint = () => {
     GV.setSpeed(0); GV.save();
-    const st = GV.stats(), core = Object.assign({}, st); delete core.cars; delete core.buses;
+    const st = GV.stats();
     return { day: st.day, pop: st.pop, money: st.money, rng: sim(), save: localStorage.getItem(slot) || '',
-      stats: JSON.stringify(core), t462: JSON.stringify(GV.t462()), t468: JSON.stringify(GV.t468()), info: { cars: st.cars, buses: st.buses } };
+      stats: JSON.stringify(st), t462: JSON.stringify(GV.t462()), t468: JSON.stringify(GV.t468()), info: { cars: st.cars, buses: st.buses } };
   };
 `;
 
@@ -95,6 +104,7 @@ async function session(page, body, arg) {
 const RUN = `
   GV.setSpeed(0);
   if (GV.newWorldSeeded(P.seed) !== true) throw new Error('newWorldSeeded');
+  if (window.__fresh786() !== true) throw new Error('fresh reset');
   GV.setSpeed(0);
   GV.ai(true);
   if (sim() === null) throw new Error('simulation RNG observer missing');
@@ -108,6 +118,7 @@ const RUN = `
 const MAKE_SAVE = `
   GV.setSpeed(0);
   if (GV.newWorldSeeded(P.seed) !== true) throw new Error('newWorldSeeded');
+  if (window.__fresh786() !== true) throw new Error('fresh reset');
   GV.setSpeed(0); GV.ai(true); GV.step(10); GV.step(10); GV.setSpeed(0); GV.ai(false); GV.save();
   return { save: localStorage.getItem(slot), version: GV.ver(), day: GV.stats().day, pop: GV.stats().pop };
 `;
