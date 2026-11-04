@@ -291,13 +291,18 @@ const NEW_CHECKS = [
     input.qty = 1;
     assert.equal(v.cargo.qty, 12, 'C054-10 copy');
     assert.equal(J(api.validateCargo({ batchId: 'b', qty: 3 })).capacity, 12, 'C054-10 default capacity');
+    assert.equal(J(api.validateCargo({ batchId: 'b', qty: 3, commodityId: null })).cargo.commodityId, null, 'C054-10 commodity null = unspecified');
+    for (const [c, cap] of [[{ batchId: 'b', qty: 1 }, undefined], [{ batchId: 'b', qty: 2, commodityId: null }, 5], [{ batchId: 'b', qty: 3, commodityId: 'steel' }, 3]]) {
+      const once = J(api.validateCargo(c, cap));
+      assert.deepEqual(J(api.validateCargo(once.cargo, once.capacity)), once, 'C054-10 idempotent ' + JSON.stringify(c));
+    }
     assert.deepEqual(J(api.validateCargo({ batchId: 'b', qty: 13 })), { ok: false, path: [], steps: -1, reason: 'over-capacity', qty: 13, capacity: 12 }, 'C054-10 over default');
     assert.deepEqual(J(api.validateCargo({ batchId: 'b', qty: 5 }, 4)), { ok: false, path: [], steps: -1, reason: 'over-capacity', qty: 5, capacity: 4 }, 'C054-10 over given');
     const detail = (c, cap) => { const r = J(api.validateCargo(c, cap)); assert.deepEqual([r.ok, r.reason], [false, 'bad-input'], 'C054-10 reason ' + JSON.stringify([c, cap])); return r.detail; };
     for (const cap of [0, -1, 'x', null, 2.5, NaN, Infinity, true, '12']) assert.equal(detail({ batchId: 'b', qty: 1 }, cap), 'capacity', 'C054-10 capacity ' + String(cap));
     for (const qty of [0, -3, 2.5, '5', null, undefined, NaN, Infinity, true]) assert.equal(detail({ batchId: 'b', qty }), 'qty', 'C054-10 qty ' + String(qty));
     for (const batchId of ['', 7, null]) assert.equal(detail({ batchId, qty: 1 }), 'batchId', 'C054-10 batchId ' + String(batchId));
-    for (const commodityId of [3, '', null]) assert.equal(detail({ batchId: 'b', qty: 1, commodityId }), 'commodityId', 'C054-10 commodity ' + String(commodityId));
+    for (const commodityId of [3, '', {}]) assert.equal(detail({ batchId: 'b', qty: 1, commodityId }), 'commodityId', 'C054-10 commodity ' + String(commodityId));
     for (const c of [null, undefined, 'x', [], 4]) assert.equal(detail(c), 'cargo', 'C054-10 cargo ' + String(c));
   }],
   ['C054-11', 'createFreightRun054：不合法容量／數量丟 code＝bad-input，超載丟 over-capacity，不建任務', (api) => {
@@ -308,6 +313,8 @@ const NEW_CHECKS = [
       const e = caught(() => api.createFreightRun054('s', route, ...args));
       assert.deepEqual([e && e.code, e && e.detail], [code, d], 'C054-11 ' + code + ' ' + JSON.stringify(args));
     }
+    const v = api.validateCargo({ batchId: 'b', qty: 2 });
+    assert.equal(J(api.createFreightRun054('s', route, v.cargo, v.capacity).snapshot()).commodityId, null, 'C054-11 normalized cargo accepted');
   }],
   ['C054-12', '快照不共用物件：改回傳的 unloadedAt、改呼叫端的貨物物件，都不影響任務', (api) => {
     const route = J(api.planRailRoute({ rail: new Uint8Array([1, 1]), w: 2, h: 1, from: 0, to: 1 }));
@@ -394,6 +401,7 @@ const MUTANTS = [
     'if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;\n      const j = ny * w + nx;\n      if (!isKind(j)) continue;'],
   ['C054-10', 'if (!Number.isSafeInteger(cap) || cap <= 0) return fail(REASONS.BAD_INPUT, { detail: \'capacity\' });',
     'if (!Number.isSafeInteger(cap) || cap <= 0) return validateCargo(cargo, DEFAULT_CAPACITY);'],
+  ['C054-10', 'const unspecified = cargo.commodityId === undefined || cargo.commodityId === null;', 'const unspecified = cargo.commodityId === undefined;'],
   ['C054-11', 'if (!checked.ok) throw checked.reason === REASONS.OVER_CAPACITY ? coded(REASONS.OVER_CAPACITY) : badInput(checked.detail);',
     'if (!checked.ok) throw checked.reason === REASONS.OVER_CAPACITY ? coded(REASONS.OVER_CAPACITY) : coded(checked.detail);'],
   ['C054-12', 'unloadedAt: unloadedAt ? { cursor: unloadedAt.cursor, step: unloadedAt.step } : null,', 'unloadedAt,'],

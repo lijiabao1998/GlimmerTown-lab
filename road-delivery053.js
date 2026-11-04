@@ -171,18 +171,20 @@
 
   /* 批次輸入（T782 B2）：不合法一律 bad-input（detail 指出哪一欄），不靜默改值。
    *  - batchId：非空字串；qty：正的安全整數（0、-3、2.5、'5'、null 都拒絕）；
-   *  - commodityId：可省略（記成 null），給了就必須是非空字串。
+   *  - commodityId：可省略（undefined 或 null 都記成 null，與快照的寫法一致），給了就必須是非空字串。
+   * 正規化後的 batch 再驗一次結果不變（冪等），所以執行期可以把它直接交給 createDeliveryTask053。
    * 其他欄位這裡不讀（maxSteps 由規劃函式自己檢查）。回傳的 batch 是新物件，之後改呼叫端的物件不影響任務。 */
   function validateBatch(batch) {
     if (!batch || typeof batch !== 'object' || Array.isArray(batch)) return fail(REASONS.BAD_INPUT, { detail: 'batch' });
     if (typeof batch.batchId !== 'string' || !batch.batchId) return fail(REASONS.BAD_INPUT, { detail: 'batchId' });
     if (!Number.isSafeInteger(batch.qty) || batch.qty <= 0) return fail(REASONS.BAD_INPUT, { detail: 'qty' });
-    if (batch.commodityId !== undefined && (typeof batch.commodityId !== 'string' || !batch.commodityId)) {
+    const unspecified = batch.commodityId === undefined || batch.commodityId === null;
+    if (!unspecified && (typeof batch.commodityId !== 'string' || !batch.commodityId)) {
       return fail(REASONS.BAD_INPUT, { detail: 'commodityId' });
     }
     return {
       ok: true, reason: null,
-      batch: { batchId: batch.batchId, qty: batch.qty, commodityId: batch.commodityId === undefined ? null : batch.commodityId }
+      batch: { batchId: batch.batchId, qty: batch.qty, commodityId: unspecified ? null : batch.commodityId }
     };
   }
 

@@ -288,10 +288,15 @@ const NEW_CHECKS = [
     input.qty = 99;
     assert.equal(v.batch.qty, 5, 'C053-09 copy');
     assert.equal(J(api.validateBatch({ batchId: 'b', qty: 1 })).batch.commodityId, null, 'C053-09 commodity omitted');
+    assert.equal(J(api.validateBatch({ batchId: 'b', qty: 1, commodityId: null })).batch.commodityId, null, 'C053-09 commodity null = unspecified');
+    for (const ok of [{ batchId: 'b', qty: 1 }, { batchId: 'b', qty: 2, commodityId: null }, { batchId: 'b', qty: 3, commodityId: 'food' }]) {
+      const once = J(api.validateBatch(ok));
+      assert.deepEqual(J(api.validateBatch(once.batch)), once, 'C053-09 idempotent ' + JSON.stringify(ok));
+    }
     const detail = (b) => { const r = J(api.validateBatch(b)); assert.deepEqual([r.ok, r.reason, r.path, r.steps], [false, 'bad-input', [], -1], 'C053-09 shape ' + JSON.stringify(b)); return r.detail; };
     for (const qty of [0, -3, 2.5, '5', null, undefined, NaN, Infinity, 2 ** 53, true, {}]) assert.equal(detail({ batchId: 'b', qty }), 'qty', 'C053-09 qty ' + String(qty));
     for (const batchId of ['', 5, null, undefined, {}]) assert.equal(detail({ batchId, qty: 1 }), 'batchId', 'C053-09 batchId ' + String(batchId));
-    for (const commodityId of [5, '', null, {}]) assert.equal(detail({ batchId: 'b', qty: 1, commodityId }), 'commodityId', 'C053-09 commodity ' + String(commodityId));
+    for (const commodityId of [5, '', {}, false]) assert.equal(detail({ batchId: 'b', qty: 1, commodityId }), 'commodityId', 'C053-09 commodity ' + String(commodityId));
     for (const b of [null, undefined, 5, 'x', [], true]) assert.equal(detail(b), 'batch', 'C053-09 batch ' + String(b));
   }],
   ['C053-10', 'createDeliveryTask053：不合法輸入丟 code＝bad-input（detail 指出哪一欄），不偷偷建任務', (api) => {
@@ -303,6 +308,8 @@ const NEW_CHECKS = [
       const e = caught(() => api.createDeliveryTask053(...args));
       assert.deepEqual([e && e.code, e && e.detail], ['bad-input', d], 'C053-10 ' + d + ' ' + JSON.stringify(args[2]));
     }
+    const normalized = api.validateBatch({ batchId: 'b', qty: 2 }).batch;
+    assert.equal(J(api.createDeliveryTask053('s', plan, normalized).snapshot()).commodityId, null, 'C053-10 normalized batch accepted');
   }],
   ['C053-11', '快照不共用物件：改回傳的 deliveredAt、改呼叫端的批次物件，都不影響任務', (api) => {
     const plan = J(api.planDelivery({ roads: new Uint8Array([1, 1]), w: 2, h: 1, origin: 0, destination: 1 }));
@@ -387,6 +394,7 @@ const MUTANTS = [
   ['C053-07', 'for (const c of list) if (!isInt(c) || c < 0 || c >= total || !isRoad(c)) return null;', 'for (const c of list) if (!isInt(c) || c < 0 || c >= total) return null;'],
   ['C053-08', 'const stepLimit = (v) => (v === undefined ? Infinity', 'const stepLimit = (v) => (v === undefined || v === null ? Infinity'],
   ['C053-09', 'if (!Number.isSafeInteger(batch.qty) || batch.qty <= 0)', 'if (!Number.isFinite(batch.qty) || batch.qty <= 0)'],
+  ['C053-09', 'const unspecified = batch.commodityId === undefined || batch.commodityId === null;', 'const unspecified = batch.commodityId === undefined;'],
   ['C053-10', 'if (!checked.ok) throw badInput(checked.detail);', 'if (!checked.ok) throw new Error(checked.detail);'],
   ['C053-11', 'deliveredAt: deliveredAt ? { cursor: deliveredAt.cursor, step: deliveredAt.step } : null,', 'deliveredAt,'],
   ['C053-12', "cx > 0 ? cur - 1 : -1\n      ];\n      for (let k = 0; k < 4; k++) {",

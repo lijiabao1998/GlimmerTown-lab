@@ -181,14 +181,16 @@
   }
 
   /* 貨物與容量（T783 B2）：不合法一律 bad-input（detail 指出哪一欄），超過容量 over-capacity，不靜默改值、不截斷。
-   *  - batchId：非空字串；qty：正的安全整數；commodityId：可省略（記成 null），給了就必須是非空字串；
+   *  - batchId：非空字串；qty：正的安全整數；commodityId：可省略（undefined 或 null 都記成 null），給了就必須是非空字串；
    *  - capacity：省略（undefined）＝預設 12，給了就必須是正的安全整數（0、-1、'x'、null 都拒絕）。
-   * 其他欄位這裡不讀（maxSteps 由規劃函式自己檢查）。回傳的 cargo 是新物件。 */
+   * 其他欄位這裡不讀（maxSteps 由規劃函式自己檢查）。回傳的 cargo 是新物件；正規化後的 cargo＋capacity 再驗一次
+   * 結果不變（冪等），所以執行期可以把它直接交給 createFreightRun054。 */
   function validateCargo(cargo, capacity) {
     if (!cargo || typeof cargo !== 'object' || Array.isArray(cargo)) return fail(REASONS.BAD_INPUT, { detail: 'cargo' });
     if (typeof cargo.batchId !== 'string' || !cargo.batchId) return fail(REASONS.BAD_INPUT, { detail: 'batchId' });
     if (!Number.isSafeInteger(cargo.qty) || cargo.qty <= 0) return fail(REASONS.BAD_INPUT, { detail: 'qty' });
-    if (cargo.commodityId !== undefined && (typeof cargo.commodityId !== 'string' || !cargo.commodityId)) {
+    const unspecified = cargo.commodityId === undefined || cargo.commodityId === null;
+    if (!unspecified && (typeof cargo.commodityId !== 'string' || !cargo.commodityId)) {
       return fail(REASONS.BAD_INPUT, { detail: 'commodityId' });
     }
     const cap = capacity === undefined ? DEFAULT_CAPACITY : capacity;
@@ -196,7 +198,7 @@
     if (cargo.qty > cap) return fail(REASONS.OVER_CAPACITY, { qty: cargo.qty, capacity: cap });
     return {
       ok: true, reason: null, capacity: cap,
-      cargo: { batchId: cargo.batchId, qty: cargo.qty, commodityId: cargo.commodityId === undefined ? null : cargo.commodityId }
+      cargo: { batchId: cargo.batchId, qty: cargo.qty, commodityId: unspecified ? null : cargo.commodityId }
     };
   }
 
