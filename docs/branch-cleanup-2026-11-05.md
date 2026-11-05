@@ -35,7 +35,7 @@
 | `gpt/museum-cold-load-diagnostic010` | `3a58dc2095c9` | 2026-10-05 | 沒有 PR | test: measure cold reload before warm control to preserve ex |
 | `gpt/pr7-game-samples` | `cbb4a896f647` | 2026-10-04 | 沒有 PR | GPT-002 add isolated Chromium day-night sample workflow for  |
 | `gpt/quayside-public017` | `90995b6dc75f` | 2026-10-07 | 沒有 PR | Verify T730 public deployment with retained legacy and quays |
-| `gpt/riverside-public012` | `002bc6287ec1` | 2026-10-05 | 沒有 PR | update: observe published T725 riverside market and real col |
+| `gpt/riverside-public012` | `002bc6287ec1` | 2026-10-05 | 沒有 PR | verify: observe published T725 riverside market and real col |
 | `gpt/streetscape-public015` | `f6b20edf5dc8` | 2026-10-06 | 沒有 PR | test(T728): verify exact official release and eight street t |
 | `gpt/theatre-public013` | `39f61db9ca25` | 2026-10-06 | 沒有 PR | test: verify deployed T726 theatre source and native cold re |
 | `gpt/waterfront-edge-diagnostic-018` | `9416237a0391` | 2026-10-07 | 沒有 PR | test(lab): compare bounded map-edge sampling alternatives in |
