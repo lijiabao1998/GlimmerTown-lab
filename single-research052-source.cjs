@@ -59,7 +59,8 @@ function stripPinned052(candidate){
   // T786（原 GPT-053，業主 2026-11-04 批准）：研究區塊全部驗過、剝掉之後，最後才把 #71 的 17 段原生改動逐段換回（C5→C1，
   // 每一階段全有或全無）；任何別的原生改動都換不回來，由 projectCandidate052 的原生基準雜湊擋下。
   // T790（業主 2026-11-04 批准）：在那之前先換回開新城補上的那一段成對重置（一段、全有或全無）。
-  return require('./placement-reuse053-projection.cjs').normalizePlacement053(require('./newworld-reset790-projection.cjs').normalizeNewWorldReset790(candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,'')));
+  // T791（業主 2026-11-05 批准）：再之前先換回讀檔時清掉舊存檔殘留的那一段（一段、全有或全無）。
+  return require('./placement-reuse053-projection.cjs').normalizePlacement053(require('./newworld-reset790-projection.cjs').normalizeNewWorldReset790(require('./loadstale791-projection.cjs').normalizeLoadStale791(candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,''))));
 }
 function projectCandidate052(candidate){
   const projected=stripPinned052(candidate);

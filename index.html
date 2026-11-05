@@ -106103,6 +106103,8 @@ function load(slot){
     governanceLoad513(d.gov513,d.gov513==null); // T513：舊檔不虛構公聽會、聯盟、授權、信念修正或政治結果歷史；只從載入後的新 policy dossier 開始
     observatoryLoad514(d.obs514,d.obs514==null); // T514：舊檔不虛構過往觀測、bookmark 或 counterfactual history；只從載入後建立 bounded snapshots
     fiscalLoad515(d.fiscal515,d.fiscal515==null); // T515：舊檔不虛構過往 value capture、maintenance backlog 或 fiscal settlement history；只從載入後開始記錄
+    // T791（業主 2026-11-05）：T790 之前開新城會把上一座城的財政節奏與觀測台留進存檔；讀檔時「上次處理日」比當天晚超過 14 天就整塊歸零，已入帳的開發案清單放回去（不重複入帳，錢不受影響）。
+    {const late791=Math.max(fiscal515.lastAggregateDay,fiscal515.lastBacklogDay,fiscal515.lastSettlementDay,fiscal515.lastAssetScanDay,fiscal515.lastCompletionScanDay)-day;if(late791>14){const paid791=fiscal515.processedProjects;fiscalReset515();fiscal515.processedProjects=paid791;}if(observatory514.lastSampleDay-day>14)observatoryReset514();}
     // T39-T60 多格建築重建
     for(let i=0;i<N*N;i++){
       const b=tiles[i].bld;
