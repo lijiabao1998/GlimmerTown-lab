@@ -111,3 +111,13 @@
 2. 新版的耗時是輪詢量到的上界，而且輪詢本身可能拖慢生效；沒有用不干擾的方法量（例如在頁面裡聽 `scroll` 事件記時間戳），因為那要在被測頁面加觀察口。
 3. 2,000 毫秒的上限是照業主選的選項；超過上限仍然會紅，不是無限等。
 4. 只改兩處 W10；其他固定等待（例如兩處縮放檢查的 400 毫秒）沒動，它們今天沒紅過。
+
+## 合併與發布收據（2026-11-04，Claude；補記在 T790 的 PR）
+- PR #91（T789 發布 v14.75）：
+  - CI 綠之後轉 Ready，等 Codex 安全審查跑完（摘要留言 23:21:59 UTC 出現、23:24:09 完成，沒有提出任何發現）；
+  - 以 GitHub squash 合併，釘在驗過的 head 5bd2ca8；main 提交 f5e529c（23:24:33 UTC）。
+- 合併前：PR 官方 CI 41928972370（5bd2ca8）全綠：smoke 3 輪、fp、fiscal-load 都是完整執行，沒有沿用推送證據。
+- 合併後：
+  - main smoke run 41933480478 成功；
+  - 自動 Pages run 41934474448 成功；
+  - 公開網址 `lijiabao1998.github.io/GlimmerTown-lab/`（轉址到 `game.lijiabao.uk/GlimmerTown-lab/`）讀到 `GAME_VER='14.75'`、`GAME_ANCHOR='T789'`、開始畫面 `v14.75 · T789`；整頁 SHA-256 開頭 `34b75d9b`，與 main f5e529c 的 `index.html` 相同。
