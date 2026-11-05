@@ -128,7 +128,7 @@ check('L01 memory admission refuses without evicting cargo', () => {
 // Runtime integration, source mutants and Chrome evidence are below. No local
 // execution receipt is claimed: this file is wired only additively into CI.
 
-// T789 owner-approved release projection; the historical SHA and exact ff4a test remain pinned.
+// T790 owner-approved release projection; the historical SHA and exact ff4a test remain pinned.
 const {stripPinned052,projectCandidate052}=require('./single-research052-source.cjs');
 projectCandidate052(html); // Actual baseline once; R06 mutants retain their original first-failure order.
 const release049 = JSON.parse(fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/release-source.json'),'utf8'));
@@ -136,9 +136,9 @@ const archive049 = fs.readFileSync(path.join(ROOT,'docs/branch/GPT-049-qa/origin
 const sha049 = text => crypto.createHash('sha256').update(text).digest('hex');
 const expectedRelease049={
   schema:'lab049-release-source-v1',
-  release:{version:'14.75',anchor:'T789',round:229,pr:91},
-  approvedMain:'d10b328319c7a6239c72a3e7325804bfc3686b5b',
-  ownerApproval:'DECISIONS-2026-11-04-W10-wait',
+  release:{version:'14.76',anchor:'T790',round:230,pr:92},
+  approvedMain:'f5e529c7b407b8d35202244f709eb98efb5b5fea',
+  ownerApproval:'DECISIONS-2026-11-04-newWorld-reset',
   historical:{head:'ff4a767a10502378b8e1bb387d2a5ed3b608ecbb',version:'14.67',anchor:'T774',
     nativeSha256:'debf0342376df9ccc8d42d40e3e45bdef8c28aa5f16f0fe2bf7fb6b23a214624',
     blockSha256:'2f9302156212602f9ec9615da14c8aeb0b16f8987d3628181ac030c77dcb93fb',
