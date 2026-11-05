@@ -273,3 +273,14 @@
 5. 新城因為開發案編號撞號而一直沒入帳的開發案，這次不補。
 6. 行為探測要真 Chrome 跑 26 分鐘，不在 smoke／CI 裡。CI 驗的是那一段位元組與原生頁其他地方沒變。
 7. 真手機與 Safari 沒有測。
+
+## 合併與發布收據（2026-11-05，數字由 Claude 提供、Grok 補記）
+- PR #93（T791 發布 v14.77）：
+  - CI 綠之後轉 Ready，等 Codex 安全審查跑完（05:59:05 UTC 開始、06:01:43 完成，沒有提出任何發現）；
+  - 以 GitHub squash 合併，釘在驗過的 head 852ed4c；main 提交 fb33485；squash 出來的樹與 852ed4c 相同（`695c4052…`）。
+- 合併前：PR 官方 CI 41974498184（852ed4c）全綠：smoke 3 輪、fp、fiscal-load 都是完整執行，沒有沿用推送證據。另外 48236cd 上的 41956972944、003c720 上的 41959372377 也全綠。
+- 合併後：
+  - main smoke run 41977758735 成功；
+  - 自動 Pages run 41978852076 成功；
+  - 公開網址 `lijiabao1998.github.io/GlimmerTown-lab/`（轉址到 `game.lijiabao.uk/GlimmerTown-lab/`）讀到 `GAME_VER='14.77'`、`GAME_ANCHOR='T791'`、開始畫面 `v14.77 · T791`；
+  - 整頁 12,173,380 位元組，與 main fb33485 的 `index.html` 逐位元組相同（SHA-256 `6012b7bb…`）。
