@@ -33,6 +33,8 @@ const KEEP = process.argv.includes('--keep');
   require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'placement-reuse053-projection.test.cjs'), path.join(ROOT, 'placement-reuse053.test.cjs')], {stdio:'inherit'});
   // T790: additive guard-adapter controls for the newWorld observatory/fiscal reset; original guards unchanged.
   require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'newworld-reset790.test.cjs')], {stdio:'inherit'});
+  // T791: additive guard-adapter controls for the load-time stale fiscal/observatory reset; original guards unchanged.
+  require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'loadstale791.test.cjs')], {stdio:'inherit'});
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'touch-cancellation020.test.js')], {stdio:'inherit'});
   // GPT-023: additive only; run the unchanged light/shape/valve contracts.
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'probeLightSide745.js'), '--check'], {stdio:'inherit'});
