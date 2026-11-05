@@ -212,3 +212,15 @@
    - 之後 CI 驗的是「那一段位元組還在、原生頁其他地方沒變」，不是行為本身。
 3. 本機第一組 smoke 被容器重啟打斷，沒有那一組的結果；3 連綠是重跑的那一組。
 4. 真手機與 Safari 沒有測。
+
+## 合併與發布收據（2026-11-05，Claude；補記在 T791 的 PR）
+- PR #92（T790 發布 v14.76）：
+  - CI 綠之後轉 Ready，等 Codex 安全審查跑完（01:32:37 UTC 開始、01:36:46 完成，沒有提出任何發現）；
+  - 以 GitHub squash 合併，釘在驗過的 head b6c3cfe；main 提交 32f8e15；squash 出來的樹與 b6c3cfe 相同（`8f901f02…`）。
+- 合併前：PR 官方 CI 41945962598（b6c3cfe）全綠：smoke 3 輪、fp、fiscal-load 都是完整執行，沒有沿用推送證據。另外 bad9cff 上的 41937843814 也全綠。
+- 合併後：
+  - main smoke run 41949768782 成功；
+  - 自動 Pages run 41950620324 成功；
+  - 公開網址 `lijiabao1998.github.io/GlimmerTown-lab/`（轉址到 `game.lijiabao.uk/GlimmerTown-lab/`）讀到 `GAME_VER='14.76'`、`GAME_ANCHOR='T790'`、開始畫面 `v14.76 · T790`；
+  - 整頁 12,172,628 位元組，與 main 32f8e15 的 `index.html` 逐位元組相同（SHA-256 `c3d0afa9…`）。
+- 業主看了「沒做成的事」第 1 條，選「另開卡修」→ T791。
