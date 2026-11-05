@@ -20,15 +20,15 @@ test('T791 exact inverse: the segment is present exactly once, reverts to its an
   assert.doesNotThrow(() => projectCandidate052(candidate));
 });
 
-test('T791 segment follows the native fiscal load call, keeps processedProjects, and uses the 14-day threshold', () => {
+test('T791 segment follows the native fiscal load call, resets only the five fiscal cadence days, and uses the 14-day threshold', () => {
   assert.match(c.before, /^    fiscalLoad515\(d\.fiscal515,d\.fiscal515==null\);/);
   const inserted = c.after.slice(c.before.length);
-  assert.match(inserted, /\n    \{const late791=Math\.max\(fiscal515\.lastAggregateDay,fiscal515\.lastBacklogDay,fiscal515\.lastSettlementDay,fiscal515\.lastAssetScanDay,fiscal515\.lastCompletionScanDay\)-day;if\(late791>14\)\{const paid791=fiscal515\.processedProjects;fiscalReset515\(\);fiscal515\.processedProjects=paid791;\}if\(observatory514\.lastSampleDay-day>14\)observatoryReset514\(\);\}\n$/);
+  assert.match(inserted, /\n    \{const late791=Math\.max\(fiscal515\.lastAggregateDay,fiscal515\.lastBacklogDay,fiscal515\.lastSettlementDay,fiscal515\.lastAssetScanDay,fiscal515\.lastCompletionScanDay\)-day;if\(late791>14\)fiscal515\.lastAggregateDay=fiscal515\.lastBacklogDay=fiscal515\.lastSettlementDay=fiscal515\.lastAssetScanDay=fiscal515\.lastCompletionScanDay=-999;if\(observatory514\.lastSampleDay-day>14\)observatoryReset514\(\);\}\n$/);
   assert.equal(candidate.split('const late791=').length, 2, 'T791 name used exactly once');
 });
 
 test('T791 altered/removed/duplicated segment fails the historical guard first', () => {
-  for (const after of ['', c.after + c.after, c.after.replace('late791>14', 'late791>15'), c.after.replace('fiscal515.processedProjects=paid791;', ''),
+  for (const after of ['', c.after + c.after, c.after.replace('late791>14', 'late791>15'), c.after.replace('fiscal515.lastSettlementDay=fiscal515.lastAssetScanDay=', 'fiscal515.lastAssetScanDay='), c.after.replace('=-999;if(observatory514', '=-998;if(observatory514'),
     c.after.replace('if(observatory514.lastSampleDay-day>14)observatoryReset514();', ''), c.after + ' ']) {
     assert.throws(() => projectCandidate052(candidate.replace(c.after, after)), /S01 byte-exact T776 native input/);
   }
