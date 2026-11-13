@@ -77084,6 +77084,41 @@ async function bootstrap453(){
     const note=$('#boot453Note');if(note)note.textContent='載入過程發生錯誤；請查看瀏覽器 Console 或重新整理。';
   }
 }
+// T792（業主 2026-11-13「開卡做這項」）：開機烘焙期間建立、不在頁面上的 2D 畫布帶 willReadFrequently，留在 CPU——烘焙的上萬次像素讀回不必跨行程等顯示卡，幾千張精靈也不各佔一張顯示卡貼圖；開機完還原成原本的 getContext。畫法不變。逃生閥在開機時讀一次：載入前設 window.__noBootCpu792，或主控台打 sessionStorage.setItem('glimmerville.noBootCpu792','1') 後重新整理。
+const __bootstrap453_792=bootstrap453;bootstrap453=async function(...a){
+  const st=window.__bootCpu792={on:false,n:0,first:null,restored:false};
+  let off=!!window.__noBootCpu792;try{off=off||sessionStorage.getItem('glimmerville.noBootCpu792')==='1';}catch(e){}
+  if(off)return __bootstrap453_792(...a);
+  const P=HTMLCanvasElement.prototype,gc=P.getContext;let live=true;
+  const wrap=function(type,opt){
+    if(!live||type!=='2d'||this.isConnected)return gc.apply(this,arguments);
+    st.n++;if(!st.first)st.first=this;
+    return gc.call(this,type,Object.assign({},opt,{willReadFrequently:true}));
+  };
+  P.getContext=wrap;st.on=true;
+  try{return await __bootstrap453_792(...a);}finally{live=false;if(P.getContext===wrap)P.getContext=gc;st.restored=P.getContext!==wrap;}
+};
+window.bootCpuSelftest792=function(){ // T792 煙霧自檢：看畫布真的屬性（getContextAttributes），不看計數。閥開著開機時改檢「沒有畫布被改」。
+  const st=window.__bootCpu792,checks=[],add=(k,ok)=>{checks.push(k+(ok?' ✓':' ✗'));return ok;};
+  if(!st)return {ok:false,checks:['__bootCpu792 不存在 ✗']};
+  const wrf=c=>{try{return !!c.getContext('2d').getContextAttributes().willReadFrequently;}catch(e){return null;}};
+  const seen=new Set(),spr=[];if(SPR&&SPR.bld)for(const sp of Object.values(SPR.bld)){if(sp&&sp.img instanceof HTMLCanvasElement&&!seen.has(sp.img)){seen.add(sp.img);spr.push(sp.img);}}
+  const hit=spr.filter(c=>wrf(c)===true).length,fresh=document.createElement('canvas');fresh.width=fresh.height=4;
+  const dom=['game','titleBg','mini'].map(id=>document.getElementById(id)).filter(Boolean);
+  let ok=add('開機已結束（__bootDone453）',window.__bootDone453===true);
+  ok=add('建築精靈畫布有抽到（'+spr.length+' 張）',spr.length>100)&&ok;
+  if(st.on){
+    ok=add('開機期間第一張被改的畫布帶 willReadFrequently',!!st.first&&wrf(st.first)===true)&&ok;
+    ok=add('建築精靈畫布全部帶 willReadFrequently（'+hit+'/'+spr.length+'）',hit===spr.length)&&ok;
+    ok=add('開機完 getContext 已還原',st.restored===true)&&ok;
+  }else{
+    ok=add('逃生閥開：沒有畫布被改（n=0、first=null）',st.n===0&&st.first===null)&&ok;
+    ok=add('逃生閥開：建築精靈畫布都不帶（'+hit+'/'+spr.length+'）',hit===0)&&ok;
+  }
+  ok=add('開機完才建立的畫布不帶',wrf(fresh)===false)&&ok;
+  ok=add('畫面上的畫布不帶（'+dom.length+' 張）',dom.length===3&&dom.every(c=>wrf(c)===false))&&ok;
+  return {ok,mode:st.on?'on':'valve',n:st.n,sprites:spr.length,checks};
+};
 async function reloadWithBoot453(label,mutate){
   if(bootState453.reloading)return;bootState453.reloading=true;
   const root=$('#boot453');if(root)root.classList.remove('hide');bootSet453(3,label||'正在套用設定…','core');
