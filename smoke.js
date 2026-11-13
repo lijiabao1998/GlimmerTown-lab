@@ -35,6 +35,8 @@ const KEEP = process.argv.includes('--keep');
   require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'newworld-reset790.test.cjs')], {stdio:'inherit'});
   // T791: additive guard-adapter controls for the load-time stale fiscal/observatory reset; original guards unchanged.
   require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'loadstale791.test.cjs')], {stdio:'inherit'});
+  // T792: additive guard-adapter controls for the boot-time CPU canvas wrapper; original guards unchanged.
+  require('child_process').execFileSync(process.execPath, ['--test', path.join(ROOT, 'bootcpu792.test.cjs')], {stdio:'inherit'});
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'touch-cancellation020.test.js')], {stdio:'inherit'});
   // GPT-023: additive only; run the unchanged light/shape/valve contracts.
   require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'probeLightSide745.js'), '--check'], {stdio:'inherit'});
@@ -201,6 +203,7 @@ const KEEP = process.argv.includes('--keep');
       ['campus715', `(window.GV && window.GV.campusSelftest715) ? window.GV.campusSelftest715() : {ok:false,checks:['API 不存在']}`],
       ['fastPx735', `(window.GV && window.GV.fastPxSelftest735) ? window.GV.fastPxSelftest735() : {ok:false,checks:['API 不存在']}`],
       ['sil738', `(window.GV && window.GV.silSelftest738) ? window.GV.silSelftest738() : {ok:false,checks:['API 不存在']}`],
+      ['bootCpu792', `window.bootCpuSelftest792 ? window.bootCpuSelftest792() : {ok:false,checks:['API 不存在']}`],
       ['fiscalLoad026', `(window.GV && window.GV.fiscalLoad026) ? window.GV.fiscalLoad026.selftest() : {ok:false,checks:['API missing']}`],
       ['policyNullLoad028', `(window.GV && window.GV.policyNullLoad028) ? window.GV.policyNullLoad028.selftest() : {ok:false,checks:['API missing']}`],
       ['heritage024', `(window.GV && window.GV.heritage024) ? window.GV.heritage024.selftest() : {ok:false,checks:['API 不存在']}`],
