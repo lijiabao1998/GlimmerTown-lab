@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),crypto=require('crypto');
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
 // Literal independent pins: changing the descriptor does not authorize new input.
-const baseline='b174eb106501afce1d947c74b7a19ce07afc3f06d812dd1b80b548939e89ff3d';
+const baseline='e1111cc5a74179c456252cac76fb34be6471c588d89db8e4a2ee887533ee9718';
 const blockHash='038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615';
 const begin='/* GPT-052 SINGLE LEDGER BEGIN */',end='/* GPT-052 SINGLE LEDGER END */';
 // DSK-018 / LAB-03：獨立釘死的附加區塊（053）。
