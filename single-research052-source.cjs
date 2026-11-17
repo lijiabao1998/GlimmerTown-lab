@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),crypto=require('crypto');
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
 // Literal independent pins: changing the descriptor does not authorize new input.
-const baseline='b174eb106501afce1d947c74b7a19ce07afc3f06d812dd1b80b548939e89ff3d';
+const baseline='e1111cc5a74179c456252cac76fb34be6471c588d89db8e4a2ee887533ee9718';
 const blockHash='038dca73a15627ad1b5a027781bd4bce1d151dcd9324965af81c49e23f777615';
 const begin='/* GPT-052 SINGLE LEDGER BEGIN */',end='/* GPT-052 SINGLE LEDGER END */';
 // DSK-018 / LAB-03：獨立釘死的附加區塊（053）。
@@ -60,8 +60,9 @@ function stripPinned052(candidate){
   // 每一階段全有或全無）；任何別的原生改動都換不回來，由 projectCandidate052 的原生基準雜湊擋下。
   // T790（業主 2026-11-04 批准）：在那之前先換回開新城補上的那一段成對重置（一段、全有或全無）。
   // T791（業主 2026-11-05 批准）：再之前先換回讀檔時清掉舊存檔殘留的那一段（一段、全有或全無）。
-  // T792（業主 2026-11-13 批准）：最先換回開機烘焙畫布留在 CPU 的那一段（一段、全有或全無）。
-  return require('./placement-reuse053-projection.cjs').normalizePlacement053(require('./newworld-reset790-projection.cjs').normalizeNewWorldReset790(require('./loadstale791-projection.cjs').normalizeLoadStale791(require('./bootcpu792-projection.cjs').normalizeBootCpu792(candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,'')))));
+  // T792（業主 2026-11-13 批准）：再之前先換回開機烘焙畫布留在 CPU 的那一段（一段、全有或全無）。
+  // T793（業主 2026-11-16 批准）：最先換回新城沒有零售時商業需求退回既有公式的那一段（一段、全有或全無）。
+  return require('./placement-reuse053-projection.cjs').normalizePlacement053(require('./newworld-reset790-projection.cjs').normalizeNewWorldReset790(require('./loadstale791-projection.cjs').normalizeLoadStale791(require('./bootcpu792-projection.cjs').normalizeBootCpu792(require('./comboot793-projection.cjs').normalizeComBoot793(candidate.replace(block,'').replace(wrapped053,'').replace(wrapped054,'').replace(wrapped055,'').replace(wrapped057,''))))));
 }
 function projectCandidate052(candidate){
   const projected=stripPinned052(candidate);
