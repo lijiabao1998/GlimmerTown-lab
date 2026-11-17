@@ -8,6 +8,7 @@
  *   mature             讀成熟城 docs/branch/GPT-022-guard-inputs/native-city-mature36-021.json，新舊各跑 30 天，
  *                      每天的人口、金錢、三項需求、建築數逐位相同（驗收 C3）；零售容量是 0 的日子照實列出。
  *   valve-session      新版先設 sessionStorage 的 glimmerville.noComBoot793='1'，再跑 plan-777：每天的數字要和舊版逐位相同。
+ *   valve-window       新版載入前設 window.__noComBoot793=true，再跑 plan-777：同上。
  * 另外在新版頁面跑常駐自檢 comBootSelftest793()，並記 console 錯誤。--gpu 用這台機器的真顯示卡；不加就是倉庫 harness 的 --disable-gpu。
  * 用法：node probeComBoot793.cjs [--gpu] [--port=8199] [--days=30] [--out=<結果 JSON 路徑，寫在倉庫外>]
  */
@@ -53,7 +54,9 @@ const DAY = `(()=>{const P=window.__plan793;if(P&&!P.done){const p=GV.placePrevi
 GV.step(1);const s=GV.stats(),E=GV.t481().economy;return [s.day,s.pop,s.money,s.dem[1],s.dem[2],s.dem[3],s.buildings,E.ready?E.consumption.retailCapacity:null];})()`;
 const COUNT = `(()=>{const n=GV.N();let c=0,c2=0,cz=0;for(let y=0;y<n;y++)for(let x=0;x<n;x++){const t=GV.tile(x,y);if(!t)continue;if(t.zone===2)cz++;const b=t.bld;if(b&&!b.ref&&b.k===2){c++;if(b.lv>=2)c2++;}}return {com:c,comLv2:c2,czone:cz};})()`;
 
-async function run(cdp, label, { old, seed, mature, valve }) {
+async function run(cdp, label, { old, seed, mature, valve, valveWindow }) {
+  let vw = null;
+  if (valveWindow) vw = (await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: 'window.__noComBoot793=true;' })).identifier;
   const url = `http://127.0.0.1:${PORT}/index.html${old ? '?pre793=1' : ''}`;
   await cdp.send('Page.navigate', { url });
   if (!await H.waitFor(cdp, `!!window.__bootDone453`, 400000)) throw new Error(label + ': boot 沒完成');
@@ -73,8 +76,9 @@ async function run(cdp, label, { old, seed, mature, valve }) {
   r.days = [];
   for (let d = 0; d < DAYS; d++) r.days.push(await cdp.evalJs(DAY));
   r.count = await cdp.evalJs(COUNT);
-  if (!old && !valve) r.self = await cdp.evalJs(`window.comBootSelftest793()`);
-  r.state = await cdp.evalJs(`window.__comBoot793?{hits:window.__comBoot793.hits,day:window.__comBoot793.day}:null`);
+  r.state = await cdp.evalJs(`window.__comBoot793?{hits:window.__comBoot793.hits,day:window.__comBoot793.day}:null`);   // 先讀，再跑自檢（自檢會經過包裝，但做完會把內容還原）
+  if (!old && !valve && !valveWindow) { r.self = await cdp.evalJs(`window.comBootSelftest793()`); r.stateAfterSelf = await cdp.evalJs(`window.__comBoot793?{hits:window.__comBoot793.hits,day:window.__comBoot793.day}:null`); }
+  if (vw) { await cdp.send('Page.removeScriptToEvaluateOnNewDocument', { identifier: vw }); r.valveWindowOn = await cdp.evalJs(`window.__noComBoot793===true`); }
   try { await cdp.evalJs(`try{sessionStorage.removeItem('glimmerville.noComBoot793');['s3','s3_bak'].forEach(k=>localStorage.removeItem('glimmerville.v1.'+k))}catch(e){};true`); } catch {}
   return r;
 }
@@ -105,6 +109,7 @@ async function run(cdp, label, { old, seed, mature, valve }) {
       const msg = `plan-${seed}: 商業建築 新 ${n.count.com}（2 級 ${n.count.comLv2}）／舊 ${o.count.com}；商業需求第 ${n.days[n.days.length - 1][0]} 天 新 ${(+n.days[n.days.length - 1][4]).toFixed(3)}／舊 ${(+o.days[o.days.length - 1][4]).toFixed(3)}；T793 命中 ${n.state ? n.state.hits : 0} 天`;
       (n.count.com >= 5 && o.count.com <= 1 ? pass : fail)(msg);
       if (n.self) (n.self.ok ? pass : fail)(`comBootSelftest793（plan-${seed} 新版）：${n.self.checks.join('；')}`);
+      if (n.self) (JSON.stringify(n.state) === JSON.stringify(n.stateAfterSelf) ? pass : fail)(`自檢前後執行期狀態相同：${JSON.stringify(n.state)} → ${JSON.stringify(n.stateAfterSelf)}`);
     }
     {
       const n = await run(cdp, 'mature new', { mature: true }), o = await run(cdp, 'mature old', { old: true, mature: true });
@@ -117,6 +122,12 @@ async function run(cdp, label, { old, seed, mature, valve }) {
       res.valve = v;
       const same = JSON.stringify(v.days) === JSON.stringify(o.days) && v.count.com === o.count.com;
       (same ? pass : fail)(`valve-session：設了 glimmerville.noComBoot793='1' 的新版 plan-777，每天數字與舊版${same ? '逐位相同' : '不同'}（商業建築 ${v.count.com}／舊 ${o.count.com}）`);
+    }
+    {
+      const w = await run(cdp, 'valve-window', { seed: 777, valveWindow: true }), o = res['plan-777'].old;
+      res.valveWindow = w;
+      const same = JSON.stringify(w.days) === JSON.stringify(o.days) && w.count.com === o.count.com && w.valveWindowOn === true;
+      (same ? pass : fail)(`valve-window：載入前設 window.__noComBoot793=true 的新版 plan-777，每天數字與舊版${same ? '逐位相同' : '不同'}（商業建築 ${w.count.com}／舊 ${o.count.com}；閥在 ${w.valveWindowOn}）`);
     }
     (errs.length === 0 ? pass : fail)(`console 錯誤 ${errs.length} 則` + (errs.length ? '：' + errs.slice(0, 3).join(' | ') : ''));
   } catch (e) { fail('ERR ' + (e && e.message)); }
